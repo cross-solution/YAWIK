@@ -12,8 +12,7 @@ namespace Core\Listener;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorAwareTrait;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Lazy loads listeners.
@@ -24,14 +23,18 @@ use Zend\ServiceManager\ServiceLocatorAwareTrait;
  *
  * If you do not retrieve an instance through the service manager you have to inject
  * the service manager instance yourself.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.20
  */
-class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLocatorAwareInterface
+class DeferredListenerAggregate implements ListenerAggregateInterface
 {
-    use ServiceLocatorAwareTrait;
 
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
     /**
      * Registered listener specifications.
      *
@@ -51,10 +54,12 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
      *
      * Calls {@link setListeners()}.
      *
+     * @param ServiceLocatorInterface $serviceManager
      * @param array $specs
      */
-    public function __construct($specs = [])
+    public function __construct(ServiceLocatorInterface $serviceManager, $specs = [])
     {
+        $this->serviceManager = $serviceManager;
         $this->setListeners($specs);
     }
 
@@ -224,10 +229,9 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
         $listener = $spec['instance'];
 
         if (!$listener) {
-            $services = $this->getServiceLocator();
-
-            if ($services->has($service)) {
-                $listener = $services->get($service);
+            
+            if ($this->serviceManager->has($service)) {
+                $listener = $this->serviceManager->get($service);
 
             } else {
                 if (!class_exists($service, true)) {
@@ -255,5 +259,14 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
             'Deferred listener %s%s is not callable.',
             get_class($listener), $method ? ' has no method "' . $method . '" and ' : ''
         ));
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     * @return DeferredListenerAggregate
+     */
+    public static function factory(ServiceLocatorInterface $serviceManager)
+    {
+        return new static($serviceManager);
     }
 }

@@ -16,7 +16,7 @@ use Core\Factory\EventManager\EventManagerAbstractFactory;
 /**
  * Tests for \Core\Factory\EventManager\EventManagerAbstractFactory::attachListeners
  * and       \Core\Factory\EventManager\EventManagerAbstractFactory::normalizeListenerOptions
- * 
+ *
  * @covers \Core\Factory\EventManager\EventManagerAbstractFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -104,7 +104,8 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
     {
         if (!$this->lazyAggregateMock) {
             $this->lazyAggregateMock = $this->getMockBuilder('\Core\Listener\DeferredListenerAggregate')
-                                       ->getMock();
+                ->disableOriginalConstructor()
+                ->getMock();
             if (null !== $configureSetHooks) {
                 if ($configureSetHooks) {
                     $this->lazyAggregateMock->expects($this->once())->method('setListeners')->willReturnSelf();

@@ -69,7 +69,7 @@ class IndexController extends AbstractActionController
     {
         parent::attachDefaultListeners();
 
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
 
@@ -114,7 +114,7 @@ class IndexController extends AbstractActionController
     public function editAction()
     {
         /* @var $request \Zend\Http\Request */
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $return          = null;
         $request         = $this->getRequest();
         $params          = $this->params();
@@ -221,7 +221,7 @@ class IndexController extends AbstractActionController
     protected function getFormular($organization)
     {
         /* @var $container \Organizations\Form\Organizations */
-        $services  = $this->getServiceLocator();
+        $services  = $this->serviceLocator;
         $forms     = $services->get('FormElementManager');
         $container = $forms->get(
             'organizations/form',

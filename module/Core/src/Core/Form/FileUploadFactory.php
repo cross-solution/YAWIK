@@ -100,7 +100,7 @@ class FileUploadFactory implements FactoryInterface
 
 
         $form = new Form();
-        $serviceLocator->injectFactory($form);
+        $serviceLocator->injectFactory($form, $serviceLocator);
         $form->add(
             array(
             'type' => $this->fileElement,

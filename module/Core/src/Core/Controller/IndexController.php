@@ -12,7 +12,6 @@ namespace Core\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Settings\Repository\Settings as SettingsRepository;
 
 //use Settings\Repository\Settings;
 
@@ -30,7 +29,7 @@ class IndexController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -44,7 +43,7 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $auth = $this->auth();
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         if (!$auth->isLoggedIn()) {
             $config = $services->get('config');
             if (array_key_exists('startpage', $config['view_manager']['template_map'])) {
@@ -53,7 +52,7 @@ class IndexController extends AbstractActionController
             return;
         }
 
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $config   = $services->get('Config');
 
         $dashboardConfig = array(
@@ -83,7 +82,7 @@ class IndexController extends AbstractActionController
         $model->setTemplate('core/index/dashboard');
         
         $widgets = array();
-        $modules = $this->getServiceLocator()->get('ModuleManager')->getLoadedModules();
+        $modules = $this->serviceLocator->get('ModuleManager')->getLoadedModules();
         $widgets = array();
         foreach ($this->config('dashboard', array_keys($modules)) as $module => $cfg) {
             if (!isset($cfg['enabled']) || true !== $cfg['enabled']) {

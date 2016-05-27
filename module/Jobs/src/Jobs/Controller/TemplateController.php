@@ -55,7 +55,7 @@ class TemplateController extends AbstractActionController
         $id = $this->params()->fromQuery('id');
         /* @var \Jobs\Entity\Job $job */
         $job = $this->jobRepository->find($id);
-        $services             = $this->getServiceLocator();
+        $services             = $this->serviceLocator;
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
@@ -105,7 +105,7 @@ class TemplateController extends AbstractActionController
         /** @var \Zend\Http\Request $request */
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
-        $services             = $this->getServiceLocator();
+        $services             = $this->serviceLocator;
         $viewHelperManager    = $services->get('ViewHelperManager');
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
@@ -140,7 +140,7 @@ class TemplateController extends AbstractActionController
 
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
-                $this->getServiceLocator()->get('repositories')->persist($job);
+                $this->serviceLocator->get('repositories')->persist($job);
             }
         }
 

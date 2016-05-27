@@ -2,43 +2,26 @@
 
 namespace Settings\Form;
 
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Form;
-use Zend\Form\Element;
-use Zend\Hydrator\ClassMethods;
-use Settings\Entity\Settings as SettingsEntity;
 use Zend\Hydrator\ArraySerializable;
 
-abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
+abstract class FormAbstract extends Form
 {
     
-    protected $forms;
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $formManager;
 
-    public function __construct($name = null)
+    public function __construct(ServiceLocatorInterface $formManager, $name = null)
     {
         parent::__construct('settings');
+        $this->formManager = $formManager;
         $this->setAttribute('method', 'post');
                 $this->setBindOnValidate(Form::BIND_ON_VALIDATE);
     }
 
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return $this
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->forms = $serviceLocator;
-        return $this;
-    }
-    
-    public function getServiceLocator()
-    {
-        return $this->forms;
-    }
-    
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -78,13 +61,22 @@ abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
         $coreFieldset = $this->getCoreFieldset();
         if (isset($coreFieldset)) {
             $this->add(
-                $this->forms->get($coreFieldset)
+                $this->formManager->get($coreFieldset)
                             ->setUseAsBaseFieldset(true)
             );
         }
                 
-        $this->add($this->forms->get('DefaultButtonsFieldset'));
+        $this->add($this->formManager->get('DefaultButtonsFieldset'));
     }
     
     abstract public function getCoreFieldset();
+    
+    /**
+     * @param ServiceLocatorInterface $formManager
+     * @return FormAbstract
+     */
+    public static function factory(ServiceLocatorInterface $formManager)
+    {
+        return new static($formManager);
+    }
 }

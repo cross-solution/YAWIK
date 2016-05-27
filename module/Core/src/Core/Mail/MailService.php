@@ -17,6 +17,7 @@ use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Mail Plugin Manager
@@ -64,7 +65,10 @@ class MailService extends AbstractPluginManager
     protected $invokableClasses = array(
         'simple'         => '\Zend\Mail\Message',
         'stringtemplate' => '\Core\Mail\StringTemplateMessage',
-        'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage',
+    );
+
+    protected $factories = array(
+        'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage::factory',
     );
 
     /**
@@ -76,9 +80,10 @@ class MailService extends AbstractPluginManager
      *
      * @param ConfigInterface $configuration
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function __construct(ServiceLocatorInterface $serviceLocator, ConfigInterface $configuration = null)
     {
         parent::__construct($configuration);
+        $this->serviceLocator = $serviceLocator;
         $self = $this;
 
         $this->addInitializer(
@@ -92,6 +97,14 @@ class MailService extends AbstractPluginManager
                     $instance->setTranslatorEnabled(true);
                 }
             }, /*topOfStack*/
+            false
+        );
+        $this->addInitializer(
+            function ($instance) {
+                if (method_exists($instance, 'setServiceLocator')) {
+                    $instance->setServiceLocator($this);
+                }
+            },
             false
         );
         $this->addInitializer(

@@ -4,31 +4,27 @@ namespace Auth\Controller\Plugin;
 
 use Auth\Entity\User;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Authentication\AuthenticationService;
+use Auth\AuthenticationService as AuthenticationService;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
 
 /**
  * @method \Auth\Entity\UserInterface getUser()
  */
 class Auth extends AbstractPlugin
 {
-    protected $auth;
-    
-    public function setAuthenticationService(AuthenticationService $auth)
-    {
-        $this->auth = $auth;
-        return $this;
-    }
-    
-    public function getAuthenticationService()
-    {
-        if (!$this->auth) {
-            $services = $this->getController()->getServiceLocator();
-            $auth     = $services->get('AuthenticationService');
-            $this->setAuthenticationService($auth);
-        }
-        return $this->auth;
-    }
+    /**
+     * @var AuthenticationService
+     */
+    protected $authenticationService;
 
+    /**
+     * @param AuthenticationService $authenticationService
+     */
+    public function __construct(AuthenticationService $authenticationService)
+    {
+        $this->authenticationService = $authenticationService;
+    }
+    
     /**
      * @param null $property
      *
@@ -52,7 +48,7 @@ class Auth extends AbstractPlugin
      */
     public function isLoggedIn()
     {
-        return $this->getAuthenticationService()->hasIdentity();
+        return $this->authenticationService->hasIdentity();
     }
 
     /**
@@ -62,7 +58,7 @@ class Auth extends AbstractPlugin
      */
     public function isAdmin()
     {
-        return $this->getAuthenticationService()->getUser()->getRole() == User::ROLE_ADMIN;
+        return $this->authenticationService->getUser()->getRole() == User::ROLE_ADMIN;
     }
 
     /**
@@ -73,7 +69,7 @@ class Auth extends AbstractPlugin
      */
     public function __call($method, $params)
     {
-        $auth = $this->getAuthenticationService();
+        $auth = $this->authenticationService;
         if (method_exists($auth, $method) && is_callable(array($auth, $method))) {
             return call_user_func_array(array($auth, $method), $params);
         }
@@ -87,7 +83,7 @@ class Auth extends AbstractPlugin
      */
     public function get($property)
     {
-        $auth = $this->getAuthenticationService();
+        $auth = $this->authenticationService;
         if ($auth->hasIdentity()) {
             if (false !== strpos($property, '.')) {
                 $value = $auth->getUser();
@@ -99,5 +95,14 @@ class Auth extends AbstractPlugin
             return 'id' == $property ? $auth->getIdentity() : $auth->getUser()->$property;
         }
         return null;
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return \Auth\Controller\Plugin\Auth
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator()->get('AuthenticationService'));
     }
 }

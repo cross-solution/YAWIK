@@ -11,9 +11,7 @@
 namespace Applications\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Zend\Stdlib\Parameters;
 use Applications\Entity\StatusInterface as Status;
 
 /**
@@ -29,7 +27,7 @@ class MultimanageController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -59,13 +57,13 @@ class MultimanageController extends AbstractActionController
      */
     public function rejectApplicationAction()
     {
-        $translator        = $this->getServiceLocator()->get('translator');
-        $viewHelperManager = $this->getServiceLocator()->get('viewHelperManager');
+        $translator        = $this->serviceLocator->get('translator');
+        $viewHelperManager = $this->serviceLocator->get('viewHelperManager');
         $actionUrl         = $viewHelperManager->get('url')
                             ->__invoke('lang/applications/applications-list', array('action' => 'rejectApproval'));
-        $repository        = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        $repository        = $this->serviceLocator->get('repositories')->get('Applications/Application');
         $settings          = $this->settings();
-        $mailService       = $this->getServiceLocator()->get('Core/MailService');
+        $mailService       = $this->serviceLocator->get('Core/MailService');
 
         // re-inject the Application-ids to the formular
         $elements = $this->params()->fromPost('elements', array());
@@ -107,10 +105,10 @@ class MultimanageController extends AbstractActionController
      */
     public function rejectApprovalAction()
     {
-        $translator        = $this->getServiceLocator()->get('translator');
-        $repositoryService = $this->getServiceLocator()->get('repositories');
+        $translator        = $this->serviceLocator->get('translator');
+        $repositoryService = $this->serviceLocator->get('repositories');
         $repository        = $repositoryService->get('Applications/Application');
-        $mailService       = $this->getServiceLocator()->get('Core/MailService');
+        $mailService       = $this->serviceLocator->get('Core/MailService');
         $elements          = $this->params()->fromPost('elements', array());
         foreach ($elements as $element) {
             $mail = $mailService->get('Applications/StatusChange');

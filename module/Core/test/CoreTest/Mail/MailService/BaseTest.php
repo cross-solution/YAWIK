@@ -14,7 +14,8 @@ use Core\Mail\MailService;
 use Core\Mail\MailServiceConfig;
 use Zend\Mail\Address;
 use Zend\Mail\AddressList;
-use \Zend\Mail\Message;
+use Zend\Mail\Message;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests base behaviour of MailService manager
@@ -27,14 +28,27 @@ use \Zend\Mail\Message;
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
+    
+    /**
+     * @var ServiceManager
+     */
+    protected $serviceManager;
 
+    /**
+     * @see PHPUnit_Framework_TestCase::setUp()
+     */
+    protected function setUp()
+    {
+        $this->serviceManager = new ServiceManager();
+    }
+    
     /**
      * @testdox Extends \Zend\ServiceManager\AbstractPluginmanager
      * @coversNothing
      */
     public function testExtendsAbstractPluginManager()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\AbstractPluginManager', new MailService());
+        $this->assertInstanceOf('\Zend\ServiceManager\AbstractPluginManager', new MailService($this->serviceManager));
     }
 
     /**
@@ -43,16 +57,18 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultAttributeValues()
     {
-        $target = new MailService();
+        $target = new MailService($this->serviceManager);
         $defaultInvokables = array(
             'simple' => '\Zend\Mail\Message',
             'stringtemplate' => '\Core\Mail\StringTemplateMessage',
-            'htmltemplate' => '\Core\Mail\HTMLTemplateMessage'
+        );
+        $factories = array(
+            'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage::factory'
         );
 
         $this->assertAttributeEquals(false, 'shareByDefault', $target, 'shareByDefault is not set to FALSE');
         $this->assertAttributeEquals($defaultInvokables, 'invokableClasses', $target, 'assert invokableClasses failed.');
-        $this->assertAttributeEquals(array(), 'factories', $target, 'factories assertion failed.');
+        $this->assertAttributeEquals($factories, 'factories', $target, 'factories assertion failed.');
     }
 
     public function testAddsDefaultInitializersWhenConstructed()
@@ -74,7 +90,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         $services->expects($this->once())->method('get')->with('translator')->willReturn($translator);
 
-        $target = new MailService($config);
+        $target = new MailService($this->serviceManager, $config);
         $target->setServiceLocator($services);
 
         $mail = $target->get('testTranslatorMessage');
@@ -93,7 +109,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidatesMailPlugins()
     {
-        $target = new MailService();
+        $target = new MailService($this->serviceManager);
         $message = new Message();
         $noMessage = new \stdClass();
 
@@ -107,7 +123,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAndGetTransport()
     {
-        $target = new MailService();
+        $target = new MailService($this->serviceManager);
         $transport = $this->getMockForAbstractClass('\Zend\Mail\Transport\TransportInterface');
 
         $target->setTransport($transport);
@@ -138,7 +154,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAndGetFrom($email, $name)
     {
-        $target = new MailService();
+        $target = new MailService($this->serviceManager);
 
         $target->setFrom($email, $name);
 
@@ -156,7 +172,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAndGetMailer()
     {
-        $target = new MailService();
+        $target = new MailService($this->serviceManager);
         $expected = 'test/mailer';
 
         $target->setMailer($expected);
@@ -169,7 +185,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetOverrideRecipients()
     {
-        $target = new MailService();
+        $target = new MailService($this->serviceManager);
 
         $expected = new AddressList();
         $expected->add('test@email');

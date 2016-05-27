@@ -32,7 +32,7 @@ class PaginatorServiceFactory implements FactoryInterface
         $configArray = isset($configArray['paginator_manager']) ? $configArray['paginator_manager'] : array();
         $config      = new PaginatorServiceConfig($configArray);
 
-        $service   = new PaginatorService($config);
+        $service   = new PaginatorService($serviceLocator, $config);
 
         return $service;
     }

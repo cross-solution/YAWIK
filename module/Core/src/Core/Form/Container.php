@@ -11,9 +11,7 @@
 namespace Core\Form;
 
 use Zend\Form\Element;
-use Zend\Form\Exception;
 use Zend\Form\FieldsetInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Stdlib\PriorityList;
 use Zend\View\Renderer\PhpRenderer as Renderer;
 use Core\Entity\EntityInterface;
@@ -32,7 +30,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class Container extends Element implements
     DisableElementsCapableInterface,
-    ServiceLocatorAwareInterface,
     FormParentInterface,
     \IteratorAggregate,
     \Countable
@@ -75,24 +72,13 @@ class Container extends Element implements
     protected $parent;
 
     /**
-     * {@inheritDoc}
+     * @param ServiceLocatorInterface $formElementManager
      * @return Container
-     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function setFormElementManager(ServiceLocatorInterface $formElementManager)
     {
-        $this->formElementManager = $serviceLocator;
+        $this->formElementManager = $formElementManager;
         return $this;
-    }
-
-    /**
-     * Gets the FormElementManager
-     *
-     * @return \Zend\Form\FormElementManager
-     */
-    public function getServiceLocator()
-    {
-        return $this->formElementManager;
     }
 
     /**
@@ -622,7 +608,7 @@ class Container extends Element implements
                 // has reached a fieldset to search in
                 $return = $searchIn->get($lastKey);
                 unset($lastKey);
-            } elseif (is_array($searchIn) || $searchIn instanceof Traversable) {
+            } elseif (is_array($searchIn) || $searchIn instanceof \Traversable) {
                 // is probably still in the container
                 foreach ($searchIn as $activeKey) {
                     $activeForm = $this->getForm($activeKey);

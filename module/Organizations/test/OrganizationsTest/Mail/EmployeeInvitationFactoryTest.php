@@ -19,7 +19,7 @@ use Organizations\Mail\EmployeeInvitationFactory;
 
 /**
  * Tests for \Organizations\Mail\EmployeeInvitationFactory
- * 
+ *
  * @covers \Organizations\Mail\EmployeeInvitationFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
@@ -153,7 +153,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
 
         $mailService->expects($this->once())->method('getServiceLocator')->willReturn($services);
 
-        $mailMock = new HTMLTemplateMessage();
+        $mailMock = new HTMLTemplateMessage(new \Zend\ServiceManager\ServiceManager());
         $translator = $this->getMockBuilder('\Zend\I18n\Translator\Translator')->disableOriginalConstructor()->getMock();
         $translator->expects($this->any())->method('translate')->will($this->returnArgument(0));
         $mailMock->setTranslator($translator);

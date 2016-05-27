@@ -7,38 +7,41 @@
  * @license   MIT
  */
 
-/** InjectSettingsEntityResolverListener.php */
 namespace Settings\Repository\Event;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Auth\Entity\UserInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class InjectSettingsEntityResolverListener implements EventSubscriber, ServiceLocatorAwareInterface
+class InjectSettingsEntityResolverListener implements EventSubscriber
 {
     
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $services;
     
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     */
+    public function __construct(ServiceLocatorInterface $serviceLocator)
     {
         $this->services = $serviceLocator;
-        return $this;
     }
     
-    public function getServiceLocator()
-    {
-        return $this->services;
-    }
-    
-    
+    /**
+     * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
+     */
     public function getSubscribedEvents()
     {
         return array(Events::postLoad);
     }
     
+    /**
+     * @param LifecycleEventArgs $args
+     */
     public function postLoad(LifecycleEventArgs $args)
     {
         $document = $args->getDocument();
@@ -49,5 +52,14 @@ class InjectSettingsEntityResolverListener implements EventSubscriber, ServiceLo
         $resolver = $this->services->get('Settings/EntityResolver');
         $document->setSettingsEntityResolver($resolver);
         
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return InjectSettingsEntityResolverListener
+     */
+    public static function factory(ServiceLocatorInterface $serviceLocator)
+    {
+        return new static($serviceLocator);
     }
 }

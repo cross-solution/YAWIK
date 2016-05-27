@@ -12,8 +12,6 @@ namespace Core\Controller;
 
 use Organizations\Entity\OrganizationImage;
 use Zend\Mvc\Controller\AbstractActionController;
-use Auth\Exception\UnauthorizedImageAccessException;
-use Auth\Exception\UnauthorizedAccessException;
 use Zend\View\Model\JsonModel;
 use Zend\Mvc\MvcEvent;
 use Core\Entity\PermissionsInterface;
@@ -32,7 +30,7 @@ class FileController extends AbstractActionController
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
 
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events->attach($defaultServices);
     }
@@ -52,7 +50,7 @@ class FileController extends AbstractActionController
         $response      = $this->getResponse();
         
         try {
-            $repository = $this->getServiceLocator()->get('repositories')->get($module . '/' . $entityName);
+            $repository = $this->serviceLocator->get('repositories')->get($module . '/' . $entityName);
         } catch (\Exception $e) {
             $response->setStatusCode(404);
             $this->getEvent()->setParam('exception', $e);
@@ -127,7 +125,7 @@ class FileController extends AbstractActionController
         }
         
         $this->acl($file, PermissionsInterface::PERMISSION_CHANGE);
-        $this->getServiceLocator()->get('repositories')->remove($file);
+        $this->serviceLocator->get('repositories')->remove($file);
         return new JsonModel(
             array(
             'result' => true

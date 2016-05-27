@@ -10,9 +10,9 @@
 
 namespace Auth\Controller\Plugin;
 
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
 
 /**
  * Class OAuth
@@ -20,12 +20,12 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
  * this instance cannot be shared, but since Sessions are maintained by hybridAuth, there is also no need to
  * @package Auth\Controller\Plugin
  */
-class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
+class OAuth extends AbstractPlugin
 {
     /**
      * @var ServiceLocatorInterface
      */
-    protected $serviceLocator;
+    protected $serviceManager;
 
     protected $user;
 
@@ -34,27 +34,13 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
     protected $adapter;
 
     /**
-     * Set service locator
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return $this
+     * @param ServiceLocatorInterface $serviceManager
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function __construct(ServiceLocatorInterface $serviceManager)
     {
-        $this->serviceLocator = $serviceLocator;
-        return $this;
+        $this->serviceManager = $serviceManager;
     }
-
-    /**
-     * Get service locator
-     *
-     * @return ServiceLocatorInterface
-     */
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
-    }
-
+    
     public function setUser($user)
     {
         if (!empty($this->user)) {
@@ -78,8 +64,7 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
 
     public function getHybridAuth()
     {
-        $services = $this->getServiceLocator()->getServiceLocator();
-        return $services->get('HybridAuth');
+        return $this->serviceManager->get('HybridAuth');
     }
 
     /**
@@ -159,5 +144,14 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
         $user->removeSessionData($this->providerKey);
         unset($this->adapter);
         return $this;
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return OAuth
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator());
     }
 }

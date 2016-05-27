@@ -12,16 +12,33 @@ namespace Core\View\Helper;
 
 use Zend\View\ViewEvent;
 use Core\View\Helper\InsertFile\FileEvent;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\View\HelperPluginManager;
 
 class InsertFile extends AbstractEventsHelper
 {
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
     
     protected $files = array();
     
     protected $ListenersUnaware = true;
     
     protected $event;
-        
+
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     * @param string $identifiers
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager, $identifiers = null)
+    {
+        parent::__construct($identifiers);
+        $this->serviceManager = $serviceManager;
+    }
+    
     /**
      * render a File-Object
      *
@@ -63,10 +80,7 @@ class InsertFile extends AbstractEventsHelper
             // set a listener at the end of the Rendering-Process
             // to announce what files have been inserted
             $this->ListenersUnaware = false;
-            $services = $this->getServiceLocator();
-        
-            $viewManager = $services->get('ViewManager');
-            $view = $viewManager->getView();
+            $view = $this->serviceManager->get('View');
             $viewEvents = $view->getEventManager();
             // rendering ist over
             // get the attached Files very early
@@ -79,5 +93,14 @@ class InsertFile extends AbstractEventsHelper
     {
         $event = $this->getEvent();
         $this->trigger(FileEvent::INSERTFILE, $event);
+    }
+    
+    /**
+     * @param HelperPluginManager $helperPluginManager
+     * @return InsertFile
+     */
+    public static function factory(HelperPluginManager $helperPluginManager)
+    {
+        return new static($helperPluginManager->getServiceLocator());
     }
 }
