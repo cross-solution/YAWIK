@@ -6,26 +6,25 @@ use Zend\Form\Fieldset;
 use Settings\Entity\SettingsContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-//use Zend\InputFilter\InputFilterProviderInterface;
-
-class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
+class SettingsFieldset extends Fieldset
 {
-    protected $forms;
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $formManager;
+    
     protected $isBuild = false;
     protected $labelMap = [];
     
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @param ServiceLocatorInterface $formManager
+     */
+    public function __construct(ServiceLocatorInterface $formManager)
     {
-        $this->forms = $serviceLocator;
-        return $this;
-    }
-    
-    public function getServiceLocator()
-    {
-        return $this->forms;
+        parent::__construct();
+        $this->formManager = $formManager;
     }
     
     public function getHydrator()
@@ -104,8 +103,8 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
             $moduleName   = substr($objectClass, 0, strpos($objectClass, '\\'));
             $fieldsetName = $moduleName . '/' . ucfirst($name) . 'SettingsFieldset';
             
-            if ($this->forms->has($fieldsetName)) {
-                $fieldset = $this->forms->get($fieldsetName);
+            if ($this->formManager->has($fieldsetName)) {
+                $fieldset = $this->formManager->get($fieldsetName);
                 if (!$fieldset->getHydrator() instanceof SettingsEntityHydrator) {
                     $fieldset->setHydrator($this->getHydrator());
                 }
@@ -121,5 +120,14 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
             $this->add($fieldset);
         }
         $this->isBuild = true;
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $formManager
+     * @return \Settings\Form\SettingsFieldset
+     */
+    public static function factory(ServiceLocatorInterface $formManager)
+    {
+        return new static($formManager);
     }
 }

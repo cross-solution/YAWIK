@@ -79,7 +79,7 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
         $this->testedObject = new ForgotPassword($this->userRepositoryMock, $this->tokenGeneratorMock, $this->loginFilterMock, $this->optionsMock);
 
         $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
-        $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer');
+        $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer', [], [], '', false);
         $this->urlPluginMock = $this->getMock('Zend\Mvc\Controller\Plugin\Url');
     }
 

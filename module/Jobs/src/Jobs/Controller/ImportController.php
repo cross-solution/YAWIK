@@ -13,7 +13,6 @@ namespace Jobs\Controller;
 
 use Geo\Entity\Geometry\Point;
 use Jobs\Entity\Location;
-use Jobs\Entity\Status;
 use Organizations\Entity\Employee;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -37,7 +36,7 @@ class ImportController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -50,7 +49,7 @@ class ImportController extends AbstractActionController
      */
     public function saveAction()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $config   = $services->get('Config');
         
         if (false) { // && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {

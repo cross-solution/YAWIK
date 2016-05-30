@@ -65,7 +65,7 @@ class IndexController extends AbstractActionController
     {
         parent::attachDefaultListeners();
 
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -82,8 +82,9 @@ class IndexController extends AbstractActionController
     {
         /* @var $request \Zend\Http\Request */
         $request     = $this->getRequest();
-        $params      = $request->getQuery();
-        $jsonFormat  = 'json' == $params->get('format');
+        $queryParams = $request->getQuery();
+        $params      = $queryParams->get('params', []);
+        $jsonFormat  = 'json' == $queryParams->get('format');
         $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
@@ -92,16 +93,15 @@ class IndexController extends AbstractActionController
             $sessionParams = $session[$sessionKey];
 
             if ($sessionParams) {
-                foreach ($sessionParams as $key => $value) {
-                    $params->set($key, $params->get($key, $value));
-                }
+                $params = array_merge($sessionParams, $params);
             } elseif ($isRecruiter) {
-                $params->set('by', 'me');
+                $params['by'] = 'me';
             }
 
-            $session[$sessionKey] = $params->toArray();
+            $session[$sessionKey] = $params;
+            $queryParams->set('params', $params);
 
-            $this->searchForm->bind($params);
+            $this->searchForm->bind($queryParams);
         }
 
         if (!isset($params['sort'])) {
@@ -111,7 +111,7 @@ class IndexController extends AbstractActionController
         $paginator = $this->paginator('Jobs/Job', $params);
 
         $return = array(
-            'by'   => $params->get('by', 'all'),
+            'by'   => $queryParams->get('by', 'all'),
             'jobs' => $paginator,
         );
         if (isset($this->searchForm)) {

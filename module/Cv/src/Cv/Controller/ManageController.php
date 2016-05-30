@@ -29,7 +29,7 @@ class ManageController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -46,7 +46,7 @@ class ManageController extends AbstractActionController
     
     public function formAction()
     {
-        $serviceLocator = $this->getServiceLocator();
+        $serviceLocator = $this->serviceLocator;
         $repositories = $serviceLocator->get('repositories');
         /* @var $cvRepository \Cv\Repository\Cv */
         $cvRepository = $repositories->get('Cv/Cv');

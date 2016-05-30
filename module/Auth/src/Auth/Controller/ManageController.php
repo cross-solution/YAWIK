@@ -27,7 +27,7 @@ class ManageController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -39,7 +39,7 @@ class ManageController extends AbstractActionController
      */
     public function profileAction()
     {
-        $serviceLocator = $this->getServiceLocator();
+        $serviceLocator = $this->serviceLocator;
         $forms = $serviceLocator->get('forms');
         /* @var \Auth\Form\UserProfileContainer $container */
         $container = $forms->get('Auth/userprofilecontainer');

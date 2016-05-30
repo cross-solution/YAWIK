@@ -39,10 +39,7 @@
         "php": ">=5.5",
         "ext-mongo": "*",
         "ext-intl": "*",
-        "zendframework/zendframework": "2.*",
-	"zendframework/zend-mvc": "2.6.*",
-	"zendframework/zend-form": "2.6.*",
-	"zendframework/zend-math": "2.6.*",
+        "zendframework/zendframework": "^2.5",
         "zendframework/zendservice-recaptcha": "2.*",
         "doctrine/doctrine-mongo-odm-module": "*",
         "hybridauth/hybridauth": "*",
@@ -60,7 +57,8 @@
         "jmikola/geojson": "~1.0",
         "mikey179/vfsStream": "^1.6",
         "satooshi/php-coveralls": "~1.0",
-        "eternicode/bootstrap-datepicker": "^1.6"
+        "eternicode/bootstrap-datepicker": "^1.6",
+        "ircmaxell/random-lib": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*"

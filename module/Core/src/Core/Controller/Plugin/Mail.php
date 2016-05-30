@@ -10,13 +10,40 @@ use Zend\Mail\AddressList;
 use Zend\EventManager\Event;
 use Zend\Stdlib\Parameters;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class mail extends Message implements PluginInterface
 {
-     protected $controller;
-     protected $param;
-     protected $config;
-     
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
+    /**
+     * @var Dispatchable
+     */
+    protected $controller;
+    
+    /**
+     * @var array
+     */
+    protected $param;
+    
+    /**
+     * @var array
+     */
+    protected $config;
+
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
+    
     /**
      * Set the current controller instance
      *
@@ -81,7 +108,7 @@ class mail extends Message implements PluginInterface
     public function template($template)
     {
         $controller =  get_class($this->controller);
-        $services = $this->getController()->getServiceLocator();
+        $services = $this->serviceManager;
         
         $event = new Event();
         $eventManager = $services->get('EventManager');
@@ -95,7 +122,7 @@ class mail extends Message implements PluginInterface
         $loadedModules = $moduleManager->getModules();
         //get_called_class
         $controllerIdentifier = strtolower(substr($controller, 0, strpos($controller, '\\')));
-        $viewResolver = $this->getController()->getServiceLocator()->get('ViewResolver');
+        $viewResolver = $this->serviceManager->get('ViewResolver');
                 
         $templateHalf = 'mail/' . $template;
         $resource = $viewResolver->resolve($templateHalf);
@@ -148,7 +175,7 @@ class mail extends Message implements PluginInterface
     
     public function informationComplete()
     {
-        $log = $this->getController()->getServiceLocator()->get('Log/Core/Mail');
+        $log = $this->serviceManager->get('Log/Core/Mail');
         $template = $this->getTemplate();
         if (isset($this->config['from'])) {
             $from = $this->config['from'];
@@ -176,7 +203,7 @@ class mail extends Message implements PluginInterface
     
     public function send()
     {
-        $log = $this->getController()->getServiceLocator()->get('Log/Core/Mail');
+        $log = $this->serviceManager->get('Log/Core/Mail');
         $this->getHeaders()->addHeaderLine('X-Mailer', 'php/YAWIK');
 
         $this->getHeaders()->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
@@ -187,11 +214,20 @@ class mail extends Message implements PluginInterface
             $transport->send($this);
             $erg = true;
             $log->info($this);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $log->err('Mail failure ' . $e->getMessage());
-            //$this->getController()->getServiceLocator()->get('Core/Log')->warn('Mail failure ' . $e->getMessage());
+            //$this->serviceManager->get('Core/Log')->warn('Mail failure ' . $e->getMessage());
         }
         //}
         return $erg;
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return mail
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator());
     }
 }

@@ -14,36 +14,37 @@
 $this->headScript()->appendFile($this->basePath('Auth/js/form.socialprofiles.js'))
                    ->appendFile($this->basePath('Core/js/core.reloadable-modal.js'));
 $description = $this->element->getOption('description');
-?>
+
+if ($description):?>
 <div class="row">
 <div class="col-md-8">
 <div class="panel panel-default"><div class="panel-body">
-<?php echo $this->formCollection($this->element);?>
+        <?php endif?>
+<?=$this->formCollection($this->element);?>
 <?php foreach ($this->element as $element):?>
     <?=$this->formElementErrors($element)?>
-<?php endforeach;?>
+<?php endforeach; if ($description):?>
 </div></div>
 </div>
 <div class="col-md-4">
-<?php if ($description):?>
     <div class="alert alert-info"><?=$description?></div>
-<?php endif;?>
 </div>
 </div>
-<div class="modal fade modal-scrollable" id="<?php echo $this->element->getAttribute('id') ?>-preview-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<?php endif?>
+<div class="modal fade modal-scrollable" id="<?=$this->element->getAttribute('id') ?>-preview-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="social-profile-label">
             <span class="fa-spin yk-icon yk-icon-spinner"></span>
-            <?php echo $this->translate('Loading')?> ...</h4>
+            <?=$this->translate('Loading')?> ...</h4>
       </div>
       <div class="modal-body">
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo $this->translate('Close') ?></button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"><?=$this->translate('Close') ?></button>
       </div>
     </div>
   </div>

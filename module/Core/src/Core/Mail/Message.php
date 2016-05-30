@@ -10,6 +10,11 @@
 /** Message.php */
 namespace Core\Mail;
 
+use Auth\Entity\UserInterface;
+use Traversable;
+use Zend\Mail\Address;
+use Zend\Mail\AddressList;
+use Zend\Mail\Exception;
 use Zend\Mail\Message as ZfMessage;
 
 class Message extends ZfMessage
@@ -39,4 +44,44 @@ class Message extends ZfMessage
         }
         return $this;
     }
+
+    protected function updateAddressList(AddressList $addressList, $emailOrAddressOrList, $name, $callingMethod)
+    {
+        if (null === $emailOrAddressOrList) {
+            return;
+        }
+
+        if ($emailOrAddressOrList instanceOf UserInterface) {
+            parent::updateAddressList(
+                         $addressList,
+                         $emailOrAddressOrList->getInfo()->getEmail(),
+                         $emailOrAddressOrList->getInfo()->getDisplayName(false),
+                         $callingMethod
+            );
+            return;
+        }
+
+        if (is_array($emailOrAddressOrList)) {
+            $list = new AddressList();
+            foreach ($emailOrAddressOrList as $email => $displayName) {
+                if ($displayName instanceOf UserInterface) {
+                    $info = $displayName->getInfo();
+                    $list->add($info->getEmail(), $info->getDisplayName(false));
+                    continue;
+                }
+
+                if (is_int($email)) {
+                    $email = $displayName;
+                    $displayName = null;
+                }
+
+                $list->add($email, $displayName);
+            }
+            $emailOrAddressOrList = $list;
+        }
+
+        parent::updateAddressList($addressList, $emailOrAddressOrList, $name, $callingMethod);
+    }
+
+
 }

@@ -57,7 +57,7 @@ class DisableElementsCapableFormSettings implements StrategyInterface
     protected function filterArrayStrings($array, $search, $replace)
     {
         $return = array();
-        foreach ($array as $key => $value) {
+        foreach ((array)$array as $key => $value) {
             $key = str_replace($search, $replace, $key);
             $value = is_array($value)
                 ? $this->filterArrayStrings($value, $search, $replace)

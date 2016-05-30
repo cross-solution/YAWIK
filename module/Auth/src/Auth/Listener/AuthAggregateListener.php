@@ -12,29 +12,28 @@ namespace Auth\Listener;
 
 use Zend\EventManager\SharedEventManagerInterface;
 use Zend\EventManager\SharedListenerAggregateInterface;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Auth\Listener\Events\AuthEvent;
 
-class AuthAggregateListener implements SharedListenerAggregateInterface, ServiceManagerAwareInterface
+class AuthAggregateListener implements SharedListenerAggregateInterface
 {
 
+    /**
+     * @var ServiceManager
+     */
     protected $serviceManager;
 
-    public function setServiceManager(ServiceManager $serviceManager)
+    /**
+     * @param ServiceManager $serviceManager
+     */
+    public function __construct(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
-        return $this;
-    }
-
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
     }
 
     public function attachShared(SharedEventManagerInterface $events)
     {
-        $mailForgotPassword = $this->getServiceManager()->get('Auth/Listener/MailForgotPassword');
+        $mailForgotPassword = $this->serviceManager->get('Auth/Listener/MailForgotPassword');
         $events->attach('Auth', AuthEvent::EVENT_AUTH_NEWPASSWORD, $mailForgotPassword, 10);
         return $this;
     }
@@ -42,5 +41,14 @@ class AuthAggregateListener implements SharedListenerAggregateInterface, Service
     public function detachShared(SharedEventManagerInterface $events)
     {
         return $this;
+    }
+    
+    /**
+     * @param ServiceManager $serviceLocator
+     * @return AuthAggregateListener
+     */
+    public static function factory(ServiceManager $serviceLocator)
+    {
+        return new static($serviceLocator);
     }
 }

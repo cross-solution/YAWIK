@@ -13,28 +13,28 @@ namespace Core\Listener;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
-use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\MvcEvent;
 
-class DefaultListener implements ListenerAggregateInterface, ServiceManagerAwareInterface
+class DefaultListener implements ListenerAggregateInterface
 {
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $serviceLocator;
 
-    public function setServiceManager(ServiceManager $serviceManager)
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     */
+    public function __construct(ServiceLocatorInterface $serviceLocator)
     {
-        $this->serviceLocator = $serviceManager;
-        return $this;
-    }
-
-    public function getServiceManager()
-    {
-        return $this->serviceLocator;
+        $this->serviceLocator = $serviceLocator;
     }
 
     public function attach(EventManagerInterface $events)
     {
-        $eventsApplication = $this->getServiceManager()->get("Application")->getEventManager();
+        $eventsApplication = $this->serviceLocator->get("Application")->getEventManager();
 
         $postDispatch = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'postDispatch'), 1000);
         //$events->detach($postDispatch);
@@ -56,7 +56,16 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
      */
     public function postDispatch(MvcEvent $e)
     {
-       // $view = $this->getServiceManager()->get('view');
+       // $view = $this->serviceLocator->get('view');
 
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return DefaultListener
+     */
+    public static function factory(ServiceLocatorInterface $serviceLocator)
+    {
+        return new static($serviceLocator);
     }
 }

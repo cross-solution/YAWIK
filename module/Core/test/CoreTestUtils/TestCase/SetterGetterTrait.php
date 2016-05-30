@@ -126,6 +126,19 @@ trait SetterGetterTrait
             $spec = [ 'value' => $spec ];
         }
 
+        if (isset($spec['@value'])) {
+            if (!is_array($spec['@value'])) {
+                $spec['@value'] = [ $spec['@value'] ];
+            }
+
+            if (isset($spec['@value'][1])) {
+                $reflection = new \ReflectionClass($spec['@value'][0]);
+                $spec['value'] = $reflection->newInstanceArgs($spec['@value'][1]);
+            } else {
+                $spec['value'] = new $spec['@value']();
+            }
+        }
+
         if (!isset($spec['value'])) {
             $this->fail($errTmpl. ': Specification must contain the key "value".');
         }

@@ -42,7 +42,7 @@ class ListFilterTest extends \PHPUnit_Framework_TestCase
 
         $add1 = [
             'type'    => 'Jobs/ListFilterBaseFieldset',
-            'options' => ['use_as_base_fieldset' => true]
+            'options' => ['use_as_base_fieldset' => false]
         ];
         $add2 = [
             'type' => 'Core/ListFilterButtons'

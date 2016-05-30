@@ -73,8 +73,8 @@ class PaginationQuery extends AbstractPaginationQuery
         /*
          * search jobs by keywords
          */
-        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
-            $search = strtolower($this->value['params']['search']);
+        if (isset($params['search']) && !empty($params['search'])) {
+            $search = strtolower($params['search']);
             $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
@@ -92,17 +92,17 @@ class PaginationQuery extends AbstractPaginationQuery
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
-            if (isset($this->value['params']['by']) && 'me' == $this->value['params']['by']) {
+            if (isset($params['by']) && 'me' == $params['by']) {
                 $queryBuilder->field('user')->equals($this->user->id);
             } else {
                 $queryBuilder->field('permissions.view')->equals($this->user->id);
             }
             if (
-                isset($this->value['params']['status']) &&
-                !empty($this->value['params']['status']) &&
-                $this->value['params']['status'] != 'all'
+                isset($params['status']) &&
+                !empty($params['status']) &&
+                $params['status'] != 'all'
             ) {
-                $queryBuilder->field('status.name')->equals((string) $this->value['params']['status']);
+                $queryBuilder->field('status.name')->equals((string) $params['status']);
             }
         } else {
             /*

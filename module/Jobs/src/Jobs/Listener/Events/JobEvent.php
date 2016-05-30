@@ -14,7 +14,6 @@ namespace Jobs\Listener\Events;
 use ArrayAccess;
 use Jobs\Entity\Job;
 use Zend\EventManager\Event;
-use Zend\EventManager\Exception;
 
 /**
  * The Job event.

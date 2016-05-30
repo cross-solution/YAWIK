@@ -11,8 +11,6 @@
 namespace Settings\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Hydrator\ClassMethods;
 use Zend\View\Model\JsonModel;
 use Zend\EventManager\Event;
 
@@ -30,7 +28,7 @@ class IndexController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -39,7 +37,7 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $translator = $services->get('translator');
         $moduleName = $this->params('module', 'Core');
         
@@ -52,7 +50,7 @@ class IndexController extends AbstractActionController
         $mvcEvent = $this->getEvent();
         $mvcEvent->setParam('__settings_active_module', $moduleName);
         
-        $formManager = $this->getServiceLocator()->get('FormElementManager');
+        $formManager = $this->serviceLocator->get('FormElementManager');
         $formName = $moduleName . '/SettingsForm';
         if (!$formManager->has($formName)) {
             $formName = "Settings/Form";

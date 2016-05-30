@@ -55,7 +55,7 @@ class TemplateController extends AbstractActionController
         $id = $this->params()->fromQuery('id');
         /* @var \Jobs\Entity\Job $job */
         $job = $this->jobRepository->find($id);
-        $services             = $this->getServiceLocator();
+        $services             = $this->serviceLocator;
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
@@ -105,7 +105,7 @@ class TemplateController extends AbstractActionController
         /** @var \Zend\Http\Request $request */
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
-        $services             = $this->getServiceLocator();
+        $services             = $this->serviceLocator;
         $viewHelperManager    = $services->get('ViewHelperManager');
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
@@ -140,7 +140,7 @@ class TemplateController extends AbstractActionController
 
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
-                $this->getServiceLocator()->get('repositories')->persist($job);
+                $this->serviceLocator->get('repositories')->persist($job);
             }
         }
 
@@ -150,6 +150,16 @@ class TemplateController extends AbstractActionController
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
+
+            $headStyle = $viewHelperManager->get('headstyle');
+            $headStyle->prependStyle('form > input {
+            color: inherit !important; margin:inherit !important;
+            padding:inherit !important; border:0 !important; cursor:pointer !important; letter-spacing:inherit !important;
+            line-height: inherit !important;
+             font-size: inherit !important;
+}
+'
+            );
         } else {
             return new JsonModel(array('valid' => true));
         }

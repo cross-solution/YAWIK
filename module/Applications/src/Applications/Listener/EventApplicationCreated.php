@@ -10,17 +10,19 @@
 /** */
 namespace Applications\Listener;
 
+use Applications\Entity\Settings;
 use Applications\Entity\StatusInterface;
 use Applications\Entity\Application;
 use Core\Mail\MailService;
 use Applications\Listener\Events\ApplicationEvent;
 use Applications\Options\ModuleOptions;
-use Zend\Session\Container;
+use Organizations\Entity\EmployeeInterface;
 
 /**
- * ${CARET}
+ * This Listener sends mails to various users if a new application is created.
  * 
  * @author Bleek Carsten <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
 class EventApplicationCreated
@@ -31,12 +33,18 @@ class EventApplicationCreated
     protected $application;
 
     /**
-     * @param ModuleOptions $options
+     * The mail service
+     *
+     * @var \Core\Mail\MailService
+     */
+    protected $mailService;
+
+    /**
+     *
      * @param MailService   $mailService
      */
-    public function __construct(ModuleOptions $options, MailService $mailService)
+    public function __construct(MailService $mailService)
     {
-        $this->options     = $options;
         $this->mailService = $mailService;
     }
 
@@ -49,22 +57,48 @@ class EventApplicationCreated
 
     protected function sendRecruiterMails()
     {
-        $recruiter = $this->application->getJob()->getUser();
+        /* @var Settings $adminSettings */
+        $job = $this->application->getJob();
+        $org = $job->getOrganization()->getParent(/*returnSelf*/ true);
+        $workflow = $org->getWorkflowSettings();
+        $admin = $org->getUser();
+        $adminSettings = $admin->getSettings('Applications');
+        $mailBcc = $adminSettings->getMailBCC();
 
+        if ($workflow->getAcceptApplicationByDepartmentManager()) {
+            /* Send mail to department manager, if there is at least one. */
+            $managers = $org->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
+            if (count($managers)) {
+                foreach ($managers as $employee) {
+                    /* @var EmployeeInterface $employee */
+                    $this->mailService->send(
+                        'Applications/NewApplication',
+                        [
+                            'job' => $job,
+                            'user' => $employee->getUser(),
+                            'bcc' => $adminSettings->getMailBCC() ? [ $admin ] : null,
+                        ]
+                    );
+                }
+                return;
+            }
+        }
+
+
+        $recruiter = $job->getUser();
         /* @var \Applications\Entity\Settings $settings */
         $settings = $recruiter->getSettings('Applications');
         if ($settings->getMailAccess()) {
-            $this->mailService->get(
+            $this->mailService->send(
                 'Applications/NewApplication',
                 [
                     'job'   => $this->application->getJob(),
                     'user'  => $recruiter,
-                    'admin' => $this->getOrganizationAdmin()
-                ],
-                /*send*/
-                true
+                    'bcc' => $adminSettings->getMailBCC() ? [ $admin ] : null,
+                ]
             );
         }
+
         if ($settings->getAutoConfirmMail()) {
             $ackBody = $settings->getMailConfirmationText();
             if (empty($ackBody)) {
@@ -77,13 +111,14 @@ class EventApplicationCreated
                     [
                         'application' => $this->application,
                         'body'        => $ackBody,
+                        'bcc'         => $adminSettings->getMailBCC() ? [ $admin ] : null,
                     ]
                 );
 
                 // Must be called after initializers in creation
                 $ackMail->setSubject(/* @translate */ 'Application confirmation' );
 
-                $ackMail->setFrom($recruiter->getInfo()->getEmail());
+                $ackMail->setFrom($recruiter->getInfo()->getEmail(), $recruiter->getInfo()->getDisplayName(false));
                 $this->mailService->send($ackMail);
                 $this->application->changeStatus(
                     StatusInterface::CONFIRMED,
@@ -99,29 +134,12 @@ class EventApplicationCreated
     protected function sendCarbonCopyToCandidate()
     {
         if ($this->application->getAttributes()->getSendCarbonCopy()) {
-            $this->mailService->get(
+            $this->mailService->send(
                 'Applications/CarbonCopy',
                 [
                     'application' => $this->application
-                ],
-                /*send*/
-                true
+                ]
             );
-        }
-    }
-
-    /**
-     * @return \Auth\Entity\UserInterface|bool
-     */
-    protected function getOrganizationAdmin()
-    {
-        $recruiter = $this->application->getJob()->getUser();
-        if ($recruiter->getOrganization()->isOwner()) {
-            return true;
-        } elseif ($recruiter->getOrganization()->hasAssociation()) {
-            return $recruiter->getOrganization()->getOrganization()->getUser();
-        } else {
-            return false;
         }
     }
 }

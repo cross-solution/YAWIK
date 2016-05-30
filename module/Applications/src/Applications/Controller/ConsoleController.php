@@ -11,8 +11,6 @@
 /** ActionController of Core */
 namespace Applications\Controller;
 
-use Applications\Repository\Application;
-use Core\Repository\Filter\PropertyToKeywords;
 use Zend\Mvc\Controller\AbstractActionController;
 use Core\Console\ProgressBar;
 use Zend\View\Model\ViewModel;
@@ -33,7 +31,7 @@ class ConsoleController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -47,7 +45,7 @@ class ConsoleController extends AbstractActionController
      */
     public function generateKeywordsAction()
     {
-        $services     = $this->getServiceLocator();
+        $services     = $this->serviceLocator;
         $applications = $this->fetchApplications();
         $count        = count($applications);
         $repositories = $services->get('repositories'); //->get('Applications/Application');
@@ -65,7 +63,7 @@ class ConsoleController extends AbstractActionController
         
         $progress     = new ProgressBar($count);
 
-        /** @var PropertyToKeywords $filter */
+        /** @var \Core\Repository\Filter\PropertyToKeywords $filter */
         $filter = $services->get('filtermanager')->get('Core/Repository/PropertyToKeywords');
         $i = 0;
 
@@ -107,7 +105,7 @@ class ConsoleController extends AbstractActionController
             $application->getRating(/* recalculate */ true);
         }
         $progress->update($i, 'Write to database...');
-        $this->getServiceLocator()->get('repositories')->flush();
+        $this->serviceLocator->get('repositories')->flush();
         $progress->finish();
         
         return PHP_EOL;
@@ -126,7 +124,7 @@ class ConsoleController extends AbstractActionController
         $filter = array("before" => $date->format("Y-m-d"),
                         "isDraft" => 1);
 
-        $services        = $this->getServiceLocator();
+        $services        = $this->serviceLocator;
         $applications    = $this->fetchApplications($filter);
         $documentManager = $services->get('Core/DocumentManager');
 
@@ -151,7 +149,7 @@ class ConsoleController extends AbstractActionController
      */
     public function listviewscriptsAction()
     {
-        $config = $this->getServiceLocator()->get('Config');
+        $config = $this->serviceLocator->get('Config');
 
         $table = new Table(
             array('columnWidths' => array(40, 40, 40),
@@ -252,7 +250,7 @@ class ConsoleController extends AbstractActionController
         }
         $progress->update($i, '[DONE]');
         echo "Flushing...";
-        $repos = $this->getServiceLocator()->get('repositories');
+        $repos = $this->serviceLocator->get('repositories');
         $repos->flush();
 
         echo " [DONE]\n";
@@ -266,7 +264,7 @@ class ConsoleController extends AbstractActionController
      */
     protected function fetchApplications($filter = array())
     {
-        $services     = $this->getServiceLocator();
+        $services     = $this->serviceLocator;
         $repositories = $services->get('repositories');
 
         /** @var Application $appRepo */

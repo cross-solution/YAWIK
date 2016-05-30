@@ -11,15 +11,19 @@
 namespace Core\Form\Hydrator\Strategy;
 
 use Zend\Hydrator\Strategy\StrategyInterface;
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class TemplateProviderStrategy implements StrategyInterface, ServiceManagerAwareInterface
+class TemplateProviderStrategy implements StrategyInterface
 {
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $serviceManager;
-
-
-    public function setServiceManager(ServiceManager $serviceManager)
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;
     }
@@ -34,5 +38,14 @@ class TemplateProviderStrategy implements StrategyInterface, ServiceManagerAware
     public function hydrate($value)
     {
 
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     * @return \Core\Form\Hydrator\Strategy\TemplateProviderStrategy
+     */
+    public static function factory(ServiceLocatorInterface $serviceManager)
+    {
+        return new static($serviceManager);
     }
 }

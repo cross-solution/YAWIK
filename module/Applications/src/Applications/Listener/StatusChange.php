@@ -111,7 +111,7 @@ class StatusChange
             'status'        => $status,
             'mailSubject'   => $mailSubject,
             'mailText'      => $mailText,
-            'to'            => $this->getRecipients($this->application, $status),
+            'to'            => $this->getRecipient($this->application, $status),
         );
         $e->setFormData($data);
     }
@@ -132,13 +132,13 @@ class StatusChange
         $post = $event->getPostData();
 
         $settings = $user->getSettings('Applications');
-
+        $recipient = $this->getRecipient($this->application, $status);
         /* @var \Applications\Mail\StatusChange $mail */
         $mail = $this->mailService->get('Applications/StatusChange');
 
         $mail->setSubject($post['mailSubject']);
         $mail->setBody($post['mailText']);
-        $mail->setTo($this->getRecipients($this->application,$status));
+        $mail->setTo($recipient);
 
         if ($from = $this->application->getJob()->getContactEmail()) {
             $mail->setFrom($from, $this->application->getJob()->getCompany());
@@ -147,10 +147,27 @@ class StatusChange
         if ($settings->mailBCC) {
             $mail->addBcc($user->getInfo()->getEmail(), $user->getInfo()->getDisplayName());
         }
+        $job = $this->application->getJob();
+        $jobUser = $job->getUser();
+        if ($jobUser->getId() != $user->getId()) {
+            $jobUserSettings = $jobUser->getSettings('Applications');
+            if ($jobUserSettings->getMailBCC()) {
+                $mail->addBcc($jobUser->getInfo()->getEmail(), $jobUser->getInfo()->getDisplayName(false));
+            }
+        }
+
+        $org = $job->getOrganization()->getParent(/*returnSelf*/ true);
+        $orgUser = $org->getUser();
+        if ($orgUser->getId() != $user->getId() && $orgUser->getId() != $jobUser->getId()) {
+            $orgUserSettings = $orgUser->getSettings('Applications');
+            if ($orgUserSettings->getMailBCC()) {
+                $mail->addBcc($orgUser->getInfo()->getEmail(), $orgUser->getInfo()->getDisplayName(false));
+            }
+        }
         $this->mailService->send($mail);
 
 
-        $historyText = sprintf($this->translator->translate('Mail was sent to %s'), $this->application->getContact()->getEmail());
+        $historyText = sprintf($this->translator->translate('Mail was sent to %s'), key($recipient) ?: $recipient[0] );
         $this->application->changeStatus($status, $historyText);
         $event->setNotification($historyText);
     }
@@ -161,75 +178,16 @@ class StatusChange
      *
      * @return AddressList
      */
-    protected function getRecipients( Application $application, $status) {
+    protected function getRecipient( Application $application, $status) {
 
-        $job = $application->getJob();
-        $organization = $job->getOrganization();
+        $recipient = Status::ACCEPTED == $status
+            ? $application->getJob()->getUser()->getInfo()
+            : $application->getContact();
 
-        $to = new AddressList();
-        $cc = new AddressList();
-        $bcc = new AddressList();
+        $email = $recipient->getEmail();
+        $name  = $recipient->getDisplayName(false);
 
-        switch($status) {
-            case Status::INCOMING:
-                /* @var WorkflowSettings $workflow */
-                $workflow = $job->getOrganization()->getWorkflowSettings();
-                if ($workflow->getAcceptApplicationByDepartmentManager()) {
-                    $departmentManagers = $job->getOrganization()->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
-                    foreach($departmentManagers as $employee ) { /* @var Employee $employee */
-                        $to->add(
-                            $employee->getUser()->getInfo()->getEmail(),
-                            $employee->getUser()->getInfo()->getDisplayName(false)
-                        );
-                    }
-                    if (empty($to)) {
-                        $to->add(
-                            $job->getUser()->getInfo(),
-                            $job->getUser()->getInfo()->getDisplayName(false)
-                        );
-                    }
-                }
-                break;
-            case Status::CONFIRMED:
-                $to->add(
-                    $application->getContact()->getEmail(),
-                    $application->getContact()->getDisplayName(false)
-                    );
-                break;
-            case Status::INVITED:
-                $to->add(
-                    $application->getContact()->getEmail(),
-                    $application->getContact()->getDisplayName(false)
-
-                );
-                break;
-            case Status::ACCEPTED:
-                $to->add(
-                    $job->getUser()->getInfo()->getEmail(),
-                    $job->getUser()->getInfo()->getDisplayName(false)
-                );
-                break;
-            case Status::REJECTED:
-                $to->add(
-                    $application->getContact()->getEmail(),
-                    $application->getContact()->getDisplayName(false)
-                );
-                break;
-            default:
-                throw new \InvalidArgumentException('Unknown status value: ' .$status);
-                break;
-        }
-
-        /* @var \Applications\Entity\Settings $organizationAdminSettings */
-        $organizationAdminSettings = $organization->getUser()->getSettings('Applications');
-        if ($organizationAdminSettings->mailBCC) {
-            $bcc->add(
-                $organization->getUser()->getInfo()->getEmail(),
-                $organization->getUser()->getInfo()->getDisplayName(false)
-            );
-        }
-
-        return $to;
+        return $name ? [ $email => $name ] : [ $email ];
     }
 
 }

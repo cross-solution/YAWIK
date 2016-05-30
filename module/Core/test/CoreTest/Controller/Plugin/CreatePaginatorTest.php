@@ -16,7 +16,7 @@ use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\CreatePaginator
- * 
+ *
  * @covers \Core\Controller\Plugin\CreatePaginator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -31,7 +31,7 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testExtendsAbstractControllerPlugin()
     {
-        $target = new CreatePaginator();
+        $target = new CreatePaginator($this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock());
 
         $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', $target);
     }
@@ -82,11 +82,10 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
                            ->setMethods(['getServiceLocator', 'getRequest'])
                            ->getMockForAbstractClass();
 
-        $controller->expects($this->once())->method('getServiceLocator')->willReturn($sm);
         $controller->expects($this->once())->method('getRequest')->willReturn($request);
 
 
-        $target = new CreatePaginator();
+        $target = new CreatePaginator($sm);
         $target->setController($controller);
 
         $pager = false === $defaultParams ? $target($paginatorName, $usePostParams) : $target($paginatorName, $defaultParams, $usePostParams);
@@ -100,7 +99,7 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassingInvalidDefaultParamsThrowsException()
     {
-        $target = new CreatePaginator();
+        $target = new CreatePaginator($this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock());
 
         $target('NotNeeded', new \stdClass);
     }
