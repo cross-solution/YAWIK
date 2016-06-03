@@ -32,7 +32,8 @@ class Container extends Element implements
     DisableElementsCapableInterface,
     FormParentInterface,
     \IteratorAggregate,
-    \Countable
+    \Countable,
+    ContainerInterface
 {
     /**
      * Available/Loaded forms or specification.
@@ -384,6 +385,9 @@ class Container extends Element implements
         if (!isset($spec['entity'])) {
             $spec['entity'] = '*';
         }
+        if (!isset($spec['property'])) {
+            $spec['property'] = true;
+        }
         
         $this->forms[$key] = $spec;
 
@@ -551,7 +555,7 @@ class Container extends Element implements
             return;
         }
         
-        if ($form instanceof Container) {
+        if ($form instanceof ContainerInterface) {
             $form->setEntity($mapEntity);
         } else {
             $form->bind($mapEntity);

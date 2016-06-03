@@ -23,5 +23,5 @@ use \Core\Form\View\Helper\Form;
     </div>
 </div>
 <div>
-     <?php $iterator->next();  echo $this->summaryForm($iterator->current(), Form::LAYOUT_HORIZONTAL) ?>
+     <?php $iterator->next();  echo $this->formCollectionContainer($iterator->current()) ?>
 </div>

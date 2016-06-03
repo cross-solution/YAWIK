@@ -112,7 +112,7 @@ class Education extends AbstractIdentifiableEntity
      *
      * @return bool
      */
-    public function getCurrectIndicator()
+    public function getCurrentIndicator()
     {
         return $this->currentIndicator;
     }

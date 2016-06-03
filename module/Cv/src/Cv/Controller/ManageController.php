@@ -63,38 +63,20 @@ class ManageController extends AbstractActionController
             $repositories->store($cv);
         }
         
+        /* @var $container \Core\Form\Container */
         $container = $serviceLocator->get('FormElementManager')
             ->get('CvContainer')
             ->setEntity($cv);
-        
-        // check if CV is empty
-        if ($cv->getEmployments()->isEmpty()
-            && $cv->getEducations()->isEmpty()
-            && $cv->getSkills()->isEmpty())
-        {
-            // set display mode for CV form
-            $container->getForm('cvForm')
-                ->setDisplayMode(SummaryFormInterface::RENDER_FORM);
-        }
         
         if ($this->getRequest()->isPost()) {
             $params = $this->params();
             $form = $container->getForm($params->fromQuery('form'));
             
             if ($form) {
-                // allow empty collections (in addition package zend-form has to be updated minimally to 2.7.*)
-                $data = array_merge_recursive([
-                        'cv' => [
-                            'employments' => [],
-                            'educations' => [],
-                            'skills' => []
-                        ]
-                    ],
-                    $form->getOption('use_post_array') ? $params->fromPost() : [],
-                    $form->getOption('use_files_array') ? $params->fromFiles() : []
-                );
-                
-                $form->setData($data);
+                $form->setData(array_merge(
+                    $params->fromPost(),
+                    $params->fromFiles()
+                ));
                 
                 if (!$form->isValid()) {
                     return new JsonModel([

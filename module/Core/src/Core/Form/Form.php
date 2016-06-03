@@ -13,6 +13,7 @@ use Zend\Form\Form as ZendForm;
 use Zend\Form\FieldsetInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\EventManager\EventManagerAwareTrait;
 
 /**
  * Core form.
@@ -21,6 +22,11 @@ use Zend\InputFilter\InputFilterInterface;
  */
 class Form extends ZendForm implements DescriptionAwareFormInterface, DisableElementsCapableInterface, FormParentInterface
 {
+    
+    use EventManagerAwareTrait;
+    
+    const EVENT_IS_VALID = 'validate';
+    
     /**
      * Form parameters.
      * An array of key  => value pairs which are rendered as hidden fields.
@@ -301,6 +307,10 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
                 $this->setData($filter->getValues());
             }
         }
+        
+        $this->getEventManager()->trigger(static::EVENT_IS_VALID, $this, [
+            'isValid' => $isValid
+        ]);
         
         return $isValid;
     }

@@ -39,14 +39,9 @@ class CvContainer extends Container implements ViewPartialProviderInterface
                 'property' => 'contact',
                 'use_files_array' => true
             ),
-            'cvForm' => array(
-                'type' => 'CvForm',
-                'property' => true,
-                'options' => array(
-                    'enable_descriptions' => true,
-                    'description' => /*@translate*/ 'Please enter ...'
-                )
-            )
+            'collections' => array(
+                'type' => 'CvCollectionContainer',
+            ),
         ));
     }
 }

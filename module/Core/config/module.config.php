@@ -327,6 +327,7 @@ return array(
             'formsimple' => 'Core\Form\View\Helper\FormSimple',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
             'formWizardContainer' => 'Core\Form\View\Helper\FormWizardContainer',
+            'formCollectionContainer' => 'Core\Form\View\Helper\FormCollectionContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
             'searchForm' => 'Core\Form\View\Helper\SearchForm',
             'filterForm' => 'Core\Form\View\Helper\FilterForm',
