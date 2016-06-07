@@ -32,8 +32,7 @@ class Container extends Element implements
     DisableElementsCapableInterface,
     FormParentInterface,
     \IteratorAggregate,
-    \Countable,
-    ContainerInterface
+    \Countable
 {
     /**
      * Available/Loaded forms or specification.
@@ -385,9 +384,6 @@ class Container extends Element implements
         if (!isset($spec['entity'])) {
             $spec['entity'] = '*';
         }
-        if (!isset($spec['property'])) {
-            $spec['property'] = true;
-        }
         
         $this->forms[$key] = $spec;
 
@@ -504,13 +500,18 @@ class Container extends Element implements
     }
     
     /**
-     * Sets the entity for formular binding.
-     *
-     * @param EntityInterface $entity
-     * @return self
+     * @param mixed $entity
+     * @param string $key
+     * @throws \InvalidArgumentException
+     * @return Container
      */
-    public function setEntity(EntityInterface $entity, $key='*')
+    public function setEntity($entity, $key='*')
     {
+        if (!$entity instanceof EntityInterface)
+        {
+            throw new \InvalidArgumentException(sprintf('$entity must be instance of %s', EntityInterface::class));
+        }
+        
         $this->entities[$key] = $entity;
         
         foreach ($this->forms as $formKey => $form) {
@@ -555,7 +556,7 @@ class Container extends Element implements
             return;
         }
         
-        if ($form instanceof ContainerInterface) {
+        if ($form instanceof Container) {
             $form->setEntity($mapEntity);
         } else {
             $form->bind($mapEntity);

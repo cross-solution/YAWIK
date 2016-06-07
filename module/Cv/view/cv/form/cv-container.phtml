@@ -8,20 +8,25 @@
  * @author fedys
  */
 
-
 use \Core\Form\View\Helper\Form;
 
-    $iterator = $this->element->getIterator();
+$container = $this->element; /* @var $container \Core\Form\Container */
 ?>
 <div class="row">
     <div class="col-md-8">
-        <?php echo $this->summaryForm($iterator->current(), Form::LAYOUT_HORIZONTAL) ?>
+        <?=$this->summaryForm($container->getForm('contact'), Form::LAYOUT_HORIZONTAL)?>
     </div>
     <div class="col-md-4">
         <h3><?php echo $this->translate('Image') ?></h3>
-        <?php $iterator->next(); echo $this->form($iterator->current()) ?>
+        <?=$this->form($container->getForm('image'))?>
     </div>
 </div>
 <div>
-     <?php $iterator->next();  echo $this->formCollectionContainer($iterator->current()) ?>
+     <?=$this->formCollectionContainer($container->getForm('employments'))?>
+</div>
+<div>
+     <?=$this->formCollectionContainer($container->getForm('educations'))?>
+</div>
+<div>
+     <?=$this->formCollectionContainer($container->getForm('skills'))?>
 </div>

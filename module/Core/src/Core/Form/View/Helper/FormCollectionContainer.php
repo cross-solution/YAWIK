@@ -21,48 +21,60 @@ class FormCollectionContainer extends AbstractHelper
 {
 
     /**
+     * Invoke as function.
+     *
+     * Proxies to {@link render()} or returns self.
+     *
+     * @param  null|CollectionContainer $container
+     * @param string $layout
+     * @param array $parameter
+     * @return FormCollectionContainer|string
+     */
+    public function __invoke(CollectionContainer $container = null, $layout = Form::LAYOUT_HORIZONTAL, $parameter = [])
+    {
+        if (!$container) {
+            return $this;
+        }
+        
+        return $this->render($container, $layout, $parameter);
+    }
+    
+    /**
+     * Renders the forms of a container.
+     *
      * @param CollectionContainer $container
+     * @param string $layout
+     * @param array $parameter
      * @return string
      */
-    public function __invoke(CollectionContainer $container)
+    public function render(CollectionContainer $container, $layout = Form::LAYOUT_HORIZONTAL, $parameter = [])
     {
-        $markup = '';
         $view = $this->getView();
         $view->headscript()
             ->appendFile($view->basePath('Core/js/jquery.formcollection-container.js'));
+        $formContainerHelper = $view->formContainer();
+        $formsMarkup = '';
+        $formTemplateWrapper = '<div class="form-collection-container-form">%s</div>';
         
-        foreach ($container->getCollections() as $collection) /* @var $collection \Zend\Form\Element\Collection */
+        foreach ($container as $form) /* @var $form \Zend\Form\Form */
         {
-            $groupMarkup = '';
-            $templateMarkup = '';
-            
-            foreach ($container->getGroup($collection) as $form)
-            {
-    			$groupMarkup .= $view->summaryForm($form);
-            }
-            
-            $templateForm = $container->getTemplateForm($collection);
-            
-            if ($templateForm)
-            {
-                $templateMarkup = sprintf(
-                    $view->formCollection()->getTemplateWrapper(),
-                    $view->escapeHtmlAttr($view->summaryForm($templateForm))
-                );
-            }
-            
-            $collectionLabel = $collection->getLabel();
-			$markup .= sprintf('<div class="form-collection-container">
-                    <h3>%s</h3>
-                    %s%s%s
-                </div>',
-                $collectionLabel,
-                $groupMarkup,
-                $templateMarkup,
-                '<div><button type="button" class="btn btn-success form-collection-container-add">' . sprintf($this->getTranslator()->translate('Add %s'), $collectionLabel) . '</button></div>'
-            );
+            $formsMarkup .= sprintf($formTemplateWrapper, $formContainerHelper->renderElement($form, $layout, $parameter));
         }
         
-        return $markup;
+        $templateMarkup = sprintf(
+            $view->formCollection()->getTemplateWrapper(),
+            $view->escapeHtmlAttr(sprintf($formTemplateWrapper, $formContainerHelper->renderElement($container->getTemplateForm(), $layout, $parameter)))
+        );
+        
+		return sprintf('<div class="form-collection-container" data-template-placeholder="%s">
+                <h3>%s</h3>
+                %s%s%s
+            </div>',
+            CollectionContainer::TEMPLATE_PLACEHOLDER,
+            $container->getLabel(),
+            $formsMarkup,
+            $templateMarkup,
+            '<div class="form-collection-container-add-wrapper"><button type="button" class="btn btn-success form-collection-container-add-button">' . sprintf($this->getTranslator()->translate('Add %s'), $container->getLabel()) . '</button></div>'
+        );
     }
 }

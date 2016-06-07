@@ -5,14 +5,17 @@ namespace Cv\Form;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class CollectionContainerFactory implements FactoryInterface
+class SkillCollectionFactory implements FactoryInterface
 {
     
-    /**
+    /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
+    */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new \Core\Form\CollectionContainer($serviceLocator, $serviceLocator->get('CvFieldset'));
+        $container = new \Core\Form\CollectionContainer('CvSkillForm', new \Cv\Entity\Skill());
+        $container->setLabel(/*@translate */ 'Skills');
+        
+		return $container;
     }
 }

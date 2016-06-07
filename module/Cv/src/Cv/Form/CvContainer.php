@@ -39,9 +39,18 @@ class CvContainer extends Container implements ViewPartialProviderInterface
                 'property' => 'contact',
                 'use_files_array' => true
             ),
-            'collections' => array(
-                'type' => 'CvCollectionContainer',
+            'employments' => array(
+                'type' => 'CvEmploymentCollection',
+                'property' => 'employments'
             ),
+            'educations' => array(
+                'type' => 'CvEducationCollection',
+                'property' => 'educations'
+            ),
+            'skills' => array(
+                'type' => 'CvSkillCollection',
+                'property' => 'skills'
+            )
         ));
     }
 }

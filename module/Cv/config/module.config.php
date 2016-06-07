@@ -147,16 +147,19 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'CvContainer'       => '\Cv\Form\CvContainer',
-            'CvFieldset'        => '\Cv\Form\CvFieldset',
             'EducationFieldset' => '\Cv\Form\EducationFieldset',
             'EmploymentFieldset' => '\Cv\Form\EmploymentFieldset',
             'SkillFieldset' => '\Cv\Form\SkillFieldset',
             'NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
             'LanguageSkillFieldset' => '\Cv\Form\LanguageFieldset',
+            'CvEmploymentForm' => '\Cv\Form\EmploymentForm',
+            'CvEducationForm' => '\Cv\Form\EducationForm',
+            'CvSkillForm' => '\Cv\Form\SkillForm',
         ),
         'factories' => array(
-            'CvCollectionContainer' => '\Cv\Form\CollectionContainerFactory',
-            'EducationCollection' => '\Cv\Form\EducationCollectionFactory',
+            'CvEmploymentCollection' => '\Cv\Form\EmploymentCollectionFactory',
+            'CvEducationCollection' => '\Cv\Form\EducationCollectionFactory',
+            'CvSkillCollection' => '\Cv\Form\SkillCollectionFactory',
             'CvContactImage' => '\Cv\Form\CvContactImageFactory',
         ),
     ),

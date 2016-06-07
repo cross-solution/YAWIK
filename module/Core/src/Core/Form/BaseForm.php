@@ -49,7 +49,7 @@ class BaseForm extends Form
      */
     protected function addBaseFieldset()
     {
-        if (null === $this->baseFieldset || $this->baseFieldset instanceof \Zend\Form\Fieldset) {
+        if (null === $this->baseFieldset) {
             return;
         }
         
