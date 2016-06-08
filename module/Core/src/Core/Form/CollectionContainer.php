@@ -90,8 +90,39 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
         
         return $form;
     }
+
+    /**
+     * @see \Core\Form\Container::executeAction()
+     */
+    public function executeAction($name, array $data = array())
+    {
+        switch ($name) {
+            case 'remove':
+                $success = false;
+                if (isset($data['key'])) {
+                    $success = $this->getCollection()->remove($data['key']) !== null;
+                }
+                return [
+                    'success' => $success
+                ];
+                break;
+            
+            default:
+                return [];
+                break;
+        }
+    }
     
     /**
+     * @param string $name
+     * @return string
+     */
+    public function formatActionName($name)
+    {
+        return sprintf('%s%s', $this->hasParent() ? $this->getName() . '.' : '', $name);
+    }
+
+	/**
      * @see \Core\Form\Element\ViewHelperProviderInterface::getViewHelper()
      */
     public function getViewHelper()

@@ -103,6 +103,8 @@ class ManageController extends AbstractActionController
                     'valid' => true,
                     'content' => $content
                 ]);
+            } elseif (($action = $params->fromQuery('action')) !== null) {
+                return new JsonModel($container->executeAction($action, $params->fromPost()));
             }
         }
         

@@ -353,6 +353,27 @@ class Container extends Element implements
         $this->forms[$key]['options'] = $options;
         return $formInstance;
     }
+    
+    /**
+     * Execute an action
+     *
+     * @param string $name
+     * @param array $data
+     * @return array
+     */
+    public function executeAction($name, array $data = [])
+    {
+        if (false !== strpos($name, '.')) {
+            list($name, $childKey) = explode('.', $name, 2);
+            $container = $this->getForm($name);
+            
+            // execute child container's action
+            return $container->executeAction($childKey, $data);
+        }
+        
+        // this container defines no actions
+        return [];
+    }
 
     /**
      * Sets a form or form specification.
