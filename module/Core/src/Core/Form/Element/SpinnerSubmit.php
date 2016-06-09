@@ -12,6 +12,10 @@ use Zend\Form\Element\Button;
 class SpinnerSubmit extends Button implements ViewHelperProviderInterface
 {
     protected $viewHelper = 'spinnerButton';
+
+    protected $attributes = [
+        'data-provide' => 'spinner-button',
+    ];
     
     public function setViewHelper($helper)
     {
