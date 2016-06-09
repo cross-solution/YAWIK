@@ -11,7 +11,7 @@ namespace Core\Form;
 
 use Core\Form\Element\ViewHelperProviderInterface;
 use Doctrine\Common\Collections\Collection;
-use Zend\Form\Form as ZendForm;
+use Core\Form\Form as CoreForm;
 use Zend\EventManager\EventInterface as Event;
 use ArrayIterator;
 
@@ -156,7 +156,7 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
     }
     
     /**
-     * @return ZendForm
+     * @return CoreForm
      */
     public function getTemplateForm()
     {
@@ -200,15 +200,15 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
      * @param string $key
      * @param mixed $entry
      * @throws \RuntimeException
-     * @return \Zend\Form\Form
+     * @return CoreForm
      */
     protected function buildForm($key, $entry = null)
     {
         $form = $this->formElementManager->get($this->formService);
         
-        if (!$form instanceof ZendForm)
+        if (!$form instanceof CoreForm)
         {
-            throw new \RuntimeException(sprintf('$form must be instance of %s', ZendForm::class));
+            throw new \RuntimeException(sprintf('$form must be instance of %s', CoreForm::class));
         }
         
         $form->setAttribute('action', sprintf('?form=%s%s', $this->hasParent() ? $this->getName() . '.' : '', $key));
