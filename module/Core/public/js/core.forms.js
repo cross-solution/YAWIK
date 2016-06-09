@@ -61,7 +61,8 @@
 			if (!dataType) dataType = 'json';
 
             $form.trigger('yk.forms.start', {data: data}); // DEPRECATED EVENT USE NEXT
-            $form.trigger('start.yk.core.forms', {data: data});
+            $form.trigger('start.yk.core.forms', {data: data}); //DEPRECATED EVENT USE NEXT
+            $form.trigger('yk:forms:start', {data:data});
 			$.ajax({
 				url: $form.attr('action'),
 				type: $form.attr('method'),
@@ -77,13 +78,15 @@
 				}
 //                console.debug('bubble done event for form',$form,data);
 				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR}); // DEPRECATED EVENT USE NEXT
-                $form.trigger('done.yk.core.forms', {data: data, status:textStatus, jqXHR: jqXHR});
+                $form.trigger('done.yk.core.forms', {data: data, status:textStatus, jqXHR: jqXHR}); //DEPRECATED EVENT USE NEXT
+                $form.trigger('yk:forms:success', {data: data, status:textStatus, jqXHR: jqXHR});
                 $form.trigger('ajax.ready', {'data': data});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
                     console.debug(textStatus, errorThrown);
 				$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
-                $form.trigger('fail.yk.core.forms', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
+                $form.trigger('fail.yk.core.forms', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
+                $form.trigger('yk:forms:fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
             })
                 .always(function() { $button.attr('disabled', false); });
 			return false;
