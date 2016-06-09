@@ -9,6 +9,7 @@ use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
 use Auth\Entity\InfoInterface;
+use Core\Collection\IdentityWrapper;
 
 /**
  *
@@ -114,6 +115,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
         }
         return $this->educations;
     }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getEducationsIndexedById()
+    {
+        return new IdentityWrapper($this->getEducations());
+    }
 
     /**
      * @param CollectionInterface $educations
@@ -135,6 +144,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
         }
         return $this->employments;
     }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getEmploymentsIndexedById()
+    {
+        return new IdentityWrapper($this->getEmployments());
+    }
 
     /**
      * @param CollectionInterface $employments
@@ -155,6 +172,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
             $this->setSkills(new ArrayCollection());
         }
         return $this->skills;
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getSkillsIndexedById()
+    {
+        return new IdentityWrapper($this->getSkills());
     }
 
     /**

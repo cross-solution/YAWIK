@@ -11,7 +11,6 @@ namespace Core\Form;
 
 use Core\Form\Element\ViewHelperProviderInterface;
 use Doctrine\Common\Collections\Collection;
-use Core\Collection\IdentityWrapper;
 use Core\Form\Form as CoreForm;
 use Zend\EventManager\EventInterface as Event;
 use ArrayIterator;
@@ -27,11 +26,6 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
      * @var string
      */
     protected $formService;
-    
-    /**
-     * @var Collection
-     */
-    protected $collection;
     
     /**
      * @var mixed
@@ -190,18 +184,13 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
      */
     protected function getCollection()
     {
-        if (!isset($this->collection))
-        {
-            $collection = $this->getEntity();
-            
-            if (!$collection) {
-                throw new \RuntimeException('Entity must be set');
-            }
-            
-            $this->collection = new IdentityWrapper($collection);
+        $collection = $this->getEntity();
+        
+        if (!$collection) {
+            throw new \RuntimeException('Entity must be set');
         }
         
-        return $this->collection;
+        return $collection;
     }
     
     /**

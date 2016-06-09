@@ -41,15 +41,15 @@ class CvContainer extends Container implements ViewPartialProviderInterface
             ),
             'employments' => array(
                 'type' => 'CvEmploymentCollection',
-                'property' => 'employments'
+                'property' => 'employmentsIndexedById'
             ),
             'educations' => array(
                 'type' => 'CvEducationCollection',
-                'property' => 'educations'
+                'property' => 'educationsIndexedById'
             ),
             'skills' => array(
                 'type' => 'CvSkillCollection',
-                'property' => 'skills'
+                'property' => 'skillsIndexedById'
             )
         ));
     }

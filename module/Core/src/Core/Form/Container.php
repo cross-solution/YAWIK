@@ -570,7 +570,7 @@ class Container extends Element implements
 
         if (true === $property) {
             $mapEntity = $entity;
-        } else if ($entity->hasProperty($property)) {
+        } else if ($entity->hasProperty($property) || is_callable([$entity, "get$property"])) {
             $getter = "get$property";
             $mapEntity = $entity->$getter();
         } else {
