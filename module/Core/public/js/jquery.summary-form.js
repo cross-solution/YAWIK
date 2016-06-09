@@ -48,9 +48,6 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
 			var _this = this;
 			var result = args.data;
 			
-			if ($.fn.spinnerbutton) {
-				_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
-			}	
 			if (result.valid) {
                 var container = $(e.target).parents(".sf-container");
 				console.debug('catch submit', e, result, container);

@@ -1,13 +1,6 @@
 
 ;(function($) {
 	
-	function buttonClicked(event)
-	{
-		var $button = $(event.currentTarget);
-		toggleState($button);
-		
-	};
-	
 	function toggleState($button)
 	{
 		if ('default' == $button.data('state')) {
@@ -23,7 +16,7 @@
 		}
 	}
 	
-	$.fn.spinnerbutton = function(action, options) 
+	$.fn.spinnerbutton = function(action)
 	{
 		if ('toggle' == action) {
 			return this.each(function() { toggleState($(this)) });
@@ -32,9 +25,14 @@
 		
 			return this.each(function()	{	
 				var $button = $(this);
+                var $form = $button.closest('form');
+
 				if ($button.find('.processing')) {
 					$button.data('state', 'default');
-					$button.click(buttonClicked);
+                    $form.on(
+                        'yk:forms:start.yk.core.spinnerbutton yk:forms:success.yk.core.spinnerbutton',
+                        function() { toggleState($button); }
+                    );
 				}
 			});
 		}
@@ -43,16 +41,7 @@
 	};
 	
 	$(function() {
-        $('body').on('click.spinnerbutton.data-api', '[data-provide="spinnerbutton"]', function(e) {
-             var $button = $(this);
-            if ($button.find('.processing').length) {
-                if (!$button.data('state')) {
-                    $button.spinnerbutton();
-                }
-                $button.spinnerbutton('toggle');
-            }
-        });
-        $('button[data-provide="spinnerbutton"]').spinnerbutton();
+          $('button[data-provide="spinner-button"]').spinnerbutton();
     });
 	
 })(jQuery);

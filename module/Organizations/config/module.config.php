@@ -150,6 +150,7 @@ return array(
             'recruiter' => array(
                 'allow' => array(
                     'route/lang/organizations',
+                    'Organizations/InviteEmployee',
                 ),
             ),
         ),
