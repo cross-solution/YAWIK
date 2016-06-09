@@ -26,6 +26,7 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     use EventManagerAwareTrait;
     
     const EVENT_IS_VALID = 'validate';
+    const EVENT_PREPARE = 'prepare';
     
     /**
      * Form parameters.
@@ -366,5 +367,20 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
                 }
             }
         }
+    }
+
+    /**
+     * @see \Zend\Form\Form::prepare()
+     */
+    public function prepare()
+    {
+        if ($this->isPrepared) {
+            return $this;
+        }
+        
+        parent::prepare();
+        $this->getEventManager()->trigger(static::EVENT_PREPARE, $this);
+        
+        return $this;
     }
 }

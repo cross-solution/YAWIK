@@ -11,6 +11,7 @@ namespace Core\Form;
 
 use Core\Form\Element\ViewHelperProviderInterface;
 use Doctrine\Common\Collections\Collection;
+use Core\Collection\IdentityWrapper;
 use Core\Form\Form as CoreForm;
 use Zend\EventManager\EventInterface as Event;
 use ArrayIterator;
@@ -20,7 +21,7 @@ use ArrayIterator;
  */
 class CollectionContainer extends Container implements ViewHelperProviderInterface
 {
-    const TEMPLATE_PLACEHOLDER = '__index__';
+    const NEW_ENTRY = '__new_entry__';
     
     /**
      * @var string
@@ -75,20 +76,23 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
     {
         $collection = $this->getCollection();
         
-        if (isset($collection[$key]))
-        {
+        if ($key === static::NEW_ENTRY) {
+            $collection[] = $this->newEntry;
+            $form = $this->buildForm($key, $this->newEntry);
+            $eventManager = $form->getEventManager();
+			$eventManager->attach(CoreForm::EVENT_IS_VALID, function (Event $event) use ($collection) {
+                if (!$event->getParam('isValid')) {
+                    $collection->removeElement($this->newEntry);
+                }
+            });
+			$eventManager->attach(CoreForm::EVENT_PREPARE, function (Event $event) use ($collection) {
+                $this->setupForm($event->getTarget(), $collection->indexOf($this->newEntry));
+            });
+            
+            return $form;
+        } elseif (isset($collection[$key])) {
             return $this->buildForm($key, $collection[$key]);
         }
-        
-        $collection[$key] = $this->newEntry;
-        $form = $this->buildForm($key, $collection[$key]);
-        $form->getEventManager()->attach(\Core\Form\Form::EVENT_IS_VALID, function (Event $event) use ($collection, $key) {
-            if (!$event->getParam('isValid')) {
-                unset($collection[$key]);
-            }
-        });
-        
-        return $form;
     }
 
     /**
@@ -160,7 +164,7 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
      */
     public function getTemplateForm()
     {
-        return $this->buildForm(static::TEMPLATE_PLACEHOLDER);
+        return $this->buildForm(static::NEW_ENTRY);
     }
 
     /**
@@ -186,14 +190,18 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
      */
     protected function getCollection()
     {
-        $collection = $this->getEntity();
-        
-        if (!$collection)
+        if (!isset($this->collection))
         {
-            throw new \RuntimeException('Entity must be set');
+            $collection = $this->getEntity();
+            
+            if (!$collection) {
+                throw new \RuntimeException('Entity must be set');
+            }
+            
+            $this->collection = new IdentityWrapper($collection);
         }
         
-        return $collection;
+        return $this->collection;
     }
     
     /**
@@ -206,17 +214,26 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
     {
         $form = $this->formElementManager->get($this->formService);
         
-        if (!$form instanceof CoreForm)
-        {
+        if (!$form instanceof CoreForm) {
             throw new \RuntimeException(sprintf('$form must be instance of %s', CoreForm::class));
         }
         
-        $form->setAttribute('action', sprintf('?form=%s%s', $this->hasParent() ? $this->getName() . '.' : '', $key));
+        $this->setupForm($form, $key);
         
         if (isset($entry)) {
             $form->bind($entry);
         }
             
         return $form;
+    }
+    
+    /**
+     * @param CoreForm $form
+     * @param string $key
+     */
+    protected function setupForm(CoreForm $form, $key)
+    {
+         $form->setAttribute('action', sprintf('?form=%s%s', $this->hasParent() ? $this->getName() . '.' : '', $key))
+            ->setAttribute('data-entry-key', $key);
     }
 }

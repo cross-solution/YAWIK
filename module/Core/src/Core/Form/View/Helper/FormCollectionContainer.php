@@ -55,28 +55,27 @@ class FormCollectionContainer extends AbstractHelper
         $translator = $this->getTranslator();
         $formContainerHelper = $view->formContainer();
         $formsMarkup = '';
-		$formTemplateWrapper = '<div class="form-collection-container-form" data-entry-key="%s">
+		$formTemplateWrapper = '<div class="form-collection-container-form">
             <button type="button" class="btn btn-sm btn-danger pull-right form-collection-container-remove-button">' . $translator->translate('Remove') . '</button>
             %s
         </div>';
         
-        foreach ($container as $key => $form) /* @var $form \Zend\Form\Form */
+        foreach ($container as $form) /* @var $form \Zend\Form\Form */
         {
-            $formsMarkup .= sprintf($formTemplateWrapper, $key, $formContainerHelper->renderElement($form, $layout, $parameter));
+            $formsMarkup .= sprintf($formTemplateWrapper, $formContainerHelper->renderElement($form, $layout, $parameter));
         }
         
         $templateForm = $container->getTemplateForm();
 		$templateMarkup = sprintf(
             $view->formCollection()->getTemplateWrapper(),
-            $view->escapeHtmlAttr(sprintf($formTemplateWrapper, null, $formContainerHelper->renderElement($templateForm, $layout, $parameter)))
+            $view->escapeHtmlAttr(sprintf($formTemplateWrapper, $formContainerHelper->renderElement($templateForm, $layout, $parameter)))
         );
         
-		return sprintf('<div class="form-collection-container" data-template-placeholder="%s" data-action-pattern="%s" data-remove-action="%s" data-remove-question="%s">
+		return sprintf('<div class="form-collection-container" data-new-entry-key="%s" data-remove-action="%s" data-remove-question="%s">
                 <h3>%s</h3>
                 %s%s%s
             </div>',
-            CollectionContainer::TEMPLATE_PLACEHOLDER,
-            $templateForm->getAttribute('action'),
+		    CollectionContainer::NEW_ENTRY,
             $container->formatActionName('remove'),
             $translator->translate('Really remove?'),
             $container->getLabel(),
