@@ -32,19 +32,4 @@ class ContactTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Auth\Form\UserInfoContainer', $this->target);
         $this->assertInstanceOf('Applications\Form\ContactContainer', $this->target);
     }
-    /**
-     * @dataProvider providerFormActionsData
-     */
-    public function testFormActions($input, $expected)
-    {
-        $this->assertEquals($this->target->getActionFor($input), $expected);
-    }
-
-    public function providerFormActionsData()
-    {
-        return [
-            ['contact','?form=contact'],
-            ['image','?form=image'],
-        ];
-    }
 }

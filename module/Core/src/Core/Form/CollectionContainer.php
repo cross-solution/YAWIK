@@ -16,6 +16,12 @@ use Zend\EventManager\EventInterface as Event;
 use ArrayIterator;
 
 /**
+ * Manages CRUD operations for the given collection by creating a group of independent forms
+ *
+ * It is recommended to use a collection indexed by entry identifiers
+ * You can use the \Core\Collection\IdentityWrapper as an adapter for a numerically
+ * indexed collection
+ *
  * @author fedys
  */
 class CollectionContainer extends Container implements ViewHelperProviderInterface
@@ -111,15 +117,6 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
         }
     }
     
-    /**
-     * @param string $name
-     * @return string
-     */
-    public function formatActionName($name)
-    {
-        return sprintf('%s%s', $this->hasParent() ? $this->getName() . '.' : '', $name);
-    }
-
 	/**
      * @see \Core\Form\Element\ViewHelperProviderInterface::getViewHelper()
      */
@@ -154,6 +151,8 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
     }
     
     /**
+     * Returns the template form for creating a new form via JavaScript
+     *
      * @return CoreForm
      */
     public function getTemplateForm()
@@ -162,7 +161,7 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
     }
 
     /**
-     * @return []
+     * @return CoreForm[]
      */
     protected function getForms()
     {
@@ -222,7 +221,7 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
      */
     protected function setupForm(CoreForm $form, $key)
     {
-         $form->setAttribute('action', sprintf('?form=%s%s', $this->hasParent() ? $this->getName() . '.' : '', $key))
+         $form->setAttribute('action', sprintf('?form=%s', $this->formatAction($key)))
             ->setAttribute('data-entry-key', $key);
     }
 }

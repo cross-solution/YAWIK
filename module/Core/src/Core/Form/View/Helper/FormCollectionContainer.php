@@ -76,7 +76,7 @@ class FormCollectionContainer extends AbstractHelper
                 %s%s%s
             </div>',
 		    CollectionContainer::NEW_ENTRY,
-            $container->formatActionName('remove'),
+            $container->formatAction('remove'),
             $translator->translate('Really remove?'),
             $container->getLabel(),
             $formsMarkup,
