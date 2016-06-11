@@ -4,10 +4,10 @@ namespace Cv\Form;
 
 use Core\Form\SummaryForm;
 
-class EmploymentForm extends SummaryForm
+class PreferredJobForm extends SummaryForm
 {
     
-    protected $baseFieldset = 'EmploymentFieldset';
+    protected $baseFieldset = 'Cv/PreferredJobFieldset';
 
     public function init()
     {

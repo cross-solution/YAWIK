@@ -18,7 +18,7 @@ class EducationFieldset extends Fieldset
         
         $this->add(
             array(
-            'type' => 'DateSelect',
+            'type' => 'Core/Datepicker',
             'name' => 'startDate',
             'options' => array(
                 'label' => /*@translate*/ 'Start date',
@@ -29,7 +29,7 @@ class EducationFieldset extends Fieldset
         );
         $this->add(
             array(
-            'type' => 'DateSelect',
+            'type' => 'Core/Datepicker',
             'name' => 'endDate',
             'options' => array(
                 'label' => /*@translate*/ 'End date'

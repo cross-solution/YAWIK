@@ -60,6 +60,13 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     protected $skills;
 
     /**
+     * Preferred Job. Where do the user want to work? What kind of work he wants do do
+     *
+     * @ODM\EmbedOne(targetDocument="\Cv\Entity\PreferredJob")
+     */
+    protected $preferredJob;
+
+    /**
      * Flag indicating draft state of this cv.
      *
      * @var bool
@@ -205,4 +212,23 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     {
         return $this->isDraft;
     }
+
+    /**
+     * @return PreferredJobInterface
+     */
+    public function getPreferredJob()
+    {
+        return $this->preferredJob;
+    }
+
+    /**
+     * @param PreferredJobInterface $preferredJob
+     * @return $this
+     */
+    public function setPreferredJob(PreferredJobInterface $preferredJob)
+    {
+        $this->preferredJob = $preferredJob;
+        return $this;
+    }
+
 }

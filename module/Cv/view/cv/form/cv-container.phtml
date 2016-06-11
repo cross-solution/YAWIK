@@ -22,6 +22,9 @@ $container = $this->element; /* @var $container \Core\Form\Container */
     </div>
 </div>
 <div>
+    <?php echo $this->formCollectionContainer($container->getForm('preferredJob'))?>
+</div>
+<div>
      <?=$this->formCollectionContainer($container->getForm('employments'))?>
 </div>
 <div>

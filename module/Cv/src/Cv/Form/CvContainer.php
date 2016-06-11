@@ -39,6 +39,10 @@ class CvContainer extends Container implements ViewPartialProviderInterface
                 'property' => 'contact',
                 'use_files_array' => true
             ),
+            'preferredJob' => array(
+                'type' => 'Cv/PreferredJobForm',
+                'property' => 'preferredJob'
+            ),
             'employments' => array(
                 'type' => 'CvEmploymentCollection',
                 'property' => 'employmentsIndexedById'

@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * @ODM\EmbeddedDocument
  */
-class PreferredJob extends AbstractIdentifiableEntity
+class PreferredJob extends AbstractIdentifiableEntity implements \PreferredJobInterface
 {
     /**
      * @var string
@@ -35,10 +35,18 @@ class PreferredJob extends AbstractIdentifiableEntity
      **/
     protected $preferredLocation;
     
-    /** willingness to travel, bool
-     * @ODM\Boolean */
+    /** willingness to travel,
+     *
+     * yes, no, bedingt
+     *
+     * @ODM\Field(type="string") */
     protected $willingnessToTravel;
-    
+
+
+    /** expectedSalary
+     * @ODM\Boolean */
+    protected $expectedSalary;
+
     /**
      * Apply for a job, internship or studies
      *
@@ -61,15 +69,26 @@ class PreferredJob extends AbstractIdentifiableEntity
         return $this->typeOfApplication;
     }
     
-    public function setPreferredJob($preferredJob)
+    public function setDesiredJob($desiredJob)
     {
-        $this->preferredJob=$preferredJob;
+        $this->desiredJob=$desiredJob;
         return $this;
     }
     
-    public function getPreferredJob()
+    public function getDesiredJob()
     {
-        return $this->preferredJob;
+        return $this->desiredJob;
+    }
+
+    public function setDesiredLocation($desiredLocation)
+    {
+        $this->desiredLocation=$desiredLocation;
+        return $this;
+    }
+
+    public function getDesiredLocation()
+    {
+        return $this->desiredLocation;
     }
     
     public function setWillingnessToTravel($willingnessToTravel)
@@ -81,5 +100,16 @@ class PreferredJob extends AbstractIdentifiableEntity
     public function getWillingnessToTravel()
     {
         return $this->willingnessToTravel;
+    }
+
+    public function setExpectedSalary($expectedSalary)
+    {
+        $this->expectedSalary=$expectedSalary;
+        return $this;
+    }
+
+    public function getExpectedSalary()
+    {
+        return $this->expectedSalary;
     }
 }

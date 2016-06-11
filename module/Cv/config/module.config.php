@@ -155,6 +155,8 @@ return array(
             'CvEmploymentForm' => '\Cv\Form\EmploymentForm',
             'CvEducationForm' => '\Cv\Form\EducationForm',
             'CvSkillForm' => '\Cv\Form\SkillForm',
+            'Cv/PreferredJobForm' => 'Cv\Form\PreferredJobForm',
+            'Cv/PreferredJobFieldset' => 'Cv\Form\PreferredJobFieldset',
         ),
         'factories' => array(
             'CvEmploymentCollection' => '\Cv\Form\EmploymentCollectionFactory',
