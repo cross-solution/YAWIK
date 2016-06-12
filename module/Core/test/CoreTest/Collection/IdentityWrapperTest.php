@@ -25,6 +25,11 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     protected $wrappedCollection;
     
+    /**
+     * @var array
+     */
+    protected $entries;
+    
     public function setUp()
     {
         $getEntryMock = function ($id)
@@ -33,6 +38,8 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
             $entry->expects($this->any())
                 ->method('getId')
                 ->willReturn($id);
+            
+            $this->entries[$id] = $entry;
             
             return $entry;
         };
@@ -55,7 +62,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testCount()
     {
-        $this->assertSame($this->wrappedCollection->count(), $this->wrappedCollection->count());
+        $expected = count($this->entries);
+        $this->assertSame($expected, $this->identityWrapper->count());
+        $this->assertSame($expected, $this->wrappedCollection->count());
     }
 
     /**
@@ -87,7 +96,7 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testContains()
     {
-        $this->assertTrue($this->identityWrapper->contains($this->wrappedCollection->first()));
+        $this->assertTrue($this->identityWrapper->contains($this->entries['first']));
         $this->assertFalse($this->identityWrapper->contains('non-existent'));
     }
 
@@ -109,10 +118,13 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemove()
     {
-        // TODO Auto-generated IdentityWrapperTest->testRemove()
-        $this->markTestIncomplete("remove test not implemented");
-        
-        $this->identityWrapper->remove(/* parameters */);
+        list($key, $entry) = each($this->entries);
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->remove($key);
+        $this->assertSame($count - 1, count($this->identityWrapper));
+        $this->assertSame($count - 1, count($this->wrappedCollection));
+        $this->assertFalse($this->identityWrapper->contains($entry));
+        $this->assertFalse($this->wrappedCollection->contains($entry));
     }
 
     /**
@@ -120,10 +132,13 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveElement()
     {
-        // TODO Auto-generated IdentityWrapperTest->testRemoveElement()
-        $this->markTestIncomplete("removeElement test not implemented");
-        
-        $this->identityWrapper->removeElement(/* parameters */);
+        $entry = reset($this->entries);
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->removeElement($entry);
+        $this->assertSame($count - 1, count($this->identityWrapper));
+        $this->assertSame($count - 1, count($this->wrappedCollection));
+        $this->assertFalse($this->identityWrapper->contains($entry));
+        $this->assertFalse($this->wrappedCollection->contains($entry));
     }
 
     /**
@@ -131,10 +146,11 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testContainsKey()
     {
-        // TODO Auto-generated IdentityWrapperTest->testContainsKey()
-        $this->markTestIncomplete("containsKey test not implemented");
-        
-        $this->identityWrapper->containsKey(/* parameters */);
+        foreach (array_keys($this->entries) as $key) {
+            $this->assertTrue($this->identityWrapper->containsKey($key));
+            $this->assertFalse($this->wrappedCollection->containsKey($key));
+        }
+        $this->assertFalse($this->identityWrapper->contains('non-existent'));
     }
 
     /**
@@ -142,10 +158,10 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGet()
     {
-        // TODO Auto-generated IdentityWrapperTest->testGet()
-        $this->markTestIncomplete("get test not implemented");
-        
-        $this->identityWrapper->get(/* parameters */);
+        foreach ($this->entries as $key => $entry) {
+            $this->assertSame($entry, $this->identityWrapper->get($key));
+        }
+        $this->assertNull($this->identityWrapper->get('non-existent'));
     }
 
     /**
@@ -153,10 +169,7 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetKeys()
     {
-        // TODO Auto-generated IdentityWrapperTest->testGetKeys()
-        $this->markTestIncomplete("getKeys test not implemented");
-        
-        $this->identityWrapper->getKeys(/* parameters */);
+        $this->assertSame(array_keys($this->entries), $this->identityWrapper->getKeys());
     }
 
     /**
@@ -164,21 +177,40 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValues()
     {
-        // TODO Auto-generated IdentityWrapperTest->testGetValues()
-        $this->markTestIncomplete("getValues test not implemented");
-        
-        $this->identityWrapper->getValues(/* parameters */);
+        $expected = array_values($this->entries);
+		$this->assertSame($expected, $this->identityWrapper->getValues());
+        $this->assertSame($expected, $this->wrappedCollection->getValues());
     }
 
     /**
      * Tests IdentityWrapper->set()
      */
-    public function testSet()
+    public function testSetAppend()
     {
-        // TODO Auto-generated IdentityWrapperTest->testSet()
-        $this->markTestIncomplete("set test not implemented");
-        
-        $this->identityWrapper->set(/* parameters */);
+        $entry = 'non-existent-value';
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->set('non-existent', $entry);
+        $this->assertSame($count + 1, count($this->identityWrapper));
+        $this->assertSame($count + 1, count($this->wrappedCollection));
+        $this->assertTrue($this->identityWrapper->contains($entry));
+        $this->assertTrue($this->wrappedCollection->contains($entry));
+    }
+
+    /**
+     * Tests IdentityWrapper->set()
+     */
+    public function testSetOverwrite()
+    {
+        list($key, $existentEntry) = each($this->entries);
+        $newEntry = 'new-entry';
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->set($key, $newEntry);
+        $this->assertSame($count, count($this->identityWrapper));
+        $this->assertSame($count, count($this->wrappedCollection));
+        $this->assertTrue($this->identityWrapper->contains($newEntry));
+        $this->assertTrue($this->wrappedCollection->contains($newEntry));
+        $this->assertFalse($this->identityWrapper->contains($existentEntry));
+        $this->assertFalse($this->wrappedCollection->contains($existentEntry));
     }
 
     /**
@@ -186,10 +218,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testToArray()
     {
-        // TODO Auto-generated IdentityWrapperTest->testToArray()
-        $this->markTestIncomplete("toArray test not implemented");
-        
-        $this->identityWrapper->toArray(/* parameters */);
+        $this->assertSame($this->entries, $this->identityWrapper->toArray());
+        $this->assertNotSame($this->entries, $this->wrappedCollection->toArray());
+        $this->assertSame(array_values($this->entries), array_values($this->wrappedCollection->toArray()));
     }
 
     /**
@@ -197,10 +228,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testFirst()
     {
-        // TODO Auto-generated IdentityWrapperTest->testFirst()
-        $this->markTestIncomplete("first test not implemented");
-        
-        $this->identityWrapper->first(/* parameters */);
+        $expected = reset($this->entries);
+		$this->assertSame($expected, $this->identityWrapper->first());
+		$this->assertSame($expected, $this->wrappedCollection->first());
     }
 
     /**
@@ -208,10 +238,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testLast()
     {
-        // TODO Auto-generated IdentityWrapperTest->testLast()
-        $this->markTestIncomplete("last test not implemented");
-        
-        $this->identityWrapper->last(/* parameters */);
+        $expected = end($this->entries);
+		$this->assertSame($expected, $this->identityWrapper->last());
+		$this->assertSame($expected, $this->wrappedCollection->last());
     }
 
     /**
@@ -219,10 +248,11 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testKey()
     {
-        // TODO Auto-generated IdentityWrapperTest->testKey()
-        $this->markTestIncomplete("key test not implemented");
+        $this->assertSame(key($this->entries), $this->identityWrapper->key());
         
-        $this->identityWrapper->key(/* parameters */);
+        $this->identityWrapper->clear();
+        $this->assertNull($this->identityWrapper->key());
+        $this->assertNull($this->wrappedCollection->key());
     }
 
     /**
@@ -230,10 +260,11 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testCurrent()
     {
-        // TODO Auto-generated IdentityWrapperTest->testCurrent()
-        $this->markTestIncomplete("current test not implemented");
+        $this->assertSame(current($this->entries), $this->identityWrapper->current());
         
-        $this->identityWrapper->current(/* parameters */);
+        $this->identityWrapper->clear();
+        $this->assertFalse($this->identityWrapper->current());
+        $this->assertFalse($this->wrappedCollection->current());
     }
 
     /**
@@ -241,21 +272,41 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testNext()
     {
-        // TODO Auto-generated IdentityWrapperTest->testNext()
-        $this->markTestIncomplete("next test not implemented");
+        $this->assertSame(next($this->entries), $this->identityWrapper->next());
         
-        $this->identityWrapper->next(/* parameters */);
+        $this->identityWrapper->last();
+        $this->assertFalse($this->identityWrapper->next());
+        $this->assertFalse($this->wrappedCollection->next());
     }
 
     /**
      * Tests IdentityWrapper->exists()
      */
-    public function testExists()
+    public function testExistsWithKey()
     {
-        // TODO Auto-generated IdentityWrapperTest->testExists()
-        $this->markTestIncomplete("exists test not implemented");
-        
-        $this->identityWrapper->exists(/* parameters */);
+        $searchKey = key($this->entries);
+        $this->assertTrue($this->identityWrapper->exists(function ($key) use ($searchKey) {
+            return $key === $searchKey;
+        }));
+        $searchKey = 'non-existent';
+        $this->assertFalse($this->identityWrapper->exists(function ($key) use ($searchKey) {
+            return $key === $searchKey;
+        }));
+    }
+    
+    /**
+     * Tests IdentityWrapper->exists()
+     */
+    public function testExistsWithValue()
+    {
+        $searchValue = current($this->entries);
+        $this->assertTrue($this->identityWrapper->exists(function ($key, $value) use ($searchValue) {
+            return $value === $searchValue;
+        }));
+        $searchValue = 'non-existent';
+        $this->assertFalse($this->identityWrapper->exists(function ($key, $value) use ($searchValue) {
+            return $value === $searchValue;
+        }));
     }
 
     /**
@@ -263,43 +314,109 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilter()
     {
-        // TODO Auto-generated IdentityWrapperTest->testFilter()
-        $this->markTestIncomplete("filter test not implemented");
-        
-        $this->identityWrapper->filter(/* parameters */);
+        $searchValue = current($this->entries);
+        $filter = function ($value) use ($searchValue) {
+            return $value === $searchValue;
+        };
+        $filtered = $this->identityWrapper->filter($filter);
+		$this->assertInstanceOf(IdentityWrapper::class, $filtered);
+		$this->assertNotSame($this->identityWrapper, $filtered);
+		$this->assertSame(array_filter($this->entries, $filter), $filtered->toArray());
     }
 
     /**
      * Tests IdentityWrapper->forAll()
      */
-    public function testForAll()
+    public function testForAllWithKey()
     {
-        // TODO Auto-generated IdentityWrapperTest->testForAll()
-        $this->markTestIncomplete("forAll test not implemented");
-        
-        $this->identityWrapper->forAll(/* parameters */);
+        $keys = array_keys($this->entries);
+        $this->assertTrue($this->identityWrapper->forAll(function ($key) use ($keys) {
+            return in_array($key, $keys);
+        }));
+        $keys = ['non-existent'];
+        $this->assertFalse($this->identityWrapper->forAll(function ($key) use ($keys) {
+            return in_array($key, $keys);
+        }));
+    }
+
+    /**
+     * Tests IdentityWrapper->forAll()
+     */
+    public function testForAllWithValue()
+    {
+        $values = array_values($this->entries);
+        $this->assertTrue($this->identityWrapper->forAll(function ($key, $value) use ($values) {
+            return in_array($value, $values, true);
+        }));
+        $values = ['non-existent'];
+        $this->assertFalse($this->identityWrapper->forAll(function ($key, $value) use ($values) {
+            return in_array($value, $values, true);
+        }));
     }
 
     /**
      * Tests IdentityWrapper->map()
      */
-    public function testMap()
+    public function testMapValidOperation()
     {
-        // TODO Auto-generated IdentityWrapperTest->testMap()
-        $this->markTestIncomplete("map test not implemented");
-        
-        $this->identityWrapper->map(/* parameters */);
+        $map = function ($value) {
+            $value->random = rand();
+            return $value;
+        };
+        $mapped = $this->identityWrapper->map($map);
+        $this->assertInstanceOf(IdentityWrapper::class, $mapped);
+        $this->assertNotSame($this->identityWrapper, $mapped);
+        $this->assertSame(array_map($map, $this->entries), $mapped->toArray());
+    }
+    
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage $element must have getId() method
+     */
+    public function testMapInvalidOperation()
+    {
+        $map = function ($value) {
+            return sprintf('id: %s', $value->getId());
+        };
+        $this->identityWrapper->map($map);
     }
 
     /**
-     * Tests IdentityWrapper->partition()
+     * Tests IdentityWrapper->exists()
      */
-    public function testPartition()
+    public function testPartitionWithKey()
     {
-        // TODO Auto-generated IdentityWrapperTest->testPartition()
-        $this->markTestIncomplete("partition test not implemented");
-        
-        $this->identityWrapper->partition(/* parameters */);
+        $searchKey = key($this->entries);
+        $partitions = $this->identityWrapper->partition(function ($key) use ($searchKey) {
+            return $key === $searchKey;
+        });
+        $expectedFirstPartiton = array_slice($this->entries, 0, 1, true);
+        $expectedSecondPartiton = array_slice($this->entries, 1, null, true);
+        $this->assertArrayHasKey(0, $partitions);
+        $this->assertArrayHasKey(1, $partitions);
+        $this->assertInstanceOf(IdentityWrapper::class, $partitions[0]);
+        $this->assertInstanceOf(IdentityWrapper::class, $partitions[1]);
+        $this->assertSame($expectedFirstPartiton, $partitions[0]->toArray());
+        $this->assertSame($expectedSecondPartiton, $partitions[1]->toArray());
+    }
+    
+    /**
+     * Tests IdentityWrapper->exists()
+     */
+    public function testPartitionWithValue()
+    {
+        $searchValue = reset($this->entries);
+        $partitions = $this->identityWrapper->partition(function ($key, $value) use ($searchValue) {
+            return $value === $searchValue;
+        });
+        $expectedFirstPartiton = array_slice($this->entries, 0, 1, true);
+        $expectedSecondPartiton = array_slice($this->entries, 1, null, true);
+        $this->assertArrayHasKey(0, $partitions);
+        $this->assertArrayHasKey(1, $partitions);
+        $this->assertInstanceOf(IdentityWrapper::class, $partitions[0]);
+        $this->assertInstanceOf(IdentityWrapper::class, $partitions[1]);
+        $this->assertSame($expectedFirstPartiton, $partitions[0]->toArray());
+        $this->assertSame($expectedSecondPartiton, $partitions[1]->toArray());
     }
 
     /**
@@ -307,10 +424,11 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testIndexOf()
     {
-        // TODO Auto-generated IdentityWrapperTest->testIndexOf()
-        $this->markTestIncomplete("indexOf test not implemented");
-        
-        $this->identityWrapper->indexOf(/* parameters */);
+        foreach ($this->entries as $key => $entry) {
+            $this->assertSame($key, $this->identityWrapper->indexOf($entry));
+            $this->assertNotSame($key, $this->wrappedCollection->indexOf($entry));
+        }
+        $this->assertFalse($this->identityWrapper->indexOf('non-existent'));
     }
 
     /**
@@ -318,10 +436,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testSlice()
     {
-        // TODO Auto-generated IdentityWrapperTest->testSlice()
-        $this->markTestIncomplete("slice test not implemented");
-        
-        $this->identityWrapper->slice(/* parameters */);
+        $offset = 1;
+        $length = 1;
+        $this->assertSame(array_slice($this->entries, $offset, $length), $this->identityWrapper->slice($offset, $length));
     }
 
     /**
@@ -329,10 +446,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetIterator()
     {
-        // TODO Auto-generated IdentityWrapperTest->testGetIterator()
-        $this->markTestIncomplete("getIterator test not implemented");
-        
-        $this->identityWrapper->getIterator(/* parameters */);
+        $iterator = $this->identityWrapper->getIterator();
+        $this->assertInstanceOf(\ArrayIterator::class, $iterator);
+        $this->assertSame($this->entries, $iterator->getArrayCopy());
     }
 
     /**
@@ -340,10 +456,11 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetExists()
     {
-        // TODO Auto-generated IdentityWrapperTest->testOffsetExists()
-        $this->markTestIncomplete("offsetExists test not implemented");
-        
-        $this->identityWrapper->offsetExists(/* parameters */);
+        foreach (array_keys($this->entries) as $key) {
+            $this->assertTrue($this->identityWrapper->offsetExists($key));
+            $this->assertFalse($this->wrappedCollection->offsetExists($key));
+        }
+        $this->assertFalse($this->identityWrapper->offsetExists('non-existent'));
     }
 
     /**
@@ -351,21 +468,60 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetGet()
     {
-        // TODO Auto-generated IdentityWrapperTest->testOffsetGet()
-        $this->markTestIncomplete("offsetGet test not implemented");
-        
-        $this->identityWrapper->offsetGet(/* parameters */);
+        foreach ($this->entries as $key => $entry) {
+            $this->assertSame($entry, $this->identityWrapper->offsetGet($key));
+            $this->assertNull($this->wrappedCollection->offsetGet($key));
+        }
+        $this->assertNull($this->identityWrapper->offsetGet('non-existent'));
     }
 
     /**
-     * Tests IdentityWrapper->offsetSet()
+     * Tests IdentityWrapper->set()
      */
-    public function testOffsetSet()
+    public function testOffsetSetAppend()
     {
-        // TODO Auto-generated IdentityWrapperTest->testOffsetSet()
-        $this->markTestIncomplete("offsetSet test not implemented");
-        
-        $this->identityWrapper->offsetSet(/* parameters */);
+        $entry = 'non-existent-value';
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->offsetSet('non-existent', $entry);
+        $this->assertSame($count + 1, count($this->identityWrapper));
+        $this->assertSame($count + 1, count($this->wrappedCollection));
+        $this->assertTrue($this->identityWrapper->contains($entry));
+        $this->assertTrue($this->wrappedCollection->contains($entry));
+    }
+    
+    /**
+     * Tests IdentityWrapper->set()
+     */
+    public function testOffsetSetWithNullMustAppend()
+    {
+        $entry1 = 'non-existent-value-1';
+        $entry2 = 'non-existent-value-2';
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->offsetSet(null, $entry1);
+        $this->identityWrapper->offsetSet(null, $entry2);
+        $this->assertSame($count + 2, count($this->identityWrapper));
+        $this->assertSame($count + 2, count($this->wrappedCollection));
+        $this->assertTrue($this->identityWrapper->contains($entry1));
+        $this->assertTrue($this->wrappedCollection->contains($entry2));
+        $this->assertTrue($this->identityWrapper->contains($entry1));
+        $this->assertTrue($this->wrappedCollection->contains($entry2));
+    }
+    
+    /**
+     * Tests IdentityWrapper->set()
+     */
+    public function testOffsetSetOverwrite()
+    {
+        list($key, $existentEntry) = each($this->entries);
+        $newEntry = 'new-entry';
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->offsetSet($key, $newEntry);
+        $this->assertSame($count, count($this->identityWrapper));
+        $this->assertSame($count, count($this->wrappedCollection));
+        $this->assertTrue($this->identityWrapper->contains($newEntry));
+        $this->assertTrue($this->wrappedCollection->contains($newEntry));
+        $this->assertFalse($this->identityWrapper->contains($existentEntry));
+        $this->assertFalse($this->wrappedCollection->contains($existentEntry));
     }
 
     /**
@@ -373,10 +529,13 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetUnset()
     {
-        // TODO Auto-generated IdentityWrapperTest->testOffsetUnset()
-        $this->markTestIncomplete("offsetUnset test not implemented");
-        
-        $this->identityWrapper->offsetUnset(/* parameters */);
+        list($key, $entry) = each($this->entries);
+        $count = count($this->wrappedCollection);
+        $this->identityWrapper->offsetUnset($key);
+        $this->assertSame($count - 1, count($this->identityWrapper));
+        $this->assertSame($count - 1, count($this->wrappedCollection));
+        $this->assertFalse($this->identityWrapper->contains($entry));
+        $this->assertFalse($this->wrappedCollection->contains($entry));
     }
 
     /**
@@ -384,10 +543,15 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetIdentityExtractor()
     {
-        // TODO Auto-generated IdentityWrapperTest->testSetIdentityExtractor()
-        $this->markTestIncomplete("setIdentityExtractor test not implemented");
+        $suffix = '.suffix';
+        $identityExtractor = function ($entry) use ($suffix) {
+            return $entry->getId() . $suffix;
+        };
         
-        $this->identityWrapper->setIdentityExtractor(/* parameters */);
+        $this->assertSame($this->identityWrapper, $this->identityWrapper->setIdentityExtractor($identityExtractor));
+        
+        foreach ($this->entries as $key => $entry) {
+            $this->assertSame($key.$suffix, $this->identityWrapper->indexOf($entry));
+        }
     }
 }
-

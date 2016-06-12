@@ -106,7 +106,9 @@ class IdentityWrapper implements Collection
      */
     public function get($key)
     {
-        return $this->getElement($key);
+        $element = $this->getElement($key);
+        
+		return $element !== false ? $element : null;
     }
     
     /**
@@ -116,7 +118,7 @@ class IdentityWrapper implements Collection
     {
         return $this->collection->map(function ($element) {
             return $this->getKey($element);
-        });
+        })->toArray();
     }
     
     /**
@@ -132,7 +134,14 @@ class IdentityWrapper implements Collection
      */
     public function set($key, $value)
     {
-        $this->collection->set($key, $value);
+        if ($this->getElement($key) !== false)
+        {
+            $this->collection->set($this->collection->indexOf($value), $value);
+        }
+        else
+        {
+            $this->collection->add($value);
+        }
     }
     
     /**
@@ -171,7 +180,12 @@ class IdentityWrapper implements Collection
      */
     public function key()
     {
-        return $this->collection->key();
+        $element = $this->collection->current();
+        
+        if ($element !== false)
+        {
+    		return $this->getKey($element);
+        }
     }
     
     /**
@@ -195,7 +209,14 @@ class IdentityWrapper implements Collection
      */
     public function exists(Closure $p)
     {
-        return $this->collection->exists($p);
+        foreach ($this->collection as $element) {
+            $key = $this->getKey($element);
+            if ($p($key, $element)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     /**
@@ -203,7 +224,7 @@ class IdentityWrapper implements Collection
      */
     public function filter(Closure $p)
     {
-        return $this->collection->filter($p);
+        return new static($this->collection->filter($p));
     }
     
     /**
@@ -211,7 +232,14 @@ class IdentityWrapper implements Collection
      */
     public function forAll(Closure $p)
     {
-        return $this->collection->forAll($p);
+        foreach ($this->collection as $element) {
+            $key = $this->getKey($element);
+            if (!$p($key, $element)) {
+                return false;
+            }
+        }
+        
+        return true;
     }
     
     /**
@@ -219,7 +247,12 @@ class IdentityWrapper implements Collection
      */
     public function map(Closure $func)
     {
-        return $this->collection->map($func);
+        $mapped = $this->collection->map($func);
+        
+        // validate mapped elements
+        array_map($this->getIdentityExtractor(), $mapped->toArray());
+        
+		return new static($mapped);
     }
     
     /**
@@ -227,7 +260,17 @@ class IdentityWrapper implements Collection
      */
     public function partition(Closure $p)
     {
-        return $this->collection->partition($p);
+        $array = $this->toArray();
+        $this->collection->clear();
+        
+        foreach ($array as $key => $element)
+        {
+            $this->collection->set($key, $element);
+        }
+        
+        $partitions = $this->collection->partition($p);
+        
+        return [new static($partitions[0]), new static($partitions[1])];
     }
     
     /**
@@ -243,7 +286,14 @@ class IdentityWrapper implements Collection
      */
     public function slice($offset, $length = null)
     {
-        return $this->collection->slice($offset, $length);
+        $array = [];
+        
+        foreach ($this->collection->slice($offset, $length) as $element)
+        {
+            $array[$this->getKey($element)] = $element;
+        }
+        
+        return $array;
     }
     
     /**
@@ -267,7 +317,7 @@ class IdentityWrapper implements Collection
      */
     public function offsetGet($offset)
     {
-        return $this->getElement($offset) ?: null;
+        return $this->get($offset);
     }
     
     /**
@@ -275,7 +325,11 @@ class IdentityWrapper implements Collection
      */
     public function offsetSet($offset, $value)
     {
-        $this->collection->add($value);
+        if (!isset($offset)) {
+            return $this->add($value);
+        }
+        
+        $this->set($offset, $value);
     }
     
     /**
