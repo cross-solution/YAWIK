@@ -11,6 +11,8 @@
 namespace Cv\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
+use Core\Form\SummaryFormInterface;
 
 /**
  * Main Action Controller for the application.
@@ -44,44 +46,70 @@ class ManageController extends AbstractActionController
     
     public function formAction()
     {
-        $services = $this->serviceLocator;
-        $repositories = $services->get('repositories');
-        /* @var \Cv\Repository\Cv $cvRepository */
+        $serviceLocator = $this->serviceLocator;
+        $repositories = $serviceLocator->get('repositories');
+        /* @var $cvRepository \Cv\Repository\Cv */
         $cvRepository = $repositories->get('Cv/Cv');
-        $form = $services->get('FormElementManager')->get('CvForm');
-
         $user = $this->auth()->getUser();
-        /** @var \Cv\Entity\Cv $cv */
+        /* @var $cv \Cv\Entity\Cv */
         $cv = $cvRepository->findDraft($user);
+        
         if (empty($cv)) {
+            // create draft CV
             $cv = $cvRepository->create();
             $cv->setIsDraft(true);
+            $cv->setContact($user->getInfo());
             $cv->setUser($user);
             $repositories->store($cv);
         }
-
+        
+        /* @var $container \Core\Form\Container */
+        $container = $serviceLocator->get('FormElementManager')
+            ->get('CvContainer')
+            ->setEntity($cv);
+        
         if ($this->getRequest()->isPost()) {
-            $form->bind($cv);
-            $form->setData($this->getRequest()->getPost());
-            $valid = $form->isValid();
-            if ($valid) {
-                $cv->setUser($this->auth()->getUser());
-                $repositories->store($cv);
-                return array(
-                    'isSaved' => true,
-                );
-            }
+            $params = $this->params();
+            $form = $container->getForm($params->fromQuery('form'));
             
-            exit;
+            if ($form) {
+                $form->setData(array_merge(
+                    $params->fromPost(),
+                    $params->fromFiles()
+                ));
+                
+                if (!$form->isValid()) {
+                    return new JsonModel([
+                        'valid' => false,
+                        'errors' => $form->getMessages()
+                    ]);
+                }
+                
+                $repositories->store($cv);
+                
+                if ($form instanceof SummaryFormInterface) {
+                    $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
+                    $viewHelper = 'summaryform';
+                } else {
+                    $viewHelper = 'form';
+                }
+                
+                // render form
+                $content = $serviceLocator->get('ViewHelperManager')
+                    ->get($viewHelper)
+                    ->__invoke($form);
+                
+                return new JsonModel([
+                    'valid' => true,
+                    'content' => $content
+                ]);
+            } elseif (($action = $params->fromQuery('action')) !== null) {
+                return new JsonModel($container->executeAction($action, $params->fromPost()));
+            }
         }
         
-        return array(
-            'form' => $form
-        );
-    }
-    
-    public function saveAction()
-    {
-        
+        return [
+            'container' => $container
+        ];
     }
 }

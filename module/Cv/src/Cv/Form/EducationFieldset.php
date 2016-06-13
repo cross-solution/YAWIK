@@ -5,7 +5,6 @@ namespace Cv\Form;
 use Zend\Form\Fieldset;
 use Cv\Entity\Education as EducationEntity;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\Form\FormInterface;
 
 class EducationFieldset extends Fieldset
 {
@@ -73,7 +72,7 @@ class EducationFieldset extends Fieldset
 
         $this->add(
             array(
-                'name' => 'organizationCountry',
+                'name' => 'country',
                 'options' => array(
                         'label' => /*@translate */ 'Country'),
                 'attributes' => array(
@@ -85,7 +84,7 @@ class EducationFieldset extends Fieldset
         
         $this->add(
             array(
-                'name' => 'organizationCity',
+                'name' => 'city',
                 'options' => array(
                         'label' => /*@translate */ 'City'),
                 'attributes' => array(

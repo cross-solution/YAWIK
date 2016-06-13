@@ -5,7 +5,7 @@ namespace Cv\Form;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class EducationCollectionFactory implements FactoryInterface
+class EmploymentCollectionFactory implements FactoryInterface
 {
     
     /* (non-PHPdoc)
@@ -13,9 +13,9 @@ class EducationCollectionFactory implements FactoryInterface
     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $container = new \Core\Form\CollectionContainer('CvEducationForm', new \Cv\Entity\Education());
-        $container->setLabel(/*@translate */ 'Education history');
+        $container = new \Core\Form\CollectionContainer('CvEmploymentForm', new \Cv\Entity\Employment());
+        $container->setLabel(/*@translate */ 'Employment history');
         
-        return $container;
+		return $container;
     }
 }

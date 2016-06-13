@@ -1,0 +1,32 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author fedys
+ */
+
+use \Core\Form\View\Helper\Form;
+
+$container = $this->element; /* @var $container \Core\Form\Container */
+?>
+<div class="row">
+    <div class="col-md-8">
+        <?=$this->summaryForm($container->getForm('contact'), Form::LAYOUT_HORIZONTAL)?>
+    </div>
+    <div class="col-md-4">
+        <h3><?php echo $this->translate('Image') ?></h3>
+        <?=$this->form($container->getForm('image'))?>
+    </div>
+</div>
+<div>
+     <?=$this->formCollectionContainer($container->getForm('employments'))?>
+</div>
+<div>
+     <?=$this->formCollectionContainer($container->getForm('educations'))?>
+</div>
+<div>
+     <?=$this->formCollectionContainer($container->getForm('skills'))?>
+</div>

@@ -9,7 +9,7 @@
 
 namespace Cv\Entity;
 
-use Core\Entity\AbstractEntity;
+use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
@@ -19,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @package Cv\Entity
  * @ODM\EmbeddedDocument
  */
-class Skill extends AbstractEntity
+class Skill extends AbstractIdentifiableEntity
 {
     
     /**
@@ -40,6 +40,13 @@ class Skill extends AbstractEntity
      * @ODM\EmbedMany(targetDocument="ComputerSkill")
      */
     protected $computerSkills;
+    
+    public function __construct()
+    {
+        $this->nativeLanguages = new ArrayCollection();
+        $this->languageSkills = new ArrayCollection();
+        $this->computerSkills = new ArrayCollection();
+    }
 
     /**
      * @param $nativeLanguages

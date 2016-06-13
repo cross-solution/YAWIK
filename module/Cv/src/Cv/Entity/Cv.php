@@ -8,6 +8,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
+use Auth\Entity\InfoInterface;
+use Core\Collection\IdentityWrapper;
 
 /**
  *
@@ -24,6 +26,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      * @ODM\Index
      */
     protected $user;
+    
+    /**
+     * personal informations, contains firstname, lastname, email,
+     * phone etc.
+     *
+     * @ODM\EmbedOne(targetDocument="Contact")
+     */
+    protected $contact;
     
     /**
      * Education History
@@ -76,6 +86,26 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     }
     
     /**
+     * @return Contact
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+    
+    /**
+     * @return Cv
+     */
+    public function setContact(InfoInterface $contact)
+    {
+        if (!$contact instanceof Contact) {
+            $contact = new Contact($contact);
+        }
+        $this->contact = $contact;
+        return $this;
+    }
+    
+    /**
      * @return ArrayCollection
      */
     public function getEducations()
@@ -84,6 +114,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
             $this->setEducations(new ArrayCollection());
         }
         return $this->educations;
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getEducationsIndexedById()
+    {
+        return new IdentityWrapper($this->getEducations());
     }
 
     /**
@@ -106,6 +144,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
         }
         return $this->employments;
     }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getEmploymentsIndexedById()
+    {
+        return new IdentityWrapper($this->getEmployments());
+    }
 
     /**
      * @param CollectionInterface $employments
@@ -126,6 +172,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
             $this->setSkills(new ArrayCollection());
         }
         return $this->skills;
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getSkillsIndexedById()
+    {
+        return new IdentityWrapper($this->getSkills());
     }
 
     /**
@@ -151,5 +205,4 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     {
         return $this->isDraft;
     }
-
 }

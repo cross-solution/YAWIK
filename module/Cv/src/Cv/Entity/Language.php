@@ -125,7 +125,7 @@ class Language extends AbstractEntity implements LanguageInterface
      */
     public function setLevelSpokenProduction($level)
     {
-        $this->levelReading = $level;
+        $this->levelSpokenProduction = $level;
         return $this;
     }
 
