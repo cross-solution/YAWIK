@@ -87,6 +87,8 @@ class RepositoryService
         $callback = array($this->dm, $method);
         if (is_callable($callback)) {
             return call_user_func_array($callback, $params);
+        } else {
+            throw new \BadMethodCallException('Method not exists for this class.');
         }
     }
 }
