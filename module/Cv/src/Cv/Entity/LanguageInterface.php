@@ -4,8 +4,10 @@ namespace Cv\Entity;
 
 use Core\Entity\EntityInterface;
 
+
 interface LanguageInterface extends EntityInterface
 {
+
     /*
 	 * name of the language de,en,fr
 	 */

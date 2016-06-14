@@ -569,7 +569,6 @@ class Container extends Element implements
         } else {
             return;
         }
-        
         if ($form instanceof Container) {
             $form->setEntity($mapEntity);
         } else {

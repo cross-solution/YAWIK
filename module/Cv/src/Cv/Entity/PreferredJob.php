@@ -11,6 +11,7 @@ namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ODM\EmbeddedDocument
@@ -18,24 +19,32 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class PreferredJob extends AbstractIdentifiableEntity implements \PreferredJobInterface
 {
     /**
-     * @var string
-     * @ODM\Field(type="string")
+     * @var array
+     * @ODM\Collection
      */
     protected $typeOfApplication;
-    
+
     /**
      * @var string
      * @ODM\Field(type="string")
      */
-    protected $preferredJob;
+    protected $desiredJob;
     
     /**
      * @var string
      * @ODM\Field(type="string")
      **/
-    protected $preferredLocation;
-    
-    /** willingness to travel,
+    protected $desiredLocation;
+
+    /**
+     * @var Collection
+     * @ODM\EmbedMany(targetDocument="\Core\Entity\Location")
+     **/
+    protected $desiredLocations;
+
+
+    /**
+     * willingness to travel,
      *
      * yes, no, bedingt
      *
@@ -44,7 +53,7 @@ class PreferredJob extends AbstractIdentifiableEntity implements \PreferredJobIn
 
 
     /** expectedSalary
-     * @ODM\Boolean */
+     * @ODM\Field(type="string") */
     protected $expectedSalary;
 
     /**
@@ -58,7 +67,7 @@ class PreferredJob extends AbstractIdentifiableEntity implements \PreferredJobIn
         $this->typeOfApplication=$typeOfApplication;
         return $this;
     }
-    
+
     /**
      * Gets the type of an Application
      *
@@ -89,6 +98,17 @@ class PreferredJob extends AbstractIdentifiableEntity implements \PreferredJobIn
     public function getDesiredLocation()
     {
         return $this->desiredLocation;
+    }
+
+    public function setDesiredLocations($desiredLocations)
+    {
+        $this->desiredLocation=$desiredLocations;
+        return $this;
+    }
+
+    public function getDesiredLocations()
+    {
+        return $this->desiredLocations;
     }
     
     public function setWillingnessToTravel($willingnessToTravel)

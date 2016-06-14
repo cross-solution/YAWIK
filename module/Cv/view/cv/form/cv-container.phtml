@@ -22,7 +22,7 @@ $container = $this->element; /* @var $container \Core\Form\Container */
     </div>
 </div>
 <div>
-    <?php echo $this->formCollectionContainer($container->getForm('preferredJob'))?>
+    <?php echo $this->form($container->getForm('preferredJob'))?>
 </div>
 <div>
      <?=$this->formCollectionContainer($container->getForm('employments'))?>
@@ -30,6 +30,31 @@ $container = $this->element; /* @var $container \Core\Form\Container */
 <div>
      <?=$this->formCollectionContainer($container->getForm('educations'))?>
 </div>
+
 <div>
-     <?=$this->formCollectionContainer($container->getForm('skills'))?>
+    <?=$this->form($container->getForm('nativeLanguage'))?>
 </div>
+
+<div>
+    <?=$this->formCollectionContainer($container->getForm('languageSkills'))?>
+</div>
+<div>
+     <?php # echo $this->formCollectionContainer($container->getForm('skills'))?>
+</div>
+<script type="text/javascript">
+    function formatState (level) {
+        var $level = $(
+            '<div>' + level.id + '</div><div>' + level.text + '</div>'
+        );
+        console.debug( level );
+        return $level;
+    }
+    console.debug( $("#skill-languageSkills-0-levelReading"));
+    $("#skill-languageSkills-0-levelReading").select2({
+        templateResult: formatState,
+        templateSelection: formatState,
+        theme:"bootstrap",
+        width: 'resolve'
+    });
+
+</script>

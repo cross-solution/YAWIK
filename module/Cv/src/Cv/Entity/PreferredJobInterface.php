@@ -35,6 +35,10 @@ interface PreferredJobInterface extends EntityInterface
 
     public function getDesiredLocation();
 
+    public function setDesiredLocations($preferredLocations);
+
+    public function getDesiredLocations();
+
     public function setWillingnessToTravel($willingnessToTravel);
 
     public function getWillingnessToTravel();
