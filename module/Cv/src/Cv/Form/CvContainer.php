@@ -46,7 +46,7 @@ class CvContainer extends Container implements ViewPartialProviderInterface
                     'is_disable_capable' => true,
                     'is_disable_elements_capable' => true,
                     'enable_descriptions' => true,
-                    'description' => /*@translate*/  'Where do you want to work tomorrow. This heading gives an immediate overview of your desired next job.',
+                    'description' => /*@translate*/  'Where do you want to work tomorrow? This heading gives an immediate overview of your desired next job.',
                 ),
 
             ),
@@ -63,7 +63,7 @@ class CvContainer extends Container implements ViewPartialProviderInterface
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*@translate*/  'Select from list or enter your mother tongue.',
+                    'description' => /*@translate*/  'Please select from list or enter your mother tongue.',
                 ),
             ],
             'languageSkills' => [

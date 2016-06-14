@@ -4,7 +4,7 @@ namespace Cv\Form;
 
 use Core\Form\SummaryForm;
 
-class LanguageForm extends SummaryForm
+class LanguageSkillForm extends SummaryForm
 {
     protected $baseFieldset = 'Cv/LanguageSkillFieldset';
 

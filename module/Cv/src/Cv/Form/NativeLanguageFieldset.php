@@ -12,7 +12,7 @@ class NativeLanguageFieldset extends Fieldset
      * languages iso 639-1
      * @var array
      */
-    public static $value_options = [
+    public static $languagesOptions = [
         'ab' => /*@translate*/ 'Abkhazian',
         'af' => /*@translate*/ 'Afrikaans',
         'sq' => /*@translate*/ 'Albanian',
@@ -135,7 +135,7 @@ class NativeLanguageFieldset extends Fieldset
                 'type'       => 'Zend\Form\Element\Select',
                 'options'    => array(
                     'label'         => 'Language',
-                    'value_options' => self::$value_options
+                    'value_options' => self::$languagesOptions
                 ),
                 'attributes' => [
                     'id'       => 'languageskill-language',

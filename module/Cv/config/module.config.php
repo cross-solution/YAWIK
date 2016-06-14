@@ -156,8 +156,8 @@ return array(
             'CvSkillForm' => '\Cv\Form\SkillForm',
             'Cv/PreferredJobForm' => 'Cv\Form\PreferredJobForm',
             'Cv/PreferredJobFieldset' => 'Cv\Form\PreferredJobFieldset',
-            'Cv/LanguageSkillForm' => '\Cv\Form\LanguageForm',
-            'Cv/LanguageSkillFieldset' => '\Cv\Form\LanguageFieldset',
+            'Cv/LanguageSkillForm' => '\Cv\Form\LanguageSkillForm',
+            'Cv/LanguageSkillFieldset' => '\Cv\Form\LanguageSkillFieldset',
             'Cv/NativeLanguageForm' => '\Cv\Form\NativeLanguageForm',
             'Cv/NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
 

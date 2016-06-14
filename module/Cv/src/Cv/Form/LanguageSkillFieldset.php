@@ -6,7 +6,7 @@ use Zend\Form\Fieldset;
 use Cv\Entity\Language as LanguageEntity;
 use Core\Entity\Hydrator\EntityHydrator;
 
-class LanguageFieldset extends Fieldset
+class LanguageSkillFieldset extends Fieldset
 {
     public function init()
     {
@@ -21,7 +21,7 @@ class LanguageFieldset extends Fieldset
                 'type'       => 'Zend\Form\Element\Select',
                 'options'    => array(
                     'label'         => 'Language',
-                    'value_options' => NativeLanguageFieldset::$value_options
+                    'value_options' => NativeLanguageFieldset::$languagesOptions
                 ),
                 'attributes' => array(
                     'title'         => /*@translate */ 'which language are you speeking',
