@@ -16,7 +16,6 @@ use Zend\View\Model\ViewModel;
 use Zend\Stdlib\Response;
 use Zend\View\Variables as ViewVariables;
 use Zend\Stdlib\ArrayUtils;
-use Core\Mail\MailService;
 
 /**
  * Class HTMLTemplateMessage.
@@ -32,7 +31,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
 
     /**
      * View variables
-     * @var array|ArrayAccess&Traversable
+     * @var array|\ArrayAccess|\Traversable
      */
     protected $variables = array();
 
@@ -98,11 +97,9 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
      */
     public function __unset($name)
     {
-        if (!$this->__isset($name)) {
-            return null;
+        if ($this->__isset($name)) {
+            unset($this->variables[$name]);
         }
-
-        unset($this->variables[$name]);
     }
 
     /**
@@ -140,7 +137,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
      *
      * Can be an array or a Traversable + ArrayAccess object.
      *
-     * @param  array|ArrayAccess|Traversable $variables
+     * @param  array|\ArrayAccess|\Traversable $variables
      * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
      * @throws \InvalidArgumentException
      * @return self
@@ -176,7 +173,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
     /**
      * Get view variables
      *
-     * @return array|ArrayAccess|Traversable
+     * @return array|\ArrayAccess|\Traversable
      */
     public function getVariables()
     {
@@ -197,7 +194,6 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
     }
 
     /**
-     *
      *
      * @param $template
      *
