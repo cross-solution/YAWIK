@@ -13,7 +13,7 @@ namespace Core\Mail;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Mail\Address;
 use Zend\Mail\AddressList;
-use Zend\Mail\Message;
+use Zend\Mail\Message as MailMessage;
 use Zend\Mail\Transport\TransportInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
@@ -124,7 +124,7 @@ class MailService extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if (!$plugin instanceof Message) {
+        if (!$plugin instanceof MailMessage) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Expected instance of \Zend\Mail\Message but received %s',
@@ -180,12 +180,12 @@ class MailService extends AbstractPluginManager
      *
      * Sets default values where needed.
      *
-     * @param string|Message $mail
+     * @param string|MailMessage $mail
      * @param array          $options
      */
     public function send($mail, array $options = array())
     {
-        if (!$mail instanceof Message) {
+        if (!$mail instanceof MailMessage) {
             $mail = $this->get($mail, $options);
         }
 
