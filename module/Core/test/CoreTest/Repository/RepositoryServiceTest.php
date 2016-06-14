@@ -17,9 +17,6 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 
-/**
- * @group wip
- */
 class RepositoryServiceTest extends PHPUnit_Framework_TestCase
 {
     use ServiceManagerMockTrait;
