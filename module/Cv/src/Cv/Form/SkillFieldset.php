@@ -38,7 +38,7 @@ class SkillFieldset extends Fieldset
                 'should_create_template' => true,
                 'allow_add' => true,
                 'target_element' => array(
-                    'type' => 'NativeLanguageFieldset'
+                    'type' => 'Cv/NativeLanguageFieldset'
                 )
             )
         ));

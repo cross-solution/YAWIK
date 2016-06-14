@@ -39,6 +39,17 @@ class CvContainer extends Container implements ViewPartialProviderInterface
                 'property' => 'contact',
                 'use_files_array' => true
             ),
+            'preferredJob' => array(
+                'type' => 'Cv/PreferredJobForm',
+                'property' => 'preferredJob',
+                'options' => array(
+                    'is_disable_capable' => true,
+                    'is_disable_elements_capable' => true,
+                    'enable_descriptions' => true,
+                    'description' => /*@translate*/  'Where do you want to work tomorrow. This heading gives an immediate overview of your desired next job.',
+                ),
+
+            ),
             'employments' => array(
                 'type' => 'CvEmploymentCollection',
                 'property' => 'employmentsIndexedById'
@@ -47,6 +58,18 @@ class CvContainer extends Container implements ViewPartialProviderInterface
                 'type' => 'CvEducationCollection',
                 'property' => 'educationsIndexedById'
             ),
+            'nativeLanguage' => [
+                'type' => 'Cv/NativeLanguageForm',
+                'property' => true,
+                'options' => array(
+                    'enable_descriptions' => true,
+                    'description' => /*@translate*/  'Select from list or enter your mother tongue.',
+                ),
+            ],
+            'languageSkills' => [
+                'type' => 'Cv/LanguageSkillCollection',
+                'property' => 'languageSkillsIndexedById',
+            ],
             'skills' => array(
                 'type' => 'CvSkillCollection',
                 'property' => 'skillsIndexedById'

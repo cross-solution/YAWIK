@@ -11,34 +11,51 @@ namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ODM\EmbeddedDocument
  */
-class PreferredJob extends AbstractIdentifiableEntity
+class PreferredJob extends AbstractIdentifiableEntity implements \PreferredJobInterface
 {
     /**
-     * @var string
-     * @ODM\Field(type="string")
+     * @var array
+     * @ODM\Collection
      */
     protected $typeOfApplication;
-    
+
     /**
      * @var string
      * @ODM\Field(type="string")
      */
-    protected $preferredJob;
+    protected $desiredJob;
     
     /**
      * @var string
      * @ODM\Field(type="string")
      **/
-    protected $preferredLocation;
-    
-    /** willingness to travel, bool
-     * @ODM\Boolean */
+    protected $desiredLocation;
+
+    /**
+     * @var Collection
+     * @ODM\EmbedMany(targetDocument="\Core\Entity\Location")
+     **/
+    protected $desiredLocations;
+
+
+    /**
+     * willingness to travel,
+     *
+     * yes, no, bedingt
+     *
+     * @ODM\Field(type="string") */
     protected $willingnessToTravel;
-    
+
+
+    /** expectedSalary
+     * @ODM\Field(type="string") */
+    protected $expectedSalary;
+
     /**
      * Apply for a job, internship or studies
      *
@@ -50,7 +67,7 @@ class PreferredJob extends AbstractIdentifiableEntity
         $this->typeOfApplication=$typeOfApplication;
         return $this;
     }
-    
+
     /**
      * Gets the type of an Application
      *
@@ -61,15 +78,37 @@ class PreferredJob extends AbstractIdentifiableEntity
         return $this->typeOfApplication;
     }
     
-    public function setPreferredJob($preferredJob)
+    public function setDesiredJob($desiredJob)
     {
-        $this->preferredJob=$preferredJob;
+        $this->desiredJob=$desiredJob;
         return $this;
     }
     
-    public function getPreferredJob()
+    public function getDesiredJob()
     {
-        return $this->preferredJob;
+        return $this->desiredJob;
+    }
+
+    public function setDesiredLocation($desiredLocation)
+    {
+        $this->desiredLocation=$desiredLocation;
+        return $this;
+    }
+
+    public function getDesiredLocation()
+    {
+        return $this->desiredLocation;
+    }
+
+    public function setDesiredLocations($desiredLocations)
+    {
+        $this->desiredLocation=$desiredLocations;
+        return $this;
+    }
+
+    public function getDesiredLocations()
+    {
+        return $this->desiredLocations;
     }
     
     public function setWillingnessToTravel($willingnessToTravel)
@@ -81,5 +120,16 @@ class PreferredJob extends AbstractIdentifiableEntity
     public function getWillingnessToTravel()
     {
         return $this->willingnessToTravel;
+    }
+
+    public function setExpectedSalary($expectedSalary)
+    {
+        $this->expectedSalary=$expectedSalary;
+        return $this;
+    }
+
+    public function getExpectedSalary()
+    {
+        return $this->expectedSalary;
     }
 }

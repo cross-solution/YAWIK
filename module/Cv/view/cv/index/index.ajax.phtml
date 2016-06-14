@@ -3,13 +3,28 @@
 <thead>
 <tr>
     <th><?php echo $this->translate('Id')?></th>
+    <th><?php echo $this->translate('Name')?></th>
+    <th><?php echo $this->translate('Career')?></th>
+    <th><?php echo $this->translate('Desired Work')?></th>
+    <th><?php echo $this->translate('Desired Location')?></th>
 </tr>
 </thead>
 
 <tbody>
-<?php foreach ($resumes as $resume):?>
+<?php foreach ($this->resumes as $resume): /* @var \Cv\Entity\Cv $resume */ ?>
 <tr>
-    <td><?php echo $resume->id ?></td>
+    <td><?php echo $resume->getId() ?></td>
+    <td><?php echo $resume->getContact()->getDisplayName() ?></td>
+    <td>
+        <?php if (count($resume->getEducations())>0):?>
+      <?php echo $this->translate('education').': '.$this->period($resume->getEducations()).' '.$this->translate('years')?><br/>
+    <?php endif;?>
+    <?php if (count($resume->getEmployments())>0):?>
+      <?php echo $this->translate('work experience').': '.$this->period($resume->getEmployments()).' '.$this->translate('years')?><br/>
+    <?php endif;?>
+    </td>
+    <td><?php echo $resume->getPreferredJob()->getDesiredJob() ?></td>
+    <td><?php echo $resume->getPreferredJob()->getDesiredLocation() ?></td>
 </tr>
 <?php endforeach?>
 </tbody>

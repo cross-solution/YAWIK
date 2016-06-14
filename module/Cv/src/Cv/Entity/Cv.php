@@ -60,6 +60,28 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     protected $skills;
 
     /**
+    * Skills
+    *
+    * @var ArrayCollection
+    * @ODM\EmbedMany(targetDocument="\Cv\Entity\Language")
+    */
+    protected $languageSkills;
+
+    /**
+     * @var array
+     * @ODM\Collection
+     */
+    protected $nativeLanguages=[];
+
+
+    /**
+     * Preferred Job. Where do the user want to work? What kind of work he wants do do
+     *
+     * @ODM\EmbedOne(targetDocument="\Cv\Entity\PreferredJob")
+     */
+    protected $preferredJob;
+
+    /**
      * Flag indicating draft state of this cv.
      *
      * @var bool
@@ -204,5 +226,75 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     public function isDraft()
     {
         return $this->isDraft;
+    }
+
+    /**
+     * @return \PreferredJobInterface
+     */
+    public function getPreferredJob()
+    {
+        if (null == $this->preferredJob) {
+            $this->preferredJob = new PreferredJob();
+        }
+        return $this->preferredJob;
+    }
+
+    /**
+     * @param \PreferredJobInterface $preferredJob
+     * @return $this
+     */
+    public function setPreferredJob(\PreferredJobInterface $preferredJob)
+    {
+        $this->preferredJob = $preferredJob;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getLanguageSkills()
+    {
+        if (!$this->languageSkills) {
+            $this->setLanguageSkills(new ArrayCollection());
+        }
+        return $this->languageSkills;
+    }
+
+    /**
+     * @param CollectionInterface $skills
+     * @return $this
+     */
+    public function setLanguageSkills(CollectionInterface $languageSkills)
+    {
+        $this->getLanguageSkills = $languageSkills;
+        return $this;
+    }
+    /**
+     * @return ArrayCollection
+     */
+    public function getLanguageSkillsIndexedById()
+    {
+        return new IdentityWrapper($this->getLanguageSkills());
+    }
+    /**
+     * Sets the mothers tongue of the candidate
+     *
+     * @param array
+     * @return $this
+     */
+    public function setNativeLanguages($nativeLanguages)
+    {
+        $this->nativeLanguages=$nativeLanguages;
+        return $this;
+    }
+
+    /**
+     * Gets the mothers tongue of the candidate
+     *
+     * @return string
+     */
+    public function getNativeLanguages()
+    {
+        return $this->nativeLanguages;
     }
 }

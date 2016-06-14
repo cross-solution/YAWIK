@@ -20,12 +20,12 @@ interface CvInterface extends EntityInterface, IdentifiableEntityInterface
     public function setEducations(CollectionInterface $educations);
     
     /**
-     * @return the $employments
+     * @return CollectionInterface $employments
      */
     public function getEmployments();
     
     /**
-     * @param field_type $employments
+     * @param CollectionInterface $employments
      */
     public function setEmployments(CollectionInterface $employments);
 }

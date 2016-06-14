@@ -45,11 +45,10 @@ class FormDatePicker extends FormText
         $params   = $view->plugin('params'); /* @var \Core\View\Helper\Params $params */
         $lang     = $params('lang');
 
+        $headScript->appendFile($basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'));
         if (in_array($this->language, ['de'])) {
             $headScript->appendFile($basePath('/js/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
         }
-        $headScript->appendFile($basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'));
-
 
         $element->setAttributes([
                                     'data-date-language' => $lang,
