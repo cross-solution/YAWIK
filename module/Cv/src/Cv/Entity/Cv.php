@@ -2,14 +2,14 @@
 
 namespace Cv\Entity;
 
+use Auth\Entity\InfoInterface;
+use Auth\Entity\UserInterface;
+use Core\Collection\IdentityWrapper;
 use Core\Entity\AbstractIdentifiableEntity;
+use Core\Entity\DraftableEntityInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Auth\Entity\UserInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Core\Entity\DraftableEntityInterface;
-use Auth\Entity\InfoInterface;
-use Core\Collection\IdentityWrapper;
 
 /**
  *
@@ -229,7 +229,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     }
 
     /**
-     * @return \PreferredJobInterface
+     * @return \Cv\Entity\PreferredJobInterface
      */
     public function getPreferredJob()
     {
@@ -240,10 +240,10 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     }
 
     /**
-     * @param \PreferredJobInterface $preferredJob
+     * @param \Cv\Entity\PreferredJobInterface $preferredJob
      * @return $this
      */
-    public function setPreferredJob(\PreferredJobInterface $preferredJob)
+    public function setPreferredJob(\Cv\Entity\PreferredJobInterface $preferredJob)
     {
         $this->preferredJob = $preferredJob;
         return $this;

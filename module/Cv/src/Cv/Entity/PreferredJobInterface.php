@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+namespace Cv\Entity;
+
 use Core\Entity\EntityInterface;
 
 interface PreferredJobInterface extends EntityInterface
@@ -46,4 +48,4 @@ interface PreferredJobInterface extends EntityInterface
     public function setExpectedSalary($expectedSalary);
 
     public function getExpectedSalary();
- }
+}
