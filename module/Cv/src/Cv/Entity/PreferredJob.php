@@ -10,13 +10,13 @@
 namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * @ODM\EmbeddedDocument
  */
-class PreferredJob extends AbstractIdentifiableEntity implements \PreferredJobInterface
+class PreferredJob extends AbstractIdentifiableEntity implements \Cv\Entity\PreferredJobInterface
 {
     /**
      * @var array
