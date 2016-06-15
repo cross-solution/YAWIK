@@ -214,6 +214,10 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
         return $this;
     }
 
+    /**
+     * @param bool $isDraft
+     * @return $this
+     */
     public function setIsDraft($isDraft)
     {
         $this->isDraft=$isDraft;
@@ -261,14 +265,15 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     }
 
     /**
-     * @param CollectionInterface $skills
+     * @param CollectionInterface $languageSkills
      * @return $this
      */
     public function setLanguageSkills(CollectionInterface $languageSkills)
     {
-        $this->getLanguageSkills = $languageSkills;
+        $this->languageSkills = $languageSkills;
         return $this;
     }
+
     /**
      * @return ArrayCollection
      */
@@ -276,6 +281,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     {
         return new IdentityWrapper($this->getLanguageSkills());
     }
+
     /**
      * Sets the mothers tongue of the candidate
      *
