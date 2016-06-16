@@ -2,41 +2,37 @@
 /**
  * YAWIK
  *
- * @filesource
- * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
  */
 
-/** */
-namespace JobsTest\Entity;
+namespace CoreTest\Entity;
 
-use Core\Entity\Collection\ArrayCollection;
-use Jobs\Entity\Location;
-use GeoJson\GeoJson;
+use Core\Entity\AbstractLocation;
 use GeoJson\Geometry\Point;
 
+class ConcreteLocation extends AbstractLocation
+{
+
+}
+
 /**
- * Tests for Location
+ * Class AbstractLocationTest
  *
- * @covers \Jobs\Entity\Location
- * @coversDefaultClass \Jobs\Entity\Location
- *
- * @author Carsten Bleek <gelhausen@cross-solution.de>
- * @group  Jobs
- * @group  Jobs.Entity
+ * @package CoreTest\Entity
  */
-class LocationTest extends \PHPUnit_Framework_TestCase
+class AbstractLocationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The "Class under Test"
      *
-     * @var Location
+     * @var ConcreteLocation
      */
     private $target;
 
     public function setup()
     {
-        $this->target = new Location();
+        $this->target = new ConcreteLocation();
     }
 
     /**
@@ -57,9 +53,9 @@ class LocationTest extends \PHPUnit_Framework_TestCase
     {
         $postalCode = '60486';
 
-        $this->target->setPostalcode($postalCode);
+        $this->target->setPostalCode($postalCode);
 
-        $this->assertEquals($postalCode, $this->target->getPostalcode());
+        $this->assertEquals($postalCode, $this->target->getPostalCode());
     }
 
     /**
