@@ -10,26 +10,26 @@
 /** LocationInterface.php */
 namespace Core\Entity;
 
-use Core\Entity\EntityInterface;
 use GeoJson\GeoJson;
+use Jobs\Entity\CoordinatesInterface;
 
 interface LocationInterface extends EntityInterface
 {
 
     /**
-     * Sets the postalcode of a location
+     * Sets the Postal Code of a location
      *
-     * @param $postalcode
+     * @param   string $postalCode
      * @return mixed
      */
-    public function setPostalcode($postalcode);
+    public function setPostalCode($postalCode);
 
     /**
-     * Gets the postalcode of a location
+     * Gets the Postal Code of a location
      *
      * @return mixed
      */
-    public function getPostalcode();
+    public function getPostalCode();
 
     /**
      * Gets the coordinates lon/lat of a location
@@ -42,8 +42,8 @@ interface LocationInterface extends EntityInterface
     /**
      * Sets the coordinates lon/lat of a location
      *
-     * @param $point
-     * @return mixed
+     * @param GeoJson $coordinates
+     * @internal param $point
      */
     public function setCoordinates(GeoJson $coordinates);
 

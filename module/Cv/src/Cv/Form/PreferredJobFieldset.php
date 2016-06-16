@@ -13,7 +13,7 @@ class PreferredJobFieldset extends Fieldset
      *
      * @var array
      */
-    public static $typoOfApplicationOptions = [
+    public static $typeOfApplicationOptions = [
         '' => '', // needed for jquery select2 to render the placeholder
         "temporary" => /*@translate*/ "Temporary",
         "permanent" => /*@translate*/ "Permanent",
@@ -29,6 +29,21 @@ class PreferredJobFieldset extends Fieldset
         "no"=>/*@translate*/ "No"
     ];
 
+    /**
+     * name of the used geo location Engine
+     *
+     * @var string $locationEngineType
+     */
+    protected $locationEngineType;
+
+    /**
+     * @param $locationEngineType
+     */
+    public function setLocationEngineType($locationEngineType)
+    {
+        $this->locationEngineType = $locationEngineType;
+    }
+
     public function init()
     {
         $this->setName('preferredJob')
@@ -41,7 +56,7 @@ class PreferredJobFieldset extends Fieldset
                 'name' => 'typeOfApplication',
                 'type' => 'select',
                 'options' => [
-                    'value_options' => self::$typoOfApplicationOptions,
+                    'value_options' => self::$typeOfApplicationOptions,
                     'label' => /*@translate */ 'desired type of work',
                     'description' => /*@translate*/ 'Do you want to work permanently or temporary?',
                 ],
@@ -73,11 +88,12 @@ class PreferredJobFieldset extends Fieldset
 
         $this->add(
             array(
-                'name' => 'desiredLocations',
+                'name' => 'geo-location',
                 'type' => 'Location',
                 'options' => array(
                     'label' => /*@translate */ 'desired job location',
                     'description' => /*@translate*/ 'Where do you want to work?',
+                    'engine_type' => $this->locationEngineType,
                 ),
                 'attributes' => array(
                     'title' => /*@translate */ 'please describe your position',
