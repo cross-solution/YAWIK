@@ -1,6 +1,15 @@
 <?php
 return array(
+    'doctrine' => array(
+        'configuration' => array(
+            'odm_default' => array(
+                'default_db' => 'YAWIK_TEST',
+            ),
+        ),
+    ),
     'modules' => array(
+        'DoctrineModule',
+        'DoctrineMongoODMModule',
         'Install',
         'Core',
         'Auth',
