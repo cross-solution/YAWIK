@@ -10,8 +10,8 @@
 /** GetText.php */
 namespace Geo\Form;
 
+use Core\Entity\LocationInterface;
 use Geo\Form\GeoText\Converter;
-use Jobs\Entity\Location;
 use Zend\Form\Element\Hidden;
 use Zend\Form\Element\Text;
 use Core\Form\ViewPartialProviderInterface;
@@ -206,10 +206,17 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
      */
     public function setValue($value, $type=null)
     {
-        if ($value instanceOf Location) {
+        if ($value instanceOf LocationInterface) {
             $value = $this->getConverter()->toValue($value, $type ?: $this->typeElement->getValue());
         }
-        if ('geo' == $value['type']) {
+
+        if (!is_array($value)) {
+            $value = explode('|', $value, 2);
+            $value = [
+                'name' => $value[0],
+                'data' => isset($value[1]) ? $value[1] : '',
+            ];
+        } elseif ('geo' == $value['type']) {
             $lonLat = $this->getConverter()->toCoordinates($value['name']);
 
             $lon = $lat = 0;
@@ -230,13 +237,7 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
                 'postalcode' =>'',
                 'country' => 'DE'];
         }
-        if (!is_array($value)) {
-            $value = explode('|', $value, 2);
-            $value = [
-                'name' => $value[0],
-                'data' => isset($value[1]) ? $value[1] : '',
-            ];
-        }
+
 
         $this->nameElement->setValue($value['name']);
         $this->dataElement->setValue($value['data']);

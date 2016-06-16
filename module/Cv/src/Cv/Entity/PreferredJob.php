@@ -10,19 +10,20 @@
 namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * @ODM\EmbeddedDocument
  */
-class PreferredJob extends AbstractIdentifiableEntity implements \Cv\Entity\PreferredJobInterface
+class PreferredJob extends AbstractIdentifiableEntity implements PreferredJobInterface
 {
     /**
      * @var array
      * @ODM\Collection
      */
-    protected $typeOfApplication;
+    protected $typeOfApplication = array();
 
     /**
      * @var string
@@ -38,7 +39,7 @@ class PreferredJob extends AbstractIdentifiableEntity implements \Cv\Entity\Pref
 
     /**
      * @var Collection
-     * @ODM\EmbedMany(targetDocument="\Core\Entity\Location")
+     * @ODM\EmbedMany(targetDocument="\Cv\Entity\Location")
      **/
     protected $desiredLocations;
 
@@ -56,22 +57,27 @@ class PreferredJob extends AbstractIdentifiableEntity implements \Cv\Entity\Pref
      * @ODM\Field(type="string") */
     protected $expectedSalary;
 
+    public function __construct()
+    {
+        $this->desiredLocations = new ArrayCollection();
+    }
+
     /**
      * Apply for a job, internship or studies
      *
-     * @param string $typeOfApplication
-     * @return \Cv\Entity\PreferredJob
+     * @param   array $typeOfApplication
+     * @return  $this
      */
-    public function setTypeOfApplication($typeOfApplication)
+    public function setTypeOfApplication(array $typeOfApplication)
     {
-        $this->typeOfApplication=$typeOfApplication;
+        $this->typeOfApplication = $typeOfApplication;
         return $this;
     }
 
     /**
      * Gets the type of an Application
      *
-     * @return string
+     * @return array
      */
     public function getTypeOfApplication()
     {
@@ -100,9 +106,9 @@ class PreferredJob extends AbstractIdentifiableEntity implements \Cv\Entity\Pref
         return $this->desiredLocation;
     }
 
-    public function setDesiredLocations($desiredLocations)
+    public function setDesiredLocations(Collection $desiredLocations)
     {
-        $this->desiredLocation=$desiredLocations;
+        $this->desiredLocation = $desiredLocations;
         return $this;
     }
 

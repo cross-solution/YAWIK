@@ -155,7 +155,7 @@ return array(
             'CvEducationForm' => '\Cv\Form\EducationForm',
             'CvSkillForm' => '\Cv\Form\SkillForm',
             'Cv/PreferredJobForm' => 'Cv\Form\PreferredJobForm',
-            'Cv/PreferredJobFieldset' => 'Cv\Form\PreferredJobFieldset',
+            //'Cv/PreferredJobFieldset' => 'Cv\Form\PreferredJobFieldset',
             'Cv/LanguageSkillForm' => '\Cv\Form\LanguageSkillForm',
             'Cv/LanguageSkillFieldset' => '\Cv\Form\LanguageSkillFieldset',
             'Cv/NativeLanguageForm' => '\Cv\Form\NativeLanguageForm',
@@ -168,6 +168,7 @@ return array(
             'CvSkillCollection' => '\Cv\Form\SkillCollectionFactory',
             'Cv/LanguageSkillCollection' => '\Cv\Form\LanguageSkillCollectionFactory',
             'CvContactImage' => '\Cv\Form\CvContactImageFactory',
+            'Cv/PreferredJobFieldset' => '\Cv\Form\PreferredJobFieldsetFactory',
         ),
     ),
     

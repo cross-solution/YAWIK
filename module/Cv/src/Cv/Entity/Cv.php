@@ -247,7 +247,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      * @param \Cv\Entity\PreferredJobInterface $preferredJob
      * @return $this
      */
-    public function setPreferredJob(\Cv\Entity\PreferredJobInterface $preferredJob)
+    public function setPreferredJob(PreferredJobInterface $preferredJob)
     {
         $this->preferredJob = $preferredJob;
         return $this;

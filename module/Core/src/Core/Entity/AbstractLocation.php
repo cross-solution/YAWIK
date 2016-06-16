@@ -7,21 +7,12 @@
  * @license   MIT
  */
 
-/** Location.php */
 namespace Core\Entity;
 
-use Core\Entity\AbstractEntity;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use GeoJson\GeoJson;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-/**
- * Location of a job position
- *
- * @ODM\EmbeddedDocument
- * @ODM\Index(keys={"coordinates"="2dsphere"})
- *
- */
-class Location extends AbstractEntity implements LocationInterface
+abstract class AbstractLocation extends AbstractEntity implements LocationInterface
 {
     /**
      * city name of a job location
@@ -60,7 +51,7 @@ class Location extends AbstractEntity implements LocationInterface
      * @ODM\Field(type="string")
      */
     protected $country;
-    
+
     public function __construct()
     {
     }
@@ -88,7 +79,7 @@ class Location extends AbstractEntity implements LocationInterface
     /**
      * @return String
      */
-    public function getPostalcode()
+    public function getPostalCode()
     {
         return $this->postalcode;
     }
@@ -98,7 +89,7 @@ class Location extends AbstractEntity implements LocationInterface
      *
      * @return $this
      */
-    public function setPostalcode($postalcode)
+    public function setPostalCode($postalcode)
     {
         $this->postalcode = $postalcode;
         return $this;
@@ -113,13 +104,13 @@ class Location extends AbstractEntity implements LocationInterface
     }
 
     /**
-     * @param $city
+     * @param $country
      *
      * @return $this
      */
-    public function setCity($city)
+    public function setCity($country)
     {
-        $this->city = $city;
+        $this->city = $country;
         return $this;
     }
 

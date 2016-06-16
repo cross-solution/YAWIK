@@ -8,7 +8,7 @@
  */
 
 /** Location.php */
-namespace Jobs\Entity;
+namespace Cv\Entity;
 
 use Core\Entity\AbstractLocation;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
