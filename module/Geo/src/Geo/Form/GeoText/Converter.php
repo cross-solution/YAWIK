@@ -10,6 +10,7 @@
 /** */
 namespace Geo\Form\GeoText;
 
+use Core\Entity\LocationInterface;
 use Geo\Entity\Geometry\Point;
 use Jobs\Entity\Location;
 use Zend\Http\Client;
@@ -65,7 +66,7 @@ class Converter
         return $data;
     }
 
-    public function toValue(Location $location, $type)
+    public function toValue(LocationInterface $location, $type)
     {
         if ('photon' == $type) {
             $coordinates = $location->getCoordinates();

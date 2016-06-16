@@ -40,13 +40,13 @@ class LocationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox Extends \Core\Entity\LocationEntity and implements \Jobs\Entity\LocationInterface
+     * @testdox Extends \Core\Entity\LocationEntity and implements \Core\Entity\LocationInterface
      * @coversNothing
      */
     public function testExtendsAbstractEntityAndImplementsAtsModeInterface()
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
-        $this->assertInstanceOf('\Jobs\Entity\LocationInterface', $this->target);
+        $this->assertInstanceOf('\Core\Entity\LocationInterface', $this->target);
     }
 
 
