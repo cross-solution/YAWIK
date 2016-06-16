@@ -10,6 +10,7 @@
 /** ActionController of Core */
 namespace Cv\Controller;
 
+use Geo\Form\GeoText;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
@@ -67,11 +68,12 @@ class ManageController extends AbstractActionController
         $container = $serviceLocator->get('FormElementManager')
             ->get('CvContainer')
             ->setEntity($cv);
-        
+
+        // process post method
         if ($this->getRequest()->isPost()) {
             $params = $this->params();
             $form = $container->getForm($params->fromQuery('form'));
-            
+
             if ($form) {
                 $form->setData(array_merge(
                     $params->fromPost(),
@@ -84,7 +86,24 @@ class ManageController extends AbstractActionController
                         'errors' => $form->getMessages()
                     ]);
                 }
-                
+                /*
+                 * @todo This is a workaround for GeoJSON data insertion
+                 * until we figured out, what we really want it to be.
+                 */
+                $formId = $params->fromQuery('form');
+                if ('preferredJob' == $formId) {
+                    $locElem = $form->getBaseFieldset()->get('geo-location');
+                    if ($locElem instanceof GeoText) {
+                        $loc = $locElem->getValue('entity');
+                        $locations = $cv->getPreferredJob()->getDesiredLocations();
+                        if (count($locations)) {
+                            $locations->clear();
+                        }
+                        $locations->add($loc);
+                        $cv->getPreferredJob()->setDesiredLocation($locElem->getValue());
+                    }
+                }
+
                 $repositories->store($cv);
                 
                 if ($form instanceof SummaryFormInterface) {
@@ -106,8 +125,18 @@ class ManageController extends AbstractActionController
             } elseif (($action = $params->fromQuery('action')) !== null) {
                 return new JsonModel($container->executeAction($action, $params->fromPost()));
             }
+        }// end of process post method
+        else {
+            $locElem = $container->getForm('preferredJob')->getBaseFieldset()->get('geo-location');
+            if ($locElem instanceof GeoText) {
+                $loc = $cv->getPreferredJob()->getDesiredLocations();
+                if (count($loc)) {
+                    $locElem->setValue($loc->first());
+                }
+            }
         }
-        
+
+
         return [
             'container' => $container
         ];
