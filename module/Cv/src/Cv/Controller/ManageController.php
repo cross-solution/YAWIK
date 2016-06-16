@@ -36,14 +36,6 @@ class ManageController extends AbstractActionController
         $events->attach($defaultServices);
         return $this;
     }
-
-    /**
-     * Home site
-     *
-     */
-    public function indexAction()
-    {
-    }
     
     public function formAction()
     {
