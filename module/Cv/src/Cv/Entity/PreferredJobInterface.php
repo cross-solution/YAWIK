@@ -10,22 +10,23 @@
 namespace Cv\Entity;
 
 use Core\Entity\EntityInterface;
+use Doctrine\Common\Collections\Collection;
 
 interface PreferredJobInterface extends EntityInterface
 {
     /**
      * Apply for a job, internship or studies
      *
-     * @param string $typeOfApplication
+     * @param  array $typeOfApplication
      *
      * @return \Cv\Entity\PreferredJob
      */
-    public function setTypeOfApplication($typeOfApplication);
+    public function setTypeOfApplication(array $typeOfApplication);
 
     /**
      * Gets the type of an Application. Freelancer, contract
      *
-     * @return string
+     * @return array
      */
     public function getTypeOfApplication();
 
@@ -37,8 +38,15 @@ interface PreferredJobInterface extends EntityInterface
 
     public function getDesiredLocation();
 
-    public function setDesiredLocations($preferredLocations);
+    /**
+     * @param Collection $preferredLocations
+     * @return mixed
+     */
+    public function setDesiredLocations(Collection $preferredLocations);
 
+    /**
+     * @return Collection
+     */
     public function getDesiredLocations();
 
     public function setWillingnessToTravel($willingnessToTravel);
