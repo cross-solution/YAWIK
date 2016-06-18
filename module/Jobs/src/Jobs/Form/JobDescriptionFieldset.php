@@ -10,6 +10,7 @@
 
 namespace Jobs\Form;
 
+use Jobs\Entity\TemplateValuesInterface;
 use Zend\Form\Fieldset;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
@@ -28,6 +29,11 @@ class JobDescriptionFieldset extends Fieldset
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
+    }
+
+    public function allowObjectBinding($object)
+    {
+        return $object instanceof TemplateValuesInterface || parent::allowObjectBinding($object);
     }
 
     public function init()

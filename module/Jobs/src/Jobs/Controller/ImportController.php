@@ -13,6 +13,7 @@ namespace Jobs\Controller;
 
 use Geo\Entity\Geometry\Point;
 use Jobs\Entity\Location;
+use Jobs\Entity\TemplateValues;
 use Organizations\Entity\Employee;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -50,39 +51,15 @@ class ImportController extends AbstractActionController
     public function saveAction()
     {
         $services = $this->serviceLocator;
-        $config   = $services->get('Config');
-        
-        if (false) { // && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
-            // Test
-            $this->request->setMethod('post');
-            $params = new Parameters(
-                array(
-                'applyId' => '71022',
-                'company' => 'Holsten 4',
-                'companyId' => '1745',
-                'contactEmail' => 'gelhausen@cross-solution.de',
-                'title' => 'Fuhrparkleiter/-in MODs',
-                'location' => 'Bundesland, Bayern, DE',
-                'link' => 'http://anzeigen.jobsintown.de/job/1/79161.html',
-                'datePublishStart' => '2013-11-15',
-                'status' => 'active',
-                'reference' => '2130010128',
-                'atsEnabled' => '1',
-                'uriApply' => 'http://mw2.yawik.org/de/apply/129145',
-                'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
-                'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
-                'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg',
-                'locations' => '[{"country":"Deutschland","city":null,"region":"Mecklenburg-Vorpommern","coordinates":["13.2555","53.5476"]}]',
 
-                )
-            );
-            $this->getRequest()->setPost($params);
-        }
+        /* @var \Zend\Http\PhpEnvironment\Request $request */
+        $request = $this->getRequest();
 
         $params          = $this->params();
         $p               = $params->fromPost();
         $user            = $services->get('AuthenticationService')->getUser();
         $repositories    = $services->get('repositories');
+        /* @var \Jobs\Repository\Job $repositoriesJob */
         $repositoriesJob = $repositories->get('Jobs/Job');
         $log             = $services->get('Core/Log');
 
@@ -90,15 +67,16 @@ class ImportController extends AbstractActionController
         try {
             if (isset($user) && !empty($user->login)) {
                 $formElementManager = $services->get('FormElementManager');
+                /* @var \Jobs\Form\Import $form */
                 $form               = $formElementManager->get('Jobs/Import');
                 $id                 = $params->fromPost('id'); // determine Job from Database
+                /* @var \Jobs\Entity\Job $entity */
                 $entity             = null;
                 $createdJob         = true;
 
                 if (empty($id)) {
                     $applyId = $params->fromPost('applyId');
                     if (empty($applyId)) {
-                        // new Job (propably this branch is never used since all Jobs should have an apply-Id)
                         $entity = $repositoriesJob->create();
                     } else {
                         $entity = $repositoriesJob->findOneBy(array("applyId" => (string) $applyId));
@@ -115,18 +93,24 @@ class ImportController extends AbstractActionController
                 }
                 //$services->get('repositories')->get('Jobs/Job')->store($entity);
                 $form->bind($entity);
-                if ($this->request->isPost()) {
+                if ($request->isPost()) {
                     $loginSuffix                   = '';
                     $event                         = $this->getEvent();
                     $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $event);
                     if (!$loginSuffixResponseCollection->isEmpty()) {
                         $loginSuffix = $loginSuffixResponseCollection->last();
                     }
-                    $params                        = $this->getRequest()->getPost();
+                    $params                        = $request->getPost();
                     $params->datePublishStart      = \Datetime::createFromFormat("Y-m-d", $params->datePublishStart);
                     $result['post']                = $_POST;
                     $form->setData($params);
                     if ($form->isValid()) {
+
+                        if (isset($params['templateValues']['description-description'])) {
+                            $templateValues = new TemplateValues();
+                            $entity->setTemplateValues($templateValues->setDescription(strip_tags($params['templateValues']['description-description'])));
+                        }
+
                         $entity->setStatus($params['status']);
                         /*
                          * Search responsible user via contactEmail
@@ -147,6 +131,7 @@ class ImportController extends AbstractActionController
                             $companyId                = $params->companyId . $loginSuffix;
                             $repOrganization          = $repositories->get('Organizations/Organization');
                             $hydratorManager          = $services->get('hydratorManager');
+                            /* @var \Organizations\Entity\Hydrator\OrganizationHydrator $hydrator */
                             $hydrator                 = $hydratorManager->get('Hydrator/Organization');
                             $entityOrganizationFromDB = $repOrganization->findbyRef($companyId);
                             //$permissions              = $entityOrganizationFromDB->getPermissions();
@@ -157,6 +142,7 @@ class ImportController extends AbstractActionController
                                 'user'            => $user
                             );
                             //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
+
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
                             if ($responsibleUser && $user !== $responsibleUser) {
                                 /*
