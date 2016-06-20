@@ -138,9 +138,18 @@ return array(
         ),
     ),
     'filters' => array(
+        'invokables' => [
+            'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQuery',
+        ],
         'factories' => array(
             'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
             'Cv/JsonPaginationQuery' => 'Cv\Repository\Filter\JsonPaginationQueryFactory',
+        ),
+    ),
+
+    'paginator_manager' => array(
+        'factories' => array(
+            'Cv/Paginator' => 'Cv\Paginator\PaginatorFactory',
         ),
     ),
     
@@ -160,7 +169,8 @@ return array(
             'Cv/LanguageSkillFieldset' => '\Cv\Form\LanguageSkillFieldset',
             'Cv/NativeLanguageForm' => '\Cv\Form\NativeLanguageForm',
             'Cv/NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
-
+            'Cv/SearchForm' => '\Cv\Form\SearchForm',
+            'Cv/SearchFormFieldset' => '\Cv\Form\SearchFormFieldset',
         ),
         'factories' => array(
             'CvEmploymentCollection' => '\Cv\Form\EmploymentCollectionFactory',

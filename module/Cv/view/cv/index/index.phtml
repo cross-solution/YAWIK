@@ -1,10 +1,55 @@
-<?php $this->headTitle($this->translate('Resumes'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
-      /*$this->headLink()->appendStylesheet($this->basePath('Core/css/forms.css'))
-                       ->appendStylesheet($this->basepath('/Applications/css/manage.css'));
-      $this->headScript()->appendFile($this->basepath('/Applications/js/manage.js'))?>*/?>
+<?php
+$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
+    ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
+    ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
+    ->appendFile($this->basePath('Core/js/core.forms.js'))
+    ->appendFile($this->basePath('Core/js/core.spinnerbutton.js'))
+    ->appendFile($this->basePath('/js/select2.min.js'))
+    ->appendFile($this->basePath('Core/js/forms.descriptions.js'))
+    ->appendFile($this->basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'))
+    ->appendFile($this->basePath('/Jobs/js/jobs.history.js'));
+$this->headScript()->appendFile($this->basePath('Jobs/js/index.list-filter-form.js'));
+?>
 
+<?php $this->headScript()->captureStart() ?>
+/*
+* Trigger search form submit on select change
+* and refresh display of select2 elements after form reset.
+*/
+
+(function($) {
+
+$(function() {
+console.debug($('.pagination-container').data('uri'));
+var $form = $('#search');
+var $selects = $form.find('select');
+
+$selects.on('change.yk.cv.cvs', function() { $form.submit(); });
+$form.on('reset', function() { setTimeout(function() { $selects.off('change.yk')
+.change()
+.on('change.yk.cvs.cv', function() { $form.submit(); }); }, 1);
+});
+
+
+});
+
+})(jQuery);
+<?php
+$this->headScript()->captureEnd();
+$this->headLink()->appendStylesheet($this->basePath('/css/select2.css'));
+$this->headTitle($this->translate('Resumes'));
+$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
+?>
 <h1><?php echo $this->translate("list of all resumes")?></h1>
-<div id="applications-list-container" class="pagination-container">
-<?php echo $this->render('cv/index/index.ajax.phtml') ?>
+<nav class="navbar yk-toolbar" id="cv-list-filter-wrapper">
+    <?php echo $this->searchform($this->form) ?>
+</nav>
+<div
+    id="applications-list-container"
+    class="pagination-container"
+    data-uri="<?php echo $this->url('lang/cvs', array(), array('query' => $this->params()->fromQuery()), true) ?>"
+>
+    <div class="pagination-content">
+        <?php echo $this->render('cv/index/index.ajax.phtml') ?>
+    </div>
 </div>

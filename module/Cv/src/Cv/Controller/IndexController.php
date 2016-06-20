@@ -41,28 +41,36 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        $paginator = $this->paginator('Cv/Cv');
-            
+        /*$paginator = $this->paginator('Cv/Cv');
+
         $jsonFormat = 'json' == $this->params()->fromQuery('format');
-        
+
         if ($jsonFormat) {
             $viewModel = new JsonModel();
             //$items = iterator_to_array($paginator);
-        
+
             $viewModel->setVariables(
                 array(
-                'items' => $this->serviceLocator->get('builders')->get('JsonCv')
-                                ->unbuildCollection($paginator->getCurrentItems()),
-                'count' => $paginator->getTotalItemCount()
+                    'items' => $this->serviceLocator->get('builders')->get('JsonCv')
+                                    ->unbuildCollection($paginator->getCurrentItems()),
+                    'count' => $paginator->getTotalItemCount()
                 )
             );
             return $viewModel;
-        
         }
-        
+
         return array(
             'resumes' => $paginator,
             'sort' => $this->params()->fromQuery('sort', 'none')
-        );
+        );*/
+
+        $retVal = $this->pagination([
+            'params' => ['Cv_Admin', ['text', 'page' => 1]],
+            'form' => ['as' => 'form', 'Cv/SearchForm'],
+            'paginator' => ['as' => 'resumes', 'Cv/Paginator'],
+        ]);
+
+
+        return $retVal;
     }
 }

@@ -28,6 +28,7 @@ class PreferredJob extends AbstractIdentifiableEntity implements PreferredJobInt
     /**
      * @var string
      * @ODM\Field(type="string")
+     * @ODM\Index
      */
     protected $desiredJob;
     
