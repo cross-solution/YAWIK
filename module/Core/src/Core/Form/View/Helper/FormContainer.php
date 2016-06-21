@@ -15,7 +15,7 @@ use Core\Form\ExplicitParameterProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
 use Core\Form\Container;
 use Zend\Form\View\Helper\AbstractHelper;
-use Core\Form\SummaryForm;
+use Core\Form\SummaryForm as CoreSummaryForm;
 
 /**
  * Helper for rendering form containers
@@ -93,7 +93,7 @@ class FormContainer extends AbstractHelper
                 $helper = $this->getView()->plugin($helper);
             }
             $content .= $helper($element);
-        } elseif ($element instanceof SummaryForm) {
+        } elseif ($element instanceof CoreSummaryForm) {
             $content .= $this->getView()->summaryForm($element);
         } elseif ($element instanceof Container) {
             $content.= $this->render($element, $layout, $parameter);

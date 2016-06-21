@@ -12,8 +12,14 @@ use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
+ * Defines CV Model
  *
  * @ODM\Document(collection="cvs", repositoryClass="\Cv\Repository\Cv")
+ * @ODM\Indexes({
+ *     @ODM\Index(keys={
+ *          "preferredJob.desiredJob"="text"
+ *     },name="cvFulltext")
+ * })
  */
 class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEntityInterface
 {
@@ -23,7 +29,6 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      *
      * @var UserInterface
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
-     * @ODM\Index
      */
     protected $user;
     

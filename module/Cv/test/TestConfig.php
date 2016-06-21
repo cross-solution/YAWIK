@@ -2,7 +2,18 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
-        'Core', 'Auth', 'Jobs', 'Organizations',  'Applications', 'Cv'
+        'DoctrineModule',
+        'DoctrineMongoODMModule',
+        'Install',
+        'Core',
+        'Auth',
+        'Jobs',
+        'Geo',
+        'Cv',
+        'Settings',
+        'Applications',
+        'Orders',
+        'Organizations',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

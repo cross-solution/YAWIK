@@ -11,6 +11,7 @@ env:
 
 before_install:
   - sudo apt-get update > /dev/null
+  - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
 
 install:
   # install php packages required for running YAWIK phpunit tests
