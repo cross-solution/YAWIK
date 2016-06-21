@@ -89,51 +89,86 @@ class PreferredJob extends AbstractIdentifiableEntity implements PreferredJobInt
         $this->desiredJob=$desiredJob;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getDesiredJob()
     {
         return $this->desiredJob;
     }
 
+    /**
+     * @param $desiredLocation
+     *
+     * @return $this
+     */
     public function setDesiredLocation($desiredLocation)
     {
         $this->desiredLocation=$desiredLocation;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getDesiredLocation()
     {
         return $this->desiredLocation;
     }
 
+    /**
+     * @param Collection $desiredLocations
+     *
+     * @return $this
+     */
     public function setDesiredLocations(Collection $desiredLocations)
     {
         $this->desiredLocation = $desiredLocations;
         return $this;
     }
 
+    /**
+     * @return ArrayCollection|Collection
+     */
     public function getDesiredLocations()
     {
         return $this->desiredLocations;
     }
-    
+
+    /**
+     * @param $willingnessToTravel
+     *
+     * @return $this
+     */
     public function setWillingnessToTravel($willingnessToTravel)
     {
         $this->willingnessToTravel=$willingnessToTravel;
         return $this;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getWillingnessToTravel()
     {
         return $this->willingnessToTravel;
     }
 
+    /**
+     * @param $expectedSalary
+     *
+     * @return $this
+     */
     public function setExpectedSalary($expectedSalary)
     {
         $this->expectedSalary=$expectedSalary;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getExpectedSalary()
     {
         return $this->expectedSalary;

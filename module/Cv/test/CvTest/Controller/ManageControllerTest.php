@@ -12,7 +12,6 @@ use Auth\Entity\Info;
 use Auth\Entity\User;
 use Core\Repository\RepositoryService;
 use Cv\Entity\Cv;
-use Organizations\Entity\OrganizationReference;
 use Test\Bootstrap;
 use Zend\Http\PhpEnvironment\Request;
 use CoreTest\Controller\AbstractFunctionalControllerTestCase;
@@ -144,6 +143,7 @@ class ManageControllerTest extends AbstractFunctionalControllerTestCase
         $data = $this->testData;
         $this->dispatch('/en/cvs/create?form=preferredJob', Request::METHOD_POST, $data);
 
+        /* @var \Cv\Repository\Cv $repo */
         $repo = $this->getRepositories()->get('Cv/Cv');
         /* @var \Cv\Entity\Cv $cv */
         $cv = $repo->findDraft($this->activeUser);
