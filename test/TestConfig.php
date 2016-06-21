@@ -28,7 +28,7 @@ return array(
         ),
 
         'config_glob_paths' => array(
-            'config/autoload/{,*.}{global,local}.php',
+            __DIR__  .  '/../config/autoload/{,*.}{global,local}.php',
         ),
     )
 );

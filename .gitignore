@@ -21,6 +21,9 @@ config/phpdoc.xml
 config/autoload
 config/autoload.bak
 config/autoload/*.php
+
+test/config/*.local.php
+
 build.properties
 
 #
