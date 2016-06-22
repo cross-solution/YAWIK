@@ -31,11 +31,21 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        if (isset($params['text']) && !empty($params['text'])) {
-            $search = strtolower($params['text']);
+        if (isset($params['search']) && !empty($params['search'])) {
+            $search = strtolower($params['search']);
             $expr = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
             $queryBuilder->field(null)->equals($expr->getQuery());
         }
+
+        if (isset($params['location']) && isset($params['location']->coordinates)) {
+            $coordinates = $params['location']->coordinates->getCoordinates();
+            $queryBuilder->field('preferredJob.desiredLocations.coordinates')->geoWithinCenter(
+                $coordinates[0],
+                $coordinates[1],
+                (float)$params['d'] / 100
+            );
+        }
+
 
         return $queryBuilder;
 
