@@ -11,6 +11,7 @@ namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -52,7 +53,7 @@ class Skill extends AbstractIdentifiableEntity
      * @param $nativeLanguages
      * @return $this
      */
-    public function setNativeLanguages($nativeLanguages)
+    public function setNativeLanguages(Collection $nativeLanguages)
     {
         $this->nativeLanguages = $nativeLanguages;
         return $this;
@@ -70,7 +71,7 @@ class Skill extends AbstractIdentifiableEntity
      * @param $languageSkills
      * @return $this
      */
-    public function setLanguageSkills($languageSkills)
+    public function setLanguageSkills(Collection $languageSkills)
     {
         $this->languageSkills = $languageSkills;
         return $this;
@@ -88,7 +89,7 @@ class Skill extends AbstractIdentifiableEntity
      * @param $computerSkills
      * @return $this
      */
-    public function setComputerSkills($computerSkills)
+    public function setComputerSkills(Collection $computerSkills)
     {
         $this->computerSkills = $computerSkills;
         return $this;

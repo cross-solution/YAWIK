@@ -124,7 +124,7 @@ class PreferredJob extends AbstractIdentifiableEntity implements PreferredJobInt
      */
     public function setDesiredLocations(Collection $desiredLocations)
     {
-        $this->desiredLocation = $desiredLocations;
+        $this->desiredLocations = $desiredLocations;
         return $this;
     }
 

@@ -1,11 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: toni
- * Date: 16/06/16
- * Time: 12:17
+ * YAWIK
+ *
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
  */
-
 namespace CvTest\Controller;
 
 use Auth\Entity\Info;
@@ -19,7 +18,6 @@ use Zend\Console\Console;
 
 /**
  * Class ManageControllerTest
- * @covers  \Cv\Controller\ManageController
  * @package CvTest\Controller
  * @ticket  227
  */
@@ -154,5 +152,20 @@ class ManageControllerTest extends AbstractFunctionalControllerTestCase
         );
         $this->assertEquals($data['preferredJob']['desiredJob'], $cv->getPreferredJob()->getDesiredJob());
         $this->assertEquals($data['preferredJob']['geo-location']['name'], $cv->getPreferredJob()->getDesiredLocation());
+    }
+
+    /**
+     * @depends testPostPreferredJob
+     */
+    public function testIndexAction()
+    {
+        $this->dispatch('/en/cvs', Request::METHOD_GET);
+
+        $result = $this->getResponse()->getContent();
+
+        $this->assertResponseStatusCode(200);
+        $this->assertContains('list of all resumes', $result);
+        $this->assertContains('SO23 9AX Winchester , Saint Georges Street', $result);
+
     }
 }
