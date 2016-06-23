@@ -28,7 +28,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      * Owner of the CV
      *
      * @var UserInterface
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true, cascade="persist")
      */
     protected $user;
     

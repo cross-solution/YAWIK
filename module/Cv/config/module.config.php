@@ -143,11 +143,10 @@ return array(
 
     'filters' => array(
         'invokables' => [
-            'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQuery',
+            //'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQuery',
         ],
         'factories' => array(
             'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
-            'Cv/JsonPaginationQuery' => 'Cv\Repository\Filter\JsonPaginationQueryFactory',
         ),
     ),
 

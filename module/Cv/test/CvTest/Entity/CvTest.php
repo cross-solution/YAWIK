@@ -15,7 +15,6 @@ use Auth\Entity\Info;
 use Auth\Entity\User;
 use Core\Collection\IdentityWrapper;
 use CoreTestUtils\TestCase\InitValueTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
 use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
 use Cv\Entity\Contact;
 use Cv\Entity\Cv;
