@@ -10,8 +10,10 @@
 /** ActionController of Core */
 namespace Cv\Controller;
 
+use Cv\Form\SearchForm;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Zend\View\Model\ViewModel;
+use Zend\Session\Container as Session;
 
 /**
  * Main Action Controller for the application.
@@ -20,6 +22,15 @@ use Zend\View\Model\JsonModel;
  */
 class IndexController extends AbstractActionController
 {
+    /**
+     * @var SearchForm
+     */
+    protected $searchForm;
+
+    public function __construct(SearchForm $searchForm)
+    {
+        $this->searchForm = $searchForm;
+    }
 
     /**
      * attaches further Listeners for generating / processing the output
@@ -41,36 +52,57 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        /*$paginator = $this->paginator('Cv/Cv');
+        /* @var \Zend\Http\Request $request */
+        $request = $this->getRequest();
+        $params = $request->getQuery();
+        $jsonFormat = 'json' == $request->getQuery()->get('format');
+        $event = $this->getEvent();
+        $routeMatch = $event->getRouteMatch();
+        $matchedRouteName = $routeMatch->getMatchedRouteName();
+        $url = $this->url()->fromRoute($matchedRouteName, array(), array('force_canonical' => true));
 
-        $jsonFormat = 'json' == $this->params()->fromQuery('format');
 
-        if ($jsonFormat) {
-            $viewModel = new JsonModel();
-            //$items = iterator_to_array($paginator);
+        if (!$jsonFormat && !$request->isXmlHttpRequest()) {
+            $session = new Session('Cv\Index');
+            $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
+            $sessionParams = $session[$sessionKey];
+            if ($sessionParams) {
+                foreach ($sessionParams as $key => $value) {
+                    $params->set($key, $params->get($key, $value));
+                }
+            }
+            $session[$sessionKey] = $params->toArray();
 
-            $viewModel->setVariables(
-                array(
-                    'items' => $this->serviceLocator->get('builders')->get('JsonCv')
-                                    ->unbuildCollection($paginator->getCurrentItems()),
-                    'count' => $paginator->getTotalItemCount()
-                )
-            );
-            return $viewModel;
+            $this->searchForm->bind($params);
         }
 
-        return array(
+        $params = $params->get('params', []);
+
+        if (isset($params['l']['data']) &&
+            isset($params['l']['name']) &&
+            !empty($params['l']['name'])
+        ) {
+            /* @var \Geo\Form\GeoText $geoText */
+            $geoText = $this->searchForm->get('params')->get('l');
+
+            $geoText->setValue($params['l']);
+            $params['location'] = $geoText->getValue('entity');
+        }
+
+
+        $this->searchForm->setAttribute('action', $url);
+        $paginator = $this->paginator('Cv/Paginator', $params);
+
+        $options = $this->searchForm->getOptions();
+        $options['showButtons'] = false;
+        $this->searchForm->setOptions($options);
+
+        $return = array(
             'resumes' => $paginator,
-            'sort' => $this->params()->fromQuery('sort', 'none')
-        );*/
+            'filterForm' => $this->searchForm
+        );
+        $model = new ViewModel($return);
 
-        $retVal = $this->pagination([
-            'params' => ['Cv_Admin', ['text', 'page' => 1]],
-            'form' => ['as' => 'form', 'Cv/SearchForm'],
-            'paginator' => ['as' => 'resumes', 'Cv/Paginator'],
-        ]);
-
-
-        return $retVal;
+        return $model;
     }
 }

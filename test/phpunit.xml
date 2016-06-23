@@ -7,17 +7,18 @@
     </logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">../module/src</directory>
+            <directory suffix=".php">../module/*/src</directory>
         </whitelist>
     </filter>
     <testsuites>
         <testsuite name="AllTests">
-       	    <directory>../module/Install/test/InstallTest</directory>
+            <directory>../module/Install/test/InstallTest</directory>
             <directory>../module/Core/test/CoreTest</directory>
             <directory>../module/Applications/test/ApplicationsTest</directory>
             <directory>../module/Auth/test/AuthTest</directory>
             <directory>../module/Auth/test/AclTest</directory>
             <directory>../module/Jobs/test/JobsTest</directory>
+            <directory>../module/Orders/test/OrdersTest</directory>
             <directory>../module/Organizations/test/OrganizationsTest</directory>
             <directory>../module/Cv/test/CvTest</directory>
         </testsuite>

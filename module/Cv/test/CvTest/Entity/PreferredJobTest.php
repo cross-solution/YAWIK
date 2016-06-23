@@ -4,11 +4,13 @@
 namespace CvTest\Entity;
 
 
+use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
 use Cv\Entity\PreferredJob;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class PreferredJobTest extends \PHPUnit_Framework_TestCase
 {
+    use SimpleSetterAndGetterTrait;
 
     public function testSetAndGetTypeOfApplication()
     {
@@ -21,34 +23,16 @@ class PreferredJobTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @param $propertyName
-     * @param $propertyValue
-     * @dataProvider getTestSetAndGet
-     */
-    public function testSetAndGet($propertyName, $propertyValue)
+    public function getSetterAndGetterDataProvider()
     {
-        $target = new PreferredJob();
-        $setter = 'set' . $propertyName;
-        $getter = 'get' . $propertyName;
-
-        call_user_func(array($target, $setter), $propertyValue);
-        $this->assertEquals(
-            $propertyValue,
-            call_user_func(array($target, $getter)),
-            '::' . $setter . '() and ::' . $getter . '() should executed properly'
-        );
-    }
-
-    public function getTestSetAndGet()
-    {
+        $ob = new PreferredJob();
         return [
-            ['typeOfApplication', ['temporary']],
-            ['desiredJob', 'Software Developer'],
-            ['desiredLocation', 'Some City'],
-            ['desiredLocations', new ArrayCollection()],
-            ['willingnessToTravel', 'Yes'],
-            ['expectedSalary', '1000 USD']
+            [$ob, 'typeOfApplication', ['temporary']],
+            [$ob, 'desiredJob', 'Software Developer'],
+            [$ob, 'desiredLocation', 'Some City'],
+            [$ob, 'desiredLocations', new ArrayCollection()],
+            [$ob, 'willingnessToTravel', 'Yes'],
+            [$ob, 'expectedSalary', '1000 USD']
         ];
     }
 }

@@ -52,7 +52,7 @@ return array(
                         'options' => array(
                             'route'    => '/cvs',
                             'defaults' => array(
-                                'controller' => 'Cv\Controller\Index',
+                                'controller' => 'Cv/Index',
                                 'action'     => 'index',
                             ),
                         ),
@@ -95,8 +95,11 @@ return array(
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
         'invokables' => array(
-            'Cv\Controller\Index' => 'Cv\Controller\IndexController',
+            //'Cv\Controller\Index' => 'Cv\Controller\IndexController',
             'Cv\Controller\Manage' => 'Cv\Controller\ManageController',
+        ),
+        'factories' => array(
+            'Cv/Index' => 'Cv\Factory\Controller\IndexControllerFactory',
         ),
     ),
     
@@ -137,13 +140,13 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+
     'filters' => array(
         'invokables' => [
-            'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQuery',
+            //'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQuery',
         ],
         'factories' => array(
             'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
-            'Cv/JsonPaginationQuery' => 'Cv\Repository\Filter\JsonPaginationQueryFactory',
         ),
     ),
 
@@ -164,13 +167,11 @@ return array(
             'CvEducationForm' => '\Cv\Form\EducationForm',
             'CvSkillForm' => '\Cv\Form\SkillForm',
             'Cv/PreferredJobForm' => 'Cv\Form\PreferredJobForm',
-            //'Cv/PreferredJobFieldset' => 'Cv\Form\PreferredJobFieldset',
             'Cv/LanguageSkillForm' => '\Cv\Form\LanguageSkillForm',
             'Cv/LanguageSkillFieldset' => '\Cv\Form\LanguageSkillFieldset',
             'Cv/NativeLanguageForm' => '\Cv\Form\NativeLanguageForm',
             'Cv/NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
             'Cv/SearchForm' => '\Cv\Form\SearchForm',
-            'Cv/SearchFormFieldset' => '\Cv\Form\SearchFormFieldset',
         ),
         'factories' => array(
             'CvEmploymentCollection' => '\Cv\Form\EmploymentCollectionFactory',
@@ -179,6 +180,7 @@ return array(
             'Cv/LanguageSkillCollection' => '\Cv\Form\LanguageSkillCollectionFactory',
             'CvContactImage' => '\Cv\Form\CvContactImageFactory',
             'Cv/PreferredJobFieldset' => '\Cv\Form\PreferredJobFieldsetFactory',
+            'Cv/SearchFormFieldset' => '\Cv\Form\SearchFormFieldsetFactory',
         ),
     ),
     

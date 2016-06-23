@@ -1,32 +1,24 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: toni
- * Date: 16/06/16
- * Time: 12:17
+ * YAWIK
+ *
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
  */
-
 namespace CvTest\Controller;
 
-use Auth\Entity\Info;
-use Auth\Entity\User;
 use Core\Repository\RepositoryService;
+use CoreTestUtils\TestCase\FunctionalTestCase;
 use Cv\Entity\Cv;
-use Test\Bootstrap;
 use Zend\Http\PhpEnvironment\Request;
-use CoreTest\Controller\AbstractFunctionalControllerTestCase;
-use Zend\Console\Console;
 
 /**
  * Class ManageControllerTest
- * @covers  \Cv\Controller\ManageController
  * @package CvTest\Controller
  * @ticket  227
  */
-class ManageControllerTest extends AbstractFunctionalControllerTestCase
+class ManageControllerTest extends FunctionalTestCase
 {
-    protected $repositoriesMock;
-
     protected $testData = [
         'preferredJob' => [
             'typeOfApplication' => ['temporary'],
@@ -41,70 +33,12 @@ class ManageControllerTest extends AbstractFunctionalControllerTestCase
         ]
     ];
 
-    /**
-     * @var User
-     */
-    protected $activeUser;
-
     public function setUp()
     {
-        $logDir = __DIR__ . '/../../../../../log/';
-        $errorLogFile = $logDir . 'error.log';
-        $yawikLogFile = $logDir . 'yawik.log';
-
-        if ((file_exists($errorLogFile) && !is_writable($errorLogFile))
-            || (file_exists($yawikLogFile) && !is_writable($yawikLogFile))
-        ) {
-            $this->markTestSkipped('error.log and/or yawik.log is/are not writable! Run the test with the right user or set appropriate file permissions');
+        parent::setUp();
+        if (!is_object($this->activeUser)) {
+            $this->loginAsUser();
         }
-
-        $this->serviceLocator = null;
-        $this->setApplicationConfig(
-            Bootstrap::getConfig()
-        );
-
-        $this->usedConsoleBackup = Console::isConsole();
-        $this->reset();
-
-        $this->loginAsUser();
-    }
-
-    protected function createUser($role = User::ROLE_RECRUITER)
-    {
-        $email = 'test@yawik.org';
-        $locator = $this->getApplicationServiceLocator();
-        /* @var \Core\Repository\RepositoryService $repo */
-        $repo = $locator->get('repositories');
-        $userRepo = $repo->get('Auth/User');
-
-        $user = $userRepo->findOneBy(array(
-            'login' => $email
-        ));
-        if (empty($user)) {
-            $user = new User();
-            $user
-                ->setEmail($email)
-                ->setLogin($email)
-                ->setRole($role)
-                ->setPassword($email);
-            $infoEntity = new Info();
-            $infoEntity->setEmail($email);
-            $user->setInfo($infoEntity);
-            $repo->store($user);
-        }
-
-        $user->setRole($role);
-        $repo->store($user);
-        $repo->flush($user);
-
-        $this->activeUser = $user;
-        return $user;
-    }
-
-    public function loginAsUser()
-    {
-        $user = $this->createUser(User::ROLE_USER);
-        $this->prepareAuthenticateMock(true, $user);
     }
 
     /**
@@ -124,7 +58,7 @@ class ManageControllerTest extends AbstractFunctionalControllerTestCase
         ));
         if (!empty($documents)) {
             foreach ($documents as $document) {
-                $this->getRepositories()->detach($document);
+                $this->getRepositories()->remove($document);
                 $this->getRepositories()->flush();
             }
         }
@@ -154,5 +88,20 @@ class ManageControllerTest extends AbstractFunctionalControllerTestCase
         );
         $this->assertEquals($data['preferredJob']['desiredJob'], $cv->getPreferredJob()->getDesiredJob());
         $this->assertEquals($data['preferredJob']['geo-location']['name'], $cv->getPreferredJob()->getDesiredLocation());
+    }
+
+    /**
+     * @depends testPostPreferredJob
+     */
+    public function testIndexAction()
+    {
+        $this->dispatch('/en/cvs', Request::METHOD_GET);
+
+        $result = $this->getResponse()->getContent();
+
+        $this->assertResponseStatusCode(200);
+        $this->assertContains('list of all resumes', $result);
+        $this->assertContains('SO23 9AX Winchester , Saint Georges Street', $result);
+
     }
 }

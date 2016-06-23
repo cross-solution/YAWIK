@@ -13,7 +13,7 @@
 <?php foreach ($this->resumes as $resume): /* @var \Cv\Entity\Cv $resume */ ?>
 <tr>
     <td><?php echo $resume->getId() ?></td>
-    <td><?php echo $resume->getContact()->getDisplayName() ?></td>
+    <td><?php echo is_object($resume->getContact()) ? $resume->getContact()->getDisplayName() : "" ?></td>
     <td>
         <?php if (count($resume->getEducations())>0):?>
       <?php echo $this->translate('education').': '.$this->period($resume->getEducations()).' '.$this->translate('years')?><br/>

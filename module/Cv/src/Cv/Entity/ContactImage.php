@@ -54,4 +54,12 @@ class ContactImage extends FileEntity
 		
 		return $this;
 	}
+
+    /**
+     * @return Contact
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
 }

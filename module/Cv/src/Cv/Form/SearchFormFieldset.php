@@ -9,20 +9,31 @@
 
 namespace Cv\Form;
 
-use Core\Form\TextSearchFormFieldset;
+use Zend\Form\Fieldset;
 
-class SearchFormFieldset extends TextSearchFormFieldset
+class SearchFormFieldset extends Fieldset
 {
 
-    protected $locationEngineType = 'photon';
+    protected $locationEngineType;
+
+    public function __construct($name = null, $options = [])
+    {
+        parent::__construct($name, $options);
+        if (array_key_exists('location_engine_type', $options)) {
+            $this->locationEngineType = $options['location_engine_type'];
+        }
+    }
 
     public function init()
     {
-        $this->addTextElement(
-            'Search',
-            /*@translate*/
-            'Search for Applicant Name'
-        );
+        $this->setName('params');
+        $this->add([
+            'name' => 'search',
+            'options' => [
+                'label' => /*@translate*/
+                    'Desired work'
+            ]
+        ]);
 
         $this->add(
             array(
