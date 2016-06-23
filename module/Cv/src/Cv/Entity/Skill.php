@@ -41,13 +41,6 @@ class Skill extends AbstractIdentifiableEntity
      * @ODM\EmbedMany(targetDocument="ComputerSkill")
      */
     protected $computerSkills;
-    
-    public function __construct()
-    {
-        $this->nativeLanguages = new ArrayCollection();
-        $this->languageSkills = new ArrayCollection();
-        $this->computerSkills = new ArrayCollection();
-    }
 
     /**
      * @param $nativeLanguages
@@ -64,6 +57,9 @@ class Skill extends AbstractIdentifiableEntity
      */
     public function getNativeLanguages()
     {
+        if (!is_object($this->nativeLanguages)) {
+            $this->nativeLanguages = new ArrayCollection();
+        }
         return $this->nativeLanguages;
     }
 
@@ -82,6 +78,9 @@ class Skill extends AbstractIdentifiableEntity
      */
     public function getLanguageSkills()
     {
+        if (!is_object($this->languageSkills)) {
+            $this->languageSkills = new ArrayCollection();
+        }
         return $this->languageSkills;
     }
 
@@ -100,6 +99,9 @@ class Skill extends AbstractIdentifiableEntity
      */
     public function getComputerSkills()
     {
+        if (!is_object($this->computerSkills)) {
+            $this->computerSkills = new ArrayCollection();
+        }
         return $this->computerSkills;
     }
 }
