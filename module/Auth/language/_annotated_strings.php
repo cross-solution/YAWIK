@@ -143,16 +143,16 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:166
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:142
+//: ./src/Auth/Controller/IndexController.php:141
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:150
+//: ./src/Auth/Controller/IndexController.php:149
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:238
+//: ./src/Auth/Controller/IndexController.php:237
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/IndexController.php:450
+//: ./src/Auth/Controller/IndexController.php:449
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/UsersController.php:50
@@ -212,10 +212,10 @@ translate('a new password was requestet for %s');
 //: ./src/Auth/Listener/DeactivatedUserListener.php:97
 translate('This user account has been disabled. Please contact the system adminstrator.');
 
-//: ./config/module.config.php:184
+//: ./config/module.config.php:182
 translate('user');
 
-//: ./config/module.config.php:185
+//: ./config/module.config.php:183
 translate('recruiter');
 
 //: ./config/navigation.config.php:16
