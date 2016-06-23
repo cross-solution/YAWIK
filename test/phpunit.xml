@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit bootstrap="Bootstrap.php" colors="true">
+    <php>
+        <ini name="error_reporting" value="22527"/>
+    </php>
     <logging>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
         <log type="coverage-php" target="build/logs/clover.serialized"/>
     </logging>
     <filter>
-        <whitelist>
+        <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">../module/*/src</directory>
         </whitelist>
     </filter>
