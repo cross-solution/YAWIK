@@ -57,8 +57,9 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
     {
         $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\Zend\Permissions\Acl\Assertion\AssertionInterface');
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()
-                         ->getMock();
+        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceLocatorInterface')
+            ->setMethods(['get', 'has', 'getServiceLocator'])
+            ->getMock();
         $services->expects($this->never())->method('getServiceLocator');
         $services->expects($this->never())->method('get');
 

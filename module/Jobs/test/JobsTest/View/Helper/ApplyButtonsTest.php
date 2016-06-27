@@ -36,13 +36,17 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
     {
         $this->viewModel = new ViewModel();
         $this->viewModel->setTemplate('test/template');
-        
-        $viewModelHelper = $this->getMock(ViewModelHelper::class, ['getCurrent']);
+
+        $viewModelHelper = $this->getMockBuilder(ViewModelHelper::class)
+            ->setMethods(['getCurrent'])
+            ->getMock();
         $viewModelHelper->expects($this->any())
             ->method('getCurrent')
             ->willReturn($this->viewModel);
-        
-        $this->view = $this->getMock(View::class, ['viewModel', 'translate', 'partial', 'url']);
+
+        $this->view = $this->getMockBuilder(View::class)
+            ->setMethods(['viewModel', 'translate', 'partial', 'url'])
+            ->getMock();
         $this->view->expects($this->any())
             ->method('viewModel')
             ->willReturn($viewModelHelper);

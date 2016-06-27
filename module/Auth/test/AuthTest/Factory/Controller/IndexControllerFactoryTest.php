@@ -34,9 +34,11 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $formMock = $this->getMock('Auth\Form\Login');
+        $formMock = $this->getMockBuilder('Auth\Form\Login')
+            ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+            ->getMock();
 
         $sm->setService('AuthenticationService', $authenticationServiceMock);
         $sm->setService('Core/Log', $loggerMock);

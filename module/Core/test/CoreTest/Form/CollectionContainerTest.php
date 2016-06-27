@@ -40,8 +40,10 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->newEntry = $this->getMock(stdClass::class, ['getId']);
-        $this->formElementManager = $this->getMock(ServiceLocatorInterface::class);
+        $this->newEntry = $this->getMockBuilder(stdClass::class)
+            ->setMethods(['getId'])
+            ->getMock();
+        $this->formElementManager = $this->getMockBuilder(ServiceLocatorInterface::class)->getMock();
         $this->formElementManager->expects($this->any())
             ->method('get')
             ->with($this->formService)
@@ -77,8 +79,12 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
     public function testSetEntity()
     {
         $collection = new Collection();
-        $collection['first'] = $this->getMock(stdClass::class, ['getId']);
-        $collection['second'] = $this->getMock(stdClass::class, ['getId']);
+        $collection['first'] = $this->getMockBuilder(stdClass::class)
+            ->setMethods(['getId'])
+            ->getMock();
+        $collection['second'] = $this->getMockBuilder(stdClass::class)
+            ->setMethods(['getId'])
+            ->getMock();
         
         $this->assertSame($this->collectionContainer, $this->collectionContainer->setEntity($collection));
         
@@ -103,8 +109,9 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
     public function testMethodsThrowRuntimeExceptionWithForm($method, array $parameters = [], Collection $collection)
     {
         $this->collectionContainer->setEntity($collection);
-        
-        $formElementManager = $this->getMock(ServiceLocatorInterface::class);
+
+        $formElementManager = $this->getMockBuilder(ServiceLocatorInterface::class)
+            ->getMock();
         $formElementManager->expects($this->any())
             ->method('get')
             ->with($this->formService)

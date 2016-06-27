@@ -32,7 +32,10 @@ class AlertTest extends \PHPUnit_Framework_TestCase
         $content = 'some content';
         $options = ['some options'];
         $return = 'return';
-        $helper = $this->getMock(Helper::class, ['render']);
+        /* @var Helper $helper */
+        $helper = $this->getMockBuilder(Helper::class)
+            ->setMethods(['render'])
+            ->getMock();
         $helper->expects($this->once())
             ->method('render')
             ->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
@@ -42,7 +45,9 @@ class AlertTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderCallsStartMethod()
     {
-        $helper = $this->getMock(Helper::class, ['start']);
+        $helper = $this->getMockBuilder(Helper::class)
+            ->setMethods(['start'])
+            ->getMock();
         $helper->expects($this->once())
             ->method('start')
             ->with($this->equalTo(null), $this->equalTo([]))
@@ -50,7 +55,9 @@ class AlertTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($helper, $helper->render());
 
         $options = ['some options'];
-        $helper = $this->getMock(Helper::class, ['start']);
+        $helper = $this->getMockBuilder(Helper::class)
+            ->setMethods(['start'])
+            ->getMock();
         $helper->expects($this->once())
             ->method('start')
             ->with($this->equalTo(Helper::TYPE_INFO), $this->equalTo($options))
@@ -59,7 +66,10 @@ class AlertTest extends \PHPUnit_Framework_TestCase
 
         $type = Helper::TYPE_DANGER;
         $options = ['some options'];
-        $helper = $this->getMock(Helper::class, ['start']);
+
+        $helper = $this->getMockBuilder(Helper::class)
+            ->setMethods(['start'])
+            ->getMock();
         $helper->expects($this->exactly(2))
             ->method('start')
             ->with($this->equalTo($type), $this->equalTo($options))
@@ -70,7 +80,9 @@ class AlertTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderDoesNotCallStartMethod()
     {
-        $helper = $this->getMock(Helper::class, ['start']);
+        $helper = $this->getMockBuilder(Helper::class)
+            ->setMethods(['start'])
+            ->getMock();
         $helper->expects($this->never())
             ->method('start');
 
@@ -162,7 +174,9 @@ class AlertTest extends \PHPUnit_Framework_TestCase
         $content = 'content to capture';
         $options = ['some options'];
         $return = 'return';
-        $helper = $this->getMock(Helper::class, ['render']);
+        $helper = $this->getMockBuilder(Helper::class)
+            ->setMethods(['render'])
+            ->getMock();
         $helper->expects($this->once())
             ->method('render')
             ->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
@@ -189,7 +203,9 @@ class AlertTest extends \PHPUnit_Framework_TestCase
     {
         $options = ['some options'];
         $return = 'return';
-        $helper = $this->getMock(Helper::class, ['render']);
+        $helper = $this->getMockBuilder(Helper::class)
+            ->setMethods(['render'])
+            ->getMock();
         $helper->expects($this->once())
             ->method('render')
             ->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))

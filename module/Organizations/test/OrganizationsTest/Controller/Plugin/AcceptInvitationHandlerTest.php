@@ -60,7 +60,7 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
         if (false !== strpos($this->getName(false), 'OrganizationNotFound')) {
             return;
         }
-        $this->organizationMock = $this->getMock('\Organizations\Entity\Organization');
+        $this->organizationMock = $this->getMockBuilder('\Organizations\Entity\Organization')->getMock();
 
         $this->organizationRepositoryMock->expects($this->once())->method('find')->with('testOrgId')->willReturn($this->organizationMock);
 
@@ -72,7 +72,7 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->userMock = new User();
         $this->userMock->setId('testUserId');
-        $employee = $this->getMock('\Organizations\Entity\Employee');
+        $employee = $this->getMockBuilder('\Organizations\Entity\Employee')->getMock();
         $employee->expects($this->once())->method('setStatus')->with(Employee::STATUS_ASSIGNED);
 
         $this->organizationMock->expects($this->once())->method('getEmployee')->with($this->userMock->getId())
@@ -84,20 +84,20 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
         $sameOrganization = new Organization();
         $sameOrganization->setId('testOrgId');
 
-        $assignedEmp = $this->getMock('\Organizations\Entity\Employee');
+        $assignedEmp = $this->getMockBuilder('\Organizations\Entity\Employee')->getMock();
         $assignedEmp->expects($this->once())->method('isUnassigned')->with(true)->willReturn(false);
         $assignedEmp->expects($this->once())->method('setStatus')->with(Employee::STATUS_REJECTED);
 
-        $assignedEmpOrganization = $this->getMock('\Organizations\Entity\Organization');
+        $assignedEmpOrganization = $this->getMockBuilder('\Organizations\Entity\Organization')->getMock();
         $assignedEmpOrganization->expects($this->once())->method('getId')->willReturn('otherId');
         $assignedEmpOrganization->expects($this->once())->method('getEmployee')->with($this->userMock->getId())
                                 ->willReturn($assignedEmp);
 
-        $unassignedEmp = $this->getMock('\Organizations\Entity\Employee');
+        $unassignedEmp = $this->getMockBuilder('\Organizations\Entity\Employee')->getMock();
         $unassignedEmp->expects($this->once())->method('isUnassigned')->with(true)->willReturn(true);
         $unassignedEmp->expects($this->never())->method('setStatus');
 
-        $unassignedEmpOrganization = $this->getMock('\Organizations\Entity\Organization');
+        $unassignedEmpOrganization = $this->getMockBuilder('\Organizations\Entity\Organization')->getMock();
         $unassignedEmpOrganization->expects($this->once())->method('getId')->willReturn('otherId');
         $unassignedEmpOrganization->expects($this->once())->method('getEmployee')->with($this->userMock->getId())
                                 ->willReturn($unassignedEmp);
@@ -171,7 +171,7 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testAssigendUsersWillBeUnassigned()
     {
-        $empMock = $this->getMock('\Organizations\Entity\Employee');
+        $empMock = $this->getMockBuilder('\Organizations\Entity\Employee')->getMock();
         $empMock->expects($this->once())->method('setStatus')->with(Employee::STATUS_UNASSIGNED);
 
         $orgRef = $this->getMockBuilder('\Organizations\Entity\OrganizationReference')->disableOriginalConstructor()->getMock();
@@ -188,7 +188,7 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testUnAssigendUsersWillRemainUnassigned()
     {
-        $empMock = $this->getMock('\Organizations\Entity\Employee');
+        $empMock = $this->getMockBuilder('\Organizations\Entity\Employee')->getMock();
         $empMock->expects($this->never())->method('setStatus');
 
         $orgRef = $this->getMockBuilder('\Organizations\Entity\OrganizationReference')->disableOriginalConstructor()->getMock();
