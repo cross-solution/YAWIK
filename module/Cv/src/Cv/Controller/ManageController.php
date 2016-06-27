@@ -14,6 +14,8 @@ use Geo\Form\GeoText;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
+use Auth\Entity\User;
+use Cv\Entity\Contact;
 
 /**
  * Main Action Controller for the application.
@@ -51,7 +53,7 @@ class ManageController extends AbstractActionController
             // create draft CV
             $cv = $cvRepository->create();
             $cv->setIsDraft(true);
-            $cv->setContact($user->getInfo());
+            $cv->setContact($user->getRole() == User::ROLE_USER ? $user->getInfo() : new Contact());
             $cv->setUser($user);
             $repositories->store($cv);
         }

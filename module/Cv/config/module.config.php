@@ -83,7 +83,7 @@ return array(
                     'Cv\Controller\Manage',
                 ),
             ),
-            'recruiter' => [
+            'admin' => [
                 'deny' => [
                     'route/lang/cvs',
                     'Cv\Controller\Manage',
@@ -109,7 +109,7 @@ return array(
     'navigation' => array(
         'default' => array(
             'resume' => array(
-                'label' =>  /*@translate*/ 'Resumes',
+                'label' =>  /*@translate*/ 'Talent-Pool',
                 'route' => 'lang/cvs',
                 'resource' => 'route/lang/cvs',
                 'order' => 10,
