@@ -96,7 +96,9 @@ class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
         $span = 8;
         $label = 'Test';
 
-        $text = $this->getMock('\Zend\Form\Element\Text', ['setAttribute', 'setOption', 'setLabel']);
+        $text = $this->getMockBuilder('\Zend\Form\Element\Text')
+            ->setMethods(['setAttribute', 'setOption', 'setLabel'])
+            ->getMock();
         $text->expects($this->once())->method('setAttribute')->with('placeholder', $placeholder);
         $text->expects($this->once())->method('setOption')->with('span', $span);
         $text->expects($this->once())->method('setLabel')->with($label);

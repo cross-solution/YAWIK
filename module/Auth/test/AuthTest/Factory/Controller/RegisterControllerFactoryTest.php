@@ -35,7 +35,7 @@ class RegisterControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')->getMock();
         
         $options = new ModuleOptions();
 

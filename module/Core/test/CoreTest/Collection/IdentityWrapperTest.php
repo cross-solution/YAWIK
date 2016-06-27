@@ -34,7 +34,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
     {
         $getEntryMock = function ($id)
         {
-            $entry = $this->getMock(\stdClass::class, ['getId']);
+            $entry = $this->getMockBuilder(\stdClass::class)
+                ->setMethods(['getId'])
+                ->getMock();
             $entry->expects($this->any())
                 ->method('getId')
                 ->willReturn($id);

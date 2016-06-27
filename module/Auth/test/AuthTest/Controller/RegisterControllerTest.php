@@ -56,9 +56,11 @@ class RegisterControllerTest extends AbstractControllerTestCase
                                   ->getMock();
 
 
-        $this->paramsMock = $this->getMock('Zend\Mvc\Controller\Plugin\Params');
+        $this->paramsMock = $this->getMockBuilder('Zend\Mvc\Controller\Plugin\Params')
+            ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+            ->getMock();
 
         $options = new ModuleOptions();
 
@@ -73,8 +75,8 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
     public function testIndexAction_WithGetRequest()
     {
-        $register = $this->getMock('Zend\Form\Fieldset');
-        $role = $this->getMock('Zend\Form\Element\Hidden');
+        $register = $this->getMockBuilder('Zend\Form\Fieldset')->getMock();
+        $role = $this->getMockBuilder('Zend\Form\Element\Hidden')->getMock();
 
         $this->formMock->expects($this->once())->method('get')->with('register')->willReturn($register);
 

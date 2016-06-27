@@ -86,8 +86,10 @@ class StatusTest extends \PHPUnit_Framework_TestCase
     public function testGetOptions()
     {
         $states = $this->target->getStates();
-        
-        $translator = $this->getMock(Translator::class, ['translate', 'translatePlural']);
+
+        $translator = $this->getMockBuilder(Translator::class)
+            ->setMethods(['translate', 'translatePlural'])
+            ->getMock();
         $translator->expects($this->exactly(count($states)))
             ->method('translate')
             ->willReturnArgument(0);
