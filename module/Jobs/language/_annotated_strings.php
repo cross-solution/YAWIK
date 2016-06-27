@@ -14,13 +14,13 @@ translate('Active');
 //: ./src/Jobs/Form/ListFilterPersonalFieldset.php:57
 translate('Inactive');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:44
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:50
 translate('Job qualification');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:54
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:60
 translate('Job benefits');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:65
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:71
 translate('Job requirements');
 
 //: ./src/Jobs/Form/PreviewFieldset.php:48
@@ -44,10 +44,10 @@ translate('Calculate price');
 //: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:29
 translate('search for position or company');
 
-//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:53
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:54
 translate('Companyname');
 
-//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:57
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:58
 translate('Select hiring organization');
 
 //: ./src/Jobs/Form/ListFilterAdminFieldset.php:36
@@ -143,7 +143,7 @@ translate('Companyname');
 //: ./src/Jobs/Form/CompanyNameFieldset.php:36
 translate('Select hiring organization');
 
-//: ./src/Jobs/Form/JobDescriptionDescription.php:52
+//: ./src/Jobs/Form/JobDescriptionDescription.php:53
 translate('Enter optional company description here');
 
 //: ./src/Jobs/Form/AtsModeFieldset.php:70
@@ -233,31 +233,37 @@ translate('inactive');
 //: ./src/Jobs/Entity/StatusInterface.php:54
 translate('expired');
 
-//: ./src/Jobs/Controller/ManageController.php:457
+//: ./src/Jobs/Controller/ManageController.php:345
+translate('Status successfully changed.');
+
+//: ./src/Jobs/Controller/ManageController.php:347
+translate('Change status failed.');
+
+//: ./src/Jobs/Controller/ManageController.php:482
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:461
+//: ./src/Jobs/Controller/ManageController.php:486
 translate('Job has been rejected');
 
-//: ./src/Jobs/Controller/ManageController.php:465
+//: ./src/Jobs/Controller/ManageController.php:490
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:470
+//: ./src/Jobs/Controller/ManageController.php:495
 translate('Job has been approved');
 
-//: ./src/Jobs/Controller/ManageController.php:514
+//: ./src/Jobs/Controller/ManageController.php:539
 translate('Job was deactivated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:515
+//: ./src/Jobs/Controller/ManageController.php:540
 translate('Job has been deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:517
+//: ./src/Jobs/Controller/ManageController.php:542
 translate('Job could not be deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:533
+//: ./src/Jobs/Controller/ManageController.php:558
 translate('Template changed');
 
-//: ./src/Jobs/Controller/ManageController.php:535
+//: ./src/Jobs/Controller/ManageController.php:560
 translate('Template not changed');
 
 //: ./src/Jobs/Listener/AdminWidgetProvider.php:41
@@ -302,28 +308,28 @@ translate('enable %s of this job on your Homepage');
 //: ./config/channel.options.local.php.dist:59
 translate('integration');
 
-//: ./config/module.config.php:132
+//: ./config/module.config.php:134
 translate('Jobs');
 
-//: ./config/module.config.php:141
+//: ./config/module.config.php:143
 translate('Jobboard');
 
-//: ./config/module.config.php:147
+//: ./config/module.config.php:149
 translate('Jobs');
 
-//: ./config/module.config.php:153
+//: ./config/module.config.php:155
 translate('Overview');
 
-//: ./config/module.config.php:158
+//: ./config/module.config.php:160
 translate('Pending jobs');
 
-//: ./config/module.config.php:163
+//: ./config/module.config.php:165
 translate('Create job');
 
-//: ./config/module.config.php:172
+//: ./config/module.config.php:174
 translate('Edit job');
 
-//: ./config/module.config.php:179
+//: ./config/module.config.php:181
 translate('Jobboard');
 
 //: ./test/JobsTest/Form/ListFilterPersonalTest.php:37

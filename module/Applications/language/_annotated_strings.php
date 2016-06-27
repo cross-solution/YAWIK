@@ -44,7 +44,10 @@ translate('Cover Letter');
 //: ./src/Applications/Form/Apply.php:40
 translate('Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.');
 
-//: ./src/Applications/Form/Apply.php:59
+//: ./src/Applications/Form/Apply.php:52
+translate('you can add your social profile to your application. You can preview and remove the attached profile before submitting the application.');
+
+//: ./src/Applications/Form/Apply.php:61
 translate('Customize apply form');
 
 //: ./src/Applications/Form/SettingsFieldset.php:43
@@ -203,34 +206,34 @@ translate('Click here to enter a summary.');
 //: ./src/Applications/Form/BaseFieldset.php:50
 translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.');
 
-//: ./src/Applications/Controller/ManageController.php:80
+//: ./src/Applications/Controller/ManageController.php:79
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:133
+//: ./src/Applications/Controller/ManageController.php:132
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ManageController.php:148
+//: ./src/Applications/Controller/ManageController.php:147
 translate('Application was read by %s');
 
 //: ./src/Applications/Controller/ApplyController.php:185
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:368
+//: ./src/Applications/Controller/ApplyController.php:358
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:384
+//: ./src/Applications/Controller/ApplyController.php:374
 translate('Application has been send.');
 
-//: ./src/Applications/Controller/MultimanageController.php:140
+//: ./src/Applications/Controller/MultimanageController.php:138
 translate('Mail was sent to %s');
 
-//: ./src/Applications/Controller/CommentController.php:109
+//: ./src/Applications/Controller/CommentController.php:107
 translate('Application was rated by %s');
 
-//: ./src/Applications/Listener/EventApplicationCreated.php:84
+//: ./src/Applications/Listener/EventApplicationCreated.php:119
 translate('Application confirmation');
 
-//: ./src/Applications/Mail/Forward.php:59
+//: ./src/Applications/Mail/Forward.php:58
 translate('Fwd: Application to "%s" dated %s');
 
 //: ./src/Applications/Mail/NewApplication.php:82
@@ -245,9 +248,9 @@ translate('Attach images or PDF Documents to your application. Drag&drop them, o
 //: ./src/Applications/Factory/Form/AttachmentsFactory.php:83
 translate('Attachments');
 
-//: ./config/module.config.php:57
+//: ./config/module.config.php:56
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:131
+//: ./config/module.config.php:130
 translate('Overview');
 

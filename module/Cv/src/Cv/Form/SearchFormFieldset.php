@@ -30,30 +30,27 @@ class SearchFormFieldset extends Fieldset
         $this->add([
             'name' => 'search',
             'options' => [
-                'label' => /*@translate*/
-                    'Desired work'
+                'label' => /*@translate*/ 'Search for resumes'
             ]
         ]);
 
         $this->add(
-            array(
+            [
                 'name' => 'l',
                 'type' => 'Location',
-                'options' => array(
-                    'label' => /*@translate*/
-                        'Location',
+                'options' => [
+                    'label' => /*@translate*/ 'Location',
                     'engine_type' => $this->locationEngineType,
-                ),
-            )
+                ],
+            ]
         );
 
         $this->add(
-            array(
+            [
                 'name' => 'd',
                 'type' => 'Zend\Form\Element\Select',
-                'options' => array(
-                    'label' => /*@translate*/
-                        'Distance',
+                'options' => [
+                    'label' => /*@translate*/ 'Distance',
                     'value_options' => [
                         '5' => '5 km',
                         '10' => '10 km',
@@ -62,15 +59,14 @@ class SearchFormFieldset extends Fieldset
                         '100' => '100 km'
                     ],
 
-                ),
+                ],
                 'attributes' => [
                     'value' => '10', // default distance
                     'data-searchbox' => -1,  // hide the search box
                     'data-allowclear' => 'false', // allow to clear a selected value
-                    'data-placeholder' => /*@translate*/
-                        'Distance',
+                    'data-placeholder' => /*@translate*/ 'Distance',
                 ]
-            )
+            ]
         );
     }
 }
