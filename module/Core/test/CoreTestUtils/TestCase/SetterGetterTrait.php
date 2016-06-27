@@ -60,6 +60,10 @@ namespace CoreTestUtils\TestCase;
  *          If it's a string prefixed with '@', its assumed to be a class name and it will be tried
  *          to instantiate an instance. If more complex construction is needed, you should
  *          redefine the propertiesProvider() method as mentioned above.
+ * <@value>: Creates an object instance from the provided specs:
+ *           If a string is passed, it is used as class name.
+ *           If an array is passed, the first entry must be a string holding the class name, the second item
+ *           can be an array of constructor arguments.
  * <expect>: If your setter modifies the value passed to it, you can specify what value should be expected to be
  *           returned by the getter.
  * 'expect_property': If there's no getter, and no other mean to check if the setter works, provide the
@@ -71,9 +75,10 @@ namespace CoreTestUtils\TestCase;
  * <default>: If the getter provides a default value, specify it here, it will be checked before the setter call.
  *            If <default> is a string prefixed with '@', the returned value from the getter will be checked
  *            using "assertInstanceOf()".
+ * <@default>: Same as @value, but used for the default test.
  * <default-args>: If the getter requires arguments, pass them here (for the default value check),
  * <getter-args>: Getter arguments for the "regular" getter test.
- * <setter-args>: Id the setter requires more arguments than the value, provide them here. The value will be prepended
+ * <setter-args>: If the setter requires more arguments than the value, provide them here. The value will be prepended
  *                to this arguments.
  * <setter-value>: If omitted, a fluent interface implementation is assumed. If the setter returns other value than
  *                 the SUT instance, specify it here.
@@ -127,16 +132,7 @@ trait SetterGetterTrait
         }
 
         if (isset($spec['@value'])) {
-            if (!is_array($spec['@value'])) {
-                $spec['@value'] = [ $spec['@value'] ];
-            }
-
-            if (isset($spec['@value'][1])) {
-                $reflection = new \ReflectionClass($spec['@value'][0]);
-                $spec['value'] = $reflection->newInstanceArgs($spec['@value'][1]);
-            } else {
-                $spec['value'] = new $spec['@value']();
-            }
+            $spec['value'] = $this->_setterGetterTrait_createInstance($spec['@value']);
         }
 
         if (!isset($spec['value'])) {
@@ -144,12 +140,17 @@ trait SetterGetterTrait
         }
 
         if (isset($spec['target'])) {
-            $this->changeSetterGetterTraitTarget($spec['target']);
+            $this->target = is_object($spec['target'])
+                ? $spec['target']
+                : $this->_setterGetterTrait_createInstance($spec['target']);
+        }
+
+        if (isset($spec['@default'])) {
+            $spec['default'] = $this->_setterGetterTrait_createInstance($spec['@default']);
         }
 
         if (is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
-            $class = substr($spec['value'], 1);
-            $spec['value'] = new $class();
+            $spec['value'] = $this->_setterGetterTrait_createInstance(substr($spec['value'], 1));
         }
 
         $hook = function ($type, $spec) {
@@ -267,8 +268,12 @@ trait SetterGetterTrait
                 break;
 
             case "object":
-                $method = "assert" . ($isDefaultValue ? 'InstanceOf' : 'Same');
-                $this->$method($value, $returned, $err);
+                if ($isDefaultValue) {
+                    $this->assertInstanceOf(get_class($value), $returned, $err);
+
+                } else {
+                    $this->assertSame($value, $returned, $err);
+                }
                 break;
         }
     }
@@ -382,24 +387,16 @@ trait SetterGetterTrait
         }
     }
 
-    private function changeSetterGetterTraitTarget($spec)
+    private function _setterGetterTrait_createInstance($spec)
     {
-        if (is_object($spec)) {
-            $this->target = $spec;
-            return;
+        if (!is_array($spec) || !isset($spec[1])) {
+            $spec = (array) $spec;
+            return new $spec[0]();
         }
 
-        if (!is_array($spec)) {
-            $this->target = new $spec();
-            return;
-        }
+        $reflection = new \ReflectionClass($spec[0]);
+        $instance   = $reflection->newInstanceArgs($spec[1]);
 
-        $class = $spec[0];
-        $args  = $spec[1];
-
-        $reflection = new \ReflectionClass($class);
-        $target     = $reflection->newInstanceArgs($args);
-
-        $this->target = $target;
+        return $instance;
     }
 }
