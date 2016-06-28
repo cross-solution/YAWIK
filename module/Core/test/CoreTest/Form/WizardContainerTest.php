@@ -11,8 +11,7 @@
 namespace CoreTest\Form;
 
 use Core\Form\Container;
-use Core\Form\WizardContainer;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\SetterGetterTrait;
 
 /**
@@ -25,7 +24,7 @@ use CoreTestUtils\TestCase\SetterGetterTrait;
  */
 class WizardContainerTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, SetterGetterTrait;
 
     protected $target = '\Core\Form\WizardContainer';
 

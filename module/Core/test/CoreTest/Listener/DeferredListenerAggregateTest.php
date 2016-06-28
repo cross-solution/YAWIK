@@ -10,7 +10,7 @@
 /** */
 namespace CoreTest\Listener;
 
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\SetterGetterTrait;
 use Zend\EventManager\EventManager;
 
@@ -25,7 +25,7 @@ use Zend\EventManager\EventManager;
 class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 {
 
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, SetterGetterTrait;
 
     protected $target = 'Core\Listener\DeferredListenerAggregate';
 

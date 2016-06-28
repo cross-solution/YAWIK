@@ -10,18 +10,11 @@
 /** */
 namespace OrganizationsTest\Entity;
 
-use Auth\Entity\User;
-use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\Permissions;
-use Core\Entity\PermissionsInterface;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\SetterGetterTrait;
-use Organizations\Entity\Employee;
-use Organizations\Entity\EmployeePermissionsInterface;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
-use Organizations\Entity\OrganizationImage;
-use Organizations\Entity\OrganizationContact;
 
 
 /**
@@ -34,7 +27,7 @@ use Organizations\Entity\OrganizationContact;
  */
 class OrganizationTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, SetterGetterTrait;
 
 
 

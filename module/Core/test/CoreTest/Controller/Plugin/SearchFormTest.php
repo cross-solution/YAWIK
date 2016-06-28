@@ -11,9 +11,8 @@
 namespace CoreTest\Controller\Plugin;
 
 use Core\Form\TextSearchForm;
-use Core\Form\TextSearchFormButtonsFieldset;
 use Core\Form\TextSearchFormFieldset;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Form\FormElementManager;
 
 /**
@@ -27,7 +26,7 @@ use Zend\Form\FormElementManager;
  */
 class SearchFormTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     protected $formElementManagerMock;
 

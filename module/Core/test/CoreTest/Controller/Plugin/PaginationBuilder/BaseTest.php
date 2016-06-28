@@ -10,7 +10,7 @@
 /** */
 namespace CoreTest\Controller\Plugin\PaginationBuilder;
 
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Controller\Plugin\PaginationBuilder
@@ -24,7 +24,7 @@ use CoreTestUtils\TestCase\AssertInheritanceTrait;
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     /**
      *
