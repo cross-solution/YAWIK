@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use CoreTestUtils\Constraint\ExtendsOrImplements;
+
 /**
  * Inheritance assertions.
  *
@@ -23,47 +25,31 @@ namespace CoreTestUtils\TestCase;
  * Property $inheritance should be an array with class and/or interface names the $target shoul be
  * extending from or implementing. Each of this names will get asserted by calling ::assertInstanceOf()
  *
- *
- * @property object|string $target
- * @property array $inheritance
- * @method fail
- * @method assertInstanceOf
+ * @method assertThat()
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0,25
  */
 trait AssertInheritanceTrait
 {
-    use SetupTargetTrait;
-
-    /**
-     * @testdox Extends correct parent and implements required interfaces.
-     * @coversNothing
-     */
-    public function testInheritance()
+    public static function assertInheritance($parentsAndInterfaces, $object, $message = '')
     {
-        $errTmpl = __TRAIT__ . ': ' . get_class($this);
-
-        if (!property_exists($this, 'inheritance') || !property_exists($this, 'target')) {
-            $this->fail($errTmpl . ' must define the properties "$inheritance" and "$target"');
+        if (!is_object($object)) {
+            throw \PHPUnit_Util_InvalidArgumentHelper::factory(2, 'object');
         }
+        self::assertThat($object, self::extendsOrImplements($parentsAndInterfaces), $message);
+    }
 
-        if (!is_array($this->inheritance)) {
-            $this->fail($errTmpl . ': Property $inheritance must be an array');
-        }
+    public static function extendsOrImplements($parentsAndInterfaces)
+    {
 
-        if (!is_object($this->target)) {
-            $this->fail($errTmpl . ': Property $target must be an object');
-        }
-
-        foreach ($this->inheritance as $class) {
-            $this->assertInstanceOf(
-                 $class,
-                 $this->target,
-                 $errTmpl . ': ' . get_class($this->target) . ' does not '
-                          . (false !== strpos($class, 'Interface') ? 'implement' : 'extend')
-                          . ' ' . $class
+        if (!is_array($parentsAndInterfaces)) {
+            throw \PHPUnit_Util_InvalidArgumentHelper::factory(
+                                                    1,
+                                                    'array or ArrayAccess'
             );
         }
+
+        return new ExtendsOrImplements($parentsAndInterfaces);
     }
 }
