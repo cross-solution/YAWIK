@@ -10,9 +10,11 @@
 /** */
 namespace CoreTest\Listener;
 
+use Core\Listener\DeferredListenerAggregate;
 use CoreTestUtils\TestCase\AssertInheritanceTrait;
 use CoreTestUtils\TestCase\SetterGetterTrait;
 use Zend\EventManager\EventManager;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Listener\DeferredListenerAggregate
@@ -35,14 +37,19 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 
     protected function getTargetArgs()
     {
-        $this->services = $this->getMock('\Zend\ServiceManager\ServiceManager', [ 'has', 'get' ]);
+        $this->services = $this->getMockBuilder(ServiceManager::class)
+            ->setMethods(['has', 'get'])
+            ->getMock();
         return [$this->services];
     }
     
     public function propertiesProvider()
     {
-        $target = $this->getMock($this->target, [ 'setListener' ], [], '', false);
-        $target->expects($this->exactly(2))->method('setListener')
+        $target = $this->getMockBuilder(DeferredListenerAggregate::class)
+            ->setMethods(['setListener'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $target->expects($this->any())->method('setListener')
             ->withConsecutive(
                 ['test', 'service', null, 0],
                 ['test2', 'someClass', 'method', 12]
@@ -65,6 +72,7 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
                 'value' => [ [ 'event' => 'test', 'service' => 'service' ] ],
                 'target' => $target,
                 'ignore_getter' => true,
+                'property_assert' => 'verifyAddListenersTestTarget',
             ]],
             [ 'listeners', [
                 'value' => [ [ 'event' => 'test2', 'service' => 'someClass', 'method' => 'method', 'priority' => 12 ] ],
@@ -118,7 +126,9 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
         $this->target->setHook('test', 'service');
         $this->target->setHook('test2', 'service2', 10);
 
-        $events = $this->getMock('\Zend\EventManager\EventManager', ['attach', 'detach']);
+        $events = $this->getMockBuilder(EventManager::class)
+            ->setMethods(['attach', 'detach'])
+            ->getMock();
         $events->expects($this->exactly(2))->method('attach')
             ->withConsecutive(    [ $this->equalTo('test'), $this->anything(), $this->equalTo(0) ],
                                   [ $this->equalTo('test2'), $this->anything(), $this->equalTo(10) ]

@@ -63,14 +63,20 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->listener = new Listener();
-        $this->user = $this->getMock(User::class, ['isActive']);
-        
-        $this->auth = $this->getMock(AuthenticationService::class, ['authenticate', 'hasIdentity', 'getIdentity', 'clearIdentity', 'getUser']);
+        $this->user = $this->getMockBuilder(User::class)
+            ->setMethods(['isActive'])
+            ->getMock();
+
+        $this->auth = $this->getMockBuilder(AuthenticationService::class)
+            ->setMethods(['authenticate', 'hasIdentity', 'getIdentity', 'clearIdentity', 'getUser'])
+            ->getMock();
         $this->auth->expects($this->any())
             ->method('getUser')
             ->willReturn($this->user);
-        
-        $this->serviceManager = $this->getMock(ServiceManager::class, ['get', 'has']);
+
+        $this->serviceManager = $this->getMockBuilder(ServiceManager::class)
+            ->setMethods(['get', 'has'])
+            ->getMock();
         $this->serviceManager->expects($this->any())
             ->method('get')
             ->will($this->returnCallback(function ($name)
@@ -86,15 +92,18 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
                     break;
                 }
             }));
-        
-        $this->application = $this->getMock(Application::class, ['getServiceManager', 'getRequest', 'getResponse', 'run', 'getEventManager']);
+
+        $this->application = $this->getMockBuilder(Application::class)
+            ->setMethods(['getServiceManager', 'getRequest', 'getResponse', 'run', 'getEventManager'])
+            ->getMock();
         $this->application->expects($this->any())
             ->method('getServiceManager')
             ->willReturn($this->serviceManager);
         
         $this->routeMatch = new RouteMatch([]);
-        
-        $this->event = $this->getMock(MvcEvent::class);
+
+        $this->event = $this->getMockBuilder(MvcEvent::class)
+            ->getMock();
         $this->event->expects($this->any())
             ->method('getApplication')
             ->willReturn($this->application);
@@ -111,7 +120,7 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
     
     public function testAttach()
     {
-        $eventManager = $this->getMock(EventManager::class);
+        $eventManager = $this->getMockBuilder(EventManager::class)->getMock();
         $eventManager->expects($this->exactly(3))
             ->method('attach')
             ->withConsecutive(
@@ -139,13 +148,15 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
             ->method('setError');
         
         if ($expectedTriggerCalled) {
-            $eventManager = $this->getMock(EventManager::class);
+            $eventManager = $this->getMockBuilder(EventManager::class)->getMock();
             $eventManager->expects($this->once())
                 ->method('trigger')
                 ->willReturn(new \Zend\EventManager\ResponseCollection())
                 ->with($this->equalTo(MvcEvent::EVENT_DISPATCH_ERROR));
-    
-            $target = $this->getMock(\stdClass::class, ['getEventManager']);
+
+            $target = $this->getMockBuilder(\stdClass::class)
+                ->setMethods(['getEventManager'])
+                ->getMock();
             $target->expects($this->any())
                 ->method('getEventManager')
                 ->willReturn($eventManager);

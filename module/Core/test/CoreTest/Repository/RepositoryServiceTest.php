@@ -43,7 +43,7 @@ class RepositoryServiceTest extends PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->eventManager = $this->getMock(EventManager::class);
+        $this->eventManager = $this->getMockBuilder(EventManager::class)->getMock();
         $this->dm
             ->expects($this->any())
             ->method('getEventManager')

@@ -144,17 +144,28 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setId($userId);
 
-        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted']);
-        $permissionsMock->expects($this->exactly(2))->method('isGranted')->with($userId)->will($this->onConsecutiveCalls(true,false));
-        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions']);
-        $jobMock->expects($this->exactly(2))->method('getPermissions')->willReturn($permissionsMock);
+        $permissionsMock = $this->getMockBuilder('Core\Entity\Permissions')
+            ->setMethods(['isGranted'])
+            ->getMock();
+        $permissionsMock
+            ->expects($this->exactly(1))
+            ->method('isGranted')
+            ->with($userId)
+            ->will($this->onConsecutiveCalls(true));
+
+        $jobMock = $this->getMockBuilder('Jobs\Entity\Job')
+            ->setMethods(['getPermissions'])
+            ->getMock();
+        $jobMock
+            ->expects($this->exactly(1))
+            ->method('getPermissions')
+            ->willReturn($permissionsMock);
 
 
         return [
             [[new Acl(), null, null, null] , false ],
             [[new Acl(), null, null, Permissions::PERMISSION_CHANGE] , false ],
             [[new Acl(), $user, $jobMock, 'edit'] , true ],
-            [[new Acl(), $user, $jobMock, 'edit'] , false ],
         ];
     }
 
@@ -167,9 +178,13 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
         $organization = new Organization();
         $organization->setUser($user);
 
-        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted']);
+        $permissionsMock = $this->getMockBuilder('Core\Entity\Permissions')
+            ->setMethods(['isGranted'])
+            ->getMock();
         $permissionsMock->expects($this->once())->method('isGranted')->willReturn(false);
-        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions','getOrganization']);
+        $jobMock = $this->getMockBuilder('Jobs\Entity\Job')
+            ->setMethods(['getPermissions', 'getOrganization'])
+            ->getMock();
 
         $jobMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
         $jobMock->expects($this->once())->method('getOrganization')->willReturn($organization);
@@ -196,9 +211,13 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
 
         $organization->setParent($parentOrganization);
 
-        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted']);
+        $permissionsMock = $this->getMockBuilder('Core\Entity\Permissions')
+            ->setMethods(['isGranted'])
+            ->getMock();
         $permissionsMock->expects($this->once())->method('isGranted')->willReturn(false);
-        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions','getOrganization']);
+        $jobMock = $this->getMockBuilder('Jobs\Entity\Job')
+            ->setMethods(['getPermissions', 'getOrganization'])
+            ->getMock();
 
         $jobMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
         $jobMock->expects($this->once())->method('getOrganization')->willReturn($organization);
@@ -220,11 +239,15 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
 
         $organization = new Organization();
 
-        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted','isAllowed']);
+        $permissionsMock = $this->getMockBuilder('Core\Entity\Permissions')
+            ->setMethods(['isGranted', 'isAllowed'])
+            ->getMock();
         $permissionsMock->expects($this->once())->method('isGranted')->willReturn(false);
         $permissionsMock->expects($this->once())->method('isAllowed')->with(EmployeePermissionsInterface::JOBS_CHANGE)->willReturn(true);
 
-        $employeeMock = $this->getMock('Organizations\Entity\Employee',['getPermissions','getUser']);
+        $employeeMock = $this->getMockBuilder('Organizations\Entity\Employee')
+            ->setMethods(['getPermissions', 'getUser'])
+            ->getMock();
         $employeeMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
         $employeeMock->expects($this->once())->method('getUser')->willReturn($user);
 
@@ -232,7 +255,9 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
         $employees->add($employeeMock);
         $organization->setEmployees($employees);
 
-        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions','getOrganization']);
+        $jobMock = $this->getMockBuilder('Jobs\Entity\Job')
+            ->setMethods(['getPermissions', 'getOrganization'])
+            ->getMock();
 
         $jobMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
         $jobMock->expects($this->once())->method('getOrganization')->willReturn($organization);

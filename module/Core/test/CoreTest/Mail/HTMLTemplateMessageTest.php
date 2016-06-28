@@ -53,17 +53,17 @@ class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
         $serviceManager = $this->getMockForAbstractClass(ServiceLocatorInterface::class);
 
         // mock setup
-        $viewManager = $this->getMock(ViewManager::class);
+        $viewManager = $this->getMockBuilder(ViewManager::class)->getMock();
         $viewResolver = $this->getMockForAbstractClass(ResolverInterface::class);
         $application = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $view = $this->getMock(View::class);
+        $view = $this->getMockBuilder(View::class)->getMock();
         $viewManager
             ->method('getView')
             ->willReturn($view);
-        $mvcEvent = $this->getMock(MvcEvent::class);
+        $mvcEvent = $this->getMockBuilder(MvcEvent::class)->getMock();
         $routeMatch = $this->getMockBuilder(RouteMatch::class)
             ->disableOriginalConstructor()
             ->getMock();

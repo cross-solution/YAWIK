@@ -41,13 +41,15 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
     {
         $this->init('forgot-password');
 
-        $this->formMock = $this->getMock('Auth\Form\ForgotPassword');
+        $this->formMock = $this->getMockBuilder('Auth\Form\ForgotPassword')
+            ->getMock();
 
         $this->serviceMock = $this->getMockBuilder('Auth\Service\ForgotPassword')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+            ->getMock();
 
         $this->controller = new ForgotPasswordController($this->formMock, $this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);

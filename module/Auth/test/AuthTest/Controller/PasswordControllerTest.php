@@ -42,7 +42,8 @@ class PasswordControllerTest extends AbstractControllerTestCase
     {
         $this->init('password');
 
-        $this->formMock = $this->getMock('Auth\Form\UserPassword');
+        $this->formMock = $this->getMockBuilder('Auth\Form\UserPassword')
+            ->getMock();
 
         $this->authenticationServiceMock = $this->getMockBuilder('Auth\AuthenticationService')
             ->disableOriginalConstructor()

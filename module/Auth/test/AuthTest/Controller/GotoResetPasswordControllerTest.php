@@ -34,7 +34,8 @@ class GotoResetPasswordControllerTest extends AbstractControllerTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+            ->getMock();
 
         $this->controller = new GotoResetPasswordController($this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);
