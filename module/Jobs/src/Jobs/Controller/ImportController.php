@@ -106,9 +106,10 @@ class ImportController extends AbstractActionController
                     $form->setData($params);
                     if ($form->isValid()) {
 
-                        if (isset($params['templateValues']['description-description'])) {
+                        if (isset($params['description'])) {
                             $templateValues = new TemplateValues();
-                            $entity->setTemplateValues($templateValues->setDescription(strip_tags($params['templateValues']['description-description'])));
+                            $description = Json::decode($params->description);
+                            $entity->setTemplateValues($templateValues->setDescription(strip_tags($description)));
                         }
 
                         $entity->setStatus($params['status']);
