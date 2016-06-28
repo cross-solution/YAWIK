@@ -10,7 +10,10 @@
 /** */
 namespace OrdersTest\Entity;
 
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Orders\Entity\Product;
+use Orders\Entity\ProductInterface;
 
 /**
  * Tests for Product
@@ -19,78 +22,37 @@ use Orders\Entity\Product;
  * @coversDefaultClass \Orders\Entity\Product
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group  Orders
  * @group  Orders.Entity
  */
 class ProductTest extends \PHPUnit_Framework_TestCase
 {
+    use TestInheritanceTrait, TestSetterGetterTrait;
+
     /**
      * The "Class under Test"
      *
      * @var Product
      */
-    private $target;
-
-    public function setup()
-    {
-        $this->target = new Product();
-    }
+    private $target = Product::class;
 
     /**
-     * @coversNothing
+     * @see TestInheritanceTrait
+     *
+     * @var array
      */
-    public function testInstanceOfProduct()
-    {
-        $this->assertInstanceOf('\Orders\Entity\ProductInterface', $this->target);
-    }
-
+    private $inheritance = [ ProductInterface::class ];
 
     /**
-     * @testdox Allows setting and getting the URI
+     * @see TestSetterGetterTrait
+     *
+     * @var array
      */
-    public function testSettingAndGettingName()
-    {
-        $input = 'Product Name';
-
-        $this->target->setName($input);
-
-        $this->assertEquals($input, $this->target->getName());
-    }
-
-    /**
-     * @testdox Allows setting and getting the URI
-     */
-    public function testSettingAndGettingPrice()
-    {
-        $input = 100.59;
-
-        $this->target->setPrice($input);
-
-        $this->assertEquals($input, $this->target->getPrice());
-    }
-
-    /**
-     * @testdox Allows setting and getting the URI
-     */
-    public function testSettingAndGettingProductNumber()
-    {
-        $input = "12ABC";
-
-        $this->target->setProductNumber($input);
-
-        $this->assertEquals($input, $this->target->getProductNumber());
-    }
-
-    /**
-     * @testdox Allows setting and getting the URI
-     */
-    public function testSettingAndGettingQuantity()
-    {
-        $input = 10;
-
-        $this->target->setQuantity($input);
-
-        $this->assertEquals($input, $this->target->getQuantity());
-    }
-
+    private $properties = [
+        [ 'name', 'Product Name' ],
+        [ 'price', 100.59 ],
+        [ 'productNumber', '12ABC' ],
+        [ 'quantity', 10 ],
+    ];
 }
