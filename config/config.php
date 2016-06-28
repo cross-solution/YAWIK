@@ -27,6 +27,7 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
              'Pdf',
              'Geo',
              'Organizations',
+        'Solr',
         );
 
     if (!isset($allModules)) {

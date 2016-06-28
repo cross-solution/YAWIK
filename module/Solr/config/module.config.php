@@ -9,11 +9,20 @@
 return array(
     'solr' => [
         'connection' => [
-            'hostname' => 'localhost',
-            'port' => 80,
+            'hostname' => 'yawik',
+            'port' => 8443,
             'path' => '/solr',
-            'username' => 'admin',
-            'password' => 'admin',
+            'username' => 'yawik',
+            'password' => '3qaS2uQU86dGbMXjDds2',
+        ]
+    ],
+    'doctrine' => [
+        'eventmanager' => [
+            'odm_default' => [
+                'subscribers' => [
+                    'Solr/Event/JobEventSubscriber'
+                ]
+            ]
         ]
     ]
 );
