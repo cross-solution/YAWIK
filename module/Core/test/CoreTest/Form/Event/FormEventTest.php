@@ -12,7 +12,7 @@ namespace CoreTest\Form\Event;
 
 use Core\Form\Container;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\Form\Form;
 
 /**
@@ -27,7 +27,7 @@ use Zend\Form\Form;
 class FormEventTest extends \PHPUnit_Framework_TestCase
 {
 
-    use TestInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
      *

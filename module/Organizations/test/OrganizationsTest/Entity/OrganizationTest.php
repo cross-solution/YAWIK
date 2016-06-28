@@ -12,7 +12,7 @@ namespace OrganizationsTest\Entity;
 
 
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 
@@ -27,7 +27,7 @@ use Organizations\Entity\OrganizationName;
  */
 class OrganizationTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
 
 

@@ -12,7 +12,7 @@ namespace CoreTest\Form;
 
 
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Form\TextSearchFormButtonsFieldset
@@ -24,7 +24,7 @@ use CoreTestUtils\TestCase\SetterGetterTrait;
  */
 class TextSearchFormButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
      *

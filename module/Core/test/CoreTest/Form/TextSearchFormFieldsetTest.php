@@ -11,7 +11,7 @@
 namespace CoreTest\Form;
 
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\Form\Element\Text;
 
 /**
@@ -24,7 +24,7 @@ use Zend\Form\Element\Text;
  */
 class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
      *

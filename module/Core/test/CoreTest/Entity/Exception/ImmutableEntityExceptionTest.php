@@ -11,7 +11,7 @@
 namespace CoreTest\Entity\Exception;
 
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Entity\Exception\ImmutableEntityException
@@ -24,7 +24,7 @@ use CoreTestUtils\TestCase\SetterGetterTrait;
  */
 class ImmutableEntityExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     protected $target = [ 'class' => '\Core\Entity\Exception\ImmutableEntityException', 'args' => [ 'entityClassName' ] ];
 

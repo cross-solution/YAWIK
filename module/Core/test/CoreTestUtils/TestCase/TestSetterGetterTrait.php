@@ -109,7 +109,7 @@ namespace CoreTestUtils\TestCase;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25
  */
-trait SetterGetterTrait
+trait TestSetterGetterTrait
 {
     public function propertiesProvider()
     {

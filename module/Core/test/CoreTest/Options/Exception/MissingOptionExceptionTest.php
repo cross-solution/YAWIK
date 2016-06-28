@@ -12,7 +12,7 @@ namespace CoreTest\OptionsException;
 
 use Core\Options\Exception\MissingOptionException;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Options\Exception\MissingOptionException
@@ -25,7 +25,7 @@ use CoreTestUtils\TestCase\SetterGetterTrait;
  */
 class MissingDependencyExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     protected $target = [
         'class' => '\Core\Options\Exception\MissingOptionException',
