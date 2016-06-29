@@ -3,24 +3,41 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTestUtils\Constraint;
 
 /**
- * ${CARET}
- * 
+ * Constraint to assert the extending or implementing of specific classes and interfaces.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since  0.26
  */
 class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
 {
+    /**
+     * The FQCN of the classes and interfaces which the tested object
+     * must extend or implement.
+     *
+     * @var string[]
+     */
     private $parentsAndInterfaces = [];
+
+    /**
+     * Stores the result of each tested class|interface for internal use.
+     *
+     * @var array
+     */
     private $result = [];
 
+    /**
+     * Creates a new instance.
+     *
+     * @param string[] $parentsAndInterfaces FQCNs of classes or interfaces.
+     */
     public function __construct($parentsAndInterfaces = [])
     {
         $this->parentsAndInterfaces = (array) $parentsAndInterfaces;
@@ -32,15 +49,28 @@ class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
         return count($this->parentsAndInterfaces);
     }
 
+    /**
+     * Tests if an object extends or implements the required classes or interfaces.
+     *
+     * Returns true, if and only if the object extends or implements ALL the classes and interfaces
+     * provided with {@link $parentsAndInterfaces}
+     *
+     * @param object $other
+     *
+     * @return bool
+     */
     protected function matches($other)
     {
         $this->result = [];
+        $success      = true;
 
         foreach ($this->parentsAndInterfaces as $fqcn) {
-            $this->result[$fqcn] = $other instanceOf $fqcn;
+            $check               = $other instanceOf $fqcn;
+            $this->result[$fqcn] = $check;
+            $success             = $success && $check;
         }
 
-        return array_reduce($this->result, function($carry, $value) { return $carry && $value; }, true);
+        return $success;
     }
 
     protected function failureDescription($other)
@@ -48,22 +78,20 @@ class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
         return get_class($other) . ' ' . $this->toString();
     }
 
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return string
-     */
-    public function toString()
+    protected function additionalFailureDescription($other)
     {
-        $inheritance = '';
+        $info = '';
 
         foreach ($this->result as $fqcn => $valid) {
-            $inheritance .= PHP_EOL . ' ['
-                     . ($valid ? 'x' : ' ')
-                     . '] ' . $fqcn;
+            $info .= sprintf("\n %s %s", $valid ? '+' : '-', $fqcn);
         }
 
-        return 'extends or implements: ' . $inheritance;
+        return $info;
+    }
+
+    public function toString()
+    {
+        return 'extends or implements required classes and interfaces';
     }
 
 

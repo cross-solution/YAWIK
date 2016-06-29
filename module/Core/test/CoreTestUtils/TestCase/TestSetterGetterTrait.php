@@ -3,10 +3,10 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTestUtils\TestCase;
 
@@ -54,6 +54,10 @@ namespace CoreTestUtils\TestCase;
  *                         {, 'target' => <FQCN>}
  *                         {, 'target' => <object>}
  *                         {, 'target' => [ <FQCN>, <constructor args> ]}
+ *                         {, 'pre' => 'methodName' }
+ *                         {, 'pre' => [ 'methodName', [ arg, arg, .. ]}
+ *                         {, 'post' => 'methodName' }
+ *                         {, 'post' => [ 'methodName', [ arg, arg, .. ]}
  * ];
  *
  * <value>: The value that should be set and on which the getter assertion operates.
@@ -96,9 +100,12 @@ namespace CoreTestUtils\TestCase;
  *          Either pass in an object, an FQCN or an array with FQCN as first item and the constructor args as array
  *          as the second item. The target instance will then be used in the following test scenario.
  *
+ * 'pre' and 'post':
+ *          methodName of the TestCase which is called before ('pre') or after ('post') the tests for a single
+ *          property.
+ *
  * @property object $target
- * @property array $properties
- * @method fail
+ * @property array  $properties
  * @method assertInstanceOf
  * @method assertEquals
  * @method assertSame
@@ -107,50 +114,56 @@ namespace CoreTestUtils\TestCase;
  * @method setExpectedException
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.25
+ * @since  0.25 (renamed in 0.26)
  */
 trait TestSetterGetterTrait
 {
+    /**
+     * Gets the specifictation.
+     *
+     * @return array
+     */
     public function propertiesProvider()
     {
         return property_exists($this, 'properties') ? $this->properties : [];
     }
 
     /**
-     * @testdox Allows setting and/or getting object property values.
+     * @testdox      Allows setting and/or getting object property values.
      * @dataProvider propertiesProvider
      */
     public function testSetterAndGetter($name, $spec)
     {
         $errTmpl = __METHOD__ . ': ' . get_class($this);
         if (!property_exists($this, 'target') || !is_object($this->target)) {
-            $this->fail($errTmpl . ' must define the property "target" and the value must be an object.');
+            throw new \PHPUnit_Framework_Exception($errTmpl
+                                                   . ' must define the property "target" and the value must be an object.');
         }
 
         if (!is_array($spec)) {
-            $spec = [ 'value' => $spec ];
+            $spec = ['value' => $spec];
         }
 
         if (isset($spec['@value'])) {
-            $spec['value'] = $this->_setterGetterTrait_createInstance($spec['@value']);
+            $spec['value'] = $this->_setterGetter_createInstance($spec['@value']);
         }
 
         if (!isset($spec['value'])) {
-            $this->fail($errTmpl. ': Specification must contain the key "value".');
+            throw new \PHPUnit_Framework_Exception($errTmpl . ': Specification must contain the key "value".');
         }
 
         if (isset($spec['target'])) {
             $this->target = is_object($spec['target'])
                 ? $spec['target']
-                : $this->_setterGetterTrait_createInstance($spec['target']);
+                : $this->_setterGetter_createInstance($spec['target']);
         }
 
         if (isset($spec['@default'])) {
-            $spec['default'] = $this->_setterGetterTrait_createInstance($spec['@default']);
+            $spec['default'] = $this->_setterGetter_createInstance($spec['@default']);
         }
 
         if (is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
-            $spec['value'] = $this->_setterGetterTrait_createInstance(substr($spec['value'], 1));
+            $spec['value'] = $this->_setterGetter_createInstance(substr($spec['value'], 1));
         }
 
         $hook = function ($type, $spec) {
@@ -170,17 +183,21 @@ trait TestSetterGetterTrait
             }
 
             $args = array_map(
-                function($item) use ($spec) {
-                    if ('###' == $item) { return $spec; }
+                function ($item) use ($spec) {
+                    if ('###' == $item) {
+                        return $spec;
+                    }
                     if (is_array($item) && isset($item[0]) && is_string($item[0])) {
                         if (0 === strpos($item[0], '->')) {
 
                             $args = isset($item[1]) ? $item[1] : [];
+
                             return call_user_func_array([$this->target, substr($item[0], 2)], $args);
                         }
 
                         if (0 === strpos($item[0], '::')) {
                             $args = isset($item[1]) ? $item[1] : [];
+
                             return call_user_func_array([$this, substr($item[0], 2)], $args);
                         }
                     }
@@ -200,43 +217,123 @@ trait TestSetterGetterTrait
         $setterArgs = isset($spec['setter_args']) ? $spec['setter_args'] : false;
 
         if (isset($spec['setter_exception'])) {
-            $this->assertSetterGetterException($name, $spec['setter_exception'], $spec['value'], $setterArgs);
+            $this->_setterGetter_assertSetterGetterException($name, $spec['setter_exception'], $spec['value'],
+                                                             $setterArgs
+            );
+
             return;
         }
 
 
         if (isset($spec['default'])) {
             $defaultGetterArgs = isset($spec['default_args']) ? $spec['default_args'] : $getterArgs;
-            $assert = isset($spec['default_assert']) ? $spec['default_assert'] : null;
-            $this->assertGetterValue($name, $spec['default'], $defaultGetterArgs, $assert, true);
+            $assert            = isset($spec['default_assert']) ? $spec['default_assert'] : null;
+            $this->_setterGetter_assertGetterValue($name, $spec['default'], $defaultGetterArgs, $assert, true);
         }
 
         if (!isset($spec['ignore_setter']) || !$spec['ignore_setter']) {
             $assert = isset($spec['setter_assert']) ? $spec['setter_assert'] : null;
-            $this->assertSetterValue($name, $spec['value'], $setterArgs, $assert, array_key_exists('setter_value', $spec) ? $spec['setter_value'] : '__FLUENT_INTERFACE__');
+            $this->_setterGetter_assertSetterValue($name, $spec['value'], $setterArgs, $assert,
+                                                   array_key_exists('setter_value', $spec)
+                                                       ? $spec['setter_value']
+                                                       : '__FLUENT_INTERFACE__'
+            );
         }
 
         if (isset($spec['getter_exception'])) {
-            $this->assertSetterGetterException($name,  $spec['getter_exception'], '__GETTER_EXCEPTION__', $getterArgs);
+            $this->_setterGetter_assertSetterGetterException($name, $spec['getter_exception'], '__GETTER_EXCEPTION__',
+                                                             $getterArgs
+            );
+
             return;
         }
 
         if (isset($spec['expect_property'])) {
             $assert = isset($spec['property_assert']) ? $spec['property_assert'] : null;
-            $this->assertPropertyValue($name, $spec['expect_property'], $assert);
+            $this->_setterGetter_assertPropertyValue($name, $spec['expect_property'], $assert);
 
-        } else  if (!isset($spec['ignore_getter']) || !$spec['ignore_getter']) {
+        } else if (!isset($spec['ignore_getter']) || !$spec['ignore_getter']) {
             $assert = isset($spec['getter_assert']) ? $spec['getter_assert'] : null;
-            $this->assertGetterValue($name, isset($spec['expect']) ? $spec['expect'] : $spec['value'], $getterArgs, $assert);
+            $this->_setterGetter_assertGetterValue($name, isset($spec['expect']) ? $spec['expect'] : $spec['value'],
+                                                   $getterArgs, $assert
+            );
         }
 
         $hook('post', $spec);
     }
 
-    public function assertGetterValue($name, $value, $args, $assert, $isDefaultValue = false)
+    /**
+     * Creates an object instance from specification
+     *
+     * @param string|array $spec
+     *
+     * @return object
+     */
+    private function _setterGetter_createInstance($spec)
+    {
+        if (!is_array($spec) || !isset($spec[1])) {
+            $spec = (array) $spec;
+
+            return new $spec[0]();
+        }
+
+        $reflection = new \ReflectionClass($spec[0]);
+        $instance   = $reflection->newInstanceArgs($spec[1]);
+
+        return $instance;
+    }
+
+    /**
+     * Assert that a getter or setter throws an exception.
+     *
+     * @param string      $name
+     * @param string      $exception Exception class name
+     * @param mixed       $value
+     * @param array|false $args
+     */
+    private function _setterGetter_assertSetterGetterException($name, $exception, $value = null, $args = [])
+    {
+        if (is_array($exception)) {
+            $message   = $exception[1];
+            $exception = $exception[0];
+        } else {
+            $message = null;
+        }
+
+        $this->setExpectedException($exception, $message);
+
+        if ('__GETTER_EXCEPTION__' == $value) {
+            $method = "get$name";
+
+        } else {
+            $method = "set$name";
+            if (false === $args) {
+                $args = [$value];
+            } else {
+                array_unshift($args, $value);
+            }
+        }
+
+        if (false === $args) {
+            $this->target->$method();
+        } else {
+            call_user_func_array([$this->target, $method], $args);
+        }
+    }
+
+    /**
+     * Assert that the getter returns the correct value.
+     *
+     * @param string        $name
+     * @param mixed         $value
+     * @param array         $args
+     * @param callable|null $assert
+     * @param bool          $isDefaultValue
+     */
+    private function _setterGetter_assertGetterValue($name, $value, $args, $assert, $isDefaultValue = false)
     {
         $getter = "get$name";
-        $err = sprintf(
+        $err    = sprintf(
             '%s: %s: %s for %s::%s is not as expected',
             __TRAIT__, get_class($this), $isDefaultValue ? 'Default value' : 'Value', get_class($this->target), $getter
         );
@@ -248,7 +345,8 @@ trait TestSetterGetterTrait
         }
 
         if ($assert) {
-            call_user_func([ $this, $assert ], $name, $returned, $value);
+            call_user_func([$this, $assert], $name, $returned, $value);
+
             return;
         }
 
@@ -278,7 +376,16 @@ trait TestSetterGetterTrait
         }
     }
 
-    public function assertSetterValue($name, $value, $args, $assert, $expect = null)
+    /**
+     * Assert that the setter returns the correct value.
+     *
+     * @param string        $name
+     * @param mixed         $value
+     * @param array         $args
+     * @param callable|null $assert
+     * @param mixed|null    $expect
+     */
+    private function _setterGetter_assertSetterValue($name, $value, $args, $assert, $expect = null)
     {
         $setter = "set$name";
 
@@ -286,8 +393,8 @@ trait TestSetterGetterTrait
             $expect = $this->target;
         }
 
-        $err    = __TRAIT__ . ': ' . get_class($this) . ': Setter ' . get_class($this->target) . '::' . $setter
-                . ($expect === $this->target ? ' breaks fluent interface.' : ' does not return expected value.');
+        $err = __TRAIT__ . ': ' . get_class($this) . ': Setter ' . get_class($this->target) . '::' . $setter
+               . ($expect === $this->target ? ' breaks fluent interface.' : ' does not return expected value.');
 
 
         if (false === $args) {
@@ -299,6 +406,7 @@ trait TestSetterGetterTrait
 
         if ($assert) {
             call_user_func([$this, $assert], $name, $returned, $expect);
+
             return;
         }
 
@@ -318,9 +426,16 @@ trait TestSetterGetterTrait
         }
     }
 
-    public function assertPropertyValue($name, $value, $assert)
+    /**
+     * Assert that a target property has the correct value
+     *
+     * @param string        $name
+     * @param mixed|array   $value
+     * @param callable|null $assert
+     */
+    private function _setterGetter_assertPropertyValue($name, $value, $assert)
     {
-        $err    = __TRAIT__ . ': ' . get_class($this) . ': Property ' . $name . ' does not have expected value.';
+        $err = __TRAIT__ . ': ' . get_class($this) . ': Property ' . $name . ' does not have expected value.';
 
         $propertyName = $name;
 
@@ -329,12 +444,13 @@ trait TestSetterGetterTrait
                 $value = $value[0];
             } else {
                 $propertyName = $value[0];
-                $value = $value[1];
+                $value        = $value[1];
             }
         }
 
         if ($assert) {
             call_user_func([$this, $assert], $propertyName, $value, $name);
+
             return;
         }
 
@@ -347,56 +463,5 @@ trait TestSetterGetterTrait
                 $this->assertAttributeSame($value, $propertyName, $this->target, $err);
                 break;
         }
-    }
-
-    /**
-     *
-     *
-     * @param       $name
-     * @param       $exception
-     * @param null  $value
-     * @param array|bool $args
-     */
-    public function assertSetterGetterException($name, $exception, $value = null, $args = [])
-    {
-        if (is_array($exception)) {
-            $message = $exception[1];
-            $exception = $exception[0];
-        } else {
-            $message = null;
-        }
-
-        $this->setExpectedException($exception, $message);
-
-        if ('__GETTER_EXCEPTION__' == $value) {
-            $method = "get$name";
-
-        } else {
-            $method = "set$name";
-            if (false === $args) {
-                $args = [ $value ];
-            } else {
-                array_unshift($args, $value);
-            }
-        }
-
-        if (false === $args) {
-            $this->target->$method();
-        } else {
-            call_user_func_array([$this->target, $method], $args);
-        }
-    }
-
-    private function _setterGetterTrait_createInstance($spec)
-    {
-        if (!is_array($spec) || !isset($spec[1])) {
-            $spec = (array) $spec;
-            return new $spec[0]();
-        }
-
-        $reflection = new \ReflectionClass($spec[0]);
-        $instance   = $reflection->newInstanceArgs($spec[1]);
-
-        return $instance;
     }
 }

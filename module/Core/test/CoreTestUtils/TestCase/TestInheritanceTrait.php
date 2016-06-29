@@ -3,10 +3,10 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTestUtils\TestCase;
 
@@ -23,13 +23,12 @@ namespace CoreTestUtils\TestCase;
  * Property $inheritance should be an array with class and/or interface names the $target should be
  * extending from or implementing.
  *
- * @method fail()
  *
  * @property $target
  * @property $inheritance
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.26
+ * @since  0.26
  */
 trait TestInheritanceTrait
 {
@@ -44,15 +43,15 @@ trait TestInheritanceTrait
         $errTmpl = __TRAIT__ . ': ' . get_class($this);
 
         if (!property_exists($this, 'inheritance') || !property_exists($this, 'target')) {
-            $this->fail($errTmpl . ' must define the properties "$inheritance" and "$target"');
+            throw new \PHPUnit_Framework_Exception($errTmpl . ' must define the properties "$inheritance" and "$target"');
         }
 
         if (!is_array($this->inheritance)) {
-            $this->fail($errTmpl . ': Property $inheritance must be an array');
+            throw new \PHPUnit_Framework_Exception($errTmpl . ': Property $inheritance must be an array');
         }
 
         if (!is_object($this->target)) {
-            $this->fail($errTmpl . ': Property $target must be an object');
+            throw new \PHPUnit_Framework_Exception($errTmpl . ': Property $target must be an object');
         }
 
         $this->assertInheritance($this->inheritance, $this->target);
