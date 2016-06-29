@@ -11,6 +11,8 @@
 namespace CoreTest\Controller\Plugin;
 
 use Core\Controller\Plugin\CreatePaginator;
+use Zend\EventManager\EventManager;
+use Zend\EventManager\ResponseCollection;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 
@@ -76,7 +78,34 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
         $paginators->expects($this->once())->method('get')->with($paginatorName, $options)->willReturn($paginator);
 
         $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
-        $sm->expects($this->once())->method('get')->with('Core/PaginatorService')->willReturn($paginators);
+        $em = $this->getMockBuilder(EventManager::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $rc = $this->getMockBuilder(ResponseCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $sm->expects($this->exactly(2))
+            ->method('get')
+            ->withConsecutive(
+                ['Core/PaginatorService'],
+                ['EventManager']
+            )
+            ->willReturnOnConsecutiveCalls(
+                $paginators,
+                $em
+            )
+        ;
+
+        // check if event create paginator is triggered
+        $em->expects($this->once())
+            ->method('trigger')
+            ->with(CreatePaginator::EVENT_CREATE_PAGINATOR)
+            ->willReturn($rc)
+        ;
+        $rc->expects($this->once())->method('last')->willReturn(false);
 
         $controller = $this->getMockBuilder('\Zend\Mvc\Controller\AbstractActionController')
                            ->setMethods(['getServiceLocator', 'getRequest'])
