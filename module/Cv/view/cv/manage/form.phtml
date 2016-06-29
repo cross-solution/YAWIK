@@ -3,9 +3,23 @@ fieldset fieldset {padding-left: 30px;}
 #image .img-polaroid {max-width: 120px; max-height: 180px;width: 120px;}
 <?php $this->headStyle()->captureEnd()?>
 <?php
+/* @var $cv \Cv\Entity\Cv */
+$cv = $this->cv;
+$status = $cv->getStatus();
 $title = $this->translate('Create a new resume');
 $this->headtitle($title);
 $this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
 ?>
-<h1><?=$title?></h1>
+<h1>
+    <div class="btn-group pull-right">
+        <span class="btn btn-default"><?=$this->translate($status->getName())?></span>
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <?php foreach ($status->getStates([$status->getName()]) as $statusName):?>
+                <li><a href="<?=$this->url('lang/cvs/edit/status', ['id' => $cv->getId(), 'status' => $statusName])?>"><?=$statusName?></a></li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+    <?=$title?>
+</h1>
 <?=$this->formContainer($this->container)?>

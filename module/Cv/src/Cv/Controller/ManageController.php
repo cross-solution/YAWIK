@@ -132,7 +132,8 @@ class ManageController extends AbstractActionController
 
 
         return [
-            'container' => $container
+            'container' => $container,
+            'cv' => $cv
         ];
     }
 }
