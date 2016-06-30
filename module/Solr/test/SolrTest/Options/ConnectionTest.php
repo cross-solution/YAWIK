@@ -42,6 +42,10 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
             ['password', [
                 'default' => '',
                 'value' => 'some_password'
+            ]],
+            ['secure',[
+                'default' => false,
+                'value' => true,
             ]]
         ];
     }

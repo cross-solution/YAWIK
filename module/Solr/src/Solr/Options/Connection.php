@@ -14,6 +14,11 @@ use Zend\Stdlib\AbstractOptions;
 class Connection extends AbstractOptions
 {
     /**
+     * @var bool
+     */
+    protected $secure = false;
+
+    /**
      * @var string
      */
     protected $hostname = 'localhost';
@@ -38,6 +43,25 @@ class Connection extends AbstractOptions
      */
     protected $password = '';
 
+    /**
+     * @return boolean
+     */
+    public function isSecure()
+    {
+        return $this->secure;
+    }
+
+    /**
+     * @param boolean $secure
+     * @return Connection
+     */
+    public function setSecure($secure)
+    {
+        $this->secure = $secure;
+
+        return $this;
+    }
+    
     /**
      * @return string
      */
