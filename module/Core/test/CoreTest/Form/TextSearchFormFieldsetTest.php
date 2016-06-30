@@ -33,11 +33,15 @@ class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     protected $target = [
         'class' => '\Core\Form\TextSearchFormFieldset',
-        'mock' => [
-            'testPassingTextElementOptionsWithNoTextElementSet' => ['has', 'get'],
-            'testPassingTextElementOptionsWithTextElementSet' => ['has', 'get'],
-            'testAddsTextElementOnInitialization' => ['add'],
-        ]
+        '@testPassingTextElementOptionsWithNoTextElementSet' => [
+            'mock' => ['has', 'get'],
+        ],
+        '@testPassingTextElementOptionsWithTextElementSet' => [
+            'mock' => ['has', 'get'],
+        ],
+        '@testAddsTextElementOnInitialization' => [
+            'mock' => ['add'],
+        ],
     ];
 
     protected $inheritance = [ '\Zend\Form\Fieldset'  ];

@@ -33,8 +33,8 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected $target = [
         'class' => '\Core\Controller\Plugin\PaginationBuilder',
-        'mock' => [
-            'testInvokationCallsGetResult' => ['getResult' => ['count' => 2, 'return' => '__self__']],
+        '@testInvokationCallsGetResult' => [
+            'mock' => ['getResult' => ['count' => 2, 'return' => '__self__']],
         ],
     ];
 

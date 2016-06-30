@@ -10,9 +10,11 @@
 /** */
 namespace CoreTest\Listener;
 
+use Core\Listener\DeferredListenerAggregate;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\EventManager\EventManager;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Listener\DeferredListenerAggregate
@@ -27,7 +29,11 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 
     use TestInheritanceTrait, TestSetterGetterTrait;
 
-    protected $target = 'Core\Listener\DeferredListenerAggregate';
+    protected $target = [
+        'Core\Listener\DeferredListenerAggregate',
+        'getTargetArgs',
+        '@testFactoryMethodReturnsInstance' => false
+    ];
 
     protected $inheritance = [ '\Zend\EventManager\ListenerAggregateInterface' ];
     
@@ -41,7 +47,7 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
     
     public function propertiesProvider()
     {
-        $target = $this->getMock($this->target, [ 'setListener' ], [], '', false);
+        $target = $this->getMock($this->target[0], [ 'setListener' ], [], '', false);
         $target->expects($this->exactly(2))->method('setListener')
             ->withConsecutive(
                 ['test', 'service', null, 0],
@@ -212,6 +218,15 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
                 break;
         }
 
+    }
+
+    public function testFactoryMethodReturnsInstance()
+    {
+        $services = new ServiceManager();
+        $instance = DeferredListenerAggregate::factory($services);
+
+        $this->assertInstanceOf(DeferredListenerAggregate::class, $instance);
+        $this->assertAttributeSame($services, 'serviceManager', $instance);
     }
 }
 

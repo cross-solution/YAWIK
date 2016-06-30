@@ -33,9 +33,11 @@ class TextSearchFormButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     protected $target = [
         'class' => '\Core\Form\TextSearchFormButtonsFieldset',
-        'mock' => [
-            'testInitializationAddsDefaultButtons' => ['addButton'],
-            'testAddButton' => ['add'],
+        '@testInitializationAddsDefaultButtons' => [
+            'mock' => ['addButton'],
+        ],
+        '@testAddButton' => [
+            'mock' => ['add'],
         ],
     ];
 
