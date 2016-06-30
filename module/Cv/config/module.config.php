@@ -68,6 +68,29 @@ return array(
                                     ),
                                 ),
                             ),
+                            'edit' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/edit/:id',
+                                    'defaults' => [
+                                        'controller' => 'Cv\Controller\Manage'
+                                    ],
+                                    'constraints' => [
+                                        'id' => '\w+'
+                                    ]
+                                ],
+                                'child_routes' => [
+                                    'status' => [
+                                        'type' => 'Segment',
+                                        'options' => [
+                                            'route' => '/status/:status',
+                                            'defaults' => [
+                                                'action' => 'status'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
                         ),
                     ),
                 ),
