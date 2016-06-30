@@ -7,7 +7,7 @@ services:
   - mongodb
 
 env:
-  - PECLMONGO=mongo-1.6.10
+  - PECLMONGO=mongo-1.6.10 PECLSOLR=solr-2.4.0
 
 before_install:
   - sudo apt-get update > /dev/null
@@ -27,7 +27,6 @@ before_script:
   - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
 
   # install SOLR extension
-  - sh -c export PECLSOLR="solr-2.4.0"
   - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
   - sh -c "tar xfz $PECLSOLR.tgz"
   - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
