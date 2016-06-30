@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use CoreTestUtils\InstanceCreator;
+
 /**
  * Trait for testing setters and getters of the SUT.
  *
@@ -145,7 +147,7 @@ trait TestSetterGetterTrait
         }
 
         if (isset($spec['@value'])) {
-            $spec['value'] = $this->_setterGetter_createInstance($spec['@value']);
+            $spec['value'] = InstanceCreator::fromSpec($spec['@value'], InstanceCreator::FORCE_INSTANTIATION);
         }
 
         if (!isset($spec['value'])) {
@@ -155,15 +157,15 @@ trait TestSetterGetterTrait
         if (isset($spec['target'])) {
             $this->target = is_object($spec['target'])
                 ? $spec['target']
-                : $this->_setterGetter_createInstance($spec['target']);
+                : InstanceCreator::fromSpec($spec['target'], InstanceCreator::FORCE_INSTANTIATION);
         }
 
         if (isset($spec['@default'])) {
-            $spec['default'] = $this->_setterGetter_createInstance($spec['@default']);
+            $spec['default'] = InstanceCreator::fromSpec($spec['@default'], InstanceCreator::FORCE_INSTANTIATION);
         }
 
         if (is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
-            $spec['value'] = $this->_setterGetter_createInstance(substr($spec['value'], 1));
+            $spec['value'] = InstanceCreator::newClass($spec['value']);
         }
 
         $hook = function ($type, $spec) {
@@ -260,27 +262,6 @@ trait TestSetterGetterTrait
         }
 
         $hook('post', $spec);
-    }
-
-    /**
-     * Creates an object instance from specification
-     *
-     * @param string|array $spec
-     *
-     * @return object
-     */
-    private function _setterGetter_createInstance($spec)
-    {
-        if (!is_array($spec) || !isset($spec[1])) {
-            $spec = (array) $spec;
-
-            return new $spec[0]();
-        }
-
-        $reflection = new \ReflectionClass($spec[0]);
-        $instance   = $reflection->newInstanceArgs($spec[1]);
-
-        return $instance;
     }
 
     /**
