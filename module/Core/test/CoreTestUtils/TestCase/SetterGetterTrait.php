@@ -235,6 +235,15 @@ trait SetterGetterTrait
     public function assertGetterValue($name, $value, $args, $assert, $isDefaultValue = false)
     {
         $getter = "get$name";
+
+        if(
+            !method_exists($this->target,$getter) &&
+            method_exists($this->target,$test="is$name"))
+        {
+            // use is prefix as getter
+            $getter = $test;
+        }
+        
         $err = sprintf(
             '%s: %s: %s for %s::%s is not as expected',
             __TRAIT__, get_class($this), $isDefaultValue ? 'Default value' : 'Value', get_class($this->target), $getter
