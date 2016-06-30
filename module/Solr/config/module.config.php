@@ -9,20 +9,44 @@
 return array(
     'solr' => [
         'connection' => [
-            'hostname' => 'yawik',
+            'secure'   => true,
+            'hostname' => 'yawik.org',
             'port' => 8443,
-            'path' => '/solr',
+            'path' => '/solr/YawikJobs',
             'username' => 'yawik',
             'password' => '3qaS2uQU86dGbMXjDds2',
-        ]
+        ],
     ],
     'doctrine' => [
         'eventmanager' => [
             'odm_default' => [
                 'subscribers' => [
-                    'Solr/Event/JobEventSubscriber'
+                    'Solr/Event/Listener/JobEventSubscriber'
                 ]
             ]
         ]
-    ]
+    ],
+    'listeners' => [
+        'Solr\Event\Listener\CreatePaginatorListener',
+    ],
+    'service_manager' => [
+        'factories' => [
+            'Solr\Event\Listener\CreatePaginatorListener' => 'Solr\Event\Listener\CreatePaginatorListener::factory',
+            'Solr/Client' => 'Solr\Factory\SolrClientFactory',
+            'Solr/Options/Connection' => 'Solr\Factory\ConnectionOptionFactory',
+            'Solr/Event/Listener/JobEventSubscriber' => 'Solr\Event\Listener\JobEventSubscriber::factory',
+            'Solr/Manager' => 'Solr\Bridge\Manager::factory',
+
+        ],
+    ],
+    'paginator_manager' => [
+        'factories' => [
+            'Solr/Jobs/Board' => 'Solr\Paginator\JobsBoardPaginatorFactory',
+        ]
+    ],
+    'filters' => [
+        'factories'=> array(
+            'Solr/Jobs/PaginationQuery' => 'Solr\Filter\JobBoardPaginationQuery::factory',
+        ),
+    ],
 );

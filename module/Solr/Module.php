@@ -9,14 +9,10 @@
 namespace Solr;
 
 
-use Solr\Event\JobEventSubscriber;
-use Solr\Factory\ConnectionOptionFactory;
-use Solr\Factory\SolrClientFactory;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\Mvc\MvcEvent;
-use Zend\ServiceManager\ServiceManager;
 
-class Module implements ServiceProviderInterface
+class Module
 {
     /**
      * Loads module specific configuration.
@@ -48,17 +44,4 @@ class Module implements ServiceProviderInterface
     {
 
     }
-
-    public function getServiceConfig()
-    {
-        return [
-            'factories' => [
-                'Solr/Client' => new SolrClientFactory(),
-                'Solr/Options/Connection' => new ConnectionOptionFactory(),
-                'Solr/Event/JobEventSubscriber' => 'Solr\Event\JobEventSubscriber::factory'
-            ],
-        ];
-    }
-
-
 }
