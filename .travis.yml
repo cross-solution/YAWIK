@@ -28,9 +28,9 @@ before_script:
 
   # install SOLR extension
   - sh -c export PECLSOLR="solr-2.4.0"
-  - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
-  - sh -c "tar xfz $PECLMONGO.tgz"
-  - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
+  - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
+  - sh -c "tar xfz $PECLSOLR.tgz"
+  - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
 
   - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
