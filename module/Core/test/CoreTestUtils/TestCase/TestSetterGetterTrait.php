@@ -41,12 +41,18 @@ use CoreTestUtils\InstanceCreator;
  * [
  *      [ <property-name>, <value> ],
  *      [ <property-name>, [ 'value' => <value>
+ *                           '@value' => 'FQCN',
+ *                           '@value' => [ 'FQCN', [args]],
  *                         {, 'expect' => <expect>}
  *                         {, 'expect_property' => <expect>}
  *                         {, 'expect_property' => [ <name>, <expect> ]}
  *                         {, 'default' => <default>}
+ *                         {, '@default' => (= @value) (will create instance!)}
+ *                         {, 'default@' => same as ('@<FQCN>') (will not create instance)}
  *                         {, 'default_args' => array}
+ *                         {, 'setter_method' => string}
  *                         {, 'setter_args' => array}
+ *                         {, 'getter_method' => string}
  *                         {, 'getter_args' => array}
  *                         {, 'setter_value' => <value>}
  *                         {, 'setter_exception => <expection class>}
@@ -62,32 +68,50 @@ use CoreTestUtils\InstanceCreator;
  *                         {, 'post' => [ 'methodName', [ arg, arg, .. ]}
  * ];
  *
- * <value>: The value that should be set and on which the getter assertion operates.
+ * <value>:
+ *          The value that should be set and on which the getter assertion operates.
  *          If it's a string prefixed with '@', its assumed to be a class name and it will be tried
  *          to instantiate an instance. If more complex construction is needed, you should
- *          redefine the propertiesProvider() method as mentioned above.
- * <@value>: Creates an object instance from the provided specs:
- *           If a string is passed, it is used as class name.
- *           If an array is passed, the first entry must be a string holding the class name, the second item
- *           can be an array of constructor arguments.
- * <expect>: If your setter modifies the value passed to it, you can specify what value should be expected to be
- *           returned by the getter.
- * 'expect_property': If there's no getter, and no other mean to check if the setter works, provide the
- *                    value the property should contain here. (implies 'ignore_getter')
- *                    If the property name differs from the setter name, specify an array with
- *                      the name as first item and the expected value as the second item.
- *                      if the expected value is an array, and the property name does not differ,
- *                      pass that array as the first item.
- * <default>: If the getter provides a default value, specify it here, it will be checked before the setter call.
- *            If <default> is a string prefixed with '@', the returned value from the getter will be checked
- *            using "assertInstanceOf()".
- * <@default>: Same as @value, but used for the default test.
- * <default-args>: If the getter requires arguments, pass them here (for the default value check),
- * <getter-args>: Getter arguments for the "regular" getter test.
- * <setter-args>: If the setter requires more arguments than the value, provide them here. The value will be prepended
- *                to this arguments.
- * <setter-value>: If omitted, a fluent interface implementation is assumed. If the setter returns other value than
- *                 the SUT instance, specify it here.
+ *          either use '@value' or redefine the propertiesProvider() method as mentioned above.
+ *
+ * <expect>:
+ *          If your setter modifies the value passed to it, you can specify what value should be expected to be
+ *          returned by the getter.
+ *
+ * 'expect_property':
+ *          If there's no getter, and no other mean to check if the setter works, provide the
+ *          value the property should contain here. (implies 'ignore_getter')
+ *          If the property name differs from the setter name, specify an array with
+ *          the name as first item and the expected value as the second item.
+ *          if the expected value is an array, and the property name does not differ,
+ *          pass that array as the first item.
+ *
+ * <default>:
+ *          If the getter provides a default value, specify it here, it will be checked before the setter call.
+ *          If <default> is a string prefixed with '@', the returned value from the getter will be checked
+ *          using "assertInstanceOf()".
+ *
+ * <default-args>:
+ *          If the getter requires arguments, pass them here (for the default value check),
+ *
+ * <getter-args>:
+ *          Getter arguments for the "regular" getter test.
+ *
+ * <setter-args>:
+ *          If the setter requires more arguments than the value, provide them here. The value will be prepended
+ *          to this arguments.
+ *
+ * <setter-value>:
+ *          If omitted, a fluent interface implementation is assumed. If the setter returns other value than
+ *          the SUT instance, specify it here.
+ *
+ * 'getter_method':
+ *          Specify alternate name for getter method (when it's not "get<property>". A '*' in this spec will be
+ *          replaced with the provided property name. (eg. "is*" => "is<property>")
+ *
+ * 'setter_method':
+ *          Specify alternate name for setter method. (same as 'getter_method')
+ *
  * 'setter_exception':
  *          If the setter throws an exception under certain circumstances, you can test this, too.
  *          The setter will be called with the value (and additional args) and the specified exception class
@@ -103,8 +127,23 @@ use CoreTestUtils\InstanceCreator;
  *          as the second item. The target instance will then be used in the following test scenario.
  *
  * 'pre' and 'post':
- *          methodName of the TestCase which is called before ('pre') or after ('post') the tests for a single
- *          property.
+ *          a callable or the name of a TestCase method, which is called before ('pre') or after ('post') the tests
+ *          for a single property.
+ *
+ *          If its not a callable, following specs are possible:
+ *          - 'methodName' : a method of the TestCase, which will be called without arguments.
+ *          - [ 'methodName', [<arg>, <arg>, ,...] ] : Method of the TestCase which will be called with the
+ *                                                     provided Arguments.
+ *          - [ <callable>, [<arg>, <arg>,. ..] ]: Calls the callable with the provided args.
+ *
+ *          If a callable is specified, it will be called with the target instance, the testcase instance and the
+ *          specification array of the current property test as arguments in this order.
+ *
+ *          <arg>: There are special arguments:
+ *                  - '###' : Will be substituted with the current spec of the tested property.
+ *                  - '@self': Will be subsituted with the TestCase instance.
+ *                  - '@target': Will be substituted with the target instance.
+ *
  *
  * @property object $target
  * @property array  $properties
@@ -121,7 +160,10 @@ use CoreTestUtils\InstanceCreator;
 trait TestSetterGetterTrait
 {
     /**
-     * Gets the specifictation.
+     * Data provider for the setter/getter test.
+     *
+     * This implementation returns the $properties property of the TestCase,
+     * Redefine this method to provide more complex data.
      *
      * @return array
      */
@@ -162,64 +204,24 @@ trait TestSetterGetterTrait
 
         if (isset($spec['@default'])) {
             $spec['default'] = InstanceCreator::fromSpec($spec['@default'], InstanceCreator::FORCE_INSTANTIATION);
+
+        } else if (isset($spec['default@'])) {
+            $spec['default'] = '@' . $spec['default@'];
         }
 
         if (is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
             $spec['value'] = InstanceCreator::newClass($spec['value']);
         }
 
-        $hook = function ($type, $spec) {
-            if (!isset($spec[$type])) {
-                return;
-            }
+        $this->_setterGetter_triggerHook('pre', $spec);
 
-            $cb = $spec[$type];
-
-            if (is_array($cb)) {
-                $method = $cb[0];
-                $args   = isset($cb[1]) ? $cb[1] : [];
-
-            } else {
-                $method = $cb;
-                $args   = [];
-            }
-
-            $args = array_map(
-                function ($item) use ($spec) {
-                    if ('###' == $item) {
-                        return $spec;
-                    }
-                    if (is_array($item) && isset($item[0]) && is_string($item[0])) {
-                        if (0 === strpos($item[0], '->')) {
-
-                            $args = isset($item[1]) ? $item[1] : [];
-
-                            return call_user_func_array([$this->target, substr($item[0], 2)], $args);
-                        }
-
-                        if (0 === strpos($item[0], '::')) {
-                            $args = isset($item[1]) ? $item[1] : [];
-
-                            return call_user_func_array([$this, substr($item[0], 2)], $args);
-                        }
-                    }
-
-                    return $item;
-                },
-                $args
-            );
-
-            $callback = is_callable($method) ? $method : [$this, $method];
-            call_user_func_array($callback, $args);
-        };
-
-        $hook('pre', $spec);
-
+        $getterMethod = isset($spec['getter_method']) ? str_replace('*', $name, $spec['getter_method']) : "get$name";
+        $setterMethod = isset($spec['setter_method']) ? str_replace('*', $name, $spec['setter_method']) : "set$name";
         $getterArgs = isset($spec['getter_args']) ? $spec['getter_args'] : false;
         $setterArgs = isset($spec['setter_args']) ? $spec['setter_args'] : false;
 
         if (isset($spec['setter_exception'])) {
-            $this->_setterGetter_assertSetterGetterException($name, $spec['setter_exception'], $spec['value'],
+            $this->_setterGetter_assertSetterGetterException($setterMethod, $spec['setter_exception'], $spec['value'],
                                                              $setterArgs
             );
 
@@ -230,12 +232,12 @@ trait TestSetterGetterTrait
         if (isset($spec['default'])) {
             $defaultGetterArgs = isset($spec['default_args']) ? $spec['default_args'] : $getterArgs;
             $assert            = isset($spec['default_assert']) ? $spec['default_assert'] : null;
-            $this->_setterGetter_assertGetterValue($name, $spec['default'], $defaultGetterArgs, $assert, true);
+            $this->_setterGetter_assertGetterValue($getterMethod, $spec['default'], $defaultGetterArgs, $assert, true);
         }
 
         if (!isset($spec['ignore_setter']) || !$spec['ignore_setter']) {
             $assert = isset($spec['setter_assert']) ? $spec['setter_assert'] : null;
-            $this->_setterGetter_assertSetterValue($name, $spec['value'], $setterArgs, $assert,
+            $this->_setterGetter_assertSetterValue($setterMethod, $spec['value'], $setterArgs, $assert,
                                                    array_key_exists('setter_value', $spec)
                                                        ? $spec['setter_value']
                                                        : '__FLUENT_INTERFACE__'
@@ -243,7 +245,7 @@ trait TestSetterGetterTrait
         }
 
         if (isset($spec['getter_exception'])) {
-            $this->_setterGetter_assertSetterGetterException($name, $spec['getter_exception'], '__GETTER_EXCEPTION__',
+            $this->_setterGetter_assertSetterGetterException($getterMethod, $spec['getter_exception'], '__GETTER_EXCEPTION__',
                                                              $getterArgs
             );
 
@@ -256,23 +258,23 @@ trait TestSetterGetterTrait
 
         } else if (!isset($spec['ignore_getter']) || !$spec['ignore_getter']) {
             $assert = isset($spec['getter_assert']) ? $spec['getter_assert'] : null;
-            $this->_setterGetter_assertGetterValue($name, isset($spec['expect']) ? $spec['expect'] : $spec['value'],
+            $this->_setterGetter_assertGetterValue($getterMethod, isset($spec['expect']) ? $spec['expect'] : $spec['value'],
                                                    $getterArgs, $assert
             );
         }
 
-        $hook('post', $spec);
+        $this->_setterGetter_triggerHook('post', $spec);
     }
 
     /**
      * Assert that a getter or setter throws an exception.
      *
-     * @param string      $name
+     * @param string      $method
      * @param string      $exception Exception class name
      * @param mixed       $value
      * @param array|false $args
      */
-    private function _setterGetter_assertSetterGetterException($name, $exception, $value = null, $args = [])
+    private function _setterGetter_assertSetterGetterException($method, $exception, $value = null, $args = [])
     {
         if (is_array($exception)) {
             $message   = $exception[1];
@@ -283,11 +285,7 @@ trait TestSetterGetterTrait
 
         $this->setExpectedException($exception, $message);
 
-        if ('__GETTER_EXCEPTION__' == $value) {
-            $method = "get$name";
-
-        } else {
-            $method = "set$name";
+        if ('__GETTER_EXCEPTION__' != $value) {
             if (false === $args) {
                 $args = [$value];
             } else {
@@ -295,38 +293,29 @@ trait TestSetterGetterTrait
             }
         }
 
-        if (false === $args) {
-            $this->target->$method();
-        } else {
-            call_user_func_array([$this->target, $method], $args);
-        }
+        $this->_setterGetter_callTargetMethod($method, $args);
     }
 
     /**
      * Assert that the getter returns the correct value.
      *
-     * @param string        $name
+     * @param string        $getter
      * @param mixed         $value
      * @param array         $args
      * @param callable|null $assert
      * @param bool          $isDefaultValue
      */
-    private function _setterGetter_assertGetterValue($name, $value, $args, $assert, $isDefaultValue = false)
+    private function _setterGetter_assertGetterValue($getter, $value, $args, $assert, $isDefaultValue = false)
     {
-        $getter = "get$name";
         $err    = sprintf(
             '%s: %s: %s for %s::%s is not as expected',
             __TRAIT__, get_class($this), $isDefaultValue ? 'Default value' : 'Value', get_class($this->target), $getter
         );
 
-        if (false === $args) {
-            $returned = $this->target->$getter();
-        } else {
-            $returned = call_user_func_array([$this->target, $getter], $args);
-        }
+        $returned = $this->_setterGetter_callTargetMethod($getter, $args);
 
         if ($assert) {
-            call_user_func([$this, $assert], $name, $returned, $value);
+            call_user_func([$this, $assert], $getter, $returned, $value);
 
             return;
         }
@@ -360,15 +349,14 @@ trait TestSetterGetterTrait
     /**
      * Assert that the setter returns the correct value.
      *
-     * @param string        $name
+     * @param string        $setter
      * @param mixed         $value
      * @param array         $args
      * @param callable|null $assert
      * @param mixed|null    $expect
      */
-    private function _setterGetter_assertSetterValue($name, $value, $args, $assert, $expect = null)
+    private function _setterGetter_assertSetterValue($setter, $value, $args, $assert, $expect = null)
     {
-        $setter = "set$name";
 
         if ('__FLUENT_INTERFACE__' === $expect) {
             $expect = $this->target;
@@ -379,14 +367,15 @@ trait TestSetterGetterTrait
 
 
         if (false === $args) {
-            $returned = $this->target->$setter($value);
+            $args = [$value];
         } else {
             array_unshift($args, $value);
-            $returned = call_user_func_array([$this->target, $setter], $args);
         }
 
+        $returned = $this->_setterGetter_callTargetMethod($setter, $args);
+
         if ($assert) {
-            call_user_func([$this, $assert], $name, $returned, $expect);
+            call_user_func([$this, $assert], $setter, $returned, $expect);
 
             return;
         }
@@ -444,5 +433,92 @@ trait TestSetterGetterTrait
                 $this->assertAttributeSame($value, $propertyName, $this->target, $err);
                 break;
         }
+    }
+
+    /**
+     * Triggers a pre or post hook.
+     *
+     * @param string $type
+     * @param array $spec
+     *
+     * @throws \UnexpectedValueException
+     */
+    private function _setterGetter_triggerHook($type, $spec)
+    {
+        if (!isset($spec[$type])) {
+            return;
+        }
+
+        $cb = $spec[$type];
+        $args = false;
+
+        if (!is_callable($cb)) {
+            if (is_array($cb)) {
+                $method = $cb[0];
+                $args   = isset($cb[1]) ? $cb[1] : [];
+
+            } else {
+                $method = $cb;
+                $args   = [];
+            }
+
+            if (!is_callable($method)) {
+                $method = [$this, $method];
+                if (!is_callable($method)) {
+                    throw new \UnexpectedValueException('Invalid callback for "' . $type . '" hook.');
+                }
+            }
+            $cb = $method;
+        }
+
+        if (false === $args) {
+            $args = [ $this->target, $this, $spec ];
+
+        } else {
+
+            $args = array_map(
+                function ($item) use ($spec) {
+                    if ('###' == $item) {
+                        return $spec;
+                    }
+
+                    if ('@self' == $item) {
+                        return $this;
+                    }
+
+                    if ('@target' == $item) {
+                        return $this->target;
+                    }
+
+                    return $item;
+                },
+                $args
+            );
+        }
+
+        call_user_func_array($cb, $args);
+    }
+
+    /**
+     * Calls a method on the target instance.
+     *
+     * @param string $method
+     * @param array $args
+     *
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    private function _setterGetter_callTargetMethod($method, $args)
+    {
+        $callback = [$this->target, $method];
+
+        if (!is_callable($callback)) {
+            throw new \InvalidArgumentException(sprintf(
+                                                    'Method %s is not callable on %s. ',
+                                                    $method, get_class($this->target)
+                                                ));
+        }
+
+        return false === $args ? call_user_func($callback) : call_user_func_array($callback, $args);
     }
 }
