@@ -14,7 +14,10 @@ use Cv\Entity\Cv;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
-use Solr\Event\JobEventSubscriber;
+use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationName;
+use Solr\Bridge\Manager;
+use Solr\Event\Listener\JobEventSubscriber;
 
 class JobEventSubscriberTest extends FunctionalTestCase
 {
@@ -24,7 +27,12 @@ class JobEventSubscriberTest extends FunctionalTestCase
     protected $target;
 
     /**
-     * @var \SolrClient
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $managerMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $clientMock;
 
@@ -33,13 +41,19 @@ class JobEventSubscriberTest extends FunctionalTestCase
         parent::setUp();
         $sl = $this->getApplicationServiceLocator();
 
-        $clientMock = $this->getMockBuilder(\SolrClient::class)
+        $managerMock = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $sl->setService('Solr/Client', $clientMock);
+        $clientMock = $this->getMockBuilder(\SolrClient::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $sl->setService('Solr/Manager', $managerMock);
+        $managerMock->method('getClient')->willReturn($clientMock);
         $this->target = new JobEventSubscriber(
-            $clientMock
+            $managerMock
         );
+        $this->managerMock = $managerMock;
         $this->clientMock = $clientMock;
     }
 
