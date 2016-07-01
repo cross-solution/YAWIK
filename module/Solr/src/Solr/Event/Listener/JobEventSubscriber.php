@@ -48,7 +48,7 @@ class JobEventSubscriber implements EventSubscriber
             return;
         }
 
-        $solrDoc = $this->configureSolrInputDocument($document);
+        $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
         $client = $this->solrManager->getClient('/solr/YawikJobs');
         $client->addDocument($solrDoc);
         $client->commit();
@@ -62,7 +62,7 @@ class JobEventSubscriber implements EventSubscriber
             return;
         }
 
-        $solrDoc = $this->configureSolrInputDocument($document);
+        $solrDoc = $this->generateInputDocument($document,new \SolrInputDocument());
         $client = $this->solrManager->getClient('/solr/YawikJobs');
         try{
             $client->addDocument($solrDoc);
@@ -87,17 +87,11 @@ class JobEventSubscriber implements EventSubscriber
      * @param   Job                 $job
      * @return  \SolrInputDocument
      */
-    protected function configureSolrInputDocument(Job $job)
+    public function generateInputDocument(Job $job, $document)
     {
-        $document = new \SolrInputDocument();
-
         $document->addField('id',$job->getId());
-        $document->addField('applicationEmail',$job->getContactEmail());
-        if(!is_null($job->getOrganization()) && !is_null($job->getOrganization()->getImage())){
-            $uri = $job->getOrganization()->getImage()->getUri();
-            $document->addField('companyLogo',$uri);
-        }
         $document->addField('title',$job->getTitle());
+        $document->addField('applicationEmail',$job->getContactEmail());
 
         if($job->getDateCreated()){
             $document->addField('dateCreated',
@@ -109,41 +103,49 @@ class JobEventSubscriber implements EventSubscriber
                 $job->getDateModified()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
             );
         }
-        if($job->getDatePublishStart() instanceof \DateTime){
-            $document->addField('datePublishEnd',
+        if($job->getDatePublishStart()){
+            $document->addField('datePublishStart',
                 $job->getDatePublishStart()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
             );
         }
 
-        if($job->getDatePublishEnd() instanceof \DateTime){
+        if($job->getDatePublishEnd()){
             $document->addField('datePublishEnd',
                 $job->getDatePublishEnd()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
             );
         }
 
-        foreach($job->getPortals() as $portal){
-            $document->addField('portalList',$portal->getId());
-        }
-
-        if(method_exists($job,'isActive')){
-            $document->addField('isActive',$job->isActive());
-        }
+        $document->addField('isActive',$job->isActive());
         $document->addField('lang',$job->getLanguage());
 
-        if(is_object($job->getOrganization())){
-            $document->addField('organizationName',$job->getOrganization()->getOrganizationName()->getName());
-        }
-
         $this->processLocation($job,$document);
+        if(!is_null($job->getOrganization())){
+            $this->processOrganization($job,$document);
+        }
         return $document;
     }
 
-    private function processLocation(Job $job,$document)
+    public function processOrganization(Job $job,$document)
+    {
+        if(!is_null($job->getOrganization()->getImage())){
+            $uri = $job->getOrganization()->getImage()->getUri();
+            $document->addField('companyLogo',$uri);
+        }
+        $document->addField('organizationName',$job->getOrganization()->getOrganizationName()->getName());
+        // @TODO: uncomment this when organization id is fix
+        //$document->addField('organizationId',$job->getOrganization()->getId());
+    }
+
+    public function processLocation(Job $job,$document)
     {
         /* @var \Jobs\Entity\Location $location */
         foreach($job->getLocations() as $location){
             $coord = $location->getCoordinates()->getCoordinates();
-            $document->addField('lonLat',doubleval($coord[0]).','.doubleval($coord[1]));
+            $document->addField('latLon',doubleval($coord[0]).','.doubleval($coord[1]));
+            $document->addField('postCode',$location->getPostalCode());
+            $document->addField('regionText',$location->getRegion());
         }
+
+        $document->addField('location',$job->getLocation());
     }
 }
