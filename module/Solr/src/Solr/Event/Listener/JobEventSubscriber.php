@@ -17,6 +17,11 @@ use Solr\Bridge\Manager;
 use Solr\Exception\ListenerException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * Class JobEventSubscriber
+ *
+ * @package Solr\Event\Listener
+ */
 class JobEventSubscriber implements EventSubscriber
 {
     /**
@@ -33,6 +38,11 @@ class JobEventSubscriber implements EventSubscriber
         $this->solrManager = $manager;
     }
 
+    /**
+     * Define what event this subscriber listen to
+     *
+     * @return array
+     */
     public function getSubscribedEvents()
     {
         return [
@@ -41,6 +51,11 @@ class JobEventSubscriber implements EventSubscriber
         ];
     }
 
+    /**
+     * Handle doctrine post persist event
+     *
+     * @param LifecycleEventArgs $eventArgs
+     */
     public function postPersist(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
@@ -57,6 +72,11 @@ class JobEventSubscriber implements EventSubscriber
         }
     }
 
+    /**
+     * Handle doctrine postUpdate event
+     *
+     * @param LifecycleEventArgs $eventArgs
+     */
     public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
@@ -83,7 +103,10 @@ class JobEventSubscriber implements EventSubscriber
     }
 
     /**
+     * Generate input document
+     *
      * @param   Job                 $job
+     * @param   \SolrInputDocument  $document
      * @return  \SolrInputDocument
      */
     public function generateInputDocument(Job $job, $document)
@@ -124,6 +147,12 @@ class JobEventSubscriber implements EventSubscriber
         return $document;
     }
 
+    /**
+     * Processing organization part
+     *
+     * @param Job                   $job
+     * @param \SolrInputDocument    $document
+     */
     public function processOrganization(Job $job,$document)
     {
         if(!is_null($job->getOrganization()->getImage())){
@@ -131,10 +160,14 @@ class JobEventSubscriber implements EventSubscriber
             $document->addField('companyLogo',$uri);
         }
         $document->addField('organizationName',$job->getOrganization()->getOrganizationName()->getName());
-        // @TODO: uncomment this when organization id is fix
-        //$document->addField('organizationId',$job->getOrganization()->getId());
+        $document->addField('organizationId',$job->getOrganization()->getId());
     }
 
+    /**
+     * Processing location part
+     * @param Job                $job
+     * @param \SolrInputDocument $document
+     */
     public function processLocation(Job $job,$document)
     {
         /* @var \Jobs\Entity\Location $location */

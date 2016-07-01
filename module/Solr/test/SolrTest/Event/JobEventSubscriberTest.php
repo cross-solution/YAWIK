@@ -202,6 +202,11 @@ class JobEventSubscriberTest extends FunctionalTestCase
         $org->method('getOrganizationName')->willReturn($orgName);
         $org->method('getImage')->willReturn($orgImage);
 
+        $org->expects($this->once())
+            ->method('getId')
+            ->willReturn('some-id')
+        ;
+
         $orgName->expects($this->once())
             ->method('getName')
             ->willReturn('some-name')
