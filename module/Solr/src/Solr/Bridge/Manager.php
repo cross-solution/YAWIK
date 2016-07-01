@@ -9,6 +9,7 @@
 namespace Solr\Bridge;
 
 
+use Solr\Exception\ServerException;
 use Solr\Options\Connection as ConnectionOption;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -43,6 +44,22 @@ class Manager
         return new \SolrClient($options);
     }
 
+    /**
+     * @param \SolrInputDocument $document
+     * @param string $path
+     */
+    public function addDocument(\SolrInputDocument $document,$path='/solr')
+    {
+        $client = $this->getClient($path);
+        try{
+            $client->addDocument($document);
+            $client->commit();
+            $client->optimize();
+        }catch (\Exception $e){
+            throw new ServerException('Can not add document to server!',$e->getCode(),$e);
+        }
+    }
+    
     static public function factory(ServiceLocatorInterface $sl)
     {
         return new self(

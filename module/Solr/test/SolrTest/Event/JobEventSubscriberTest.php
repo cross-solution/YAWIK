@@ -102,16 +102,11 @@ class JobEventSubscriberTest extends FunctionalTestCase
         $mock->expects($this->once())
             ->method('getDocument')
             ->willReturn($job);
-        $this->clientMock
-            ->expects($this->once())
+
+        $this->managerMock->expects($this->once())
             ->method('addDocument')
-            ->with($this->isInstanceOf(\SolrInputDocument::class));
-        $this->clientMock
-            ->expects($this->once())
-            ->method('commit');
-        $this->clientMock
-            ->expects($this->once())
-            ->method('optimize');
+            ->with($this->isInstanceOf(\SolrInputDocument::class))
+        ;
         $this->target->postPersist($mock);
     }
 
@@ -141,16 +136,10 @@ class JobEventSubscriberTest extends FunctionalTestCase
         $mock->expects($this->once())
             ->method('getDocument')
             ->willReturn($job);
-        $this->clientMock
-            ->expects($this->once())
+        $this->managerMock->expects($this->once())
             ->method('addDocument')
-            ->with($this->isInstanceOf(\SolrInputDocument::class));
-        $this->clientMock
-            ->expects($this->once())
-            ->method('commit');
-        $this->clientMock
-            ->expects($this->once())
-            ->method('optimize');
+            ->with($this->isInstanceOf(\SolrInputDocument::class))
+        ;
         $this->target->postUpdate($mock);
     }
 

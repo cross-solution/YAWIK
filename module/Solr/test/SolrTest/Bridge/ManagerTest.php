@@ -10,6 +10,7 @@ namespace SolrTest\Bridge;
 
 
 use Solr\Bridge\Manager;
+use Solr\Exception\ServerException;
 use Solr\Options\Connection as ConnectOption;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -85,5 +86,43 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $createdOptions = $client->getOptions();
         $this->assertEquals(true,$createdOptions['secure']);
         $this->assertEquals('some_hostname',$createdOptions['hostname']);
+    }
+
+    /**
+     * @expectedException           \Solr\Exception\ServerException
+     * @expectedExceptionMessage    Can not add document to server!
+     */
+    public function testAddDocument()
+    {
+        $client = $this->getMockBuilder(\stdClass::class)
+            ->setMethods(['addDocument','commit','optimize'])
+            ->getMock()
+        ;
+        $mock = $this->getMockBuilder(Manager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getClient'])
+            ->getMock()
+        ;
+        $mock->expects($this->any())
+            ->method('getClient')
+            ->with('/solr')
+            ->willReturn($client)
+        ;
+
+        $document = new \SolrInputDocument();
+        $client->expects($this->exactly(2))
+            ->method('addDocument')
+            ->withConsecutive([$document],[$document])
+            ->willReturnOnConsecutiveCalls(true,$this->throwException(new \Exception()))
+        ;
+        $client->expects($this->once())
+            ->method('commit')
+        ;
+        $client->expects($this->once())
+            ->method('optimize')
+        ;
+
+        $mock->addDocument($document);
+        $mock->addDocument($document);//should throw exception now
     }
 }

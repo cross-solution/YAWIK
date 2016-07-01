@@ -8,6 +8,7 @@
 
 namespace Solr\Paginator\Adapter;
 
+use Solr\Exception\ServerException;
 use Solr\Filter\AbstractPaginationQuery;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Stdlib\Parameters;
@@ -67,8 +68,7 @@ class SolrAdapter implements AdapterInterface
         $this->resultConverter  = $resultConverter;
         $this->params           = $params;
     }
-
-
+    
     /**
      * @inheritdoc
      */
@@ -109,7 +109,8 @@ class SolrAdapter implements AdapterInterface
             try{
                 $this->response = $this->client->query($query);
             }catch (\Exception $e){
-                throw $e;
+                $message = 'Failed to process query';
+                throw new ServerException($message,$e->getCode(),$e);
             }
         }
         return $this->response;

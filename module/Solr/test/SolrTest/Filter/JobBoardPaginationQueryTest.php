@@ -8,8 +8,15 @@
 
 namespace SolrTest\Filter;
 
+use Jobs\Entity\CoordinatesInterface;
+use Jobs\Entity\Job;
+use Jobs\Entity\Location;
+use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationImage;
+use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
+use Solr\Paginator\JobsBoardPaginatorFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -21,7 +28,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var JobBoardPaginationQuery
      */
     protected $target;
 
@@ -68,16 +75,29 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
     public function testCreateQuery()
     {
         $query  = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['setQuery','addSortField'])
+            ->setMethods(['setQuery','addSortField','addFilterQuery'])
             ->getMock()
         ;
+        $coordinates = $this->getMockBuilder(CoordinatesInterface::class)
+            ->getMock()
+        ;
+        $location = $this->getMockBuilder(Location::class)
+            ->getMock()
+        ;
+        $location->method('getCoordinates')->willReturn($coordinates);
+        $coordinates->expects($this->once())
+            ->method('getCoordinates')
+            ->willReturn([1.2,2.1])
+        ;
 
+        // expect to setQuery
         $query
             ->expects($this->exactly(2))
             ->method('setQuery')
             ->withConsecutive(['*:*'],['title:some OR organizationName:some'])
         ;
-        
+
+        // expect to addSortField
         $query
             ->expects($this->exactly(2))
             ->method('addSortField')
@@ -87,13 +107,55 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
             )
         ;
 
+        // expect to handle location
+        $query
+            ->expects($this->once())
+            ->method('addFilterQuery')
+            ->with('{!geofilt pt=1.2,2.1 sfield=latLon d=10}')
+        ;
+
+        $params1 = ['search' => '','sort'=>'title'];
+        $params2 = ['search' => 'some','sort'=>'-company','location'=>$location,'d'=>10];
         $target = $this->target;
-        $target->createQuery(['search' => '','sort'=>'title'],$query);
-        $target->createQuery(['search' => 'some','sort'=>'-company'],$query);
+        $target->createQuery($params1,$query);
+        $target->createQuery($params2,$query);
     }
-    
-    public function testDelete()
+
+    public function testConvertOrganizationName()
     {
-        
+        $target = $this->target;
+        $job = $this->getMockBuilder($target->getEntityClass())
+            ->getMock()
+        ;
+        $org = $this->getMockBuilder(Organization::class)->getMock();
+        $job->expects($this->exactly(2))
+            ->method('getOrganization')
+            ->willReturnOnConsecutiveCalls(null,$org)
+        ;
+        $org->expects($this->once())
+            ->method('setOrganizationName')
+            ->with($this->isInstanceOf(OrganizationName::class))
+        ;
+
+        $target->convertOrganizationName($job,'some-name');
+    }
+
+    public function testConvertOrganizationLogo()
+    {
+        $target = $this->target;
+        $job = $this->getMockBuilder($target->getEntityClass())
+            ->getMock()
+        ;
+        $org = $this->getMockBuilder(Organization::class)->getMock();
+        $job->expects($this->exactly(2))
+            ->method('getOrganization')
+            ->willReturnOnConsecutiveCalls(null,$org)
+        ;
+        $org->expects($this->once())
+            ->method('setImage')
+            ->with($this->isInstanceOf(OrganizationImage::class))
+        ;
+
+        $target->convertCompanyLogo($job,'/file/Organizations.OrganizationImage/5774cad3ecb2a162138b4568/logo.gif');
     }
 }

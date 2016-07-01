@@ -72,6 +72,12 @@ abstract class AbstractPaginationQuery implements FilterInterface
         return array($sortProp => $sortDir);
     }
 
+    /**
+     * Returs an array key => value for this pagination filter
+     * to define custom solr result handler
+     * @return array
+     * @codeCoverageIgnore
+     */
     public function getPropertiesMap()
     {
         return $this->propertiesMap;

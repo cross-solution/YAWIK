@@ -14,6 +14,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Solr\Bridge\Manager;
+use Solr\Exception\ListenerException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class JobEventSubscriber implements EventSubscriber
@@ -49,10 +50,11 @@ class JobEventSubscriber implements EventSubscriber
         }
 
         $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
-        $client = $this->solrManager->getClient('/solr/YawikJobs');
-        $client->addDocument($solrDoc);
-        $client->commit();
-        $client->optimize();
+        try{
+            $this->solrManager->addDocument($solrDoc,'/solr/YawikJobs');
+        }catch (\Exception $e){
+            // @TODO: What to do when the process failed?
+        }
     }
 
     public function postUpdate(LifecycleEventArgs $eventArgs)
@@ -63,13 +65,10 @@ class JobEventSubscriber implements EventSubscriber
         }
 
         $solrDoc = $this->generateInputDocument($document,new \SolrInputDocument());
-        $client = $this->solrManager->getClient('/solr/YawikJobs');
         try{
-            $client->addDocument($solrDoc);
-            $client->commit();
-            $client->optimize();
+            $this->solrManager->addDocument($solrDoc,'/solr/YawikJobs');
         }catch (\Exception $e){
-            throw $e;
+            // @TODO: What to do when the process failed?
         }
     }
 

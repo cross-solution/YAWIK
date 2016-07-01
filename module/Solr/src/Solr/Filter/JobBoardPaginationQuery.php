@@ -9,6 +9,7 @@
 namespace Solr\Filter;
 
 
+use Jobs\Entity\Location;
 use Solr\Bridge\JobImportTrait;
 use Jobs\Entity\Job;
 use Organizations\Entity\Organization;
@@ -53,7 +54,16 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         }
 
         if(isset($params['location'])){
-            // @TODO: implement location search
+            /* @var Location $location */
+            $location = $params['location'];
+            if(!is_null($location->getCoordinates())){
+                $coordinates = $location->getCoordinates()->getCoordinates();
+                $query->addFilterQuery(sprintf(
+                    "{!geofilt pt=%s sfield=latLon d=%s}",
+                    doubleval($coordinates[0]).','.doubleval($coordinates[1]),
+                    $params['d']
+                ));
+            }
         }
 
         return $query;

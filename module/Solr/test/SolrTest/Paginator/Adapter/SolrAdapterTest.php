@@ -100,11 +100,11 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('query')
             ->with($this->isInstanceOf('SolrQuery'))
-            ->willReturn($this->response)
+            ->willReturnOnConsecutiveCalls($this->response,$this->throwException(new \Exception()))
         ;
 
         $this->filter
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('filter')
             ->willReturn(new \SolrQuery())
         ;
@@ -119,5 +119,27 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         $retVal = $this->target->getItems(0,10);
         $this->assertEquals([],$retVal);
         $this->assertEquals(3,$this->target->count());
+    }
+
+    /**
+     * @expectedException \Solr\Exception\ServerException
+     * @expectedExceptionMessage Failed to process query
+     */
+    public function testThrowException()
+    {
+        $this->client
+            ->expects($this->once())
+            ->method('query')
+            ->with($this->isInstanceOf('SolrQuery'))
+            ->willReturnOnConsecutiveCalls($this->throwException(new \Exception()))
+        ;
+
+        $this->filter
+            ->expects($this->any())
+            ->method('filter')
+            ->willReturn(new \SolrQuery())
+        ;
+
+        $this->target->count();
     }
 }
