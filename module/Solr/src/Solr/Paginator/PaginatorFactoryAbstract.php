@@ -43,11 +43,12 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreat
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var PaginatorService $serviceLocator */
-        $filter         = $serviceLocator->getServiceLocator()->get('filterManager')->get($this->getFilter());
-        $connectPath    = $this->getConnectPath();
-        $solrClient     = $serviceLocator->getServiceLocator()->get('Solr/Manager')->getClient($connectPath);
-        $adapter       =  new SolrAdapter($solrClient,$filter,$this->options);
-        $service        = new Paginator($adapter);
+        $filter             = $serviceLocator->getServiceLocator()->get('filterManager')->get($this->getFilter());
+        $connectPath        = $this->getConnectPath();
+        $solrClient         = $serviceLocator->getServiceLocator()->get('Solr/Manager')->getClient($connectPath);
+        $resultConverter    = $serviceLocator->getServiceLocator()->get('Solr/ResultConverter');
+        $adapter            = new SolrAdapter($solrClient,$filter,$resultConverter,$this->options);
+        $service            = new Paginator($adapter);
 
         $this->setCreationOptions([]);
         return $service;

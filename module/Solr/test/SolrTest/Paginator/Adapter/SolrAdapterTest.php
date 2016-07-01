@@ -9,6 +9,7 @@
 namespace SolrTest\Paginator\Adapter;
 
 
+use Solr\Bridge\ResultConverter;
 use Solr\Filter\AbstractPaginationQuery;
 use Solr\Paginator\Adapter\SolrAdapter;
 
@@ -39,9 +40,17 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
     protected $filter;
 
     /**
+     * Mock of SolrResponse
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $response;
+
+    /**
+     * Mock of ResultConverter class
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $converter;
 
     protected $responseArray = [
         'response' => [
@@ -61,16 +70,23 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->getMock()
         ;
         $filter = $this->getMockBuilder(AbstractPaginationQuery::class)
+            ->disableOriginalConstructor()
             ->getMock()
         ;
 
-        $this->target = new SolrAdapter($client,$filter,array());
+        $resultConverter = $this->getMockBuilder(ResultConverter::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $this->target = new SolrAdapter($client,$filter,$resultConverter,array());
         $this->response = $this->getMockBuilder(\stdClass::class)
             ->setMethods(['getArrayResponse'])
             ->getMock()
         ;
         $this->client = $client;
         $this->filter = $filter;
+        $this->converter = $resultConverter;
 
         $this->response
             ->method('getArrayResponse')
@@ -93,8 +109,15 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->willReturn(new \SolrQuery())
         ;
 
+        $this->converter
+            ->expects($this->once())
+            ->method('convert')
+            ->with($this->filter,$this->response)
+            ->willReturn([])
+        ;
+
         $retVal = $this->target->getItems(0,10);
-        $this->assertEquals($this->responseArray['response']['docs'],$retVal);
+        $this->assertEquals([],$retVal);
         $this->assertEquals(3,$this->target->count());
     }
 }

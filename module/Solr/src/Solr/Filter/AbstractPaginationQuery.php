@@ -12,6 +12,8 @@ namespace Solr\Filter;
 use Solr\Bridge\Manager;
 use Zend\Filter\Exception;
 use Zend\Filter\FilterInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as EntityType;
 
 abstract class AbstractPaginationQuery implements FilterInterface
 {
@@ -20,19 +22,30 @@ abstract class AbstractPaginationQuery implements FilterInterface
      */
     protected $sortPropertiesMap = array();
 
+    /**
+     * Store property name and converter to be used
+     * during result conversion
+     *
+     * @var array
+     */
+    protected $propertiesMap = [];
+
+    /**
+     * @var Manager
+     */
+    protected $manager = null;
+
+    public function __construct(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     public function filter($value)
     {
         $query = new \SolrQuery();
         
         return $this->createQuery($value,$query);
     }
-
-    /**
-     * @param   array $params
-     * @param   \SolrQuery $query
-     * @return  \SolrQuery
-     */
-    abstract public function createQuery(array $params,$query);
 
     /**
      * @param $sort
@@ -58,4 +71,29 @@ abstract class AbstractPaginationQuery implements FilterInterface
 
         return array($sortProp => $sortDir);
     }
+
+    public function getPropertiesMap()
+    {
+        return $this->propertiesMap;
+    }
+
+    static public function factory(ServiceLocatorInterface $sl)
+    {
+        $manager = $sl->getServiceLocator()->get('Solr/Manager');
+        return new static($manager);
+    }
+
+    /**
+     * Returns class to be used for entity object creation
+     *
+     * @return string
+     */
+    abstract public function getEntityClass();
+
+    /**
+     * @param   array $params
+     * @param   \SolrQuery $query
+     * @return  \SolrQuery
+     */
+    abstract public function createQuery(array $params,$query);
 }

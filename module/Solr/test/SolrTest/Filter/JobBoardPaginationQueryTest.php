@@ -10,6 +10,7 @@ namespace SolrTest\Filter;
 
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class JobBoardPaginationQueryTest
@@ -19,9 +20,35 @@ use Solr\Filter\JobBoardPaginationQuery;
  */
 class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $target;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $manager;
+
+    public function setUp()
+    {
+        $manager = $this->getMockBuilder(Manager::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $sl = $this->getMockBuilder(ServiceLocatorInterface::class)
+            ->setMethods(['get','has','getServiceLocator'])
+            ->getMock()
+        ;
+        $sl->method('getServiceLocator')->willReturn($sl);
+        $sl->method('get')->with('Solr/Manager')->willReturn($manager);
+        $this->target = JobBoardPaginationQuery::factory($sl);
+        $this->manager = $manager;
+    }
+
     public function testFactory()
     {
-        $target = JobBoardPaginationQuery::factory();
+        $target = $this->target;
         $this->assertInstanceOf(
             JobBoardPaginationQuery::class,
             $target,
@@ -33,7 +60,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             \SolrQuery::class,
-            JobBoardPaginationQuery::factory()->filter([]),
+            $this->target->filter([]),
             '::filter should return a \SolrQuery object'
         );
     }
@@ -60,7 +87,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
             )
         ;
 
-        $target = JobBoardPaginationQuery::factory();
+        $target = $this->target;
         $target->createQuery(['search' => '','sort'=>'title'],$query);
         $target->createQuery(['search' => 'some','sort'=>'-company'],$query);
     }

@@ -11,6 +11,7 @@ namespace Solr\Paginator\Adapter;
 use Solr\Filter\AbstractPaginationQuery;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Stdlib\Parameters;
+use Solr\Bridge\ResultConverter;
 
 class SolrAdapter implements AdapterInterface
 {
@@ -47,28 +48,43 @@ class SolrAdapter implements AdapterInterface
     protected $filter;
 
     /**
+     * @var ResultConverter
+     */
+    protected $resultConverter;
+
+    /**
      * SolrAdapter constructor.
      *
-     * @param \SolrClient             $client
-     * @param AbstractPaginationQuery $filter
-     * @param array                   $params
+     * @param   \SolrClient                 $client
+     * @param   AbstractPaginationQuery     $filter
+     * @param   ResultConverter             $resultConverter
+     * @param   array                       $params
      */
-    public function __construct($client,$filter,$params=array())
+    public function __construct($client,$filter,$resultConverter,$params=array())
     {
-        $this->client = $client;
-        $this->params = $params;
-        $this->filter = $filter;
-        $this->query = new \SolrQuery();
+        $this->client           = $client;
+        $this->filter           = $filter;
+        $this->resultConverter  = $resultConverter;
+        $this->params           = $params;
     }
 
 
+    /**
+     * @inheritdoc
+     */
     public function getItems($offset, $itemCountPerPage)
     {
-        $results = $this->getResponse()->getArrayResponse();
-        $docs = $results['response']['docs'];
-        return $docs;
+        return $this->resultConverter->convert(
+            $this->filter,
+            $this->getResponse($offset,$itemCountPerPage)
+        );
     }
 
+    /**
+     * @inheritdoc
+     * @return  mixed
+     * @throws \Exception
+     */
     public function count()
     {
         $response = $this->getResponse()->getArrayResponse();
@@ -76,18 +92,25 @@ class SolrAdapter implements AdapterInterface
     }
 
     /**
+     * Process query into server
+     *
      * @param   int     $offset
      * @param   int     $itemCountPerPage
-     * @return \SolrQueryResponse
+     * @return  \SolrQueryResponse
+     * @throws  \Exception
      */
     protected function getResponse($offset=0,$itemCountPerPage=5)
     {
         if(!is_object($this->response)){
-            $query = new $this->query;
+            $query = new \SolrQuery();
             $query = $this->filter->filter($this->params,$query);
             $query->setStart($offset);
             $query->setRows($itemCountPerPage);
-            $this->response = $this->client->query($query);
+            try{
+                $this->response = $this->client->query($query);
+            }catch (\Exception $e){
+                throw $e;
+            }
         }
         return $this->response;
     }

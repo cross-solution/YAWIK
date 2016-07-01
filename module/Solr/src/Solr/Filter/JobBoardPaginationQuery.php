@@ -9,6 +9,12 @@
 namespace Solr\Filter;
 
 
+use Solr\Bridge\JobImportTrait;
+use Jobs\Entity\Job;
+use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationImage;
+use Organizations\Entity\OrganizationName;
+
 class JobBoardPaginationQuery extends AbstractPaginationQuery
 {
     /**
@@ -17,6 +23,11 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     protected $sortPropertiesMap = [
         'company' => 'companyName',
         'date'    => 'dateCreated',
+    ];
+
+    protected $propertiesMap = [
+        'organizationName' => 'convertOrganizationName',
+        'companyLogo'      => 'convertCompanyLogo',
     ];
 
     /**
@@ -41,11 +52,51 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             }
         }
 
+        if(isset($params['location'])){
+            // @TODO: implement location search
+        }
+
         return $query;
     }
 
-    static public function factory()
+    /**
+     * @inheritdoc
+     */
+    public function getEntityClass()
     {
-        return new JobBoardPaginationQuery();
+        return Job::class;
+    }
+
+    /**
+     * Convert organizationName result
+     * @param Job       $ob
+     * @param string    $value
+     */
+    public function convertOrganizationName($ob,$value)
+    {
+        if(!is_object($ob->getOrganization())){
+            $ob->setOrganization(new Organization());
+        }
+        $orgName = new OrganizationName($value);
+        $ob->getOrganization()->setOrganizationName($orgName);
+    }
+
+    /**
+     * Convert companyLogo result
+     * @param   Job     $ob
+     * @param   mixed   $value
+     */
+    public function convertCompanyLogo($ob,$value)
+    {
+        if(!is_object($ob->getOrganization())){
+            $ob->setOrganization(new Organization());
+        }
+        $exp    = explode('/',$value);
+        $id     = $exp[3];
+        $name   = $exp[4];
+        $image = new OrganizationImage();
+        $image->setId($id);
+        $image->setName($name);
+        $ob->getOrganization()->setImage($image);
     }
 }

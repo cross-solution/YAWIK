@@ -93,8 +93,9 @@ class JobEventSubscriber implements EventSubscriber
 
         $document->addField('id',$job->getId());
         $document->addField('applicationEmail',$job->getContactEmail());
-        if(!is_null($job->getOrganization())){
-            $document->addField('companyLogo',$job->getOrganization()->getOrganizationName()->getName());
+        if(!is_null($job->getOrganization()) && !is_null($job->getOrganization()->getImage())){
+            $uri = $job->getOrganization()->getImage()->getUri();
+            $document->addField('companyLogo',$uri);
         }
         $document->addField('title',$job->getTitle());
 
@@ -133,6 +134,16 @@ class JobEventSubscriber implements EventSubscriber
             $document->addField('organizationName',$job->getOrganization()->getOrganizationName()->getName());
         }
 
+        $this->processLocation($job,$document);
         return $document;
+    }
+
+    private function processLocation(Job $job,$document)
+    {
+        /* @var \Jobs\Entity\Location $location */
+        foreach($job->getLocations() as $location){
+            $coord = $location->getCoordinates()->getCoordinates();
+            $document->addField('lonLat',doubleval($coord[0]).','.doubleval($coord[1]));
+        }
     }
 }
