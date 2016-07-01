@@ -36,11 +36,12 @@ return array(
             'Solr/Options/Connection' => 'Solr\Factory\ConnectionOptionFactory',
             'Solr/Event/Listener/JobEventSubscriber' => 'Solr\Event\Listener\JobEventSubscriber::factory',
             'Solr/Manager' => 'Solr\Bridge\Manager::factory',
-
+            'Solr/ResultConverter' => 'Solr\Bridge\ResultConverter::factory',
         ],
     ],
     'paginator_manager' => [
         'factories' => [
+            // replace Jobs/Board paginator with this paginator
             'Solr/Jobs/Board' => 'Solr\Paginator\JobsBoardPaginatorFactory',
         ]
     ],
