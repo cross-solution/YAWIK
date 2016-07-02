@@ -9,9 +9,16 @@
 namespace Solr;
 
 
-use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Mvc\MvcEvent;
 
+/**
+ * Class Module
+ *
+ * @package Solr
+ * @since   0.27
+ * @author  Anthonius Munthi <me@itstoni.com>
+ */
 class Module
 {
     /**
@@ -21,7 +28,7 @@ class Module
      */
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return ModuleConfigLoader::load(__DIR__.'/config');
     }
 
     /**

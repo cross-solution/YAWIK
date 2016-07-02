@@ -10,7 +10,7 @@ namespace Solr\Bridge;
 
 
 use Solr\Exception\ServerException;
-use Solr\Options\Connection as ConnectionOption;
+use Solr\Options\ModuleOptions as ConnectionOption;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Manager
@@ -63,7 +63,7 @@ class Manager
     static public function factory(ServiceLocatorInterface $sl)
     {
         return new self(
-            $sl->get('Solr/Options/Connection')
+            $sl->get('Solr/Options/Module')
         );
     }
 }

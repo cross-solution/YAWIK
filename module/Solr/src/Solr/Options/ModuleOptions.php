@@ -11,7 +11,7 @@ namespace Solr\Options;
 
 use Zend\Stdlib\AbstractOptions;
 
-class Connection extends AbstractOptions
+class ModuleOptions extends AbstractOptions
 {
     /**
      * @var bool
@@ -53,7 +53,7 @@ class Connection extends AbstractOptions
 
     /**
      * @param boolean $secure
-     * @return Connection
+     * @return ModuleOptions
      */
     public function setSecure($secure)
     {
@@ -72,7 +72,7 @@ class Connection extends AbstractOptions
 
     /**
      * @param string $hostname
-     * @return Connection
+     * @return ModuleOptions
      */
     public function setHostname($hostname)
     {
@@ -91,7 +91,7 @@ class Connection extends AbstractOptions
 
     /**
      * @param int $port
-     * @return Connection
+     * @return ModuleOptions
      */
     public function setPort($port)
     {
@@ -110,7 +110,7 @@ class Connection extends AbstractOptions
 
     /**
      * @param string $path
-     * @return Connection
+     * @return ModuleOptions
      */
     public function setPath($path)
     {
@@ -129,7 +129,7 @@ class Connection extends AbstractOptions
 
     /**
      * @param string $username
-     * @return Connection
+     * @return ModuleOptions
      */
     public function setUsername($username)
     {
@@ -148,7 +148,7 @@ class Connection extends AbstractOptions
 
     /**
      * @param string $password
-     * @return Connection
+     * @return ModuleOptions
      */
     public function setPassword($password)
     {

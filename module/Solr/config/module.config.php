@@ -7,16 +7,6 @@
  */
 
 return array(
-    'solr' => [
-        'connection' => [
-            'secure'   => true,
-            'hostname' => 'yawik.org',
-            'port' => 8443,
-            'path' => '/solr/YawikJobs',
-            'username' => 'yawik',
-            'password' => '3qaS2uQU86dGbMXjDds2',
-        ],
-    ],
     'doctrine' => [
         'eventmanager' => [
             'odm_default' => [
@@ -29,11 +19,15 @@ return array(
     'listeners' => [
         'Solr\Event\Listener\CreatePaginatorListener',
     ],
+    'options' => [
+        'Solr/Options/Module' => [
+            'class' => '\Solr\Options\ModuleOptions',
+        ]
+    ],
     'service_manager' => [
         'factories' => [
             'Solr\Event\Listener\CreatePaginatorListener' => 'Solr\Event\Listener\CreatePaginatorListener::factory',
             'Solr/Client' => 'Solr\Factory\SolrClientFactory',
-            'Solr/Options/Connection' => 'Solr\Factory\ConnectionOptionFactory',
             'Solr/Event/Listener/JobEventSubscriber' => 'Solr\Event\Listener\JobEventSubscriber::factory',
             'Solr/Manager' => 'Solr\Bridge\Manager::factory',
             'Solr/ResultConverter' => 'Solr\Bridge\ResultConverter::factory',

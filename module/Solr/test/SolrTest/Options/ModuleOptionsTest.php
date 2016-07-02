@@ -10,14 +10,14 @@ namespace SolrTest\Options;
 
 use CoreTestUtils\TestCase\SetterGetterTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
-use Solr\Options\Connection;
+use Solr\Options\ModuleOptions;
 
-class ConnectionTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 {
     use SetterGetterTrait, SetupTargetTrait;
 
     protected $target = [
-        'class' => Connection::class
+        'class' => ModuleOptions::class
     ];
 
     public function propertiesProvider()

@@ -11,7 +11,7 @@ namespace SolrTest\Bridge;
 
 use Solr\Bridge\Manager;
 use Solr\Exception\ServerException;
-use Solr\Options\Connection as ConnectOption;
+use Solr\Options\ModuleOptions as ConnectOption;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -51,7 +51,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $mock
             ->expects($this->once())
             ->method('get')
-            ->with('Solr/Options/Connection')
+            ->with('Solr/Options/Module')
             ->willReturn($this->option)
         ;
         $this->assertInstanceOf(

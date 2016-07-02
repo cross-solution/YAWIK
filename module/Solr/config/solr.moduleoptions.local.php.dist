@@ -1,0 +1,26 @@
+<?php
+/**
+ * Module options override.
+ */
+
+$options = [
+    // set true if using https
+    'secure'    => true,
+
+    //The hostname for the Solr server
+    'hostname'  => 'yawik.org',
+
+    //The port number
+    'port'      => 8443,
+
+    //The username used for HTTP Authentication, if any
+    'username'  => 'yawik',
+
+    //The HTTP Authentication password
+    'password'  => '3qaS2uQU86dGbMXjDds2',
+];
+
+/*
+ * Do not change below this line
+ */
+return [ 'options' => [ 'Solr/Options/Module' => [ 'options' => $options ] ] ];
