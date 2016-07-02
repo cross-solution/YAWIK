@@ -10,9 +10,7 @@
 /**  */
 namespace Core\Controller\Plugin;
 
-use Solr\Event\SolrEvent;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\ResponseCollection;
+use Core\Listener\Events\CreatePaginatorEvent;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\Controller\PluginManager as ControllerManager;
 use Zend\Paginator\Paginator;
@@ -24,6 +22,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Passing in GET (or POST) request parameters as creation options to the paginator manager.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class CreatePaginator extends AbstractPlugin
 {
@@ -87,25 +86,21 @@ class CreatePaginator extends AbstractPlugin
         }
 
         /* try to create $paginator from event listener */
-        /* @var ResponseCollection $response */
-        /* @var EventManager $eventManager */
-        /* @var $paginator \Zend\Paginator\Paginator */
-        $eventManager = $this->serviceManager->get('EventManager');
-        $response      = $eventManager->trigger(
-            static::EVENT_CREATE_PAGINATOR,
-            $this,
-            [
-                'params' => $params,
-                'paginatorName' =>$paginatorName,
-            ]
-        );
-        $paginator = $response->last(); // get the last result from listener
-
+        /* @var \Core\EventManager\EventManager $events */
+        /* @var \Zend\Paginator\Paginator $paginator */
+        /* @var CreatePaginatorEvent $event */
+        $events = $this->serviceManager->get('Core/CreatePaginator/Events');
+        $event = $events->getEvent(CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,$this,[
+            'paginatorParams' => $params,
+            'paginators' => $paginators,
+            'paginatorName' => $paginatorName
+        ]);
+        $events->trigger($event);
+        $paginator = $event->getPaginator();
         if(!$paginator instanceof Paginator){
-            // paginator is not created, so we create from service
-            $paginator = $paginators->get($paginatorName, $params);
+            // no paginator created by listener, so let's create default paginator
+            $paginator = $paginators->get($paginatorName,$params);
         }
-
         $paginator->setCurrentPageNumber(isset($params['page']) ? $params['page'] : 1)
                   ->setItemCountPerPage(isset($params['count']) ? $params['count'] : 10)
                   ->setPageRange(isset($params['range']) ? $params['range'] : 5);

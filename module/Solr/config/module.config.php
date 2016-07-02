@@ -11,27 +11,35 @@ return array(
         'eventmanager' => [
             'odm_default' => [
                 'subscribers' => [
-                    'Solr/Event/Listener/JobEventSubscriber'
+                    'Solr/Listener/JobEventSubscriber'
                 ]
             ]
         ]
-    ],
-    'listeners' => [
-        'Solr\Event\Listener\CreatePaginatorListener',
     ],
     'options' => [
         'Solr/Options/Module' => [
             'class' => '\Solr\Options\ModuleOptions',
         ]
     ],
+
+    'event_manager' => [
+        'Core/CreatePaginator/Events' => [
+            'listeners' => [
+                'Solr/Listener/CreatePaginator' => [
+                    \Core\Listener\Events\CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,'onCreatePaginator',1
+                ]
+            ]
+        ]
+    ],
+
     'service_manager' => [
         'factories' => [
-            'Solr\Event\Listener\CreatePaginatorListener' => 'Solr\Event\Listener\CreatePaginatorListener::factory',
             'Solr/Client' => 'Solr\Factory\SolrClientFactory',
-            'Solr/Event/Listener/JobEventSubscriber' => 'Solr\Event\Listener\JobEventSubscriber::factory',
             'Solr/Manager' => 'Solr\Bridge\Manager::factory',
             'Solr/ResultConverter' => 'Solr\Bridge\ResultConverter::factory',
-        ],
+            'Solr/Listener/JobEventSubscriber' => 'Solr\Listener\JobEventSubscriber::factory',
+            'Solr/Listener/CreatePaginator' => 'Solr\Listener\CreatePaginatorListener::factory',
+        ]
     ],
     'paginator_manager' => [
         'factories' => [
