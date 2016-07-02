@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -18,6 +19,7 @@ use Zend\Paginator\Paginator;
  * Test for Solr\Listener\CreatePaginatorListener
  *
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @covers  Solr\Listener\CreatePaginatorListener
  * @package SolrTest\Event\Listener
  */

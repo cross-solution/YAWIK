@@ -7,6 +7,7 @@
  */
 
 namespace SolrTest\Bridge;
+
 use Jobs\Entity\Job;
 use Solr\Bridge\Manager;
 use Solr\Bridge\ResultConverter;
@@ -39,8 +40,10 @@ class ResultDocument
 /**
  * Class ResultConverterTest
  *
- * @package SolrTest\Bridge
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @covers  Solr\Bridge\ResultConverter
+ * @package SolrTest\Bridge
  */
 class ResultConverterTest extends \PHPUnit_Framework_TestCase
 {

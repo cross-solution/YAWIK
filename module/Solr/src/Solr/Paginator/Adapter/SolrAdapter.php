@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -14,6 +15,13 @@ use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Stdlib\Parameters;
 use Solr\Bridge\ResultConverter;
 
+/**
+ * Provide adapter for Solr type paginator
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
+ * @package Solr\Paginator\Adapter
+ */
 class SolrAdapter implements AdapterInterface
 {
     /**

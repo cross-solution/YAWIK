@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -15,8 +16,18 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * Abstract class for Solr paginator factory
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
+ * @package Solr\Paginator
+ */
 abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreationOptionsInterface
 {
+    /**
+     * @var array
+     */
     protected $options = [];
 
     /**
@@ -31,6 +42,9 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreat
         $this->options = $options;
     }
 
+    /**
+     * @return array
+     */
     public function getCreationOptions()
     {
         return $this->options;

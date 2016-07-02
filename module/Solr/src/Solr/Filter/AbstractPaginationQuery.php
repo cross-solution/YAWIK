@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -13,8 +14,14 @@ use Solr\Bridge\Manager;
 use Zend\Filter\Exception;
 use Zend\Filter\FilterInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as EntityType;
 
+/**
+ * Class AbstractPaginationQuery
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
+ * @package Solr\Filter
+ */
 abstract class AbstractPaginationQuery implements FilterInterface
 {
     /**
@@ -35,11 +42,22 @@ abstract class AbstractPaginationQuery implements FilterInterface
      */
     protected $manager = null;
 
+    /**
+     * AbstractPaginationQuery constructor.
+     * 
+     * @param Manager $manager
+     */
     public function __construct(Manager $manager)
     {
         $this->manager = $manager;
     }
 
+    /**
+     * Filter query based on given value
+     *
+     * @param mixed $value
+     * @return \SolrQuery
+     */
     public function filter($value)
     {
         $query = new \SolrQuery();
@@ -48,6 +66,8 @@ abstract class AbstractPaginationQuery implements FilterInterface
     }
 
     /**
+     * Returns sort parameter to be used for query
+     *
      * @param $sort
      * @return array
      */
@@ -83,6 +103,12 @@ abstract class AbstractPaginationQuery implements FilterInterface
         return $this->propertiesMap;
     }
 
+    /**
+     * Creates new instance for this filter
+     *
+     * @param ServiceLocatorInterface $sl
+     * @return static
+     */
     static public function factory(ServiceLocatorInterface $sl)
     {
         $manager = $sl->getServiceLocator()->get('Solr/Manager');

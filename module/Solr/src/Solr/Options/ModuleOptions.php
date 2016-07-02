@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -11,6 +12,13 @@ namespace Solr\Options;
 
 use Zend\Stdlib\AbstractOptions;
 
+/**
+ * Provide available options for Solr Module
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
+ * @package Solr\Options
+ */
 class ModuleOptions extends AbstractOptions
 {
     /**

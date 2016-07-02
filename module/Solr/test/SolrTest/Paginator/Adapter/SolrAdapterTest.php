@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -16,8 +17,10 @@ use Solr\Paginator\Adapter\SolrAdapter;
 /**
  * Class SolrAdapterTest
  *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @package SolrTest\Paginator\Adapter
- * @covers Solr\Paginator\Adapter\SolrAdapter
+ * @covers  Solr\Paginator\Adapter\SolrAdapter
  */
 class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 {

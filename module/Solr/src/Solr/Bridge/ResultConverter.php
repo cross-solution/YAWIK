@@ -1,7 +1,8 @@
 <?php
 /**
  * YAWIK
- *
+ * 
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -17,7 +18,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * Convert SOLR query result into Doctrine ODM Entity
  * 
+ * @author  Anthonius Munthi <me@itstoni.com>
  * @package Solr\Bridge
+ * @since   0.27
  */
 class ResultConverter
 {

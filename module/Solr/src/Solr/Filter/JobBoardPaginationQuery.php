@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -10,12 +11,18 @@ namespace Solr\Filter;
 
 
 use Jobs\Entity\Location;
-use Solr\Bridge\JobImportTrait;
 use Jobs\Entity\Job;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 
+/**
+ * Class JobBoardPaginationQuery
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
+ * @package Solr\Filter
+ */
 class JobBoardPaginationQuery extends AbstractPaginationQuery
 {
     /**

@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -19,6 +20,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Class JobEventSubscriber
  *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @package Solr\Event\Listener
  */
 class JobEventSubscriber implements EventSubscriber

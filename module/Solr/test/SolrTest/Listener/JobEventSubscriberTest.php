@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -26,6 +27,7 @@ use Solr\Listener\JobEventSubscriber;
  * Test for Solr\Listener\JobEventSubscriber
  *
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @covers  Solr\Listener\JobEventSubscriber
  * @package SolrTest\Listener
  */

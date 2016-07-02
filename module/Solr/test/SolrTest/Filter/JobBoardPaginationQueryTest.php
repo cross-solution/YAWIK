@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -9,18 +10,19 @@
 namespace SolrTest\Filter;
 
 use Jobs\Entity\CoordinatesInterface;
-use Jobs\Entity\Job;
 use Jobs\Entity\Location;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
-use Solr\Paginator\JobsBoardPaginatorFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class JobBoardPaginationQueryTest
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @package SolrTest\Filter
  * @covers  Solr\Filter\JobBoardPaginationQuery
  * @covers  Solr\Filter\AbstractPaginationQuery

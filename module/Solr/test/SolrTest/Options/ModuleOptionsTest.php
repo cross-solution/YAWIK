@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -12,6 +13,14 @@ use CoreTestUtils\TestCase\SetterGetterTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Solr\Options\ModuleOptions;
 
+/**
+ * Class ModuleOptionsTest
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
+ * @covers  Solr\Options\ModuleOptions
+ * @package SolrTest\Options
+ */
 class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 {
     use SetterGetterTrait, SetupTargetTrait;

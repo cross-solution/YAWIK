@@ -2,22 +2,21 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 namespace Solr;
 
-
 use Core\ModuleManager\ModuleConfigLoader;
-use Zend\Mvc\MvcEvent;
 
 /**
  * Class Module
  *
- * @package Solr
- * @since   0.27
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
+ * @package Solr
  */
 class Module
 {
@@ -45,10 +44,5 @@ class Module
                 ),
             ),
         );
-    }
-
-    public function onBootstrap(MvcEvent $e)
-    {
-
     }
 }

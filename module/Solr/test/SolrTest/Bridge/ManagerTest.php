@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -15,8 +16,10 @@ use Solr\Options\ModuleOptions as ConnectOption;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Class ManagerTest
+ * Test for SolrTest\Bridge\Manager
  *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @covers  Solr\Bridge\Manager
  * @package SolrTest\Bridge
  */

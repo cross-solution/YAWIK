@@ -2,6 +2,7 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -13,7 +14,8 @@ use Core\Listener\Events\CreatePaginatorEvent;
 /**
  * Class CreatePaginatorListener
  *
- * @author Anthonius Munthi <me@itstoni.com>
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.27
  * @package Solr\Event\Listener
  */
 class CreatePaginatorListener
