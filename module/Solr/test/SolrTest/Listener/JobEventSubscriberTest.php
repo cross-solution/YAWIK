@@ -6,7 +6,7 @@
  * @license   MIT
  */
 
-namespace SolrTest\Event;
+namespace SolrTest\Listener;
 
 
 use CoreTestUtils\TestCase\FunctionalTestCase;
@@ -20,12 +20,19 @@ use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Manager;
-use Solr\Event\Listener\JobEventSubscriber;
+use Solr\Listener\JobEventSubscriber;
 
+/**
+ * Test for Solr\Listener\JobEventSubscriber
+ *
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @covers  Solr\Listener\JobEventSubscriber
+ * @package SolrTest\Listener
+ */
 class JobEventSubscriberTest extends FunctionalTestCase
 {
     /**
-     * @var JobEventSubscriber
+     * @var \Solr\Listener\JobEventSubscriber
      */
     protected $target;
 

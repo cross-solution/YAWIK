@@ -6,7 +6,7 @@
  * @license   MIT
  */
 
-namespace Solr\Event\Listener;
+namespace Solr\Listener;
 
 
 use Doctrine\Common\EventSubscriber;
@@ -14,7 +14,6 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Solr\Bridge\Manager;
-use Solr\Exception\ListenerException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
