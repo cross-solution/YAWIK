@@ -5,19 +5,19 @@
 
 $options = [
     // set true if using https
-    'secure'    => true,
+    'secure'    => false,
 
     //The hostname for the Solr server
-    'hostname'  => 'yawik.org',
+    'hostname'  => 'some.solrserver.org',
 
     //The port number
-    'port'      => 8443,
+    'port'      => 8983,
 
     //The username used for HTTP Authentication, if any
-    'username'  => 'yawik',
+    'username'  => 'username',
 
     //The HTTP Authentication password
-    'password'  => '3qaS2uQU86dGbMXjDds2',
+    'password'  => 'password',
 ];
 
 /*
