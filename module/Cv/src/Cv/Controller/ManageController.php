@@ -15,6 +15,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
 use Auth\Entity\User;
+use Cv\Entity\Cv;
 use Cv\Entity\Contact;
 
 /**
@@ -46,8 +47,9 @@ class ManageController extends AbstractActionController
         /* @var $cvRepository \Cv\Repository\Cv */
         $cvRepository = $repositories->get('Cv/Cv');
         $user = $this->auth()->getUser();
-        /* @var $cv \Cv\Entity\Cv */
+        /* @var $cv Cv */
         $cv = $cvRepository->findDraft($user);
+        $params = $this->params();
         
         if (empty($cv)) {
             // create draft CV
@@ -58,6 +60,10 @@ class ManageController extends AbstractActionController
             $repositories->store($cv);
         }
         
+        if (($status = $params->fromQuery('status')) != '') {
+            return $this->changeStatus($cv, $status);
+        }
+        
         /* @var $container \Core\Form\Container */
         $container = $serviceLocator->get('FormElementManager')
             ->get('CvContainer')
@@ -65,7 +71,6 @@ class ManageController extends AbstractActionController
 
         // process post method
         if ($this->getRequest()->isPost()) {
-            $params = $this->params();
             $form = $container->getForm($params->fromQuery('form'));
 
             if ($form) {
@@ -130,10 +135,32 @@ class ManageController extends AbstractActionController
             }
         }
 
-
         return [
             'container' => $container,
             'cv' => $cv
         ];
+    }
+
+    /**
+     *
+     * @param Cv $cv
+     * @param string $status
+     * @return \Zend\Http\Response
+     */
+    protected function changeStatus(Cv $cv, $status)
+    {
+        if ($status != $cv->getStatus()) {
+            try {
+                $cv->setStatus($status);
+                
+                $this->notification()->success(
+                    /*@translate*/ 'Status has been successfully changed');
+            } catch (\DomainException $e) {
+                $this->notification()->error(
+                    /*@translate*/ 'Invalid status');
+            }
+        }
+        
+        return $this->redirect()->refresh();
     }
 }
