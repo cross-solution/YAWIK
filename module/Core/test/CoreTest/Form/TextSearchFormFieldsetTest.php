@@ -53,14 +53,14 @@ class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
             [ 'buttonElement', [
                 'ignore_setter' => true,
                 'value' => 'text',
-                'post' => ['assertEquals', [ 'text', ['->getOption', ['button_element']], 'Failed']],
+                'post' => function() { $this->assertEquals('text', $this->target->getOption('button_element')); },
             ]],
             [ 'columnMap', [ 'value' => [1,2,3]] ],
             [ 'columnMap', [
                 'value' => ['text' => 5 ],
                 'ignore_setter' => true,
                 'pre' => 'populateElementsForColumnMapTest',
-                'post' => ['assertEquals', [ ['text' => 5], ['->getOption', ['column_map']]]],
+                'post' => function() { $this->assertEquals(['text' => 5], $this->target->getOption('column_map')); },
             ]]
 
         ];
