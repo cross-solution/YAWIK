@@ -11,6 +11,9 @@
 namespace CoreTest\Controller\Plugin;
 
 use Core\Controller\Plugin\CreatePaginator;
+use Core\Listener\Events\CreatePaginatorEvent;
+use Zend\EventManager\EventManager;
+use Zend\EventManager\ResponseCollection;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 
@@ -19,6 +22,7 @@ use Zend\Stdlib\Parameters;
  *
  * @covers \Core\Controller\Plugin\CreatePaginator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @group Core
  * @group Core.Controller
  * @group Core.Controller.Plugin
@@ -76,8 +80,38 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
         $paginators->expects($this->once())->method('get')->with($paginatorName, $options)->willReturn($paginator);
 
         $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
-        $sm->expects($this->once())->method('get')->with('Core/PaginatorService')->willReturn($paginators);
+        $event = $this->getMockBuilder(CreatePaginatorEvent::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $em = $this->getMockBuilder(EventManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getEvent','trigger'])
+            ->getMock()
+        ;
 
+        $sm->expects($this->exactly(2))
+            ->method('get')
+            ->withConsecutive(
+                ['Core/PaginatorService'],
+                ['Core/CreatePaginator/Events']
+            )
+            ->willReturnOnConsecutiveCalls(
+                $paginators,
+                $em
+            )
+        ;
+
+        // check if event create paginator is triggered
+        $em->expects($this->once())
+            ->method('getEvent')
+            ->with(CreatePaginator::EVENT_CREATE_PAGINATOR)
+            ->willReturn($event)
+        ;
+        $em->expects($this->once())
+            ->method('trigger')
+            ->with($event)
+        ;
         $controller = $this->getMockBuilder('\Zend\Mvc\Controller\AbstractActionController')
                            ->setMethods(['getServiceLocator', 'getRequest'])
                            ->getMockForAbstractClass();

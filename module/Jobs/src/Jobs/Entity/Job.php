@@ -958,7 +958,7 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function isActive()
     {
-        return !$this->isDraft && $this->status->name == 'active';
+        return !$this->isDraft && is_object($this->status) && $this->status->name == 'active';
     }
 
     /**

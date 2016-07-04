@@ -16,18 +16,18 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     $modules = array('Install');
 } else {
     $modules = array(
-             'DoctrineModule',
-             'DoctrineMongoODMModule',
-             'Core',
-             'Auth',
-             'Cv',
-             'Applications',
-             'Jobs',
-             'Settings',
-             'Pdf',
-             'Geo',
-             'Organizations',
-        );
+        'DoctrineModule',
+        'DoctrineMongoODMModule',
+        'Core',
+        'Auth',
+        'Cv',
+        'Applications',
+        'Jobs',
+        'Settings',
+        'Pdf',
+        'Geo',
+        'Organizations',
+    );
 
     if (!isset($allModules)) {
         // allModules existiert nur, damit man verschiedene Konfigurationen auf dem gleichen System laufen lassen

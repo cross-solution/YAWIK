@@ -193,6 +193,7 @@ return array(
             'defaultListeners' => 'Core\Listener\DefaultListener::factory',
             'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy::factory',
             'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate::factory',
+            'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
@@ -444,6 +445,11 @@ return array(
             'service' => 'Core/EventManager',
             'event' => '\Core\Controller\AdminControllerEvent',
         ],
+
+        'Core/CreatePaginator/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => '\Core\Listener\Events\CreatePaginatorEvent'
+        ]
     ],
     
 );
