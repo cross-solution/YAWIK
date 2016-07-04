@@ -113,6 +113,7 @@ trait SetupTargetTrait
         $testNameKey = "@$testName";
 
         if (!is_array($spec) || (isset($spec[$testNameKey]) && false === $spec[$testNameKey])) {
+            $this->target = null;
             return;
         }
 
@@ -173,47 +174,54 @@ trait SetupTargetTrait
          *
          */
 
-        $methods = [];
-        $methodMocks  = [];
+        if (is_string($spec)) {
+            $mock = $this->$spec();
 
-        foreach ($spec as $method => $methodSpec) {
-            if (is_int($method)) {
-                $methods[] = $methodSpec;
-                continue;
-            }
-
-            $methods[] = $method;
-            $methodMocks[$method] = [
-                'expects' => isset($methodSpec['count']) ? $this->exactly($methodSpec['count']) : $this->any(),
-                'with' => isset($methodSpec['with']) ? $methodSpec['with'] : null,
-                'return' => isset($methodSpec['return'])
-                        ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
-                        : null
-            ];
-        }
-
-        $mockBuilder = $this
-            ->getMockBuilder($class)
-            ->setMethods($methods);
-
-
-        if (false === $args) {
-            $mockBuilder->disableOriginalConstructor();
         } else {
-            $mockBuilder->setConstructorArgs(InstanceCreator::mapArray($args));
-        }
 
-        $mock = $mockBuilder->getMock();
 
-        foreach ($methodMocks as $method => $mockSpec) {
-            $methodMock = $mock->expects($mockSpec['expects'])->method($method);
+            $methods = [];
+            $methodMocks  = [];
 
-            if ($mockSpec['with']) {
-                $methodMock->with($mockSpec['with']);
+            foreach ($spec as $method => $methodSpec) {
+                if (is_int($method)) {
+                    $methods[] = $methodSpec;
+                    continue;
+                }
+
+                $methods[] = $method;
+                $methodMocks[$method] = [
+                    'expects' => isset($methodSpec['count']) ? $this->exactly($methodSpec['count']) : $this->any(),
+                    'with' => isset($methodSpec['with']) ? $methodSpec['with'] : null,
+                    'return' => isset($methodSpec['return'])
+                            ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
+                            : null
+                ];
             }
 
-            if ($mockSpec['return']) {
-                $methodMock->will($mockSpec['return']);
+            $mockBuilder = $this
+                ->getMockBuilder($class)
+                ->setMethods($methods);
+
+
+            if (false === $args) {
+                $mockBuilder->disableOriginalConstructor();
+            } else {
+                $mockBuilder->setConstructorArgs(InstanceCreator::mapArray($args));
+            }
+
+            $mock = $mockBuilder->getMock();
+
+            foreach ($methodMocks as $method => $mockSpec) {
+                $methodMock = $mock->expects($mockSpec['expects'])->method($method);
+
+                if ($mockSpec['with']) {
+                    $methodMock->with($mockSpec['with']);
+                }
+
+                if ($mockSpec['return']) {
+                    $methodMock->will($mockSpec['return']);
+                }
             }
         }
 
