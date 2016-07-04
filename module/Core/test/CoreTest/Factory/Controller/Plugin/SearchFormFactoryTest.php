@@ -10,7 +10,7 @@
 /** */
 namespace CoreTest\Factory\Controller\Plugin;
 
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Zend\Form\FormElementManager;
 
@@ -26,7 +26,7 @@ use Zend\Form\FormElementManager;
  */
 class SearchFormFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, ServiceManagerMockTrait;
+    use TestInheritanceTrait, ServiceManagerMockTrait;
 
     /**
      *

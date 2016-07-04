@@ -10,7 +10,7 @@
 /** */
 namespace CoreTest\Entity\Exception;
 
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Entity\Exception\OutOfBoundsException
@@ -23,7 +23,7 @@ use CoreTestUtils\TestCase\AssertInheritanceTrait;
  */
 class OutOfBoundsExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     protected $target = '\Core\Entity\Exception\OutOfBoundsException';
 

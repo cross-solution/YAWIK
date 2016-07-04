@@ -11,7 +11,7 @@ namespace CoreTest\Listener\Events;
 
 use Core\Listener\Events\CreatePaginatorEvent;
 use Core\Paginator\PaginatorService;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Zend\Paginator\Paginator;
 
@@ -24,7 +24,7 @@ use Zend\Paginator\Paginator;
  */
 class CreatePaginatorEventTest extends \PHPUnit_Framework_TestCase
 {
-    use SetterGetterTrait,SetupTargetTrait;
+    use TestSetterGetterTrait,SetupTargetTrait;
 
     protected $target = [
         'class' => CreatePaginatorEvent::class

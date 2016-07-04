@@ -11,8 +11,8 @@
 namespace CoreTest\Controller;
 
 use Core\Controller\AdminControllerEvent;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Core\EventManager\EventManager;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 
 
@@ -26,7 +26,7 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
  */
 class AdminControllerTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, ServiceManagerMockTrait;
+    use TestInheritanceTrait, ServiceManagerMockTrait;
 
     /**
      *

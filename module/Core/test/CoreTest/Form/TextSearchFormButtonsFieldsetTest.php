@@ -10,12 +10,9 @@
 /** */
 namespace CoreTest\Form;
 
-use Core\Form\TextSearchFormButtonsFieldset;
-use Core\Form\TextSearchFormFieldset;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
-use Zend\Form\Element\Text;
-use Zend\Form\Fieldset;
+
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Form\TextSearchFormButtonsFieldset
@@ -27,7 +24,7 @@ use Zend\Form\Fieldset;
  */
 class TextSearchFormButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
      *
@@ -36,9 +33,11 @@ class TextSearchFormButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     protected $target = [
         'class' => '\Core\Form\TextSearchFormButtonsFieldset',
-        'mock' => [
-            'testInitializationAddsDefaultButtons' => ['addButton'],
-            'testAddButton' => ['add'],
+        '@testInitializationAddsDefaultButtons' => [
+            'mock' => ['addButton'],
+        ],
+        '@testAddButton' => [
+            'mock' => ['add'],
         ],
     ];
 

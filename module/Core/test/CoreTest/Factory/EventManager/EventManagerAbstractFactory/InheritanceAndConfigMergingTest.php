@@ -11,7 +11,7 @@
 namespace CoreTest\Factory\EventManager\EventManagerAbstractFactory;
 
 use Core\Factory\EventManager\EventManagerAbstractFactory;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -26,7 +26,7 @@ use Zend\ServiceManager\ServiceManager;
  */
 class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     /**
      *

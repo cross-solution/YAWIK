@@ -18,6 +18,7 @@ use Solr\Paginator\Adapter\SolrAdapter;
  * Class SolrAdapterTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @package SolrTest\Paginator\Adapter
  * @covers  Solr\Paginator\Adapter\SolrAdapter
@@ -68,6 +69,10 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        if (!class_exists('SolrQuery')) {
+            $this->markTestSkipped('Class SolrQuery does not exist. Please install solr extension.');
+        }
+
         $client = $this->getMockBuilder(\SolrClient::class)
             ->disableOriginalConstructor()
             ->getMock()

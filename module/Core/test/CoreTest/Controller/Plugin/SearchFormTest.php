@@ -12,7 +12,7 @@ namespace CoreTest\Controller\Plugin;
 
 use Core\Form\TextSearchForm;
 use Core\Form\TextSearchFormFieldset;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Form\FormElementManager;
 
 /**
@@ -26,14 +26,19 @@ use Zend\Form\FormElementManager;
  */
 class SearchFormTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     protected $formElementManagerMock;
 
     protected $target = [
         'class' => '\Core\Controller\Plugin\SearchForm',
-        'mock' => [
-            'testInvokationProxiesToGet' => [ 'get' ],
+        'args' => 'getTargetArgs',
+        '@testInvokationProxiesToGet' => [
+            'mock' => [ 'get' ],
+            'args' => false,
+        ],
+        '@testInheritance' => [
+            'args' => [ 'formElementManager' => '@\Zend\Form\FormElementManager' ],
         ],
     ];
 
@@ -41,22 +46,8 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     protected function getTargetArgs()
     {
-        switch ($this->getName(false)) {
-            case 'testInheritance':
-                return [ 'formElementManager' => '@\Zend\Form\FormElementManager' ];
-                break;
-
-            case 'testInvokationProxiesToGet':
-                return false;
-                break;
-
-            default:
-                $this->formElementManagerMock = $this->getMockBuilder('\Zend\Form\FormElementManager')
-                    ->setMethods(['get'])
-                    ->getMock();
-                return [$this->formElementManagerMock];
-                break;
-        }
+        $this->formElementManagerMock = $this->getMock('\Zend\Form\FormElementManager', ['get']);
+        return [$this->formElementManagerMock];
     }
 
     public function testInvokationProxiesToGet()

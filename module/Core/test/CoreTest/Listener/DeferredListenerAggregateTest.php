@@ -11,8 +11,8 @@
 namespace CoreTest\Listener;
 
 use Core\Listener\DeferredListenerAggregate;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
 
@@ -27,9 +27,13 @@ use Zend\ServiceManager\ServiceManager;
 class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 {
 
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
-    protected $target = 'Core\Listener\DeferredListenerAggregate';
+    protected $target = [
+        'Core\Listener\DeferredListenerAggregate',
+        'getTargetArgs',
+        '@testFactoryMethodReturnsInstance' => false
+    ];
 
     protected $inheritance = [ '\Zend\EventManager\ListenerAggregateInterface' ];
     
@@ -45,11 +49,9 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
     
     public function propertiesProvider()
     {
-        $target = $this->getMockBuilder(DeferredListenerAggregate::class)
-            ->setMethods(['setListener'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $target->expects($this->any())->method('setListener')
+        $target = $this->getMock($this->target[0], [ 'setListener' ], [], '', false);
+        $target
+            ->expects($this->exactly(2))->method('setListener')
             ->withConsecutive(
                 ['test', 'service', null, 0],
                 ['test2', 'someClass', 'method', 12]
@@ -222,6 +224,15 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
                 break;
         }
 
+    }
+
+    public function testFactoryMethodReturnsInstance()
+    {
+        $services = new ServiceManager();
+        $instance = DeferredListenerAggregate::factory($services);
+
+        $this->assertInstanceOf(DeferredListenerAggregate::class, $instance);
+        $this->assertAttributeSame($services, 'serviceManager', $instance);
     }
 }
 

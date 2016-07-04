@@ -9,7 +9,7 @@
 
 namespace SolrTest\Options;
 
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Solr\Options\ModuleOptions;
 
@@ -17,13 +17,14 @@ use Solr\Options\ModuleOptions;
  * Class ModuleOptionsTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @covers  Solr\Options\ModuleOptions
  * @package SolrTest\Options
  */
 class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    use SetterGetterTrait, SetupTargetTrait;
+    use TestSetterGetterTrait, SetupTargetTrait;
 
     protected $target = [
         'class' => ModuleOptions::class
@@ -55,6 +56,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
             ['secure',[
                 'default' => false,
                 'value' => true,
+                'getter_method' => 'is*',
             ]]
         ];
     }
