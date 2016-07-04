@@ -15,7 +15,7 @@ use Core\Listener\Events\CreatePaginatorEvent;
  * Class CreatePaginatorListener
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package Solr\Event\Listener
  */
 class CreatePaginatorListener

@@ -20,7 +20,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * 
  * @author  Anthonius Munthi <me@itstoni.com>
  * @package Solr\Bridge
- * @since   0.27
+ * @since   0.26
  */
 class ResultConverter
 {

@@ -19,7 +19,7 @@ use Zend\Paginator\Paginator;
  * Test for Solr\Listener\CreatePaginatorListener
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @covers  Solr\Listener\CreatePaginatorListener
  * @package SolrTest\Event\Listener
  */

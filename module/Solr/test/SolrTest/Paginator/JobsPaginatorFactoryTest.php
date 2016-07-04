@@ -23,7 +23,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class JobsPaginatorFactoryTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package SolrTest\Paginator
  * @covers  Solr\Paginator\JobsBoardPaginatorFactory
  * @covers  Solr\Paginator\PaginatorFactoryAbstract

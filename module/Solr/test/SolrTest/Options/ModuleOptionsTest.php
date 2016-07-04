@@ -17,7 +17,7 @@ use Solr\Options\ModuleOptions;
  * Class ModuleOptionsTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @covers  Solr\Options\ModuleOptions
  * @package SolrTest\Options
  */

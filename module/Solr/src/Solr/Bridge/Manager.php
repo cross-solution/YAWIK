@@ -18,7 +18,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Manage connection with the SolrServer
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package Solr\Bridge
  */
 class Manager

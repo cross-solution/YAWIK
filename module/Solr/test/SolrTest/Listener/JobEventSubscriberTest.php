@@ -27,7 +27,7 @@ use Solr\Listener\JobEventSubscriber;
  * Test for Solr\Listener\JobEventSubscriber
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @covers  Solr\Listener\JobEventSubscriber
  * @package SolrTest\Listener
  */

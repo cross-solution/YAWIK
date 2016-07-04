@@ -19,7 +19,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class AbstractPaginationQuery
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package Solr\Filter
  */
 abstract class AbstractPaginationQuery implements FilterInterface

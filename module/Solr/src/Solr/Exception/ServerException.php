@@ -17,7 +17,7 @@ use Core\Exception\ExceptionInterface;
  *
  * @author Anthonius Munthi <me@itstoni.com>
  * @package Solr\Exception
- * @since   0.27
+ * @since   0.26
  */
 class ServerException extends \RuntimeException implements ExceptionInterface
 {

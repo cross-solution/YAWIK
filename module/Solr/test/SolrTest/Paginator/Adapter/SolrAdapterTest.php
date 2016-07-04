@@ -18,7 +18,7 @@ use Solr\Paginator\Adapter\SolrAdapter;
  * Class SolrAdapterTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package SolrTest\Paginator\Adapter
  * @covers  Solr\Paginator\Adapter\SolrAdapter
  */

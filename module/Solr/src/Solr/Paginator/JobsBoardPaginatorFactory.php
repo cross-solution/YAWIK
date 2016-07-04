@@ -14,7 +14,7 @@ namespace Solr\Paginator;
  * This paginator factory will replace Jobs/Board with Solr/Jobs/Board paginator
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @see     Jobs\Paginator\JobPaginatorFactory
  * @package Solr\Paginator
  */

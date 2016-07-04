@@ -20,7 +20,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Abstract class for Solr paginator factory
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package Solr\Paginator
  */
 abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreationOptionsInterface

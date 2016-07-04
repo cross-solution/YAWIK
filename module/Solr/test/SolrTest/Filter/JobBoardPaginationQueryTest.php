@@ -22,7 +22,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class JobBoardPaginationQueryTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package SolrTest\Filter
  * @covers  Solr\Filter\JobBoardPaginationQuery
  * @covers  Solr\Filter\AbstractPaginationQuery

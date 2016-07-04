@@ -20,7 +20,7 @@ use Organizations\Entity\OrganizationName;
  * Class JobBoardPaginationQuery
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package Solr\Filter
  */
 class JobBoardPaginationQuery extends AbstractPaginationQuery

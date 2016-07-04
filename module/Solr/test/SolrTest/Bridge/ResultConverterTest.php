@@ -41,7 +41,7 @@ class ResultDocument
  * Class ResultConverterTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @covers  Solr\Bridge\ResultConverter
  * @package SolrTest\Bridge
  */

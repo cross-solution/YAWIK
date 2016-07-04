@@ -19,7 +19,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Test for SolrTest\Bridge\Manager
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @covers  Solr\Bridge\Manager
  * @package SolrTest\Bridge
  */

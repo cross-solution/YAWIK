@@ -19,7 +19,7 @@ use Solr\Bridge\ResultConverter;
  * Provide adapter for Solr type paginator
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package Solr\Paginator\Adapter
  */
 class SolrAdapter implements AdapterInterface

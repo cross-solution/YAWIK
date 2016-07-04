@@ -16,7 +16,7 @@ use Zend\Stdlib\AbstractOptions;
  * Provide available options for Solr Module
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.27
+ * @since   0.26
  * @package Solr\Options
  */
 class ModuleOptions extends AbstractOptions
