@@ -20,7 +20,7 @@ class AuthFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $f = new AuthFactory();
         $sm = new ServiceManager();
-        $auth = $this->getMock('\Zend\Authentication\AuthenticationService');
+        $auth = $this->getMockBuilder('\Zend\Authentication\AuthenticationService')->getMock();
         $sm->setService('AuthenticationService', $auth);
         
         $hm = new HelperPluginManager();

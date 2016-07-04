@@ -103,7 +103,7 @@ interface JobInterface extends
      * Sets the publishing date of a job posting
      *
      * @param $datePublishStart
-     * @return \DateTime
+     * @return $this
      */
     public function setDatePublishStart($datePublishStart);
 
@@ -119,7 +119,7 @@ interface JobInterface extends
      * Sets the end date for publishing a job posting
      *
      * @param $datePublishEnd
-     * @return \DateTime
+     * @return $this
      */
     public function setDatePublishEnd($datePublishEnd);
     

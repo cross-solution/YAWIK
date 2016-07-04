@@ -86,9 +86,11 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $this->testedObject = new Register($this->userRepositoryMock, $this->mailServiceMock, $this->optionsMock);
 
-        $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
-        $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer', [], [], '', false);
-        $this->urlPluginMock = $this->getMock('Zend\Mvc\Controller\Plugin\Url');
+        $this->inputFilterMock = $this->getMockBuilder('Zend\InputFilter\InputFilterInterface')->getMock();
+        $this->mailerPluginMock = $this->getMockBuilder('Core\Controller\Plugin\Mailer')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->urlPluginMock = $this->getMockBuilder('Zend\Mvc\Controller\Plugin\Url')->getMock();
     }
 
     public function testProceed_WhenInputFilterIsInvalid()

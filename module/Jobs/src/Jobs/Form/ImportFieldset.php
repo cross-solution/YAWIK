@@ -175,13 +175,5 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 'type' => 'Jobs/AtsModeFieldset',
             ]
         );
-
-        $this->add(
-            [
-                'type' => 'Jobs/JobDescriptionDescription',
-                'name' => 'templateValues'
-            ]
-        );
-
     }
 }

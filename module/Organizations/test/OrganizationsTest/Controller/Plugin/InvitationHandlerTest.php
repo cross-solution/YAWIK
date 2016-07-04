@@ -12,6 +12,7 @@ namespace OrganizationsTest\Controller\Plugin;
 
 use Auth\Entity\User;
 use Organizations\Controller\Plugin\InvitationHandler;
+use Zend\Validator\EmailAddress;
 
 /**
  * Tests for \Organizations\Controller\Plugin\InvitationHandler
@@ -50,10 +51,10 @@ class InvitationHandlerTest extends \PHPUnit_Framework_TestCase
         }
 
         if (in_array('emailValidator', $mocks)) {
-            $this->emailValidatorMock = new \Zend\Validator\EmailAddress();
+            $this->emailValidatorMock = new EmailAddress();
         }
         if (in_array('translator', $mocks)) {
-            $this->translatorMock     = $this->getMock('\Zend\I18n\Translator\Translator');
+            $this->translatorMock = $this->getMockBuilder('\Zend\I18n\Translator\Translator')->getMock();
         }
         if (in_array('userRepository', $mocks)) {
             $this->userRepositoryMock = $this->getMockBuilder('\Auth\Repository\User')->disableOriginalConstructor()->getMock();
