@@ -93,7 +93,21 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      * @ODM\Boolean
      */
     protected $isDraft = false;
+    
+    /**
+     * Status
+     *
+     * @var Status
+     * @ODM\EmbedOne(targetDocument="Status")
+     * @ODM\Index
+     */
+    protected $status;
 
+    public function __construct()
+    {
+        $this->status = new Status();
+    }
+    
     /**
      * @return UserInterface
      */
@@ -307,5 +321,29 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     public function getNativeLanguages()
     {
         return $this->nativeLanguages;
+    }
+    
+    /**
+     * @return Status
+     */
+    public function getStatus()
+    {
+        if (!isset($this->status)) {
+            $this->status = new Status();
+        }
+    
+        return $this->status;
+    }
+    
+    /**
+     * @param Status|string $status
+     */
+    public function setStatus($status)
+    {
+        if (!$status instanceof Status) {
+            $status = new Status($status);
+        }
+    
+        $this->status = $status;
     }
 }

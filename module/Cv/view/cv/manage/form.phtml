@@ -1,11 +1,34 @@
-<?php $this->headStyle()->captureStart()?>
+<?php
+use Cv\Entity\Status;
+
+$this->headStyle()->captureStart()?>
 fieldset fieldset {padding-left: 30px;}
 #image .img-polaroid {max-width: 120px; max-height: 180px;width: 120px;}
 <?php $this->headStyle()->captureEnd()?>
 <?php
+/* @var $cv \Cv\Entity\Cv */
+$cv = $this->cv;
+$status = $cv->getStatus();
 $title = $this->translate('Create a new resume');
 $this->headtitle($title);
 $this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
+$currentStatus = $status->getName();
+$statusClasses = [
+    Status::NONPUBLIC => 'danger',
+    Status::PUBLIC_TO_ALL => 'success',
+];
+$statusClass = isset($statusClasses[$currentStatus]) ? $statusClasses[$currentStatus] : 'default';
 ?>
-<h1><?=$title?></h1>
+<h1>
+    <div class="btn-group pull-right">
+        <span class="btn btn-<?=$statusClass?>"><?=$this->translate($currentStatus)?></span>
+        <a class="btn btn-<?=$statusClass?> dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <?php foreach ($status->getStates([$currentStatus]) as $otherStatus):?>
+                <li><a href="<?=$this->url(null, [], ['query' => ['status' => $otherStatus]], true)?>"><?=$this->translate($otherStatus)?></a></li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+    <?=$title?>
+</h1>
 <?=$this->formContainer($this->container)?>
