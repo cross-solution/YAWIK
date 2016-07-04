@@ -23,6 +23,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class JobsPaginatorFactoryTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @package SolrTest\Paginator
  * @covers  Solr\Paginator\JobsBoardPaginatorFactory
@@ -30,6 +31,12 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function setUp()
+    {
+        !extension_loaded('solr') && $this->markTestSkipped('Solr extension is not loaded.');
+    }
+
     public function testCreateService()
     {
         $filterManager = $this->getMockBuilder(FilterPluginManager::class)

@@ -17,6 +17,7 @@ use Solr\Options\ModuleOptions;
  * Class ModuleOptionsTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @covers  Solr\Options\ModuleOptions
  * @package SolrTest\Options
