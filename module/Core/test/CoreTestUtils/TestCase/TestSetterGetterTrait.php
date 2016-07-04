@@ -127,22 +127,25 @@ use CoreTestUtils\InstanceCreator;
  *          as the second item. The target instance will then be used in the following test scenario.
  *
  * 'pre' and 'post':
- *          a callable or the name of a TestCase method, which is called before ('pre') or after ('post') the tests
+ *          a Closure, a callable or the name of a TestCase method, which is called before ('pre') or after ('post') the tests
  *          for a single property.
  *
- *          If its not a callable, following specs are possible:
+ *          If its not a Closure, following specs are possible:
  *          - 'methodName' : a method of the TestCase, which will be called without arguments.
  *          - [ 'methodName', [<arg>, <arg>, ,...] ] : Method of the TestCase which will be called with the
  *                                                     provided Arguments.
+ *          - [ Closure, [<arg>, <arg>] ]: Calls the Closure with the provided args.
  *          - [ <callable>, [<arg>, <arg>,. ..] ]: Calls the callable with the provided args.
  *
- *          If a callable is specified, it will be called with the target instance, the testcase instance and the
- *          specification array of the current property test as arguments in this order.
+ *          Closures will be bounded to the test case instance in its scope. (that means you have access
+ *          to $this->target in the closure especially).
  *
  *          <arg>: There are special arguments:
  *                  - '###' : Will be substituted with the current spec of the tested property.
  *                  - '@self': Will be subsituted with the TestCase instance.
  *                  - '@target': Will be substituted with the target instance.
+ *
+ *          if no arguments are provided, the current spec will be passed as the solely argument.
  *
  *
  * @property object $target
@@ -301,7 +304,7 @@ trait TestSetterGetterTrait
      *
      * @param string        $getter
      * @param mixed         $value
-     * @param array         $args
+     * @param array|false   $args
      * @param callable|null $assert
      * @param bool          $isDefaultValue
      */
@@ -351,7 +354,7 @@ trait TestSetterGetterTrait
      *
      * @param string        $setter
      * @param mixed         $value
-     * @param array         $args
+     * @param array|false   $args
      * @param callable|null $assert
      * @param mixed|null    $expect
      */
@@ -449,17 +452,16 @@ trait TestSetterGetterTrait
             return;
         }
 
-        $cb = $spec[$type];
-        $args = false;
+        $cb      = $spec[$type];
+        $args    = false; /* @var array|false $args */
 
         if (!is_callable($cb)) {
             if (is_array($cb)) {
                 $method = $cb[0];
-                $args   = isset($cb[1]) ? $cb[1] : [];
+                $args   = isset($cb[1]) ? $cb[1] : false;
 
             } else {
                 $method = $cb;
-                $args   = [];
             }
 
             if (!is_callable($method)) {
@@ -471,8 +473,13 @@ trait TestSetterGetterTrait
             $cb = $method;
         }
 
+        if ($cb instanceOf \Closure) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $cb = $cb->bindTo($this, $this);
+        }
+
         if (false === $args) {
-            $args = [ $this->target, $this, $spec ];
+            $args = [ $spec ];
 
         } else {
 
@@ -503,7 +510,7 @@ trait TestSetterGetterTrait
      * Calls a method on the target instance.
      *
      * @param string $method
-     * @param array $args
+     * @param array|false $args
      *
      * @return mixed
      * @throws \InvalidArgumentException
