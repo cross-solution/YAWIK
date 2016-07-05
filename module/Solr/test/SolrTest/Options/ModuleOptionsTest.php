@@ -57,6 +57,10 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
                 'default' => false,
                 'value' => true,
                 'getter_method' => 'is*',
+            ]],
+            ['jobsPath', [
+                'default' => '/solr/YawikJobs',
+                'value' => '/some/Path',
             ]]
         ];
     }

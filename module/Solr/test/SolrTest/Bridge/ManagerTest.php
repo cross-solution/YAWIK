@@ -51,6 +51,10 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->target = new Manager($option);
     }
 
+    public function testGetOptions()
+    {
+        $this->assertEquals($this->option,$this->target->getOptions());
+    }
     public function testFactory()
     {
         $mock = $this->getMockBuilder(ServiceLocatorInterface::class)

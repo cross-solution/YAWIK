@@ -12,6 +12,7 @@ namespace SolrTest\Paginator;
 use Solr\Bridge\Manager;
 use Solr\Bridge\ResultConverter;
 use Solr\Filter\JobBoardPaginationQuery;
+use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Paginator\JobsBoardPaginatorFactory;
 use Zend\Filter\FilterPluginManager;
@@ -58,19 +59,35 @@ class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
+        $solrManager->expects($this->once())
+            ->method('getClient')
+            ->with('/some/path');
         $converter = $this->getMockBuilder(ResultConverter::class)
             ->disableOriginalConstructor()
             ->getMock()
+        ;
+        $options = $this->getMockBuilder(ModuleOptions::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $options->expects($this->once())
+            ->method('getJobsPath')
+            ->willReturn('/some/path')
         ;
         $sl = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->setMethods(['getServiceLocator','get','has'])
             ->getMock()
         ;
         $sl->method('getServiceLocator')->willReturn($sl);
-        $sl->expects($this->exactly(3))
+        $sl->expects($this->exactly(4))
             ->method('get')
-            ->withConsecutive(['filterManager'],['Solr/Manager'],['Solr/ResultConverter'])
-            ->willReturnOnConsecutiveCalls($filterManager,$solrManager,$converter)
+            ->withConsecutive(
+                ['filterManager'],
+                ['Solr/Options/Module'],
+                ['Solr/Manager'],
+                ['Solr/ResultConverter']
+            )
+            ->willReturnOnConsecutiveCalls($filterManager,$options,$solrManager,$converter)
         ;
 
         $target = new JobsBoardPaginatorFactory();

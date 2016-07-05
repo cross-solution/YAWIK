@@ -8,6 +8,7 @@
  */
 
 namespace Solr\Paginator;
+use Solr\Options\ModuleOptions;
 
 /**
  * Provide Solr version of JobsPaginatorFactory
@@ -25,8 +26,11 @@ class JobsBoardPaginatorFactory extends PaginatorFactoryAbstract
         return 'Solr/Jobs/PaginationQuery';
     }
 
-    protected function getConnectPath()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConnectPath(ModuleOptions $options)
     {
-        return '/solr/YawikJobs';
+        return $options->getJobsPath();
     }
 }

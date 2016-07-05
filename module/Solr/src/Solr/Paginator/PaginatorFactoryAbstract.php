@@ -10,6 +10,8 @@
 namespace Solr\Paginator;
 
 use Core\Paginator\PaginatorService;
+use Solr\Bridge\ResultConverter;
+use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\FactoryInterface;
@@ -57,8 +59,10 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreat
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var PaginatorService $serviceLocator */
+        /* @var ResultConverter $resultConverter */
         $filter             = $serviceLocator->getServiceLocator()->get('filterManager')->get($this->getFilter());
-        $connectPath        = $this->getConnectPath();
+        $options            = $serviceLocator->getServiceLocator()->get('Solr/Options/Module');
+        $connectPath        = $this->getConnectPath($options);
         $solrClient         = $serviceLocator->getServiceLocator()->get('Solr/Manager')->getClient($connectPath);
         $resultConverter    = $serviceLocator->getServiceLocator()->get('Solr/ResultConverter');
         $adapter            = new SolrAdapter($solrClient,$filter,$resultConverter,$this->options);
@@ -76,9 +80,11 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreat
     abstract protected function getFilter();
 
     /**
-     * Get Solr Connect Path for this paginator
      *
-     * @return string
+     * Get connection path for this paginator
+     *
+     * @param   ModuleOptions $options
+     * @return  string
      */
-    abstract protected function getConnectPath();
+    abstract protected function getConnectPath(ModuleOptions $options);
 }
