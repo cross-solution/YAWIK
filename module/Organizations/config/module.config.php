@@ -151,11 +151,13 @@ return array(
                 'allow' => array(
                     'route/lang/organizations',
                     'Organizations/InviteEmployee',
+                    'Entity/Organization' => [ 'edit' => 'Organizations/Write' ],
                 ),
             ),
         ),
         'assertions' => array(
             'invokables' => array(
+                'Organizations/Write' => 'Organizations\Acl\Assertion\WriteAssertion',
             ),
         ),
     ),

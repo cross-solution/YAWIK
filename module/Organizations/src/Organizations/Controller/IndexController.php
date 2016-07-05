@@ -12,6 +12,7 @@ namespace Organizations\Controller;
 
 use Core\Entity\Collection\ArrayCollection;
 use Core\Form\SummaryForm;
+use Organizations\Exception\MissingParentOrganizationException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Organizations\Repository;
 use Organizations\Form;
@@ -124,7 +125,7 @@ class IndexController extends AbstractActionController
             /* @var $handler \Organizations\Controller\Plugin\GetOrganizationHandler */
             $handler = $this->plugin('Organizations/GetOrganizationHandler');
             $org  = $handler->process($this->params(), true);
-        } catch (\RuntimeException $e) {
+        } catch (MissingParentOrganizationException $e) {
             return $this->getErrorViewModel('no-parent');
         }
 
