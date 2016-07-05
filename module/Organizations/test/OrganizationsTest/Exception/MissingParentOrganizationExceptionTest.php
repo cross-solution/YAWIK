@@ -10,7 +10,7 @@
 /** */
 namespace OrganizationsTest\Exception;
 
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Organizations\Exception\ExceptionInterface;
 use Organizations\Exception\MissingParentOrganizationException;
 
@@ -23,7 +23,7 @@ use Organizations\Exception\MissingParentOrganizationException;
  */
 class MissingParentOrganizationExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     private $target = MissingParentOrganizationException::class;
 
