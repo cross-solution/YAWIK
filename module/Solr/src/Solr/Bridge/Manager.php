@@ -30,15 +30,15 @@ class Manager
     /**
      * @var ModuleOptions
      */
-    protected $connectOption;
+    protected $options;
 
     /**
      * Manager constructor.
-     * @param ModuleOptions $connectOption
+     * @param ModuleOptions $options
      */
-    public function __construct(ModuleOptions $connectOption)
+    public function __construct(ModuleOptions $options)
     {
-        $this->connectOption = $connectOption;
+        $this->options = $options;
     }
 
     /**
@@ -49,14 +49,14 @@ class Manager
      */
     public function getClient($path='/solr')
     {
-        $connectOption = $this->connectOption;
+        $options = $this->options;
         $options = [
-            'secure' => $connectOption->isSecure(),
-            'hostname' => $connectOption->getHostname(),
-            'port' => $connectOption->getPort(),
+            'secure' => $options->isSecure(),
+            'hostname' => $options->getHostname(),
+            'port' => $options->getPort(),
             'path' => $path,
-            'login' => $connectOption->getUsername(),
-            'password' => $connectOption->getPassword(),
+            'login' => $options->getUsername(),
+            'password' => $options->getPassword(),
         ];
 
         return new \SolrClient($options);
@@ -82,14 +82,22 @@ class Manager
     }
 
     /**
+     * @return ModuleOptions
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
      * Create new instance for Solr\Manager
      * @param ServiceLocatorInterface $sl
      * @return Manager
      */
     static public function factory(ServiceLocatorInterface $sl)
     {
-        return new self(
-            $sl->get('Solr/Options/Module')
-        );
+        /* @var ModuleOptions $options */
+        $options = $sl->get('Solr/Options/Module');
+        return new self($options);
     }
 }

@@ -52,6 +52,11 @@ class ModuleOptions extends AbstractOptions
     protected $password = '';
 
     /**
+     * @var string
+     */
+    protected $jobsPath = '/solr/YawikJobs';
+
+    /**
      * @return boolean
      */
     public function isSecure()
@@ -161,6 +166,25 @@ class ModuleOptions extends AbstractOptions
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJobsPath()
+    {
+        return $this->jobsPath;
+    }
+
+    /**
+     * @param string $jobsPath
+     * @return ModuleOptions
+     */
+    public function setJobsPath($jobsPath)
+    {
+        $this->jobsPath = $jobsPath;
 
         return $this;
     }

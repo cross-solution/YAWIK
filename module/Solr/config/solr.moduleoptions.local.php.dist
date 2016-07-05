@@ -7,17 +7,20 @@ $options = [
     // set true if using https
     'secure'    => false,
 
-    //The hostname for the Solr server
+    // The hostname for the Solr server
     'hostname'  => 'some.solrserver.org',
 
-    //The port number
+    // The port number
     'port'      => 8983,
 
-    //The username used for HTTP Authentication, if any
+    // The username used for HTTP Authentication, if any
     'username'  => 'username',
 
-    //The HTTP Authentication password
+    // The HTTP Authentication password
     'password'  => 'password',
+
+    // A path for solr jobs index
+    'jobsPath' => '/solr/YawikJobs',
 ];
 
 /*
