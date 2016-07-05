@@ -68,7 +68,7 @@ class JobEventSubscriber implements EventSubscriber
 
         $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
         try{
-            $this->solrManager->addDocument($solrDoc,'/solr/YawikJobs');
+            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
         }catch (\Exception $e){
             // @TODO: What to do when the process failed?
         }
@@ -88,7 +88,7 @@ class JobEventSubscriber implements EventSubscriber
 
         $solrDoc = $this->generateInputDocument($document,new \SolrInputDocument());
         try{
-            $this->solrManager->addDocument($solrDoc,'/solr/YawikJobs');
+            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
         }catch (\Exception $e){
             // @TODO: What to do when the process failed?
         }
@@ -100,8 +100,9 @@ class JobEventSubscriber implements EventSubscriber
      */
     static public function factory(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var Manager $manager */
         $manager = $serviceLocator->get('Solr/Manager');
-        return new static($manager);
+        return new self($manager);
     }
 
     /**

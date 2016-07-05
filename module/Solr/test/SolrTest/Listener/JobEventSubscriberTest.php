@@ -10,6 +10,7 @@
 namespace SolrTest\Listener;
 
 
+use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\FunctionalTestCase;
 use Cv\Entity\Cv;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -63,11 +64,16 @@ class JobEventSubscriberTest extends FunctionalTestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
+        $options = $this->getMockBuilder(ModuleOptions::class)
+            ->setMethods(['getJobsPath'])
+            ->getMock()
+        ;
+        $options->method('getJobsPath')->willReturn('/some/path');
+        $managerMock->method('getOptions')->willReturn($options);
+
         $sl->setService('Solr/Manager', $managerMock);
         $managerMock->method('getClient')->willReturn($clientMock);
-        $this->target = new JobEventSubscriber(
-            $managerMock
-        );
+        $this->target = JobEventSubscriber::factory($sl);
         $this->managerMock = $managerMock;
         $this->clientMock = $clientMock;
     }
