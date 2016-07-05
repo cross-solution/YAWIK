@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
- * @license   MIT
+ * @license       MIT
  */
 
 namespace Organizations\Entity;
@@ -11,14 +11,15 @@ namespace Organizations\Entity;
 use Auth\Entity\UserInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\Collection\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Entity\DraftableEntityInterface;
+use Core\Entity\EntityInterface;
+use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
-use Core\Entity\EntityInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zend\Hydrator\HydratorInterface;
-use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\DraftableEntityInterface;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * The organization.
@@ -31,11 +32,14 @@ use Core\Entity\DraftableEntityInterface;
  *      }, name="fulltext")
  * })
  *
- * @todo write test
+ * @todo   write test
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface
+class Organization extends BaseEntity implements
+    OrganizationInterface,
+    DraftableEntityInterface,
+    ResourceInterface
 {
     /**
      * Event name of post construct event.
@@ -52,7 +56,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\Index
      */
     protected $externalId;
-    
+
     /**
      * The actual name of the organization.
      *
@@ -60,7 +64,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
      */
     protected $organizationName;
-    
+
     /**
      * Only for sorting/searching purposes
      *
@@ -76,7 +80,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
     protected $permissions;
-    
+
     /**
      * primary logo of an organization
      *
@@ -92,11 +96,12 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\Boolean
      */
     protected $isDraft = false;
-    
+
     /**
      * Organization contact data.
      *
-     * @ODM\EmbedOne(targetDocument="\Organizations\Entity\OrganizationContact") */
+     * @ODM\EmbedOne(targetDocument="\Organizations\Entity\OrganizationContact")
+     */
     protected $contact;
 
     /**
@@ -110,7 +115,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     /**
      * The parent of this organization.
      *
-     * @see setParent()
+     * @see   setParent()
      * @var OrganizationInterface | null
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", simple=true, nullable=true)
      * @since 0.18
@@ -166,10 +171,35 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     /**
      * Default values Workflow
      *
-     * @var WorkflowSettingsInterface $workflowSettings;
+     * @var WorkflowSettingsInterface $workflowSettings ;
      * @ODM\EmbedOne(targetDocument="\Organizations\Entity\WorkflowSettings")
      */
     protected $workflowSettings;
+
+    /**
+     * Returns the string identifier of the Resource
+     *
+     * @return string
+     */
+    public function getResourceId()
+    {
+        return 'Entity/Organization';
+    }
+
+
+    /**
+     * Gets the organization name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        if (empty($this->organizationName)) {
+            return '';
+        }
+
+        return $this->organizationName->name;
+    }
 
     /**
      * Sets the parent of an organization
@@ -186,6 +216,15 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /**
+     * @deprecated
+     * @return array
+     */
+    public function getSearchableProperties()
+    {
+        return array();
+    }
+
+    /**
      * Gets the parent of an organization
      *
      * @param bool $returnSelf returns itself, if this organization does not have a parent?
@@ -194,7 +233,17 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     public function getParent($returnSelf = false)
     {
-        return $this->parent ?: ($returnSelf ? $this : null);
+        return $this->parent ? : ($returnSelf ? $this : null);
+    }
+
+    /**
+     * Gets the Draft flag
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
     }
 
     /**
@@ -208,11 +257,37 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /**
+     * Sets the draft flag
+     *
+     * @param bool $flag
+     *
+     * @return $this
+     */
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
+
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isHiringOrganization()
     {
         return null !== $this->parent;
+    }
+
+    /**
+     * Returns true, if the user belongs to the organization.
+     *
+     * @param UserInterface $user
+     *
+     * @return bool
+     */
+    public function isAssociated(UserInterface $user)
+    {
+        return $this->isOwner($user) || $this->isEmployee($user);
     }
 
     /**
@@ -225,7 +300,20 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function setExternalId($externalId)
     {
         $this->externalId = $externalId;
-        return  $this;
+
+        return $this;
+    }
+
+    /**
+     * Checks, if a User is the owner of an organization
+     *
+     * @param UserInterface $user
+     *
+     * @return bool
+     */
+    public function isOwner(UserInterface $user)
+    {
+        return $this->getUser()->getId() == $user->getId();
     }
 
     /**
@@ -239,7 +327,20 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /**
+     * Returns true, if a User is an employee of the organization
+     *
+     * @param UserInterface $user
+     *
+     * @return bool
+     */
+    public function isEmployee(UserInterface $user)
+    {
+        return $this->refs && in_array($user->getId(), $this->refs->getEmployeeIds());
+    }
+
+    /**
      * @todo review this
+     *
      * @param HydratorInterface $hydrator
      *
      * @return $this
@@ -247,6 +348,39 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function setHydrator(HydratorInterface $hydrator)
     {
         return $this;
+    }
+
+    /**
+     * Updates the organizationsPermissions to allow all employees to view this organization.
+     *
+     * In case of a HiringOrganization Permissions are granted to all employees of the parent
+     * organization.
+     *
+     * @ODM\PreUpdate
+     * @ODM\PrePersist
+     * @since 0.18
+     */
+    public function updatePermissions()
+    {
+        if ($this->isHiringOrganization()) {
+            $organization = $this->getParent();
+            $owner        = $organization->getUser();
+
+            $this->setUser($owner);
+        } else {
+            $organization = $this;
+        }
+
+        /* @var $employees null | ArrayCollection | \Doctrine\ODM\MongoDB\PersistentCollection */
+        $employees = $organization->getEmployees();
+
+        $perms = $this->getPermissions();
+
+        foreach ($employees as $emp) {
+            /* @var $emp \Organizations\Entity\Employee */
+            $perms->grant($emp->getUser(), PermissionsInterface::PERMISSION_CHANGE, false);
+        }
+        $perms->build();
     }
 
     /**
@@ -273,6 +407,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         $this->organizationName = $organizationName;
         $this->organizationName->refCounterInc()->refCompanyCounterInc();
         $this->_organizationName = $organizationName->getName();
+
         return $this;
     }
 
@@ -288,28 +423,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
 
     /**
-     * Gets the organization name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        if (empty($this->organizationName)) {
-            return '';
-        }
-        return $this->organizationName->name;
-    }
-
-    /**
-     * @deprecated
-     * @return array
-     */
-    public function getSearchableProperties()
-    {
-        return array();
-    }
-
-    /**
      * Gets the Permissions of an organization
      *
      * @return PermissionsInterface
@@ -323,6 +436,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             }
             $this->setPermissions($permissions);
         }
+
         return $this->permissions;
     }
 
@@ -340,6 +454,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             $permissions->grant($this->user, Permissions::PERMISSION_ALL);
         }
         $this->permissions = $permissions;
+
         return $this;
     }
 
@@ -363,8 +478,8 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         // if we have a user, grant him full access to all associated permissions.
         $user = $this->getUser();
         $spec = $user
-              ? $spec = array(PermissionsInterface::PERMISSION_ALL => array($this->getUser()->getId()))
-              : array();
+            ? $spec = array(PermissionsInterface::PERMISSION_ALL => array($this->getUser()->getId()))
+            : array();
 
         if (null === $type || ('Job/Permissions' != $type && 'Application' != $type)) {
             return $spec;
@@ -372,10 +487,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
         if ('Job/Permissions' == $type) {
             $change = EmployeePermissionsInterface::JOBS_CHANGE;
-            $view = EmployeePermissionsInterface::JOBS_VIEW;
+            $view   = EmployeePermissionsInterface::JOBS_VIEW;
         } else {
             $change = EmployeePermissionsInterface::APPLICATIONS_CHANGE;
-            $view = EmployeePermissionsInterface::APPLICATIONS_VIEW;
+            $view   = EmployeePermissionsInterface::APPLICATIONS_VIEW;
         }
 
         $employees = $this->isHiringOrganization()
@@ -409,6 +524,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function setImage(OrganizationImage $image = null)
     {
         $this->image = $image;
+
         return $this;
     }
 
@@ -435,6 +551,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             $contact = new OrganizationContact($contact);
         }
         $this->contact = $contact;
+
         return $this;
     }
 
@@ -448,31 +565,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         if (!$this->contact instanceof OrganizationContact) {
             $this->contact = new OrganizationContact();
         }
+
         return $this->contact;
     }
 
-    /**
-     * Gets the Draft flag
-     *
-     * @return bool
-     */
-    public function isDraft()
-    {
-        return $this->isDraft;
-    }
-
-    /**
-     * Sets the draft flag
-     *
-     * @param bool $flag
-     *
-     * @return $this
-     */
-    public function setIsDraft($flag)
-    {
-        $this->isDraft = (bool) $flag;
-        return $this;
-    }
 
     /**
      * Gets the default description of an organization.
@@ -562,9 +658,11 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * Gets a list of Employees by a user role
      *
      * @param string $role
+     *
      * @return ArrayCollection
      */
-    public function getEmployeesByRole($role){
+    public function getEmployeesByRole($role)
+    {
         $employees = new ArrayCollection();
 
         /* @var \Organizations\Entity\Employee $employee */
@@ -573,77 +671,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
                 $employees->add($employee);
             }
         }
+
         return $employees;
     }
 
-    /**
-     * Checks, if a User is the owner of an organization
-     *
-     * @param UserInterface $user
-     *
-     * @return bool
-     */
-    public function isOwner(UserInterface $user)
-    {
-        return $this->getUser()->getId() == $user->getId();
-    }
-
-    /**
-     * Returns true, if a User is an employee of the organization
-     *
-     * @param UserInterface $user
-     *
-     * @return bool
-     */
-    public function isEmployee(UserInterface $user)
-    {
-        return $this->refs && in_array($user->getId(), $this->refs->getEmployeeIds());
-    }
-
-    /**
-     * Returns true, if the user belongs to the organization.
-     *
-     * @param UserInterface $user
-     *
-     * @return bool
-     */
-    public function isAssociated(UserInterface $user)
-    {
-        return $this->isOwner($user) || $this->isEmployee($user);
-    }
-
-    /**
-     * Updates the organizationsPermissions to allow all employees to view this organization.
-     *
-     * In case of a HiringOrganization Permissions are granted to all employees of the parent
-     * organization.
-     *
-     * @ODM\PreUpdate
-     * @ODM\PrePersist
-     * @since 0.18
-     */
-    public function updatePermissions()
-    {
-        if ($this->isHiringOrganization()) {
-            $organization = $this->getParent();
-            $owner        = $organization->getUser();
-
-            $this->setUser($owner);
-        } else {
-            $organization = $this;
-        }
-
-        /* @var $employees null | ArrayCollection | \Doctrine\ODM\MongoDB\PersistentCollection */
-        $employees = $organization->getEmployees();
-
-        $perms = $this->getPermissions();
-
-        foreach ($employees as $emp) {
-            /* @var $emp \Organizations\Entity\Employee */
-            $perms->grant($emp->getUser(), PermissionsInterface::PERMISSION_CHANGE, false);
-        }
-        $perms->build();
-    }
 
     public function setUser(UserInterface $user)
     {
@@ -652,6 +683,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         }
         $this->user = $user;
         $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
+
         return $this;
     }
 
@@ -682,9 +714,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     public function getTemplate()
     {
-        if (null === $this->template){
+        if (null === $this->template) {
             $this->template = new Template();
         }
+
         return $this->template;
     }
 
@@ -695,7 +728,8 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     public function setTemplate(TemplateInterface $template)
     {
-        $this->template=$template;
+        $this->template = $template;
+
         return $this;
     }
 
@@ -704,10 +738,12 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      *
      * @return WorkflowSettings|WorkflowSettingsInterface
      */
-    public function getWorkflowSettings(){
+    public function getWorkflowSettings()
+    {
         if (null == $this->workflowSettings) {
             $this->workflowSettings = new WorkflowSettings();
         }
+
         return $this->workflowSettings;
     }
 
@@ -718,8 +754,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      *
      * @return self
      */
-    public function setWorkflowSettings($workflowSettings){
-        $this->workflowSettings=$workflowSettings;
+    public function setWorkflowSettings($workflowSettings)
+    {
+        $this->workflowSettings = $workflowSettings;
+
         return $this;
     }
 }

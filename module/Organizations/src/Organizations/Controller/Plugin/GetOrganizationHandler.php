@@ -11,6 +11,7 @@
 /** */
 namespace Organizations\Controller\Plugin;
 
+use Organizations\Exception\MissingParentOrganizationException;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Core\Repository\RepositoryService;
 use Auth\AuthenticationService;
@@ -94,7 +95,7 @@ class GetOrganizationHandler extends AbstractPlugin {
                     /* @var $parent \Organizations\Entity\OrganizationReference */
                     $parent = $user->getOrganization();
                     if (!$parent->hasAssociation()) {
-                        throw new \RuntimeException('You cannot create organizations, because you do not belong to a parent organization. Use "User menu -> create my organization" first.');
+                        throw new MissingParentOrganizationException('You cannot create organizations, because you do not belong to a parent organization. Use "User menu -> create my organization" first.');
                     }
                     $organization->setParent($parent->getOrganization());
                 }
@@ -109,6 +110,9 @@ class GetOrganizationHandler extends AbstractPlugin {
         if (!$organization) {
             throw new \RuntimeException('No Organization found with id "' . $organizationId . '"');
         }
+
+        $this->acl->check($organization, 'edit');
+
         return $organization;
     }
 }
