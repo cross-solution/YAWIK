@@ -53,6 +53,13 @@ class JobEventSubscriber implements EventSubscriber
         ];
     }
 
+    public function consoleIndex(Job $job)
+    {
+        $this->updateIndex($job);
+    }
+
+
+
     /**
      * Handle doctrine post persist event
      *
@@ -61,17 +68,7 @@ class JobEventSubscriber implements EventSubscriber
     public function postPersist(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-
-        if (!$document instanceof Job) {
-            return;
-        }
-
-        $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
-        try{
-            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
-        }catch (\Exception $e){
-            // @TODO: What to do when the process failed?
-        }
+        $this->updateIndex($document);
     }
 
     /**
@@ -82,16 +79,7 @@ class JobEventSubscriber implements EventSubscriber
     public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        if (!$document instanceof Job) {
-            return;
-        }
-
-        $solrDoc = $this->generateInputDocument($document,new \SolrInputDocument());
-        try{
-            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
-        }catch (\Exception $e){
-            // @TODO: What to do when the process failed?
-        }
+        $this->updateIndex($document);
     }
 
     /**
@@ -103,6 +91,22 @@ class JobEventSubscriber implements EventSubscriber
         /* @var Manager $manager */
         $manager = $serviceLocator->get('Solr/Manager');
         return new self($manager);
+    }
+
+    /**
+     * @param $document
+     */
+    protected function updateIndex($document)
+    {
+        if(!$document instanceof Job){
+            return;
+        }
+        $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
+        try{
+            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
+        }catch (\Exception $e){
+            // @TODO: What to do when the process failed?
+        }
     }
 
     /**
@@ -175,8 +179,10 @@ class JobEventSubscriber implements EventSubscriber
     {
         /* @var \Jobs\Entity\Location $location */
         foreach($job->getLocations() as $location){
-            $coord = $location->getCoordinates()->getCoordinates();
-            $document->addField('latLon',doubleval($coord[0]).','.doubleval($coord[1]));
+            if(is_object($location->getCoordinates())){
+                $coord = $location->getCoordinates()->getCoordinates();
+                $document->addField('latLon',doubleval($coord[0]).','.doubleval($coord[1]));
+            }
             $document->addField('postCode',$location->getPostalCode());
             $document->addField('regionText',$location->getRegion());
         }

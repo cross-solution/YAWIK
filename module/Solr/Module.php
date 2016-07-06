@@ -10,6 +10,8 @@
 namespace Solr;
 
 use Core\ModuleManager\ModuleConfigLoader;
+use Zend\Console\Adapter\AdapterInterface;
+use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
 /**
  * Class Module
@@ -18,8 +20,15 @@ use Core\ModuleManager\ModuleConfigLoader;
  * @since   0.26
  * @package Solr
  */
-class Module
+class Module implements ConsoleUsageProviderInterface
 {
+    public function getConsoleUsage(AdapterInterface $console)
+    {
+        return [
+            'solr index job' => 'Indexing active jobs',
+        ];
+    }
+
     /**
      * Loads module specific configuration.
      *
