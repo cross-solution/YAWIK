@@ -29,14 +29,10 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @package SolrTest\Paginator
  * @covers  Solr\Paginator\JobsBoardPaginatorFactory
  * @covers  Solr\Paginator\PaginatorFactoryAbstract
+ * @requires extension solr
  */
 class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function setUp()
-    {
-        !extension_loaded('solr') && $this->markTestSkipped('Solr extension is not loaded.');
-    }
 
     public function testCreateService()
     {

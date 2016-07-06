@@ -29,6 +29,11 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 
     use TestInheritanceTrait, TestSetterGetterTrait;
 
+    /**
+     *
+     *
+     * @var array|null|DeferredListenerAggregate
+     */
     protected $target = [
         'Core\Listener\DeferredListenerAggregate',
         'getTargetArgs',
@@ -49,14 +54,6 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
     
     public function propertiesProvider()
     {
-        $target = $this->getMock($this->target[0], [ 'setListener' ], [], '', false);
-        $target
-            ->expects($this->exactly(2))->method('setListener')
-            ->withConsecutive(
-                ['test', 'service', null, 0],
-                ['test2', 'someClass', 'method', 12]
-            );
-
         return [
             [ 'listeners', [
                 'value' => [ [] ],
@@ -72,15 +69,13 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
             ]],
             [ 'listeners', [
                 'value' => [ [ 'event' => 'test', 'service' => 'service' ] ],
-                'target' => $target,
                 'ignore_getter' => true,
-                'property_assert' => 'verifyAddListenersTestTarget',
+                'post' => ['assertListenerSpecsProperty', [ '', '@target', '###' ] ],
             ]],
             [ 'listeners', [
                 'value' => [ [ 'event' => 'test2', 'service' => 'someClass', 'method' => 'method', 'priority' => 12 ] ],
-                'target' => $target,
-                'expect_property' => $target,
-                'property_assert' => 'verifyAddListenersTestTarget',
+                'ignore_getter' => true,
+                'post' => ['assertListenerSpecsProperty', [ '', '@target', '###' ] ],
             ]],
             [ 'listener', [
                 'value' => 'test',
@@ -99,16 +94,21 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function verifyAddListenersTestTarget($name, $mock)
-    {
-        if ($mock->__phpunit_hasMatchers()) {
-            $this->addToAssertionCount(1);
-        }
-        $mock->__phpunit_verify();
-    }
-
     private function assertListenerSpecsProperty($name, $actual, $expected)
     {
+        if (isset($expected['value'])) {
+            $expected = array_merge(
+                [
+                    'event' => null,
+                    'service' => null,
+                    'method' => null,
+                    'priority' => 0,
+                    'instance' => null
+                ],
+                $expected['value'][0]
+            );
+        }
+
         $reflection = new \ReflectionClass($actual);
         $property = $reflection->getProperty('listenerSpecs');
         $property->setAccessible(true);
@@ -116,6 +116,7 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 
         $hook = array_pop($hooks);
 
+        $this->assertInstanceOf('Core\Listener\DeferredListenerAggregate', $actual, 'Fluent interface broken.');
         $this->assertEquals($hook, $expected);
     }
 
