@@ -7,6 +7,11 @@
  */
 
 return array(
+    'controllers' => [
+        'invokables' => [
+            'Solr/Console' => 'Solr\Controller\ConsoleController'
+        ]
+    ],
     'doctrine' => [
         'eventmanager' => [
             'odm_default' => [
@@ -41,12 +46,14 @@ return array(
             'Solr/Listener/CreatePaginator' => 'Solr\Listener\CreatePaginatorListener::factory',
         ]
     ],
+
     'paginator_manager' => [
         'factories' => [
             // replace Jobs/Board paginator with this paginator
             'Solr/Jobs/Board' => 'Solr\Paginator\JobsBoardPaginatorFactory',
         ]
     ],
+
     'filters' => [
         'factories'=> array(
             'Solr/Jobs/PaginationQuery' => 'Solr\Filter\JobBoardPaginationQuery::factory',

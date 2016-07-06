@@ -259,7 +259,7 @@ class JobEventSubscriberTest extends FunctionalTestCase
         $job->expects($this->once())
             ->method('getLocations')
             ->willReturn([$location]);
-        $location->expects($this->once())
+        $location->expects($this->any())
             ->method('getCoordinates')
             ->willReturn($coordinates)
         ;
@@ -289,5 +289,21 @@ class JobEventSubscriberTest extends FunctionalTestCase
         ;
 
         $this->target->processLocation($job,$document);
+    }
+
+    public function testConsoleIndex()
+    {
+        $target = $this->getMockBuilder(JobEventSubscriber::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['updateIndex'])
+            ->getMock()
+        ;
+
+        $target->expects($this->once())
+            ->method('updateIndex')
+        ;
+
+        $job = new Job();
+        $target->consoleIndex($job);
     }
 }
