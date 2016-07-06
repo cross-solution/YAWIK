@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a53268389322beb1966742bae55888bc",
-    "content-hash": "d56abbcf4818ba76f2701cece38287d6",
+    "hash": "9521cfb5c75ec4eda03460b68f27b072",
+    "content-hash": "6112595f3fb3d75791cbf7607fcb7892",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -1260,6 +1260,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
@@ -6653,11 +6654,11 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zendframework.git",
-                "reference": "aeb432d59410cd9a4a68166738745387a9bf49ab"
+                "reference": "001c3e28c2f02a259c23c06ede356c1dc6203d14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/aeb432d59410cd9a4a68166738745387a9bf49ab",
+                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-2.5.3-f21828.zip",
                 "reference": "001c3e28c2f02a259c23c06ede356c1dc6203d14",
                 "shasum": "4c8a239b2d7f3dd5e087432c3cb07e445a652373"
             },
@@ -6833,11 +6834,40 @@
             "time": "2016-02-04 21:02:08"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "tototoshi/pecl-solr-hint",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tototoshi/pecl-solr-hint.git",
+                "reference": "d72e28e1d804d280558a04ef3fbaa9f6e62143ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tototoshi/pecl-solr-hint/zipball/d72e28e1d804d280558a04ef3fbaa9f6e62143ad",
+                "reference": "d72e28e1d804d280558a04ef3fbaa9f6e62143ad",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "PHP"
+            ],
+            "description": "A code hint file for the solr extension.",
+            "homepage": "http://github.com/tototoshi/pecl-solr-hint",
+            "keywords": [
+                "hint",
+                "solr"
+            ],
+            "time": "2013-10-03 10:12:15"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "cross-solution/bootstrap3-dialog": 20
+        "cross-solution/bootstrap3-dialog": 20,
+        "tototoshi/pecl-solr-hint": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
