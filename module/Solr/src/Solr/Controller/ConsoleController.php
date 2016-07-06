@@ -40,7 +40,7 @@ class ConsoleController extends AbstractActionController
         $jobs = $jobRepo->findActiveJob();
         $count = $jobs->count();
 
-        $progressBar = new ProgressBar($count);
+        $progressBar = $this->createProgressBar($count);
         $i = 1;
         foreach($jobs as $job){
             /* @var Job $job */
@@ -50,5 +50,10 @@ class ConsoleController extends AbstractActionController
         }
 
         return PHP_EOL;
+    }
+    
+    protected function createProgressBar($count)
+    {
+        return new ProgressBar($count);
     }
 }

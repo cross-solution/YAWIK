@@ -9,6 +9,7 @@
 
 namespace SolrTest\Controller;
 
+use Core\Console\ProgressBar;
 use Core\Repository\RepositoryService;
 use Doctrine\MongoDB\CursorInterface;
 use Jobs\Repository\Job;
@@ -26,9 +27,6 @@ use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
  */
 class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @outputBuffering enabled
-     */
     public function testActiveJobIndexAction()
     {
         $repositories = $this->getMockBuilder(RepositoryService::class)
@@ -82,8 +80,24 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
         $jobSubscriber->expects($this->exactly(2))
             ->method('consoleIndex')
         ;
+        $progressBar = $this->getMockBuilder(ProgressBar::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $progressBar->expects($this->exactly(2))
+            ->method('update')
+            ->withConsecutive([1, 'Job 1 / 2'],[2, 'Job 2 / 2'])
+        ;
 
-        $target = new ConsoleController();
+        $target = $this->getMockBuilder(ConsoleController::class)
+            ->setMethods(['createProgressBar'])
+            ->getMock()
+        ;
+        $target->expects($this->once())
+            ->method('createProgressBar')
+            ->with(2)
+            ->willReturn($progressBar)
+        ;
         $target->setServiceLocator($sl);
         $target->activeJobIndexAction();
     }
