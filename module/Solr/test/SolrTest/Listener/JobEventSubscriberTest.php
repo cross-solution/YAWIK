@@ -31,6 +31,7 @@ use Solr\Listener\JobEventSubscriber;
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @covers  Solr\Listener\JobEventSubscriber
+ * @requires extension solr
  * @package SolrTest\Listener
  */
 class JobEventSubscriberTest extends FunctionalTestCase
@@ -52,8 +53,6 @@ class JobEventSubscriberTest extends FunctionalTestCase
 
     public function setUp()
     {
-        !class_exists('SolrClient') && $this->markTestSkipped('Solr extension is not loaded.');
-
         parent::setUp();
         $sl = $this->getApplicationServiceLocator();
 
