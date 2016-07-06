@@ -108,7 +108,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('query')
             ->with($this->isInstanceOf('SolrQuery'))
-            ->willReturnOnConsecutiveCalls($this->response,$this->throwException(new \Exception()))
+            ->willReturnOnConsecutiveCalls($this->response)
         ;
 
         $this->filter
@@ -124,7 +124,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->willReturn([])
         ;
 
-        $retVal = $this->target->getItems(0,10);
+        $retVal = $this->target->getItems(0,5);
         $this->assertEquals([],$retVal);
         $this->assertEquals(3,$this->target->count());
     }
