@@ -15,6 +15,7 @@ use Jobs\Entity\Job;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
+use Solr\Bridge\Util;
 
 /**
  * Class JobBoardPaginationQuery
@@ -63,11 +64,8 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         if(isset($params['location'])){
             /* @var Location $location */
             $location = $params['location'];
-            if(!is_null($location->getCoordinates())){
-                $coordinates = $location->getCoordinates()->getCoordinates();
-                $coordinate = doubleval($coordinates[0]).'%'.doubleval($coordinates[1]);
-                $coordinate = strtr($coordinate,['%'=>',',','=>'.']);
-                
+            if(is_object($location->getCoordinates())){
+                $coordinate = Util::convertLocationCoordinates($location);
                 $query->addFilterQuery(sprintf(
                     "{!geofilt pt=%s sfield=latLon d=%s}",
                     $coordinate,

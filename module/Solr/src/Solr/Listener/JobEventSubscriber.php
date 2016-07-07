@@ -15,6 +15,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Solr\Bridge\Manager;
+use Solr\Bridge\Util;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -113,24 +114,16 @@ class JobEventSubscriber implements EventSubscriber
         $document->addField('title',$job->getTitle());
         $document->addField('applicationEmail',$job->getContactEmail());
         if($job->getDateCreated()){
-            $document->addField('dateCreated',
-                $job->getDateCreated()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('dateCreated',Util::convertDateTime($job->getDateCreated()));
         }
         if($job->getDateModified()){
-            $document->addField('dateModified',
-                $job->getDateModified()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('dateModified',Util::convertDateTime($job->getDateModified()));
         }
         if($job->getDatePublishStart()){
-            $document->addField('datePublishStart',
-                $job->getDatePublishStart()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('datePublishStart',Util::convertDateTime($job->getDatePublishStart()));
         }
         if($job->getDatePublishEnd()){
-            $document->addField('datePublishEnd',
-                $job->getDatePublishEnd()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('datePublishEnd',Util::convertDateTime($job->getDatePublishEnd()));
         }
         $document->addField('isActive',$job->isActive());
         $document->addField('lang',$job->getLanguage());
@@ -166,12 +159,7 @@ class JobEventSubscriber implements EventSubscriber
         /* @var \Jobs\Entity\Location $location */
         foreach($job->getLocations() as $location){
             if(is_object($location->getCoordinates())){
-                $coordinates = $location->getCoordinates()->getCoordinates();
-                $coordinate = doubleval($coordinates[0]).'%'.doubleval($coordinates[1]);
-                $coordinate = strtr($coordinate,[
-                    '%'=>',',
-                    ','=>'.'
-                ]);
+                $coordinate = Util::convertLocationCoordinates($location);
                 $document->addField('latLon',$coordinate);
             }
             $document->addField('postCode',$location->getPostalCode());

@@ -22,6 +22,7 @@ use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Manager;
+use Solr\Bridge\Util;
 use Solr\Listener\JobEventSubscriber;
 
 /**
@@ -163,7 +164,7 @@ class JobEventSubscriberTest extends FunctionalTestCase
     public function testGenerateInputDocument()
     {
         $date = new \DateTime();
-        $dateStr = $date->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT);
+        $dateStr = Util::convertDateTime($date);
 
         $job = new Job();
         $job
