@@ -27,6 +27,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @package SolrTest\Filter
  * @covers  Solr\Filter\JobBoardPaginationQuery
  * @covers  Solr\Filter\AbstractPaginationQuery
+ * @requires extension solr
  */
 class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,8 +43,6 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        !class_exists('SolrClient') && $this->markTestSkipped('Solr extension is not loaded.');
-
         $manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
             ->getMock()

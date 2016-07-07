@@ -22,6 +22,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @covers  Solr\Bridge\Manager
+ * @requires extension solr
  * @package SolrTest\Bridge
  */
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -39,11 +40,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!class_exists('SolrClient')) {
-            $this->markTestSkipped('Class SolrClient does not exist. Please install a solr extension.');
-        }
-
-        $option = $this->getMockBuilder(ConnectOption::class)
+       $option = $this->getMockBuilder(ConnectOption::class)
             ->getMock()
         ;
 

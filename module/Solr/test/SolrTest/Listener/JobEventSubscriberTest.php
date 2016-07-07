@@ -31,6 +31,7 @@ use Solr\Listener\JobEventSubscriber;
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @covers  Solr\Listener\JobEventSubscriber
+ * @requires extension solr
  * @package SolrTest\Listener
  */
 class JobEventSubscriberTest extends FunctionalTestCase
@@ -52,8 +53,6 @@ class JobEventSubscriberTest extends FunctionalTestCase
 
     public function setUp()
     {
-        !class_exists('SolrClient') && $this->markTestSkipped('Solr extension is not loaded.');
-
         parent::setUp();
         $sl = $this->getApplicationServiceLocator();
 
@@ -259,7 +258,7 @@ class JobEventSubscriberTest extends FunctionalTestCase
         $job->expects($this->once())
             ->method('getLocations')
             ->willReturn([$location]);
-        $location->expects($this->once())
+        $location->expects($this->any())
             ->method('getCoordinates')
             ->willReturn($coordinates)
         ;
@@ -289,5 +288,21 @@ class JobEventSubscriberTest extends FunctionalTestCase
         ;
 
         $this->target->processLocation($job,$document);
+    }
+
+    public function testConsoleIndex()
+    {
+        $target = $this->getMockBuilder(JobEventSubscriber::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['updateIndex'])
+            ->getMock()
+        ;
+
+        $target->expects($this->once())
+            ->method('updateIndex')
+        ;
+
+        $job = new Job();
+        $target->consoleIndex($job);
     }
 }

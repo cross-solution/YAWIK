@@ -46,7 +46,12 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     protected function getTargetArgs()
     {
-        $this->formElementManagerMock = $this->getMock('\Zend\Form\FormElementManager', ['get']);
+        $this->formElementManagerMock = $this
+            ->getMockBuilder('\Zend\Form\FormElementManager')
+            ->disableOriginalConstructor()
+            ->setMethods(['get'])
+            ->getMock()
+        ;
         return [$this->formElementManagerMock];
     }
 
