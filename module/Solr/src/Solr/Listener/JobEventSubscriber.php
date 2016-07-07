@@ -26,11 +26,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class JobEventSubscriber implements EventSubscriber
 {
+
     /**
      * @var Manager
      */
     protected $solrManager;
-
     /**
      * JobEventSubscriber constructor.
      * @param Manager $manager
@@ -39,7 +39,6 @@ class JobEventSubscriber implements EventSubscriber
     {
         $this->solrManager = $manager;
     }
-
     /**
      * Define what event this subscriber listen to
      *
@@ -52,7 +51,10 @@ class JobEventSubscriber implements EventSubscriber
             Events::postPersist,
         ];
     }
-
+    public function consoleIndex(Job $job)
+    {
+        $this->updateIndex($job);
+    }
     /**
      * Handle doctrine post persist event
      *
@@ -61,19 +63,8 @@ class JobEventSubscriber implements EventSubscriber
     public function postPersist(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-
-        if (!$document instanceof Job) {
-            return;
-        }
-
-        $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
-        try{
-            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
-        }catch (\Exception $e){
-            // @TODO: What to do when the process failed?
-        }
+        $this->updateIndex($document);
     }
-
     /**
      * Handle doctrine postUpdate event
      *
@@ -82,18 +73,8 @@ class JobEventSubscriber implements EventSubscriber
     public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        if (!$document instanceof Job) {
-            return;
-        }
-
-        $solrDoc = $this->generateInputDocument($document,new \SolrInputDocument());
-        try{
-            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
-        }catch (\Exception $e){
-            // @TODO: What to do when the process failed?
-        }
+        $this->updateIndex($document);
     }
-
     /**
      * @param ServiceLocatorInterface $serviceLocator
      * @return mixed
@@ -104,7 +85,21 @@ class JobEventSubscriber implements EventSubscriber
         $manager = $serviceLocator->get('Solr/Manager');
         return new self($manager);
     }
-
+    /**
+     * @param $document
+     */
+    protected function updateIndex($document)
+    {
+        if(!$document instanceof Job){
+            return;
+        }
+        $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
+        try{
+            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
+        }catch (\Exception $e){
+            // @TODO: What to do when the process failed?
+        }
+    }
     /**
      * Generate input document
      *
@@ -117,7 +112,6 @@ class JobEventSubscriber implements EventSubscriber
         $document->addField('id',$job->getId());
         $document->addField('title',$job->getTitle());
         $document->addField('applicationEmail',$job->getContactEmail());
-
         if($job->getDateCreated()){
             $document->addField('dateCreated',
                 $job->getDateCreated()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
@@ -133,23 +127,19 @@ class JobEventSubscriber implements EventSubscriber
                 $job->getDatePublishStart()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
             );
         }
-
         if($job->getDatePublishEnd()){
             $document->addField('datePublishEnd',
                 $job->getDatePublishEnd()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
             );
         }
-
         $document->addField('isActive',$job->isActive());
         $document->addField('lang',$job->getLanguage());
-
         $this->processLocation($job,$document);
         if(!is_null($job->getOrganization())){
             $this->processOrganization($job,$document);
         }
         return $document;
     }
-
     /**
      * Processing organization part
      *
