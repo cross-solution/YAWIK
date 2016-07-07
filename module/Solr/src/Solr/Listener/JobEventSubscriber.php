@@ -175,13 +175,15 @@ class JobEventSubscriber implements EventSubscriber
     {
         /* @var \Jobs\Entity\Location $location */
         foreach($job->getLocations() as $location){
-            $coordinates = $location->getCoordinates()->getCoordinates();
-            $coordinate = doubleval($coordinates[0]).'%'.doubleval($coordinates[1]);
-            $coordinate = strtr($coordinate,[
-                '%'=>',',
-                ','=>'.'
-            ]);
-            $document->addField('latLon',$coordinate);
+            if(is_object($location->getCoordinates())){
+                $coordinates = $location->getCoordinates()->getCoordinates();
+                $coordinate = doubleval($coordinates[0]).'%'.doubleval($coordinates[1]);
+                $coordinate = strtr($coordinate,[
+                    '%'=>',',
+                    ','=>'.'
+                ]);
+                $document->addField('latLon',$coordinate);
+            }
             $document->addField('postCode',$location->getPostalCode());
             $document->addField('regionText',$location->getRegion());
         }
