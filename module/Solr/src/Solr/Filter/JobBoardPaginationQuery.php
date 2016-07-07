@@ -65,9 +65,12 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             $location = $params['location'];
             if(!is_null($location->getCoordinates())){
                 $coordinates = $location->getCoordinates()->getCoordinates();
+                $coordinate = doubleval($coordinates[0]).'%'.doubleval($coordinates[1]);
+                $coordinate = strtr($coordinate,['%'=>',',','=>'.']);
+                
                 $query->addFilterQuery(sprintf(
                     "{!geofilt pt=%s sfield=latLon d=%s}",
-                    doubleval($coordinates[0]).','.doubleval($coordinates[1]),
+                    $coordinate,
                     $params['d']
                 ));
             }
