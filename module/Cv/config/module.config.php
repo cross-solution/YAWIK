@@ -22,6 +22,7 @@ return array(
             'odm_default' => array(
                 'subscribers' => array(
                     '\Cv\Repository\Event\InjectContactListener',
+                    '\Cv\Repository\Event\DeleteRemovedAttachmentsSubscriber',
                 ),
             ),
         ),
@@ -181,7 +182,12 @@ return array(
             'CvContactImage' => '\Cv\Form\CvContactImageFactory',
             'Cv/PreferredJobFieldset' => '\Cv\Form\PreferredJobFieldsetFactory',
             'Cv/SearchFormFieldset' => '\Cv\Form\SearchFormFieldsetFactory',
+            'Cv/Attachments' => '\Cv\Form\AttachmentsFormFactory',
         ),
     ),
-    
+    'service_manager' => [
+        'factories' => array(
+            'Cv/Options' => 'Cv\Options\ModuleOptions::factory',
+        ),
+    ],
 );
