@@ -185,9 +185,10 @@ return array(
             'Cv/Attachments' => '\Cv\Form\AttachmentsFormFactory',
         ),
     ),
-    'service_manager' => [
-        'factories' => array(
-            'Cv/Options' => 'Cv\Options\ModuleOptions::factory',
-        ),
-    ],
+    
+    'options' => [
+        'Cv/Options' => [
+            'class' => '\Cv\Options\ModuleOptions'
+        ]
+    ]
 );

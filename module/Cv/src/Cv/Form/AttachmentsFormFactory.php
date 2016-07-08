@@ -16,6 +16,7 @@ use Cv\Options\ModuleOptions;
 
 /**
  * @author fedys
+ * @since 0.26
  */
 class AttachmentsFormFactory extends FileUploadFactory
 {

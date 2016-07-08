@@ -14,6 +14,9 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Default options of the CV Module
+ *
+ * @author fedys
+ * @since 0.26
  */
 class ModuleOptions extends AbstractOptions
 {
@@ -106,15 +109,5 @@ class ModuleOptions extends AbstractOptions
     {
         $this->attachmentsCount = $number;
         return $this;
-    }
-    
-    /**
-     * @param ServiceManager $serviceLocator
-     * @return AuthAggregateListener
-     */
-    public static function factory(ServiceManager $serviceLocator)
-    {
-        $config = $serviceLocator->get('Config');
-        return new static(isset($config['cv_options']) ? $config['cv_options'] : null);
     }
 }

@@ -15,6 +15,9 @@ use Cv\Entity\Attachment;
 
 /**
  * Subscriber for deleting CV attachment references
+ *
+ * @author fedys
+ * @since 0.26
  */
 class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
 {

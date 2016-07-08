@@ -16,6 +16,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * An Attachment of a CV
  *
  * @author fedys
+ * @since 0.26
  *
  * @ODM\Document(collection="cvs.attachments")
  */

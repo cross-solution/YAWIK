@@ -106,6 +106,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     /**
      * Multiple attachments
      *
+     * @since 0.26
      * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist", "remove"})
      */
     protected $attachments;
@@ -357,6 +358,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
     /**
      * @param CollectionInterface $attachments
      * @return Cv
+     * @since 0.26
      */
     public function setAttachments(CollectionInterface $attachments)
     {
@@ -366,6 +368,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
 
     /**
      * @return CollectionInterface
+     * @since 0.26
      */
     public function getAttachments()
     {
