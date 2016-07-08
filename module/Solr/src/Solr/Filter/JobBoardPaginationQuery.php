@@ -111,7 +111,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         }
         $exp    = explode('/',$value);
         $id     = $exp[3];
-        $name   = $exp[4];
+        $name   = isset($exp[4])?:null;
         $image = new OrganizationImage();
         $image->setId($id);
         $image->setName($name);

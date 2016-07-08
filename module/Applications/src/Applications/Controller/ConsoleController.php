@@ -117,7 +117,7 @@ class ConsoleController extends AbstractActionController
      */
     protected function cleanupAction()
     {
-        $days = 6;
+        $days = 2;
         $date = new \DateTime();
         $date->modify("-$days day");
 
@@ -137,7 +137,12 @@ class ConsoleController extends AbstractActionController
 
         foreach ($applications as $application) {
             $progress->update($i++, 'Application ' . $i . ' / ' . $count);
-            $documentManager->remove($application);
+            try {
+                $documentManager->remove($application);
+            } catch (\Exception $e){
+                // log something
+                $e->getCode();
+            }
         }
         $progress->update($i, 'clean up database');
         $documentManager->flush();
