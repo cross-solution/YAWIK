@@ -168,6 +168,14 @@ endif;
                 <i class="yk-icon yk-icon-delete"></i> <?php echo $this->translate("Delete");?>
             </button>
         <?php endif ?>
+        <?php if ($this->acl($this->application, 'move')):?>
+            <button class="btn btn-sm btn-default" data-title="<?=$this->translate('Move application to Talent Pool')?>"
+                    data-toggle="modal"
+                    data-target="#cam-move-application"
+                    title="<?=$this->translate('Move application to Talent Pool')?>">
+                <i class="yk-icon yk-icon-forward"></i> <?php echo $this->translate("Move");?>
+            </button>
+        <?php endif ?>
     </div>
 </nav>
 
@@ -206,6 +214,26 @@ endif;
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Cancel') ?></button>
                 <a class="btn btn-primary" href="<?php echo $this->url('lang/applications/detail', array('id' => $application->getId()), array('query' => 'action=delete'), true)?>" title="<?php echo $this->translate('delete this application')?>">
                     <?php echo $this->translate('Delete application') ?></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cam-move-application" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="move-application-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="move-application-label">
+                    <?=$this->translate('Move application to Talent Pool')?>:
+                </h3>
+            </div>
+            <div class="modal-body">
+                <?=$this->translate('Are you sure you want to move this application to Talent Pool?')?>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?=$this->translate('Cancel') ?></button>
+                <a class="btn btn-primary" href="<?=$this->url('lang/applications/detail', array('id' => $application->getId()), array('query' => 'action=move'), true)?>">
+                    <?=$this->translate('Move application to Talent Pool')?></a>
             </div>
         </div>
     </div>
