@@ -441,7 +441,13 @@ class ManageController extends AbstractActionController
         $user = $this->auth()->getUser();
         $cv = $repositories->get('Cv/Cv')->create();
         $contact = $application->getContact();
-        $contact->getImage()->setUser($user);
+        $contactImage = $contact->getImage();
+        
+        if ($contactImage)
+        {
+    		$contactImage->setUser($user);
+        }
+        
         $cv->setContact($contact);
         
         $applicationAttachments = $application->getAttachments();
