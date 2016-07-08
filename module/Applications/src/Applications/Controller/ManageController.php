@@ -418,4 +418,64 @@ class ManageController extends AbstractActionController
         
         return $this->redirect()->toRoute('lang/applications', array(), true);
     }
+
+    /**
+     * Move an application to talent pool
+     *
+     * @return \Zend\Http\Response
+     * @since 0.26
+     */
+    public function moveAction()
+    {
+        $id = $this->params('id');
+        $services = $this->serviceLocator;
+        $repositories = $services->get('repositories');
+        $application = $repositories->get('Applications/Application')->find($id);
+        
+        if (!$application) {
+            throw new \DomainException('Application not found.');
+        }
+
+        $this->acl($application, 'move');
+        
+        $user = $this->auth()->getUser();
+        $cv = $repositories->get('Cv/Cv')->create();
+        $contact = $application->getContact();
+        $contact->getImage()->setUser($user);
+        $cv->setContact($contact);
+        
+        $applicationAttachments = $application->getAttachments();
+        
+        if (count($applicationAttachments) > 0)
+        {
+            $cvAttachments = [];
+        
+            /* @var $applicationAttachment \Applications\Entity\Attachment */
+            foreach ($applicationAttachments as $applicationAttachment)
+            {
+                $file = new \Doctrine\MongoDB\GridFSFile();
+                $file->setBytes($applicationAttachment->getContent());
+                
+                $cvAttachment = new \Cv\Entity\Attachment();
+                $cvAttachment->setName($applicationAttachment->getName());
+                $cvAttachment->setType($applicationAttachment->getType());
+                $cvAttachment->setPermissions($cvAttachment->getPermissions());
+                $cvAttachment->setUser($user);
+                $cvAttachment->setFile($file);
+                $cvAttachment->setDateUploaded($applicationAttachment->getDateUploaded());
+                
+                $cvAttachments[] = $cvAttachment;
+            }
+            
+            $cv->setAttachments(new \Doctrine\Common\Collections\ArrayCollection($cvAttachments));
+        }
+        
+        $repositories->store($cv);
+        $repositories->remove($application);
+
+        $this->notification()->success(
+            /*@translate*/ 'Application has been successfully moved to Talent Pool');
+        
+        return $this->redirect()->toRoute('lang/applications', array(), true);
+    }
 }
