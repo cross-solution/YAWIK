@@ -111,8 +111,17 @@ class JobEventSubscriber implements EventSubscriber
     public function generateInputDocument(Job $job, $document)
     {
         $document->addField('id',$job->getId());
+        $document->addField('entityName','job');
         $document->addField('title',$job->getTitle());
         $document->addField('applicationEmail',$job->getContactEmail());
+        if ($job->getLink()) {
+            $document->addField('link', $job->getLink());
+            $oldErrorReporting=error_reporting(0);
+            $dom = new \DOMDocument();
+            $dom->loadHTML($job->getLink());
+            error_reporting($oldErrorReporting);
+            $document->addField('html',$dom->saveHTML());
+        }
         if($job->getDateCreated()){
             $document->addField('dateCreated',Util::convertDateTime($job->getDateCreated()));
         }
@@ -129,7 +138,11 @@ class JobEventSubscriber implements EventSubscriber
         $document->addField('lang',$job->getLanguage());
         $this->processLocation($job,$document);
         if(!is_null($job->getOrganization())){
-            $this->processOrganization($job,$document);
+            try {
+                $this->processOrganization($job,$document);
+            }catch (\Exception $e){
+                // @TODO: What to do when the process failed?
+            }
         }
         return $document;
     }
@@ -158,14 +171,24 @@ class JobEventSubscriber implements EventSubscriber
     {
         /* @var \Jobs\Entity\Location $location */
         foreach($job->getLocations() as $location){
+
+            $loc = new \SolrInputDocument();
+            $loc->addField('entityName', 'location');
             if(is_object($location->getCoordinates())){
                 $coordinate = Util::convertLocationCoordinates($location);
-                $document->addField('latLon',$coordinate);
+                $loc->addField('point', $coordinate);
+                $loc->addField('latLon', $coordinate);
+                $document->addField('locations', $coordinate);
+                $document->addField('points', $coordinate);
+                $loc->addField('id', $job->getId() . '-' . $coordinate);
+                $loc->addField('city', $location->getCity());
+                $loc->addField('country', $location->getCountry());
+                $loc->addField('region', $location->getRegion());
+                $loc->addField('postalCode', $location->getPostalCode());
+                $document->addField('regionList',$location->getRegion());
+                $document->addChildDocument($loc);
             }
-            $document->addField('postCode',$location->getPostalCode());
-            $document->addField('regionText',$location->getRegion());
         }
-
         $document->addField('location',$job->getLocation());
     }
 }

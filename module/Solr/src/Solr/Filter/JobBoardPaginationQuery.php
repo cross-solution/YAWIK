@@ -47,12 +47,13 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         $search = isset($params['search']) ? $params['search']:'';
 
         if(!empty($search)){
-            $q = 'title:'.$search.' OR organizationName:'.$search;
+            $q = \SolrUtils::escapeQueryChars($search);
         }else{
             $q = '*:*';
         }
 
         $query->setQuery($q);
+        $query->addFilterQuery('entityName:job');
         
         if(isset($params['sort'])){
             $sorts = $this->filterSort($params['sort']);
@@ -67,7 +68,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             if(is_object($location->getCoordinates())){
                 $coordinate = Util::convertLocationCoordinates($location);
                 $query->addFilterQuery(sprintf(
-                    "{!geofilt pt=%s sfield=latLon d=%s}",
+                    "{!geofilt pt=%s sfield=points d=%s}",
                     $coordinate,
                     $params['d']
                 ));
