@@ -46,10 +46,11 @@ class SolrAdapter implements AdapterInterface
 
     /**
      * Store current query response from solr server
+     * based on offset and count per page
      *
-     * @var \SolrQueryResponse
+     * @var \SolrQueryResponse[]
      */
-    protected $response;
+    protected $responses;
 
     /**
      * @var AbstractPaginationQuery
@@ -109,18 +110,20 @@ class SolrAdapter implements AdapterInterface
      */
     protected function getResponse($offset=0,$itemCountPerPage=5)
     {
-        if(!is_object($this->response)){
+        $id = md5($offset.$itemCountPerPage);
+        if(!isset($this->responses[$id])){
             $query = new \SolrQuery();
             $query = $this->filter->filter($this->params,$query);
             $query->setStart($offset);
             $query->setRows($itemCountPerPage);
             try{
-                $this->response = $this->client->query($query);
+                $this->responses[$id] = $this->client->query($query);
             }catch (\Exception $e){
                 $message = 'Failed to process query';
                 throw new ServerException($message,$e->getCode(),$e);
             }
         }
-        return $this->response;
+
+        return $this->responses[$id];
     }
 }

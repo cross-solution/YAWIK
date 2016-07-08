@@ -15,6 +15,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Solr\Bridge\Manager;
+use Solr\Bridge\Util;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -26,11 +27,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class JobEventSubscriber implements EventSubscriber
 {
+
     /**
      * @var Manager
      */
     protected $solrManager;
-
     /**
      * JobEventSubscriber constructor.
      * @param Manager $manager
@@ -39,7 +40,6 @@ class JobEventSubscriber implements EventSubscriber
     {
         $this->solrManager = $manager;
     }
-
     /**
      * Define what event this subscriber listen to
      *
@@ -52,14 +52,10 @@ class JobEventSubscriber implements EventSubscriber
             Events::postPersist,
         ];
     }
-
     public function consoleIndex(Job $job)
     {
         $this->updateIndex($job);
     }
-
-
-
     /**
      * Handle doctrine post persist event
      *
@@ -70,7 +66,6 @@ class JobEventSubscriber implements EventSubscriber
         $document = $eventArgs->getDocument();
         $this->updateIndex($document);
     }
-
     /**
      * Handle doctrine postUpdate event
      *
@@ -81,7 +76,6 @@ class JobEventSubscriber implements EventSubscriber
         $document = $eventArgs->getDocument();
         $this->updateIndex($document);
     }
-
     /**
      * @param ServiceLocatorInterface $serviceLocator
      * @return mixed
@@ -92,7 +86,6 @@ class JobEventSubscriber implements EventSubscriber
         $manager = $serviceLocator->get('Solr/Manager');
         return new self($manager);
     }
-
     /**
      * @param $document
      */
@@ -108,7 +101,6 @@ class JobEventSubscriber implements EventSubscriber
             // @TODO: What to do when the process failed?
         }
     }
-
     /**
      * Generate input document
      *
@@ -121,39 +113,26 @@ class JobEventSubscriber implements EventSubscriber
         $document->addField('id',$job->getId());
         $document->addField('title',$job->getTitle());
         $document->addField('applicationEmail',$job->getContactEmail());
-
         if($job->getDateCreated()){
-            $document->addField('dateCreated',
-                $job->getDateCreated()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('dateCreated',Util::convertDateTime($job->getDateCreated()));
         }
         if($job->getDateModified()){
-            $document->addField('dateModified',
-                $job->getDateModified()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('dateModified',Util::convertDateTime($job->getDateModified()));
         }
         if($job->getDatePublishStart()){
-            $document->addField('datePublishStart',
-                $job->getDatePublishStart()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('datePublishStart',Util::convertDateTime($job->getDatePublishStart()));
         }
-
         if($job->getDatePublishEnd()){
-            $document->addField('datePublishEnd',
-                $job->getDatePublishEnd()->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT)
-            );
+            $document->addField('datePublishEnd',Util::convertDateTime($job->getDatePublishEnd()));
         }
-
         $document->addField('isActive',$job->isActive());
         $document->addField('lang',$job->getLanguage());
-
         $this->processLocation($job,$document);
         if(!is_null($job->getOrganization())){
             $this->processOrganization($job,$document);
         }
         return $document;
     }
-
     /**
      * Processing organization part
      *
@@ -180,8 +159,8 @@ class JobEventSubscriber implements EventSubscriber
         /* @var \Jobs\Entity\Location $location */
         foreach($job->getLocations() as $location){
             if(is_object($location->getCoordinates())){
-                $coord = $location->getCoordinates()->getCoordinates();
-                $document->addField('latLon',doubleval($coord[0]).','.doubleval($coord[1]));
+                $coordinate = Util::convertLocationCoordinates($location);
+                $document->addField('latLon',$coordinate);
             }
             $document->addField('postCode',$location->getPostalCode());
             $document->addField('regionText',$location->getRegion());
