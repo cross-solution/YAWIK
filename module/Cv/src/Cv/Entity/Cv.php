@@ -102,6 +102,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      * @ODM\Index
      */
     protected $status;
+    
+    /**
+     * Multiple attachments
+     *
+     * @since 0.26
+     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist", "remove"})
+     */
+    protected $attachments;
 
     public function __construct()
     {
@@ -345,5 +353,28 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
         }
     
         $this->status = $status;
+    }
+
+    /**
+     * @param CollectionInterface $attachments
+     * @return Cv
+     * @since 0.26
+     */
+    public function setAttachments(CollectionInterface $attachments)
+    {
+        $this->attachments = $attachments;
+        return $this;
+    }
+
+    /**
+     * @return CollectionInterface
+     * @since 0.26
+     */
+    public function getAttachments()
+    {
+        if (!$this->attachments) {
+            $this->setAttachments(new ArrayCollection());
+        }
+        return $this->attachments;
     }
 }

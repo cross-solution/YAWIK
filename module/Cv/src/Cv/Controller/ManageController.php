@@ -104,18 +104,24 @@ class ManageController extends AbstractActionController
                 }
 
                 $repositories->store($cv);
+                $viewHelperManager = $serviceLocator->get('ViewHelperManager');
                 
-                if ($form instanceof SummaryFormInterface) {
-                    $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
-                    $viewHelper = 'summaryform';
-                } else {
-                    $viewHelper = 'form';
+                if ('file-uri' === $params->fromPost('return')) {
+                    $content = $viewHelperManager->get('basepath')
+                        ->__invoke($form->getHydrator()->getLastUploadedFile()->getUri());
                 }
-                
-                // render form
-                $content = $serviceLocator->get('ViewHelperManager')
-                    ->get($viewHelper)
-                    ->__invoke($form);
+                else {
+                    if ($form instanceof SummaryFormInterface) {
+                        $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
+                        $viewHelper = 'summaryform';
+                    } else {
+                        $viewHelper = 'form';
+                    }
+                    
+                    // render form
+                    $content = $viewHelperManager->get($viewHelper)
+                        ->__invoke($form);
+                }
                 
                 return new JsonModel([
                     'valid' => true,

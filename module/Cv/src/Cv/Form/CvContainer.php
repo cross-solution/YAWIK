@@ -73,7 +73,8 @@ class CvContainer extends Container implements ViewPartialProviderInterface
             'skills' => array(
                 'type' => 'CvSkillCollection',
                 'property' => 'skillsIndexedById'
-            )
+            ),
+            'attachments' => 'Cv/Attachments'
         ));
     }
 }
