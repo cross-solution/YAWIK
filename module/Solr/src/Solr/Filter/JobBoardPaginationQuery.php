@@ -10,6 +10,7 @@
 namespace Solr\Filter;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Entity\Location;
 use Jobs\Entity\Job;
 use Organizations\Entity\Organization;
@@ -37,6 +38,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     protected $propertiesMap = [
         'organizationName' => 'convertOrganizationName',
         'companyLogo'      => 'convertCompanyLogo',
+        'locations'        => 'convertLocations'
     ];
 
     /**
@@ -54,6 +56,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
 
         $query->setQuery($q);
         $query->addFilterQuery('entityName:job');
+        $query->addField('*');
         
         if(isset($params['sort'])){
             $sorts = $this->filterSort($params['sort']);
@@ -67,12 +70,32 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             $location = $params['location'];
             if(is_object($location->getCoordinates())){
                 $coordinate = Util::convertLocationCoordinates($location);
-                $query->addFilterQuery(sprintf(
-                    "{!geofilt pt=%s sfield=points d=%s}",
-                    $coordinate,
-                    $params['d']
-                ));
+
+                $query->addFilterQuery(
+                    sprintf(
+                        '{!parent which="entityName:job" childQuery="entityName:location"}{!geofilt pt=%s sfield=point d=%d score="kilometers"}',
+                        $coordinate,
+                        $params['d']
+                    ));
+                $query->addParam(
+                    'locations.q',
+                    sprintf(
+                        'entityName:location AND {!terms f=_root_ v=$row.id} AND {!geofilt pt=%s sfield=point d=%s}',
+                        $coordinate,
+                        $params['d']
+                    )); // join
+
+                $query->addField('locations:[subquery]')
+                      ->addField('distance:min(geodist(points,'.$coordinate.'))');
+
             }
+
+            $query->addField('score');
+
+            $query->setFacet(true);
+            $query->addFacetField('regionList');
+            $query->addFacetDateField('datePublishStart');
+
         }
 
         return $query;
@@ -117,5 +140,19 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         $image->setId($id);
         $image->setName($name);
         $ob->getOrganization()->setImage($image);
+    }
+
+    /**
+     * Convert locations result
+     * @param   Job     $ob
+     * @param   mixed   $value
+     */
+    public function convertLocations($ob,$value)
+    {
+        $locations = [];
+        foreach($value->docs as $doc) {
+            $locations[] = $doc->city;
+        }
+        $ob->setLocation(implode(', ', array_unique($locations)));
     }
 }

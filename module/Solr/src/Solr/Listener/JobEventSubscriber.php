@@ -170,7 +170,8 @@ class JobEventSubscriber implements EventSubscriber
     public function processLocation(Job $job,$document)
     {
         /* @var \Jobs\Entity\Location $location */
-        foreach($job->getLocations() as $location){
+        $locations=$job->getLocations();
+        foreach($locations as $location){
 
             $loc = new \SolrInputDocument();
             $loc->addField('entityName', 'location');
@@ -188,6 +189,7 @@ class JobEventSubscriber implements EventSubscriber
                 $document->addField('regionList',$location->getRegion());
                 $document->addChildDocument($loc);
             }
+            unset($loc);
         }
         $document->addField('location',$job->getLocation());
     }
