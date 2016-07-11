@@ -182,7 +182,7 @@ trait TestSetterGetterTrait
     public function testSetterAndGetter($name, $spec)
     {
         $errTmpl = __METHOD__ . ': ' . get_class($this);
-        if (!property_exists($this, 'target') || !is_object($this->target)) {
+        if (!property_exists($this, 'target') || (!is_object($this->target) && !isset($spec['target']))) {
             throw new \PHPUnit_Framework_Exception($errTmpl
                                                    . ' must define the property "target" and the value must be an object.');
         }
@@ -195,7 +195,8 @@ trait TestSetterGetterTrait
             $spec['value'] = InstanceCreator::fromSpec($spec['@value'], InstanceCreator::FORCE_INSTANTIATION);
         }
 
-        if (!isset($spec['value'])) {
+        /* Value could be 'null', so we need to use array_key_exists here. */
+        if (!array_key_exists('value', $spec)) {
             throw new \PHPUnit_Framework_Exception($errTmpl . ': Specification must contain the key "value".');
         }
 
@@ -318,7 +319,13 @@ trait TestSetterGetterTrait
         $returned = $this->_setterGetter_callTargetMethod($getter, $args);
 
         if ($assert) {
-            call_user_func([$this, $assert], $getter, $returned, $value);
+            if ($assert instanceOf \Closure) {
+                /** @noinspection PhpUndefinedMethodInspection */
+                $cb = $assert->bindTo($this, $this);
+                $cb($getter, $returned, $value);
+            } else {
+                call_user_func([$this, $assert], $getter, $returned, $value);
+            }
 
             return;
         }
@@ -378,7 +385,13 @@ trait TestSetterGetterTrait
         $returned = $this->_setterGetter_callTargetMethod($setter, $args);
 
         if ($assert) {
-            call_user_func([$this, $assert], $setter, $returned, $expect);
+            if ($assert instanceOf \Closure) {
+                /** @noinspection PhpUndefinedMethodInspection */
+                $cb = $assert->bindTo($this, $this);
+                $cb($setter, $returned, $expect);
+            } else {
+                call_user_func([$this, $assert], $setter, $returned, $expect);
+            }
 
             return;
         }
