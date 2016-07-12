@@ -53,19 +53,25 @@ use Zend\Stdlib\ArrayUtils;
  *      // Do not setup target.
  *      '@testName' => false,
  *
- *      // Overrife 'method' spec:
- *      '@testName' => 'method',
+ *      // Use a class for a test:
+ *      '@testName' => 'FQCN',
  *
  *
  *      '@testName' => [
  *
- *          // Override 'class' and 'args', when needed.
+ *          // Override 'class' and 'args', when needed. (or use key 0 and 1)
  *
  *          // generate a mock from the target class
  *          'mock' = [ mockedMethod, ... ]
  *
  *          'mock' => [ mockedMethod => ['expects' => int, 'with' => [], 'return' => mixed ],
  *      ]
+ *
+ *      //
+ *      // Override specs for specific tests AND datasets:
+ *      //
+ *
+ *      '@testName|setName' => ...
  * ]
  *
  * If you redefine the method "setup" in your test case, you need to
@@ -109,32 +115,41 @@ trait SetupTargetTrait
             return;
         }
 
-        $testName = $this->getName(false);
-        $testNameKey = "@$testName";
+        $testNameParts = explode(' ', $this->getName());
+        $testName = array_shift($testNameParts);
+        $testSet  = trim(array_pop($testNameParts), '"');
 
-        if (!is_array($spec) || (isset($spec[$testNameKey]) && false === $spec[$testNameKey])) {
+        $testNameKey = '@' . $testName;
+        $testNameSetKey = $testNameKey . '|' . $testSet;
+        $testSpec = isset($spec[$testNameKey]) ? $spec[$testNameKey] : (isset($spec[$testNameSetKey]) ? $spec[$testNameSetKey] : null);
+
+        if (!is_array($spec) || false === $testSpec) {
             $this->target = null;
             return;
         }
 
-        if (isset($spec[0])) {
-            $spec['class'] = $spec[0];
-         }
-
-        if (!isset($spec['args'])) {
-            $spec['args'] = isset($spec[1]) ? $spec[1] : [];
-        }
-
-        if (isset($spec[$testNameKey])) {
-            if (is_string($spec[$testNameKey])) {
-                $this->target = $this->{$spec[$testNameKey]}();
-                return;
+        if (null !== $testSpec) {
+            if (is_string($testSpec)) {
+                if (class_exists($testSpec)) {
+                    $testSpec = [ $testSpec ];
+                } else {
+                    $this->target = $this->{$testSpec}();
+                    return;
+                }
             }
 
             /* Override specs for specific test */
-            foreach ($spec[$testNameKey] as $key => $value) {
+            foreach ($testSpec as $key => $value) {
                 $spec[$key] = $value;
             }
+        }
+
+        if (isset($spec[0])) {
+            $spec['class'] = $spec[0];
+        }
+
+        if (!isset($spec['args'])) {
+            $spec['args'] = isset($spec[1]) ? $spec[1] : [];
         }
 
         if (isset($spec['method'])) {
