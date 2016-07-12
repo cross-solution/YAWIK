@@ -7,6 +7,8 @@ use Auth\Entity\UserInterface;
 use Core\Collection\IdentityWrapper;
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\DraftableEntityInterface;
+use Core\Entity\PermissionsAwareTrait;
+use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -23,7 +25,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEntityInterface
 {
-    
+    use PermissionsAwareTrait;
+
     /**
      * Owner of the CV
      *
@@ -130,7 +133,10 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      */
     public function setUser(UserInterface $user)
     {
+        $oldUser    = $this->user;
         $this->user = $user;
+        $this->updatePermissions($oldUser);
+
         return $this;
     }
     
@@ -336,10 +342,6 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
      */
     public function getStatus()
     {
-        if (!isset($this->status)) {
-            $this->status = new Status();
-        }
-    
         return $this->status;
     }
     
@@ -353,6 +355,8 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
         }
     
         $this->status = $status;
+
+        return $this;
     }
 
     /**
@@ -376,5 +380,31 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
             $this->setAttachments(new ArrayCollection());
         }
         return $this->attachments;
+    }
+
+    /**
+     *
+     * @param PermissionsInterface $permissions
+     */
+    private function setupPermissions(PermissionsInterface $permissions = null)
+    {
+        if ($this->user) {
+            $permissions->grant($this->user, PermissionsInterface::PERMISSION_ALL);
+        }
+    }
+
+    private function updatePermissions($oldUser = null)
+    {
+        $hasPermissions = (bool) $this->permissions;
+        $permissions = $this->getPermissions();
+
+        if ($hasPermissions) {
+            $oldUser && $permissions->revoke($oldUser, PermissionsInterface::PERMISSION_ALL);
+            $this->setupPermissions($permissions);
+        }
+
+        /*
+         * getPermissions() already granted the user we need not to do anything.
+         */
     }
 }
