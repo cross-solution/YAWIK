@@ -16,6 +16,7 @@ use Zend\Http\PhpEnvironment\Request;
  * Class ManageControllerTest
  * @package CvTest\Controller
  * @ticket  227
+ * @covers \Cv\Controller\ManageController
  */
 class ManageControllerTest extends FunctionalTestCase
 {

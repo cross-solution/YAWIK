@@ -9,6 +9,8 @@
 namespace CvTest\Entity;
 
 use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\NativeLanguage;
 
 class NativeLanguageTestEnglish
@@ -26,20 +28,14 @@ class NativeLanguageTestEnglish
  */
 class NativeLanguageTest extends \PHPUnit_Framework_TestCase
 {
-    use SimpleSetterAndGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
-    public function getSetterAndGetterDataProvider()
-    {
-        $ob = new NativeLanguage();
-        return [
-            [$ob, 'language', 'Some Language'],
-        ];
-    }
+    private $target = NativeLanguage::class;
 
-    public function testShouldConvertLanguageToString()
-    {
-        $ob = new NativeLanguage();
-        $ob->setLanguage(new NativeLanguageTestEnglish());
-        $this->assertEquals('English', $ob->getLanguage());
-    }
+    private $inheritance = [ 'Core\Entity\AbstractEntity' ];
+
+    private $properties = [
+        [ 'language', 'Some Language' ],
+        [ 'language', [ '@value' => NativeLanguageTestEnglish::class, 'expect' => 'English' ]]
+    ];
 }

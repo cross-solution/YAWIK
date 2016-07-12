@@ -4,35 +4,35 @@
 namespace CvTest\Entity;
 
 
-use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
+use Core\Entity\AbstractIdentifiableEntity;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\PreferredJob;
+use Cv\Entity\PreferredJobInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ *
+ * @covers \Cv\Entity\PreferredJob
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @group Cv
+ * @group Cv.Entity
+ */
 class PreferredJobTest extends \PHPUnit_Framework_TestCase
 {
-    use SimpleSetterAndGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
-    public function testSetAndGetTypeOfApplication()
-    {
-        $target = new PreferredJob();
+    private $target = PreferredJob::class;
 
-        $this->assertEquals(
-            array(),
-            $target->getTypeOfApplication(),
-            '::getTypeOfApplication() init value should return an empty array'
-        );
-    }
+    private $inheritance = [ AbstractIdentifiableEntity::class, PreferredJobInterface::class ];
 
-    public function getSetterAndGetterDataProvider()
-    {
-        $ob = new PreferredJob();
-        return [
-            [$ob, 'typeOfApplication', ['temporary']],
-            [$ob, 'desiredJob', 'Software Developer'],
-            [$ob, 'desiredLocation', 'Some City'],
-            [$ob, 'desiredLocations', new ArrayCollection()],
-            [$ob, 'willingnessToTravel', 'Yes'],
-            [$ob, 'expectedSalary', '1000 USD']
-        ];
-    }
+    private $properties = [
+        [ 'typeOfApplication', [ 'default' => [], 'value' => ['temporary']]],
+        [ 'desiredJob', 'Software Developer' ],
+        [ 'desiredLocation', 'SomeCity' ],
+        [ 'desiredLocations', [ '@default' => ArrayCollection::class, '@value' => ArrayCollection::class]],
+        [ 'willingnessToTravel', 'Yes' ],
+        [ 'expectedSalary', '1000 USD' ],
+    ];
 }

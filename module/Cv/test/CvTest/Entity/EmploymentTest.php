@@ -8,28 +8,31 @@
 
 namespace CvTest\Entity;
 
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\Employment;
-use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
 
 /**
  * Class EmploymentTest
  *
- * @package CvTest\Entity
+ *
  * @covers  Cv\Entity\Employment
+ * @group Cv
+ * @group Cv.Entity
  */
 class EmploymentTest extends \PHPUnit_Framework_TestCase
 {
-    use SimpleSetterAndGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
-    public function getSetterAndGetterDataProvider()
-    {
-        $ob = new Employment();
-        return [
-            [$ob, 'startDate', '01-01-2001'],
-            [$ob, 'endDate', '01-01-2005'],
-            [$ob, 'currentIndicator', true],
-            [$ob, 'description', 'Some Description'],
-            [$ob, 'organizationName', 'Organization Name']
-        ];
-    }
+    private $target = Employment::class;
+
+    private $inheritance = [ 'Core\Entity\AbstractIdentifiableEntity' ];
+
+    private $properties = [
+        ['startDate', '01-01-2001'],
+        ['endDate', '01-01-2005'],
+        ['currentIndicator', true],
+        ['description', 'Some Description'],
+        ['organizationName', 'Organization Name']
+    ];
 }

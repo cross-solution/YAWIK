@@ -8,8 +8,11 @@
 
 namespace CvTest\Entity;
 
+use Core\Entity\AbstractIdentifiableEntity;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\Language;
-use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
+use Cv\Entity\LanguageInterface;
 
 class LanguageTestEnglish
 {
@@ -22,29 +25,24 @@ class LanguageTestEnglish
 /**
  * Class LanguageTest
  * @covers  Cv\Entity\Language
- * @package CvTest\Entity
+ * @group Cv
+ * @group Cv.Entity
  */
 class LanguageTest extends \PHPUnit_Framework_TestCase
 {
-    use SimpleSetterAndGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
-    public function getSetterAndGetterDataProvider()
-    {
-        $ob = new Language();
-        return [
-            [$ob, 'language', 'English'],
-            [$ob, 'levelListening', 'Excellent'],
-            [$ob, 'levelReading', 'Excellent'],
-            [$ob, 'levelSpokenInteraction', 'Excellent'],
-            [$ob, 'levelSpokenProduction', 'Excellent'],
-            [$ob, 'levelWriting', 'Excellent'],
-        ];
-    }
+    private $target = Language::class;
 
-    public function testShouldConvertLanguageToString()
-    {
-        $ob = new Language();
-        $ob->setLanguage(new LanguageTestEnglish());
-        $this->assertEquals('English', $ob->getLanguage());
-    }
+    private $inheritance = [ AbstractIdentifiableEntity::class , LanguageInterface::class ];
+
+    private $properties = [
+        ['language', 'English'],
+        ['language', ['@value' => LanguageTestEnglish::class, 'expect' => 'English']],
+        ['levelListening', 'Excellent'],
+        ['levelReading', 'Excellent'],
+        ['levelSpokenInteraction', 'Excellent'],
+        ['levelSpokenProduction', 'Excellent'],
+        ['levelWriting', 'Excellent'],
+    ];
 }

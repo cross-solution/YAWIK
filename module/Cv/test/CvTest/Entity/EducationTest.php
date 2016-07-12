@@ -9,25 +9,31 @@
 namespace CvTest\Entity;
 
 
+use CoreTestUtils\TestCase\SetupTargetTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\Education;
-use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
 
+/**
+ *
+ * @covers \Cv\Entity\Education
+ *
+ * @group Cv
+ * @group Cv.Entity
+ */
 class EducationTest extends \PHPUnit_Framework_TestCase
 {
-    use SimpleSetterAndGetterTrait;
+    use SetupTargetTrait, TestSetterGetterTrait;
 
-    public function getSetterAndGetterDataProvider()
-    {
-        $ob = new Education();
-        return [
-            [$ob, 'startDate', '01-01-2000'],
-            [$ob, 'endDate', '01-01-2003'],
-            [$ob, 'currentIndicator', true],
-            [$ob, 'competencyName', 'some-name'],
-            [$ob, 'organizationName', 'some-school'],
-            [$ob, 'description', 'Some Description'],
-            [$ob, 'country', 'Some Country'],
-            [$ob, 'city', 'Some City'],
-        ];
-    }
+    private $target = Education::class;
+
+    private $properties = [
+        ['startDate', '01-01-2000'],
+        ['endDate', '01-01-2003'],
+        ['currentIndicator', true],
+        ['competencyName', 'some-name'],
+        ['organizationName', 'some-school'],
+        ['description', 'Some Description'],
+        ['country', 'Some Country'],
+        ['city', 'Some City'],
+    ];
 }

@@ -9,38 +9,38 @@
 namespace CvTest\Entity;
 
 
-use CoreTestUtils\TestCase\InitValueTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\Skill;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class SkillTest
- * @package CvTest\Entity
+ *
  * @covers  Cv\Entity\Skill
+ * @group Cv
+ * @group Cv.Entity
  */
 class SkillTest extends \PHPUnit_Framework_TestCase
 {
-    use \CoreTestUtils\TestCase\SimpleSetterAndGetterTrait, InitValueTrait;
+    #use \CoreTestUtils\TestCase\SimpleSetterAndGetterTrait, InitValueTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
-    public function getSetterAndGetterDataProvider()
+    protected $target = Skill::class;
+
+    protected $inheritance = [ '\Core\Entity\AbstractIdentifiableEntity' ];
+
+    public function propertiesProvider()
     {
-        $ob = new Skill();
+        $options = [
+            'default' => '@' . ArrayCollection::class,
+            'value' => new ArrayCollection(),
+        ];
+
         return [
-            [$ob, 'nativeLanguages', new ArrayCollection()],
-            [$ob, 'languageSkills', new ArrayCollection()],
-            [$ob, 'computerSkills', new ArrayCollection()]
+            [ 'nativeLanguages', $options ],
+            [ 'languageSkills',  $options ],
+            [ 'computerSkills',  $options ],
         ];
     }
-
-    public function getTestInitValue()
-    {
-        $ob = new Skill();
-        return [
-            [$ob, 'nativeLanguages', new ArrayCollection()],
-            [$ob, 'languageSkills', new ArrayCollection()],
-            [$ob, 'computerSKills', new ArrayCollection()],
-        ];
-    }
-
-
 }
