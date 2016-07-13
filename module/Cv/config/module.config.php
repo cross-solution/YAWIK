@@ -71,6 +71,17 @@ return array(
                             ),
                         ),
                     ),
+                    'my-cv' => [
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/my/cv',
+                            'defaults' => [
+                                'controller' => 'Cv\Controller\Manage',
+                                'action' => 'form',
+                                'id' => '__my__',
+                            ],
+                        ],
+                    ],
                 ),
             ),
         ),
@@ -80,7 +91,7 @@ return array(
         'rules' => array(
             'user' => array(
                 'allow' => array(
-                    'route/lang/cvs/create',
+                    'route/lang/my-cv',
                     'Cv\Controller\Manage',
                     'navigation/resume-user',
                 ),
@@ -139,7 +150,7 @@ return array(
             ),
             'resume-user' => [
                 'label' => /*@translate*/ 'Resume',
-                'route' => 'lang/cvs/create',
+                'route' => 'lang/my-cv',
                 'resource' => 'navigation/resume-user',
                 'order' => 10
             ],
