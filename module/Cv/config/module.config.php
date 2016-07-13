@@ -80,13 +80,25 @@ return array(
         'rules' => array(
             'user' => array(
                 'allow' => array(
-                    'route/lang/cvs',
+                    'route/lang/cvs/create',
                     'Cv\Controller\Manage',
+                    'navigation/resume-user',
                 ),
             ),
+            'recruiter' => [
+                'deny' => [
+                    'navigation/resume-user',
+                ],
+                'allow' => [
+                    'route/lang/cvs',
+                    'navigation/resume-recruiter',
+                ],
+            ],
             'admin' => [
                 'deny' => [
                     'route/lang/cvs',
+                    'navigation/resume-recruiter',
+                    'navigation/resume-user',
                     'Cv\Controller\Manage',
                 ]
             ]
@@ -109,10 +121,10 @@ return array(
     // TODO: Remove comments when module is fixed
     'navigation' => array(
         'default' => array(
-            'resume' => array(
+            'resume-recruiter' => array(
                 'label' =>  /*@translate*/ 'Talent-Pool',
                 'route' => 'lang/cvs',
-                'resource' => 'route/lang/cvs',
+                'resource' => 'navigation/resume-recruiter',
                 'order' => 10,
                 'pages' => array(
                     'list' => array(
@@ -125,6 +137,12 @@ return array(
                     ),
                 ),
             ),
+            'resume-user' => [
+                'label' => /*@translate*/ 'Resume',
+                'route' => 'lang/cvs/create',
+                'resource' => 'navigation/resume-user',
+                'order' => 10
+            ],
         ),
     ),
     
