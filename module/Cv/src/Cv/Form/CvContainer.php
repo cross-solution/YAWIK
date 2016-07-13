@@ -9,6 +9,7 @@
 
 namespace Cv\Form;
 
+use Core\Entity\EntityInterface;
 use Core\Form\Container;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
@@ -77,4 +78,15 @@ class CvContainer extends Container implements ViewPartialProviderInterface
             'attachments' => 'Cv/Attachments'
         ));
     }
+
+    public function setEntity($entity, $key = '*')
+    {
+        if ('*' == $key) {
+            $this->setParam('cv', $entity->getId());
+        }
+
+        return parent::setEntity($entity, $key);
+    }
+
+
 }

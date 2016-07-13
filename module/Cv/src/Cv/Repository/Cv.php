@@ -2,15 +2,18 @@
 
 namespace Cv\Repository;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Repository\DraftableEntityAwareInterface;
+use Core\Repository\DraftableEntityAwareTrait;
 use Core\Repository\AbstractRepository;
 use Auth\Entity\UserInterface;
 
 /**
  * class for accessing CVs
  */
-class Cv extends AbstractRepository
+class Cv extends AbstractRepository implements DraftableEntityAwareInterface
 {
+    use DraftableEntityAwareTrait;
+
     /**
      * Look for an drafted Document of a given user
      *
@@ -23,17 +26,6 @@ class Cv extends AbstractRepository
             $user = $user->getId();
         }
 
-        $document = $this->findOneBy(
-            array(
-                'isDraft' => true,
-                'user' => $user
-            )
-        );
-
-        if (!empty($document)) {
-            return $document;
-        }
-
-        return null;
+        return $this->findOneDraftBy(['user' => $user]);
     }
 }
