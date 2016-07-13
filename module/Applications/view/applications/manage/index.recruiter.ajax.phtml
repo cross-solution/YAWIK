@@ -32,9 +32,12 @@ $columnLabel = $renderedFormCheckBox.'
              </a>
              <ul id="applicationTableAction" class="dropdown-menu">
              <li>
-               <a href="#RejectApplication">' . 
-        $this->translate('Reject') . 
+               <a href="#RejectApplication">' .
+        $this->translate('Reject') .
                '</a>
+               </li>
+             <li>
+               <a href="#" id="application-multiple-move" title="' . $this->translate('Move application to Talent Pool') . '">' . $this->translate('Move') . '</a>
                </li>
              </ul>
            </span>
@@ -76,7 +79,7 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
 <tr>
 <?php foreach ($columns as $label => $option):?>
     <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
-    <?php if (! isset($option['sort'])): echo $this->translate($label); 
+    <?php if (! isset($option['sort'])): echo $this->translate($label);
           else:
               if ($option['sort'] == $sortBy):
                   $icon = '<span class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
@@ -87,12 +90,12 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
               endif;
               $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
               $url = $this->url(
-                  'lang/applications', array(), 
+                  'lang/applications', array(),
                   array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
                   true
               );
             ?>
-            <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>     
+            <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>
     <?php endif; ?>
     </th>
 <?php endforeach; ?>
@@ -106,10 +109,10 @@ foreach ($this->applications as $application):
   $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="yk-new"':"")?>>
     <td>
-        <?php 
+        <?php
         $formCheckBox = $this->services("FormElementManager.checkBox");
         $formCheckBox->setAttributes(array('id' => $application->id, 'name' => 'cb_' . $application->id ));
-        echo $this->formCheckBox($formCheckBox); 
+        echo $this->formCheckBox($formCheckBox);
         ?>
     </td>
     <td>
@@ -120,7 +123,7 @@ foreach ($this->applications as $application):
     <?php else:?>
     <span class="yk-icon yk-icon-portrait fa-3x"></span>
     <?php endif?>
-    </div>    
+    </div>
        <?php echo $this->translate($this->salutation($application->contact->gender))?>
        <?php echo $application->contact->displayName?><br>
        <?php echo $application->contact->city?>
@@ -157,7 +160,7 @@ foreach ($this->applications as $application):
          <span class="btn btn-default btn-xs"><i class="yk-icon yk-icon-<?php echo strtolower($profile->name); ?>"></i></span>
      <?php endforeach;?>
          </div>
-     <?php endif;?>     
+     <?php endif;?>
     </td>
     <td class="yk-job">
         <?php $href = $application->job->link ? $application->job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $application->job->id)), true); ?>
