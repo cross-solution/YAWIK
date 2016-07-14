@@ -418,4 +418,35 @@ class ManageController extends AbstractActionController
         
         return $this->redirect()->toRoute('lang/applications', array(), true);
     }
+
+    /**
+     * Move an application to talent pool
+     *
+     * @return \Zend\Http\Response
+     * @since 0.26
+     */
+    public function moveAction()
+    {
+        $id = $this->params('id');
+        $serviceManager = $this->serviceLocator;
+        $repositories = $serviceManager->get('repositories');
+        $application = $repositories->get('Applications/Application')->find($id);
+        
+        if (!$application) {
+            throw new \DomainException('Application not found.');
+        }
+
+        $this->acl($application, 'move');
+        
+        $user = $this->auth()->getUser();
+        $cv = $repositories->get('Cv/Cv')->createFromApplication($application, $user);
+        
+        $repositories->store($cv);
+        $repositories->remove($application);
+
+        $this->notification()->success(
+            /*@translate*/ 'Application has been successfully moved to Talent Pool');
+        
+        return $this->redirect()->toRoute('lang/applications', array(), true);
+    }
 }
