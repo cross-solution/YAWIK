@@ -184,7 +184,7 @@ return array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-            'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Core/Navigation' => 'Core\Factory\Navigation\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
             'Core/EntityHydrator' => 'Core\Entity\Hydrator\EntityHydratorFactory',
