@@ -92,3 +92,11 @@
 
 })(jQuery);
 
+$(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+	if (thrownError == 'Unauthorized') {
+		var loginUrl = jqxhr.getResponseHeader('X-YAWIK-Login-Url');
+		if (loginUrl) {
+			window.location = loginUrl;
+		}
+	}
+});

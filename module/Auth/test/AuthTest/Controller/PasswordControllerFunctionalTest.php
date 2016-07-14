@@ -51,7 +51,7 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
         $result = $this->getResponse()->getContent();
 
         $this->assertNotRedirect();
-        $this->assertResponseStatusCode(Response::STATUS_CODE_403);
+        $this->assertResponseStatusCode(Response::STATUS_CODE_401);
         $this->assertContains('Please authenticate yourself to proceed', $result);
     }
 

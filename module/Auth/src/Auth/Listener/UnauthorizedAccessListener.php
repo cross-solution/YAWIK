@@ -56,7 +56,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
          */
         if ($exception instanceof UnauthorizedImageAccessException) {
             $image = __DIR__ . '/../../../../../public/images/unauthorized-access.png';
-            $response->setStatusCode(403)
+            $response->setStatusCode(Response::STATUS_CODE_403)
                      ->setContent(file_get_contents($image))
                      ->getHeaders()
                      ->addHeaderLine('Content-Type', 'image/png');
@@ -69,10 +69,10 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             return $response;
         }
         
-        $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
+        $application = $e->getApplication();
+		$auth = $application->getServiceManager()->get('AuthenticationService');
         
         if (!$auth->hasIdentity()) {
-            $response->setStatusCode(Response::STATUS_CODE_403);
             $routeMatch = $e->getRouteMatch();
             $routeMatch->setParam('controller', 'Auth\Controller\Index');
             $routeMatch->setParam('action', 'index');
@@ -81,7 +81,10 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             $ref = preg_replace('~^' . preg_quote($e->getRouter()->getBaseUrl()) . '~', '', $ref);
             $query->set('ref', $ref);
             $query->set('req', 1);
-            $result = $e->getApplication()->getEventManager()->trigger('dispatch', $e);
+            $response->setStatusCode(Response::STATUS_CODE_401);
+            $response->getHeaders()
+                ->addHeaderLine('X-YAWIK-Login-Url', $e->getRouter()->assemble([], ['name' => 'lang/auth', 'query' => ['ref' => $ref]]));
+            $result = $application->getEventManager()->trigger('dispatch', $e);
             $e->stopPropagation();
             return $result;
         }
@@ -101,7 +104,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
 
        // $statusCode = $response->getStatusCode();
        // if ($statusCode === 200) {
-            $response->setStatusCode(403);
+            $response->setStatusCode(Response::STATUS_CODE_403);
        // }
     }
 }
