@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * YAWIK
  *
@@ -33,7 +33,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 $this->headScript()->appendFile($this->basePath('/js/typeahead.jquery.min.js'));
 $this->headScript()->appendFile($this->basePath('/js/bloodhound.min.js'));
 
-?>      
+?>
 <h1>
   <?php if ($this->acl()->isRole('recruiter')):?>
     <?php echo $this->translate('List of received applications')?>
@@ -72,12 +72,12 @@ $this->headScript()->appendFile($this->basePath('/js/bloodhound.min.js'));
 if (False):
 ?>
 <div class="container col-md-12">
-<nav class="navbar yk-toolbar"> 
-    <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
+<nav class="navbar yk-toolbar">
+    <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">
       <div id="search-applications form-group has-feedback" class="row">
-        <input class="form-control" id="search-applications-input" 
-               placeholder="<?php echo $this->translate('search applications')?> ..." 
-               name="search" 
+        <input class="form-control" id="search-applications-input"
+               placeholder="<?php echo $this->translate('search applications')?> ..."
+               name="search"
                type="text"
                <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
                
@@ -101,11 +101,33 @@ if (False):
 <?php
 endif;
 ?>
-<div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(), 
+<div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(),
                   array('query' => $this->params()->fromQuery()), true) ?>">
 <?php if ($this->acl()->isRole('recruiter')):?>
   <?php echo $this->render('applications/manage/index.recruiter.ajax.phtml') ?>
 <?php else: ?>
   <?php echo $this->render('applications/manage/index.applicant.ajax.phtml') ?>
 <?php endif?>
+</div>
+
+<div id="application-multiple-move-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="application-multiple-move-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="application-multiple-move-modal-label">
+                    <?=$this->translate('Move selected applications to Talent Pool')?>:
+                </h3>
+            </div>
+            <div class="modal-body">
+                <?=$this->translate('Are you sure you want to move selected applications to Talent Pool?')?>
+            </div>
+            <div class="modal-footer">
+                <form method="post" action="<?=$this->url('lang/applications/applications-list', ['action' => 'move'])?>">
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?=$this->translate('Cancel') ?></button>
+                    <button type="submit" class="btn btn-primary"><?=$this->translate('Move applications to Talent Pool') ?></button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
