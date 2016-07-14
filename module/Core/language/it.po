@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-12 19:04+0200\n"
-"PO-Revision-Date: 2016-05-12 17:05+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2016-07-05 08:27+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +61,7 @@ msgstr "Aggiungi il permesso"
 
 #: view/core/admin/index.phtml:12 language/_annotated_strings.php:104
 msgid "Admin"
-msgstr ""
+msgstr "Amministratore"
 
 #: view/core/admin/index.phtml:12 view/core/index/dashboard.phtml:11
 #: view/core/index/dashboard.phtml:14
@@ -114,7 +114,7 @@ msgstr "%sapplication forms%s."
 
 #: view/core/index/index.phtml:36
 msgid "One-Click-Apply"
-msgstr ""
+msgstr "Applicare con un click"
 
 #: view/core/index/index.phtml:37
 msgid "manage applications"
@@ -249,7 +249,7 @@ msgstr "Puoi caricare solo %d file"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:111
 msgid "An unknown error occured."
-msgstr ""
+msgstr "Un errore sconosciuto si è verificato."
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:156
 msgid "Click here to add files or use drag and drop."
@@ -390,8 +390,8 @@ msgstr "definisce le lingue di questo frontend."
 
 #: language/_annotated_strings.php:92
 msgid "choose your timzone"
-msgstr ""
+msgstr "scegli il tuo fuso orario"
 
 #: language/_annotated_strings.php:95
 msgid "defines your local timezone."
-msgstr ""
+msgstr "definisce il fuso orario locale."

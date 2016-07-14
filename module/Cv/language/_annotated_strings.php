@@ -304,6 +304,12 @@ translate('please describe your position');
 //: ./src/Cv/Form/EmploymentCollectionFactory.php:17
 translate('Employment history');
 
+//: ./src/Cv/Form/AttachmentsFormFactory.php:80
+translate('Attach images or PDF Documents to your CV. Drag&drop them, or click into the attachement area. You can upload up to %sMB');
+
+//: ./src/Cv/Form/AttachmentsFormFactory.php:84
+translate('Attachments');
+
 //: ./src/Cv/Form/CvContainer.php:49
 translate('Where do you want to work tomorrow? This heading gives an immediate overview of your desired next job.');
 
@@ -640,12 +646,24 @@ translate('Education history');
 //: ./src/Cv/Form/SkillCollectionFactory.php:17
 translate('Skills');
 
-//: ./config/module.config.php:112
-translate('Resumes');
+//: ./src/Cv/Entity/StatusInterface.php:19
+translate('private');
 
-//: ./config/module.config.php:118
+//: ./src/Cv/Entity/StatusInterface.php:21
+translate('public to all');
+
+//: ./src/Cv/Controller/ManageController.php:163
+translate('Status has been successfully changed');
+
+//: ./src/Cv/Controller/ManageController.php:166
+translate('Invalid status');
+
+//: ./config/module.config.php:113
+translate('Talent-Pool');
+
+//: ./config/module.config.php:119
 translate('Overview');
 
-//: ./config/module.config.php:122
+//: ./config/module.config.php:123
 translate('Create resume');
 

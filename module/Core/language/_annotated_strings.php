@@ -107,9 +107,9 @@ translate('defines your local timezone.');
 //: ./config/module.config.php:25
 translate('general settings');
 
-//: ./config/module.config.php:237
+//: ./config/module.config.php:238
 translate('Home');
 
-//: ./config/module.config.php:242
+//: ./config/module.config.php:243
 translate('Admin');
 

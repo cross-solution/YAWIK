@@ -143,16 +143,16 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:166
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:141
+//: ./src/Auth/Controller/IndexController.php:142
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:149
+//: ./src/Auth/Controller/IndexController.php:150
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:237
+//: ./src/Auth/Controller/IndexController.php:238
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/IndexController.php:449
+//: ./src/Auth/Controller/IndexController.php:450
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/UsersController.php:50
@@ -203,7 +203,7 @@ translate('Found user is inactive');
 //: ./src/Auth/Controller/ForgotPasswordController.php:82
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Listener/UnauthorizedAccessListener.php:92
+//: ./src/Auth/Listener/UnauthorizedAccessListener.php:95
 translate('You are not permitted to access this resource.');
 
 //: ./src/Auth/Listener/MailForgotPassword.php:68
