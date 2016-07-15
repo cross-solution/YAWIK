@@ -175,6 +175,7 @@ class JobEventSubscriberTest extends FunctionalTestCase
             ->setDateModified($date)
             ->setDatePublishStart($date)
             ->setDatePublishEnd($date)
+            ->setLink('http://test.link.org/job1')
             ->setLanguage('some-language')
         ;
 
@@ -188,8 +189,11 @@ class JobEventSubscriberTest extends FunctionalTestCase
             ->method('addField')
             ->withConsecutive(
                 ['id','some-id'],
+                ['entityName','job'],
                 ['title','some-title'],
                 ['applicationEmail','contact-email'],
+                ['link','http://test.link.org/job1'],
+                ['html',$this->stringContains('http://test.link.org/job1')],
                 ['dateCreated',$dateStr],
                 ['dateModified',$dateStr],
                 ['datePublishStart',$dateStr],
@@ -267,7 +271,7 @@ class JobEventSubscriberTest extends FunctionalTestCase
             ->method('getPostalCode')
             ->willReturn('postal-code')
         ;
-        $location->expects($this->once())
+        $location->expects($this->any())
             ->method('getRegion')
             ->willReturn('region-text')
         ;
@@ -276,16 +280,11 @@ class JobEventSubscriberTest extends FunctionalTestCase
             ->willReturn([1.2,2.1])
         ;
         $document = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['addField'])
+            ->setMethods(['addField','addChildDocument'])
             ->getMock()
         ;
-        $document->expects($this->exactly(4))
+        $document->expects($this->any())
             ->method('addField')
-            ->withConsecutive(
-                ['latLon','1.2,2.1'],
-                ['postCode','postal-code'],
-                ['regionText','region-text']
-            )
         ;
 
         $this->target->processLocation($job,$document);

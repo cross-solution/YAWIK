@@ -79,7 +79,16 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
     public function testCreateQuery()
     {
         $query  = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['setQuery','addSortField','addFilterQuery'])
+            ->setMethods([
+                'setQuery',
+                'addSortField',
+                'addFilterQuery',
+                'addField',
+                'addParam',
+                'setFacet',
+                'addFacetField',
+                'addFacetDateField'
+            ])
             ->getMock()
         ;
         $coordinates = $this->getMockBuilder(CoordinatesInterface::class)
@@ -98,7 +107,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $query
             ->expects($this->exactly(2))
             ->method('setQuery')
-            ->withConsecutive(['*:*'],['title:some OR organizationName:some'])
+            ->withConsecutive(['*:*'],['some'])
         ;
 
         // expect to addSortField
@@ -113,10 +122,12 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
         // expect to handle location
         $query
-            ->expects($this->once())
+            ->expects($this->exactly(3))
             ->method('addFilterQuery')
-            ->with('{!geofilt pt=1.2,2.1 sfield=latLon d=10}')
+            ->withConsecutive(['entityName:job'],['entityName:job'],[$this->stringContains('{!geofilt pt=1.2,2.1 sfield=point d=10 score="kilometers"}')])
         ;
+
+        $query->method('addField')->willReturn($query);
 
         $params1 = ['search' => '','sort'=>'title'];
         $params2 = ['search' => 'some','sort'=>'-company','location'=>$location,'d'=>10];
