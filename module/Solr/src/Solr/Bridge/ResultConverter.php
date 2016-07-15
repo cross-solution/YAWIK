@@ -104,7 +104,7 @@ class ResultConverter
      */
     public function validateDate($value)
     {
-        if ($value instanceof \SolrObject){
+        if ($value instanceof \SolrObject || is_array($value)){
             return $value;
         }
         $value = trim($value);

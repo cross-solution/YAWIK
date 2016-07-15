@@ -111,6 +111,7 @@ class JobEventSubscriber implements EventSubscriber
     public function generateInputDocument(Job $job, $document)
     {
         $document->addField('id',$job->getId());
+        $document->addField('applyId',$job->getApplyId());
         $document->addField('entityName','job');
         $document->addField('title',$job->getTitle());
         $document->addField('applicationEmail',$job->getContactEmail());
@@ -147,6 +148,7 @@ class JobEventSubscriber implements EventSubscriber
                 // @TODO: What to do when the process failed?
             }
         }
+
         return $document;
     }
     /**

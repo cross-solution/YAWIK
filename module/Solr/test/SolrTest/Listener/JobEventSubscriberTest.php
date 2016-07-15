@@ -177,6 +177,7 @@ class JobEventSubscriberTest extends FunctionalTestCase
             ->setDatePublishEnd($date)
             ->setLink('http://test.link.org/job1')
             ->setLanguage('some-language')
+            ->setApplyId('some-external-id')
         ;
 
 
@@ -189,11 +190,12 @@ class JobEventSubscriberTest extends FunctionalTestCase
             ->method('addField')
             ->withConsecutive(
                 ['id','some-id'],
+                ['applyId', 'some-external-id'],
                 ['entityName','job'],
                 ['title','some-title'],
                 ['applicationEmail','contact-email'],
                 ['link','http://test.link.org/job1'],
-              //  ['html',$this->stringContains('http://test.link.org/job1')], 
+                ['html', "\n"],
                 ['dateCreated',$dateStr],
                 ['dateModified',$dateStr],
                 ['datePublishStart',$dateStr],
