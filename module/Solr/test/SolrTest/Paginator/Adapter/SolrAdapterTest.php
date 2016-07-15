@@ -102,10 +102,10 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
     public function testGetItemsAndCount()
     {
         $this->client
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('query')
             ->with($this->isInstanceOf('SolrQuery'))
-            ->willReturnOnConsecutiveCalls($this->response)
+            ->willReturn($this->response)
         ;
 
         $this->filter
