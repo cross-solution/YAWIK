@@ -10,6 +10,7 @@
 /** ActionController of Core */
 namespace Cv\Controller;
 
+use Cv\Entity\CvInterface;
 use Geo\Form\GeoText;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -48,7 +49,7 @@ class ManageController extends AbstractActionController
         $cvRepository = $repositories->get('Cv/Cv');
         $user = $this->auth()->getUser();
         /* @var $cv Cv */
-        $cv = $cvRepository->findDraft($user);
+        $cv = $this->getCv($cvRepository, $user);
         $params = $this->params();
         
         if (empty($cv)) {
@@ -102,6 +103,8 @@ class ManageController extends AbstractActionController
                         $cv->getPreferredJob()->setDesiredLocation($locElem->getValue());
                     }
                 }
+
+                $this->validateCv($cv);
 
                 $repositories->store($cv);
                 $viewHelperManager = $serviceLocator->get('ViewHelperManager');
@@ -168,5 +171,32 @@ class ManageController extends AbstractActionController
         }
         
         return $this->redirect()->refresh();
+    }
+
+    private function getCv($repository, $user)
+    {
+        $id =
+            $this->params()->fromRoute('id')
+            ?: ($this->params()->fromQuery('id')
+                ?: ($this->params()->fromPost('cv')
+                    ?: null
+                )
+            );
+
+        if ('__my__' == $id) {
+            return $repository->findOneBy(['user' => $user->getId(), 'isDraft' => null]);
+        }
+
+        return $id ? $repository->find($id) : $repository->findDraft($user);
+    }
+
+    private function validateCv(Cv $cv)
+    {
+        if ($cv->getContact()->getEmail()
+            && $cv->getPreferredJob()->getDesiredJob()
+            && count($cv->getPreferredJob()->getDesiredLocations())
+        ) {
+            $cv->setIsDraft(false);
+        }
     }
 }

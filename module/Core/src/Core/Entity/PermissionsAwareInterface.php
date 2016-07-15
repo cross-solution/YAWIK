@@ -18,5 +18,13 @@ interface PermissionsAwareInterface
      * @return PermissionsInterface
      */
     public function getPermissions();
+
+    /**
+     * Sets the permissions entity.
+     *
+     * @param PermissionsInterface $permissions
+     *
+     * @return self
+     */
     public function setPermissions(PermissionsInterface $permissions);
 }

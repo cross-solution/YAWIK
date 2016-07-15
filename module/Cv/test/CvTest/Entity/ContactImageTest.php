@@ -9,6 +9,8 @@
 namespace CvTest\Entity;
 
 use Core\Entity\FileEntity;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\Contact;
 use Cv\Entity\ContactImage;
 
@@ -19,9 +21,24 @@ use Cv\Entity\ContactImage;
  */
 class ContactImageTest extends \PHPUnit_Framework_TestCase
 {
-    public function testShouldImplementsTheInfoInterface()
+    use TestInheritanceTrait, TestSetterGetterTrait;
+
+    private $target = [
+        ContactImage::class,
+    ];
+
+    private $inheritance = [ FileEntity::class ];
+
+    public function propertiesProvider()
     {
-        $this->assertInstanceOf(FileEntity::class, new ContactImage());
+        return [
+            [ 'contact', '@' . Contact::class ],
+            [ 'uri', [
+                'pre' => function() { $this->target->setId('some-id')->setName('some-name'); },
+                'ignore_setter' => true,
+                'value' => '/file/Cv.ContactImage/some-id/' . urlencode('some-name'),
+            ]],
+        ];
     }
 
     public function testShouldSetImageToNullOnRemove()
@@ -32,31 +49,8 @@ class ContactImageTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('setImage')
             ->with(null);
-        $ob = new ContactImage();
-        $ob->setContact($mock);
 
-        $ob->preRemove();
-    }
-
-    public function testGetUriShouldConvertValueToCorrectUriPath()
-    {
-        $ob = new ContactImage();
-        $ob
-            ->setId('some-id')
-            ->setName('some-name');
-
-        $this->assertEquals(
-            '/file/Cv.ContactImage/some-id/' . urlencode('some-name'),
-            $ob->getUri()
-        );
-    }
-
-    public function testSetAndGetContact()
-    {
-        $ob = new ContactImage();
-        $contact = new Contact();
-
-        $ob->setContact($contact);
-        $this->assertSame($contact, $ob->getContact());
+        $this->target->setContact($mock);
+        $this->target->preRemove();
     }
 }

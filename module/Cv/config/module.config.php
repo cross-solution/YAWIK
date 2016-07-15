@@ -69,8 +69,38 @@ return array(
                                     ),
                                 ),
                             ),
+                            'edit' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/edit/:id',
+                                    'defaults' => [
+                                        'controller' => 'Cv\Controller\Manage',
+                                        'action' => 'form'
+                                    ],
+                                ],
+                            ],
+                            'view' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/view/:id',
+                                    'defaults' => [
+                                        'controller' => 'Cv/View',
+                                    ],
+                                ],
+                            ],
                         ),
                     ),
+                    'my-cv' => [
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/my/cv',
+                            'defaults' => [
+                                'controller' => 'Cv\Controller\Manage',
+                                'action' => 'form',
+                                'id' => '__my__'
+                            ],
+                        ],
+                    ],
                 ),
             ),
         ),
@@ -80,17 +110,39 @@ return array(
         'rules' => array(
             'user' => array(
                 'allow' => array(
-                    'route/lang/cvs',
+                    'route/lang/my-cv',
                     'Cv\Controller\Manage',
+                    'navigation/resume-user',
                 ),
             ),
+            'recruiter' => [
+                'deny' => [
+                    'navigation/resume-user',
+                ],
+                'allow' => [
+                    'route/lang/cvs',
+                    'navigation/resume-recruiter',
+                    'Entity/Cv' => [
+                        'view' => 'Cv/MayView',
+                        'edit' => 'Cv/MayChange',
+                    ],
+                ],
+            ],
             'admin' => [
                 'deny' => [
                     'route/lang/cvs',
+                    'navigation/resume-recruiter',
+                    'navigation/resume-user',
                     'Cv\Controller\Manage',
                 ]
             ]
         ),
+        'assertions' => [
+            'invokables' => [
+                'Cv/MayView'   => 'Cv\Acl\Assertion\MayViewCv',
+                'Cv/MayChange' => 'Cv\Acl\Assertion\MayChangeCv',
+            ],
+        ],
     ),
     
     // Configuration of the controller service manager (Which loads controllers)
@@ -101,6 +153,7 @@ return array(
         ),
         'factories' => array(
             'Cv/Index' => 'Cv\Factory\Controller\IndexControllerFactory',
+            'Cv/View'  => 'Cv\Factory\Controller\ViewControllerFactory',
         ),
     ),
     
@@ -109,10 +162,11 @@ return array(
     // TODO: Remove comments when module is fixed
     'navigation' => array(
         'default' => array(
-            'resume' => array(
+            'resume-recruiter' => array(
                 'label' =>  /*@translate*/ 'Talent-Pool',
                 'route' => 'lang/cvs',
-                'resource' => 'route/lang/cvs',
+                'active_on' => [ 'lang/cvs/edit', 'lang/cvs/view' ],
+                'resource' => 'navigation/resume-recruiter',
                 'order' => 10,
                 'pages' => array(
                     'list' => array(
@@ -125,6 +179,12 @@ return array(
                     ),
                 ),
             ),
+            'resume-user' => [
+                'label' => /*@translate*/ 'Resume',
+                'route' => 'lang/my-cv',
+                'resource' => 'navigation/resume-user',
+                'order' => 10
+            ],
         ),
     ),
     
