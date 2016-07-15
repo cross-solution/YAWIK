@@ -69,6 +69,25 @@ return array(
                                     ),
                                 ),
                             ),
+                            'edit' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/edit/:id',
+                                    'defaults' => [
+                                        'controller' => 'Cv\Controller\Manage',
+                                        'action' => 'form'
+                                    ],
+                                ],
+                            ],
+                            'view' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/view/:id',
+                                    'defaults' => [
+                                        'controller' => 'Cv/View',
+                                    ],
+                                ],
+                            ],
                         ),
                     ),
                     'my-cv' => [
@@ -78,7 +97,7 @@ return array(
                             'defaults' => [
                                 'controller' => 'Cv\Controller\Manage',
                                 'action' => 'form',
-                                'id' => '__my__',
+                                'id' => '__my__'
                             ],
                         ],
                     ],
@@ -103,6 +122,10 @@ return array(
                 'allow' => [
                     'route/lang/cvs',
                     'navigation/resume-recruiter',
+                    'Entity/Cv' => [
+                        'view' => 'Cv/MayView',
+                        'edit' => 'Cv/MayChange',
+                    ],
                 ],
             ],
             'admin' => [
@@ -114,6 +137,12 @@ return array(
                 ]
             ]
         ),
+        'assertions' => [
+            'invokables' => [
+                'Cv/MayView'   => 'Cv\Acl\Assertion\MayViewCv',
+                'Cv/MayChange' => 'Cv\Acl\Assertion\MayChangeCv',
+            ],
+        ],
     ),
     
     // Configuration of the controller service manager (Which loads controllers)
@@ -124,6 +153,7 @@ return array(
         ),
         'factories' => array(
             'Cv/Index' => 'Cv\Factory\Controller\IndexControllerFactory',
+            'Cv/View'  => 'Cv\Factory\Controller\ViewControllerFactory',
         ),
     ),
     
@@ -135,6 +165,7 @@ return array(
             'resume-recruiter' => array(
                 'label' =>  /*@translate*/ 'Talent-Pool',
                 'route' => 'lang/cvs',
+                'active_on' => [ 'lang/cvs/edit', 'lang/cvs/view' ],
                 'resource' => 'navigation/resume-recruiter',
                 'order' => 10,
                 'pages' => array(

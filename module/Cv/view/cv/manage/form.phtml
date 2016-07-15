@@ -9,7 +9,13 @@ fieldset fieldset {padding-left: 30px;}
 /* @var $cv \Cv\Entity\Cv */
 $cv = $this->cv;
 $status = $cv->getStatus();
-$title = $this->translate('Create a new resume');
+if ($this->auth()->getUser()->getRole() == \Auth\Entity\UserInterface::ROLE_USER) {
+    $title = $this->translate('Manage my resume');
+} else if ($this->params()->fromQuery('id')) {
+    $title = $this->translate('Edit a resume');
+} else {
+    $title = $this->translate('Create a new resume');
+}
 $this->headtitle($title);
 $this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
 $currentStatus = $status->getName();

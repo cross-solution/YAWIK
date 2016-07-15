@@ -1,18 +1,17 @@
 <table class="table table-striped table-bordered table-hover" id="cv-list">
 <thead>
 <tr>
-    <th><?php echo $this->translate('Id')?></th>
     <th><?php echo $this->translate('Name')?></th>
     <th><?php echo $this->translate('Career')?></th>
     <th><?php echo $this->translate('Desired Work')?></th>
     <th><?php echo $this->translate('Desired Location')?></th>
+    <th><?php echo $this->translate('Actions')?></th>
 </tr>
 </thead>
 
 <tbody>
 <?php foreach ($this->resumes as $resume): /* @var \Cv\Entity\Cv $resume */ ?>
 <tr>
-    <td><?php echo $resume->getId() ?></td>
     <td><?php echo is_object($resume->getContact()) ? $resume->getContact()->getDisplayName() : "" ?></td>
     <td>
         <?php if (count($resume->getEducations())>0):?>
@@ -24,6 +23,14 @@
     </td>
     <td><?php echo $resume->getPreferredJob()->getDesiredJob() ?></td>
     <td><?php echo $resume->getPreferredJob()->getDesiredLocation() ?></td>
+    <td><div class="btn-group btn-toolbar">
+        <a href="<?=$this->url('lang/cvs/view', ['id' => $resume->getId() ], true)?>" class="btn btn-default"><span class="yk-icon fa-eye"></span></a>
+
+        <?php if ($this->acl($resume, 'edit')):?>
+        <a href="<?=$this->url('lang/cvs/edit', ['id' => $resume->getId() ], true)?>" class="btn btn-default"><span class="yk-icon yk-icon-edit"></span></a>
+            <?php endif ?>
+            </div>
+    </td>
 </tr>
 <?php endforeach?>
 </tbody>

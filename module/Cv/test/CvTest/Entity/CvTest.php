@@ -77,6 +77,8 @@ class CvTest extends \PHPUnit_Framework_TestCase
                         'pre' => function() use ($permissions) { $this->target->setUser(new User())->setPermissions($permissions); },
                         'post' => function() use ($permissions) { $permissions->__phpunit_verify(); }
             ]],
+
+            [ 'resourceId', ['value' => 'Entity/Cv', 'ignore_setter' => true ]],
         ];
     }
 }

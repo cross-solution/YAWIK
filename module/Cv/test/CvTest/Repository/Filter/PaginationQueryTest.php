@@ -8,112 +8,159 @@
 
 namespace CvTest\Repository\Filter;
 
-use CoreTestUtils\TestCase\FunctionalTestCase;
+
+use Auth\Entity\User;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use Core\Repository\Filter\AbstractPaginationQuery;
+use Cv\Entity\Location;
+use Cv\Entity\Status;
 use Cv\Repository\Filter\PaginationQuery;
-use Doctrine\MongoDB\Query\Builder;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\MongoDB\Query\Expr;
 use Geo\Entity\Geometry\Point;
-use Jobs\Entity\Location;
 
 /**
  * Class PaginationQueryTest
- * @package CvTest\Repository\Filter
+ *
  * @covers  Cv\Repository\Filter\PaginationQuery
- * @covers  Cv\Repository\Filter\PaginationQueryFactory
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @group Cv
+ * @group Cv.Repository
+ * @group Cv.Repository.Filter
  */
-class PaginationQueryTest extends FunctionalTestCase
+class PaginationQueryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var PaginationQuery
-     */
-    protected $target;
+    use TestInheritanceTrait;
 
-    public function setUp()
+    private $user;
+
+    private $target = [
+        PaginationQuery::class,
+        'getTargetArgs',
+    ];
+
+    private $inheritance = [ AbstractPaginationQuery::class ];
+
+    private function getTargetArgs()
     {
-        parent::setUp();
-        if (!is_object($this->activeUser)) {
-            $this->loginAsUser();
+        switch ($this->getName(false)) {
+            case 'testInheritance':
+            case 'testDefaultPropertyValues':
+                return [];
+                break;
+
+            case 'testConstructSetsUserProperty':
+                $user = new User();
+                break;
+
+            default:
+                $user = new User();
+                $user->setId('testId');
+                break;
         }
 
-        $this->target = new PaginationQuery($this->activeUser);
+        $this->user = $user;
+        return [ $user ];
     }
 
-    public function testCreateQueryWithDesiredWorkKeyword()
+    public function testDefaultPropertyValues()
     {
-        $dm = $this->getMockBuilder(DocumentManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $qb = $this->getMockBuilder(Builder::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $dm->method('createQueryBuilder')
-            ->with('Cv\Entity\Cv')
-            ->willReturn($qb);
-        $this->getApplicationServiceLocator()->setService('doctrine.documentmanager.odm_default', $dm);
-
-        $expr = $this->getMockBuilder(Expr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $qb->expects($this->once())
-            ->method('expr')
-            ->willReturn($expr);
-        $expr
-            ->expects($this->once())
-            ->method('operator')
-            ->with('$text', ['$search' => 'some text'])
-            ->willReturn($expr);
-        $qb->method('field')
-            ->willReturn($qb);
-
-        // start execute the mock!
-        $pq = $this->target;
-        $qb = $this->getDoctrine()->createQueryBuilder('Cv\Entity\Cv');
-
-        $params = [];
-        $params['search'] = 'some text';
-        $pq->createQuery($params, $qb);
+        $this->assertAttributeSame('Cv/Cv', 'repositoryName', $this->target);
     }
 
-    public function testCreateQueryWithLocationKeyword()
+    public function testConstructSetsUserProperty()
     {
-        $dm = $this->getMockBuilder(DocumentManager::class)
+        $this->assertAttributeSame($this->user, 'user', $this->target);
+    }
+
+    public function getQueryBuilderMock($mode = null, $params = null)
+    {
+        $qb = $this
+            ->getMockBuilder('\Doctrine\ODM\MongoDB\Query\Builder')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $qb = $this->getMockBuilder(Builder::class)
+        $expr = $this
+            ->getMockBuilder('\Doctrine\ODM\MongoDB\Query\Expr')
             ->disableOriginalConstructor()
             ->getMock();
-        $dm->method('createQueryBuilder')
-            ->with('Cv\Entity\Cv')
-            ->willReturn($qb);
-        $this->getApplicationServiceLocator()->setService('doctrine.documentmanager.odm_default', $dm);
-
-        $qb->expects($this->once())
-            ->method('field')
-            ->with('preferredJob.desiredLocations.coordinates')
-            ->willReturn($qb);
-
-        $qb->expects($this->once())
-            ->method('geoWithinCenter')
-            ->with(1, 2, (float)5 / 100);
-
-        // start execute the mock!
-        $pq = $this->target;
-        $qb = $this->getDoctrine()->createQueryBuilder('Cv\Entity\Cv');
 
 
+        $qb->expects($this->any())->method('expr')->willReturn($expr);
+
+        $qbExpects = [];
+        $exprExpects = [];
+
+        if ('search' == $mode || true === $mode) {
+            $exprExpects['operator'][] = [ 'with' => ['$text', ['$search' => strtolower($params['search'])]]];
+            $exprExpects['getQuery'][] = [ 'return' => 'exprQuery' ];
+            $qbExpects['field'][] = [ 'with' => [null]];
+            $qbExpects['equals'][] = [ 'with' => ['exprQuery']];
+
+        }
+
+        if ('location' == $mode || true === $mode) {
+            $coords = $params['location']->coordinates->getCoordinates();
+            $qbExpects['field'][] = ['with' => ['preferredJob.desiredLocations.coordinates']];
+            $qbExpects['geoWithinCenter'][] = ['with' => [$coords[0], $coords[1],(float)$params['d'] / 100]];
+        }
+
+        $exprExpects['field'][] = [ 'with' => ['permissions.view']];
+        $exprExpects['equals'][] = [ 'with' => [ $this->user->getId()]];
+        $exprExpects['field'][] = [ 'with' => ['status.name']];
+        $exprExpects['equals'][] = [ 'with' => [Status::PUBLIC_TO_ALL]];
+
+        $qbExpects['addOr'][] = [ 'with' => [$expr] ];
+        $qbExpects['addOr'][] = [ 'with' => [$expr] ];
+
+
+
+        $configureMock = function($mock, $expects) {
+            foreach ($expects as $method => $spec) {
+                $count = count($spec);
+                $with = [];
+                $return = [];
+                foreach ($spec as $s) {
+                    $with[] = isset($s['with']) ? $s['with'] : [];
+                    $return[] = isset($s['return']) ? $s['return'] : $this->returnSelf();
+                }
+
+                $mockMethod = $mock
+                    ->expects($this->exactly($count))
+                    ->method($method);
+                $mockMethod = call_user_func_array([$mockMethod, 'withConsecutive'], $with);
+                $mockReturn = call_user_func_array([$this, 'onConsecutiveCalls'], $return);
+                $mockMethod->will($mockReturn);
+            }
+        };
+
+        $configureMock($qb, $qbExpects);
+        $configureMock($expr, $exprExpects);
+        return $qb;
+
+    }
+
+    public function provideCreateQueryTestData()
+    {
         $loc = new Location();
-        $loc
-            ->setCity('Winchester')
-            ->setRegion('England')
-            ->setPostalCode('S023 9AX')
-            ->setCountry('United Kingdom')
-            ->setCoordinates(new Point([1, 2]));
-        $params = [];
-        $params['location'] = $loc;
-        $params['d'] = 5;
-        $pq->createQuery($params, $qb);
+        $loc->setCoordinates(new Point([1,1]));
+        return [
+
+            'woParams'    => [ null, null ],
+            'emptySearch' => [ null, ['search' => '']],
+            'search'      => [ 'search', ['search' => 'MusBeLowerCase']],
+            'emptyLocation' => [ null, ['location' => new Location()]],
+            'location'    => [ 'location', ['location' => $loc, 'd' => 10]],
+            'all'         => [ true, ['search' => 'MustLowerThisOneToo', 'location' => $loc, 'd' => 5]],
+
+        ];
     }
+
+    /**
+     * @dataProvider provideCreateQueryTestData
+     */
+    public function testCreateQuery($mode, $params)
+    {
+        $qb = $this->getQueryBuilderMock($mode, $params);
+        $this->target->createQuery($params, $qb);
+    }
+
 }

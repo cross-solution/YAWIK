@@ -7,11 +7,13 @@ use Auth\Entity\UserInterface;
 use Core\Collection\IdentityWrapper;
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\DraftableEntityInterface;
+use Core\Entity\ModificationDateAwareEntityTrait;
 use Core\Entity\PermissionsAwareTrait;
 use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * Defines CV Model
@@ -22,10 +24,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *          "preferredJob.desiredJob"="text"
  *     },name="cvFulltext")
  * })
+ * @ODM\HasLifecycleCallbacks
  */
-class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEntityInterface
+class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInterface
 {
-    use PermissionsAwareTrait;
+    use PermissionsAwareTrait, ModificationDateAwareEntityTrait;
 
     /**
      * Owner of the CV
@@ -139,7 +142,18 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEnt
 
         return $this;
     }
-    
+
+    /**
+     * Returns the string identifier of the Resource
+     *
+     * @return string
+     */
+    public function getResourceId()
+    {
+        return 'Entity/Cv';
+    }
+
+
     /**
      * @return Contact
      */

@@ -2,12 +2,18 @@
 
 namespace Cv\Entity;
 
+use Core\Entity\DraftableEntityInterface;
+use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 
-interface CvInterface extends EntityInterface, IdentifiableEntityInterface, PermissionsAwareInterface
+interface CvInterface extends EntityInterface,
+                              IdentifiableEntityInterface,
+                              DraftableEntityInterface,
+                              PermissionsAwareInterface,
+                              ModificationDateAwareEntityInterface
 {
     
     /**

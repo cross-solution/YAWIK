@@ -5,7 +5,7 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-namespace CvTest\Controller;
+namespace CvFunctionalTest\Controller;
 
 use Core\Repository\RepositoryService;
 use CoreTestUtils\TestCase\FunctionalTestCase;

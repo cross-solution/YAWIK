@@ -33,20 +33,6 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
-    }
-
-    /**
      * Home site
      *
      */
@@ -104,5 +90,10 @@ class IndexController extends AbstractActionController
         $model = new ViewModel($return);
 
         return $model;
+    }
+
+    public function viewAction()
+    {
+
     }
 }

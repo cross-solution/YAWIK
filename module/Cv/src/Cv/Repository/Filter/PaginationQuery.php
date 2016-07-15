@@ -12,6 +12,7 @@ namespace Cv\Repository\Filter;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Auth\Entity\UserInterface;
+use Cv\Entity\Status;
 use Doctrine\ODM\MongoDB\Query\Builder as QueryBuilder;
 
 class PaginationQuery extends AbstractPaginationQuery
@@ -46,6 +47,10 @@ class PaginationQuery extends AbstractPaginationQuery
             );
         }
 
+        $queryBuilder/*->expr()*/->addOr($queryBuilder->expr()->field('permissions.view')->equals($this->user->getId()))
+                                 ->addOr($queryBuilder->expr()->field('status.name')->equals(Status::PUBLIC_TO_ALL))
+;
+        //$q = $queryBuilder->getQuery()->debug();
 
         return $queryBuilder;
 
