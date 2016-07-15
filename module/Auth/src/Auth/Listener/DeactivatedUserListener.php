@@ -91,7 +91,7 @@ class DeactivatedUserListener extends ExceptionStrategy
             $response = new Response();
             $event->setResponse($response);
         }
-        $response->setStatusCode(403);
+        $response->setStatusCode(Response::STATUS_CODE_403);
         
         $model = new ViewModel([
             'message' => /*@translate*/ 'This user account has been disabled. Please contact the system adminstrator.',

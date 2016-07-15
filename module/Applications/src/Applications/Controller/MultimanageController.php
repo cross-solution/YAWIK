@@ -144,4 +144,48 @@ class MultimanageController extends AbstractActionController
         }
         return new JsonModel(array('ok' => true, ));
     }
+    
+    /**
+     * Move given applications to Talent Pool
+     *
+     * @since 0.26
+     */
+    public function moveAction()
+    {
+        $ids = (array)$this->params()->fromPost('ids');
+        $moved = 0;
+        
+        if ($ids) {
+            $serviceManager = $this->serviceLocator;
+            $repositories = $serviceManager->get('repositories');
+            $applicationRepository = $repositories->get('Applications/Application');
+            $cvRepository = $repositories->get('Cv/Cv');
+            $user = $this->auth()->getUser();
+            
+            foreach ($ids as $id) {
+                $application = $applicationRepository->find($id);
+                
+                if (!$application) {
+                    continue;
+                }
+                
+                if (!$this->acl($application, 'move', 'test')) {
+                    continue;
+                }
+                
+                $cv = $cvRepository->createFromApplication($application, $user);
+                $repositories->store($cv);
+                $repositories->remove($application);
+                $moved++;
+            }
+        }
+        
+        $this->notification()->success(
+            sprintf(
+                /*@translate */ '%d Application(s) has been successfully moved to Talent Pool',
+                $moved
+        ));
+        
+        return $this->redirect()->toRoute('lang/applications');
+    }
 }

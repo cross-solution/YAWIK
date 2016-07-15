@@ -57,6 +57,7 @@ class Manager
             'path' => $path,
             'login' => $options->getUsername(),
             'password' => $options->getPassword(),
+            'wt' => 'phps'
         ];
 
         return new \SolrClient($options);

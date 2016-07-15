@@ -4,14 +4,15 @@
 # 
 # Translators:
 # BLU-IT, 2015
+# blu-IT, 2016
 # blu-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-23 10:10+0200\n"
-"PO-Revision-Date: 2016-06-23 08:31+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2016-07-05 09:14+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,7 @@ msgstr "elenco di tutti i curriculum"
 #: view/cv/index/index.phtml:17
 #, php-format
 msgid "%sSorry%s, there are not any resumes matching your search criteria."
-msgstr ""
+msgstr "%sScusi%s, non ci sono CV che corrispondono alle caratteristiche richieste."
 
 #: view/cv/index/index.ajax.phtml:4
 msgid "Id"
@@ -46,11 +47,11 @@ msgstr "Carriera"
 
 #: view/cv/index/index.ajax.phtml:7 view/cv/form/search.phtml:40
 msgid "Desired Work"
-msgstr ""
+msgstr "Lavoro desiderato"
 
 #: view/cv/index/index.ajax.phtml:8
 msgid "Desired Location"
-msgstr ""
+msgstr "Luogo desiderato"
 
 #: view/cv/index/index.ajax.phtml:19
 msgid "education"
@@ -91,7 +92,7 @@ msgstr "Educazione"
 #: src/Cv/Form/LanguageSkillCollectionFactory.php:17
 #: language/_annotated_strings.php:42
 msgid "Additional Language Skills"
-msgstr ""
+msgstr "Ulteriori competenze linguistiche"
 
 #: src/Cv/Form/EmploymentFieldset.php:16
 msgid "Employment"
@@ -99,7 +100,7 @@ msgstr "Occupazione"
 
 #: src/Cv/Form/SkillFieldset.php:29
 msgid "Languages"
-msgstr ""
+msgstr "Lingue"
 
 #: src/Cv/Form/LanguageSkillFieldset.php:16
 msgid "Language"
@@ -107,7 +108,7 @@ msgstr "Lingua"
 
 #: src/Cv/Form/PreferredJobFieldset.php:52
 msgid "Desired Employment"
-msgstr ""
+msgstr "Impiego desiderato"
 
 #: src/Cv/Form/EmploymentCollectionFactory.php:17
 #: language/_annotated_strings.php:305
@@ -183,7 +184,7 @@ msgstr "per favore inserisci una descrizione"
 
 #: language/_annotated_strings.php:45
 msgid "Please select a language and self-assess your level"
-msgstr ""
+msgstr "Scegli una lingua e auto-valuta il tuo livello"
 
 #: language/_annotated_strings.php:57
 msgid "Company Name"
@@ -201,7 +202,7 @@ msgstr "per favore descrivi la tua posizione"
 
 #: language/_annotated_strings.php:69
 msgid "Search for resumes"
-msgstr ""
+msgstr "Cerca CV"
 
 #: language/_annotated_strings.php:72
 msgid "Location"
@@ -219,7 +220,7 @@ msgstr "Altre lingue"
 msgid ""
 "Focus on the work experience that gives added weight to your application. "
 "Add separate entries for each course. Start from the most recent."
-msgstr ""
+msgstr "Concentratevi sulla esperienza di lavoro che fornisce un valore aggiuntivo alla propria applicazione. Aggiungete separatamente ciascun corso. Inizite con l'esperianza più recente."
 
 #: language/_annotated_strings.php:90
 msgid "which language are you speeking"
@@ -227,7 +228,7 @@ msgstr "che lingua parli"
 
 #: language/_annotated_strings.php:93
 msgid "Listening"
-msgstr ""
+msgstr "Ascolto"
 
 #: language/_annotated_strings.php:96 language/_annotated_strings.php:120
 msgid "Understanding Listening ..."
@@ -286,7 +287,7 @@ msgstr "livello"
 
 #: language/_annotated_strings.php:123
 msgid "Reading"
-msgstr ""
+msgstr "Lettura"
 
 #: language/_annotated_strings.php:126 language/_annotated_strings.php:150
 msgid "Understanding Reading ..."
@@ -336,7 +337,7 @@ msgstr "Riesco a capire con facilità praticamente tutte le forme di lingua scri
 
 #: language/_annotated_strings.php:153
 msgid "Spoken Interaction"
-msgstr ""
+msgstr "Interazione"
 
 #: language/_annotated_strings.php:156
 msgid "Spoken Interaction ..."
@@ -438,7 +439,7 @@ msgstr "Riesco a presentare una chiara descrizione scorrevole o argomentazioni i
 
 #: language/_annotated_strings.php:203
 msgid "Writing"
-msgstr ""
+msgstr "Scrittura"
 
 #: language/_annotated_strings.php:206
 msgid "Writing ..."
@@ -496,27 +497,27 @@ msgid ""
 "most recent.<br>If your work experience is limited:<ul><li>describe your "
 "education and training first</li><li>mention volunteering or (paid/unpaid) "
 "work placements which provide evidence of work experience.</li></ul>"
-msgstr ""
+msgstr "Concentratevi sulla esperienza di lavoro che fornisce un valore aggiuntivo alla propria applicazione. <br> Aggiungete separatamente ogni esperienza. Iniziate con l'esperienza più recente. <br> Se la vostra esperienza di lavoro è limitata: <ul><li> Descrivete la vostra istruzione e la formazione </li><li> menzionare volontariato o tirocini  (a pagamento / sensa pagamento) che forniscono la prova di esperienza di lavoro. </li></ul>"
 
 #: language/_annotated_strings.php:233
 msgid "Temporary"
-msgstr ""
+msgstr "Temporaneo"
 
 #: language/_annotated_strings.php:236
 msgid "Permanent"
-msgstr ""
+msgstr "Permanente"
 
 #: language/_annotated_strings.php:239
 msgid "Contracting"
-msgstr ""
+msgstr "Contraente"
 
 #: language/_annotated_strings.php:242
 msgid "Freelance"
-msgstr ""
+msgstr "Libero professionista"
 
 #: language/_annotated_strings.php:245
 msgid "Internship"
-msgstr ""
+msgstr "Tirocinio"
 
 #: language/_annotated_strings.php:248
 msgid "Yes"
@@ -532,11 +533,11 @@ msgstr "No"
 
 #: language/_annotated_strings.php:257
 msgid "desired type of work"
-msgstr ""
+msgstr "tipo di lavoro desiderato "
 
 #: language/_annotated_strings.php:260
 msgid "Do you want to work permanently or temporary?"
-msgstr ""
+msgstr "Vuoi lavorare in modo permanente o temporaneo?"
 
 #: language/_annotated_strings.php:266 language/_annotated_strings.php:293
 msgid "please select"
@@ -544,21 +545,21 @@ msgstr "Per favore scegli"
 
 #: language/_annotated_strings.php:269
 msgid "desired job position"
-msgstr ""
+msgstr "Posizione di lavoro desiderata"
 
 #: language/_annotated_strings.php:272
 msgid ""
 "Enter the title of your desired job. Eg. \"Software Developer\" or "
 "\"Customer Service Representative\""
-msgstr ""
+msgstr "Inserire il titolo del tuo lavoro desiderato. Per esempio. \"Sviluppatore Software\" o \"Rappresentante del servizio clienti\""
 
 #: language/_annotated_strings.php:278
 msgid "desired job location"
-msgstr ""
+msgstr "Luogo di lavoro desiderato"
 
 #: language/_annotated_strings.php:281
 msgid "Where do you want to work?"
-msgstr ""
+msgstr "Dove vuoi lavorare?"
 
 #: language/_annotated_strings.php:287
 msgid "Willingness to travel"
@@ -570,21 +571,21 @@ msgstr "Inserisci la tua disponibilità a viaggiare."
 
 #: language/_annotated_strings.php:296
 msgid "expected Salary"
-msgstr ""
+msgstr "Stipendio previsto"
 
 #: language/_annotated_strings.php:299
 msgid "What is your expected Salary?"
-msgstr ""
+msgstr "Qual è il vostro stipendio previsto?"
 
 #: language/_annotated_strings.php:308
 msgid ""
 "Where do you want to work tomorrow? This heading gives an immediate overview"
 " of your desired next job."
-msgstr ""
+msgstr "Dove vuoi lavorare domani? Questa rubrica fornisce una panoramica immediata del vostro prossimo lavoro desiderato."
 
 #: language/_annotated_strings.php:311
 msgid "Please select from list or enter your mother tongue."
-msgstr ""
+msgstr "Si prega di selezionare dalla lista o immettere la propria lingua materna."
 
 #: language/_annotated_strings.php:314
 msgid "Abkhazian"
@@ -1018,7 +1019,7 @@ msgstr "Qual è la tua lingua madre"
 msgid ""
 " Where do you want to work tomorrow. This heading gives an immediate "
 "overview of your desired next job."
-msgstr ""
+msgstr "Dove vuoi lavorare domani. Questa rubrica fornisce una panoramica immediata del vostro prossimo lavoro desiderato."
 
 #: language/_annotated_strings.php:647
 msgid "Overview"

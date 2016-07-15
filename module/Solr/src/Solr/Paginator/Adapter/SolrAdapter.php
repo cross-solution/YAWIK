@@ -108,7 +108,7 @@ class SolrAdapter implements AdapterInterface
      * @return  \SolrQueryResponse
      * @throws  \Exception
      */
-    protected function getResponse($offset=0,$itemCountPerPage=5)
+    protected function getResponse($offset=0,$itemCountPerPage=0)
     {
         $id = md5($offset.$itemCountPerPage);
         if(!isset($this->responses[$id])){

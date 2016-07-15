@@ -91,12 +91,12 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     public function testPreUpdate()
     {
         $this->target->preUpdate();
-        $this->assertEquals($this->target->getDateModified(), new \DateTime());
+        $this->assertInstanceOf("\DateTime",$this->target->getDateModified());
     }
 
     public function testPrePersist()
     {
         $this->target->prePersist();
-        $this->assertEquals($this->target->getDateCreated(), new \DateTime());
+        $this->assertInstanceOf("\DateTime",$this->target->getDateCreated());
     }
 }

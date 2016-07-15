@@ -1,26 +1,26 @@
 <?php
-//: ./view/applications/manage/index.recruiter.ajax.phtml:46
+//: ./view/applications/manage/index.recruiter.ajax.phtml:49
 translate('Applicant');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:48
+//: ./view/applications/manage/index.recruiter.ajax.phtml:51
 translate('Career');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:50
+//: ./view/applications/manage/index.recruiter.ajax.phtml:53
 translate('Attachments');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:52
+//: ./view/applications/manage/index.recruiter.ajax.phtml:55
 translate('Job');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:54
+//: ./view/applications/manage/index.recruiter.ajax.phtml:57
 translate('Status');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:56
+//: ./view/applications/manage/index.recruiter.ajax.phtml:59
 translate('Rating');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:58
+//: ./view/applications/manage/index.recruiter.ajax.phtml:61
 translate('Modified');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:60
+//: ./view/applications/manage/index.recruiter.ajax.phtml:63
 translate('Actions');
 
 //: ./view/applications/manage/index.applicant.ajax.phtml:14
@@ -215,6 +215,9 @@ translate('Invalid apply id');
 //: ./src/Applications/Controller/ManageController.php:147
 translate('Application was read by %s');
 
+//: ./src/Applications/Controller/ManageController.php:448
+translate('Application has been successfully moved to Talent Pool');
+
 //: ./src/Applications/Controller/ApplyController.php:185
 translate('Invalid apply id');
 
@@ -226,6 +229,9 @@ translate('Application has been send.');
 
 //: ./src/Applications/Controller/MultimanageController.php:138
 translate('Mail was sent to %s');
+
+//: ./src/Applications/Controller/MultimanageController.php:185
+translate('%d Application(s) has been successfully moved to Talent Pool');
 
 //: ./src/Applications/Controller/CommentController.php:107
 translate('Application was rated by %s');

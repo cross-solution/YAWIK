@@ -19,6 +19,7 @@ use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
+use Zend\Http\PhpEnvironment\Response;
 
 /**
  *
@@ -155,7 +156,7 @@ class IndexController extends AbstractActionController
         if ($ref) {
             $req = $this->params()->fromQuery('req', false);
             if ($req) {
-                $this->getResponse()->setStatusCode(403);
+                $this->getResponse()->setStatusCode(Response::STATUS_CODE_401);
                 $viewModel->setVariable('required', true);
             }
             $viewModel->setVariable('ref', $ref);
@@ -351,7 +352,7 @@ class IndexController extends AbstractActionController
                 ' via ' . $this->params()->fromPost('appKey')
             );
             
-            $this->getResponse()->setStatusCode(403);
+            $this->getResponse()->setStatusCode(Response::STATUS_CODE_401);
             return new JsonModel(
                 array(
                 'status' => 'failure',
