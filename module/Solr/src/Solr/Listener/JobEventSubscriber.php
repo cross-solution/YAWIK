@@ -118,7 +118,10 @@ class JobEventSubscriber implements EventSubscriber
             $document->addField('link', $job->getLink());
             $oldErrorReporting=error_reporting(0);
             $dom = new \DOMDocument();
-            $dom->loadHTML($job->getLink());
+            // @TODO: 
+            // we temporary put the html into the index. This will be removed later. For now it's the easiest way to get
+            // some searchable content
+            $dom->loadHTMLFile($job->getLink());
             error_reporting($oldErrorReporting);
             $document->addField('html',$dom->saveHTML());
         }
