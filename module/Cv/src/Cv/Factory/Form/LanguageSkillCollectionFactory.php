@@ -1,11 +1,11 @@
 <?php
 
-namespace Cv\Form;
+namespace Cv\Factory\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class EmploymentCollectionFactory implements FactoryInterface
+class LanguageSkillCollectionFactory implements FactoryInterface
 {
     
     /* (non-PHPdoc)
@@ -13,8 +13,8 @@ class EmploymentCollectionFactory implements FactoryInterface
     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $container = new \Core\Form\CollectionContainer('CvEmploymentForm', new \Cv\Entity\Employment());
-        $container->setLabel(/*@translate */ 'Employment history');
+        $container = new \Core\Form\CollectionContainer('Cv/LanguageSkillForm', new \Cv\Entity\Language());
+        $container->setLabel(/*@translate */ 'Additional Language Skills');
         
 		return $container;
     }

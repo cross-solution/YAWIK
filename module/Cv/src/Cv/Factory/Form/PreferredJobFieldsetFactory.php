@@ -6,9 +6,10 @@
  * Time: 0:36
  */
 
-namespace Cv\Form;
+namespace Cv\Factory\Form;
 
 
+use Cv\Form\PreferredJobFieldset;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 

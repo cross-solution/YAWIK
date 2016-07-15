@@ -7,9 +7,10 @@
  * @license       MIT
  */
 
-namespace Cv\Form;
+namespace Cv\Factory\Form;
 
 
+use Cv\Form\SearchFormFieldset;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
