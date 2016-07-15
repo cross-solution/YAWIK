@@ -32,6 +32,13 @@ class ResultConverter
     protected $filter;
 
     /**
+     * if set, the city name of the found location overwrites the general job location
+     *
+     * @var bool
+     */
+    protected $useGeoLocation=false;
+
+    /**
      * Convert result into entity
      *
      * @param   AbstractPaginationQuery $filter
@@ -52,8 +59,17 @@ class ResultConverter
                 $setter = 'set'.$name;
                 $value = $doc->$name;
                 $value = $this->validateDate($value);
-                if(method_exists($ob,$setter)){
-                    call_user_func(array($ob,$setter),$value);
+                if ($value instanceof \SolrObject) {
+                    if ($name == 'locations') {
+                        $this->useGeoLocation=true;
+                    }
+                    $this->handleMappedProperty($propertiesMap[$name],$ob,$value);
+                } elseif (method_exists($ob,$setter) && !$value instanceof \SolrObject){
+                    if ($name != 'location') {
+                        call_user_func(array($ob, $setter), $value);
+                    }elseif (!$this->useGeoLocation) {
+                        call_user_func(array($ob, $setter), $value);
+                    }
                 }elseif(isset($propertiesMap[$name])){
                     $this->handleMappedProperty($propertiesMap[$name],$ob,$value);
                 }
@@ -88,6 +104,9 @@ class ResultConverter
      */
     public function validateDate($value)
     {
+        if ($value instanceof \SolrObject){
+            return $value;
+        }
         $value = trim($value);
         $date = \DateTime::createFromFormat(Manager::SOLR_DATE_FORMAT,$value);
         $check = $date && ($date->format(Manager::SOLR_DATE_FORMAT) === $value);
