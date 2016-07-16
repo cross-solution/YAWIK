@@ -56,6 +56,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
 
         $query->setQuery($q);
         $query->addFilterQuery('entityName:job');
+        $query->addFilterQuery('isActive:1');
         $query->addField('*');
         
         if(isset($params['sort'])){
@@ -91,12 +92,11 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             }
 
             $query->addField('score');
-
-            $query->setFacet(true);
-            $query->addFacetField('regionList');
-            $query->addFacetDateField('datePublishStart');
-
         }
+
+        $query->setFacet(true);
+        $query->addFacetField('regionList');
+        $query->addFacetDateField('datePublishStart');
 
         return $query;
     }
