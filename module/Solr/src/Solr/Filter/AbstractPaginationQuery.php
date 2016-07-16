@@ -56,11 +56,11 @@ abstract class AbstractPaginationQuery implements FilterInterface
      * Filter query based on given value
      *
      * @param mixed $value
-     * @return \SolrQuery
+     * @return \SolrDisMaxQuery
      */
     public function filter($value)
     {
-        $query = new \SolrQuery();
+        $query = new \SolrDisMaxQuery();
         
         return $this->createQuery($value,$query);
     }
@@ -124,8 +124,8 @@ abstract class AbstractPaginationQuery implements FilterInterface
 
     /**
      * @param   array $params
-     * @param   \SolrQuery $query
-     * @return  \SolrQuery
+     * @param   \SolrDisMaxQuery $query
+     * @return  \SolrDisMaxQuery
      */
     abstract public function createQuery(array $params,$query);
 }

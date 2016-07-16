@@ -40,7 +40,7 @@ class SolrAdapter implements AdapterInterface
     protected $count;
 
     /**
-     * @var \SolrQuery
+     * @var \SolrDisMaxQuery
      */
     protected $query;
 
@@ -112,7 +112,8 @@ class SolrAdapter implements AdapterInterface
     {
         $id = md5($offset.$itemCountPerPage);
         if(!isset($this->responses[$id])){
-            $query = new \SolrQuery();
+            $query = new \SolrDisMaxQuery();
+            $query->useEDisMaxQueryParser();
             $query = $this->filter->filter($this->params,$query);
             $query->setStart($offset);
             $query->setRows($itemCountPerPage);
