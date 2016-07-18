@@ -78,7 +78,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateQuery()
     {
-        $this->markTestIncomplete('currently not working');
+        //$this->markTestIncomplete('currently not working');
         
         $query  = $this->getMockBuilder(\stdClass::class)
             ->setMethods([
@@ -89,7 +89,9 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
                 'addParam',
                 'setFacet',
                 'addFacetField',
-                'addFacetDateField'
+                'addFacetDateField',
+                'setHighlight',
+                'addHighlightField'
             ])
             ->getMock()
         ;
@@ -112,21 +114,11 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
             ->withConsecutive(['*:*'],['some'])
         ;
 
-        // expect to addSortField
-        $query
-            ->expects($this->exactly(2))
-            ->method('addSortField')
-            ->withConsecutive(
-                ['title',Manager::SORT_ASCENDING],
-                ['companyName',Manager::SORT_DESCENDING]
-            )
-        ;
-
         // expect to handle location
         $query
-            ->expects($this->exactly(3))
+            ->expects($this->exactly(5))
             ->method('addFilterQuery')
-            ->withConsecutive(['entityName:job'],['entityName:job'],[$this->stringContains('{!geofilt pt=1.2,2.1 sfield=point d=10 score="kilometers"}')])
+            ->withConsecutive(['entityName:job'],['isActive:1'],['entityName:job'],['isActive:1'],[$this->stringContains('{!geofilt pt=1.2,2.1 sfield=point d=10 score="kilometers"}')])
         ;
 
         $query->method('addField')->willReturn($query);
