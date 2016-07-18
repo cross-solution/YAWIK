@@ -78,18 +78,19 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateQuery()
     {
-        $this->markTestIncomplete('currently not working');
+        //$this->markTestIncomplete('currently not working');
         
         $query  = $this->getMockBuilder(\stdClass::class)
             ->setMethods([
                 'setQuery',
-                'addSortField',
                 'addFilterQuery',
                 'addField',
                 'addParam',
                 'setFacet',
                 'addFacetField',
-                'addFacetDateField'
+                'addFacetDateField',
+                'setHighlight',
+                'addHighlightField',
             ])
             ->getMock()
         ;
@@ -112,30 +113,29 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
             ->withConsecutive(['*:*'],['some'])
         ;
 
-        // expect to addSortField
-        $query
-            ->expects($this->exactly(2))
-            ->method('addSortField')
-            ->withConsecutive(
-                ['title',Manager::SORT_ASCENDING],
-                ['companyName',Manager::SORT_DESCENDING]
-            )
-        ;
-
         // expect to handle location
         $query
-            ->expects($this->exactly(3))
+            ->expects($this->exactly(5))
             ->method('addFilterQuery')
-            ->withConsecutive(['entityName:job'],['entityName:job'],[$this->stringContains('{!geofilt pt=1.2,2.1 sfield=point d=10 score="kilometers"}')])
+            ->withConsecutive(['entityName:job'],['isActive:1'],['entityName:job'],['isActive:1'],[$this->stringContains('{!geofilt pt=1.2,2.1 sfield=point d=10 score="kilometers"}')])
         ;
 
         $query->method('addField')->willReturn($query);
+
+        $query->expects($this->exactly(2))->method('setFacet')->with(true)->will($this->returnSelf());
+        $query->expects($this->exactly(2))->method('addFacetField')->with('regionList')->will($this->returnSelf());
+        $query->expects($this->exactly(2))->method('addFacetDateField')->with('datePublishStart')->will($this->returnSelf());
+
+        $query->expects($this->exactly(2))->method('setHighlight')->with(true)->will($this->returnSelf());
+        $query->expects($this->exactly(2))->method('addHighlightField')->with('title')->will($this->returnSelf());
 
         $params1 = ['search' => '','sort'=>'title'];
         $params2 = ['search' => 'some','sort'=>'-company','location'=>$location,'d'=>10];
         $target = $this->target;
         $target->createQuery($params1,$query);
-        $target->createQuery($params2,$query);
+        $actual = $target->createQuery($params2,$query);
+
+        $this->assertSame($query, $actual);
     }
 
     public function testConvertOrganizationName()

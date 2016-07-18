@@ -59,13 +59,6 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         $query->addFilterQuery('isActive:1');
         $query->addField('*');
         
-        if(isset($params['sort'])){
-            $sorts = $this->filterSort($params['sort']);
-            foreach($sorts as $field=>$order){
-#                $query->addSortField($field,$order); // sorting is not needed any more.
-            }
-        }
-
         if(isset($params['location'])){
             /* @var Location $location */
             $location = $params['location'];
