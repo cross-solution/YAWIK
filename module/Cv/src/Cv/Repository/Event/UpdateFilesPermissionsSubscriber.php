@@ -37,7 +37,7 @@ class UpdateFilesPermissionsSubscriber extends AbstractUpdateFilesPermissionsSub
     {
         $files = parent::getFiles($document);
 
-        if ($image = $document->getContact()->getImage()) {
+        if ($document->notEmpty('contact') && ($image = $document->getContact()->getImage())) {
             $files[] = $image;
         }
 
