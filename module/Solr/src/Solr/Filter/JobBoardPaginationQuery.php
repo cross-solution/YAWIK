@@ -58,7 +58,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         $query->addFilterQuery('entityName:job');
         $query->addFilterQuery('isActive:1');
         $query->addField('*');
-
+        
         if(isset($params['location'])){
             /* @var Location $location */
             $location = $params['location'];

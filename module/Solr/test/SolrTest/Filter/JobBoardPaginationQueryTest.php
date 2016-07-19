@@ -83,7 +83,6 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $query  = $this->getMockBuilder(\stdClass::class)
             ->setMethods([
                 'setQuery',
-                'addSortField',
                 'addFilterQuery',
                 'addField',
                 'addParam',
@@ -91,7 +90,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
                 'addFacetField',
                 'addFacetDateField',
                 'setHighlight',
-                'addHighlightField'
+                'addHighlightField',
             ])
             ->getMock()
         ;
@@ -123,11 +122,20 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
         $query->method('addField')->willReturn($query);
 
+        $query->expects($this->exactly(2))->method('setFacet')->with(true)->will($this->returnSelf());
+        $query->expects($this->exactly(2))->method('addFacetField')->with('regionList')->will($this->returnSelf());
+        $query->expects($this->exactly(2))->method('addFacetDateField')->with('datePublishStart')->will($this->returnSelf());
+
+        $query->expects($this->exactly(2))->method('setHighlight')->with(true)->will($this->returnSelf());
+        $query->expects($this->exactly(2))->method('addHighlightField')->with('title')->will($this->returnSelf());
+
         $params1 = ['search' => '','sort'=>'title'];
         $params2 = ['search' => 'some','sort'=>'-company','location'=>$location,'d'=>10];
         $target = $this->target;
         $target->createQuery($params1,$query);
-        $target->createQuery($params2,$query);
+        $actual = $target->createQuery($params2,$query);
+
+        $this->assertSame($query, $actual);
     }
 
     public function testConvertOrganizationName()
