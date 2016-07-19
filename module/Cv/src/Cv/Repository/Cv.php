@@ -2,6 +2,7 @@
 
 namespace Cv\Repository;
 
+use Core\Entity\PermissionsInterface;
 use Core\Repository\DraftableEntityAwareInterface;
 use Core\Repository\DraftableEntityAwareTrait;
 use Core\Repository\AbstractRepository;
@@ -42,15 +43,18 @@ class Cv extends AbstractRepository implements DraftableEntityAwareInterface
     public function createFromApplication(Application $application, UserInterface $user)
     {
         $cv = $this->create();
-        $contact = $application->getContact();
-        $contactImage = $contact->getImage();
-        
-        if ($contactImage)
-        {
-            $contactImage->setUser($user);
-        }
-        
-        $cv->setContact($contact);
+        $cv->setContact($application->getContact());
+
+        $assignedUser = $application->getJob()->getUser();
+        $cv->setUser($assignedUser);
+
+        $perms = $cv->getPermissions();
+
+        $perms->inherit($application->getPermissions());
+        // grant view permission to the user that issued this creation.
+        $perms->grant($user, PermissionsInterface::PERMISSION_VIEW);
+        // revoke change permission to the original applicant
+        $perms->revoke($application->getUser(), PermissionsInterface::PERMISSION_CHANGE);
         
         $applicationAttachments = $application->getAttachments();
         
@@ -67,8 +71,7 @@ class Cv extends AbstractRepository implements DraftableEntityAwareInterface
                 $cvAttachment = new \Cv\Entity\Attachment();
                 $cvAttachment->setName($applicationAttachment->getName());
                 $cvAttachment->setType($applicationAttachment->getType());
-                $cvAttachment->setPermissions($cvAttachment->getPermissions());
-                $cvAttachment->setUser($user);
+                $cvAttachment->setUser($assignedUser);
                 $cvAttachment->setFile($file);
                 $cvAttachment->setDateUploaded($applicationAttachment->getDateUploaded());
                 
