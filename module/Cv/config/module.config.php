@@ -23,6 +23,7 @@ return array(
                 'subscribers' => array(
                     '\Cv\Repository\Event\InjectContactListener',
                     '\Cv\Repository\Event\DeleteRemovedAttachmentsSubscriber',
+                    '\Cv\Repository\Event\UpdateFilesPermissionsSubscriber',
                 ),
             ),
         ),
