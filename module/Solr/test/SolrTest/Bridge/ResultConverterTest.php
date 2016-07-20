@@ -8,7 +8,11 @@
 
 namespace SolrTest\Bridge;
 
+use Core\Repository\RepositoryService;
+use Doctrine\ODM\MongoDB\Query\Builder;
+use Doctrine\ODM\MongoDB\Query\Query;
 use Jobs\Entity\Job;
+use Jobs\Entity\JobInterface;
 use Solr\Bridge\Manager;
 use Solr\Bridge\ResultConverter;
 use Solr\Filter\AbstractPaginationQuery;
@@ -73,6 +77,11 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
      */
     protected $response;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $sl;
+
     public function setUp()
     {
         $queryResponse = $this->getMockBuilder(\stdClass::class)
@@ -88,6 +97,7 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
             ->willReturn(true)
         ;
 
+
         $queryResponse
             ->method('getResponse')
             ->willReturn($response)
@@ -97,46 +107,16 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
         $sl = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock()
         ;
+
         $this->target = ResultConverter::factory($sl);
         $this->filter = $this->getMockBuilder(AbstractPaginationQuery::class)
             ->disableOriginalConstructor()
-            ->setMethods(['convertCustomField','getEntityClass','createQuery','getPropertiesMap'])
+            ->setMethods(['getProxyClass','createQuery','getRepositoryName'])
             ->getMock()
         ;
         $this->response = $response;
         $this->queryResponse = $queryResponse;
-    }
-
-    /**
-     * @dataProvider getTestValidateDate
-     */
-    public function testValidateDate($expectConverted,$value)
-    {
-        $target = $this->target;
-
-        $result = $target->validateDate($value);
-
-        if($expectConverted){
-            $this->assertInstanceOf(
-                \DateTime::class,
-                $result,
-                '::validateDate() should convert "'.$value.'" into DateTime object'
-            );
-        }else{
-            $this->assertEquals(
-                $value,
-                $result,
-                '::validateDate() should return original value if passed argument is not in date time format string'
-            );
-        }
-    }
-
-    public function getTestValidateDate()
-    {
-        return [
-            [true,'2016-06-28T08:48:37Z'],
-            [false,'test']
-        ];
+        $this->sl = $sl;
     }
 
     public function testConvert()
@@ -144,22 +124,58 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
         $target = $this->target;
         $response = $this->response;
         $filter = $this->filter;
+        $sl = $this->sl;
+
+        $repositories = $this->getMockBuilder(RepositoryService::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $repository = $this->getMockBuilder(\stdClass::class)
+            ->setMethods(['createQueryBuilder'])
+            ->getMock()
+        ;
+        $qb = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $query = $this->getMockBuilder(Query::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $document = $this->getMockBuilder(JobInterface::class)
+            ->getMock()
+        ;
+
+        $qb->method('hydrate')->willReturn($qb);
+        $qb->method('field')->willReturn($qb);
+        $qb->method('in')->willReturn($qb);
+        $qb->method('getQuery')->willReturn($query);
+        $query->method('execute')->willReturn([$document]);
+
+        $sl->method('get')
+            ->with('repositories')
+            ->willReturn($repositories)
+        ;
+        $repositories->expects($this->once())
+            ->method('get')
+            ->with('Some\Repository')
+            ->willReturn($repository)
+        ;
+        $repository->expects($this->once())
+            ->method('createQueryBuilder')
+            ->willReturn($qb)
+        ;
 
         $filter
             ->expects($this->once())
-            ->method('convertCustomField')
-            ->with($this->isInstanceOf(Job::class),'Some Company')
+            ->method('getProxyClass')
+            ->willReturn('Solr\Entity\SolrJob')
         ;
-        $filter
-            ->expects($this->once())
-            ->method('getPropertiesMap')
-            ->willReturn(['customField' => 'convertCustomField'])
+        $filter->expects($this->once())
+            ->method('getRepositoryName')
+            ->willReturn('Some\Repository')
         ;
-        $filter
-            ->expects($this->once())
-            ->method('getEntityClass')
-            ->willReturn('Jobs\Entity\Job')
-        ;
+
         $doc = new ResultDocument([
             'id' => 'some-id',
             'title' => 'some-title',
@@ -172,12 +188,13 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
             ->willReturnOnConsecutiveCalls($response,[$doc])
         ;
 
+        $document->method('getId')->willReturn('some-id');
+        $document->method('getTitle')->willReturn('some-title');
+
         $entities = $target->convert($filter,$this->queryResponse);
         $job = $entities[0];
 
         $this->assertEquals('some-id',$job->getId());
         $this->assertEquals('some-title',$job->getTitle());
-        $this->assertInstanceOf(\DateTime::class,$job->getDateCreated());
-        $this->assertEquals($doc->dateCreated,$job->getDateCreated()->format(Manager::SOLR_DATE_FORMAT));
     }
 }

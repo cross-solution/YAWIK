@@ -54,4 +54,33 @@ class UtilTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('0.1,0.2',Util::convertLocationCoordinates($location));
     }
+
+    /**
+     * @dataProvider getTestValidateDate
+     */
+    public function testValidateDate($expectConverted,$value)
+    {
+        $result = Util::validateDate($value);
+        if($expectConverted){
+            $this->assertInstanceOf(
+                \DateTime::class,
+                $result,
+                '::validateDate() should convert "'.$value.'" into DateTime object'
+            );
+        }else{
+            $this->assertEquals(
+                $value,
+                $result,
+                '::validateDate() should return original value if passed argument is not in date time format string'
+            );
+        }
+    }
+
+    public function getTestValidateDate()
+    {
+        return [
+            [true,'2016-06-28T08:48:37Z'],
+            [false,'test']
+        ];
+    }
 }

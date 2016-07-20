@@ -10,13 +10,13 @@
 namespace Solr\Filter;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Entity\Location;
 use Jobs\Entity\Job;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Util;
+use Solr\Entity\SolrJob;
 
 /**
  * Class JobBoardPaginationQuery
@@ -33,12 +33,6 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     protected $sortPropertiesMap = [
         'company' => 'companyName',
         'date'    => 'dateCreated',
-    ];
-
-    protected $propertiesMap = [
-        'organizationName' => 'convertOrganizationName',
-        'companyLogo'      => 'convertCompanyLogo',
-        'locations'        => 'convertLocations'
     ];
 
     /**
@@ -106,55 +100,13 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     /**
      * @inheritdoc
      */
-    public function getEntityClass()
+    public function getProxyClass()
     {
-        return Job::class;
+        return SolrJob::class;
     }
 
-    /**
-     * Convert organizationName result
-     * @param Job       $ob
-     * @param string    $value
-     */
-    public function convertOrganizationName($ob,$value)
+    public function getRepositoryName()
     {
-        if(!is_object($ob->getOrganization())){
-            $ob->setOrganization(new Organization());
-        }
-        $orgName = new OrganizationName($value);
-        $ob->getOrganization()->setOrganizationName($orgName);
-    }
-
-    /**
-     * Convert companyLogo result
-     * @param   Job     $ob
-     * @param   mixed   $value
-     */
-    public function convertCompanyLogo($ob,$value)
-    {
-        if(!is_object($ob->getOrganization())){
-            $ob->setOrganization(new Organization());
-        }
-        $exp    = explode('/',$value);
-        $id     = $exp[3];
-        $name   = isset($exp[4])?:null;
-        $image = new OrganizationImage();
-        $image->setId($id);
-        $image->setName($name);
-        $ob->getOrganization()->setImage($image);
-    }
-
-    /**
-     * Convert locations result
-     * @param   Job     $ob
-     * @param   mixed   $value
-     */
-    public function convertLocations($ob,$value)
-    {
-        $locations = [];
-        foreach($value->docs as $doc) {
-            $locations[] = $doc->city;
-        }
-        $ob->setLocation(implode(', ', array_unique($locations)));
+        return 'Jobs/Job';
     }
 }
