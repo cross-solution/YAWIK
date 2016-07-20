@@ -16,9 +16,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Cv\Entity\Attachment as CvAttachment;
 use Cv\Entity\Cv;
 use Cv\Repository\Cv as Repository;
+use Jobs\Entity\Job;
 
 /**
  * @author fedys
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.26
  */
 class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
@@ -59,13 +61,18 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $this->repository->expects($this->once())
             ->method('create');
-        
+
+        $job = new Job();
+        $user = new User();
+        $user->setId('jobUser');
+        $job->setUser($user);
+
         $application = $this->getMockBuilder(Application::class)
             ->setMethods(['getContact'])
             ->getMock();
         $application->method('getContact')
             ->willReturn(new ApplicationContact());
-        
+        $application->setJob($job);
         $cv = $this->repository->createFromApplication($application, $this->user);
         $this->assertSame($this->cv, $cv);
     }
@@ -74,20 +81,17 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
     {
         // expect proper setting of user to application contact
         $applicationContactImage = $this->getMockBuilder(ApplicationAttachment::class)
-            ->setMethods(['setUser'])
             ->getMock();
-        $applicationContactImage->expects($this->once())
-            ->method('setUser')
-            ->with($this->equalTo($this->user));
-        
+
         // expect calling of application contact getImage() method
         $applicationContact = $this->getMockBuilder(ApplicationContact::class)
-            ->setMethods(['getImage'])
             ->getMock();
-        $applicationContact->expects($this->atLeastOnce())
-            ->method('getImage')
-            ->willReturn($applicationContactImage);
-        
+
+        $job = new Job();
+        $user = new User();
+        $user->setId('jobUser');
+        $job->setUser($user);
+
         // expect calling of application getContact() method
         $application = $this->getMockBuilder(Application::class)
             ->setMethods(['getContact'])
@@ -95,7 +99,7 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
         $application->expects($this->once())
             ->method('getContact')
             ->willReturn($applicationContact);
-        
+        $application->setJob($job);
         // expect proper setting of contact to CV
         $this->cv->expects($this->once())
             ->method('setContact')
@@ -128,7 +132,12 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
         
         $this->repository->expects($this->once())
             ->method('create');
-        
+
+        $job = new Job();
+        $user = new User();
+        $user->setId('jobUser');
+        $job->setUser($user);
+
         $application = $this->getMockBuilder(Application::class)
             ->setMethods(['getContact', 'getAttachments'])
             ->getMock();
@@ -137,7 +146,7 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
         $application->expects($this->once())
             ->method('getAttachments')
             ->willReturn($applicationAttachments);
-        
+        $application->setJob($job);
         $cv = $this->repository->createFromApplication($application, $this->user);
         $this->assertSame($this->cv, $cv);
         $cvAttachments = $cv->getAttachments();
@@ -148,6 +157,6 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($applicationAttachment1Data['getName'], $cvAttachment1->getName());
         $this->assertSame($applicationAttachment1Data['getType'], $cvAttachment1->getType());
         $this->assertSame($applicationAttachment1Data['getDateUploaded'], $cvAttachment1->getDateUploaded());
-        $this->assertSame($this->user, $cvAttachment1->getUser());
+        $this->assertSame($user, $cvAttachment1->getUser());
     }
 }
