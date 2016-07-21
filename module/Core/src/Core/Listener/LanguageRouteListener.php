@@ -123,14 +123,16 @@ class LanguageRouteListener implements ListenerAggregateInterface
              *    does not match
              *    -> set translator locale to provided language
              */
-            
-            $lang = array_key_exists($match[1], $this->supportedLanguages)
-                  ? $match[1]
-                  : $this->detectLanguage($e);
-                
-            
+            if ($this->isSupportedLanguage($match[1])) {
+                $this->setLocale($e, $match[1]);
+                return;
+            }
+
+            $lang = $this->detectLanguage($e);
             $this->setLocale($e, $lang);
-            return;
+            $uri  = str_replace("$basePath/{$match[1]}", "$basePath/$lang", $e->getRequest()->getRequestUri());
+            return $this->redirect($e->getResponse(), $uri);
+
         }
         
         /* We have no language key in the URI
