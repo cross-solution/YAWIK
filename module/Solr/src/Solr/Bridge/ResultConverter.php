@@ -60,9 +60,11 @@ class ResultConverter
     {
         $this->filter = $filter;
         $response = $queryResponse->getResponse();
+        $facets = $response['facet_counts'];
         $class = $filter->getProxyClass();
         $entities = [];
         $solrObjects = [];
+
         foreach($response['response']['docs'] as $doc){
             $solrObjects[$doc->id] = $doc;
         }
@@ -76,6 +78,7 @@ class ResultConverter
         foreach($result as $document){
             $solrObject = $solrObjects[$document->getId()];
             $entity = new $class($document,$solrObject);
+            $entity->setFacets($facets);
             $entities[] = $entity;
         }
         return $entities;

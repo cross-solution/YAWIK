@@ -184,8 +184,8 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
         ]);
         $response
             ->method('offsetGet')
-            ->withConsecutive(['response'],['docs'])
-            ->willReturnOnConsecutiveCalls($response,[$doc])
+            ->withConsecutive(['facet_counts'],['response'],['docs'])
+            ->willReturnOnConsecutiveCalls([],$response,[$doc])
         ;
 
         $document->method('getId')->willReturn('some-id');

@@ -9,6 +9,7 @@
 
 namespace Solr\Entity;
 
+use Jobs\Entity\Feature\FacetsProviderInterface;
 use Jobs\Entity\Job;
 use Jobs\Entity\JobInterface;
 use Solr\Bridge\Util;
@@ -21,7 +22,7 @@ use Solr\Bridge\Util;
  * @package Solr\Entity
  *
  */
-class SolrJob extends Job
+class SolrJob extends Job implements FacetsProviderInterface
 {
     /**
      * @var JobInterface
@@ -33,14 +34,17 @@ class SolrJob extends Job
      */
     protected $result;
 
+    /**
+     * @var array
+     */
+    protected $facets;
+
     public function __construct(JobInterface $job,$solr)
     {
         $this->document = $job;
         $blacklist = ['getPublisher'];
         $this->importProperty($blacklist);
         $this->result = $solr;
-
-        // handle date manually
     }
 
     public function importProperty($blacklist)
@@ -58,19 +62,21 @@ class SolrJob extends Job
         }
     }
 
-    public function __get($property)
+    /**
+     * @param $facets
+     * @return $this
+     */
+    public function setFacets($facets)
     {
-        $result = $this->result;
-        if(property_exists($result,$property)){
-            $value = $result->$property;
+        $this->facets = $facets;
+        return $this;
+    }
 
-            // we convert value to date time first
-            // if the value is in date time format
-            $value = Util::validateDate($value);
-
-            return $value;
-        }else{
-            return call_user_func(array($this,'get'.$property));
-        }
+    /**
+     * @return array
+     */
+    public function getFacets()
+    {
+        return $this->facets;
     }
 }
