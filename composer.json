@@ -62,7 +62,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*",
-        "tototoshi/pecl-solr-hint": "dev-master"
+        "cbleek/pecl-solr-hint": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
