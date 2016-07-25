@@ -8,6 +8,7 @@ class PreferredJobForm extends SummaryForm
 {
     
     protected $baseFieldset = 'Cv/PreferredJobFieldset';
+    protected $displayMode = self::DISPLAY_SUMMARY;
 
     public function init()
     {

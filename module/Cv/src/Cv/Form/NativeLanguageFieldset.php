@@ -5,9 +5,14 @@ namespace Cv\Form;
 use Zend\Form\Fieldset;
 use Cv\Entity\NativeLanguage as NativeLanguageEntity;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Form\EmptySummaryAwareInterface;
+use Core\Form\EmptySummaryAwareTrait;
 
-class NativeLanguageFieldset extends Fieldset
+class NativeLanguageFieldset extends Fieldset implements EmptySummaryAwareInterface
 {
+    
+    use EmptySummaryAwareTrait;
+    
     /**
      * languages iso 639-1
      * @var array
@@ -146,5 +151,13 @@ class NativeLanguageFieldset extends Fieldset
                 ]
             ]
         );
+    }
+    
+    /**
+     * @see \Core\Form\EmptySummaryAwareTrait::getDefaultEmptySummaryNotice()
+     */
+    protected function getDefaultEmptySummaryNotice()
+    {
+        return /*@translate*/ 'Click here to enter your native language(s)';
     }
 }

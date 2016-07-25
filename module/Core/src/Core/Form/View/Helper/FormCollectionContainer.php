@@ -19,6 +19,11 @@ use Zend\Form\View\Helper\AbstractHelper;
  */
 class FormCollectionContainer extends AbstractHelper
 {
+    
+    /**
+     * @var bool
+     */
+    protected $displayRemoveButton = true;
 
     /**
      * Invoke as function.
@@ -56,7 +61,7 @@ class FormCollectionContainer extends AbstractHelper
         $formContainerHelper = $view->formContainer();
         $formsMarkup = '';
 		$formTemplateWrapper = '<div class="form-collection-container-form">
-            <button type="button" class="btn btn-sm btn-danger pull-right form-collection-container-remove-button">' . $translator->translate('Remove') . '</button>
+            '. ($this->displayRemoveButton ? '<button type="button" class="btn btn-sm btn-danger pull-right form-collection-container-remove-button">' . $translator->translate('Remove') . '</button>' : '') . '
             %s
         </div>';
         
@@ -81,7 +86,18 @@ class FormCollectionContainer extends AbstractHelper
             $container->getLabel(),
             $formsMarkup,
             $templateMarkup,
-            '<div class="form-collection-container-add-wrapper"><button type="button" class="btn btn-success form-collection-container-add-button">' . sprintf($translator->translate('Add %s'), $container->getLabel()) . '</button></div>'
+            '<div class="form-collection-container-add-wrapper"><button type="button" class="btn btn-success form-collection-container-add-button"><span class="yk-icon yk-icon-plus"></span> ' . sprintf($translator->translate('Add %s'), $container->getLabel()) . '</button></div>'
         );
     }
+    /**
+	 * @param boolean $displayRemoveButton
+	 * @return FormCollectionContainer
+     * @since 0.26
+	 */
+	public function setDisplayRemoveButton($displayRemoveButton)
+	{
+		$this->displayRemoveButton = (bool)$displayRemoveButton;
+		
+		return $this;
+	}
 }

@@ -194,7 +194,10 @@ return array(
     
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
-            //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
+            'cv/form/employment.view' => __DIR__ . '/../view/cv/form/employment.view.phtml',
+            'cv/form/employment.form' => __DIR__ . '/../view/cv/form/employment.form.phtml',
+            'cv/form/education.view' => __DIR__ . '/../view/cv/form/education.view.phtml',
+            'cv/form/education.form' => __DIR__ . '/../view/cv/form/education.form.phtml'
         ),
     
         // Where to look for view templates not mapped above
@@ -204,13 +207,17 @@ return array(
     ),
 
     'filters' => array(
-        'invokables' => [
-            //'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQuery',
-        ],
         'factories' => array(
             'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
         ),
     ),
+    
+    'input_filters' => [
+        'invokables' => [
+            'Cv/Employment' => 'Cv\Form\InputFilter\Employment',
+            'Cv/Education' => 'Cv\Form\InputFilter\Education'
+        ],
+    ],
 
     'paginator_manager' => array(
         'factories' => array(
