@@ -5,9 +5,14 @@ namespace Cv\Form;
 use Cv\Entity\PreferredJob;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Form\EmptySummaryAwareInterface;
+use Core\Form\EmptySummaryAwareTrait;
 
-class PreferredJobFieldset extends Fieldset
+class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterface
 {
+    
+    use EmptySummaryAwareTrait;
+    
     /**
      * Type of Application Options
      *
@@ -48,8 +53,7 @@ class PreferredJobFieldset extends Fieldset
     {
         $this->setName('preferredJob')
              ->setHydrator(new EntityHydrator())
-             ->setObject(new PreferredJob())
-             ->setLabel('Desired Employment');
+             ->setObject(new PreferredJob());
 
         $this->add(
             array(
@@ -132,5 +136,13 @@ class PreferredJobFieldset extends Fieldset
                 ),
             )
         );
+    }
+    
+    /**
+     * @see \Core\Form\EmptySummaryAwareTrait::getDefaultEmptySummaryNotice()
+     */
+    protected function getDefaultEmptySummaryNotice()
+    {
+        return /*@translate*/ 'Click here to enter your employment expectation';
     }
 }

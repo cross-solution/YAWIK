@@ -222,6 +222,11 @@ class CollectionContainer extends Container implements ViewHelperProviderInterfa
     protected function setupForm(CoreForm $form, $key)
     {
          $form->setAttribute('action', sprintf('?form=%s', $this->formatAction($key)))
-            ->setAttribute('data-entry-key', $key);
+            ->setAttribute('data-entry-key', $key)
+            ->setOption('control_buttons', [[
+                'class' => 'btn-danger form-collection-container-remove-button',
+                'icon' => 'delete-o',
+                'label' => /*@translate */ 'Remove',
+            ]]);
     }
 }

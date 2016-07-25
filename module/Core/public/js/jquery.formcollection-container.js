@@ -19,11 +19,11 @@
 			.fadeIn();
 		
 		// set key in case of valid insertion
-		$form.on('done.yk.core.forms', function(event, data) {
+		$form.on('yk:forms:success', function(event, data) {
             if ('valid' in data.data && data.data.valid) {
-            	var $newForm = $(data.data.content).find('form[data-entry-key]'),
-            		key = $newForm.attr('data-entry-key');
-            	$form.attr('action', $newForm.attr('action'))
+            	var key = $('<div>' + data.data.content + '</div>').find('*[data-entry-key]')
+            		.attr('data-entry-key');
+            	$form.attr('action', $form.attr('action').replace(new RegExp($collectionContainer.data('new-entry-key')), key))
             		.attr('data-entry-key', key)
             		.data('entry-key', key);
             }
@@ -82,8 +82,16 @@
 	};
 	
 	var initRemoveButtons = function (collection) {
-		collection.find('.form-collection-container-remove-button')
-			.on('click.formcollectionContainer', removeButtonClickListener);
+		var event = 'click.formcollectionContainer',
+			buttonSelector = '.form-collection-container-remove-button';
+		collection.find(buttonSelector)
+			.on(event, removeButtonClickListener);
+		collection.find('form').on('yk:forms:success', function () {
+			$(this).closest('.form-collection-container-form')
+				.find(buttonSelector)
+				.off(event)
+				.on(event, removeButtonClickListener);
+		})
 	};
 	
 	$.fn.formcollectionContainer = function( ) {

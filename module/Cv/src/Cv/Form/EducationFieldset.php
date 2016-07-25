@@ -5,16 +5,27 @@ namespace Cv\Form;
 use Zend\Form\Fieldset;
 use Cv\Entity\Education as EducationEntity;
 use Core\Entity\Hydrator\EntityHydrator;
+use Zend\InputFilter\InputFilterProviderInterface;
+use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ViewPartialProviderTrait;
 
-class EducationFieldset extends Fieldset
+class EducationFieldset extends Fieldset implements InputFilterProviderInterface, ViewPartialProviderInterface
 {
+    
+    use ViewPartialProviderTrait;
+    
+    /**
+     * View script for rendering
+     *
+     * @var string
+     */
+    protected $defaultPartial = 'cv/form/education';
     
     public function init()
     {
         $this->setName('education')
              ->setHydrator(new EntityHydrator())
-             ->setObject(new EducationEntity())
-             ->setLabel('Education');
+             ->setObject(new EducationEntity());
         
         $this->add(
             array(
@@ -108,5 +119,34 @@ class EducationFieldset extends Fieldset
             )
         );
                
+    }
+
+    /**
+     *
+     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     */
+    public function getInputFilterSpecification()
+    {
+        return [
+            'type' => 'Cv/Education'
+        ];
+    }
+
+    /**
+     *
+     * @see \Zend\Form\Form::setData()
+     */
+    public function populateValues($data)
+    {
+        if (isset($data['currentIndicator'])
+            && isset($data['endDate'])
+            && $data['currentIndicator']
+        ) {
+            // empty & hide endDate if currentIndicator is checked
+            $data['endDate'] = '';
+            $this->get('endDate')->setOption('rowClass', 'hidden');
+        }
+        
+        return parent::populateValues($data);
     }
 }
