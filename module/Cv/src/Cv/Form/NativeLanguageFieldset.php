@@ -30,7 +30,7 @@ class NativeLanguageFieldset extends Fieldset implements EmptySummaryAwareInterf
         'be' => /*@translate*/ 'Belarusian',
         'bn' => /*@translate*/ 'Bengali',
         'bs' => /*@translate*/ 'Bosnian',
-        'be' => /*@translate*/ 'Breton',
+        'br' => /*@translate*/ 'Breton',
         'bg' => /*@translate*/ 'Bulgarian',
         'my' => /*@translate*/ 'Burmese',
         'ca' => /*@translate*/ 'Catalan/Valencian',
