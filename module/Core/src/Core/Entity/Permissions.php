@@ -354,11 +354,10 @@ class Permissions implements PermissionsInterface
         return $this;
     }
     
-    public function isGranted($userOrId, $permission)
+    private function checkIsGranted($userId, $permission)
     {
-        $userId = $this->getUserId($userOrId);
-        $this->checkPermission($permission);
-        
+        if (!$userId) { return false; }
+
         if (self::PERMISSION_NONE == $permission) {
             return !in_array($userId, $this->view);
         }
@@ -369,6 +368,23 @@ class Permissions implements PermissionsInterface
 
         // Now there's only PERMISSION_VIEW left to check.
         return in_array($userId, $this->view);
+    }
+
+    public function isGranted($userOrId, $permission)
+    {
+        if ($userOrId instanceOf UserInterface) {
+            $id = $userOrId->getId();
+            $role = $userOrId->getRole();
+        } else {
+            $id = (string) $userOrId;
+            $role = null;
+        }
+
+        $this->checkPermission($permission);
+
+        return $this->checkIsGranted($id, $permission)
+               || ($this->isAssigned($role) && $this->checkIsGranted($role, $permission))
+               || ($this->isAssigned('all') && $this->checkIsGranted('all', $permission));
     }
     
     public function isAssigned($resource)
@@ -423,12 +439,6 @@ class Permissions implements PermissionsInterface
         return 1 == count($spec) ? key($spec) : null;
     }
     
-    protected function getUserId($userOrId)
-    {
-        return $userOrId instanceof UserInterface
-               ? $userOrId->getId()
-               : (string) $userOrId;
-    }
 
     /**
      * Gets/Generates the resource id.

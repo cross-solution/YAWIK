@@ -173,13 +173,45 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
         ) {
 
             $target->grant($resource, $perm);
-
             $this->assertEquals($expected[0], $target->isGranted($resource, PermissionsInterface::PERMISSION_VIEW));
             $this->assertEquals($expected[1], $target->isGranted($resource, PermissionsInterface::PERMISSION_CHANGE));
             $this->assertEquals($expected[2], $target->isGranted($resource, PermissionsInterface::PERMISSION_ALL));
             $this->assertEquals($expected[3], $target->isGranted($resource, PermissionsInterface::PERMISSION_NONE));
-
         }
+    }
+
+    public function provideRolePermissionsData()
+    {
+        return [
+            [ 'user', 'user', false, true ],
+            [ 'recruiter', 'user', false, false ],
+            [ 'all', 'irrelevant', false, true ],
+            [ 'user', 'user', true, true ],
+            [ 'recruiter', 'user', true, false],
+            [ 'all', 'irrelevant', true, true ],
+            [ 'testUser', null, true, true ],
+            [ 'anonymous', null, true, false ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideRolePermissionsData
+     */
+    public function testGrantPermissionsToRoles($grantRole, $testRole, $useUserEntity, $expect)
+    {
+        $target = new Permissions();
+        $target->grant($grantRole, PermissionsInterface::PERMISSION_VIEW);
+
+        if ($useUserEntity) {
+            $user = new User();
+            $user->setId('testUser');
+            $user->setRole($testRole);
+        } else {
+            $user = $testRole;
+        }
+
+        $this->assertEquals($expect, $target->isGranted($user, PermissionsInterface::PERMISSION_VIEW));
+
     }
 
     /**

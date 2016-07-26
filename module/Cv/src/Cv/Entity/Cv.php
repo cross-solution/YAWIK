@@ -370,6 +370,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
     
         $this->status = $status;
 
+        /* Update file permissions */
+        $perms = $this->getPermissions();
+        if ($status == StatusInterface::PUBLIC_TO_ALL) {
+            $perms->grant('all', PermissionsInterface::PERMISSION_VIEW);
+        } else {
+            $perms->revoke('all', PermissionsInterface::PERMISSION_VIEW);
+        }
+
         return $this;
     }
 
