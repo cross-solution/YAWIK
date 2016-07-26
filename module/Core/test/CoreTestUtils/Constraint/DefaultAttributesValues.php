@@ -68,6 +68,11 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
         $properties = $reflection->getDefaultProperties();
 
         foreach ($this->defaultAttributes as $prop => $value) {
+            if (is_int($prop)) {
+                $prop = $value;
+                $value = null;
+            }
+
             if (array_key_exists($prop, $properties)) {
                 try {
                     \PHPUnit_Framework_Assert::assertSame($value, $properties[$prop]);
