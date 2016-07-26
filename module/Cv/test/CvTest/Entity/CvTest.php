@@ -55,6 +55,16 @@ class CvTest extends \PHPUnit_Framework_TestCase
         $permissions->expects($this->once())->method('revoke');
         $permissions->expects($this->once())->method('grant');
 
+        $permissions2 = $this
+            ->getMockBuilder(Permissions::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['grant', 'revoke'])
+            ->getMock();
+
+        $permissions2->expects($this->once())->method('revoke')->with('all', Permissions::PERMISSION_VIEW);
+        $permissions2->expects($this->once())->method('grant')->with('all', Permissions::PERMISSION_VIEW);
+
+
         return [
             [ 'educations', $defaultOptions],
             [ 'employments',$defaultOptions],
@@ -72,6 +82,13 @@ class CvTest extends \PHPUnit_Framework_TestCase
             [ 'isDraft', [ 'value' => false, 'getter_method' => '*']],
             [ 'status', ['value' => new Status(), 'default' => new Status() ]],
             [ 'status', ['value' => Status::NONPUBLIC, 'expect' => '@' . Status::class]],
+            [ 'status', ['value' => Status::PUBLIC_TO_ALL, 'ignore_getter' => true,
+                         'pre' => function() use ($permissions2) { $this->target->setPermissions($permissions2); }]
+            ],
+            [ 'status', ['value' => Status::NONPUBLIC, 'ignore_getter' => true,
+                         'pre' => function() use ($permissions2) { $this->target->setPermissions($permissions2); },
+                         'post' => function() use ($permissions2) { $permissions2->__phpunit_verify(); }]
+            ],
             [ 'attachments', $defaultOptions],
             [ 'user', ['value' => new User(), 'ignore_getter' => true,
                         'pre' => function() use ($permissions) { $this->target->setUser(new User())->setPermissions($permissions); },
