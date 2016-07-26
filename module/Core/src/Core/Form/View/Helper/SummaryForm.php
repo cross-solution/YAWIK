@@ -170,13 +170,13 @@ class SummaryForm extends AbstractHelper
         }
 
         $dataAttributesMarkup = '';
-        $dataAttributes = array_filter($form->getAttributes(), function ($key) {
-            return preg_match('/^data-/', $key);
-        }, ARRAY_FILTER_USE_KEY);
         
-        foreach ($dataAttributes as $dataKey => $dataValue)
+        foreach ($form->getAttributes() as $dataKey => $dataValue)
         {
-            $dataAttributesMarkup .= sprintf(' %s="%s"', $dataKey, $dataValue);
+            if (preg_match('/^data-/', $dataKey))
+            {
+                $dataAttributesMarkup .= sprintf(' %s="%s"', $dataKey, $dataValue);
+            }
         }
         
         $markup = '<div class="panel panel-default" style="min-height: 100px;"' . $dataAttributesMarkup . '>
