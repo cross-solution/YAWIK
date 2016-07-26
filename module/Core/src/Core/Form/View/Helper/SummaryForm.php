@@ -163,20 +163,42 @@ class SummaryForm extends AbstractHelper
      */
     public function renderSummary(SummaryFormInterface $form)
     {
+        $form->prepare();
         $baseFieldset = $form->getBaseFieldset();
         if (!isset($baseFieldset)) {
             throw new \InvalidArgumentException('For the Form ' . get_class($form) . ' there is no Basefieldset');
         }
 
-        $markup = '<div class="panel panel-default" style="min-height: 100px;">
-                    <div class="panel-body">%s%s</div></div>';
+        $dataAttributesMarkup = '';
+        
+        foreach ($form->getAttributes() as $dataKey => $dataValue)
+        {
+            if (preg_match('/^data-/', $dataKey))
+            {
+                $dataAttributesMarkup .= sprintf(' %s="%s"', $dataKey, $dataValue);
+            }
+        }
+        
+        $markup = '<div class="panel panel-default" style="min-height: 100px;"' . $dataAttributesMarkup . '>
+                    <div class="panel-body"><div class="sf-controls">%s</div>%s</div></div>';
 
+        $view = $this->getView();
         $buttonMarkup = false === $form->getOption('editable')
                       ? ''
-                      : '<button type="button" class="pull-right btn btn-default btn-xs sf-edit">'
+                      : '<button type="button" class="btn btn-default btn-xs sf-edit">'
                         . '<span class="yk-icon yk-icon-edit"></span> '
-                        . $this->getView()->translate('Edit')
+                        . $view->translate('Edit')
                         . '</button>';
+        
+        if (($controlButtons = $form->getOption('control_buttons')) !== null)
+        {
+            $buttonMarkup .= PHP_EOL . implode(PHP_EOL, array_map(function (array $buttonSpec) use ($view) {
+                return '<button type="button" class="btn btn-default btn-xs' . (isset($buttonSpec['class']) ? ' ' . $buttonSpec['class'] : '') . '">'
+                    . (isset($buttonSpec['icon']) ? '<span class="yk-icon yk-icon-' . $buttonSpec['icon'] . '"></span> ' : '')
+                    . $view->translate($buttonSpec['label'])
+                    . '</button>';
+            }, $controlButtons));
+        }
 
         $elementMarkup = $this->renderSummaryElement($baseFieldset);
 
@@ -190,7 +212,7 @@ class SummaryForm extends AbstractHelper
      * @param ElementInterface $element
      * @return string
      */
-    protected function renderSummaryElement(ElementInterface $element)
+    public function renderSummaryElement(ElementInterface $element)
     {
         if ($element instanceof Hidden || false === $element->getOption('render_summary')) {
             return '';
@@ -244,6 +266,7 @@ class SummaryForm extends AbstractHelper
                       : $element->getValue();
 
         if ('' != $elementValue && $element instanceof \Zend\Form\Element\Select) {
+            $generalOptGroupName = '__general__';
             $options = $element->getValueOptions();
             $translator = $this->getTranslator();
             if (true == $element->getAttribute('multiple')) {
@@ -251,7 +274,7 @@ class SummaryForm extends AbstractHelper
                 $multiOptions = [];
                 foreach ($elementValue as $optionKey) {
                     if (isset($options[$optionKey])) {
-                        $multiOptions['__general__'][] = $translator->translate($options[$optionKey]);
+                        $multiOptions[$generalOptGroupName][] = $translator->translate($options[$optionKey]);
                         continue;
                     }
 
@@ -264,8 +287,9 @@ class SummaryForm extends AbstractHelper
                 }
 
                 $elementValue = [];
+                $numberOfmultiOptions = count($multiOptions);
                 foreach ($multiOptions as $optGroupLabel => $vals) {
-                    $elementValue[] = "<b>$optGroupLabel</b><br>" . join(', ', $vals);
+                    $elementValue[] = ($numberOfmultiOptions > 1 || $optGroupLabel !== $generalOptGroupName ? "<b>$optGroupLabel</b><br>" : '') . join(', ', $vals);
                 }
                 $elementValue = join('<br>', $elementValue) . '<br>';
 

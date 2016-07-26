@@ -1,0 +1,25 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author fedys
+ */
+
+$fieldset = $this->element;
+$summaryHelper = $this->summaryForm();
+?>
+<div class="row">
+	<div class="col-md-3 yk-label"><label><?=$this->translate('Date')?></label></div>
+	<div class="col-md-9">
+    	<?php if ($fieldset->get('currentIndicator')->getValue()):?>
+    		<?=sprintf($this->translate('Since %s'), $this->dateFormat($fieldset->get('startDate')->getValue(), \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE))?>
+    	<?php else:?>
+    		<?=sprintf($this->translate('%s to %s'), $this->dateFormat($fieldset->get('startDate')->getValue(), \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE), $this->dateFormat($fieldset->get('endDate')->getValue(), \IntlDateFormatter::SHORT, \IntlDateFormatter::NONE))?>
+    	<?php endif;?>
+	</div>
+</div>
+<?=$summaryHelper->renderSummaryElement($fieldset->get('organizationName'))?>
+<?=$summaryHelper->renderSummaryElement($fieldset->get('description'))?>

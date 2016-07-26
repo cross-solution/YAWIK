@@ -8,13 +8,12 @@
  * @author fedys
  */
 
-use \Core\Form\View\Helper\Form;
-
 $container = $this->element; /* @var $container \Core\Form\Container */
+$this->formCollectionContainer()->setDisplayRemoveButton(false);
 ?>
 <div class="row">
     <div class="col-md-8">
-        <?=$this->summaryForm($container->getForm('contact'), Form::LAYOUT_HORIZONTAL)?>
+        <?=$this->summaryForm($container->getForm('contact'))?>
     </div>
     <div class="col-md-4">
         <h3><?php echo $this->translate('Image') ?></h3>
@@ -22,7 +21,8 @@ $container = $this->element; /* @var $container \Core\Form\Container */
     </div>
 </div>
 <div>
-    <?php echo $this->form($container->getForm('preferredJob'))?>
+    <h3><?=$this->translate('Desired Employment')?></h3>
+    <?=$this->summaryForm($container->getForm('preferredJob'))?>
 </div>
 <div>
      <?=$this->formCollectionContainer($container->getForm('employments'))?>
@@ -32,7 +32,8 @@ $container = $this->element; /* @var $container \Core\Form\Container */
 </div>
 
 <div>
-    <?=$this->form($container->getForm('nativeLanguage'))?>
+    <h3><?=$this->translate('Native Language')?></h3>
+    <?=$this->summaryForm($container->getForm('nativeLanguage'))?>
 </div>
 
 <div>
@@ -60,6 +61,13 @@ $container = $this->element; /* @var $container \Core\Form\Container */
         templateSelection: formatState,
         theme:"bootstrap",
         width: 'resolve'
+    });
+    $(document).on('click', 'input[name$="[currentIndicator]"]', function () {
+        var $checkbox = $(this),
+        	$form = $checkbox.closest('form'),
+        	$endDateFormGroup = $form.find('input[name$="[endDate]"]')
+        		.closest('.form-group');
+        $endDateFormGroup.toggleClass('hidden', $checkbox.prop('checked'));
     });
 
 </script>

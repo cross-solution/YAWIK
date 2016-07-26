@@ -11,6 +11,7 @@ namespace Auth\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\EmptySummaryAwareInterface;
+use Core\Form\EmptySummaryAwareTrait;
 use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -25,18 +26,14 @@ class UserInfoFieldset extends Fieldset implements
     InputFilterProviderInterface
 {
 
+    use EmptySummaryAwareTrait;
+    
     /**
      * View script for rendering
      *
      * @var string
      */
     protected $viewPartial = 'form/auth/contact';
-    /**
-     * The empty summary notice.
-     *
-     * @var string
-     */
-    protected $emptySummaryNotice = /*@translate*/ 'Click here to enter contact informations.';
 
     /**
      * @param String $partial
@@ -237,37 +234,10 @@ class UserInfoFieldset extends Fieldset implements
     }
 
     /**
-     * If all elements have empty values, the form will be displayed collapsed with the EmptySummaryNotice
-     *
-     * @return bool
-     */
-    public function isSummaryEmpty()
-    {
-        foreach ($this as $element) { /* @var $element \Zend\Form\ElementInterface */
-            if ('' != $element->getValue()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @param $message
-     *
-     * @return $this
-     */
-    public function setEmptySummaryNotice($message)
-    {
-        $this->emptySummaryNotice = $message;
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getEmptySummaryNotice()
+    protected function getDefaultEmptySummaryNotice()
     {
-        return $this->emptySummaryNotice;
+        return /*@translate*/ 'Click here to enter contact informations.';
     }
-
 }
