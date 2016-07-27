@@ -197,7 +197,13 @@ trait TestSetterGetterTrait
 
         /* Value could be 'null', so we need to use array_key_exists here. */
         if (!array_key_exists('value', $spec)) {
-            throw new \PHPUnit_Framework_Exception($errTmpl . ': Specification must contain the key "value".');
+            if (!array_key_exists('default', $spec)) {
+                throw new \PHPUnit_Framework_Exception($errTmpl . ': Specification must contain the key "value" or "default".');
+            }
+
+            $spec['value'] = null;
+            $spec['ignore_getter'] = true;
+            $spec['ignore_setter'] = true;
         }
 
         if (isset($spec['target'])) {
