@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Cv\Form;
+namespace Cv\Factory\Form;
 
 /**
  * @author fedys

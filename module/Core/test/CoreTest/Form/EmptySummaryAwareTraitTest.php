@@ -9,58 +9,61 @@
 namespace CoreTest\Form;
 
 use Core\Form\EmptySummaryAwareTrait;
+use CoreTestUtils\TestCase\SetupTargetTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
- *
+ * @covers \Core\Form\EmptySummaryAwareTrait
  * @author fedys
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.26
  */
 class EmptySummaryAwareTraitTest extends \PHPUnit_Framework_TestCase
 {
+    use SetupTargetTrait, TestSetterGetterTrait;
 
-    public function testSetEmptySummaryNotice()
+    private $target = [
+        EmptySummaryAwareTraitMock::class,
+        '@testSetterAndGetter|#3' => EmptySummaryAwareTraitWithDefaultNoticeMock::class,
+    ];
+
+    public function propertiesProvider()
     {
-        $expected = 'notice';
-        $summaryAware = $this->getMockBuilder(EmptySummaryAwareTrait::class)
-            ->setMethods(['getDefaultEmptySummaryNotice'])
-            ->getMockForTrait();
-        $summaryAware->expects($this->never())
-            ->method('getDefaultEmptySummaryNotice');
-        
-        $this->assertSame($summaryAware, $summaryAware->setEmptySummaryNotice($expected));
-        $this->assertSame($expected, $summaryAware->getEmptySummaryNotice());
+        return  [
+            [ 'summaryEmpty', [
+                'ignore_setter' => true,
+                'pre' => function() { $this->target->add(['name' => 'test', 'type' => 'text', 'attributes' => ['value'=>'test']]); },
+                'value' => false,
+                'getter_method' => 'is*'
+            ]],
+            [ 'summaryEmpty', [
+                'ignore_setter' => true,
+                'pre' => function() { $this->target->add(['name' => 'test', 'type' => 'text']); },
+                'value' => true,
+                'getter_method' => 'is*',
+            ]],
+            [ 'emptySummaryNotice', [
+                'value' => 'notice',
+                'default' => null
+            ]],
+            [ 'emptySummaryNotice', [
+                'value' => 'notice',
+                'default' => 'defaultNotice',
+            ]],
+
+        ];
     }
 
-    public function testGetEmptySummaryNotice()
-    {
-        $expected = '';
-        $summaryAware = $this->getMockBuilder(EmptySummaryAwareTrait::class)
-            ->setMethods(['getDefaultEmptySummaryNotice'])
-            ->getMockForTrait();
-        $summaryAware->expects($this->once())
-            ->method('getDefaultEmptySummaryNotice')
-            ->willReturn($expected);
-        
-        $this->assertSame($expected, $summaryAware->getEmptySummaryNotice());
-        $this->assertSame($expected, $summaryAware->getEmptySummaryNotice());
-    }
-
-    public function testIsSummaryEmpty()
-    {
-        $summaryAware = new EmptySummaryAwareTraitMock();
-        $summaryAware->add([
-            'name' => 'text',
-            'type' => 'text'
-        ]);
-        
-        $this->assertTrue($summaryAware->isSummaryEmpty());
-        $summaryAware->populateValues(['text' => 'value']);
-        $this->assertFalse($summaryAware->isSummaryEmpty());
-    }
 }
 
 class EmptySummaryAwareTraitMock extends \Zend\Form\Fieldset
 {
     
+    use EmptySummaryAwareTrait;
+}
+class EmptySummaryAwareTraitWithDefaultNoticeMock extends \Zend\Form\Fieldset
+{
+
+    private $defaultEmptySummaryNotice = 'defaultNotice';
     use EmptySummaryAwareTrait;
 }

@@ -189,11 +189,23 @@ trait SetupTargetTrait
          *
          */
 
+
         if (is_string($spec)) {
             $mock = $this->$spec();
 
         } else {
 
+
+            $call = function($spec) {
+                $cb   = [$this, $spec[0]];
+                $args = isset($spec[1]) ? (array) $spec[1] : false;
+
+                if ($args) {
+                    return call_user_func_array($cb, $args);
+                }
+
+                return $this->$cb();
+            };
 
             $methods = [];
             $methodMocks  = [];
@@ -204,13 +216,22 @@ trait SetupTargetTrait
                     continue;
                 }
 
+                if (is_string($methodSpec)) {
+                    $methodSpec = $this->$methodSpec();
+                }
+
                 $methods[] = $method;
                 $methodMocks[$method] = [
                     'expects' => isset($methodSpec['count']) ? $this->exactly($methodSpec['count']) : $this->any(),
-                    'with' => isset($methodSpec['with']) ? $methodSpec['with'] : null,
-                    'return' => isset($methodSpec['return'])
-                            ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
-                            : null
+                    'with'    => isset($methodSpec['@with'])
+                                 ? $call($methodSpec['@with'])
+                                 : (isset($methodSpec['with']) ? $methodSpec['with'] : null),
+                    'return'  => isset($methodSpec['@return'])
+                                 ? $call($methodSpec['@return'])
+                                 : (isset($methodSpec['return'])
+                                    ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
+                                    : null
+                                   ),
                 ];
             }
 

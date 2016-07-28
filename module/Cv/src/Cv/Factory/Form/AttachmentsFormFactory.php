@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Cv\Form;
+namespace Cv\Factory\Form;
 
 use Core\Form\FileUploadFactory;
 use Core\Form\Form;

@@ -12,6 +12,8 @@ class NativeLanguageFieldset extends Fieldset implements EmptySummaryAwareInterf
 {
     
     use EmptySummaryAwareTrait;
+
+    private $defaultEmptySummaryNotice = /*@translate*/ 'Click here to enter your native language(s)';
     
     /**
      * languages iso 639-1
@@ -30,7 +32,7 @@ class NativeLanguageFieldset extends Fieldset implements EmptySummaryAwareInterf
         'be' => /*@translate*/ 'Belarusian',
         'bn' => /*@translate*/ 'Bengali',
         'bs' => /*@translate*/ 'Bosnian',
-        'be' => /*@translate*/ 'Breton',
+        'br' => /*@translate*/ 'Breton',
         'bg' => /*@translate*/ 'Bulgarian',
         'my' => /*@translate*/ 'Burmese',
         'ca' => /*@translate*/ 'Catalan/Valencian',
@@ -151,13 +153,5 @@ class NativeLanguageFieldset extends Fieldset implements EmptySummaryAwareInterf
                 ]
             ]
         );
-    }
-    
-    /**
-     * @see \Core\Form\EmptySummaryAwareTrait::getDefaultEmptySummaryNotice()
-     */
-    protected function getDefaultEmptySummaryNotice()
-    {
-        return /*@translate*/ 'Click here to enter your native language(s)';
     }
 }

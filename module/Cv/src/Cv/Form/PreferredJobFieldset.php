@@ -12,6 +12,8 @@ class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterfac
 {
     
     use EmptySummaryAwareTrait;
+
+    private $defaultEmptySummaryNotice =  /*@translate*/ 'Click here to enter your employment expectation';
     
     /**
      * Type of Application Options
@@ -136,13 +138,5 @@ class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterfac
                 ),
             )
         );
-    }
-    
-    /**
-     * @see \Core\Form\EmptySummaryAwareTrait::getDefaultEmptySummaryNotice()
-     */
-    protected function getDefaultEmptySummaryNotice()
-    {
-        return /*@translate*/ 'Click here to enter your employment expectation';
     }
 }
