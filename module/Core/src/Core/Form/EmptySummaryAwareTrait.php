@@ -9,7 +9,7 @@
 namespace Core\Form;
 
 /**
- *
+ * @property string $defaultEmptySummaryNotice
  * @author fedys
  * @since 0.26
  */
@@ -50,18 +50,10 @@ trait EmptySummaryAwareTrait
      */
     public function getEmptySummaryNotice()
     {
-        if (! isset($this->emptySummaryNotice)) {
-            $this->emptySummaryNotice = $this->getDefaultEmptySummaryNotice();
+        if (! isset($this->emptySummaryNotice) && property_exists($this, 'defaultEmptySummaryNotice')) {
+            $this->emptySummaryNotice = $this->defaultEmptySummaryNotice;
         }
         
         return $this->emptySummaryNotice;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getDefaultEmptySummaryNotice()
-    {
-        return '';
     }
 }
