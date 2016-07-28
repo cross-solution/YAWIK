@@ -11,8 +11,11 @@
 namespace CvTest\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Form\EmptySummaryAwareInterface;
+use Core\Form\EmptySummaryAwareTrait;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Cv\Entity\NativeLanguage;
 use Cv\Form\NativeLanguageFieldset;
 use Zend\Form\Fieldset;
@@ -28,7 +31,7 @@ use Zend\Form\Fieldset;
 class NativeLanguageFieldsetTest extends \PHPUnit_Framework_TestCase
 {
 
-    use TestInheritanceTrait, TestDefaultAttributesTrait;
+    use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 
     public static $languagesOptions = [
         'ab' =>  'Abkhazian',
@@ -158,12 +161,15 @@ class NativeLanguageFieldsetTest extends \PHPUnit_Framework_TestCase
         ],
     ];
 
-    private $inheritance = [ Fieldset::class ];
+    private $inheritance = [ Fieldset::class, EmptySummaryAwareInterface::class ];
+
+    private $traits = [ EmptySummaryAwareTrait::class ];
 
     private function getDefaultAttributes()
     {
         return [
-            'languagesOptions' => self::$languagesOptions
+            'languagesOptions' => self::$languagesOptions,
+            'defaultEmptySummaryNotice' => 'Click here to enter your native language(s)',
         ];
     }
 

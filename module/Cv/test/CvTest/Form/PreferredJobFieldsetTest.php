@@ -45,7 +45,6 @@ class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
                 'setName' => ['with' => 'preferredJob', 'count' => 1, 'return' => '__self__'],
                 'setHydrator' => ['@with' => ['isInstanceOf', EntityHydrator::class ], 'count' => 1, 'return' => '__self__'],
                 'setObject' => ['@with' => ['isInstanceOf', PreferredJob::class ], 'count' => 1, 'return' => '__self__'],
-                'setLabel' => ['with' => 'Desired Employment', 'count' => 1]
             ],
             'args' => false,
         ],
@@ -67,7 +66,8 @@ class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
             "yes"=> "Yes",
             "conditioned" =>  "conditioned",
             "no"=> "No"
-        ]
+        ],
+        'defaultEmptySummaryNotice' =>  'Click here to enter your employment expectation',
     ];
 
 

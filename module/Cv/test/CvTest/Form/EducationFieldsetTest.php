@@ -11,10 +11,16 @@
 namespace CvTest\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ViewPartialProviderTrait;
+use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Cv\Entity\Education;
 use Cv\Form\EducationFieldset;
+use Zend\Form\Element;
 use Zend\Form\Fieldset;
+use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Tests for \Cv\Form\EducationFieldset
@@ -27,7 +33,7 @@ use Zend\Form\Fieldset;
 class EducationFieldsetTest extends \PHPUnit_Framework_TestCase
 {
 
-    use TestInheritanceTrait;
+    use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 
     /**
      *
@@ -42,13 +48,21 @@ class EducationFieldsetTest extends \PHPUnit_Framework_TestCase
                 'setName' => ['with' => 'education', 'count' => 1, 'return' => '__self__'],
                 'setHydrator' => ['@with' => ['isInstanceOf', EntityHydrator::class ], 'count' => 1, 'return' => '__self__'],
                 'setObject' => ['@with' => ['isInstanceOf', Education::class ], 'count' => 1, 'return' => '__self__'],
-                'setLabel' => ['with' => 'Education', 'count' => 1]
             ],
             'args' => false,
         ],
+        '@testPopulateValues' => [
+            'mock' => [ 'get' ],
+        ],
     ];
 
-    private $inheritance = [ Fieldset::class ];
+    private $inheritance = [ Fieldset::class, InputFilterProviderInterface::class, ViewPartialProviderInterface::class ];
+
+    private $traits = [ ViewPartialProviderTrait::class ];
+
+    private $attributes = [
+        'defaultPartial' => 'cv/form/education',
+    ];
 
     public function testInitializesItself()
     {
@@ -138,4 +152,58 @@ class EducationFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $this->target->init();
     }
+
+    public function testGetInputFilterSpecification()
+    {
+        $this->assertEquals(['type' => 'Cv/Education'], $this->target->getInputFilterSpecification());
+    }
+
+
+    public function populateValuesDataProvider()
+    {
+        return [
+            [ [ ], false ],
+            [ ['currentIndicator'=>true], false ],
+            [ ['currentIndicator' => false, 'endDate' => 'endDate' ], false ],
+            [ ['endDate' => 'endDate'], false ],
+            [ ['currentIndicator' => true, 'endDate' => 'endDate'], true ],
+        ];
+    }
+
+    /**
+     * @dataProvider populateValuesDataProvider
+     *
+     * @param $data
+     * @param $expectGet
+     */
+    public function testPopulateValues($data, $expectGet)
+    {
+
+        if ($expectGet) {
+            $element = $this
+                ->getMockBuilder(Element::class)
+                ->disableOriginalConstructor()
+                ->setMethods(['setOption'])
+                ->getMock()
+            ;
+
+            $element
+                ->expects($this->once())
+                ->method('setOption')
+                ->with('rowClass', 'hidden')
+            ;
+
+            $this->target
+                ->expects($this->once())
+                ->method('get')
+                ->with('endDate')
+                ->willReturn($element)
+            ;
+        } else {
+            $this->target->expects($this->never())->method('get');
+        }
+
+        $this->target->populateValues($data);
+    }
+
 }
