@@ -20,6 +20,12 @@ use Zend\Validator\NotEmpty;
 use Zend\Validator\EmailAddress;
 use Zend\Validator\File;
 
+/**
+ *
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo   write test
+ */
 class UserInfoFieldset extends Fieldset implements
     ViewPartialProviderInterface,
     EmptySummaryAwareInterface,
@@ -27,6 +33,8 @@ class UserInfoFieldset extends Fieldset implements
 {
 
     use EmptySummaryAwareTrait;
+
+    private $defaultEmptySummaryNotice = /*@translate*/ 'Click here to enter contact informations.';
     
     /**
      * View script for rendering
@@ -231,13 +239,5 @@ class UserInfoFieldset extends Fieldset implements
                 ),
             ),
         );
-    }
-
-    /**
-     * @return string
-     */
-    protected function getDefaultEmptySummaryNotice()
-    {
-        return /*@translate*/ 'Click here to enter contact informations.';
     }
 }
