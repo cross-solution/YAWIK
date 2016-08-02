@@ -13,14 +13,11 @@ namespace Core;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
-use Core\Listener\LogListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
-use Core\Listener\ErrorLoggerListener;
 use Core\Listener\ErrorHandlerListener;
-use Zend\Log\Formatter\ErrorHandler;
 use Core\Repository\DoctrineMongoODM\PersistenceListener;
 use Core\Listener\NotificationAjaxHandler;
 use Core\Listener\Events\NotificationEvent;
@@ -84,9 +81,7 @@ class Module implements ConsoleBannerProviderInterface
             $errorHandlerListener->attach($eventManager);
 
             /* @var \Core\Options\ModuleOptions $options */
-            $options = $sm->get('Core/Options');
-            $languageRouteListener = new LanguageRouteListener();
-            $languageRouteListener->setSupportedLanguages($options->getSupportedLanguages());
+            $languageRouteListener = new LanguageRouteListener($sm->get('Core/Locale'));
             $languageRouteListener->attach($eventManager);
         
         

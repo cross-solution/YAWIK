@@ -14,20 +14,19 @@ use Auth\AuthenticationService;
 use Auth\Entity\UserInterface;
 use Core\Listener\LanguageRouteListener;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
-use Locale;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\Http\RouteMatch;
-use Zend\Mvc\Router\RouteStackInterface;
 use Zend\Mvc\Router\SimpleRouteStack;
 use Zend\ServiceManager\ServiceManager;
+use Core\I18n\Locale as LocaleService;
 
 /**
  * Tests the helper methods of \Core\Listener\LanguageRouteListener
- * 
+ *
  * @covers \Core\Listener\LanguageRouteListener
  * @coversDefaultClass \Core\Listener\LanguageRouteListener
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -39,19 +38,10 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
 {
     use ServiceManagerMockTrait;
 
-    public function testIsSupportedLanguage()
-    {
-        $target = new LrlMock();
-        $target->setSupportedLanguages(['xx' => 'xx_XX']);
-
-        $this->assertTrue($target->isSupportedLanguage('xx'));
-        $this->assertFalse($target->isSupportedLanguage('yy'));
-    }
-
     public function testRedirect()
     {
         $response = new Response();
-        $target = new LrlMock();
+        $target = new LrlMock(new LocaleService([]));
         $actual = $target->redirect($response, '/some/uri');
 
         $this->assertSame($response, $actual);
@@ -83,8 +73,7 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
         $routeMatch->expects($this->once())->method('getParam')->with('lang')->willReturn(null);
         $routeMatch->expects($this->once())->method('setParam')->with('lang', 'xx');
 
-        $target = new LrlMock();
-        $target->setSupportedLanguages(['xx' => 'xx_XX']);
+        $target = new LrlMock(new LocaleService(['xx' => 'xx_XX']));
         $target->setLocale($event, 'xx');
 
     }
@@ -119,7 +108,8 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
         if ($hasIdentity) {
             $user = $this->getMockBuilder(UserInterface::class)->getMockForAbstractClass();
             $settings = new \stdClass();
-            $settings->language = $lang;
+            $settings->localization = new \stdClass();
+            $settings->localization->language = $lang;
             $auth->expects($this->once())->method('getUser')->willReturn($user);
             $user->expects($this->once())->method('getSettings')->willReturn($settings);
         } else {
@@ -129,15 +119,18 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
         $auth->expects($this->once())->method('hasIdentity')->willReturn($hasIdentity);
         $event->expects($this->once())->method('getApplication')->willReturn($application);
         $application->expects($this->once())->method('getServiceManager')->willReturn($services);
-
+        $request = new Request();
+        
         if (!$lang) {
-            $request = new Request();
             if ($hasHeaders) {
                 $request->getHeaders()->addHeaderline('Accept-Language', 'xx');
             }
 
             $event->expects($this->once())->method('getRequest')->willReturn($request);
+        } else {
+            $event->method('getRequest')->willReturn($request);
         }
+        
         return $event;
 
     }
@@ -145,7 +138,7 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
     public function testDetectLanguageWithLoggedInUserAndLanguageSet()
     {
         $event = $this->getEventMock(true, 'uu');
-        $target = new LrlMock();
+        $target = new LrlMock(new LocaleService([]));
 
         $actual = $target->detectLanguage($event);
 
@@ -157,8 +150,7 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
     public function testDetectLanguageWithLoggedInUserAndNoLanguageSet()
     {
         $event = $this->getEventMock(true, null, false);
-        $target = new LrlMock();
-        $target->setSupportedLanguages(['yy' => 'yy_YXX']);
+        $target = new LrlMock(new LocaleService(['yy' => 'yy_YXX']));
 
         $actual = $target->detectLanguage($event);
 
@@ -169,8 +161,7 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
     {
         $event = $this->getEventMock(false, null, true);
 
-        $target = new LrlMock();
-        $target->setSupportedLanguages(['yy' => 'yy_YY', 'xx' => 'xx_XX']);
+        $target = new LrlMock(new LocaleService(['yy' => 'yy_YY', 'xx' => 'xx_XX']));
 
         $this->assertSame('xx', $target->detectLanguage($event));
     }
@@ -179,8 +170,7 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
     {
         $event = $this->getEventMock(false, null, true);
 
-        $target = new LrlMock();
-        $target->setSupportedLanguages(['yy' => 'yy_YY']);
+        $target = new LrlMock(new LocaleService(['yy' => 'yy_YY']));
 
         $this->assertSame('yy', $target->detectLanguage($event));
     }
@@ -189,11 +179,6 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
 
 class LrlMock extends LanguageRouteListener
 {
-    public function isSupportedLanguage($lang)
-    {
-        return parent::isSupportedLanguage($lang);
-    }
-
     public function setLocale(MvcEvent $e, $lang)
     {
         $origLocale = setlocale(LC_ALL, "0");

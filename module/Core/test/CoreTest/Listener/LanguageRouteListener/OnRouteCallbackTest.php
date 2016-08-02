@@ -17,10 +17,11 @@ use Zend\EventManager\ResponseCollection;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Core\I18n\Locale as LocaleService;
 
 /**
  * Tests the listener callbacks for \Core\Listener\LanguageRouteListener
- * 
+ *
  * @covers \Core\Listener\LanguageRouteListener::onRoute()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -33,8 +34,11 @@ class OnRouteCallbackTest extends \PHPUnit_Framework_TestCase
 
     private $target = [
         LanguageRouteListener::class,
-        'mock' => [ 'detectLanguage' => ['return' => 'xx'], 'setLocale', 'isSupportedLanguage' ]
+        'mock' => [ 'detectLanguage' => ['return' => 'xx'], 'setLocale' ],
+        'args' => 'getLocaleService'
     ];
+    
+    protected $localeService;
 
     private function getEventMock($routeName, $lang = null)
     {
@@ -73,7 +77,7 @@ class OnRouteCallbackTest extends \PHPUnit_Framework_TestCase
     public function testRouteWithSupportedLanguage()
     {
         $event = $this->getEventMock('lang/route', 'supported');
-        $this->target->expects($this->once())->method('isSupportedLanguage')->with('supported')->willReturn(true);
+        $this->localeService->expects($this->once())->method('isLanguageSupported')->with('supported')->willReturn(true);
 
         $this->target->expects($this->once())->method('setLocale')->with($event, 'supported');
 
@@ -114,6 +118,16 @@ class OnRouteCallbackTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->onRoute($event);
 
         $this->assertEquals('response', $actual);
+    }
+    
+    public function getLocaleService()
+    {
+        $this->localeService = $this->getMockBuilder(LocaleService::class)
+            ->setConstructorArgs([[]])
+            ->setMethods(['isLanguageSupported'])
+            ->getMock();
+        
+        return [$this->localeService];
     }
 }
 

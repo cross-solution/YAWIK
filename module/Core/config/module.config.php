@@ -194,6 +194,7 @@ return array(
             'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy::factory',
             'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate::factory',
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
+            'Core/Locale' => 'Core\I18n\Locale::factory',
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
