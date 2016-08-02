@@ -245,7 +245,7 @@ class IndexController extends AbstractActionController
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
-            $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(/)?~', $basePath . '/' . $settings->localization->language . '$1', $ref);
+            $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(?=/|$)~', $basePath . '/' . $settings->localization->language, $ref);
         }
         return $this->redirect()->toUrl($ref);
     }
