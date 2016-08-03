@@ -5,6 +5,9 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 /** Auth controller */
@@ -116,17 +119,7 @@ class IndexController extends AbstractActionController
             
             if ($result->isValid()) {
                 $user = $auth->getUser();
-                $settings = $user->getSettings('Core');
-                $language = $settings->localization->language;
-                if (!$language) {
-                    $headers = $request->getHeaders();
-                    if ($headers->has('Accept-Language')) {
-                        $locales = $headers->get('Accept-Language')->getPrioritized();
-                        $language  = $locales[0]->type;
-                    } else {
-                        $language = 'en';
-                    }
-                }
+                $language = $services->get('Core/Locale')->detectLanguage($request, $user);
                 $this->logger->info('User ' . $user->login . ' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);

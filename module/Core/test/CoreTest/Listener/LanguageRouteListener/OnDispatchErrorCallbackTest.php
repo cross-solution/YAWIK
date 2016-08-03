@@ -11,20 +11,20 @@
 namespace CoreTest\Listener\LanguageRouteListener;
 
 use CoreTestUtils\TestCase\SetupTargetTrait;
-use Zend\EventManager\EventManager;
 use Core\Listener\LanguageRouteListener;
-use Zend\EventManager\ResponseCollection;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\RouteStackInterface;
+use Core\I18n\Locale as LocaleService;
 
 /**
  * Tests the listener callbacks for \Core\Listener\LanguageRouteListener
- * 
+ *
  * @covers \Core\Listener\LanguageRouteListener::onDispatchError()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Core
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener
@@ -35,7 +35,8 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
 
     private $target = [
         LanguageRouteListener::class,
-        'mock' => [ 'detectLanguage' => ['return' => 'xx'], 'setLocale', 'isSupportedLanguage', 'redirect' ]
+        'mock' => [ 'detectLanguage' => ['return' => 'xx'], 'setLocale', 'isSupportedLanguage', 'redirect'],
+        'args' => 'getLocaleService'
     ];
 
    public function testHandleConsoleRequests()
@@ -107,7 +108,6 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
     {
         $event = $this->getEventMock('/base/uri', '/xx/route');
 
-        $this->target->expects($this->once())->method('isSupportedLanguage')->with('xx')->willReturn(true);
         $this->target->expects($this->once())->method('setLocale')->with($event, 'xx');
 
         $this->target->onDispatchError($event);
@@ -118,9 +118,7 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
         $event = $this->getEventMock('/base/uri', '/yy/route');
         $response = new Response();
         $event->setResponse($response);
-        $this->target->expects($this->once())->method('isSupportedLanguage')->with('yy')->willReturn(false);
         $this->target->expects($this->once())->method('setLocale')->with($event, 'xx');
-        $this->target->expects($this->once())->method('redirect')->with($response, '/base/uri/xx/route');
 
         $this->target->onDispatchError($event);
     }
@@ -173,6 +171,11 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
 
         $this->target->onDispatchError($event);
 
+    }
+    
+    public function getLocaleService()
+    {
+        return [new LocaleService([])];
     }
 }
 
