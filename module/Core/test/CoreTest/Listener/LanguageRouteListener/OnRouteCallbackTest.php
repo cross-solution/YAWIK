@@ -24,6 +24,7 @@ use Core\I18n\Locale as LocaleService;
  *
  * @covers \Core\Listener\LanguageRouteListener::onRoute()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Core
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener

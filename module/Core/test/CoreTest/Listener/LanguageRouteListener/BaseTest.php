@@ -23,6 +23,7 @@ use Zend\Mvc\MvcEvent;
  * @covers \Core\Listener\LanguageRouteListener
  * @coversDefaultClass \Core\Listener\LanguageRouteListener
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Core
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener
