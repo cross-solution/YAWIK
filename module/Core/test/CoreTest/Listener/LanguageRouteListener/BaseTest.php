@@ -12,34 +12,35 @@ namespace CoreTest\Listener\LanguageRouteListener;
 
 use Zend\EventManager\EventManager;
 use Core\Listener\LanguageRouteListener;
+use Core\I18n\Locale as LocaleService;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 
 /**
  * Base tests for \Core\Listener\LanguageRouteListener
- * 
+ *
  * @covers \Core\Listener\LanguageRouteListener
  * @coversDefaultClass \Core\Listener\LanguageRouteListener
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Core
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait, TestSetterGetterTrait;
+    use TestInheritanceTrait;
 
-    private $target = LanguageRouteListener::class;
+    private $target;
 
     private $inheritance = [ ListenerAggregateInterface::class ];
 
-    private $properties = [
-        [ 'defaultLanguage', ['value' => 'en', 'ignore_setter' => true]],
-        [ 'supportedLanguages', ['value' => ['xx' => 'xx_XX'], 'expect_property' => [['xx' => 'xx_XX']], 'setter_value' => null]],
-    ];
-
+    public function setUp()
+    {
+        $this->target = new LanguageRouteListener(new LocaleService(['xx' => 'xx_XX']));
+    }
+    
     public function testAttachsToExpectedEvents()
     {
         $events = $this

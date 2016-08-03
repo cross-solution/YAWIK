@@ -1,6 +1,11 @@
 <?php
-
-
+/**
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license MIT
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ */
 namespace Core\Listener;
 
 use Zend\EventManager\EventManagerInterface;
@@ -9,39 +14,28 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Application;
 use Zend\Mvc\Router\RouteMatch;
 use Locale;
+use Core\I18n\Locale as LocaleService;
 
 class LanguageRouteListener implements ListenerAggregateInterface
 {
 
-    
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
 
-    protected $defaultLanguage;
-
     /**
-     * available languages. Can be set via Core/Options
-     *
-     * @var array
+     * @var LocaleService
      */
-    protected $supportedLanguages = array(
-            'en' => 'en_EN',
-            'de' => 'de_DE',
-            'es' => 'es',
-            'fr' => 'fr',
-            'it' => 'it',
-            'nl' => 'nl_BE',
-            'ru' => 'ru',
-            'pl' => 'pl',
-            'tr' => 'tr',
-            'hi' => 'hi_IN',
-            'cn' => 'cmn',
-            'pt' => 'pt',
-            'ar' => 'ar',
-            'zh' => 'zh'
-    );
+    protected $localeService;
+    
+    /**
+     * @param LocaleService $localeService
+     */
+    public function __construct(LocaleService $localeService)
+    {
+        $this->localeService = $localeService;
+    }
         
     /**
      * Attach to an event manager
@@ -87,7 +81,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
             return;
         }
         $language = $routeMatch->getParam('lang', '__NOT_SET__');
-        if ($this->isSupportedLanguage($language)) {
+        if ($this->localeService->isLanguageSupported($language)) {
             $this->setLocale($e, $language);
             
         } else {
@@ -109,36 +103,33 @@ class LanguageRouteListener implements ListenerAggregateInterface
         
         $router = $e->getRouter();
         $basePath=$router->getBaseUrl();
-        
+        $match = [];
         
         if (preg_match('~^' . $basePath . '/([a-z]{2})(?:/|$)~', $e->getRequest()->getRequestUri(), $match)) {
             /* It seems we have already a language in the URI
              * Now there are two possibilities:
-             * 
-             * 1: The Language is not supported 
+             *
+             * 1: The Language is not supported
              *    -> set translator locale to browser locale if supported
              *       or default. Do not forget to set the appropriate route param 'lang'
-             *    
+             *
              * 2: Language is supported, but the rest of the route
              *    does not match
              *    -> set translator locale to provided language
              */
-            if ($this->isSupportedLanguage($match[1])) {
-                $this->setLocale($e, $match[1]);
-                return;
-            }
-
-            $lang = $this->detectLanguage($e);
+            
+            $lang = $this->localeService->isLanguageSupported($match[1])
+                  ? $match[1]
+                  : $this->detectLanguage($e);
+            
             $this->setLocale($e, $lang);
-            $uri  = str_replace("$basePath/{$match[1]}", "$basePath/$lang", $e->getRequest()->getRequestUri());
-            return $this->redirect($e->getResponse(), $uri);
-
+            return;
         }
         
         /* We have no language key in the URI
-         * Let's prepend the browser language locale if supported or 
+         * Let's prepend the browser language locale if supported or
          * the default to the URI.
-         * 
+         *
          * If a route matches this prepended URI, we do a redirect,
          * else we set the translator locale and let the event propagate
          * to the ROUTE_NO_MATCH error renderer.
@@ -158,62 +149,17 @@ class LanguageRouteListener implements ListenerAggregateInterface
     }
 
     /**
-     * @return mixed
-     */
-    public function getDefaultLanguage()
-    {
-        if (!$this->defaultLanguage) {
-            $supportedLanguages = array_keys($this->supportedLanguages);
-            $this->defaultLanguage = array_shift($supportedLanguages);
-        }
-        return $this->defaultLanguage;
-    }
-
-    /**
-     * @param $lang
-     *
-     * @return bool
-     */
-    protected function isSupportedLanguage($lang)
-    {
-        return array_key_exists($lang, $this->supportedLanguages);
-    }
-
-    /**
      * @param MvcEvent $e
-     *
-     * @return mixed
+     * @return string
      */
     protected function detectLanguage(MvcEvent $e)
     {
-        $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
-        if ($auth->hasIdentity()) {
-            $user = $auth->getUser();
-            $settings = $user->getSettings('Core');
-            if ($lang = $settings->language) {
-                return $lang;
-            }
-        }
-
-        $headers = $e->getRequest()->getHeaders();
-        if ($headers->has('Accept-Language')) {
-            $locales = $headers->get('Accept-Language')->getPrioritized();
-            $localeFound=false;
-            foreach ($locales as $locale) {
-                if (array_key_exists($locale->type, $this->supportedLanguages)) {
-                    $lang = $locale->type;
-                    $localeFound = true;
-                    break;
-                }
-            }
-            if (!$localeFound) {
-                $lang = $this->getDefaultLanguage();
-            }
-        } else {
-            $lang = $this->getDefaultLanguage();
-        }
+        $auth = $e->getApplication()
+            ->getServiceManager()
+            ->get('AuthenticationService');
+        $user = $auth->hasIdentity() ? $auth->getUser() : null;
         
-        return $lang;
+        return $this->localeService->detectLanguage($e->getRequest(), $user);
     }
 
     /**
@@ -236,7 +182,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
     protected function setLocale(MvcEvent $e, $lang)
     {
         $translator = $e->getApplication()->getServiceManager()->get('translator');
-        $locale = $this->supportedLanguages[$lang];
+        $locale = $this->localeService->getLocaleByLanguage($lang);
         
         setlocale(
             LC_ALL,
@@ -258,14 +204,5 @@ class LanguageRouteListener implements ListenerAggregateInterface
             $routeMatch->setParam('lang', $lang);
         }
         $e->getRouter()->setDefaultParam('lang', $lang);
-        
-    }
-
-    /**
-     * @param $supportedLanguages
-     */
-    public function setSupportedLanguages($supportedLanguages)
-    {
-        $this->supportedLanguages=$supportedLanguages;
     }
 }
