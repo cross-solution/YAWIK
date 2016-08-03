@@ -5,6 +5,9 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 /** Auth adapter */
@@ -105,9 +108,17 @@ class HybridAuth implements AdapterInterface
        
        
         $currentInfo = $user->getProfile($this->_provider);
+        
+        try {
+            $socialData = $this->socialProfilePlugin->fetch($this->_provider)->getData();
+        } catch (\InvalidArgumentException $e) {
+            // social profile adapter does not exist
+            $socialData = [];
+        }
+        
         $newInfo = [
             'auth' => (array) $userProfile,
-            'data' => $this->socialProfilePlugin->fetch($this->_provider)->getData(),
+            'data' => $socialData,
         ];
        
         if ($forceSave || $currentInfo != $newInfo) {
