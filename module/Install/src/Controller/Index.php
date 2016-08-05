@@ -62,6 +62,7 @@ class Index extends AbstractActionController
             array(
                                           'prerequisites' => $prereqs,
                                           'form'          => $form,
+                                          'lang'          => $this->params('lang'),
                                       )
         );
     }

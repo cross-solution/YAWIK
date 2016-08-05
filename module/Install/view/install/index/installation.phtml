@@ -6,6 +6,8 @@
  * @license MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
+
+$this->plugin('translate')->setTranslatorTextDomain('Install');
 ?>
 
 <div class="panel panel-default">
@@ -14,11 +16,13 @@
     </div>
     <div class="panel-body">
 
-        <?php echo $this->form()->openTag($this->form);
+        <?php
+        $action = '?p=install' . ($this->lang ? '&lang=' . $this->lang : '');
+        echo $this->form()->openTag($this->form->setAttribute('action', $action));
             $dbConn = $this->form->get('db_conn');
             $dbConn->setAttribute('id', $dbConn->getName())->setAttribute('class', 'form-control') ?>
         <div class="form-group">
-            <label for="<?php echo $dbConn->getAttribute('id')?>"><?php echo $dbConn->getLabel() ?></label>
+            <label for="<?php echo $dbConn->getAttribute('id')?>"><?php echo $this->translate($dbConn->getLabel()) ?></label>
             <?php echo $this->formElement($dbConn) ?>
             <div id="<?php echo $dbConn->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($dbConn) ?></div>
         </div>
@@ -27,14 +31,15 @@
             <div class="col-md-6">
                 <?php $userName = $this->form->get('username');
                 $userName->setAttribute('id', $userName->getName())->setAttribute('class', 'form-control') ?>
-                <label for="<?php echo $userName->getAttribute('id')?>"><?php echo $userName->getLabel() ?></label>
+                <label for="<?php echo $userName->getAttribute('id')?>"><?php echo $this->translate($userName->getLabel()) ?></label>
                 <?php echo $this->formElement($userName) ?>
-                <div id="<?php echo $userName->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($userName) ?></div>
+                <div id="<?php echo $userName->getAttribute('id')?>-errors" class="errors"><?php
+                    echo $this->formElementErrors($userName) ?></div>
             </div>
             <div class="col-md-6">
                 <?php $pw = $this->form->get('password');
                 $pw->setAttribute('id', $pw->getName())->setAttribute('class', 'form-control') ?>
-                <label for="<?php echo $pw->getAttribute('id')?>"><?php echo $pw->getLabel() ?></label>
+                <label for="<?php echo $pw->getAttribute('id')?>"><?php echo $this->translate($pw->getLabel()) ?></label>
                 <?php echo $this->formElement($pw) ?>
                 <div id="<?php echo $pw->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($pw) ?></div>
             </div>
@@ -43,7 +48,7 @@
 
         <div class="form-group">
             <label for="<?php $email = $this->form->get('email'); $email->setAttribute('id', $email->getName())->setAttribute('class', 'form-control');
-                         echo $email->getAttribute('id') ?>"><?php echo $email->getLabel() ?></label>
+                         echo $email->getAttribute('id') ?>"><?php echo $this->translate($email->getLabel()) ?></label>
             <?php echo $this->formElement($email); ?>
             <div id="<?php echo $email->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($email) ?></div>
         </div>

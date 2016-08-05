@@ -95,6 +95,12 @@ return array(
                 'pattern' => '%s.mo',
                 'text_domain' => 'Install',
             ),
+            [
+                'type'     => 'phparray',
+                'base_dir' => __DIR__ . '/../../Core/language',
+                'pattern' => 'Zend_Validate.%s.php',
+                'text_domain' => 'default',
+            ],
         ),
     ),
 );
