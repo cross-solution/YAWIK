@@ -137,42 +137,4 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($query, $actual);
     }
-
-    public function testConvertOrganizationName()
-    {
-        $target = $this->target;
-        $job = $this->getMockBuilder($target->getEntityClass())
-            ->getMock()
-        ;
-        $org = $this->getMockBuilder(Organization::class)->getMock();
-        $job->expects($this->exactly(2))
-            ->method('getOrganization')
-            ->willReturnOnConsecutiveCalls(null,$org)
-        ;
-        $org->expects($this->once())
-            ->method('setOrganizationName')
-            ->with($this->isInstanceOf(OrganizationName::class))
-        ;
-
-        $target->convertOrganizationName($job,'some-name');
-    }
-
-    public function testConvertOrganizationLogo()
-    {
-        $target = $this->target;
-        $job = $this->getMockBuilder($target->getEntityClass())
-            ->getMock()
-        ;
-        $org = $this->getMockBuilder(Organization::class)->getMock();
-        $job->expects($this->exactly(2))
-            ->method('getOrganization')
-            ->willReturnOnConsecutiveCalls(null,$org)
-        ;
-        $org->expects($this->once())
-            ->method('setImage')
-            ->with($this->isInstanceOf(OrganizationImage::class))
-        ;
-
-        $target->convertCompanyLogo($job,'/file/Organizations.OrganizationImage/5774cad3ecb2a162138b4568/logo.gif');
-    }
 }

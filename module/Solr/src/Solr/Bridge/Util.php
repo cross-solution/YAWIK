@@ -46,4 +46,25 @@ class Util
     {
         return $date->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT);
     }
+
+    /**
+     * Convert date formatted string into a DateTime object
+     *
+     * @param   string  $value
+     * @return  \DateTime|string
+     */
+    static public function validateDate($value)
+    {
+        if ($value instanceof \SolrObject || is_array($value)){
+            return $value;
+        }
+        $value = trim($value);
+        $date = \DateTime::createFromFormat(Manager::SOLR_DATE_FORMAT,$value);
+        $check = $date && ($date->format(Manager::SOLR_DATE_FORMAT) === $value);
+        if($check){
+            return $date;
+        }else{
+            return $value;
+        }
+    }
 }

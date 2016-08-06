@@ -10,6 +10,7 @@
 namespace Solr\Bridge;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as EntityType;
+use Jobs\Repository\Job as JobRepository;
 use Solr\Filter\AbstractPaginationQuery;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -39,6 +40,16 @@ class ResultConverter
     protected $useGeoLocation=false;
 
     /**
+     * @var ServiceLocatorInterface
+     */
+    protected $sl;
+
+    public function __construct(ServiceLocatorInterface $sl)
+    {
+        $this->sl = $sl;
+    }
+
+    /**
      * Convert result into entity
      *
      * @param   AbstractPaginationQuery $filter
@@ -49,72 +60,28 @@ class ResultConverter
     {
         $this->filter = $filter;
         $response = $queryResponse->getResponse();
-        $propertiesMap = $filter->getPropertiesMap();
-        $class = $filter->getEntityClass();
+        $facets = $response['facet_counts'];
+        $class = $filter->getProxyClass();
         $entities = [];
+        $solrObjects = [];
+
         foreach($response['response']['docs'] as $doc){
-            $ob = new $class();
-            $properties = $doc->getPropertyNames();
-            foreach($properties as $name){
-                $setter = 'set'.$name;
-                $value = $doc->$name;
-                $value = $this->validateDate($value);
-                if ($value instanceof \SolrObject) {
-                    if ($name == 'locations') {
-                        $this->useGeoLocation=true;
-                    }
-                    $this->handleMappedProperty($propertiesMap[$name],$ob,$value);
-                } elseif (method_exists($ob,$setter) && !$value instanceof \SolrObject){
-                    if ($name != 'location') {
-                        call_user_func(array($ob, $setter), $value);
-                    }elseif (!$this->useGeoLocation) {
-                        call_user_func(array($ob, $setter), $value);
-                    }
-                }elseif(isset($propertiesMap[$name])){
-                    $this->handleMappedProperty($propertiesMap[$name],$ob,$value);
-                }
-
-            }
-            $entities[] = $ob;
+            $solrObjects[$doc->id] = $doc;
         }
 
+        /* @var JobRepository $repository */
+        $keys = array_keys($solrObjects);
+        $repository = $this->sl->get('repositories')->get($filter->getRepositoryName());
+        $qb = $repository->createQueryBuilder();
+        $qb->hydrate(true)->field('id')->in($keys);
+        $result = $qb->getQuery()->execute();
+        foreach($result as $document){
+            $solrObject = $solrObjects[$document->getId()];
+            $entity = new $class($document,$solrObject);
+            $entity->setFacets($facets);
+            $entities[] = $entity;
+        }
         return $entities;
-    }
-
-    /**
-     * Handles mapped property defined by query filter
-     * 
-     * @param $property
-     * @param $object
-     * @param $value
-     */
-    public function handleMappedProperty($property,$object,$value)
-    {
-        $callback = array($this->filter,$property);
-        if(is_callable($callback)){
-            call_user_func($callback,$object,$value);
-        }
-    }
-
-    /**
-     * Convert date formatted string into a DateTime object
-     *
-     * @param   string  $value
-     * @return  \DateTime|string
-     */
-    public function validateDate($value)
-    {
-        if ($value instanceof \SolrObject || is_array($value)){
-            return $value;
-        }
-        $value = trim($value);
-        $date = \DateTime::createFromFormat(Manager::SOLR_DATE_FORMAT,$value);
-        $check = $date && ($date->format(Manager::SOLR_DATE_FORMAT) === $value);
-        if($check){
-            return $date;
-        }else{
-            return $value;
-        }
     }
 
     /**
@@ -124,6 +91,6 @@ class ResultConverter
      */
     static public function factory(ServiceLocatorInterface $sl)
     {
-        return new static();
+        return new static($sl);
     }
 }

@@ -93,17 +93,6 @@ abstract class AbstractPaginationQuery implements FilterInterface
     }
 
     /**
-     * Returs an array key => value for this pagination filter
-     * to define custom solr result handler
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getPropertiesMap()
-    {
-        return $this->propertiesMap;
-    }
-
-    /**
      * Creates new instance for this filter
      *
      * @param ServiceLocatorInterface $sl
@@ -120,7 +109,14 @@ abstract class AbstractPaginationQuery implements FilterInterface
      *
      * @return string
      */
-    abstract public function getEntityClass();
+    abstract public function getProxyClass();
+
+    /**
+     * Get repository to be used for result
+     *
+     * @return string
+     */
+    abstract public function getRepositoryName();
 
     /**
      * @param   array $params
