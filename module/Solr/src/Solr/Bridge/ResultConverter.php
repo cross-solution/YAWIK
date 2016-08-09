@@ -52,7 +52,7 @@ class ResultConverter
         $propertiesMap = $filter->getPropertiesMap();
         $class = $filter->getEntityClass();
         $entities = [];
-        foreach($response['response']['docs'] as $doc){
+        foreach($response['response']['docs'] as $doc){ /* @var $doc \SolrObject  */
             $ob = new $class();
             $properties = $doc->getPropertyNames();
             foreach($properties as $name){
