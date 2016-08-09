@@ -16,6 +16,7 @@ use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Solr\Bridge\Manager;
 use Solr\Bridge\Util;
+use Zend\Filter\StripTags;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -117,14 +118,6 @@ class JobEventSubscriber implements EventSubscriber
         $document->addField('applicationEmail',$job->getContactEmail());
         if ($job->getLink()) {
             $document->addField('link', $job->getLink());
-            $oldErrorReporting=error_reporting(0);
-            $dom = new \DOMDocument();
-            // @TODO: 
-            // we temporary put the html into the index. This will be removed later. For now it's the easiest way to get
-            // some searchable content
-            $dom->loadHTMLFile($job->getLink());
-            error_reporting($oldErrorReporting);
-            $document->addField('html',$dom->saveHTML());
         }
         if($job->getDateCreated()){
             $document->addField('dateCreated',Util::convertDateTime($job->getDateCreated()));
@@ -148,6 +141,14 @@ class JobEventSubscriber implements EventSubscriber
                 // @TODO: What to do when the process failed?
             }
         }
+
+        $templateValues = $job->getTemplateValues();
+        $description    = $templateValues->getDescription();
+        $stripTags      = new StripTags();
+        $stripTags->setAttributesAllowed([])->setTagsAllowed([]);
+        $description    = $stripTags->filter($description);
+
+        $document->addField('html', $description);
 
         return $document;
     }
