@@ -26,6 +26,7 @@ $statusClasses = [
 $statusClass = isset($statusClasses[$currentStatus]) ? $statusClasses[$currentStatus] : 'default';
 ?>
 <h1>
+    <?php if ($this->auth()->getUser()->getRole() == \Auth\Entity\UserInterface::ROLE_USER) :?>
     <div class="btn-group pull-right">
         <span class="btn btn-<?=$statusClass?>"><?=$this->translate($currentStatus)?></span>
         <a class="btn btn-<?=$statusClass?> dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
@@ -35,6 +36,7 @@ $statusClass = isset($statusClasses[$currentStatus]) ? $statusClasses[$currentSt
             <?php endforeach;?>
         </ul>
     </div>
+    <?php endif?>
     <?=$title?>
 </h1>
 <?=$this->formContainer($this->container)?>
