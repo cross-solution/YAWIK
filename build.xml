@@ -171,7 +171,7 @@
     <!-- ============================================  -->
     <!-- Target: generate autoload config files        -->
     <!-- ============================================  -->
-    <target name="generate-autoload-config" depends="load-properties">
+    <target name="generate-autoload-config">
         <property name="target" value="config/autoload" override="true"/>
     </target>
 
@@ -344,61 +344,6 @@
         <property name="vendordir" value="./vendor" override="false"/>
         <!-- Set property to prevent target from being executed multiple times -->
         <property name="project.initialized" value="true"/>
-    </target>
-
-    <target name="load-properties">
-        <!-- first loop over all module properties files -->
-        <foreach param="dirname" absparam="absname" target="load-properties-subtask">
-            <fileset dir="module">
-                <type type="dir" />
-                <depth max="0" min="0" />
-            </fileset>
-        </foreach>
-        <!-- then read the global properties file -->
-        <property file="${project.basedir}/${build.properties}" />
-    </target>
-
-    <target name="load-properties-subtask">
-        <property name="properties" value="${absname}/config/build.properties" />
-        <available file="${properties}" type="file" property="build.properties.exists" />
-        <if>
-            <equals arg1="${build.properties.exists}" arg2="true" />
-            <then>
-                <echo>load ${properties}</echo>
-                <property file="${properties}" />
-            </then>
-            <else>
-                <echo>no ${properties} found. Check for a .dist file</echo>
-                <available file="${absname}/config/build.properties.dist" type="file" property="build.properties.dist.exists" />
-                <if>
-                    <equals arg1="${build.properties.dist.exists}" arg2="true" />
-                    <then>
-                        <copy file="${absname}/config/build.properties.dist" tofile="${properties}" overwrite="true"/>
-                        <property file="${properties}" />
-                    </then>
-                </if>
-                <!-- If file doesn't exist -->
-            </else>
-        </if>
-
-        <available file="${absname}/build.xml" type="file" property="build.Exists" />
-        <if>
-            <isset property="build.Exists"/>
-            <then>
-                <phing phingfile="${absname}/build.xml" inheritAll="false"
-                       inheritRefs="false" haltonfailure="true"/>
-            </then>
-            <else>
-                <echo>${absname}/build.xml not found</echo>
-            </else>
-        </if>
-        <if>
-            <istrue value="${YAWIK.bundled}"/>
-            <then>
-                <property name="modules[]" value="${dirname}" />
-                <echo>Bundled: ${YAWIK.bundled} Module: ${dirname}</echo>
-            </then>
-        </if>
     </target>
 
     <!-- =======================================================  -->
