@@ -195,7 +195,6 @@ class JobEventSubscriberTest extends FunctionalTestCase
                 ['title','some-title'],
                 ['applicationEmail','contact-email'],
                 ['link','http://test.link.org/job1'],
-                ['html', "\n"],
                 ['dateCreated',$dateStr],
                 ['dateModified',$dateStr],
                 ['datePublishStart',$dateStr],
