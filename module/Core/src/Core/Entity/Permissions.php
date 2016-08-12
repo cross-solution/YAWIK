@@ -33,6 +33,7 @@ use Core\Entity\Collection\ArrayCollection;
  * @method $this revokeView($resource)        shortcut for grant($resource, self::PERMISSION_VIEW)
  *
  * @ODM\EmbeddedDocument
+ * @ODM\HasLifeCycleCallbacks
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -414,6 +415,19 @@ class Permissions implements PermissionsInterface
      * Gets the resource collection.
      *
      * This is only needed when inheriting.
+     *
+     * @internal
+     *      The PrePersist hook is needed, because eventually
+     *      this method is called during the onFlush event by
+     *      an UpdateFilePermission-Listener. Generating
+     *      an ArrayCollection in this state leads to a
+     *      fatal error deep in Doctrine.
+     *
+     *      This PrePersist hook assures, that there is
+     *      a prefilled ArrayCollection during the
+     *      changeset computation.
+     *
+     * @ODM\PrePersist
      *
      * @return Collection
      */
