@@ -21,6 +21,11 @@ use Core\Mail\MailService;
 /**
  * Class Register
  * @package Auth\Service
+ *
+ * @author Rafael Ksiazek
+ * @author Mathias Weitz
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Register
 {
@@ -166,6 +171,7 @@ class Register
 
         $this->setName($registerFilter->getValue('name'));
         $this->setEmail($registerFilter->getValue('email'));
+        $this->setRole($registerFilter->getValue('role'));
 
         return $this;
     }
@@ -214,6 +220,36 @@ class Register
     }
 
     /**
+     * Get the user role.
+     *
+     * @return string
+     * @since 0.26
+     */
+    protected function getRole()
+    {
+        if (!isset($this->role)) {
+            $this->extractUserMailFromFormular();
+        }
+
+        return $this->role;
+    }
+
+    /**
+     * set the user role
+     *
+     * @param string $role
+     *
+     * @return self
+     * @since 0.26
+     */
+    protected function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
      * @return User
      * @throws Exception\UserAlreadyExistsException
      */
@@ -223,6 +259,7 @@ class Register
             $userRepository = $this->getUserRepository();
             $name = $this->getName();
             $email = $this->getEmail();
+            $role = $this->getRole() ?: User::ROLE_RECRUITER;
 
             if (($userRepository->findByLoginOrEmail($email))) {
                 //return Null;
@@ -232,7 +269,7 @@ class Register
             $user = $userRepository->create(
                 array(
                 'login' => $email,
-                'role' => User::ROLE_RECRUITER
+                'role' => $role,
                 )
             );
 
