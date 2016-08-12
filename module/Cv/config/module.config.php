@@ -132,14 +132,6 @@ return array(
                     ],
                 ],
             ],
-            'admin' => [
-                'deny' => [
-                    'route/lang/cvs',
-                    'navigation/resume-recruiter',
-                    'navigation/resume-user',
-                    'Cv\Controller\Manage',
-                ]
-            ]
         ),
         'assertions' => [
             'invokables' => [
