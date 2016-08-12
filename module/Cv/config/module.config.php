@@ -114,11 +114,14 @@ return array(
                     'route/lang/my-cv',
                     'Cv\Controller\Manage',
                     'navigation/resume-user',
+                    'Cv/Status' => ['change'],
                 ),
             ),
             'recruiter' => [
                 'deny' => [
+                    'route/lang/my-cv',
                     'navigation/resume-user',
+                    'Cv/Status',
                 ],
                 'allow' => [
                     'route/lang/cvs',

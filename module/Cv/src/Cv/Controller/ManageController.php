@@ -62,6 +62,7 @@ class ManageController extends AbstractActionController
         }
         
         if (($status = $params->fromQuery('status')) != '') {
+            $this->acl('Cv/Status', 'change');
             return $this->changeStatus($cv, $status);
         }
         
