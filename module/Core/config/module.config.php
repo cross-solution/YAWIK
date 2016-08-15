@@ -172,28 +172,29 @@ return array(
     // Setup the service manager
     'service_manager' => array(
         'invokables' => array(
-            'configaccess' => 'Core\Service\Config',
-            'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber',
-            'defaultListeners'           => 'Core\Listener\DefaultListener',
-            'templateProvider'           => 'Core\Service\TemplateProvider',
-            'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
             'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
-            'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate',
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
             'Core/EventManager'          => 'Core\EventManager\EventManager',
-
         ),
         'factories' => array(
+            'configaccess' => 'Core\Service\Config::factory',
+            'templateProvider' => 'Core\Service\TemplateProvider::factory',
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-            'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Core/Navigation' => 'Core\Factory\Navigation\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
             'Core/EntityHydrator' => 'Core\Entity\Hydrator\EntityHydratorFactory',
             'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
+            'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber::factory',
+            'defaultListeners' => 'Core\Listener\DefaultListener::factory',
+            'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy::factory',
+            'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate::factory',
+            'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
+            'Core/Locale' => 'Core\I18n\Locale::factory',
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
@@ -263,14 +264,14 @@ return array(
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
             'entitysnapshot' => 'Core\Controller\Plugin\Service\EntitySnapshotFactory',
             'Core/SearchForm' => 'Core\Factory\Controller\Plugin\SearchFormFactory',
+            'listquery' => 'Core\Controller\Plugin\ListQuery::factory',
+            'mail' => 'Core\Controller\Plugin\Mail::factory',
+            'Core/Mailer' => 'Core\Controller\Plugin\Mailer::factory',
+            'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator::factory',
+            'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService::factory',
         ),
         'invokables' => array(
-            'listquery' => 'Core\Controller\Plugin\ListQuery',
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
-            'mail' => 'Core\Controller\Plugin\Mail',
-            'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
-            'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
-            'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
             'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
             'Core/PaginationBuilder' => 'Core\Controller\Plugin\PaginationBuilder',
@@ -322,13 +323,13 @@ return array(
     ),
     'view_helpers' => array(
         'invokables' => array(
-            'services' => 'Core\View\Helper\Services',
             'form_element' => 'Core\Form\View\Helper\FormElement',
             'formLabel'  => 'Core\Form\View\Helper\RequiredMarkInFormLabel',
             'form' => 'Core\Form\View\Helper\Form',
             'formsimple' => 'Core\Form\View\Helper\FormSimple',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
             'formWizardContainer' => 'Core\Form\View\Helper\FormWizardContainer',
+            'formCollectionContainer' => 'Core\Form\View\Helper\FormCollectionContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
             'searchForm' => 'Core\Form\View\Helper\SearchForm',
             'filterForm' => 'Core\Form\View\Helper\FilterForm',
@@ -349,7 +350,6 @@ return array(
             'link'   => 'Core\View\Helper\Link',
             'rating' => 'Core\View\Helper\Rating',
             'base64' => 'Core\View\Helper\Base64',
-            'insertFile' => 'Core\View\Helper\InsertFile',
             'alert' => 'Core\View\Helper\Alert',
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
             'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
@@ -361,6 +361,8 @@ return array(
             'socialbuttons' => 'Core\Factory\View\Helper\SocialButtonsFactory',
             'TinyMCEditorLight' => 'Core\Factory\Form\View\Helper\FormEditorLightFactory',
             'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
+            'services' => 'Core\View\Helper\Services::factory',
+            'insertFile' => 'Core\View\Helper\InsertFile::factory',
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
@@ -386,8 +388,8 @@ return array(
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
         ),
         'factories' => array(
-            "Core/XssFilter" => "Core\Filter\XssFilterFactory",
-            "Core/HtmlAbsPathFilter" => "Core\Factory\Filter\HtmlAbsPathFilterFactory",
+            "Core/XssFilter" => 'Core\Filter\XssFilterFactory',
+            "Core/HtmlAbsPathFilter" => 'Core\Factory\Filter\HtmlAbsPathFilterFactory',
         ),
     ),
     
@@ -416,10 +418,10 @@ return array(
             'Core/TextSearch' => 'Core\Form\TextSearchForm',
             'Core/TextSearch/Elements' => 'Core\Form\TextSearchFormFieldset',
             'Core/TextSearch/Buttons' => 'Core\Form\TextSearchFormButtonsFieldset',
-
         ),
         'initializers' => array(
             '\Core\Form\Service\InjectHeadscriptInitializer',
+            '\Core\Form\Service\Initializer',
         ),
         'aliases' => array(
             'submitField' => 'FormSubmitButtonsFieldset'
@@ -444,6 +446,11 @@ return array(
             'service' => 'Core/EventManager',
             'event' => '\Core\Controller\AdminControllerEvent',
         ],
+
+        'Core/CreatePaginator/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => '\Core\Listener\Events\CreatePaginatorEvent'
+        ]
     ],
     
 );

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-12 18:45+0200\n"
-"PO-Revision-Date: 2016-05-12 20:38+0000\n"
+"PO-Revision-Date: 2016-07-05 07:56+0000\n"
 "Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -202,7 +202,7 @@ msgstr "Chiaro"
 
 #: view/applications/manage/status.phtml:21
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #: view/applications/manage/social-profile.phtml:19
 msgid "Profile data"
@@ -631,13 +631,13 @@ msgstr "nuove domande di assunzione"
 
 #: view/error/not-found.phtml:12
 msgid "job opening is not online anymore"
-msgstr ""
+msgstr "Offerta di lavoro non è più in linea"
 
 #: view/error/not-found.phtml:14
 msgid ""
 "you tried to open an application formular for a job opening, which is not "
 "online any more."
-msgstr ""
+msgstr "si è tentato di aprire un formulario domanda di una offerta di lavoro, che non è più in linea."
 
 #: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
@@ -798,7 +798,7 @@ msgstr "Accetta testo mail"
 msgid ""
 "default text, when accepting an applicant. This mail is send to by a domain "
 "admin to the recruiter, who is responsible for the job posting."
-msgstr ""
+msgstr "testo predefinito, quando si accetta un candidato. Questa e-mail è inviata a da un amministratore di dominio per il reclutatore, che è responsabile per l'offerta di lavoro."
 
 #: language/_annotated_strings.php:90
 msgid "Rejection mail text"

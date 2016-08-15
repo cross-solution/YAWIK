@@ -10,8 +10,11 @@
 /**  */
 namespace Core\Controller\Plugin;
 
+use Core\Listener\Events\CreatePaginatorEvent;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Stdlib\ArrayUtils;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
+use Zend\Paginator\Paginator;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Creates a paginator from the paginator service.
@@ -19,9 +22,24 @@ use Zend\Stdlib\ArrayUtils;
  * Passing in GET (or POST) request parameters as creation options to the paginator manager.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class CreatePaginator extends AbstractPlugin
 {
+    const EVENT_CREATE_PAGINATOR = 'core.create_paginator';
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
+    
     /**
      * Creates a paginator from the paginator service.
      *
@@ -54,8 +72,7 @@ class CreatePaginator extends AbstractPlugin
          * @var $request    \Zend\Http\Request
          */
         $controller = $this->getController();
-        $services   = $controller->getServiceLocator();
-        $paginators = $services->get('Core/PaginatorService');
+        $paginators = $this->serviceManager->get('Core/PaginatorService');
         $request    = $controller->getRequest();
         $params     = $usePostParams
             ? $request->getPost()->toArray()
@@ -68,13 +85,36 @@ class CreatePaginator extends AbstractPlugin
             }
         }
 
-        /* @var $paginator \Zend\Paginator\Paginator */
-        $paginator = $paginators->get($paginatorName, $params);
+        /* try to create $paginator from event listener */
+        /* @var \Core\EventManager\EventManager $events */
+        /* @var \Zend\Paginator\Paginator $paginator */
+        /* @var CreatePaginatorEvent $event */
+        $events = $this->serviceManager->get('Core/CreatePaginator/Events');
+        $event = $events->getEvent(CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,$this,[
+            'paginatorParams' => $params,
+            'paginators' => $paginators,
+            'paginatorName' => $paginatorName
+        ]);
+        $events->trigger($event);
+        $paginator = $event->getPaginator();
+        if(!$paginator instanceof Paginator){
+            // no paginator created by listener, so let's create default paginator
+            $paginator = $paginators->get($paginatorName,$params);
+        }
         $paginator->setCurrentPageNumber(isset($params['page']) ? $params['page'] : 1)
                   ->setItemCountPerPage(isset($params['count']) ? $params['count'] : 10)
                   ->setPageRange(isset($params['range']) ? $params['range'] : 5);
 
         return $paginator;
 
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return CreatePaginator
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator());
     }
 }

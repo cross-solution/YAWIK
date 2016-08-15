@@ -19,25 +19,25 @@ class Employment extends AbstractIdentifiableEntity
 {
     /**
      * @ODM\Field(type="string")
-     * @var unknown
+     * @var string
      */
     protected $startDate;
     /**
      *
-     * @var unknown
+     * @var string
      * @ODM\Field(type="string")
      */
     protected $endDate;
     
     /**
      * @ODM\Boolean
-     * @var unknown
+     * @var bool
      */
     protected $currentIndicator;
     
     /**
      *
-     * @var unknown
+     * @var string
      * @ODM\Field(type="string")
      */
     protected $description;

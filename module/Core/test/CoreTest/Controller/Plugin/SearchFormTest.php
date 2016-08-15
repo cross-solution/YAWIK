@@ -11,9 +11,8 @@
 namespace CoreTest\Controller\Plugin;
 
 use Core\Form\TextSearchForm;
-use Core\Form\TextSearchFormButtonsFieldset;
 use Core\Form\TextSearchFormFieldset;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Form\FormElementManager;
 
 /**
@@ -27,14 +26,19 @@ use Zend\Form\FormElementManager;
  */
 class SearchFormTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     protected $formElementManagerMock;
 
     protected $target = [
         'class' => '\Core\Controller\Plugin\SearchForm',
-        'mock' => [
-            'testInvokationProxiesToGet' => [ 'get' ],
+        'args' => 'getTargetArgs',
+        '@testInvokationProxiesToGet' => [
+            'mock' => [ 'get' ],
+            'args' => false,
+        ],
+        '@testInheritance' => [
+            'args' => [ 'formElementManager' => '@\Zend\Form\FormElementManager' ],
         ],
     ];
 
@@ -42,20 +46,13 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     protected function getTargetArgs()
     {
-        switch ($this->getName(false)) {
-            case 'testInheritance':
-                return [ 'formElementManager' => '@\Zend\Form\FormElementManager' ];
-                break;
-
-            case 'testInvokationProxiesToGet':
-                return false;
-                break;
-
-            default:
-                $this->formElementManagerMock = $this->getMock('\Zend\Form\FormElementManager', ['get']);
-                return [$this->formElementManagerMock];
-                break;
-        }
+        $this->formElementManagerMock = $this
+            ->getMockBuilder('\Zend\Form\FormElementManager')
+            ->disableOriginalConstructor()
+            ->setMethods(['get'])
+            ->getMock()
+        ;
+        return [$this->formElementManagerMock];
     }
 
     public function testInvokationProxiesToGet()
@@ -77,10 +74,7 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $request->expects($this->once())->method('getQuery')->willReturn($query);
 
         $controller = $this
-            ->getMockBuilder('\Zend\Mvc\Controller\AbstractActionController')
-            ->disableOriginalConstructor()
-            ->setMethods(['getRequest'])
-            ->getMockForAbstractClass();
+            ->getMockForAbstractClass('\Zend\Mvc\Controller\AbstractActionController', [], '', false, true, true, ['getRequest']);
 
         $controller->expects($this->once())->method('getRequest')->willReturn($request);
 
@@ -97,7 +91,9 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $elementsOpt = ['some_options' => 'some_value'];
         $elementsFs = [ 'Test/Elements', $elementsOpt];
 
-        $form = $this->getMock('\Core\Form\TextSearchForm', ['setSearchParams']);
+        $form = $this->getMockBuilder(TextSearchForm::class)
+            ->setMethods(['setSearchParams'])
+            ->getMock();
         $form->expects($this->once())->method('setSearchParams')->with($params);
 
         $this->formElementManagerMock

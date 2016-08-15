@@ -37,7 +37,7 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
         if ('testCreateInstancesViaConstructor' == $this->getName(false)) {
             return;
         }
-        $user = $this->getMock('\Auth\Entity\User');
+        $user = $this->getMockBuilder('\Auth\Entity\User')->getMock();
         $this->target = new Employee($user);
     }
     /**

@@ -10,7 +10,7 @@
 /** */
 namespace CoreTest\Controller\Plugin\PaginationBuilder;
 
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Controller\Plugin\PaginationBuilder
@@ -24,7 +24,7 @@ use CoreTestUtils\TestCase\AssertInheritanceTrait;
  */
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     /**
      *
@@ -33,8 +33,8 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected $target = [
         'class' => '\Core\Controller\Plugin\PaginationBuilder',
-        'mock' => [
-            'testInvokationCallsGetResult' => ['getResult' => ['count' => 2, 'return' => '__self__']],
+        '@testInvokationCallsGetResult' => [
+            'mock' => ['getResult' => ['count' => 2, 'return' => '__self__']],
         ],
     ];
 

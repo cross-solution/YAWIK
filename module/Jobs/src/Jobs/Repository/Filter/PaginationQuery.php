@@ -20,7 +20,6 @@ use Auth\Entity\UserInterface;
  * maps query parameters to entity attributes
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
- *
  */
 class PaginationQuery extends AbstractPaginationQuery
 {

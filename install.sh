@@ -51,7 +51,7 @@ fi;
 if [ ! -f $PHING ]
 then
 	echo "Download Phing"
-	curl -sS http://www.phing.info/get/phing-latest.phar > $PHING
+	curl -sS https://www.phing.info/get/phing-latest.phar > $PHING
 	chmod +x $PHING
 fi;
 

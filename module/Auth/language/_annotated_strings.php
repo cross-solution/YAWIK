@@ -203,7 +203,7 @@ translate('Found user is inactive');
 //: ./src/Auth/Controller/ForgotPasswordController.php:82
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Listener/UnauthorizedAccessListener.php:92
+//: ./src/Auth/Listener/UnauthorizedAccessListener.php:95
 translate('You are not permitted to access this resource.');
 
 //: ./src/Auth/Listener/MailForgotPassword.php:68
@@ -212,10 +212,10 @@ translate('a new password was requestet for %s');
 //: ./src/Auth/Listener/DeactivatedUserListener.php:97
 translate('This user account has been disabled. Please contact the system adminstrator.');
 
-//: ./config/module.config.php:184
+//: ./config/module.config.php:182
 translate('user');
 
-//: ./config/module.config.php:185
+//: ./config/module.config.php:183
 translate('recruiter');
 
 //: ./config/navigation.config.php:16

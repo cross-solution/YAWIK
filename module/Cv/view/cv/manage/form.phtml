@@ -1,28 +1,42 @@
 <?php
-$this->headtitle($this->id ? $this->translate('Edit resume') : $this->translate('Create resume'));
-$this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
-//$this->headscript()->appendScript('$(function(){$(".form-collection").formcollection();});');
+use Cv\Entity\Status;
 
-?>
-<h1><?php echo $this->translate('Create a new resume')?></h1>
-
+$this->headStyle()->captureStart()?>
+fieldset fieldset {padding-left: 30px;}
+#image .img-polaroid {max-width: 120px; max-height: 180px;width: 120px;}
+<?php $this->headStyle()->captureEnd()?>
 <?php
-if ($this->isSaved): ?>
-<p><?php echo $this->translate('Your resume was saved successfully.');?></p>
-<?php else:
-$this->form->setAttributes(array(
-    'action' => $this->url('lang/cvs/create', array(), true),
-    'method' => 'post',
-    //'id' => 'cv-form',
-));
-
-$this->formdateselect()->setLocale($this->params('lang'));
-
-if (!$this->id):
-    $form->get('cv')->get('educations')->setCount(1);
-    $form->get('cv')->get('employments')->setCount(1);
-endif;
-
-echo $this->form($this->form);
-endif;
-
+/* @var $cv \Cv\Entity\Cv */
+$cv = $this->cv;
+$status = $cv->getStatus();
+if ($this->auth()->getUser()->getRole() == \Auth\Entity\UserInterface::ROLE_USER) {
+    $title = $this->translate('Manage my resume');
+} else if ($this->params()->fromQuery('id')) {
+    $title = $this->translate('Edit a resume');
+} else {
+    $title = $this->translate('Create a new resume');
+}
+$this->headtitle($title);
+$this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
+$currentStatus = $status->getName();
+$statusClasses = [
+    Status::NONPUBLIC => 'danger',
+    Status::PUBLIC_TO_ALL => 'success',
+];
+$statusClass = isset($statusClasses[$currentStatus]) ? $statusClasses[$currentStatus] : 'default';
+?>
+<h1>
+    <?php if ($this->auth()->getUser()->getRole() == \Auth\Entity\UserInterface::ROLE_USER) :?>
+    <div class="btn-group pull-right">
+        <span class="btn btn-<?=$statusClass?>"><?=$this->translate($currentStatus)?></span>
+        <a class="btn btn-<?=$statusClass?> dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <?php foreach ($status->getStates([$currentStatus]) as $otherStatus):?>
+                <li><a href="<?=$this->url(null, [], ['query' => ['status' => $otherStatus]], true)?>"><?=$this->translate($otherStatus)?></a></li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+    <?php endif?>
+    <?=$title?>
+</h1>
+<?=$this->formContainer($this->container)?>

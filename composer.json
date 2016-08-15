@@ -27,23 +27,14 @@
         "human resource", "human relation", "applicant", "ATS",
         "zf2", "jobboard"
     ],
-    "repositories": [
-       {
-        "type": "composer",
-	"url": "https://packages.zendframework.com"
-       }
-    ],
     "homepage": "http://yawik.org/",
-    "minimum-stability": "alpha",
     "require": {
         "php": ">=5.5",
         "ext-mongo": "*",
         "ext-intl": "*",
-        "zendframework/zendframework": "2.*",
-	"zendframework/zend-mvc": "2.6.*",
-	"zendframework/zend-form": "2.6.*",
-	"zendframework/zend-math": "2.6.*",
+        "zendframework/zendframework": "^2.5",
         "zendframework/zendservice-recaptcha": "2.*",
+	"zendframework/zend-navigation": "2.7.*",
         "doctrine/doctrine-mongo-odm-module": "*",
         "hybridauth/hybridauth": "*",
         "mpdf/mpdf": "5.7.*",
@@ -60,10 +51,12 @@
         "jmikola/geojson": "~1.0",
         "mikey179/vfsStream": "^1.6",
         "satooshi/php-coveralls": "~1.0",
-        "eternicode/bootstrap-datepicker": "^1.6"
+        "eternicode/bootstrap-datepicker": "^1.6",
+        "ircmaxell/random-lib": "^1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.7.*"
+        "phpunit/phpunit": "4.7.*",
+        "cbleek/pecl-solr-hint": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

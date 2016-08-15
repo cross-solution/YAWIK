@@ -2,7 +2,18 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
-        'Core', 'Auth', 'Jobs', 'Organizations',  'Applications', 'Cv'
+        'DoctrineModule',
+        'DoctrineMongoODMModule',
+        'Install',
+        'Core',
+        'Auth',
+        'Jobs',
+        'Geo',
+        'Cv',
+        'Settings',
+        'Applications',
+        'Orders',
+        'Organizations',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
@@ -20,7 +31,7 @@ return array(
         // modules are loaded. These effectively overide configuration
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
         'config_glob_paths' => array(
-            'config/autoload/{,*.}{global,local}.php',
+              __DIR__  . '/../../../test/config/{,*.}{global,local}.php',
         ),
 
         // Whether or not to enable a configuration cache.

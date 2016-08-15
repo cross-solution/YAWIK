@@ -82,7 +82,6 @@ class InstallationTest extends \PHPUnit_Framework_TestCase
         $target->expects($this->once())->method('setName')->with('installation');
         $target->expects($this->once())->method('setAttributes')->with(array(
                                                                            'method' => 'post',
-                                                                           'action' => '?p=install'
                                                                        )
         );
         /* @var $target \PHPUnit_Framework_MockObject_MockObject|\Install\Form\Installation */

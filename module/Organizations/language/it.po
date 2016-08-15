@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-02 17:07+0200\n"
-"PO-Revision-Date: 2016-05-02 15:07+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"POT-Creation-Date: 2016-05-12 18:44+0200\n"
+"PO-Revision-Date: 2016-07-05 10:54+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -170,11 +170,11 @@ msgstr "Reclutatore"
 
 #: language/_annotated_strings.php:33
 msgid "Department Manager"
-msgstr ""
+msgstr "Direttore del dipartimento"
 
 #: language/_annotated_strings.php:36
 msgid "Managing Directors"
-msgstr ""
+msgstr "Amministratori delegati"
 
 #: language/_annotated_strings.php:39
 msgid "Please enter the name of the hiring organization."
@@ -198,11 +198,11 @@ msgstr "Gestisci i tuoi collaboratori / dipendenti e le relative autorizzazioni.
 
 #: language/_annotated_strings.php:54
 msgid "Workflow"
-msgstr ""
+msgstr "Flusso di lavoro"
 
 #: language/_annotated_strings.php:57
 msgid "Define, how notifications about new applications reach your employees"
-msgstr ""
+msgstr "Definire come notifiche sulle nuove applicazioni raggiungono i dipendenti"
 
 #: language/_annotated_strings.php:60
 msgid "Description"
@@ -220,33 +220,33 @@ msgstr "Nome organizzazione"
 
 #: language/_annotated_strings.php:69
 msgid "accept Applications by Department Managers"
-msgstr ""
+msgstr "accettazione delle domande da responsabili del dipartimento"
 
 #: language/_annotated_strings.php:72
 msgid ""
 "if checked, department managers are informed about new applications first."
-msgstr ""
+msgstr "se selezionato, responsabili di reparto sono informati sulle nuove applicazioni come primi."
 
 #: language/_annotated_strings.php:75
 msgid ""
 "Department managers are notified of incoming applications and must accept "
 "this. Only then the recruiter can start his work with the application"
-msgstr ""
+msgstr "I responsabili di reparto sono informati su delle domande in entrata e devono accettare queste. Solo dopo il rilascio il reclutatore può iniziare il suo lavoro con l'applicazione"
 
 #: language/_annotated_strings.php:78
 msgid "assign department managers to jobs"
-msgstr ""
+msgstr "assegnate i responsabili di reparto alle offerte di lavoro"
 
 #: language/_annotated_strings.php:81
 msgid "if checked, department managers have to be assigned to job postings."
-msgstr ""
+msgstr "se selezionato, responsabili di reparto devono essere assegnati alle offerte di lavoro."
 
 #: language/_annotated_strings.php:84
 msgid ""
 "if you have more them one department managers, you can assign them to a job "
 "posting. If nobody is assigned, all department managers will be informed "
 "about new applications"
-msgstr ""
+msgstr "se avete più di un responsabile di reparto è possibile assegnarlo ad un annuncio di lavoro. Se viene assegnato nessun responsabile di reparto, tutti i responsabili del reparto saranno informati su nuove applicazioni"
 
 #: language/_annotated_strings.php:90
 msgid "street"

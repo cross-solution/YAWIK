@@ -12,46 +12,42 @@ namespace Core\Mail;
 
 use Zend\Mail\Header;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\View\Model\ViewModel;
 use Zend\Stdlib\Response;
 use Zend\View\Variables as ViewVariables;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Class HTMLTemplateMessage.
  * uses methods alike ViewModel
  * @package Core\Mail
  */
-class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocatorAwareInterface
+class HTMLTemplateMessage extends TranslatorAwareMessage
 {
-    protected $serviceLocator;
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
 
     /**
      * View variables
-     * @var array|ArrayAccess&Traversable
+     * @var array|\ArrayAccess|\Traversable
      */
     protected $variables = array();
 
-    public function __construct(array $options = array())
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     * @param array $options
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager, array $options = array())
     {
         // @TODO make this multipart
         parent::__construct($options);
+        $this->serviceManager = $serviceManager;
         $this->getHeaders()->addHeader(Header\ContentType::fromString('Content-Type: text/html; charset=UTF-8'));
         $this->setEncoding('UTF-8');
         $this->variables = new ViewVariables();
     }
-
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
-    }
-
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->serviceLocator = $serviceLocator;
-        return $this;
-    }
-
 
     /**
      * Property overloading: set variable value
@@ -101,11 +97,9 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
      */
     public function __unset($name)
     {
-        if (!$this->__isset($name)) {
-            return null;
+        if ($this->__isset($name)) {
+            unset($this->variables[$name]);
         }
-
-        unset($this->variables[$name]);
     }
 
     /**
@@ -143,15 +137,15 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
      *
      * Can be an array or a Traversable + ArrayAccess object.
      *
-     * @param  array|ArrayAccess|Traversable $variables
+     * @param  array|\ArrayAccess|\Traversable $variables
      * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
      * @throws \InvalidArgumentException
      * @return self
      */
     public function setVariables($variables, $overwrite = false)
     {
-        if (!is_array($variables) && !$variables instanceof Traversable) {
-            throw \InvalidArgumentException(
+        if (!is_array($variables) && !$variables instanceof \Traversable) {
+            throw new \InvalidArgumentException(
                 sprintf(
                     '%s: expects an array, or Traversable argument; received "%s"',
                     __METHOD__,
@@ -161,7 +155,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
         }
 
         if ($overwrite) {
-            if (is_object($variables) && !$variables instanceof ArrayAccess) {
+            if (is_object($variables) && !$variables instanceof \ArrayAccess) {
                 $variables = ArrayUtils::iteratorToArray($variables);
             }
 
@@ -179,7 +173,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
     /**
      * Get view variables
      *
-     * @return array|ArrayAccess|Traversable
+     * @return array|\ArrayAccess|\Traversable
      */
     public function getVariables()
     {
@@ -200,7 +194,6 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
     }
 
     /**
-     *
      *
      * @param $template
      *
@@ -231,15 +224,12 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
             throw new \InvalidArgumentException('mail body shall come from Template.');
         }
 
-        /* @var \Core\Mail\MailService $services */
-        $services = $this->getServiceLocator();
         /* @var \Zend\Mvc\View\Http\ViewManager $viewManager */
-        $viewManager  = $services->getServiceLocator()->get('viewManager');
-        $resolver = $viewManager->getResolver();
+        $viewManager  = $this->serviceManager->get('viewManager');
+        $resolver = $this->serviceManager->get('viewResolver');
 
-        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
         /* @var \Zend\Mvc\MvcEvent $event */
-        $event = $services->getServiceLocator()->get('application')->getMvcEvent();
+        $event = $this->serviceManager->get('application')->getMvcEvent();
         $lang = $event->getRouteMatch()->getParam('lang');
 
 
@@ -257,5 +247,14 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
         $body = $response->getContent();
 
         return $body;
+    }
+    
+    /**
+     * @param MailService $mailService
+     * @return \Core\Mail\HTMLTemplateMessage
+     */
+    public static function factory(MailService $mailService)
+    {
+        return new static($mailService->getServiceLocator());
     }
 }

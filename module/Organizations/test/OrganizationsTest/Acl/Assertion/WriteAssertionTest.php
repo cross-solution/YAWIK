@@ -11,7 +11,7 @@
 namespace OrganizationsTest\Acl\Assertion;
 
 use Auth\Entity\User;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use \Organizations\Acl\Assertion\WriteAssertion;
 use Organizations\Entity\Organization;
 use Zend\Permissions\Acl\Acl;
@@ -28,7 +28,7 @@ use Zend\Permissions\Acl\Role\GenericRole;
  */
 class WriteAssertionTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     private $target = WriteAssertion::class;
 

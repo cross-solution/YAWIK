@@ -33,9 +33,10 @@ class AssertionManager extends AbstractPluginManager
      * implementing {@link EventManagerAwareInterface}.
      *
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function __construct(ServiceLocatorInterface $serviceLocator, ConfigInterface $configuration = null)
     {
         parent::__construct($configuration);
+        $this->serviceLocator = $serviceLocator;
 
         // Pushing to bottom of stack to ensure this is done last
         $this->addInitializer(array($this, 'injectEventManager'), false);

@@ -12,8 +12,8 @@ namespace CoreTest\Form;
 
 use Core\Form\TextSearchFormButtonsFieldset;
 use Core\Form\TextSearchFormFieldset;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\Form\Fieldset;
 
 /**
@@ -26,7 +26,7 @@ use Zend\Form\Fieldset;
  */
 class TextSearchFormTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
      *
@@ -120,7 +120,9 @@ class TextSearchFormTest extends \PHPUnit_Framework_TestCase
             'data-handle-by' => 'script',
             'method' => 'get',
         ];
-        $target = $this->getMock(get_class($this->target), ['add', 'setAttributes']);
+        $target = $this->getMockBuilder(get_class($this->target))
+            ->setMethods(['add', 'setAttributes'])
+            ->getMock();
         $target->expects($this->once())->method('setAttributes')->with($attributes);
 
         $target->init();
@@ -128,7 +130,9 @@ class TextSearchFormTest extends \PHPUnit_Framework_TestCase
 
     public function testInitializesItselfSetsDefaultName()
     {
-        $target = $this->getMock(get_class($this->target), ['add', 'setName']);
+        $target = $this->getMockBuilder(get_class($this->target))
+            ->setMethods(['add', 'setName'])
+            ->getMock();
         $target->expects($this->once())->method('setName')->with('search');
 
         $target->init();
@@ -136,7 +140,9 @@ class TextSearchFormTest extends \PHPUnit_Framework_TestCase
 
     public function testInitializesItselfUsesName()
     {
-        $target = $this->getMock(get_class($this->target), ['add', 'setName']);
+        $target = $this->getMockBuilder(get_class($this->target))
+            ->setMethods(['add', 'setName'])
+            ->getMock();
         $target->expects($this->never())->method('setName');
         $target->setAttribute('name', 'test');
         $target->init();
@@ -144,7 +150,9 @@ class TextSearchFormTest extends \PHPUnit_Framework_TestCase
 
     public function testInitializesItselfWithNonObjectFieldsets()
     {
-        $target = $this->getMock(get_class($this->target), ['add']);
+        $target = $this->getMockBuilder(get_class($this->target))
+            ->setMethods(['add'])
+            ->getMock();
 
         $addElements = [
             'type' => 'Core/TextSearch/Elements',
@@ -163,7 +171,9 @@ class TextSearchFormTest extends \PHPUnit_Framework_TestCase
 
     public function testInitializesItselfWithObjectFieldset()
     {
-        $target  = $this->getMock(get_class($this->target), ['add']);
+        $target = $this->getMockBuilder(get_class($this->target))
+            ->setMethods(['add'])
+            ->getMock();
         $elements = new TextSearchFormFieldset();
         $buttons  = new TextSearchFormButtonsFieldset();
 
@@ -230,7 +240,9 @@ class TextSearchFormTest extends \PHPUnit_Framework_TestCase
     {
         $elements = new TextSearchFormFieldset();
         $buttons = new TextSearchFormButtonsFieldset();
-        $target = $this->getMock(get_class($this->target), ['get']);
+        $target = $this->getMockBuilder(get_class($this->target))
+            ->setMethods(['get'])
+            ->getMock();
 
         $target
             ->expects($this->exactly(4))

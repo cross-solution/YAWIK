@@ -25,10 +25,10 @@ class Installation extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setName('installation');
+
         $this->setAttributes(
             array(
                                  'method' => 'post',
-                                 'action' => '?p=install'
                              )
         );
 

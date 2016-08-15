@@ -10,12 +10,9 @@
 /** */
 namespace CoreTest\Form;
 
-use Core\Form\TextSearchFormButtonsFieldset;
-use Core\Form\TextSearchFormFieldset;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\Form\Element\Text;
-use Zend\Form\Fieldset;
 
 /**
  * Tests for \Core\Form\TextSearchFormFieldset
@@ -27,7 +24,7 @@ use Zend\Form\Fieldset;
  */
 class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
      *
@@ -36,11 +33,15 @@ class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     protected $target = [
         'class' => '\Core\Form\TextSearchFormFieldset',
-        'mock' => [
-            'testPassingTextElementOptionsWithNoTextElementSet' => ['has', 'get'],
-            'testPassingTextElementOptionsWithTextElementSet' => ['has', 'get'],
-            'testAddsTextElementOnInitialization' => ['add'],
-        ]
+        '@testPassingTextElementOptionsWithNoTextElementSet' => [
+            'mock' => ['has', 'get'],
+        ],
+        '@testPassingTextElementOptionsWithTextElementSet' => [
+            'mock' => ['has', 'get'],
+        ],
+        '@testAddsTextElementOnInitialization' => [
+            'mock' => ['add'],
+        ],
     ];
 
     protected $inheritance = [ '\Zend\Form\Fieldset'  ];
@@ -52,14 +53,14 @@ class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
             [ 'buttonElement', [
                 'ignore_setter' => true,
                 'value' => 'text',
-                'post' => ['assertEquals', [ 'text', ['->getOption', ['button_element']], 'Failed']],
+                'post' => function() { $this->assertEquals('text', $this->target->getOption('button_element')); },
             ]],
             [ 'columnMap', [ 'value' => [1,2,3]] ],
             [ 'columnMap', [
                 'value' => ['text' => 5 ],
                 'ignore_setter' => true,
                 'pre' => 'populateElementsForColumnMapTest',
-                'post' => ['assertEquals', [ ['text' => 5], ['->getOption', ['column_map']]]],
+                'post' => function() { $this->assertEquals(['text' => 5], $this->target->getOption('column_map')); },
             ]]
 
         ];
@@ -96,7 +97,9 @@ class TextSearchFormFieldsetTest extends \PHPUnit_Framework_TestCase
         $span = 8;
         $label = 'Test';
 
-        $text = $this->getMock('\Zend\Form\Element\Text', ['setAttribute', 'setOption', 'setLabel']);
+        $text = $this->getMockBuilder('\Zend\Form\Element\Text')
+            ->setMethods(['setAttribute', 'setOption', 'setLabel'])
+            ->getMock();
         $text->expects($this->once())->method('setAttribute')->with('placeholder', $placeholder);
         $text->expects($this->once())->method('setOption')->with('span', $span);
         $text->expects($this->once())->method('setLabel')->with($label);

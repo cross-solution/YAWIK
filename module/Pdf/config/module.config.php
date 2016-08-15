@@ -2,8 +2,8 @@
 
 return array(
     'service_manager' => array(
-        'invokables' => array(
-            'Html2PdfConverter' => 'Pdf\Module',
+        'factories' => array(
+            'Html2PdfConverter' => 'Pdf\Module::factory',
         )
     ),
     'view_manager' => array(

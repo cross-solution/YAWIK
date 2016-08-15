@@ -18,6 +18,15 @@ return array(
                 'paths' => array( __DIR__ . '/../src/Cv/Entity'),
             ),
         ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    '\Cv\Repository\Event\InjectContactListener',
+                    '\Cv\Repository\Event\DeleteRemovedAttachmentsSubscriber',
+                    '\Cv\Repository\Event\UpdateFilesPermissionsSubscriber',
+                ),
+            ),
+        ),
     ),
     
     
@@ -45,7 +54,7 @@ return array(
                         'options' => array(
                             'route'    => '/cvs',
                             'defaults' => array(
-                                'controller' => 'Cv\Controller\Index',
+                                'controller' => 'Cv/Index',
                                 'action'     => 'index',
                             ),
                         ),
@@ -57,25 +66,42 @@ return array(
                                     'route' => '/create',
                                     'defaults' => array(
                                         'controller' => 'Cv\Controller\Manage',
-                                        'action' => 'form',
-                                        'id' => false,
+                                        'action' => 'form'
                                     ),
                                 ),
-                                'may_terminate' => true,
                             ),
-                            'save' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/save',
-                                    'defaults' => array(
+                            'edit' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/edit/:id',
+                                    'defaults' => [
                                         'controller' => 'Cv\Controller\Manage',
-                                        'action' => 'save',
-                                    ),
-                                ),
-                                'may_terminate' => true,
-                            ),
+                                        'action' => 'form'
+                                    ],
+                                ],
+                            ],
+                            'view' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/view/:id',
+                                    'defaults' => [
+                                        'controller' => 'Cv/View',
+                                    ],
+                                ],
+                            ],
                         ),
                     ),
+                    'my-cv' => [
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/my/cv',
+                            'defaults' => [
+                                'controller' => 'Cv\Controller\Manage',
+                                'action' => 'form',
+                                'id' => '__my__'
+                            ],
+                        ],
+                    ],
                 ),
             ),
         ),
@@ -85,24 +111,45 @@ return array(
         'rules' => array(
             'user' => array(
                 'allow' => array(
-                    'route/lang/cvs',
+                    'route/lang/my-cv',
                     'Cv\Controller\Manage',
+                    'navigation/resume-user',
+                    'Cv/Status' => ['change'],
                 ),
             ),
             'recruiter' => [
                 'deny' => [
+                    'route/lang/my-cv',
+                    'navigation/resume-user',
+                    'Cv/Status',
+                ],
+                'allow' => [
                     'route/lang/cvs',
-                    'Cv\Controller\Manage',
-                ]
-            ]
+                    'navigation/resume-recruiter',
+                    'Entity/Cv' => [
+                        'view' => 'Cv/MayView',
+                        'edit' => 'Cv/MayChange',
+                    ],
+                ],
+            ],
         ),
+        'assertions' => [
+            'invokables' => [
+                'Cv/MayView'   => 'Cv\Acl\Assertion\MayViewCv',
+                'Cv/MayChange' => 'Cv\Acl\Assertion\MayChangeCv',
+            ],
+        ],
     ),
     
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
         'invokables' => array(
-            'Cv\Controller\Index' => 'Cv\Controller\IndexController',
+            //'Cv\Controller\Index' => 'Cv\Controller\IndexController',
             'Cv\Controller\Manage' => 'Cv\Controller\ManageController',
+        ),
+        'factories' => array(
+            'Cv/Index' => 'Cv\Factory\Controller\IndexControllerFactory',
+            'Cv/View'  => 'Cv\Factory\Controller\ViewControllerFactory',
         ),
     ),
     
@@ -111,10 +158,11 @@ return array(
     // TODO: Remove comments when module is fixed
     'navigation' => array(
         'default' => array(
-            'resume' => array(
-                'label' =>  /*@translate*/ 'Resumes',
+            'resume-recruiter' => array(
+                'label' =>  /*@translate*/ 'Talent-Pool',
                 'route' => 'lang/cvs',
-                'resource' => 'route/lang/cvs',
+                'active_on' => [ 'lang/cvs/edit', 'lang/cvs/view' ],
+                'resource' => 'navigation/resume-recruiter',
                 'order' => 10,
                 'pages' => array(
                     'list' => array(
@@ -127,6 +175,12 @@ return array(
                     ),
                 ),
             ),
+            'resume-user' => [
+                'label' => /*@translate*/ 'Resume',
+                'route' => 'lang/my-cv',
+                'resource' => 'navigation/resume-user',
+                'order' => 10
+            ],
         ),
     ),
     
@@ -135,7 +189,10 @@ return array(
     
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
-            //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
+            'cv/form/employment.view' => __DIR__ . '/../view/cv/form/employment.view.phtml',
+            'cv/form/employment.form' => __DIR__ . '/../view/cv/form/employment.form.phtml',
+            'cv/form/education.view' => __DIR__ . '/../view/cv/form/education.view.phtml',
+            'cv/form/education.form' => __DIR__ . '/../view/cv/form/education.form.phtml'
         ),
     
         // Where to look for view templates not mapped above
@@ -143,29 +200,58 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+
     'filters' => array(
         'factories' => array(
             'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
-            'Cv/JsonPaginationQuery' => 'Cv\Repository\Filter\JsonPaginationQueryFactory',
+        ),
+    ),
+    
+    'input_filters' => [
+        'invokables' => [
+            'Cv/Employment' => 'Cv\Form\InputFilter\Employment',
+            'Cv/Education' => 'Cv\Form\InputFilter\Education'
+        ],
+    ],
+
+    'paginator_manager' => array(
+        'factories' => array(
+            'Cv/Paginator' => 'Cv\Paginator\PaginatorFactory',
         ),
     ),
     
     'form_elements' => array(
         'invokables' => array(
-            'CvForm'            => '\Cv\Form\Cv',
-            'CvFieldset'        => '\Cv\Form\CvFieldset',
+            'CvContainer'       => '\Cv\Form\CvContainer',
             'EducationFieldset' => '\Cv\Form\EducationFieldset',
             'EmploymentFieldset' => '\Cv\Form\EmploymentFieldset',
             'SkillFieldset' => '\Cv\Form\SkillFieldset',
-            'NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
             'LanguageSkillFieldset' => '\Cv\Form\LanguageFieldset',
-                
-            
+            'CvEmploymentForm' => '\Cv\Form\EmploymentForm',
+            'CvEducationForm' => '\Cv\Form\EducationForm',
+            'CvSkillForm' => '\Cv\Form\SkillForm',
+            'Cv/PreferredJobForm' => 'Cv\Form\PreferredJobForm',
+            'Cv/LanguageSkillForm' => '\Cv\Form\LanguageSkillForm',
+            'Cv/LanguageSkillFieldset' => '\Cv\Form\LanguageSkillFieldset',
+            'Cv/NativeLanguageForm' => '\Cv\Form\NativeLanguageForm',
+            'Cv/NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
+            'Cv/SearchForm' => '\Cv\Form\SearchForm',
         ),
         'factories' => array(
-            'Cv' => '\Cv\Form\CvFactory',
-            'EducationCollection' => '\Cv\Form\EducationCollectionFactory',
+            'CvEmploymentCollection' => '\Cv\Factory\Form\EmploymentCollectionFactory',
+            'CvEducationCollection' => '\Cv\Factory\Form\EducationCollectionFactory',
+            'CvSkillCollection' => '\Cv\Factory\Form\SkillCollectionFactory',
+            'Cv/LanguageSkillCollection' => '\Cv\Factory\Form\LanguageSkillCollectionFactory',
+            'CvContactImage' => '\Cv\Factory\Form\CvContactImageFactory',
+            'Cv/PreferredJobFieldset' => '\Cv\Factory\Form\PreferredJobFieldsetFactory',
+            'Cv/SearchFormFieldset' => '\Cv\Factory\Form\SearchFormFieldsetFactory',
+            'Cv/Attachments' => '\Cv\Factory\Form\AttachmentsFormFactory',
         ),
     ),
     
+    'options' => [
+        'Cv/Options' => [
+            'class' => '\Cv\Options\ModuleOptions'
+        ]
+    ]
 );

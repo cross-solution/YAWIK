@@ -11,7 +11,8 @@
 namespace CoreTest\Controller;
 
 use Core\Controller\AdminControllerEvent;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use Core\EventManager\EventManager;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 
 
@@ -25,7 +26,7 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
  */
 class AdminControllerTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait, ServiceManagerMockTrait;
+    use TestInheritanceTrait, ServiceManagerMockTrait;
 
     /**
      *
@@ -41,7 +42,9 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
         $event = new AdminControllerEvent(AdminControllerEvent::EVENT_DASHBOARD, $this->target);
         $event->addViewVariables('test', ['testVar' => 'value']);
 
-        $events = $this->getMock('\Core\EventManager\EventManager', ['getEvent', 'trigger']);
+        $events = $this->getMockBuilder(EventManager::class)
+            ->setMethods(['getEvent', 'trigger'])
+            ->getMock();
         $events->expects($this->once())->method('getEvent')
             ->with(AdminControllerEvent::EVENT_DASHBOARD, $this->identicalTo($this->target))
             ->willReturn($event);

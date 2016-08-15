@@ -86,9 +86,11 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $this->testedObject = new Register($this->userRepositoryMock, $this->mailServiceMock, $this->optionsMock);
 
-        $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
-        $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer');
-        $this->urlPluginMock = $this->getMock('Zend\Mvc\Controller\Plugin\Url');
+        $this->inputFilterMock = $this->getMockBuilder('Zend\InputFilter\InputFilterInterface')->getMock();
+        $this->mailerPluginMock = $this->getMockBuilder('Core\Controller\Plugin\Mailer')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->urlPluginMock = $this->getMockBuilder('Zend\Mvc\Controller\Plugin\Url')->getMock();
     }
 
     public function testProceed_WhenInputFilterIsInvalid()
@@ -112,6 +114,7 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
         $name = uniqid('name');
         $email = uniqid('email') . '@' . uniqid('host') . '.com.pl';
         $user = UserEntityProvider::createEntityWithRandomData();
+        $role = 'user';
 
         $this->inputFilterMock->expects($this->once())
             ->method('isValid')
@@ -122,9 +125,9 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->with('register')
             ->willReturnSelf();
 
-        $this->inputFilterMock->expects($this->exactly(2))
+        $this->inputFilterMock->expects($this->exactly(3))
             ->method('getValue')
-            ->willReturnOnConsecutiveCalls($name, $email);
+            ->willReturnOnConsecutiveCalls($name, $email, $role);
 
         // this does the trick with providing an already existing user
         $this->userRepositoryMock->expects($this->once())
@@ -138,7 +141,19 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
         //$this->assertEmpty($this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock));
     }
 
-    public function testProceed()
+    public function proceedDataProvider() {
+        return [
+            ['user'],
+            ['recruiter'],
+        ];
+    }
+
+    /**
+     * @dataProvider proceedDataProvider
+     *
+     * @param $role
+     */
+    public function testProceed($role)
     {
         $name = uniqid('name') . ' ' . uniqid('surname');
         $email = uniqid('email') . '@' . uniqid('host') . '.com.pl';
@@ -155,9 +170,9 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->with('register')
             ->willReturnSelf();
 
-        $this->inputFilterMock->expects($this->exactly(2))
+        $this->inputFilterMock->expects($this->exactly(3))
             ->method('getValue')
-            ->willReturnOnConsecutiveCalls($name, $email);
+            ->willReturnOnConsecutiveCalls($name, $email, $role);
 
         $this->userRepositoryMock->expects($this->once())
             ->method('findByLoginOrEmail')
@@ -168,7 +183,7 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepositoryMock->expects($this->once())
             ->method('create')
-            ->with(array('login' => $email, 'role' => User::ROLE_RECRUITER))
+            ->with(array('login' => $email, 'role' => $role))
             ->willReturn($user);
 
         $this->userRepositoryMock->expects($this->once())

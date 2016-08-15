@@ -9,8 +9,9 @@
 
 namespace Cv\Entity;
 
-use Core\Entity\AbstractEntity;
+use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -19,7 +20,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @package Cv\Entity
  * @ODM\EmbeddedDocument
  */
-class Skill extends AbstractEntity
+class Skill extends AbstractIdentifiableEntity
 {
     
     /**
@@ -45,7 +46,7 @@ class Skill extends AbstractEntity
      * @param $nativeLanguages
      * @return $this
      */
-    public function setNativeLanguages($nativeLanguages)
+    public function setNativeLanguages(Collection $nativeLanguages)
     {
         $this->nativeLanguages = $nativeLanguages;
         return $this;
@@ -56,6 +57,9 @@ class Skill extends AbstractEntity
      */
     public function getNativeLanguages()
     {
+        if (!is_object($this->nativeLanguages)) {
+            $this->nativeLanguages = new ArrayCollection();
+        }
         return $this->nativeLanguages;
     }
 
@@ -63,7 +67,7 @@ class Skill extends AbstractEntity
      * @param $languageSkills
      * @return $this
      */
-    public function setLanguageSkills($languageSkills)
+    public function setLanguageSkills(Collection $languageSkills)
     {
         $this->languageSkills = $languageSkills;
         return $this;
@@ -74,6 +78,9 @@ class Skill extends AbstractEntity
      */
     public function getLanguageSkills()
     {
+        if (!is_object($this->languageSkills)) {
+            $this->languageSkills = new ArrayCollection();
+        }
         return $this->languageSkills;
     }
 
@@ -81,7 +88,7 @@ class Skill extends AbstractEntity
      * @param $computerSkills
      * @return $this
      */
-    public function setComputerSkills($computerSkills)
+    public function setComputerSkills(Collection $computerSkills)
     {
         $this->computerSkills = $computerSkills;
         return $this;
@@ -92,6 +99,9 @@ class Skill extends AbstractEntity
      */
     public function getComputerSkills()
     {
+        if (!is_object($this->computerSkills)) {
+            $this->computerSkills = new ArrayCollection();
+        }
         return $this->computerSkills;
     }
 }

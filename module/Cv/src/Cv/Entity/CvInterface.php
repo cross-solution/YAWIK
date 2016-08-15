@@ -2,11 +2,18 @@
 
 namespace Cv\Entity;
 
+use Core\Entity\DraftableEntityInterface;
+use Core\Entity\ModificationDateAwareEntityInterface;
+use Core\Entity\PermissionsAwareInterface;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 
-interface CvInterface extends EntityInterface, IdentifiableEntityInterface
+interface CvInterface extends EntityInterface,
+                              IdentifiableEntityInterface,
+                              DraftableEntityInterface,
+                              PermissionsAwareInterface,
+                              ModificationDateAwareEntityInterface
 {
     
     /**
@@ -20,12 +27,12 @@ interface CvInterface extends EntityInterface, IdentifiableEntityInterface
     public function setEducations(CollectionInterface $educations);
     
     /**
-     * @return the $employments
+     * @return CollectionInterface $employments
      */
     public function getEmployments();
     
     /**
-     * @param field_type $employments
+     * @param CollectionInterface $employments
      */
     public function setEmployments(CollectionInterface $employments);
 }

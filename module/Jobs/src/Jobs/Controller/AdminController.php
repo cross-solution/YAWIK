@@ -34,7 +34,7 @@ class AdminController extends AbstractActionController
 
     public function editAction()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $repositories = $services->get('repositories');
         $jobs         = $repositories->get('Jobs');
         $job          = $jobs->find($this->params()->fromQuery('id'));
@@ -50,9 +50,9 @@ class AdminController extends AbstractActionController
 
             if ($valid) {
                 $job->setDatePublishStart($post['datePublishStart']);
-                if ($job->getStatus()->getName() != $post['status']) {
+                if ($job->getStatus()->getName() != $post['statusselect']) {
                     $oldStatus = $job->getStatus();
-                    $job->changeStatus($post['status'], '[System] Status changed via Admin GUI.');
+                    $job->changeStatus($post['statusselect'], '[System] Status changed via Admin GUI.');
                     $events = $services->get('Jobs/Events');
                     $events->trigger(JobEvent::EVENT_STATUS_CHANGED, $this, [ 'job' => $job, 'status' => $oldStatus ]);
                 }

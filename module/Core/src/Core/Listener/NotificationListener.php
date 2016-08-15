@@ -10,10 +10,7 @@
 
 namespace Core\Listener;
 
-use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\SharedListenerAggregateInterface;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
-use Zend\ServiceManager\ServiceManager;
 use Zend\EventManager\SharedEventManagerInterface;
 use Core\Listener\Events\NotificationEvent;
 use Zend\Mvc\MvcEvent;
@@ -25,24 +22,22 @@ use Zend\View\Model\JsonModel;
  * @todo [MG] This must be refactored! It's a violation of the encapsulation principle.
  *       I mean... an event manager which is a listener for itself? What a mess!
  */
-class NotificationListener extends EventManager implements SharedListenerAggregateInterface, ServiceManagerAwareInterface
+class NotificationListener extends EventManager implements SharedListenerAggregateInterface
 {
 
-    protected $serviceManager;
+    /**
+     * @var array
+     */
     protected $notifications = array();
+    
+    /**
+     * @var bool
+     */
     protected $hasRunned = true;
 
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-        return $this;
-    }
-
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
+    /**
+     * @see \Zend\EventManager\SharedListenerAggregateInterface::attachShared()
+     */
     public function attachShared(SharedEventManagerInterface $events)
     {
         $events->attach('*', NotificationEvent::EVENT_NOTIFICATION_ADD, array($this,'add'), 1);
@@ -54,11 +49,18 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
         return $this;
     }
 
+    /**
+     * @see \Zend\EventManager\SharedListenerAggregateInterface::detachShared()
+     */
     public function detachShared(SharedEventManagerInterface $events)
     {
         return $this;
     }
 
+    /**
+     * @param NotificationEvent $event
+     * @return \Core\Listener\NotificationListener
+     */
     public function add(NotificationEvent $event)
     {
         $notification = $event->getNotification();
@@ -97,13 +99,19 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
         return;
     }
 
-
+    /**
+     * @return \Core\Listener\NotificationListener
+     */
     public function reset()
     {
         $this->hasRunned = false;
         return $this;
     }
 
+    /**
+     * @param MvcEvent $event
+     * @return \Core\Listener\NotificationListener
+     */
     public function renderHTML(MvcEvent $event)
     {
         if (!$this->hasRunned) {

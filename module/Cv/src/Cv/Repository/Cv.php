@@ -2,45 +2,28 @@
 
 namespace Cv\Repository;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Entity\PermissionsInterface;
+use Core\Repository\DraftableEntityAwareInterface;
+use Core\Repository\DraftableEntityAwareTrait;
 use Core\Repository\AbstractRepository;
 use Auth\Entity\UserInterface;
+use Applications\Entity\Application;
+use Cv\Entity\Cv as CvEntity;
 
 /**
  * class for accessing CVs
+ *
+ * @method CvEntity create(array $data = null, $persist = false)
  */
-class Cv extends AbstractRepository
+class Cv extends AbstractRepository implements DraftableEntityAwareInterface
 {
-    /**
-     * Gets a pointer to access a CV
-     *
-     * @param array $params
-     */
-    public function getPaginatorCursor($params)
-    {
-        return $this->getPaginationQueryBuilder($params)
-                    ->getQuery()
-                    ->execute();
-    }
-    /**
-     * Gets a query builder to search for CVs
-     *
-     * @param array $params
-     * @return unknown
-     */
-    protected function getPaginationQueryBuilder($params)
-    {
-        $filter = $this->getService('filterManager')->get('Applications/PaginationQuery');
-        $qb = $filter->filter($params, $this->createQueryBuilder());
-    
-        return $qb;
-    }
+    use DraftableEntityAwareTrait;
 
     /**
      * Look for an drafted Document of a given user
      *
      * @param $user
-     * @return \Cv\Entity\Cv|null
+     * @return CvEntity|null
      */
     public function findDraft($user)
     {
@@ -48,17 +31,56 @@ class Cv extends AbstractRepository
             $user = $user->getId();
         }
 
-        $document = $this->findOneBy(
-            array(
-                'isDraft' => true,
-                'user' => $user
-            )
-        );
+        return $this->findOneDraftBy(['user' => $user]);
+    }
+    
+    /**
+     * @param Application $application
+     * @param UserInterface $user
+     * @return CvEntity
+     * @since 0.26
+     */
+    public function createFromApplication(Application $application, UserInterface $user)
+    {
+        $cv = $this->create();
+        $cv->setContact($application->getContact());
 
-        if (!empty($document)) {
-            return $document;
+        $assignedUser = $application->getJob()->getUser();
+        $cv->setUser($assignedUser);
+
+        $perms = $cv->getPermissions();
+
+        $perms->inherit($application->getPermissions());
+        // grant view permission to the user that issued this creation.
+        $perms->grant($user, PermissionsInterface::PERMISSION_VIEW);
+        // revoke change permission to the original applicant
+        $perms->revoke($application->getUser(), PermissionsInterface::PERMISSION_CHANGE);
+        
+        $applicationAttachments = $application->getAttachments();
+        
+        if (count($applicationAttachments) > 0)
+        {
+            $cvAttachments = [];
+        
+            /* @var $applicationAttachment \Applications\Entity\Attachment */
+            foreach ($applicationAttachments as $applicationAttachment)
+            {
+                $file = new \Doctrine\MongoDB\GridFSFile();
+                $file->setBytes($applicationAttachment->getContent());
+                
+                $cvAttachment = new \Cv\Entity\Attachment();
+                $cvAttachment->setName($applicationAttachment->getName());
+                $cvAttachment->setType($applicationAttachment->getType());
+                $cvAttachment->setUser($assignedUser);
+                $cvAttachment->setFile($file);
+                $cvAttachment->setDateUploaded($applicationAttachment->getDateUploaded());
+                
+                $cvAttachments[] = $cvAttachment;
+            }
+            
+            $cv->setAttachments(new \Doctrine\Common\Collections\ArrayCollection($cvAttachments));
         }
-
-        return null;
+        
+        return $cv;
     }
 }

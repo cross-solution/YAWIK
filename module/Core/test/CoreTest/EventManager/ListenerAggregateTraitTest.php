@@ -74,7 +74,9 @@ class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
                 $target->testEventsSpec = $eventsSpec;
             }
 
-            $events = $this->getMock('\Zend\EventManager\EventManager', ['attach']);
+            $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+                ->setMethods(['attach'])
+                ->getMock();
             $events->expects($this->exactly(2))->method('attach')
                 ->withConsecutive(
                     [$eventsSpec[0][0], [$target, $eventsSpec[0][1]], $eventsSpec[0][2]],

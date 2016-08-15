@@ -10,7 +10,6 @@
 
 namespace Jobs\Listener;
 
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\SharedListenerAggregateInterface;
@@ -25,7 +24,7 @@ use Jobs\Listener\Response\JobResponse;
  * @package Jobs\Listener
  */
 
-class Publisher implements ListenerAggregateInterface, SharedListenerAggregateInterface, ServiceManagerAwareInterface
+class Publisher implements ListenerAggregateInterface, SharedListenerAggregateInterface
 {
     protected $serviceManager;
 
@@ -33,20 +32,10 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
 
     /**
      * @param ServiceManager $serviceManager
-     * @return $this
      */
-    public function setServiceManager(ServiceManager $serviceManager)
+    public function __construct(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
     }
 
     /**
@@ -95,7 +84,7 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
     public function restPost(JobEvent $e)
     {
         $response = new JobResponse($this->name, JobResponse::RESPONSE_NOTIMPLEMENTED);
-        $serviceManager = $this->getServiceManager();
+        $serviceManager = $this->serviceManager;
         if ($serviceManager->has('Jobs/RestClient')) {
             try {
                 $log = $serviceManager->get('Core/Log');
@@ -192,5 +181,14 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
             }
         }
         return $response;
+    }
+    
+    /**
+     * @param ServiceManager $serviceLocator
+     * @return Publisher
+     */
+    public static function factory(ServiceManager $serviceLocator)
+    {
+        return new static($serviceLocator);
     }
 }

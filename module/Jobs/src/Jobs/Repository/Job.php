@@ -11,8 +11,13 @@ namespace Jobs\Repository;
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Core\Repository\DoctrineMongoODM\PaginatorAdapter;
+use Doctrine\ODM\MongoDB\Cursor;
 use Jobs\Entity\StatusInterface;
 
+/**
+ * Class Job
+ *
+ */
 class Job extends AbstractRepository
 {
     /**
@@ -153,6 +158,24 @@ class Job extends AbstractRepository
         $qb->field('_id')->in($r);
         $q = $qb->getQuery();
         $r = $q->execute();
+
+        return $r;
+    }
+
+    /**
+     * @return  Cursor
+     * @throws  \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function findActiveJob($hydrate = true)
+    {
+        $qb = $this->createQueryBuilder()
+            ->hydrate($hydrate)
+            ->refresh()
+            ->field('status.name')->in([StatusInterface::ACTIVE])
+            ->field('isDraft')->equals(false)
+        ;
+        $q  = $qb->getQuery();
+        $r  = $q->execute();
 
         return $r;
     }

@@ -21,8 +21,6 @@ class ToggleButton extends FormCheckbox
      */
     public function render(ElementInterface $element, $buttonContent = null)
     {
-        //$view = $this->getView();
-        //$view->headScript()->appendFile($view->basePath('/Core/js/bootstrap-switch.js'));
         if (null === $buttonContent) {
             $buttonContent = $element->getLabel();
             if (null === $buttonContent) {
@@ -44,13 +42,10 @@ class ToggleButton extends FormCheckbox
             $element->setLabel('');
         }
 
-        //$escape         = $this->getEscapeHtmlHelper();
-        //$translator     = $this->getTranslator();
-        //$name           = $element->getName();
         $value          = $element->getValue();
         $checkedBoole   = ($value == 1 || $value == 'on');
         
-        //$checked        = $checkedBoole?'checked="checked"':'';
+
         $checkedClass   = $checkedBoole?'active"':'';
 
         $hiddenElement = '';
@@ -73,9 +68,6 @@ class ToggleButton extends FormCheckbox
                 . '<label class="btn btn-default ' . $checkedClass . '">' . PHP_EOL
                 . parent::render($element) . $buttonContent . PHP_EOL . '</label>' . PHP_EOL
                 . '</div>' . PHP_EOL;
-        
-        //$buttonContent = '<div><div class="processing yk-hidden"><span class="fa-spin yk-icon-spinner yk-icon"></span> ' .
-        //    $translator->translate('processing', $this->getTranslatorTextDomain()) . '</div><div class="default">' . $escape($buttonContent) . '</div></div>';
 
         return $buttonContent;
     }

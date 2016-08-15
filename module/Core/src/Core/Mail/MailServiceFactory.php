@@ -39,7 +39,7 @@ class MailServiceFactory implements FactoryInterface
 
         $config = new MailServiceConfig($configArray);
 
-        $service   = new MailService($config);
+        $service   = new MailService($serviceLocator, $config);
 
         return $service;
 

@@ -12,6 +12,7 @@ namespace Core\Paginator;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Paginator\Paginator;
 
 /**
@@ -21,6 +22,12 @@ use Zend\Paginator\Paginator;
 class PaginatorService extends AbstractPluginManager
 {
 
+    public function __construct(ServiceLocatorInterface $serviceLocator, ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration);
+        $this->serviceLocator = $serviceLocator;
+    }
+    
     /**
      * check class
      *

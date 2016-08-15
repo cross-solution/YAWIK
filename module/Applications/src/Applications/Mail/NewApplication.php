@@ -76,7 +76,7 @@ class NewApplication extends StringTemplateMessage
             'title' => $this->job->getTitle()
         ];
 
-        $this->setTo($this->user->getInfo()->getEmail(), $this->user->getInfo()->getDisplayName());
+        $this->setTo($this->user->getInfo()->getEmail(), $this->user->getInfo()->getDisplayName(false));
 
         $this->setVariables($variables);
         $subject = /*@translate*/ 'New application for your vacancy "%s"';

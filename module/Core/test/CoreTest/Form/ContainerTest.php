@@ -33,14 +33,16 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Core\Form\Container', $this->target);
-        $this->assertInstanceOf('Zend\Form\Element', $this->target);
+        $this->assertInstanceOf(\Zend\Form\Element::class, $this->target);
+        $this->assertInstanceOf(\IteratorAggregate::class, $this->target);
+        $this->assertInstanceOf(\Countable::class, $this->target);
+        $this->assertInstanceOf(\Core\Form\DisableElementsCapableInterface::class, $this->target);
+        $this->assertInstanceOf(\Core\Form\FormParentInterface::class, $this->target);
     }
 
-    public function testSetGetServiceLocator(){
+    public function testSetFormElementManager(){
         $input = new ServiceManager();
-        $this->target->setServiceLocator($input);
-        $this->assertSame($this->target->getServiceLocator(),$input);
+        $this->assertSame($this->target,$this->target->setFormElementManager($input));
     }
 
     /**
@@ -183,5 +185,31 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             [$e['user'], null , $e['user'] ],
             [$e['organization'], null , $e['organization'] ],
         ];
+    }
+    
+    public function testFormatAction()
+    {
+        $this->assertSame('', $this->target->formatAction(null));
+        
+        $name = 'name';
+        $this->assertSame($name, $this->target->formatAction($name));
+    }
+    
+    public function testFormatActionWithParent()
+    {
+        $name = 'name';
+        $childName = 'child';
+        $child = new Container($childName);
+        $this->target->setForm($childName, $child);
+        $this->assertSame($childName .'.' . $name, $child->formatAction($name));
+    }
+    
+    public function testGetActionFor()
+    {
+        $this->assertNull($this->target->getActionFor('non-existent'));
+        
+        $key = 'name';
+        $this->target->setForm($key, []);
+        $this->assertSame($this->target->getActionFor($key), sprintf('?form=%s', $key));
     }
 }

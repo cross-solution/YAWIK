@@ -2,13 +2,13 @@
 
 namespace Cv\Entity;
 
-use Core\Entity\AbstractEntity;
+use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * @ODM\EmbeddedDocument
  */
-class Language extends AbstractEntity implements LanguageInterface
+class Language extends AbstractIdentifiableEntity implements LanguageInterface
 {
     
     /**
@@ -125,7 +125,7 @@ class Language extends AbstractEntity implements LanguageInterface
      */
     public function setLevelSpokenProduction($level)
     {
-        $this->levelReading = $level;
+        $this->levelSpokenProduction = $level;
         return $this;
     }
 

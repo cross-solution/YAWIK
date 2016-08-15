@@ -11,15 +11,23 @@
 namespace Jobs\Form\Hydrator;
 
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class PreviewLinkHydrator extends EntityHydrator implements ServiceLocatorAwareInterface
+class PreviewLinkHydrator extends EntityHydrator
 {
 
-    public function __construct()
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
     {
         parent::__construct();
+        $this->serviceManager = $serviceManager;
         $this->init();
     }
 
@@ -32,8 +40,7 @@ class PreviewLinkHydrator extends EntityHydrator implements ServiceLocatorAwareI
      */
     public function extract($object)
     {
-        $locator = $this->getServiceLocator();
-        $controllerPluginManager = $locator->get('controllerPluginManager');
+        $controllerPluginManager = $this->serviceManager->get('controllerPluginManager');
 
         $data = parent::extract($object);
         $viewLink = $controllerPluginManager->get('url')->fromRoute(
@@ -56,15 +63,13 @@ class PreviewLinkHydrator extends EntityHydrator implements ServiceLocatorAwareI
         $object = parent::hydrate($data, $object);
         return $object;
     }
-
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     * @return \Jobs\Form\Hydrator\PreviewLinkHydrator
+     */
+    public static function factory(ServiceLocatorInterface $serviceManager)
     {
-        $this->serviceLocator = $serviceLocator;
-        return $this;
-    }
-
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
+        return new static($serviceManager);
     }
 }

@@ -1,13 +1,4 @@
 <?php
-//: ./view/organizations/index/index.ajax.phtml:15
-translate('Organization');
-
-//: ./view/organizations/index/index.ajax.phtml:16
-translate('City');
-
-//: ./view/organizations/index/index.ajax.phtml:20
-translate('Street');
-
 //: ./view/form/invite-employee-bar.phtml:33
 translate('Invite an employee via email address.');
 
@@ -104,6 +95,9 @@ translate('Phone');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:93
 translate('Fax');
 
+//: ./src/Organizations/Controller/IndexController.php:98
+translate('Search for organizations');
+
 //: ./src/Organizations/Controller/InviteEmployeeController.php:78
 translate('The organization referenced in your request could not be found.');
 
@@ -113,9 +107,9 @@ translate('The access token you provided seems to have expired.');
 //: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
 translate('Invitation to join the team of %s');
 
-//: ./config/module.config.php:167
+//: ./config/module.config.php:175
 translate('Overview');
 
-//: ./config/module.config.php:171
+//: ./config/module.config.php:179
 translate('Insert');
 

@@ -11,7 +11,6 @@
 namespace CoreTest\Factory\EventManager\EventManagerAbstractFactory;
 
 use Core\Factory\EventManager\EventManagerAbstractFactory;
-use CoreUtils\TestCase\AssertInheritanceTrait;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\SharedEventManager;
 use Zend\ServiceManager\ServiceManager;

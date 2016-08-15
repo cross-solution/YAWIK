@@ -19,6 +19,9 @@
 			
 			displayErrors: function($form, errors, prefix)
 			{
+				if (typeof errors === 'string') {
+					return;
+				}
                 if (prefix == undefined) {
                     prefix = '';
                 }
@@ -34,7 +37,7 @@
                         $errorsDiv.html(html);
                         $errorsDiv.parent().addClass('input-error');
                     } else {
-                        methods.displayErrors($form, error, idx + '-');
+                        methods.displayErrors($form, error, prefix + idx + '-');
                     }
                 });
 			}

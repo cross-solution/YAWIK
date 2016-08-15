@@ -2,10 +2,9 @@
 
 namespace Core\Service;
 
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 
-class Config implements ServiceManagerAwareInterface
+class Config
 {
     protected $serviceManager;
     protected $config;
@@ -15,7 +14,10 @@ class Config implements ServiceManagerAwareInterface
     protected $controller;
     protected $namespace;
     
-    public function setServiceManager(ServiceManager $serviceManager)
+    /**
+     * @param ServiceManager $serviceManager
+     */
+    public function __construct(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
     }
@@ -109,5 +111,14 @@ class Config implements ServiceManagerAwareInterface
             return isset($this->map[$key][$module])?$this->map[$key][$module]:array();
         }
         return array();
+    }
+    
+    /**
+     * @param ServiceManager $serviceManager
+     * @return Config
+     */
+    public static function factory(ServiceManager $serviceManager)
+    {
+        return new static($serviceManager);
     }
 }

@@ -11,7 +11,7 @@
 namespace CoreTest\Controller;
 
 use Core\Controller\AdminControllerEvent;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -24,7 +24,7 @@ use Zend\View\Model\ViewModel;
  */
 class AdminControllerEventTest extends \PHPUnit_Framework_TestCase
 {
-    use AssertInheritanceTrait;
+    use TestInheritanceTrait;
 
     protected $target = '\Core\Controller\AdminControllerEvent';
 

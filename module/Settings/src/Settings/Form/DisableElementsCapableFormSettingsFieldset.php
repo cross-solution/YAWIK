@@ -13,7 +13,6 @@ namespace Settings\Form;
 use Zend\Form\Fieldset;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
 use Settings\Entity\Hydrator\Strategy\DisableElementsCapableFormSettings as DisableElementsStrategy;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -21,30 +20,28 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class DisableElementsCapableFormSettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
+class DisableElementsCapableFormSettingsFieldset extends Fieldset
 {
     /**
      * The form elements manager.
      *
      * @var ServiceLocatorInterface
      */
-    protected $forms;
+    protected $formManager;
 
     /**
      * Flag if this fieldset is build.
      * @var bool
      */
     protected $isBuild = false;
-
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->forms = $serviceLocator;
-        return $this;
-    }
     
-    public function getServiceLocator()
+    /**
+     * @param ServiceLocatorInterface $formManager
+     */
+    public function __construct(ServiceLocatorInterface $formManager)
     {
-        return $this->forms;
+        parent::__construct();
+        $this->formManager = $formManager;
     }
 
     public function getHydrator()
@@ -81,7 +78,7 @@ class DisableElementsCapableFormSettingsFieldset extends Fieldset implements Ser
         }
 
         $settings = $this->getObject();
-        $form     = $this->forms->get($settings->getForm());
+        $form     = $this->formManager->get($settings->getForm());
 
         $this->setLabel(
             $form->getOption('settings_label') ?: sprintf(
@@ -108,5 +105,14 @@ class DisableElementsCapableFormSettingsFieldset extends Fieldset implements Ser
         $this->add($element);
 
         $this->isBuild = true;
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $formManager
+     * @return AbstractSettingsForm
+     */
+    public static function factory(ServiceLocatorInterface $formManager)
+    {
+        return new static($formManager);
     }
 }

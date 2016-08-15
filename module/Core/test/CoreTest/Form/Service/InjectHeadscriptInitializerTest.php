@@ -47,7 +47,9 @@ class InjectHeadscriptInitializerTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        $this->formElementManagerMock = $this->getMockbuilder('\Zend\Form\FormElementManager')->disableOriginalConstructor()->getMock();
+        $this->formElementManagerMock = $this->getMockbuilder('\Zend\Form\FormElementManager')
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     /**
@@ -64,7 +66,7 @@ class InjectHeadscriptInitializerTest extends \PHPUnit_Framework_TestCase
     public function testDoesNothingIfPassedObjectDoesNotImplementHeadscriptProviderInterface()
     {
         $this->formElementManagerMock->expects($this->never())->method('getServiceLocator');
-        $instance = $this->getMock('stdClass');
+        $instance = $this->getMockBuilder('stdClass')->setMethods(['getHeadscripts'])->getMock();
         $instance->expects($this->never())->method('getHeadscripts');
 
         $this->target->initialize($instance, $this->formElementManagerMock);

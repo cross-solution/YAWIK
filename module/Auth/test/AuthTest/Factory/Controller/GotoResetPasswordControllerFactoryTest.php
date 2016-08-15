@@ -34,13 +34,13 @@ class GotoResetPasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+            ->getMock();
 
         $sm->setService('Auth\Service\GotoResetPassword', $gotoResetPasswordMock);
         $sm->setService('Core/Log', $loggerMock);
 
-        $controllerManager = new ControllerManager();
-        $controllerManager->setServiceLocator($sm);
+        $controllerManager = new ControllerManager($sm);
 
         $result = $this->testedObj->createService($controllerManager);
 

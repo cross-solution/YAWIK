@@ -10,7 +10,6 @@
 /**  */
 namespace Auth\Form;
 
-use Core\Form\EmptySummaryAwareInterface;
 use Core\Form\SummaryForm;
 
 /**
@@ -31,7 +30,7 @@ class UserInfo extends SummaryForm
     
     public function init()
     {
-        $this->setLabel(/*@translate*/ 'personal informations');
+        $this->setLabel(/*@translate*/ 'Personal informations');
         parent::init();
     }
 }

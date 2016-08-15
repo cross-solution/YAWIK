@@ -10,36 +10,50 @@
 /** */
 namespace CoreTest\Listener;
 
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
-use CoreTestUtils\TestCase\SetterGetterTrait;
+use Core\Listener\DeferredListenerAggregate;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\EventManager\EventManager;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Listener\DeferredListenerAggregate
- * 
+ *
  * @covers \Core\Listener\DeferredListenerAggregate
  * @coversDefaultClass \Core\Listener\DeferredListenerAggregate
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
 class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 {
 
-    use AssertInheritanceTrait, SetterGetterTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
-    protected $target = 'Core\Listener\DeferredListenerAggregate';
+    /**
+     *
+     *
+     * @var array|null|DeferredListenerAggregate
+     */
+    protected $target = [
+        'Core\Listener\DeferredListenerAggregate',
+        'getTargetArgs',
+        '@testFactoryMethodReturnsInstance' => false
+    ];
 
-    protected $inheritance = [ '\Zend\EventManager\ListenerAggregateInterface', '\Zend\ServiceManager\ServiceLocatorAwareInterface' ];
+    protected $inheritance = [ '\Zend\EventManager\ListenerAggregateInterface' ];
+    
+    protected $services;
 
+    protected function getTargetArgs()
+    {
+        $this->services = $this->getMockBuilder(ServiceManager::class)
+            ->setMethods(['has', 'get'])
+            ->getMock();
+        return [$this->services];
+    }
+    
     public function propertiesProvider()
     {
-        $target = $this->getMock($this->target, [ 'setListener' ]);
-        $target->expects($this->exactly(2))->method('setListener')
-            ->withConsecutive(
-                ['test', 'service', null, 0],
-                ['test2', 'someClass', 'method', 12]
-            );
-
         return [
             [ 'listeners', [
                 'value' => [ [] ],
@@ -55,14 +69,13 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
             ]],
             [ 'listeners', [
                 'value' => [ [ 'event' => 'test', 'service' => 'service' ] ],
-                'target' => $target,
                 'ignore_getter' => true,
+                'post' => ['assertListenerSpecsProperty', [ '', '@target', '###' ] ],
             ]],
             [ 'listeners', [
                 'value' => [ [ 'event' => 'test2', 'service' => 'someClass', 'method' => 'method', 'priority' => 12 ] ],
-                'target' => $target,
-                'expect_property' => $target,
-                'property_assert' => 'verifyAddListenersTestTarget',
+                'ignore_getter' => true,
+                'post' => ['assertListenerSpecsProperty', [ '', '@target', '###' ] ],
             ]],
             [ 'listener', [
                 'value' => 'test',
@@ -81,16 +94,21 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function verifyAddListenersTestTarget($name, $mock)
-    {
-        if ($mock->__phpunit_hasMatchers()) {
-            $this->addToAssertionCount(1);
-        }
-        $mock->__phpunit_verify();
-    }
-
     private function assertListenerSpecsProperty($name, $actual, $expected)
     {
+        if (isset($expected['value'])) {
+            $expected = array_merge(
+                [
+                    'event' => null,
+                    'service' => null,
+                    'method' => null,
+                    'priority' => 0,
+                    'instance' => null
+                ],
+                $expected['value'][0]
+            );
+        }
+
         $reflection = new \ReflectionClass($actual);
         $property = $reflection->getProperty('listenerSpecs');
         $property->setAccessible(true);
@@ -98,6 +116,7 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 
         $hook = array_pop($hooks);
 
+        $this->assertInstanceOf('Core\Listener\DeferredListenerAggregate', $actual, 'Fluent interface broken.');
         $this->assertEquals($hook, $expected);
     }
 
@@ -110,7 +129,9 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
         $this->target->setHook('test', 'service');
         $this->target->setHook('test2', 'service2', 10);
 
-        $events = $this->getMock('\Zend\EventManager\EventManager', ['attach', 'detach']);
+        $events = $this->getMockBuilder(EventManager::class)
+            ->setMethods(['attach', 'detach'])
+            ->getMock();
         $events->expects($this->exactly(2))->method('attach')
             ->withConsecutive(    [ $this->equalTo('test'), $this->anything(), $this->equalTo(0) ],
                                   [ $this->equalTo('test2'), $this->anything(), $this->equalTo(10) ]
@@ -167,17 +188,15 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testListenerCreationAndInvokation($service, $listener, $check = null, $method = null)
     {
-        $services = $this->getMock('\Zend\ServiceManager\ServiceManager', [ 'has', 'get' ]);
-
         if (null === $listener) {
             if (!class_exists($service, true)) {
                 $this->setExpectedException('\UnexpectedValueException', 'Cannot create deferred listener "' . $service );
             }
-            $services->expects($this->once())->method('has')->with($service)->willReturn(false);
-            $services->expects($this->never())->method('get');
+            $this->services->expects($this->once())->method('has')->with($service)->willReturn(false);
+            $this->services->expects($this->never())->method('get');
         } else {
-            $services->expects($this->once())->method('has')->with($service)->willReturn(true);
-            $services->expects($this->once())->method('get')->with($service)->willReturn($listener);
+            $this->services->expects($this->once())->method('has')->with($service)->willReturn(true);
+            $this->services->expects($this->once())->method('get')->with($service)->willReturn($listener);
         }
 
         if ($listener instanceOf DLATNonInvokableListenerMock) {
@@ -186,7 +205,6 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
 
         $events = new EventManager();
 
-        $this->target->setServiceLocator($services);
         $this->target->setListener('test', $service, $method);
         $this->target->attach($events);
 
@@ -207,6 +225,15 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
                 break;
         }
 
+    }
+
+    public function testFactoryMethodReturnsInstance()
+    {
+        $services = new ServiceManager();
+        $instance = DeferredListenerAggregate::factory($services);
+
+        $this->assertInstanceOf(DeferredListenerAggregate::class, $instance);
+        $this->assertAttributeSame($services, 'serviceManager', $instance);
     }
 }
 

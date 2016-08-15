@@ -12,9 +12,7 @@ namespace Core\Form\View\Helper;
 use Zend\Form\View\Helper\FormRow as ZendFormRow;
 use Zend\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
-use Core\Form\Element\ViewhelperProviderInterface;
 use Zend\Form\Element\Button;
-use Zend\Form\Element\Select;
 
 class FormRow extends ZendFormRow
 {
@@ -72,6 +70,10 @@ class FormRow extends ZendFormRow
         $form_row_class = 'row';
         if ($this->layout == Form::LAYOUT_HORIZONTAL) {
             $form_row_class = 'form-group';
+        }
+        
+        if (($elementRowClass = $element->getOption('rowClass')) != '') {
+            $form_row_class .= ' '.$elementRowClass;
         }
         
         // Does this element have errors ?

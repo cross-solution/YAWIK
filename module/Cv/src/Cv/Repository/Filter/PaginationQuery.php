@@ -10,9 +10,10 @@
 /** PaginationQuery.php */
 namespace Cv\Repository\Filter;
 
-use Zend\Filter\FilterInterface;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Auth\Entity\UserInterface;
+use Cv\Entity\Status;
+use Doctrine\ODM\MongoDB\Query\Builder as QueryBuilder;
 
 class PaginationQuery extends AbstractPaginationQuery
 {
@@ -23,13 +24,35 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $this->user = $user;
     }
-    
+
+    /**
+     * @param   array $params
+     * @param   QueryBuilder $queryBuilder
+     * @return  mixed
+     */
     public function createQuery($params, $queryBuilder)
     {
-        $by = $params->get('by', 'me');
-        if ('me' == $by && $this->user) {
-            $queryBuilder->field('user')->equals($this->user->id);
+        if (isset($params['search']) && !empty($params['search'])) {
+            $search = strtolower($params['search']);
+            $expr = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
+            $queryBuilder->field(null)->equals($expr->getQuery());
         }
-        return $queryBuilder->getQuery();
+
+        if (isset($params['location']) && isset($params['location']->coordinates)) {
+            $coordinates = $params['location']->coordinates->getCoordinates();
+            $queryBuilder->field('preferredJob.desiredLocations.coordinates')->geoWithinCenter(
+                $coordinates[0],
+                $coordinates[1],
+                (float)$params['d'] / 100
+            );
+        }
+
+        $queryBuilder/*->expr()*/->addOr($queryBuilder->expr()->field('permissions.view')->equals($this->user->getId()))
+                                 ->addOr($queryBuilder->expr()->field('status.name')->equals(Status::PUBLIC_TO_ALL))
+;
+        //$q = $queryBuilder->getQuery()->debug();
+
+        return $queryBuilder;
+
     }
 }

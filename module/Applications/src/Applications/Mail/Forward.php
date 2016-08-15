@@ -14,14 +14,13 @@ namespace Applications\Mail;
 use Applications\Entity\Application;
 use Core\Mail\TranslatorAwareMessage;
 use Zend\Mime;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
 * Sends an e-mail containing an applications
 */
 
-class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInterface
+class Forward extends TranslatorAwareMessage
 {
     /**
      * @var Application
@@ -128,9 +127,8 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
     }
 
     /**
-     * {@inheritDoc}
-     * @return self
-     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return \Applications\Mail\Forward
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {

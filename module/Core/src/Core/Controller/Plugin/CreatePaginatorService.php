@@ -12,8 +12,9 @@ namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Paginator\Paginator as ZendPaginator;
-use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 use Zend\Paginator\Adapter\AdapterInterface;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * returns a paginator,
@@ -25,6 +26,19 @@ use Zend\Paginator\Adapter\AdapterInterface;
  */
 class CreatePaginatorService extends AbstractPlugin
 {
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
 
     /**
      * @param       $paginatorName
@@ -44,8 +58,7 @@ class CreatePaginatorService extends AbstractPlugin
             throw new \InvalidArgumentException('$defaultParams must be an array or implement \Traversable');
         }
 
-        $services   = $this->getController()->getServiceLocator();
-        $paginatorManager = $services->get('Core/PaginatorService');
+        $paginatorManager = $this->serviceManager->get('Core/PaginatorService');
         $paginator = $paginatorManager->get($paginatorName);
         if (!isset($paginator) || !$paginator instanceof ZendPaginator) {
             throw new \RuntimeException('Could not create paginator ' . $paginatorName);
@@ -89,5 +102,14 @@ class CreatePaginatorService extends AbstractPlugin
 
         $params->set('sortField', $sort);
         $params->set('sortDir', $dir);
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return CreatePaginatorService
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator());
     }
 }

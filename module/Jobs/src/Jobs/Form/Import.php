@@ -49,6 +49,7 @@ class Import extends Form
         $isAts = isset($data['atsEnabled']) && $data['atsEnabled'];
         $isUri = isset($data['uriApply']) && !empty($data['uriApply']);
         $email = isset($data['contactEmail']) ? $data['contactEmail'] : '';
+        $data['atsMode']['oneClickApply'] = 0;
         if ($isAts && $isUri) {
             $data['atsMode']['mode'] = 'uri';
             $data['atsMode']['uri'] = $data['uriApply'];

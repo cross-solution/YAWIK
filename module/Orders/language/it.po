@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-19 13:34+0200\n"
-"PO-Revision-Date: 2016-04-22 18:23+0000\n"
+"POT-Creation-Date: 2016-05-12 18:46+0200\n"
+"PO-Revision-Date: 2016-07-05 09:37+0000\n"
 "Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -137,7 +137,7 @@ msgstr "Paese"
 
 #: language/_annotated_strings.php:33 language/_annotated_strings.php:75
 msgid "Value added tax ID"
-msgstr ""
+msgstr "Partita IVA"
 
 #: language/_annotated_strings.php:36 language/_annotated_strings.php:96
 msgid "Email Address"

@@ -11,9 +11,7 @@
 namespace Core\Form;
 
 use Zend\Form\Element;
-use Zend\Form\Exception;
 use Zend\Form\FieldsetInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Stdlib\PriorityList;
 use Zend\View\Renderer\PhpRenderer as Renderer;
 use Core\Entity\EntityInterface;
@@ -32,7 +30,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class Container extends Element implements
     DisableElementsCapableInterface,
-    ServiceLocatorAwareInterface,
     FormParentInterface,
     \IteratorAggregate,
     \Countable
@@ -75,24 +72,13 @@ class Container extends Element implements
     protected $parent;
 
     /**
-     * {@inheritDoc}
+     * @param ServiceLocatorInterface $formElementManager
      * @return Container
-     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function setFormElementManager(ServiceLocatorInterface $formElementManager)
     {
-        $this->formElementManager = $serviceLocator;
+        $this->formElementManager = $formElementManager;
         return $this;
-    }
-
-    /**
-     * Gets the FormElementManager
-     *
-     * @return \Zend\Form\FormElementManager
-     */
-    public function getServiceLocator()
-    {
-        return $this->formElementManager;
     }
 
     /**
@@ -330,14 +316,7 @@ class Container extends Element implements
             $formInstance->setAttributes($form['attributes']);
         }
 
-        $formName = '';
-        if (!empty($this->parent)) {
-            $name = $this->getName();
-            if (!empty($name)) {
-                $formName .= $name . '.';
-            }
-        }
-        $formName .= $form['name'];
+        $formName = $this->formatAction($form['name']);
         $formInstance->setName($formName);
         $formAction = $formInstance->getAttribute('action');
 
@@ -366,6 +345,27 @@ class Container extends Element implements
         $this->forms[$key]['__instance__'] = $formInstance;
         $this->forms[$key]['options'] = $options;
         return $formInstance;
+    }
+    
+    /**
+     * Execute an arbitrary action
+     *
+     * @param string $name Name of an action
+     * @param array $data Arbitrary data
+     * @return array
+     */
+    public function executeAction($name, array $data = [])
+    {
+        if (false !== strpos($name, '.')) {
+            list($name, $childKey) = explode('.', $name, 2);
+            $container = $this->getForm($name);
+            
+            // execute child container's action
+            return $container->executeAction($childKey, $data);
+        }
+        
+        // this container defines no actions
+        return [];
     }
 
     /**
@@ -514,13 +514,18 @@ class Container extends Element implements
     }
     
     /**
-     * Sets the entity for formular binding.
-     *
-     * @param EntityInterface $entity
-     * @return self
+     * @param mixed $entity
+     * @param string $key
+     * @throws \InvalidArgumentException
+     * @return Container
      */
-    public function setEntity(EntityInterface $entity, $key='*')
+    public function setEntity($entity, $key='*')
     {
+        if (!$entity instanceof EntityInterface)
+        {
+            throw new \InvalidArgumentException(sprintf('$entity must be instance of %s', EntityInterface::class));
+        }
+        
         $this->entities[$key] = $entity;
         
         foreach ($this->forms as $formKey => $form) {
@@ -558,13 +563,12 @@ class Container extends Element implements
 
         if (true === $property) {
             $mapEntity = $entity;
-        } else if ($entity->hasProperty($property)) {
+        } else if ($entity->hasProperty($property) || is_callable([$entity, "get$property"])) {
             $getter = "get$property";
             $mapEntity = $entity->$getter();
         } else {
             return;
         }
-        
         if ($form instanceof Container) {
             $form->setEntity($mapEntity);
         } else {
@@ -622,7 +626,7 @@ class Container extends Element implements
                 // has reached a fieldset to search in
                 $return = $searchIn->get($lastKey);
                 unset($lastKey);
-            } elseif (is_array($searchIn) || $searchIn instanceof Traversable) {
+            } elseif (is_array($searchIn) || $searchIn instanceof \Traversable) {
                 // is probably still in the container
                 foreach ($searchIn as $activeKey) {
                     $activeForm = $this->getForm($activeKey);
@@ -768,26 +772,26 @@ class Container extends Element implements
         }
         return $key;
     }
+    
+    /**
+     * Format an action name
+     *
+     * @param string $name Name of an action
+     * @return string Formatted name of an action
+     */
+    public function formatAction($name)
+    {
+        return sprintf('%s%s', $this->hasParent() ? $this->getName() . '.' : '', $name);
+    }
 
     /**
      * @param $key
-     * @return string
+     * @return string|null
      */
     public function getActionFor($key)
     {
-        $form               = $this->forms[$key];
-        $options            = isset($form['options']) ? $form['options'] : array();
-
-        if (!isset($options['use_post_array'])) {
-            $options['use_post_array'] = true;
+        if (isset($this->forms[$key])) {
+            return '?form=' . $this->formatAction($this->forms[$key]['name']);
         }
-        if (!isset($options['use_files_array'])) {
-            $options['use_files_array'] = false;
-        }
-
-        $formName     = (($name = $this->getName()) ? $name . '.' : '') . $form['name'];
-        $action = '?form=' . $formName;
-
-        return $action;
     }
 }

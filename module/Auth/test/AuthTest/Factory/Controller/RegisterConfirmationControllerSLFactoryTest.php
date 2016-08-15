@@ -34,13 +34,13 @@ class RegisterConfirmationControllerSLFactoryTest extends \PHPUnit_Framework_Tes
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+            ->getMock();
 
         $sm->setService('Auth\Service\RegisterConfirmation', $registerConfirmationServiceMock);
         $sm->setService('Core/Log', $loggerMock);
 
-        $controllerManager = new ControllerManager();
-        $controllerManager->setServiceLocator($sm);
+        $controllerManager = new ControllerManager($sm);
 
         $result = $this->testedObj->createService($controllerManager);
 

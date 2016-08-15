@@ -6,6 +6,8 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+use Solr\Bridge\Manager;
+
 ?>
 <?php if (count($jobs)):?>
 <table class="pagination-content table table-striped table-bordered table-hover" id="jobs-list">
@@ -18,36 +20,37 @@
     </thead>
 
 <?php foreach ($jobs as $job):?>
-<tr>
-    <td>
-        <?php if ($job->organization && $job->organization->image &&  $job->organization->organizationName): ?>
-            <div class="yk-logo-list">
-                <img class="yk-logo-sm" src="<?php echo $this->basePath().$job->organization->image->uri ?>">
-            </div>
-        <?php endif ?>
-        <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
-        <a href="<?php echo $href ?>" target="_blank"><?php echo strip_tags($job->title)?></a>
-        <br/><?php
+    <tr>
+        <td>
+            <?php if ($job->organization && $job->organization->image &&  $job->organization->organizationName): ?>
+                <div class="yk-logo-list">
+                    <img class="yk-logo-sm" src="<?php echo $this->basePath().$job->organization->image->uri ?>">
+                </div>
+            <?php endif ?>
+            <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
+            <a href="<?php echo $href ?>" target="_blank"><?php echo strip_tags($job->title)?></a>
+            <br/><?php
             if (isset($job->organization) && isset($job->organization->organizationName) && isset($job->organization->organizationName->name)) {
                 echo $job->organization->organizationName->name;
             }
-        ?>
-    </td>
-    <td>
-        <div><?php echo $job->location?></div>
-        <small>
+            ?>
+        </td>
+        <td>
+            <div><?php echo $job->location?></div>
+            <small>
+                <?php
+                if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none');
+                elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none');
+                endif
+                ?>
+            </small>
+        </td>
+        <td>
             <?php
-            if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none');
-            elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none');
-            endif?>
-        </small>
-    </td>
-    <td>
-        <?php
             echo $this->applyUrl($job);
-        ?>
-     </td>
-</tr>
+            ?>
+        </td>
+    </tr>
 <?php endforeach?>
     </table>
 

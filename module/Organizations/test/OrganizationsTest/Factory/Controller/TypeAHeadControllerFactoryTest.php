@@ -53,8 +53,7 @@ class TypeAHeadControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $sm->setService('repositories', $repositoriesMock);
 
-        $controllerManager = new ControllerManager();
-        $controllerManager->setServiceLocator($sm);
+        $controllerManager = new ControllerManager($sm);
 
         $result = $this->testedObj->createService($controllerManager);
 

@@ -38,8 +38,8 @@ abstract class AbstractIdentifiableEntity extends AbstractEntity implements Iden
     
     /**
      * {@inheritdoc}
-     * @return \Core\Entity\AbstractEntity
      * @see \Core\Entity\EntityInterface::setId()
+     * @return  $this
      */
     public function setId($id)
     {

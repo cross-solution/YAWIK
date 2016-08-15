@@ -5,13 +5,15 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 /** Auth controller */
 namespace Auth\Controller;
 
 use Auth\AuthenticationService;
-use Auth\Service\Exception;
 use Auth\Options\ModuleOptions;
 use Auth\Form\Login;
 use Auth\Form\Register;
@@ -20,6 +22,7 @@ use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
+use Zend\Http\PhpEnvironment\Response;
 
 /**
  *
@@ -80,7 +83,7 @@ class IndexController extends AbstractActionController
         }
 
         $viewModel        = new ViewModel();
-        $services         = $this->getServiceLocator();
+        $services         = $this->serviceLocator;
 
         /* @var $loginForm Login */
         $loginForm        = $this->forms[self::LOGIN];
@@ -116,17 +119,7 @@ class IndexController extends AbstractActionController
             
             if ($result->isValid()) {
                 $user = $auth->getUser();
-                $settings = $user->getSettings('Core');
-                $language = $settings->localization->language;
-                if (!$language) {
-                    $headers = $request->getHeaders();
-                    if ($headers->has('Accept-Language')) {
-                        $locales = $headers->get('Accept-Language')->getPrioritized();
-                        $language  = $locales[0]->type;
-                    } else {
-                        $language = 'en';
-                    }
-                }
+                $language = $services->get('Core/Locale')->detectLanguage($request, $user);
                 $this->logger->info('User ' . $user->login . ' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);
@@ -156,7 +149,7 @@ class IndexController extends AbstractActionController
         if ($ref) {
             $req = $this->params()->fromQuery('req', false);
             if ($req) {
-                $this->getResponse()->setStatusCode(403);
+                $this->getResponse()->setStatusCode(Response::STATUS_CODE_401);
                 $viewModel->setVariable('required', true);
             }
             $viewModel->setVariable('ref', $ref);
@@ -195,7 +188,7 @@ class IndexController extends AbstractActionController
     {
         $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
-        $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
+        $hauth = $this->serviceLocator->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
         $auth = $this->auth;
         $result = $auth->authenticate($hauth);
@@ -245,7 +238,7 @@ class IndexController extends AbstractActionController
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
-            $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(/)?~', $basePath . '/' . $settings->localization->language . '$1', $ref);
+            $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(?=/|$)~', $basePath . '/' . $settings->localization->language, $ref);
         }
         return $this->redirect()->toUrl($ref);
     }
@@ -264,7 +257,7 @@ class IndexController extends AbstractActionController
      */
     public function loginExternAction()
     {
-        $services   = $this->getServiceLocator();
+        $services   = $this->serviceLocator;
         $adapter    = $services->get('ExternalApplicationAdapter');
         $appKey     = $this->params()->fromPost('appKey');
 
@@ -299,7 +292,7 @@ class IndexController extends AbstractActionController
                         }
                         $user->$updateKey = $updateValue;
                     }
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                 }
                 $services->get('repositories')->store($user);
             }
@@ -311,7 +304,7 @@ class IndexController extends AbstractActionController
                 $userName = $this->params()->fromPost('user');
                 $this->logger->debug('first login for User: ' .  $userName);
                 //
-                if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
+                if (preg_match('/^(.*)@\w+$/', $userName, $realUserName)) {
                     $userName = $realUserName[1];
                 }
 
@@ -352,7 +345,7 @@ class IndexController extends AbstractActionController
                 ' via ' . $this->params()->fromPost('appKey')
             );
             
-            $this->getResponse()->setStatusCode(403);
+            $this->getResponse()->setStatusCode(Response::STATUS_CODE_401);
             return new JsonModel(
                 array(
                 'status' => 'failure',
@@ -367,7 +360,7 @@ class IndexController extends AbstractActionController
     
     public function groupAction()
     {
-        //$adapter = $this->getServiceLocator()->get('ExternalApplicationAdapter');
+        //$adapter = $this->serviceLocator->get('ExternalApplicationAdapter');
         if (false) {
             $this->request->setMethod('get');
             $params = new Parameters(
@@ -400,7 +393,7 @@ class IndexController extends AbstractActionController
         $groupUserId = array();
         $notFoundUsers = array();
         //$users = $this->getRepository();
-        $users = $this->getServiceLocator()->get('repositories')->get('Auth/User');
+        $users = $this->serviceLocator->get('repositories')->get('Auth/User');
         if (!empty($params->group)) {
             foreach ($params->group as $grp_member) {
                 try

@@ -1,10 +1,23 @@
-<?php $this->headTitle($this->translate('Resumes'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
-      /*$this->headLink()->appendStylesheet($this->basePath('Core/css/forms.css'))
-                       ->appendStylesheet($this->basepath('/Applications/css/manage.css'));
-      $this->headScript()->appendFile($this->basepath('/Applications/js/manage.js'))?>*/?>
+<?php
+$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'));
+$this->headTitle($this->translate('Resumes'));
+?>
 
-<h1><?php echo $this->translate("list of all resumes")?></h1>
-<div id="applications-list-container" class="pagination-container">
-<?php echo $this->render('cv/index/index.ajax.phtml') ?>
+<h1><?php echo $this->translate("list of all resumes") ?></h1>
+
+<?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
+
+<nav class="navbar yk-toolbar" id="cv-list-filter-wrapper">
+    <?php echo $this->form($this->filterForm) ?>
+</nav>
+<div
+    id="cv-list-container"
+    class="pagination-container"
+    data-message="<?php echo $this->escapeHtmlAttr(sprintf(
+        $this->translate('%sSorry%s, there are not any resumes matching your search criteria.'),
+        '<strong>', '</strong>'
+    )) ?>">
+    <div class="pagination-content">
+        <?php echo $this->render('cv/index/index.ajax.phtml') ?>
+    </div>
 </div>

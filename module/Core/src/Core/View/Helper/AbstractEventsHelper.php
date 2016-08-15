@@ -5,10 +5,8 @@ namespace Core\View\Helper;
 use Zend\View\Helper\HelperInterface;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\EventManager\EventManager;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
-abstract class AbstractEventsHelper extends EventManager implements HelperInterface, ServiceLocatorAwareInterface
+abstract class AbstractEventsHelper extends EventManager implements HelperInterface
 {
  
     /**
@@ -18,9 +16,6 @@ abstract class AbstractEventsHelper extends EventManager implements HelperInterf
      */
     protected $view = null;
     
-    protected $services;
-   
-
     /**
      * Set the View object
      *
@@ -41,16 +36,5 @@ abstract class AbstractEventsHelper extends EventManager implements HelperInterf
     public function getView()
     {
         return $this->view;
-    }
-    
-    public function getServiceLocator()
-    {
-        return $this->services;
-    }
-    
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->services = $serviceLocator->getServiceLocator();
-        return $this;
     }
 }

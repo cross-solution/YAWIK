@@ -73,7 +73,7 @@ class ManageController extends AbstractActionController
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
-        $serviceLocator = $this->getServiceLocator();
+        $serviceLocator = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events = $this->getEventManager();
         $events->attach($defaultServices);
@@ -98,7 +98,7 @@ class ManageController extends AbstractActionController
         $action = $routeMatch->getParam('action');
 
         if (in_array($action, array('edit', 'approval', 'completion'))) {
-            $services = $this->getServiceLocator();
+            $services = $this->serviceLocator;
             $jobEvents = $services->get('Jobs/Events');
             $mailSender = $services->get('Jobs/Listener/MailSender');
 
@@ -114,7 +114,7 @@ class ManageController extends AbstractActionController
     public function editAction()
     {
         if ('calculate' == $this->params()->fromQuery('do')) {
-            $calc = $this->getServiceLocator()->get('filtermanager')->get('Jobs/ChannelPrices');
+            $calc = $this->serviceLocator->get('filtermanager')->get('Jobs/ChannelPrices');
             $sum = $calc->filter($this->params()->fromPost('channels'));
 
             return new JsonModel(['sum' => $sum]);
@@ -133,7 +133,7 @@ class ManageController extends AbstractActionController
 
     public function channelListAction()
     {
-        $serviceLocator = $this->getServiceLocator();
+        $serviceLocator = $this->serviceLocator;
         $options = $serviceLocator->get('Core/Options');
         $channels = $serviceLocator->get('Jobs/Options/Provider');
 
@@ -165,7 +165,7 @@ class ManageController extends AbstractActionController
      */
     protected function save()
     {
-        $serviceLocator     = $this->getServiceLocator();
+        $serviceLocator     = $this->serviceLocator;
         $formEvents         = $serviceLocator->get('Jobs/JobContainer/Events');
 
         $user               = $this->auth->getUser();
@@ -340,7 +340,7 @@ class ManageController extends AbstractActionController
         try {
             $job->changeStatus($status, sprintf('Status changed from %s to %s by %s', $oldStatus->getName(), $status, $user->getInfo()->getDisplayName()));
 
-            $events = $this->getServiceLocator()->get('Jobs/Events');
+            $events = $this->serviceLocator->get('Jobs/Events');
             $events->trigger(JobEvent::EVENT_STATUS_CHANGED, $this, ['job' => $job, 'status' => $oldStatus]);
             $this->notification()->success(/*@translate*/ 'Status successfully changed.');
         } catch (\DomainException $e) {
@@ -353,7 +353,7 @@ class ManageController extends AbstractActionController
      */
     public function checkApplyIdAction()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $validator = $services->get('validatormanager')->get('Jobs/Form/UniqueApplyId');
         if (!$validator->isValid($this->params()->fromQuery('applyId'))) {
             return array(
@@ -370,7 +370,7 @@ class ManageController extends AbstractActionController
      */
     protected function getFormular($job)
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         /* @var $forms \Zend\Form\FormElementManager */
         $forms    = $services->get('FormElementManager');
         /* @var $container \Jobs\Form\Job */
@@ -412,7 +412,7 @@ class ManageController extends AbstractActionController
      */
     public function completionAction()
     {
-        $serviceLocator = $this->getServiceLocator();
+        $serviceLocator = $this->serviceLocator;
 
         $job = $this->initializeJob()->get($this->params());
 
@@ -449,7 +449,7 @@ class ManageController extends AbstractActionController
      */
     public function approvalAction()
     {
-        $serviceLocator = $this->getServiceLocator();
+        $serviceLocator = $this->serviceLocator;
         $user           = $this->auth->getUser();
 
         $params         = $this->params('state');

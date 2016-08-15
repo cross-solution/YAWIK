@@ -1,0 +1,225 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/**
+ * renders the detail view of an application.
+ */
+
+use Cv\Entity\StatusInterface as Status;
+
+$this->headTitle($this->translate('View'));
+
+/* @var Applications\Entity\Application $application */
+$resume = $this->resume;
+
+/* @var \Auth\Entity\User $user */
+$user = $this->auth()->getUser();
+?>
+<h1>
+    <?php echo $this->translate('Resume')?>
+</h1>
+
+<div id="forward-email-result" class="alert" style="display:none"></div>
+<nav class="navbar yk-toolbar">
+
+    <?php if ($resume->getStatus() == Status::PUBLIC_TO_ALL || $resume->getPermissions()->isChangeGranted($user)):?>
+        <form id="forward-email-form" action="" class="form-inline" method="get">
+
+     <span id="forward-email" class="input-group navbar-nav">
+            <span class="input-group-addon input-sm"
+                  data-toggle="popover"
+                  data-trigger="hover focus click"
+                  data-placement="bottom"
+                  title="<?php echo $this->translate('Enter an email address')?>"
+                  data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>">
+            <i class="yk-icon yk-icon-envelope"></i>
+            </span>
+            <input type="hidden" name="action" value="forward">
+            <input class="form-control input-sm" id="forward-email-input" name="email" type="email">
+            <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="submit">
+                <span class="yk-icon yk-icon-forward"></span> <?php echo $this->translate('Forward')?>
+            </button>
+            </span>
+      </span>
+        </form>
+    <?php endif; ?>
+    <div class="pull-right">
+
+        <a class="btn btn-sm btn-default"
+           href="?format=pdf" title="<?php echo $this->translate('download as PDF')?>">
+            <span class="yk-icon yk-icon-download"></span>
+        </a>
+
+        <?php if ($this->acl($resume, 'edit')):?>
+            <button class="btn btn-sm btn-default" data-title="delete Application"
+                    data-toggle="modal"
+                    data-target="#cam-delete-application"
+                    title="<?php echo $this->translate('Delete application')?>">
+                <i class="yk-icon yk-icon-delete"></i> <?php echo $this->translate("Delete");?>
+            </button>
+        <?php endif ?>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading"><?php echo $this->translate('personal information')?></div>
+            <div class="panel-body">
+                <div class="pull-left">
+                    <div class="yk-portrait">
+                        <?php if ($resume->getContact()->getImage()):?>
+                            <img src="<?php echo $this->basePath($resume->getContact()->getImage()->getUri()) ?>" class="img-thumbnail"/>
+                        <?php else:?>
+                            <span class="yk-icon yk-icon-portrait fa-fg img-thumbnail"></span>
+                        <?php endif?>
+                    </div>
+                </div>
+                <div>
+                    <!--suppress HtmlUnknownTag -->
+                    <adress>
+                        <?php $contact = $resume->getContact(); ?>
+                        <strong><?php echo $contact->getDisplayName() ?></strong><br>
+                        <?php echo $contact->getStreet() ?> <?php echo $contact->getHouseNumber() ?><br>
+                        <?php echo $contact->getPostalCode() ?> <?php echo $contact->getCity() ?><br>
+                        <br>
+                        <?php if ($contact->getPhone()):?>
+                            <abbr title="<?php echo $this->translate("Phone")?>"><i class="yk-icon yk-icon-phone"></i></abbr>
+                            <?php echo $contact->getPhone(); ?><br>
+                        <?php endif?>
+                        <?php if ($contact->getEmail()):?>
+                            <abbr title="E-Mail"><i class="yk-icon yk-icon-envelope"></i></abbr>
+                            <?php echo $this->link($contact->getEmail()); ?><br>
+                        <?php endif?>
+                    </adress>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading"><?php echo $this->translate('Attachments')?></div>
+            <div class="panel-body">
+                <?php if(count($resume->getAttachments())>0):?>
+                    <?php foreach( $resume->getAttachments() as $attachment): /* @var \Cv\Entity\Attachment $attachment */ ?>
+                        <div class="row show-grid">
+                            <div class="col-md-12">
+                                <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getName() ?></a>
+                            </div>
+                        </div>
+                    <?php endforeach; // attachments?>
+                <?php else:?>
+                    <?php echo $this->translate("no attachments available");?>
+                <?php endif;?>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading"><?php echo $this->translate('State')?></div>
+            <table class="table">
+                <tr>
+                    <td><?php echo $this->translate('date of creation')?>:</td>
+                    <td>
+                        <?php echo $this->dateFormat($resume->getDateCreated()->getTimestamp(), 'short'); ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:50%"><?php echo $this->translate('resume state')?>:</td>
+                    <td class="cam-color-<?php echo $resume->getStatus() ?>">
+                        <?php echo $this->translate($resume->getStatus()->getName()) ?>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td><?php echo $this->translate('last modification date')?>:</td>
+                            <td>
+                                    <?php echo $this->dateFormat($resume->getDateModified()->getTimestamp(), 'short'); ?>
+
+                            </td>
+                        </tr>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<?php if(count($this->resume->employments)>0):?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="yk-icon yk-icon-work-experience"></i>
+                    <?php echo $this->translate('work experience')?>
+                </div>
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="col-md-1"><?php echo $this->translate('Start')?></th>
+                        <th class="col-md-1"><?php echo $this->translate('End')?></th>
+                        <th class="col-md-3"><?php echo $this->translate('Company')?></th>
+                        <th><?php echo $this->translate('Description')?></th>
+                    </tr>
+                    </thead>
+                    <?php foreach( $this->resume->employments as $employment): ?>
+                        <tr>
+                            <td><?php echo $this->dateFormat($employment->startDate,'medium', 'null')?></td>
+                            <td><?php echo $this->dateFormat($employment->endDate,'medium', 'null')?></td>
+                            <td><?php echo $employment->organizationName ?></td>
+                            <td><?php echo $employment->description ?></td>
+                        </tr>
+                    <?php endforeach; // employments?>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php endif;?>
+
+<?php if(count($this->resume->educations)>0):?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="yk-icon yk-icon-university"></i>
+                    <?php echo $this->translate('education and training')?>
+                </div>
+                <table class="table table-condensed table-bordered">
+                    <tr>
+                        <th class="col-md-1"><?php echo $this->translate('Start')?></th>
+                        <th class="col-md-1"><?php echo $this->translate('End')?></th>
+                        <th class="col-md-3"><?php echo $this->translate('University')?></th>
+                        <th><?php echo $this->translate('Description')?></th>
+                    </tr>
+                    <?php foreach( $this->resume->educations as $education): ?>
+                        <tr>
+                            <td><?php echo $this->dateFormat($education->startDate,'medium', 'null') ?></td>
+                            <td><?php echo $this->dateFormat($education->endDate,'medium', 'null') ?></td>
+                            <td><?php echo $education->organizationName ?></td>
+                            <td><?php echo $education->description ?></td>
+                        </tr>
+                    <?php endforeach; // educations?>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php endif;?>
+
+<?php if(count($this->resume->skills)>0):?>
+    <h2><?php echo  $this->translate('personal skills')?></h2>
+    <?php foreach( $this->resume->skills as $kill): ?>
+        <div class="col-md-3"><?php echo $this->translate('native language')?></div>
+        <div class="col-md-3">TODO</div>
+    <?php endforeach; // skills?>
+<?php endif;?>
+

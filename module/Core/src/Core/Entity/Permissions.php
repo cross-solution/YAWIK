@@ -33,6 +33,7 @@ use Core\Entity\Collection\ArrayCollection;
  * @method $this revokeView($resource)        shortcut for grant($resource, self::PERMISSION_VIEW)
  *
  * @ODM\EmbeddedDocument
+ * @ODM\HasLifeCycleCallbacks
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -354,11 +355,10 @@ class Permissions implements PermissionsInterface
         return $this;
     }
     
-    public function isGranted($userOrId, $permission)
+    private function checkIsGranted($userId, $permission)
     {
-        $userId = $this->getUserId($userOrId);
-        $this->checkPermission($permission);
-        
+        if (!$userId) { return false; }
+
         if (self::PERMISSION_NONE == $permission) {
             return !in_array($userId, $this->view);
         }
@@ -369,6 +369,23 @@ class Permissions implements PermissionsInterface
 
         // Now there's only PERMISSION_VIEW left to check.
         return in_array($userId, $this->view);
+    }
+
+    public function isGranted($userOrId, $permission)
+    {
+        if ($userOrId instanceOf UserInterface) {
+            $id = $userOrId->getId();
+            $role = $userOrId->getRole();
+        } else {
+            $id = (string) $userOrId;
+            $role = null;
+        }
+
+        $this->checkPermission($permission);
+
+        return $this->checkIsGranted($id, $permission)
+               || ($this->isAssigned($role) && $this->checkIsGranted($role, $permission))
+               || ($this->isAssigned('all') && $this->checkIsGranted('all', $permission));
     }
     
     public function isAssigned($resource)
@@ -399,6 +416,19 @@ class Permissions implements PermissionsInterface
      *
      * This is only needed when inheriting.
      *
+     * @internal
+     *      The PrePersist hook is needed, because eventually
+     *      this method is called during the onFlush event by
+     *      an UpdateFilePermission-Listener. Generating
+     *      an ArrayCollection in this state leads to a
+     *      fatal error deep in Doctrine.
+     *
+     *      This PrePersist hook assures, that there is
+     *      a prefilled ArrayCollection during the
+     *      changeset computation.
+     *
+     * @ODM\PrePersist
+     *
      * @return Collection
      */
     public function getResources()
@@ -423,12 +453,6 @@ class Permissions implements PermissionsInterface
         return 1 == count($spec) ? key($spec) : null;
     }
     
-    protected function getUserId($userOrId)
-    {
-        return $userOrId instanceof UserInterface
-               ? $userOrId->getId()
-               : (string) $userOrId;
-    }
 
     /**
      * Gets/Generates the resource id.

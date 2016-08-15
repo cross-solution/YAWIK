@@ -121,7 +121,7 @@ class InviteEmployeeController extends AbstractActionController
     protected function getOrganizationEntity()
     {
         /* @var $organizations \Organizations\Repository\Organization */
-        $services      = $this->getServiceLocator();
+        $services      = $this->serviceLocator;
         $repositories  = $services->get('repositories');
         $organizations = $repositories->get('Organizations');
         $organiationId = $this->params()->fromQuery('organization');

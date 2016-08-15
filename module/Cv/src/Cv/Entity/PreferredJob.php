@@ -10,76 +10,167 @@
 namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * @ODM\EmbeddedDocument
  */
-class PreferredJob extends AbstractIdentifiableEntity
+class PreferredJob extends AbstractIdentifiableEntity implements PreferredJobInterface
 {
     /**
-     * @var string
-     * @ODM\Field(type="string")
+     * @var array
+     * @ODM\Collection
      */
-    protected $typeOfApplication;
-    
+    protected $typeOfApplication = array();
+
     /**
      * @var string
      * @ODM\Field(type="string")
      */
-    protected $preferredJob;
+    protected $desiredJob;
     
     /**
      * @var string
      * @ODM\Field(type="string")
      **/
-    protected $preferredLocation;
-    
-    /** willingness to travel, bool
-     * @ODM\Boolean */
+    protected $desiredLocation;
+
+    /**
+     * @var Collection
+     * @ODM\EmbedMany(targetDocument="\Cv\Entity\Location")
+     **/
+    protected $desiredLocations;
+
+
+    /**
+     * willingness to travel,
+     *
+     * yes, no, bedingt
+     *
+     * @ODM\Field(type="string") */
     protected $willingnessToTravel;
-    
+
+
+    /** expectedSalary
+     * @ODM\Field(type="string") */
+    protected $expectedSalary;
+
+    public function __construct()
+    {
+        $this->desiredLocations = new ArrayCollection();
+    }
+
     /**
      * Apply for a job, internship or studies
      *
-     * @param string $typeOfApplication
-     * @return \Cv\Entity\PreferredJob
+     * @param   array $typeOfApplication
+     * @return  $this
      */
-    public function setTypeOfApplication($typeOfApplication)
+    public function setTypeOfApplication(array $typeOfApplication)
     {
-        $this->typeOfApplication=$typeOfApplication;
+        $this->typeOfApplication = $typeOfApplication;
         return $this;
     }
-    
+
     /**
      * Gets the type of an Application
      *
-     * @return string
+     * @return array
      */
     public function getTypeOfApplication()
     {
         return $this->typeOfApplication;
     }
     
-    public function setPreferredJob($preferredJob)
+    public function setDesiredJob($desiredJob)
     {
-        $this->preferredJob=$preferredJob;
+        $this->desiredJob=$desiredJob;
         return $this;
     }
-    
-    public function getPreferredJob()
+
+    /**
+     * @return string
+     */
+    public function getDesiredJob()
     {
-        return $this->preferredJob;
+        return $this->desiredJob;
     }
-    
+
+    /**
+     * @param $desiredLocation
+     *
+     * @return $this
+     */
+    public function setDesiredLocation($desiredLocation)
+    {
+        $this->desiredLocation=$desiredLocation;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDesiredLocation()
+    {
+        return $this->desiredLocation;
+    }
+
+    /**
+     * @param Collection $desiredLocations
+     *
+     * @return $this
+     */
+    public function setDesiredLocations(Collection $desiredLocations)
+    {
+        $this->desiredLocations = $desiredLocations;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Collection
+     */
+    public function getDesiredLocations()
+    {
+        return $this->desiredLocations;
+    }
+
+    /**
+     * @param $willingnessToTravel
+     *
+     * @return $this
+     */
     public function setWillingnessToTravel($willingnessToTravel)
     {
         $this->willingnessToTravel=$willingnessToTravel;
         return $this;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getWillingnessToTravel()
     {
         return $this->willingnessToTravel;
+    }
+
+    /**
+     * @param $expectedSalary
+     *
+     * @return $this
+     */
+    public function setExpectedSalary($expectedSalary)
+    {
+        $this->expectedSalary=$expectedSalary;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpectedSalary()
+    {
+        return $this->expectedSalary;
     }
 }

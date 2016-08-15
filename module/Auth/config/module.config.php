@@ -43,7 +43,6 @@ return array(
             'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
             'Auth\Form\LoginInputFilter' => 'Auth\Form\LoginInputFilter',
             'Auth\LoginFilter' => 'Auth\Filter\LoginFilter',
-            'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener',
         ),
         'factories' => array(
             'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
@@ -64,6 +63,7 @@ return array(
             'Auth\Service\GotoResetPassword' => 'Auth\Factory\Service\GotoResetPasswordFactory',
             'Auth\Service\Register' => 'Auth\Factory\Service\RegisterFactory',
             'Auth\Service\RegisterConfirmation' => 'Auth\Factory\Service\RegisterConfirmationFactory',
+            'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener::factory',
         ),
         'aliases' => array(
             'assertions' => 'Acl\AssertionManager',
@@ -91,14 +91,12 @@ return array(
     ),
     
     'controller_plugins' => array(
-        'invokables' => array(
-            'Auth' => '\Auth\Controller\Plugin\Auth',
-            'OAuth' => '\Auth\Controller\Plugin\OAuth',
-            'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter',
-        ),
         'factories' => array(
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
+            'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter::factory',
+            'OAuth' => '\Auth\Controller\Plugin\OAuth::factory',
+            'Auth' => '\Auth\Controller\Plugin\Auth::factory',
         ),
         'shared' => array(
             'OAuth' => false,
@@ -293,7 +291,6 @@ return array(
         'invokables' => array(
             'Auth/Login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
-            'user-password' => 'Auth\Form\UserPassword',
             'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset',
             'Auth/UserBase' => 'Auth\Form\UserBase',
             'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset',
@@ -318,6 +315,7 @@ return array(
             'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
             'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
             'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
+            'user-password' => 'Auth\Form\UserPassword::factory',
         )
     ),
 );
