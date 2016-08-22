@@ -64,6 +64,7 @@ return array(
             'Auth\Service\Register' => 'Auth\Factory\Service\RegisterFactory',
             'Auth\Service\RegisterConfirmation' => 'Auth\Factory\Service\RegisterConfirmationFactory',
             'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener::factory',
+            'Auth/Dependency/ModuleManager' => 'Auth\Dependency\ModuleManager::factory',
         ),
         'aliases' => array(
             'assertions' => 'Acl\AssertionManager',
@@ -87,6 +88,7 @@ return array(
             'Auth\Controller\Password' => 'Auth\Factory\Controller\PasswordControllerFactory',
             'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
             'Auth\Users' => 'Auth\Factory\Controller\UsersControllerFactory',
+            'Auth\Controller\Remove' => 'Auth\Controller\RemoveController::factory',
         )
     ),
     
@@ -200,7 +202,8 @@ return array(
                 'allow' => array(
                     'route/auth-logout',
                     'route/lang/my',
-                    'route/lang/my-password'
+                    'route/lang/my-password',
+                    'route/lang/user-remove'
                 ),
                 'deny' => array(
                    // 'route/lang/auth',
@@ -318,4 +321,5 @@ return array(
             'user-password' => 'Auth\Form\UserPassword::factory',
         )
     ),
+    'auth_dependency_module_manager' => []
 );

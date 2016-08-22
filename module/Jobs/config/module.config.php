@@ -393,9 +393,9 @@ return array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
-
-
-
-
-
+    'auth_dependency_module_manager' => [
+        'invokables' => [
+            'Jobs' => 'Jobs\Auth\DependencyModule'
+        ]
+    ]
 );

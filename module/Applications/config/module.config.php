@@ -249,5 +249,10 @@ return array(
             ]
         ],
     ],
+    'auth_dependency_module_manager' => [
+        'invokables' => [
+            'Applications' => 'Applications\Auth\DependencyModule'
+        ]
+    ]
 
 );
