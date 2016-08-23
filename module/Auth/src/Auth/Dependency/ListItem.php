@@ -8,7 +8,7 @@
  */
 namespace Auth\Dependency;
 
-class ModuleItem
+class ListItem
 {
 
     /**

@@ -9,8 +9,7 @@
 namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\Controller\ControllerManager;
-use Auth\Dependency\ModuleManager as Dependencies;
+use Auth\Dependency\Manager as Dependencies;
 
 class RemoveController extends AbstractActionController
 {
@@ -19,17 +18,6 @@ class RemoveController extends AbstractActionController
      */
     protected $dependencies;
 
-    /**
-     * @param ControllerManager $controllerManager
-     * @return \Auth\Controller\RemoveController
-     */
-    public static function factory(ControllerManager $controllerManager)
-    {
-        $serviceManager = $controllerManager->getServiceLocator();
-        
-        return new static($serviceManager->get('Auth/Dependency/ModuleManager'));
-    }
-    
     /**
      * @param Dependencies $dependencies
      */
@@ -44,14 +32,11 @@ class RemoveController extends AbstractActionController
         
         if ($this->params()->fromPost('confirm'))
         {
-            foreach ($this->dependencies as $dependency) /* @var $dependency \Auth\Dependency\ModuleInterface */
-            {
-                $dependency->removeItems($user);
-            }
+            $this->dependencies->removeItems($user);
         }
         
         return [
-            'dependencies' => $this->dependencies,
+            'lists' => $this->dependencies->getLists(),
             'user' => $user,
             'router' => $this->getEvent()->getRouter()
         ];

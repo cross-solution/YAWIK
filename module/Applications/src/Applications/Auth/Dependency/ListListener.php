@@ -7,19 +7,24 @@
  * @since 0.27
  */
 
-namespace Applications\Auth;
+namespace Applications\Auth\Dependency;
 
 use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Zend\Mvc\Router\RouteInterface as Router;
-use Auth\Dependency\ModuleInterface;
-use Auth\Dependency\ModuleItem;
+use Auth\Dependency\ListInterface;
+use Auth\Dependency\ListItem;
 
-class DependencyModule implements ModuleInterface
+class ListListener implements ListInterface
 {
 
+    public function __invoke()
+    {
+        return $this;
+    }
+    
     /**
-     * @see \Auth\Dependency\ModuleInterface::getTitle()
+     * @see \Auth\Dependency\ListInterface::getTitle()
      */
     public function getTitle(Translator $translator)
     {
@@ -27,7 +32,7 @@ class DependencyModule implements ModuleInterface
     }
 
     /**
-     * @see \Auth\Dependency\ModuleInterface::getCount()
+     * @see \Auth\Dependency\ListInterface::getCount()
      */
     public function getCount(User $user)
     {
@@ -35,18 +40,12 @@ class DependencyModule implements ModuleInterface
     }
 
     /**
-     * @see \Auth\Dependency\ModuleInterface::getItems()
+     * @see \Auth\Dependency\ListInterface::getItems()
      */
     public function getItems(User $user, Router $router)
     {
         return [
-            new ModuleItem('Another', $router->assemble(['id' => 'another'], ['name' => 'lang/applications/detail']))
+            new ListItem('Another', $router->assemble(['id' => 'another'], ['name' => 'lang/applications/detail']))
         ];
     }
-    
-    /**
-     * @see \Auth\Dependency\ModuleInterface::removeItems()
-     */
-    public function removeItems(User $user)
-    {}
 }

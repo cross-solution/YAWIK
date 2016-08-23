@@ -13,7 +13,7 @@ use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Zend\Mvc\Router\RouteInterface as Router;
 
-interface ModuleInterface
+interface ListInterface
 {
 
     /**
@@ -31,13 +31,7 @@ interface ModuleInterface
     /**
      * @param User $user
      * @param Router $router
-     * @return ModuleItem[]
+     * @return ListItem[]
      */
     public function getItems(User $user, Router $router);
-    
-    /**
-     * @param User $user
-     * @return int Number of removed items
-     */
-    public function removeItems(User $user);
 }

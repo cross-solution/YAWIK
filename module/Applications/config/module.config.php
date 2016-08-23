@@ -60,7 +60,8 @@ return array(
     
     'service_manager' => array(
         'invokables' => array(
-            'Applications/Options/ModuleOptions' => 'Applications\Options\ModuleOptions'
+            'Applications/Options/ModuleOptions' => 'Applications\Options\ModuleOptions',
+            'Applications\Auth\Dependency\ListListener' => 'Applications\Auth\Dependency\ListListener'
         ),
         'factories' => array(
            'Applications/Options' => 'Applications\Factory\ModuleOptionsFactory',
@@ -248,11 +249,13 @@ return array(
 
             ]
         ],
-    ],
-    'auth_dependency_module_manager' => [
-        'invokables' => [
-            'Applications' => 'Applications\Auth\DependencyModule'
+        'Auth/Dependency/Manager/Events' => [
+            'listeners' => [
+                'Applications\Auth\Dependency\ListListener' => [
+                    \Auth\Dependency\Manager::EVENT_GET_LISTS,
+                    /* lazy */ true
+                ]
+            ]
         ]
-    ]
-
+    ],
 );

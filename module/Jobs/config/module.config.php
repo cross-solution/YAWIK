@@ -191,6 +191,7 @@ return array(
     'service_manager' => array(
         'invokables' => array(
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
+                'Jobs\Auth\Dependency\ListListener'  => 'Jobs\Auth\Dependency\ListListener',
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
@@ -226,6 +227,14 @@ return array(
         'Jobs/JobContainer/Events' => [
             'event' => '\Core\Form\Event\FormEvent',
         ],
+        'Auth/Dependency/Manager/Events' => [
+            'listeners' => [
+                'Jobs\Auth\Dependency\ListListener' => [
+                    \Auth\Dependency\Manager::EVENT_GET_LISTS,
+                    /* lazy */ true
+                ]
+            ]
+        ]
     ],
 
     'controllers' => array(
@@ -393,9 +402,9 @@ return array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
-    'auth_dependency_module_manager' => [
-        'invokables' => [
-            'Jobs' => 'Jobs\Auth\DependencyModule'
-        ]
-    ]
+
+
+
+
+
 );
