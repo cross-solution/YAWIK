@@ -17,6 +17,7 @@ use Organizations\Entity\OrganizationInterface;
  * This is the repository for Organizations entities.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @todo   write test
  */
 class Organization extends AbstractRepository
@@ -291,5 +292,26 @@ class Organization extends AbstractRepository
         }
 
         return null;
+    }
+    
+    /**
+     * Get organizations for given user ID
+     *
+     * @param string $userId
+     * @param int $limit
+     * @return Cursor
+     * @since 0.27
+     */
+    public function getUserOrganizations($userId, $limit = null)
+    {
+        $qb = $this->createQueryBuilder(null)
+            ->field('user')->equals($userId)
+            ->sort(['DateCreated.date' => -1]);
+    
+        if (isset($limit)) {
+            $qb->limit($limit);
+        }
+    
+        return $qb->getQuery()->execute();
     }
 }

@@ -8,7 +8,7 @@ $translator = $this->plugin('translate')->getTranslator();
     	<div class="panel-heading"><?=$list->getTitle($translator)?> <span class="badge pull-right"><?=$count?></span></div>
     	<?php if ($count > 0):?>
     		<ul class="list-group">
-                <?php foreach ($list->getItems($this->user, $this->router) as $item):?>
+                <?php foreach ($list->getItems($this->user, $this, $this->limit) as $item):?>
                 	<?php $url = $item->getUrl();?>
                 	<li class="list-group-item">
                 		<?php if ($url):?><a href="<?=$url?>"><?php endif;?>
@@ -16,6 +16,11 @@ $translator = $this->plugin('translate')->getTranslator();
                 		<?php if ($url):?></a><?php endif;?>
                 	</li>
                 <?php endforeach;?>
+                <?php if ($count > $this->limit):?>
+                	<li class="list-group-item disabled">
+                		&hellip; <?=sprintf($this->translate('and %d other(s)'), $count - $this->limit)?>
+                	</li>
+                <?php endif;?>
     		</ul>
     	<?php endif;?>
 	</div>

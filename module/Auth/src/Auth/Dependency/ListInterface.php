@@ -11,7 +11,7 @@ namespace Auth\Dependency;
 
 use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
-use Zend\Mvc\Router\RouteInterface as Router;
+use Zend\View\Renderer\PhpRenderer as View;
 
 interface ListInterface
 {
@@ -30,8 +30,9 @@ interface ListInterface
 
     /**
      * @param User $user
-     * @param Router $router
+     * @param View $view
+     * @param int $limit
      * @return ListItem[]
      */
-    public function getItems(User $user, Router $router);
+    public function getItems(User $user, View $view, $limit);
 }

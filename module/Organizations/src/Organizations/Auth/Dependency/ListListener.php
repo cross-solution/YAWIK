@@ -7,14 +7,14 @@
  * @since 0.27
  */
 
-namespace Jobs\Auth\Dependency;
+namespace Organizations\Auth\Dependency;
 
 use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Zend\View\Renderer\PhpRenderer as View;
 use Auth\Dependency\ListInterface;
 use Auth\Dependency\ListItem;
-use Jobs\Repository\Job as Repository;
+use Organizations\Repository\Organization as Repository;
 
 class ListListener implements ListInterface
 {
@@ -42,7 +42,7 @@ class ListListener implements ListInterface
      */
     public function getTitle(Translator $translator)
     {
-        return $translator->translate('Jobs');
+        return $translator->translate('Organizations');
     }
 
     /**
@@ -50,7 +50,7 @@ class ListListener implements ListInterface
      */
     public function getCount(User $user)
     {
-        return $this->repository->getUserJobs($user->getId())->count();
+        return $this->repository->getUserOrganizations($user->getId())->count();
     }
 
     /**
@@ -60,15 +60,11 @@ class ListListener implements ListInterface
     {
         $items = [];
         
-        foreach ($this->repository->getUserJobs($user->getId(), $limit) as $job) /* @var $job \Jobs\Entity\Job */
+        foreach ($this->repository->getUserOrganizations($user->getId(), $limit) as $organization) /* @var $organization \Organizations\Entity\Organization */
         {
-            $title = $job->getTitle() ?: $view->translate('untitled');
-            $title .= ' ('. $view->dateFormat($job->getDateCreated(), 'short', 'none') . ')';
-            $url = $view->url('lang/jobs/manage', ['action' => 'edit'], [
-                'query' => [
-                    'id' => $job->getId()
-                ]
-            ]);
+            $name = $organization->getOrganizationName();
+            $title = $name ? $name->getName() : '**** DRAFT ****';
+            $url = $view->url('lang/organizations/edit', ['id' => $organization->getId()]);
             $items[] = new ListItem($title, $url);
         }
         

@@ -184,4 +184,28 @@ return array(
 
         ),
     ),
+    'service_manager' => [
+        'invokables' => [
+           'Organizations\Auth\Dependency\EmployeeListListener' => 'Organizations\Auth\Dependency\EmployeeListListener'
+        ],
+        'factories' => [
+           'Organizations\Auth\Dependency\ListListener' => 'Organizations\Factory\Auth\Dependency\ListListenerFactory'
+        ]
+    ],
+    'event_manager' => [
+        'Auth/Dependency/Manager/Events' => [
+            'listeners' => [
+                'Organizations\Auth\Dependency\ListListener' => [
+                    \Auth\Dependency\Manager::EVENT_GET_LISTS,
+                    /* lazy */ true,
+                    /* priority */ 10
+                ],
+                'Organizations\Auth\Dependency\EmployeeListListener' => [
+                    \Auth\Dependency\Manager::EVENT_GET_LISTS,
+                    /* lazy */ true,
+                    /* priority */ 11
+                ]
+            ]
+        ]
+    ]
 );

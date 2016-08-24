@@ -191,7 +191,6 @@ return array(
     'service_manager' => array(
         'invokables' => array(
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
-                'Jobs\Auth\Dependency\ListListener'  => 'Jobs\Auth\Dependency\ListListener',
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
@@ -207,6 +206,7 @@ return array(
             'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
             'Jobs/Listener/Publisher'                     => 'Jobs\Listener\Publisher::factory',
             'Jobs/PreviewLinkHydrator'                    => 'Jobs\Form\Hydrator\PreviewLinkHydrator::factory',
+            'Jobs\Auth\Dependency\ListListener'           => 'Jobs\Factory\Auth\Dependency\ListListenerFactory',
 
         ),
         'shared' => array(

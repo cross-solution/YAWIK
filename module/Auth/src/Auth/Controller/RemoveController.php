@@ -38,7 +38,7 @@ class RemoveController extends AbstractActionController
         return [
             'lists' => $this->dependencies->getLists(),
             'user' => $user,
-            'router' => $this->getEvent()->getRouter()
+            'limit' => 20
         ];
     }
 }
