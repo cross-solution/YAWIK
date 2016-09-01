@@ -70,4 +70,12 @@ class ListListener implements ListInterface
         
         return $items;
     }
+    
+    /**
+     * @see \Auth\Dependency\ListInterface::getEntities()
+     */
+    public function getEntities(User $user)
+    {
+        return $this->repository->getUserApplications($user->getId());
+    }
 }

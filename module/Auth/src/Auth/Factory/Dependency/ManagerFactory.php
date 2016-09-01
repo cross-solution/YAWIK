@@ -16,7 +16,7 @@ class ManagerFactory implements FactoryInterface
 
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $manager = new \Auth\Dependency\Manager();
+        $manager = new \Auth\Dependency\Manager($serviceLocator->get('Core/DocumentManager'));
         $manager->setEventManager($serviceLocator->get('Auth/Dependency/Manager/Events'));
         
         return $manager;

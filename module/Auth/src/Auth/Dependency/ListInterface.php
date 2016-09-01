@@ -35,4 +35,9 @@ interface ListInterface
      * @return ListItem[]
      */
     public function getItems(User $user, View $view, $limit);
+
+    /**
+     * @return \Traversable
+     */
+    public function getEntities(User $user);
 }

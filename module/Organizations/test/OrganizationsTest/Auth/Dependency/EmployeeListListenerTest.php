@@ -98,6 +98,16 @@ class EmployeeListListenerTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
+     * @covers ::getEntities
+     * @covers ::getEmployees
+     * @dataProvider getUser
+     */
+    public function testGetEntities($user, $expected)
+    {
+        $this->assertCount($expected, $this->listListener->getEntities($user));
+    }
+    
+    /**
      * @return array
      */
     public function getUser()

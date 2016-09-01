@@ -27,6 +27,7 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateService()
     {
         $manager = $this->getMockBuilder(Manager::class)
+            ->disableOriginalConstructor()
             ->getMock();
         
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)

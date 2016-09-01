@@ -151,4 +151,26 @@ class ListListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $actual);
         $this->assertContainsOnlyInstancesOf(\Auth\Dependency\ListItem::class, $actual);
     }
+
+    /**
+     * @covers ::getEntities
+     */
+    public function testGetEntities()
+    {
+        $expected = [];
+        $userId = 'userId';
+        
+        $user = $this->getMockBuilder(User::class)
+            ->getMock();
+        $user->expects($this->once())
+            ->method('getId')
+            ->willReturn($userId);
+        
+        $this->repository->expects($this->once())
+            ->method('getUserApplications')
+            ->with($this->equalTo($userId))
+            ->willReturn($expected);
+        
+        $this->assertSame($expected, $this->listListener->getEntities($user));
+    }
 }

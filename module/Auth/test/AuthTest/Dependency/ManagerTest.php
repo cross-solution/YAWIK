@@ -11,8 +11,10 @@ namespace AuthTest\Dependency;
 
 use Auth\Dependency\Manager;
 use Zend\EventManager\EventManagerInterface as Events;
-use Zend\EventManager\ResponseCollection;
 use Auth\Entity\UserInterface as User;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Zend\EventManager\EventManager;
+use Auth\Dependency\ListInterface;
 
 /**
  * @coversDefaultClass \Auth\Dependency\Manager
@@ -30,6 +32,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     private $events;
     
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $documentManager;
+    
+    /**
      * @see PHPUnit_Framework_TestCase::setUp()
      */
     protected function setUp()
@@ -37,16 +44,21 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->events = $this->getMockBuilder(Events::class)
             ->getMock();
         
-        $this->manager = new Manager();
+        $this->documentManager = $this->getMockBuilder(DocumentManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->manager = new Manager($this->documentManager);
         $this->manager->setEventManager($this->events);
     }
     
     /**
+     * @covers ::__construct
      * @covers ::getLists
      */
     public function testGetLists()
     {
-        $return = new ResponseCollection();
+        $return = [];
         
         $this->events->expects($this->once())
             ->method('trigger')
@@ -61,15 +73,61 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveItems()
     {
-        $return = new ResponseCollection();
         $user = $this->getMockBuilder(User::class)
             ->getMock();
         
         $this->events->expects($this->once())
             ->method('trigger')
-            ->with($this->equalTo(Manager::EVENT_REMOVE_ITEMS), $this->equalTo($this->manager), $this->equalTo(['user' => $user]))
-            ->willReturn($return);
+            ->with($this->equalTo(Manager::EVENT_REMOVE_ITEMS), $this->equalTo($this->manager), $this->equalTo(['user' => $user]));
         
-        $this->assertSame($return, $this->manager->removeItems($user));
+        $this->assertNull($this->manager->removeItems($user));
+    }
+    
+    /**
+     * @covers ::attachDefaultListeners
+     */
+    public function testAttachDefaultListeners()
+    {
+        $this->events->expects($this->once())
+            ->method('attach')
+            ->with($this->equalTo(Manager::EVENT_REMOVE_ITEMS));
+        
+        $this->manager->setEventManager($this->events);
+    }
+    
+    /**
+     * @covers ::attachDefaultListeners
+     */
+    public function testDefaultListenersAreCalled()
+    {
+        $user = $this->getMockBuilder(User::class)
+            ->getMock();
+        
+        $this->events = new EventManager();
+        
+        $item = new \stdClass();
+        $items = [$item];
+        
+        $list = $this->getMockBuilder(ListInterface::class)
+            ->getMock();
+        $list->expects($this->once())
+            ->method('getEntities')
+            ->with($this->equalTo($user))
+            ->willReturn($items);
+        
+        $this->manager = $this->getMockBuilder(Manager::class)
+            ->setConstructorArgs([$this->documentManager])
+            ->setMethods(['getLists'])
+            ->getMock();
+        $this->manager->expects($this->once())
+            ->method('getLists')
+            ->willReturn([$list]);
+        $this->manager->setEventManager($this->events);
+        
+        $this->documentManager->expects($this->once())
+            ->method('remove')
+            ->with($this->equalTo($item));
+        
+        $this->assertNull($this->manager->removeItems($user));
     }
 }

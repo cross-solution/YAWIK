@@ -84,4 +84,12 @@ class EmployeeListListener implements ListInterface
         
         return $organization->getEmployees();
     }
+    
+    /**
+     * @see \Auth\Dependency\ListInterface::getEntities()
+     */
+    public function getEntities(User $user)
+    {
+        return $this->getEmployees($user) ?: [];
+    }
 }

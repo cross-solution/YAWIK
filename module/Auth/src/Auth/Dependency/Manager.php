@@ -9,8 +9,10 @@
 namespace Auth\Dependency;
 
 use Zend\EventManager\EventManagerAwareTrait;
+use Zend\EventManager\EventInterface;
 use Auth\Entity\UserInterface as User;
 use Zend\Mvc\Router\RouteInterface as Router;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
 class Manager
 {
@@ -19,6 +21,19 @@ class Manager
     const EVENT_GET_LISTS = 'getLists';
     const EVENT_REMOVE_ITEMS = 'removeItems';
 
+    /**
+     * @var DocumentManager
+     */
+    protected $documentManager;
+    
+    /**
+     * @param DocumentManager $documentManager
+     */
+    public function __construct(DocumentManager $documentManager)
+    {
+        $this->documentManager = $documentManager;
+    }
+    
     /**
      * @param User $user
      * @param Router $router
@@ -36,6 +51,18 @@ class Manager
      */
     public function removeItems(User $user)
     {
-        return $this->getEventManager()->trigger(static::EVENT_REMOVE_ITEMS, $this, compact('user'));
+        $this->getEventManager()->trigger(static::EVENT_REMOVE_ITEMS, $this, compact('user'));
+    }
+
+    protected function attachDefaultListeners()
+    {
+        $this->getEventManager()->attach(static::EVENT_REMOVE_ITEMS, function (EventInterface $event) {
+            $user = $event->getParam('user');
+            foreach ($this->getLists() as $list) {
+                foreach ($list->getEntities($user) as $entity) {
+                    $this->documentManager->remove($entity);
+                }
+            }
+        });
     }
 }

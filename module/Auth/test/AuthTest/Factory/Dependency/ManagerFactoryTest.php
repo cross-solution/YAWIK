@@ -13,6 +13,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Factory\Dependency\ManagerFactory;
 use Auth\Dependency\Manager;
 use Zend\EventManager\EventManagerInterface as Events;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
 /**
  * @coversDefaultClass \Auth\Factory\Dependency\ManagerFactory
@@ -28,12 +29,18 @@ class ManagerFactoryTest extends \PHPUnit_Framework_TestCase
         $events = $this->getMockBuilder(Events::class)
             ->getMock();
         
+        $documentManager = $this->getMockBuilder(DocumentManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->once())
+        $serviceLocator->expects($this->exactly(2))
             ->method('get')
-            ->with($this->equalTo('Auth/Dependency/Manager/Events'))
-            ->willReturn($events);
+            ->will($this->returnValueMap([
+                ['Auth/Dependency/Manager/Events', $events],
+                ['Core/DocumentManager', $documentManager]
+            ]));
         
         $managerFactory = new ManagerFactory();
         $manager = $managerFactory->createService($serviceLocator);
