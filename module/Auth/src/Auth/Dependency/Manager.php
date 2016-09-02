@@ -14,6 +14,12 @@ use Auth\Entity\UserInterface as User;
 use Zend\Mvc\Router\RouteInterface as Router;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
+/**
+ *
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @since 0.27
+ */
 class Manager
 {
     use EventManagerAwareTrait;
@@ -51,7 +57,14 @@ class Manager
      */
     public function removeItems(User $user)
     {
-        $this->getEventManager()->trigger(static::EVENT_REMOVE_ITEMS, $this, compact('user'));
+        try {
+            $this->getEventManager()->trigger(static::EVENT_REMOVE_ITEMS, $this, compact('user'));
+            $this->documentManager->flush();
+            return true;
+        } catch (\Exception $e) {
+            $this->documentManager->clear();
+            return false;
+        }
     }
 
     protected function attachDefaultListeners()

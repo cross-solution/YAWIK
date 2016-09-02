@@ -67,20 +67,40 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         
         $this->assertSame($return, $this->manager->getLists());
     }
-    
+
+    public function removeItemsTestDataProvider()
+    {
+        return [
+            ['onTrigger'], ['onFlush'], ['no']
+        ];
+    }
+
     /**
+     * @dataProvider removeItemsTestDataProvider
      * @covers ::removeItems
      */
-    public function testRemoveItems()
+    public function testRemoveItems($throwException)
     {
         $user = $this->getMockBuilder(User::class)
             ->getMock();
         
-        $this->events->expects($this->once())
+        $triggerStub = $this->events->expects($this->once())
             ->method('trigger')
             ->with($this->equalTo(Manager::EVENT_REMOVE_ITEMS), $this->equalTo($this->manager), $this->equalTo(['user' => $user]));
-        
-        $this->assertNull($this->manager->removeItems($user));
+
+        if ('onTrigger' == $throwException) {
+            $triggerStub->will($this->throwException(new \Exception));
+            $expects = false;
+            $flushStub = $this->documentManager->expects($this->never())->method('flush');
+        } else if ('onFlush' == $throwException) {
+            $this->documentManager->expects($this->once())->method('flush')->will($this->throwException(new \Exception));
+            $expects = false;
+        } else {
+            $this->documentManager->expects($this->once())->method('flush');
+            $expects = true;
+        }
+
+        $this->assertSame($expects, $this->manager->removeItems($user));
     }
     
     /**
@@ -128,6 +148,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             ->method('remove')
             ->with($this->equalTo($item));
         
-        $this->assertNull($this->manager->removeItems($user));
+        $this->assertTrue($this->manager->removeItems($user));
     }
 }

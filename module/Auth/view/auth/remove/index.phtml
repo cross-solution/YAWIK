@@ -1,7 +1,16 @@
 <?php
+/* @var bool $error */
 $translator = $this->plugin('translate')->getTranslator();
 ?>
 <h1><?=$this->translate('Account removal confirmation') ?></h1>
+
+<?php if ($error):
+    echo $this->alert()->danger(
+        $this->translate('Removal of user account failed.'),
+        ['dismissable' => false ]
+    );
+endif; ?>
+
 <?php foreach ($this->lists as $list): /* @var $list \Auth\Dependency\ListInterface */?>
 	<?php $count = $list->getCount($this->user);?>
 	<div class="panel panel-default">
