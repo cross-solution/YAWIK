@@ -4,7 +4,9 @@
  *
  * @filesource
  * @copyright (c) 2013-2016 Cross Solution (http://cross-solution.de)
- * @author cbleek
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @license   MIT
  */
 
@@ -18,6 +20,7 @@ use Auth\AuthenticationService;
 use Auth\Exception\UnauthorizedAccessException;
 use Zend\Mvc\Controller\Plugin\Params;
 use Acl\Controller\Plugin\Acl;
+use Core\Entity\Exception\NotFoundException;
 
 /**
  * Class GetOrganizationHandler
@@ -59,6 +62,7 @@ class GetOrganizationHandler extends AbstractPlugin {
      * @return object|\Organizations\Entity\Organization
      * @throws UnauthorizedAccessException
      * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws NotFoundException
      */
     public function process(Params $params,$allowDraft = true)
     {
@@ -108,7 +112,7 @@ class GetOrganizationHandler extends AbstractPlugin {
 
         $organization      = $organizationRepository->find($organizationId);
         if (!$organization) {
-            throw new \RuntimeException('No Organization found with id "' . $organizationId . '"');
+            throw new NotFoundException($organizationId);
         }
 
         $this->acl->check($organization, 'edit');

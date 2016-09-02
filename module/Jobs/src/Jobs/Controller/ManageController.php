@@ -25,6 +25,7 @@ use Zend\Stdlib\ArrayUtils;
 use Auth\AuthenticationService;
 use Zend\Mvc\I18n\Translator;
 use Zend\Http\PhpEnvironment\Response;
+use Core\Entity\Exception\NotFoundException;
 
 /**
  * This Controller handles management actions for jobs.
@@ -35,6 +36,10 @@ use Zend\Http\PhpEnvironment\Response;
  * @method \Core\Controller\Plugin\EntitySnapshot entitySnapshot()
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Rafal Ksiazek
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class ManageController extends AbstractActionController
 {
@@ -176,7 +181,17 @@ class ManageController extends AbstractActionController
         if (!$userOrg->hasAssociation() || $userOrg->getOrganization()->isDraft()) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noCompany'));
         }
-
+        
+        try {
+            $jobEntity = $this->initializeJob()->get($this->params(), true);
+        } catch (NotFoundException $e) {
+            $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
+            return [
+                'message' => sprintf($this->translator->translate('Job with id "%s" not found'), $e->getId()),
+                'exception' => $e
+            ];
+        }
+        
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
@@ -184,7 +199,6 @@ class ManageController extends AbstractActionController
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
 
-        $jobEntity = $this->initializeJob()->get($this->params(), true);
 
         $viewModel          = null;
         $this->acl($jobEntity, 'edit');
