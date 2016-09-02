@@ -26,6 +26,8 @@ class NotFoundExceptionTest extends \PHPUnit_Framework_TestCase
         $id = 'someId';
         $exception = new NotFoundException($id);
         
+        $this->assertInstanceOf(\RuntimeException::class, $exception);
+        $this->assertInstanceOf(\Core\Entity\Exception\ExceptionInterface::class, $exception);
         $this->assertSame($id, $exception->getId());
         $this->assertContains($id, $exception->getMessage());
         $this->assertContains('Entity with id', $exception->getMessage());
