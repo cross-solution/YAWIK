@@ -11,6 +11,7 @@ namespace Auth\Controller;
 use Auth\Entity\Status;
 use Zend\Mvc\Controller\AbstractActionController;
 use Auth\Dependency\Manager as Dependencies;
+use Auth\AuthenticationService;
 
 /**
  *
@@ -24,26 +25,31 @@ class RemoveController extends AbstractActionController
      * @var Dependencies
      */
     protected $dependencies;
+    
+    /**
+     * @var AuthenticationService
+     */
+    protected $auth;
 
     /**
      * @param Dependencies $dependencies
+     * @param AuthenticationService $auth
      */
-    public function __construct(Dependencies $dependencies)
+    public function __construct(Dependencies $dependencies, AuthenticationService $auth)
     {
         $this->dependencies = $dependencies;
+        $this->auth = $auth;
     }
 
     public function indexAction()
     {
-        /* @var \Auth\AuthenticationService $auth */
-        $auth = $this->serviceLocator->get('AuthenticationService');
-        $user = $auth->getUser();
+        $user = $this->auth->getUser();
         $error = false;
         
         if ($this->params()->fromPost('confirm'))
         {
             if ($this->dependencies->removeItems($user)) {
-                $auth->clearIdentity();
+                $this->auth->clearIdentity();
                 $user->setStatus(Status::INACTIVE);
                 return $this->redirect()->toRoute('lang');
             } else {

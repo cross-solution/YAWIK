@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\ControllerManager;
 use Auth\Factory\Controller\RemoveControllerFactory;
 use Auth\Controller\RemoveController;
 use Auth\Dependency\Manager;
+use Auth\AuthenticationService;
 
 /**
  * @coversDefaultClass \Auth\Factory\Controller\RemoveControllerFactory
@@ -30,12 +31,18 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         
+        $authService = $this->getMockBuilder(AuthenticationService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->once())
+        $serviceLocator->expects($this->exactly(2))
             ->method('get')
-            ->with($this->equalTo('Auth/Dependency/Manager'))
-            ->willReturn($manager);
+            ->will($this->returnValueMap([
+                ['Auth/Dependency/Manager', $manager],
+                ['AuthenticationService', $authService]
+            ]));
         
         $controllerManager = $this->getMockBuilder(ControllerManager::class)
             ->disableOriginalConstructor()
