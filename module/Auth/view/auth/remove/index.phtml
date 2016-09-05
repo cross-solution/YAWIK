@@ -36,5 +36,5 @@ endif; ?>
 <?php endforeach;?>
 <form method="post" action="">
 	<button type="submit" class="btn btn-primary" name="confirm" value="1"><?=$this->translate('Remove my account')?></button>
-	<button type="button" class="btn btn-default"><?=$this->translate('Cancel account removal')?></button>
+	<a href="<?=$this->url('lang/my', ['action' => 'profile'])?>" class="btn btn-default"><?=$this->translate('Cancel account removal')?></a>
 </form>

@@ -16,7 +16,9 @@ $user = $this->auth()->getUser(); /* @var \Auth\Entity\User $user  */
 $profileContainerId = 'social-profiles-container';
 ?>
 
+
 <h1><?php echo $this->translate('My profile')?></h1>
+
 
 <?php if ($this->status): ?>
 <div id="user-profile-form-response" class="alert cam-<?php echo $this->status?>">
@@ -83,3 +85,9 @@ $(document).on('formPost.socialprofiles', function (event, data) {
     event.stopPropagation();
 });
 <?php $this->headScript()->captureEnd() ?>
+
+<div class="row"><div class="col-xs-12">
+        <a href="<?=$this->url('lang/user-remove')?>" class="btn btn-danger">
+            <?=$this->translate('Remove account')?>
+        </a>
+    </div></div>
