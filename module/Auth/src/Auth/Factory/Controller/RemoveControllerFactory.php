@@ -25,7 +25,9 @@ class RemoveControllerFactory implements FactoryInterface
     {
         /* @var $serviceLocator ServiceLocatorInterface */
         $serviceLocator = $serviceLocator->getServiceLocator();
-
-        return new \Auth\Controller\RemoveController($serviceLocator->get('Auth/Dependency/Manager'));
+        $dependencyManager = $serviceLocator->get('Auth/Dependency/Manager');
+        $authService = $serviceLocator->get('AuthenticationService');
+        
+        return new \Auth\Controller\RemoveController($dependencyManager, $authService);
     }
 }
