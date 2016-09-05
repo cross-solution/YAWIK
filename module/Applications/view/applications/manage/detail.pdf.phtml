@@ -102,6 +102,7 @@ $this->headTitle($this->translate('Details'));
     <sethtmlpagefooter name="footer" value="on"/>
 <?php endif ?>
 <h1><?= $this->translate('application details') ?></h1>
+<p><?=sprintf($this->translate('You can see the application online on the %sfollowing link%s.'), '<a href="' . $this->serverUrl($this->url('lang/applications/detail', ['id' => $application->getId()])) . '">', '</a>')?></p>
 <h2><?= $this->translate('personal information') ?></h2>
 <table class="personal-information">
     <tr>
