@@ -4,7 +4,8 @@
  *
  * @filesource
  * @copyright (c) 2013-2016 Cross Solution (http://cross-solution.de)
- * @author cbleek
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @license   MIT
  */
 
@@ -15,6 +16,7 @@ use Core\Repository\RepositoryService;
 use Auth\AuthenticationService;
 use Zend\Mvc\Controller\Plugin\Params;
 use Acl\Controller\Plugin\Acl;
+use Core\Entity\Exception\NotFoundException;
 
 /**
  * Class InitializeJob
@@ -57,6 +59,7 @@ class InitializeJob extends AbstractPlugin
      *
      * @return \Jobs\Entity\Job|object
      * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws NotFoundException
      */
     public function get(Params $params, $allowDraft = false)
     {
@@ -84,7 +87,7 @@ class InitializeJob extends AbstractPlugin
 
         $job = $jobRepository->find($id);
         if (!$job) {
-            throw new \RuntimeException('No job found with id "' . $id . '"');
+            throw new NotFoundException($id);
         }
         return $job;
     }

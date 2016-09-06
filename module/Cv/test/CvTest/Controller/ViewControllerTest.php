@@ -11,7 +11,6 @@
 namespace CvTest\Controller;
 
 use Acl\Controller\Plugin\Acl;
-use CoreTestUtils\TestCase\AssertInheritanceTrait;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Controller\ViewController;
@@ -19,12 +18,15 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Cv\Repository\Cv as CvRepository;
 use Zend\Mvc\Controller\Plugin\Params;
 use Zend\Mvc\Controller\PluginManager;
+use Zend\I18n\Translator\TranslatorInterface;
+use Zend\Http\PhpEnvironment\Response;
 
 /**
  * Tests for \Cv\Controller\ViewController
- * 
+ *
  * @covers \Cv\Controller\ViewController
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Cv
  * @group Cv.Controller
  */
@@ -39,7 +41,7 @@ class ViewControllerTest extends \PHPUnit_Framework_TestCase
      */
     private $target = [
         'method' => 'getSimpleTarget',
-        '@testThrowsExceptionIfNoCvIsFound' => 'getTestTarget',
+        '@testHttp404IfNoCvIsFound' => 'getTestTarget',
         '@testReturnsExpectedResult' => 'getTestTarget',
     ];
 
@@ -64,8 +66,11 @@ class ViewControllerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['find'])
             ->getMock();
+        
+        $translator = $this->getMockBuilder(TranslatorInterface::class)
+            ->getMock();
 
-        return new ViewController($this->repositoryMock);
+        return new ViewController($this->repositoryMock, $translator);
     }
 
     /**
@@ -96,13 +101,12 @@ class ViewControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($this->repositoryMock, 'repository', $this->target);
     }
 
-    public function testThrowsExceptionIfNoCvIsFound()
+    public function testHttp404IfNoCvIsFound()
     {
         $this->repositoryMock->expects($this->once())->method('find')->with(1234)->willReturn(null);
-
-        $this->setExpectedException('Exception', 'No resume found');
-
-        $this->target->indexAction();
+        
+        $this->assertArrayHasKey('message', $this->target->indexAction());
+        $this->assertSame(Response::STATUS_CODE_404, $this->target->getResponse()->getStatusCode());
     }
 
     public function testReturnsExpectedResult()

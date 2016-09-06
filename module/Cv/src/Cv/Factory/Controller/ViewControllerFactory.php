@@ -17,9 +17,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class ViewControllerFactory implements FactoryInterface
 {
@@ -27,8 +27,9 @@ class ViewControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $repository = $container->get('repositories')->get('Cv/Cv');
+        $translator = $container->get('Translator');
 
-        return new ViewController($repository);
+        return new ViewController($repository, $translator);
     }
 
     /**

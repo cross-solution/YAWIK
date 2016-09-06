@@ -12,26 +12,36 @@ namespace Cv\Controller;
 
 use Cv\Repository\Cv as CvRepository;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Http\PhpEnvironment\Response;
+use Zend\I18n\Translator\TranslatorInterface as Translator;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class ViewController extends AbstractActionController
 {
 
     /**
-     *
-     *
      * @var \Cv\Repository\Cv
      */
     private $repository;
+    
+    /**
+     * @var Translator
+     */
+    private $translator;
 
-    public function __construct(CvRepository $repository)
+    /**
+     * @param CvRepository $repository
+     * @param Translator $translator
+     */
+    public function __construct(CvRepository $repository, Translator $translator)
     {
         $this->repository = $repository;
+        $this->translator = $translator;
     }
 
     public function indexAction()
@@ -41,7 +51,10 @@ class ViewController extends AbstractActionController
         $resume = $this->repository->find($id);
 
         if (!$resume) {
-            throw new \Exception('No resume found with id ' . $id);
+            $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
+            return [
+                'message' => sprintf($this->translator->translate('Resume with id "%s" not found'), $id)
+            ];
         }
 
         /* @todo REMOVE THIS
