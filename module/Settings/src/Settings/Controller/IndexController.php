@@ -5,6 +5,10 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 /** Settings controller */
@@ -13,6 +17,7 @@ namespace Settings\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\EventManager\Event;
+use Zend\Http\PhpEnvironment\Response;
 
 /**
  * Main Action Controller for Settings module
@@ -41,7 +46,17 @@ class IndexController extends AbstractActionController
         $translator = $services->get('translator');
         $moduleName = $this->params('module', 'Core');
         
-        $settings = $this->settings($moduleName);
+        
+        try {
+            $settings = $this->settings($moduleName);
+        } catch (\InvalidArgumentException $e) {
+            $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
+            return [
+                'message' => sprintf($translator->translate('Settings "%s" does not exists'), $moduleName),
+                'exception' => $e
+            ];
+        }
+        
         $jsonFormat = 'json' == $this->params()->fromQuery('format');
         if (!$this->getRequest()->isPost() && $jsonFormat) {
             return $settings->toArray();

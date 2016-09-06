@@ -16,14 +16,14 @@ use Cv\Controller\ViewController;
 use Cv\Factory\Controller\ViewControllerFactory;
 use Zend\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceManager;
+use Zend\I18n\Translator\TranslatorInterface;
 
 /**
  * Tests for \Cv\Factory\Controller\ViewControllerFactory
- * 
+ *
  * @covers \Cv\Factory\Controller\ViewControllerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class ViewControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -61,8 +61,18 @@ class ViewControllerFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $repository = $this->getMockBuilder('\Cv\Repository\Cv')->disableOriginalConstructor()->getMock();
         $repositories = $this->createPluginManagerMock(['Cv/Cv' => [ 'service' => $repository, 'count_get' => 1 ]]);
+        $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
 
-        $services = $this->getServiceManagerMock(['repositories' => [ 'service' => $repositories, 'count_get' => 1]]);
+        $services = $this->getServiceManagerMock([
+            'repositories' => [
+                'service' => $repositories,
+                'count_get' => 1
+            ],
+            'Translator' => [
+                'service' => $translator,
+                'count_get' => 1
+            ]
+        ]);
 
         $actual = $this->target->__invoke($services, null);
 

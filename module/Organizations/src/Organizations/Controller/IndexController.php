@@ -18,6 +18,8 @@ use Organizations\Repository;
 use Organizations\Form;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\Http\PhpEnvironment\Response;
+use Core\Entity\Exception\NotFoundException;
 
 /**
  * Main Action Controller for the Organization.
@@ -27,6 +29,7 @@ use Zend\View\Model\ViewModel;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Rafal Ksiazek
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  *
  * @method \Acl\Controller\Plugin\Acl acl()
  * @method \Core\Controller\Plugin\PaginationParams paginationParams()
@@ -127,6 +130,12 @@ class IndexController extends AbstractActionController
             $org  = $handler->process($this->params(), true);
         } catch (MissingParentOrganizationException $e) {
             return $this->getErrorViewModel('no-parent');
+        } catch (NotFoundException $e) {
+            $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
+            return [
+                'message' => sprintf($serviceLocator->get('Translator')->translate('Organization with id "%s" not found'), $e->getId()),
+                'exception' => $e
+            ];
         }
 
         $container       = $this->getFormular($org);
@@ -246,7 +255,7 @@ class IndexController extends AbstractActionController
 
     protected function getErrorViewModel($script)
     {
-        $this->getResponse()->setStatusCode(500);
+        $this->getResponse()->setStatusCode(Response::STATUS_CODE_500);
 
         $model = new ViewModel();
         $model->setTemplate("organizations/error/$script");

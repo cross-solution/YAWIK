@@ -4,7 +4,10 @@
  *
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
- * @author bleek@cross-solution.de
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @license   MIT
  */
 
@@ -29,7 +32,7 @@ class TemplateController extends AbstractActionController
 {
 
     /**
-     * @var Repository\Job $jobRepository
+     * @var Repository\Job
      */
     private $jobRepository;
 
@@ -53,9 +56,17 @@ class TemplateController extends AbstractActionController
     public function viewAction()
     {
         $id = $this->params()->fromQuery('id');
+        $response = $this->getResponse();
         /* @var \Jobs\Entity\Job $job */
         $job = $this->jobRepository->find($id);
-        $services             = $this->serviceLocator;
+        
+        if (!$job) {
+            $response->setStatusCode(Response::STATUS_CODE_404);
+            return [
+                'message' => sprintf($this->serviceLocator->get('Translator')->translate('Job with id "%s" not found'), $id)
+            ];
+        }
+        
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
@@ -63,7 +74,7 @@ class TemplateController extends AbstractActionController
         $user = $this->auth()->getUser();
 
         /* @var \Zend\View\Model\ViewModel $model */
-        $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
+        $model = $this->serviceLocator->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
         if (
             Status::ACTIVE == $job->getStatus() or
@@ -72,7 +83,7 @@ class TemplateController extends AbstractActionController
         ) {
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
         }elseif(Status::EXPIRED == $job->getStatus() or  Status::INACTIVE == $job->getStatus()) {
-            $this->response->setStatusCode(Response::STATUS_CODE_410);
+            $response->setStatusCode(Response::STATUS_CODE_410);
             $model->setTemplate('jobs/error/expired');
             $model->setVariables(
                 [
@@ -82,7 +93,7 @@ class TemplateController extends AbstractActionController
             );
         } else {
             // there is a special handling for 404 in ZF2
-            $this->response->setStatusCode(Response::STATUS_CODE_404);
+            $response->setStatusCode(Response::STATUS_CODE_404);
             $model->setVariable('message', 'job is not available');
         }
         return $model;
