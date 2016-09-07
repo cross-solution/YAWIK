@@ -1,7 +1,27 @@
 // TODO: documentation
 
 ;(function ($) {
-	
+
+    function getObjPath(obj, path)
+    {
+        if (obj.hasOwnProperty(path)) {
+            return obj[path];
+        }
+
+        var result = obj, pathArray = path.split('.');
+        $.each(pathArray, function(i, value) {
+            if (!result.hasOwnProperty(value)) {
+                result = {};
+                return false;
+            }
+
+            result = result[value];
+            return true;
+        });
+
+        return result;
+    }
+
 	function formatFileSize(bytes) 
 	 {
 	        if (typeof bytes !== 'number') {
@@ -113,14 +133,14 @@
 					if (options.allowedtypes) {
 						var types = options.allowedtypes.split(',');
 						var found = false;
-						
+
 						for (var i = 0; i < types.length; i++) {
 							if (0 === data.files[0].type.indexOf(types[i])) {
 								found = true;
 								break;
 							}
 						}
-						
+
 						if (!found) {
 							errors.type = true
 						}
@@ -168,9 +188,12 @@
                         return;
                     }
 
+                    var errorObjKey = $form.data('errorkey') || $form.attr('action').replace(/\?form=/, '');
+                    var errors      = getObjPath(data.result.errors, errorObjKey);
+
                     data.context.removeClass('fu-working').addClass('fu-error')
                         .find('.fu-errors').show();
-                    for (var errorKey in data.result.errors[$form.attr('action').replace(/\?form=/, '')]) {
+                    for (var errorKey in errors) {
                         switch (errorKey) {
                             case 'fileMimeTypeFalse':
                                 data.context.find('.fu-error-type').show();
