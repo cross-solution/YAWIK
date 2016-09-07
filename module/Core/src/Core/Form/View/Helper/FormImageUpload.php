@@ -24,6 +24,8 @@ class FormImageUpload extends FormFileUpload
     
     protected function renderMarkup(FileUpload $element)
     {
+        $this->setupAssets();
+        
         $file      = $element->getFileEntity();
         $preview   = '';
         $translator = $this->getTranslator();

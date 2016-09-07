@@ -68,15 +68,7 @@ class FormFileUpload extends FormFile
      */
     public function renderFileList(FileUpload $element)
     {
-        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
-        /* @var $basepath \Zend\View\Helper\BasePath */
-        $renderer = $this->getView();
-        $basepath = $renderer->plugin('basepath');
-        $renderer->headscript()
-            ->appendFile($basepath('js/jquery-file-upload/vendor/jquery.ui.widget.js'))
-            ->appendFile($basepath('js/jquery-file-upload/jquery.iframe-transport.js'))
-            ->appendFile($basepath('js/jquery-file-upload/jquery.fileupload.js'))
-            ->appendFile($basepath($this->scriptFile));
+        $this->setupAssets();
         
         $file       = $element->getFileEntity();
         $preview    = '';
@@ -323,5 +315,21 @@ class FormFileUpload extends FormFile
 		$this->allowClickableDropZone = (bool)$allowClickableDropZone;
 		
 		return $this;
+	}
+	
+	/**
+	 * @since 0.27
+	 */
+	protected function setupAssets()
+	{
+	    /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+        /* @var $basepath \Zend\View\Helper\BasePath */
+        $renderer = $this->getView();
+        $basepath = $renderer->plugin('basepath');
+        $renderer->headscript()
+            ->appendFile($basepath('js/jquery-file-upload/vendor/jquery.ui.widget.js'))
+            ->appendFile($basepath('js/jquery-file-upload/jquery.iframe-transport.js'))
+            ->appendFile($basepath('js/jquery-file-upload/jquery.fileupload.js'))
+            ->appendFile($basepath($this->scriptFile));
 	}
 }
