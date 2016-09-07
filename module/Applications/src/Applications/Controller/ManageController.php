@@ -194,8 +194,9 @@ class ManageController extends AbstractActionController
                 $allowSubsequentAttachmentUpload = $this->serviceLocator->get('Applications/Options')
                     ->getAllowSubsequentAttachmentUpload();
                 
-                if ($allowSubsequentAttachmentUpload)
-                {
+                if ($allowSubsequentAttachmentUpload
+                    && $this->acl($application, Application::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD, 'test')
+                ) {
                     $attachmentsForm = $this->serviceLocator->get('forms')
                         ->get('Applications/Attachments');
                     $attachmentsForm->bind($application->getAttachments());
