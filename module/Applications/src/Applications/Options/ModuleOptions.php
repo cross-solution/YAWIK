@@ -5,6 +5,7 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @author cbleek
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @license   MIT
  */
 
@@ -81,6 +82,13 @@ class ModuleOptions extends AbstractOptions
 
       'recruiter',
     ];
+    
+    /**
+     * Flag indicating whether subsequent attachment uploads are allowed
+     *
+     * @var bool
+     */
+    protected $allowSubsequentAttachmentUpload = false;
 
     /**
      * Gets the maximum size of attachments in bytes
@@ -208,4 +216,26 @@ class ModuleOptions extends AbstractOptions
         $this->allowedMimeTypes = $array;
         return $this;
     }
+    
+    /**
+	 * @return boolean
+	 * @since 0.27
+	 */
+	public function getAllowSubsequentAttachmentUpload()
+	{
+		return $this->allowSubsequentAttachmentUpload;
+	}
+
+    /**
+     * @param boolean $allowSubsequentAttachmentUpload
+     * @return ModuleOptions
+     * @since 0.27
+     */
+    public function setAllowSubsequentAttachmentUpload($allowSubsequentAttachmentUpload)
+    {
+        $this->allowSubsequentAttachmentUpload = (bool)$allowSubsequentAttachmentUpload;
+        
+        return $this;
+    }
+
 }

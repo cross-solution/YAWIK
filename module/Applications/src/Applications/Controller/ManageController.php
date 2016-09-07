@@ -190,6 +190,46 @@ class ManageController extends AbstractActionController
                 
                 $return = new ViewModel($return);
                 $return->addChild($actionButtons, 'externActionButtons');
+                
+                $allowSubsequentAttachmentUpload = $this->serviceLocator->get('Applications/Options')
+                    ->getAllowSubsequentAttachmentUpload();
+                
+                if ($allowSubsequentAttachmentUpload)
+                {
+                    $attachmentsForm = $this->serviceLocator->get('forms')
+                        ->get('Applications/Attachments');
+                    $attachmentsForm->bind($application->getAttachments());
+                    
+                    /* @var $request \Zend\Http\PhpEnvironment\Request */
+                    $request = $this->getRequest();
+                    
+                    if ($request->isPost() && $attachmentsForm->get('return')->getValue() === $request->getPost('return')) {
+                        $data = array_merge(
+                            $attachmentsForm->getOption('use_post_array') ? $request->getPost()->toArray() : [],
+                            $attachmentsForm->getOption('use_files_array') ? $request->getFiles()->toArray() : []
+                        );
+                        $attachmentsForm->setData($data);
+                        
+                        if (!$attachmentsForm->isValid()) {
+                            return new JsonModel([
+                                'valid' => false,
+                                'errors' => $attachmentsForm->getMessages()
+                            ]);
+                        }
+                        
+                        $content = $attachmentsForm->getHydrator()
+                            ->getLastUploadedFile()
+                            ->getUri();
+                        
+                        return new JsonModel([
+                            'valid' => $attachmentsForm->isValid(),
+                            'content' => $content
+                        ]);
+                    }
+                    
+                    $return->setVariable('attachmentsForm', $attachmentsForm);
+                }
+                
                 break;
         }
         
