@@ -10,9 +10,9 @@
 /** */
 namespace Core\Factory\Navigation;
 
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\RouteStackInterface as Router;
 use Zend\Navigation\Service\DefaultNavigationFactory as ZfDefaultNavigationFactory;
+use Zend\Mvc\Router as MvcRouter;
+use Zend\Mvc\Router\RouteMatch;
 
 /**
  * Extends the ZF DefaultNavigationFactory to let it set
@@ -32,19 +32,16 @@ class DefaultNavigationFactory extends ZfDefaultNavigationFactory
      *      Parses the pages options for the "active_on" property and
      *      sets the active flag if one of the routes match.
      *
-     * @param array      $pages
-     * @param RouteMatch $routeMatch
-     * @param Router     $router
-     * @param null       $request
+     * {@inheritDoc}
      *
-     * @return array
      */
     protected function injectComponents(
         array $pages,
-        RouteMatch $routeMatch = null,
-        Router $router = null,
+        $routeMatch = null,
+        $router = null,
         $request = null
     ) {
+        /* @var RouteMatch|MvcRouter\RouteMatch $routeMatch */
         $routeName = $routeMatch->getMatchedRouteName();
 
         foreach ($pages as &$page) {
