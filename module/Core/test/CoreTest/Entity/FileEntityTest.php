@@ -18,6 +18,7 @@ use Core\Entity\Permissions;
  * Test the File Entity
  *
  * @author Carsten Bleek <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group  Core
  * @group  Core.Entity
  * @covers \Core\Entity\FileEntity
@@ -61,15 +62,24 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
      * @covers Core\Entity\FileEntity::getPrettySize
      * @dataProvider provideSize
      */
-    public function testGetPrettySize($size){
-
+    public function testGetPrettySize($size, $unit)
+    {
+        $target = $this->getMockBuilder(FileEntity::class)
+            ->setMethods(['getLength'])
+            ->getMock();
+        $target->expects($this->once())
+            ->method('getLength')
+            ->willReturn($size);
+        
+        $this->assertStringEndsWith($unit, $target->getPrettySize($size));
     }
 
     public function provideSize(){
         return [
-            [10],
-            [10000],
-            [100000000],
+            [10, '10'],
+            [10000, 'kB'],
+            [10000000, 'MB'],
+            [10000000000, 'GB']
         ];
     }
 
@@ -114,4 +124,11 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @covers Core\Entity\FileEntity::getUri
+     */
+    public function testGetUri()
+    {
+        $this->assertNull($this->target->getUri());
+    }
 }

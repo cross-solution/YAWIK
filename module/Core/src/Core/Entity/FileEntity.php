@@ -157,7 +157,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
             return round($size / 1024, 2) . ' kB';
         }
         
-        return $size;
+        return (string)$size;
     }
 
     /**
