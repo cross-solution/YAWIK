@@ -23,6 +23,7 @@ use Core\Entity\PermissionsInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class ApplicationAccessAssertion implements AssertionInterface
 {

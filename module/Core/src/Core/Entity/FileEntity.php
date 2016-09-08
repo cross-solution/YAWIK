@@ -5,6 +5,11 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Weitz <weitz@xenon>
+ * @author Rafal Ksiazek <harpcio@gmail.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 /** FileEntity.php */
@@ -290,4 +295,11 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
         }
         return $this->permissions;
     }
+    
+    /**
+	 * @see \Core\Entity\FileInterface::getUri()
+	 * @since 0.27
+	 */
+	public function getUri()
+	{}
 }

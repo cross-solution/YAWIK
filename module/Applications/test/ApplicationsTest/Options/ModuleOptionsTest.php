@@ -4,7 +4,8 @@
  *
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
- * @author cbleek
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @license   MIT
  */
 
@@ -12,6 +13,9 @@ namespace ApplicationsTest\Options;
 
 use Applications\Options\ModuleOptions as Options;
 
+/**
+ * @coversDefaultClass Applications\Options\ModuleOptions
+ */
 class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -26,8 +30,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Options\ModuleOptions::getAttachmentsMaxSize
-     * @covers Applications\Options\ModuleOptions::setAttachmentsMaxSize
+     * @covers ::getAttachmentsMaxSize
+     * @covers ::setAttachmentsMaxSize
      */
     public function testSetGetAttachmentsMaxSize()
     {
@@ -36,8 +40,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Options\ModuleOptions::getAttachmentsMimeType
-     * @covers Applications\Options\ModuleOptions::setAttachmentsMimeType
+     * @covers ::getAttachmentsMimeType
+     * @covers ::setAttachmentsMimeType
      */
     public function testSetGetAttachmentsMimeType()
     {
@@ -48,8 +52,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Options\ModuleOptions::getAttachmentsCount
-     * @covers Applications\Options\ModuleOptions::setAttachmentsCount
+     * @covers ::getAttachmentsCount
+     * @covers ::setAttachmentsCount
      */
     public function testSetGetAttachmentsCount()
     {
@@ -58,8 +62,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Options\ModuleOptions::getContactImageMimeType
-     * @covers Applications\Options\ModuleOptions::setContactImageMimeType
+     * @covers ::getContactImageMimeType
+     * @covers ::setContactImageMimeType
      */
     public function testSetGetContactImageMimeType()
     {
@@ -70,8 +74,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Options\ModuleOptions::getContactImageMaxSize
-     * @covers Applications\Options\ModuleOptions::setContactImageMaxSize
+     * @covers ::getContactImageMaxSize
+     * @covers ::setContactImageMaxSize
      */
     public function testSetGetContactImageMaxSize()
     {
@@ -82,8 +86,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Options\ModuleOptions::getContactImageMaxSize
-     * @covers Applications\Options\ModuleOptions::setContactImageMaxSize
+     * @covers ::setAllowedMimeTypes
+     * @covers ::getAllowedMimeTypes
      */
     public function testSetGetAllowedMimeTypes()
     {
@@ -91,5 +95,26 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 
         $this->options->setAllowedMimeTypes($mime);
         $this->assertEquals($mime, $this->options->getAllowedMimeTypes());
+    }
+
+    /**
+     * @covers ::setAllowSubsequentAttachmentUpload
+     * @covers ::getAllowSubsequentAttachmentUpload
+     */
+    public function testSetGetAllowSubsequentAttachmentUpload()
+    {
+        $this->assertFalse($this->options->getAllowSubsequentAttachmentUpload());
+        
+        $this->options->setAllowSubsequentAttachmentUpload(true);
+        $this->assertTrue($this->options->getAllowSubsequentAttachmentUpload());
+        
+        $this->options->setAllowSubsequentAttachmentUpload('1');
+        $this->assertTrue($this->options->getAllowSubsequentAttachmentUpload());
+        
+        $this->options->setAllowSubsequentAttachmentUpload(false);
+        $this->assertFalse($this->options->getAllowSubsequentAttachmentUpload());
+        
+        $this->options->setAllowSubsequentAttachmentUpload('0');
+        $this->assertFalse($this->options->getAllowSubsequentAttachmentUpload());
     }
 }
