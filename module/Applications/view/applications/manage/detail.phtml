@@ -342,19 +342,37 @@ endif;
         </div>
     </div>
     <div class="col-md-4">
-        <div class="panel panel-default">
+        <?php if ($this->attachmentsForm):?>
+            <?php
+            $this->attachmentsForm->prepare();
+            $this->attachmentsForm->setAttribute('action', '?form=attachments'); // required by max count validator
+            $attachmentsElement = $this->attachmentsForm->get('attachments');
+            $attachmentsElement->setAttribute('class', 'btn btn-default btn-block');
+            $formFileUpload = $this->formFileUpload(); /* @var $formFileUpload \Core\Form\View\Helper\FormFileUpload */
+            $formFileUpload->setAllowClickableDropZone(false)
+                ->setAllowRemove(false)
+                ->setNonEmptyNotice('')
+                ->setEmptyNotice($this->translate("no attachments available"));
+            ?>
+            <?=$this->form()->openTag($this->attachmentsForm)?>
+        <?php endif;?>
+        <div class="panel panel-default<?php if ($this->attachmentsForm):?> <?=$formFileUpload->getDropZoneClass($attachmentsElement)?><?php endif;?>">
             <div class="panel-heading"><?php echo $this->translate('Attachments')?></div>
             <div class="panel-body">
-                <?php if(count($application->getAttachments())>0):?>
-                    <?php foreach( $application->getAttachments() as $attachment): /* @var Applications\Entity\Attachment $attachment */ ?>
-                        <div class="row show-grid">
-                            <div class="col-md-12">
-                                <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getName() ?></a>
-                            </div>
-                        </div>
-                    <?php endforeach; // attachments?>
+                <?php if ($this->attachmentsForm):?>
+            		<?=$formFileUpload->renderFileList($attachmentsElement)?>
                 <?php else:?>
-                    <?php echo $this->translate("no attachments available");?>
+                    <?php if(count($application->getAttachments())>0):?>
+                        <?php foreach( $application->getAttachments() as $attachment): /* @var Applications\Entity\Attachment $attachment */ ?>
+                            <div class="row show-grid">
+                                <div class="col-md-12">
+                                    <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getName() ?></a>
+                                </div>
+                            </div>
+                        <?php endforeach; // attachments?>
+                    <?php else:?>
+                        <?php echo $this->translate("no attachments available");?>
+                    <?php endif;?>
                 <?php endif;?>
                 <?php if (count($application->getProfiles())): ?>
                     <hr>
@@ -386,8 +404,15 @@ endif;
                         </div>
                     </div>
                 <?php  endif; ?>
+                <?php if ($this->attachmentsForm):?>
+                	<br><br><?=$formFileUpload->renderFileElement($attachmentsElement)?>
+            	<?php endif;?>
             </div>
         </div>
+        <?php if ($this->attachmentsForm):?>
+            <?=$this->formElement($this->attachmentsForm->get('return'))?>
+            <?=$this->form()->closeTag()?>
+        <?php endif;?>
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">

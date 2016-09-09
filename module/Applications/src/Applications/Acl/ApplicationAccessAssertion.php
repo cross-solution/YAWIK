@@ -23,6 +23,7 @@ use Core\Entity\PermissionsInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class ApplicationAccessAssertion implements AssertionInterface
 {
@@ -43,8 +44,14 @@ class ApplicationAccessAssertion implements AssertionInterface
             return false;
         }
         /* @var $resource ApplicationInterface */
-
+        $permissions = $resource->getPermissions();
+        
+        if (ApplicationInterface::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD == $privilege) {
+            // only applicant is allowed to upload subsequent attachments
+            return $permissions->isAssigned($role) && $permissions->isGranted($role, PermissionsInterface::PERMISSION_VIEW);
+        }
+        
         $permission = 'read' == $privilege ? PermissionsInterface::PERMISSION_VIEW : PermissionsInterface::PERMISSION_CHANGE;
-        return $resource->getPermissions()->isGranted($role, $permission);
+        return $permissions->isGranted($role, $permission);
     }
 }

@@ -22,6 +22,8 @@ interface ApplicationInterface extends
     PermissionsAwareInterface
 {
     
+    const PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD = 'subsequentAttachmentUpload';
+    
     /**
      * Sets the job this application belongs to.
      *

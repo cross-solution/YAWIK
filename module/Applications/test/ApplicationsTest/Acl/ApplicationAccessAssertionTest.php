@@ -25,6 +25,7 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  *
  * @covers \Applications\Acl\ApplicationAccessAssertion
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Applications
  * @group Applications.Acl
  */
@@ -80,6 +81,8 @@ class ApplicationAccessAssertionTest extends \PHPUnit_Framework_TestCase
             'read-granted' => array($user2, $app2, 'read', true),
             'change-granted' => array($user2, $app2, 'write', true),
             'change-not-granted2' => array($user, $app2, 'change', false),
+            'subsequentAttachmentUpload-not-granted' => array($user, $app, Application::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD, false),
+            'subsequentAttachmentUpload-granted' => array($user, $app2, Application::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD, true),
         );
     }
 

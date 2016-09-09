@@ -94,6 +94,7 @@ return array(
                     'Applications\Controller\Manage' => 'detail',
                     'Entity/Application' => array(
                         'read' => 'Applications/Access',
+                        Applications\Entity\ApplicationInterface::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD => 'Applications/Access',
                     ),
                 ),
             ),

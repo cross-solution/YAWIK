@@ -66,7 +66,7 @@
 	
 	$(function() {
 		//$(document).on("drop dragover", function(e) { e.preventDefault(); e.stopPropagation(); });
-		$('.fu-dropzone').click(function(e) {
+		$('.fu-dropzone').not('.fu-non-clickable').click(function(e) {
 			var $target = $(e.target);
 			if ('file' == $target.attr('type') 
 				|| $target.hasClass('fu-delete-button') 
