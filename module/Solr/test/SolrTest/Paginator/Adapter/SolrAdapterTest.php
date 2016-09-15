@@ -19,6 +19,7 @@ use Solr\Paginator\Adapter\SolrAdapter;
  *
  * @author  Anthonius Munthi <me@itstoni.com>
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package SolrTest\Paginator\Adapter
  * @covers  Solr\Paginator\Adapter\SolrAdapter
@@ -86,7 +87,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->target = new SolrAdapter($client,$filter,$resultConverter,array());
         $this->response = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['getArrayResponse'])
+            ->setMethods(['getArrayResponse', 'getResponse'])
             ->getMock()
         ;
         $this->client = $client;
@@ -101,6 +102,11 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItemsAndCount()
     {
+        $response = new \ArrayObject($this->responseArray);
+        
+        $this->response->method('getResponse')
+            ->willReturn($response);
+        
         $this->client
             ->expects($this->any())
             ->method('query')
@@ -117,7 +123,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         $this->converter
             ->expects($this->once())
             ->method('convert')
-            ->with($this->filter,$this->response)
+            ->with($this->filter, $response)
             ->willReturn([])
         ;
 

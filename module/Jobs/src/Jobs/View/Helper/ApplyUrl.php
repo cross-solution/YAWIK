@@ -11,13 +11,14 @@
 namespace Jobs\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
-use Jobs\Entity\Job;
+use Jobs\Entity\JobInterface as Job;
 
 /**
  * View helper to assemble an apply link according to the ATS configuration in a job entity.
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @todo   write test
  */
 class ApplyUrl extends AbstractHelper

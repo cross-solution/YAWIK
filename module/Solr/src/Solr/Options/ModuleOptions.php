@@ -34,7 +34,7 @@ class ModuleOptions extends AbstractOptions
     /**
      * @var integer
      */
-    protected $port = 80;
+    protected $port = 8983;
 
     /**
      * @var string

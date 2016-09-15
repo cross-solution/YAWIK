@@ -18,6 +18,7 @@ use Solr\Options\ModuleOptions;
  *
  * @author  Anthonius Munthi <me@itstoni.com>
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @covers  Solr\Options\ModuleOptions
  * @package SolrTest\Options
@@ -38,7 +39,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
                 'default' => 'localhost'
             ]],
             ['port', [
-                'default' => 80,
+                'default' => 8983,
                 'value' => 4568
             ]],
             ['path', [

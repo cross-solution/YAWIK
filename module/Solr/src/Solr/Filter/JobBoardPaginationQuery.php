@@ -10,13 +10,13 @@
 namespace Solr\Filter;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Entity\Location;
 use Jobs\Entity\Job;
-use Organizations\Entity\Organization;
-use Organizations\Entity\OrganizationImage;
-use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Util;
+use Solr\Entity\JobProxy;
+use SolrDisMaxQuery;
+use SolrQuery;
+use ArrayAccess;
 
 /**
  * Class JobBoardPaginationQuery
@@ -27,31 +27,19 @@ use Solr\Bridge\Util;
  */
 class JobBoardPaginationQuery extends AbstractPaginationQuery
 {
-    /**
-     * @var array
-     */
-    protected $sortPropertiesMap = [
-        'company' => 'companyName',
-        'date'    => 'dateCreated',
-    ];
-
-    protected $propertiesMap = [
-        'organizationName' => 'convertOrganizationName',
-        'companyLogo'      => 'convertCompanyLogo',
-        'locations'        => 'convertLocations'
-    ];
 
     /**
      * @inheritdoc
      */
-    public function createQuery(array $params, $query)
+    public function createQuery(array $params, SolrDisMaxQuery $query)
     {
-        $search = isset($params['search']) ? $params['search']:'';
+        $search = isset($params['search']) ? trim($params['search']) : '';
 
-        if(!empty($search)){
+        if (!empty($search)) {
             $q = \SolrUtils::escapeQueryChars($search);
-        }else{
+        } else {
             $q = '*:*';
+            $query->addSortField('datePublishStart', SolrQuery::ORDER_DESC);
         }
 
         $query->setQuery($q);
@@ -104,57 +92,18 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     }
 
     /**
-     * @inheritdoc
+     * @see \Solr\Filter\AbstractPaginationQuery::proxyFactory()
      */
-    public function getEntityClass()
+    public function proxyFactory($entity, ArrayAccess $solrResult)
     {
-        return Job::class;
+        return new JobProxy($entity, $solrResult);
     }
 
     /**
-     * Convert organizationName result
-     * @param Job       $ob
-     * @param string    $value
+     * @see \Solr\Filter\AbstractPaginationQuery::getRepositoryName()
      */
-    public function convertOrganizationName($ob,$value)
+    public function getRepositoryName()
     {
-        if(!is_object($ob->getOrganization())){
-            $ob->setOrganization(new Organization());
-        }
-        $orgName = new OrganizationName($value);
-        $ob->getOrganization()->setOrganizationName($orgName);
-    }
-
-    /**
-     * Convert companyLogo result
-     * @param   Job     $ob
-     * @param   mixed   $value
-     */
-    public function convertCompanyLogo($ob,$value)
-    {
-        if(!is_object($ob->getOrganization())){
-            $ob->setOrganization(new Organization());
-        }
-        $exp    = explode('/',$value);
-        $id     = $exp[3];
-        $name   = isset($exp[4])?:null;
-        $image = new OrganizationImage();
-        $image->setId($id);
-        $image->setName($name);
-        $ob->getOrganization()->setImage($image);
-    }
-
-    /**
-     * Convert locations result
-     * @param   Job     $ob
-     * @param   mixed   $value
-     */
-    public function convertLocations($ob,$value)
-    {
-        $locations = [];
-        foreach($value->docs as $doc) {
-            $locations[] = $doc->city;
-        }
-        $ob->setLocation(implode(', ', array_unique($locations)));
+        return 'Jobs/Job';
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -9,112 +9,86 @@
 
 namespace Solr\Bridge;
 
-use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as EntityType;
+use Core\Repository\RepositoryService;
 use Solr\Filter\AbstractPaginationQuery;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use ArrayAccess;
+use InvalidArgumentException;
 
 /**
  * Class ResultConverter
  *
  * Convert SOLR query result into Doctrine ODM Entity
- * 
- * @author  Anthonius Munthi <me@itstoni.com>
+ *
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @package Solr\Bridge
- * @since   0.26
+ * @since 0.26
  */
 class ResultConverter
 {
-    /**
-     * Current filter used for conversion
-     *
-     * @var AbstractPaginationQuery
-     */
-    protected $filter;
 
     /**
-     * if set, the city name of the found location overwrites the general job location
-     *
-     * @var bool
+     * @var RepositoryService
      */
-    protected $useGeoLocation=false;
+    protected $repositories;
 
     /**
-     * Convert result into entity
-     *
-     * @param   AbstractPaginationQuery $filter
-     * @param   \SolrQueryResponse $queryResponse
-     * @return  EntityType[]
+     * @param RepositoryService $repositories
      */
-    public function convert($filter, $queryResponse)
+    public function __construct(RepositoryService $repositories)
     {
-        $this->filter = $filter;
-        $response = $queryResponse->getResponse();
-        $propertiesMap = $filter->getPropertiesMap();
-        $class = $filter->getEntityClass();
+        $this->repositories = $repositories;
+    }
+
+    /**
+     * Convert result into entities
+     *
+     * @param AbstractPaginationQuery $filter
+     * @param ArrayAccess $response
+     * @return array Array of entities
+     * @throws InvalidArgumentException
+     */
+    public function convert(AbstractPaginationQuery $filter, ArrayAccess $response)
+    {
         $entities = [];
-        foreach($response['response']['docs'] as $doc){ /* @var $doc \SolrObject  */
-            $ob = new $class();
-            $properties = $doc->getPropertyNames();
-            foreach($properties as $name){
-                $setter = 'set'.$name;
-                $value = $doc->$name;
-                $value = $this->validateDate($value);
-                if ($value instanceof \SolrObject) {
-                    if ($name == 'locations') {
-                        $this->useGeoLocation=true;
-                    }
-                    $this->handleMappedProperty($propertiesMap[$name],$ob,$value);
-                } elseif (method_exists($ob,$setter) && !$value instanceof \SolrObject){
-                    if ($name != 'location') {
-                        call_user_func(array($ob, $setter), $value);
-                    }elseif (!$this->useGeoLocation) {
-                        call_user_func(array($ob, $setter), $value);
-                    }
-                }elseif(isset($propertiesMap[$name])){
-                    $this->handleMappedProperty($propertiesMap[$name],$ob,$value);
-                }
+        $ids = [];
+        $return = [];
 
+        if (!isset($response['response'])
+            || !isset($response['response']['docs'])
+            || !is_array($response['response']['docs']))
+        {
+            throw new InvalidArgumentException('invalid response');
+        }
+        
+        foreach ($response['response']['docs'] as $doc) {
+            $ids[] = $doc->id;
+        }
+
+        // fetch entities with given IDs
+        $repository = $this->repositories->get($filter->getRepositoryName());
+        $qb = $repository->createQueryBuilder()
+            ->field('id')
+            ->in($ids);
+        $result = $qb->getQuery()->execute();
+        
+        foreach ($result as $document) {
+            $entities[$document->getId()] = $document;
+        }
+        
+        // iterate over Solr response to preserve sorting
+        foreach ($response['response']['docs'] as $doc) {
+            // check if entity exists
+            if (!isset($entities[$doc->id])) {
+                // skip non-existent entity
+                continue;
             }
-            $entities[] = $ob;
+            
+            $return[] = $filter->proxyFactory($entities[$doc->id], $doc);
         }
-
-        return $entities;
-    }
-
-    /**
-     * Handles mapped property defined by query filter
-     * 
-     * @param $property
-     * @param $object
-     * @param $value
-     */
-    public function handleMappedProperty($property,$object,$value)
-    {
-        $callback = array($this->filter,$property);
-        if(is_callable($callback)){
-            call_user_func($callback,$object,$value);
-        }
-    }
-
-    /**
-     * Convert date formatted string into a DateTime object
-     *
-     * @param   string  $value
-     * @return  \DateTime|string
-     */
-    public function validateDate($value)
-    {
-        if ($value instanceof \SolrObject || is_array($value)){
-            return $value;
-        }
-        $value = trim($value);
-        $date = \DateTime::createFromFormat(Manager::SOLR_DATE_FORMAT,$value);
-        $check = $date && ($date->format(Manager::SOLR_DATE_FORMAT) === $value);
-        if($check){
-            return $date;
-        }else{
-            return $value;
-        }
+        
+        return $return;
     }
 
     /**
@@ -124,6 +98,6 @@ class ResultConverter
      */
     static public function factory(ServiceLocatorInterface $sl)
     {
-        return new static();
+        return new static($sl->get('repositories'));
     }
 }

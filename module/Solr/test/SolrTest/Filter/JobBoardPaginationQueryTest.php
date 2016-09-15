@@ -11,9 +11,6 @@ namespace SolrTest\Filter;
 
 use Jobs\Entity\CoordinatesInterface;
 use Jobs\Entity\Location;
-use Organizations\Entity\Organization;
-use Organizations\Entity\OrganizationImage;
-use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -23,6 +20,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author  Anthonius Munthi <me@itstoni.com>
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package SolrTest\Filter
  * @covers  Solr\Filter\JobBoardPaginationQuery
@@ -53,18 +51,8 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         ;
         $sl->method('getServiceLocator')->willReturn($sl);
         $sl->method('get')->with('Solr/Manager')->willReturn($manager);
-        $this->target = JobBoardPaginationQuery::factory($sl);
+        $this->target = new JobBoardPaginationQuery;
         $this->manager = $manager;
-    }
-
-    public function testFactory()
-    {
-        $target = $this->target;
-        $this->assertInstanceOf(
-            JobBoardPaginationQuery::class,
-            $target,
-            '::factory should return a correct instance'
-        );
     }
 
     public function testFilter()
@@ -78,9 +66,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateQuery()
     {
-        //$this->markTestIncomplete('currently not working');
-        
-        $query  = $this->getMockBuilder(\stdClass::class)
+        $query  = $this->getMockBuilder(\SolrDisMaxQuery::class)
             ->setMethods([
                 'setQuery',
                 'addFilterQuery',
@@ -136,43 +122,5 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $actual = $target->createQuery($params2,$query);
 
         $this->assertSame($query, $actual);
-    }
-
-    public function testConvertOrganizationName()
-    {
-        $target = $this->target;
-        $job = $this->getMockBuilder($target->getEntityClass())
-            ->getMock()
-        ;
-        $org = $this->getMockBuilder(Organization::class)->getMock();
-        $job->expects($this->exactly(2))
-            ->method('getOrganization')
-            ->willReturnOnConsecutiveCalls(null,$org)
-        ;
-        $org->expects($this->once())
-            ->method('setOrganizationName')
-            ->with($this->isInstanceOf(OrganizationName::class))
-        ;
-
-        $target->convertOrganizationName($job,'some-name');
-    }
-
-    public function testConvertOrganizationLogo()
-    {
-        $target = $this->target;
-        $job = $this->getMockBuilder($target->getEntityClass())
-            ->getMock()
-        ;
-        $org = $this->getMockBuilder(Organization::class)->getMock();
-        $job->expects($this->exactly(2))
-            ->method('getOrganization')
-            ->willReturnOnConsecutiveCalls(null,$org)
-        ;
-        $org->expects($this->once())
-            ->method('setImage')
-            ->with($this->isInstanceOf(OrganizationImage::class))
-        ;
-
-        $target->convertCompanyLogo($job,'/file/Organizations.OrganizationImage/5774cad3ecb2a162138b4568/logo.gif');
     }
 }

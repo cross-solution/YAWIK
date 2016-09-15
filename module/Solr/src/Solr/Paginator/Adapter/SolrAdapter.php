@@ -18,8 +18,9 @@ use Solr\Bridge\ResultConverter;
 /**
  * Provide adapter for Solr type paginator
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
  * @package Solr\Paginator\Adapter
  */
 class SolrAdapter implements AdapterInterface
@@ -85,7 +86,7 @@ class SolrAdapter implements AdapterInterface
     {
         return $this->resultConverter->convert(
             $this->filter,
-            $this->getResponse($offset,$itemCountPerPage)
+            $this->getResponse($offset,$itemCountPerPage)->getResponse()
         );
     }
 
@@ -106,7 +107,7 @@ class SolrAdapter implements AdapterInterface
      * @param   int     $offset
      * @param   int     $itemCountPerPage
      * @return  \SolrQueryResponse
-     * @throws  \Exception
+     * @throws  ServerException
      */
     protected function getResponse($offset=0,$itemCountPerPage=0)
     {

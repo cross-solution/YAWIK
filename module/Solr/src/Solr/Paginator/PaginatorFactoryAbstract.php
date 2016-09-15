@@ -21,8 +21,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Abstract class for Solr paginator factory
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
  * @package Solr\Paginator
  */
 abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreationOptionsInterface
@@ -54,17 +55,18 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreat
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed|Paginator
+     * @return Paginator
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var PaginatorService $serviceLocator */
         /* @var ResultConverter $resultConverter */
-        $filter             = $serviceLocator->getServiceLocator()->get('filterManager')->get($this->getFilter());
-        $options            = $serviceLocator->getServiceLocator()->get('Solr/Options/Module');
+        $serviceManager     = $serviceLocator->getServiceLocator();
+        $filter             = $serviceManager->get('filterManager')->get($this->getFilter());
+        $options            = $serviceManager->get('Solr/Options/Module');
         $connectPath        = $this->getConnectPath($options);
-        $solrClient         = $serviceLocator->getServiceLocator()->get('Solr/Manager')->getClient($connectPath);
-        $resultConverter    = $serviceLocator->getServiceLocator()->get('Solr/ResultConverter');
+        $solrClient         = $serviceManager->get('Solr/Manager')->getClient($connectPath);
+        $resultConverter    = $serviceManager->get('Solr/ResultConverter');
         $adapter            = new SolrAdapter($solrClient,$filter,$resultConverter,$this->options);
         $service            = new Paginator($adapter);
 
