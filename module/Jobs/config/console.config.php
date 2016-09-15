@@ -13,10 +13,12 @@ return [
             'routes' => [
                 'jobs-expire'    => [
                     'options' => [
-                        'route'    => 'jobs expire [--filter=]',
+                        'route'    => 'jobs expire [--days=] [--limit=] [--info]',
                         'defaults' => [
                             'controller' => 'Jobs/Console',
                             'action'     => 'expirejobs',
+                            'days'       => 30,
+                            'limit'      => '10,0',
                         ],
                     ],
                 ],
