@@ -144,13 +144,20 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	public function getLocation()
 	{
 	    // check for a locations subquery result
-	    if (isset($this->solrResult['locations']) && $this->solrResult['locations'] instanceof ArrayAccess)
+	    if (isset($this->solrResult['locations'])
+	        && $this->solrResult['locations'] instanceof ArrayAccess
+	        && isset($this->solrResult['locations']['docs'])
+        )
 	    {
-	        // return concatenated list of cities from the locations
-	        return implode(', ', array_unique(array_map(function (ArrayAccess $doc)
+	        // get concatenated list of cities from the locations
+	        $locations = trim(implode(', ', array_unique(array_map(function (ArrayAccess $doc)
 	        {
-	            return $doc->city;
-	        }, $this->solrResult['locations']['docs'])));
+	            return isset($doc->city) ? trim($doc->city) : '';
+	        }, $this->solrResult['locations']['docs']))));
+	        
+	        if ($locations) {
+                return $locations;
+            }
 	    }
 	    
 		return $this->getSolrResultValue('location') ?: $this->job->getLocation();
@@ -185,7 +192,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getReference()
 	{
-		return $this->job->getApplyId();
+		return $this->job->getReference();
 	}
 
     /**

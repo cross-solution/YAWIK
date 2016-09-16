@@ -21,8 +21,9 @@ use ArrayAccess;
 /**
  * Class JobBoardPaginationQuery
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
  * @package Solr\Filter
  */
 class JobBoardPaginationQuery extends AbstractPaginationQuery

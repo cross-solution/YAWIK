@@ -10,10 +10,13 @@
 namespace SolrTest\Filter;
 
 use Jobs\Entity\CoordinatesInterface;
+use Jobs\Entity\JobInterface;
 use Jobs\Entity\Location;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Solr\Entity\JobProxy;
+use ArrayObject;
 
 /**
  * Class JobBoardPaginationQueryTest
@@ -122,5 +125,18 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $actual = $target->createQuery($params2,$query);
 
         $this->assertSame($query, $actual);
+    }
+    
+    public function testProxyFactory()
+    {
+        $entity = $this->getMockBuilder(JobInterface::class)
+            ->getMock();
+        
+        $this->assertInstanceOf(JobProxy::class, $this->target->proxyFactory($entity, new ArrayObject()));
+    }
+    
+    public function testGetRepositoryName()
+    {
+        $this->assertSame('Jobs/Job', $this->target->getRepositoryName());
     }
 }
