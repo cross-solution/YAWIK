@@ -72,6 +72,10 @@ class ApplicationAccessAssertionTest extends \PHPUnit_Framework_TestCase
         $app2->getPermissions()->grant($user, PermissionsInterface::PERMISSION_VIEW)
                                ->grant($user2, PermissionsInterface::PERMISSION_CHANGE);
 
+        $app3 = new Application();
+        $app3->setIsDraft(true);
+        $app3->setUser($user);
+
         return array(
             'nouser-noapp'     => array($role, $resource, null, false),
             'user-noapp'       => array($user, $resource, null, false),
@@ -83,6 +87,11 @@ class ApplicationAccessAssertionTest extends \PHPUnit_Framework_TestCase
             'change-not-granted2' => array($user, $app2, 'change', false),
             'subsequentAttachmentUpload-not-granted' => array($user, $app, Application::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD, false),
             'subsequentAttachmentUpload-granted' => array($user, $app2, Application::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD, true),
+            'allow-draft-view' => [ $user, $app3, 'view', true ],
+            'allow-draft-change' => [ $user, $app3, 'change', true ],
+            'disallow-draft-view' => [ $user2, $app3, 'view', false ],
+            'disallow-draft-change' => [ $user2, $app3, 'change', false ],
+
         );
     }
 

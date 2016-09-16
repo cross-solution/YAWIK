@@ -10,6 +10,7 @@
 /** */
 namespace Applications\Acl;
 
+use Core\Entity\DraftableEntityInterface;
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
@@ -24,6 +25,8 @@ use Core\Entity\PermissionsInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.27 Checks, if application is a draft and only allow the associated user if so.
+ * @since 0.4
  */
 class ApplicationAccessAssertion implements AssertionInterface
 {
@@ -43,7 +46,14 @@ class ApplicationAccessAssertion implements AssertionInterface
         if (!$role instanceof UserInterface || !$resource instanceof ApplicationInterface) {
             return false;
         }
-        /* @var $resource ApplicationInterface */
+
+        /* @var $resource ApplicationInterface|DraftableEntityInterface */
+
+        /* If application is a draft, only the associated user may view and edit. */
+        if ($resource->isDraft()) {
+            return $role === $resource->getUser();
+        }
+
         $permissions = $resource->getPermissions();
         
         if (ApplicationInterface::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD == $privilege) {

@@ -60,12 +60,12 @@ class PaginationQuery extends AbstractPaginationQuery
         }
     
          
-        if (isset($value['by']) && 'me' == $value['by']) {
-            #            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
-        }
-        if (isset($value['by']) && 'new' == $value['by']) {
-            #             $queryBuilder->field('readBy')->notEqual( new \MongoId($this->auth->getUser()->id));
-        }
+//        if (isset($value['by']) && 'me' == $value['by']) {
+//            #            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
+//        }
+//        if (isset($value['by']) && 'new' == $value['by']) {
+//            #             $queryBuilder->field('readBy')->notEqual( new \MongoId($this->auth->getUser()->id));
+//        }
         if (isset($value['job']) && !empty($value['job'])) {
             $queryBuilder->field('job')->equals($value['job']);
         }
@@ -88,8 +88,10 @@ class PaginationQuery extends AbstractPaginationQuery
         
         /*
          * We only show applications to which the user has view permissions.
+         * and which are not in draft mode
          */
-        $queryBuilder->field('permissions.view')->equals($userID);
+        $queryBuilder->field('permissions.view')->equals($userID)
+                     ->field('isDraft')->equals(false);
 
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
