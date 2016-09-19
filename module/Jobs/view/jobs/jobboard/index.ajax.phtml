@@ -6,9 +6,23 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-use Solr\Bridge\Manager;
 
+$hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
 ?>
+<?php if ($hasFacets):?>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading"><?=$this->translate('Region')?></div>
+                <div class="panel-body">
+                    <?php foreach ($jobs->getFacets()->facet_fields->regionList as $regionTitle => $regionCount):?>
+                        <?=$regionTitle?> (<?=$regionCount?>)<br>
+                    <?php endforeach;?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+<?php endif;?>
 <?php if (count($jobs)):?>
 <table class="pagination-content table table-striped table-bordered table-hover" id="jobs-list">
     <thead>
@@ -57,3 +71,7 @@ use Solr\Bridge\Manager;
 <?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobboard'));?>
 
 <?php endif ?>
+<?php if ($hasFacets):?>
+        </div>
+    </div>
+<?php endif;?>

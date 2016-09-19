@@ -14,6 +14,7 @@ use Solr\Filter\AbstractPaginationQuery;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Stdlib\Parameters;
 use Solr\Bridge\ResultConverter;
+use Solr\FacetsProviderInterface;
 
 /**
  * Provide adapter for Solr type paginator
@@ -23,7 +24,7 @@ use Solr\Bridge\ResultConverter;
  * @since 0.26
  * @package Solr\Paginator\Adapter
  */
-class SolrAdapter implements AdapterInterface
+class SolrAdapter implements AdapterInterface, FacetsProviderInterface
 {
     /**
      * @var \SolrClient
@@ -100,6 +101,14 @@ class SolrAdapter implements AdapterInterface
         $response = $this->getResponse()->getArrayResponse();
         return $response['response']['numFound'];
     }
+    
+    /**
+	 * @see \Solr\FacetsProviderInterface::getFacets()
+	 */
+	public function getFacets()
+	{
+		return $this->getResponse()->getResponse()->facet_counts;
+	}
 
     /**
      * Process query into server
