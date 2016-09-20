@@ -14,7 +14,7 @@ namespace Solr;
 interface FacetsProviderInterface
 {
     /**
-     * @return \ArrayAccess
+     * @return Facets
      */
     public function getFacets();
 }

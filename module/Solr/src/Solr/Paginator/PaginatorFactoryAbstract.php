@@ -13,6 +13,7 @@ use Core\Paginator\PaginatorService;
 use Solr\Bridge\ResultConverter;
 use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
+use Solr\Facets;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -66,7 +67,7 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreat
         $connectPath        = $this->getConnectPath($options);
         $solrClient         = $serviceManager->get('Solr/Manager')->getClient($connectPath);
         $resultConverter    = $serviceManager->get('Solr/ResultConverter');
-        $adapter            = new SolrAdapter($solrClient,$filter,$resultConverter,$this->options);
+        $adapter            = new SolrAdapter($solrClient, $filter, $resultConverter, new Facets(), $this->options);
         $service            = new Paginator($adapter);
 
         $this->setCreationOptions([]);

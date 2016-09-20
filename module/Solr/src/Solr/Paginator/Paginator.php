@@ -29,7 +29,7 @@ class Paginator extends \Zend\Paginator\Paginator implements FacetsProviderInter
     }
 
     /**
-     * @return \ArrayAccess
+     * @see \Solr\FacetsProviderInterface::getFacets()
      */
     public function getFacets()
     {

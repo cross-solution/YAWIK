@@ -15,6 +15,7 @@ use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Stdlib\Parameters;
 use Solr\Bridge\ResultConverter;
 use Solr\FacetsProviderInterface;
+use Solr\Facets;
 
 /**
  * Provide adapter for Solr type paginator
@@ -42,9 +43,9 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
     protected $count;
 
     /**
-     * @var \SolrDisMaxQuery
+     * @var Facets
      */
-    protected $query;
+    protected $facets;
 
     /**
      * Store current query response from solr server
@@ -70,14 +71,16 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
      * @param   \SolrClient                 $client
      * @param   AbstractPaginationQuery     $filter
      * @param   ResultConverter             $resultConverter
+     * @param   Facets                      $facets
      * @param   array                       $params
      */
-    public function __construct($client,$filter,$resultConverter,$params=array())
+    public function __construct($client, $filter, $resultConverter, Facets $facets, $params = array())
     {
-        $this->client           = $client;
-        $this->filter           = $filter;
-        $this->resultConverter  = $resultConverter;
-        $this->params           = $params;
+        $this->client = $client;
+        $this->filter = $filter;
+        $this->resultConverter = $resultConverter;
+        $this->facets = $facets->setParams($params);
+        $this->params = $params;
     }
     
     /**
@@ -107,7 +110,7 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
 	 */
 	public function getFacets()
 	{
-		return $this->getResponse()->getResponse()->facet_counts;
+		return $this->facets->setFacetResult($this->getResponse()->getResponse()->facet_counts);
 	}
 
     /**
@@ -125,6 +128,7 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
             $query = new \SolrDisMaxQuery();
             $query->useEDisMaxQueryParser();
             $query = $this->filter->filter($this->params,$query);
+            $this->facets->setupQuery($query);
             $query->setStart($offset);
             $query->setRows($itemCountPerPage);
             try{

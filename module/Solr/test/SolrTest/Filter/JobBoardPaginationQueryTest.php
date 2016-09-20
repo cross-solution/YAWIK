@@ -75,9 +75,6 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
                 'addFilterQuery',
                 'addField',
                 'addParam',
-                'setFacet',
-                'addFacetField',
-                'addFacetDateField',
                 'setHighlight',
                 'addHighlightField',
             ])
@@ -110,10 +107,6 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         ;
 
         $query->method('addField')->willReturn($query);
-
-        $query->expects($this->exactly(2))->method('setFacet')->with(true)->will($this->returnSelf());
-        $query->expects($this->exactly(2))->method('addFacetField')->with('regionList')->will($this->returnSelf());
-        $query->expects($this->exactly(2))->method('addFacetDateField')->with('datePublishStart')->will($this->returnSelf());
 
         $query->expects($this->exactly(2))->method('setHighlight')->with(true)->will($this->returnSelf());
         $query->expects($this->exactly(2))->method('addHighlightField')->with('title')->will($this->returnSelf());

@@ -79,12 +79,6 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         // boost newest jobs
         $query->addParam('bf', 'recip(abs(ms(NOW/HOUR,datePublishStart)),3.16e-11,1,.1)');
 
-
-        // adds facets into the result set.
-        $query->setFacet(true);
-        $query->addFacetField('regionList');
-        $query->addFacetDateField('datePublishStart');
-
         // adds an additional 'highlights' section into the result set
         $query->setHighlight(true);
         $query->addHighlightField('title');

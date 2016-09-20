@@ -13,6 +13,8 @@ namespace SolrTest\Paginator\Adapter;
 use Solr\Bridge\ResultConverter;
 use Solr\Filter\AbstractPaginationQuery;
 use Solr\Paginator\Adapter\SolrAdapter;
+use Solr\Facets;
+use SolrDisMaxQuery;
 
 /**
  * Class SolrAdapterTest
@@ -85,7 +87,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->getMock()
         ;
 
-        $this->target = new SolrAdapter($client,$filter,$resultConverter,array());
+        $this->target = new SolrAdapter($client, $filter, $resultConverter, new Facets(),array());
         $this->response = $this->getMockBuilder(\stdClass::class)
             ->setMethods(['getArrayResponse', 'getResponse'])
             ->getMock()
@@ -110,14 +112,14 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->any())
             ->method('query')
-            ->with($this->isInstanceOf('SolrQuery'))
+            ->with($this->isInstanceOf(SolrDisMaxQuery::class))
             ->willReturn($this->response)
         ;
 
         $this->filter
             ->expects($this->any())
             ->method('filter')
-            ->willReturn(new \SolrQuery())
+            ->willReturn(new SolrDisMaxQuery())
         ;
 
         $this->converter
@@ -141,14 +143,14 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->once())
             ->method('query')
-            ->with($this->isInstanceOf('SolrQuery'))
+            ->with($this->isInstanceOf(SolrDisMaxQuery::class))
             ->willReturnOnConsecutiveCalls($this->throwException(new \Exception()))
         ;
 
         $this->filter
             ->expects($this->any())
             ->method('filter')
-            ->willReturn(new \SolrQuery())
+            ->willReturn(new SolrDisMaxQuery())
         ;
 
         $this->target->count();
