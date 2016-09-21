@@ -54,7 +54,6 @@ class ResultConverter
         $entities = [];
         $ids = [];
         $return = [];
-        $emptyEntity = null;
 
         if (!isset($response['response'])
             || !isset($response['response']['docs'])
@@ -80,20 +79,7 @@ class ResultConverter
         
         // iterate over Solr response to preserve sorting
         foreach ($response['response']['docs'] as $doc) {
-            // check if entity exists
-            if (isset($entities[$doc->id])) {
-                // use found entity
-                $entity = $entities[$doc->id];
-            } else {
-                if (!isset($emptyEntity)) {
-                    // create empty entity
-                    $emptyEntity = $repository->create();
-                }
-                
-                // use empty entity
-                $entity = $emptyEntity;
-            }
-            
+            $entity = isset($entities[$doc->id]) ? $entities[$doc->id] : $repository->create();
             $return[] = $filter->proxyFactory($entity, $doc);
         }
         
