@@ -54,6 +54,7 @@ class ResultConverter
         $entities = [];
         $ids = [];
         $return = [];
+        $emptyEntity = null;
 
         if (!isset($response['response'])
             || !isset($response['response']['docs'])
@@ -68,7 +69,7 @@ class ResultConverter
 
         // fetch entities with given IDs
         $repository = $this->repositories->get($filter->getRepositoryName());
-        $qb = $repository->createQueryBuilder()
+        $qb = $repository->createQueryBuilder() /* @var $repository \Core\Repository\AbstractRepository */
             ->field('id')
             ->in($ids);
         $result = $qb->getQuery()->execute();
@@ -80,12 +81,20 @@ class ResultConverter
         // iterate over Solr response to preserve sorting
         foreach ($response['response']['docs'] as $doc) {
             // check if entity exists
-            if (!isset($entities[$doc->id])) {
-                // skip non-existent entity
-                continue;
+            if (isset($entities[$doc->id])) {
+                // use found entity
+                $entity = $entities[$doc->id];
+            } else {
+                if (!isset($emptyEntity)) {
+                    // create empty entity
+                    $emptyEntity = $repository->create();
+                }
+                
+                // use empty entity
+                $entity = $emptyEntity;
             }
             
-            $return[] = $filter->proxyFactory($entities[$doc->id], $doc);
+            $return[] = $filter->proxyFactory($entity, $doc);
         }
         
         return $return;

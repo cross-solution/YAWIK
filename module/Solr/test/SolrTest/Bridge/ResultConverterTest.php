@@ -89,7 +89,8 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
             ->setMethods(null)
             ->getMock();
         $entity->setId($doc->id);
-        $proxy = new ArrayObject(['proxy']);
+        $proxy1 = new ArrayObject(['proxy1']);
+        $proxy2 = new ArrayObject(['proxy2']);
         $repositoryName = 'someRepository';
         $response = new ArrayObject([
             'response' => [
@@ -99,13 +100,18 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ]);
+        $expectedCount = count($response['response']['docs']);
+        $emptyEntity = new \stdClass();
         
         $filter = $this->getMockBuilder(AbstractPaginationQuery::class)
             ->getMock();
-        $filter->expects($this->once())
+        $filter->expects($this->exactly($expectedCount))
             ->method('proxyFactory')
-            ->with($this->identicalTo($entity), $this->identicalTo($doc))
-            ->willReturn($proxy);
+            ->withConsecutive(
+                [$this->identicalTo($entity), $this->identicalTo($doc)],
+                [$this->identicalTo($emptyEntity), $this->identicalTo($invalidDoc)]
+            )
+            ->willReturnOnConsecutiveCalls($proxy1, $proxy2);
         
         $filter->expects($this->once())
             ->method('getRepositoryName')
@@ -138,6 +144,9 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
         $repository->expects($this->once())
             ->method('createQueryBuilder')
             ->willReturn($queryBuilder);
+        $repository->expects($this->once())
+            ->method('create')
+            ->willReturn($emptyEntity);
             
         $repositories->expects($this->once())
             ->method('get')
@@ -146,8 +155,9 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
         
         $proxies = $resultConverter->convert($filter, $response);
         $this->assertInternalType('array', $proxies);
-        $this->assertCount(1, $proxies);
-        $this->assertSame($proxy, reset($proxies));
+        $this->assertCount($expectedCount, $proxies);
+        $this->assertContains($proxy1, $proxies);
+        $this->assertContains($proxy2, $proxies);
     }
     
     /**
