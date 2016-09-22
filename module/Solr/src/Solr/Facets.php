@@ -93,7 +93,12 @@ class Facets implements IteratorAggregate, Countable
                     continue;
                 }
                 
-                $this->cache[$name] = $this->facetResult[$definition['type']][$name];
+                // cast to array to workaround the 'Notice: Illegal member variable name' for PHP <= 5.6.20
+                $result = (array)$this->facetResult[$definition['type']][$name];
+                // remove empty value
+                unset($result['']);
+                
+                $this->cache[$name] = $result;
             }
         }
         
