@@ -136,8 +136,9 @@ class Facets implements IteratorAggregate, Countable
         $query->setFacet(true);
         
         foreach ($this->definitions as $name => $definition) {
+            $tag = sprintf('tag-%s', $name);
             $method = $this->queryMethodMap[$definition['type']];
-            $query->$method($name);
+            $query->$method(sprintf('{!ex=%s}%s', $tag, $name));
             
             if (isset($this->params[$name]) && is_array($this->params[$name])) {
                 $valueList = array_filter(array_map(function ($value) {
@@ -145,7 +146,7 @@ class Facets implements IteratorAggregate, Countable
                 }, array_keys($this->params[$name])));
                 
                 if ($valueList) {
-                    $query->addFilterQuery(sprintf('%s:(%s)', $name, implode(' OR ', $valueList)));
+                    $query->addFilterQuery(sprintf('{!tag=%s}%s:(%s)', $tag, $name, implode(' OR ', $valueList)));
                 }
             }
         }
