@@ -12,6 +12,8 @@ namespace Solr\Filter;
 use SolrDisMaxQuery;
 use ArrayAccess;
 use Zend\Filter\FilterInterface;
+use Solr\Facets;
+use DomainException;
 
 /**
  * Class AbstractPaginationQuery
@@ -27,12 +29,19 @@ abstract class AbstractPaginationQuery implements FilterInterface
     /**
      * Filter query based on given value
      *
-     * @param mixed $value
-     * @return SolrDisMaxQuery
+     * @see \Zend\Filter\FilterInterface::filter()
      */
-    public function filter($value)
+    public function filter($value, SolrDisMaxQuery $query = null, Facets $facets = null)
     {
-        return $this->createQuery($value, new SolrDisMaxQuery());
+        if (null === $query) {
+            throw new DomainException('$query must not be null');
+        }
+        
+        if (null === $facets) {
+            throw new DomainException('$facets must not be null');
+        }
+        
+        $this->createQuery($value, $query, $facets);
     }
 
     /**
@@ -50,9 +59,9 @@ abstract class AbstractPaginationQuery implements FilterInterface
     abstract public function getRepositoryName();
 
     /**
-     * @param   array $params
-     * @param   SolrDisMaxQuery $query
-     * @return  SolrDisMaxQuery
+     * @param array $params
+     * @param SolrDisMaxQuery $query
+     * @param Facets $facets
      */
-    abstract public function createQuery(array $params, SolrDisMaxQuery $query);
+    abstract public function createQuery(array $params, SolrDisMaxQuery $query, Facets $facets);
 }

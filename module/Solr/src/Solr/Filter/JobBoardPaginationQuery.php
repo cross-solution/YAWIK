@@ -17,6 +17,7 @@ use Solr\Entity\JobProxy;
 use SolrDisMaxQuery;
 use SolrQuery;
 use ArrayAccess;
+use Solr\Facets;
 
 /**
  * Class JobBoardPaginationQuery
@@ -32,7 +33,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     /**
      * @inheritdoc
      */
-    public function createQuery(array $params, SolrDisMaxQuery $query)
+    public function createQuery(array $params, SolrDisMaxQuery $query, Facets $facets)
     {
         $search = isset($params['search']) ? trim($params['search']) : '';
 
@@ -82,8 +83,11 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         // adds an additional 'highlights' section into the result set
         $query->setHighlight(true);
         $query->addHighlightField('title');
-
-        return $query;
+        
+        // facets
+        $facets->addDefinition('regionList', /*@translate*/ 'Regions')
+            ->setParams($params)
+            ->setupQuery($query);
     }
 
     /**

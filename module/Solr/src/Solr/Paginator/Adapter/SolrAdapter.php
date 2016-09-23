@@ -79,7 +79,7 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
         $this->client = $client;
         $this->filter = $filter;
         $this->resultConverter = $resultConverter;
-        $this->facets = $facets->setParams($params);
+        $this->facets = $facets;
         $this->params = $params;
     }
     
@@ -124,18 +124,15 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
     protected function getResponse($offset=0,$itemCountPerPage=0)
     {
         $id = md5($offset.$itemCountPerPage);
-        if(!isset($this->responses[$id])){
+        if (!isset($this->responses[$id])) {
             $query = new \SolrDisMaxQuery();
-            $query->useEDisMaxQueryParser();
-            $query = $this->filter->filter($this->params,$query);
-            $this->facets->setupQuery($query);
+            $this->filter->filter($this->params, $query, $this->facets);
             $query->setStart($offset);
             $query->setRows($itemCountPerPage);
-            try{
+            try {
                 $this->responses[$id] = $this->client->query($query);
-            }catch (\Exception $e){
-                $message = 'Failed to process query';
-                throw new ServerException($message,$e->getCode(),$e);
+            } catch (\Exception $e) {
+                throw new ServerException('Failed to process query', $e->getCode(), $e);
             }
         }
 

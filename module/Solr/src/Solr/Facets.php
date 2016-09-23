@@ -22,6 +22,8 @@ use SolrUtils;
 class Facets implements IteratorAggregate, Countable
 {
     
+    const TYPE_FIELD = 'facet_fields';
+    
     /**
      * @var ArrayAccess
      */
@@ -30,12 +32,12 @@ class Facets implements IteratorAggregate, Countable
     /**
      * @var array
      */
-    protected $params;
+    protected $params = [];
     
     /**
      * @var array
      */
-    protected $definitions;
+    protected $definitions = [];
     
     /**
      * @var array
@@ -49,15 +51,24 @@ class Facets implements IteratorAggregate, Countable
      */
     protected $cache;
 
-    public function __construct()
+    /**
+     * @param string $name
+     * @param string $title
+     * @param string $type
+     * @return Facets
+     */
+    public function addDefinition($name, $title, $type = self::TYPE_FIELD)
     {
-        $this->params = [];
-        $this->definitions = [
-            'regionList' => [
-                'type' => 'facet_fields',
-                'title' => /*@translate*/ 'Regions'
-            ]
+        if (!isset($this->queryMethodMap[$type])) {
+            throw new InvalidArgumentException(sprintf('invalid type "%s"', $type));
+        }
+        
+        $this->definitions[$name] = [
+            'type' => $type,
+            'title' => $title
         ];
+        
+        return $this;
     }
 
     /**

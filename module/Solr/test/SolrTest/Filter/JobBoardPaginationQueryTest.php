@@ -17,6 +17,8 @@ use Solr\Filter\JobBoardPaginationQuery;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Solr\Entity\JobProxy;
 use ArrayObject;
+use SolrDisMaxQuery;
+use Solr\Facets;
 
 /**
  * Class JobBoardPaginationQueryTest
@@ -58,13 +60,38 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $this->manager = $manager;
     }
 
-    public function testFilter()
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage $query must not be null
+     */
+    public function testFilterWithoutQuery()
     {
-        $this->assertInstanceOf(
-            \SolrQuery::class,
-            $this->target->filter([]),
-            '::filter should return a \SolrQuery object'
-        );
+        $this->target->filter([]);
+    }
+
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage $facets must not be null
+     */
+    public function testFilterWithoutFacets()
+    {
+        $this->target->filter([], new SolrDisMaxQuery());
+    }
+
+    public function testFilterCallCreateQuery()
+    {
+        $params = ['one' => 1];
+        $query = new SolrDisMaxQuery();
+        $facets = new Facets();
+        
+        $target = $this->getMockBuilder(JobBoardPaginationQuery::class)
+            ->setMethods(['createQuery'])
+            ->getMock();
+        $target->expects($this->once())
+            ->method('createQuery')
+            ->with($this->identicalTo($params), $this->identicalTo($query), $this->identicalTo($facets));
+        
+        $target->filter($params, $query, $facets);
     }
 
     public function testCreateQuery()
@@ -113,11 +140,24 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
         $params1 = ['search' => '','sort'=>'title'];
         $params2 = ['search' => 'some','sort'=>'-company','location'=>$location,'d'=>10];
+        
+        $facets = $this->getMockBuilder(Facets::class)
+            ->getMock();
+        $facets->expects($this->atLeastOnce())
+            ->method('addDefinition')
+            ->willReturnSelf();
+        $facets->expects($this->exactly(2))
+            ->method('setParams')
+            ->withConsecutive([$this->identicalTo($params1)], [$this->identicalTo($params2)])
+            ->willReturnSelf();
+        $facets->expects($this->exactly(2))
+            ->method('setupQuery')
+            ->with($this->identicalTo($query))
+            ->willReturnSelf();
+        
         $target = $this->target;
-        $target->createQuery($params1,$query);
-        $actual = $target->createQuery($params2,$query);
-
-        $this->assertSame($query, $actual);
+        $target->createQuery($params1, $query, $facets);
+        $target->createQuery($params2, $query, $facets);
     }
     
     public function testProxyFactory()

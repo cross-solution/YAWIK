@@ -15,6 +15,7 @@ use Solr\Filter\AbstractPaginationQuery;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Facets;
 use SolrDisMaxQuery;
+use ArrayObject;
 
 /**
  * Class SolrAdapterTest
@@ -31,7 +32,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Class Under test
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var SolrAdapter
      */
     protected $target;
 
@@ -59,6 +60,11 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $converter;
+    
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $facets;
 
     protected $responseArray = [
         'response' => [
@@ -86,8 +92,11 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
+        
+        $this->facets = $this->getMockBuilder(Facets::class)
+            ->getMock();
 
-        $this->target = new SolrAdapter($client, $filter, $resultConverter, new Facets(),array());
+        $this->target = new SolrAdapter($client, $filter, $resultConverter, $this->facets, array());
         $this->response = $this->getMockBuilder(\stdClass::class)
             ->setMethods(['getArrayResponse', 'getResponse'])
             ->getMock()
@@ -104,7 +113,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItemsAndCount()
     {
-        $response = new \ArrayObject($this->responseArray);
+        $response = new ArrayObject($this->responseArray);
         
         $this->response->method('getResponse')
             ->willReturn($response);
@@ -154,5 +163,29 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         ;
 
         $this->target->count();
+    }
+    
+    public function testGetFacets()
+    {
+        $facetResult = new ArrayObject([
+            'facetResult'
+        ]);
+        $response = new ArrayObject([
+            'facet_counts' => $facetResult
+        ], ArrayObject::ARRAY_AS_PROPS);
+        
+        $this->response->method('getResponse')
+            ->willReturn($response);
+        
+        $this->client->expects($this->any())
+            ->method('query')
+            ->willReturn($this->response);
+        
+        $this->facets->expects($this->once())
+            ->method('setFacetResult')
+            ->with($this->identicalTo($facetResult))
+            ->willReturnSelf();
+        
+        $this->assertSame($this->facets, $this->target->getFacets());
     }
 }
