@@ -13,12 +13,16 @@ namespace SolrTest\Paginator\Adapter;
 use Solr\Bridge\ResultConverter;
 use Solr\Filter\AbstractPaginationQuery;
 use Solr\Paginator\Adapter\SolrAdapter;
+use Solr\Facets;
+use SolrDisMaxQuery;
+use ArrayObject;
 
 /**
  * Class SolrAdapterTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package SolrTest\Paginator\Adapter
  * @covers  Solr\Paginator\Adapter\SolrAdapter
@@ -28,7 +32,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Class Under test
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var SolrAdapter
      */
     protected $target;
 
@@ -56,6 +60,11 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $converter;
+    
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $facets;
 
     protected $responseArray = [
         'response' => [
@@ -83,10 +92,13 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
+        
+        $this->facets = $this->getMockBuilder(Facets::class)
+            ->getMock();
 
-        $this->target = new SolrAdapter($client,$filter,$resultConverter,array());
+        $this->target = new SolrAdapter($client, $filter, $resultConverter, $this->facets, array());
         $this->response = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['getArrayResponse'])
+            ->setMethods(['getArrayResponse', 'getResponse'])
             ->getMock()
         ;
         $this->client = $client;
@@ -101,23 +113,28 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItemsAndCount()
     {
+        $response = new ArrayObject($this->responseArray);
+        
+        $this->response->method('getResponse')
+            ->willReturn($response);
+        
         $this->client
             ->expects($this->any())
             ->method('query')
-            ->with($this->isInstanceOf('SolrQuery'))
+            ->with($this->isInstanceOf(SolrDisMaxQuery::class))
             ->willReturn($this->response)
         ;
 
         $this->filter
             ->expects($this->any())
             ->method('filter')
-            ->willReturn(new \SolrQuery())
+            ->willReturn(new SolrDisMaxQuery())
         ;
 
         $this->converter
             ->expects($this->once())
             ->method('convert')
-            ->with($this->filter,$this->response)
+            ->with($this->filter, $response)
             ->willReturn([])
         ;
 
@@ -135,16 +152,40 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         $this->client
             ->expects($this->once())
             ->method('query')
-            ->with($this->isInstanceOf('SolrQuery'))
+            ->with($this->isInstanceOf(SolrDisMaxQuery::class))
             ->willReturnOnConsecutiveCalls($this->throwException(new \Exception()))
         ;
 
         $this->filter
             ->expects($this->any())
             ->method('filter')
-            ->willReturn(new \SolrQuery())
+            ->willReturn(new SolrDisMaxQuery())
         ;
 
         $this->target->count();
+    }
+    
+    public function testGetFacets()
+    {
+        $facetResult = new ArrayObject([
+            'facetResult'
+        ]);
+        $response = new ArrayObject([
+            'facet_counts' => $facetResult
+        ], ArrayObject::ARRAY_AS_PROPS);
+        
+        $this->response->method('getResponse')
+            ->willReturn($response);
+        
+        $this->client->expects($this->any())
+            ->method('query')
+            ->willReturn($this->response);
+        
+        $this->facets->expects($this->once())
+            ->method('setFacetResult')
+            ->with($this->identicalTo($facetResult))
+            ->willReturnSelf();
+        
+        $this->assertSame($this->facets, $this->target->getFacets());
     }
 }

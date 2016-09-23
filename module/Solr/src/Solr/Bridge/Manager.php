@@ -17,15 +17,14 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Manage connection with the SolrServer
  *
- * @author  Anthonius Munthi <me@itstoni.com>
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package Solr\Bridge
  */
 class Manager
 {
     const SOLR_DATE_FORMAT  = 'Y-m-d\TH:i:s\Z';
-    const SORT_ASCENDING    = 0;
-    const SORT_DESCENDING   = 1;
 
     /**
      * @var ModuleOptions

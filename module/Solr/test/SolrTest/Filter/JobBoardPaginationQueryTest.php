@@ -10,19 +10,22 @@
 namespace SolrTest\Filter;
 
 use Jobs\Entity\CoordinatesInterface;
+use Jobs\Entity\JobInterface;
 use Jobs\Entity\Location;
-use Organizations\Entity\Organization;
-use Organizations\Entity\OrganizationImage;
-use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Solr\Entity\JobProxy;
+use ArrayObject;
+use SolrDisMaxQuery;
+use Solr\Facets;
 
 /**
  * Class JobBoardPaginationQueryTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package SolrTest\Filter
  * @covers  Solr\Filter\JobBoardPaginationQuery
@@ -53,42 +56,52 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         ;
         $sl->method('getServiceLocator')->willReturn($sl);
         $sl->method('get')->with('Solr/Manager')->willReturn($manager);
-        $this->target = JobBoardPaginationQuery::factory($sl);
+        $this->target = new JobBoardPaginationQuery;
         $this->manager = $manager;
     }
 
-    public function testFactory()
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage $query must not be null
+     */
+    public function testFilterWithoutQuery()
     {
-        $target = $this->target;
-        $this->assertInstanceOf(
-            JobBoardPaginationQuery::class,
-            $target,
-            '::factory should return a correct instance'
-        );
+        $this->target->filter([]);
     }
 
-    public function testFilter()
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage $facets must not be null
+     */
+    public function testFilterWithoutFacets()
     {
-        $this->assertInstanceOf(
-            \SolrQuery::class,
-            $this->target->filter([]),
-            '::filter should return a \SolrQuery object'
-        );
+        $this->target->filter([], new SolrDisMaxQuery());
+    }
+
+    public function testFilterCallCreateQuery()
+    {
+        $params = ['one' => 1];
+        $query = new SolrDisMaxQuery();
+        $facets = new Facets();
+        
+        $target = $this->getMockBuilder(JobBoardPaginationQuery::class)
+            ->setMethods(['createQuery'])
+            ->getMock();
+        $target->expects($this->once())
+            ->method('createQuery')
+            ->with($this->identicalTo($params), $this->identicalTo($query), $this->identicalTo($facets));
+        
+        $target->filter($params, $query, $facets);
     }
 
     public function testCreateQuery()
     {
-        //$this->markTestIncomplete('currently not working');
-        
-        $query  = $this->getMockBuilder(\stdClass::class)
+        $query  = $this->getMockBuilder(\SolrDisMaxQuery::class)
             ->setMethods([
                 'setQuery',
                 'addFilterQuery',
                 'addField',
                 'addParam',
-                'setFacet',
-                'addFacetField',
-                'addFacetDateField',
                 'setHighlight',
                 'addHighlightField',
             ])
@@ -122,57 +135,41 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
         $query->method('addField')->willReturn($query);
 
-        $query->expects($this->exactly(2))->method('setFacet')->with(true)->will($this->returnSelf());
-        $query->expects($this->exactly(2))->method('addFacetField')->with('regionList')->will($this->returnSelf());
-        $query->expects($this->exactly(2))->method('addFacetDateField')->with('datePublishStart')->will($this->returnSelf());
-
         $query->expects($this->exactly(2))->method('setHighlight')->with(true)->will($this->returnSelf());
         $query->expects($this->exactly(2))->method('addHighlightField')->with('title')->will($this->returnSelf());
 
         $params1 = ['search' => '','sort'=>'title'];
         $params2 = ['search' => 'some','sort'=>'-company','location'=>$location,'d'=>10];
+        
+        $facets = $this->getMockBuilder(Facets::class)
+            ->getMock();
+        $facets->expects($this->atLeastOnce())
+            ->method('addDefinition')
+            ->willReturnSelf();
+        $facets->expects($this->exactly(2))
+            ->method('setParams')
+            ->withConsecutive([$this->identicalTo($params1)], [$this->identicalTo($params2)])
+            ->willReturnSelf();
+        $facets->expects($this->exactly(2))
+            ->method('setupQuery')
+            ->with($this->identicalTo($query))
+            ->willReturnSelf();
+        
         $target = $this->target;
-        $target->createQuery($params1,$query);
-        $actual = $target->createQuery($params2,$query);
-
-        $this->assertSame($query, $actual);
+        $target->createQuery($params1, $query, $facets);
+        $target->createQuery($params2, $query, $facets);
     }
-
-    public function testConvertOrganizationName()
+    
+    public function testProxyFactory()
     {
-        $target = $this->target;
-        $job = $this->getMockBuilder($target->getEntityClass())
-            ->getMock()
-        ;
-        $org = $this->getMockBuilder(Organization::class)->getMock();
-        $job->expects($this->exactly(2))
-            ->method('getOrganization')
-            ->willReturnOnConsecutiveCalls(null,$org)
-        ;
-        $org->expects($this->once())
-            ->method('setOrganizationName')
-            ->with($this->isInstanceOf(OrganizationName::class))
-        ;
-
-        $target->convertOrganizationName($job,'some-name');
+        $entity = $this->getMockBuilder(JobInterface::class)
+            ->getMock();
+        
+        $this->assertInstanceOf(JobProxy::class, $this->target->proxyFactory($entity, new ArrayObject()));
     }
-
-    public function testConvertOrganizationLogo()
+    
+    public function testGetRepositoryName()
     {
-        $target = $this->target;
-        $job = $this->getMockBuilder($target->getEntityClass())
-            ->getMock()
-        ;
-        $org = $this->getMockBuilder(Organization::class)->getMock();
-        $job->expects($this->exactly(2))
-            ->method('getOrganization')
-            ->willReturnOnConsecutiveCalls(null,$org)
-        ;
-        $org->expects($this->once())
-            ->method('setImage')
-            ->with($this->isInstanceOf(OrganizationImage::class))
-        ;
-
-        $target->convertCompanyLogo($job,'/file/Organizations.OrganizationImage/5774cad3ecb2a162138b4568/logo.gif');
+        $this->assertSame('Jobs/Job', $this->target->getRepositoryName());
     }
 }

@@ -8,176 +8,167 @@
 
 namespace SolrTest\Bridge;
 
-use Jobs\Entity\Job;
-use Solr\Bridge\Manager;
 use Solr\Bridge\ResultConverter;
-use Solr\Filter\AbstractPaginationQuery;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
-class ResultDocument
-{
-    public $id;
-
-    public $title;
-
-    public $customField;
-
-    public $dateCreated;
-
-    public function __construct($propsValue)
-    {
-        foreach($propsValue as $name=>$value){
-            $this->$name = $value;
-        }
-    }
-
-    public function getPropertyNames()
-    {
-        return array('id','title','dateCreated','customField');
-    }
-}
+use Core\Repository\RepositoryService;
+use Core\Repository\AbstractRepository;
+use Solr\Filter\AbstractPaginationQuery;
+use Doctrine\MongoDB\Query\Builder as QueryBuilder;
+use Core\Entity\AbstractIdentifiableEntity;
+use ArrayObject;
 
 /**
  * Class ResultConverterTest
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
- * @covers  Solr\Bridge\ResultConverter
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
+ * @covers Solr\Bridge\ResultConverter
  * @package SolrTest\Bridge
+ * @coversDefaultClass \Solr\Bridge\ResultConverter
  */
 class ResultConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Mock for AbstractPaginationQuery
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @covers ::factory
+     * @covers ::__construct
      */
-    protected $filter;
-
-    /**
-     * Mock for ResultConverter
-     *
-     * @var ResultConverter
-     */
-    protected $target;
-
-    /**
-     * Mock for SolrQueryResponse
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $queryResponse;
-
-    /**
-     * Mock for SolrQueryObject
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $response;
-
-    public function setUp()
+    public function testFactory()
     {
-        $queryResponse = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['getResponse'])
-            ->getMock()
-        ;
-
-        $response = $this->getMockBuilder(\ArrayAccess::class)
-            ->setMethods(['offsetExists','offsetGet','offsetSet','offsetUnset'])
-            ->getMock()
-        ;
-        $response->method('offsetExists')
-            ->willReturn(true)
-        ;
-
-        $queryResponse
-            ->method('getResponse')
-            ->willReturn($response)
-        ;
-
-
-        $sl = $this->getMockBuilder(ServiceLocatorInterface::class)
-            ->getMock()
-        ;
-        $this->target = ResultConverter::factory($sl);
-        $this->filter = $this->getMockBuilder(AbstractPaginationQuery::class)
+        $repositories = $this->getMockBuilder(RepositoryService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['convertCustomField','getEntityClass','createQuery','getPropertiesMap'])
-            ->getMock()
-        ;
-        $this->response = $response;
-        $this->queryResponse = $queryResponse;
+            ->getMock();
+        
+        $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
+            ->getMock();
+        $serviceLocator->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('repositories'))
+            ->willReturn($repositories);
+        
+        $resultConverter = ResultConverter::factory($serviceLocator);
+        $this->assertInstanceOf(ResultConverter::class, $resultConverter);
+        
+        return [$resultConverter, $repositories];
     }
-
+    
     /**
-     * @dataProvider getTestValidateDate
+     * @param array $data
+     * @covers ::convert
+     * @depends testFactory
+     * @dataProvider invalidResponseData
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage invalid response
      */
-    public function testValidateDate($expectConverted,$value)
+    public function testConvertThrowsExceptionOnInvalidResponseData($responseData, array $data)
     {
-        $target = $this->target;
-
-        $result = $target->validateDate($value);
-
-        if($expectConverted){
-            $this->assertInstanceOf(
-                \DateTime::class,
-                $result,
-                '::validateDate() should convert "'.$value.'" into DateTime object'
-            );
-        }else{
-            $this->assertEquals(
-                $value,
-                $result,
-                '::validateDate() should return original value if passed argument is not in date time format string'
-            );
-        }
+        list ($resultConverter) = $data;
+        
+        $filter = $this->getMockBuilder(AbstractPaginationQuery::class)
+            ->getMock();
+        
+        $resultConverter->convert($filter, new ArrayObject($responseData));
     }
-
-    public function getTestValidateDate()
+    
+    /**
+     * @param array $data
+     * @covers ::convert
+     * @depends testFactory
+     */
+    public function testConvert(array $data)
+    {
+        list ($resultConverter, $repositories) = $data;
+        
+        $doc = new ArrayObject([
+            'id' => 'someId'
+        ], ArrayObject::ARRAY_AS_PROPS);
+        $invalidDoc = new ArrayObject([
+            'id' => 'invalidId'
+        ], ArrayObject::ARRAY_AS_PROPS);
+        $entity = $this->getMockBuilder(AbstractIdentifiableEntity::class)
+            ->setMethods(null)
+            ->getMock();
+        $entity->setId($doc->id);
+        $proxy1 = new ArrayObject(['proxy1']);
+        $proxy2 = new ArrayObject(['proxy2']);
+        $repositoryName = 'someRepository';
+        $response = new ArrayObject([
+            'response' => [
+                'docs' => [
+                    $doc,
+                    $invalidDoc
+                ]
+            ]
+        ]);
+        $expectedCount = count($response['response']['docs']);
+        $emptyEntity = new \stdClass();
+        
+        $filter = $this->getMockBuilder(AbstractPaginationQuery::class)
+            ->getMock();
+        $filter->expects($this->exactly($expectedCount))
+            ->method('proxyFactory')
+            ->withConsecutive(
+                [$this->identicalTo($entity), $this->identicalTo($doc)],
+                [$this->identicalTo($emptyEntity), $this->identicalTo($invalidDoc)]
+            )
+            ->willReturnOnConsecutiveCalls($proxy1, $proxy2);
+        
+        $filter->expects($this->once())
+            ->method('getRepositoryName')
+            ->willReturn($repositoryName);
+        
+        $query = $this->getMockBuilder(\Doctrine\MongoDB\Query\Query::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $query->expects($this->once())
+            ->method('execute')
+            ->willReturn([$entity]);
+            
+        $queryBuilder = $this->getMockBuilder(QueryBuilder::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $queryBuilder->expects($this->once())
+            ->method('field')
+            ->with($this->equalTo('id'))
+            ->willReturnSelf();
+        $queryBuilder->expects($this->once())
+            ->method('in')
+            ->with($this->equalTo([$doc->id, $invalidDoc->id]))
+            ->willReturnSelf();
+        $queryBuilder->expects($this->once())
+            ->method('getQuery')->willReturn($query);
+        
+        $repository = $this->getMockBuilder(AbstractRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $repository->expects($this->once())
+            ->method('createQueryBuilder')
+            ->willReturn($queryBuilder);
+        $repository->expects($this->once())
+            ->method('create')
+            ->willReturn($emptyEntity);
+            
+        $repositories->expects($this->once())
+            ->method('get')
+            ->with($this->identicalTo($repositoryName))
+            ->willReturn($repository);
+        
+        $proxies = $resultConverter->convert($filter, $response);
+        $this->assertInternalType('array', $proxies);
+        $this->assertCount($expectedCount, $proxies);
+        $this->assertContains($proxy1, $proxies);
+        $this->assertContains($proxy2, $proxies);
+    }
+    
+    /**
+     * @return array
+     */
+    public function invalidResponseData()
     {
         return [
-            [true,'2016-06-28T08:48:37Z'],
-            [false,'test']
+            [[]],
+            [['response' => null]],
+            [['response' => ['docs' => 'non-array']]],
         ];
-    }
-
-    public function testConvert()
-    {
-        $target = $this->target;
-        $response = $this->response;
-        $filter = $this->filter;
-
-        $filter
-            ->expects($this->once())
-            ->method('convertCustomField')
-            ->with($this->isInstanceOf(Job::class),'Some Company')
-        ;
-        $filter
-            ->expects($this->once())
-            ->method('getPropertiesMap')
-            ->willReturn(['customField' => 'convertCustomField'])
-        ;
-        $filter
-            ->expects($this->once())
-            ->method('getEntityClass')
-            ->willReturn('Jobs\Entity\Job')
-        ;
-        $doc = new ResultDocument([
-            'id' => 'some-id',
-            'title' => 'some-title',
-            'dateCreated' => '2016-06-28T08:48:37Z',
-            'customField' => 'Some Company'
-        ]);
-        $response
-            ->method('offsetGet')
-            ->withConsecutive(['response'],['docs'])
-            ->willReturnOnConsecutiveCalls($response,[$doc])
-        ;
-
-        $entities = $target->convert($filter,$this->queryResponse);
-        $job = $entities[0];
-
-        $this->assertEquals('some-id',$job->getId());
-        $this->assertEquals('some-title',$job->getTitle());
-        $this->assertInstanceOf(\DateTime::class,$job->getDateCreated());
-        $this->assertEquals($doc->dateCreated,$job->getDateCreated()->format(Manager::SOLR_DATE_FORMAT));
     }
 }

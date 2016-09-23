@@ -14,11 +14,13 @@ use Core\Entity\LocationInterface;
 use Jobs\Entity\Location;
 use Solr\Bridge\Manager;
 use Solr\Bridge\Util;
+use InvalidArgumentException;
 
 /**
  * Class UtilTest
- * 
+ *
  * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since  0.26
  * @package SolrTest\Bridge
  */
@@ -53,5 +55,31 @@ class UtilTest extends \PHPUnit_Framework_TestCase
         ;
 
         $this->assertEquals('0.1,0.2',Util::convertLocationCoordinates($location));
+    }
+    
+    /**
+     * @dataProvider convertSolrDateToPhpDateTimeProvider
+     */
+    public function testConvertSolrDateToPhpDateTime($solrDate, $expected)
+    {
+        if (!$expected) {
+            $this->setExpectedException(InvalidArgumentException::class, 'invalid format');
+        }
+        
+        $this->assertEquals($expected, Util::convertSolrDateToPhpDateTime($solrDate));
+    }
+
+    public function convertSolrDateToPhpDateTimeProvider()
+    {
+        return [
+            [
+                '2016-06-28T08:48:37Z',
+                new \DateTime('2016-06-28T08:48:37')
+            ],
+            [
+                'bogus',
+                false,
+            ]
+        ];
     }
 }
