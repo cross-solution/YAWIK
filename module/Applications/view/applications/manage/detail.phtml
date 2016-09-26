@@ -345,7 +345,7 @@ endif;
         <?php if ($this->attachmentsForm):?>
             <?php
             $this->attachmentsForm->prepare();
-            $this->attachmentsForm->setAttribute('action', '?form=attachments'); // required by max count validator
+            $this->attachmentsForm->setAttribute('data-errorkey', 'attachments'); // required by max count validator
             $attachmentsElement = $this->attachmentsForm->get('attachments');
             $attachmentsElement->setAttribute('class', 'btn btn-default btn-block');
             $formFileUpload = $this->formFileUpload(); /* @var $formFileUpload \Core\Form\View\Helper\FormFileUpload */
