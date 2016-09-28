@@ -11,49 +11,82 @@ namespace Solr\Controller;
 
 
 use Core\Console\ProgressBar;
-use Core\Repository\RepositoryService;
-use Jobs\Entity\Job;
+use Jobs\Repository\Job as JobRepository;
+use SolrClient;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
- * Class ConsoleController
- *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
  * @package Solr\Controller
  */
 class ConsoleController extends AbstractActionController
 {
-    const EVENT_UPDATE_INDEX    = 'solr.console.update_index';
+    
+    /**
+     * @var SolrClient
+     */
+    protected $solrClient;
+    
+    /**
+     * @var JobRepository
+     */
+    protected $jobRepository;
+    
+    /**
+     * @var callable
+     */
+    protected $progressBarFactory;
+    
+    /**
+     * @param SolrClient $solrClient
+     * @param JobRepository $jobRepository
+     * @param callable $progressBarFactory
+     * @since 0.27
+     */
+    public function __construct(SolrClient $solrClient, JobRepository $jobRepository, callable $progressBarFactory)
+    {
+        $this->solrClient = $solrClient;
+        $this->jobRepository = $jobRepository;
+        $this->progressBarFactory = $progressBarFactory;
+    }
 
     public function activeJobIndexAction()
     {
-        /* @var RepositoryService $repositories */
-        /* @var \Jobs\Repository\Job $jobRepo */
-        /* @var \Doctrine\ODM\MongoDB\Cursor $jobs */
-        /* @var \Solr\Listener\JobEventSubscriber $jobSubscriber */
-        $sl = $this->serviceLocator;
-        $repositories = $sl->get('repositories');
-        $jobRepo = $repositories->get('Jobs/Job');
-        $jobSubscriber = $sl->get('Solr/Listener/JobEventSubscriber');
-
-        $jobs = $jobRepo->findActiveJob();
+        $jobs = $this->jobRepository->findActiveJob();
         $count = $jobs->count();
-
-        $progressBar = $this->createProgressBar($count);
+        
+        // check if there is any active job
+        if (0 === $count) {
+            return 'There is no active job'.PHP_EOL;
+        }
+        
         $i = 1;
-        foreach($jobs as $job){
-            /* @var Job $job */
-            $jobSubscriber->consoleIndex($job);
-            $progressBar->update($i, 'Job '.$i.' / '.$count);
+        $progressBarFactory = $this->progressBarFactory;
+        $progressBar = $progressBarFactory($count);
+        $entityToDocument = new \Solr\Filter\EntityToDocument\Job();
+        
+        // add jobs in the Solr index
+        foreach ($jobs as $job) {
+            $document = $entityToDocument->filter($job);
+            $this->solrClient->addDocument($document);
+            $progressBar->update($i, 'Job ' . $i . ' / ' . $count);
             $i++;
         }
+        
+        $this->solrClient->commit();
+        $this->solrClient->optimize();
 
         return PHP_EOL;
     }
     
-    protected function createProgressBar($count)
-    {
-        return new ProgressBar($count);
-    }
+    /**
+	 * @return callable
+	 */
+	public function getProgressBarFactory()
+	{
+		return $this->progressBarFactory;
+	}
+
 }

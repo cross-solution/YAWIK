@@ -11,299 +11,306 @@ namespace SolrTest\Listener;
 
 
 use Core\Options\ModuleOptions;
-use CoreTestUtils\TestCase\FunctionalTestCase;
-use Cv\Entity\Cv;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
+use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use Doctrine\ODM\MongoDB\Events;
-use Jobs\Entity\CoordinatesInterface;
 use Jobs\Entity\Job;
-use Jobs\Entity\Location;
-use Organizations\Entity\Organization;
-use Organizations\Entity\OrganizationImage;
-use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Manager;
-use Solr\Bridge\Util;
+use Solr\Filter\EntityToDocument\Job as EntityToDocumentFilter;
 use Solr\Listener\JobEventSubscriber;
+use Zend\ServiceManager\ServiceLocatorInterface;;
+use SolrInputDocument;
 
 /**
  * Test for Solr\Listener\JobEventSubscriber
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since   0.26
- * @covers  Solr\Listener\JobEventSubscriber
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
  * @requires extension solr
  * @package SolrTest\Listener
+ * @coversDefaultClass \Solr\Listener\JobEventSubscriber
  */
-class JobEventSubscriberTest extends FunctionalTestCase
+class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Solr\Listener\JobEventSubscriber
+     * @var JobEventSubscriber
      */
-    protected $target;
+    protected $subscriber;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $managerMock;
+    protected $manager;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $clientMock;
+    protected $client;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $entityToDocumentFilter;
+
+    /**
+     * @see PHPUnit_Framework_TestCase::setUp()
+     */
     public function setUp()
     {
-        parent::setUp();
-        $sl = $this->getApplicationServiceLocator();
-
-        $managerMock = $this->getMockBuilder(Manager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $clientMock = $this->getMockBuilder(\SolrClient::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
         $options = $this->getMockBuilder(ModuleOptions::class)
             ->setMethods(['getJobsPath'])
-            ->getMock()
-        ;
-        $options->method('getJobsPath')->willReturn('/some/path');
-        $managerMock->method('getOptions')->willReturn($options);
+            ->getMock();
+        $options->method('getJobsPath')
+            ->willReturn('/some/path');
+        
+        $this->client = $this->getMockBuilder(\SolrClient::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->manager = $this->getMockBuilder(Manager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->manager->method('getClient')
+            ->willReturn($this->client);
+        $this->manager->method('getOptions')
+            ->willReturn($options);
+        
+        $this->entityToDocumentFilter = $this->getMockBuilder(EntityToDocumentFilter::class)
+            ->getMock();
 
-        $sl->setService('Solr/Manager', $managerMock);
-        $managerMock->method('getClient')->willReturn($clientMock);
-        $this->target = JobEventSubscriber::factory($sl);
-        $this->managerMock = $managerMock;
-        $this->clientMock = $clientMock;
+        $this->subscriber = new JobEventSubscriber($this->manager, $this->entityToDocumentFilter);
     }
 
+    /**
+     * @covers ::__construct()
+     * @covers ::getSubscribedEvents()
+     */
     public function testShouldSubscribeToDoctrineEvent()
     {
-        $subscribedEvents = $this->target->getSubscribedEvents();
+        $subscribedEvents = $this->subscriber->getSubscribedEvents();
 
+        $this->assertContains(Events::preUpdate, $subscribedEvents);
         $this->assertContains(Events::postUpdate, $subscribedEvents);
-        $this->assertContains(Events::postPersist, $subscribedEvents);
+        $this->assertContains(Events::postFlush, $subscribedEvents);
     }
 
-    public function testPostPersistShouldNotProcessNonJobDocument()
+    /**
+     * @covers ::preUpdate()
+     */
+    public function testPreUpdateShouldNotProcessNonJobDocument()
     {
-        $cv = new Cv();
-        $mock = $this->getMockBuilder(LifecycleEventArgs::class)
+        $event = $this->getMockBuilder(PreUpdateEventArgs::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $mock->expects($this->once())
-            ->method('getDocument')
-            ->willReturn($cv);
-        $this->clientMock
-            ->expects($this->never())
-            ->method('addDocument');
-        $this->target->postPersist($mock);
-    }
-
-    public function testShouldProcessOnPersistEvent()
-    {
-        $job = new Job();
+        $event->expects($this->once())
+            ->method('getDocument');
+        $event->expects($this->never())
+            ->method('hasChangedField');
         
-        $orgName = new OrganizationName();
-        $orgName->setName('some-name');
-        $org = new Organization();
-        $org->setOrganizationName($orgName);
-        
-        $job->setOrganization($org);
-        
-        $mock = $this->getMockBuilder(LifecycleEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $mock->expects($this->once())
-            ->method('getDocument')
-            ->willReturn($job);
-
-        $this->managerMock->expects($this->once())
-            ->method('addDocument')
-            ->with($this->isInstanceOf(\SolrInputDocument::class))
-        ;
-        $this->target->postPersist($mock);
+        $this->subscriber->preUpdate($event);
     }
 
-    public function testPostUpdateShouldNotProcessNonJobDocument()
-    {
-        $cv = new Cv();
-        $mock = $this->getMockBuilder(LifecycleEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $mock->expects($this->once())
-            ->method('getDocument')
-            ->willReturn($cv);
-        $this->clientMock
-            ->expects($this->never())
-            ->method('addDocument');
-        $this->target->postUpdate($mock);
-    }
-
-    public function testShouldProcessOnPostUpdateEvent()
-    {
-        $job = new Job();
-        $mock = $this->getMockBuilder(LifecycleEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $mock->expects($this->once())
-            ->method('getDocument')
-            ->willReturn($job);
-        $this->managerMock->expects($this->once())
-            ->method('addDocument')
-            ->with($this->isInstanceOf(\SolrInputDocument::class))
-        ;
-        $this->target->postUpdate($mock);
-    }
-
-    public function testGenerateInputDocument()
-    {
-        $date = new \DateTime();
-        $dateStr = Util::convertDateTime($date);
-
-        $job = new Job();
-        $job
-            ->setId('some-id')
-            ->setTitle('some-title')
-            ->setContactEmail('contact-email')
-            ->setDateCreated($date)
-            ->setDateModified($date)
-            ->setDatePublishStart($date)
-            ->setDatePublishEnd($date)
-            ->setLink('http://test.link.org/job1')
-            ->setLanguage('some-language')
-            ->setApplyId('some-external-id')
-        ;
-
-
-        $document = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['addField'])
-            ->getMock()
-        ;
-
-        $document->expects($this->any())
-            ->method('addField')
-            ->withConsecutive(
-                ['id','some-id'],
-                ['applyId', 'some-external-id'],
-                ['entityName','job'],
-                ['title','some-title'],
-                ['applicationEmail','contact-email'],
-                ['link','http://test.link.org/job1'],
-                ['dateCreated',$dateStr],
-                ['dateModified',$dateStr],
-                ['datePublishStart',$dateStr],
-                ['datePublishEnd',$dateStr],
-                ['isActive',false],
-                ['lang','some-language']
-            )
-        ;
-        $this->target->generateInputDocument($job,$document);
-    }
-
-    public function testProcessOrganization()
+    /**
+     * @covers ::preUpdate()
+     */
+    public function testPreUpdateShouldNotProcessDocumentWithUnchangedStatus()
     {
         $job = $this->getMockBuilder(Job::class)
-            ->getMock()
-        ;
-        $org = $this->getMockBuilder(Organization::class)
-            ->getMock()
-        ;
-        $orgName = $this->getMockBuilder(OrganizationName::class)
-            ->getMock()
-        ;
-        $orgImage = $this->getMockBuilder(OrganizationImage::class)
-            ->getMock()
-        ;
+            ->getMock();
+        $job->expects($this->never())
+            ->method('isActive');
+        $event = $this->getMockBuilder(PreUpdateEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event->expects($this->once())
+            ->method('getDocument')
+            ->willReturn($job);
+        $event->expects($this->once())
+            ->method('hasChangedField')
+            ->with($this->equalTo('status'))
+            ->willReturn(false);
 
-        $job->method('getOrganization')->willReturn($org);
-        $org->method('getOrganizationName')->willReturn($orgName);
-        $org->method('getImage')->willReturn($orgImage);
-
-        $org->expects($this->once())
-            ->method('getId')
-            ->willReturn('some-id')
-        ;
-
-        $orgName->expects($this->once())
-            ->method('getName')
-            ->willReturn('some-name')
-        ;
-        $orgImage->expects($this->once())
-            ->method('getUri')
-            ->willReturn('some-uri')
-        ;
-
-        $document = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['addField'])
-            ->getMock()
-        ;
-        $document
-            ->expects($this->exactly(3))
-            ->method('addField')
-            ->withConsecutive(
-                ['companyLogo','some-uri'],
-                ['organizationName','some-name'],
-                ['organizationId','some-id']
-            )
-        ;
-        $this->target->processOrganization($job,$document);
+        $this->subscriber->preUpdate($event);
     }
 
-    public function testProcessLocation()
+    /**
+     * @param bool $active
+     * @covers ::preUpdate()
+     * @dataProvider boolData()
+     */
+    public function testPreUpdateWithChangedStatus($active)
+    {
+        $job = $this->getMockBuilder(Job::class)
+            ->getMock();
+        $job->expects($this->once())
+            ->method('isActive')
+            ->willReturn($active);
+        $event = $this->getMockBuilder(PreUpdateEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event->expects($this->once())
+            ->method('getDocument')
+            ->willReturn($job);
+        $event->expects($this->once())
+            ->method('hasChangedField')
+            ->with($this->equalTo('status'))
+            ->willReturn(true);
+
+        $this->subscriber->preUpdate($event);
+        $this->assertAttributeContains($job, $active ? 'add' : 'delete', $this->subscriber);
+    }
+    
+    /**
+     * @covers ::postUpdate()
+     */
+    public function testPostUpdateWithNoJobsToProcess()
+    {
+        $subscriber = $this->getMockBuilder(JobEventSubscriber::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getSolrClient'])
+            ->getMock();
+        $subscriber->expects($this->never())
+            ->method('getSolrClient');
+        
+        $event = $this->getMockBuilder(LifecycleEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $subscriber->postUpdate($event);
+    }
+    
+    /**
+     * @covers ::postUpdate()
+     * @covers ::getSolrClient()
+     * @dataProvider boolData()
+     */
+    public function testPostUpdateWithJobsToProcess($active)
     {
         $job = $this->getMockBuilder(Job::class)->getMock();
-        $location = $this->getMockBuilder(Location::class)->getMock();
-        $coordinates = $this->getMockBuilder(CoordinatesInterface::class)->getMock();
-
         $job->expects($this->once())
-            ->method('getLocations')
-            ->willReturn([$location]);
-        $location->expects($this->any())
-            ->method('getCoordinates')
-            ->willReturn($coordinates)
-        ;
-        $location->expects($this->once())
-            ->method('getPostalCode')
-            ->willReturn('postal-code')
-        ;
-        $location->expects($this->any())
-            ->method('getRegion')
-            ->willReturn('region-text')
-        ;
-        $coordinates->expects($this->once())
-            ->method('getCoordinates')
-            ->willReturn([1.2,2.1])
-        ;
-        $document = $this->getMockBuilder(\stdClass::class)
-            ->setMethods(['addField','addChildDocument'])
-            ->getMock()
-        ;
-        $document->expects($this->any())
-            ->method('addField')
-        ;
-
-        $this->target->processLocation($job,$document);
-    }
-
-    public function testConsoleIndex()
-    {
-        $target = $this->getMockBuilder(JobEventSubscriber::class)
+            ->method('isActive')
+            ->willReturn($active);
+        $event = $this->getMockBuilder(PreUpdateEventArgs::class)
             ->disableOriginalConstructor()
-            ->setMethods(['updateIndex'])
-            ->getMock()
-        ;
-
-        $target->expects($this->once())
-            ->method('updateIndex')
-        ;
-
-        $job = new Job();
-        $target->consoleIndex($job);
+            ->getMock();
+        $event->expects($this->once())
+            ->method('getDocument')
+            ->willReturn($job);
+        $event->expects($this->once())
+            ->method('hasChangedField')
+            ->with($this->equalTo('status'))
+            ->willReturn(true);
+        
+        $this->subscriber->preUpdate($event);
+        
+        if ($active) {
+            $document = new SolrInputDocument();
+            $this->entityToDocumentFilter->expects($this->once())
+                ->method('filter')
+                ->with($this->identicalTo($job))
+                ->willReturn($document);
+            
+            $this->client->expects($this->once())
+                ->method('addDocument')
+                ->with($this->identicalTo($document));
+        } else {
+            $ids = [1, 2, 3];
+            $this->entityToDocumentFilter->expects($this->once())
+                ->method('getDocumentIds')
+                ->with($this->identicalTo($job))
+                ->willReturn($ids);
+            
+            $this->client->expects($this->once())
+                ->method('deleteByIds')
+                ->with($this->identicalTo($ids));
+        }
+        
+        $event = $this->getMockBuilder(LifecycleEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->subscriber->postUpdate($event);
+    }
+    
+    /**
+     * @covers ::postFlush()
+     */
+    public function testPostFlushWithNoJobsToProcess()
+    {
+        $subscriber = $this->getMockBuilder(JobEventSubscriber::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getSolrClient'])
+            ->getMock();
+        $subscriber->expects($this->never())
+            ->method('getSolrClient');
+        
+        $event = $this->getMockBuilder(PostFlushEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $subscriber->postFlush($event);
+    }
+    
+    /**
+     * @covers ::postFlush()
+     */
+    public function testPostFlushWithJobsToProcess()
+    {
+        $job = $this->getMockBuilder(Job::class)->getMock();
+        $job->expects($this->once())
+            ->method('isActive')
+            ->willReturn(true);
+        $event = $this->getMockBuilder(PreUpdateEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event->expects($this->once())
+            ->method('getDocument')
+            ->willReturn($job);
+        $event->expects($this->once())
+            ->method('hasChangedField')
+            ->with($this->equalTo('status'))
+            ->willReturn(true);
+        
+        $this->subscriber->preUpdate($event);
+        
+        $this->client->expects($this->once())
+            ->method('commit');
+        $this->client->expects($this->once())
+            ->method('optimize');
+        
+        $event = $this->getMockBuilder(PostFlushEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->subscriber->postFlush($event);
+    }
+    
+    /**
+     * @covers ::factory()
+     */
+    public function testFactory()
+    {
+        $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
+            ->getMock();
+        $serviceLocator->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('Solr/Manager'))
+            ->willReturn($this->manager);
+        
+        $this->assertInstanceOf(JobEventSubscriber::class, JobEventSubscriber::factory($serviceLocator));
+    }
+    
+    /**
+     * @return array
+     */
+    public function boolData()
+    {
+        return [
+            [false],
+            [true],
+        ];
     }
 }

@@ -8,8 +8,8 @@
 
 return array(
     'controllers' => [
-        'invokables' => [
-            'Solr/Console' => 'Solr\Controller\ConsoleController'
+        'factories' => [
+            'Solr/Console' => 'Solr\Factory\Controller\ConsoleControllerFactory'
         ]
     ],
     'doctrine' => [

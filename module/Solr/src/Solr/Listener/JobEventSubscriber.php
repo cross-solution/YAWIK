@@ -12,19 +12,20 @@ namespace Solr\Listener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
+use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Solr\Bridge\Manager;
-use Solr\Bridge\Util;
-use Zend\Filter\StripTags;
+use Solr\Filter\EntityToDocument\Job as EntityToDocumentFilter;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use SolrClient;
 
 /**
- * Class JobEventSubscriber
- *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
- * @package Solr\Event\Listener
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
+ * @package Solr\Listener
  */
 class JobEventSubscriber implements EventSubscriber
 {
@@ -33,14 +34,37 @@ class JobEventSubscriber implements EventSubscriber
      * @var Manager
      */
     protected $solrManager;
+    
     /**
-     * JobEventSubscriber constructor.
-     * @param Manager $manager
+     * @var EntityToDocumentFilter
      */
-    public function __construct(Manager $manager)
+    protected $entityToDocumentFilter;
+
+    /**
+     * @var SolrClient
+     */
+    protected $solrClient;
+    
+    /**
+     * @var Job[]
+     */
+    protected $add = [];
+    
+    /**
+     * @var Job[]
+     */
+    protected $delete = [];
+    
+    /**
+     * @param Manager $manager
+     * @param EntityToDocumentFilter $entityToDocumentFilter
+     */
+    public function __construct(Manager $manager, EntityToDocumentFilter $entityToDocumentFilter)
     {
         $this->solrManager = $manager;
+        $this->entityToDocumentFilter = $entityToDocumentFilter;
     }
+    
     /**
      * Define what event this subscriber listen to
      *
@@ -49,154 +73,101 @@ class JobEventSubscriber implements EventSubscriber
     public function getSubscribedEvents()
     {
         return [
+            Events::preUpdate,
             Events::postUpdate,
-            Events::postPersist,
+            Events::postFlush
         ];
     }
-    public function consoleIndex(Job $job)
-    {
-        $this->updateIndex($job);
-    }
+    
     /**
-     * Handle doctrine post persist event
-     *
      * @param LifecycleEventArgs $eventArgs
+     * @since 0.27
      */
-    public function postPersist(LifecycleEventArgs $eventArgs)
+    public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        $this->updateIndex($document);
+        
+        // check for a job instance
+        if (!$document instanceof Job) {
+            return;
+        }
+        
+        // check if the status has been changed
+        if (!$eventArgs->hasChangedField('status')) {
+            return;
+        }
+            
+        // check if the job is active
+        if ($document->isActive()) {
+            // mark it for commit
+            $this->add[] = $document;
+        } else {
+            // mark it for delete
+            $this->delete[] = $document;
+        }
     }
+    
     /**
-     * Handle doctrine postUpdate event
-     *
      * @param LifecycleEventArgs $eventArgs
      */
     public function postUpdate(LifecycleEventArgs $eventArgs)
     {
-        $document = $eventArgs->getDocument();
-        $this->updateIndex($document);
+        // check if there is any job to process
+        if (!$this->add && !$this->delete) {
+            return;
+        }
+        
+        $client = $this->getSolrClient();
+        
+        // process jobs for commit
+        foreach ($this->add as $job) {
+            $document = $this->entityToDocumentFilter->filter($job);
+            $client->addDocument($document);
+        }
+        
+        // process jobs for delete
+        foreach ($this->delete as $job) {
+            $client->deleteByIds($this->entityToDocumentFilter->getDocumentIds($job));
+        }
     }
+    
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     * @since 0.27
+     */
+    public function postFlush(PostFlushEventArgs $eventArgs)
+    {
+        // check if there is any job to process
+        if (!$this->add && !$this->delete) {
+            return;
+        }
+        
+        // commit to index & optimize it
+        $client = $this->getSolrClient();
+        $client->commit();
+        $client->optimize();
+    }
+    
+    /**
+	 * @return SolrClient
+	 * @since 0.27
+	 */
+	protected function getSolrClient()
+    {
+        if (!isset($this->solrClient)) {
+            $path = $this->solrManager->getOptions()->getJobsPath();
+            $this->solrClient = $this->solrManager->getClient($path);
+        }
+        
+        return $this->solrClient;
+    }
+
     /**
      * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
+     * @return JobEventSubscriber
      */
     static public function factory(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var Manager $manager */
-        $manager = $serviceLocator->get('Solr/Manager');
-        return new self($manager);
-    }
-    /**
-     * @param $document
-     */
-    protected function updateIndex($document)
-    {
-        if(!$document instanceof Job){
-            return;
-        }
-        $solrDoc = $this->generateInputDocument($document, new \SolrInputDocument());
-        try{
-            $this->solrManager->addDocument($solrDoc,$this->solrManager->getOptions()->getJobsPath());
-        }catch (\Exception $e){
-            // @TODO: What to do when the process failed?
-        }
-    }
-    /**
-     * Generate input document
-     *
-     * @param   Job                 $job
-     * @param   \SolrInputDocument  $document
-     * @return  \SolrInputDocument
-     */
-    public function generateInputDocument(Job $job, $document)
-    {
-        $document->addField('id',$job->getId());
-        $document->addField('applyId',$job->getApplyId());
-        $document->addField('entityName','job');
-        $document->addField('title',$job->getTitle());
-        $document->addField('applicationEmail',$job->getContactEmail());
-        if ($job->getLink()) {
-            $document->addField('link', $job->getLink());
-        }
-        if($job->getDateCreated()){
-            $document->addField('dateCreated',Util::convertDateTime($job->getDateCreated()));
-        }
-        if($job->getDateModified()){
-            $document->addField('dateModified',Util::convertDateTime($job->getDateModified()));
-        }
-        if($job->getDatePublishStart()){
-            $document->addField('datePublishStart',Util::convertDateTime($job->getDatePublishStart()));
-        }
-        if($job->getDatePublishEnd()){
-            $document->addField('datePublishEnd',Util::convertDateTime($job->getDatePublishEnd()));
-        }
-        $document->addField('isActive',$job->isActive());
-        $document->addField('lang',$job->getLanguage());
-        $this->processLocation($job,$document);
-        if(!is_null($job->getOrganization())){
-            try {
-                $this->processOrganization($job,$document);
-            }catch (\Exception $e){
-                // @TODO: What to do when the process failed?
-            }
-        }
-
-        $templateValues = $job->getTemplateValues();
-        $description    = $templateValues->getDescription();
-        $stripTags      = new StripTags();
-        $stripTags->setAttributesAllowed([])->setTagsAllowed([]);
-        $description    = $stripTags->filter($description);
-
-        $document->addField('html', $description);
-
-        return $document;
-    }
-    /**
-     * Processing organization part
-     *
-     * @param Job                   $job
-     * @param \SolrInputDocument    $document
-     */
-    public function processOrganization(Job $job,$document)
-    {
-        if(!is_null($job->getOrganization()->getImage())){
-            $uri = $job->getOrganization()->getImage()->getUri();
-            $document->addField('companyLogo',$uri);
-        }
-        $document->addField('organizationName',$job->getOrganization()->getOrganizationName()->getName());
-        $document->addField('organizationId',$job->getOrganization()->getId());
-    }
-
-    /**
-     * Processing location part
-     * @param Job                $job
-     * @param \SolrInputDocument $document
-     */
-    public function processLocation(Job $job,$document)
-    {
-        /* @var \Jobs\Entity\Location $location */
-        $locations=$job->getLocations();
-        foreach($locations as $location){
-
-            $loc = new \SolrInputDocument();
-            $loc->addField('entityName', 'location');
-            if(is_object($location->getCoordinates())){
-                $coordinate = Util::convertLocationCoordinates($location);
-                $loc->addField('point', $coordinate);
-                $loc->addField('latLon', $coordinate);
-                $document->addField('locations', $coordinate);
-                $document->addField('points', $coordinate);
-                $loc->addField('id', $job->getId() . '-' . $coordinate);
-                $loc->addField('city', $location->getCity());
-                $loc->addField('country', $location->getCountry());
-                $loc->addField('region', $location->getRegion());
-                $loc->addField('postalCode', $location->getPostalCode());
-                $document->addField('regionList',$location->getRegion());
-                $document->addChildDocument($loc);
-            }
-            unset($loc);
-        }
-        $document->addField('location',$job->getLocation());
+        return new static($serviceLocator->get('Solr/Manager'), new EntityToDocumentFilter());
     }
 }
