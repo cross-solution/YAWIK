@@ -16,6 +16,7 @@ use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
+use Jobs\Entity\StatusInterface;
 use Solr\Bridge\Manager;
 use Solr\Filter\EntityToDocument\Job as EntityToDocumentFilter;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -74,7 +75,6 @@ class JobEventSubscriber implements EventSubscriber
     {
         return [
             Events::preUpdate,
-            Events::postUpdate,
             Events::postFlush
         ];
     }
@@ -102,15 +102,21 @@ class JobEventSubscriber implements EventSubscriber
             // mark it for commit
             $this->add[] = $document;
         } else {
-            // mark it for delete
-            $this->delete[] = $document;
+            $status = $document->getStatus();
+            
+            // check if the status has been changed to inactive or expired
+            if (isset($status) && in_array($status->getName(), [StatusInterface::INACTIVE, StatusInterface::EXPIRED])) {
+                // mark it for delete
+                $this->delete[] = $document;
+            }
         }
     }
     
     /**
      * @param LifecycleEventArgs $eventArgs
+     * @since 0.27
      */
-    public function postUpdate(LifecycleEventArgs $eventArgs)
+    public function postFlush(PostFlushEventArgs $eventArgs)
     {
         // check if there is any job to process
         if (!$this->add && !$this->delete) {
@@ -128,18 +134,6 @@ class JobEventSubscriber implements EventSubscriber
         // process jobs for delete
         foreach ($this->delete as $job) {
             $client->deleteByIds($this->entityToDocumentFilter->getDocumentIds($job));
-        }
-    }
-    
-    /**
-     * @param LifecycleEventArgs $eventArgs
-     * @since 0.27
-     */
-    public function postFlush(PostFlushEventArgs $eventArgs)
-    {
-        // check if there is any job to process
-        if (!$this->add && !$this->delete) {
-            return;
         }
         
         // commit to index & optimize it

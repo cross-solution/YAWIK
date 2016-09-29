@@ -20,6 +20,8 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 /**
  * Interface for a Job Posting
  *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @package Jobs\Entity
  */
 interface JobInterface extends
@@ -299,7 +301,7 @@ interface JobInterface extends
     /**
      * Gets applications for a job posting
      *
-     * @return string
+     * @return StatusInterface|null
      */
     public function getStatus();
 

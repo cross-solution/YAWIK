@@ -11,11 +11,11 @@ namespace SolrTest\Listener;
 
 
 use Core\Options\ModuleOptions;
-use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
+use Jobs\Entity\StatusInterface;
 use Solr\Bridge\Manager;
 use Solr\Filter\EntityToDocument\Job as EntityToDocumentFilter;
 use Solr\Listener\JobEventSubscriber;
@@ -93,7 +93,6 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
         $subscribedEvents = $this->subscriber->getSubscribedEvents();
 
         $this->assertContains(Events::preUpdate, $subscribedEvents);
-        $this->assertContains(Events::postUpdate, $subscribedEvents);
         $this->assertContains(Events::postFlush, $subscribedEvents);
     }
 
@@ -137,17 +136,16 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param bool $active
+     * @param string $status
+     * @param bool $shouldBeAdded
+     * @param bool $shouldBeDeleted
      * @covers ::preUpdate()
-     * @dataProvider boolData()
+     * @dataProvider jobStateData()
      */
-    public function testPreUpdateWithChangedStatus($active)
+    public function testPreUpdateWithChangedStatus($status, $shouldBeAdded, $shouldBeDeleted)
     {
-        $job = $this->getMockBuilder(Job::class)
-            ->getMock();
-        $job->expects($this->once())
-            ->method('isActive')
-            ->willReturn($active);
+        $job = new Job();
+        $job->setStatus($status);
         $event = $this->getMockBuilder(PreUpdateEventArgs::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -160,79 +158,18 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
             ->willReturn(true);
 
         $this->subscriber->preUpdate($event);
-        $this->assertAttributeContains($job, $active ? 'add' : 'delete', $this->subscriber);
-    }
-    
-    /**
-     * @covers ::postUpdate()
-     */
-    public function testPostUpdateWithNoJobsToProcess()
-    {
-        $subscriber = $this->getMockBuilder(JobEventSubscriber::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['getSolrClient'])
-            ->getMock();
-        $subscriber->expects($this->never())
-            ->method('getSolrClient');
         
-        $event = $this->getMockBuilder(LifecycleEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        
-        $subscriber->postUpdate($event);
-    }
-    
-    /**
-     * @covers ::postUpdate()
-     * @covers ::getSolrClient()
-     * @dataProvider boolData()
-     */
-    public function testPostUpdateWithJobsToProcess($active)
-    {
-        $job = $this->getMockBuilder(Job::class)->getMock();
-        $job->expects($this->once())
-            ->method('isActive')
-            ->willReturn($active);
-        $event = $this->getMockBuilder(PreUpdateEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $event->expects($this->once())
-            ->method('getDocument')
-            ->willReturn($job);
-        $event->expects($this->once())
-            ->method('hasChangedField')
-            ->with($this->equalTo('status'))
-            ->willReturn(true);
-        
-        $this->subscriber->preUpdate($event);
-        
-        if ($active) {
-            $document = new SolrInputDocument();
-            $this->entityToDocumentFilter->expects($this->once())
-                ->method('filter')
-                ->with($this->identicalTo($job))
-                ->willReturn($document);
-            
-            $this->client->expects($this->once())
-                ->method('addDocument')
-                ->with($this->identicalTo($document));
+        if ($shouldBeAdded) {
+            $this->assertAttributeContains($job, 'add', $this->subscriber);
         } else {
-            $ids = [1, 2, 3];
-            $this->entityToDocumentFilter->expects($this->once())
-                ->method('getDocumentIds')
-                ->with($this->identicalTo($job))
-                ->willReturn($ids);
-            
-            $this->client->expects($this->once())
-                ->method('deleteByIds')
-                ->with($this->identicalTo($ids));
+            $this->assertAttributeNotContains($job, 'add', $this->subscriber);
         }
         
-        $event = $this->getMockBuilder(LifecycleEventArgs::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        
-        $this->subscriber->postUpdate($event);
+        if ($shouldBeDeleted) {
+            $this->assertAttributeContains($job, 'delete', $this->subscriber);
+        } else {
+            $this->assertAttributeNotContains($job, 'delete', $this->subscriber);
+        }
     }
     
     /**
@@ -255,14 +192,17 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
+     * @param string $status
+     * @param bool $shouldBeAdded
+     * @param bool $shouldBeDeleted
      * @covers ::postFlush()
+     * @covers ::getSolrClient()
+     * @dataProvider jobStateData()
      */
-    public function testPostFlushWithJobsToProcess()
+    public function testPostFlushWithJobsToProcess($status, $shouldBeAdded, $shouldBeDeleted)
     {
-        $job = $this->getMockBuilder(Job::class)->getMock();
-        $job->expects($this->once())
-            ->method('isActive')
-            ->willReturn(true);
+        $job = new Job();
+        $job->setStatus($status);
         $event = $this->getMockBuilder(PreUpdateEventArgs::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -276,10 +216,36 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
         
         $this->subscriber->preUpdate($event);
         
-        $this->client->expects($this->once())
-            ->method('commit');
-        $this->client->expects($this->once())
-            ->method('optimize');
+        if ($shouldBeAdded) {
+            $document = new SolrInputDocument();
+            $this->entityToDocumentFilter->expects($this->once())
+                ->method('filter')
+                ->with($this->identicalTo($job))
+                ->willReturn($document);
+            
+            $this->client->expects($this->once())
+                ->method('addDocument')
+                ->with($this->identicalTo($document));
+        }
+        
+        if ($shouldBeDeleted) {
+            $ids = [1, 2, 3];
+            $this->entityToDocumentFilter->expects($this->once())
+                ->method('getDocumentIds')
+                ->with($this->identicalTo($job))
+                ->willReturn($ids);
+            
+            $this->client->expects($this->once())
+                ->method('deleteByIds')
+                ->with($this->identicalTo($ids));
+        }
+        
+        if ($shouldBeAdded || $shouldBeDeleted) {
+            $this->client->expects($this->once())
+                ->method('commit');
+            $this->client->expects($this->once())
+                ->method('optimize');
+        }
         
         $event = $this->getMockBuilder(PostFlushEventArgs::class)
             ->disableOriginalConstructor()
@@ -306,11 +272,15 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function boolData()
+    public function jobStateData()
     {
         return [
-            [false],
-            [true],
+            [StatusInterface::ACTIVE, true, false],
+            [StatusInterface::CREATED, false, false],
+            [StatusInterface::EXPIRED, false, true],
+            [StatusInterface::INACTIVE, false, true],
+            [StatusInterface::PUBLISH, false, false],
+            [StatusInterface::REJECTED, false, false]
         ];
     }
 }
