@@ -88,6 +88,8 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         $facets->addDefinition('regionList', /*@translate*/ 'Regions')
             ->setParams($params)
             ->setupQuery($query);
+
+        $query->setFacetMinCount(1);
     }
 
     /**
