@@ -25,9 +25,10 @@ use Doctrine\ODM\MongoDB\UnitOfWork;
 
 /**
  * Tests for \Core\Repository\DoctrineMongoODM\Event\AbstractUpdateFilesPermissionsSubscriber
- * 
+ *
  * @covers \Core\Repository\DoctrineMongoODM\Event\AbstractUpdateFilesPermissionsSubscriber
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Core
  * @group Core.Repository
  * @group Core.Repository.DoctrineMongoODM
@@ -100,11 +101,11 @@ class AbstractUpdateFilesPermissionsSubscriberTest extends \PHPUnit_Framework_Te
         $updates = [ $document ];
 
         $filePermissions->expects($this->exactly(4))->method('clear')->will($this->returnSelf());
-        $filePermissions->expects($this->exactly(4))->method('inherit')->with($permissions);
+        $filePermissions->expects($this->exactly(4))->method('inherit')->with($permissions)->will($this->returnSelf());
 
         $dm = $this
             ->getMockBuilder(DocumentManager::class)
-            ->setMethods(['getUnitOfWork', 'getClassMetadata'])
+            ->setMethods(['getUnitOfWork', 'getClassMetadata', 'persist'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -129,7 +130,8 @@ class AbstractUpdateFilesPermissionsSubscriberTest extends \PHPUnit_Framework_Te
         ;
 
         $dm->expects($this->once())->method('getUnitOfWork')->willReturn($uow);
-        $dm->expects($this->exactly(2))->method('getClassMetaData')->with(FileEntity::class)->willReturn($metaData);
+        $dm->expects($this->exactly(4))->method('getClassMetaData')->with(FileEntity::class)->willReturn($metaData);
+        $dm->expects($this->exactly(2))->method('persist')->with($this->identicalTo($filePermissions));
 
         $uow
             ->expects($this->once())
@@ -141,7 +143,7 @@ class AbstractUpdateFilesPermissionsSubscriberTest extends \PHPUnit_Framework_Te
             ->method('getScheduledDocumentUpdates')
             ->willReturn($updates);
 
-        $uow->expects($this->exactly(2))->method('computeChangeSet')->with($metaData, $file);
+        $uow->expects($this->exactly(4))->method('computeChangeSet')->with($metaData, $file);
 
         /*
          * Execute
