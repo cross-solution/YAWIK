@@ -24,8 +24,9 @@ use Zend\Stdlib\ArrayUtils;
  *
  * updates the permissions of embedded files if the permissions on the parent document
  * had changed.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.26
  */
 abstract class AbstractUpdateFilesPermissionsSubscriber implements EventSubscriber
@@ -71,35 +72,36 @@ abstract class AbstractUpdateFilesPermissionsSubscriber implements EventSubscrib
         $inserts = array_filter($uow->getScheduledDocumentInsertions(), $filter);
         $updates = array_filter($uow->getScheduledDocumentUpdates(), $filter);
 
-        $this->process($inserts);
+        $this->process($inserts, $dm, $uow, true);
         $this->process($updates, $dm, $uow);
     }
 
     /**
-     *
-     *
      * @param PermissionsAwareInterface[] $documents
-     * @param null|DocumentManager $dm
-     * @param null|UnitOfWork $uow
+     * @param DocumentManager $dm
+     * @param UnitOfWork $uow
+     * @param bool $insert
      */
-    protected function process($documents, $dm = null, $uow = null)
+    protected function process($documents, DocumentManager $dm, UnitOfWork $uow, $insert = false)
     {
         foreach ($documents as $document) {
             $perms = $document->getPermissions();
             $files = $this->getFiles($document);
 
             foreach ($files as $file) {
-                $file
+                $filePermissions = $file
                     ->getPermissions()
                     ->clear()
                     ->inherit($perms);
 
-                if ($dm) {
-                    $uow->computeChangeSet(
-                        $dm->getClassMetadata(get_class($file)),
-                        $file
-                    );
+                if ($insert) {
+                    $dm->persist($filePermissions);
                 }
+                
+                $uow->computeChangeSet(
+                    $dm->getClassMetadata(get_class($file)),
+                    $file
+                );
             }
         }
     }
