@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:04+0200\n"
+"POT-Creation-Date: 2016-10-10 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Add permission"
 msgstr ""
 
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:114
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:117
 msgid "Admin"
 msgstr ""
 
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:111
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:114
 msgid "Home"
 msgstr ""
 
@@ -228,30 +228,30 @@ msgstr ""
 msgid "Permissions"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:106
-#: src/Core/Form/View/Helper/FormImageUpload.php:81
+#: src/Core/Form/View/Helper/FormFileUpload.php:93
+#: src/Core/Form/View/Helper/FormImageUpload.php:83
 msgid "The file is too big"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:107
-#: src/Core/Form/View/Helper/FormImageUpload.php:82
+#: src/Core/Form/View/Helper/FormFileUpload.php:94
+#: src/Core/Form/View/Helper/FormImageUpload.php:84
 msgid "The file type is not supported"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:109
+#: src/Core/Form/View/Helper/FormFileUpload.php:96
 #, php-format
 msgid "You may only upload %d files"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:111
+#: src/Core/Form/View/Helper/FormFileUpload.php:98
 msgid "An unknown error occured."
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:156
+#: src/Core/Form/View/Helper/FormFileUpload.php:293
 msgid "Click here to add files or use drag and drop."
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormImageUpload.php:42
+#: src/Core/Form/View/Helper/FormImageUpload.php:44
 msgid "Click here to add an image or use drag and drop."
 msgstr ""
 
@@ -263,25 +263,26 @@ msgstr ""
 msgid "processing"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormCollectionContainer.php:59
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:64
+#: language/_annotated_strings.php:72
 msgid "Remove"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormCollectionContainer.php:80
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:85
 msgid "Really remove?"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormCollectionContainer.php:84
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:89
 #, php-format
 msgid "Add %s"
 msgstr ""
 
-#: src/Core/Form/View/Helper/SummaryForm.php:178
+#: src/Core/Form/View/Helper/SummaryForm.php:190
 msgid "Edit"
 msgstr ""
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:111
 msgid "general settings"
 msgstr ""
 
@@ -361,50 +362,50 @@ msgstr ""
 msgid "Remove all"
 msgstr ""
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:75
 msgid "choose your language"
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:78
 msgid "English"
 msgstr ""
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:81
 msgid "French"
 msgstr ""
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:84
 msgid "German"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:87
 msgid "Italian"
 msgstr ""
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:90
 msgid "Polish"
 msgstr ""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:93
 msgid "Russian"
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:96
 msgid "Turkish"
 msgstr ""
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:99
 msgid "Spanish"
 msgstr ""
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:102
 msgid "defines the languages of this frontend."
 msgstr ""
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:105
 msgid "choose your timzone"
 msgstr ""
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:108
 msgid "defines your local timezone."
 msgstr ""

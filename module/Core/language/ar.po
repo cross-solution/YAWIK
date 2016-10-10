@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-12 19:04+0200\n"
-"PO-Revision-Date: 2016-05-12 17:05+0000\n"
+"POT-Creation-Date: 2016-10-10 16:24+0200\n"
+"PO-Revision-Date: 2016-10-10 14:42+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/yawik/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr "آخر"
 msgid "Add permission"
 msgstr "إضافة إذن"
 
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:104
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:117
 msgid "Admin"
 msgstr ""
 
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr "لوحة القيادة"
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:101
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:114
 msgid "Home"
 msgstr "منزل"
 
@@ -228,30 +228,30 @@ msgstr "جميع الحقوق محفوظة."
 msgid "Permissions"
 msgstr "ضوابط"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:106
-#: src/Core/Form/View/Helper/FormImageUpload.php:81
+#: src/Core/Form/View/Helper/FormFileUpload.php:93
+#: src/Core/Form/View/Helper/FormImageUpload.php:83
 msgid "The file is too big"
 msgstr "الملف كبير جدا"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:107
-#: src/Core/Form/View/Helper/FormImageUpload.php:82
+#: src/Core/Form/View/Helper/FormFileUpload.php:94
+#: src/Core/Form/View/Helper/FormImageUpload.php:84
 msgid "The file type is not supported"
 msgstr "غير معتمد نوع الملف"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:109
+#: src/Core/Form/View/Helper/FormFileUpload.php:96
 #, php-format
 msgid "You may only upload %d files"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:111
+#: src/Core/Form/View/Helper/FormFileUpload.php:98
 msgid "An unknown error occured."
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:156
+#: src/Core/Form/View/Helper/FormFileUpload.php:293
 msgid "Click here to add files or use drag and drop."
 msgstr "انقر هنا لإضافة الملفات أو استخدام السحب والإسقاط."
 
-#: src/Core/Form/View/Helper/FormImageUpload.php:42
+#: src/Core/Form/View/Helper/FormImageUpload.php:44
 msgid "Click here to add an image or use drag and drop."
 msgstr "انقر هنا لإضافة صورة أو استخدام السحب والإسقاط."
 
@@ -263,131 +263,149 @@ msgstr "سابق"
 msgid "processing"
 msgstr "تحويل"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:178
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:64
+#: language/_annotated_strings.php:72
+msgid "Remove"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:85
+msgid "Really remove?"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:89
+#, php-format
+msgid "Add %s"
+msgstr ""
+
+#: src/Core/Form/View/Helper/SummaryForm.php:190
 msgid "Edit"
 msgstr "تحرير"
 
-#: src/Core/Form/View/Helper/SearchForm.php:54
-msgid "Search"
-msgstr "بحث"
-
-#: src/Core/Form/View/Helper/SearchForm.php:55
-msgid "Clear"
-msgstr "واضح"
-
 #: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:98
+#: language/_annotated_strings.php:111
 msgid "general settings"
 msgstr "الإعدادات العامة"
 
-#: language/_annotated_strings.php:5 language/_annotated_strings.php:11
-#: language/_annotated_strings.php:23
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:33
+msgid "Search"
+msgstr "بحث"
+
+#: language/_annotated_strings.php:6
+msgid "Clear"
+msgstr "واضح"
+
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:15
+#: language/_annotated_strings.php:27
 msgid "Save"
 msgstr "حفظ"
 
-#: language/_annotated_strings.php:8 language/_annotated_strings.php:14
-#: language/_annotated_strings.php:26
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:18
+#: language/_annotated_strings.php:30
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: language/_annotated_strings.php:17
+#: language/_annotated_strings.php:21
 msgid "Apply filter"
 msgstr "تطبيق فلتر"
 
-#: language/_annotated_strings.php:20
+#: language/_annotated_strings.php:24
 msgid "Reset filter"
 msgstr "إعادة تعيين مرشح"
 
-#: language/_annotated_strings.php:29
+#: language/_annotated_strings.php:36
+msgid "Search query"
+msgstr ""
+
+#: language/_annotated_strings.php:39
 msgid "Rights"
 msgstr "حقوق"
 
-#: language/_annotated_strings.php:32
+#: language/_annotated_strings.php:42
 msgid "View"
 msgstr "رأي"
 
-#: language/_annotated_strings.php:35
+#: language/_annotated_strings.php:45
 msgid "Write"
 msgstr "أكتب"
 
-#: language/_annotated_strings.php:38
+#: language/_annotated_strings.php:48
 msgid "Not Rated"
 msgstr "غير مصنفة"
 
-#: language/_annotated_strings.php:41
+#: language/_annotated_strings.php:51
 msgid "Poor"
 msgstr "فقير"
 
-#: language/_annotated_strings.php:44
+#: language/_annotated_strings.php:54
 msgid "Bad"
 msgstr "سيئة"
 
-#: language/_annotated_strings.php:47
+#: language/_annotated_strings.php:57
 msgid "Average"
 msgstr "متوسط"
 
-#: language/_annotated_strings.php:50
+#: language/_annotated_strings.php:60
 msgid "Good"
 msgstr "خير"
 
-#: language/_annotated_strings.php:53
+#: language/_annotated_strings.php:63
 msgid "Excellent"
 msgstr "ممتاز"
 
-#: language/_annotated_strings.php:56
+#: language/_annotated_strings.php:66
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr "الرجاء إدخال رقم الهاتف. يمكنك استخدام شكل هيئة المعونة. فقط أرقام و'+'."
 
-#: language/_annotated_strings.php:59
+#: language/_annotated_strings.php:69
 msgid "Remove all"
 msgstr "إزالة جميع"
 
-#: language/_annotated_strings.php:62
+#: language/_annotated_strings.php:75
 msgid "choose your language"
 msgstr "اختيار لغتك"
 
-#: language/_annotated_strings.php:65
+#: language/_annotated_strings.php:78
 msgid "English"
 msgstr "الإنجليزية"
 
-#: language/_annotated_strings.php:68
+#: language/_annotated_strings.php:81
 msgid "French"
 msgstr "اللغة الفرنسية"
 
-#: language/_annotated_strings.php:71
+#: language/_annotated_strings.php:84
 msgid "German"
 msgstr "ألماني"
 
-#: language/_annotated_strings.php:74
+#: language/_annotated_strings.php:87
 msgid "Italian"
 msgstr "الإيطالي"
 
-#: language/_annotated_strings.php:77
+#: language/_annotated_strings.php:90
 msgid "Polish"
 msgstr "البولندية"
 
-#: language/_annotated_strings.php:80
+#: language/_annotated_strings.php:93
 msgid "Russian"
 msgstr "الروسية"
 
-#: language/_annotated_strings.php:83
+#: language/_annotated_strings.php:96
 msgid "Turkish"
 msgstr "اللغة التركية"
 
-#: language/_annotated_strings.php:86
+#: language/_annotated_strings.php:99
 msgid "Spanish"
 msgstr "الأسبانية"
 
-#: language/_annotated_strings.php:89
+#: language/_annotated_strings.php:102
 msgid "defines the languages of this frontend."
 msgstr "ويعرف لغات هذه الواجهة."
 
-#: language/_annotated_strings.php:92
+#: language/_annotated_strings.php:105
 msgid "choose your timzone"
 msgstr ""
 
-#: language/_annotated_strings.php:95
+#: language/_annotated_strings.php:108
 msgid "defines your local timezone."
 msgstr ""

@@ -11,47 +11,47 @@ translate('Social Profiles');
 //: ./src/Auth/Form/SocialProfilesFieldset.php:225
 translate('Allow users to attach their %s profile.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:39
+//: ./src/Auth/Form/UserInfoFieldset.php:37
 translate('Click here to enter contact informations.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:82
+//: ./src/Auth/Form/UserInfoFieldset.php:87
 translate('Email');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:95
+//: ./src/Auth/Form/UserInfoFieldset.php:100
 translate('Phone');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:108
+//: ./src/Auth/Form/UserInfoFieldset.php:113
 translate('Postalcode');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:117
+//: ./src/Auth/Form/UserInfoFieldset.php:122
 translate('City');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:127
+//: ./src/Auth/Form/UserInfoFieldset.php:132
 translate('Salutation');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:130
+//: ./src/Auth/Form/UserInfoFieldset.php:135
 translate('Mr.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:131
+//: ./src/Auth/Form/UserInfoFieldset.php:136
 translate('Mrs.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:135
+//: ./src/Auth/Form/UserInfoFieldset.php:140
 translate('please select');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:148
+//: ./src/Auth/Form/UserInfoFieldset.php:153
 translate('First name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:161
+//: ./src/Auth/Form/UserInfoFieldset.php:166
 translate('Last name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:174
+//: ./src/Auth/Form/UserInfoFieldset.php:179
 translate('street');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:183
+//: ./src/Auth/Form/UserInfoFieldset.php:188
 translate('house number');
 
-//: ./src/Auth/Form/UserInfo.php:34
-translate('personal informations');
+//: ./src/Auth/Form/UserInfo.php:33
+translate('Personal informations');
 
 //: ./src/Auth/Form/UserPasswordFieldset.php:35
 translate('Password');
@@ -143,16 +143,16 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:166
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:142
+//: ./src/Auth/Controller/IndexController.php:135
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:150
+//: ./src/Auth/Controller/IndexController.php:143
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:238
+//: ./src/Auth/Controller/IndexController.php:231
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/IndexController.php:450
+//: ./src/Auth/Controller/IndexController.php:443
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/UsersController.php:50
@@ -212,10 +212,10 @@ translate('a new password was requestet for %s');
 //: ./src/Auth/Listener/DeactivatedUserListener.php:97
 translate('This user account has been disabled. Please contact the system adminstrator.');
 
-//: ./config/module.config.php:182
+//: ./config/module.config.php:184
 translate('user');
 
-//: ./config/module.config.php:183
+//: ./config/module.config.php:185
 translate('recruiter');
 
 //: ./config/navigation.config.php:16

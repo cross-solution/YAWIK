@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:04+0200\n"
+"POT-Creation-Date: 2016-10-10 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,19 +33,19 @@ msgid "Job details"
 msgstr ""
 
 #: view/mails/job-created.en.phtml:25 view/mails/job-created.phtml:25
-#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:16
+#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:71
 #: view/jobs/index/index.ajax.phtml:17 view/jobs/index/approval.ajax.phtml:18
 msgid "Title of the job"
 msgstr ""
 
 #: view/mails/job-created.en.phtml:29 view/mails/job-created.phtml:29
-#: view/jobs/jobboard/index.ajax.phtml:17 view/jobs/index/index.ajax.phtml:18
+#: view/jobs/jobboard/index.ajax.phtml:72 view/jobs/index/index.ajax.phtml:18
 #: language/_annotated_strings.php:189 language/_annotated_strings.php:204
 msgid "Location"
 msgstr ""
 
 #: view/mails/job-created.en.phtml:33 view/mails/job-created.phtml:33
-#: view/jobs/admin/index.ajax.phtml:19 view/jobs/jobboard/index.ajax.phtml:16
+#: view/jobs/admin/index.ajax.phtml:19 view/jobs/jobboard/index.ajax.phtml:71
 #: view/jobs/index/index.ajax.phtml:19 view/jobs/index/approval.ajax.phtml:19
 #: language/_annotated_strings.php:39 language/_annotated_strings.php:48
 #: language/_annotated_strings.php:78 language/_annotated_strings.php:96
@@ -191,6 +191,7 @@ msgstr ""
 #: view/jobs/admin/index.phtml:2 view/jobs/admin/index.phtml:91
 #: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
 #: view/jobs/index/approval.phtml:2 view/jobs/index/view.phtml:10
+#: src/Jobs/Auth/Dependency/ListListener.php:45
 #: language/_annotated_strings.php:312 language/_annotated_strings.php:318
 msgid "Jobs"
 msgstr ""
@@ -204,7 +205,7 @@ msgstr ""
 msgid "please wait"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:17 view/jobs/jobboard/index.ajax.phtml:17
+#: view/jobs/admin/index.ajax.phtml:17 view/jobs/jobboard/index.ajax.phtml:72
 #: view/jobs/index/index.ajax.phtml:16 view/jobs/index/approval.ajax.phtml:17
 msgid "Date of receipt"
 msgstr ""
@@ -257,8 +258,20 @@ msgstr ""
 msgid "%sSorry%s, there are not any jobs matching your search criteria."
 msgstr ""
 
-#: view/jobs/jobboard/index.ajax.phtml:18 view/jobs/index/index.ajax.phtml:122
-#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:74
+#: view/jobs/jobboard/index.ajax.phtml:38
+msgid "Active filters:"
+msgstr ""
+
+#: view/jobs/jobboard/index.ajax.phtml:41
+msgid "Remove filter"
+msgstr ""
+
+#: view/jobs/jobboard/index.ajax.phtml:44
+msgid "Remove all filters"
+msgstr ""
+
+#: view/jobs/jobboard/index.ajax.phtml:73 view/jobs/index/index.ajax.phtml:122
+#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:75
 msgid "Apply"
 msgstr ""
 
@@ -506,16 +519,26 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:249
+#: src/Jobs/Controller/ManageController.php:190
+#: src/Jobs/Controller/TemplateController.php:66
+#, php-format
+msgid "Job with id \"%s\" not found"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:263
 msgid "No Title"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:253
+#: src/Jobs/Controller/ManageController.php:267
 msgid "No Location"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:257
+#: src/Jobs/Controller/ManageController.php:271
 msgid "Accept the Terms"
+msgstr ""
+
+#: src/Jobs/Auth/Dependency/ListListener.php:65
+msgid "untitled"
 msgstr ""
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:336

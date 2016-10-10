@@ -68,6 +68,9 @@ translate('Please enter a phone Number. You can use the intenational format. Onl
 //: ./src/Core/Form/FileUploadFactory.php:137
 translate('Remove all');
 
+//: ./src/Core/Form/CollectionContainer.php:229
+translate('Remove');
+
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:33
 translate('choose your language');
 
@@ -107,9 +110,9 @@ translate('defines your local timezone.');
 //: ./config/module.config.php:25
 translate('general settings');
 
-//: ./config/module.config.php:238
+//: ./config/module.config.php:239
 translate('Home');
 
-//: ./config/module.config.php:243
+//: ./config/module.config.php:244
 translate('Admin');
 
