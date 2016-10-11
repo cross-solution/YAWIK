@@ -206,6 +206,7 @@ return array(
             'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
             'Jobs/Listener/Publisher'                     => 'Jobs\Listener\Publisher::factory',
             'Jobs/PreviewLinkHydrator'                    => 'Jobs\Form\Hydrator\PreviewLinkHydrator::factory',
+            'Jobs\Auth\Dependency\ListListener'           => 'Jobs\Factory\Auth\Dependency\ListListenerFactory',
 
         ),
         'shared' => array(
@@ -226,6 +227,14 @@ return array(
         'Jobs/JobContainer/Events' => [
             'event' => '\Core\Form\Event\FormEvent',
         ],
+        'Auth/Dependency/Manager/Events' => [
+            'listeners' => [
+                'Jobs\Auth\Dependency\ListListener' => [
+                    \Auth\Dependency\Manager::EVENT_GET_LISTS,
+                    /* lazy */ true
+                ]
+            ]
+        ]
     ],
 
     'controllers' => array(

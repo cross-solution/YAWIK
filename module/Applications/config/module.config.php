@@ -60,7 +60,7 @@ return array(
     
     'service_manager' => array(
         'invokables' => array(
-            'Applications/Options/ModuleOptions' => 'Applications\Options\ModuleOptions'
+            'Applications/Options/ModuleOptions' => 'Applications\Options\ModuleOptions',
         ),
         'factories' => array(
            'Applications/Options' => 'Applications\Factory\ModuleOptionsFactory',
@@ -68,7 +68,8 @@ return array(
            'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
            'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
            'Applications/Listener/ApplicationCreated' => 'Applications\Factory\Listener\EventApplicationCreatedFactory',
-           'Applications/Listener/ApplicationStatusChangePre' => 'Applications\Factory\Listener\StatusChangeFactory'
+           'Applications/Listener/ApplicationStatusChangePre' => 'Applications\Factory\Listener\StatusChangeFactory',
+           'Applications\Auth\Dependency\ListListener' => 'Applications\Factory\Auth\Dependency\ListListenerFactory'
         ),
         'aliases' => [
            'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
@@ -93,6 +94,7 @@ return array(
                     'Applications\Controller\Manage' => 'detail',
                     'Entity/Application' => array(
                         'read' => 'Applications/Access',
+                        Applications\Entity\ApplicationInterface::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD => 'Applications/Access',
                     ),
                 ),
             ),
@@ -248,6 +250,13 @@ return array(
 
             ]
         ],
+        'Auth/Dependency/Manager/Events' => [
+            'listeners' => [
+                'Applications\Auth\Dependency\ListListener' => [
+                    \Auth\Dependency\Manager::EVENT_GET_LISTS,
+                    /* lazy */ true
+                ]
+            ]
+        ]
     ],
-
 );

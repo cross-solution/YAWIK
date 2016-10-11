@@ -9,28 +9,31 @@
 
 namespace Solr\Bridge;
 
-
-use Solr\Exception\ServerException;
 use Solr\Options\ModuleOptions;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use SolrClient;
 
 /**
  * Manage connection with the SolrServer
  *
- * @author  Anthonius Munthi <me@itstoni.com>
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package Solr\Bridge
  */
 class Manager
 {
     const SOLR_DATE_FORMAT  = 'Y-m-d\TH:i:s\Z';
-    const SORT_ASCENDING    = 0;
-    const SORT_DESCENDING   = 1;
 
     /**
      * @var ModuleOptions
      */
     protected $options;
+    
+    /**
+     * @var array
+     */
+    protected $clients = [];
 
     /**
      * Manager constructor.
@@ -42,12 +45,12 @@ class Manager
     }
 
     /**
-     * Get \SolrClient with custom path option
+     * Get SolrClient with custom path option
      *
      * @param string $path
-     * @return \SolrClient
+     * @return SolrClient
      */
-    public function getClient($path='/solr')
+    public function getClient($path = '/solr')
     {
         $options = $this->options;
         $options = [
@@ -59,27 +62,13 @@ class Manager
             'password' => $options->getPassword(),
             'wt' => 'phps'
         ];
-
-        return new \SolrClient($options);
-    }
-
-    /**
-     * Add new document into Solr server
-     *
-     * @param \SolrInputDocument $document
-     * @param string $path
-     * @throws ServerException When failed adding document to server
-     */
-    public function addDocument(\SolrInputDocument $document,$path='/solr')
-    {
-        $client = $this->getClient($path);
-        try{
-            $client->addDocument($document);
-            $client->commit();
-            $client->optimize();
-        }catch (\Exception $e){
-            throw new ServerException('Can not add document to server!',$e->getCode(),$e);
+        $key = md5(implode(':', $options));
+        
+        if (!isset($this->clients[$key])) {
+            $this->clients[$key] = new SolrClient($options);
         }
+
+        return $this->clients[$key];
     }
 
     /**
@@ -97,8 +86,6 @@ class Manager
      */
     static public function factory(ServiceLocatorInterface $sl)
     {
-        /* @var ModuleOptions $options */
-        $options = $sl->get('Solr/Options/Module');
-        return new self($options);
+        return new static($sl->get('Solr/Options/Module'));
     }
 }

@@ -8,10 +8,10 @@ translate('Activate');
 //: ./src/Settings/Form/DisableElementsCapableFormSettingsFieldset.php:96
 translate('Enables the form element customization.');
 
-//: ./src/Settings/Controller/IndexController.php:76
+//: ./src/Settings/Controller/IndexController.php:91
 translate('Changes successfully saved');
 
-//: ./src/Settings/Controller/IndexController.php:77
+//: ./src/Settings/Controller/IndexController.php:92
 translate('Changes could not be saved');
 
 //: ./config/module.config.php:78

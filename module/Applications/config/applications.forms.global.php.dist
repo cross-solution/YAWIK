@@ -32,6 +32,11 @@ $options = array(
         */
         'allowedMimeTypes' => array('image','text','application/pdf', 'application/vnd.oasis.opendocument.text', 'application/msword'),
 
+        /*
+        * allows an applicant to subsequent upload attachments to his application.
+        */
+        'allowSubsequentAttachmentUpload' => false,
+
     );
 
 return array(

@@ -11,6 +11,7 @@
 /** ConsoleController of Jobs */
 namespace Jobs\Controller;
 
+use Jobs\Entity\StatusInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ProgressBar\ProgressBar;
 use Core\Console\ProgressBar as CoreProgressBar;
@@ -26,41 +27,40 @@ class ConsoleController extends AbstractActionController
         $repositories = $services->get('repositories');
         /* @var \Jobs\Repository\Job $jobsRepo */
         $jobsRepo     = $repositories->get('Jobs/Job');
-        $filter       = \Zend\Json\Json::decode($this->params('filter', '{}'));
-        $query        = array();
-        $limit        = 10;
-        foreach ($filter as $key => $value) {
-            switch ($key) {
-                case "limit":
-                    $limit = $value;
-                    break;
-                    
-                case "days":
-                    $date = new \DateTime();
-                    $date->modify('-' . (int) $value. ' day');
-                    $q = array('$lt' => $date);
-                    if (isset($query['datePublishStart.date'])) {
-                        $query['datePublishStart.date']= array_merge(
-                            $query['datePublishStart.date'],
-                            $q
-                        );
-                    } else {
-                        $query['datePublishStart.date'] = $q;
-                    }
-                    break;
-                    
-                default:
-                    $query[$key] = $value;
-                    break;
-            }
-        }
-        $query['status.name'] = 'active';
+        $days = (int) $this->params('days');
+        $limit = (string) $this->params('limit');
+        $info = $this->params('info');
 
-        $jobs = $jobsRepo->findBy($query, null, $limit);
+        if (!$days) {
+            return 'Invalid value for --days. Must be integer.';
+        }
+
+        $date = new \DateTime('today');
+        $date->sub(new \DateInterval('P' . $days . 'D'));
+
+        $query        = [
+            'status.name' => StatusInterface::ACTIVE,
+            'datePublishStart.date' => ['$lt' => $date]
+        ];
+
+        $offset = 0;
+        if ($limit && false !== strpos($limit, ',')) {
+            list($limit,$offset) = explode(',', $limit);
+        }
+
+        $jobs = $jobsRepo->findBy($query, null, (int) $limit, (int) $offset);
         $count = count($jobs);
 
         if (0 === $count) {
             return 'No jobs found.';
+        }
+
+        if ($info) {
+            echo count($jobs) , ' Jobs';
+            if ($offset) { echo ' starting from ' . $offset; }
+            echo PHP_EOL . PHP_EOL;
+            $this->listExpiredJobs($jobs);
+            return;
         }
         
         foreach ($repositories->getEventManager()->getListeners('preUpdate') as $listener) {
@@ -155,5 +155,27 @@ class ConsoleController extends AbstractActionController
         $repositories->flush();
         $progress->finish();
         return PHP_EOL;
+    }
+
+    private function listExpiredJobs($jobs)
+    {
+        /* @var \Jobs\Entity\JobInterface $job */
+        foreach ($jobs as $job) {
+            $id = $job->getId();
+            $org = $job->getOrganization();
+            if ($org) {
+                $org = $org->getName();
+            } else {
+                $org = $job->getCompany();
+            }
+            printf(
+                '%s   %s   %-30s   %-20s' . PHP_EOL,
+                $job->getDatePublishStart()->format('Y-m-d'),
+                $id,
+                substr($job->getTitle(), 0, 30),
+                substr($org, 0, 20)
+            );
+        }
+        return count($jobs) . ' Jobs.';
     }
 }

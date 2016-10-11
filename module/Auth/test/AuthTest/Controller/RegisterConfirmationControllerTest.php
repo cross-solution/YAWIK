@@ -48,7 +48,7 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')->getMockForAbstractClass();
 
         $this->controller = new RegisterConfirmationController($this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);

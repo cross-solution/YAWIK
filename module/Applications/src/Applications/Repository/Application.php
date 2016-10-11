@@ -5,6 +5,10 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Weitz <weitz@xenon>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 namespace Applications\Repository;
 
@@ -215,5 +219,26 @@ class Application extends AbstractRepository
         }
         
         return null;
+    }
+
+    /**
+     * Get applications for given user ID
+     *
+     * @param string $userId
+     * @param int $limit
+     * @return Cursor
+     * @since 0.27
+     */
+    public function getUserApplications($userId, $limit = null)
+    {
+        $qb = $this->createQueryBuilder(null)
+            ->field('user')->equals($userId)
+            ->sort(['date' => -1]);
+    
+        if (isset($limit)) {
+            $qb->limit($limit);
+        }
+    
+        return $qb->getQuery()->execute();
     }
 }

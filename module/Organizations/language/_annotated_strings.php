@@ -95,7 +95,7 @@ translate('Phone');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:93
 translate('Fax');
 
-//: ./src/Organizations/Controller/IndexController.php:98
+//: ./src/Organizations/Controller/IndexController.php:101
 translate('Search for organizations');
 
 //: ./src/Organizations/Controller/InviteEmployeeController.php:78

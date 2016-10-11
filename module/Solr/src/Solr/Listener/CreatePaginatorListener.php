@@ -14,8 +14,9 @@ use Core\Listener\Events\CreatePaginatorEvent;
 /**
  * Class CreatePaginatorListener
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
  * @package Solr\Event\Listener
  */
 class CreatePaginatorListener
@@ -37,15 +38,5 @@ class CreatePaginatorListener
             $paginator = $paginators->get($serviceName,$params);
             $event->setPaginator($paginator);
         }
-    }
-
-    /**
-     * Create and return new instance for CreatePaginatorListener
-     *
-     * @return CreatePaginatorListener
-     */
-    static public function factory()
-    {
-        return new self();
     }
 }

@@ -14,15 +14,18 @@ use Solr\Filter\AbstractPaginationQuery;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Stdlib\Parameters;
 use Solr\Bridge\ResultConverter;
+use Solr\FacetsProviderInterface;
+use Solr\Facets;
 
 /**
  * Provide adapter for Solr type paginator
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
  * @package Solr\Paginator\Adapter
  */
-class SolrAdapter implements AdapterInterface
+class SolrAdapter implements AdapterInterface, FacetsProviderInterface
 {
     /**
      * @var \SolrClient
@@ -40,9 +43,9 @@ class SolrAdapter implements AdapterInterface
     protected $count;
 
     /**
-     * @var \SolrDisMaxQuery
+     * @var Facets
      */
-    protected $query;
+    protected $facets;
 
     /**
      * Store current query response from solr server
@@ -68,14 +71,16 @@ class SolrAdapter implements AdapterInterface
      * @param   \SolrClient                 $client
      * @param   AbstractPaginationQuery     $filter
      * @param   ResultConverter             $resultConverter
+     * @param   Facets                      $facets
      * @param   array                       $params
      */
-    public function __construct($client,$filter,$resultConverter,$params=array())
+    public function __construct($client, $filter, $resultConverter, Facets $facets, $params = array())
     {
-        $this->client           = $client;
-        $this->filter           = $filter;
-        $this->resultConverter  = $resultConverter;
-        $this->params           = $params;
+        $this->client = $client;
+        $this->filter = $filter;
+        $this->resultConverter = $resultConverter;
+        $this->facets = $facets;
+        $this->params = $params;
     }
     
     /**
@@ -85,7 +90,7 @@ class SolrAdapter implements AdapterInterface
     {
         return $this->resultConverter->convert(
             $this->filter,
-            $this->getResponse($offset,$itemCountPerPage)
+            $this->getResponse($offset,$itemCountPerPage)->getResponse()
         );
     }
 
@@ -99,6 +104,14 @@ class SolrAdapter implements AdapterInterface
         $response = $this->getResponse()->getArrayResponse();
         return $response['response']['numFound'];
     }
+    
+    /**
+	 * @see \Solr\FacetsProviderInterface::getFacets()
+	 */
+	public function getFacets()
+	{
+		return $this->facets->setFacetResult($this->getResponse()->getResponse()->facet_counts);
+	}
 
     /**
      * Process query into server
@@ -106,22 +119,20 @@ class SolrAdapter implements AdapterInterface
      * @param   int     $offset
      * @param   int     $itemCountPerPage
      * @return  \SolrQueryResponse
-     * @throws  \Exception
+     * @throws  ServerException
      */
     protected function getResponse($offset=0,$itemCountPerPage=0)
     {
         $id = md5($offset.$itemCountPerPage);
-        if(!isset($this->responses[$id])){
+        if (!isset($this->responses[$id])) {
             $query = new \SolrDisMaxQuery();
-            $query->useEDisMaxQueryParser();
-            $query = $this->filter->filter($this->params,$query);
+            $this->filter->filter($this->params, $query, $this->facets);
             $query->setStart($offset);
             $query->setRows($itemCountPerPage);
-            try{
+            try {
                 $this->responses[$id] = $this->client->query($query);
-            }catch (\Exception $e){
-                $message = 'Failed to process query';
-                throw new ServerException($message,$e->getCode(),$e);
+            } catch (\Exception $e) {
+                throw new ServerException('Failed to process query', $e->getCode(), $e);
             }
         }
 

@@ -5,6 +5,9 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 /** FileEntity.php */
@@ -52,4 +55,12 @@ interface FileInterface extends
     public function getResource();
     
     public function getContent();
+    
+    /**
+     * Gets the URI of a file
+     *
+     * @return string|null
+     * @since 0.27
+     */
+    public function getUri();
 }

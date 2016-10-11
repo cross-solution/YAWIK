@@ -18,9 +18,10 @@ use Zend\Paginator\Paginator;
 /**
  * Test for Solr\Listener\CreatePaginatorListener
  *
- * @author  Anthonius Munthi <me@itstoni.com>
- * @since   0.26
- * @covers  Solr\Listener\CreatePaginatorListener
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.26
+ * @covers Solr\Listener\CreatePaginatorListener
  * @package SolrTest\Event\Listener
  */
 class CreatePaginatorListenerTest extends \PHPUnit_Framework_TestCase
@@ -63,7 +64,7 @@ class CreatePaginatorListenerTest extends \PHPUnit_Framework_TestCase
             ->willReturnOnConsecutiveCalls(false,true)
         ;
 
-        $target = CreatePaginatorListener::factory();
+        $target = new CreatePaginatorListener;
         $target->onCreatePaginator($event);
         $this->assertNull(
             $event->getPaginator(),

@@ -125,6 +125,16 @@ return [
                                 'id' => '\w+'
                             ]
                         ]
+                    ],
+                    'user-remove' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => '/user/remove',
+                            'defaults' => [
+                                'controller' => 'Auth\Controller\Remove',
+                                'action' => 'index'
+                            ]
+                        ]
                     ]
                 ]
             ],

@@ -4,13 +4,17 @@
  *
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Rafal Ksiazek <harpcio@gmail.com>
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 namespace Jobs\Repository;
 
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
-use Core\Repository\DoctrineMongoODM\PaginatorAdapter;
 use Doctrine\ODM\MongoDB\Cursor;
 use Jobs\Entity\StatusInterface;
 
@@ -178,5 +182,26 @@ class Job extends AbstractRepository
         $r  = $q->execute();
 
         return $r;
+    }
+    
+    /**
+     * Get jobs for given user ID
+     *
+     * @param string $userId
+     * @param int $limit
+     * @return Cursor
+     * @since 0.27
+     */
+    public function getUserJobs($userId, $limit = null)
+    {
+        $qb = $this->createQueryBuilder()
+            ->field('user')->equals($userId)
+            ->sort(['dateCreated.date' => -1]);
+        
+        if (isset($limit)) {
+            $qb->limit($limit);
+        }
+    
+        return $qb->getQuery()->execute();
     }
 }

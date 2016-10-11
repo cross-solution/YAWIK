@@ -8,8 +8,8 @@
 
 return array(
     'controllers' => [
-        'invokables' => [
-            'Solr/Console' => 'Solr\Controller\ConsoleController'
+        'factories' => [
+            'Solr/Console' => 'Solr\Factory\Controller\ConsoleControllerFactory'
         ]
     ],
     'doctrine' => [
@@ -31,19 +31,20 @@ return array(
         'Core/CreatePaginator/Events' => [
             'listeners' => [
                 'Solr/Listener/CreatePaginator' => [
-                    \Core\Listener\Events\CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,'onCreatePaginator',1
+                    \Core\Listener\Events\CreatePaginatorEvent::EVENT_CREATE_PAGINATOR, 'onCreatePaginator'
                 ]
             ]
         ]
     ],
 
     'service_manager' => [
+        'invokables' => [
+            'Solr/Listener/CreatePaginator' => 'Solr\Listener\CreatePaginatorListener',
+        ],
         'factories' => [
-            'Solr/Client' => 'Solr\Factory\SolrClientFactory',
             'Solr/Manager' => 'Solr\Bridge\Manager::factory',
             'Solr/ResultConverter' => 'Solr\Bridge\ResultConverter::factory',
             'Solr/Listener/JobEventSubscriber' => 'Solr\Listener\JobEventSubscriber::factory',
-            'Solr/Listener/CreatePaginator' => 'Solr\Listener\CreatePaginatorListener::factory',
         ]
     ],
 
@@ -55,8 +56,8 @@ return array(
     ],
 
     'filters' => [
-        'factories'=> array(
-            'Solr/Jobs/PaginationQuery' => 'Solr\Filter\JobBoardPaginationQuery::factory',
-        ),
+        'invokables'=> [
+            'Solr/Jobs/PaginationQuery' => 'Solr\Filter\JobBoardPaginationQuery',
+        ],
     ],
 );

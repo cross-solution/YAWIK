@@ -215,7 +215,7 @@ translate('Invalid apply id');
 //: ./src/Applications/Controller/ManageController.php:147
 translate('Application was read by %s');
 
-//: ./src/Applications/Controller/ManageController.php:448
+//: ./src/Applications/Controller/ManageController.php:489
 translate('Application has been successfully moved to Talent Pool');
 
 //: ./src/Applications/Controller/ApplyController.php:185
@@ -257,6 +257,6 @@ translate('Attachments');
 //: ./config/module.config.php:56
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:130
+//: ./config/module.config.php:132
 translate('Overview');
 

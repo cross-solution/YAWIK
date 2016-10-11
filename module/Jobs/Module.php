@@ -22,13 +22,13 @@ class Module implements ConsoleUsageProviderInterface
 
     public function getConsoleUsage(Console $console)
     {
-        return array(
-            'Manipulation of jobs database',
-            'jobs expire [--filter=]' => 'expire jobs.',
-            array('--filter=JSON', "available keys:\n"
-                . "- 'days:INT' -> expire jobs after <days> days. Default 30\n"
-                . "- 'limit':INT -> Limit jobs to expire per run. Default 10."),
-        );
+        return [
+            'Expire jobs',
+            'jobs expire [--days] [--limit] [--info]'  => 'Expire jobs',
+            ['--days=INT', 'expire jobs after <days> days. Default 30'],
+            ['--limit=INT[,<offset>]', 'Limit jobs to expire per run starting from <offset>. Default 10. 0 means no limit'],
+            ['--info', 'Does not manipulate the database, but prints a list of all matched jobs.']
+        ];
     }
 
     /**
