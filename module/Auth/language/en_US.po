@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-12 18:44+0200\n"
-"PO-Revision-Date: 2016-05-12 16:46+0000\n"
+"POT-Creation-Date: 2016-10-10 16:24+0200\n"
+"PO-Revision-Date: 2016-10-10 14:34+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/yawik/yawik/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Image"
 msgstr "Image"
 
-#: view/form/social-profiles-fieldset.phtml:40
+#: view/form/social-profiles-fieldset.phtml:41
 msgid "Loading"
 msgstr "Loading"
 
-#: view/form/social-profiles-fieldset.phtml:46
+#: view/form/social-profiles-fieldset.phtml:47
 msgid "Close"
 msgstr "Close"
 
@@ -174,7 +174,7 @@ msgid "A job ad with the provided apply identifier could not be found."
 msgstr "A job ad with the provided apply identifier could not be found."
 
 #: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:11
-#: view/auth/manage/profile.phtml:19
+#: view/auth/manage/profile.phtml:20
 msgid "My profile"
 msgstr "My profile"
 
@@ -230,6 +230,27 @@ msgid ""
 "email box"
 msgstr "An Email with an activation link has been sent, please try to check your email box"
 
+#: view/auth/remove/index.phtml:5
+msgid "Account removal confirmation"
+msgstr "Account removal confirmation"
+
+#: view/auth/remove/index.phtml:9
+msgid "Removal of user account failed."
+msgstr "Removal of user account failed."
+
+#: view/auth/remove/index.phtml:30
+#, php-format
+msgid "and %d other(s)"
+msgstr "and %d other(s)"
+
+#: view/auth/remove/index.phtml:38
+msgid "Remove my account"
+msgstr "Remove my account"
+
+#: view/auth/remove/index.phtml:39
+msgid "Cancel account removal"
+msgstr "Cancel account removal"
+
 #: view/auth/password/index.phtml:11 view/auth/password/index.phtml:25
 msgid "My password"
 msgstr "My password"
@@ -238,21 +259,25 @@ msgstr "My password"
 msgid "Here you can change your password"
 msgstr "Here you can change your password"
 
-#: view/auth/manage/profile.phtml:47
+#: view/auth/manage/profile.phtml:49
 msgid "Employee of the Organization"
 msgstr "Employee of the Organization"
 
-#: view/auth/manage/profile.phtml:50
+#: view/auth/manage/profile.phtml:52
 msgid "Organization Owner"
 msgstr "Organization Owner"
 
-#: view/auth/manage/profile.phtml:55
+#: view/auth/manage/profile.phtml:57
 msgid "Employees"
 msgstr "Employees"
 
-#: src/Auth/Form/UserInfo.php:34 language/_annotated_strings.php:54
-msgid "personal informations"
-msgstr "personal informations"
+#: view/auth/manage/profile.phtml:91
+msgid "Remove account"
+msgstr "Remove account"
+
+#: src/Auth/Form/UserInfo.php:33 language/_annotated_strings.php:54
+msgid "Personal informations"
+msgstr "Personal informations"
 
 #: src/Auth/Form/UserPasswordFieldset.php:35
 #: language/_annotated_strings.php:57 language/_annotated_strings.php:60

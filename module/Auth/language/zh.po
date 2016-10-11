@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-12 18:44+0200\n"
-"PO-Revision-Date: 2016-05-12 16:46+0000\n"
+"POT-Creation-Date: 2016-10-10 16:24+0200\n"
+"PO-Revision-Date: 2016-10-10 14:34+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (http://www.transifex.com/yawik/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr ""
 msgid "Image"
 msgstr "图像"
 
-#: view/form/social-profiles-fieldset.phtml:40
+#: view/form/social-profiles-fieldset.phtml:41
 msgid "Loading"
 msgstr "载入中"
 
-#: view/form/social-profiles-fieldset.phtml:46
+#: view/form/social-profiles-fieldset.phtml:47
 msgid "Close"
 msgstr "关闭"
 
@@ -175,7 +175,7 @@ msgid "A job ad with the provided apply identifier could not be found."
 msgstr "工作信息与提供的应用标识符可以不被发现。"
 
 #: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:11
-#: view/auth/manage/profile.phtml:19
+#: view/auth/manage/profile.phtml:20
 msgid "My profile"
 msgstr "我的个人资料"
 
@@ -231,6 +231,27 @@ msgid ""
 "email box"
 msgstr "一封电子邮件，激活链接已发送，请尝试检查您的电子邮箱"
 
+#: view/auth/remove/index.phtml:5
+msgid "Account removal confirmation"
+msgstr ""
+
+#: view/auth/remove/index.phtml:9
+msgid "Removal of user account failed."
+msgstr ""
+
+#: view/auth/remove/index.phtml:30
+#, php-format
+msgid "and %d other(s)"
+msgstr ""
+
+#: view/auth/remove/index.phtml:38
+msgid "Remove my account"
+msgstr ""
+
+#: view/auth/remove/index.phtml:39
+msgid "Cancel account removal"
+msgstr ""
+
 #: view/auth/password/index.phtml:11 view/auth/password/index.phtml:25
 msgid "My password"
 msgstr "我的密码"
@@ -239,21 +260,25 @@ msgstr "我的密码"
 msgid "Here you can change your password"
 msgstr ""
 
-#: view/auth/manage/profile.phtml:47
+#: view/auth/manage/profile.phtml:49
 msgid "Employee of the Organization"
 msgstr ""
 
-#: view/auth/manage/profile.phtml:50
+#: view/auth/manage/profile.phtml:52
 msgid "Organization Owner"
 msgstr ""
 
-#: view/auth/manage/profile.phtml:55
+#: view/auth/manage/profile.phtml:57
 msgid "Employees"
 msgstr "员工"
 
-#: src/Auth/Form/UserInfo.php:34 language/_annotated_strings.php:54
-msgid "personal informations"
-msgstr "个人信息"
+#: view/auth/manage/profile.phtml:91
+msgid "Remove account"
+msgstr ""
+
+#: src/Auth/Form/UserInfo.php:33 language/_annotated_strings.php:54
+msgid "Personal informations"
+msgstr ""
 
 #: src/Auth/Form/UserPasswordFieldset.php:35
 #: language/_annotated_strings.php:57 language/_annotated_strings.php:60

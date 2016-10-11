@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-12 19:04+0200\n"
-"PO-Revision-Date: 2016-05-12 17:05+0000\n"
+"POT-Creation-Date: 2016-10-10 16:24+0200\n"
+"PO-Revision-Date: 2016-10-10 14:42+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Portuguese (http://www.transifex.com/yawik/yawik/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Add permission"
 msgstr ""
 
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:104
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:117
 msgid "Admin"
 msgstr ""
 
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:101
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:114
 msgid "Home"
 msgstr ""
 
@@ -227,30 +227,30 @@ msgstr "Todos os direitos reservados."
 msgid "Permissions"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:106
-#: src/Core/Form/View/Helper/FormImageUpload.php:81
+#: src/Core/Form/View/Helper/FormFileUpload.php:93
+#: src/Core/Form/View/Helper/FormImageUpload.php:83
 msgid "The file is too big"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:107
-#: src/Core/Form/View/Helper/FormImageUpload.php:82
+#: src/Core/Form/View/Helper/FormFileUpload.php:94
+#: src/Core/Form/View/Helper/FormImageUpload.php:84
 msgid "The file type is not supported"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:109
+#: src/Core/Form/View/Helper/FormFileUpload.php:96
 #, php-format
 msgid "You may only upload %d files"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:111
+#: src/Core/Form/View/Helper/FormFileUpload.php:98
 msgid "An unknown error occured."
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:156
+#: src/Core/Form/View/Helper/FormFileUpload.php:293
 msgid "Click here to add files or use drag and drop."
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormImageUpload.php:42
+#: src/Core/Form/View/Helper/FormImageUpload.php:44
 msgid "Click here to add an image or use drag and drop."
 msgstr ""
 
@@ -262,131 +262,149 @@ msgstr "anterior"
 msgid "processing"
 msgstr ""
 
-#: src/Core/Form/View/Helper/SummaryForm.php:178
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:64
+#: language/_annotated_strings.php:72
+msgid "Remove"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:85
+msgid "Really remove?"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:89
+#, php-format
+msgid "Add %s"
+msgstr ""
+
+#: src/Core/Form/View/Helper/SummaryForm.php:190
 msgid "Edit"
 msgstr ""
 
-#: src/Core/Form/View/Helper/SearchForm.php:54
-msgid "Search"
-msgstr "Pesquisa"
-
-#: src/Core/Form/View/Helper/SearchForm.php:55
-msgid "Clear"
-msgstr "Claro"
-
 #: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:98
+#: language/_annotated_strings.php:111
 msgid "general settings"
 msgstr ""
 
-#: language/_annotated_strings.php:5 language/_annotated_strings.php:11
-#: language/_annotated_strings.php:23
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:33
+msgid "Search"
+msgstr "Pesquisa"
+
+#: language/_annotated_strings.php:6
+msgid "Clear"
+msgstr "Claro"
+
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:15
+#: language/_annotated_strings.php:27
 msgid "Save"
 msgstr "Salvar"
 
-#: language/_annotated_strings.php:8 language/_annotated_strings.php:14
-#: language/_annotated_strings.php:26
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:18
+#: language/_annotated_strings.php:30
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: language/_annotated_strings.php:17
+#: language/_annotated_strings.php:21
 msgid "Apply filter"
 msgstr ""
 
-#: language/_annotated_strings.php:20
+#: language/_annotated_strings.php:24
 msgid "Reset filter"
 msgstr ""
 
-#: language/_annotated_strings.php:29
+#: language/_annotated_strings.php:36
+msgid "Search query"
+msgstr ""
+
+#: language/_annotated_strings.php:39
 msgid "Rights"
 msgstr ""
 
-#: language/_annotated_strings.php:32
+#: language/_annotated_strings.php:42
 msgid "View"
 msgstr ""
 
-#: language/_annotated_strings.php:35
+#: language/_annotated_strings.php:45
 msgid "Write"
 msgstr ""
 
-#: language/_annotated_strings.php:38
+#: language/_annotated_strings.php:48
 msgid "Not Rated"
 msgstr ""
 
-#: language/_annotated_strings.php:41
+#: language/_annotated_strings.php:51
 msgid "Poor"
 msgstr ""
 
-#: language/_annotated_strings.php:44
+#: language/_annotated_strings.php:54
 msgid "Bad"
 msgstr ""
 
-#: language/_annotated_strings.php:47
+#: language/_annotated_strings.php:57
 msgid "Average"
 msgstr ""
 
-#: language/_annotated_strings.php:50
+#: language/_annotated_strings.php:60
 msgid "Good"
 msgstr ""
 
-#: language/_annotated_strings.php:53
+#: language/_annotated_strings.php:63
 msgid "Excellent"
 msgstr ""
 
-#: language/_annotated_strings.php:56
+#: language/_annotated_strings.php:66
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr ""
 
-#: language/_annotated_strings.php:59
+#: language/_annotated_strings.php:69
 msgid "Remove all"
 msgstr ""
 
-#: language/_annotated_strings.php:62
+#: language/_annotated_strings.php:75
 msgid "choose your language"
 msgstr ""
 
-#: language/_annotated_strings.php:65
+#: language/_annotated_strings.php:78
 msgid "English"
 msgstr ""
 
-#: language/_annotated_strings.php:68
+#: language/_annotated_strings.php:81
 msgid "French"
 msgstr ""
 
-#: language/_annotated_strings.php:71
+#: language/_annotated_strings.php:84
 msgid "German"
 msgstr ""
 
-#: language/_annotated_strings.php:74
+#: language/_annotated_strings.php:87
 msgid "Italian"
 msgstr ""
 
-#: language/_annotated_strings.php:77
+#: language/_annotated_strings.php:90
 msgid "Polish"
 msgstr ""
 
-#: language/_annotated_strings.php:80
+#: language/_annotated_strings.php:93
 msgid "Russian"
 msgstr ""
 
-#: language/_annotated_strings.php:83
+#: language/_annotated_strings.php:96
 msgid "Turkish"
 msgstr ""
 
-#: language/_annotated_strings.php:86
+#: language/_annotated_strings.php:99
 msgid "Spanish"
 msgstr ""
 
-#: language/_annotated_strings.php:89
+#: language/_annotated_strings.php:102
 msgid "defines the languages of this frontend."
 msgstr ""
 
-#: language/_annotated_strings.php:92
+#: language/_annotated_strings.php:105
 msgid "choose your timzone"
 msgstr ""
 
-#: language/_annotated_strings.php:95
+#: language/_annotated_strings.php:108
 msgid "defines your local timezone."
 msgstr ""
