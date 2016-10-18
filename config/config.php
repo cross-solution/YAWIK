@@ -84,6 +84,8 @@ $config = array(
         // Use the $env value to determine the state of the flag
         'check_dependencies' => ($env != 'production'),
     ),
+
+    'timezone' => 'Europe/Berlin',
     
     'service_listener_options' => array(
     ),

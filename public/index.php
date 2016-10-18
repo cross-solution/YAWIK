@@ -9,7 +9,9 @@
 ini_set('display_errors', true);
 ini_set('error_reporting', E_ALL | E_STRICT);
 
-date_default_timezone_set('Europe/Berlin');
+$config = require 'config/config.php';
+
+date_default_timezone_set($config['timezone']);
 
 if (php_sapi_name() == 'cli-server') {
     $route = parse_url(substr($_SERVER["REQUEST_URI"], 1))["path"];
@@ -46,4 +48,4 @@ if (file_exists('vendor/autoload.php')) {
 }
 
 // Run the application!
-Zend\Mvc\Application::init(require 'config/config.php')->run();
+Zend\Mvc\Application::init($config)->run();
