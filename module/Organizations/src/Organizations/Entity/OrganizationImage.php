@@ -13,6 +13,7 @@ namespace Organizations\Entity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Core\Entity\FileEntity;
+use Organizations\Image\FileCache;
 
 /**
  * Defines the logo of an organization.
@@ -47,6 +48,18 @@ class OrganizationImage extends FileEntity implements ResourceInterface
     function getUri()
     {
         return '/' . trim('file/Organizations.OrganizationImage/' . $this->id . "/" . urlencode($this->name),'/');
+    }
+    
+    /**
+     * Gets the cached URI of an attachment
+     *
+     * @param FileCache $cache
+     * @return string
+     * @since 0.28
+     */
+    function getUriCached(FileCache $cache)
+    {
+        return $cache->getUri($this);
     }
 
     /**

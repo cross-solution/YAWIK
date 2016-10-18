@@ -49,14 +49,17 @@ class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
     public function onBootstrap(EventInterface $e)
     {
         /* @var $e MvcEvent */
-        $eventManager = $e->getApplication()->getEventManager();
-        $services     = $e->getApplication()->getServiceManager();
+        $application = $e->getApplication();
+        $eventManager = $application->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
 
         $createJobListener = new \Organizations\Acl\Listener\CheckJobCreatePermissionListener();
         $createJobListener->attachShared($sharedManager);
 
-
-
+        if ($e->getRequest() instanceof \Zend\Http\Request) {
+            $serviceManager = $application->getServiceManager();
+            $imageCache = $serviceManager->get('Organizations\Image\FileCache');
+            $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$imageCache, 'onDispatchError']);
+        }
     }
 }

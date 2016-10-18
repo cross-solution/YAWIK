@@ -20,6 +20,7 @@ return array(
             'odm_default' => array(
                 'subscribers' => array(
                     '\Organizations\Repository\Event\InjectOrganizationReferenceListener',
+                    'Organizations\Image\FileCache',
                 ),
             ),
         ),
@@ -33,6 +34,10 @@ return array(
             'widgets' => array(
             ),
         ),
+        'ImageFileCache' => [
+            'filePath' => __DIR__ . '/../../../public/cache/Organizations/Image',
+            'uriPath' => '/cache/Organizations/Image'
+        ]
     ),
     // Translations
     'translator' => array(
@@ -189,7 +194,8 @@ return array(
            'Organizations\Auth\Dependency\EmployeeListListener' => 'Organizations\Auth\Dependency\EmployeeListListener'
         ],
         'factories' => [
-           'Organizations\Auth\Dependency\ListListener' => 'Organizations\Factory\Auth\Dependency\ListListenerFactory'
+           'Organizations\Auth\Dependency\ListListener' => 'Organizations\Factory\Auth\Dependency\ListListenerFactory',
+           'Organizations\Image\FileCache' => 'Organizations\Factory\Image\FileCacheFactory'
         ]
     ],
     'event_manager' => [

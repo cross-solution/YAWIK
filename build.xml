@@ -83,6 +83,15 @@
                 </exec>
             </then>
         </if>
+        <if>
+            <not>
+                <available file='${project.basedir}/public/cache' type='dir' />
+            </not>
+            <then>
+                <mkdir dir="${project.basedir}/public/cache"/>
+                <chmod file="${project.basedir}/public/cache" mode="0777"/>
+            </then>
+        </if>
     </target>
 
 
