@@ -20,7 +20,6 @@ use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\Http\PhpEnvironment\Response;
 use Core\Entity\Exception\NotFoundException;
-use Organizations\Entity\OrganizationImage;
 
 /**
  * Main Action Controller for the Organization.
@@ -139,14 +138,6 @@ class IndexController extends AbstractActionController
             ];
         }
 
-        $image = $org->getImage();
-        
-        if ($image) {
-            // clear image URI listeners
-            $image->getEventManager()
-                ->clearListeners(OrganizationImage::EVENT_GET_URI);
-        }
-        
         $container       = $this->getFormular($org);
 
         if (isset($formIdentifier) && $request->isPost()) {

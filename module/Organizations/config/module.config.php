@@ -20,8 +20,7 @@ return array(
             'odm_default' => array(
                 'subscribers' => array(
                     '\Organizations\Repository\Event\InjectOrganizationReferenceListener',
-                    'Organizations\ImageFileCache\ODMListener',
-                    'Organizations\Repository\Event\InjectEventManagerListener'
+                    'Organizations\ImageFileCache\ODMListener'
                 ),
             ),
         ),
@@ -192,11 +191,9 @@ return array(
         ],
         'factories' => [
            'Organizations\Auth\Dependency\ListListener' => 'Organizations\Factory\Auth\Dependency\ListListenerFactory',
-           'Organizations\Repository\Event\InjectEventManagerListener' => 'Organizations\Factory\Repository\Event\InjectEventManagerListenerFactory',
            'Organizations\ImageFileCache\Manager' => 'Organizations\Factory\ImageFileCache\ManagerFactory',
            'Organizations\ImageFileCache\ODMListener' => 'Organizations\Factory\ImageFileCache\ODMListenerFactory',
-           'Organizations\ImageFileCache\ApplicationListener' => 'Organizations\Factory\ImageFileCache\ApplicationListenerFactory',
-           'Organizations\ImageFileCache\ImageListener' => 'Organizations\Factory\ImageFileCache\ImageListenerFactory',
+           'Organizations\ImageFileCache\ApplicationListener' => 'Organizations\Factory\ImageFileCache\ApplicationListenerFactory'
         ]
     ],
     'event_manager' => [
@@ -213,15 +210,7 @@ return array(
                     /* priority */ 11
                 ]
             ]
-        ],
-        'OrganizationImage/Events' => [
-            'listeners' => [
-                'Organizations\ImageFileCache\ImageListener' => [
-                    \Organizations\Entity\OrganizationImage::EVENT_GET_URI,
-                    /* lazy */ true
-                ]
-            ]
-        ],
+        ]
     ],
     'options' => [
         'Organizations/ImageFileCacheOptions' => [

@@ -79,7 +79,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
         <td>
             <?php if ($job->organization && $job->organization->image &&  $job->organization->organizationName): ?>
                 <div class="yk-logo-list">
-                    <img class="yk-logo-sm" src="<?php echo $this->basePath().$job->organization->image->uri ?>">
+                    <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($job->organization->image)) ?>">
                 </div>
             <?php endif ?>
             <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>

@@ -13,8 +13,6 @@ namespace Organizations\Entity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Core\Entity\FileEntity;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerInterface;
 
 /**
  * Defines the logo of an organization.
@@ -24,9 +22,6 @@ use Zend\EventManager\EventManagerInterface;
  */
 class OrganizationImage extends FileEntity implements ResourceInterface
 {
-    
-    const EVENT_GET_URI = 'getUri';
-    
     /**
      * Organization which belongs to the company logo
      *
@@ -34,36 +29,6 @@ class OrganizationImage extends FileEntity implements ResourceInterface
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", mappedBy="image")
      */
     protected $organization;
-
-    /**
-     * @var EventManagerInterface
-     */
-    protected $eventManager;
-
-    /**
-     * @param EventManagerInterface $eventManager
-     * @return OrganizationImage
-     * @since 0.28
-     */
-    public function setEventManager(EventManagerInterface $eventManager)
-    {
-        $this->eventManager = $eventManager;
-        
-        return $this;
-    }
-
-    /**
-     * @return EventManagerInterface
-     * @since 0.28
-     */
-    public function getEventManager()
-    {
-        if (! $this->eventManager) {
-            $this->setEventManager(new EventManager());
-        }
-        
-        return $this->eventManager;
-    }
 
     /**
      * {@inheritDoc}
@@ -81,17 +46,9 @@ class OrganizationImage extends FileEntity implements ResourceInterface
      */
     function getUri()
     {
-        $results = $this->getEventManager()->trigger(static::EVENT_GET_URI, $this, [], function ($uri) {
-            return is_string($uri);
-        });
-        
-        if ($results->stopped()) {
-            return $results->last();
-        }
-        
         return '/' . trim('file/Organizations.OrganizationImage/' . $this->id . "/" . urlencode($this->name),'/');
     }
-    
+
     /**
      * Gets the organization of an company logo
      *

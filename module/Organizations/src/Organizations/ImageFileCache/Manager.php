@@ -42,7 +42,11 @@ class Manager
      */
     public function getUri(OrganizationImage $image)
     {
-        return sprintf('%s/%s', $this->options->getUriPath(), $this->getImageSubPath($image));
+        if ($this->options->getEnabled()) {
+            return sprintf('%s/%s', $this->options->getUriPath(), $this->getImageSubPath($image));
+        }
+        
+        return $image->getUri();
     }
     
     /**
