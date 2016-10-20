@@ -6,17 +6,17 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-namespace Organizations\Factory\Image;
+namespace Organizations\Factory\Repository\Event;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Organizations\Image\FileCache;
+use Organizations\Repository\Event\InjectEventManagerListener;
 
 /**
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.28
  */
-class FileCacheFactory implements FactoryInterface
+class InjectEventManagerListenerFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
@@ -24,8 +24,6 @@ class FileCacheFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('Config')['Organizations']['ImageFileCache'];
-        
-        return new FileCache($config['filePath'], $config['uriPath']);
+        return new InjectEventManagerListener($serviceLocator);
     }
 }

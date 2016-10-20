@@ -20,7 +20,8 @@ return array(
             'odm_default' => array(
                 'subscribers' => array(
                     '\Organizations\Repository\Event\InjectOrganizationReferenceListener',
-                    'Organizations\Image\FileCache',
+                    'Organizations\ImageFileCache\ODMListener',
+                    'Organizations\Repository\Event\InjectEventManagerListener'
                 ),
             ),
         ),
@@ -34,10 +35,6 @@ return array(
             'widgets' => array(
             ),
         ),
-        'ImageFileCache' => [
-            'filePath' => __DIR__ . '/../../../public/cache/Organizations/Image',
-            'uriPath' => '/cache/Organizations/Image'
-        ]
     ),
     // Translations
     'translator' => array(
@@ -195,7 +192,11 @@ return array(
         ],
         'factories' => [
            'Organizations\Auth\Dependency\ListListener' => 'Organizations\Factory\Auth\Dependency\ListListenerFactory',
-           'Organizations\Image\FileCache' => 'Organizations\Factory\Image\FileCacheFactory'
+           'Organizations\Repository\Event\InjectEventManagerListener' => 'Organizations\Factory\Repository\Event\InjectEventManagerListenerFactory',
+           'Organizations\ImageFileCache\Manager' => 'Organizations\Factory\ImageFileCache\ManagerFactory',
+           'Organizations\ImageFileCache\ODMListener' => 'Organizations\Factory\ImageFileCache\ODMListenerFactory',
+           'Organizations\ImageFileCache\ApplicationListener' => 'Organizations\Factory\ImageFileCache\ApplicationListenerFactory',
+           'Organizations\ImageFileCache\ImageListener' => 'Organizations\Factory\ImageFileCache\ImageListenerFactory',
         ]
     ],
     'event_manager' => [
@@ -212,6 +213,19 @@ return array(
                     /* priority */ 11
                 ]
             ]
+        ],
+        'OrganizationImage/Events' => [
+            'listeners' => [
+                'Organizations\ImageFileCache\ImageListener' => [
+                    \Organizations\Entity\OrganizationImage::EVENT_GET_URI,
+                    /* lazy */ true
+                ]
+            ]
+        ],
+    ],
+    'options' => [
+        'Organizations/ImageFileCacheOptions' => [
+            'class' => '\Organizations\Options\ImageFileCacheOptions'
         ]
     ]
 );
