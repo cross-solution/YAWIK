@@ -14,7 +14,7 @@ use Organizations\Options\ImageFileCacheOptions;
 /**
  * @coversDefaultClass \Organizations\Options\ImageFileCacheOptions
  */
-class ODMListenerTest extends \PHPUnit_Framework_TestCase
+class ImageFileCacheOptionsTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
