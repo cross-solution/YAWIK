@@ -11,6 +11,8 @@ namespace Organizations\ImageFileCache;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Options\ImageFileCacheOptions as Options;
 use Zend\Stdlib\ErrorHandler;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Image file cache manager
@@ -111,10 +113,21 @@ class Manager
     protected function getImageSubPath(OrganizationImage $image)
     {
         $id = $image->getId();
-        $firstLevel = substr($id, -1);
-        $secondLevel = substr($id, -2, 1);
         
-        return sprintf('%s/%s/%s.%s', $firstLevel, $secondLevel, $id, pathinfo($image->getName(), PATHINFO_EXTENSION));
+        if (!$id) {
+            throw new InvalidArgumentException('image must have ID');
+        }
+        
+        $extension = pathinfo($image->getName(), PATHINFO_EXTENSION);
+        
+        if (!$extension) {
+            throw new InvalidArgumentException('image must have filename containing extension');
+        }
+        
+        $firstLevel = substr($id, -1) ?: '0';
+        $secondLevel = substr($id, -2, 1) ?: '0';
+        
+        return sprintf('%s/%s/%s.%s', $firstLevel, $secondLevel, $id, $extension);
     }
 
     /**
@@ -134,7 +147,7 @@ class Manager
             $error = ErrorHandler::stop();
             
             if (!$created) {
-                throw new \RuntimeException(sprintf('unable to create directory "%s"', $dir), 0, $error);
+                throw new RuntimeException(sprintf('unable to create directory "%s"', $dir), 0, $error);
             }
             
             umask($oldUmask);
