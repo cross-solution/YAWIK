@@ -291,6 +291,8 @@
             <exclude name="**/Karriere24/**"/>
             <exclude name="**/Phoenixdesign/**"/>
             <exclude name="**/PxSkin/**"/>
+            <exclude name="**/mhq-yawik-modul/**"/>
+            <exclude name="**/Acpages/**"/>
             <exclude name="public/Applications"/>
             <exclude name="public/Auth"/>
             <exclude name="public/Core"/>
