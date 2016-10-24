@@ -90,7 +90,8 @@ class Manager
      */
     public function matchUri($uri)
     {
-        $pattern = '#^' . preg_quote($this->options->getUriPath(), '#') . '/[0-9a-z]/[0-9a-z]/([0-9a-z]+)\.[a-zA-Z]{3,4}$#';
+        // don't start pattern with '^', because the might be a base path.
+        $pattern = '#' . preg_quote($this->options->getUriPath(), '#') . '/[0-9a-z]/[0-9a-z]/([0-9a-z]+)\.[a-zA-Z]{3,4}$#';
         $matches = [];
         preg_match($pattern, $uri, $matches);
         
