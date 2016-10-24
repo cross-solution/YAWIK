@@ -38,7 +38,7 @@ class ImageFileCacheOptions extends AbstractOptions
      *
      * @var string
      */
-    protected $uriPath = '/cache/Organizations/Image';
+    protected $uriPath = '/static/Organizations/Image';
     
     /**
      * @param array|Traversable|null $options

@@ -85,11 +85,11 @@
         </if>
         <if>
             <not>
-                <available file='${project.basedir}/public/cache' type='dir' />
+                <available file='${project.basedir}/public/static' type='dir' />
             </not>
             <then>
-                <mkdir dir="${project.basedir}/public/cache"/>
-                <chmod file="${project.basedir}/public/cache" mode="0777"/>
+                <mkdir dir="${project.basedir}/public/static"/>
+                <chmod file="${project.basedir}/public/static" mode="0777"/>
             </then>
         </if>
     </target>
