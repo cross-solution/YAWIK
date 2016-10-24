@@ -54,8 +54,11 @@ class ApplicationListener
             return;
         }
 
+        // get URI stripped of a base URL
+        $request = $event->getRequest();
+        $uri = str_replace($request->getBaseUrl(), '', $request->getRequestUri());
+        
         // try get image ID from URI
-        $uri = $event->getRequest()->getRequestUri();
         $id = $this->manager->matchUri($uri);
 
         if (!$id) {
