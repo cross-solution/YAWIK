@@ -150,6 +150,31 @@ class ApplicationListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::onDispatchError
      */
+    public function testOnDispatchErrorStripBaseUrl()
+    {
+        $baseUrl = '/base';
+        $path = '/some/uri';
+        $uri = $baseUrl . $path;
+        $this->event->setError(Application::ERROR_ROUTER_NO_MATCH);
+        
+        $this->request->expects($this->once())
+            ->method('getRequestUri')
+            ->willReturn($uri);
+        
+        $this->request->expects($this->once())
+            ->method('getBaseUrl')
+            ->willReturn($baseUrl);
+        
+        $this->manager->expects($this->once())
+            ->method('matchUri')
+            ->with($this->equalTo($path));
+        
+        $this->listener->onDispatchError($this->event);
+    }
+    
+    /**
+     * @covers ::onDispatchError
+     */
     public function testOnDispatchErrorNonExistentImage()
     {
         $id = 'someId';
