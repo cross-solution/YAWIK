@@ -118,10 +118,19 @@ class Manager
             throw new InvalidArgumentException('image must have ID');
         }
         
-        $extension = pathinfo($image->getName(), PATHINFO_EXTENSION);
+        $extension = null;
+        $filename = $image->getName();
+        
+        if ($filename) {
+            // get an extension from the filename
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        } else {
+            // try get an extension from MIME if any
+            $extension = str_replace('image/', '', $image->getType());
+        }
         
         if (!$extension) {
-            throw new InvalidArgumentException('image must have filename containing extension');
+            throw new InvalidArgumentException('unable to get an image file extension');
         }
         
         $firstLevel = substr($id, -1) ?: '0';

@@ -100,14 +100,31 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      * @covers ::getImageSubPath
      * @covers ::createDirectoryRecursively
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage image must have filename containing extension
+     * @expectedExceptionMessage unable to get an image file extension
      */
-    public function testStoreWithImageWithoutExtension()
+    public function testStoreWithImageWithoutFileNameAndWithoutMimeType()
     {
         $image = new ImageEntity();
         $image->setId('someId');
         
         $this->manager->store($image);
+    }
+    
+    /**
+     * @covers ::store
+     * @covers ::getImagePath
+     * @covers ::getImageSubPath
+     * @covers ::createDirectoryRecursively
+     */
+    public function testStoreWithImageWithoutFileNameButWithMimeType()
+    {
+        $image = new ImageEntity();
+        $image->setId('someId');
+        $image->setType('image/jpeg');
+        
+        $this->manager->store($image);
+        
+        $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild(sprintf('d/I/%s.%s', 'someId', 'jpeg')));
     }
     
     /**
