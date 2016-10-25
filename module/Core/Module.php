@@ -25,13 +25,32 @@ use Core\Repository\DoctrineMongoODM\PersistenceListener;
 use Core\Listener\NotificationAjaxHandler;
 use Core\Listener\Events\NotificationEvent;
 use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
+use Zend\ModuleManager\Feature\InitProviderInterface;
+use Zend\ModuleManager\ModuleManagerInterface;
+use Zend\ModuleManager\ModuleEvent;
 
 /**
  * Bootstrap class of the Core module
  *
  */
-class Module implements ConsoleBannerProviderInterface
+class Module implements ConsoleBannerProviderInterface, InitProviderInterface
 {
+    
+    /**
+     * {@inheritDoc}
+     * @see \Zend\ModuleManager\Feature\InitProviderInterface::init()
+     */
+    public function init(ModuleManagerInterface $moduleManager)
+    {
+        $moduleManager->getEventManager()->attach(ModuleEvent::EVENT_MERGE_CONFIG, function (ModuleEvent $event) {
+            $config = $event->getConfigListener()
+                ->getMergedConfig(false);
+            
+            if (isset($config['date_default_timezone'])) {
+                date_default_timezone_set($config['date_default_timezone']);
+            }
+        });
+    }
     
     public function getConsoleBanner(Console $console)
     {
