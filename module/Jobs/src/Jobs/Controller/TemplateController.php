@@ -112,6 +112,7 @@ class TemplateController extends AbstractActionController
         $id = $this->params('id');
         $formIdentifier=$this->params()->fromQuery('form');
         $job = $this->jobRepository->find($id);
+        $this->acl($job, 'edit');
 
         /** @var \Zend\Http\Request $request */
         $request              = $this->getRequest();
