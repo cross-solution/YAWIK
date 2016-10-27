@@ -359,6 +359,12 @@ class ApplyController extends AbstractActionController
             return $this->redirect()->toRoute('lang/apply', array('applyId' => $this->params('applyId')));
         }
 
+        if ('previewmail' == $this->params()->fromQuery('do')) {
+            $this->mailer('Applications/CarbonCopy', [ 'application' => $application], true);
+            $this->notification()->success(/*@translate*/ 'Mail has been send');
+            return new JsonModel();
+        }
+
         if ('sendmail' == $this->params()->fromQuery('do')) {
             $jobEntity         = $application->getJob();
 

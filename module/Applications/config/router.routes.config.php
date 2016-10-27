@@ -116,17 +116,6 @@ return array(
                                     )
                                 )
                             ),
-                            'mail' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '/mail/:status',
-                                    'defaults' => array(
-                                        'controller' => 'Applications\Controller\Index',
-                                        'action' => 'mail',
-                                        'status' => 'test'
-                                    )
-                                )
-                            )
                         )
                     )
                 )
