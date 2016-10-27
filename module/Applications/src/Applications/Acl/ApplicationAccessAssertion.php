@@ -25,6 +25,7 @@ use Core\Entity\PermissionsInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.27.2 Fix checking of application drafts for the correct anonymous user.
  * @since 0.27 Checks, if application is a draft and only allow the associated user if so.
  * @since 0.4
  */
@@ -49,13 +50,15 @@ class ApplicationAccessAssertion implements AssertionInterface
 
         /* @var $resource ApplicationInterface|DraftableEntityInterface */
 
-        /* If application is a draft, only the associated user may view and edit. */
+        $permissions = $resource->getPermissions();
+
+        /* If application is a draft, only the associated user may view and edit.
+         * As an anonymous user is not saved with the entity, we need to check the 'change' permission.
+         */
         if ($resource->isDraft()) {
-            return $role === $resource->getUser();
+            return $role === $resource->getUser() || $permissions->isGranted($role, PermissionsInterface::PERMISSION_CHANGE);
         }
 
-        $permissions = $resource->getPermissions();
-        
         if (ApplicationInterface::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD == $privilege) {
             // only applicant is allowed to upload subsequent attachments
             return $permissions->isAssigned($role) && $permissions->isGranted($role, PermissionsInterface::PERMISSION_VIEW);
