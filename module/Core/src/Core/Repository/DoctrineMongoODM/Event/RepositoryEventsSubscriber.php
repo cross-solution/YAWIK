@@ -12,6 +12,8 @@ namespace Core\Repository\DoctrineMongoODM\Event;
 use Doctrine\Common\EventSubscriber;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\RepositoryInterface;
+use Core\Entity\AttachableEntityInterface;
+use Core\Entity\Collection\AttachedEntitiesCollection;
 
 class RepositoryEventsSubscriber implements EventSubscriber
 {
@@ -36,9 +38,13 @@ class RepositoryEventsSubscriber implements EventSubscriber
         if ($repo instanceof RepositoryInterface) {
             $documentName = $repo->getDocumentName();
             $entity = new $documentName();
-            //if ($entity instanceof ) {
-            //    $entity->setRepository($repo);
-            //}
+            
+            if ($entity instanceof AttachableEntityInterface) {
+                $repositories = $this->services->get('repositories');
+                $attachedEntitiesCollection = new AttachedEntitiesCollection($repositories);
+                $entity->setAttachedEntitiesCollection($attachedEntitiesCollection);
+            }
+            
             $repo->setEntityPrototype($entity);
             $repo->init($this->services);
         }
