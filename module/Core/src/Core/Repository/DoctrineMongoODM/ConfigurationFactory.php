@@ -62,14 +62,6 @@ class ConfigurationFactory extends DMOMConfigurationFactory
         if ($factoryName = $options->getClassMetadataFactoryName()) {
             $config->setClassMetadataFactoryName($factoryName);
         }
-        
-        // custom collection factory
-        $config->setPersistentCollectionNamespace('DoctrineMongoODMModule\Collection');
-        $config->setPersistentCollectionDir(__DIR__ . '/../../../../../../cache/DoctrineMongoODMModule/Collection');
-        $config->setPersistentCollectionFactory(new CollectionFactory(function () use ($serviceLocator)
-        {
-            return $serviceLocator->get('repositories');
-        }));
     
         return $config;
         

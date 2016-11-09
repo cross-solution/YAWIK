@@ -10,29 +10,27 @@
  */
 namespace Core\Entity;
 
-use Core\Entity\Collection\AttachedEntitiesCollection;
-
 interface AttachableEntityInterface
 {
 
     /**
-     * @param AttachedEntitiesCollection $collection
-     * @throws \LogicException If collection is already set
+     * @param AttachableEntityManager $attachableEntityManager
+     * @throws \LogicException If attachable entity manager is already set
      */
-    public function setAttachedEntitiesCollection(AttachedEntitiesCollection $collection);
+    public function setAttachableEntityManager(AttachableEntityManager $attachableEntityManager);
 
     /**
      * @param IdentifiableEntityInterface $entity
      * @param string $key
      * @return AttachableEntityInterface
      */
-    public function attachEntity(IdentifiableEntityInterface $entity, $key = null);
+    public function setAttachedEntity(IdentifiableEntityInterface $entity, $key = null);
 
     /**
      * @param string $key
-     * @return AttachableEntityInterface
+     * @return bool
      */
-    public function detachEntity($key);
+    public function removeAttachedEntity($key);
     
     /**
      * @param string $key

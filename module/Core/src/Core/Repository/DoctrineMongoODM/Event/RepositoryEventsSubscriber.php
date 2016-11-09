@@ -13,7 +13,9 @@ use Doctrine\Common\EventSubscriber;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\RepositoryInterface;
 use Core\Entity\AttachableEntityInterface;
-use Core\Entity\Collection\AttachedEntitiesCollection;
+use Core\Entity\AttachableEntityManager;
+use Doctrine\ODM\MongoDB\Events;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 
 class RepositoryEventsSubscriber implements EventSubscriber
 {
@@ -23,6 +25,11 @@ class RepositoryEventsSubscriber implements EventSubscriber
      * @var ServiceLocatorInterface
      */
     protected $services;
+    
+    /**
+     * @var AttachableEntityManager
+     */
+    protected $attachableEntityManagerPrototype;
     
     /**
      * @param ServiceLocatorInterface $serviceLocator
@@ -40,9 +47,7 @@ class RepositoryEventsSubscriber implements EventSubscriber
             $entity = new $documentName();
             
             if ($entity instanceof AttachableEntityInterface) {
-                $repositories = $this->services->get('repositories');
-                $attachedEntitiesCollection = new AttachedEntitiesCollection($repositories);
-                $entity->setAttachedEntitiesCollection($attachedEntitiesCollection);
+                $this->injectAttachableEntityManager($entity);
             }
             
             $repo->setEntityPrototype($entity);
@@ -51,11 +56,24 @@ class RepositoryEventsSubscriber implements EventSubscriber
     }
     
     /**
+     * @param LifecycleEventArgs $eventArgs
+     * @since 0.28
+     */
+    public function postLoad(LifecycleEventArgs $eventArgs)
+    {
+        $entity = $eventArgs->getDocument();
+        
+        if ($entity instanceof AttachableEntityInterface) {
+            $this->injectAttachableEntityManager($entity);
+        }
+    }
+    
+    /**
      * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
      */
     public function getSubscribedEvents()
     {
-        return array(self::postConstruct);
+        return array(self::postConstruct, Events::postLoad);
     }
     
     /**
@@ -65,5 +83,18 @@ class RepositoryEventsSubscriber implements EventSubscriber
     public static function factory(ServiceLocatorInterface $serviceLocator)
     {
         return new static($serviceLocator);
+    }
+    
+    /**
+     * @param AttachableEntityInterface $entity
+     * @since 0.28
+     */
+    protected function injectAttachableEntityManager(AttachableEntityInterface $entity)
+    {
+        if (! isset($this->attachableEntityManagerPrototype)) {
+            $this->attachableEntityManagerPrototype = new AttachableEntityManager($this->services->get('repositories'));
+        }
+        
+        $entity->setAttachableEntityManager(clone $this->attachableEntityManagerPrototype);
     }
 }

@@ -11,7 +11,6 @@
 namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Core\Entity\Collection\AttachedEntitiesCollection;
 use LogicException;
 
 /**
@@ -21,55 +20,59 @@ trait AttachableEntityTrait
 {
 
     /**
-     * @var AttachedEntitiesCollection
-     * @ODM\EmbedMany(
-     *      strategy="set",
-     *      collectionClass="\Core\Entity\Collection\AttachedEntitiesCollection",
-     *      targetDocument="\Core\Entity\AttachedEntityReference"
-     * )
+     * @var AttachableEntityManager
      */
-    protected $attachedEntitiesCollection;
+    protected $attachableEntityManager;
+
+    /**
+     * @var array
+     * @ODM\Hash
+     */
+    protected $attachableEntityReferences = [];
     
     /**
-     * @see AttachableEntityInterface::setAttachedEntitiesCollection()
+     * @see AttachableEntityInterface::setAttachableEntityManager()
      */
-    public function setAttachedEntitiesCollection(AttachedEntitiesCollection $collection)
+    public function setAttachableEntityManager(AttachableEntityManager $attachableEntityManager)
     {
-        if (isset($this->attachedEntitiesCollection)) {
-            throw new LogicException('Attached entity collection is already set');
+        if (isset($this->attachableEntityManager)) {
+            throw new LogicException('Attachable entity manager is already set');
         }
         
-        $this->attachedEntitiesCollection = $collection;
+        $this->attachableEntityManager = $attachableEntityManager->setReferences($this->attachableEntityReferences);
         
         return $this;
     }
 
     /**
-     * @see AttachableEntityInterface::attachEntity()
+     * @see AttachableEntityInterface::setAttachedEntity()
      */
-    public function attachEntity(IdentifiableEntityInterface $entity, $key = null)
+    public function setAttachedEntity(IdentifiableEntityInterface $entity, $key = null)
     {
-        $this->getAttachedEntitiesCollection()->setAttachedEntity($key, $entity);
+        $this->getAttachableEntityManager()->setAttachedEntity($entity, $key);
         
         return $this;
     }
 
     /**
-     * @see AttachableEntityInterface::detachEntity()
+     * @see AttachableEntityInterface::removeAttachedEntity()
      */
-    public function detachEntity($key)
+    public function removeAttachedEntity($key)
     {
-        $this->getAttachedEntitiesCollection()->removeAttachedEntity($key);
-        
-        return $this;
+        return $this->getAttachableEntityManager()->removeAttachedEntity($key);
     }
 
     /**
      * @see AttachableEntityInterface::getAttachedEntity()
      */
-    public function getAttachedEntity($key)
+    public function getAttachedEntity($key = null)
     {
-        return $this->getAttachedEntitiesCollection()->getAttachedEntity($key);
+        if (!isset($key)) {
+            // allow ommiting parameter for Core\Entity\Hydrator\EntityHydrator::extract()
+            return;
+        }
+        
+        return $this->getAttachableEntityManager()->getAttachedEntity($key);
     }
     
     /**
@@ -77,19 +80,19 @@ trait AttachableEntityTrait
      */
     public function hasAttachedEntity($key)
     {
-        return (bool) $this->getAttachedEntitiesCollection()->getAttachedEntity($key);
+        return (bool) $this->getAttachableEntityManager()->getAttachedEntity($key);
     }
     
     /**
      * @throws LogicException
-     * @return AttachedEntitiesCollection
+     * @return AttachableEntityManager
      */
-    protected function getAttachedEntitiesCollection()
+    protected function getAttachableEntityManager()
     {
-        if (!isset($this->attachedEntitiesCollection)) {
-            throw new LogicException('No attached entity collection is set');
+        if (!isset($this->attachableEntityManager)) {
+            throw new LogicException('No attachable entity manager is set');
         }
         
-        return $this->attachedEntitiesCollection;
+        return $this->attachableEntityManager;
     }
 }
