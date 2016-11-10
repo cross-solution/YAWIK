@@ -83,6 +83,9 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('locations.coordinates')->geoWithinCenter($coordinates[0], $coordinates[1], (float) $this->value['d']/100);
         }
 
+        if (isset($params['channel']) && !empty($params['channel']) && $params['channel']!="default" ){
+            $queryBuilder->field('portals')->equals($params['channel']);
+        }
 
         $this->user = $this->auth->getUser();
         $isRecruiter = $this->user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($this->user, User::ROLE_RECRUITER);

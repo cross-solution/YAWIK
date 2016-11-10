@@ -257,15 +257,37 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
     /**
      * route to the public list job job abs
      */
-    'jobboard' => array(
+    'jobboard' => [
             'type' => 'Literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/jobboard',
-                'defaults' => array(
+                'defaults' => [
                     'controller' => 'Jobs/Jobboard',
                     'action'     => 'index',
-                ),
-            ),
+                ],
+            ],
 
-        ),
+        ],
+    /**
+     * route to the public list job job abs
+     */
+    'export' => [
+        'type' => 'Segment',
+        'options' => [
+            'route'    => '/export[/:format][/:channel]',
+            'defaults' => [
+                'controller' => 'Jobs/ApiJobListByChannel',
+                'action'     => 'list',
+                'defaults' => [
+                    'format' => 'xml',
+                    'channel' => 'default',
+                ],
+                'constraints' => [
+                    'format' => '(xml)',
+                ],
+            ],
+        ],
+
+    ],
+
 )))));

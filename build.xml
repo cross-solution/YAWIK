@@ -288,6 +288,7 @@
             <exclude name="**/JobsDeutschland/**"/>
             <exclude name="**/Karrierelounge/**"/>
             <exclude name="**/Greenjobs/**"/>
+            <exclude name="**/Xenagos/**"/>
             <exclude name="**/Karriere24/**"/>
             <exclude name="**/Phoenixdesign/**"/>
             <exclude name="**/PxSkin/**"/>
