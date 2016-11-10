@@ -14,13 +14,14 @@
  */
 $dateFormat = \DateTime::W3C;
 
+/* @var Organizations\ImageFileCache\Manager $organizationImageCache */
 $organizationImageCache = $this->services('Organizations\ImageFileCache\Manager');
 
-/* @var \Zend\Paginator\Paginator $jobs */
-$jobs = $this->jobs;
+/* @var \Zend\Paginator\Paginator $paginator */
+$paginator = $this->jobs;
 
 /* @todo move this into a view helper */
-$linkNext = $jobs->getCurrentPageNumber()<$jobs->count()?
+$linkNext = $paginator->getCurrentPageNumber()<$paginator->count()?
     $this->serverUrl($this->basePath($this->url('lang/export',
                                                 [
                                                     'format'=>'xml',
@@ -28,11 +29,11 @@ $linkNext = $jobs->getCurrentPageNumber()<$jobs->count()?
                                                 ],
                                                 [
                                                     'query'=> [
-                                                        'page' => ($jobs->getCurrentPageNumber()+1)
+                                                        'page' => ($paginator->getCurrentPageNumber()+1)
                                                     ]
                                                 ]))):'';
 
-$linkPrevious = $jobs->getCurrentPageNumber()>1?
+$linkPrevious = $paginator->getCurrentPageNumber()>1?
     $this->serverUrl($this->basePath($this->url('lang/export',
                                                 [
                                                     'format'=>'xml',
@@ -40,51 +41,58 @@ $linkPrevious = $jobs->getCurrentPageNumber()>1?
                                                 ],
                                                 [
                                                     'query'=> [
-                                                        'page' => ($jobs->getCurrentPageNumber()-1)
+                                                        'page' => ($paginator->getCurrentPageNumber()-1)
                                                     ]
                                                 ]))):'';
 
-?>
-<jobOpenings>
+$xmlStr='<jobOpenings>
     <!--
     Documentation http://yawik.readthedocs.io/en/latest/modules/jobs/index.html#xml-feeds
     -->
     <head>
-        <totalPagesCount><?=$jobs->count()?></totalPagesCount>
-        <currentPage><?=$jobs->getCurrentPageNumber()?></currentPage>
-        <link type="next"><?=$linkNext?></link>
-        <link type="previous"><?=$linkPrevious?></link>
-        <totalJobsCount><?=$jobs->getTotalItemCount() ?></totalJobsCount>
-        <channel><?=$this->channel?></channel>
+        <totalPagesCount>' . $jobs->count() .'</totalPagesCount>
+        <currentPage>'.$jobs->getCurrentPageNumber() .'</currentPage>
+        <link type="next">'.$linkNext.'</link>
+        <link type="previous">'.$linkPrevious.'</link>
+        <totalJobsCount></totalJobsCount>
+        <channel>'.$this->channel.'</channel>
     </head>
-    <jobs>
-    <?php foreach ($jobs as $job): /* @var \Jobs\Entity\Job $job */ ?>
-        <job>
-            <id><?=$job->getId()?></id>
-            <title><?= $job->getTitle() ?></title>
-            <datePublishStart><?=date_format($job->getDatePublishStart(),$dateFormat)?></datePublishStart>
-            <datePublishEnd><?=date_format($job->getDatePublishEnd(),$dateFormat)?></datePublishEnd>
-            <dateLastModified><?=date_format($job->getDateModified(),$dateFormat)?></dateLastModified>
-            <displayLocation><?= $job->getLocation() ?></displayLocation>
-            <?php $locations = $job->getLocations(); ?>
-            <workLocations>
-                <?php foreach ($locations as $location): /* @var \Jobs\Entity\Location $location */ ?>
-                <location>
-                    <country><?=$location->getCountry()?></country>
-                    <city><?=$location->getCity()?></city>
-                    <region><?=$location->getRegion()?></region>
-                    <postalCode><?=$location->getPostalCode()?></postalCode>
-                </location>
-                <?php endforeach ?>
-            </workLocations>
-            <url><?=$job->getLink()?></url>
-            <email><?=$job->getContactEmail()?></email>
-            <?php $organization=$job->getOrganization() /* @var \Organizations\Entity\Organization*/ ?>
-            <organization>
-                <name><?=is_object($organization)?$organization->getOrganizationName()->getName():""?></name>
-                <logo><?=is_object($organization) && is_object($organization->getImage())?$this->serverUrl($this->basePath($organizationImageCache->getUri($organization->getImage()))):''?></logo>
-            </organization>
-        </job>
-    <?php endforeach ?>
-    </jobs>
-</jobOpenings>
+</jobOpenings>';
+
+$xml = simplexml_load_string($xmlStr);
+
+$result = $xml->addChild('jobs');
+
+foreach ($this->jobs as $jobObject) {
+    /* @var \Jobs\Entity\Job $jobObject */
+    $job = $result->addChild('job');
+    $job->addAttribute('id', $jobObject->getId());
+    $job->addChild('title', $jobObject->getTitle());
+    $job->addChild('location', $jobObject->getLocation());
+    $job->addChild('datePublishStart', date_format($jobObject->getDatePublishStart(),$dateFormat));
+    $job->addChild('datePublishEnd', date_format($jobObject->getDatePublishEnd(),$dateFormat));
+    $job->addChild('dateModified', date_format($jobObject->getDateModified(),$dateFormat));
+
+    $url = $job->addChild('url', $jobObject->getUriApply());
+    $url->addAttribute('type','application');
+
+    $email = $job->addChild('email', $jobObject->getContactEmail());
+    $email->addAttribute('type','application');
+
+    $workLocations=$job->addChild('workLocations');
+    foreach ($jobObject->getLocations() as $locationObject) {
+        /* @var \Jobs\Entity\Location $locationObject */
+        $location = $workLocations->addChild('location');
+        $location->addChild('country', $locationObject->getCountry());
+        $location->addChild('city', $locationObject->getCity());
+        $location->addChild('postalcode', $locationObject->getPostalCode());
+        $location->addChild('region', $locationObject->getRegion());
+    }
+    $organization = $job->addChild('organization');
+    $organization->addAttribute('id',$jobObject->getOrganization()->getId());
+    $organization->addChild('name',$jobObject->getOrganization()->getOrganizationName()->getName());
+    $organization->addChild('logo',(is_object($jobObject->getOrganization()->getImage())?$this->serverUrl($this->basePath($organizationImageCache->getUri($jobObject->getOrganization()->getImage()))):''));
+
+
+}
+echo $xml->saveXML();
