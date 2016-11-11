@@ -16,10 +16,12 @@ use Core\Entity\AttachableEntityInterface;
 use Core\Entity\AttachableEntityManager;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Core\Repository\DoctrineMongoODM\Event\EventArgs;
 
 class RepositoryEventsSubscriber implements EventSubscriber
 {
     const postConstruct = 'postRepositoryConstruct';
+    const postCreate = 'postRepositoryCreate';
     
     /**
      * @var ServiceLocatorInterface
@@ -39,19 +41,31 @@ class RepositoryEventsSubscriber implements EventSubscriber
         $this->services = $serviceLocator;
     }
     
-    public function postRepositoryConstruct($eventArgs)
+    /**
+     * @param EventArgs $eventArgs
+     */
+    public function postRepositoryConstruct(EventArgs $eventArgs)
     {
-        $repo = $eventArgs->getRepository();
+        $repo = $eventArgs->get('repository');
+        
         if ($repo instanceof RepositoryInterface) {
             $documentName = $repo->getDocumentName();
             $entity = new $documentName();
-            
-            if ($entity instanceof AttachableEntityInterface) {
-                $this->injectAttachableEntityManager($entity);
-            }
-            
             $repo->setEntityPrototype($entity);
             $repo->init($this->services);
+        }
+    }
+    
+    /**
+     * @param EventArgs $eventArgs
+     * @since 0.28
+     */
+    public function postRepositoryCreate(EventArgs $eventArgs)
+    {
+        $entity = $eventArgs->get('entity');
+        
+        if ($entity instanceof AttachableEntityInterface) {
+            $this->injectAttachableEntityManager($entity);
         }
     }
     
@@ -68,12 +82,17 @@ class RepositoryEventsSubscriber implements EventSubscriber
         }
     }
     
+    
     /**
      * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
      */
     public function getSubscribedEvents()
     {
-        return array(self::postConstruct, Events::postLoad);
+        return [
+            self::postConstruct,
+            self::postCreate,
+            Events::postLoad
+        ];
     }
     
     /**
