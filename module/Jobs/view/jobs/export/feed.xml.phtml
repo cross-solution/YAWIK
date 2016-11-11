@@ -50,11 +50,11 @@ $xmlStr='<jobOpenings>
     Documentation http://yawik.readthedocs.io/en/latest/modules/jobs/index.html#xml-feeds
     -->
     <head>
-        <totalPagesCount>' . $jobs->count() .'</totalPagesCount>
-        <currentPage>'.$jobs->getCurrentPageNumber() .'</currentPage>
+        <totalPagesCount>' . $paginator->count() .'</totalPagesCount>
+        <currentPage>'.$paginator->getCurrentPageNumber() .'</currentPage>
         <link type="next">'.$linkNext.'</link>
         <link type="previous">'.$linkPrevious.'</link>
-        <totalJobsCount></totalJobsCount>
+        <totalJobsCount>' . $paginator->getTotalItemCount() . '</totalJobsCount>
         <channel>'.$this->channel.'</channel>
     </head>
 </jobOpenings>';
@@ -69,12 +69,14 @@ foreach ($this->jobs as $jobObject) {
     $job->addAttribute('id', $jobObject->getId());
     $job->addChild('title', $jobObject->getTitle());
     $job->addChild('location', $jobObject->getLocation());
-    $job->addChild('datePublishStart', date_format($jobObject->getDatePublishStart(),$dateFormat));
-    $job->addChild('datePublishEnd', date_format($jobObject->getDatePublishEnd(),$dateFormat));
-    $job->addChild('dateModified', date_format($jobObject->getDateModified(),$dateFormat));
+    $job->addChild('datePublishStart', $jobObject->getDatePublishStart()?date_format($jobObject->getDatePublishStart(),$dateFormat):"");
+    $job->addChild('datePublishEnd', $jobObject->getDatePublishEnd()?date_format($jobObject->getDatePublishEnd(),$dateFormat):"");
+    $job->addChild('dateModified', $jobObject->getDateModified()?date_format($jobObject->getDateModified(),$dateFormat):"");
 
-    $url = $job->addChild('url', $jobObject->getUriApply());
+    $url = $job->addChild('url', htmlspecialchars($this->applyUrl($jobObject,['linkOnly'=>true, 'absolute' => true])));
     $url->addAttribute('type','application');
+    $url = $job->addChild('url', htmlspecialchars($this->jobUrl($jobObject, ['linkOnly'=>true, 'absolute' => true])));
+    $url->addAttribute('type','job');
 
     $email = $job->addChild('email', $jobObject->getContactEmail());
     $email->addAttribute('type','application');
@@ -89,10 +91,10 @@ foreach ($this->jobs as $jobObject) {
         $location->addChild('region', $locationObject->getRegion());
     }
     $organization = $job->addChild('organization');
-    $organization->addAttribute('id',$jobObject->getOrganization()->getId());
-    $organization->addChild('name',$jobObject->getOrganization()->getOrganizationName()->getName());
-    $organization->addChild('logo',(is_object($jobObject->getOrganization()->getImage())?$this->serverUrl($this->basePath($organizationImageCache->getUri($jobObject->getOrganization()->getImage()))):''));
-
-
+    if (is_object($jobObject->getOrganization())) {
+        $organization->addAttribute('id', $jobObject->getOrganization()->getId() );
+        $organization->addChild('name', $jobObject->getOrganization()->getOrganizationName()->getName());
+        $organization->addChild('logo', (is_object($jobObject->getOrganization()->getImage()) ? $this->serverUrl($this->basePath($organizationImageCache->getUri($jobObject->getOrganization()->getImage()))) : ''));
+    }
 }
 echo $xml->saveXML();

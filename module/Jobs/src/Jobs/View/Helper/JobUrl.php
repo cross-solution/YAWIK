@@ -14,27 +14,13 @@ use Zend\View\Helper\AbstractHelper;
 use Jobs\Entity\JobInterface as Job;
 
 /**
- * Renders the link the an application form according to passed $options
- *   linkOnly: Returns the relative link only
- *   absolute: Make the link absolute
- *
- * Usage example with defaults:
- * <code>
- *      <?=$this->applyUrl($job, ['linkOnly'=>true, 'absolute' => true])?>
- * </code>
- */
-/**
- * View helper to assemble an apply link according to the ATS configuration in a job entity.
- *
+ * View helper to assemble the link to a job opening
  * @method \Core\View\Helper\Params paramsHelper()
  *
- * @author Mathias Weitz <weitz@cross-solution.de>
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @todo   write test
  */
-class ApplyUrl extends AbstractHelper
+class JobUrl extends AbstractHelper
 {
     /**
      * Default options
@@ -43,23 +29,19 @@ class ApplyUrl extends AbstractHelper
      */
     protected $options = [
         'absolute' => false,
-        'linkOnly' => false
+        'linkOnly' => false,
+        'target' => false,
+        'rel' => 'nofollow',
+        'showPendingJobs' => false
     ];
 
     protected $urlHelper;
-    protected $translateHelper;
     protected $paramsHelper;
     protected $serverUrlHelper;
 
     public function setUrlHelper($helper)
     {
         $this->urlHelper = $helper;
-        return $this;
-    }
-
-    public function setTranslateHelper($helper)
-    {
-        $this->translateHelper = $helper;
         return $this;
     }
 
@@ -77,43 +59,53 @@ class ApplyUrl extends AbstractHelper
 
     public function __invoke(Job $jobEntity, $options = [])
     {
+
         $options= array_merge($this->options, $options);
-
-        $ats = $jobEntity->getAtsMode();
-
-        if ($ats->isDisabled()) {
-            return '';
-        }
-
         $paramsHelper = $this->paramsHelper;
-        $serverUrlHelper = $this->serverUrlHelper;
         $urlHelper = $this->urlHelper;
+        $serverUrlHelper = $this->serverUrlHelper;
+        $isExternalLink = false;
 
-        if ($ats->isIntern() || $ats->isEmail()) {
+        if (!empty($jobEntity->getLink())) {
+            $url = $jobEntity->getLink();
+            $isExternalLink = true;
+        }elseif($options['showPendingJobs']) {
+            $url = $urlHelper(
+                'lang/jobs/approval',
+                [],
+                [
+                    'query' => [
+                        'id' => $jobEntity->getId()
+                    ]
+                ], true);
 
-            $query = [ 'subscriberUri' => $serverUrlHelper(array()) . '/subscriber/' . 1 ];
-            $route = 'lang/apply';
+        }else{
+
+            $query = [
+                'subscriberUri' => $serverUrlHelper([]) . '/subscriber/' . 1,
+                'id' => $jobEntity->getId()
+            ];
+            $route = 'lang/jobs/view';
             $params = [
-                'applyId' => $jobEntity->getApplyId(),
                 'lang' => $paramsHelper('lang'),
             ];
             if ($paramsHelper('channel')) {
                 $params['channel'] = $paramsHelper('channel');
             }
-
             $url = $urlHelper($route, $params, array('query' => $query));
-        } else {
-            $url = $ats->getUri();
         }
 
-        if($options['linkOnly']){
-            $result=$url;
-            if($options['absolute']) {
+        if ($options['linkOnly']){
+            $result = $url;
+            if ($options['absolute'] && !$isExternalLink){
                 $result = $serverUrlHelper($url);
             }
         }else{
-            $translate = $this->translateHelper;
-            $result = sprintf('<a href="%s" rel="nofollow">%s</a>', $url, $translate('Apply'));
+            $result = sprintf('<a href="%s" rel="%s" %s>%s</a>',
+                              $url,
+                              $options['rel'],
+                              $options['target']?"target=" . $options['target']:"",
+                              strip_tags($jobEntity->getTitle()));
         }
 
         return $result;
@@ -123,10 +115,10 @@ class ApplyUrl extends AbstractHelper
      * @param $options
      */
     public function setOptions($options){
-       foreach($options as $key=>$val) {
+        foreach($options as $key=>$val) {
             if (array_key_exists($this->options,$key)) {
                 $this->options[$key]=$val;
             }
-       }
+        }
     }
 }

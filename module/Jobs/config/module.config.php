@@ -322,6 +322,7 @@ return array(
         ),
         'factories' => array(
             'applyUrl' => 'Jobs\Factory\View\Helper\ApplyUrlFactory',
+            'jobUrl' => 'Jobs\Factory\View\Helper\JobUrlFactory',
         ),
 
     ),

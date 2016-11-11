@@ -111,12 +111,15 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'may_terminate' => true,
             ),
             'view'   => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/view',
+                    'route' => '/view[/:channel]',
                     'defaults' => array(
                         'controller' => 'Jobs/Template',
-                        'action' => 'view'
+                        'action' => 'view',
+                        'defaults' => [
+                            'channel' => 'default'
+                        ]
                     ),
                 ),
                 'may_terminate' => true,
