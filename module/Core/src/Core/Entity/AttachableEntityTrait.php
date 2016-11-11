@@ -45,11 +45,11 @@ trait AttachableEntityTrait
     }
 
     /**
-     * @see AttachableEntityInterface::setAttachedEntity()
+     * @see AttachableEntityInterface::addAttachedEntity()
      */
-    public function setAttachedEntity(IdentifiableEntityInterface $entity, $key = null)
+    public function addAttachedEntity(IdentifiableEntityInterface $entity, $key = null)
     {
-        $this->getAttachableEntityManager()->setAttachedEntity($entity, $key);
+        $this->getAttachableEntityManager()->addAttachedEntity($entity, $key);
         
         return $this;
     }

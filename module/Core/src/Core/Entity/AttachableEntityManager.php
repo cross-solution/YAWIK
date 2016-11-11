@@ -45,11 +45,15 @@ class AttachableEntityManager
     }
 
     /**
+     * Adds an $entity using an optional $key.
+     * If $key is not provided then $entity's FQCN will be used as a key
+     * Any existing $entity with the same $key will be replaced.
+     *
      * @param IdentifiableEntityInterface $entity
      * @param string $key
      * @return AttachableEntityManager
      */
-    public function setAttachedEntity(IdentifiableEntityInterface $entity, $key = null)
+    public function addAttachedEntity(IdentifiableEntityInterface $entity, $key = null)
     {
         $className = get_class($entity);
         

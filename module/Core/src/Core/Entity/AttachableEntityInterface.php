@@ -20,11 +20,15 @@ interface AttachableEntityInterface
     public function setAttachableEntityManager(AttachableEntityManager $attachableEntityManager);
 
     /**
+     * Adds an $entity using an optional $key.
+     * If $key is not provided then $entity's FQCN will be used as a key
+     * Any existing $entity with the same $key will be replaced.
+     *
      * @param IdentifiableEntityInterface $entity
      * @param string $key
      * @return AttachableEntityInterface
      */
-    public function setAttachedEntity(IdentifiableEntityInterface $entity, $key = null);
+    public function addAttachedEntity(IdentifiableEntityInterface $entity, $key = null);
 
     /**
      * @param string $key
