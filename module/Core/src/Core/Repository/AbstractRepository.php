@@ -69,6 +69,12 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
 
         $entity = clone $this->entityPrototype;
         
+        $eventArgs = new DoctrineMongoODM\Event\EventArgs([
+            'entity' => $entity
+        ]);
+        $this->dm->getEventManager()
+            ->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postCreate, $eventArgs);
+        
         if (null !== $data) {
             foreach ($data as $property => $value) {
                 $setter = "set$property";
