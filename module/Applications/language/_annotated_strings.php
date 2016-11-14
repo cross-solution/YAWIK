@@ -224,7 +224,10 @@ translate('Invalid apply id');
 //: ./src/Applications/Controller/ApplyController.php:358
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:374
+//: ./src/Applications/Controller/ApplyController.php:364
+translate('Mail has been send');
+
+//: ./src/Applications/Controller/ApplyController.php:380
 translate('Application has been send.');
 
 //: ./src/Applications/Controller/MultimanageController.php:138

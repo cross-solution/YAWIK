@@ -155,7 +155,7 @@ translate('An unexpected error has occurred, please contact your system administ
 //: ./src/Auth/Controller/IndexController.php:443
 translate('You are now logged out');
 
-//: ./src/Auth/Controller/UsersController.php:50
+//: ./src/Auth/Controller/UsersController.php:52
 translate('Type name, email address, role, or login name');
 
 //: ./src/Auth/Controller/RegisterController.php:58
