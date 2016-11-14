@@ -13,7 +13,6 @@ namespace Organizations\Entity;
 use Auth\Entity\UserInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\PermissionsInterface;
-use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Organizations\Repository\Organization as OrganizationRepository;
 use Zend\Hydrator\HydratorInterface;
@@ -226,7 +225,7 @@ class OrganizationReference implements
         return $this->proxy('getId');
     }
 
-    public function setDateCreated(DateTime $date)
+    public function setDateCreated($date)
     {
         return $this->proxy('setDateCreated', $date);
     }

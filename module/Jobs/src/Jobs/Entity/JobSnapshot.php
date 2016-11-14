@@ -17,7 +17,6 @@ use Organizations\Entity\OrganizationInterface;
 use Core\Exception\ImmutablePropertyException;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\Organization;
-use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\SnapshotInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\EntityInterface;
