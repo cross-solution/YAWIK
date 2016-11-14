@@ -64,6 +64,14 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     protected $fax;
 
     /**
+     * The website of the organization.
+     *
+     * @ODM\Field
+     * @var string
+     */
+    private $website;
+
+    /**
      * Sets the Buildingnumber of an organization address
      *
      * @param string $houseNumber
@@ -196,6 +204,20 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     {
         return $this->fax;
     }
+
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+
 
 
 }

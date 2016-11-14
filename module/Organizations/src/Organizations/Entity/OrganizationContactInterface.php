@@ -107,4 +107,20 @@ interface OrganizationContactInterface extends EntityInterface
      * @return string
      */
     public function getFax();
+
+    /**
+     * Set the website uri
+     *
+     * @param string $uri
+     *
+     * @return self
+     */
+    public function setWebsite($uri);
+
+    /**
+     * Get the website uri
+     *
+     * @return string
+     */
+    public function getWebsite();
 }
