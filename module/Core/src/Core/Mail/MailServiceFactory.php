@@ -12,6 +12,7 @@ namespace Core\Mail;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Mail\Transport\Smtp;
 
 class MailServiceFactory implements FactoryInterface
 {
@@ -27,6 +28,8 @@ class MailServiceFactory implements FactoryInterface
         /* @var \Auth\Options\ModuleOptions $authOptions */
         $authOptions = $serviceLocator->get('Auth\Options');
 
+        /* @var \Core\Options\MailServiceOptions $mailServiceOptions */
+        $mailServiceOptions = $serviceLocator->get('Core/MailServiceOptions');
 
         $configArray = [
                 'from' => [
@@ -35,7 +38,11 @@ class MailServiceFactory implements FactoryInterface
                 ],
         ];
 
-        $configArray += $mails;
+        if ($mailServiceOptions->getConnectionClass() == 'smtp') {
+            $configArray['transport'] = new Smtp($mailServiceOptions);
+        }
+
+        $configArray = array_merge($configArray, $mails);
 
         $config = new MailServiceConfig($configArray);
 
