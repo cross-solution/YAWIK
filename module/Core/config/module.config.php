@@ -18,6 +18,10 @@ $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 return array(
 
     'doctrine' => $doctrineConfig,
+
+    'options' => [
+        'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
+        ],
     
     'Core' => array(
         'settings' => array(

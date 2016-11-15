@@ -56,7 +56,6 @@ $password = null;
 return [
     'options' => [
         'Core/MailServiceOptions' => [
-            'class' => '\Core\Options\MailServiceOptions',
             'options' => [
                 'name' => $name,
                 'connectionClass' => $transport,
