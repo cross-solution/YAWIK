@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60e8d6d6d898073fd711a40a0c164a15",
-    "content-hash": "dc5275891199f7ebc7db539b633e5141",
+    "hash": "27512393a7a83560551445dec6911469",
+    "content-hash": "f35b1fdae2d562e4107b4beda7ed884a",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -6968,7 +6968,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5",
+        "php": ">=5.6",
         "ext-mongo": "*",
         "ext-intl": "*"
     },
