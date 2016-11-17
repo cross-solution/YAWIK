@@ -11,74 +11,16 @@
 namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use DateTime;
 
 /**
  * Abstract Identifiable Modification Date Aware Entity
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @ODM\MappedSuperclass @ODM\HasLifecycleCallbacks
  */
 abstract class AbstractIdentifiableModificationDateAwareEntity extends AbstractIdentifiableEntity implements ModificationDateAwareEntityInterface
 {
-    /**
-     * Creation date.
-     *
-     * @var DateTime
-     * @ODM\Field(type="tz_date")
-     */
-    protected $dateCreated;
     
-    /**
-     * Modification date.
-     * @var DateTime
-     * @ODM\Field(type="tz_date")
-     */
-    protected $dateModified;
-    
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function getDateCreated()
-    {
-        return $this->dateCreated;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @ODM\PrePersist
-     */
-    public function setDateCreated(DateTime $dateCreated = null)
-    {
-        if (!isset($dateCreated)) {
-            $dateCreated = new DateTime();
-        }
-        $this->dateCreated = $dateCreated;
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDateModified()
-    {
-        return $this->dateModified;
-    }
-
-    /**
-     * {@inheritDoc}
-     *  @ODM\PreUpdate
-     */
-    public function setDateModified($dateModified = null)
-    {
-        if (!isset($dateModified)) {
-            $dateModified = new DateTime();
-        }
-        if (is_string($dateModified)) {
-            $dateModified = new DateTime($dateModified);
-        }
-        $this->dateModified = $dateModified;
-        return $this;
-    }
+    use ModificationDateAwareEntityTrait;
 }
