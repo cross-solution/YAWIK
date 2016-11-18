@@ -21,7 +21,6 @@
             <directory>../module/Orders/test/OrdersTest</directory>
             <directory>../module/Organizations/test/OrganizationsTest</directory>
             <directory>../module/Cv/test/CvTest</directory>
-            <directory>../module/Solr/test/SolrTest</directory>
         </testsuite>
     </testsuites>
 </phpunit>
