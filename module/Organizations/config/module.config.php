@@ -20,6 +20,7 @@ return array(
             'odm_default' => array(
                 'subscribers' => array(
                     '\Organizations\Repository\Event\InjectOrganizationReferenceListener',
+                    'Organizations\ImageFileCache\ODMListener'
                 ),
             ),
         ),
@@ -189,7 +190,10 @@ return array(
            'Organizations\Auth\Dependency\EmployeeListListener' => 'Organizations\Auth\Dependency\EmployeeListListener'
         ],
         'factories' => [
-           'Organizations\Auth\Dependency\ListListener' => 'Organizations\Factory\Auth\Dependency\ListListenerFactory'
+           'Organizations\Auth\Dependency\ListListener' => 'Organizations\Factory\Auth\Dependency\ListListenerFactory',
+           'Organizations\ImageFileCache\Manager' => 'Organizations\Factory\ImageFileCache\ManagerFactory',
+           'Organizations\ImageFileCache\ODMListener' => 'Organizations\Factory\ImageFileCache\ODMListenerFactory',
+           'Organizations\ImageFileCache\ApplicationListener' => 'Organizations\Factory\ImageFileCache\ApplicationListenerFactory'
         ]
     ],
     'event_manager' => [
@@ -206,6 +210,11 @@ return array(
                     /* priority */ 11
                 ]
             ]
+        ]
+    ],
+    'options' => [
+        'Organizations/ImageFileCacheOptions' => [
+            'class' => '\Organizations\Options\ImageFileCacheOptions'
         ]
     ]
 );

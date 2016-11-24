@@ -12,17 +12,21 @@ return array(
         'routes' => array(
             'lang' => array(
                 'child_routes' => array(
-                    'apply' => array(
+                    'apply' => [
                         'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/apply/:applyId',
-                            'defaults' => array(
+                        'options' => [
+                            'route' => '/apply[/:channel]/:applyId',
+                            'defaults' => [
                                 'controller' => 'Applications\Controller\Apply',
-                                'action' => 'index'
-                            )
-                        ),
+                                'action' => 'index',
+                                'defaults' => [
+                                    'channel' => 'default'
+                                ]
+
+                            ]
+                        ],
                         'may_terminate' => true
-                    ),
+                    ],
                     'apply-one-click' => array(
                         'type' => 'Segment',
                         'options' => array(

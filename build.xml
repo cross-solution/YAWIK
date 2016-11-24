@@ -83,6 +83,15 @@
                 </exec>
             </then>
         </if>
+        <if>
+            <not>
+                <available file='${project.basedir}/public/static' type='dir' />
+            </not>
+            <then>
+                <mkdir dir="${project.basedir}/public/static"/>
+                <chmod file="${project.basedir}/public/static" mode="0777"/>
+            </then>
+        </if>
     </target>
 
 
@@ -110,7 +119,12 @@
         <copy todir="${builddir}/public/js/jquery-file-upload">
             <fileset refid="blueimp"/>
         </copy>
-
+        
+        <mkdir dir="${builddir}/public/js/bootstrap-datepicker/js"/>
+        <copy todir="${builddir}/public/js/bootstrap-datepicker/js">
+            <fileset refid="datepicker"/>
+        </copy>
+        
         <mkdir dir="${builddir}/public/js/tinymce"/>
         <copy todir="${builddir}/public/js/tinymce">
             <fileset refid="tinymce"/>
@@ -272,6 +286,7 @@
             <include name="README"/>
             <exclude name="public/js/*"/>
             <exclude name="**/YawikDemo*/**"/>
+            <exclude name="**/Solr/**"/>
             <exclude name="**/YawikXingVendorApi/**"/>
             <exclude name="**/YawikCompanyRegistration/**"/>
             <exclude name="**/CamMediaintown/**"/>
@@ -279,9 +294,12 @@
             <exclude name="**/JobsDeutschland/**"/>
             <exclude name="**/Karrierelounge/**"/>
             <exclude name="**/Greenjobs/**"/>
+            <exclude name="**/Xenagos/**"/>
             <exclude name="**/Karriere24/**"/>
             <exclude name="**/Phoenixdesign/**"/>
             <exclude name="**/PxSkin/**"/>
+            <exclude name="**/mhq-yawik-modul/**"/>
+            <exclude name="**/Acpages/**"/>
             <exclude name="public/Applications"/>
             <exclude name="public/Auth"/>
             <exclude name="public/Core"/>
@@ -315,6 +333,11 @@
             <include name="jquery.iframe-transport.js"/>
             <include name="jquery.fileupload.js"/>
             <include name="vendor/jquery.ui.widget.js"/>
+        </fileset>
+        
+        <fileset id="datepicker" dir="${vendordir}/eternicode/bootstrap-datepicker/dist/js">
+            <include name="bootstrap-datepicker.js"/>
+            <include name="bootstrap-datepicker.min.js"/>
         </fileset>
 
         <fileset id="tinymce" dir="${vendordir}/tinymce/tinymce">

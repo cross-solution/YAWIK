@@ -163,8 +163,7 @@ foreach ($this->applications as $application):
      <?php endif;?>
     </td>
     <td class="yk-job">
-        <?php $href = $application->job->link ? $application->job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $application->job->id)), true); ?>
-        <?php echo $this->link($href, strip_tags($application->job->title))?>
+        <?= $this->jobUrl($application->getJob()); ?>
     </td>
     <td>
      <?php echo $this->translate($application->status->name) ?>

@@ -56,6 +56,7 @@ class TemplateController extends AbstractActionController
     public function viewAction()
     {
         $id = $this->params()->fromQuery('id');
+        $channel = $this->params()->fromRoute('channel','default');
         $response = $this->getResponse();
         /* @var \Jobs\Entity\Job $job */
         $job = $this->jobRepository->find($id);

@@ -18,6 +18,8 @@ use Core\Form\SummaryFormInterface;
 
 /**
  * List registered users
+ *
+ * @method \Core\Controller\Plugin\CreatePaginator pagination()
  */
 class UsersController extends AbstractActionController
 {
@@ -36,7 +38,7 @@ class UsersController extends AbstractActionController
     }
     
     /**
-     * Login with username and password
+     * List users
      *
      * @return \Zend\Http\Response|ViewModel
      */

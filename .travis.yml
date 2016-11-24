@@ -1,13 +1,12 @@
 language: php
 php:
   - "5.6"
-  - "5.5"
 
 services:
   - mongodb
 
 env:
-  - PECLMONGO=mongo-1.6.10 PECLSOLR=solr-2.4.0
+  - PECLMONGO=mongo-1.6.10
 
 before_install:
   - sudo apt-get update > /dev/null
@@ -25,11 +24,6 @@ before_script:
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
   - sh -c "tar xfz $PECLMONGO.tgz"
   - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
-
-  # install SOLR extension
-  - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
-  - sh -c "tar xfz $PECLSOLR.tgz"
-  - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
 
   - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:52+0200\n"
+"POT-Creation-Date: 2016-11-14 13:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:58 view/jobs/index/index.ajax.phtml:102
+#: view/jobs/admin/index.ajax.phtml:58 view/jobs/index/index.ajax.phtml:98
 #: view/jobs/index/approval.ajax.phtml:57 view/partials/history.phtml:11
 msgid "Status history"
 msgstr ""
@@ -270,8 +270,8 @@ msgstr ""
 msgid "Remove all filters"
 msgstr ""
 
-#: view/jobs/jobboard/index.ajax.phtml:73 view/jobs/index/index.ajax.phtml:122
-#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:75
+#: view/jobs/jobboard/index.ajax.phtml:73 view/jobs/index/view.phtml:18
+#: src/Jobs/View/Helper/ApplyUrl.php:116
 msgid "Apply"
 msgstr ""
 
@@ -311,19 +311,19 @@ msgstr ""
 msgid "Applications"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:62 view/jobs/index/dashboard.phtml:35
+#: view/jobs/index/index.ajax.phtml:58 view/jobs/index/dashboard.phtml:35
 msgid "total"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:68 view/jobs/index/dashboard.phtml:41
+#: view/jobs/index/index.ajax.phtml:64 view/jobs/index/dashboard.phtml:41
 msgid "unread"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:81
+#: view/jobs/index/index.ajax.phtml:77
 msgid "draft"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:91
+#: view/jobs/index/index.ajax.phtml:87
 #, php-format
 msgid "Change responsible user for job \\\"%s\\\""
 msgstr ""
@@ -520,7 +520,7 @@ msgid "Description"
 msgstr ""
 
 #: src/Jobs/Controller/ManageController.php:190
-#: src/Jobs/Controller/TemplateController.php:66
+#: src/Jobs/Controller/TemplateController.php:67
 #, php-format
 msgid "Job with id \"%s\" not found"
 msgstr ""

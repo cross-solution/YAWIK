@@ -29,14 +29,15 @@
     ],
     "homepage": "http://yawik.org/",
     "require": {
-        "php": ">=5.5",
+        "php": ">=5.6",
         "ext-mongo": "*",
         "ext-intl": "*",
-        "zendframework/zendframework": "^2.5",
-        "zendframework/zendservice-recaptcha": "2.*",
-	"zendframework/zend-navigation": "2.8.*",
+        "zendframework/zendframework": "*",
+        "zendframework/zendservice-recaptcha": "*",
+	"zendframework/zend-navigation": "*",
+	"zendframework/zend-servicemanager": "2.7.6",
         "doctrine/doctrine-mongo-odm-module": "*",
-        "hybridauth/hybridauth": "*",
+        "hybridauth/hybridauth": "2.6.*",
         "mpdf/mpdf": "5.7.*",
         "twbs/bootstrap": "*",
         "components/jquery": "<3",
@@ -48,14 +49,14 @@
         "mikemix/zf2htmlpurifier": "*",
         "cross-solution/bootstrap3-dialog": "dev-master",
         "components/flag-icon-css": "^0.7.1",
-        "jmikola/geojson": "~1.0",
-        "mikey179/vfsStream": "^1.6",
-        "satooshi/php-coveralls": "~1.0",
-        "eternicode/bootstrap-datepicker": "^1.6",
-        "ircmaxell/random-lib": "^1.1"
+        "jmikola/geojson": "*",
+        "mikey179/vfsStream": "*",
+        "satooshi/php-coveralls": "*",
+        "eternicode/bootstrap-datepicker": "*",
+	"ircmaxell/random-lib": "1.1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.7.*",
+        "phpunit/phpunit": "5.6.*",
         "cbleek/pecl-solr-hint": "dev-master"
     },
     "scripts": {

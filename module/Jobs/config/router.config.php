@@ -111,12 +111,15 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'may_terminate' => true,
             ),
             'view'   => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/view',
+                    'route' => '/view[/:channel]',
                     'defaults' => array(
                         'controller' => 'Jobs/Template',
-                        'action' => 'view'
+                        'action' => 'view',
+                        'defaults' => [
+                            'channel' => 'default'
+                        ]
                     ),
                 ),
                 'may_terminate' => true,
@@ -257,15 +260,37 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
     /**
      * route to the public list job job abs
      */
-    'jobboard' => array(
+    'jobboard' => [
             'type' => 'Literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/jobboard',
-                'defaults' => array(
+                'defaults' => [
                     'controller' => 'Jobs/Jobboard',
                     'action'     => 'index',
-                ),
-            ),
+                ],
+            ],
 
-        ),
+        ],
+    /**
+     * route to the public list job job abs
+     */
+    'export' => [
+        'type' => 'Segment',
+        'options' => [
+            'route'    => '/export[/:format][/:channel]',
+            'defaults' => [
+                'controller' => 'Jobs/ApiJobListByChannel',
+                'action'     => 'list',
+                'defaults' => [
+                    'format' => 'xml',
+                    'channel' => 'default',
+                ],
+                'constraints' => [
+                    'format' => '(xml)',
+                ],
+            ],
+        ],
+
+    ],
+
 )))));

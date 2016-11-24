@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-10 16:49+0200\n"
-"PO-Revision-Date: 2016-10-10 14:49+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2016-11-05 18:14+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -263,15 +263,15 @@ msgstr "%sScusa%s, non ci sono posti di lavoro corrispondenti alle caratteristic
 
 #: view/jobs/jobboard/index.ajax.phtml:38
 msgid "Active filters:"
-msgstr ""
+msgstr "Filtri attivi:"
 
 #: view/jobs/jobboard/index.ajax.phtml:41
 msgid "Remove filter"
-msgstr ""
+msgstr "Rimuovi filtri"
 
 #: view/jobs/jobboard/index.ajax.phtml:44
 msgid "Remove all filters"
-msgstr ""
+msgstr "Rimuovi tutti filtri"
 
 #: view/jobs/jobboard/index.ajax.phtml:73 view/jobs/index/index.ajax.phtml:122
 #: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:75
@@ -466,11 +466,11 @@ msgstr "Prima che si è in grado di creare offerte di lavoro, è necessario %scr
 
 #: view/error/expired.phtml:17
 msgid "The job, you where looking for has expired or was inactivated"
-msgstr ""
+msgstr "La offerta di lavoro quale stavi ricercando è scaduta o è stata inattivata"
 
 #: view/error/expired.phtml:21
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #: view/error/expired.phtml:24
 msgid "Company"
@@ -526,7 +526,7 @@ msgstr "Descrizione"
 #: src/Jobs/Controller/TemplateController.php:66
 #, php-format
 msgid "Job with id \"%s\" not found"
-msgstr ""
+msgstr "Offerta di lavoro con ID \"%s\" non trovata"
 
 #: src/Jobs/Controller/ManageController.php:263
 msgid "No Title"
@@ -542,7 +542,7 @@ msgstr "Accettare i termini"
 
 #: src/Jobs/Auth/Dependency/ListListener.php:65
 msgid "untitled"
-msgstr ""
+msgstr "Senza titolo"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:336
 msgid "Show all jobs"
@@ -754,11 +754,11 @@ msgstr "scaduto"
 
 #: language/_annotated_strings.php:237
 msgid "Status successfully changed."
-msgstr ""
+msgstr "Stato cambiato con successo."
 
 #: language/_annotated_strings.php:240
 msgid "Change status failed."
-msgstr ""
+msgstr "Cambia stato fallito."
 
 #: language/_annotated_strings.php:243
 #, php-format

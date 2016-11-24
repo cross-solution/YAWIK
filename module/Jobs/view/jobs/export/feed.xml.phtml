@@ -1,0 +1,100 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @author    Carsten Bleek <bleek@cross-solution.de>
+ * @copyright 2013-2016 Cross Solution (http://cross-solution.de)
+ * @version   GIT: $Id$
+ * @license   https://yawik.org/LICENSE.txt MIT
+ */
+
+/**
+ * @see http://php.net/manual/de/class.datetime.php#datetime.constants.types
+ */
+$dateFormat = \DateTime::W3C;
+
+/* @var Organizations\ImageFileCache\Manager $organizationImageCache */
+$organizationImageCache = $this->services('Organizations\ImageFileCache\Manager');
+
+/* @var \Zend\Paginator\Paginator $paginator */
+$paginator = $this->jobs;
+
+/* @todo move this into a view helper */
+$linkNext = $paginator->getCurrentPageNumber()<$paginator->count()?
+    $this->serverUrl($this->basePath($this->url('lang/export',
+                                                [
+                                                    'format'=>'xml',
+                                                    'channel'=> $this->channel
+                                                ],
+                                                [
+                                                    'query'=> [
+                                                        'page' => ($paginator->getCurrentPageNumber()+1)
+                                                    ]
+                                                ]))):'';
+
+$linkPrevious = $paginator->getCurrentPageNumber()>1?
+    $this->serverUrl($this->basePath($this->url('lang/export',
+                                                [
+                                                    'format'=>'xml',
+                                                    'channel'=> $this->channel
+                                                ],
+                                                [
+                                                    'query'=> [
+                                                        'page' => ($paginator->getCurrentPageNumber()-1)
+                                                    ]
+                                                ]))):'';
+
+$xmlStr='<jobOpenings>
+    <!--
+    Documentation http://yawik.readthedocs.io/en/latest/modules/jobs/index.html#xml-feeds
+    -->
+    <head>
+        <totalPagesCount>' . $paginator->count() .'</totalPagesCount>
+        <currentPage>'.$paginator->getCurrentPageNumber() .'</currentPage>
+        <link type="next">'.$linkNext.'</link>
+        <link type="previous">'.$linkPrevious.'</link>
+        <totalJobsCount>' . $paginator->getTotalItemCount() . '</totalJobsCount>
+        <channel>'.$this->channel.'</channel>
+    </head>
+</jobOpenings>';
+
+$xml = simplexml_load_string($xmlStr);
+
+$result = $xml->addChild('jobs');
+
+foreach ($this->jobs as $jobObject) {
+    /* @var \Jobs\Entity\Job $jobObject */
+    $job = $result->addChild('job');
+    $job->addAttribute('id', $jobObject->getId());
+    $job->addChild('title', $jobObject->getTitle());
+    $job->addChild('location', $jobObject->getLocation());
+    $job->addChild('datePublishStart', $jobObject->getDatePublishStart()?date_format($jobObject->getDatePublishStart(),$dateFormat):"");
+    $job->addChild('datePublishEnd', $jobObject->getDatePublishEnd()?date_format($jobObject->getDatePublishEnd(),$dateFormat):"");
+    $job->addChild('dateModified', $jobObject->getDateModified()?date_format($jobObject->getDateModified(),$dateFormat):"");
+
+    $url = $job->addChild('url', htmlspecialchars($this->applyUrl($jobObject,['linkOnly'=>true, 'absolute' => true])));
+    $url->addAttribute('type','application');
+    $url = $job->addChild('url', htmlspecialchars($this->jobUrl($jobObject, ['linkOnly'=>true, 'absolute' => true])));
+    $url->addAttribute('type','job');
+
+    $email = $job->addChild('email', $jobObject->getContactEmail());
+    $email->addAttribute('type','application');
+
+    $workLocations=$job->addChild('workLocations');
+    foreach ($jobObject->getLocations() as $locationObject) {
+        /* @var \Jobs\Entity\Location $locationObject */
+        $location = $workLocations->addChild('location');
+        $location->addChild('country', $locationObject->getCountry());
+        $location->addChild('city', $locationObject->getCity());
+        $location->addChild('postalcode', $locationObject->getPostalCode());
+        $location->addChild('region', $locationObject->getRegion());
+    }
+    $organization = $job->addChild('organization');
+    if (is_object($jobObject->getOrganization())) {
+        $organization->addAttribute('id', $jobObject->getOrganization()->getId() );
+        $organization->addChild('name', $jobObject->getOrganization()->getOrganizationName()->getName());
+        $organization->addChild('logo', (is_object($jobObject->getOrganization()->getImage()) ? $this->serverUrl($this->basePath($organizationImageCache->getUri($jobObject->getOrganization()->getImage()))) : ''));
+    }
+}
+echo $xml->saveXML();

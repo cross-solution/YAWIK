@@ -84,6 +84,7 @@ return array(
                 'allow' => array(
                     'Jobboard',
                     'Jobs/Jobboard',
+                    'Jobs/ApiJobListByChannel',
                     'Jobs/Template' => [ 'view', 'edittemplate' ],
                     'Jobs/Manage' => array(
                         'template',
@@ -237,15 +238,15 @@ return array(
         ]
     ],
 
-    'controllers' => array(
-        'invokables' => array(
+    'controllers' => [
+        'invokables' => [
             'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController',
             'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
             'Jobs/Admin'      => 'Jobs\Controller\AdminController',
-
-        ),
-        'factories' => array(
+            'Jobs/ApiJobListByChannel' => 'Jobs\Controller\ApiJobListByChannelController',
+        ],
+        'factories' => [
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
             'Jobs/Index' => 'Jobs\Factory\Controller\IndexControllerFactory',
             'Jobs/Approval' => 'Jobs\Factory\Controller\ApprovalControllerFactory',
@@ -253,8 +254,8 @@ return array(
             'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
             'Jobs/ApiJobListByOrganization' => 'Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory',
             'Jobs/Manage' => 'Jobs\Factory\Controller\ManageControllerFactory',
-        )
-    ),
+        ]
+    ],
 
     'controller_plugins' => [
         'factories' => [
@@ -321,6 +322,7 @@ return array(
         ),
         'factories' => array(
             'applyUrl' => 'Jobs\Factory\View\Helper\ApplyUrlFactory',
+            'jobUrl' => 'Jobs\Factory\View\Helper\JobUrlFactory',
         ),
 
     ),

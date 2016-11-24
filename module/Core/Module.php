@@ -16,6 +16,7 @@ namespace Core;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
+use Core\Listener\XmlRenderListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
@@ -90,6 +91,9 @@ class Module implements ConsoleBannerProviderInterface
         
             $ajaxRenderListener = new AjaxRenderListener();
             $ajaxRenderListener->attach($eventManager);
+
+            $xmlRenderListener = new XmlRenderListener();
+            $xmlRenderListener->attach($eventManager);
         
             $enforceJsonResponseListener = new EnforceJsonResponseListener();
             $enforceJsonResponseListener->attach($eventManager);

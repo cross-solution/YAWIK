@@ -10,8 +10,6 @@
 /** ConfigurationFactory.php */
 namespace Core\Repository\DoctrineMongoODM;
 
-use Zend\ServiceManager\FactoryInterface;
-
 use DoctrineMongoODMModule\Service\ConfigurationFactory as DMOMConfigurationFactory;
 
 class ConfigurationFactory extends DMOMConfigurationFactory

@@ -394,6 +394,8 @@ class ApplyController extends AbstractActionController
             ->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
             ->inherit($application->getJob()->getPermissions());
 
+        $repositories->store($application);
+        
         $events   = $services->get('Applications/Events');
         $events->trigger(ApplicationEvent::EVENT_APPLICATION_POST_CREATE, $this, [ 'application' => $application ]);
 

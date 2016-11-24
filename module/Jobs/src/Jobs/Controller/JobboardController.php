@@ -116,11 +116,13 @@ class JobboardController extends AbstractActionController
         $options = $this->searchForm->getOptions();
         $options['showButtons'] = false;
         $this->searchForm->setOptions($options);
+        $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
         
         $return = array(
             'by' => $params['by'],
             'jobs' => $paginator,
-            'filterForm' => $this->searchForm
+            'filterForm' => $this->searchForm,
+            'organizationImageCache' => $organizationImageCache
         );
         $model = new ViewModel($return);
 
