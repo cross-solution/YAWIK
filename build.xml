@@ -119,7 +119,12 @@
         <copy todir="${builddir}/public/js/jquery-file-upload">
             <fileset refid="blueimp"/>
         </copy>
-
+        
+        <mkdir dir="${builddir}/public/js/bootstrap-datepicker/js"/>
+        <copy todir="${builddir}/public/js/bootstrap-datepicker/js">
+            <fileset refid="datepicker"/>
+        </copy>
+        
         <mkdir dir="${builddir}/public/js/tinymce"/>
         <copy todir="${builddir}/public/js/tinymce">
             <fileset refid="tinymce"/>
@@ -281,6 +286,7 @@
             <include name="README"/>
             <exclude name="public/js/*"/>
             <exclude name="**/YawikDemo*/**"/>
+            <exclude name="**/Solr/**"/>
             <exclude name="**/YawikXingVendorApi/**"/>
             <exclude name="**/YawikCompanyRegistration/**"/>
             <exclude name="**/CamMediaintown/**"/>
@@ -327,6 +333,11 @@
             <include name="jquery.iframe-transport.js"/>
             <include name="jquery.fileupload.js"/>
             <include name="vendor/jquery.ui.widget.js"/>
+        </fileset>
+        
+        <fileset id="datepicker" dir="${vendordir}/eternicode/bootstrap-datepicker/dist/js">
+            <include name="bootstrap-datepicker.js"/>
+            <include name="bootstrap-datepicker.min.js"/>
         </fileset>
 
         <fileset id="tinymce" dir="${vendordir}/tinymce/tinymce">
