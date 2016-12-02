@@ -15,6 +15,7 @@ namespace Jobs\Filter;
  *
  * Class ViewModelTemplateFilterJob
  * @package Jobs\Filter
+ * @method fromRoute
  */
 class ViewModelTemplateFilterJob extends ViewModelTemplateFilterAbstract
 {
@@ -41,6 +42,17 @@ class ViewModelTemplateFilterJob extends ViewModelTemplateFilterAbstract
         $this->container['headTitle'] = strip_tags($job->getTemplateValues()->getTitle());
         $this->container['uriApply'] = $this->container['applyData']['uri'];
         $this->container['contactEmail'] = strip_tags($job->getContactEmail());
+
+        $this->container['jobId'] = $job->getId();
+        $this->container['uriJob'] = $this->urlPlugin->fromRoute(
+            'lang/jobs/view',
+            [],
+            [
+                'query' => [ 'id' => $job->getId() ],
+                'force_canonical' => true
+            ]
+        );
+
         return $this;
     }
 }

@@ -61,6 +61,17 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
         $this->container['qualifications'] = $viewHelperForm->render($formQualifications);
         $this->container['title'] = $viewHelperForm->render($descriptionFormTitle);
         $this->container['headTitle'] = $job->templateValues->title;
+
+        $this->container['jobId'] = $job->getId();
+        $this->container['uriJob'] = $this->urlPlugin->fromRoute(
+            'lang/jobs/view',
+            [],
+            [
+                'query' => [ 'id' => $job->getId() ],
+                'force_canonical' => true
+            ]
+        );
+
         return $this;
     }
 }
