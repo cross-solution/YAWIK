@@ -63,6 +63,9 @@ class FormContainer extends AbstractHelper
             return $this->getView()->partial($container->getViewPartial(), array('element' => $container));
         }
 
+        if ($label = $container->getLabel()) {
+            $content .= '<div class="container-headline"><h3>' . $this->getView()->translate($label) . '</h3></div>';
+        }
         foreach ($container as $element) {
             $content .= $this->renderElement($element, $layout, $parameter);
         }

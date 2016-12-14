@@ -1,0 +1,98 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+  
+/** */
+namespace Core\Form\Tree;
+
+use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\Tree\TreeInterface;
+use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ViewPartialProviderTrait;
+use Zend\Code\Reflection\ClassReflection;
+use Zend\Form\Fieldset;
+use Zend\InputFilter\InputFilterProviderInterface;
+
+/**
+ * ${CARET}
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo write test 
+ */
+class AddItemFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface
+{
+    use ViewPartialProviderTrait;
+
+    private $defaultPartial = 'core/form/tree-add-item';
+
+    public function init()
+    {
+        //$this->setAllowedObjectBindingClass(\ArrayObject::class);
+        $this->setObject(new \ArrayObject);
+        $this->add([
+                'name' => 'id',
+                'type' => 'Hidden',
+            ]);
+
+        $this->add([
+                'name' => 'current',
+                'type' => 'Hidden',
+            ]);
+        $this->add([
+                'name' => 'do',
+                'type' => 'Hidden',
+            ]);
+        $this->add([
+                'name' => 'name',
+                'type' => 'Text',
+                'options' => [
+                    'label' => /*@translate*/ 'Name',
+                ],
+
+                'attributes' => ['required' => 'required'],
+            ]);
+
+        $this->add([
+                'name' => 'value',
+                'type' => 'Text',
+                'options' => [
+                    'label' => /*@translate*/ 'Value',
+                ],
+            ]);
+
+        $this->add([
+                'name' => 'priority',
+                'type' => 'Text',
+            ]);
+
+    }
+
+    /**
+     * Should return an array specification compatible with
+     * {@link Zend\InputFilter\Factory::createInputFilter()}.
+     *
+     * @return array
+     */
+    public function getInputFilterSpecification()
+    {
+        return [
+            'name' => [
+                'required' => true,
+                'filters' => [
+                    [ 'name' => 'StringTrim' ],
+                ],
+            ],
+            'value' => [
+                'required' => false,
+                'filters' => [
+                    [ 'name' => 'StringTrim' ],
+                ],
+            ],
+        ];
+    }
+}
