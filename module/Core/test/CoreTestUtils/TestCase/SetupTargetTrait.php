@@ -252,7 +252,11 @@ trait SetupTargetTrait
                 $methodMock = $mock->expects($mockSpec['expects'])->method($method);
 
                 if ($mockSpec['with']) {
-                    $methodMock->with($mockSpec['with']);
+                    if (!is_array($mockSpec['with'])) {
+                        $mockSpec['with'] = [$mockSpec['with']];
+                    }
+
+                    call_user_func_array([$methodMock, 'with'], $mockSpec['with']);
                 }
 
                 if ($mockSpec['return']) {

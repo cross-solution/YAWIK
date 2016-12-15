@@ -15,17 +15,18 @@ use Core\Entity\IdentifiableEntityTrait;
 use \Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * ${CARET}
+ * base class for trees.
  *
  * @ODM\MappedSuperclass
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 abstract class Tree implements TreeInterface
 {
     use EntityTrait, IdentifiableEntityTrait;
 
     /**
+     * Name of this item.
      *
      * @ODM\Field(type="string")
      * @var string
@@ -33,6 +34,9 @@ abstract class Tree implements TreeInterface
     protected $name;
 
     /**
+     * Value of this item.
+     *
+     * Used in select form elements.
      *
      * @ODM\Field(type="string")
      * @var string
@@ -40,12 +44,20 @@ abstract class Tree implements TreeInterface
     protected $value;
 
     /**
+     * Order priority.
      *
      * @ODM\Field(type="int")
      * @var int
      */
     protected $priority = 0;
 
+    /**
+     * Creates a new Tree item.
+     *
+     * @param null|string $name
+     * @param null|string $value
+     * @param int  $priority
+     */
     public function __construct($name = null, $value = null, $priority = 0)
     {
         if (null !== $name) {
@@ -56,9 +68,12 @@ abstract class Tree implements TreeInterface
     }
 
     /**
+     * Set the name.
+     *
      * @param string $name
      *
      * @return self
+     * @throws \InvalidArgumentException if $name is empty.
      */
     public function setName($name)
     {
@@ -72,6 +87,8 @@ abstract class Tree implements TreeInterface
     }
 
     /**
+     * get the name.
+     *
      * @return string
      */
     public function getName()
@@ -80,9 +97,14 @@ abstract class Tree implements TreeInterface
     }
 
     /**
+     * Set the value.
+     *
+     * Used in form selects.
+     *
      * @param string $value
      *
      * @return self
+     * @throws \InvalidArgumentException if $value AND {@link name} are empty.
      */
     public function setValue($value)
     {
@@ -99,6 +121,8 @@ abstract class Tree implements TreeInterface
     }
 
     /**
+     * Get the value.
+     *
      * @return string
      */
     public function getValue()
@@ -107,6 +131,8 @@ abstract class Tree implements TreeInterface
     }
 
     /**
+     * Set the priority.
+     *
      * @param int $priority
      *
      * @return self
@@ -119,6 +145,8 @@ abstract class Tree implements TreeInterface
     }
 
     /**
+     * Get the priority.
+     *
      * @return int
      */
     public function getPriority()

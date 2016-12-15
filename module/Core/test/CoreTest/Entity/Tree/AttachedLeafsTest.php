@@ -26,7 +26,9 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * 
  * @covers \Core\Entity\Tree\AttachedLeafs
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ * @group Core
+ * @group Core.Entity
+ * @group Core.Entity.Tree
  */
 class AttachedLeafsTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,9 +55,9 @@ class AttachedLeafsTest extends \PHPUnit_Framework_TestCase
     public function testToStringReturnsListOfLeafNames()
     {
         $col = new ArrayCollection();
-        $leaf1 = new Tree();
+        $leaf1 = new ConcreteChildReference();
         $leaf1->setName('leaf-1');
-        $leaf2 = new Tree();
+        $leaf2 = new ConcreteChildReference();
         $leaf2->setName('leaf-2');
 
         $col->add($leaf1);

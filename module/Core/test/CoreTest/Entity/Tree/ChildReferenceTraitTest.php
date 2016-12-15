@@ -21,7 +21,9 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * 
  * @covers \Core\Entity\Tree\ChildReferenceTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ * @group Core
+ * @group Core.Entity
+ * @group Core.Entity.Tree
  */
 class ChildReferenceTraitTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,13 +34,16 @@ class ChildReferenceTraitTest extends \PHPUnit_Framework_TestCase
     public function propertiesProvider()
     {
         $col = $this->getMockBuilder(ArrayCollection::class)
-            ->setMethods(['toArray', 'add', 'remove', 'clear'])
+            ->setMethods(['toArray', 'add', 'removeElement', 'clear', 'count'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $col->expects($this->once())->method('toArray')->willReturn([]);
 
-        $leaf = new Tree();
+        $leaf = new ConcreteChildReference();
+
+        $noChildren = new ArrayCollection();
+        $children   = new ArrayCollection([new ConcreteChildReference()]);
 
 
 
@@ -56,7 +61,7 @@ class ChildReferenceTraitTest extends \PHPUnit_Framework_TestCase
             [ 'child', [
                 'pre' => function() use ($col, $leaf) {
                         $this->target->setChildren($col);
-                        $col->expects($this->once())->method('remove')->with($leaf)->willReturnSelf();
+                        $col->expects($this->once())->method('removeElement')->with($leaf)->willReturnSelf();
                     },
                 'ignore_getter' => true,
                 'setter_method' => 'remove*',
@@ -70,6 +75,22 @@ class ChildReferenceTraitTest extends \PHPUnit_Framework_TestCase
                 'ignore_getter' => true,
                 'setter_method' => 'clear*',
                 'value' => null
+            ]],
+            [ 'children', [
+                'pre' => function() use ($children) {
+                        $this->target->setChildren($children);
+                    },
+                'ignore_setter' => true,
+                'getter_method' => 'has*',
+                'value' => true,
+            ]],
+            [ 'children', [
+                'pre' => function() use ($noChildren) {
+                        $this->target->setChildren($noChildren);
+                    },
+                'ignore_setter' => true,
+                'getter_method' => 'has*',
+                'value' => false,
             ]]
         ];
     }

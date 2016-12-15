@@ -19,15 +19,20 @@ use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
- * ${CARET}
+ * Fieldset for adding a tree item.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class AddItemFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface
 {
     use ViewPartialProviderTrait;
 
+    /**
+     * Default view partial.
+     *
+     * @var string
+     */
     private $defaultPartial = 'core/form/tree-add-item';
 
     public function init()
@@ -72,12 +77,6 @@ class AddItemFieldset extends Fieldset implements ViewPartialProviderInterface, 
 
     }
 
-    /**
-     * Should return an array specification compatible with
-     * {@link Zend\InputFilter\Factory::createInputFilter()}.
-     *
-     * @return array
-     */
     public function getInputFilterSpecification()
     {
         return [

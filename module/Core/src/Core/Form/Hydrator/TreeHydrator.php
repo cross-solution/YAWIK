@@ -10,25 +10,42 @@
 /** */
 namespace Core\Form\Hydrator;
 
+use Core\Entity\Tree\ChildReferenceInterface;
 use Core\Entity\Tree\TreeInterface;
 use Doctrine\Common\Collections\Collection;
 use Zend\Hydrator\HydratorInterface;
 
 /**
- * ${CARET}
+ * This hydrator handles trees for usage in forms.
+ *
+ * Flatten the tree structure when extracting and
+ * rebuilds the tree when hydrating.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class TreeHydrator implements HydratorInterface
 {
 
+    /**
+     * Hydratable data.
+     *
+     * @internal
+     *      Used as interim storage.
+     *
+     * @var array
+     */
     protected $hydrateData = [];
 
     /**
-     * Extract values from an object
+     * Extract tree items.
      *
-     * @param  object $object
+     * Flattens the tree structure to an one dimensional array and returns it in an array
+     * under the key'items'.
+     *
+     * The returned array can be directly bound to \Core\Form\Tree\ManagementFieldset.
+     *
+     * @param  object $object The root of the tree.
      *
      * @return array
      */
@@ -41,6 +58,13 @@ class TreeHydrator implements HydratorInterface
 
     }
 
+    /**
+     * Recursively flattens a tree structure.
+     *
+     * @param TreeInterface $tree
+     * @param array $data
+     * @param string $curId
+     */
     private function flattenTree($tree, &$data, $curId = '1')
     {
 
@@ -62,9 +86,12 @@ class TreeHydrator implements HydratorInterface
     }
 
     /**
-     * Hydrate $object with the provided $data.
+     * Hydrate a tree structure from form values.
      *
-     * @param  array  $data
+     * Takes the post values for a \Core\Tree\ManegementFieldset and rebuilds the
+     * tree structure.
+     *
+     * @param  array  $data Form values
      * @param  Collection $object
      *
      * @return object
@@ -76,6 +103,14 @@ class TreeHydrator implements HydratorInterface
         return $this->hydrateTree($object);
     }
 
+    /**
+     * Prepares the form values for hydrating.
+     *
+     * @internal
+     *      Populates the {@link hydrateData} array
+     *
+     * @param array $data
+     */
     private function prepareHydrateData(array $data)
     {
         /*
@@ -92,9 +127,21 @@ class TreeHydrator implements HydratorInterface
         $this->hydrateData = $tree;
     }
 
-    private function hydrateTree($object, \ArrayObject $currentData = null)
+    /**
+     * Recursively hydrate the tree structure.
+     *
+     * Items not present in the {@link hydrateData} are removed,
+     * new items are created accordingly.
+     *
+     * @param TreeInterface $object
+     * @param \ArrayObject $currentData
+     *
+     * @return TreeInterface
+     */
+    private function hydrateTree(TreeInterface $object, \ArrayObject $currentData = null)
     {
 
+        /* @var ChildReferenceInterface|TreeInterface $object */
         if (null === $currentData) {
             $currentData = $this->hydrateData['__root__'];
         }
@@ -122,9 +169,17 @@ class TreeHydrator implements HydratorInterface
         return $object;
     }
 
+    /**
+     * Finds an item in a tree structure or create a new item.
+     *
+     * @param TreeInterface $tree
+     * @param $id
+     *
+     * @return TreeInterface
+     */
     private function findOrCreateChild($tree, $id)
     {
-        /* @var TreeInterface $tree
+        /* @var ChildReferenceInterface $tree
          * @var TreeInterface $node */
         foreach ($tree->getChildren() as $node) {
             if ($node->getId() == $id) { return $node; }

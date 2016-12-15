@@ -22,7 +22,9 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
  * 
  * @covers \Core\Entity\Tree\ChildReference
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ * @group Core
+ * @group Core.Entity
+ * @group Core.Entity.Tree
  */
 class ChildReferenceTest extends \PHPUnit_Framework_TestCase
 {

@@ -13,7 +13,7 @@ namespace CoreTest\Entity\Tree;
 use Core\Entity\Tree\ChildReference;
 
 /**
- * ${CARET}
+ * Concrete class of ChildReference.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 

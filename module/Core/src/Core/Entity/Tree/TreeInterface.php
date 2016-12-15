@@ -15,15 +15,16 @@ use Core\Entity\IdentifiableEntityInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * ${CARET}
+ * Tree interface
  *
- * @ODM\MappedSuperclass
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 interface TreeInterface extends EntityInterface, IdentifiableEntityInterface
 {
     /**
+     * Set the name.
+     *
      * @param string $name
      *
      * @return self
@@ -31,11 +32,17 @@ interface TreeInterface extends EntityInterface, IdentifiableEntityInterface
     public function setName($name);
 
     /**
+     * Get the name.
+     *
      * @return string
      */
     public function getName();
 
     /**
+     * Set the value.
+     *
+     * Used in select form elements.
+     *
      * @param string $value
      *
      * @return self
@@ -43,11 +50,15 @@ interface TreeInterface extends EntityInterface, IdentifiableEntityInterface
     public function setValue($value);
 
     /**
+     * Get the value.
+     *
      * @return string
      */
     public function getValue();
 
     /**
+     * Set the order priority.
+     *
      * @param int $priority
      *
      * @return self
@@ -55,6 +66,8 @@ interface TreeInterface extends EntityInterface, IdentifiableEntityInterface
     public function setPriority($priority);
 
     /**
+     * Get the priority
+     *
      * @return int
      */
     public function getPriority();

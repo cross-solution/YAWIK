@@ -12,33 +12,41 @@ namespace Core\Form\Tree;
 
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\SummaryForm;
-
+use Zend\Form\Fieldset;
 
 /**
- * ${CARET}
+ * Form for tree management
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class ManagementForm extends SummaryForm implements HeadscriptProviderInterface
 {
 
+    /**
+     * Base fieldset.
+     *
+     * @var string|Fieldset
+     */
     protected $baseFieldset = 'Core/Tree/ManagementFieldset';
 
+    /**
+     * Headscripts.
+     *
+     * @var array
+     */
     protected $scripts = [ 'Core/js/forms.tree-management.js' ];
 
+    /**
+     * Attributes.
+     *
+     * @var array
+     */
     protected $attributes = [
         'method' => 'POST', /* keep default value from \Zend\Form\Form */
         'class' => 'yk-tree-management-form',
     ];
 
-    /**
-     * Sets the array of script names.
-     *
-     * @param string[] $scripts
-     *
-     * @return self
-     */
     public function setHeadscripts(array $scripts)
     {
         $this->scripts = $scripts;
@@ -46,11 +54,6 @@ class ManagementForm extends SummaryForm implements HeadscriptProviderInterface
         return $this;
     }
 
-    /**
-     * Gets the array of script names.
-     *
-     * @return string[]
-     */
     public function getHeadscripts()
     {
         return $this->scripts;

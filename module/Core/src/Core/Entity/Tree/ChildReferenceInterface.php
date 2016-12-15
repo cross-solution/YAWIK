@@ -15,15 +15,17 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping as ODM;
 
 /**
- * ${CARET}
+ * Interface for a tree with child reference strategy.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 interface ChildReferenceInterface
 {
 
     /**
+     * Set the children.
+     *
      * @param \Doctrine\Common\Collections\Collection $children
      *
      * @return self
@@ -31,14 +33,35 @@ interface ChildReferenceInterface
     public function setChildren(Collection $children);
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * Get the children.
+     *
+     * @return \Doctrine\Common\Collections\Collection|\Traversable|array
      */
     public function getChildren();
 
-    public function addChild(Tree $child);
+    /**
+     * Add a child.
+     *
+     * @param TreeInterface $child
+     *
+     * @return self
+     */
+    public function addChild(TreeInterface $child);
 
-    public function removeChild(Tree $child);
+    /**
+     * Remove a child.
+     *
+     * @param TreeInterface $child
+     *
+     * @return self
+     */
+    public function removeChild(TreeInterface $child);
 
+    /**
+     * Clear all children.
+     *
+     * @return self
+     */
     public function clearChildren();
 
 }

@@ -22,37 +22,22 @@ use Zend\Hydrator\HydratorAwareInterface;
 use Zend\Hydrator\HydratorInterface;
 
 /**
- * ${CARET}
+ * Fieldset for managing tree items.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class ManagementFieldset extends Fieldset implements ViewPartialProviderInterface
 {
 
     use ViewPartialProviderTrait;
 
-    private $defaultPartial = 'core/form/tree-manage';
-
     /**
-     * The view helper name
+     * Default view partial name.
      *
      * @var string
      */
-    private $viewHelper = "formTreeManagement";
-
-    public function setViewHelper($helper)
-    {
-        $this->viewHelper = $helper;
-
-        return $this;
-    }
-
-    public function getViewHelper()
-    {
-        return $this->viewHelper;
-    }
-
+    private $defaultPartial = 'core/form/tree-manage';
 
     public function getHydrator()
     {
@@ -65,12 +50,6 @@ class ManagementFieldset extends Fieldset implements ViewPartialProviderInterfac
 
     public function init()
     {
-//        $this->add([
-//                'name' => 'data',
-//                'type' => 'Core/Tree/AddItemFieldset',
-//            ]);
-//
-//
         $this->add([
                 'type' => 'Collection',
                 'name' => 'items',
