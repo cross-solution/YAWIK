@@ -35,7 +35,7 @@ class ManagementForm extends SummaryForm implements HeadscriptProviderInterface
      *
      * @var array
      */
-    protected $scripts = [ 'Core/js/forms.tree-management.js' ];
+    protected $scripts = [ '/js/html.sortable.min.js', 'Core/js/forms.tree-management.js' ];
 
     /**
      * Attributes.

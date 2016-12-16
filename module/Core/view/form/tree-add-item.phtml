@@ -9,15 +9,15 @@
 
 $name = $this->element->get('name');
 $name->setAttributes(['class' => 'form-control input-sm yktm-name', 'placeholder' => $this->translate($name->getLabel())]);
-$value = $this->element->get('value');
-$value->setAttributes(['class' => 'form-control input-sm yktm-value', 'placeholder' => $this->translate($value->getLabel())]);
+//$value = $this->element->get('value');
+//$value->setAttributes(['class' => 'form-control input-sm yktm-value', 'placeholder' => $this->translate($value->getLabel())]);
 $isRoot = '1' == $this->element->get('current')->getValue();
 $current =$this->element->get('current')->getValue()?:"__current__";
-
+$id = false === strpos($name->getName(), '__index__') ? 'yktm' . uniqid() . '-' . $current : 'yktm__rand__-' . $current;
 
 ?>
 <?php if (!$isRoot):?>
-<div id="yktm-<?=$current?>" class="panel panel-default">
+<div class="panel panel-default yktm-item-<?=$current?>">
     <div class="panel-body">
         <?php endif ?>
 <div  class="row">
@@ -28,10 +28,13 @@ echo $this->formHidden($this->element->get('current')->setAttributes(['class' =>
 echo $this->formHidden($this->element->get('do')->setAttribute('class', 'yktm-do')->setValue('set'));
 echo $this->formHidden($this->element->get('id')->setAttributes(['class' => 'yktm-id']));
 echo $this->formHidden($this->element->get('priority')->setAttributes(['class' => 'yktm-priority']));
+echo $this->formHidden($this->element->get('value')->setAttributes(['class' => 'yktm-value']));
 ?>
 
-    <div class="col-xs-5"><?=$this->formElement($name) ?></div>
-    <div class="col-xs-5"><?=$this->formElement($value) ?></div>
+
+    <div class="col-xs-1 yktm-sort-handle">||</div>
+    <div class="col-xs-9"><?=$this->formElement($name) ?></div>
+
     <div class="col-xs-2"><div class="btn-group btn-group-sm">
             <button data-yktm-current="<?=$current?>" type="button" class="btn btn-default yktm-add">
                 <span class="yk-icon fa-plus"></span>

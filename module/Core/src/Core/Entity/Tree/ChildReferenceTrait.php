@@ -54,14 +54,14 @@ trait ChildReferenceTrait
         return (bool) $this->getInternalChildren()->count();
     }
 
-    public function addChild(Tree $child)
+    public function addChild(TreeInterface $child)
     {
         $this->getInternalChildren()->add($child);
 
         return $this;
     }
 
-    public function removeChild(Tree $child)
+    public function removeChild(TreeInterface $child)
     {
         $this->getInternalChildren()->removeElement($child);
 
