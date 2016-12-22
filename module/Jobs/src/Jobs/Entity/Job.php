@@ -277,6 +277,15 @@ class Job extends BaseEntity implements JobInterface,
     protected $isDraft = false;
 
     /**
+     * Classifications
+     *
+     * @ODM\EmbedOne(targetDocument="\Jobs\Entity\Classifications")
+     * @var Classifications
+     * @since 0.29
+     */
+    protected $classifications;
+
+    /**
      * @return string
      */
     public function getResourceId()
@@ -982,4 +991,30 @@ class Job extends BaseEntity implements JobInterface,
         );
         return $generator;
     }
+
+    /**
+     * @param \Jobs\Entity\Classifications $classifications
+     *
+     * @return self
+     */
+    public function setClassifications($classifications)
+    {
+        $this->classifications = $classifications;
+
+        return $this;
+    }
+
+    /**
+     * @return \Jobs\Entity\Classifications
+     */
+    public function getClassifications()
+    {
+        if (!$this->classifications) {
+            $this->setClassifications(new Classifications());
+        }
+
+        return $this->classifications;
+    }
+
+
 }

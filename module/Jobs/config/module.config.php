@@ -138,6 +138,10 @@ return array(
                             'clear' => '1'
                         ),
                     ],
+                    'jobs-categories' => [
+                        'label' => /*@translate*/ 'Jobs categories',
+                        'route' => 'lang/admin/jobs-categories',
+                    ],
                 ],
             ],
             'jobboard' => array(
@@ -245,6 +249,7 @@ return array(
             'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
             'Jobs/Admin'      => 'Jobs\Controller\AdminController',
             'Jobs/ApiJobListByChannel' => 'Jobs\Controller\ApiJobListByChannelController',
+            'Jobs/AdminCategories' => 'Jobs\Controller\AdminCategoriesController',
         ],
         'factories' => [
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
@@ -364,6 +369,9 @@ return array(
             'Jobs/ListFilterAdmin'              => 'Jobs\Form\ListFilterAdmin',
             'Jobs/StatusSelect'                 => 'Jobs\Form\Element\StatusSelect',
             'Jobs/AdminJobEdit'                 => 'Jobs\Form\AdminJobEdit',
+            'Jobs/AdminCategories'              => 'Jobs\Form\CategoriesContainer',
+            'Jobs/Classifications'              => 'Jobs\Form\ClassificationsForm',
+            'Jobs/ClassificationsFieldset'      => 'Jobs\Form\ClassificationsFieldset',
 
         ),
         'factories' => array(

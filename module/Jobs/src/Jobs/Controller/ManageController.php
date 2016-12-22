@@ -251,7 +251,7 @@ class ManageController extends AbstractActionController
                 if (empty($templateTitle)) {
                     $jobEntity->getTemplateValues()->setTitle($title);
                 }
-                $this->repositoryService->persist($jobEntity);
+                $this->repositoryService->store($jobEntity);
             }
         }
 

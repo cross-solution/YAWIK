@@ -23,6 +23,16 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
             ],
             'may_terminate' => true,
         ],
+        'jobs-categories' => [
+            'type' => 'Literal',
+            'options' => [
+                'route' => '/jobs/categories',
+                'defaults' => [
+                    'controller' => 'Jobs/AdminCategories',
+                    'action'     => 'index',
+                ],
+            ],
+        ],
     ]],
     'api-jobs' => array(
         'type' => 'Literal',
