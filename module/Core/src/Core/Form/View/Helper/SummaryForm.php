@@ -274,7 +274,7 @@ class SummaryForm extends AbstractHelper
                 $multiOptions = [];
                 foreach ($elementValue as $optionKey) {
                     if (isset($options[$optionKey])) {
-                        $multiOptions[$generalOptGroupName][] = $translator->translate($options[$optionKey]);
+                        $multiOptions[] = $translator->translate($options[$optionKey]);
                         continue;
                     }
 
@@ -282,16 +282,16 @@ class SummaryForm extends AbstractHelper
                         if (!is_array($optVal) || !array_key_exists($optionKey, $optVal['options'])) { continue; }
 
                         $optGroupLabel = isset($optVal['label']) ? $translator->translate($optVal['label']) : $optKey;
-                        $multiOptions[$optGroupLabel][] = $translator->translate($optVal['options'][$optionKey]);
+                        $multiOptions[] = $optGroupLabel . ' / ' . $translator->translate($optVal['options'][$optionKey]);
                     }
                 }
 
-                $elementValue = [];
-                $numberOfmultiOptions = count($multiOptions);
-                foreach ($multiOptions as $optGroupLabel => $vals) {
-                    $elementValue[] = ($numberOfmultiOptions > 1 || $optGroupLabel !== $generalOptGroupName ? "<b>$optGroupLabel</b><br>" : '') . join(', ', $vals);
-                }
-                $elementValue = join('<br>', $elementValue) . '<br>';
+                $elementValue = join(', ' , $multiOptions);
+//                $numberOfmultiOptions = count($multiOptions);
+//                foreach ($multiOptions as $optGroupLabel => $vals) {
+//                    $elementValue[] = ($numberOfmultiOptions > 1 || $optGroupLabel !== $generalOptGroupName ? "<b>$optGroupLabel</b><br>" : '') . join(', ', $vals);
+//                }
+//                $elementValue = join('<br>', $elementValue) . '<br>';
 
             } else {
                 $elementValue = $translator->translate($options[$elementValue]);

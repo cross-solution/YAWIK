@@ -15,12 +15,12 @@ use Core\Entity\IdentifiableEntityInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Tree interface
+ * Tree node interface.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29
  */
-interface TreeInterface extends EntityInterface, IdentifiableEntityInterface
+interface NodeInterface extends EntityInterface, IdentifiableEntityInterface
 {
     /**
      * Set the name.
@@ -88,5 +88,46 @@ interface TreeInterface extends EntityInterface, IdentifiableEntityInterface
      * @return Collection|\Traversable|array
      */
     public function getChildren();
+
+    /**
+     * Add a child.
+     *
+     * @param NodeInterface $child
+     *
+     * @return self
+     */
+    public function addChild(NodeInterface $child);
+
+    /**
+     * Remove a child.
+     *
+     * @param NodeInterface $child
+     *
+     * @return self
+     */
+    public function removeChild(NodeInterface $child);
+
+    /**
+     * Clear all children.
+     *
+     * @return self
+     */
+    public function clearChildren();
+
+    /**
+     * Set parent of this node.
+     *
+     * @param NodeInterface $parent
+     *
+     * @return mixed
+     */
+    public function setParent(NodeInterface $parent);
+
+    /**
+     * Get the parent of this node.
+     *
+     * @return NodeInterface
+     */
+    public function getParent();
 
 }

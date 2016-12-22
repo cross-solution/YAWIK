@@ -79,7 +79,7 @@
 
         removeItem: function(current)
         {
-            var $target = this.$form.find('#yktm-' + current);
+            var $target = this.$form.find('.yktm-item-' + current);
             var $parent = $target.parent();
             var $id     = $target.find('.yktm-id');
             if ('' == $id.val()) {

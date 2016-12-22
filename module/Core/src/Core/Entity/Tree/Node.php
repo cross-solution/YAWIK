@@ -10,8 +10,10 @@
 /** */
 namespace Core\Entity\Tree;
 
+use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityTrait;
 use Core\Entity\IdentifiableEntityTrait;
+use Doctrine\Common\Collections\Collection;
 use \Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -21,7 +23,7 @@ use \Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29
  */
-abstract class Tree implements TreeInterface
+class Node implements NodeInterface
 {
     use EntityTrait, IdentifiableEntityTrait;
 
@@ -50,6 +52,20 @@ abstract class Tree implements TreeInterface
      * @var int
      */
     protected $priority = 0;
+
+    /**
+     *
+     * @ODM\ReferenceMany(discriminatorField="_entity", storeAs="dbRef", strategy="set", sort={"priority"="asc"}, cascade="all", orphanRemoval="true")
+     * @var Collection
+     */
+    protected $children;
+
+    /**
+     *
+     * @ODM\ReferenceOne(discriminatorField="_entity", storeAs="dbRef", nullable="true")
+     * @var
+     */
+    protected $parent;
 
     /**
      * Creates a new Tree item.
@@ -154,4 +170,65 @@ abstract class Tree implements TreeInterface
         return $this->priority;
     }
 
+    /**
+     * @param \Doctrine\Common\Collections\Collection $children
+     *
+     * @return self
+     */
+    public function setChildren(Collection $children)
+    {
+        $this->children = $children;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        if (!$this->children) {
+            $this->setChildren(new ArrayCollection());
+        }
+
+        return $this->children;
+    }
+
+    public function hasChildren()
+    {
+        return (bool) $this->getChildren()->count();
+    }
+
+    public function addChild(NodeInterface $child)
+    {
+        $this->getChildren()->add($child);
+
+        return $this;
+    }
+
+    public function removeChild(NodeInterface $child)
+    {
+        $this->getChildren()->removeElement($child);
+
+        return $this;
+    }
+
+    public function clearChildren()
+    {
+        $this->getChildren()->clear();
+
+        return $this;
+    }
+
+    public function setParent(NodeInterface $parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

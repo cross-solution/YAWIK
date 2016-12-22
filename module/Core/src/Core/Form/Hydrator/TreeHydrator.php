@@ -10,8 +10,7 @@
 /** */
 namespace Core\Form\Hydrator;
 
-use Core\Entity\Tree\ChildReferenceInterface;
-use Core\Entity\Tree\TreeInterface;
+use Core\Entity\Tree\NodeInterface;
 use Doctrine\Common\Collections\Collection;
 use Zend\Hydrator\HydratorInterface;
 
@@ -61,7 +60,7 @@ class TreeHydrator implements HydratorInterface
     /**
      * Recursively flattens a tree structure.
      *
-     * @param TreeInterface $tree
+     * @param NodeInterface $tree
      * @param array $data
      * @param string $curId
      */
@@ -133,15 +132,14 @@ class TreeHydrator implements HydratorInterface
      * Items not present in the {@link hydrateData} are removed,
      * new items are created accordingly.
      *
-     * @param TreeInterface $object
+     * @param NodeInterface $object
      * @param \ArrayObject $currentData
      *
-     * @return TreeInterface
+     * @return NodeInterface
      */
-    private function hydrateTree(TreeInterface $object, \ArrayObject $currentData = null)
+    private function hydrateTree(NodeInterface $object, \ArrayObject $currentData = null)
     {
 
-        /* @var ChildReferenceInterface|TreeInterface $object */
         if (null === $currentData) {
             $currentData = $this->hydrateData['__root__'];
         }
@@ -161,6 +159,7 @@ class TreeHydrator implements HydratorInterface
                     $object->removeChild($child);
 
                 } else {
+                    $child->setParent($object);
                     $this->hydrateTree($child, $childData);
                 }
             }
@@ -172,17 +171,16 @@ class TreeHydrator implements HydratorInterface
     /**
      * Finds an item in a tree structure or create a new item.
      *
-     * @param TreeInterface $tree
+     * @param NodeInterface $tree
      * @param $id
      *
-     * @return TreeInterface
+     * @return NodeInterface
      */
     private function findOrCreateChild($tree, $id)
     {
-        /* @var ChildReferenceInterface $tree
-         * @var TreeInterface $node */
+        /* @var NodeInterface $node */
         foreach ($tree->getChildren() as $node) {
-            if ($node->getId() == $id) { return $node; }
+            if ($id && $node->getId() == $id) { return $node; }
         }
 
         $nodeClass = get_class($tree);

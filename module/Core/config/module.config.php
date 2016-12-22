@@ -429,6 +429,9 @@ return array(
             'Core/Tree/ManagementFieldset' => 'Core\Form\Tree\ManagementFieldset',
             'Core/Tree/AddItemFieldset' => 'Core\Form\Tree\AddItemFieldset',
         ),
+        'factories' => [
+            'Core/Tree/Select' => 'Core\Factory\Form\Tree\SelectFactory',
+        ],
         'initializers' => array(
             '\Core\Form\Service\InjectHeadscriptInitializer',
             '\Core\Form\Service\Initializer',

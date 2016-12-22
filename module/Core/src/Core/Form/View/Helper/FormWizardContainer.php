@@ -63,6 +63,7 @@ class FormWizardContainer extends AbstractHelper
         $tabsNav = '';
         $tabsContent = '';
         $containerParams = [
+            'pager' => true,
             'finish_label' => 'Finish',
             'finish_href' => 'javascript:;',
             'finish_enabled' => true,
@@ -93,10 +94,11 @@ class FormWizardContainer extends AbstractHelper
                           . '</div>';
         }
 
-        $content .= '<div class="wizard-container" id="' . $containerId . '">'
+        $content .= '<style type="text/css">.tab-content > div > div:first-child { margin-top: 10px; }</style><div class="wizard-container" id="' . $containerId . '">'
                   . '<ul>' . $tabsNav . '</ul>'
-                  . '<div class="tab-content">' . $tabsContent . '</div>'
-                  . '<ul class="pager wizard">'
+                  . '<div class="tab-content">' . $tabsContent . '</div>';
+        if ($containerParams['pager']) {
+            $content .='<ul class="pager wizard">'
                   . '<li class="previous"><a href="javascript:;">&larr; ' . $translate('previous') . '</a></li>'
                   . '<li class="next"><a href="javascript:;">' . $translate('Next') . ' &rarr;</a></li>'
                   . '<li class="finish' . ($containerParams['finish_enabled'] ? '' : ' disabled') . '">'
@@ -105,7 +107,9 @@ class FormWizardContainer extends AbstractHelper
                        . $translate($containerParams['finish_label']) . ' &bull;</a>'
                      : ''
                     )
-                  . '</li></div>';
+                  . '</li></ul>';
+        }
+        $content .= '</div>';
 
         $content .= $container->renderPost($this->getView());
         

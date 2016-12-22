@@ -10,11 +10,8 @@
 /** */
 namespace Core\Form\Tree;
 
-use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\Tree\TreeInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
-use Zend\Code\Reflection\ClassReflection;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -37,7 +34,6 @@ class AddItemFieldset extends Fieldset implements ViewPartialProviderInterface, 
 
     public function init()
     {
-        //$this->setAllowedObjectBindingClass(\ArrayObject::class);
         $this->setObject(new \ArrayObject);
         $this->add([
                 'name' => 'id',

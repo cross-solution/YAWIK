@@ -10,17 +10,17 @@
 /** */
 namespace Core\Entity\Tree;
 
-use Doctrine\Common\Collections\Collection;
-use \Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Entity\EntityTrait;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * ${CARET}
- *
- * @ODM\MappedSuperclass
+ * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @ODM\EmbeddedDocument
  * @todo write test 
  */
-abstract class ChildReference extends Tree implements ChildReferenceInterface
+class EmbeddedLeafs extends AbstractLeafs implements LeafsInterface
 {
-    use ChildReferenceTrait;
+    use EntityTrait;
 }

@@ -26,17 +26,19 @@ class RepositoryService
     
     public function get($name)
     {
-        $nameParts = explode('/', $name);
-        if (2 > count($nameParts)) {
-            $nameParts = array($name, substr($name, 0, -1));
-            //throw new \InvalidArgumentException('Name must be in the format "Namespace/Entity")');
+        if (!class_exists($name)) {
+            $nameParts = explode('/', $name);
+            if (2 > count($nameParts)) {
+                $nameParts = array($name, substr($name, 0, -1));
+                //throw new \InvalidArgumentException('Name must be in the format "Namespace/Entity")');
+            }
+        
+            $namespace   = $nameParts[0];
+            $entityName  = $nameParts[1];
+            $name = "\\$namespace\\Entity\\$entityName";
         }
         
-        $namespace   = $nameParts[0];
-        $entityName  = $nameParts[1];
-        $entityClass = "\\$namespace\\Entity\\$entityName";
-        
-        $repository  = $this->dm->getRepository($entityClass);
+        $repository  = $this->dm->getRepository($name);
         return $repository;
     }
     
