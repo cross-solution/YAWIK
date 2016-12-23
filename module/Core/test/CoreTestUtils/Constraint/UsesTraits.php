@@ -15,6 +15,7 @@ namespace CoreTestUtils\Constraint;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since  0.26
+ * @since  0.29 matches() accepts instances of \ReflectionClass.
  */
 class UsesTraits extends \PHPUnit_Framework_Constraint
 {
@@ -54,13 +55,15 @@ class UsesTraits extends \PHPUnit_Framework_Constraint
      * Returns true if and only if all traits specified in {@link $expectedTraits} are used by
      * the tested object or class.
      *
-     * @param string|object $other FQCN or an object
+     * @param string|object|\ReflectionClass $other FQCN or an object
      *
      * @return bool
+     *
+     * @since 0.29 accepts instances of \ReflectionClass.
      */
     protected function matches($other)
     {
-        $traits  = class_uses($other);
+        $traits  = $other instanceOf \ReflectionClass ? $other->getTraitNames() : class_uses($other);
         $success = true;
 
         foreach ($this->expectedTraits as $expectedTrait) {
@@ -74,7 +77,8 @@ class UsesTraits extends \PHPUnit_Framework_Constraint
 
     protected function failureDescription($other)
     {
-        return (is_string($other) ? $other : get_class($other)) . ' ' . $this->toString();
+        $name = $other instanceOf \ReflectionClass ? $other->getName() : (is_string($other) ? $other : get_class($other));
+        return $name . ' ' . $this->toString();
     }
 
     protected function additionalFailureDescription($other)

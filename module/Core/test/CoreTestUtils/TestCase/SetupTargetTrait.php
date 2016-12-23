@@ -40,6 +40,9 @@ use Zend\Stdlib\ArrayUtils;
  *      // FQCN of the target class
  *      'class' => FQCN,
  *
+ *      // Get a \ReflectionClass instance instead of the class instance
+ *      'as_reflection' => true,
+ *
  *      // Arguments provided by an TestCase method
  *      'args' => 'method',
  *
@@ -60,6 +63,7 @@ use Zend\Stdlib\ArrayUtils;
  *      '@testName' => [
  *
  *          // Override 'class' and 'args', when needed. (or use key 0 and 1)
+ *          // 'as_reflection' can also be set per testCase here
  *
  *          // generate a mock from the target class
  *          'mock' = [ mockedMethod, ... ]
@@ -90,6 +94,7 @@ use Zend\Stdlib\ArrayUtils;
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25 /refactored in 0.26
+ * @since 0.29 added 'as_reflection' option.
  */
 trait SetupTargetTrait
 {
@@ -111,7 +116,12 @@ trait SetupTargetTrait
         $spec = $this->target;
 
         if (is_string($spec)) {
-            $this->target = new $spec();
+            if (class_exists($spec)) {
+                $this->target = new $spec();
+            } else {
+                $this->target = $this->$spec();
+            }
+
             return;
         }
 
@@ -130,7 +140,9 @@ trait SetupTargetTrait
 
         if (null !== $testSpec) {
             if (is_string($testSpec)) {
-                if (class_exists($testSpec)) {
+                if (isset($spec[$testSpec])) {
+                    $testSpec = $spec[$testSpec];
+                } else if (class_exists($testSpec)) {
                     $testSpec = [ $testSpec ];
                 } else {
                     $this->target = $this->{$testSpec}();
@@ -146,6 +158,11 @@ trait SetupTargetTrait
 
         if (isset($spec[0])) {
             $spec['class'] = $spec[0];
+        }
+
+        if (isset($spec['as_reflection']) && $spec['as_reflection']) {
+            $this->target = new \ReflectionClass($spec['class']);
+            return;
         }
 
         if (!isset($spec['args'])) {
@@ -252,11 +269,7 @@ trait SetupTargetTrait
                 $methodMock = $mock->expects($mockSpec['expects'])->method($method);
 
                 if ($mockSpec['with']) {
-                    if (!is_array($mockSpec['with'])) {
-                        $mockSpec['with'] = [$mockSpec['with']];
-                    }
-
-                    call_user_func_array([$methodMock, 'with'], $mockSpec['with']);
+                    $methodMock->with($mockSpec['with']);
                 }
 
                 if ($mockSpec['return']) {

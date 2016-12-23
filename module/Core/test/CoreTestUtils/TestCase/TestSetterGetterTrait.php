@@ -239,7 +239,7 @@ trait TestSetterGetterTrait
         }
 
 
-        if (isset($spec['default'])) {
+        if (array_key_exists('default', $spec)) {
             $defaultGetterArgs = isset($spec['default_args']) ? $spec['default_args'] : $getterArgs;
             $assert            = isset($spec['default_assert']) ? $spec['default_assert'] : null;
             $this->_setterGetter_assertGetterValue($getterMethod, $spec['default'], $defaultGetterArgs, $assert, true);
