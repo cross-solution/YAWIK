@@ -197,7 +197,7 @@ trait TestSetterGetterTrait
 
         /* Value could be 'null', so we need to use array_key_exists here. */
         if (!array_key_exists('value', $spec)) {
-            if (!array_key_exists('default', $spec)) {
+            if (!array_key_exists('default', $spec) && !array_key_exists('@default', $spec) && !array_key_exists('default@', $spec)) {
                 throw new \PHPUnit_Framework_Exception($errTmpl . ': Specification must contain the key "value" or "default".');
             }
 
