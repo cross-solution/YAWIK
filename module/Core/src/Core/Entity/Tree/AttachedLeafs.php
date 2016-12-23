@@ -17,14 +17,13 @@ use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * ${CARET}
+ * Attachable entity boilerplate for attached leafs.
  *
  * @ODM\MappedSuperclass
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 abstract class AttachedLeafs extends AbstractLeafs implements IdentifiableEntityInterface
 {
     use IdentifiableEntityTrait;
-
 }

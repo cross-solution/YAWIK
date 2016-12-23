@@ -10,6 +10,7 @@
 /** */
 namespace Core\Factory\Form\Tree;
 
+use Core\Entity\Tree\NodeInterface;
 use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
 use Core\Form\Tree\Select;
 use Interop\Container\ContainerInterface;
@@ -18,16 +19,33 @@ use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * ${CARET}
+ * Factory for a tree select form element.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
 {
+
+    /**
+     * Creation options.
+     *
+     * @var array
+     */
     protected $options = [];
 
 
+    /**
+     * Creates a tree select form element
+     *
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array|null         $options
+     *
+     * @return Select
+     * @throws \RuntimeException
+     * @throws \DomainException
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (!is_array($options)
@@ -66,7 +84,7 @@ class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
             $select->setAttributes($options['attributes']);
         }
 
-        $valueOptions = $this->createValueOptions($root);
+        $valueOptions = $this->createValueOptions($root, isset($options['allow_select_nodes']) && $options['allow_select_nodes']);
         if (!isset($options['use_root_item']) || !$options['use_root_item']) {
             $valueOptions = array_shift($valueOptions);
             $valueOptions = is_array($valueOptions) ? $valueOptions['options'] : [];
@@ -98,13 +116,17 @@ class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
 
 
     /**
-     * Create service
+     * Create a tree select form element.
+     *
+     * @internal
+     *      proxies to {@link __invoke}.
      *
      * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
+     * @return Select
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
         $select = $this($serviceLocator->getServiceLocator(), self::class, $this->options);
         $this->options = [];
 
@@ -112,27 +134,29 @@ class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
     }
 
     /**
+     * Create value options from a node.
      *
-     *
-     * @param $leaf
+     * @param NodeInterface $node
+     * @param bool $allowSelectNodes
+     * @param bool $isRoot
      *
      * @return array
      */
-    protected function createValueOptions($leaf, $isRoot=true)
+    protected function createValueOptions(NodeInterface $node, $allowSelectNodes = false, $isRoot=true)
     {
-        $key    = $leaf->getValue();
-        $name   = $leaf->getName();
+        $key    = $isRoot ? $node->getValue() : $this->getItemValue($node);
+        $name   = $node->getName();
 
-        if ($leaf->hasChildren()) {
+        if ($node->hasChildren()) {
             $leafOptions = [];
 
-            if (isset($this->options['allow_select_nodes']) && $this->options['allow_select_nodes'] && !$isRoot) {
+            if ($allowSelectNodes && !$isRoot) {
                 $leafOptions[$key] = $name;
                 $key = "$key-group";
             }
 
-            foreach ($leaf->getChildren() as $child) {
-                $leafOptions += $this->createValueOptions($child, false);
+            foreach ($node->getChildren() as $child) {
+                $leafOptions += $this->createValueOptions($child, $allowSelectNodes, false);
             }
 
             $value = [
@@ -145,5 +169,29 @@ class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
         }
 
         return [$key => $value];
+    }
+
+    /**
+     * Get item value for use in the option tag.
+     *
+     * @param NodeInterface $item
+     *
+     * @return string item value prepended with all parent values except root node.
+     * @todo This code is currently duplicated in \Core\Form\Tree\Select.
+     */
+    private function getItemValue(NodeInterface $item)
+    {
+        $parts = [ $item->getValue() ];
+
+        while ($item = $item->getParent()) {
+            $parts[] = $item->getValue();
+        }
+
+        array_pop($parts); // No root node.
+
+        $parts = array_reverse($parts);
+        $value = join('-', $parts);
+
+        return $value;
     }
 }

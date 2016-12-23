@@ -19,10 +19,10 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 
 /**
- * ${CARET}
+ * Select element for tree values.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class Select extends ZfSelect implements HydratorStrategyProviderInterface
 {

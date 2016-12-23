@@ -16,17 +16,18 @@ use Core\Entity\EntityTrait;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * ${CARET}
+ * Main base class for attached or embedded tree leafs.
  *
  * @ODM\MappedSuperclass
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 abstract class AbstractLeafs implements LeafsInterface
 {
     use EntityTrait;
 
     /**
+     * The leafs.
      *
      * @ODM\ReferenceMany(discriminatorField="_entity", storeAs="dbRef", strategy="set", sort={"priority"="asc"})
      * @var Collection
@@ -49,10 +50,19 @@ abstract class AbstractLeafs implements LeafsInterface
         return $this;
     }
 
+    /**
+     * Get a list of the names of all attached leafs.
+     *
+     * Will prefix the leaf name with its parents, unless the parent is
+     * the root node.
+     *
+     * @return string
+     */
     public function __toString()
     {
         $items = [];
 
+        /* @var NodeInterface $item */
         foreach ($this->getItems() as $item) {
             $parent = $item->getParent(); $nameParts = [];
             while ($parent) {

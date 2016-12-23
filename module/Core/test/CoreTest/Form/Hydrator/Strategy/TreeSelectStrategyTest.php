@@ -11,9 +11,13 @@
 namespace CoreTest\Form\Hydrator\Strategy;
 
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\Tree\AbstractLeafs;
 use Core\Entity\Tree\AttachedLeafs;
 use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
-use CoreTest\Entity\Tree\ConcreteChildReference;
+use Core\Entity\Tree\Node;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
+use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Tests for \Core\Form\Hydrator\Strategy\TreeSelectStrategy
@@ -27,13 +31,46 @@ use CoreTest\Entity\Tree\ConcreteChildReference;
  */
 class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
 {
+    use TestInheritanceTrait, TestSetterGetterTrait;
+
+    /**
+     *
+     *
+     * @var string|TreeSelectStrategy
+     */
+    private $target = 'getTarget';
+
+    private $inheritance = [ StrategyInterface::class ];
+
+    public function propertiesProvider()
+    {
+        return [
+            ['attachedLeafs', new ConcreteAbstractLeafs()],
+            ['treeRoot', new Node()],
+            ['allowSelectMultipleItems', ['default' => false, 'value' => true, 'getter_method' => '*']],
+            ['allowSelectMultipleItems', ['value' => false, 'getter_method' => '*']],
+            ['allowSelectMultipleItems', ['value' => function() { return true; }, 'getter_method' => '*', 'expect' => true]],
+
+        ];
+    }
+
+    private function getTarget()
+    {
+        $target = new TreeSelectStrategy;
+        $target->setTreeRoot($this->getTree());
+
+        return $target;
+    }
+
     private function getTree()
     {
-        $root = new ConcreteChildReference('root');
-        $child1 = new ConcreteChildReference('child1');
-        $child2 = new ConcreteChildReference('child2');
-        $grandChild = new ConcreteChildReference('grandChild');
+        $root = new Node('root');
+        $child1 = new Node('child1');
+        $child2 = new Node('child2');
+        $grandChild = new Node('grandChild');
+        $grandChild2 = new Node('grandChild2');
 
+        $child1->addChild($grandChild2);
         $child2->addChild($grandChild);
 
         $root->addChild($child1)->addChild($child2);
@@ -43,10 +80,15 @@ class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
 
     private function getAttachedLeafs()
     {
-        $leafs = new ConcreteAttachedLeafs();
+        $tree = $this->target->getTreeRoot();
+        $children = $tree->getChildren();
+        $item1 = $children->get(0);
+        $grandchildren = $children->get(1)->getChildren();
+        $item2 = $grandchildren->first();
+
+        $leafs = new ConcreteAbstractLeafs();
         $leafs->setItems(new ArrayCollection([
-                new ConcreteChildReference('child1'),
-                new ConcreteChildReference('grandChild')
+                $item1, $item2
             ]));
 
         return $leafs;
@@ -54,38 +96,57 @@ class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testExctract()
     {
-
-        $target = new TreeSelectStrategy();
-
-        $target->setTreeRoot($this->getTree());
+        $leafs = $this->getAttachedLeafs();
+        $expect = 'child1';
+        $this->assertEquals($expect, $this->target->extract($leafs), 'Single Select Extracting failed.');
 
         $expect = [
-            'child1', 'grandchild'
+            'child1', 'child2-grandchild'
         ];
 
-        $this->assertEquals($expect, $target->extract($this->getAttachedLeafs()));
+        $this->target->setAllowSelectMultipleItems(true);
+        $this->assertEquals($expect, $this->target->extract($leafs), 'Multiple select extracting failed.');
 
+        $this->assertSame($this->target->getAttachedLeafs(), $leafs, 'Extract does not set attached leafs.');
     }
 
-    public function testHydrate()
+    public function testExtractThrowsExceptionIfWrongValueIsPassed()
     {
-        $target = new TreeSelectStrategy();
+        $this->setExpectedException('\InvalidArgumentException', '$value must be an instance');
 
-        $target->setTreeRoot($this->getTree());
+        $this->target->extract([]);
+    }
 
-        $attachedLeafs = new ConcreteAttachedLeafs();
-        $target->setAttachedLeafs($attachedLeafs);
+    public function hydrateTestProvider()
+    {
+        return [
+            [null, 0],
+            [[], 0],
+            ['child2-grandchild', 1],
+            [['child1', 'child2-grandchild'], 2]
+        ];
+    }
 
-        $data = [ 'child1', 'grandchild' ];
+    /**
+     * @dataProvider hydrateTestProvider
+     *
+     * @param $data
+     * @param $count
+     */
+    public function testHydrate($data, $count)
+    {
 
-        $target->hydrate($data);
+        $attachedLeafs = new ConcreteAbstractLeafs();
+        $this->target->setAttachedLeafs($attachedLeafs);
+        $this->target->setAllowSelectMultipleItems(is_array($data));
 
-        $this->assertEquals(2, $attachedLeafs->getItems()->count());
+        $this->target->hydrate($data);
 
+        $this->assertEquals($count, $attachedLeafs->getItems()->count());
     }
 }
 
-class ConcreteAttachedLeafs extends AttachedLeafs
+class ConcreteAbstractLeafs extends AbstractLeafs
 {
 
 }

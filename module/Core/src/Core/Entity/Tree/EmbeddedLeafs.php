@@ -10,7 +10,6 @@
 /** */
 namespace Core\Entity\Tree;
 
-use Core\Entity\EntityTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -20,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @ODM\EmbeddedDocument
  * @todo write test 
  */
-class EmbeddedLeafs extends AbstractLeafs implements LeafsInterface
+class EmbeddedLeafs extends AbstractLeafs
 {
-    use EntityTrait;
+
 }

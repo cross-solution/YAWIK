@@ -159,7 +159,6 @@ class TreeHydrator implements HydratorInterface
                     $object->removeChild($child);
 
                 } else {
-                    $child->setParent($object);
                     $this->hydrateTree($child, $childData);
                 }
             }

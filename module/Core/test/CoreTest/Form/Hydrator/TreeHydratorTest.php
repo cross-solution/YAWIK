@@ -11,7 +11,7 @@
 namespace CoreTest\Form\Hydrator;
 
 use Core\Form\Hydrator\TreeHydrator;
-use CoreTest\Entity\Tree\ConcreteChildReference;
+use Core\Entity\Tree\Node;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Hydrator\HydratorInterface;
 
@@ -37,20 +37,20 @@ class TreeHydratorTest extends \PHPUnit_Framework_TestCase
 
     private function getHydratedTree($mode = 'all')
     {
-        $root = new ConcreteChildReference();
+        $root = new Node();
         $root->setId('root-id')->setName('Root')->setValue('root')->setPriority(1);
 
-        $child1 = new ConcreteChildReference();
+        $child1 = new Node();
         $child1->setId('child-one-id')->setName('ChildOne')->setValue('child-one')->setPriority(1);
 
         $root->addChild($child1);
 
         if ('all' == $mode || 'no-ids' == $mode) {
-            $child2 = new ConcreteChildReference();
+            $child2 = new Node();
             if ('all' == $mode) { $child2->setId('child-two-id'); }
             $child2->setName('ChildTwo')->setValue('child-two')->setPriority(2);
 
-            $grandchild1 = new ConcreteChildReference();
+            $grandchild1 = new Node();
             if ('all' == $mode) { $grandchild1->setId('grand-child-one-id'); }
             $grandchild1->setName('GrandChildOne')->setValue('grand-child-one')->setPriority(1);
 

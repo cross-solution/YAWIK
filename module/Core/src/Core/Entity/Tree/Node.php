@@ -54,6 +54,7 @@ class Node implements NodeInterface
     protected $priority = 0;
 
     /**
+     * Child nodes.
      *
      * @ODM\ReferenceMany(discriminatorField="_entity", storeAs="dbRef", strategy="set", sort={"priority"="asc"}, cascade="all", orphanRemoval="true")
      * @var Collection
@@ -61,6 +62,7 @@ class Node implements NodeInterface
     protected $children;
 
     /**
+     * Parent node.
      *
      * @ODM\ReferenceOne(discriminatorField="_entity", storeAs="dbRef", nullable="true")
      * @var
@@ -102,11 +104,6 @@ class Node implements NodeInterface
         return $this;
     }
 
-    /**
-     * get the name.
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
@@ -136,23 +133,15 @@ class Node implements NodeInterface
         return $this;
     }
 
-    /**
-     * Get the value.
-     *
-     * @return string
-     */
     public function getValue()
     {
+        if (!$this->value) {
+            $this->setValue(null);
+        }
+
         return $this->value;
     }
 
-    /**
-     * Set the priority.
-     *
-     * @param int $priority
-     *
-     * @return self
-     */
     public function setPriority($priority)
     {
         $this->priority = (int) $priority;
@@ -160,31 +149,23 @@ class Node implements NodeInterface
         return $this;
     }
 
-    /**
-     * Get the priority.
-     *
-     * @return int
-     */
     public function getPriority()
     {
         return $this->priority;
     }
 
-    /**
-     * @param \Doctrine\Common\Collections\Collection $children
-     *
-     * @return self
-     */
     public function setChildren(Collection $children)
     {
         $this->children = $children;
 
+        /* @var NodeInterface $child */
+        foreach ($children as $child) {
+            $child->setParent($this);
+        }
+
         return $this;
     }
 
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
     public function getChildren()
     {
         if (!$this->children) {
@@ -202,6 +183,7 @@ class Node implements NodeInterface
     public function addChild(NodeInterface $child)
     {
         $this->getChildren()->add($child);
+        $child->setParent($this);
 
         return $this;
     }

@@ -17,24 +17,43 @@ use Doctrine\Common\Collections\Collection;
 use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
- * ${CARET}
+ * Hydrator strategy for TreeSelect form element.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class TreeSelectStrategy implements StrategyInterface
 {
 
+    /**
+     * The selected leafs.
+     *
+     * @var AbstractLeafs
+     */
     private $attachedLeafs;
+
+    /**
+     * The root node.
+     *
+     * @var NodeInterface
+     */
     private $treeRoot;
+
+    /**
+     * Flag wether multiple selections are allowed.
+     *
+     * @var bool|callable
+     */
     private $allowSelectMultipleItems = false;
 
     /**
-     * @param mixed $attachedLeafs
+     * Set the selected leafs.
+     *
+     * @param AbstractLeafs $attachedLeafs
      *
      * @return self
      */
-    public function setAttachedLeafs($attachedLeafs)
+    public function setAttachedLeafs(AbstractLeafs $attachedLeafs)
     {
         $this->attachedLeafs = $attachedLeafs;
 
@@ -42,7 +61,9 @@ class TreeSelectStrategy implements StrategyInterface
     }
 
     /**
-     * @return mixed
+     * Get the selected leafs.
+     *
+     * @return AbstractLeafs
      */
     public function getAttachedLeafs()
     {
@@ -50,11 +71,13 @@ class TreeSelectStrategy implements StrategyInterface
     }
 
     /**
-     * @param mixed $treeRoot
+     * Set the root node.
+     *
+     * @param NodeInterface $treeRoot
      *
      * @return self
      */
-    public function setTreeRoot($treeRoot)
+    public function setTreeRoot(NodeInterface $treeRoot)
     {
         $this->treeRoot = $treeRoot;
 
@@ -62,7 +85,9 @@ class TreeSelectStrategy implements StrategyInterface
     }
 
     /**
-     * @return mixed
+     * Get the root node.
+     *
+     * @return NodeInterface
      */
     public function getTreeRoot()
     {
@@ -70,7 +95,9 @@ class TreeSelectStrategy implements StrategyInterface
     }
 
     /**
-     * @param Callable|bool $flagOrCallback
+     * Set the allow multiple selections flag.
+     *
+     * @param Callable|bool $flagOrCallback When a Callable is passed, it must return bool.
      *
      * @return self
      */
@@ -82,6 +109,8 @@ class TreeSelectStrategy implements StrategyInterface
     }
 
     /**
+     * Are multiple selections allowed?
+     *
      * @return bool
      */
     public function allowSelectMultipleItems()
@@ -90,9 +119,6 @@ class TreeSelectStrategy implements StrategyInterface
 
         return is_callable($flagOrCallback) ? (bool) $flagOrCallback() : (bool) $flagOrCallback;
     }
-
-
-
 
     public function extract($value)
     {
@@ -106,12 +132,12 @@ class TreeSelectStrategy implements StrategyInterface
 
         if (!$this->allowSelectMultipleItems()) {
             $item = $value->getItems()->first();
-            return $item ? $item->getValue() : null;
+            return $item ? $this->getItemValue($item) : null;
         }
 
         $data = [];
         foreach ($value->getItems() as $item) {
-            $data[] = $item->getValue();
+            $data[] = $this->getItemValue($item);
         }
 
         return $data;
@@ -140,17 +166,50 @@ class TreeSelectStrategy implements StrategyInterface
         return $object;
     }
 
-    private function findLeaf(NodeInterface $leaf, $value)
+    /**
+     * Get item value for use in the option tag.
+     *
+     * @param NodeInterface $item
+     *
+     * @return string item value prepended with all parent values except root node.
+     */
+    private function getItemValue(NodeInterface $item)
     {
-        if ($leaf->getValue() == $value) {
-            return $leaf;
+        $parts = [ $item->getValue() ];
+
+        while ($item = $item->getParent()) {
+            $parts[] = $item->getValue();
         }
 
-        if ($leaf->hasChildren()) {
-            foreach ($leaf->getChildren() as $item) {
-                $tmpLeaf = $this->findLeaf($item, $value);
+        array_pop($parts); // No root node.
 
-                if ($tmpLeaf) { return $tmpLeaf; }
+        $parts = array_reverse($parts);
+        $value = join('-', $parts);
+
+        return $value;
+    }
+
+    /**
+     * Find a leaf with a concrete value in the tree.
+     *
+     * @param NodeInterface $leaf
+     * @param string        $value
+     *
+     * @return NodeInterface|null
+     */
+    private function findLeaf(NodeInterface $leaf, $value)
+    {
+        $parts = is_array($value) ? $value : explode('-', $value);
+        $value = array_shift($parts);
+
+        /* @var NodeInterface $item */
+        foreach ($leaf->getChildren() as $item) {
+            if ($item->getValue() == $value) {
+                if (count($parts)) {
+                    return $this->findLeaf($item, $parts);
+                }
+
+                return $item;
             }
         }
 

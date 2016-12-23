@@ -14,17 +14,28 @@ use Core\Entity\EntityInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * ${CARET}
+ * Interface for an entity which can manage attached leafs.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 interface LeafsInterface extends EntityInterface
 {
 
+    /**
+     * Get the attached leafs.
+     *
+     * @return Collection
+     */
     public function getItems();
 
+    /**
+     * Set the attached leafs.
+     *
+     * @param Collection $items
+     *
+     * @return mixed
+     */
     public function setItems(Collection $items);
-
 
 }

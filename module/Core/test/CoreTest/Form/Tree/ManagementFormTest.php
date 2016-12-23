@@ -40,7 +40,7 @@ class ManagementFormTest extends \PHPUnit_Framework_TestCase
     ];
 
     private $properties = [
-        [ 'headscripts', ['value' => ['testHeadScript'], 'default' => [ 'Core/js/forms.tree-management.js' ]] ]
+        [ 'headscripts', ['value' => ['testHeadScript'], 'default' => [ '/js/html.sortable.min.js', 'Core/js/forms.tree-management.js' ]] ]
     ];
     
 }
