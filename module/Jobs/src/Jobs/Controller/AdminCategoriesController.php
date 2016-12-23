@@ -18,10 +18,10 @@ use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 /**
- * ${CARET}
+ * Handles the management of the job categories.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class AdminCategoriesController extends AbstractActionController
 {

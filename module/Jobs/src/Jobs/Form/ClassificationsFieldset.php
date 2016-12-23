@@ -15,9 +15,10 @@ use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**
+ * Fieldset for the category management.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
+ * @since 0.29
  */
 class ClassificationsFieldset extends Fieldset
 {

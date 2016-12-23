@@ -16,6 +16,8 @@ use Auth\Entity\User;
 use Core\Entity\AbstractEntity;
 use Core\Entity\Collection\ArrayCollection;
 use CoreTest\Entity\ConcreteEntity;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
+use Jobs\Entity\Classifications;
 use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Location;
 use Jobs\Entity\Status;
@@ -38,6 +40,14 @@ use Organizations\Entity\OrganizationName;
  */
 class JobsTest extends \PHPUnit_Framework_TestCase
 {
+    use TestSetterGetterTrait;
+
+    public function propertiesProvider()
+    {
+        return [
+            ['classifications', ['value' => new Classifications(), 'default@' => Classifications::class]],
+        ];
+    }
     /**
      * The "Class under Test"
      *

@@ -13,10 +13,10 @@ namespace Jobs\Form;
 use Core\Form\SummaryForm;
 
 /**
- * ${CARET}
+ * Form for the categories management.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class ClassificationsForm extends SummaryForm
 {

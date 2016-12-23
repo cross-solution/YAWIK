@@ -16,17 +16,19 @@ use Core\Entity\Tree\EmbeddedLeafs;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * ${CARET}
+ * Stores the classifications (categories) of a job.
  *
  * @ODM\EmbeddedDocument
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0,29
  */
 class Classifications implements EntityInterface
 {
 
     use EntityTrait;
+
     /**
+     * The professions.
      *
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Tree\EmbeddedLeafs")
      * @var EmbeddedLeafs
@@ -34,6 +36,7 @@ class Classifications implements EntityInterface
     private $professions;
 
     /**
+     * The employment types.
      *
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Tree\EmbeddedLeafs")
      * @var EmbeddedLeafs
@@ -41,6 +44,8 @@ class Classifications implements EntityInterface
     private $employmentTypes;
 
     /**
+     * Set the employment types.
+     *
      * @param \Core\Entity\Tree\EmbeddedLeafs $employmentTypes
      *
      * @return self
@@ -53,6 +58,8 @@ class Classifications implements EntityInterface
     }
 
     /**
+     * Get the employment types.
+     *
      * @return \Core\Entity\Tree\EmbeddedLeafs
      */
     public function getEmploymentTypes()
@@ -65,6 +72,8 @@ class Classifications implements EntityInterface
     }
 
     /**
+     * Set the professions.
+     *
      * @param \Core\Entity\Tree\EmbeddedLeafs $professions
      *
      * @return self
@@ -77,6 +86,8 @@ class Classifications implements EntityInterface
     }
 
     /**
+     * Get the professions.
+     *
      * @return \Core\Entity\Tree\EmbeddedLeafs
      */
     public function getProfessions()

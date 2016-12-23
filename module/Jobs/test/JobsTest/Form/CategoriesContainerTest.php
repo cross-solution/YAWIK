@@ -8,23 +8,38 @@
  */
   
 /** */
-namespace Jobs\Form;
+namespace JobsTest\Form;
 
 use Core\Form\SummaryForm;
 use Core\Form\WizardContainer;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use Jobs\Form\CategoriesContainer;
 
 /**
- * Container for the management of job categories.
+ * Tests for \Jobs\Form\CategoriesContainer
  * 
+ * @covers \Jobs\Form\CategoriesContainer
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.29
+ * @group Jobs
+ * @group Jobs.Form
  */
-class CategoriesContainer extends WizardContainer
+class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
 {
+    use TestInheritanceTrait;
 
-    public function init()
+    private $target = [
+        CategoriesContainer::class,
+        '@testInitialize' => [
+            'mock' => ['setForms'],
+        ],
+    ];
+
+    private $inheritance = [ WizardContainer::class ];
+
+    public function testInitialize()
     {
-        $this->setForms([
+        $this->target->expects($this->once())->method('setForms')
+            ->with([
             'professions' => [
                 'options' => [
                     'label' => 'Professions',
@@ -62,5 +77,7 @@ class CategoriesContainer extends WizardContainer
                 ],
             ],
         ]);
+
+        $this->target->init();
     }
 }
