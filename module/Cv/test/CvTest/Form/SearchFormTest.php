@@ -33,8 +33,8 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         '@testInitializesItself' => [
             'mock' => [
                 'setName' => ['with' => 'cv-list-filter', 'count' => 1],
-                'setAttributes' => ['with' => ['id' => 'cv-list-filter', 'data-handle-by' => 'native'], 'count' => 1],
-                'add' => ['with' => ['type' => 'Cv/SearchFormFieldset', 'options' => ['use_as_base_fieldset' => false]], 'count' => 1],
+                'setAttributes' => ['with' => [['id' => 'cv-list-filter', 'data-handle-by' => 'native']], 'count' => 1],
+                'add' => ['with' => [['type' => 'Cv/SearchFormFieldset', 'options' => ['use_as_base_fieldset' => false]]], 'count' => 1],
             ],
         ],
     ];
