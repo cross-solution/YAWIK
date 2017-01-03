@@ -18,7 +18,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * Currently used for "Professions" and "EmploymentTypes"
  *
- * @ODM\Document(collection="jobs.categories")
+ * @ODM\Document(collection="jobs.categories", repositoryClass="Jobs\Repository\Categories")
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29
  */
