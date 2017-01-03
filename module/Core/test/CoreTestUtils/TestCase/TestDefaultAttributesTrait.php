@@ -36,7 +36,7 @@ trait TestDefaultAttributesTrait
     use AssertDefaultAttributesValuesTrait;
 
     /**
-     *
+     * @testdox Defines correct default attribute values.
      * @coversNothing
      */
     public function testDefaultAttributes()
