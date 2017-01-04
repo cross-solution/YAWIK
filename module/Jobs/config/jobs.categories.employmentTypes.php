@@ -23,7 +23,7 @@
  */
 
 return [
-    'name' => 'Professions',
+    'name' => 'Employment Types',
     'children' => ['Unclassified']
 ];
 
