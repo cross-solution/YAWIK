@@ -212,6 +212,7 @@ return array(
             'Jobs/Listener/Publisher'                     => 'Jobs\Listener\Publisher::factory',
             'Jobs/PreviewLinkHydrator'                    => 'Jobs\Form\Hydrator\PreviewLinkHydrator::factory',
             'Jobs\Auth\Dependency\ListListener'           => 'Jobs\Factory\Auth\Dependency\ListListenerFactory',
+            'Jobs/DefaultCategoriesBuilder'              => 'Jobs\Factory\Repository\DefaultCategoriesBuilderFactory',
 
         ),
         'shared' => array(
