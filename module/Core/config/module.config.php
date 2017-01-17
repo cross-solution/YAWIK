@@ -419,9 +419,7 @@ return array(
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
             'Core/Container' => 'Core\Form\Container',
-            'Core/TextSearch' => 'Core\Form\TextSearchForm',
-            'Core/TextSearch/Elements' => 'Core\Form\TextSearchFormFieldset',
-            'Core/TextSearch/Buttons' => 'Core\Form\TextSearchFormButtonsFieldset',
+            'Core/Search' => 'Core\Form\SearchForm',
         ),
         'initializers' => array(
             '\Core\Form\Service\InjectHeadscriptInitializer',
