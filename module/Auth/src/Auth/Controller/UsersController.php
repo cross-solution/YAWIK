@@ -47,12 +47,12 @@ class UsersController extends AbstractActionController
         return $this->pagination([
             'paginator' => ['Auth/User', 'as' => 'users'],
             'form' => [
-                [ 'Core/TextSearch', [
-                        'elements_options' => [
-                            'text_placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
-                            'button_element' => 'text',
-                        ],
-                ]],
+                'Core/Search',
+                [
+                    'text_name' => 'text',
+                    'text_placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
+                    'button_element' => 'text',
+                ],
                 'as' => 'form'
             ],
         ]);
