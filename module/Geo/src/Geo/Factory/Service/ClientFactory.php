@@ -10,6 +10,7 @@
 /** */
 namespace Geo\Factory\Service;
 
+use Geo\Service\Geo;
 use Geo\Service\Photon;
 use Interop\Container\ContainerInterface;
 use Zend\Cache\StorageFactory;
