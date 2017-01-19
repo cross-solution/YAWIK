@@ -47,6 +47,9 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
               
     <td>
         <?=$this->jobUrl($job,['showPendingJobs' => $this->showPendingJobs ]) ?>
+        <br />
+        <small><?=$job->getClassifications()->getProfessions()?></small> |
+        <small><?=$job->getClassifications()->getEmploymentTypes()?></small>
     </td>
     <td><?php echo $job->location?></td>
     <td><?php echo $job->company?></td>

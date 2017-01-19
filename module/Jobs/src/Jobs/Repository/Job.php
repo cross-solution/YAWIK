@@ -14,8 +14,12 @@
 namespace Jobs\Repository;
 
 use Auth\Entity\UserInterface;
+use Core\Entity\Tree\EmbeddedLeafs;
 use Core\Repository\AbstractRepository;
+use Core\Repository\DoctrineMongoODM;
 use Doctrine\ODM\MongoDB\Cursor;
+use Jobs\Entity\Category;
+use Jobs\Entity\Classifications;
 use Jobs\Entity\StatusInterface;
 
 /**

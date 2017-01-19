@@ -15,6 +15,7 @@ namespace CoreTestUtils\Constraint;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since  0.26
+ * @since 0.29 Allow passing in a \ReflectionClass instance.
  */
 class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
 {
@@ -58,13 +59,15 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
      * @param object $other
      *
      * @return bool
+     *
+     * @since 0,29 Allow passing in a Reflection class instance.
      */
     protected function matches($other)
     {
         $this->result = [];
         $success      = true;
 
-        $reflection = new \ReflectionClass($other);
+        $reflection = $other instanceOf \ReflectionClass ? $other : new \ReflectionClass($other);
         $properties = $reflection->getDefaultProperties();
 
         foreach ($this->defaultAttributes as $prop => $value) {
@@ -104,7 +107,7 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
 
     protected function failureDescription($other)
     {
-        return get_class($other) . ' ' . $this->toString();
+        return ($other instanceOf \ReflectionClass ? $other->getName() : get_class($other)) . ' ' . $this->toString();
     }
 
     protected function additionalFailureDescription($other)

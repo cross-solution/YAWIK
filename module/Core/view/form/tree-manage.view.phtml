@@ -1,0 +1,29 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+
+
+$loop = function($tree) use (&$loop) {
+
+    if ($tree->hasChildren()) {
+        foreach ($tree->getChildren() as $child) {
+            echo '<ul><li>' . $child->getName() . '(' . $child->getValue() . ')</li>';
+            $loop($child);
+            echo '</ul>';
+        }
+    }
+
+};
+
+$root = $this->element->getObject();
+?><h4 style="margin:0"><?=$root->getName()?></h4><hr style="margin:5px 0 0"><?php $loop($root);
+
+$formContent = $this->render('core/form/tree-manage.form', ['element' => $this->element]);
+
+?>
+<span id="yktm-form-content" data-template="<?=$this->escapeHtmlAttr($formContent)?>"></span>

@@ -31,7 +31,7 @@
             $('.alert').each(function() {
                 // only take those alerts that have a close button
                 // there are other elements with an alert-class, which are permanent
-                console.log('notify', $(this));
+                //console.log('notify', $(this));
                 if (0 < $(this).find('a.close').size() || 0 < $(this).find('button.close').size()) {
                     var type = 'success';
                     if ($(this).hasClass('alert-danger')) {

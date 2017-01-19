@@ -81,6 +81,14 @@ class Job extends WizardContainer
                             'display_mode' => 'summary'
                         )
                     ),
+                    'classifications' => [
+                        'type' => 'Jobs/Classifications',
+                        'options' => [
+                            'enable_descriptions' => true,
+                            'description' => /*@translate*/ 'Classify the job.',
+                            'display_mode' => 'summary',
+                        ],
+                    ],
                     'portalForm' => array(
                         'type' => 'Jobs/Multipost',
                         'property' => true,
