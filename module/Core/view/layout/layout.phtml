@@ -23,10 +23,14 @@ $this->configHeadScript()->prependFile($this->basepath('Core/js/core.init.js'));
 $this->configHeadScript()->prependFile($this->basePath('Core/js/pnotify.custom.min.js'), 'text/javascript');
 $this->configHeadScript()->prependFile($this->basePath('js/bootstrap.min.js'));
 $this->configHeadScript()->prependFile($this->basePath('js/jquery.min.js'));
+$this->configHeadScript()->appendFile($this->basePath('/js/select2.min.js'));
+$this->configHeadScript()->appendFile($this->basePath('/js/select2/i18n/' . $this->params('lang') . '.js'));
+
 $this->configHeadScript()->appendScript('var lang="' . $this->params('lang') . '";'
                                       . 'var basePath="' . $this->basePath() . '";');
 
 $this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.min.css'));
+$this->headLink()->appendStylesheet($this->basePath('/css/select2.css'));
 
 ?>
 <?php echo $this->doctype(); ?>
