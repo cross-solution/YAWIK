@@ -115,14 +115,14 @@ class PaginationBuilder extends AbstractPlugin
      *
      * @return self
      */
-    public function form($elementsFieldset, $buttonsFieldset = null, $as = 'searchform')
+    public function form($form, $options = null, $as = 'searchform')
     {
-        if (null !== $buttonsFieldset && 0 === strpos($buttonsFieldset, '@')) {
-            $as = substr($buttonsFieldset, 1);
-            $buttonsFieldset = null;
+        if (is_string($options)) {
+            $as = $options;
+            $options = null;
         }
 
-        $this->stack['form'] = ['as' => $as, $elementsFieldset, $buttonsFieldset];
+        $this->stack['form'] = ['as' => $as, $form, $options];
         return $this;
     }
 

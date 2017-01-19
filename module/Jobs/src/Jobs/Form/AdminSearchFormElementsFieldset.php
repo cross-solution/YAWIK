@@ -10,6 +10,7 @@
 /** ListFilterLocationFieldset.php */
 namespace Jobs\Form;
 
+use Core\Form\SearchForm;
 use Core\Form\TextSearchForm;
 use Core\Form\TextSearchFormFieldset;
 use Jobs\Entity\Status;
@@ -19,17 +20,18 @@ use Jobs\Entity\Status;
  *
  * @package Jobs\Form
  */
-class AdminSearchFormElementsFieldset extends TextSearchFormFieldset
+class AdminSearchFormElementsFieldset extends SearchForm
 {
 
     public function init()
     {
-        $this->addTextElement(
-             'Search',
-             /*@translate*/ 'search for position or company'
-        );
+        $this->setOption('text_name', 'text');
+        $this->setOption('text_label', 'Search');
+        $this->setOption('text_placeholder', /*@translate*/ 'search for position or company');
 
+        parent::init();
 
+        $this->setButtonElement('text');
         $this->add(
             array(
                 'type'       => 'Jobs/StatusSelect',

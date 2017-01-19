@@ -50,9 +50,9 @@ class SearchForm extends AbstractPlugin
      *
      * @return \Core\Form\TextSearchForm
      */
-    public function __invoke($elementsFieldset, $buttonsFieldset = null)
+    public function __invoke($form, $options = null)
     {
-        return $this->get($elementsFieldset, $buttonsFieldset);
+        return $this->get($form, $options);
     }
 
     /**
@@ -62,36 +62,18 @@ class SearchForm extends AbstractPlugin
      * it will fetch a "Core/TextSearch" form and pass the
      * elements fieldset along.
      *
-     * @param string|array     $elementsFieldset
-     * @param string|null $buttonsFieldset
+     * @param string|array     $form
      *
-     * @return \Core\Form\TextSearchForm
+     * @return \Core\Form\SearchForm
      */
-    public function get($elementsFieldset, $buttonsFieldset = null)
+    public function get($form, $options = null)
     {
-        if (is_array($elementsFieldset)) {
-            $elementsOptions = isset($elementsFieldset[1]) ? $elementsFieldset[1] : [];
-            $elementsFieldset = $elementsFieldset[0];
-
-        } else {
-            $elementsOptions = [];
+        if (!is_object($form)) {
+            $form             = $this->formElementManager->get($form, $options);
         }
 
-        $form             = $this->formElementManager->get($elementsFieldset, $elementsOptions);
         /** @noinspection PhpUndefinedMethodInspection */
         $params           = $this->getController()->getRequest()->getQuery()->toArray();
-
-        if (!$form instanceOf TextSearchForm) {
-
-            $options = [
-                'elements_fieldset' => $form,
-            ];
-            if (null !== $buttonsFieldset) {
-                $options['buttons_fieldset'] = $buttonsFieldset;
-            }
-
-            $form = $this->formElementManager->get('Core/TextSearch', $options);
-        }
 
         $form->setSearchParams($params);
         return $form;

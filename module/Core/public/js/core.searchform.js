@@ -15,7 +15,7 @@
     function resetSearchForm(event)
     {
         var $form = $(event.target);
-        win.setTimeout(function() { loadPaginator($form); $form.find('select').trigger('change', [ true ]); }, 1);
+        win.setTimeout(function() { loadPaginator($form, true); $form.find('select').trigger('change', [ true ]); }, 100);
     }
 
     function submitSearchForm(event, isSelect2change)
@@ -28,31 +28,33 @@
         return false;
     }
 
-    function loadPaginator($form)
+    function loadPaginator($form, reset)
     {
         var paginatorId = $form.data('paginator-id');
         var $paginator = paginatorId ? $('#' + paginatorId) : $($('.pagination-container')[0]);
         var uri = $paginator.data('uri');
         var uriParts = uri.split('?');
         var baseUri = uriParts[0];
-        var paginatorQuery = 1 < uriParts.length ? parseQueryString(uriParts[1]) : {};
-        var formQuery      = parseQueryString($form.serialize(), [ 'submit', 'reset' ]);
-        var query          = $.extend({}, paginatorQuery, formQuery, {page: 1});
+        var paginatorQuery = 1 < uriParts.length ? parseQueryString(uriParts[1], ['page', 'count']) : {};
+        var formQuery      = parseQueryString($form.serialize(), [ 'submit', 'reset' ], /*exclude*/ true);
+        var query          = $.extend(reset ? {'clear':1} : {}, paginatorQuery, formQuery, {page: 1});
         var queryStr       = $.param(query);
 
         $paginator.paginationContainer('load', baseUri + '?' + queryStr);
     }
 
-    function parseQueryString(queryStr, ignore)
+    function parseQueryString(queryStr, filter, exclude)
     {
         var vars = queryStr.split('&');
         var data = {};
 
         for (i=0, c=vars.length; i<c; i++) {
             var varParts = vars[i].split('=');
-            if (-1 == $.inArray(varParts[0], ignore)) {
-                data[varParts[0]] = varParts[1];
-            }
+            if ((exclude && -1 != $.inArray(varParts[0], filter))
+                || (!exclude && -1 == $.inArray(varParts[0], filter))
+            ) { continue; }
+
+            data[varParts[0]] = varParts[1];
         }
 
         return data;

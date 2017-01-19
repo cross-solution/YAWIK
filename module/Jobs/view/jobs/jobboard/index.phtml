@@ -1,20 +1,29 @@
 <?php //description: Renders the list of public jobs. ?>
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))?>
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
+          ->appendFile($this->basePath('Core/js/core.forms.js'))
+          ->appendFile($this->basePath('/js/select2.min.js'))
+          ->appendFile($this->basePath('/js/select2/i18n/' . $this->params('lang') . '.js'));
+$this->headLink()
+     ->appendStylesheet($this->basePath('/css/select2.css'))
+?>
 
 <h1><?php echo $this->translate('Public Job Opportunities')?></h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 
 <nav class="navbar yk-toolbar" id="jobs-list-filter-wrapper">
-<?php echo $this->form($this->filterForm)  ?>
+
+<?php echo $this->searchform($this->filterForm)  ?>
 </nav>
 
 <div id="jobs-list-container" class="pagination-container"
     data-message="<?php echo $this->escapeHtmlAttr(sprintf(
                           $this->translate('%sSorry%s, there are not any jobs matching your search criteria.'),
                           '<strong>', '</strong>'
-                   ))?>">
+                   ))?>"
+    data-uri="<?php
+    echo $this->url('lang/jobboard', array(), array('query' => $this->params()->fromQuery()), true)?>">
 
     <div class="pagination-content">
     <?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>

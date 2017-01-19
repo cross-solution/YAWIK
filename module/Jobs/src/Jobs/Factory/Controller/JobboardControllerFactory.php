@@ -11,6 +11,7 @@ namespace Jobs\Factory\Controller;
 
 use Jobs\Controller\JobboardController;
 use Jobs\Repository;
+use Zend\Form\Form;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -36,14 +37,14 @@ class JobboardControllerFactory implements FactoryInterface
         /** @var ControllerManager $serviceLocator */
         $serviceLocator = $serviceLocator->getServiceLocator();
 
-        $searchForm = $serviceLocator->get('forms')
-            ->get('Jobs/ListFilterLocation');
+//        $searchForm = $serviceLocator->get('forms')
+//            ->get('Jobs/ListFilterLocation');
 
         /**
          * @var $jobRepository Repository\Job
          */
         $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
 
-        return new JobboardController($jobRepository, $searchForm);
+        return new JobboardController($jobRepository);
     }
 }

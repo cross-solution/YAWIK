@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     'options' => [
         'Geo/Options' => [
@@ -33,6 +33,12 @@ return array(
             ),
         ),
     ),
+
+    'service_manager' => [
+        'factories' => [
+            'Geo/Client' => 'Geo\Factory\Service\ClientFactory',
+        ],
+    ],
 
     'controllers' => array(
         'factories' => array(
@@ -73,11 +79,14 @@ return array(
             ),
         ),
     ),
-    'form_elements' => array(
-        'invokables' => array(
+    'form_elements' => [
+        'invokables' => [
             'Location' => 'Geo\Form\GeoText',
-         ),
-    ),
+        ],
+        'factories' => [
+            'LocationSelect' => 'Geo\Factory\Form\GeoSelectFactory',
+        ],
+    ],
     
     'view_manager' => array(
     
@@ -94,4 +103,4 @@ return array(
         ),
     ),
 
-);
+];

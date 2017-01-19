@@ -182,12 +182,12 @@ return array(
                         'visible' => false,
                         'id' => 'Jobs/edit'
                     ),
-                    'jobboard-recruiter' => array(
-                        'label' =>  /*@translate*/ 'Jobboard',
-                        'route' => 'lang/jobboard',
-                        'order' => '30',
-                        'resource' => 'JobboardRecruiter',
-                    ),
+//                    'jobboard-recruiter' => array(
+//                        'label' =>  /*@translate*/ 'Jobboard',
+//                        'route' => 'lang/jobboard',
+//                        'order' => '30',
+//                        'resource' => 'JobboardRecruiter',
+//                    ),
                 ),
             ),
         ),
@@ -379,6 +379,7 @@ return array(
             'Jobs/Job'                          => 'Jobs\Factory\Form\JobFactory',
             'Jobs/BaseFieldset'                 => 'Jobs\Factory\Form\BaseFieldsetFactory',
             'Jobs/ListFilterLocationFieldset'   => 'Jobs\Factory\Form\ListFilterLocationFieldsetFactory',
+            'Jobs/JobboardSearch'               => 'Jobs\Factory\Form\JobboardSearchFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
             'Jobs/ActiveOrganizationSelect'     => 'Jobs\Factory\Form\ActiveOrganizationSelectFactory',

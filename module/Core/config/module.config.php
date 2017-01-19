@@ -422,12 +422,10 @@ return array(
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
             'Core/Container' => 'Core\Form\Container',
-            'Core/TextSearch' => 'Core\Form\TextSearchForm',
-            'Core/TextSearch/Elements' => 'Core\Form\TextSearchFormFieldset',
-            'Core/TextSearch/Buttons' => 'Core\Form\TextSearchFormButtonsFieldset',
             'Core/Tree/Management' => 'Core\Form\Tree\ManagementForm',
             'Core/Tree/ManagementFieldset' => 'Core\Form\Tree\ManagementFieldset',
             'Core/Tree/AddItemFieldset' => 'Core\Form\Tree\AddItemFieldset',
+            'Core/Search' => 'Core\Form\SearchForm',
         ),
         'factories' => [
             'Core/Tree/Select' => 'Core\Factory\Form\Tree\SelectFactory',

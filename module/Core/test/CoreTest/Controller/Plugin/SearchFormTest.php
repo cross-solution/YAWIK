@@ -57,12 +57,12 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokationProxiesToGet()
     {
-        $elements = 'TestElements';
-        $buttons  = 'TestButtons';
+        $form = 'TestForm';
+        $options  = ['test' => 'test'];
 
-        $this->target->expects($this->once())->method('get')->with($elements, $buttons);
+        $this->target->expects($this->once())->method('get')->with($form, $options);
 
-        $this->target->__invoke($elements, $buttons);
+        $this->target->__invoke($form, $options);
     }
 
     private function setControllerMock($params = [])
@@ -83,13 +83,13 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testGetIsAbleToPassOptionsAlongToTheFormElementManager()
+    public function testGetFetchesFormFromFormElementManager()
     {
         $params = ['page' => 1234, 'test' => 'works'];
         $this->setControllerMock($params);
 
-        $elementsOpt = ['some_options' => 'some_value'];
-        $elementsFs = [ 'Test/Elements', $elementsOpt];
+        $formOpt = ['some_options' => 'some_value'];
+        $formName = 'Test/Elements';
 
         $form = $this->getMockBuilder(TextSearchForm::class)
             ->setMethods(['setSearchParams'])
@@ -99,69 +99,35 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $this->formElementManagerMock
             ->expects($this->once())
             ->method('get')
-            ->with($elementsFs[0], $elementsOpt)
+            ->with($formName, $formOpt)
             ->willReturn($form);
 
-        $actual = $this->target->get($elementsFs);
+        $actual = $this->target->get($formName, $formOpt);
 
         $this->assertSame($form, $actual);
 
     }
 
-    public function testGetPassesEmptyOptionsArrayIfElementsFieldsetIsAString()
+    public function testGetJustSetSearchParamsOnFormObject()
     {
-        $form = new TextSearchForm();
-        $elements = 'Test/Elements';
-        $this->formElementManagerMock
-            ->expects($this->once())
-            ->method('get')
-            ->with($elements, [])
-            ->willReturn($form);
+        $params = ['page' => 1234, 'test' => 'works'];
+        $this->setControllerMock($params);
 
-        $this->setControllerMock();
 
-        $this->target->get($elements);
-    }
-
-    public function testGetCreatesTextSearchFormIfOnlyAFieldsetIsPassed()
-    {
-        $form = new TextSearchFormFieldset();
-        $elements = 'Test/Elements';
-        $this->setControllerMock();
-        $expectFormGet = [
-            'elements_fieldset' => $form,
-        ];
+        $form = $this->getMockBuilder(TextSearchForm::class)
+                     ->setMethods(['setSearchParams'])
+                     ->getMock();
+        $form->expects($this->once())->method('setSearchParams')->with($params);
 
         $this->formElementManagerMock
-            ->expects($this->exactly(2))
-            ->method('get')
-            ->withConsecutive(
-                [$elements], ['Core/TextSearch', $expectFormGet]
-            )
-            ->will($this->onConsecutiveCalls($form, new TextSearchForm()));
+            ->expects($this->never())
+            ->method('get');
 
-        $this->target->get($elements);
+        $actual = $this->target->get($form);
+
+        $this->assertSame($form, $actual);
+
     }
 
-    public function testGetPassesButtonsFieldset()
-    {
-        $elementsFs = new TextSearchFormFieldset();
-        $elements = 'Test/Elements';
-        $buttons  = 'Test/Buttons';
-        $this->setControllerMock();
-        $expectFormGet = [
-            'elements_fieldset' => $elementsFs,
-            'buttons_fieldset' => $buttons,
-        ];
 
-        $this->formElementManagerMock
-            ->expects($this->exactly(2))
-            ->method('get')
-            ->withConsecutive(
-            [$elements], ['Core/TextSearch', $expectFormGet]
-            )
-            ->will($this->onConsecutiveCalls($elementsFs, new TextSearchForm()));
-
-        $this->target->get($elements, $buttons);
-    }
 }

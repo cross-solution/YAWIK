@@ -10,6 +10,7 @@
 /** ActionController of Jobs */
 namespace Jobs\Controller;
 
+use Core\Form\SearchForm;
 use Jobs\Form\ListFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
@@ -42,10 +43,9 @@ class JobboardController extends AbstractActionController
      * @param Repository\Job $jobRepository
      * @param ListFilter $searchForm
      */
-    public function __construct(Repository\Job $jobRepository, ListFilter $searchForm)
+    public function __construct(Repository\Job $jobRepository)
     {
         $this->jobRepository = $jobRepository;
-        $this->searchForm = $searchForm;
     }
     /**
      * attaches further Listeners for generating / processing the output
@@ -68,56 +68,65 @@ class JobboardController extends AbstractActionController
      */
     public function indexAction()
     {
-        /* @var \Zend\Http\Request $request */
-        $request          = $this->getRequest();
-        $params           = $request->getQuery();
-        $jsonFormat       = 'json' == $request->getQuery()->get('format');
-        $event            = $this->getEvent();
-        $routeMatch       = $event->getRouteMatch();
-        $matchedRouteName = $routeMatch->getMatchedRouteName();
-        $url              = $this->url()->fromRoute($matchedRouteName, array(), array('force_canonical' => true));
 
-        if (!$jsonFormat && !$request->isXmlHttpRequest()) {
-            $session = new Session('Jobs\Index');
-            $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
-            $sessionParams = $session[$sessionKey];
-            if ($sessionParams) {
-                foreach ($sessionParams as $key => $value) {
-                    $params->set($key, $params->get($key, $value));
-                }
-            }
-            $session[$sessionKey] = $params->toArray();
-
-            $this->searchForm->bind($params);
-        }
-
-        $params = $params->get('params', []);
-
-        if (isset($params['l']['data']) &&
-            isset($params['l']['name']) &&
-            !empty($params['l']['name'])) {
-            /* @var \Geo\Form\GeoText $geoText */
-            $geoText = $this->searchForm->get('params')->get('l');
-
-            $geoText->setValue($params['l']);
-            $params['location'] = $geoText->getValue('entity');
-        }
-
-        if (!isset($params['sort'])) {
-            $params['sort']='-date';
-        }
-
-        $this->searchForm->setAttribute('action', $url);
+        $result = $this->pagination([
+                'params' => ['Jobs_Board', ['q', 'page' => 1, 'l', 'd']],
+                'form' => ['as' => 'filterForm', 'Jobs/JobboardSearch'],
+                'paginator' => ['as' => 'jobs', 'Jobs/Board']
+            ]);
+//        /* @var \Zend\Http\Request $request */
+//        $request          = $this->getRequest();
+//        $params           = $request->getQuery();
+//        $jsonFormat       = 'json' == $request->getQuery()->get('format');
+//        $event            = $this->getEvent();
+//        $routeMatch       = $event->getRouteMatch();
+//        $matchedRouteName = $routeMatch->getMatchedRouteName();
+//        $url              = $this->url()->fromRoute($matchedRouteName, array(), array('force_canonical' => true));
+//
+//        if (!$jsonFormat && !$request->isXmlHttpRequest()) {
+//            $session = new Session('Jobs\Index');
+//            $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
+//            $sessionParams = $session[$sessionKey];
+//            if ($sessionParams) {
+//                foreach ($sessionParams as $key => $value) {
+//                    $params->set($key, $params->get($key, $value));
+//                }
+//            }
+//            $session[$sessionKey] = $params->toArray();
+//
+//            $this->searchForm->bind($params);
+//        }
+//
+//        $params = $params->get('params', []);
+//
+//        if (isset($params['l']['data']) &&
+//            isset($params['l']['name']) &&
+//            !empty($params['l']['name'])) {
+//            /* @var \Geo\Form\GeoText $geoText */
+//            $geoText = $this->searchForm->get('params')->get('l');
+//
+//            $geoText->setValue($params['l']);
+//            $params['location'] = $geoText->getValue('entity');
+//        }
+//
+//        if (!isset($params['sort'])) {
+//            $params['sort']='-date';
+//        }
+//
+//        $this->searchForm->setAttribute('action', $url);
 
         $params['by'] = "guest";
 
-        $paginator = $this->paginator('Jobs/Board', $params);
+//        $paginator = $this->paginator('Jobs/Board', $params);
 
-        $options = $this->searchForm->getOptions();
-        $options['showButtons'] = false;
-        $this->searchForm->setOptions($options);
+//        $options = $this->searchForm->getOptions();
+//        $options['showButtons'] = false;
+//        $this->searchForm->setOptions($options);
         $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
-        
+
+        $result['organizationImageCache'] = $organizationImageCache;
+
+        return $result;
         $return = array(
             'by' => $params['by'],
             'jobs' => $paginator,
