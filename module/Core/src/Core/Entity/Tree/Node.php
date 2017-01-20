@@ -125,7 +125,7 @@ class Node implements NodeInterface
             if (!$this->getName()) {
                 throw new \InvalidArgumentException('Value must not be empty.');
             }
-            $value = strtolower(str_replace(' ', '-', $this->getName()));
+            $value = strtolower(str_replace([' ', '-'], '_', $this->getName()));
         }
 
         $this->value = (string) $value;

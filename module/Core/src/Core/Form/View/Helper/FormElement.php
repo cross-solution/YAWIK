@@ -20,7 +20,7 @@ class FormElement extends ZendFormElement
      *
      * @return string
      */
-    public function render(ElementInterface $element)
+    public function render(ElementInterface $element, $ignoreViewPartial = false)
     {
         $renderer = $this->getView();
         if (!method_exists($renderer, 'plugin')) {
@@ -28,7 +28,7 @@ class FormElement extends ZendFormElement
             return '';
         }
 
-        if ($element instanceof ViewPartialProviderInterface) {
+        if ($element instanceof ViewPartialProviderInterface && !$ignoreViewPartial) {
             $partial = $element->getViewPartial();
             return $renderer->partial($partial, ['element' => $element]);
         }
