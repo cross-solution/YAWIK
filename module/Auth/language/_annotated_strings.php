@@ -207,7 +207,7 @@ translate('An unexpected error has occurred, please contact your system administ
 translate('You are not permitted to access this resource.');
 
 //: ./src/Auth/Listener/MailForgotPassword.php:68
-translate('a new password was requestet for %s');
+translate('a new password was requested for %s');
 
 //: ./src/Auth/Listener/DeactivatedUserListener.php:97
 translate('This user account has been disabled. Please contact the system adminstrator.');

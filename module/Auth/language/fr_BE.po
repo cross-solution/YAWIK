@@ -523,7 +523,7 @@ msgstr "Vous n'êtes pas autorisé à accéder à cette ressource."
 
 #: language/_annotated_strings.php:210
 #, php-format
-msgid "a new password was requestet for %s"
+msgid "a new password was requested for %s"
 msgstr "un nouveau mot de passe à été demandé pour %s"
 
 #: language/_annotated_strings.php:213

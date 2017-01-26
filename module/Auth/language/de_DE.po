@@ -523,7 +523,7 @@ msgstr "Sie haben nicht die Berechtingung auf die Daten zuzugreifen."
 
 #: language/_annotated_strings.php:210
 #, php-format
-msgid "a new password was requestet for %s"
+msgid "a new password was requested for %s"
 msgstr "Ein neues Kennwort für %s wurde angefordert"
 
 #: language/_annotated_strings.php:213
