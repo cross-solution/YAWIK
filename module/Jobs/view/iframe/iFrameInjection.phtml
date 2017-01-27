@@ -23,6 +23,11 @@ $addHead = '';
 $addHead .= empty($headLink)?'':($headLink . PHP_EOL);
 $addHead .= empty($headScript)?'':($headScript . PHP_EOL);
 $addHead .= empty($headStyle)?'':($headStyle . PHP_EOL);
+$addHead .= '<script type="text/javascript">
+    function yawikPrintJob() {
+        window.print();
+    }
+</script>';
 
 $content = $this->content;
 if (!empty($addHead) && preg_match("/^(.*)(<\/head>[^\w]*<body>.*)$/ms", $this->content, $matches)) {

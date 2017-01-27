@@ -42,14 +42,26 @@ $defaultTaxRate = $options->defaultTaxRate;
     <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <iframe style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
+                <iframe id="previewJob" style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="alert alert-info">
+            <script type="text/javascript">
+                function printIframe(id)
+                {
+                    var iframe = document.frames ? document.frames[id] : document.getElementById(id);
+                    var ifWin = iframe.contentWindow || iframe;
+                    iframe.focus();
+                    ifWin.yawikPrintJob();
+                    return false;
+                }
+            </script>
             <?php echo sprintf($this->translate('Please check the preview of your job position. Click %s to open the preview in a new window'),
-                               '<a target="_blank" href="'.$viewLink.'">'.$this->translate("here").'</a>'); ?>
+                               '<a target="_blank" href="'.$viewLink.'">'.$this->translate("here").'</a>'); ?><br/>
+            <a target="_blank" href="<?=$viewLink?>" class="btn btn-info" role="button"><i class="fa fa-external-link"></i> Open new Window</a>
+            <a href="#" onclick="javascript:printIframe('previewJob');return false;" class="btn btn-info" role="button"><i class="fa fa-print"></i> Print</a>
         </div>
     </div>
 </div>
