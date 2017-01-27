@@ -522,7 +522,7 @@ msgstr "لا يسمح لك بالوصول إلى هذه الموارد."
 
 #: language/_annotated_strings.php:210
 #, php-format
-msgid "a new password was requestet for %s"
+msgid "a new password was requested for %s"
 msgstr ""
 
 #: language/_annotated_strings.php:213
