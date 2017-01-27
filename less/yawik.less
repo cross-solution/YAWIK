@@ -32,9 +32,13 @@
 @yk-btn-primary-hover-color:   @btn-primary-color;
 @yk-btn-border-radius-base:    @btn-border-radius-base;
 
+@yk-tab-border-radius-base:    @btn-border-radius-base;
 @yk-tab-bg:                    @brand-info;
 @yk-tab-active-bg:             @brand-primary;
+@yk-tab-hover-bg:              @brand-primary;
+@yk-tab-color:                 @yk-btn-primary-color;
 @yk-tab-active-color:          @link-hover-color;
+@yk-tab-hover-color:           @yk-btn-primary-color;
 
 @btn-select2-bg: @btn-default-bg;
 @btn-select2-border: @btn-default-border;
@@ -342,14 +346,14 @@ table.assign-user-list tr {
         a {
             border-radius: @yk-btn-border-radius-base;
             background-color: @yk-tab-bg;
-            color: @yk-btn-primary-color;
+            color: @yk-tab-color;
         }
         a:focus,
         a:hover {
             border-bottom-color: @yk-btn-primary-hover-border;
 
             background-color: @yk-btn-primary-hover-bg;
-            color: @yk-btn-primary-color;
+            color: @yk-tab-hover-color;
         }
     }
     .nav {
@@ -361,14 +365,14 @@ table.assign-user-list tr {
             border-bottom-color: @yk-btn-primary-hover-border;
             border-left-color: #fff;
             border-right-color: #fff;
-            color: @yk-btn-primary-color;
+            color: @yk-tab-color;
         }
         a:focus,
         a:hover {
-            border-top-color: @yk-btn-primary-hover-border;
+            border-top-color: @yk-tab-hover-color;
             border-bottom-color: @yk-btn-primary-hover-border;
-            background-color: @yk-btn-primary-hover-bg;
-            color: @yk-btn-primary-color;
+            background-color: @yk-tab-hover-bg;
+            color: @yk-tab-hover-color;
         }
         .active {
             a {
