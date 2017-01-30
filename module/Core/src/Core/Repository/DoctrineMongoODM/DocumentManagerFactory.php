@@ -24,7 +24,15 @@ class DocumentManagerFactory implements FactoryInterface
         $serviceLocator->setAllowOverride(true);
         $serviceLocator->setFactory('doctrine.configuration.odm_default', new ConfigurationFactory('odm_default'));
         $serviceLocator->setAllowOverride(false);
+
         $dm = $serviceLocator->get('doctrine.documentmanager.odm_default');
+
+        if (\Zend\Console\Console::isConsole()) {
+            $configFactory = new ConfigurationFactory('odm_default');
+            $config = $configFactory->createService($serviceLocator);
+            $dm = \Doctrine\ODM\MongoDB\DocumentManager::create($dm->getConnection(), $config, $dm->getEventManager());
+        }
+
         $dm->getSchemaManager()->ensureIndexes();
         return $dm;
     }
