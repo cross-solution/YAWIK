@@ -282,11 +282,11 @@ class SummaryForm extends AbstractHelper
                         if (!is_array($optVal) || !array_key_exists($optionKey, $optVal['options'])) { continue; }
 
                         $optGroupLabel = isset($optVal['label']) ? $translator->translate($optVal['label']) : $optKey;
-                        $multiOptions[] = $optGroupLabel . ' / ' . $translator->translate($optVal['options'][$optionKey]);
+                        $multiOptions[] = $optGroupLabel . ' | ' . $translator->translate($optVal['options'][$optionKey]);
                     }
                 }
 
-                $elementValue = join(', ' , $multiOptions);
+                $elementValue = '<ul><li>' . join('</li><li>' , $multiOptions) . '</li></ul>';
 //                $numberOfmultiOptions = count($multiOptions);
 //                foreach ($multiOptions as $optGroupLabel => $vals) {
 //                    $elementValue[] = ($numberOfmultiOptions > 1 || $optGroupLabel !== $generalOptGroupName ? "<b>$optGroupLabel</b><br>" : '') . join(', ', $vals);

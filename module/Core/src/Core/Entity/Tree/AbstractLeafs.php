@@ -71,7 +71,7 @@ abstract class AbstractLeafs implements LeafsInterface
                 $parent = $nextParent;
             }
             $nameParts[] = $item->getName();
-            $items[]     = join(' / ' , $nameParts);
+            $items[]     = join(' | ' , $nameParts);
 
         }
 
