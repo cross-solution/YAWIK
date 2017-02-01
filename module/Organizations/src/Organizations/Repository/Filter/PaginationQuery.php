@@ -63,7 +63,7 @@ class PaginationQuery extends AbstractPaginationQuery
         }
 
         if (isset($params['text']) && $params['text']) {
-            $queryBuilder->text(urldecode($params['text']));
+            $queryBuilder->text($params['text']);
         }
         
         /*
