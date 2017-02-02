@@ -132,12 +132,12 @@ class TreeSelectStrategy implements StrategyInterface
 
         if (!$this->allowSelectMultipleItems()) {
             $item = $value->getItems()->first();
-            return $item ? $this->getItemValue($item) : null;
+            return $item ? $item->getValueWithParents() : null;
         }
 
         $data = [];
         foreach ($value->getItems() as $item) {
-            $data[] = $this->getItemValue($item);
+            $data[] = $item->getValueWithParents();
         }
 
         return $data;
@@ -164,29 +164,6 @@ class TreeSelectStrategy implements StrategyInterface
         $object->setItems($items);
 
         return $object;
-    }
-
-    /**
-     * Get item value for use in the option tag.
-     *
-     * @param NodeInterface $item
-     *
-     * @return string item value prepended with all parent values except root node.
-     */
-    private function getItemValue(NodeInterface $item)
-    {
-        $parts = [ $item->getValue() ];
-
-        while ($item = $item->getParent()) {
-            $parts[] = $item->getValue();
-        }
-
-        array_pop($parts); // No root node.
-
-        $parts = array_reverse($parts);
-        $value = join('-', $parts);
-
-        return $value;
     }
 
     /**

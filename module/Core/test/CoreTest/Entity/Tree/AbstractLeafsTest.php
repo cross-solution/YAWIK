@@ -73,9 +73,27 @@ class AbstractLeafsTest extends \PHPUnit_Framework_TestCase
         $targetItems->add($gChild1);
         $targetItems->add($child1);
 
-        $expect = 'child2 / grandchild1, child1';
+        $expect = 'child2 | grandchild1, child1';
 
         $this->assertEquals($expect, $this->target->__toString());
+    }
+
+    public function testUpdateValues()
+    {
+        $root = new Node('root');
+        $child1 = new Node('child1');
+        $child2 = new Node('child2');
+        $gChild1 = new Node('grandchild1');
+
+        $child2->addChild($gChild1);
+        $root->addChild($child1)->addChild($child2);
+
+        $targetItems = $this->target->getItems();
+        $targetItems->add($gChild1);
+        $targetItems->add($child1);
+
+        $this->target->updateValues();
+        $this->assertEquals(['child2-grandchild1', 'child1'], $this->target->getValues());
     }
 }
 

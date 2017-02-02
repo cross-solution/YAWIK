@@ -73,7 +73,14 @@ class PaginationBuilder extends AbstractPlugin
             throw new \InvalidArgumentException('Expected argument to be of type array, but received ' . gettype($stack));
         }
 
-        $this->stack = $stack;
+        $stack = array_intersect_key($stack, ['params' => true, 'form' => true, 'paginator' => true]);
+        foreach ($stack as $method => $args) {
+            if (isset($args['as'])) {
+                array_push($args, $args['as']);
+                unset($args['as']);
+            }
+            call_user_func_array([$this, $method], $args);
+        }
 
         return $returnResult ? $this->getResult() : $this;
     }
@@ -174,6 +181,8 @@ class PaginationBuilder extends AbstractPlugin
         $controller = $this->getController();
         $request = $controller->getRequest();
 
+        $this->filterQueryParameters($request->getQuery());
+
         if (isset($this->stack['params'])) {
             $this->callPlugin('paginationParams', $this->stack['params']);
         }
@@ -208,5 +217,20 @@ class PaginationBuilder extends AbstractPlugin
         unset($args['as']);
 
         return call_user_func_array($plugin, $args);
+    }
+
+    protected function filterQueryParameters($query)
+    {
+        $queryArray = $query->toArray();
+
+        foreach ($queryArray as $key => $value) {
+            if (preg_match('~^(?<separator>\W)(?<name>.*)$~', $key, $match)) {
+                $value = explode($match['separator'], $value);
+                $queryArray[$match['name']] = $value;
+                unset($queryArray[$key]);
+            }
+        }
+
+        $query->fromArray($queryArray);
     }
 }

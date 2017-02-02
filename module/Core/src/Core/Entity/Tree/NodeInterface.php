@@ -57,6 +57,15 @@ interface NodeInterface extends EntityInterface, IdentifiableEntityInterface
     public function getValue();
 
     /**
+     * Get the value prefixed with all the parent values.
+     *
+     * @param bool $withRoot if true, the root node is also included.
+     *
+     * @return string
+     */
+    public function getValueWithParents($withRoot = false);
+
+    /**
      * Set the order priority.
      *
      * @param int $priority

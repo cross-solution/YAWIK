@@ -36,15 +36,65 @@
         var uriParts = uri.split('?');
         var baseUri = uriParts[0];
         var paginatorQuery = 1 < uriParts.length ? parseQueryString(uriParts[1], ['page', 'count']) : {};
-        var formQuery      = parseQueryString($form.serialize(), [ 'submit', 'reset' ], /*exclude*/ true);
+        var formQuery      = parseQueryString(serializeForm($form), [ 'submit', 'reset' ], /*exclude*/ true);
         var query          = $.extend(reset ? {'clear':1} : {}, paginatorQuery, formQuery, {page: 1});
-        var queryStr       = $.param(query);
+        //var queryStr       = $.param(query);
 
-        $paginator.paginationContainer('load', baseUri + '?' + queryStr);
+        console.debug(paginatorQuery, formQuery, query);
+
+        $paginator.paginationContainer('load', baseUri + '?' + toQuery(query));
+    }
+
+    function toQuery(data)
+    {
+        var queryParts = [];
+        $.each(data, function(name, value) {
+            queryParts.push(name + '=' + value);
+        });
+
+        return queryParts.join('&');
+    }
+
+    function serializeForm($form, exclude)
+    {
+        var data = $form.serializeArray();
+        var processed = [];
+        var parsed = {};
+        var multiValues = $form.data('multivalues') || {};
+
+        $.each(data, function(i, item) {
+            if (-1 !== $.inArray(item.name, processed)) { return; }
+
+            if (item.name.match(/\[\]$/)) {
+                var $element = $form.find('select[name="' + item.name + '"]');
+                var parsedName = item.name.slice(0,-2);
+                var separator = multiValues.hasOwnProperty(parsedName) ? multiValues[parsedName] : ',';
+
+                if ($element.length) {
+                    var value = $element.val();
+                } else {
+                    var value = [];
+                    $form.find('[name="' + item.name + '"]:checked').each(function() {
+                        value.push($(this).val());
+                    });
+                }
+
+                parsed[separator+parsedName] = value.join(separator);
+                processed.push(item.name);
+
+            } else {
+                parsed[item.name] = item.value;
+            }
+        });
+
+        console.debug('sierializeForm:', data, parsed);
+        return toQuery(parsed);
+
     }
 
     function parseQueryString(queryStr, filter, exclude)
     {
+        queryStr = decodeURIComponent(queryStr);
         var vars = queryStr.split('&');
         var data = {};
 
@@ -68,7 +118,8 @@
             if (searchParams) {
                 for (var key in searchParams) {
                     if (searchParams.hasOwnProperty(key)) {
-                        $form.find('[name="' + key + '"]').val(searchParams[key]);
+                        var name = key + ($.isArray(searchParams[key]) ? '[]' : '');
+                        $form.find('[name="' + name + '"]').val(searchParams[key]);
                     }
                 }
                 $form.find('select').trigger('change', [ true ]);
