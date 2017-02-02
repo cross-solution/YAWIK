@@ -268,7 +268,7 @@ trait TestSetterGetterTrait
 
         } else if (!isset($spec['ignore_getter']) || !$spec['ignore_getter']) {
             $assert = isset($spec['getter_assert']) ? $spec['getter_assert'] : null;
-            $this->_setterGetter_assertGetterValue($getterMethod, isset($spec['expect']) ? $spec['expect'] : $spec['value'],
+            $this->_setterGetter_assertGetterValue($getterMethod, array_key_exists('expect', $spec) ? $spec['expect'] : $spec['value'],
                                                    $getterArgs, $assert
             );
         }
