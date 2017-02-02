@@ -19,6 +19,7 @@ use Doctrine\Common\Collections\Collection;
  * Main base class for attached or embedded tree leafs.
  *
  * @ODM\MappedSuperclass
+ * @ODM\HasLifecycleCallbacks
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29
  */
@@ -34,6 +35,16 @@ abstract class AbstractLeafs implements LeafsInterface
      */
     private $items;
 
+    /**
+     * The item values of all attached leafs.
+     *
+     * To make the attached leafs searchable via mongo queries.
+     *
+     * @ODM\Collection
+     * @var array
+     */
+    private $values;
+
     public function getItems()
     {
         if (!$this->items) {
@@ -48,6 +59,33 @@ abstract class AbstractLeafs implements LeafsInterface
         $this->items = $items;
 
         return $this;
+    }
+
+    /**
+     * Get the item values of the attached leafs.
+     *
+     * @return array
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
+
+    /**
+     * Updates the item values.
+     *
+     * @ODM\PrePersist
+     * @ODM\PreUpdate
+     */
+    public function updateValues()
+    {
+        $values = [];
+        /* @var NodeInterface $item */
+        foreach ($this->getItems() as $item) {
+            $values[] = $item->getValueWithParents();
+        }
+
+        $this->values = $values;
     }
 
     /**

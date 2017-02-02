@@ -144,7 +144,7 @@ class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
      */
     protected function createValueOptions(NodeInterface $node, $allowSelectNodes = false, $isRoot=true)
     {
-        $key    = $isRoot ? $node->getValue() : $this->getItemValue($node);
+        $key    = $isRoot ? $node->getValue() : $node->getValueWithParents();
         $name   = $node->getName();
 
         if ($node->hasChildren()) {
@@ -169,29 +169,5 @@ class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
         }
 
         return [$key => $value];
-    }
-
-    /**
-     * Get item value for use in the option tag.
-     *
-     * @param NodeInterface $item
-     *
-     * @return string item value prepended with all parent values except root node.
-     * @todo This code is currently duplicated in \Core\Form\Tree\Select.
-     */
-    private function getItemValue(NodeInterface $item)
-    {
-        $parts = [ $item->getValue() ];
-
-        while ($item = $item->getParent()) {
-            $parts[] = $item->getValue();
-        }
-
-        array_pop($parts); // No root node.
-
-        $parts = array_reverse($parts);
-        $value = join('-', $parts);
-
-        return $value;
     }
 }

@@ -142,6 +142,25 @@ class Node implements NodeInterface
         return $this->value;
     }
 
+    public function getValueWithParents($withRoot = false)
+    {
+        $parts = [ $this->getValue() ];
+        $item = $this;
+
+        while ($item = $item->getParent()) {
+            $parts[] = $item->getValue();
+        }
+
+        if (!$withRoot) {
+            array_pop($parts); // No root node.
+        }
+
+        $parts = array_reverse($parts);
+        $value = join('-', $parts);
+
+        return $value;
+    }
+
     public function setPriority($priority)
     {
         $this->priority = (int) $priority;
@@ -209,6 +228,11 @@ class Node implements NodeInterface
         return $this;
     }
 
+    /**
+     *
+     *
+     * @return NodeInterface
+     */
     public function getParent()
     {
         return $this->parent;

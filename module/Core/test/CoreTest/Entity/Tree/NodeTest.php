@@ -114,4 +114,16 @@ class NodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $node->getValue(), 'Value is not set correctly.');
         $this->assertEquals($prio, $node->getPriority(), 'Priority is not set correctly.');
     }
+
+    public function testGetValueWithParents()
+    {
+        $root = new Node('root');
+        $child1 = new Node('child');
+        $child1->setParent($root);
+
+        $this->target->setName('gChild')->setParent($child1);
+
+        $this->assertEquals('child-gchild', $this->target->getValueWithParents());
+        $this->assertEquals('root-child-gchild', $this->target->getValueWithParents(true));
+    }
 }
