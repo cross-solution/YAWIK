@@ -103,7 +103,7 @@ class Job extends WizardContainer
                         'property' => true,
                         'options' => [
                             'enable_descriptions' => true,
-                            'description' => /*@translate*/ 'Write notes for this job offering to be considered, bla',
+                            'description' => /*@translate*/ 'If there si something you want us to know about this job offering, you can type it here.',
                             'display_mode' => 'summary'
                         ]
                     ]
