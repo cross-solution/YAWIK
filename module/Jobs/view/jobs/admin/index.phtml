@@ -84,9 +84,45 @@ $this->headScript()->captureStart() ?>
 
 })(jQuery);
 
+(function($, dialog) {
+
+    $(function() {
+
+        $('.note-box').each(function() {
+            var $box = $(this);
+            $box.click(function() {
+                $popup = new dialog({
+                    message: '<pre>' + $box.html() + '</pre>',
+                    title: false,
+                    type: dialog.TYPE_DEFAULT,
+                    size: dialog.SIZE_WIDE,
+                    closable: true,
+                    buttons: [{
+                        label: 'OK',
+                        action: function(dialogItself) { dialogItself.close(); }
+                    }]
+                 });
+                $popup.realize();
+                $popup.getModalHeader().hide();
+                $popup.open();
+            });
+        });
+    });
+
+})(jQuery, BootstrapDialog);
+
 <?php $this->headScript()->captureEnd();
       $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))
                        ->appendStylesheet($this->basePath('/css/select2.css'))?>
+
+<style type="text/css">
+    .note-box {
+        max-width: 200px;
+        max-height: 80px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+</style>
 
 <h1><?php echo $this->translate('Jobs') ?></h1>
 

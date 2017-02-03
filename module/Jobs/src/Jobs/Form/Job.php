@@ -98,6 +98,15 @@ class Job extends WizardContainer
                             'display_mode' => 'summary'
                         )
                     ),
+                    'customerNote' => [
+                        'type' => 'Jobs/CustomerNote',
+                        'property' => true,
+                        'options' => [
+                            'enable_descriptions' => true,
+                            'description' => /*@translate*/ 'If there si something you want us to know about this job offering, you can type it here.',
+                            'display_mode' => 'summary'
+                        ]
+                    ]
                 ],
             ],
 

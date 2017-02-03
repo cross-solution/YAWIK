@@ -292,6 +292,7 @@ return array(
             'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
             'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
             'jobs/form/preview' => __DIR__ . '/../view/form/preview.phtml',
+            'jobs/form/customer-note' => __DIR__ . '/../view/form/customer-note.phtml',
             'jobs/partials/channel-list' => __DIR__ . '/../view/partials/channel-list.phtml',
             'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
             'jobs/snapshot_or_preview' => __DIR__ . '/../view/partials/snapshot_or_preview.phtml',
@@ -373,6 +374,8 @@ return array(
             'Jobs/AdminCategories'              => 'Jobs\Form\CategoriesContainer',
             'Jobs/Classifications'              => 'Jobs\Form\ClassificationsForm',
             'Jobs/ClassificationsFieldset'      => 'Jobs\Form\ClassificationsFieldset',
+            'Jobs/CustomerNote'                 => 'Jobs\Form\CustomerNote',
+            'Jobs/CustomerNoteFieldset'         => 'Jobs\Form\CustomerNoteFieldset',
 
         ),
         'factories' => array(

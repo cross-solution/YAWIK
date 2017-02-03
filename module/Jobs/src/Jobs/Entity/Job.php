@@ -10,6 +10,7 @@ namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\EntityInterface;
+use Core\Entity\MetaDataProviderTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
@@ -31,6 +32,7 @@ class Job extends BaseEntity implements JobInterface,
                                         DraftableEntityInterface,
                                         SnapshotGeneratorProviderInterface
 {
+    use MetaDataProviderTrait;
 
     /**
      * unique ID of a job posting used by applications to reference

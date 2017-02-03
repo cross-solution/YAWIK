@@ -18,6 +18,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
     <th><?php echo $this->translate('Title of the job')?></th>
     <th><?php echo $this->translate('Companyname') ?></th>
     <th><?php echo $this->translate('Name') ?></th>
+    <th><?php echo $this->translate('Note') ?></th>
     <th><?php echo $this->translate('Status')?></th>
     <th class="col-md-1"><?php echo $this->translate('Action')?></th>
 </tr>
@@ -35,7 +36,9 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
     </td>
     <td>
     <?php $href = $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->getId())), true); ?>
-        <a href="<?php echo $href ?>" target="_blank" rel="nofollow"><?php echo strip_tags($job->getTitle())?></a></td>
+        <a href="<?php echo $href ?>" target="_blank" rel="nofollow"><?php echo strip_tags($job->getTitle())?></a>
+    <p><small><?=$job->getClassifications()->getProfessions()?><br>
+    <?=$job->getClassifications()->getEmploymentTypes()?></small></p></td>
     <td><?php echo $job->getCompany() ?></td>
         <td>
             <?php
@@ -46,6 +49,15 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
             }
             echo $displayName
 
+            ?>
+        </td>
+        <td>
+            <?php $note = $job->getMetaData('note');
+                    if ($note):
+                        ?><div class="note-box"><?=$note?></div><?php
+                    else:
+                        ?>&nbsp;<?php
+                    endif;
             ?>
         </td>
         <td><?php echo $this->translate($job->getStatus()->getName()); ?></td>

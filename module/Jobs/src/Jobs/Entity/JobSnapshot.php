@@ -10,6 +10,7 @@
 
 namespace Jobs\Entity;
 
+use Core\Entity\MetaDataProviderTrait;
 use Core\Entity\Snapshot as BaseEntity;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
@@ -31,6 +32,7 @@ use Core\Entity\EntityInterface;
  */
 class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
 {
+    use MetaDataProviderTrait;
 
     /**
      * @var String
