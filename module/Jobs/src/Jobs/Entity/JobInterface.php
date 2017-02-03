@@ -8,6 +8,7 @@
 
 namespace Jobs\Entity;
 
+use Core\Entity\MetaDataProviderInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
@@ -29,7 +30,8 @@ interface JobInterface extends
     IdentifiableEntityInterface,
     ModificationDateAwareEntityInterface,
     PermissionsAwareInterface,
-    ResourceInterface
+    ResourceInterface,
+    MetaDataProviderInterface
 {
 
     /**

@@ -15,8 +15,12 @@ use Auth\Entity\Info;
 use Auth\Entity\User;
 use Core\Entity\AbstractEntity;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\MetaDataProviderInterface;
+use Core\Entity\MetaDataProviderTrait;
 use CoreTest\Entity\ConcreteEntity;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
+use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Location;
@@ -40,7 +44,7 @@ use Organizations\Entity\OrganizationName;
  */
 class JobsTest extends \PHPUnit_Framework_TestCase
 {
-    use TestSetterGetterTrait;
+    use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
 
     public function propertiesProvider()
     {
@@ -53,12 +57,12 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      *
      * @var Job
      */
-    private $target;
+    private $target = Job::class;
 
-    public function setup()
-    {
-        $this->target = new Job();
-    }
+    private $inheritance = [ MetaDataProviderInterface::class ];
+
+    private $traits = [ MetaDataProviderTrait::class ];
+
 
     /**
      * @testdox Extends \Core\Entity\AbstractEntity and implements \Jobs\Entity\AtsModeInterface
