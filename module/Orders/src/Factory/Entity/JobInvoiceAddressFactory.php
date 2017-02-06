@@ -49,6 +49,25 @@ class JobInvoiceAddressFactory implements FactoryInterface
             }
         }
 
+        /* Still no invoiceAddress? Let's create one from Company data. */
+        if (!$invoiceAddress) {
+            $org = $user->getOrganization();
+            if ($org->isHiringOrganization()) { $org = $org->getParent(); }
+            /* @var \Auth\Entity\Info $orgUserInfo */
+            $orgContact = $org->getContact();
+            $orgUserInfo = $org->getUser()->getInfo();
+
+            $invoiceAddress = new InvoiceAddress();
+            $invoiceAddress
+                ->setGender($orgUserInfo->getGender())
+                ->setName($orgUserInfo->getDisplayName(false))
+                ->setCompany($org->getOrganizationName()->getName())
+                ->setStreet($orgContact->getStreet() . ' ' . $orgContact->getHouseNumber())
+                ->setZipCode($orgContact->getPostalcode())
+                ->setCity($orgContact->getCity())
+                ->setEmail($orgUserInfo->getEmail());
+        }
+
         $entity = new InvoiceAddress();
 
         if ($invoiceAddress) {
