@@ -1,0 +1,15 @@
+{
+  "name": "YAWIK",
+  "version": "0.28.0",
+  "devDependencies": {
+    "blueimp-file-upload": "^9.15.0",
+    "bootstrap": "^3.3.7",
+    "bootstrap-datepicker": "^1.6.4",
+    "bootstrap3-dialog": "^1.35.3",
+    "jquery": "^2.2.4",
+    "less": "^2.7.2",
+    "pnotify": "^3.0.0",
+    "select2": "^4.0.3",
+    "uglify-js": "^2.7.5"
+  }
+}
