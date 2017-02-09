@@ -95,7 +95,7 @@ translate('Phone');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:93
 translate('Fax');
 
-//: ./src/Organizations/Controller/IndexController.php:101
+//: ./src/Organizations/Controller/IndexController.php:100
 translate('Search for organizations');
 
 //: ./src/Organizations/Controller/InviteEmployeeController.php:78
@@ -107,9 +107,9 @@ translate('The access token you provided seems to have expired.');
 //: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
 translate('Invitation to join the team of %s');
 
-//: ./config/module.config.php:175
+//: ./config/module.config.php:176
 translate('Overview');
 
-//: ./config/module.config.php:179
+//: ./config/module.config.php:180
 translate('Insert');
 

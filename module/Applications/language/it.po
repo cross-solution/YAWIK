@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:23+0200\n"
-"PO-Revision-Date: 2016-11-05 18:03+0000\n"
-"Last-Translator: blu-IT\n"
+"POT-Creation-Date: 2017-02-08 23:14+0100\n"
+"PO-Revision-Date: 2017-02-08 22:15+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -400,7 +400,7 @@ msgstr "Nessun allegato disponibile"
 #: view/applications/manage/detail.phtml:360
 #: view/applications/manage/detail.pdf.phtml:300
 #: src/Applications/Factory/Form/AttachmentsFactory.php:83
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:258
 msgid "Attachments"
 msgstr "Allegati"
 
@@ -551,7 +551,7 @@ msgstr "anni"
 msgid "no attachments"
 msgstr "senza allegati"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:179
+#: view/applications/manage/index.recruiter.ajax.phtml:178
 msgid "edit"
 msgstr "modifica"
 
@@ -711,7 +711,7 @@ msgid "reject the applicants"
 msgstr "respingere i richiedenti"
 
 #: src/Applications/Listener/StatusChange.php:170
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 #, php-format
 msgid "Mail was sent to %s"
 msgstr "Mail è stata inviata a %s"
@@ -966,51 +966,55 @@ msgid ""
 msgstr "Ci sono mancante informazioni richieste. Domanda di assunzionenon non potra esse inviata."
 
 #: language/_annotated_strings.php:228
+msgid "Mail has been send"
+msgstr "Mail è stata inviata"
+
+#: language/_annotated_strings.php:231
 msgid "Application has been send."
 msgstr "La domanda di assunzione è stata inviata."
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 #, php-format
 msgid "%d Application(s) has been successfully moved to Talent Pool"
 msgstr "%d domande sono state spostate con successo nel Talent Pool "
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 #, php-format
 msgid "Application was rated by %s"
 msgstr "Domanda di assunzione è stata valutata da %s"
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:243
 msgid "Application confirmation"
 msgstr "Conferma domanda di assunzione"
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:246
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Domanda di assunzione a \"%s\" il %s"
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:249
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "Nuova domanda di assunzione per la tua vacanza \"%s\""
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:252
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr "Ciao ##name##,\\n\\nesiste una nuova domanda di assunzione per la tua vacanza:\\n\\\"##title##\\\"\\n\\n"
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:255
 #, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "Allegare immagini o documenti PDF alla vostra domanda di assunzione. Trascinare e rilasciarli, oppure fare clic nell'area allegati. È possibile caricare fino a %sMB"
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:261
 msgid "E-Mail Templates"
 msgstr "Modelli di posta elettronica"
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:264
 msgid "Overview"
 msgstr "Panoramica"
 

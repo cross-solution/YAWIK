@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:24+0200\n"
-"PO-Revision-Date: 2016-10-10 14:42+0000\n"
+"POT-Creation-Date: 2017-02-08 23:14+0100\n"
+"PO-Revision-Date: 2017-02-08 22:15+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/yawik/yawik/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: el_GR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:126
 msgid "Imprint"
 msgstr "Αποτύπωμα"
 
@@ -42,7 +42,7 @@ msgstr "Πίσω"
 
 #: view/partial/pagination-control.phtml:76
 #: view/partial/pagination-control.phtml:80
-#: src/Core/Form/View/Helper/FormWizardContainer.php:101
+#: src/Core/Form/View/Helper/FormWizardContainer.php:103
 msgid "Next"
 msgstr "Επόμενος"
 
@@ -55,7 +55,7 @@ msgstr "Τελευταίο"
 msgid "Add permission"
 msgstr "Προσθέστε την άδεια"
 
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:117
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:126
 msgid "Admin"
 msgstr "διαχειριστής"
 
@@ -64,7 +64,7 @@ msgstr "διαχειριστής"
 msgid "Dashboard"
 msgstr "Ταμπλό"
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:114
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:123
 msgid "Home"
 msgstr "Σπίτι"
 
@@ -212,15 +212,15 @@ msgid ""
 "reload."
 msgstr "Το JavaScript απαιτείται για να χρησιμοποιήσετε αυτό το site. Παρακαλούμε ενεργοποιήστε την JavaScript και ανανεώστε."
 
-#: view/layout/layout.phtml:36
+#: view/layout/layout.phtml:40
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:89
+#: view/layout/layout.phtml:93
 msgid "Help to translate YAWIK"
 msgstr "Βοήθεια για να μεταφράσει YAWIK"
 
-#: view/layout/layout.phtml:121
+#: view/layout/layout.phtml:125
 msgid "All rights reserved."
 msgstr "Όλα τα δικαιώματα διατηρούνται."
 
@@ -255,7 +255,7 @@ msgstr "Κάντε κλικ εδώ για να προσθέσετε αρχεία
 msgid "Click here to add an image or use drag and drop."
 msgstr "Κάντε κλικ εδώ για να προσθέσετε μια εικόνα ή τη χρήση drag and drop."
 
-#: src/Core/Form/View/Helper/FormWizardContainer.php:100
+#: src/Core/Form/View/Helper/FormWizardContainer.php:102
 msgid "previous"
 msgstr "προηγούμενος"
 
@@ -264,7 +264,7 @@ msgid "processing"
 msgstr "επεξεργασία"
 
 #: src/Core/Form/View/Helper/FormCollectionContainer.php:64
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:66
 msgid "Remove"
 msgstr ""
 
@@ -282,27 +282,27 @@ msgid "Edit"
 msgstr "Επεξεργασία"
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:120
 msgid "general settings"
 msgstr "Γενικές Ρυθμίσεις"
 
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:33
-msgid "Search"
-msgstr "Έρευνα"
-
-#: language/_annotated_strings.php:6
-msgid "Clear"
-msgstr "Καθαρός"
-
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:15
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:27
 msgid "Save"
 msgstr "Αποθηκεύσετε"
 
-#: language/_annotated_strings.php:12 language/_annotated_strings.php:18
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:30
 msgid "Cancel"
 msgstr "Ματαίωση"
+
+#: language/_annotated_strings.php:15
+msgid "Name"
+msgstr "Όνομα"
+
+#: language/_annotated_strings.php:18
+msgid "Value"
+msgstr ""
 
 #: language/_annotated_strings.php:21
 msgid "Apply filter"
@@ -312,100 +312,112 @@ msgstr "Εφαρμογή φίλτρου"
 msgid "Reset filter"
 msgstr "επαναφορά φίλτρου"
 
-#: language/_annotated_strings.php:36
-msgid "Search query"
-msgstr ""
-
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:33
 msgid "Rights"
 msgstr "δικαιώματα"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:36
 msgid "View"
 msgstr "Θέα"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:39
 msgid "Write"
 msgstr "Γράφω"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:42
 msgid "Not Rated"
 msgstr "Δεν έχει αξιολογηθεί"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:45
 msgid "Poor"
 msgstr "Φτωχός"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:48
 msgid "Bad"
 msgstr "Κακός"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:51
 msgid "Average"
 msgstr "Μέσος"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:54
 msgid "Good"
 msgstr "Καλά"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:57
 msgid "Excellent"
 msgstr "Έξοχος"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:60
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr "Παρακαλώ εισάγετε έναν αριθμό τηλεφώνου. Μπορείτε να χρησιμοποιήσετε το Intenational μορφή. Μόνο ψηφία και «+»."
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:63
 msgid "Remove all"
 msgstr "Αφαίρεση όλων"
 
+#: language/_annotated_strings.php:69
+msgid "q"
+msgstr ""
+
+#: language/_annotated_strings.php:72 language/_annotated_strings.php:78
+msgid "Search"
+msgstr "Έρευνα"
+
 #: language/_annotated_strings.php:75
+msgid "Search query"
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "Clear"
+msgstr "Καθαρός"
+
+#: language/_annotated_strings.php:84
 msgid "choose your language"
 msgstr "Επιλέξτε τη γλώσσα σας"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:87
 msgid "English"
 msgstr "Αγγλικά"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:90
 msgid "French"
 msgstr "γαλλική γλώσσα"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:93
 msgid "German"
 msgstr "Γερμανός"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:96
 msgid "Italian"
 msgstr "ιταλικός"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:99
 msgid "Polish"
 msgstr "Στίλβωση"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:102
 msgid "Russian"
 msgstr "ρωσικός"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:105
 msgid "Turkish"
 msgstr "τούρκικος"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:108
 msgid "Spanish"
 msgstr "ισπανικά"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:111
 msgid "defines the languages of this frontend."
 msgstr "καθορίζει τις γλώσσες αυτού του frontend."
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:114
 msgid "choose your timzone"
 msgstr "επιλέξετε timzone σας"
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:117
 msgid "defines your local timezone."
 msgstr "καθορίζει την τοπική ώρα."

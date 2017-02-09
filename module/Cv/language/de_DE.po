@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014,2016
+# Carsten Bleek <cbleek@yawik.org>, 2014,2016-2017
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-23 10:10+0200\n"
-"PO-Revision-Date: 2016-06-23 11:30+0000\n"
+"POT-Creation-Date: 2016-07-14 13:04+0200\n"
+"PO-Revision-Date: 2017-02-08 22:23+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/cv/index/index.phtml:3 language/_annotated_strings.php:644
+#: view/cv/index/index.phtml:3
 msgid "Resumes"
 msgstr "Lebensläufe"
 
@@ -80,7 +80,7 @@ msgstr "Filter löschen"
 msgid "Image"
 msgstr "Bild"
 
-#: view/cv/manage/form.phtml:6
+#: view/cv/manage/form.phtml:12
 msgid "Create a new resume"
 msgstr "neuen Lebenslauf erstellen"
 
@@ -114,18 +114,23 @@ msgstr "Gewünschte Tätigkeit"
 msgid "Employment history"
 msgstr "beruflicher Werdegang"
 
+#: src/Cv/Form/AttachmentsFormFactory.php:84
+#: language/_annotated_strings.php:311
+msgid "Attachments"
+msgstr "Anlagen"
+
 #: src/Cv/Form/NativeLanguageFieldset.php:129
 #: language/_annotated_strings.php:81
 msgid "Native Language"
 msgstr "Muttersprache"
 
 #: src/Cv/Form/EducationCollectionFactory.php:17
-#: language/_annotated_strings.php:638
+#: language/_annotated_strings.php:644
 msgid "Education history"
 msgstr "Ausbildungsverlauf"
 
 #: src/Cv/Form/SkillCollectionFactory.php:17
-#: language/_annotated_strings.php:641
+#: language/_annotated_strings.php:647
 msgid "Skills"
 msgstr "Fähigkeiten"
 
@@ -577,453 +582,480 @@ msgid "What is your expected Salary?"
 msgstr "Wie hoch ist ihr erwartetes Einkommen?"
 
 #: language/_annotated_strings.php:308
+#, php-format
+msgid ""
+"Attach images or PDF Documents to your CV. Drag&drop them, or click into the"
+" attachement area. You can upload up to %sMB"
+msgstr "Hängen Sie PDF Dokumente per Drag&Drop an Ihren Lebenslauf. Oder klicken Sie auf den Anhänge Bereich. Sie können bis zu %s MB hochladen."
+
+#: language/_annotated_strings.php:314
 msgid ""
 "Where do you want to work tomorrow? This heading gives an immediate overview"
 " of your desired next job."
 msgstr "Wo und als was möchten sie zukünftig arbeiten? Dieser Abschnitt gibt einen Überblick über ihre nächste gewünschte Tätigkeit."
 
-#: language/_annotated_strings.php:311
+#: language/_annotated_strings.php:317
 msgid "Please select from list or enter your mother tongue."
 msgstr "Wählen Sie Ihre Mutterspache aus der Liste. Sie können mehrere Sprachen angeben."
 
-#: language/_annotated_strings.php:314
+#: language/_annotated_strings.php:320
 msgid "Abkhazian"
 msgstr "Abchasisch"
 
-#: language/_annotated_strings.php:317
+#: language/_annotated_strings.php:323
 msgid "Afrikaans"
 msgstr "Afrikaans"
 
-#: language/_annotated_strings.php:320
+#: language/_annotated_strings.php:326
 msgid "Albanian"
 msgstr "Albanisch"
 
-#: language/_annotated_strings.php:323
+#: language/_annotated_strings.php:329
 msgid "Amharic"
 msgstr "Amharisch"
 
-#: language/_annotated_strings.php:326
+#: language/_annotated_strings.php:332
 msgid "Arabic"
 msgstr "Arabisch"
 
-#: language/_annotated_strings.php:329
+#: language/_annotated_strings.php:335
 msgid "Armenian"
 msgstr "Armenisch"
 
-#: language/_annotated_strings.php:332
+#: language/_annotated_strings.php:338
 msgid "Assamese"
 msgstr "Aserbeidschanisch"
 
-#: language/_annotated_strings.php:335
+#: language/_annotated_strings.php:341
 msgid "Azerbaijani"
 msgstr "Assamesisch"
 
-#: language/_annotated_strings.php:338
+#: language/_annotated_strings.php:344
 msgid "Basque"
 msgstr "Baskisch"
 
-#: language/_annotated_strings.php:341
+#: language/_annotated_strings.php:347
 msgid "Belarusian"
 msgstr "Weißrussisch"
 
-#: language/_annotated_strings.php:344
+#: language/_annotated_strings.php:350
 msgid "Bengali"
 msgstr "Bengali"
 
-#: language/_annotated_strings.php:347
+#: language/_annotated_strings.php:353
 msgid "Bosnian"
 msgstr "Bosnisch"
 
-#: language/_annotated_strings.php:350
+#: language/_annotated_strings.php:356
 msgid "Breton"
 msgstr "Bretonisch"
 
-#: language/_annotated_strings.php:353
+#: language/_annotated_strings.php:359
 msgid "Bulgarian"
 msgstr "Bulgarisch"
 
-#: language/_annotated_strings.php:356
+#: language/_annotated_strings.php:362
 msgid "Burmese"
 msgstr "Birmanisch/Burmesisch"
 
-#: language/_annotated_strings.php:359
+#: language/_annotated_strings.php:365
 msgid "Catalan/Valencian"
 msgstr "Katalanisch"
 
-#: language/_annotated_strings.php:362
+#: language/_annotated_strings.php:368
 msgid "Chechen"
 msgstr "Tschechisch"
 
-#: language/_annotated_strings.php:365
+#: language/_annotated_strings.php:371
 msgid "Chinese"
 msgstr "Chinesisch"
 
-#: language/_annotated_strings.php:368
+#: language/_annotated_strings.php:374
 msgid "Cornish"
 msgstr "Kornisch"
 
-#: language/_annotated_strings.php:371
+#: language/_annotated_strings.php:377
 msgid "Corsican"
 msgstr "Korsisch"
 
-#: language/_annotated_strings.php:374
+#: language/_annotated_strings.php:380
 msgid "Croatian"
 msgstr "Kroatisch"
 
-#: language/_annotated_strings.php:377
+#: language/_annotated_strings.php:383
 msgid "Czech"
 msgstr "Tschechisch"
 
-#: language/_annotated_strings.php:380
+#: language/_annotated_strings.php:386
 msgid "Danish"
 msgstr "Dänisch"
 
-#: language/_annotated_strings.php:383
+#: language/_annotated_strings.php:389
 msgid "Dutch"
 msgstr "Holländisch"
 
-#: language/_annotated_strings.php:386
+#: language/_annotated_strings.php:392
 msgid "English"
 msgstr "Englisch"
 
-#: language/_annotated_strings.php:389
+#: language/_annotated_strings.php:395
 msgid "Estonian"
 msgstr "Estnisch"
 
-#: language/_annotated_strings.php:392
+#: language/_annotated_strings.php:398
 msgid "Faroese"
 msgstr "Färöisch"
 
-#: language/_annotated_strings.php:395
+#: language/_annotated_strings.php:401
 msgid "Fijian"
 msgstr "Fidschi"
 
-#: language/_annotated_strings.php:398
+#: language/_annotated_strings.php:404
 msgid "Finnish"
 msgstr "Finnisch"
 
-#: language/_annotated_strings.php:401
+#: language/_annotated_strings.php:407
 msgid "French"
 msgstr "Französisch"
 
-#: language/_annotated_strings.php:404
+#: language/_annotated_strings.php:410
 msgid "Gaelic/Scottish Gaelic"
 msgstr "Gälisch/Schottisch-Gälisch"
 
-#: language/_annotated_strings.php:407
+#: language/_annotated_strings.php:413
 msgid "Galician"
 msgstr "Galicisch"
 
-#: language/_annotated_strings.php:410
+#: language/_annotated_strings.php:416
 msgid "Georgian"
 msgstr "Georgisch"
 
-#: language/_annotated_strings.php:413
+#: language/_annotated_strings.php:419
 msgid "German"
 msgstr "Deutsch"
 
-#: language/_annotated_strings.php:416
+#: language/_annotated_strings.php:422
 msgid "Greek"
 msgstr "Griechisch"
 
-#: language/_annotated_strings.php:419
+#: language/_annotated_strings.php:425
 msgid "Gujarati"
 msgstr "Gujarati"
 
-#: language/_annotated_strings.php:422
+#: language/_annotated_strings.php:428
 msgid "Haitian/Haitian Creole"
 msgstr "Haitianisch/Frankokreolisch"
 
-#: language/_annotated_strings.php:425
+#: language/_annotated_strings.php:431
 msgid "Hebrew"
 msgstr "Hebräisch"
 
-#: language/_annotated_strings.php:428
+#: language/_annotated_strings.php:434
 msgid "Hindi"
 msgstr "Hindi"
 
-#: language/_annotated_strings.php:431
+#: language/_annotated_strings.php:437
 msgid "Hungarian"
 msgstr "Ungarisch"
 
-#: language/_annotated_strings.php:434
+#: language/_annotated_strings.php:440
 msgid "Icelandic"
 msgstr "Isländisch"
 
-#: language/_annotated_strings.php:437
+#: language/_annotated_strings.php:443
 msgid "Indonesian"
 msgstr "Indonesisch"
 
-#: language/_annotated_strings.php:440
+#: language/_annotated_strings.php:446
 msgid "Irish"
 msgstr "Irisch"
 
-#: language/_annotated_strings.php:443
+#: language/_annotated_strings.php:449
 msgid "Italian"
 msgstr "Italienisch"
 
-#: language/_annotated_strings.php:446
+#: language/_annotated_strings.php:452
 msgid "Japanese"
 msgstr "Japanisch"
 
-#: language/_annotated_strings.php:449
+#: language/_annotated_strings.php:455
 msgid "Javanese"
 msgstr "Javanisch"
 
-#: language/_annotated_strings.php:452
+#: language/_annotated_strings.php:458
 msgid "Kannada"
 msgstr "Kannada"
 
-#: language/_annotated_strings.php:455
+#: language/_annotated_strings.php:461
 msgid "Kazakh"
 msgstr "Kasachisch"
 
-#: language/_annotated_strings.php:458
+#: language/_annotated_strings.php:464
 msgid "Kirghiz"
 msgstr "Kirgisisch"
 
-#: language/_annotated_strings.php:461
+#: language/_annotated_strings.php:467
 msgid "Kongo/Kikongo"
 msgstr "Kongo/Kikongo"
 
-#: language/_annotated_strings.php:464
+#: language/_annotated_strings.php:470
 msgid "Korean"
 msgstr "Koreanisch"
 
-#: language/_annotated_strings.php:467
+#: language/_annotated_strings.php:473
 msgid "Kurdish"
 msgstr "Kurdisch"
 
-#: language/_annotated_strings.php:470
+#: language/_annotated_strings.php:476
 msgid "Lao"
 msgstr "Laotisch"
 
-#: language/_annotated_strings.php:473
+#: language/_annotated_strings.php:479
 msgid "Latvian"
 msgstr "Lettisch"
 
-#: language/_annotated_strings.php:476
+#: language/_annotated_strings.php:482
 msgid "Limburgish/Limburgian/Limburgic"
 msgstr "Limburgisch"
 
-#: language/_annotated_strings.php:479
+#: language/_annotated_strings.php:485
 msgid "Lingala"
 msgstr "Lingala"
 
-#: language/_annotated_strings.php:482
+#: language/_annotated_strings.php:488
 msgid "Lithuanian"
 msgstr "Litauisch"
 
-#: language/_annotated_strings.php:485
+#: language/_annotated_strings.php:491
 msgid "Luxembourgish"
 msgstr "Luxemburgisch"
 
-#: language/_annotated_strings.php:488
+#: language/_annotated_strings.php:494
 msgid "Macedonian"
 msgstr "Makedonisch"
 
-#: language/_annotated_strings.php:491
+#: language/_annotated_strings.php:497
 msgid "Malagasy"
 msgstr "Malagasy/Malgache"
 
-#: language/_annotated_strings.php:494
+#: language/_annotated_strings.php:500
 msgid "Malay"
 msgstr "Malaiisch"
 
-#: language/_annotated_strings.php:497
+#: language/_annotated_strings.php:503
 msgid "Malayalam"
 msgstr "Malayalam"
 
-#: language/_annotated_strings.php:500
+#: language/_annotated_strings.php:506
 msgid "Maltese"
 msgstr "Maltesisch"
 
-#: language/_annotated_strings.php:503
+#: language/_annotated_strings.php:509
 msgid "Manx"
 msgstr "Manx"
 
-#: language/_annotated_strings.php:506
+#: language/_annotated_strings.php:512
 msgid "Marathi"
 msgstr "Marathi"
 
-#: language/_annotated_strings.php:509
+#: language/_annotated_strings.php:515
 msgid "Moldavian"
 msgstr "Moldauisch"
 
-#: language/_annotated_strings.php:512
+#: language/_annotated_strings.php:518
 msgid "Mongolian"
 msgstr "Mongolisch"
 
-#: language/_annotated_strings.php:515
+#: language/_annotated_strings.php:521
 msgid "Nepali"
 msgstr "Nepali"
 
-#: language/_annotated_strings.php:518
+#: language/_annotated_strings.php:524
 msgid "Norwegian"
 msgstr "Norwegisch"
 
-#: language/_annotated_strings.php:521
+#: language/_annotated_strings.php:527
 msgid "Norwegian (Bokmal)"
 msgstr "Norwegisch (Bokmål)"
 
-#: language/_annotated_strings.php:524
+#: language/_annotated_strings.php:530
 msgid "Norwegian (Nynorsk)"
 msgstr "Norwegisch (Nynorsk)"
 
-#: language/_annotated_strings.php:527
+#: language/_annotated_strings.php:533
 msgid "Pashto"
 msgstr "Paschtunisch"
 
-#: language/_annotated_strings.php:530
+#: language/_annotated_strings.php:536
 msgid "Persian"
 msgstr "Persisch"
 
-#: language/_annotated_strings.php:533
+#: language/_annotated_strings.php:539
 msgid "Polish"
 msgstr "Polnisch"
 
-#: language/_annotated_strings.php:536
+#: language/_annotated_strings.php:542
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
-#: language/_annotated_strings.php:539
+#: language/_annotated_strings.php:545
 msgid "Punjabi"
 msgstr "Panjabi"
 
-#: language/_annotated_strings.php:542
+#: language/_annotated_strings.php:548
 msgid "Romani"
 msgstr "Romani"
 
-#: language/_annotated_strings.php:545
+#: language/_annotated_strings.php:551
 msgid "Romanian"
 msgstr "Rumänisch"
 
-#: language/_annotated_strings.php:548
+#: language/_annotated_strings.php:554
 msgid "Russian"
 msgstr "Russisch"
 
-#: language/_annotated_strings.php:551
+#: language/_annotated_strings.php:557
 msgid "Sardinian"
 msgstr "Sardisch"
 
-#: language/_annotated_strings.php:554
+#: language/_annotated_strings.php:560
 msgid "Serbian"
 msgstr "Serbisch"
 
-#: language/_annotated_strings.php:557
+#: language/_annotated_strings.php:563
 msgid "Sindhi"
 msgstr "Sindhi"
 
-#: language/_annotated_strings.php:560
+#: language/_annotated_strings.php:566
 msgid "Slovak"
 msgstr "Slowakisch"
 
-#: language/_annotated_strings.php:563
+#: language/_annotated_strings.php:569
 msgid "Slovenian"
 msgstr "Slowenisch"
 
-#: language/_annotated_strings.php:566
+#: language/_annotated_strings.php:572
 msgid "Somali"
 msgstr "Somali"
 
-#: language/_annotated_strings.php:569
+#: language/_annotated_strings.php:575
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: language/_annotated_strings.php:572
+#: language/_annotated_strings.php:578
 msgid "Swahili"
 msgstr "Swahili"
 
-#: language/_annotated_strings.php:575
+#: language/_annotated_strings.php:581
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: language/_annotated_strings.php:578
+#: language/_annotated_strings.php:584
 msgid "Tagalog"
 msgstr "Tagalog"
 
-#: language/_annotated_strings.php:581
+#: language/_annotated_strings.php:587
 msgid "Tahitian"
 msgstr "Tahitisch"
 
-#: language/_annotated_strings.php:584
+#: language/_annotated_strings.php:590
 msgid "Tajik"
 msgstr "Tadschikisch"
 
-#: language/_annotated_strings.php:587
+#: language/_annotated_strings.php:593
 msgid "Tamil"
 msgstr "Tamil"
 
-#: language/_annotated_strings.php:590
+#: language/_annotated_strings.php:596
 msgid "Tatar"
 msgstr "Tatarisch"
 
-#: language/_annotated_strings.php:593
+#: language/_annotated_strings.php:599
 msgid "Telugu"
 msgstr "Telugu"
 
-#: language/_annotated_strings.php:596
+#: language/_annotated_strings.php:602
 msgid "Thai"
 msgstr "Thailändisch"
 
-#: language/_annotated_strings.php:599
+#: language/_annotated_strings.php:605
 msgid "Tibetan"
 msgstr "Tibetisch"
 
-#: language/_annotated_strings.php:602
+#: language/_annotated_strings.php:608
 msgid "Turkish"
 msgstr "Türkisch"
 
-#: language/_annotated_strings.php:605
+#: language/_annotated_strings.php:611
 msgid "Turkmen"
 msgstr "Turkmenisch"
 
-#: language/_annotated_strings.php:608
+#: language/_annotated_strings.php:614
 msgid "Ukrainian"
 msgstr "Ukrainisch"
 
-#: language/_annotated_strings.php:611
+#: language/_annotated_strings.php:617
 msgid "Urdu"
 msgstr "Urdu"
 
-#: language/_annotated_strings.php:614
+#: language/_annotated_strings.php:620
 msgid "Uzbek"
 msgstr "Usbekisch"
 
-#: language/_annotated_strings.php:617
+#: language/_annotated_strings.php:623
 msgid "Vietnamese"
 msgstr "Vietnamesisch"
 
-#: language/_annotated_strings.php:620
+#: language/_annotated_strings.php:626
 msgid "Welsh"
 msgstr "Walisisch"
 
-#: language/_annotated_strings.php:623
+#: language/_annotated_strings.php:629
 msgid "Western Frisian"
 msgstr "Friesisch"
 
-#: language/_annotated_strings.php:626
+#: language/_annotated_strings.php:632
 msgid "Yiddish"
 msgstr "Jiddisch"
 
-#: language/_annotated_strings.php:629
+#: language/_annotated_strings.php:635
 msgid "Yoruba"
 msgstr "Yoruba"
 
-#: language/_annotated_strings.php:632
+#: language/_annotated_strings.php:638
 msgid "what is your native language"
 msgstr "was ist Ihre Muttersprache"
 
-#: language/_annotated_strings.php:635
+#: language/_annotated_strings.php:641
 msgid ""
 " Where do you want to work tomorrow. This heading gives an immediate "
 "overview of your desired next job."
 msgstr "Wo und als was möchten Sie morgen arbeiten? Dieser Abschnitt gibt einen Überblick über Ihre nächste gewünschte Tätigkeit"
 
-#: language/_annotated_strings.php:647
+#: language/_annotated_strings.php:650
+msgid "private"
+msgstr "privat"
+
+#: language/_annotated_strings.php:653
+msgid "public to all"
+msgstr "öffentlich"
+
+#: language/_annotated_strings.php:656
+msgid "Status has been successfully changed"
+msgstr "Der Status wurde erfolgreich geändert"
+
+#: language/_annotated_strings.php:659
+msgid "Invalid status"
+msgstr "ungültiger Status"
+
+#: language/_annotated_strings.php:662
+msgid "Talent-Pool"
+msgstr "Talent-Pool"
+
+#: language/_annotated_strings.php:665
 msgid "Overview"
 msgstr "Übersicht"
 
-#: language/_annotated_strings.php:650
+#: language/_annotated_strings.php:668
 msgid "Create resume"
 msgstr "Lebenslauf erstellen"

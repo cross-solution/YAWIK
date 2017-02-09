@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:24+0200\n"
-"PO-Revision-Date: 2016-10-10 14:42+0000\n"
+"POT-Creation-Date: 2017-02-08 23:14+0100\n"
+"PO-Revision-Date: 2017-02-08 22:15+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Romanian (http://www.transifex.com/yawik/yawik/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:126
 msgid "Imprint"
 msgstr "Imprima"
 
@@ -42,7 +42,7 @@ msgstr "Înapoi"
 
 #: view/partial/pagination-control.phtml:76
 #: view/partial/pagination-control.phtml:80
-#: src/Core/Form/View/Helper/FormWizardContainer.php:101
+#: src/Core/Form/View/Helper/FormWizardContainer.php:103
 msgid "Next"
 msgstr "Următor →"
 
@@ -55,7 +55,7 @@ msgstr "Ultimul"
 msgid "Add permission"
 msgstr "adauga o permisiune"
 
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:117
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:126
 msgid "Admin"
 msgstr "admin"
 
@@ -64,7 +64,7 @@ msgstr "admin"
 msgid "Dashboard"
 msgstr "Bord"
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:114
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:123
 msgid "Home"
 msgstr "Acasă"
 
@@ -212,15 +212,15 @@ msgid ""
 "reload."
 msgstr "Este nevoie de JavaScript pentru a utiliza acest site. Vă rugăm să activați JavaScript și reîncărcați."
 
-#: view/layout/layout.phtml:36
+#: view/layout/layout.phtml:40
 msgid "YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:89
+#: view/layout/layout.phtml:93
 msgid "Help to translate YAWIK"
 msgstr "Ajutor pentru a traduce YAWIK"
 
-#: view/layout/layout.phtml:121
+#: view/layout/layout.phtml:125
 msgid "All rights reserved."
 msgstr "Toate drepturile rezervate."
 
@@ -255,7 +255,7 @@ msgstr "Apasa aici pentru a adăuga fișiere sau de a folosi drag and drop."
 msgid "Click here to add an image or use drag and drop."
 msgstr "Apasa aici pentru a adăuga o imagine de tragere sau de a folosi și drop."
 
-#: src/Core/Form/View/Helper/FormWizardContainer.php:100
+#: src/Core/Form/View/Helper/FormWizardContainer.php:102
 msgid "previous"
 msgstr "anterior"
 
@@ -264,7 +264,7 @@ msgid "processing"
 msgstr "prelucrare"
 
 #: src/Core/Form/View/Helper/FormCollectionContainer.php:64
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:66
 msgid "Remove"
 msgstr ""
 
@@ -282,27 +282,27 @@ msgid "Edit"
 msgstr "Editați | ×"
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:120
 msgid "general settings"
 msgstr "setari generale"
 
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:33
-msgid "Search"
-msgstr "Căutare"
-
-#: language/_annotated_strings.php:6
-msgid "Clear"
-msgstr "clar"
-
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:15
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:27
 msgid "Save"
 msgstr "Salvați"
 
-#: language/_annotated_strings.php:12 language/_annotated_strings.php:18
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:30
 msgid "Cancel"
 msgstr "Anulare"
+
+#: language/_annotated_strings.php:15
+msgid "Name"
+msgstr "Nume"
+
+#: language/_annotated_strings.php:18
+msgid "Value"
+msgstr ""
 
 #: language/_annotated_strings.php:21
 msgid "Apply filter"
@@ -312,100 +312,112 @@ msgstr "aplica filtrul"
 msgid "Reset filter"
 msgstr "filtru de resetare"
 
-#: language/_annotated_strings.php:36
-msgid "Search query"
-msgstr ""
-
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:33
 msgid "Rights"
 msgstr "drepturile"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:36
 msgid "View"
 msgstr "vedere"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:39
 msgid "Write"
 msgstr "Scrie"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:42
 msgid "Not Rated"
 msgstr "Nu a fost votat"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:45
 msgid "Poor"
 msgstr "slab"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:48
 msgid "Bad"
 msgstr "Rău"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:51
 msgid "Average"
 msgstr "In medie"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:54
 msgid "Good"
 msgstr "Bun"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:57
 msgid "Excellent"
 msgstr "Excelent"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:60
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr "Vă rugăm să introduceți un număr de telefon. Aveți posibilitatea să utilizați formatul Intenațional. Doar cifre și '+'."
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:63
 msgid "Remove all"
 msgstr "Inlătură tot"
 
+#: language/_annotated_strings.php:69
+msgid "q"
+msgstr ""
+
+#: language/_annotated_strings.php:72 language/_annotated_strings.php:78
+msgid "Search"
+msgstr "Căutare"
+
 #: language/_annotated_strings.php:75
+msgid "Search query"
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "Clear"
+msgstr "clar"
+
+#: language/_annotated_strings.php:84
 msgid "choose your language"
 msgstr "alege limba"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:87
 msgid "English"
 msgstr "Engleză"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:90
 msgid "French"
 msgstr "limba franceza"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:93
 msgid "German"
 msgstr "germană"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:96
 msgid "Italian"
 msgstr "Italiană"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:99
 msgid "Polish"
 msgstr "Lustrui"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:102
 msgid "Russian"
 msgstr "Rusă"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:105
 msgid "Turkish"
 msgstr "turc"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:108
 msgid "Spanish"
 msgstr "Spaniolă"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:111
 msgid "defines the languages of this frontend."
 msgstr "definește limbile acestui front-end."
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:114
 msgid "choose your timzone"
 msgstr "alege timzone ta"
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:117
 msgid "defines your local timezone."
 msgstr "definește fusul orar local."

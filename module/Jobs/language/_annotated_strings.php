@@ -1,4 +1,13 @@
 <?php
+//: ./src/Jobs/Form/JobboardSearch.php:53
+translate('Location');
+
+//: ./src/Jobs/Form/JobboardSearch.php:82
+translate('Distance');
+
+//: ./src/Jobs/Form/JobboardSearch.php:97
+translate('Distance');
+
 //: ./src/Jobs/Form/ListFilterPersonalFieldset.php:38
 translate('Show all jobs');
 
@@ -41,13 +50,13 @@ translate('Companyname');
 //: ./src/Jobs/Form/MultipostButtonFieldset.php:31
 translate('Calculate price');
 
-//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:29
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:30
 translate('search for position or company');
 
-//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:54
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:56
 translate('Companyname');
 
-//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:58
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:60
 translate('Select hiring organization');
 
 //: ./src/Jobs/Form/ListFilterAdminFieldset.php:36
@@ -86,7 +95,10 @@ translate('Please choose a descriptive title and a location for your job posting
 //: ./src/Jobs/Form/Job.php:80
 translate('Please choose the name of the hiring organization. The selected name defines the template of the job opening.');
 
-//: ./src/Jobs/Form/Job.php:89
+//: ./src/Jobs/Form/Job.php:88
+translate('Classify the job.');
+
+//: ./src/Jobs/Form/Job.php:97
 translate('Please choose the portals, where you wish to publish your job opening.');
 
 //: ./src/Jobs/Form/AdminSearchForm.php:26
@@ -143,6 +155,9 @@ translate('Companyname');
 //: ./src/Jobs/Form/CompanyNameFieldset.php:36
 translate('Select hiring organization');
 
+//: ./src/Jobs/Form/ClassificationsForm.php:25
+translate('Classifications');
+
 //: ./src/Jobs/Form/JobDescriptionDescription.php:53
 translate('Enter optional company description here');
 
@@ -173,8 +188,20 @@ translate('One click apply');
 //: ./src/Jobs/Form/AtsModeFieldset.php:118
 translate('Social profiles');
 
+//: ./src/Jobs/Form/CategoriesContainer.php:40
+translate('Manage the professions you want to assign to jobs.');
+
+//: ./src/Jobs/Form/CategoriesContainer.php:58
+translate('Manage the employment types you want to assign to jobs.');
+
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');
+
+//: ./src/Jobs/Form/ClassificationsFieldset.php:52
+translate('Professions');
+
+//: ./src/Jobs/Form/ClassificationsFieldset.php:71
+translate('Employment Types');
 
 //: ./src/Jobs/Form/AdminJobEdit.php:28
 translate('Change status or publish date.%1$s%2$sBeware!%3$s Status changes will eventually cause notification emails to be send.');
@@ -311,26 +338,53 @@ translate('integration');
 //: ./config/module.config.php:135
 translate('Jobs');
 
-//: ./config/module.config.php:144
+//: ./config/module.config.php:142
+translate('Jobs categories');
+
+//: ./config/module.config.php:148
 translate('Jobboard');
 
-//: ./config/module.config.php:150
+//: ./config/module.config.php:154
 translate('Jobs');
 
-//: ./config/module.config.php:156
+//: ./config/module.config.php:160
 translate('Overview');
 
-//: ./config/module.config.php:161
+//: ./config/module.config.php:165
 translate('Pending jobs');
 
-//: ./config/module.config.php:166
+//: ./config/module.config.php:170
 translate('Create job');
 
-//: ./config/module.config.php:175
+//: ./config/module.config.php:179
 translate('Edit job');
 
-//: ./config/module.config.php:182
+//: ./config/module.config.php:186
 translate('Jobboard');
+
+//: ./test/JobsTest/Form/ClassificationsFieldsetTest.php:67
+translate('Professions');
+
+//: ./test/JobsTest/Form/ClassificationsFieldsetTest.php:84
+translate('Employment Types');
+
+//: ./test/JobsTest/Form/BaseFieldsetTest.php:58
+translate('Job title');
+
+//: ./test/JobsTest/Form/BaseFieldsetTest.php:59
+translate('Please enter the job title');
+
+//: ./test/JobsTest/Form/BaseFieldsetTest.php:68
+translate('Location');
+
+//: ./test/JobsTest/Form/BaseFieldsetTest.php:69
+translate('Please enter the location of the job');
+
+//: ./test/JobsTest/Form/CategoriesContainerTest.php:55
+translate('Manage the professions you want to assign to jobs.');
+
+//: ./test/JobsTest/Form/CategoriesContainerTest.php:73
+translate('Manage the employment types you want to assign to jobs.');
 
 //: ./test/JobsTest/Form/ListFilterPersonalTest.php:37
 translate('Show all jobs');

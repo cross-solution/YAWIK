@@ -155,7 +155,7 @@ translate('An unexpected error has occurred, please contact your system administ
 //: ./src/Auth/Controller/IndexController.php:443
 translate('You are now logged out');
 
-//: ./src/Auth/Controller/UsersController.php:52
+//: ./src/Auth/Controller/UsersController.php:54
 translate('Type name, email address, role, or login name');
 
 //: ./src/Auth/Controller/RegisterController.php:58
@@ -212,10 +212,10 @@ translate('a new password was requested for %s');
 //: ./src/Auth/Listener/DeactivatedUserListener.php:97
 translate('This user account has been disabled. Please contact the system adminstrator.');
 
-//: ./config/module.config.php:184
+//: ./config/module.config.php:185
 translate('user');
 
-//: ./config/module.config.php:185
+//: ./config/module.config.php:186
 translate('recruiter');
 
 //: ./config/navigation.config.php:16

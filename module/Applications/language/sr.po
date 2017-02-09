@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:23+0200\n"
-"PO-Revision-Date: 2016-10-10 14:26+0000\n"
+"POT-Creation-Date: 2017-02-08 23:14+0100\n"
+"PO-Revision-Date: 2017-02-08 22:15+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Serbian (http://www.transifex.com/yawik/yawik/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -396,7 +396,7 @@ msgstr "нема прилога доступних"
 #: view/applications/manage/detail.phtml:360
 #: view/applications/manage/detail.pdf.phtml:300
 #: src/Applications/Factory/Form/AttachmentsFactory.php:83
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:258
 msgid "Attachments"
 msgstr "прилози"
 
@@ -547,7 +547,7 @@ msgstr "године"
 msgid "no attachments"
 msgstr "нема прилога"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:179
+#: view/applications/manage/index.recruiter.ajax.phtml:178
 msgid "edit"
 msgstr "уреди"
 
@@ -707,7 +707,7 @@ msgid "reject the applicants"
 msgstr "одбити кандидате"
 
 #: src/Applications/Listener/StatusChange.php:170
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 #, php-format
 msgid "Mail was sent to %s"
 msgstr ""
@@ -962,51 +962,55 @@ msgid ""
 msgstr "Постоје недостају потребне информације. Ваша пријава се не може послати."
 
 #: language/_annotated_strings.php:228
+msgid "Mail has been send"
+msgstr ""
+
+#: language/_annotated_strings.php:231
 msgid "Application has been send."
 msgstr "Апликација је послати."
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 #, php-format
 msgid "%d Application(s) has been successfully moved to Talent Pool"
 msgstr ""
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 #, php-format
 msgid "Application was rated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:243
 msgid "Application confirmation"
 msgstr "потврда апликација"
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:246
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:249
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:252
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:255
 #, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr ""
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:261
 msgid "E-Mail Templates"
 msgstr ""
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:264
 msgid "Overview"
 msgstr "преглед"
 

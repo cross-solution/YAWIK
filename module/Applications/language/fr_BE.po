@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:23+0200\n"
-"PO-Revision-Date: 2016-10-10 14:26+0000\n"
+"POT-Creation-Date: 2017-02-08 23:14+0100\n"
+"PO-Revision-Date: 2017-02-08 22:15+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/yawik/yawik/language/fr_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -397,7 +397,7 @@ msgstr "Pas de pièces jointes disponibles"
 #: view/applications/manage/detail.phtml:360
 #: view/applications/manage/detail.pdf.phtml:300
 #: src/Applications/Factory/Form/AttachmentsFactory.php:83
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:258
 msgid "Attachments"
 msgstr "Annexes "
 
@@ -548,7 +548,7 @@ msgstr "années"
 msgid "no attachments"
 msgstr "Pas de pièces jointes"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:179
+#: view/applications/manage/index.recruiter.ajax.phtml:178
 msgid "edit"
 msgstr "éditer"
 
@@ -708,7 +708,7 @@ msgid "reject the applicants"
 msgstr "rejeter les candidats"
 
 #: src/Applications/Listener/StatusChange.php:170
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 #, php-format
 msgid "Mail was sent to %s"
 msgstr ""
@@ -963,51 +963,55 @@ msgid ""
 msgstr "Il manque des informations obligatoires. Votre candidature ne peut pas être envoyée."
 
 #: language/_annotated_strings.php:228
+msgid "Mail has been send"
+msgstr "Le mail a été envoyé"
+
+#: language/_annotated_strings.php:231
 msgid "Application has been send."
 msgstr "La candidature a été envoyé."
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 #, php-format
 msgid "%d Application(s) has been successfully moved to Talent Pool"
 msgstr ""
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 #, php-format
 msgid "Application was rated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:243
 msgid "Application confirmation"
 msgstr "Confirmation de la candidature"
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:246
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Candidature de \"%s\" en date du %s"
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:249
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "Nouvelle candidature pour votre poste vacant \"%s\""
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:252
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr "Bonjour ##name##,\\n\\nIl y a une nouvelle candidature pour votre poste vacant:\\n\\\"##title##\\\"\\n\\n"
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:255
 #, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "Joindre  des images ou des documents PDF à votre candidature. Utilisez le Drag&Drop, ou cliquez dans la zone de fichier joint. Vous pouvez uploader jusqu'à %sMB"
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:261
 msgid "E-Mail Templates"
 msgstr "Modèles E-Mail"
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:264
 msgid "Overview"
 msgstr "Vue d'ensemble"
 
