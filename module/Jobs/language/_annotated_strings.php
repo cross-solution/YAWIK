@@ -47,6 +47,9 @@ translate('Title and job location');
 //: ./src/Jobs/Form/CompanyName.php:37
 translate('Companyname');
 
+//: ./src/Jobs/Form/CustomerNote.php:25
+translate('Customer note');
+
 //: ./src/Jobs/Form/MultipostButtonFieldset.php:31
 translate('Calculate price');
 
@@ -100,6 +103,9 @@ translate('Classify the job.');
 
 //: ./src/Jobs/Form/Job.php:97
 translate('Please choose the portals, where you wish to publish your job opening.');
+
+//: ./src/Jobs/Form/Job.php:106
+translate('If there si something you want us to know about this job offering, you can type it here.');
 
 //: ./src/Jobs/Form/AdminSearchForm.php:26
 translate('search for position or company');
