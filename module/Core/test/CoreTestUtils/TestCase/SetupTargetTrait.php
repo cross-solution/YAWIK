@@ -156,7 +156,10 @@ trait SetupTargetTrait
             }
         }
 
-        if (isset($spec[0])) {
+        if (!isset($spec['class'])) {
+            if (!isset($spec[0])) {
+                throw new \PHPUnit_Framework_Exception(__TRAIT__ . ': No target class name specified.');
+            }
             $spec['class'] = $spec[0];
         }
 

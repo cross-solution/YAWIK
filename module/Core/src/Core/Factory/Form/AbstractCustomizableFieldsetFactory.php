@@ -17,35 +17,58 @@ use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * ${CARET}
+ * Factory boilerplate for customizable Fieldsets
+ *
+ * Ideally, you just need to extends this and set the values of the two constants.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, MutableCreationOptionsInterface
 {
+    /**
+     * Name of the options service
+     * @var string
+     */
     const OPTIONS_NAME = '';
-    const CLASS_NAME   = '';
-
-    protected $options;
 
     /**
-     * Set creation options
+     * The target fieldset class FQN
      *
-     * @param  array $options
-     *
-     * @return void
+     * @var string
      */
+    const CLASS_NAME   = '';
+
+    /**
+     * Creation options.
+     *
+     * @var array
+     */
+    protected $options;
+
     public function setCreationOptions(array $options)
     {
         $this->options = $options;
     }
 
+    /**
+     * Reset the creation options.
+     */
     protected function resetCreationOptions()
     {
         $this->options = null;
     }
 
+    /**
+     * Creates an instance.
+     *
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array              $options
+     *
+     * @return CustomizableFieldsetInterface
+     * @throws \RuntimeException
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var CustomizableFieldsetInterface $instance */
@@ -61,6 +84,16 @@ abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, 
         return $instance;
     }
 
+    /**
+     * Get the customization options.
+     *
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array              $options
+     *
+     * @return \Core\Options\FieldsetCustomizationOptions
+     * @throws \RuntimeException
+     */
     protected function getCustomizationOptions(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (!static::OPTIONS_NAME) {
@@ -70,6 +103,16 @@ abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, 
         return $container->get(static::OPTIONS_NAME);
     }
 
+    /**
+     * Create the form/fieldset instance
+     *
+     * @param ContainerInterface $container
+     * @param string             $name
+     * @param array              $options
+     *
+     * @return \Zend\Form\Fieldset
+     * @throws \RuntimeException
+     */
     protected function createFormInstance(ContainerInterface $container, $name, array $options = null)
     {
         if (!static::CLASS_NAME || !class_exists(static::CLASS_NAME)) {
@@ -84,9 +127,12 @@ abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, 
     /**
      * Create service
      *
+     * @internal
+     *      proxies to {@link __invoke()}
+     *
      * @param ServiceLocatorInterface|\Zend\ServiceManager\AbstractPluginManager $serviceLocator
      *
-     * @return mixed
+     * @return CustomizableFieldsetInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

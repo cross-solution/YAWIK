@@ -87,7 +87,7 @@ trait CustomizableFieldsetTrait
         /* @var FieldsetCustomizationOptions $customOpts */
         $customOpts = $this->getCustomizationOptions();
 
-        foreach ($customOpts->getFields() as $name) {
+        foreach ($customOpts->getFieldNames() as $name) {
             if (!isset($specification[$name])) {
                 $specification[$name] = [];
             }
