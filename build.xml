@@ -115,11 +115,6 @@
             <fileset refid="flags"/>
         </copy>
 
-        <mkdir dir="${builddir}/public/js/jquery-file-upload"/>
-        <copy todir="${builddir}/public/js/jquery-file-upload">
-            <fileset refid="blueimp"/>
-        </copy>
-        
         <mkdir dir="${builddir}/public/js/bootstrap-datepicker/js"/>
         <copy todir="${builddir}/public/js/bootstrap-datepicker/js">
             <fileset refid="datepicker"/>
@@ -134,15 +129,11 @@
         <copy file="${project.basedir}/module/Core/config/module.core.options.local.php.dist" tofile="${builddir}/config/autoload/module.core.options.local.php"/>
 
 
-        <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
         <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/js/bloodhound.min.js"/>
         <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/js/typeahead.jquery.min.js"/>
         <copy file="${vendordir}/cross-solution/bootstrap3-dialog/examples/assets/bootstrap-dialog/js/bootstrap-dialog.min.js"  tofile="${builddir}/public/js/bootstrap-dialog.min.js"/>
         <copy file="${vendordir}/cross-solution/bootstrap3-dialog/examples/assets/bootstrap-dialog/css/bootstrap-dialog.min.css" tofile="${builddir}/public/css/bootstrap-dialog.min.css"/>
 
-        <copy file="${vendordir}/twbs/bootstrap/dist/js/bootstrap.min.js" tofile="${builddir}/public/js/bootstrap.min.js"/>
-        <copy file="${vendordir}/ivaynberg/select2/dist/js/select2.min.js" tofile="${builddir}/public/js/select2.min.js"/>
-        <copy file="${vendordir}/ivaynberg/select2/dist/css/select2.css" tofile="${builddir}/public/css/select2.css"/>
         <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.photon.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.photon.js"/>
         <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.geo.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.geo.js"/>
         <copy file="${project.basedir}/public/js/jquery.bootstrapwizard.min.js" tofile="${builddir}/public/js/jquery.bootstrapwizard.min.js"/>
@@ -329,12 +320,6 @@
             <include name="flags/**"/>
         </fileset>
 
-        <fileset id="blueimp" dir="${vendordir}/blueimp/jquery-file-upload/js">
-            <include name="jquery.iframe-transport.js"/>
-            <include name="jquery.fileupload.js"/>
-            <include name="vendor/jquery.ui.widget.js"/>
-        </fileset>
-        
         <fileset id="datepicker" dir="${vendordir}/eternicode/bootstrap-datepicker/dist/js">
             <include name="bootstrap-datepicker.js"/>
             <include name="bootstrap-datepicker.min.js"/>

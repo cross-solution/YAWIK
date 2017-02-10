@@ -1,27 +1,23 @@
+/**
+ * YAWIK
+ *
+ * License: MIT
+ * (c) 2013 - 2017 CROSS Solution <http://cross-solution.de>
+ */
+
+/**
+ * Author: Mathias Gelhausen <gelhausen@cross-solution.de>
+ *
+ * initialise pnotify
+ */
+
 (function ($) {
 
-    initLanguageSwitcher = function () {
-        $("#language-switcher button").click(function (e) {
-            var switchToLang = '/' + $(this).attr("id").replace(/^language-switcher-/, "");
-
-            if (lang != switchToLang) {
-                var langRegex = new RegExp('/' + lang + '($|\/)');
-
-                var newHref = location.protocol
-                    + "//" + location.host
-                    + location.pathname.replace(langRegex, switchToLang + '$1')
-                    + location.search;
-                //console.log(newHref);
-                location.href = newHref;
-            }
-        });
-    };
     initPnotify = function () {
         PNotify.prototype.options.styling = "fontawesome";
     };
 
     $(function () {
-        initLanguageSwitcher();
         initPnotify();
     });
 
@@ -89,7 +85,6 @@
             }
         });
     });
-
 })(jQuery);
 
 $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
