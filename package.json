@@ -1,6 +1,9 @@
 {
   "name": "YAWIK",
   "version": "0.28.0",
+  "scripts": {
+    "prepublish": "bin/install-assets.sh"
+  },
   "devDependencies": {
     "blueimp-file-upload": "^9.15.0",
     "bootstrap": "^3.3.7",

@@ -39,6 +39,7 @@ build
 components
 vendor
 cache
+node_modules
  
 #
 # Eclipse project files
