@@ -8,11 +8,11 @@
                          ->appendFile($this->basePath('Core/js/core.spinnerbutton.js'))
                          ->appendFile($this->basePath('assets/select2/js/select2.min.js'))
                          ->appendFile($this->basePath('Core/js/forms.descriptions.js'))
-                         ->appendFile($this->basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'))
+                         ->appendFile($this->basePath('/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js'))
                          ->appendFile($this->basePath('/Jobs/js/jobs.history.js'));
 
 if ('de' == $this->params('lang')) {
-    $this->headScript()->appendFile($this->basePath('/js/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
+    $this->headScript()->appendFile($this->basePath('/assets/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
 }
 
 
