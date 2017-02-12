@@ -37,14 +37,12 @@ if ($this->pageCount):
                 <!-- Previous page link -->
                 <?php if ($enablePrevButton): ?>
                     <?php if (isset($this->previous)): $query['page'] = $this->previous; ?>
-                        <?php $url                                    =
-                            $this->url($this->route, array('lang' => $this->lang), array('query' => $query), true); ?>
-                        <li><a href="<?php echo $url ?>">
-                                <?php echo $this->translate('Back') ?>
+                        <?php $url = $this->url($this->route, array('lang' => $this->lang), array('query' => $query), true); ?>
+                        <li><a title="<?= $this->translate('Back') ?>" href="<?php echo $url ?>"><i class="fa fa-angle-left"></i>
                                 <?php $this->headLink(array('rel' => 'prev', 'href' => $url), 'PREPEND'); ?>
                             </a></li>
                     <?php else: ?>
-                        <li class="disabled"><a><?php echo $this->translate('Back') ?></a></li>
+                        <li class="disabled"><a title="<?=$this->translate('Back') ?>"><i class="fa fa-angle-left"></i></a></li>
                     <?php endif; ?>
                 <?php endif;?>
 
@@ -70,14 +68,13 @@ if ($this->pageCount):
                 <!-- Next page link -->
                 <?php if ($enableNextButton): ?>
                 <?php if (isset($this->next)): $query['page'] = $this->next; ?>
-                    <?php $url                                                     =
+                    <?php $url                 =
                         $this->url($this->route, array('lang' => $this->lang), array('query' => $query), true); ?>
-                    <li><a href="<?php echo $url ?>">
-                            <?php echo $this->translate('Next') ?>
+                    <li><a title="<?=$this->translate('Next') ?>" href="<?php echo $url ?>"><i class="fa fa-angle-right"></i>
                             <?php $this->headLink(array('rel' => 'next', 'href' => $url), 'PREPEND'); ?>
                         </a></li>
                 <?php else: ?>
-                    <li class="disabled"><a><?php echo $this->translate('Next') ?></a></li>
+                    <li class="disabled"><a title="<?=$this->translate('Next') ?>"><i class="fa fa-angle-right"></i></a></li>
                 <?php endif; ?>
                 <?php endif; ?>
                 <!-- Last page link -->
