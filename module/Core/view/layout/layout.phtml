@@ -20,7 +20,7 @@ $notifications = $this->partial('core/notifications');
 $this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
 
 $this->configHeadScript()->prependFile($this->basepath('/Core/js/core.init.js'));
-$this->configHeadScript()->prependFile($this->basePath('/Core/js/pnotify.custom.min.js'), 'text/javascript');
+$this->configHeadScript()->prependFile($this->basePath('/assets/pnotify/pnotify.custom.min.js'), 'text/javascript');
 $this->configHeadScript()->prependFile($this->basePath('/assets/bootstrap/js/bootstrap.min.js'));
 $this->configHeadScript()->prependFile($this->basePath('/assets/jquery/jquery.min.js'));
 $this->configHeadScript()->appendFile($this->basePath('/assets/select2/js/select2.min.js'));
@@ -31,7 +31,7 @@ if ($lang!='en') {
 $this->configHeadScript()->appendScript('var lang="' . $lang . '";'
                                       . 'var basePath="' . $this->basePath() . '";');
 
-$this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.min.css'));
+$this->headLink()->prependStylesheet($this->basePath('/assets/pnotify/pnotify.custom.min.css'));
 $this->headLink()->appendStylesheet($this->basePath('/assets/select2/css/select2.css'));
 
 ?>
