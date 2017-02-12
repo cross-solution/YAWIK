@@ -9,6 +9,8 @@
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.6.4",
     "bootstrap3-dialog": "^1.35.3",
+    "flag-icon-css": "^2.8.0",
+    "font-awesome": "^4.7.0",
     "jquery": "^2.2.4",
     "less": "^2.7.2",
     "pnotify": "^3.0.0",

@@ -17,3 +17,4 @@ cp -R node_modules/select2/dist ${ASSETS_DIR}/select2
 cp -R node_modules/blueimp-file-upload ${ASSETS_DIR}/blueimp-file-upload
 cp -R node_modules/pnotify/dist ${ASSETS_DIR}/pnotify
 cp -R node_modules/bootstrap/dist ${ASSETS_DIR}/bootstrap
+cp -R node_modules/bootstrap/dist ${ASSETS_DIR}/bootstrap
