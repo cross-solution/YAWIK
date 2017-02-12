@@ -17,13 +17,12 @@ cp -R node_modules/select2/dist ${ASSETS_DIR}/select2
 cp -R node_modules/blueimp-file-upload ${ASSETS_DIR}/blueimp-file-upload
 
 
+cp -R node_modules/pnotify/dist ${ASSETS_DIR}/pnotify
 uglifyjs node_modules/pnotify/dist/pnotify.js \
-	node_modules/pnotify/dist/pnotify.buttons.js \
-	-o public/assets/pnotify/pnotify.custom.min.js
-	
+	node_modules/pnotify/dist/pnotify.buttons.js > public/assets/pnotify/pnotify.custom.min.js	
 cat node_modules/pnotify/dist/pnotify.css node_modules/pnotify/dist/pnotify.buttons.css > ${ASSETS_DIR}/pnotify/pnotify.custom.min.css	
 
-cp -R node_modules/pnotify/dist ${ASSETS_DIR}/pnotify
+
 cp -R node_modules/bootstrap/dist ${ASSETS_DIR}/bootstrap
 
 if [ ! -d "${ASSETS_DIR}/twitter-bootstrap-wizard" ]; then
