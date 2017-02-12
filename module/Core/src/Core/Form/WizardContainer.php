@@ -28,7 +28,7 @@ class WizardContainer extends Container implements HeadscriptProviderInterface, 
      * @var array
      */
     protected $scripts = [
-        '/js/jquery.bootstrapwizard.min.js',
+        '/assets/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js',
     ];
 
     public function setHeadscripts(array $scripts)

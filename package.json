@@ -15,6 +15,7 @@
     "less": "^2.7.2",
     "pnotify": "^3.0.0",
     "select2": "^4.0.3",
+    "twitter-bootstrap-wizard": "^1.2.0",
     "uglify-js": "^2.7.5"
   }
 }

@@ -17,4 +17,9 @@ cp -R node_modules/select2/dist ${ASSETS_DIR}/select2
 cp -R node_modules/blueimp-file-upload ${ASSETS_DIR}/blueimp-file-upload
 cp -R node_modules/pnotify/dist ${ASSETS_DIR}/pnotify
 cp -R node_modules/bootstrap/dist ${ASSETS_DIR}/bootstrap
-cp -R node_modules/bootstrap/dist ${ASSETS_DIR}/bootstrap
+
+if [ ! -d "${ASSETS_DIR}/twitter-bootstrap-wizard" ]; then
+         mkdir -p ${ASSETS_DIR}/twitter-bootstrap-wizard
+fi
+cp -R node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js ${ASSETS_DIR}/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js
+cp -R node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js ${ASSETS_DIR}/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js
