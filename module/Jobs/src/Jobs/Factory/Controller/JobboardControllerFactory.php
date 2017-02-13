@@ -37,14 +37,14 @@ class JobboardControllerFactory implements FactoryInterface
         /** @var ControllerManager $serviceLocator */
         $serviceLocator = $serviceLocator->getServiceLocator();
 
-//        $searchForm = $serviceLocator->get('forms')
-//            ->get('Jobs/ListFilterLocation');
+        /* @var \Jobs\Options\JobboardSearchOptions $options */
+        $options = $serviceLocator->get('Jobs/JobboardSearchOptions');
 
         /**
          * @var $jobRepository Repository\Job
          */
         $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
 
-        return new JobboardController($jobRepository);
+        return new JobboardController($jobRepository, ['count'=>$options->getPerPage()]);
     }
 }

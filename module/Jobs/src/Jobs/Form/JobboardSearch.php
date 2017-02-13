@@ -31,11 +31,6 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
     protected $locationEngineType;
 
     /**
-     * @var $jobboardSearchOptions \Jobs\Options\JobboardSearchOptions
-     */
-    protected $jobboardSearchOptions;
-
-    /**
      * @param array $options
      */
     public function __construct(array $options = [])
@@ -43,9 +38,6 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
         parent::__construct();
         if (array_key_exists('location_engine_type', $options)) {
             $this->locationEngineType = $options['location_engine_type'];
-        }
-        if (array_key_exists('options', $options)) {
-            $this->jobboardSearchOptions=$options['options'];
         }
         $this->setOptions($options);
     }

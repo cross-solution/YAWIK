@@ -31,20 +31,21 @@ class JobboardController extends AbstractActionController
     private $jobRepository;
 
     /**
-     * Formular for searching job postings
-     *
-     * @var ListFilter $searchForm
+     * @var array
      */
-    private $searchForm;
+    private $options = [
+        'count' => 10
+    ];
 
     /**
      * Construct the jobboard controller
      *
      * @param Repository\Job $jobRepository
      */
-    public function __construct(Repository\Job $jobRepository)
+    public function __construct(Repository\Job $jobRepository, $options)
     {
         $this->jobRepository = $jobRepository;
+        $this->options = $options;
     }
     /**
      * attaches further Listeners for generating / processing the output
@@ -69,7 +70,13 @@ class JobboardController extends AbstractActionController
     {
 
         $result = $this->pagination([
-                'params' => ['Jobs_Board', ['q', 'page' => 1, 'l', 'd']],
+                'params' => ['Jobs_Board', [
+                    'q',
+                    'count' => $this->options['count'],
+                    'page' => 1,
+                    'l',
+                    'd']
+                ],
                 'form' => ['as' => 'filterForm', 'Jobs/JobboardSearch'],
                 'paginator' => ['as' => 'jobs', 'Jobs/Board']
             ]);
