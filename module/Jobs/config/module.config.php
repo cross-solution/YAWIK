@@ -27,6 +27,10 @@ return array(
         ),
     ),
 
+    'options' => [
+        'Jobs/JobboardSearchOptions' => [ 'class' => '\Jobs\Options\JobboardSearchOptions' ],
+    ],
+
     'Jobs' => array(
         'dashboard' => array(
             'enabled' => true,

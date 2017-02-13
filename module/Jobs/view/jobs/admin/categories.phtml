@@ -6,5 +6,6 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-
-echo $this->formWizardContainer($form, \Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL, ['wizard' => ['pager' => false]]);
+?>
+<h1><?=$this->translate("Categories")?></h1>
+<?=$this->formWizardContainer($form, \Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL, ['wizard' => ['pager' => false]]);?>

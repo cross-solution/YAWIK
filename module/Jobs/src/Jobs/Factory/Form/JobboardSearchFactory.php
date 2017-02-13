@@ -10,6 +10,8 @@
 /** */
 namespace Jobs\Factory\Form;
 
+use Core\Factory\Form\AbstractCustomizableFieldsetFactory;
+use Interop\Container\ContainerInterface;
 use Jobs\Form\JobboardSearch;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -19,19 +21,23 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
-class JobboardSearchFactory implements FactoryInterface
+class JobboardSearchFactory extends AbstractCustomizableFieldsetFactory
 {
-    /**
-     * Creates the multiposting select box.
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
 
-        $services = $serviceLocator->getServiceLocator();
+    const OPTIONS_NAME = 'Jobs/JobboardSearchOptions';
+
+    protected function createFormInstance(ContainerInterface $container, $name, array $options = null)
+    {
         /* @var \Geo\Options\ModuleOptions $options */
-        $options = $services->get('Geo/Options');
-        $fs = new JobboardSearch(['location_engine_type' => $options->getPlugin(), 'button_element' => 'd']);
+        $options = $container->get('Geo/Options');
+        /* @var \Jobs\Options\JobboardSearchOptions $jobboardSearchOptions */
+        $fs = new JobboardSearch([
+                                     'location_engine_type' => $options->getPlugin(),
+                                     'button_element' => 'd',
+                                 ]);
+
+
         return $fs;
     }
+
 }
