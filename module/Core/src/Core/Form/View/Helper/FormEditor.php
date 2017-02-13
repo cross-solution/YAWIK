@@ -75,7 +75,7 @@ class FormEditor extends FormTextarea
         $basepath = $renderer->plugin('basepath');
 
         $headscript->appendFile($basepath('js/tinymce/tinymce.jquery.min.js'));
-        $headscript->prependFile($basepath('js/jquery.min.js'));
+        $headscript->prependFile($basepath('/assets/jquery/jquery.min.js'));
 
         $headscript->offsetSetScript(
             '1000_tinymce_' . $this->getTheme(),
