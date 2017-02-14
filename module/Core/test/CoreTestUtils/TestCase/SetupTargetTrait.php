@@ -156,6 +156,11 @@ trait SetupTargetTrait
             }
         }
 
+        if (isset($spec['method'])) {
+            $this->target = $this->{$spec['method']}();
+            return;
+        }
+
         if (!isset($spec['class'])) {
             if (!isset($spec[0])) {
                 throw new \PHPUnit_Framework_Exception(__TRAIT__ . ': No target class name specified.');
@@ -167,12 +172,6 @@ trait SetupTargetTrait
             $spec['method'] = $spec['class'];
         }
 
-        if (isset($spec['method'])) {
-            $this->target = $this->{$spec['method']}();
-            return;
-        }
-
-
         if (isset($spec['as_reflection']) && $spec['as_reflection']) {
             $this->target = new \ReflectionClass($spec['class']);
             return;
@@ -181,7 +180,6 @@ trait SetupTargetTrait
         if (!isset($spec['args'])) {
             $spec['args'] = isset($spec[1]) ? $spec[1] : [];
         }
-
 
         if (is_string($spec['args'])) {
             $spec['args'] = $this->{$spec['args']}();
