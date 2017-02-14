@@ -31,10 +31,12 @@ class JobboardSearchFactory extends AbstractCustomizableFieldsetFactory
         /* @var \Geo\Options\ModuleOptions $options */
         $options = $container->get('Geo/Options');
         /* @var \Jobs\Options\JobboardSearchOptions $jobboardSearchOptions */
-        $fs = new JobboardSearch([
-                                     'location_engine_type' => $options->getPlugin(),
-                                     'button_element' => 'd',
-                                 ]);
+        $fs = new JobboardSearch(
+            [
+                'location_engine_type' => $options->getPlugin(),
+                'button_element' => 'd',
+            ]
+        );
 
 
         return $fs;

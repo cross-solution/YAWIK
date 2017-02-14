@@ -48,47 +48,48 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
         parent::init();
         $this->setButtonElement('q');
 
-            $this->add([
-                           'name'       => 'l',
-                           'type'       => 'LocationSelect',
-                           'options'    => [
-                               'label' => 'Location',
-                               'span'  => 3
-                           ],
-                           'attributes' => [
-                               'data-width' => '100%',
-                           ]
-                       ]
-            );
-            $this->setButtonElement('l');
+        $this->add(
+            [
+                'name'       => 'l',
+                'type'       => 'LocationSelect',
+                'options'    => [
+                    'label' => 'Location',
+                    'span'  => 3
+                ],
+                'attributes' => [
+                    'data-width' => '100%',
+                ]
+            ]
+        );
+        $this->setButtonElement('l');
 
 
-            $this->add(
-                array(
-                    'name'       => 'd',
-                    'type'       => 'Zend\Form\Element\Select',
-                    'options'    => array(
-                        'label'         => /*@translate*/ 'Distance',
-                        'value_options' => [
-                            '5'   => '5 km',
-                            '10'  => '10 km',
-                            '20'  => '20 km',
-                            '50'  => '50 km',
-                            '100' => '100 km'
-                        ],
-                        'span'          => 4,
+        $this->add(
+            array(
+                'name'       => 'd',
+                'type'       => 'Zend\Form\Element\Select',
+                'options'    => array(
+                    'label'         => /*@translate*/ 'Distance',
+                    'value_options' => [
+                        '5'   => '5 km',
+                        '10'  => '10 km',
+                        '20'  => '20 km',
+                        '50'  => '50 km',
+                        '100' => '100 km'
+                    ],
+                    'span'          => 4,
 
-                    ),
-                    'attributes' => [
-                        'value'            => '10', // default distance
-                        'data-searchbox'   => -1,  // hide the search box
-                        'data-allowclear'  => 'false', // allow to clear a selected value
-                        'data-placeholder' => /*@translate*/ 'Distance',
-                        'data-width'       => '100%',
-                    ]
-                )
-            );
-            $this->setButtonElement('d');
+                ),
+                'attributes' => [
+                    'value'            => '10', // default distance
+                    'data-searchbox'   => -1,  // hide the search box
+                    'data-allowclear'  => 'false', // allow to clear a selected value
+                    'data-placeholder' => /*@translate*/ 'Distance',
+                    'data-width'       => '100%',
+                ]
+            )
+        );
+        $this->setButtonElement('d');
 
     }
 }

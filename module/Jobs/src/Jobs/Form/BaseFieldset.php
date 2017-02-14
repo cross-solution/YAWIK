@@ -52,28 +52,31 @@ class BaseFieldset extends Fieldset
         $this->setAttribute('id', 'job-fieldset');
 
         $this->setName('jobBase');
-        
+
         $this->add(
-            array(
-            'type' => 'Text',
-            'name' => 'title',
-            'options' => array(
-                'label' => /*@translate*/ 'Job title',
-                'description' => /*@translate*/ 'Please enter the job title'
-            ),
-            )
+            [
+                'type' => 'Text',
+                'name' => 'title',
+                'options' => [
+                    'label' => /*@translate*/ 'Job title',
+                    'description' => /*@translate*/ 'Please enter the job title'
+                ],
+            ]
         );
-       
+
         $this->add(
-            array(
-            'type' => 'Location',
-            'name' => 'geo-location',
-            'options' => array(
-                'label' => /*@translate*/ 'Location',
-                'description' => /*@translate*/ 'Please enter the location of the job',
-                'engine_type' => $this->locationEngineType,
-            ),
-            )
+            [
+                'type' => 'LocationSelect',
+                'name' => 'geo-location',
+                'options' => [
+                    'label' => /*@translate*/ 'Location',
+                    'description' => /*@translate*/ 'Please enter the location of the job',
+                    'engine_type' => $this->locationEngineType,
+                ],
+                'attributes' => [
+                    'data-width' => '100%',
+                ]
+            ]
         );
 
     }
