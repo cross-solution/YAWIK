@@ -62,13 +62,16 @@ class BaseFieldsetTest extends \PHPUnit_Framework_TestCase
                 ],
                 [
                     [
-                        'type' => 'Location',
+                        'type' => 'LocationSelect',
                         'name' => 'geo-location',
                         'options' => [
                             'label' => /*@translate*/ 'Location',
                             'description' => /*@translate*/ 'Please enter the location of the job',
                             'engine_type' => 'test',
                         ],
+                        'attributes' => [
+                            'data-width' => '100%'
+                        ]
                     ]
                 ]
             );
