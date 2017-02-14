@@ -141,6 +141,8 @@
         <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
         <mkdir dir="${builddir}/cache/HtmlPurifier"/>
         <chmod file="${builddir}/cache/HtmlPurifier" mode="0777"/>
+        <mkdir dir="${builddir}/cache/geo"/>
+        <chmod file="${builddir}/cache/geo" mode="0777"/>
         <mkdir dir="${builddir}/config/autoload"/>
         <chmod file="${builddir}/config/autoload" mode="0777"/>
         <echo file="${builddir}/VERSION" append="false">${version}</echo>
