@@ -15,45 +15,28 @@ use Core\Exception\ImmutablePropertyException;
 
 /**
  * Class SnapshotMeta
- * @package Core\Entity
  *
- * @ODM\MappedSuperclass
+ * @ODM\EmbeddedDocument
+ * @ODM\HasLifecycleCallbacks
  */
-class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
+class SnapshotMeta implements ModificationDateAwareEntityInterface, DraftableEntityInterface
 {
-    /**
-     * Entity id
-     *
-     * @var mixed
-     * @ODM\Id
-     */
-    protected $id;
+    use ModificationDateAwareEntityTrait, DraftableEntityTrait;
 
     /**
-    * @var EntityInterface
-    * @ODM\EmbedOne
-    * @ODM\Index
+     * @var EntityInterface
+     * @ODM\ReferenceOne(discriminatorField="_entity", storeAs="dbRef")
      */
     protected $entity;
-
-    /**
-     * @var string
-     * @ODM\Field(type="string")
-     */
-    protected $sourceId;
 
     /**
      * Sets the entity
      *
      * @param $entity
-     * @return $this
      * @throws \Core\Exception\ImmutablePropertyException
      */
-    public function setEntity($entity)
+    public function __construct($entity)
     {
-        if (isset($this->entity)) {
-            throw new ImmutablePropertyException('setEntity', $this);
-        }
         $this->entity = $entity;
         return $this;
     }
@@ -68,13 +51,4 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
         return $this->entity;
     }
 
-    /**
-     * Sets the source id
-     *
-     * @param $id
-     */
-    public function setSourceId($id)
-    {
-        $this->sourceId = $id;
-    }
 }

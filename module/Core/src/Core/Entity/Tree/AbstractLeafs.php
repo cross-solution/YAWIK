@@ -10,6 +10,7 @@
 /** */
 namespace Core\Entity\Tree;
 
+use Core\Entity\ClonePropertiesTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityTrait;
@@ -25,7 +26,9 @@ use Doctrine\Common\Collections\Collection;
  */
 abstract class AbstractLeafs implements LeafsInterface
 {
-    use EntityTrait;
+    use EntityTrait, ClonePropertiesTrait;
+
+    private $cloneProperties = [ '!items' ];
 
     /**
      * The leafs.

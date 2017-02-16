@@ -28,9 +28,14 @@ trait MetaDataProviderTrait
      */
     private $metaData = [];
 
-    public function setMetaData($key, $value)
+    public function setMetaData($key, $value = null)
     {
-        $this->metaData[$key] = $value;
+        if (is_array($key)) {
+            $this->metaData  = $key;
+
+        } else {
+            $this->metaData[$key] = $value;
+        }
 
         return $this;
     }
