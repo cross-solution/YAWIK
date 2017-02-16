@@ -78,6 +78,10 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
             <?php if (\Jobs\Entity\StatusInterface::CREATED == $job->getStatus()->getName()): ?>
                 <a href="<?php echo $this->url('lang/jobs/approval', array('action' => 'edit'), array('query' => array('id' => $job->getId())), true) ?>" class="btn btn-success btn-xs"><span class="yk-icon fa-check"></span></a>
             <?php endif ?>
+                <?php if (\Jobs\Entity\StatusInterface::WAITING_FOR_APPROVAL == $job->getStatus()->getName()):
+                    $snapshot = $this->services('repositories.Jobs/JobSnapshot')->findLatest($job->getId(), true);?>
+                    <a href="<?php echo $this->url('lang/jobs/approval', array('action' => 'edit'), array('query' => array('snapshot' => $snapshot->getSnapshotId())), true) ?>" class="btn btn-success btn-xs"><span class="yk-icon fa-check"></span></a>
+                <?php endif ?>
         </div></td>
 </tr>
 <?php endforeach?>

@@ -16,7 +16,15 @@ $lang = $this->params('lang');
     <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <iframe id="editJob" style="width:100%; height:800px;" src="<?php echo $this->url('lang/jobs/editTemplate', array('id' => $this->element->getEntity()->id)); ?>"></iframe>
+                <iframe id="editJob" style="width:100%; height:800px;" src="<?php
+                $job = $this->element->getEntity();
+                if ($job instanceOf \Jobs\Entity\JobSnapshot) {
+                    $linkOptions = ['query' => ['snapshot' => $job->getSnapshotId()]];
+                } else {
+                    $linkOptions = [];
+                }
+
+                echo $this->url('lang/jobs/editTemplate', array('id' => $this->element->getEntity()->id), $linkOptions); ?>"></iframe>
             </div>
         </div>
     </div>

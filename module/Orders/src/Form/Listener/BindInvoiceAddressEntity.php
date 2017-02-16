@@ -21,13 +21,16 @@ use Core\Form\Event\FormEvent;
 class BindInvoiceAddressEntity 
 {
 
-    protected $repository;
+    protected $orders;
+
+    protected $drafts;
 
     protected $createEntityCallback;
 
-    public function __construct($repository, $callback)
+    public function __construct($orders, $drafts, $callback)
     {
-        $this->repository = $repository;
+        $this->orders = $orders;
+        $this->drafts = $drafts;
         $this->createEntityCallback = $callback;
     }
 
@@ -38,15 +41,18 @@ class BindInvoiceAddressEntity
         }
 
         $jobId  = $event->getParam('param_value');
-        $entity = $this->repository->findByJobId($jobId);
+        $entity = $this->drafts->findByJobId($jobId);
 
         if ($entity) {
             $invoiceAddress = $entity->getInvoiceAddress();
 
+        } else if ($order = $this->orders->findByJobId($jobId)) {
+            $invoiceAddress = $order->getInvoiceAddress();
+
         } else {
             $callback = $this->createEntityCallback;
             $invoiceAddress = $callback();
-            $entity = $this->repository->create(
+            $entity = $this->drafts->create(
                 [
                     'jobId'  => $jobId,
                     'invoiceAddress' => $invoiceAddress
@@ -57,7 +63,7 @@ class BindInvoiceAddressEntity
              * at this time. So we need to manually store the entity to be sure it is persisted.
              *
              */
-            $this->repository->store($entity);
+            $this->drafts->store($entity);
         }
 
         $form = $event->getForm();

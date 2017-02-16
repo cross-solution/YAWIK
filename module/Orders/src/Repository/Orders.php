@@ -51,4 +51,10 @@ class Orders extends AbstractRepository
 
         return parent::create($data);
     }
+
+    public function findByJobId($jobId)
+    {
+        $entity = $this->findOneBy(['entity.entity.$ref' => 'jobs', 'entity.entity.$id' => new \MongoId($jobId)]);
+        return $entity;
+    }
 }

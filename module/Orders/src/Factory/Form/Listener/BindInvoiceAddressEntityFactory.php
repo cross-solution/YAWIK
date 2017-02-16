@@ -32,9 +32,10 @@ class BindInvoiceAddressEntityFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $repositories = $serviceLocator->get('repositories');
-        $repository   = $repositories->get('Orders/InvoiceAddressDraft');
+        $drafts       = $repositories->get('Orders/InvoiceAddressDraft');
+        $orders       = $repositories->get('Orders');
         $callback     = function() use ($serviceLocator) { return $serviceLocator->get('Orders/Entity/JobInvoiceAddress'); };
-        $listener     = new BindInvoiceAddressEntity($repository, $callback);
+        $listener     = new BindInvoiceAddressEntity($orders, $drafts, $callback);
 
         return $listener;
 

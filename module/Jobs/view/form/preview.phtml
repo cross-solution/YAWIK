@@ -9,24 +9,26 @@
 
 $job = $this->element->getObject();
 
-$viewLink = $this->url(
-    'lang/jobs/view',
-    array(),
-    array(
-        'query' => array(
-            'id' => $job->id
-        )
-    )
-);
+if ($job instanceOf \Jobs\Entity\JobSnapshot) {
+    $query = ['snapshot' => $job->getSnapshotId()];
+} else {
+    $query = ['id' => $job->getId()];
+}
 
+$viewLink = $this->url(
+                     'lang/jobs/view',
+                         array(),
+                         array(
+                             'query' => $query,
+                         )
+    );
+
+$query['page'] = 0;
 $multipostLink = $this->url(
     'lang/jobs/manage',
     array(),
     array(
-        'query' => array(
-           'id' => $job->id,
-           'page' => 0
-        ),
+        'query' => $query,
     )
 );
 

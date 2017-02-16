@@ -122,8 +122,10 @@ class PaginationQuery extends AbstractPaginationQuery
         } else {
             /*
              * an applicants or guests can see all active jobs
+             * Active jobs are also jobs which are WAITING_FOR_APPROVAL, because the actual change is
+             * only in the snapshot.
              */
-            $queryBuilder->field('status.name')->equals(Status::ACTIVE);
+            $queryBuilder->field('status.name')->in([Status::ACTIVE, Status::WAITING_FOR_APPROVAL]);
         }
 
         if (isset($this->value['sort'])) {

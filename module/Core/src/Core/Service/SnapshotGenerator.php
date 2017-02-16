@@ -10,7 +10,11 @@
 
 namespace Core\Service;
 
+use Core\Entity\EntityInterface;
+use Core\Entity\Hydrator\CloneHydrator;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\SnapshotInterface;
+use Core\Entity\SnapshotMeta;
 
 /**
  * Class SnapshotGenerator
@@ -25,9 +29,12 @@ class SnapshotGenerator
     protected $hydrator;
 
     /**
-     * @var
+     *
+     *
+     * @var array
      */
-    protected $source;
+    protected $snapshotAttributes = [];
+
 
     /**
      * @param $hydrator
@@ -47,37 +54,55 @@ class SnapshotGenerator
     public function getHydrator()
     {
         if (!isset($this->hydrator)) {
-            $this->hydrator = new EntityHydrator();
+            $this->hydrator = new CloneHydrator();
         }
         return $this->hydrator;
     }
 
     /**
-     * @param $source
-     * @return $this
+     * @param array $snapshotAttributes
+     *
+     * @return self
      */
-    public function setSource($source)
+    public function setSnapshotAttributes($snapshotAttributes)
     {
-        $this->source = $source;
-        return $this;
-    }
+        $this->snapshotAttributes = $snapshotAttributes;
 
-    /**
-     * @return mixed
-     */
-    public function getSource()
-    {
-        return $this->source;
+        return $this;
     }
 
     /**
      * @return array
      */
-    public function getSnapshot()
+    public function getSnapshotAttributes()
     {
+        return $this->snapshotAttributes;
+    }
+
+
+
+    public function __invoke($source, $attributes = [], $target = null)
+    {
+        if (!is_array($attributes)) {
+            $target = $attributes;
+            $attributes = null;
+        }
+
+        if (!$target) {
+            $target = get_class($source) . 'Snapshot';
+            $target = new $target($source);
+        }
+
+        if ($target instanceOf SnapshotAttributesProviderInterface) {
+            $attributes = $target->getSnapshotAttributes();
+        } else if (empty($attributes)) {
+            $attributes = $this->getSnapshotAttributes();
+        }
+
         $hydrator = $this->getHydrator();
-        $source = $this->source;
-        $data = $hydrator->extract($source);
-        return $data;
+        $data     = $hydrator->extract($source, $attributes);
+        $snapshot = $hydrator->hydrate($target, $data);
+
+        return $snapshot;
     }
 }

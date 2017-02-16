@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Entity;
 
+use Core\Entity\ClonePropertiesTrait;
 use Core\Entity\EntityInterface;
 use Core\Entity\EntityTrait;
 use Core\Entity\Tree\EmbeddedLeafs;
@@ -25,7 +26,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class Classifications implements EntityInterface
 {
 
-    use EntityTrait;
+    use EntityTrait, ClonePropertiesTrait;
+
+    private $cloneProperties = [
+        'professions', 'employmentTypes'
+    ];
 
     /**
      * The professions.
