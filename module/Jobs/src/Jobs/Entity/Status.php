@@ -52,7 +52,7 @@ class Status extends AbstractEntity implements StatusInterface
 
     public function __construct($status = self::CREATED)
     {
-        $constant = 'self::' . strtoupper($status);
+        $constant = 'self::' . strtoupper(str_replace(' ', '_', $status));
         if (!defined($constant)) {
             throw new \DomainException('Unknown status: ' . $status);
         }

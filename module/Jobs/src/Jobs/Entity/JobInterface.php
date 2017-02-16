@@ -366,4 +366,17 @@ interface JobInterface extends
      * @return Array
      */
     public function getPortals();
+
+    /**
+     * @param \Jobs\Entity\Classifications $classifications
+     *
+     * @return self
+     */
+    public function setClassifications($classifications);
+
+    /**
+     * @return \Jobs\Entity\Classifications
+     */
+    public function getClassifications();
+
 }

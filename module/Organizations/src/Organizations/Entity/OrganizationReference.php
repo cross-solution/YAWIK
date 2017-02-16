@@ -386,11 +386,6 @@ class OrganizationReference implements
         return $this->proxy('clearKeywords');
     }
 
-    public function getKeywords()
-    {
-        return $this->proxy('getKeywords');
-    }
-
     public function getTemplate()
     {
         return $this->proxy('getTemplate');

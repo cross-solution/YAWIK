@@ -12,6 +12,7 @@
 namespace Jobs\Controller;
 
 use Jobs\Entity\JobInterface;
+use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
 use Core\Repository\RepositoryService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -397,6 +398,7 @@ class ManageController extends AbstractActionController
         );
         $container->setEntity($job);
         $container->setParam('job', $job->id);
+        $container->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '');
         $container->setParam('applyId', $job->applyId);
         return $container;
     }
@@ -430,28 +432,33 @@ class ManageController extends AbstractActionController
 
         $job = $this->initializeJob()->get($this->params());
 
-        $job->setIsDraft(false);
+        if ($job->isDraft()) {
 
-        $reference = $job->getReference();
+            $job->setIsDraft(false);
 
-        if (empty($reference)) {
-            /* @var $repository \Jobs\Repository\Job */
-            $repository = $this->repositoryService->get('Jobs/Job');
-            $job->setReference($repository->getUniqueReference());
+            $reference = $job->getReference();
+
+            if (empty($reference)) {
+                /* @var $repository \Jobs\Repository\Job */
+                $repository = $this->repositoryService->get('Jobs/Job');
+                $job->setReference($repository->getUniqueReference());
+            }
+            $job->changeStatus(Status::CREATED, "job was created");
+            $job->setAtsEnabled(true);
+
+            // sets ATS-Mode on intern
+            $job->getAtsMode();
+
+            /*
+            * make the job opening persist and fire the EVENT_JOB_CREATED
+            */
+            $this->repositoryService->store($job);
+
+            $jobEvents = $serviceLocator->get('Jobs/Events');
+            $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
+        } else if ($job->isActive()) {
+            $job->getSnapshotMeta()->getEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
         }
-        $job->changeStatus(Status::CREATED, "job was created");
-        $job->setAtsEnabled(true);
-
-        // sets ATS-Mode on intern
-        $job->getAtsMode();
-
-        /*
-         * make the job opening persist and fire the EVENT_JOB_CREATED
-         */
-        $this->repositoryService->store($job);
-
-        $jobEvents = $serviceLocator->get('Jobs/Events');
-        $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
 
         return array('job' => $job);
     }
@@ -477,20 +484,7 @@ class ManageController extends AbstractActionController
         // is remains Null if there is no snapshot
         // it will be an empty array if the snapshot and the actual entity do not differ
         $diff           = null;
-        // preliminary difference, contain all differences
-        $prelDiff = $this->entitySnapshot()->diff($jobEntity);
-        if (isset($prelDiff)) {
-            // we want just some Values to be compared
-            $diff = null;
-            foreach (array('title', 'organization', 'location',
-                         'templateValues.qualifications', 'templateValues.requirements', 'templateValues.benefits', 'templateValues.title',
-                         'templateValues._freeValues.description',
-                     ) as $prelKey) {
-                if (array_key_exists($prelKey, $prelDiff)) {
-                    $diff[$prelKey] = $prelDiff[$prelKey];
-                }
-            }
-        }
+
 
         if ($params == 'declined') {
             $jobEntity->changeStatus(Status::REJECTED, sprintf(/*@translate*/ "Job opening was rejected by %s", $user->getInfo()->getDisplayName()));
@@ -501,34 +495,37 @@ class ManageController extends AbstractActionController
         }
 
         if ($params == 'approved') {
+            if ($jobEntity instanceOf JobSnapshot) {
+                $jobEntity->getSnapshotMeta()->setIsDraft(false);
+                $jobEntity = $jobEntity->getSnapshotMeta()->getEntity();
+            }
             $jobEntity->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ "Job opening was activated by %s", $user->getInfo()->getDisplayName()));
             $jobEntity->setDatePublishStart();
             $this->repositoryService->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
-            $this->entitySnapshot($jobEntity);
+            //$this->entitySnapshot($jobEntity);
             $this->notification()->success(/* @translate */ 'Job has been approved');
             return $this->redirect()->toRoute('lang/admin/jobs', array('lang' => $this->params('lang')));
         }
 
+        $query = $jobEntity instanceOf JobSnapshot ? ['snapshot' => $jobEntity->getSnapshotId()] : ['id' => $jobEntity->getId()];
         $viewLink = $this->url()->fromRoute(
             'lang/jobs/view',
             array(),
-            array('query' =>
-                      array( 'id' => $jobEntity->getId()))
+            array('query' => $query
+                      )
         );
 
         $approvalLink = $this->url()->fromRoute(
             'lang/jobs/approval',
             array('state' => 'approved'),
-            array('query' =>
-                      array( 'id' => $jobEntity->getId()))
+            array('query' => $query)
         );
 
         $declineLink = $this->url()->fromRoute(
             'lang/jobs/approval',
             array('state' => 'declined'),
-            array('query' =>
-                      array( 'id' => $jobEntity->getId()))
+            array('query' => $query)
         );
 
         return array('job' => $jobEntity,

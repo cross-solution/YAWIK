@@ -70,8 +70,9 @@ class InitializeJob extends AbstractPlugin
         $idFromSubForm = $params->fromPost('job', 0);
 
         $id = empty($idFromRoute)? (empty($idFromQuery)?$idFromSubForm:$idFromQuery) : $idFromRoute;
+        $snapshotId = $params->fromPost('snapshot') ?: ($params->fromQuery('snapshot') ?: null);
 
-        if (empty($id) && $allowDraft) {
+        if (empty($id) && empty($snapshotId) && $allowDraft) {
             $this->acl->__invoke('Jobs/Manage', 'new');
             $user = $this->auth->getUser();
             /** @var \Jobs\Entity\Job $job */
@@ -85,10 +86,24 @@ class InitializeJob extends AbstractPlugin
             return $job;
         }
 
-        $job = $jobRepository->find($id);
+        if ($snapshotId) {
+            $snapshotRepo = $this->repositoryService->get('Jobs/JobSnapshot');
+            $job = $snapshotRepo->find($snapshotId);
+
+        } else {
+            $job = $jobRepository->find($id);
+            if (!$job->isDraft()) {
+                $snapshotRepo = $this->repositoryService->get('Jobs/JobSnapshot');
+                $snapshot = $snapshotRepo->findLatest($job->getId(), /*isDraft*/ true);
+
+                $job = $snapshot ?: $snapshotRepo->create($job, true);
+            }
+        }
+
         if (!$job) {
             throw new NotFoundException($id);
         }
+
         return $job;
     }
 }

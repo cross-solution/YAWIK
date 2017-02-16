@@ -17,7 +17,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * Class JobSnapshotMeta
  * @package Jobs\Entity
  *
- * @ODM\Document(collection="jobs.snapshots", repositoryClass="Jobs\Repository\JobSnapshotMeta")
+ * @ODM\EmbeddedDocument
  * @ODM\HasLifecycleCallbacks
  */
 class JobSnapshotMeta extends SnapshotMeta

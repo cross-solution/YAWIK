@@ -9,7 +9,10 @@
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
+use Core\Entity\ClonableEntityInterface;
+use Core\Entity\ClonePropertiesTrait;
 use Core\Entity\EntityInterface;
+use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\MetaDataProviderTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
@@ -31,8 +34,14 @@ use Zend\I18n\Validator\DateTime;
 class Job extends BaseEntity implements JobInterface,
                                         DraftableEntityInterface,
                                         SnapshotGeneratorProviderInterface
+
 {
-    use MetaDataProviderTrait;
+    use MetaDataProviderTrait, ClonePropertiesTrait;
+
+
+    private $cloneProperties = [
+        'classifications', 'atsMode',
+    ];
 
     /**
      * unique ID of a job posting used by applications to reference

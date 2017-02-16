@@ -14,6 +14,7 @@
 namespace Jobs\Controller;
 
 use Core\Entity\PermissionsInterface;
+use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
 use Jobs\Repository;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -59,8 +60,8 @@ class TemplateController extends AbstractActionController
         $channel = $this->params()->fromRoute('channel','default');
         $response = $this->getResponse();
         /* @var \Jobs\Entity\Job $job */
-        $job = $this->jobRepository->find($id);
-        
+        $job = $this->initializeJob()->get($this->params(), true);
+
         if (!$job) {
             $response->setStatusCode(Response::STATUS_CODE_404);
             return [
@@ -112,7 +113,8 @@ class TemplateController extends AbstractActionController
     {
         $id = $this->params('id');
         $formIdentifier=$this->params()->fromQuery('form');
-        $job = $this->jobRepository->find($id);
+        //$job = $this->jobRepository->find($id);
+        $job = $this->initializeJob()->get($this->params(), true);
         $this->acl($job, 'edit');
 
         /** @var \Zend\Http\Request $request */
@@ -134,6 +136,7 @@ class TemplateController extends AbstractActionController
 
         $formTemplate->setParam('id', $job->id);
         $formTemplate->setParam('applyId', $job->applyId);
+        $formTemplate->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '' );
 
         $formTemplate->setEntity($job);
 
@@ -150,6 +153,7 @@ class TemplateController extends AbstractActionController
 
             unset($postData['id']);
             unset($postData['applyId']);
+            unset($postData['snapshot']);
 
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
