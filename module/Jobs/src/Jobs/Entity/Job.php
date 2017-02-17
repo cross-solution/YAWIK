@@ -915,7 +915,9 @@ class Job extends BaseEntity implements JobInterface,
     }
 
     /**
-     * {@inheritdoc}
+     * @param EntityInterface $templateValues
+     *
+     * @return $this
      */
     public function setTemplateValues(EntityInterface $templateValues = null)
     {

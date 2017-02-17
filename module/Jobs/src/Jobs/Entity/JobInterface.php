@@ -379,4 +379,18 @@ interface JobInterface extends
      */
     public function getClassifications();
 
+    /**
+     * Gets the Values of a job template
+     *
+     * @return TemplateValues
+     */
+    public function getTemplateValues();
+
+
+    /**
+     * @param EntityInterface $templateValues
+     *
+     * @return $this
+     */
+    public function setTemplateValues(EntityInterface $templateValues = null);
 }

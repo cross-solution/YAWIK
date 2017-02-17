@@ -47,6 +47,8 @@ trait ClonePropertiesTrait
                     $collection->add(clone $item);
                 }
                 $value = $collection;
+            } elseif(null === $value) {
+
             } else {
                 $value = clone $value;
             }
