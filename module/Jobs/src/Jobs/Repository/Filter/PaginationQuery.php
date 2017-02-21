@@ -82,18 +82,10 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
 
-        if (isset($this->value['location']->coordinates)) {
-            $coordinates = $this->value['location']->coordinates->getCoordinates();
-            $queryBuilder->field('locations.coordinates')->geoWithinCenter($coordinates[0], $coordinates[1], (float) $this->value['d']/100);
-        }
-
         if (isset($params['l'])) {
-            $location = urldecode($params['l']);
-            if (0 === strpos($location, 'c:')) {
-                $coords = substr($location, 2);
-                $coords = explode(':', $coords);
-                $queryBuilder->field('locations.coordinates')->geoWithinCenter((float) $coords[0], (float) $coords[1], (float) $this->value['d']/100);
-            }
+
+            $coords = $params['l']->getCoordinates()->getCoordinates();
+            $queryBuilder->field('locations.coordinates')->geoWithinCenter((float) $coords[0], (float) $coords[1], (float) $this->value['d']/100);
         }
 
         if (isset($params['channel']) && !empty($params['channel']) && $params['channel']!="default" ){

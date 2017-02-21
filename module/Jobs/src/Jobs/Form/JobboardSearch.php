@@ -14,6 +14,7 @@ use Core\Form\CustomizableFieldsetInterface;
 use Core\Form\CustomizableFieldsetTrait;
 use Core\Form\SearchForm;
 use Core\Form\TextSearchFormFieldset;
+use Jobs\Entity\Location;
 
 /**
  * Adds the location search to the base search form.
@@ -54,7 +55,8 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
                 'type'       => 'LocationSelect',
                 'options'    => [
                     'label' => 'Location',
-                    'span'  => 3
+                    'span'  => 3,
+                    'location_entity' => new Location(),
                 ],
                 'attributes' => [
                     'data-width' => '100%',

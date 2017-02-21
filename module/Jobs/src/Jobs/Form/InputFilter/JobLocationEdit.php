@@ -29,7 +29,7 @@ class JobLocationEdit extends InputFilter
 
         $this->add(
             [
-                'name'     => 'geo-location',
+                'name'     => 'geoLocation',
                 'required' => true,
                 'filters'  => [
                     array('name' => 'StringTrim')

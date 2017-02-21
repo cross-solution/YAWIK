@@ -34,14 +34,14 @@ class PaginationParams extends AbstractPlugin
      * @param array|RepositoryInterface $defaults
      * @return \Core\Controller\Plugin\PaginationParams|Parameters|PaginationList
      */
-    public function __invoke($namespace = null, $defaults = array('page' => 1))
+    public function __invoke($namespace = null, $defaults = array('page' => 1), $params = null)
     {
         if (null === $namespace) {
             return $this;
         }
         
         if (is_array($defaults) && !is_callable($defaults)) {
-            return $this->getParams($namespace, $defaults);
+            return $this->getParams($namespace, $defaults, $params);
         }
         
         if ($defaults instanceof RepositoryInterface || is_callable($defaults)) {
@@ -79,11 +79,11 @@ class PaginationParams extends AbstractPlugin
      *
      * @return Parameters
      */
-    public function getParams($namespace, $defaults)
+    public function getParams($namespace, $defaults, $params = null)
     {
         $session        = new Container($namespace);
         $sessionParams  = $session->params ?: array();
-        $params         = $this->getController()->getRequest()->getQuery();
+        $params         = $params ?: $this->getController()->getRequest()->getQuery();
         
         if ($params->get('clear')) {
             $sessionParams = array();

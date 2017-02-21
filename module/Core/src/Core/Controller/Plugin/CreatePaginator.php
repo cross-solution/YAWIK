@@ -15,6 +15,7 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\Controller\PluginManager as ControllerManager;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Stdlib\Parameters;
 
 /**
  * Creates a paginator from the paginator service.
@@ -56,7 +57,7 @@ class CreatePaginator extends AbstractPlugin
      * @return \Zend\Paginator\Paginator
      * @throws \InvalidArgumentException
      */
-    public function __invoke($paginatorName, $defaultParams = array(), $usePostParams = false)
+    public function __invoke($paginatorName, $defaultParams = array(), $params = false)
     {
         if (is_bool($defaultParams)) {
             $usePostParams = $defaultParams;
@@ -74,9 +75,14 @@ class CreatePaginator extends AbstractPlugin
         $controller = $this->getController();
         $paginators = $this->serviceManager->get('Core/PaginatorService');
         $request    = $controller->getRequest();
-        $params     = $usePostParams
-            ? $request->getPost()->toArray()
-            : $request->getQuery()->toArray();
+
+        if (!$params) {
+            $params = $request->getQuery()->toArray();
+        } else if (true === $params) {
+            $params = $request->getPost()->toArray();
+        } else if ($params instanceOf \ArrayObject) {
+            $params = $params->getArrayCopy();
+        }
 
         // We allow \Traversable so we cannot simply merge.
         foreach ($defaultParams as $key => $val) {
@@ -106,7 +112,6 @@ class CreatePaginator extends AbstractPlugin
                   ->setPageRange(isset($params['range']) ? $params['range'] : 5);
 
         return $paginator;
-
     }
     
     /**

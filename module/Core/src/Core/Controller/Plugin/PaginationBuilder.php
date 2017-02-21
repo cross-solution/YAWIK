@@ -11,6 +11,7 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Zend\Stdlib\Parameters;
 
 /**
  * Collects pagination related configuration and passes it to the appropriate
@@ -42,6 +43,13 @@ class PaginationBuilder extends AbstractPlugin
      * @var array
      */
     protected $result = [];
+
+    /**
+     * Internal parameters.
+     *
+     * @var Parameters
+     */
+    protected $parameters;
 
     /**
      * Entry point.
@@ -92,22 +100,18 @@ class PaginationBuilder extends AbstractPlugin
      *
      * @param string       $paginatorName
      * @param array  $defaultParams
-     * @param bool   $usePostParams
      * @param string $as The name of the key in the result array.
      *
      * @return self
      */
-    public function paginator($paginatorName, $defaultParams = [], $usePostParams = false, $as = 'paginator')
+    public function paginator($paginatorName, $defaultParams = [], $as = 'paginator')
     {
         if (is_string($defaultParams)) {
             $as = $defaultParams;
             $defaultParams = [];
-        } else if (is_string($usePostParams)) {
-            $as = $usePostParams;
-            $usePostParams = false;
         }
 
-        $this->stack['paginator'] = ['as' => $as, $paginatorName, $defaultParams, $usePostParams];
+        $this->stack['paginator'] = ['as' => $as, $paginatorName, $defaultParams];
         return $this;
     }
 
@@ -181,14 +185,17 @@ class PaginationBuilder extends AbstractPlugin
         $controller = $this->getController();
         $request = $controller->getRequest();
 
-        $this->filterQueryParameters($request->getQuery());
+        $this->setParameters($request->getQuery());
 
         if (isset($this->stack['params'])) {
             $this->callPlugin('paginationParams', $this->stack['params']);
         }
 
-        if (isset($this->stack['form']) && !$request->isXmlHttpRequest()) {
-            $result[$formAlias] = $this->callPlugin('searchform', $this->stack['form']);
+        if (isset($this->stack['form'])) {
+            $form = $this->callPlugin('searchform', $this->stack['form']);
+            if (!$request->isXmlHttpRequest()) {
+                $result[$formAlias] = $form;
+            }
         }
 
         if (isset($this->stack['paginator'])) {
@@ -216,10 +223,14 @@ class PaginationBuilder extends AbstractPlugin
          * because we want to keep it in the stack array */
         unset($args['as']);
 
+        /* Inject the internal parameters as last argument.
+         * This is needed to prevent messing with the original query params. */
+        array_push($args, $this->parameters);
+
         return call_user_func_array($plugin, $args);
     }
 
-    protected function filterQueryParameters($query)
+    protected function setParameters($query)
     {
         $queryArray = $query->toArray();
 
@@ -231,6 +242,6 @@ class PaginationBuilder extends AbstractPlugin
             }
         }
 
-        $query->fromArray($queryArray);
+        $this->parameters = new Parameters($queryArray);
     }
 }

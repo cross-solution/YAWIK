@@ -41,6 +41,9 @@ trait ClonePropertiesTrait
             }
 
             $value = $this->{$property};
+
+            if (!is_object($value)) { continue; }
+
             if ($value instanceOf Collection && $loop) {
                 $collection = new ArrayCollection();
                 foreach ($value as $item) {
@@ -59,6 +62,7 @@ trait ClonePropertiesTrait
         }
 
         if (is_callable('parent::__clone')) {
+            /** @noinspection PhpUndefinedMethodInspection */
             parent::__clone();
         }
     }

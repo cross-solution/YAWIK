@@ -10,10 +10,11 @@
 /** */
 namespace CoreTest\Controller\Plugin;
 
-use Core\Form\TextSearchForm;
-use Core\Form\TextSearchFormFieldset;
+use Zend\Form\Form;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Form\FormElementManager;
+use Zend\Hydrator\HydratorInterface;
+use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\SearchForm
@@ -67,11 +68,9 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     private function setControllerMock($params = [])
     {
-        $query = $this->getMockBuilder('\Zend\Stdlib\Parameters')->disableOriginalConstructor()->setMethods(['toArray'])->getMock();
-        $query->expects($this->once())->method('toArray')->willReturn($params);
 
         $request = $this->getMockBuilder('\Zend\Http\Request')->disableOriginalConstructor()->setMethods(['getQuery'])->getMock();
-        $request->expects($this->once())->method('getQuery')->willReturn($query);
+        $request->expects($this->once())->method('getQuery')->willReturn($params);
 
         $controller = $this
             ->getMockForAbstractClass('\Zend\Mvc\Controller\AbstractActionController', [], '', false, true, true, ['getRequest']);
@@ -85,16 +84,24 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFetchesFormFromFormElementManager()
     {
-        $params = ['page' => 1234, 'test' => 'works'];
+        $params = new Parameters(['page' => 1234, 'test' => 'works']);
         $this->setControllerMock($params);
 
         $formOpt = ['some_options' => 'some_value'];
         $formName = 'Test/Elements';
 
-        $form = $this->getMockBuilder(TextSearchForm::class)
-            ->setMethods(['setSearchParams'])
+        $formData = ['data' => 'value'];
+        $hydrator = $this->getMockBuilder(HydratorInterface::class)
+            ->setMethods(['hydrate', 'extract'])
+            ->getMockForAbstractClass();
+        $hydrator->expects($this->once())->method('extract')->with($params)->willReturn($formData);
+        $hydrator->expects($this->once())->method('hydrate')->with($formData, $params);
+
+        $form = $this->getMockBuilder(Form::class)
+            ->setMethods(['getHydrator', 'setData'])
             ->getMock();
-        $form->expects($this->once())->method('setSearchParams')->with($params);
+        $form->expects($this->once())->method('gethydrator')->willReturn($hydrator);
+        $form->expects($this->once())->method('setData')->with($formData);
 
         $this->formElementManagerMock
             ->expects($this->once())
@@ -114,11 +121,18 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $this->setControllerMock($params);
 
 
-        $form = $this->getMockBuilder(TextSearchForm::class)
-                     ->setMethods(['setSearchParams'])
-                     ->getMock();
-        $form->expects($this->once())->method('setSearchParams')->with($params);
+        $formData = ['data' => 'value'];
+        $hydrator = $this->getMockBuilder(HydratorInterface::class)
+                         ->setMethods(['hydrate', 'extract'])
+                         ->getMockForAbstractClass();
+        $hydrator->expects($this->once())->method('extract')->with($params)->willReturn($formData);
+        $hydrator->expects($this->once())->method('hydrate')->with($formData, $params);
 
+        $form = $this->getMockBuilder(Form::class)
+                     ->setMethods(['getHydrator', 'setData'])
+                     ->getMock();
+        $form->expects($this->once())->method('gethydrator')->willReturn($hydrator);
+        $form->expects($this->once())->method('setData')->with($formData);
         $this->formElementManagerMock
             ->expects($this->never())
             ->method('get');

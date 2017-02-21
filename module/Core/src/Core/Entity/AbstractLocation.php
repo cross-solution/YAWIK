@@ -11,6 +11,7 @@ namespace Core\Entity;
 
 use GeoJson\GeoJson;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Zend\Json\Json;
 
 abstract class AbstractLocation extends AbstractEntity implements LocationInterface
 {
@@ -54,6 +55,47 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
 
     public function __construct()
     {
+    }
+
+    public function toString()
+    {
+        $coords = $this->getCoordinates();
+        $attributes = [
+            'city' => $this->getCity(),
+            'region' => $this->getRegion(),
+            'postalCode' => $this->getPostalCode(),
+            'country' => $this->getCountry(),
+            'coordinates' => $coords
+                    ? [
+                        'type' => $coords->getType(),
+                        'coordinates' => $coords->getCoordinates(),
+                      ]
+                    : null
+
+        ];
+
+        return Json::encode($attributes);
+    }
+
+    public function fromString($serialized)
+    {
+        $attributes = Json::decode($serialized, Json::TYPE_ARRAY);
+
+        foreach ($attributes as $key => $value) {
+            if (!$value) { continue; }
+
+            if ('coordinates' == $key) {
+                $class = '\\Geo\\Entity\\Geometry\\' . $value['type'];
+                $value = new $class($value['coordinates']);
+            }
+
+            $setter = "set$key";
+            if (is_callable([$this, $setter])) {
+                $this->$setter($value);
+            }
+        }
+
+        return $this;
     }
 
     public function preUpdate()

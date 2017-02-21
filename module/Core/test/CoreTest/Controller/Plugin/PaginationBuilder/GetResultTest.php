@@ -115,7 +115,9 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
 
         $actual = $query->toArray();
 
-        $this->assertEquals(['a' => 'test', 'b' => ['test1', 'test2'], 'c' => ['test1', 'test2']], $actual);
+        $this->assertAttributeEquals(
+             new Parameters(['a' => 'test', 'b' => ['test1', 'test2'], 'c' => ['test1', 'test2']]),
+             'parameters', $this->target);
     }
 }
 

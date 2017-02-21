@@ -25,6 +25,8 @@ use Zend\Stdlib\PriorityList;
  */
 class SearchForm extends ZfForm
 {
+    use HydratorStrategyAwareTrait;
+
     protected $attributes = [
         'class'          => 'form-inline search-form',
         'data-handle-by' => 'script',
@@ -39,6 +41,8 @@ class SearchForm extends ZfForm
     protected $buttonsIterator;
 
     protected $multiValueFields = [];
+
+    protected $bindOnValidate = self::BIND_MANUAL;
 
     public function __construct($name = null, $options = [])
     {

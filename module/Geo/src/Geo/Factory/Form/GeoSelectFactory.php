@@ -11,6 +11,7 @@
 namespace Geo\Factory\Form;
 
 use Geo\Form\GeoSelect;
+use Geo\Form\GeoSelectHydratorStrategy;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -33,6 +34,11 @@ class GeoSelectFactory implements FactoryInterface
 
         //$select->setAttribute('data-type', $geoOptions->getPlugin());
         $select->setAttribute('data-uri', 'geo/' . $geoOptions->getPlugin());
+
+        $client = $container->get('Geo/Client');
+        $strategy = new GeoSelectHydratorStrategy($client);
+
+        $select->setHydratorStrategy($strategy);
 
         return $select;
     }

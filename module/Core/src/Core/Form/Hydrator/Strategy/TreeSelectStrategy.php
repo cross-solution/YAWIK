@@ -11,6 +11,7 @@
 namespace Core\Form\Hydrator\Strategy;
 
 use Core\Entity\Tree\AbstractLeafs;
+use Core\Entity\Tree\EmbeddedLeafs;
 use Core\Entity\Tree\NodeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -67,7 +68,7 @@ class TreeSelectStrategy implements StrategyInterface
      */
     public function getAttachedLeafs()
     {
-        return $this->attachedLeafs;
+        return $this->attachedLeafs ?: new EmbeddedLeafs();
     }
 
     /**
@@ -122,9 +123,14 @@ class TreeSelectStrategy implements StrategyInterface
 
     public function extract($value)
     {
-        if (!$value instanceOf AbstractLeafs) {
-            throw new \InvalidArgumentException('$value must be an instance of ' . AbstractLeafs::class);
+        if (empty($value)) {
+            return $this->allowSelectMultipleItems() ? [] : null;
         }
+
+        if (!$value instanceOf AbstractLeafs) {
+            return $value;
+        }
+
         /* @var AbstractLeafs $value
          * @var NodeInterface $item */
 
@@ -145,8 +151,9 @@ class TreeSelectStrategy implements StrategyInterface
 
     public function hydrate($value)
     {
-        $root = $this->getTreeRoot();
         $object = $this->getAttachedLeafs();
+
+        $root = $this->getTreeRoot();
         $items = new ArrayCollection();
 
         if (!$this->allowSelectMultipleItems()) {
