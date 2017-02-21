@@ -44,6 +44,7 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
 
     public function init()
     {
+        $this->setAttribute('id','jobs-list-filter');
         $this->setOption('text_span', 5);
         parent::init();
         $this->setButtonElement('q');
@@ -90,6 +91,5 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
             )
         );
         $this->setButtonElement('d');
-
     }
 }
