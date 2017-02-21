@@ -60,6 +60,7 @@ abstract class AbstractLeafs implements LeafsInterface
     public function setItems(Collection $items)
     {
         $this->items = $items;
+        $this->updateValues();
 
         return $this;
     }

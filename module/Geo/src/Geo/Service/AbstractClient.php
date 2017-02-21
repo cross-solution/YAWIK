@@ -85,7 +85,6 @@ class AbstractClient
     public function queryOne($term)
     {
         $result = $this->query($term);
-        $result = Json::decode($result, Json::TYPE_ARRAY);
 
         return isset($result[0]) ? $result[0] : false;
     }

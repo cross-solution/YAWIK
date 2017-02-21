@@ -233,18 +233,18 @@ class ManageController extends AbstractActionController
                  * @todo This is a workaround for GeoJSON data insertion
                  * until we figured out, what we really want it to be.
                  */
-                if ('general.locationForm' == $formIdentifier) {
-                    $locElem = $instanceForm->getBaseFieldset()->get('geo-location');
-                    if ($locElem instanceof \Geo\Form\GeoText) {
-                        $loc = $locElem->getValue('entity');
-                        $locations = $jobEntity->getLocations();
-                        if (count($locations)) {
-                            $locations->clear();
-                        }
-                        $locations->add($loc);
-                        $jobEntity->setLocation($locElem->getValue());
-                    }
-                }
+//                if ('general.locationForm' == $formIdentifier) {
+//                    $locElem = $instanceForm->getBaseFieldset()->get('geo-location');
+//                    if ($locElem instanceof \Geo\Form\GeoText) {
+//                        $loc = $locElem->getValue('entity');
+//                        $locations = $jobEntity->getLocations();
+//                        if (count($locations)) {
+//                            $locations->clear();
+//                        }
+//                        $locations->add($loc);
+//                        $jobEntity->setLocation($locElem->getValue());
+//                    }
+//                }
 
                 $title = $jobEntity->getTitle();
                 $templateTitle = $jobEntity->getTemplateValues()->getTitle();

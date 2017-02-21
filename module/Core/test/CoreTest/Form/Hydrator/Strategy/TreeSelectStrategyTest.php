@@ -110,11 +110,9 @@ class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target->getAttachedLeafs(), $leafs, 'Extract does not set attached leafs.');
     }
 
-    public function testExtractThrowsExceptionIfWrongValueIsPassed()
+    public function testExtractReturnUnchangedValueIfNoAbstractLeafIsPassed()
     {
-        $this->setExpectedException('\InvalidArgumentException', '$value must be an instance');
-
-        $this->target->extract([]);
+        $this->assertEquals('unchanged', $this->target->extract('unchanged'));
     }
 
     public function hydrateTestProvider()

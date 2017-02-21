@@ -75,7 +75,7 @@ class JobboardController extends AbstractActionController
                     'count' => $this->options['count'],
                     'page' => 1,
                     'l',
-                    'd']
+                    'd' => 10]
                 ],
                 'form' => ['as' => 'filterForm', 'Jobs/JobboardSearch'],
                 'paginator' => ['as' => 'jobs', 'Jobs/Board']

@@ -14,33 +14,35 @@
 
     function formatResult(data)
     {
-        if (data.loading) {
+        if (data.loading || typeof data.data != 'object') {
             return data.text;
         }
 
-        data = parseData(data);
-        return '<strong>' + data.name + '</strong><br /><small>' + data.info + '</small>';
+
+        return '<strong>' + getName(data.data) + '</strong><br /><small>' + data.data.region + '</small>';
 
     }
 
     function formatSelection(data)
     {
-        if (!data.id) { return data.text; }
+        console.debug(data, typeof data.data);
+        if (!data.id || typeof data.data != 'object') { return data.text; }
 
-        return data.name;
+        return getName(data.data);
     }
 
-    function parseData(data)
+    function getName(data)
     {
-        var info = '';
+        var name = "";
 
-        if (data.city) { info += data.city; }
-        if (data.state) { info += (info ? ', ' : '') + data.state; }
 
-        return {
-            name: data.name,
-            info: info
-        };
+        if (data.postalCode) {
+            name += data.postalCode + " ";
+        }
+
+        name += data.city;
+
+        return name;
     }
 
     function setupGeoSelect($node)
@@ -60,9 +62,10 @@
                 },
                 processResults: function(data, params) {
                     console.debug('results:', data);
+                    console.debug($.map(data.items, function(item) { return {id: JSON.stringify(item), data: item}; }));
                     //params.page = params.page || 1;
                     return {
-                        results: data.items,
+                        results: $.map(data.items, function(item) { return {id: JSON.stringify(item), data: item}; }),
                         pagination: {
                             more: false
                         }
@@ -73,6 +76,16 @@
             templateSelection: formatSelection,
             escapeMarkup: function(m) { return m; }
         });
+
+        var initialValue = $node.data('val');
+
+        if (initialValue) {
+            var $option = $('<option selected>Test</option>');
+            $option.val($node.attr('data-val'));
+            $option.text(formatSelection({id: $node.attr('data-val'), data: initialValue}));
+            $node.prepend($option);
+            $node.trigger('change');
+        }
     }
 
     $(function() {

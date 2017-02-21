@@ -10,9 +10,10 @@
 /** */
 namespace Core\Controller\Plugin;
 
-use Core\Form\TextSearchForm;
+use Zend\Form\Form;
 use Zend\Form\FormElementManager;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Zend\Stdlib\Parameters;
 
 /**
  * Fetches a text search form.
@@ -50,9 +51,9 @@ class SearchForm extends AbstractPlugin
      *
      * @return \Core\Form\TextSearchForm
      */
-    public function __invoke($form, $options = null)
+    public function __invoke($form, $options = null, $params = null)
     {
-        return $this->get($form, $options);
+        return $this->get($form, $options, $params);
     }
 
     /**
@@ -62,20 +63,31 @@ class SearchForm extends AbstractPlugin
      * it will fetch a "Core/TextSearch" form and pass the
      * elements fieldset along.
      *
-     * @param string|array     $form
+     * @param string|Form     $form
+     * @param array|null $options
+     * @param Parameters $params
      *
      * @return \Core\Form\SearchForm
      */
-    public function get($form, $options = null)
+    public function get($form, $options = null, $params = null)
     {
         if (!is_object($form)) {
             $form             = $this->formElementManager->get($form, $options);
         }
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $params           = $this->getController()->getRequest()->getQuery()->toArray();
+        $params           = $params ?: $this->getController()->getRequest()->getQuery();
 
-        $form->setSearchParams($params);
+        /* I tried using form methods (bind, isValid)...
+         * but because the search form could be in an invalidated state
+         * when the page is loaded, we need to hydrate the params manually.
+         */
+        $hydrator = $form->getHydrator();
+        $data     = $hydrator->extract($params);
+        $form->setData($data);
+
+        $hydrator->hydrate($data, $params);
+
         return $form;
     }
 }

@@ -9,9 +9,12 @@
 
 namespace Core\Form;
 
+use Core\Form\Hydrator\HydratorStrategyProviderInterface;
 use Zend\Form\Form as ZendForm;
 use Zend\Form\FieldsetInterface;
 use Core\Entity\Hydrator\EntityHydrator;
+use Zend\Hydrator\HydratorInterface;
+use Zend\Hydrator\StrategyEnabledInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\EventManager\EventManagerAwareTrait;
 
@@ -20,10 +23,12 @@ use Zend\EventManager\EventManagerAwareTrait;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Form extends ZendForm implements DescriptionAwareFormInterface, DisableElementsCapableInterface, FormParentInterface
+class Form extends ZendForm implements DescriptionAwareFormInterface,
+                                       DisableElementsCapableInterface,
+                                       FormParentInterface
 {
     
-    use EventManagerAwareTrait;
+    use EventManagerAwareTrait, HydratorStrategyAwareTrait;
     
     const EVENT_IS_VALID = 'validate';
     const EVENT_PREPARE = 'prepare';
@@ -178,6 +183,9 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         }
         return $this;
     }
+
+
+
 
     /**
      * @return \Zend\Hydrator\HydratorInterface

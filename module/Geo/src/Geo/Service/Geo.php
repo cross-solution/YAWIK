@@ -52,15 +52,32 @@ class Geo extends AbstractClient
                 $state = null;
             }
 
-            $r[] = [
-                'name' => $name,
-                'state' => $state,
-                'coordinates' => $coords,
-                'id' => $coords
-                        ? 'c:' . $coords[0] . ':' . $coords[1]
-                        : 'q:' . $val,
-                'data' => json_encode($val),
+            $postCode = null;
+
+            if (preg_match('~^\d+\s~', $name)) {
+                list ($postCode, $name) = explode(' ', $name, 2);
+            }
+
+
+            $row = [
+                'city' => $name,
+                'region' => $state,
+
             ];
+
+            if ($postCode) {
+                $row['postalCode'] = $postCode;
+            }
+
+            if ($coords) {
+                $row['coordinates'] = [
+                    'type' => 'Point',
+                    'coordinates' => $coords,
+                ];
+            }
+
+            $r[] = $row;
+
         }
 
         return $r;
@@ -78,6 +95,6 @@ class Geo extends AbstractClient
         $coord = $result["result"][0];
         $coord = explode(',', $coord);
 
-        return [str_replace('.', ',', $coord[1]), str_replace('.',',',$coord[0])];
+        return [(float) $coord[1], (float) $coord[0]];
     }
 }

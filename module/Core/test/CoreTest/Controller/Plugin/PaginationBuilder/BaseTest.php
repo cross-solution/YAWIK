@@ -91,10 +91,10 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     public function argumentsStackProvider()
     {
         return [
-            [ 'paginator', ['paginator'], ['as' => 'paginator', 'paginator', [], false] ],
-            [ 'paginator', ['name', 'alias'], ['as' => 'alias', 'name', [], false] ],
-            [ 'paginator', ['name', ['param' => 'value'], 'alias'], ['as' => 'alias', 'name', ['param' => 'value'], false] ],
-            [ 'paginator', ['name', [], true], ['as' => 'paginator', 'name', [], true]],
+            [ 'paginator', ['paginator'], ['as' => 'paginator', 'paginator', []] ],
+            [ 'paginator', ['name', 'alias'], ['as' => 'alias', 'name', []] ],
+            [ 'paginator', ['name', ['param' => 'value'], 'alias'], ['as' => 'alias', 'name', ['param' => 'value']] ],
+            [ 'paginator', ['name', []], ['as' => 'paginator', 'name', []]],
             [ 'form', ['formName'], ['as' => 'searchform', 'formName', null]],
             [ 'form', ['formName', ['testOpt' => 'testVal']], ['as' => 'searchform', 'formName', ['testOpt' => 'testVal']]],
             [ 'form', ['formName', null, 'alias'], ['as' => 'alias', 'formName', null]],

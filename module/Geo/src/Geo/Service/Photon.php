@@ -60,20 +60,27 @@ class Photon extends AbstractClient
         $result = json_decode($result);
         $result = $result->features;
         $r=[];
+
         foreach ($result as $key => $val) {
-            $row=['name' => (property_exists($val->properties, 'name') ? $val->properties->name:''),
-                  'postcode' => (property_exists($val->properties, 'postcode') ? $val->properties->postcode:''),
+            $row=[
+                  'postalCode' => (property_exists($val->properties, 'postcode') ? $val->properties->postcode:''),
                   'city' =>(property_exists($val->properties, 'city') ? $val->properties->city:''),
                   'street' => (property_exists($val->properties, 'street') ? $val->properties->street : ''),
-                  'state' => (property_exists($val->properties, 'state') ? $val->properties->state : ''),
+                  'region' => (property_exists($val->properties, 'state') ? $val->properties->state : ''),
                   'country' => (property_exists($val->properties, 'country') ? $val->properties->country : ''),
-                  'coordinates' => $val->geometry->coordinates,
+
                   'osm_key' => (property_exists($val->properties, 'osm_key') ? $val->properties->osm_key : ''),
                   'osm_value' => (property_exists($val->properties, 'osm_value') ? $val->properties->osm_value : ''),
                   //'id' => (property_exists($val->properties, 'osm_id') ? $val->properties->osm_id : uniqid()),
-                  'data' => json_encode($val),
+                  //'data' => json_encode($val),
             ];
-            $row['id'] = 'c:' . (float) $row['coordinates'][0] . ':' . (float) $row['coordinates'][1];
+            if ($val->geometry) {
+                $row['coordinates'] = [
+                    'type' => $val->geometry->type,
+                    'coordinates' => $val->geometry->coordinates,
+                ];
+            }
+            $row['id'] = json_encode($row);
             $r[]=$row;
         }
         return $r;
