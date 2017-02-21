@@ -16,7 +16,7 @@ install:
   # install php packages required for running YAWIK phpunit tests
   - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl
   # install npm to manage js assets
-  - sudo apt-get install -y npm
+  - sudo apt-get install -y nodejs
 
   # add composer's global bin directory to the path
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
