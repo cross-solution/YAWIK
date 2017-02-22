@@ -24,6 +24,12 @@
 
 return [
     'name' => 'Employment Types',
-    'children' => ['Unclassified']
+    'children' => [
+        'Contract',
+        'Permanent',
+        'Freelancer',
+        'Internship',
+        'Apprenticeship'
+    ]
 ];
 

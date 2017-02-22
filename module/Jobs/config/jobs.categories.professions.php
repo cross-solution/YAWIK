@@ -24,6 +24,24 @@
 
 return [
     'name' => 'Professions',
-    'children' => ['Unclassified']
+    'children' => [
+        'Sales',
+        'Law',
+        'HR',
+        'IT',
+        'Banking, Insurances',
+        'Engineering',
+        'Design',
+        'Marketing and Communication',
+        'Senior Management',
+        'Education and Social Policy',
+        'Public Sector',
+        'Medizin',
+        'Manufacturing',
+        'Sciences and Research',
+        'Administration and Secretariat',
+        'Finance',
+        'Physicians',
+    ]
 ];
 
