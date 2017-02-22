@@ -46,7 +46,7 @@ class WizardContainerTest extends \PHPUnit_Framework_TestCase
 
         return [
             [ 'Headscripts', [
-                'default' => [ '/assets/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js' ],
+                'default' => [ '/assets/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js' ],
                 'value'   => [ 'test/scripts' ],
             ]],
             [ 'Form', [
