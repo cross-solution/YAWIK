@@ -496,11 +496,11 @@ class ManageController extends AbstractActionController
 
         if ($params == 'approved') {
             if ($jobEntity instanceOf JobSnapshot) {
-                $jobEntity->getSnapshotMeta()->setIsDraft(false);
-                $jobEntity = $jobEntity->getSnapshotMeta()->getEntity();
+                $jobEntity = $this->repositoryService->get('Jobs/JobSnapshot')->merge($jobEntity);
+            } else {
+                $jobEntity->setDatePublishStart();
             }
             $jobEntity->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ "Job opening was activated by %s", $user->getInfo()->getDisplayName()));
-            $jobEntity->setDatePublishStart();
             $this->repositoryService->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
             //$this->entitySnapshot($jobEntity);

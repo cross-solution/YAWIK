@@ -14,6 +14,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\SnapshotAttributesProviderInterface;
+use Core\Entity\SnapshotInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 use Zend\Hydrator\HydratorInterface;
@@ -121,20 +122,42 @@ class SnapshotRepository extends DocumentRepository
 
         $snapshot = $this->getDocumentName();
         $snapshot = new $snapshot($source);
-        $attributes = $snapshot instanceOf SnapshotAttributesProviderInterface
-                    ? $snapshot->getSnapshotAttributes()
-                    : $this->getSnapshotAttributes();
 
-
-        $data = $this->getSourceHydrator()->extract(clone $source);
-        $data = array_intersect_key($data, array_flip($attributes));
-        $snapshot = $this->getHydrator()->hydrate($data, $snapshot);
+        $this->copy($source, $snapshot);
 
         if ($persist) {
             $this->store($snapshot);
         }
 
         return $snapshot;
+    }
+
+    protected function copy($source, $target, $attributes = null)
+    {
+        if (!$attributes) {
+            if ($source instanceOf SnapshotAttributesProviderInterface) {
+                $attributes = $source->getSnapshotAttributes();
+            } else if ($target instanceOf SnapshotAttributesProviderInterface) {
+                $attributes = $target->getSnapshotAttributes();
+            } else {
+                $attributes = $this->getSnapshotAttributes();
+            }
+        }
+
+        $data = $this->getSourceHydrator()->extract(clone $source);
+        $data = array_intersect_key($data, array_flip($attributes));
+        $this->getHydrator()->hydrate($data, $target);
+    }
+
+    public function merge(SnapshotInterface $snapshot)
+    {
+        $this->checkEntityType($snapshot);
+
+        $entity = $snapshot->getSnapshotMeta()->getEntity();
+
+        $this->copy($snapshot, $entity);
+
+        return $entity;
     }
 
     public function findLatest($sourceId, $isDraft = false)
