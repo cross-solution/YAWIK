@@ -103,6 +103,11 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
          </a>
 
          <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs"><span class="yk-icon yk-icon-edit"></span></a>
+                 <?php if ($job->isDraft()):?>
+         <a href="<?php echo $this->url('lang/jobs/manage', ['action' => 'delete'], ['query' => ['id' => $job->getId()]], true)?>"
+            onclick="return window.confirm('<?=$this->translate('Are you sure to delete this job?')?>')"
+            class="btn btn-danger btn-xs"><i class="yk-icon fa-trash"></i></a>
+                    <?php endif ?>
          <?php endif; ?>
          </td>
       <?php else:?>

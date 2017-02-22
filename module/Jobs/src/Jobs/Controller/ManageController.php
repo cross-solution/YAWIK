@@ -555,6 +555,17 @@ class ManageController extends AbstractActionController
         return $this->save(array('page' => 2));
     }
 
+    public function deleteAction()
+    {
+        $job = $this->initializeJob()->get($this->params());
+        $this->acl($job, 'edit');
+
+        $this->repositoryService->remove($job);
+
+        $this->notification()->success(/*@translate*/ 'Job has been deleted.');
+        return $this->redirect()->toRoute('lang/jobs');
+
+    }
     /**
      * Assign a template to a job posting
      *

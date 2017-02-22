@@ -63,6 +63,7 @@ return array(
                     'Jobs',
                     'JobList',
                     'Jobs/Manage' => [
+                        'delete',
                         'edit',
                         'deactivate',
                         'completion',
