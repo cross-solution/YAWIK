@@ -145,7 +145,7 @@ class ManageController extends AbstractActionController
 
 
 
-        $jobEntity = $this->initializeJob()->get($this->params());
+        $jobEntity = $this->initializeJob()->get($this->params(), true);
 
         $model = new ViewModel([
                                    'portals' => $jobEntity->getPortals(),
@@ -184,7 +184,7 @@ class ManageController extends AbstractActionController
         }
         
         try {
-            $jobEntity = $this->initializeJob()->get($this->params(), true);
+            $jobEntity = $this->initializeJob()->get($this->params(), true, true);
         } catch (NotFoundException $e) {
             $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
             return [

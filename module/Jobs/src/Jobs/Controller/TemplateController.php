@@ -13,6 +13,7 @@
 
 namespace Jobs\Controller;
 
+use Core\Entity\Exception\NotFoundException;
 use Core\Entity\PermissionsInterface;
 use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
@@ -60,9 +61,10 @@ class TemplateController extends AbstractActionController
         $channel = $this->params()->fromRoute('channel','default');
         $response = $this->getResponse();
         /* @var \Jobs\Entity\Job $job */
-        $job = $this->initializeJob()->get($this->params(), true);
+        try {
+            $job = $this->initializeJob()->get($this->params(), true);
 
-        if (!$job) {
+        } catch (NotFoundException $e) {
             $response->setStatusCode(Response::STATUS_CODE_404);
             return [
                 'message' => sprintf($this->serviceLocator->get('Translator')->translate('Job with id "%s" not found'), $id)
@@ -114,7 +116,7 @@ class TemplateController extends AbstractActionController
         $id = $this->params('id');
         $formIdentifier=$this->params()->fromQuery('form');
         //$job = $this->jobRepository->find($id);
-        $job = $this->initializeJob()->get($this->params(), true);
+        $job = $this->initializeJob()->get($this->params(), true, true);
         $this->acl($job, 'edit');
 
         /** @var \Zend\Http\Request $request */

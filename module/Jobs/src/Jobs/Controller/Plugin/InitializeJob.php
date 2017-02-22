@@ -61,7 +61,7 @@ class InitializeJob extends AbstractPlugin
      * @throws \Doctrine\ODM\MongoDB\LockException
      * @throws NotFoundException
      */
-    public function get(Params $params, $allowDraft = false)
+    public function get(Params $params, $allowDraft = false, $getSnapshot = false)
     {
         /* @var \Jobs\Repository\Job $jobRepository */
         $jobRepository  = $this->repositoryService->get('Jobs/Job');
@@ -92,7 +92,7 @@ class InitializeJob extends AbstractPlugin
 
         } else {
             $job = $jobRepository->find($id);
-            if (!$job->isDraft()) {
+            if ($job && $getSnapshot && !$job->isDraft()) {
                 $snapshotRepo = $this->repositoryService->get('Jobs/JobSnapshot');
                 $snapshot = $snapshotRepo->findLatest($job->getId(), /*isDraft*/ true);
 
