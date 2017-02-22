@@ -72,9 +72,12 @@ class GeoSelectHydratorStrategy implements StrategyInterface
         if (0 === strpos($value, '{')) {
             return $value;
         }
-
-        $data = $this->geoClient->queryOne($value);
-        return $data['id'];
+        if ($value){
+            $data = $this->geoClient->queryOne($value);
+            return $data['id'];
+        }else{
+            return;
+        }
     }
 
     /**
