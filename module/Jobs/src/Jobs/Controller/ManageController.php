@@ -430,7 +430,7 @@ class ManageController extends AbstractActionController
     {
         $serviceLocator = $this->serviceLocator;
 
-        $job = $this->initializeJob()->get($this->params());
+        $job = $this->initializeJob()->get($this->params(), false, true );
 
         if ($job->isDraft()) {
 
