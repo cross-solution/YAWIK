@@ -263,7 +263,7 @@ class ManageController extends AbstractActionController
             $jobValid = false;
             $errorMessage[] = $this->translator->translate('No Title');
         }
-        if (empty($jobEntity->getLocation())) {
+        if (!$jobEntity->getLocations()->count()) {
             $jobValid = false;
             $errorMessage[] = $this->translator->translate('No Location');
         }
@@ -307,7 +307,7 @@ class ManageController extends AbstractActionController
                 $form->getForm('general.nameForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                 $form->getForm('general.portalForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                 $locElem = $form->getForm('general.locationForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM)
-                                ->getBaseFieldset()->get('geo-location');
+                                ->getBaseFieldset()->get('geoLocation');
                 if ($locElem instanceof \Geo\Form\GeoText) {
                     $loc = $jobEntity->getLocations();
                     if (count($loc)) {
