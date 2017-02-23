@@ -15,6 +15,7 @@ cp -R node_modules/bootstrap3-dialog/dist ${ASSETS_DIR}/bootstrap3-dialog
 cp -R node_modules/bootstrap-datepicker/dist ${ASSETS_DIR}/bootstrap-datepicker
 cp -R node_modules/select2/dist ${ASSETS_DIR}/select2
 cp -R node_modules/blueimp-file-upload ${ASSETS_DIR}/blueimp-file-upload
+cp -R node_modules/font-awesome ${ASSETS_DIR}/font-awesome
 
 
 cp -R node_modules/pnotify/dist ${ASSETS_DIR}/pnotify

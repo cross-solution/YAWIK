@@ -101,7 +101,7 @@ class Register
      * @param InputFilterInterface $filter
      * @return $this
      */
-    protected function setFormFilter(InputFilterInterface $filter)
+    public function setFormFilter(InputFilterInterface $filter)
     {
         $this->filter = $filter;
         return $this;

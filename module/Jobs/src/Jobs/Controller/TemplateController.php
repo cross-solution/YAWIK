@@ -82,6 +82,7 @@ class TemplateController extends AbstractActionController
 
         if (
             Status::ACTIVE == $job->getStatus() or
+            Status::WAITING_FOR_APPROVAL == $job->getStatus() or
             $job->getPermissions()->isGranted($user, PermissionsInterface::PERMISSION_VIEW) or
             $this->auth()->isAdmin()
         ) {
