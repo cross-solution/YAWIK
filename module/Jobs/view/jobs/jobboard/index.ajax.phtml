@@ -101,6 +101,9 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
         </td>
         <td>
             <?= $this->applyUrl($job); ?>
+            <?php if ($this->auth()->isAdmin()):?>
+            <a class="pull-right" href="<?=$this->plugin('Jobs/AdminEditLink')->__invoke($job)?>"><?=$this->translate('Edit')?></a>
+            <?php endif ?>
         </td>
     </tr>
 <?php endforeach?>

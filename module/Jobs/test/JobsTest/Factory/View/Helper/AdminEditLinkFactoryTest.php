@@ -1,0 +1,86 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ */
+  
+/** */
+namespace JobsTest\Factory\View\Helper;
+
+use CoreTestUtils\TestCase\ServiceManagerMockTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use Jobs\Factory\View\Helper\AdminEditLinkFactory;
+use Zend\Http\PhpEnvironment\Request;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\Stdlib\Parameters;
+
+/**
+ * Tests for \Jobs\Factory\View\Helper\AdminEditLinkFactory
+ * 
+ * @covers \Jobs\Factory\View\Helper\AdminEditLinkFactory
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @group Jobs
+ * @group Jobs.Factory
+ * @group Jobs.Factory.View
+ * @group Jobs.Factory.View.Helper
+ */
+class AdminEditLinkFactoryTest extends \PHPUnit_Framework_TestCase
+{
+    use TestInheritanceTrait, ServiceManagerMockTrait;
+
+    /**
+     *
+     *
+     * @var array|\PHPUnit_Framework_MockObject_MockObject|AdminEditLinkFactory
+     */
+    private $target = [
+        AdminEditLinkFactory::class,
+        '@testCreateService' => [
+            'mock' => ['__invoke'],
+        ]
+    ];
+
+    private $inheritance = [ FactoryInterface::class ];
+
+    public function testCreateService()
+    {
+        $services = $this->getServiceManagerMock();
+        $plugins  = $this->getPluginManagerMock($services, 1);
+
+        $this->target->expects($this->once())->method('__invoke')
+            ->with($services, 'Jobs/AdminEditLink');
+
+        $this->target->createService($plugins);
+    }
+
+    public function testInvoke()
+    {
+        $request = new Request();
+        $query = new Parameters(['test' => 1]);
+        $request->setQuery($query);
+
+        $urlHelper = $this->getMockBuilder('\Zend\View\Helper\Url')
+            ->disableOriginalConstructor()
+            ->setMethods(['__invoke'])
+            ->getMock();
+
+        $urlHelper->expects($this->once())->method('__invoke')
+            ->with(null, [], ['query' => $query->toArray()], true)
+            ->willReturn('returnUrl');
+
+        $helperManager = $this->getPluginManagerMock(['url' => $urlHelper]);
+
+        $services = $this->getServiceManagerMock([
+                'Request' => $request,
+                'viewhelpermanager' => $helperManager
+            ]);
+
+        $helper = $this->target->__invoke($services, 'irrelevant');
+
+        $this->assertAttributeSame($urlHelper, 'urlHelper', $helper);
+        $this->assertAttributeEquals('returnUrl', 'returnUrl', $helper);
+    }
+}

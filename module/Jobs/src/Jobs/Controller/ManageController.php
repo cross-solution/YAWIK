@@ -192,13 +192,20 @@ class ManageController extends AbstractActionController
                 'exception' => $e
             ];
         }
-        
+
+
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
 
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
+
+        if ('1' == $params->fromQuery('admin')) {
+            /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */
+            $switcher = $this->plugin('Auth/User/Switcher');
+            $switcher($jobEntity->getUser(), ['return' => urldecode($params->fromQuery('return'))]);
+        }
 
 
         $viewModel          = null;
@@ -430,7 +437,7 @@ class ManageController extends AbstractActionController
     {
         $serviceLocator = $this->serviceLocator;
 
-        $job = $this->initializeJob()->get($this->params(), false, true );
+        $job = $this->initializeJob()->get($this->params(), false, true);
 
         if ($job->isDraft()) {
 
@@ -460,6 +467,17 @@ class ManageController extends AbstractActionController
             $job->getSnapshotMeta()->getEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
         }
 
+        /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */
+        $switcher = $this->plugin('Auth/User/Switcher');
+        if ($switcher->isSwitchedUser()) {
+            $return = $switcher->getSessionParam('return');
+            $switcher->clear();
+
+            if ($return) {
+                return $this->redirect()->toUrl($return);
+            }
+        }
+
         return array('job' => $job);
     }
 
@@ -475,7 +493,7 @@ class ManageController extends AbstractActionController
 
         $params         = $this->params('state');
 
-        $jobEntity = $this->initializeJob()->get($this->params());
+        $jobEntity = $this->initializeJob()->get($this->params(), false, true);
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
         $jobEvent->addPortal('XingVendorApi');
