@@ -335,6 +335,7 @@ return array(
         'factories' => array(
             'applyUrl' => 'Jobs\Factory\View\Helper\ApplyUrlFactory',
             'jobUrl' => 'Jobs\Factory\View\Helper\JobUrlFactory',
+            'Jobs/AdminEditLink' => 'Jobs\Factory\View\Helper\AdminEditLinkFactory',
         ),
 
     ),
