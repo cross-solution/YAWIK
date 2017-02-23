@@ -12,7 +12,9 @@ namespace AuthTest\Controller\Plugin;
 
 use Auth\AuthenticationService;
 use Auth\Controller\Plugin\UserSwitcher;
+use Auth\Entity\User;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\Authentication\Storage\StorageInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Session\Container;
@@ -28,7 +30,7 @@ use Zend\Session\Container;
  */
 class UserSwitcherTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait;
+    use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
      *
@@ -49,9 +51,47 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
         '@testSwitchUserExchangeOriginalUserAndStoresSession' => [
             'args' => 'getComplexAuthMock',
         ],
+        '@testSwitchUserUsesUserIdFromProvidedUserInterface' => [
+            'args' => 'getComplexAuthMock',
+        ],
     ];
 
     private $inheritance = [ AbstractPlugin::class ];
+
+    public function propertiesProvider()
+    {
+        $createSession = function() { $_SESSION[UserSwitcher::SESSION_NAMESPACE]['params'] = ['param' => 'value']; };
+        $clearSession = function() { $_SESSION = []; };
+        return [
+            ['sessionParams', [
+                'pre' => $createSession,
+                'post' => $clearSession,
+                'ignore_setter' => true,
+                'value' => ['param' => 'value']
+            ]],
+            ['sessionParams', [
+                'post' => $clearSession,
+                'ignore_setter' => true,
+                'value' => [],
+            ]],
+            ['sessionParams', [
+                'pre' => $createSession,
+                'post' => $clearSession,
+                'value' => ['new' => 'another'],
+                'setter_args' => [/*merge*/ true],
+                'expect' => ['param' => 'value', 'new' => 'another'],
+            ]],
+            ['sessionParam', [
+                'post' => $clearSession,
+                'default' => 'default',
+                'default_args' => ['param', 'default'],
+                'setter_args' => ['value'],
+                'getter_args' => ['param'],
+                'value' => 'param',
+                'expect' => 'value',
+            ]],
+        ];
+    }
 
     private function getSimpleAuthMock()
     {
@@ -120,9 +160,31 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->target->switchUser('switchedUser'));
         $this->assertEquals(
-             ['isSwitchedUser' => true, 'originalUser' => 'originalUser'],
+             ['isSwitchedUser' => true, 'originalUser' => 'originalUser', 'params' => []],
              $_SESSION[UserSwitcher::SESSION_NAMESPACE]->getArrayCopy()
         );
+
+        $_SESSION = [];
+    }
+
+    public function testSwitchUserUsesUserIdFromProvidedUserInterface()
+    {
+        $user = $this->getMockBuilder(User::class)->disableOriginalConstructor()
+            ->setMethods(['getId'])->getMock();
+        $user->expects($this->once())->method('getId')->willReturn('switchedUser');
+
+        $this->assertTrue($this->target->switchUser($user));
+
+        $_SESSION = [];
+    }
+
+    public function testIsSwitchedUser()
+    {
+        $this->assertFalse($this->target->isSwitchedUser());
+
+        $_SESSION[UserSwitcher::SESSION_NAMESPACE]['isSwitchedUser'] = true;
+
+        $this->assertTrue($this->target->isSwitchedUser());
 
         $_SESSION = [];
     }
