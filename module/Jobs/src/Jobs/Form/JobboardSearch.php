@@ -13,7 +13,6 @@ namespace Jobs\Form;
 use Core\Form\CustomizableFieldsetInterface;
 use Core\Form\CustomizableFieldsetTrait;
 use Core\Form\SearchForm;
-use Core\Form\TextSearchFormFieldset;
 use Jobs\Entity\Location;
 
 /**
@@ -27,7 +26,9 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
     use CustomizableFieldsetTrait;
 
     /**
-     * @var
+     * name of the used geo location engine
+     *
+     * @var string  $locationEngineType
      */
     protected $locationEngineType;
 
@@ -81,7 +82,6 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
                         '100' => '100 km'
                     ],
                     'span'          => 4,
-
                 ),
                 'attributes' => [
                     'value'            => '10', // default distance

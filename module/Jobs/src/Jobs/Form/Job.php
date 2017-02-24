@@ -24,6 +24,7 @@ use Core\Form\propagateAttributeInterface;
  */
 class Job extends WizardContainer
 {
+
     /**
      * The event manager
      *

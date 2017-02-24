@@ -29,6 +29,7 @@ return array(
 
     'options' => [
         'Jobs/JobboardSearchOptions' => [ 'class' => '\Jobs\Options\JobboardSearchOptions' ],
+        'Jobs/BaseFieldsetOptions' => [ 'class' => '\Jobs\Options\BaseFieldsetOptions' ],
     ],
 
     'Jobs' => array(

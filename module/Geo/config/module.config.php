@@ -82,6 +82,7 @@ return [
     'form_elements' => [
         'invokables' => [
             'Location' => 'Geo\Form\GeoText',
+            'SimpleLocationSelect' => 'Geo\Form\GeoSelectSimple',
         ],
         'factories' => [
             'LocationSelect' => 'Geo\Factory\Form\GeoSelectFactory',

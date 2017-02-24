@@ -10,29 +10,33 @@
 /** */
 namespace Jobs\Factory\Form;
 
+use Core\Factory\Form\AbstractCustomizableFieldsetFactory;
+use Interop\Container\ContainerInterface;
 use Jobs\Form\BaseFieldset;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+
 
 /**
  * Factory for the BaseFieldset (Job Title and Location)
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
-class BaseFieldsetFactory implements FactoryInterface
+class BaseFieldsetFactory extends AbstractCustomizableFieldsetFactory
 {
-    /**
-     * Creates the multiposting select box.
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
 
-        $services = $serviceLocator->getServiceLocator();
+    const OPTIONS_NAME = 'Jobs/BaseFieldsetOptions';
+
+    protected function createFormInstance(ContainerInterface $container, $name, array $options = null) {
         /* @var \Geo\Options\ModuleOptions $options */
-        $options = $services->get('Geo/Options');
-        $fs = new BaseFieldset();
+        $options = $container->get('Geo/Options');
+
+        $fs = new BaseFieldset(
+            [
+                'location_engine_type' => $options->getPlugin(),
+            ]
+        );
+
         $fs->setLocationEngineType($options->getPlugin());
+
         return $fs;
     }
 }

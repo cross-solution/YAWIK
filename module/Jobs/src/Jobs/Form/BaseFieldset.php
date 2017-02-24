@@ -17,17 +17,20 @@ use Core\Form\HydratorStrategyAwareTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Entity\Location;
 use Jobs\Form\Hydrator\Strategy\LocationStrategy;
-use Zend\Form\Element\Collection;
 use Zend\Form\Exception;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\FieldsetInterface;
+use Core\Form\CustomizableFieldsetInterface;
+use Core\Form\CustomizableFieldsetTrait;
 
 /**
  * Defines the formular fields of the base formular of a job opening.
  */
-class BaseFieldset extends Fieldset
+class BaseFieldset extends Fieldset implements CustomizableFieldsetInterface
 {
+    use CustomizableFieldsetTrait;
+
     /**
      * name of the used geo location Engine
      *
@@ -36,13 +39,28 @@ class BaseFieldset extends Fieldset
     protected $locationEngineType;
 
     /**
+     * @param array $options
+     */
+    public function __construct(array $options = [])
+    {
+        parent::__construct();
+        if (array_key_exists('location_engine_type', $options)) {
+            $this->locationEngineType = $options['location_engine_type'];
+        }
+        $this->setOptions($options);
+    }
+
+    /**
      * @param $locationEngineType
      */
     public function setLocationEngineType($locationEngineType)
     {
         $this->locationEngineType = $locationEngineType;
     }
- 
+
+    /**
+     * @return \Zend\Hydrator\HydratorInterface
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -78,8 +96,6 @@ class BaseFieldset extends Fieldset
         }
         return $this->hydrator;
     }
-
-//
 
     public function init()
     {
