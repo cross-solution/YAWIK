@@ -33,6 +33,13 @@ class ModuleOptions extends AbstractOptions
     protected $siteName = "YAWIK";
 
     /**
+     * The logo of the site
+     *
+     * @var string
+     */
+    protected $siteLogo = "/Core/images/logo.jpg";
+
+    /**
      * Contact Data, which can be used in Mail signatures or the imprint page.
      *
      * @var array $operator
@@ -121,9 +128,28 @@ class ModuleOptions extends AbstractOptions
     public function setSiteName($siteName)
     {
         $this->siteName = $siteName;
-
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getSiteLogo()
+    {
+        return $this->siteLogo;
+    }
+
+    /**
+     * @param $siteLogo
+     *
+     * @return $this
+     */
+    public function setSiteLogo($siteLogo)
+    {
+        $this->siteLogo = $siteLogo;
+        return $this;
+    }
+
 
     /**
      * Gets the operators contact data

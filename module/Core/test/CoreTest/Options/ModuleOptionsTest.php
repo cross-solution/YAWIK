@@ -11,6 +11,8 @@
 namespace Core\Options;
 
 use Core\Options\ModuleOptions as Options;
+use CoreTestUtils\TestCase\SetupTargetTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  *
@@ -22,79 +24,78 @@ use Core\Options\ModuleOptions as Options;
  */
 class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 {
+
+    use TestSetterGetterTrait, SetupTargetTrait;
+
+    /**
+     * @var Options
+     */
+    protected $target = [
+        'class' => Options::class
+    ];
+
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    public function propertiesProvider()
     {
-        $options = new Options;
-        $this->options = $options;
+        return [
+            ['siteLogo', [
+                'value' => 'some-logo.jpg',
+                'default' => '/Core/images/logo.jpg'
+            ]],
+            ['siteName', [
+                'value' => 'MyName',
+                'default' => 'YAWIK'
+            ]],
+            ['defaultTaxRate', [
+                'value' => '21',
+                'default' => '19'
+            ]],
+            ['defaultLanguage', [
+                'value' => 'fr',
+                'default' => 'en'
+            ]],
+            ['defaultCurrencyCode', [
+                'value' => 'EUR',
+                'default' => 'USD'
+            ]],
+            ['operator', [
+                'value' => [
+                    'companyShortName' => 'My Company',
+                    'companyFullName'  => 'My Co KG',
+                    'companyTax'       => 'My VAT Number',
+                    'postalCode'       => 'MY Zip',
+                    'city'             => 'My Cits',
+                    'country'          => 'My country',
+                    'street'           => 'MY Rath Dínen 112',
+                    'name'             => 'MY Gimli & Legolas',
+                    'email'            => 'me@example.com',
+                    'fax'              => '+49-0815',
+                    'homepage'         => 'https://example.com'],
+                'default' =>  [
+                    'companyShortName' => 'Example Company Name',
+                    'companyFullName'  => 'Example Company Name Ltd. & Co KG',
+                    'companyTax'       => 'Your VAT Number',
+                    'postalCode'       => '4711',
+                    'city'             => 'Froschmoorstetten',
+                    'country'          => 'Auenland',
+                    'street'           => 'Rath Dínen 112',
+                    'name'             => 'Gimli & Legolas',
+                    'email'            => 'name@example.com',
+                    'fax'              => '+49-0815-4711',
+                    'homepage'         => 'http://example.com']
+            ]],
+
+            ['defaultCurrencyCode', [
+                'value' => 'EUR',
+                'default' => 'USD'
+            ]],
+        ];
     }
 
-    /**
-     * @covers Core\Options\ModuleOptions::getDefaultTaxRate
-     * @covers Core\Options\ModuleOptions::setDefaultTaxRate
-     */
-    public function testSetGetDefaultTaxRate()
-    {
-        $this->options->setDefaultTaxRate(21);
-        $this->assertEquals(21, $this->options->getDefaultTaxRate());
-    }
-
-    /**
-     * @covers Core\Options\ModuleOptions::getDefaultLanguage
-     * @covers Core\Options\ModuleOptions::setDefaultLanguage
-     */
-    public function testSetGetDefaultLanguage()
-    {
-        $this->options->setDefaultLanguage('de');
-        $this->assertEquals('de', $this->options->getDefaultLanguage());
-    }
-
-    /**
-     * @covers Core\Options\ModuleOptions::getDefaultCurrencyCode
-     * @covers Core\Options\ModuleOptions::setDefaultCurrencyCode
-     */
-    public function testSetGetAttachmentsCount()
-    {
-        $this->options->setDefaultCurrencyCode("EUR");
-        $this->assertEquals("EUR", $this->options->getDefaultCurrencyCode());
-    }
-
-    /**
-     * @covers Core\Options\ModuleOptions::getOperator
-     * @covers Core\Options\ModuleOptions::setOperator
-     */
-    public function testSetGetOperator()
-    {
-        $operator=array(
-            'companyShortName'=>'my company',
-            'companyFullName' => 'my company Ltd. & Co KG',
-            'companyTax' => '12345',
-            'postalCode' => '67890',
-            'city' => 'Frankfurt',
-            'street'=> 'Diemelstrasse 2-4',
-            'name' => 'Carsten Bleek',
-            'email' => 'name@example.de',
-            'fax' => '0815/4711');
-
-        $this->options->setOperator($operator);
-        $this->assertEquals($operator, $this->options->getOperator());
-    }
-
-    /**
-     * @covers Core\Options\ModuleOptions::getSiteName
-     * @covers Core\Options\ModuleOptions::setSiteName
-     */
-    public function testSetGetSiteName()
-    {
-        $siteName="This Website";
-
-        $this->options->setSiteName($siteName);
-        $this->assertEquals($siteName, $this->options->getSiteName());
-    }
 
     /**
      * @since 0.20
@@ -106,9 +107,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
              'Missing value for option "siteName"'
         );
 
-        $this->options->setSiteName('');
-        $this->options->getSiteName();
-
+        $this->target->setSiteName('');
+        $this->target->getSiteName();
     }
 
     /**
@@ -123,8 +123,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
             'es' => 'es',
             'it' => 'it');
 
-        $this->options->setSupportedLanguages($supportedLanguages);
-        $this->assertEquals($supportedLanguages, $this->options->getSupportedLanguages());
+        $this->target->setSupportedLanguages($supportedLanguages);
+        $this->assertEquals($supportedLanguages, $this->target->getSupportedLanguages());
     }
 
     /**
@@ -133,8 +133,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetDetectLanguage()
     {
-        $this->options->setDetectLanguage(true);
-        $this->assertEquals(true, $this->options->isDetectLanguage());
+        $this->target->setDetectLanguage(true);
+        $this->assertEquals(true, $this->target->isDetectLanguage());
     }
 
     /**
@@ -142,8 +142,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllowsSettingAndGettingSystemMessageEmail()
     {
-        $this->assertSame($this->options, $this->options->setSystemMessageEmail('test@mail'), 'Fluent interface broken');
-        $this->assertEquals('test@mail', $this->options->getSystemMessageEmail());
+        $this->assertSame($this->target, $this->target->setSystemMessageEmail('test@mail'), 'Fluent interface broken');
+        $this->assertEquals('test@mail', $this->target->getSystemMessageEmail());
     }
 
     /**
@@ -153,7 +153,6 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\Core\Options\Exception\MissingOptionException', 'Missing value for option "systemMessageEmail"');
 
-        $this->options->getSystemMessageEmail();
+        $this->target->getSystemMessageEmail();
     }
-
 }

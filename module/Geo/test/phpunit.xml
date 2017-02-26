@@ -11,8 +11,8 @@
         </whitelist>
     </filter>
     <testsuites>
-        <testsuite name="OrdersTest">
-            <directory>./OrdersTest</directory>
-        </testsuite>
-    </testsuites>
+            <testsuite name="YAWIK Geo">
+		    <directory>./InstallTest</directory>
+            </testsuite>
+     </testsuites>
 </phpunit>
