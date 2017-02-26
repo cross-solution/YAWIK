@@ -1,5 +1,0 @@
-<?php
-/**
- * Activates the Orders module.
- */
-return [ 'Orders' ];

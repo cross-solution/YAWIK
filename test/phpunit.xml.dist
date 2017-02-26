@@ -18,7 +18,6 @@
             <directory>../module/Auth/test/AuthTest</directory>
             <directory>../module/Auth/test/AclTest</directory>
             <directory>../module/Jobs/test/JobsTest</directory>
-            <directory>../module/Orders/test/OrdersTest</directory>
             <directory>../module/Organizations/test/OrganizationsTest</directory>
             <directory>../module/Cv/test/CvTest</directory>
         </testsuite>
