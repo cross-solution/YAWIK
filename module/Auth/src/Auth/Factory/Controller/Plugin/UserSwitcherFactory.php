@@ -36,7 +36,10 @@ class UserSwitcherFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $auth   = $container->get('AuthenticationService');
+        $acl    = $container->get('ControllerPluginManager')->get('Acl');
         $plugin = new UserSwitcher($auth);
+
+        $plugin->setAclPlugin($acl);
 
         return $plugin;
     }

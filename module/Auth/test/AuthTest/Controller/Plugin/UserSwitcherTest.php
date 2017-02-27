@@ -10,6 +10,7 @@
 /** */
 namespace AuthTest\Controller\Plugin;
 
+use Acl\Controller\Plugin\Acl;
 use Auth\AuthenticationService;
 use Auth\Controller\Plugin\UserSwitcher;
 use Auth\Entity\User;
@@ -54,6 +55,9 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
         '@testSwitchUserUsesUserIdFromProvidedUserInterface' => [
             'args' => 'getComplexAuthMock',
         ],
+        '@testSwitchUserSetsUserOnAclPluginIfProvided' => [
+            'args' => 'getComplexAuthMock',
+        ],
     ];
 
     private $inheritance = [ AbstractPlugin::class ];
@@ -90,6 +94,7 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
                 'value' => 'param',
                 'expect' => 'value',
             ]],
+            ['aclPlugin', ['value' => $this->getMockBuilder(Acl::class)->disableOriginalConstructor()->getMock(), 'default' => null]]
         ];
     }
 
@@ -108,7 +113,7 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
         $auth = $this
             ->getMockBuilder(AuthenticationService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['clearIdentity', 'getStorage'])
+            ->setMethods(['clearIdentity', 'getStorage', 'getUser'])
             ->getMock();
 
 
@@ -117,11 +122,13 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['read', 'write'])
             ->getMockForAbstractClass();
 
-        $storage->expects($this->once())->method('read')->willReturn('originalUser');
-        $storage->expects($this->once())->method('write')->with('switchedUser');
+        $storage->expects($this->atLeast(1))->method('read')->willReturn('originalUser');
+        $storage->expects($this->atLeast(1))->method('write')->with('switchedUser');
 
-        $auth->expects($this->once())->method('getStorage')->willReturn($storage);
-        $auth->expects($this->once())->method('clearIdentity');
+        $auth->expects($this->atLeast(1))->method('getStorage')->willReturn($storage);
+        $auth->expects($this->atLeast(1))->method('clearIdentity');
+
+        $auth->expects($this->any())->method('getUser')->willReturn(new User());
 
         return [ $auth ];
     }
@@ -174,6 +181,23 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
         $user->expects($this->once())->method('getId')->willReturn('switchedUser');
 
         $this->assertTrue($this->target->switchUser($user));
+
+        $_SESSION = [];
+    }
+
+    public function testSwitchUserSetsUserOnAclPluginIfProvided()
+    {
+        $acl = $this->getMockBuilder(Acl::class)->disableOriginalConstructor()->setMethods(['setUser'])->getMock();
+        $acl->expects($this->once())->method('setUser')->with($this->isInstanceOf(User::class));
+
+        $user = $this->getMockBuilder(User::class)->disableOriginalConstructor()
+                     ->setMethods(['getId'])->getMock();
+        $user->expects($this->any())->method('getId')->willReturn('switchedUser');
+
+        $this->target->switchUser($user);
+        $_SESSION = [];
+        $this->target->setAclPlugin($acl);
+        $this->target->switchUser($user);
 
         $_SESSION = [];
     }

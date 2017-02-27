@@ -10,6 +10,7 @@
 /** */
 namespace AuthTest\Factory\Controller\Plugin;
 
+use Acl\Controller\Plugin\Acl;
 use Auth\AuthenticationService;
 use Auth\Factory\Controller\Plugin\UserSwitcherFactory;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
@@ -56,10 +57,16 @@ class UserSwitcherFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvokationCreatesPluginInstance()
     {
         $auth = $this->getMockBuilder(AuthenticationService::class)->disableOriginalConstructor()->getMock();
-        $container = $this->getServiceManagerMock(['AuthenticationService' => ['service' => $auth, 'count_get' => 1]]);
+        $acl = $this->getMockBuilder(Acl::class)->disableOriginalConstructor()->getMock();
+        $controllerPlugins = $this->getPluginManagerMock(['Acl' => ['service' => $acl, 'count_get' => 1]]);
+        $container = $this->getServiceManagerMock([
+                'AuthenticationService' => ['service' => $auth, 'count_get' => 1],
+                'ControllerPluginManager' => ['service' => $controllerPlugins, 'count_get' => 1]
+        ]);
 
         $plugin = $this->target->__invoke($container, 'Test');
 
         $this->assertAttributeSame($auth, 'auth', $plugin);
+        $this->assertSame($acl, $plugin->getAclPlugin());
     }
 }

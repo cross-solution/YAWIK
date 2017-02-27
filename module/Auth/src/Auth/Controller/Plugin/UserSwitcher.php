@@ -10,6 +10,7 @@
 /** */
 namespace Auth\Controller\Plugin;
 
+use Acl\Controller\Plugin\Acl;
 use Auth\Entity\UserInterface;
 use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -29,7 +30,7 @@ class UserSwitcher extends AbstractPlugin
     /**
      * AuthenticationService
      *
-     * @var \Zend\Authentication\AuthenticationService
+     * @var \Auth\AuthenticationService
      */
     private $auth;
 
@@ -39,6 +40,13 @@ class UserSwitcher extends AbstractPlugin
      * @var Container
      */
     private $sessionContainer;
+
+    /**
+     *
+     *
+     * @var Acl
+     */
+    private $aclPlugin;
 
     /**
      * Creates an instance
@@ -67,6 +75,26 @@ class UserSwitcher extends AbstractPlugin
         }
 
         return $this->switchUser($userId, $params);
+    }
+
+    /**
+     * @param \Acl\Controller\Plugin\Acl $aclPlugin
+     *
+     * @return self
+     */
+    public function setAclPlugin($aclPlugin)
+    {
+        $this->aclPlugin = $aclPlugin;
+
+        return $this;
+    }
+
+    /**
+     * @return \Acl\Controller\Plugin\Acl
+     */
+    public function getAclPlugin()
+    {
+        return $this->aclPlugin;
     }
 
     /**
@@ -216,6 +244,10 @@ class UserSwitcher extends AbstractPlugin
         $originalUserId = $storage->read();
         $this->auth->clearIdentity();
         $storage->write($id);
+
+        if ($acl = $this->getAclPlugin()) {
+            $acl->setUser($this->auth->getUser());
+        }
 
         return $originalUserId;
     }
