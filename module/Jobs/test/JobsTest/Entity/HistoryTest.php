@@ -96,7 +96,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     */
     public function testSetGetDate()
     {
-        $date=new \DateTime();
+        $date=new \DateTime("2017-02-28 11:11:11");
         $this->target->setDate($date);
 
         $this->assertEquals($date, $this->target->getDate());

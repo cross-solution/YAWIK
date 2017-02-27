@@ -43,9 +43,11 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testExtendsAbstractEntityAndInfo()
     {
+        $date = new \DateTime("2017-02-28 11:11:11");
+        $this->target->setDate($date);
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
         $this->assertInstanceOf('\Applications\Entity\History', $this->target);
-        $this->assertEquals($this->target->getDate(), new \DateTime());
+        $this->assertEquals($this->target->getDate(), $date);
     }
 
     /**
