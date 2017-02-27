@@ -110,7 +110,7 @@ class SearchForm extends Form
             if ($element->getName() == $form->getButtonElement()) {
                 $content.='<div class="input-group col-md-' . $cols . '">'
                               . $formElement($element)
-                              . '<div class="input-group-btn search-form-buttons" style="width: 0px;">'
+                              . '<div class="input-group-btn search-form-buttons" style="width: 1px;">'
                               . $this->renderButtons($form->getButtons()) . '</div>'
                               . '</div>';
                 $buttonsRendered = true;
