@@ -11,6 +11,7 @@
 
 namespace Jobs\Controller\Plugin;
 
+use Jobs\Entity\StatusInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Core\Repository\RepositoryService;
 use Auth\AuthenticationService;
@@ -91,8 +92,9 @@ class InitializeJob extends AbstractPlugin
             $job = $snapshotRepo->find($snapshotId);
 
         } else {
+            /* @var \Jobs\Entity\Job $job */
             $job = $jobRepository->find($id);
-            if ($job && $getSnapshot && !$job->isDraft()) {
+            if ($job && $getSnapshot && !$job->isDraft() && $job->getStatus()->getName() != \Jobs\Entity\StatusInterface::CREATED) {
                 $snapshotRepo = $this->repositoryService->get('Jobs/JobSnapshot');
                 $snapshot = $snapshotRepo->findLatest($job->getId(), /*isDraft*/ true);
 

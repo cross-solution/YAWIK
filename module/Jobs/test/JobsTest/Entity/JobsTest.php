@@ -24,6 +24,7 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Location;
+use Jobs\Entity\Publisher;
 use Jobs\Entity\Status;
 use Jobs\Entity\AtsMode;
 use Jobs\Entity\Job;
@@ -178,6 +179,17 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($link, $this->target->getPortals());
     }
 
+    /**
+     * @testdox Allows setting of a logo reference
+     * @covers Jobs\Entity\Job::getLogoRef
+     * @covers Jobs\Entity\Job::setLogoRef
+     */
+    public function testSetGetLogoRef()
+    {
+        $link = 'my/image.jpg';
+        $this->target->setLogoRef($link);
+        $this->assertEquals($link, $this->target->getLogoRef());
+    }
 
     /**
      * @testdox Allows setting the application link of a job posting

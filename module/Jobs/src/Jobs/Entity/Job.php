@@ -200,7 +200,6 @@ class Job extends BaseEntity implements JobInterface,
     /**
      * Unified Resource Locator to the company-Logo
      *
-     * @deprecated (use $organization->image->uri instead)
      * @var String
      * @ODM\Field(type="string")
      */
@@ -459,6 +458,15 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function getLocation()
     {
+        if (null === $this->location) {
+            $array=[];
+            if(null != $this->locations){
+                foreach ($this->locations as $location) { /* @var \Core\Entity\LocationInterface $location */
+                    $array[]=$location->getCity();
+                }
+                return implode(', ', $array);
+            }
+        }
         return $this->location;
     }
     /**
@@ -749,9 +757,8 @@ class Job extends BaseEntity implements JobInterface,
         return $this;
     }
     /**
-     * returns an uri to the organization logo
+     * returns an uri to the organization logo.
      *
-     * @deprecated
      * @return string
      */
     public function getLogoRef()
@@ -767,7 +774,6 @@ class Job extends BaseEntity implements JobInterface,
     /**
      * Set the uri to the organisations logo
      *
-     * @deprecated
      * @param string $logoRef
      * @return \Jobs\Entity\Job
      */
