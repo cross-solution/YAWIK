@@ -31,7 +31,7 @@ class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProvi
     {
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
-                __DIR__ . '/autoload_classmap.php',
+                __DIR__ . '/src/autoload_classmap.php',
                 array(
                     // We need this filter for initial user creation.
                     'Auth\Entity\Filter\CredentialFilter' => __DIR__ . '/../Auth/src/Auth/Entity/Filter/CredentialFilter.php',
