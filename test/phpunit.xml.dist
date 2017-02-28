@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <phpunit bootstrap="Bootstrap.php" colors="true">
     <logging>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
@@ -8,6 +7,15 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">../module/*/src</directory>
+            <exclude>
+                <file>../module/Core/src/autoload_classmap.php</file>
+                <file>../module/Auth/src/autoload_classmap.php</file>
+                <file>../module/Applications/src/autoload_classmap.php</file>
+                <file>../module/Jobs/src/autoload_classmap.php</file>
+                <file>../module/Organizations/src/autoload_classmap.php</file>
+                <file>../module/Cv/src/autoload_classmap.php</file>
+                <file>../module/Geo/src/autoload_classmap.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <testsuites>

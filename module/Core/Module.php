@@ -145,12 +145,6 @@ class Module implements ConsoleBannerProviderInterface
     {
         $config = include __DIR__ . '/config/module.config.php';
         return $config;
-        if (\Zend\Console\Console::isConsole()) {
-            $config['doctrine']['configuration']['odm_default']['generate_proxies'] = false;
-            $config['doctrine']['configuration']['odm_default']['generate_hydrators'] = false;
-            
-        }
-        return $config;
     }
 
     /**
@@ -161,6 +155,9 @@ class Module implements ConsoleBannerProviderInterface
     public function getAutoloaderConfig()
     {
         return array(
+            'Zend\Loader\ClassMapAutoloader' => [
+                __DIR__ . '/src/autoload_classmap.php'
+            ],
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,

@@ -35,8 +35,10 @@ class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
      */
     public function getAutoloaderConfig()
     {
-        
         return array(
+            'Zend\Loader\ClassMapAutoloader' => [
+                __DIR__ . '/src/autoload_classmap.php'
+            ],
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
