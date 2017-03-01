@@ -10,7 +10,6 @@
 
 namespace Core\Listener;
 
-use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\EventManager\SharedEventManagerInterface;
 use Core\Listener\Events\NotificationEvent;
 use Zend\Mvc\MvcEvent;
@@ -22,7 +21,7 @@ use Zend\View\Model\JsonModel;
  * @todo [MG] This must be refactored! It's a violation of the encapsulation principle.
  *       I mean... an event manager which is a listener for itself? What a mess!
  */
-class NotificationListener extends EventManager implements SharedListenerAggregateInterface
+class NotificationListener extends EventManager
 {
 
     /**
@@ -36,7 +35,9 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
     protected $hasRunned = true;
 
     /**
-     * @see \Zend\EventManager\SharedListenerAggregateInterface::attachShared()
+     * @param SharedEventManagerInterface $events
+     *
+     * @return $this
      */
     public function attachShared(SharedEventManagerInterface $events)
     {
@@ -50,7 +51,9 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
     }
 
     /**
-     * @see \Zend\EventManager\SharedListenerAggregateInterface::detachShared()
+     * @param SharedEventManagerInterface $events
+     *
+     * @return $this
      */
     public function detachShared(SharedEventManagerInterface $events)
     {

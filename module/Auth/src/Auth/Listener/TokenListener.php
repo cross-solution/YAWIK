@@ -11,7 +11,6 @@
 namespace Auth\Listener;
 
 use Zend\EventManager\SharedEventManagerInterface;
-use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container as Session;
 
@@ -22,7 +21,7 @@ use Zend\Session\Container as Session;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class TokenListener implements SharedListenerAggregateInterface
+class TokenListener
 {
 
     /**
@@ -49,15 +48,14 @@ class TokenListener implements SharedListenerAggregateInterface
      * Detach all our listeners from the event manager
      *
      * @param  SharedEventManagerInterface $events
-     * @return void
+     * @return $this
      */
     public function detachShared(SharedEventManagerInterface $events)
     {
         if ($events->detach('Zend\Mvc\Application', $this->listener)) {
             $this->listener = null;
         }
-
-        return true;
+        return $this;
     }
 
     public function onBootstrap(MvcEvent $e)
