@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Factory\Form;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Form\ListFilterLocationFieldset;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -22,16 +23,31 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ListFilterLocationFieldsetFactory implements FactoryInterface
 {
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var \Geo\Options\ModuleOptions $options */
+        $options = $container->get('Geo/Options');
+        $fs = new ListFilterLocationFieldset(['location_engine_type' => $options->getPlugin()]);
+        return $fs;
+    }
+
+    /**
      * Creates the multiposting select box.
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
-
-        $services = $serviceLocator->getServiceLocator();
-        /* @var \Geo\Options\ModuleOptions $options */
-        $options = $services->get('Geo/Options');
-        $fs = new ListFilterLocationFieldset(['location_engine_type' => $options->getPlugin()]);
-        return $fs;
+        return $this($serviceLocator->getServiceLocator(), ListFilterLocationFieldset::class);
     }
 }

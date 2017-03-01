@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Factory\Form;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Form\HiringOrganizationSelect;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -21,19 +22,27 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class HiringOrganizationSelectFactory implements FactoryInterface
 {
+
     /**
-     * Creates the hiring organization select box.
+     * Create an object
      *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager
-         * @var $headscript     \Zend\View\Helper\HeadScript
+        /* @var $headscript     \Zend\View\Helper\HeadScript
          * @var $user           \Auth\Entity\User
          * @var $organization   \Organizations\Entity\OrganizationInterface | \Organizations\Entity\OrganizationReferenceInterface
          */
-        $services     = $serviceLocator->getServiceLocator();
-        $user         = $services->get('AuthenticationService')->getUser();
+        $user         = $container->get('AuthenticationService')->getUser();
         $select       = new HiringOrganizationSelect();
         $organizationReference = $user->getOrganization();
 
@@ -41,7 +50,7 @@ class HiringOrganizationSelectFactory implements FactoryInterface
             $organizations = $organizationReference->getHiringOrganizations()->toArray();
             $organization = $organizationReference->getOrganization();
             if (!$organization->isDraft()) {
-    			array_unshift($organizations, $organization);
+                array_unshift($organizations, $organization);
             }
             $select->setSelectableOrganizations($organizations, /* addEmptyOption */
                                                 false
@@ -49,5 +58,15 @@ class HiringOrganizationSelectFactory implements FactoryInterface
         }
 
         return $select;
+    }
+
+
+    /**
+     * Creates the hiring organization select box.
+     *
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }

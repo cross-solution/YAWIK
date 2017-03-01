@@ -26,7 +26,20 @@ class JobboardSearchFactory extends AbstractCustomizableFieldsetFactory
 
     const OPTIONS_NAME = 'Jobs/JobboardSearchOptions';
 
-    protected function createFormInstance(ContainerInterface $container, $name, array $options = null)
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var \Geo\Options\ModuleOptions $options */
         $options = $container->get('Geo/Options');
@@ -38,8 +51,12 @@ class JobboardSearchFactory extends AbstractCustomizableFieldsetFactory
             ]
         );
 
-
         return $fs;
+    }
+
+    protected function createFormInstance(ContainerInterface $container, $name, array $options = null)
+    {
+        return $this($container, JobboardSearch::class);
     }
 
 }

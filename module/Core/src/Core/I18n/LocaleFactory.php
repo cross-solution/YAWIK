@@ -8,7 +8,7 @@
  * @author    weitz@cross-solution.de
  */
 
-namespace Jobs\Factory\View\Helper;
+namespace Core\I18n;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
@@ -16,14 +16,13 @@ use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Jobs\View\Helper\JobUrl;
+use Core\I18n\Locale;
 
 /**
- * Factory for JobUrl view helper
- *
- * @author Carsten Bleek <bleek@cross-solution.de>
+ * Class ModuleOptionsFactory
+ * @package Core\I18n
  */
-class JobUrlFactory implements FactoryInterface
+class LocaleFactory implements FactoryInterface
 {
     /**
      * Create an object
@@ -40,19 +39,20 @@ class JobUrlFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $helper    = new JobUrl();
-        $url       = $container->get('url');
-        $params    = $container->get('params');
-        $serverUrl = $container->get('serverUrl');
-        $helper->setUrlHelper($url)
-               ->setParamsHelper($params)
-               ->setServerUrlHelper($serverUrl);
-        return $helper;
+        /* @var \Core\Options\ModuleOptions $options*/
+        $options = $container->get('Core/Options');
+        return new Locale($options->getSupportedLanguages());
     }
 
 
-    public function createService(ServiceLocatorInterface $services)
+    /**
+     * {@inheritDoc}
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return ModuleOptions
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($services, JobUrl::class);
+        return $this($serviceLocator, Locale::class);
     }
 }

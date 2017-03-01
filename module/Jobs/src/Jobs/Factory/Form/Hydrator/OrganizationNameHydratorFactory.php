@@ -9,6 +9,7 @@
 
 namespace Jobs\Factory\Form\Hydrator;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Form\Hydrator\OrganizationNameHydrator;
 use Organizations\Repository\Organization;
 use Zend\ServiceManager\FactoryInterface;
@@ -21,6 +22,30 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class OrganizationNameHydratorFactory implements FactoryInterface
 {
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var $hydrator Organization */
+        $organizationRepository = $container->get('repositories')->get('Organizations/Organization');
+
+        $hydrator = new OrganizationNameHydrator($organizationRepository);
+
+        return $hydrator;
+    }
+
+
+    /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -29,11 +54,6 @@ class OrganizationNameHydratorFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $hydrator Organization */
-        $organizationRepository = $serviceLocator->get('repositories')->get('Organizations/Organization');
-
-        $hydrator = new OrganizationNameHydrator($organizationRepository);
-
-        return $hydrator;
+        return $this($serviceLocator, OrganizationNameHydrator::class);
     }
 }

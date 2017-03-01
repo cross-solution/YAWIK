@@ -10,6 +10,7 @@
 
 namespace Jobs\Factory\View\Helper;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Jobs\View\Helper\ApplyUrl;
@@ -23,17 +24,36 @@ use Jobs\View\Helper\ApplyUrl;
 class ApplyUrlFactory implements FactoryInterface
 {
 
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $helper    = new ApplyUrl();
-        $url       = $serviceLocator->get('url');
-        $translate = $serviceLocator->get('translate');
-        $params    = $serviceLocator->get('params');
-        $serverUrl = $serviceLocator->get('serverUrl');
+        $url       = $container->get('url');
+        $translate = $container->get('translate');
+        $params    = $container->get('params');
+        $serverUrl = $container->get('serverUrl');
         $helper->setUrlHelper($url)
-            ->setTranslateHelper($translate)
-            ->setParamsHelper($params)
-            ->setServerUrlHelper($serverUrl);
+               ->setTranslateHelper($translate)
+               ->setParamsHelper($params)
+               ->setServerUrlHelper($serverUrl);
         return $helper;
+    }
+
+
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services, ApplyUrl::class);
     }
 }

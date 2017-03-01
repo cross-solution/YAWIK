@@ -9,16 +9,35 @@
 
 namespace Jobs\Factory\Auth\Dependency;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ListListenerFactory implements FactoryInterface
 {
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        return new \Jobs\Auth\Dependency\ListListener($container->get('repositories')->get('Jobs'));
+    }
+
+    /**
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new \Jobs\Auth\Dependency\ListListener($serviceLocator->get('repositories')->get('Jobs'));
+        return $this($serviceLocator, ListListener::class);
     }
 }

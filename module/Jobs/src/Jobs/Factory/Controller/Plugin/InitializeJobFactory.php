@@ -10,24 +10,41 @@
 
 namespace Jobs\Factory\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Core\Repository\RepositoryService;
 use Jobs\Controller\Plugin\InitializeJob;
 
 class InitializeJobFactory implements FactoryInterface
 {
-    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        $services = $serviceLocator->getServiceLocator();
         /* @var $repositories RepositoryService */
-        $repositories = $services->get('repositories');
+        $repositories = $container->get('repositories');
         /* @var \Auth\AuthenticationService */
-        $auth = $services->get('AuthenticationService');
+        $auth = $container->get('AuthenticationService');
         /* @var \Acl\Controller\Plugin\Acl */
-        $acl = $serviceLocator->get('acl');
+        $acl = $container->get('acl');
 
         $plugin = new InitializeJob($repositories, $auth, $acl);
         return $plugin;
+    }
+    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator->getServiceLocator(), InitializeJob::class);
     }
 }

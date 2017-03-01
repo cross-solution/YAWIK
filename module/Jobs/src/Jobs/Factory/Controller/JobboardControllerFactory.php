@@ -9,9 +9,9 @@
 
 namespace Jobs\Factory\Controller;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Controller\JobboardController;
 use Jobs\Repository;
-use Zend\Form\Form;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -24,27 +24,30 @@ class JobboardControllerFactory implements FactoryInterface
      * @var string $paginationService;
      */
     protected $paginationService = 'Jobs/Board';
-
-    /**
-     * Injects all needed services into the JobboardController
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return JobboardController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var ControllerManager $serviceLocator */
-        $serviceLocator = $serviceLocator->getServiceLocator();
 
         /* @var \Jobs\Options\JobboardSearchOptions $options */
-        $options = $serviceLocator->get('Jobs/JobboardSearchOptions');
+        $options = $container->get('Jobs/JobboardSearchOptions');
 
         /**
          * @var $jobRepository Repository\Job
          */
-        $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
+        $jobRepository = $container->get('repositories')->get('Jobs/Job');
 
         return new JobboardController($jobRepository, ['count'=>$options->getPerPage()]);
+    }
+
+    /**
+     * Injects all needed services into the JobboardController
+     *
+     * @param ServiceLocatorInterface $services
+     *
+     * @return JobboardController
+     */
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services->getServiceLocator(), JobboardController::class);
     }
 }

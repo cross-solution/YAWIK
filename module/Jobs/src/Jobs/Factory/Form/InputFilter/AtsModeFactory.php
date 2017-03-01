@@ -10,19 +10,40 @@
 
 namespace Jobs\Factory\Form\InputFilter;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Jobs\Form\InputFilter\AtsMode;
 
 class AtsModeFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $request = $serviceLocator->getServiceLocator()->get('request');
+        $request = $container->get('request');
         $uri = $request->getUri();
         $host = $uri->getHost();
         $filter = new AtsMode();
         $filter->setHost($host);
         return $filter;
+    }
+
+
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }
