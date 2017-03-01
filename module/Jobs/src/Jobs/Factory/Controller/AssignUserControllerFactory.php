@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Factory\Controller;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Controller\AssignUserController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -22,6 +23,29 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class AssignUserControllerFactory implements FactoryInterface
 {
+
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $repositories = $container->get('repositories');
+        $repository = $repositories->get('Jobs');
+        $controller = new AssignUserController($repository);
+
+        return $controller;
+    }
+
     /**
      * Create service
      *
@@ -31,12 +55,6 @@ class AssignUserControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        $services = $serviceLocator->getServiceLocator();
-        $repositories = $services->get('repositories');
-        $repository = $repositories->get('Jobs');
-        $controller = new AssignUserController($repository);
-
-        return $controller;
+        return $this($serviceLocator->getServiceLocator(), AssignUserController::class);
     }
 }

@@ -9,12 +9,41 @@
 
 namespace Jobs\Factory\Controller;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Controller\ApiJobListByOrganizationController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ApiJobListByOrganizationControllerFactory implements FactoryInterface
 {
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $repositories = $container->get('repositories');
+
+        /** @var \Jobs\Repository\Job $jobRepository */
+        $jobRepository = $repositories->get('Jobs');
+
+        /** @var \Jobs\Model\ApiJobDehydrator $apiJobDehydrator */
+        $apiJobDehydrator = $container->get('Jobs\Model\ApiJobDehydrator');
+
+        $controller = new ApiJobListByOrganizationController($jobRepository, $apiJobDehydrator);
+
+        return $controller;
+    }
+
     /**
      * Create service
      *
@@ -25,17 +54,6 @@ class ApiJobListByOrganizationControllerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        $services = $serviceLocator->getServiceLocator();
-        $repositories = $services->get('repositories');
-
-        /** @var \Jobs\Repository\Job $jobRepository */
-        $jobRepository = $repositories->get('Jobs');
-
-        /** @var \Jobs\Model\ApiJobDehydrator $apiJobDehydrator */
-        $apiJobDehydrator = $services->get('Jobs\Model\ApiJobDehydrator');
-
-        $controller = new ApiJobListByOrganizationController($jobRepository, $apiJobDehydrator);
-
-        return $controller;
+        return $this($serviceLocator->getServiceLocator(), ApiJobListByOrganizationController::class);
     }
 }

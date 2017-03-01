@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Factory\Form;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Form\OrganizationSelect;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -26,15 +27,24 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ActiveOrganizationSelectFactory implements FactoryInterface
 {
     /**
-     * Creates the organization select box.
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager
          * @var $jobsRepository \Jobs\Repository\Job
          */
-        $services       = $serviceLocator->getServiceLocator();
-        $repositories   = $services->get('repositories');
+        $repositories   = $container->get('repositories');
         $jobsRepository = $repositories->get('Jobs');
         $organizations  = $jobsRepository->findActiveOrganizations();
         $select         = new OrganizationSelect();
@@ -42,5 +52,14 @@ class ActiveOrganizationSelectFactory implements FactoryInterface
         $select->setSelectableOrganizations($organizations);
 
         return $select;
+
+    }
+
+    /**
+     * Creates the organization select box.
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator->getServiceLocator(), OrganizationSelect::class);
     }
 }

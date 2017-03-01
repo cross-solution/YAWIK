@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Factory\Filter;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -23,6 +24,28 @@ class ChannelPricesFactory implements FactoryInterface
     protected $filterClass = '\Jobs\Filter\ChannelPrices';
 
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $providerOptions = $container->get('Jobs/Options/Provider');
+        $class = $this->filterClass;
+        $filter = new $class($providerOptions);
+
+        return $filter;
+    }
+
+    /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -31,13 +54,6 @@ class ChannelPricesFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator \Zend\Filter\FilterPluginManager */
-        $services = $serviceLocator->getServiceLocator();
-        $providerOptions = $services->get('Jobs/Options/Provider');
-
-        $class = $this->filterClass;
-        $filter = new $class($providerOptions);
-
-        return $filter;
+        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }

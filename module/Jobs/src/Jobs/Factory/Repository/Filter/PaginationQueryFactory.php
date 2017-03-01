@@ -3,6 +3,7 @@
 namespace Jobs\Factory\Repository\Filter;
 
 use Auth\AuthenticationService;
+use Interop\Container\ContainerInterface;
 use Jobs\Repository\Filter\PaginationQuery;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

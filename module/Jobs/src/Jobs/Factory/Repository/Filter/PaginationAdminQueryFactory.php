@@ -11,6 +11,7 @@
 namespace Jobs\Factory\Repository\Filter;
 
 use Auth\AuthenticationService;
+use Interop\Container\ContainerInterface;
 use Jobs\Repository\Filter\PaginationAdminQuery;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -18,18 +19,36 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class PaginationAdminQueryFactory implements FactoryInterface
 {
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var AuthenticationService $auth */
+        $auth = $container->get('AuthenticationService');
+        $acl = $container->get('Acl');
+        $filter = new PaginationAdminQuery($auth, $acl);
+        return $filter;
+
+    }
+
+
+    /**
      * @param ServiceLocatorInterface $serviceLocator
      * @return PaginationAdminQuery|mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $services \Zend\ServiceManager\ServiceManager */
-        $services = $serviceLocator->getServiceLocator();
-        /* @var AuthenticationService $auth */
-        $auth = $services->get('AuthenticationService');
-        $acl = $services->get('Acl');
 
-        $filter = new PaginationAdminQuery($auth, $acl);
-        return $filter;
+        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }

@@ -37,15 +37,6 @@ class Locale
     }
 
     /**
-     * @param ServiceLocatorInterface $serviceManager
-     * @return \Core\I18n\Locale
-     */
-    public static function factory(ServiceLocatorInterface $serviceManager)
-    {
-        return new static($serviceManager->get('Core/Options')->getSupportedLanguages());
-    }
-    
-    /**
      * @param Request $request
      * @param User $user
      * @return string

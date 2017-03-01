@@ -10,6 +10,7 @@
 
 namespace Jobs\Factory\View\Helper;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Jobs\View\Helper\ApplyUrl;
