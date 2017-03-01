@@ -24,18 +24,11 @@ class JobboardControllerFactory implements FactoryInterface
      * @var string $paginationService;
      */
     protected $paginationService = 'Jobs/Board';
-
-    /**
-     * Injects all needed services into the JobboardController
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return JobboardController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /** @var ControllerManager $serviceLocator */
-        $serviceLocator = $serviceLocator->getServiceLocator();
+        $serviceLocator = $container->getServiceLocator();
 
         /* @var \Jobs\Options\JobboardSearchOptions $options */
         $options = $serviceLocator->get('Jobs/JobboardSearchOptions');
@@ -46,5 +39,17 @@ class JobboardControllerFactory implements FactoryInterface
         $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
 
         return new JobboardController($jobRepository, ['count'=>$options->getPerPage()]);
+    }
+
+    /**
+     * Injects all needed services into the JobboardController
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     *
+     * @return JobboardController
+     */
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services, JobboardContraoller::class);
     }
 }
