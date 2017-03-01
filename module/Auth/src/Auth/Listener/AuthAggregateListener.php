@@ -11,11 +11,10 @@
 namespace Auth\Listener;
 
 use Zend\EventManager\SharedEventManagerInterface;
-use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\ServiceManager\ServiceManager;
 use Auth\Listener\Events\AuthEvent;
 
-class AuthAggregateListener implements SharedListenerAggregateInterface
+class AuthAggregateListener
 {
 
     /**
