@@ -41,7 +41,7 @@
 
 
     $(function() {
-        $container = $('#jobPortals-portals');
+        $container = $('#general-portalForm-jobPortals-portals');
 
         // get templates
         var id = $container.attr('id');

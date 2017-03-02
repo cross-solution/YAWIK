@@ -72,8 +72,13 @@ class FormCollection extends ZendFormCollection
                 array('-'              , '-'    , ''       ),
                 $element->getName()
             );
-            $element->setAttribute('id', $elementId);
+
         }
+        if ($formId = $element->getOption('__form_id__')) {
+            $elementId = "$formId-$elementId";
+        }
+
+        $element->setAttribute('id', $elementId);
 
         /*
          * We had the problem, that collection templates were not rendered using the viewPartial due to the call
@@ -102,9 +107,10 @@ class FormCollection extends ZendFormCollection
                         array('-'              , '-'    , ''       ),
                         $elementOrFieldset->getName()
                     );
-                    $elementOrFieldset->setAttribute('id', $elementOrFieldsetId);
-                }
 
+                }
+                if ($formId) { $elementOrFieldsetId = "$formId-$elementOrFieldsetId"; }
+                $elementOrFieldset->setAttribute('id', $elementOrFieldsetId);
                 /* @var $partial \Zend\View\Helper\Partial */
                 $partial = $renderer->plugin('partial');
                 $markup .= $partial(

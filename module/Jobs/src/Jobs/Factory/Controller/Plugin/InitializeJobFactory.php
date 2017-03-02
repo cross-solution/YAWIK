@@ -38,7 +38,7 @@ class InitializeJobFactory implements FactoryInterface
         /* @var \Auth\AuthenticationService */
         $auth = $container->get('AuthenticationService');
         /* @var \Acl\Controller\Plugin\Acl */
-        $acl = $container->get('acl');
+        $acl = $container->get('ControllerPluginManager')->get('acl');
 
         $plugin = new InitializeJob($repositories, $auth, $acl);
         return $plugin;

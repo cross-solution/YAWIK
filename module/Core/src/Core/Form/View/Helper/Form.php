@@ -93,13 +93,14 @@ class Form extends ZendForm
         $form->setAttribute('class', $class);
 
         $formId = $form->getAttribute('id') ?: $form->getName();
+        $formId = preg_replace(
+            array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+            array('-'              , '-'    , ''       ),
+            $formId
+        );
         $form->setAttribute(
-            'id',
-            preg_replace(
-                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
-                array('-'              , '-'    , ''       ),
-                $formId
-            )
+            'id', $formId
+
         );
 
         if (method_exists($form, 'prepare')) {
@@ -115,14 +116,16 @@ class Form extends ZendForm
         /* @var $element \Zend\Form\ElementInterface */
         foreach ($form as $element) {
             $parameterPartial = $parameter;
-            if (!$element->hasAttribute('id')) {
+            $elementId = $element->getAttribute('id');
+            if (!$elementId) {
                 $elementId = preg_replace(
                     array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
                     array('-'             , '-',     ''),
                     $element->getName()
                 );
-                $element->setAttribute('id', $elementId);
             }
+            $element->setAttribute('id', "$formId-$elementId");
+            $element->setOption('__form_id__', $formId);
             if ($element instanceof ExplicitParameterProviderInterface) {
                 /* @var $element ExplicitParameterProviderInterface */
                 $parameterPartial = array_merge($element->getParams(), $parameterPartial);
