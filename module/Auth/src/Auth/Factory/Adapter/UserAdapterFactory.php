@@ -9,6 +9,7 @@
 
 namespace Auth\Factory\Adapter;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Adapter\User;
@@ -18,6 +19,38 @@ use Auth\Adapter\User;
  */
 class UserAdapterFactory implements FactoryInterface
 {
+    /**
+     * Create an User adapter
+     *
+     * authentication with username and password
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return User
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config     = $container->get('Config');
+        $config     = isset($config['Auth']['default_user']) ? $config['Auth']['default_user'] : array();
+        $repository = $container->get('repositories')->get('Auth/User');
+
+        $adapter = new User($repository);
+
+        if (isset($config['login']) && !empty($config['login'])
+            && isset($config['password']) && !empty($config['password'])
+            && isset($config['role']) && !empty($config['role'])
+        ) {
+            $adapter->setDefaultUser($config['login'], $config['password'], $config['role']);
+        }
+
+        return $adapter;
+    }
 
     /**
      * Creates an instance of \Auth\Adapter\UserAdapter
@@ -30,19 +63,6 @@ class UserAdapterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config     = $serviceLocator->get('Config');
-        $config     = isset($config['Auth']['default_user']) ? $config['Auth']['default_user'] : array();
-        $repository = $serviceLocator->get('repositories')->get('Auth/User');
-        
-        $adapter = new User($repository);
-        
-        if (isset($config['login']) && !empty($config['login'])
-            && isset($config['password']) && !empty($config['password'])
-            && isset($config['role']) && !empty($config['role'])
-        ) {
-            $adapter->setDefaultUser($config['login'], $config['password'], $config['role']);
-        }
-        
-        return $adapter;
+        return $this($serviceLocator, User::class);
     }
 }

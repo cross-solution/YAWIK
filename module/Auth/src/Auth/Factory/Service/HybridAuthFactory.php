@@ -10,6 +10,7 @@
 namespace Auth\Factory\Service;
 
 use Hybrid_Auth;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -28,22 +29,28 @@ class HybridAuthFactory implements FactoryInterface
      * - assembles the route "auth/hauth" and pass it as
      *   'base_url' to the \Hybrid_Auth instance.
      *
-     * @param ServiceLocatorInterface $services
-     * @return \Hybrid_Auth
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return Hybrid_Auth
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $services)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         // Making sure the SessionManager is initialized
         // before creating HybridAuth components
-        $services->get('SessionManager')->start();
-        
-        $options = $services->get('Config');
-        
+        $container->get('SessionManager')->start();
+
+        $options = $container->get('Config');
+
         $hauthOptions = $options['hybridauth'];
 
-        $router = $services->get('Router');
-        
+        $router = $container->get('Router');
+
         $baseUrl = $router->assemble(
             array(),
             array(
@@ -51,15 +58,25 @@ class HybridAuthFactory implements FactoryInterface
                 'force_canonical' => true,
             )
         );
-        
+
         $hybridAuth = new Hybrid_Auth(
             array(
                 'base_url' => $baseUrl,
                 'providers' => $hauthOptions
-                
+
             )
         );
 
         return $hybridAuth;
+    }
+
+    /**
+     * @param ServiceLocatorInterface $services
+     *
+     * @return mixed
+     */
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services, Hybrid_Auth::class);
     }
 }

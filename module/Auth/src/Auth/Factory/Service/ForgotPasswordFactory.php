@@ -13,12 +13,39 @@ use Auth\Repository;
 use Auth\Service\ForgotPassword;
 use Auth\Service\UserUniqueTokenGenerator;
 use Core\Controller\Plugin;
+use Interop\Container\ContainerInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ForgotPasswordFactory implements FactoryInterface
 {
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return ForgotPassword
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /**
+         * @var Repository\User          $userRepository
+         * @var UserUniqueTokenGenerator $tokenGenerator
+         */
+        $userRepository = $container->get('repositories')->get('Auth/User');
+        $tokenGenerator = $container->get('Auth\Service\UserUniqueTokenGenerator');
+        $loginFilter = $container->get('Auth\LoginFilter');
+        $config = $container->get('Auth/Options');
+
+        return new ForgotPassword($userRepository, $tokenGenerator, $loginFilter, $config);
+    }
     /**
      * Create service
      *
@@ -28,15 +55,6 @@ class ForgotPasswordFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /**
-         * @var Repository\User          $userRepository
-         * @var UserUniqueTokenGenerator $tokenGenerator
-         */
-        $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
-        $tokenGenerator = $serviceLocator->get('Auth\Service\UserUniqueTokenGenerator');
-        $loginFilter = $serviceLocator->get('Auth\LoginFilter');
-        $config = $serviceLocator->get('Auth/Options');
-
-        return new ForgotPassword($userRepository, $tokenGenerator, $loginFilter, $config);
+        return $this($serviceLocator, ForgotPassword::class);
     }
 }

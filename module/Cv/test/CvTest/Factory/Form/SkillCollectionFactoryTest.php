@@ -14,6 +14,7 @@ use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Skill;
 use Cv\Factory\Form\SkillCollectionFactory;
+use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceManager;
 
@@ -36,7 +37,9 @@ class SkillCollectionFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-        $container = $this->target->createService(new ServiceManager());
+        $fm=new FormElementManagerV2Polyfill();
+        $fm->setServiceLocator(new ServiceManager);
+        $container = $this->target->createService($fm);
 
         $this->assertInstanceOf(CollectionContainer::class, $container);
         $this->assertAttributeEquals('CvSkillForm', 'formService', $container);

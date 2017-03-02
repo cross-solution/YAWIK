@@ -25,13 +25,13 @@ use Jobs\Options\ModuleOptions;
 class ModuleOptionsFactory implements FactoryInterface
 {
     /**
-     * Create an object
+     * Create a ModuleOptions options
      *
      * @param  ContainerInterface $container
      * @param  string             $requestedName
      * @param  null|array         $options
      *
-     * @return object
+     * @return ModuleOptions
      * @throws ServiceNotFoundException if unable to resolve the service.
      * @throws ServiceNotCreatedException if an exception is raised when
      *     creating a service.

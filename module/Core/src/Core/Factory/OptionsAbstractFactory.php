@@ -109,7 +109,6 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
             $mainConfig          = $serviceLocator->get('config');
             $this->optionsConfig = isset($mainConfig['options']) ? $mainConfig['options'] : [];
         }
-
         return false !== $this->getOptionsConfig($requestedName, $name);
     }
 

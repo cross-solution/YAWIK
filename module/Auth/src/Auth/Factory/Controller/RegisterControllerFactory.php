@@ -13,6 +13,7 @@ use Auth\Controller\RegisterController;
 use Auth\Form;
 use Auth\Service;
 use Auth\Options\ModuleOptions;
+use Interop\Container\ContainerInterface;
 use Zend\Log\LoggerInterface;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
@@ -20,6 +21,37 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class RegisterControllerFactory implements FactoryInterface
 {
+    /**
+     * Create a RegisterController controller
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return RegisterController
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /**
+         * @var $form    Form\Register
+         * @var $service Service\Register
+         * @var $logger  LoggerInterface
+         * @var $options  ModuleOptions
+         */
+        $formElementManager = $container->get('formElementManager');
+        $form = $formElementManager->get('Auth\Form\Register');
+
+        $service = $container->get('Auth\Service\Register');
+        $logger = $container->get('Core/Log');
+        $options = $container->get('Auth/Options');
+
+        return new RegisterController($form, $service, $logger, $options);
+
+    }
 
     /**
      * Create service
@@ -30,22 +62,6 @@ class RegisterControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /** @var ControllerManager $serviceLocator */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-
-        /**
-         * @var $form    Form\Register
-         * @var $service Service\Register
-         * @var $logger  LoggerInterface
-         * @var $options  ModuleOptions
-         */
-        $formElementManager = $serviceLocator->get('formElementManager');
-        $form = $formElementManager->get('Auth\Form\Register');
-
-        $service = $serviceLocator->get('Auth\Service\Register');
-        $logger = $serviceLocator->get('Core/Log');
-        $options = $serviceLocator->get('Auth/Options');
-
-        return new RegisterController($form, $service, $logger, $options);
+        return $this($serviceLocator->getServiceLocator(), RegisterController::class);
     }
 }

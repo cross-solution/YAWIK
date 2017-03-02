@@ -10,6 +10,7 @@
 
 namespace Auth\Factory\Controller;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Log\LoggerInterface;
@@ -18,26 +19,32 @@ use Auth\Form\Register;
 
 class IndexControllerFactory implements FactoryInterface
 {
+
+
     /**
-     * Create controller
+     * Create an IndexController controller
      *
-     * @param ServiceLocatorInterface $controllerManager
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
      *
      * @return IndexController
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $controllerManager)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var ServiceLocatorInterface $serviceLocator */
-        $serviceLocator = $controllerManager->getServiceLocator();
-        $auth = $serviceLocator->get('AuthenticationService');
-        $formElementManager = $serviceLocator->get('formElementManager');
+        $auth = $container->get('AuthenticationService');
+        $formElementManager = $container->get('formElementManager');
         $loginForm = $formElementManager->get('Auth\Form\Login');
 
         /* @var $logger LoggerInterface*/
-        $logger = $serviceLocator->get('Core/Log');
+        $logger = $container->get('Core/Log');
 
         /* @var $options \Auth\Options\ModuleOptions */
-        $options = $serviceLocator->get('Auth/Options');
+        $options = $container->get('Auth/Options');
 
         $forms[IndexController::LOGIN] = $loginForm;
 
@@ -49,5 +56,16 @@ class IndexControllerFactory implements FactoryInterface
 
         $controller = new IndexController($auth, $logger, $forms, $options);
         return $controller;
+    }
+    /**
+     * Create controller
+     *
+     * @param ServiceLocatorInterface $controllerManager
+     *
+     * @return IndexController
+     */
+    public function createService(ServiceLocatorInterface $controllerManager)
+    {
+        return $this($controllerManager->getServiceLocator(), UserStatusFieldset::class);
     }
 }

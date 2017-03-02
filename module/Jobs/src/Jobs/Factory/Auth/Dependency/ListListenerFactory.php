@@ -9,7 +9,11 @@
 
 namespace Jobs\Factory\Auth\Dependency;
 
+use Interop\Container\Exception\ContainerException;
+use Jobs\Auth\Dependency\ListListener;
 use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -30,7 +34,7 @@ class ListListenerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new \Jobs\Auth\Dependency\ListListener($container->get('repositories')->get('Jobs'));
+        return new ListListener($container->get('repositories')->get('Jobs'));
     }
 
     /**

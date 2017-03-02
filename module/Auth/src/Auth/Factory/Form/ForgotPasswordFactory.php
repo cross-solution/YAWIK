@@ -10,11 +10,35 @@ namespace Auth\Factory\Form;
 
 use Auth\Form\ForgotPassword;
 use Auth\Form\ForgotPasswordInputFilter;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ForgotPasswordFactory implements FactoryInterface
 {
+    /**
+     * Create a ForgotPassword form
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return ForgotPassword
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var ForgotPasswordInputFilter $filter */
+        $filter = $container->get('Auth\Form\ForgotPasswordInputFilter');
+
+        $form = new ForgotPassword();
+        $form->setInputfilter($filter);
+
+        return $form;
+    }
     /**
      * Create service
      *
@@ -24,14 +48,6 @@ class ForgotPasswordFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /**
-         * @var $filter ForgotPasswordInputFilter
-         */
-        $filter = $serviceLocator->get('Auth\Form\ForgotPasswordInputFilter');
-
-        $form = new ForgotPassword();
-        $form->setInputfilter($filter);
-
-        return $form;
+        return $this($serviceLocator, ForgotPassword::class);
     }
 }
