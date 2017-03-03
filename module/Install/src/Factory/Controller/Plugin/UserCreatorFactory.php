@@ -34,7 +34,7 @@ class UserCreatorFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $filters  = $container->get('FilterManager');
+        $filters = $container->get('FilterManager');
 
         $dbNameExctractor = $filters->get('Install/DbNameExtractor');
         $credentialFilter = $filters->get('Auth/CredentialFilter');

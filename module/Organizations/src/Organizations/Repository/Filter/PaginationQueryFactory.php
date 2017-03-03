@@ -34,7 +34,7 @@ class PaginationQueryFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $auth  = $container->get('AuthenticationService');
+        $auth = $container->get('AuthenticationService');
         $filter = new PaginationQuery($auth);
         return $filter;
     }

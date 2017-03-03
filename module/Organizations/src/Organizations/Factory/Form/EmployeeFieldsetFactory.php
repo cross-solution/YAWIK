@@ -48,14 +48,14 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
         /* todo: WRITE own Hydrator strategy class */
         $strategy = new ClosureStrategy(
-            function ($object) use ($users) {
+            function($object) use ($users) {
 
                 if (is_string($object)) {
                     return $users->find($object);
                 }
                 return $object;
             },
-            function ($data) use ($users) {
+            function($data) use ($users) {
 
                 if (is_string($data)) {
                     $data = $users->find($data);
@@ -67,13 +67,13 @@ class EmployeeFieldsetFactory implements FactoryInterface
         /* todo: write own strategy class */
         $permStrategy = new ClosureStrategy(
         // extract
-            function ($object) {
+            function($object) {
                 /* @var $object \Organizations\Entity\EmployeePermissionsInterface */
                 $values = array();
                 foreach (array(
-                             Perms::JOBS_VIEW, Perms::JOBS_CHANGE, PERMS::JOBS_CREATE,
-                             Perms::APPLICATIONS_VIEW, Perms::APPLICATIONS_CHANGE)
-                         as $perm) {
+                                Perms::JOBS_VIEW, Perms::JOBS_CHANGE, PERMS::JOBS_CREATE,
+                                Perms::APPLICATIONS_VIEW, Perms::APPLICATIONS_CHANGE)
+                            as $perm) {
                     if ($object->isAllowed($perm)) {
                         $values[] = $perm;
                     }
@@ -82,10 +82,10 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
                 return $values;
             },
-            function ($data) {
+            function($data) {
                 $permissions = array_reduce(
                     $data,
-                    function ($c, $i) {
+                    function($c, $i) {
                         return $c | $i;
                     },
                     0
