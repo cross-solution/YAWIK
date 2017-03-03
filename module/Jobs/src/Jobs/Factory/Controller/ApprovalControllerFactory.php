@@ -27,12 +27,11 @@ class ApprovalControllerFactory implements FactoryInterface
      * @param  null|array         $options
      *
      * @return ApprovalController
-
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $searchForm = $container->get('forms')
-                              ->get('Jobs/ListFilterAdmin');
+                                ->get('Jobs/ListFilterAdmin');
 
         /* @var $jobRepository Repository\Job */
         $jobRepository = $container->get('repositories')->get('Jobs/Job');

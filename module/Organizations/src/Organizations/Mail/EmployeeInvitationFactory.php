@@ -84,14 +84,14 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
 
         $mail = $container->get('MailService')->get('htmltemplate');
         $mail->setTemplate($this->options['template'])
-             ->setVariables($variables)
-             ->setSubject(
-                 sprintf(
-                 /* @translate */ 'Invitation to join the team of %s',
-                                  $orgName
-                 )
-             )
-             ->addTo($user->getEmail());
+                ->setVariables($variables)
+                ->setSubject(
+                    sprintf(
+                    /* @translate */ 'Invitation to join the team of %s',
+                                    $orgName
+                    )
+                )
+                ->addTo($user->getEmail());
 
         return $mail;
     }
