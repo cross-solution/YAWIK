@@ -10,7 +10,7 @@
 /** */
 namespace Organizations\Factory\Form;
 
-use Core\Entity\Hydrator\EntityHydrator;
+use Interop\Container\ContainerInterface;
 use Organizations\Entity\EmployeePermissions;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -27,34 +27,36 @@ use Organizations\Form\EmployeeFieldset;
  */
 class EmployeeFieldsetFactory implements FactoryInterface
 {
+
     /**
-     * Create the fieldset.
+     * Create a EmployeeFieldset fieldset
      *
-     * {@inheritDoc}
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
      *
      * @return EmployeeFieldset
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
-        $services = $serviceLocator->getServiceLocator();
+
         $fieldset = new EmployeeFieldset();
 
         $hydrator = new \Zend\Hydrator\ClassMethods(false); //new EntityHydrator();
-        $repositories = $services->get('repositories');
+        $repositories = $container->get('repositories');
         $users        = $repositories->get('Auth/User'); /* @var $users \Auth\Repository\User */
 
-         /* todo: WRITE own Hydrator strategy class */
+        /* todo: WRITE own Hydrator strategy class */
         $strategy = new ClosureStrategy(
             function ($object) use ($users) {
-            
+
                 if (is_string($object)) {
                     return $users->find($object);
                 }
                 return $object;
             },
             function ($data) use ($users) {
-            
+
                 if (is_string($data)) {
                     $data = $users->find($data);
                 }
@@ -64,14 +66,14 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
         /* todo: write own strategy class */
         $permStrategy = new ClosureStrategy(
-            // extract
+        // extract
             function ($object) {
                 /* @var $object \Organizations\Entity\EmployeePermissionsInterface */
                 $values = array();
                 foreach (array(
-                    Perms::JOBS_VIEW, Perms::JOBS_CHANGE, PERMS::JOBS_CREATE,
-                    Perms::APPLICATIONS_VIEW, Perms::APPLICATIONS_CHANGE)
- as $perm) {
+                             Perms::JOBS_VIEW, Perms::JOBS_CHANGE, PERMS::JOBS_CREATE,
+                             Perms::APPLICATIONS_VIEW, Perms::APPLICATIONS_CHANGE)
+                         as $perm) {
                     if ($object->isAllowed($perm)) {
                         $values[] = $perm;
                     }
@@ -98,5 +100,18 @@ class EmployeeFieldsetFactory implements FactoryInterface
         $fieldset->setObject(new \Organizations\Entity\Employee());
 
         return  $fieldset;
+    }
+
+    /**
+     * Create the fieldset.
+     *
+     * {@inheritDoc}
+     *
+     * @return EmployeeFieldset
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
+        return $this($serviceLocator->getServiceLocator(), EmployeeFieldset::class);
     }
 }

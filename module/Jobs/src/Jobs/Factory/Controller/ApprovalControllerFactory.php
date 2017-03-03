@@ -20,17 +20,14 @@ class ApprovalControllerFactory implements FactoryInterface
 {
 
     /**
-     * Create an object
+     * Create an ApprovalController
      *
      * @param  ContainerInterface $container
      * @param  string             $requestedName
      * @param  null|array         $options
      *
-     * @return object
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
+     * @return ApprovalController
+
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -52,6 +49,7 @@ class ApprovalControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var ControllerManager $serviceLocator */
         return $this($serviceLocator->getServiceLocator(), ApprovalController::class);
     }
 }

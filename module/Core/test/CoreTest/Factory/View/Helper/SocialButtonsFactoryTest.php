@@ -40,7 +40,7 @@ class SocialButtonsFactoryTest extends \PHPUnit_Framework_TestCase
     public function testServiceCreation()
     {
         $this->markTestIncomplete(
-              'This test has not been implemented yet.'
+            'Please fix it https://github.com/cross-solution/YAWIK/issues/341'                                                                
         );
 
         $serviceLocator = $this->getMockBuilder('\Zend\View\HelperPluginManager')->disableOriginalConstructor()->getMock();

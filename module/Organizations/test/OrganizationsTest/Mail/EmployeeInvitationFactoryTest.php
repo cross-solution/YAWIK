@@ -89,7 +89,11 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateService()
     {
-
+        
+        $this->markTestIncomplete(
+                      'Please fix it https://github.com/cross-solution/YAWIK/issues/341'
+        );
+                              
         $user = new User();
         $user->setId('testUser');
         $user->setEmail('test@user');
