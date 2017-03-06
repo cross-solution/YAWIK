@@ -68,6 +68,20 @@ class JobboardController extends AbstractActionController
      */
     public function indexAction()
     {
+        /* @todo: move this into a listener.
+         *
+         * The following lines allow to override get param[q] with the
+         * param from route. This feature is needed for a landing-page feature, where
+         * human readable urls like http://yawik.org/demo/de/jobs/sales.html 
+         *
+         * move the Logic into a Listener, which can be activated, if needed
+         */
+        $request = $this->getRequest();
+        $getParams = $request->getQuery();
+        $routeParams = $this->params()->fromRoute();
+        if (isset($routeParams['q']) && !isset($getParams['q'])){
+            $getParams['q']=$routeParams['q'];
+        }
 
         $result = $this->pagination([
                 'params' => ['Jobs_Board', [
