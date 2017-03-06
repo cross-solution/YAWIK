@@ -72,7 +72,7 @@ class JobboardController extends AbstractActionController
          *
          * The following lines allow to override get param[q] with the
          * param from route. This feature is needed for a landing-page feature, where
-         * human readable urls like http://yawik.org/demo/de/jobs/sales.html 
+         * human readable urls like http://yawik.org/demo/de/jobs/sales.html
          *
          * move the Logic into a Listener, which can be activated, if needed
          */
