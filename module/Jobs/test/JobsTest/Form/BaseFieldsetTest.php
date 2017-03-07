@@ -28,7 +28,7 @@ use Zend\Hydrator\ArraySerializable;
  */
 class BaseFieldsetTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait, TestSetterGetterTrait;
+    use TestInheritanceTrait;
 
     private $target = [
         BaseFieldset::class,
@@ -38,14 +38,6 @@ class BaseFieldsetTest extends \PHPUnit_Framework_TestCase
     ];
 
     private $inheritance = [ Fieldset::class ];
-
-    public function propertiesProvider()
-    {
-        return [
-            ['locationEngineType', ['setter_value' => null, 'expect_property' => 'test', 'value' => 'test']],
-            /* todo fix this test */ // ['hydrator', ['value' => new ArraySerializable(), 'default@' => EntityHydrator::class]],
-        ];
-    }
 
     public function testInitialize()
     {
@@ -77,8 +69,7 @@ class BaseFieldsetTest extends \PHPUnit_Framework_TestCase
                     ]
                 ]
             );
-
-        $this->target->setLocationEngineType('test');
+        
         $this->target->init();
     }
 }

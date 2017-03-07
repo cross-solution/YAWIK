@@ -11,9 +11,7 @@
 namespace Jobs\Factory\Form;
 
 use Core\Factory\Form\AbstractCustomizableFieldsetFactory;
-use Interop\Container\ContainerInterface;
 use Jobs\Form\BaseFieldset;
-
 
 /**
  * Factory for the BaseFieldset (Job Title and Location)
@@ -22,40 +20,7 @@ use Jobs\Form\BaseFieldset;
  */
 class BaseFieldsetFactory extends AbstractCustomizableFieldsetFactory
 {
-
     const OPTIONS_NAME = 'Jobs/BaseFieldsetOptions';
 
-    /**
-     * Create an object
-     *
-     * @param  ContainerInterface $container
-     * @param  string             $requestedName
-     * @param  null|array         $options
-     *
-     * @return object
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
-     */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
-    {
-        /* @var \Geo\Options\ModuleOptions $options */
-        $options = $container->get('Geo/Options');
-
-        $fs = new BaseFieldset(
-            [
-                'location_engine_type' => $options->getPlugin(),
-            ]
-        );
-
-        $fs->setLocationEngineType($options->getPlugin());
-
-        return $fs;
-    }
-
-
-    protected function createFormInstance(ContainerInterface $container, $name, array $options = null) {
-        return $this($container, BaseFieldset::class);
-    }
+    const CLASS_NAME = BaseFieldset::class;
 }

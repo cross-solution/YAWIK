@@ -32,33 +32,6 @@ class BaseFieldset extends Fieldset implements CustomizableFieldsetInterface
     use CustomizableFieldsetTrait;
 
     /**
-     * name of the used geo location Engine
-     *
-     * @var string  $locationEngineType
-     */
-    protected $locationEngineType;
-
-    /**
-     * @param array $options
-     */
-    public function __construct(array $options = [])
-    {
-        parent::__construct();
-        if (array_key_exists('location_engine_type', $options)) {
-            $this->locationEngineType = $options['location_engine_type'];
-        }
-        $this->setOptions($options);
-    }
-
-    /**
-     * @param $locationEngineType
-     */
-    public function setLocationEngineType($locationEngineType)
-    {
-        $this->locationEngineType = $locationEngineType;
-    }
-
-    /**
      * @return \Zend\Hydrator\HydratorInterface
      */
     public function getHydrator()
