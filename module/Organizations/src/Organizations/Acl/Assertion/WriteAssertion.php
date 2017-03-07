@@ -22,7 +22,6 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  * ${CARET}
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class WriteAssertion implements AssertionInterface
 {
