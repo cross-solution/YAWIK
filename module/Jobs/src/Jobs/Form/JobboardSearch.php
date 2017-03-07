@@ -25,25 +25,6 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
 
     use CustomizableFieldsetTrait;
 
-    /**
-     * name of the used geo location engine
-     *
-     * @var string  $locationEngineType
-     */
-    protected $locationEngineType;
-
-    /**
-     * @param array $options
-     */
-    public function __construct(array $options = [])
-    {
-        parent::__construct();
-        if (array_key_exists('location_engine_type', $options)) {
-            $this->locationEngineType = $options['location_engine_type'];
-        }
-        $this->setOptions($options);
-    }
-
     public function init()
     {
         $this->setAttribute('id','jobs-list-filter');
