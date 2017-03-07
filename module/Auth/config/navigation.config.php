@@ -17,13 +17,6 @@ return [
                         'route' => 'lang/user-list',
                         'order' => '100',
                         'resource' => 'Users',
-                        'pages' => [
-                            'edit' => [
-                                'label' => /*@translate*/ 'Data',
-                                'route' => 'lang/user-edit',
-                                'visible' => false
-                            ]
-                        ]
                     ]
                 ]
             ]

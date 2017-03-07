@@ -10,13 +10,10 @@
 /** */
 namespace JobsTest\Form;
 
-use Core\Entity\Hydrator\EntityHydrator;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Jobs\Entity\Location;
 use Jobs\Form\BaseFieldset;
 use Zend\Form\Fieldset;
-use Zend\Hydrator\ArraySerializable;
 
 /**
  * Tests for \Jobs\Form\BaseFieldset
@@ -69,7 +66,7 @@ class BaseFieldsetTest extends \PHPUnit_Framework_TestCase
                     ]
                 ]
             );
-        
+
         $this->target->init();
     }
 }
