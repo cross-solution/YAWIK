@@ -5,11 +5,17 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
- * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
- * @since 0.28
  */
 namespace Core\Entity;
 
+/**
+ * Interface AttachableEntityInterface
+ *
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @since 0.28
+ * @since 0.29 Method createAttachbleEntity added.
+ */
 interface AttachableEntityInterface
 {
 
@@ -29,6 +35,18 @@ interface AttachableEntityInterface
      * @return AttachableEntityInterface
      */
     public function addAttachedEntity(IdentifiableEntityInterface $entity, $key = null);
+
+    /**
+     * Creates an entity and adds it.
+     *
+     * @param string        $entityClass
+     * @param array|string  $values
+     * @param null|string   $key
+     *
+     * @return \Core\Entity\EntityInterface
+     * @since 0.29
+     */
+    public function createAttachedEntity($entityClass, $values = [], $key = null);
 
     /**
      * @param string $key
