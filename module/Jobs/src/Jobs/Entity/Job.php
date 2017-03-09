@@ -11,6 +11,7 @@ namespace Jobs\Entity;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\ClonableEntityInterface;
 use Core\Entity\ClonePropertiesTrait;
+use Core\Entity\AttachableEntityTrait;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\MetaDataProviderTrait;
@@ -36,7 +37,7 @@ class Job extends BaseEntity implements JobInterface,
                                         SnapshotGeneratorProviderInterface
 
 {
-    use MetaDataProviderTrait, ClonePropertiesTrait;
+    use AttachableEntityTrait, MetaDataProviderTrait, ClonePropertiesTrait;
 
 
     private $cloneProperties = [

@@ -12,6 +12,7 @@ namespace Jobs\Controller;
 
 use Core\Form\SearchForm;
 use Jobs\Form\ListFilter;
+use Jobs\Listener\Events\JobEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Jobs\Repository;
@@ -68,6 +69,17 @@ class JobboardController extends AbstractActionController
      */
     public function indexAction()
     {
+
+        $job = $this->serviceLocator->get('repositories')->get('Jobs')->find('561b86e3d3b93f356d732bcf');
+        $events = $this->serviceLocator->get('Jobs/Events');
+        $jobEvent       = $this->serviceLocator->get('Jobs/Event');
+        $jobEvent->setJobEntity($job);
+        $jobEvent->addPortal('stackoverflow');
+
+        $events->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+        $this->getResponse()->setContent('voila!');
+
+        return $this->response;
 
         $result = $this->pagination([
                 'params' => ['Jobs_Board', [
