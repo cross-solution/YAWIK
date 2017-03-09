@@ -5,13 +5,19 @@
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
- * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
- * @since 0.28
  */
 namespace Core\Entity;
 
 use Core\Repository\RepositoryService;
 
+/**
+ *  Manager for attached entities.
+ *
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @since 0.28
+ * @since 0.29 Add ability to create attached entity (which are added automatically)
+ */
 class AttachableEntityManager
 {
 
@@ -77,6 +83,30 @@ class AttachableEntityManager
         $this->references[$key] = $reference;
         
         return $this;
+    }
+
+    /**
+     * Creates an entity and adds it.
+     *
+     * @param string        $entityClass
+     * @param array|string  $values
+     * @param null|string   $key
+     *
+     * @return \Core\Entity\EntityInterface
+     * @since 0.29
+     */
+    public function createAttachedEntity($entityClass, $values = [], $key = null)
+    {
+        if (is_string($values)) {
+            $key = $values;
+            $values = [];
+        }
+
+        $entity = $this->repositories->getRepository($entityClass)->create($values);
+
+        $this->addAttachedEntity($entity, $key);
+
+        return $entity;
     }
 
     /**

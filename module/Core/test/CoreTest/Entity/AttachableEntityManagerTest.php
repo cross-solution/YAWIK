@@ -46,9 +46,14 @@ class AttachableEntityManagerTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['getRepository'])
             ->getMock();
         $this->references = [];
-        
-        $this->attachableEntityManager = new AttachableEntityManager($this->repositories);
-        $this->attachableEntityManager->setReferences($this->references);
+
+        if ('testCreateAttachedEntity' == $this->getName(false)) {
+            $this->attachableEntityManager = $this->getMockBuilder(AttachableEntityManager::class)
+                ->setConstructorArgs([$this->repositories])->setMethods(['addAttachedEntity'])->getMock();
+        } else {
+            $this->attachableEntityManager = new AttachableEntityManager($this->repositories);
+            $this->attachableEntityManager->setReferences($this->references);
+        }
     }
     
     /**
@@ -197,7 +202,43 @@ class AttachableEntityManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($entity, $this->attachableEntityManager->getAttachedEntity($key));
         $this->assertArrayHasKey($key, $this->references);
     }
-    
+
+    public function provideTestCreateAttachedEntityData()
+    {
+        return [
+            ['EntityClass' ],
+            ['EntityClass', 'testkey' ],
+            ['EntityClass', ['param' => 'value']],
+            ['EntityClass', ['param' => 'value'], 'testkey'],
+        ];
+    }
+    /**
+     * @dataProvider provideTestCreateAttachedEntityData
+     * @covers ::createAttachedEntity()
+     */
+    public function testCreateAttachedEntity($entityClass, $values = [], $key = null)
+    {
+        if (is_string($values)) {
+            $expectKey = $values;
+            $expectValues = [];
+        } else {
+            $expectKey = $key;
+            $expectValues = $values;
+        }
+
+        $entity = $this->getEntity('testCreate');
+        $repository = $this->getMockBuilder(Repository::class)->disableOriginalConstructor()
+            ->setMethods(['create'])->getMock();
+        $repository->expects($this->once())->method('create')->with($expectValues)->willReturn($entity);
+        $this->repositories->expects($this->once())->method('getRepository')->with($entityClass)->willReturn($repository);
+
+        $this->attachableEntityManager->expects($this->once())->method('addAttachedEntity')
+            ->with($entity, $expectKey);
+
+        $this->attachableEntityManager->createAttachedEntity($entityClass, $values, $key);
+
+    }
+
     /**
      * @covers ::removeAttachedEntity()
      */

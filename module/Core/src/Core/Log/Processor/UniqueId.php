@@ -33,6 +33,7 @@ class UniqueId extends RequestId
         $event = parent::process($event);
 
         $event['uniqueId'] = substr($event['extra']['requestId'], 0, 7);
+        unset($event['extra']['requestId']);
 
         return $event;
     }

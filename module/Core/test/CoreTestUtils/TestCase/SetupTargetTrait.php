@@ -152,8 +152,19 @@ trait SetupTargetTrait
 
             /* Override specs for specific test */
             foreach ($testSpec as $key => $value) {
+                if ('ignore' == $key || 'unset' == $key) {
+                    foreach ((array) $value as $ignKey) {
+                        unset($spec[$ignKey]);
+                    }
+                    continue;
+                }
+
                 $spec[$key] = $value;
             }
+        }
+
+        if (isset($spec['pre']) && is_string($spec['pre'])) {
+            $this->{$spec['pre']}();
         }
 
         if (isset($spec['method'])) {
@@ -185,12 +196,15 @@ trait SetupTargetTrait
             $spec['args'] = $this->{$spec['args']}();
         }
 
-        if (isset($spec['mock'])) {
-            $this->target = $this->_setupTarget_setupMock($spec['class'], $spec['args'], $spec['mock']);
-            return;
+
+        $this->target = isset($spec['mock'])
+        ? $this->_setupTarget_setupMock($spec['class'], $spec['args'], $spec['mock'])
+        : $this->target = InstanceCreator::newClass($spec['class'], $spec['args']);
+
+        if (isset($spec['post']) && is_string($spec['post'])) {
+            $this->{$spec['post']}();
         }
 
-        $this->target = InstanceCreator::newClass($spec['class'], $spec['args']);
     }
 
     /**
@@ -252,10 +266,10 @@ trait SetupTargetTrait
                     $methodMocks[$method] = [
                         'expects' => isset($methodSpec['count']) ? $this->exactly($methodSpec['count']) : $this->any(),
                         'with'    => isset($methodSpec['@with'])
-                                     ? $call($methodSpec['@with'])
+                                     ? $call((array) $methodSpec['@with'])
                                      : (isset($methodSpec['with']) ? $methodSpec['with'] : null),
                         'return'  => isset($methodSpec['@return'])
-                                     ? $call($methodSpec['@return'])
+                                     ? $call((array) $methodSpec['@return'])
                                      : (isset($methodSpec['return'])
                                         ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
                                         : null
@@ -297,5 +311,4 @@ trait SetupTargetTrait
 
         return $mock;
     }
-    
 }
