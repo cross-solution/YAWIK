@@ -119,14 +119,14 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
     {
         $config = $this->getOptionsConfig($requestedName, $name);
 
-        if (!isset($config['class'])) {
+        if (!isset($config['class']) && !class_exists($requestedName)) {
             throw new \InvalidArgumentException(sprintf(
                                                     'Missing index "class" from the config array for options "%s"',
                                                     $requestedName
                                                 ));
         }
 
-        $className = $config['class'];
+        $className = isset($config['class']) ? $config['class'] : $requestedName;
         $mode      = isset($config['mode']) ? $config['mode'] : self::MODE_SIMPLE;
         $options   = isset($config['options']) ? $config['options'] : [];
 
