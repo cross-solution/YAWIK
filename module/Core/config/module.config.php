@@ -371,10 +371,14 @@ return array(
             'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
             'services' => 'Core\View\Helper\Services::factory',
             'insertFile' => 'Core\View\Helper\InsertFile::factory',
+            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
         ),
+        'aliases' => [
+            'snippet' => \Core\View\Helper\Snippet::class,
+        ],
     ),
     
     'view_helper_config' => array(
@@ -462,7 +466,11 @@ return array(
         'Core/CreatePaginator/Events' => [
             'service' => 'Core/EventManager',
             'event' => '\Core\Listener\Events\CreatePaginatorEvent'
-        ]
+        ],
+
+        'Core/ViewSnippets/Events' => [
+            'service' => 'Core/EventManager',
+        ],
     ],
     
 );
