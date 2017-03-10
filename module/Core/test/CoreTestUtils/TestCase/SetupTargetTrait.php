@@ -152,7 +152,7 @@ trait SetupTargetTrait
 
             /* Override specs for specific test */
             foreach ($testSpec as $key => $value) {
-                if ('ignore' == $key || 'unset' == $key) {
+                if ('ignore' === $key || 'unset' === $key) {
                     foreach ((array) $value as $ignKey) {
                         unset($spec[$ignKey]);
                     }

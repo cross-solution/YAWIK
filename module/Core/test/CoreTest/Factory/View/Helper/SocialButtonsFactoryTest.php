@@ -39,10 +39,6 @@ class SocialButtonsFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testServiceCreation()
     {
-        $this->markTestIncomplete(
-            'Please fix it https://github.com/cross-solution/YAWIK/issues/341'                                                                
-        );
-
         $serviceLocator = $this->getMockBuilder('\Zend\View\HelperPluginManager')->disableOriginalConstructor()->getMock();
 
         $options = new ModuleOptions();
@@ -51,7 +47,7 @@ class SocialButtonsFactoryTest extends \PHPUnit_Framework_TestCase
         $HauptServiceLocator =  $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $HauptServiceLocator->expects($this->exactly(2))->method('get')->withConsecutive(['Auth/Options'],['Config'])->will($this->onConsecutiveCalls($options, $config));
 
-        $serviceLocator->expects($this->exactly(2))->method('getServiceLocator')->willReturn($HauptServiceLocator);
+        $serviceLocator->expects($this->exactly(1))->method('getServiceLocator')->willReturn($HauptServiceLocator);
 
         $target = new SocialButtonsFactory();
 

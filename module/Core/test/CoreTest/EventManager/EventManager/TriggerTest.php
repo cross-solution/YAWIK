@@ -72,7 +72,7 @@ class TriggerTestEventManagerMock extends \Core\EventManager\EventManager
     public $getEventCalled = false;
     public $callback = false;
 
-    public function getEvent($name = null, $target = null, array $params = [])
+    public function getEvent($name = null, $target = null, $params = null)
     {
         $this->getEventCalled = true;
         return parent::getEvent($name, $target, $params);

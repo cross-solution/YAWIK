@@ -90,10 +90,6 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateService()
     {
         
-        $this->markTestIncomplete(
-                      'Please fix it https://github.com/cross-solution/YAWIK/issues/341'
-        );
-                              
         $user = new User();
         $user->setId('testUser');
         $user->setEmail('test@user');
@@ -144,16 +140,18 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
                )
                ->willReturn('testUrl');
 
+        $mailService = $this->getMockBuilder('\Core\Mail\MailService')->disableOriginalConstructor()->getMock();
+
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
-        $services->expects($this->exactly(2))
+        $services->expects($this->exactly(3))
                  ->method('get')
                  ->withConsecutive(
                         array('AuthenticationService'),
-                        array('Router')
-                 )->will($this->onConsecutiveCalls($authService, $router));
+                        array('Router'),
+                        ['MailService']
+                 )->will($this->onConsecutiveCalls($authService, $router, $mailService));
 
-        $mailService = $this->getMockBuilder('\Core\Mail\MailService')->disableOriginalConstructor()->getMock();
 
         $mailService->expects($this->once())->method('getServiceLocator')->willReturn($services);
 
