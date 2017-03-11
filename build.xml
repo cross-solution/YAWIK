@@ -55,6 +55,15 @@
         </if>
         <if>
             <not>
+                <available file='${project.basedir}/cache/geo' type='dir' />
+            </not>
+            <then>
+                <mkdir dir="${project.basedir}/cache/geo"/>
+                <chmod file="${project.basedir}/cache/geo" mode="0777"/>
+            </then>
+        </if>
+        <if>
+            <not>
                 <available file='${project.basedir}/cache/DoctrineMongoODMModule/Proxy' type='dir' />
             </not>
             <then>
