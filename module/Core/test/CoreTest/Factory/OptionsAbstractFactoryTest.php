@@ -56,7 +56,7 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
         return [
             [ [], 'testnameone', 'Test/Name.One', false ],
             [ $cfg1, 'testnametwo', 'Test.Name/Two', true ],
-            [ $cfg1, 'othername', '', true ],
+            [ $cfg1, 'othername', '', false ],
             [ $cfg1, 'nonexistant', 'Non.Existant', false ],
         ];
     }
@@ -143,6 +143,28 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf($optionsMockClass, $options);
         $this->assertEquals('three', $options->getOne());
         $this->assertEquals('Two', $options->getTwo());
+    }
+
+    public function testCreatesOptionsInstanceWithNumericalArray()
+    {
+        $cfg = [
+            SimpleOptionsMock::class => [
+                [
+                    'one' => 'two',
+                ],
+            ],
+        ];
+
+        $services = $this->getServiceLocatorMock($cfg);
+
+        $target = new OptionsAbstractFactory();
+
+        $target->canCreateServiceWithName($services, '', '');
+        $options = $target->createServiceWithName($services, 'irrelevant', SimpleOptionsMock::class);
+
+        $this->assertEquals('two', $options->getOne());
+
+
     }
 
     /**
