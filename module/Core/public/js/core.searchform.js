@@ -15,7 +15,33 @@
     function resetSearchForm(event)
     {
         var $form = $(event.target);
-        win.setTimeout(function() { loadPaginator($form, true); $form.find('select').trigger('change', [ true ]); }, 100);
+        win.setTimeout(function() {
+            // iterate over all of the inputs for the form
+
+            // element that was passed in
+
+            $(':input', $form).each(function() {
+
+                var type = this.type;
+                var tag = this.tagName.toLowerCase(); // normalize case
+
+                if (type == 'text' || type == 'password' || tag == 'textarea') {
+                    this.value = "";
+                    $(this).change();
+
+                } else if (type == 'checkbox' || type == 'radio') {
+                    this.checked = false;
+                    $(this).change();
+
+                } else if (tag == 'select') {
+                    this.selectedIndex = -1;
+                    $(this).trigger('change', [ true ]);
+                }
+            });
+
+
+            loadPaginator($form, true);
+        }, 100);
     }
 
     function submitSearchForm(event, isSelect2change)
