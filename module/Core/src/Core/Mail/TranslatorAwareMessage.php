@@ -87,27 +87,56 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /**
      * Sets the message subject.
      *
-     * The passed string is automatically translated if the second parameter is true (default).
+     * The passed string is automatically translated.
+     * Any additional argument is passed in to sprintf to replace
+     * placeholders in the subject string.
+     *
+     * If the $translate is FALSE, the subject is NOT translated.
+     *
+     * <pre>
+     * <?php
+     *      $mail->setSubject('translated subject');
+     *      $mail->setSubject('translated %s with placeholder', 'subject');
+     *      $mail->setSubject('untranslated subject', false);
+     * ?>
+     * </pre>
      *
      * @param string $subject
-     * @param bool $translate
+     * @param bool|mixed $translate
      *
      * @since 0.19
+     * @since 0.29 Add sprintf support for translation
+     *
      * @return Message
      */
     public function setSubject($subject, $translate = true)
     {
-
-        if ($translate) {
+        if (false !== $translate) {
             $translator = $this->getTranslator();
             $domain     = $this->getTranslatorTextDomain();
 
-            $subject = $translator->translate($subject, $domain);
+            if (true === $translate) {
+                $subject = $translator->translate($subject, $domain);
+            } else {
+                $args = func_get_args();
+                $args[0] = $translator->translate($args[0], $domain);
+                $subject = call_user_func_array('sprintf', $args);
+            }
         }
 
         return parent::setSubject($subject);
     }
 
+    /**
+     *
+     *
+     * @param $formatString
+     *
+     * @return \Zend\Mail\Message
+     *
+     * @deprecated since 0.29 use setSubject(formatString, replacement, ...)
+     * @codeCoverageIgnore
+     */
     public function setFormattedSubject($formatString)
     {
         $args       = func_get_args();
