@@ -193,7 +193,8 @@ class PluginManagerMock extends AbstractPluginManager
             return array_sum($this->callCount[$method][$key]);
         }
 
-        $hash = $this->getOptionsHash($options);
+        $hash = is_array($options) ? $this->getOptionsHash($options) : $options;
+
         return isset($this->callCount[$method][$key][$hash]) ? $this->callCount[$method][$key][$hash] : 0;
     }
 }
