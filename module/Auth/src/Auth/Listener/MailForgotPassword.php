@@ -55,7 +55,7 @@ class MailForgotPassword
 
         $user                    = $e->getUser();
         $userEmail               = $user->info->email;
-        $userName                = $user->info->displayName;
+        $userName                = $user->info->getDisplayName(false);
         $resetLink               = $e->getResetLink();
 
         $fromEmail               =  $this->options->getFromEmail();
@@ -65,8 +65,8 @@ class MailForgotPassword
         $mail->user              = $user;
         $mail->resetlink         = $resetLink;
         $mail->setTemplate('mail/forgotPassword');
-        $mail->setSubject(sprintf(/*@translate*/ 'a new password was requested for %s', $siteName));
-        $mail->setTo($userEmail);
+        $mail->setSubject(/*@translate*/ 'a new password was requested for %s', $siteName);
+        $mail->setTo($userEmail, $userName);
         $mail->setFrom($fromEmail, $fromName);
         return $this->mailService->send($mail);
     }

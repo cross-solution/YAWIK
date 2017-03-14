@@ -341,6 +341,7 @@ class Register
 
     /**
      *
+     * @since 0.29 Replace call to deprecated setFormattedSubject with setSubject
      */
     public function proceedMail()
     {
@@ -364,7 +365,7 @@ class Register
             $mail->confirmationlink = $confirmationLink;
             $mail->siteName         = $siteName;
             $mail->setTemplate('mail/register');
-            $mail->setFormattedSubject('your registration on %s', $siteName);
+            $mail->setSubject('your registration on %s', $siteName);
             $mail->setTo($userEmail);
             $mailService->send($mail);
         }
