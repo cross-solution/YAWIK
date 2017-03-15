@@ -237,7 +237,7 @@ class IndexController extends AbstractActionController
             )
         );
         $container->setEntity($organization);
-        $container->setParam('id', $organization->id);
+        $container->setParam('id', $organization->getId());
 //        $container->setParam('applyId',$job->applyId);
 
         if ('__my__' != $this->params('id', '')) {

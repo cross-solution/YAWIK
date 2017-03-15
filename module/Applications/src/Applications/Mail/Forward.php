@@ -83,24 +83,24 @@ class Forward extends TranslatorAwareMessage
         $textPart->disposition = Mime\Mime::DISPOSITION_INLINE;
         $message->addPart($textPart);
 
-        if (isset($this->application->getContact()->image) &&
-            $this->application->getContact()->getImage()->id) {
+        if (is_object($this->application->getContact()->getImage()) &&
+            $this->application->getContact()->getImage()->getId()) {
             /* @var $image \Auth\Entity\UserImage */
             $image = $this->application->getContact()->getImage();
             $part = new Mime\Part($image->getResource());
-            $part->type = $image->type;
-            $part->encoding = Mime\Mime::ENCODING_BASE64;
-            $part->filename = $image->name;
-            $part->disposition = Mime\Mime::DISPOSITION_ATTACHMENT;
+            $part->setType($image->getType());
+            $part->setEncoding(Mime\Mime::ENCODING_BASE64);
+            $part->setFileName($image->getName());
+            $part->setDisposition(Mime\Mime::DISPOSITION_ATTACHMENT);
             $message->addPart($part);
         }
         
-        foreach ($this->application->getAttachments() as $attachment) {
-            /* @var $part \Applications\Entity\Attachment */
+        foreach ($this->application->getAttachments() as $attachment) { /* @var \Applications\Entity\Attachment $attachment*/
+            /* @var  \Applications\Entity\Attachment $part */
             $part = new Mime\Part($attachment->getResource());
-            $part->type = $attachment->type;
+            $part->setType($attachment->getType());
             $part->encoding = Mime\Mime::ENCODING_BASE64;
-            $part->filename = $attachment->name;
+            $part->filename = $attachment->getName();
             $part->disposition = Mime\Mime::DISPOSITION_ATTACHMENT;
             $message->addPart($part);
         }

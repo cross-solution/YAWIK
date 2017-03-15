@@ -17,7 +17,7 @@ class Period extends AbstractHelper
     /**
      * returns the number of years of the education or work experience
      *
-     * @param array $obj
+     * @param array $array
      * @return string
      */
     public function __invoke($array)
@@ -27,8 +27,8 @@ class Period extends AbstractHelper
         
         $days=0;
         foreach ($array as $obj) {
-            $date1 = new \DateTime($obj->endDate);
-            $date2 = new \DateTime($obj->startDate);
+            $date1 = new \DateTime($obj->getEndDate());
+            $date2 = new \DateTime($obj->getStartDate());
             $interval = $date1->diff($date2);
             $days+=abs($interval->format('%R%a'));
         }

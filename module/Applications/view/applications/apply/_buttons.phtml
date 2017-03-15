@@ -8,8 +8,9 @@
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 $this->headScript()->appendFile($this->basePath('Applications/js/application.form.js'));
-$applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job->applyId), true);
+$applyUrl = $this->url('lang/apply', array('applyId' => $this->application->getJob()->getApplyId()), true);
 $isApplicationValid = $this->services('validatormanager.applicationsapplication')->isValid($this->application);
+$job=$this->application->getJob(); /* @var Jobs\Entity\Job $job */
 ?>
 
 <div id="send-application-buttons">
@@ -26,7 +27,7 @@ $isApplicationValid = $this->services('validatormanager.applicationsapplication'
         );
         ?>
 
-        <?php if (!$this->application->job->atsEnabled):?>
+        <?php if (!$job->getAtsEnabled()):?>
          <!-- ATS Disabled -->
         <?php endif;?>
 
@@ -46,14 +47,14 @@ else:
     // - intern  = the application is handled here
     // so essential only 'intern' and 'email' will be handled here
     $atsMode = 'intern';
-    if (!empty($this->application->job) && !empty($this->application->job->atsMode) && !empty($this->application->job->atsMode->mode)) {
-        if ($this->application->job->atsMode->mode == 'email') {
+    if ($job && is_object($job->getAtsMode()) && !empty($job->getAtsMode()->getMode())) {
+        if ($job->getAtsMode()->getMode() == 'email') {
             $atsMode = 'email';
         }
     }
     if ($atsMode != 'email'):
 ?>
-                <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->id), true) ?>" id="preview-application" class="btn btn-lg btn-default">
+                <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->getId()), true) ?>" id="preview-application" class="btn btn-lg btn-default">
                 <?php echo $this->translate('Preview application') ?>
 
                 </a>

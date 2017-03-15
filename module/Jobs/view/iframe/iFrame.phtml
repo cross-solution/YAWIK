@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-$id = $this->element->getEntity()->id;
+$id = $this->element->getEntity()->getId();
 $lang = $this->params('lang');
 
 ?>
@@ -24,7 +24,7 @@ $lang = $this->params('lang');
                     $linkOptions = [];
                 }
 
-                echo $this->url('lang/jobs/editTemplate', array('id' => $this->element->getEntity()->id), $linkOptions); ?>"></iframe>
+                echo $this->url('lang/jobs/editTemplate', array('id' => $this->element->getEntity()->getId()), $linkOptions); ?>"></iframe>
             </div>
         </div>
     </div>
@@ -34,17 +34,17 @@ $lang = $this->params('lang');
             <div id="template-links">
             <ul >
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id,'template'=>'default'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->getId(),'template'=>'default'))?>">
                         <?php echo $this->translate("Default")?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id, 'template'=>'classic'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->getId(), 'template'=>'classic'))?>">
                         <?php echo $this->translate("Classic")?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id, 'template'=>'modern'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->getId(), 'template'=>'modern'))?>">
                         <?php echo $this->translate("Modern")?>
                     </a>
                 </li>

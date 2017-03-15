@@ -120,7 +120,7 @@ $this->headTitle($this->translate('Details'));
                         <td><?= $contact->getStreet() . ' ' . $contact->getHouseNumber() ?></td>
                     </tr>
                 <?php endif; ?>
-                <?php if (isset($this->application->contact->city)): ?>
+                <?php if ($contact->getCity()): ?>
                     <tr>
                         <td class="col1"><?= $this->translate('City') ?>:</td>
                         <td><?= $contact->getPostalCode() . ' ' . $contact->getCity() ?></td>
@@ -198,11 +198,11 @@ $employments = $application->getCv()->getEmployments();
             <th align="left"><?= $this->translate('End') ?></th>
             <th><?= $this->translate('Description') ?></th>
         </tr>
-        <?php foreach ($employments as $employment): ?>
+        <?php foreach ($employments as $employment): /* @var \Cv\Entity\Employment $employment */ ?>
             <tr>
-                <td><?= $this->DateFormat($employment->startDate, 'middle', 'null', $this->lang, 'MMM Y') ?></td>
-                <td><?= $this->DateFormat($employment->endDate, 'middle', 'null', $this->lang, 'MMM Y') ?></td>
-                <td><?= $employment->description ?></td>
+                <td><?= $this->DateFormat($employment->getStartDate(), 'middle', 'null', $this->lang, 'MMM Y') ?></td>
+                <td><?= $this->DateFormat($employment->getEndDate(), 'middle', 'null', $this->lang, 'MMM Y') ?></td>
+                <td><?= $employment->getDescription() ?></td>
             </tr>
         <?php endforeach; // employments?>
     </table>
@@ -221,11 +221,11 @@ $educations = $application->getCv()->getEducations();
             <th align="left"><?= $this->translate('End') ?></th>
             <th><?= $this->translate('Description') ?></th>
         </tr>
-        <?php foreach ($educations as $education): ?>
+        <?php foreach ($educations as $education): /* @var \Cv\Entity\Education $education */ ?>
             <tr>
-                <td><?= $this->DateFormat($education->startDate, 'middle', 'null', $this->lang, 'MMM Y') ?></td>
-                <td><?= $this->DateFormat($education->endDate, 'middle', 'null', $this->lang, 'MMM Y') ?></td>
-                <td><?= $education->description ?></td>
+                <td><?= $this->DateFormat($education->getStartDate(), 'middle', 'null', $this->lang, 'MMM Y') ?></td>
+                <td><?= $this->DateFormat($education->getEndDate(), 'middle', 'null', $this->lang, 'MMM Y') ?></td>
+                <td><?= $education->getDescription() ?></td>
             </tr>
         <?php endforeach; // educations?>
     </table>
@@ -283,10 +283,10 @@ $profiles = $application->getProfiles();
             width: 100%;
         }
     </style>
-    <?php foreach ($profiles as $profile): ?>
+    <?php foreach ($profiles as $profile): /* @var Auth\Entity\SocialProfiles\ProfileInterface $profile */ ?>
         <!--suppress HtmlUnknownTag -->
         <pagebreak/>
-        <?= $this->partial('applications/manage/social-profile/' . strtolower($profile->name) . '.pdf.phtml',
+        <?= $this->partial('applications/manage/social-profile/' . strtolower($profile->getName()) . '.pdf.phtml',
                            $profile->getData()
         ) ?>
     <?php endforeach; ?>

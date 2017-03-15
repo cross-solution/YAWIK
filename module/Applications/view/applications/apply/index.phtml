@@ -9,7 +9,7 @@
 
 $this->headTitle($this->translate('Apply'));
 
-$job = $this->application->job;
+$job = $this->application->getJob(); /* @var Jobs\Entity\Job $job */
 
 // @TODO own viewhelper
 // does serverUrl do the right thing ? basePath und url don't
@@ -29,16 +29,16 @@ function getImageRef($url, $self) {
     <div class="row">
         <div class="col-md-8">
             <p class="lead">
-                <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
+                <?php $href = $job->getLink() ? $job->getLink() : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->getId())), true); ?>
                 <?php printf($this->translate('Apply to "%s" from "%s"'),
                             '<a href="'.$href.'" title="' .
                                         $this->translate('click to open the job ad') . '">' .
-                            $this->escapehtml(strip_tags($job->title)) . '</a>', $job->company ) ?>
+                            $this->escapehtml(strip_tags($job->getTitle())) . '</a>', $job->getCompany() ) ?>
             </p>
         </div>
         <div class="col-md-4">
-            <?php if (!empty($this->application->job->logoRef)):?>
-                <img src="<?php echo getImageRef($this->application->job->logoRef, $this) ?>">
+            <?php if ($job->getLogoRef()):?>
+                <img src="<?php echo getImageRef($job->getLogoRef(), $this) ?>">
             <?php endif;?>
         </div>
     </div>
@@ -74,7 +74,7 @@ function getImageRef($url, $self) {
     </p>
     <p>
         <?php 
-            $href = $this->url('lang/applications/detail', array('id' => $this->application->id), array('force_canonical' => true), true)
+            $href = $this->url('lang/applications/detail', array('id' => $this->application->getId()), array('force_canonical' => true), true)
                   . '?token=' . $this->auth('token');
             
             echo $this->link($href, array('class' => 'alert-link'));

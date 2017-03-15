@@ -16,17 +16,19 @@ class JobDescriptionQualificationsStrategy implements StrategyInterface
 {
     public function extract($value)
     {
+        /* @var \Jobs\Entity\Job $value */
         $result = null;
-        if (isset($value->templateValues)) {
-            $result = $value->templateValues->qualifications;
+        if (method_exists($value,'getTemplateValues')) {
+            $result = $value->getTemplateValues()->getQualifications();
         }
         return $result;
     }
 
     public function hydrate($value, $object = null)
     {
+        /* @var \Jobs\Entity\Job $object */
         if (isset($value['description-qualifications'])) {
-            $object->templateValues->qualifications = $value['description-qualifications'];
+            $object->getTemplateValues()->setQualifications($value['description-qualifications']);
         }
         return;
     }
