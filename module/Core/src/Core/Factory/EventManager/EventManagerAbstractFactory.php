@@ -164,12 +164,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        $config = $this->getConfig($serviceLocator, $requestedName);
-        $events = $this->createEventManager($serviceLocator, $config);
-
-        $this->attachListeners($serviceLocator, $events, $config['listeners']);
-
-        return $events;
+        return $this($serviceLocator,$requestedName);
     }
 
     /**

@@ -69,6 +69,7 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
      * @param $name
      * @param $requestedName
      * @param $expected
+     * @deprecated This test should be removed in ZF3
      */
     public function testCanCreateServiceWithName($optionsConfig, $name, $requestedName, $expected)
     {
@@ -78,6 +79,38 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 
         $method = "assert" . ($expected ? 'True' : 'False');
         $this->$method($target->canCreateServiceWithName($services, $name, $requestedName));
+    }
+
+    public function provideCanCreateTestData()
+    {
+        $cfg1 = [
+            'Test.Name/Two' => [],
+            'othername' => []
+        ];
+
+        return [
+            [ [], 'Test/Name.One', false ],
+            [ $cfg1, 'Test.Name/Two', true ],
+            [ $cfg1, 'othername', true ],
+            [ $cfg1, 'Non.Existant', false ],
+        ];
+    }
+
+    /**
+     * @testdox Determines if its able to create an options instance.
+     *
+     * @dataProvider provideCanCreateTestData
+     * @param $optionsConfig
+     * @param $requestedName
+     * @param $expected
+     */
+    public function testCanCreate($optionsConfig,$requestedName,$expected)
+    {
+        $target = new OptionsAbstractFactory();
+        $services = $this->getServiceLocatorMock($optionsConfig);
+
+        $method = "assert".($expected ? 'True' : 'False');
+        $this->$method($target->canCreate($services,$requestedName));
     }
 
     /**

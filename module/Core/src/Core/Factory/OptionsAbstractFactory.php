@@ -69,7 +69,29 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new $requestedName();
+        $config = $this->getOptionsConfig($requestedName,null);
+
+        if (!isset($config['class']) && !class_exists($requestedName)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Missing index "class" from the config array for options "%s"',
+                $requestedName
+            ));
+        }
+
+        $className = isset($config['class']) ? $config['class'] : $requestedName;
+        $mode      = isset($config['mode']) ? $config['mode'] : self::MODE_SIMPLE;
+        $options   = isset($config['options']) ? $config['options'] : [];
+
+        if (self::MODE_SIMPLE == $mode) {
+            return new $className($options);
+        }
+
+        if (self::MODE_NESTED == $mode) {
+            return $this->createNestedOptions($className, $options);
+
+        }
+
+        throw new \InvalidArgumentException(sprintf('Unknown mode "%s".', $mode));
     }
 
     /**
@@ -82,7 +104,12 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
      */
     public function canCreate(ContainerInterface $container, $requestedName)
     {
-        return class_exists($requestedName);
+        // Load options config specifications the first time this method is called.
+        if (null === $this->optionsConfig) {
+            $mainConfig          = $container->get('config');
+            $this->optionsConfig = isset($mainConfig['options']) ? $mainConfig['options'] : [];
+        }
+        return array_key_exists($requestedName, $this->optionsConfig);
     }
 
 
@@ -117,13 +144,14 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
+
         $config = $this->getOptionsConfig($requestedName, $name);
 
         if (!isset($config['class']) && !class_exists($requestedName)) {
             throw new \InvalidArgumentException(sprintf(
-                                                    'Missing index "class" from the config array for options "%s"',
-                                                    $requestedName
-                                                ));
+                'Missing index "class" from the config array for options "%s"',
+                $requestedName
+            ));
         }
 
         $className = isset($config['class']) ? $config['class'] : $requestedName;
