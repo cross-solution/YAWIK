@@ -71,6 +71,16 @@ return array(
             'Core/UniqueId' => 'Core\Log\Processor\UniqueId',
         ],
     ],
+    
+    'tracy' => [
+        'enabled' => true, // flag whether to load tracy at all
+        'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
+        'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
+        'strict' => true, // bool = cause immediate death|int = matched against error severity
+        'log' => __DIR__ . '/../../../log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+        'email' => null, // in production mode notifies the recipient
+        'email_snooze' => 900 // interval for sending email in seconds
+    ],
 
 
     // Routes
