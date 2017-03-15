@@ -6,21 +6,24 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+
+$profile = $this->profile; /* @var Auth\Entity\SocialProfiles\ProfileInterface $profile*/
 ?>
 <div class="modal-title" id="social-profile-label">
-<?php echo $this->profile->name ?>
+<?=$profile->getName()?>
 </div>
 
 <div class="modal-body">
-<?php $this->profile->getEmployments(); echo $this->partial('applications/manage/social-profile/'.strtolower($this->profile->name).'.phtml',$this->profile->getData()) ?>
+<?=$profile->getEmployments()?>
+<?=$this->partial('applications/manage/social-profile/'.strtolower($profile->getName()).'.phtml',$profile->getData()) ?>
 
-<div class="col-md-12 sp-raw-data-<?php echo $this->profile->id ?>">
+<div class="col-md-12 sp-raw-data-<?=$profile->getId() ?>">
 <h2 style="cursor:pointer">
 <?php echo $this->translate('Profile data') ?>
 <span class="pull-right fa fa-chevron-up"></span>
 </h2>
 <pre>
-<?php //var_export($this->profile->getData());
+<?php
     function sp_export_data($data, $level=0)
     {
         foreach ($data as $key => $value) {
@@ -35,7 +38,7 @@
             echo $indent . $key . ': ' . $value . "\n";
         }
     } 
-    sp_export_data($this->profile->getData());
+    sp_export_data($profile->getData());
     
     ?>
 </pre>

@@ -156,7 +156,7 @@ class ManageController extends AbstractActionController
             $list = false;
         } else {
             $list = $this->paginationParams('Applications\Index', $repository);
-            $list->setCurrent($application->id);
+            $list->setCurrent($application->getId());
         }
 
         $return = array(

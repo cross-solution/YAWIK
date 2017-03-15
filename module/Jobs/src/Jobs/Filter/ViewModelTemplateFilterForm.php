@@ -34,7 +34,7 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
     protected function extract($form)
     {
         $job = $form->getEntity();
-        $this->job = $job;
+        $this->job = $job; /* @var \Jobs\Entity\Job $job */
         $this->setApplyData();
         $this->setOrganizationInfo();
         $this->setLocation();
@@ -60,7 +60,7 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
         $this->container['labelBenefits'] = $viewHelperForm->render($formLabelBenefits);
         $this->container['qualifications'] = $viewHelperForm->render($formQualifications);
         $this->container['title'] = $viewHelperForm->render($descriptionFormTitle);
-        $this->container['headTitle'] = $job->templateValues->title;
+        $this->container['headTitle'] = $job->getTemplateValues()->getTitle();
 
         $this->container['jobId'] = $job->getId();
         $this->container['uriJob'] = $this->urlPlugin->fromRoute(

@@ -267,4 +267,21 @@ interface ApplicationInterface extends
      * @return int
      */
     public function getRating($recalculate = false);
+
+    /**
+     * Gets all attributes for an application.
+     *
+     * @return ArrayCollection;
+
+     */
+    public function getAttributes();
+
+    /**
+     * Sets comment collection for the application.
+     *
+     * @param Attributes $attributes
+     * @return ApplicationInterface
+     */
+    public function setAttributes(Attributes $attributes);
+
 }

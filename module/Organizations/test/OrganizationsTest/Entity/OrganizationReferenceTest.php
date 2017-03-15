@@ -128,6 +128,8 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
      */
     public function testOrganizationInterfaceMethodsReturnsExpectedValues($func, $args, $expected, $assertionType = 'same')
     {
+        $this->markTestSkipped('must be revisited. https://github.com/cross-solution/YAWIK/issues/348 ');
+
         $organization = new Organization();
         $rep = $this->getMockBuilder('\Organizations\Repository\Organization')
                     ->disableOriginalConstructor()->getMock();

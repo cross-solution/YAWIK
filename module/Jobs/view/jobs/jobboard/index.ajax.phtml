@@ -74,27 +74,27 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
     </tr>
     </thead>
 
-<?php foreach ($jobs as $job):?>
+<?php foreach ($jobs as $job): /* @var \Jobs\Entity\Job $job */?>
     <tr>
         <td>
-            <?php if ($job->organization && $job->organization->image &&  $job->organization->organizationName): ?>
+            <?php if ($job->getOrganization() && $job->getOrganization()->getImage() &&  $job->getOrganization()->getOrganizationName()): ?>
                 <div class="yk-logo-list">
-                    <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($job->organization->image)) ?>">
+                    <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($job->getOrganization()->getImage())) ?>">
                 </div>
             <?php endif ?>
             <?=$this->jobUrl($job, [ 'target' => '_new' ]) ?>
             <br/><?php
-            if (isset($job->organization) && isset($job->organization->organizationName) && isset($job->organization->organizationName->name)) {
-                echo $job->organization->organizationName->name;
+            if (is_object($job->getOrganization()) && is_object($job->getOrganization()->getOrganizationName()) && $job->getOrganization()->getOrganizationName()->getName()) {
+                echo $job->getOrganization()->getOrganizationName()->getName();
             }
             ?>
         </td>
         <td>
-            <div><?php echo $job->location?></div>
+            <div><?php echo $job->getLocation()?></div>
             <small>
                 <?php
-                if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none');
-                elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none');
+                if ($job->getDatePublishStart()): echo $this->dateFormat($job->getdatePublishStart(), 'short', 'none');
+                elseif ($job->getDateCreated()): echo $this->dateFormat($job->getDateCreated(), 'short', 'none');
                 endif
                 ?>
             </small>

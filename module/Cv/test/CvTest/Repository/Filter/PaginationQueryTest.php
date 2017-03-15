@@ -98,7 +98,7 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         }
 
         if ('location' == $mode || true === $mode) {
-            $coords = $params['location']->coordinates->getCoordinates();
+            $coords = $params['location']->getCoordinates()->getCoordinates();
             $qbExpects['field'][] = ['with' => ['preferredJob.desiredLocations.coordinates']];
             $qbExpects['geoWithinCenter'][] = ['with' => [$coords[0], $coords[1],(float)$params['d'] / 100]];
         }

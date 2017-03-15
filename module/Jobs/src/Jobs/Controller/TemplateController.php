@@ -117,7 +117,7 @@ class TemplateController extends AbstractActionController
         $id = $this->params('id');
         $formIdentifier=$this->params()->fromQuery('form');
         //$job = $this->jobRepository->find($id);
-        $job = $this->initializeJob()->get($this->params(), true, true);
+        $job = $this->initializeJob()->get($this->params(), true, true); /* @var \Jobs\Entity\Job $job */
         $this->acl($job, 'edit');
 
         /** @var \Zend\Http\Request $request */
@@ -133,12 +133,12 @@ class TemplateController extends AbstractActionController
         $formTemplate         = $forms->get(
             'Jobs/Description/Template',
             array(
-            'mode' => $job->id ? 'edit' : 'new'
+            'mode' => $job->getId() ? 'edit' : 'new'
             )
         );
 
-        $formTemplate->setParam('id', $job->id);
-        $formTemplate->setParam('applyId', $job->applyId);
+        $formTemplate->setParam('id', $job->getId());
+        $formTemplate->setParam('applyId', $job->getApplyId());
         $formTemplate->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '' );
 
         $formTemplate->setEntity($job);

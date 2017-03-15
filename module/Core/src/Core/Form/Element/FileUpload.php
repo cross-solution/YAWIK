@@ -247,7 +247,7 @@ class FileUpload extends File implements
         $entityName = $this->getName();
 
         try {
-            $fileEntity = $object->$entityName;
+            $fileEntity = $object->{"get" . $entityName}();
         } catch (\OutOfBoundsException $e) {
             return null;
         }

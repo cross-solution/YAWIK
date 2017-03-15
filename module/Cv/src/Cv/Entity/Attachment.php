@@ -32,6 +32,6 @@ class Attachment extends FileEntity
      */
     public function getUri()
     {
-        return "/file/Cv.Attachment/" . $this->id . "/" .urlencode($this->name);
+        return "/file/Cv.Attachment/" . $this->getId() . "/" .urlencode($this->name);
     }
 }

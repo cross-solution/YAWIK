@@ -10,7 +10,6 @@
 /** Coordinates.php */
 namespace Core\Entity;
 
-use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zend\Json\Json;
 
@@ -33,7 +32,7 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
     /**
      * The GeoJSON coordinates.
      *
-     * This is an array which format depends on the $type beeing used.
+     * This is an array which format depends on the $type being used.
      *
      * @var array
      * @ODM\Collection
