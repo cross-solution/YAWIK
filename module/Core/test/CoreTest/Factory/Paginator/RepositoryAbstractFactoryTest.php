@@ -74,12 +74,9 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCanCreateService($serviceName, $expected)
     {
         $sm = $this->getMockForAbstractClass('\Zend\ServiceManager\AbstractPluginManager');
-        $normalizedName = strtolower(str_replace('/', '', $serviceName));
-
         $method = "assert" . ($expected ? 'True' : 'False');
 
-
-        $this->{$method}($this->target->canCreateServiceWithName($sm, $normalizedName, $serviceName));
+        $this->{$method}($this->target->canCreate($sm, $serviceName));
     }
 
     public function servicesProvider()
@@ -140,12 +137,12 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 
         $pm->expects($this->once())->method('getServiceLocator')->willReturn($sm);
 
-        $this->target->setCreationOptions($options);
-
-        $paginator = $this->target->createServiceWithName($pm, 'not-used-anyway', $serviceName);
+        $target = $this->target;
+        $target->setCreationOptions($options);
+        $paginator = $target($pm,$serviceName);
 
         $this->assertInstanceOf('\Zend\Paginator\Paginator', $paginator, 'No Paginator returned.');
-        $this->assertAttributeEquals([], 'options', $this->target, 'Cleaning creation options did not work.');
+        $this->assertAttributeEquals([], 'options', $target, 'Cleaning creation options did not work.');
         $adapter = $paginator->getAdapter();
 
         $this->assertInstanceOf('\Core\Paginator\Adapter\DoctrineMongoCursor', $adapter, 'Adapter is not correct class instance.');

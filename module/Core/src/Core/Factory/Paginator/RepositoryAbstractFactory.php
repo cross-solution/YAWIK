@@ -10,6 +10,7 @@
 /** */
 namespace Core\Factory\Paginator;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -47,6 +48,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *   </pre>
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since 0.24
  */
 class RepositoryAbstractFactory implements AbstractFactoryInterface, MutableCreationOptionsInterface
@@ -58,35 +60,21 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface, MutableCrea
      */
     protected $options = [];
 
-    public function setCreationOptions(array $options)
-    {
-        $this->options = $options;
-    }
-
-
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
-    {
-        $class = $this->getEntityClassName($requestedName);
-
-        return class_exists($class, true);
-    }
-
     /**
-     * Create a paginator instance with name
+     * Create a new Paginator instance
      *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @param String                  $name
-     * @param String                  $requestedName
-     *
-     * @return \Zend\Paginator\Paginator
+     * @param   ContainerInterface  $container
+     * @param   string              $requestedName
+     * @param   array|null          $options
+     * @return  \Zend\Paginator\Paginator
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Core\Paginator\PaginatorService
+        /**
          * @var $repositories \Core\Repository\RepositoryService
          * @var $filter       \Zend\Filter\FilterInterface
          */
-        $services     = $serviceLocator->getServiceLocator();
+        $services     = $container->getServiceLocator();
         $repositories = $services->get('repositories');
         $queryBuilder = $repositories->createQueryBuilder();
 
@@ -110,6 +98,54 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface, MutableCrea
 
 
         return $paginator;
+    }
+
+    /**
+     * Can the factory create an instance for the given $requestedName service
+     *
+     * @param ContainerInterface    $container
+     * @param string                $requestedName
+     * @param array|null            $options
+     * @return bool
+     */
+    public function canCreate(ContainerInterface $container, $requestedName, array $options=null)
+    {
+        $class = $this->getEntityClassName($requestedName);
+
+        return class_exists($class, true);
+    }
+
+    public function setCreationOptions(array $options)
+    {
+        $this->options = $options;
+    }
+
+    /**
+     * Determines if we can create a paginator instance with given $requestedName
+     *
+     * @param ServiceLocatorInterface   $serviceLocator
+     * @param string                    $name
+     * @param string                    $requestedName
+     *
+     * @return bool
+     */
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    {
+        return $this->canCreate($serviceLocator,$requestedName);
+    }
+
+    /**
+     * Create a paginator instance with given $requestedName service
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @param String                  $name
+     * @param String                  $requestedName
+     *
+     * @return \Zend\Paginator\Paginator
+     */
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    {
+       return $this($serviceLocator,$requestedName);
     }
 
     /**
