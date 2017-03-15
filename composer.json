@@ -45,7 +45,8 @@
         "mikemix/zf2htmlpurifier": "*",
         "jmikola/geojson": "*",
         "mikey179/vfsStream": "*",
-	"ircmaxell/random-lib": "1.1.0"
+	"ircmaxell/random-lib": "1.1.0",
+        "tracy/tracy": "^2.4"
     },
     "require-dev": {
         "phpunit/phpunit": "5.6.*",

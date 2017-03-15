@@ -1,0 +1,6 @@
+<?php
+return [
+    'tracy' => [
+        'email' => 'errors@sendto.tld', // email address to send errors to
+    ]
+];

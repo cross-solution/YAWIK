@@ -19,6 +19,8 @@ use Core\Listener\AjaxRenderListener;
 use Core\Listener\XmlRenderListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
+use Core\Listener\TracyListener;
+use Core\Service\Tracy as TracyService;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Core\Listener\ErrorHandlerListener;
@@ -72,6 +74,13 @@ class Module implements ConsoleBannerProviderInterface
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
         
+        $tracyConfig = $sm->get('Config')['tracy'];
+        
+        if ($tracyConfig['enabled']) {
+            (new TracyService())->register($tracyConfig);
+            (new TracyListener())->attach($eventManager);
+        }
+        
         if (!\Zend\Console\Console::isConsole()) {
             $redirectCallback = function () use ($e) {
                 $routeMatch = $e->getRouteMatch();
@@ -81,8 +90,10 @@ class Module implements ConsoleBannerProviderInterface
                 header('Location: ' . $uri);
             };
             
-            $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
-            $errorHandlerListener->attach($eventManager);
+            if (!$tracyConfig['enabled']) {
+                $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
+                $errorHandlerListener->attach($eventManager);
+            }
 
             /* @var \Core\Options\ModuleOptions $options */
             $languageRouteListener = new LanguageRouteListener($sm->get('Core/Locale'));
