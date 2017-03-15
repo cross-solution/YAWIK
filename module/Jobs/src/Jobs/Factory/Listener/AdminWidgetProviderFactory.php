@@ -10,15 +10,16 @@
 /** */
 namespace Jobs\Factory\Listener;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Listener\AdminWidgetProvider;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class AdminWidgetProviderFactory implements FactoryInterface
 {
