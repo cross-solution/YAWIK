@@ -409,7 +409,7 @@ class ManageController extends AbstractActionController
         );
         
         try {
-            $userName    = $this->auth('info')->displayName;
+            $userName    = $this->auth('info')->getDisplayName();
             $fromAddress = $application->getJob()->getContactEmail();
             $mailOptions = array(
                 'application' => $application,

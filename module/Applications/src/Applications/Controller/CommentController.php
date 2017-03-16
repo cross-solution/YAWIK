@@ -59,12 +59,12 @@ class CommentController extends AbstractActionController
     {
         $repository = $this->serviceLocator->get('repositories')->get('Applications/Application');
         $applicationId = $this->params()->fromQuery('applicationId', 0);
-        $application = $repository->find($applicationId);
+        $application = $repository->find($applicationId); /* @var \Applications\Entity\Application $application */
         
         $this->acl($application, 'read');
         
         return array(
-            'comments' => $application->comments,
+            'comments' => $application->getComments(),
         );
     }
     
@@ -102,7 +102,7 @@ class CommentController extends AbstractActionController
             if ($form->isValid()) {
                 if ('new' == $mode) {
                     $application = $repository->find($appId);
-                    $application->comments->add($comment);
+                    $application->getComments()->add($comment);
                     $application->changeStatus($application->getStatus(), sprintf(
                                     /* @translate */ 'Application was rated by %s',
                                      $this->auth()->getUser()->getInfo()->getDisplayName())

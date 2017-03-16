@@ -22,11 +22,12 @@
        <td>
            <?php if ($this->acl()->isRole( Auth\Entity\User::ROLE_ADMIN )):?>
                <a href="<?php echo $job->getLink() ? $job->getLink() : $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->getId())), true); ?>">
-                   <?php echo $job->getTitle() ?></a></td>
+                   <?php echo $job->getTitle() ?></a>
            <?php else: ?>
                 <a target="_new" href="<?php echo $job->getLink() ? $job->getLink() : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->getId())), true); ?>">
-                <?php echo $job->getTitle() ?></a></td>
+                <?php echo $job->getTitle() ?></a>
             <?php endif ?>
+         </td>
        <td>
        <?php if ($job->getDatePublishStart()): echo $this->dateFormat($job->getDatePublishStart(), 'short', 'none');
               elseif ($job->getDateCreated()): echo $this->dateFormat($job->getDateCreated(), 'short', 'none'); endif?>
