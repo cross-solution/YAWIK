@@ -22,6 +22,13 @@ use Zend\View\Model\ViewModel;
 class AdminController extends AbstractActionController
 {
 
+    protected $serviceLocator;
+
+    public function setServiceLocator($sl)
+    {
+        $this->serviceLocator = $sl;
+    }
+
     /**
      * Controls the admin dashboard page.
      *
@@ -31,7 +38,7 @@ class AdminController extends AbstractActionController
     {
         /* @var \Core\EventManager\EventManager $events
          * @var AdminControllerEvent $event */
-        $events = $this->serviceLocator->get('Core/AdminController/Events');
+        $events = $this->serviceLocator->get(AdminControllerEvent::class);
         $event  = $events->getEvent(AdminControllerEvent::EVENT_DASHBOARD, $this);
         $events->trigger($event);
 
