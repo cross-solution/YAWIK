@@ -11,19 +11,19 @@
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 
-
+$job=$this->job; /* @var \Jobs\Entity\Job $job */
 ?>
 
-<h1><?php echo $this->translate('The job, you where looking for has expired or was inactivated'); ?></h1>
+<h1><?=$this->translate('The job, you where looking for has expired or was inactivated'); ?></h1>
 
 <ul>
     <li>
-        <?=$this->translate("Title");?>: <?=$this->job->title?>
+        <?=$this->translate("Title");?>: <?=$job->getTitle()?>
     </li>
     <li>
         <?=$this->translate("Company");?>:
-        <a href="<?=$this->url('lang/admin/jobs', ['action' => 'edit'], ['query' => [ 'id' => $this->job->getId()]], true)?>">
-            <?=$this->job->company?>
+        <a href="<?=$this->url('lang/admin/jobs', ['action' => 'edit'], ['query' => [ 'id' => $job->getId()]], true)?>">
+            <?=$job->getCompany()?>
         </a>
     </li>
 </ul>

@@ -58,7 +58,7 @@ if ($job->isDraft()) {
                                ],
                                [
                                    'query' => [
-                                       'id' => $this->job->id,
+                                       'id' => $job->getId(),
                                        'status' => \Jobs\Entity\StatusInterface::INACTIVE
                                    ],
                                ]
@@ -75,7 +75,7 @@ if ($job->isDraft()) {
                                ],
                                [
                                    'query' => [
-                                       'id' => $this->job->id,
+                                       'id' => $job->getId(),
                                        'status' => \Jobs\Entity\StatusInterface::ACTIVE
                                    ],
                                ]
@@ -87,7 +87,7 @@ if ($job->isDraft()) {
 
                 case 'draft':
                     ?>
-                    <a href="<?=$this->url('lang/jobs/manage', ['action' => 'delete'], ['query' => ['id' => $this->job->getId()]])?>"
+                    <a href="<?=$this->url('lang/jobs/manage', ['action' => 'delete'], ['query' => ['id' => $job->getId()]])?>"
                        class="pull-right btn btn-danger"><?=$this->translate('Delete')?></a>
      <?php          break;
         }?>

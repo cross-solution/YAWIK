@@ -37,13 +37,13 @@ abstract class AbstractEntity implements EntityInterface
      */
     public function __set($property, $value)
     {
-//        trigger_error(
-//            sprintf(
-//                'Accessing entity properties is deprecated. Use setter method instead. ( Tried to access "%s" on %s )',
-//                $property, get_class($this)
-//            ),
-//            E_USER_DEPRECATED
-//        );
+        trigger_error(
+            sprintf(
+                'Accessing entity properties is deprecated. Use setter method instead. ( Tried to access "%s" on %s )',
+                $property, get_class($this)
+            ),
+            E_USER_DEPRECATED
+        );
         $method = "set$property";
         if (method_exists($this, $method)) {
             return $this->$method($value);
@@ -64,14 +64,14 @@ abstract class AbstractEntity implements EntityInterface
      */
     public function __get($property)
     {
-//        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
-//        trigger_error(
-//            sprintf(
-//                'Accessing entity properties is deprecated. Use getter method instead. ( Tried to access "%s" on %s in %s on line %s )',
-//                $property, get_class($this), $trace[0]['file'], $trace[0]['line']
-//            ),
-//            E_USER_DEPRECATED
-//        );
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1);
+        trigger_error(
+            sprintf(
+                'Accessing entity properties is deprecated. Use getter method instead. ( Tried to access "%s" on %s in %s on line %s )',
+                $property, get_class($this), $trace[0]['file'], $trace[0]['line']
+            ),
+            E_USER_DEPRECATED
+        );
         $method = "get$property";
         if (method_exists($this, $method)) {
             return $this->$method();
@@ -91,13 +91,13 @@ abstract class AbstractEntity implements EntityInterface
      */
     public function __isset($property)
     {
-//        trigger_error(
-//            sprintf(
-//                'Using isset() with entity properties is deprecated. Use %s::notEmpty("%s") instead.',
-//                get_class($this), $property
-//            ),
-//            E_USER_DEPRECATED
-//        );
+        trigger_error(
+            sprintf(
+                'Using isset() with entity properties is deprecated. Use %s::notEmpty("%s") instead.',
+                get_class($this), $property
+            ),
+            E_USER_DEPRECATED
+        );
         return $this->notEmpty($property);
     }
 }

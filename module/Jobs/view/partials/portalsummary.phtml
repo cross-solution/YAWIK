@@ -9,20 +9,21 @@
 ?>
 <?php
 $sm = $this->getHelperPluginManager()->getServiceLocator();
-$channels = $sm->get('Jobs/Options/Provider');
+$channels = $sm->get('Jobs/Options/Provider'); /* @var \Jobs\Options\ProviderOptions $channels */
+$job=$this->job; /* @var \Jobs\Entity\Job $job */
 ?>
-<?php if ($this->job->portals):?>
+<?php if ($job->getPortals()):?>
     <h3><?php echo $this->translate('Summary') ?></h3>
     <?php $total=0 ?>
     <table class="table table-bordered">
         <tr>
             <th><?php echo $this->translate('Channel')?></th>
         </tr>
-        <?php foreach($this->job->portals as $channel):?>
+        <?php foreach($job->getPortals() as $channel):?>
             <?php if($channel):?>
                 <?php $channelData=$channels->getChannel($channel); ?>
                 <tr>
-                    <td><?php echo $channelData->label ?></td>
+                    <td><?php echo $channelData->getLabel() ?></td>
                 </tr>
             <?php endif;?>
         <?php endforeach;?>

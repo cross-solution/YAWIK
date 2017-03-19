@@ -198,7 +198,7 @@ class Organization extends BaseEntity implements
             return '';
         }
 
-        return $this->organizationName->name;
+        return $this->organizationName->getName();
     }
 
     /**

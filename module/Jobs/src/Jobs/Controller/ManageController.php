@@ -175,7 +175,7 @@ class ManageController extends AbstractActionController
         $formEvents         = $serviceLocator->get('Jobs/JobContainer/Events');
 
         $user               = $this->auth->getUser();
-        if (empty($user->info->email)) {
+        if (empty($user->getInfo()->getEmail())) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
         }
         $userOrg            = $user->getOrganization();
@@ -387,7 +387,7 @@ class ManageController extends AbstractActionController
     }
 
     /**
-     * @param $job
+     * @param  $job \Jobs\Entity\Job
      * @return mixed
      */
     protected function getFormular($job)
@@ -400,13 +400,13 @@ class ManageController extends AbstractActionController
         $container = $forms->get(
             'Jobs/Job',
             array(
-            'mode' => $job->id ? 'edit' : 'new'
+            'mode' => $job->getId() ? 'edit' : 'new'
             )
         );
         $container->setEntity($job);
-        $container->setParam('job', $job->id);
+        $container->setParam('job', $job->getId());
         $container->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '');
-        $container->setParam('applyId', $job->applyId);
+        $container->setParam('applyId', $job->getApplyId());
         return $container;
     }
 

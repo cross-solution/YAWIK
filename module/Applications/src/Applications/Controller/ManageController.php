@@ -156,7 +156,7 @@ class ManageController extends AbstractActionController
             $list = false;
         } else {
             $list = $this->paginationParams('Applications\Index', $repository);
-            $list->setCurrent($application->id);
+            $list->setCurrent($application->getId());
         }
 
         $return = array(
@@ -409,7 +409,7 @@ class ManageController extends AbstractActionController
         );
         
         try {
-            $userName    = $this->auth('info')->displayName;
+            $userName    = $this->auth('info')->getDisplayName();
             $fromAddress = $application->getJob()->getContactEmail();
             $mailOptions = array(
                 'application' => $application,

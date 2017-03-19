@@ -521,7 +521,7 @@ endif;
     </div>
 </div>
 
-<?php if(count($this->application->cv->employments)>0):?>
+<?php if(count($this->application->getCv()->getEmployments())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -552,7 +552,7 @@ endif;
     </div>
 <?php endif;?>
 
-<?php if(count($this->application->cv->educations)>0):?>
+<?php if(count($this->application->getCv()->getEducations())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -581,7 +581,7 @@ endif;
     </div>
 <?php endif;?>
 
-<?php if(count($this->application->cv->skills)>0):?>
+<?php if(count($this->application->getCv()->getSkills())>0):?>
     <h2><?php echo  $this->translate('personal skills')?></h2>
     <?php foreach( $this->application->cv->skills as $kill): ?>
         <div class="col-md-3"><?php echo $this->translate('native language')?></div>

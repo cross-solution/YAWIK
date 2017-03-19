@@ -766,9 +766,9 @@ class Job extends BaseEntity implements JobInterface,
     {
         /** @var $organization \Organizations\Entity\Organization */
         $organization = $this->organization;
-        if (isset($organization) && isset($organization->image)) {
-            $organizationImage = $organization->image;
-            return "/file/Organizations.OrganizationImage/" . $organizationImage->id;
+        if (is_object($organization) && $organization->getImage()) {
+            $organizationImage = $organization->getImage();
+            return "/file/Organizations.OrganizationImage/" . $organizationImage->getId();
         }
         return $this->logoRef;
     }
@@ -987,7 +987,7 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function isActive()
     {
-        return !$this->isDraft && is_object($this->status) && $this->status->name == 'active';
+        return !$this->isDraft && is_object($this->status) && $this->status->getName() == 'active';
     }
 
     /**

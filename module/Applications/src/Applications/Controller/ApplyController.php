@@ -192,9 +192,9 @@ class ApplyController extends AbstractActionController
     {
         /* @var \Applications\Form\Apply $form */
         $form        = $this->container;
-        $application = $form->getEntity();
+        $application = $form->getEntity(); /* @var \Applications\Entity\Application $application */
         
-        $form->setParam('applicationId', $application->id);
+        $form->setParam('applicationId', $application->getId());
 
         $model = new ViewModel(
             array(
