@@ -6,6 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
+$job=$this->job; /* @var \Jobs\Entity\Job $job */
 ?>
 <h3 id="history-box-label">
     <?php echo $this->translate('Status history') ?>:
@@ -13,17 +14,17 @@
 <table class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
-        <th><?php echo $this->translate('Date') ?></th>
-        <th><?php echo $this->translate('State') ?></th>
-        <th><?php echo $this->translate('Comment') ?></th>
+        <th><?=$this->translate('Date') ?></th>
+        <th><?=$this->translate('State') ?></th>
+        <th><?=$this->translate('Comment') ?></th>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($this->job->history as $history): ?>
+    <?php foreach ($job->getHistory() as $history):  /* @var \Jobs\Entity\History $history */ ?>
         <tr>
-            <td><?php echo $this->dateFormat($history->date) ?></td>
-            <td><?php echo $this->translate($history->status) ?></td>
-            <td><?php echo $history->message ?></td>
+            <td><?php echo $this->dateFormat($history->getDate()) ?></td>
+            <td><?php echo $this->translate($history->getStatus()) ?></td>
+            <td><?php echo $history->getMessage() ?></td>
         </tr>
     <?php endforeach ?>
     </tbody>

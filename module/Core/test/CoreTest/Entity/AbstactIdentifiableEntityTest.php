@@ -31,14 +31,14 @@ class AbstractIdentifiableEntityTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGetIdByAttribute(){
         $input = "myValue";
-        $this->target->id = $input;
+        $this->target->setId($input);
         $this->assertSame($this->target->getId(),$input);
     }
 
     public function testSetGetIdByMethod(){
         $input = "myValue";
         $this->target->setId($input);
-        $this->assertSame($this->target->id,$input);
+        $this->assertSame($this->target->getId(),$input);
     }
 }
 

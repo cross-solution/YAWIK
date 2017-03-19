@@ -51,10 +51,10 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
         $updates = array_filter($uow->getScheduledDocumentUpdates(), $filter);
         
         foreach (array($inserts, $updates) as $isUpdate => $documents) {
-            foreach ($documents as $document) {
+            foreach ($documents as $document) { /* @var \Applications\Entity\Application $document */
                 $permissions = $document->getPermissions();
                
-                foreach ($document->getAttachments() as $attachment) {
+                foreach ($document->getAttachments() as $attachment) {  /* @var \Applications\Entity\Attachment $attachment */
                     $attachment->getPermissions()
                                ->clear()
                                ->inherit($permissions);
@@ -66,7 +66,7 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                     }
                 }
                 
-                if ($image = $document->contact->image) {
+                if ($image = $document->getContact()->getImage()) {
                     $image->getPermissions()
                           ->clear()
                           ->inherit($permissions);

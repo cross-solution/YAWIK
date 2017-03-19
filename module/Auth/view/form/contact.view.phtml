@@ -10,20 +10,20 @@
 /**
  * {{rtd: renders the contact information within the application form and the personal profile.}}
  */
- $info = $element->getObject();
+ $info = $element->getObject(); /* @var \Auth\Entity\Info $info*/
 ?>
     <div class="row">
         <div class="col-md-6">
-            <?php echo $this->translate($this->salutation($info->gender))?><br>
-            <strong><?php echo $info->displayName?></strong><br><br>
+            <?php echo $this->translate($this->salutation($info->getGender()))?><br>
+            <strong><?php echo $info->getDisplayName()?></strong><br><br>
             <adress>
-                <?php echo $info->street?> <?php echo $info->houseNumber?><br>
-                <?php echo $info->postalCode?> <?php echo $info->city?>
+                <?php echo $info->getStreet()?> <?php echo $info->getHouseNumber()?><br>
+                <?php echo $info->getPostalCode()?> <?php echo $info->getCity()?>
             </adress>
         </div>
         <div class="col-md-6">
-            <i class="yk-icon yk-icon-phone"></i> <?php echo $info->phone?><br>
-            <i class="yk-icon yk-icon-envelope"></i> <?php echo $info->email?><br>
+            <i class="yk-icon yk-icon-phone"></i> <?php echo $info->getPhone()?><br>
+            <i class="yk-icon yk-icon-envelope"></i> <?php echo $info->getEmail()?><br>
         </div>
     </div>
 

@@ -41,7 +41,7 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
             return;
         }
         
-        $fileId = new \MongoId($file->id);
+        $fileId = new \MongoId($file->getId());
         $dm = $eventArgs->getDocumentManager();
         $dm->createQueryBuilder('Cv\Entity\Cv')
            ->update()->multiple(true)

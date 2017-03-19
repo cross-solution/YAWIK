@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use GeoJson\GeoJson;
 
 /**
- * Location of a job position
+ * Location of an Applicant
  *
  * @ODM\EmbeddedDocument
  * @ODM\Index(keys={"coordinates"="2dsphere"})

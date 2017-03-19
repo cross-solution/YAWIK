@@ -6,12 +6,13 @@
  * @license MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
+
 ?>
 
 <table class="table table-bordered assign-user-list">
     <tbody>
     <?php
-
+    /* @var \Organizations\Entity\Organization $organization */
             $checked = $this->currentUser->getId() == $organization->getUser()->getId();
     ?>
     <tr<?=$checked?' class="bg-primary responsible_user"' : '' ?>>

@@ -120,7 +120,7 @@ class IndexController extends AbstractActionController
             if ($result->isValid()) {
                 $user = $auth->getUser();
                 $language = $services->get('Core/Locale')->detectLanguage($request, $user);
-                $this->logger->info('User ' . $user->login . ' logged in');
+                $this->logger->info('User ' . $user->getLogin() . ' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);
 
@@ -436,7 +436,7 @@ class IndexController extends AbstractActionController
     public function logoutAction()
     {
         $auth = $this->auth;
-        $this->logger->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
+        $this->logger->info('User ' . ($auth->getUser()->getLogin()==''?$auth->getUser()->getInfo()->getDisplayName():$auth->getUser()->getLogin()) . ' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
 
