@@ -12,8 +12,15 @@ namespace Core\Factory\Form;
 
 use Core\Form\CustomizableFieldsetInterface;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+//use Zend\ServiceManager\FactoryInterface;
+//use Zend\ServiceManager\MutableCreationOptionsInterface;
+use Interop\Container\Exception\ContainerException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Zend\ServiceManager\Exception;
+use Zend\ServiceManager\Exception\InvalidServiceException;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\ServiceManager\PluginManagerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -24,7 +31,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29
  */
-abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, MutableCreationOptionsInterface
+abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, PluginManagerInterface
 {
     /**
      * Name of the options service
@@ -141,4 +148,26 @@ abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, 
 
         return $instance;
     }
+
+    public function get($id)
+    {
+        // TODO: Implement get() method.
+    }
+
+    public function has($id)
+    {
+        // TODO: Implement has() method.
+    }
+
+    public function validate($instance)
+    {
+        // TODO: Implement validate() method.
+    }
+
+    public function build($name, array $options = null)
+    {
+        // TODO: Implement build() method.
+    }
+
+
 }

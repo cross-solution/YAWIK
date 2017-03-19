@@ -78,7 +78,7 @@ class TriggerTestEventManagerMock extends \Core\EventManager\EventManager
         return parent::getEvent($name, $target, $params);
     }
 
-    protected function triggerListeners($event, EventInterface $e, $callback = null)
+    protected function triggerListeners(EventInterface $e, callable $callback = null)
     {
         $this->callback = $callback;
     }

@@ -70,7 +70,8 @@ class Bootstrap
 
     public static function setupServiceManager()
     {
-        $serviceManager = new ServiceManager(new ServiceManagerConfig());
+        $smConfig = new ServiceManagerConfig(static::$config);
+        $serviceManager = new ServiceManager($smConfig->toArray());
         $serviceManager->setService('ApplicationConfig', static::$config);
         $serviceManager->get('ModuleManager')->loadModules();
         static::$serviceManager = $serviceManager;

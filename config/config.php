@@ -16,6 +16,14 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     $modules = array('Install');
 } else {
     $modules = array(
+        'Zend\ServiceManager\Di',
+        'Zend\Session',
+        'Zend\Router',
+        'Zend\Navigation',
+        'Zend\Mvc\Plugin\Prg',
+        'Zend\Mvc\Plugin\Identity',
+        'Zend\Mvc\Plugin\FlashMessenger',
+        'Zend\Mvc\I18n',
         'DoctrineModule',
         'DoctrineMongoODMModule',
         'Core',
