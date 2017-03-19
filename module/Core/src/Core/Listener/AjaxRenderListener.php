@@ -28,7 +28,7 @@ class AjaxRenderListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @param  integer $priority
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority = 1)
     {
         $callback = array($this, 'injectAjaxTemplate');
         /*

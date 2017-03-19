@@ -31,7 +31,7 @@ class PersistenceListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @param  integer $priority
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'flushDocumentManager'), -150);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 10);

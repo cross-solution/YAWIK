@@ -30,7 +30,7 @@ class XmlRenderListener implements ListenerAggregateInterface
      *
      * @param  EventManagerInterface $events
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority = 1)
     {
         $callback = array($this, 'injectXmlTemplate');
         /*

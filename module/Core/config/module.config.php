@@ -209,6 +209,7 @@ return array(
             'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate::factory',
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
             'Core/Locale' => 'Core\I18n\LocaleFactory',
+            'mvctranslator' => \Zend\I18n\Translator\TranslatorServiceFactory::class,
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',

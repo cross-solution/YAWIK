@@ -15,7 +15,7 @@ class DeactivatedUserListener extends ExceptionStrategy
     /**
      * {@inheritDoc}
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority = 1)
     {
         parent::attach($events);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, [$this, 'checkDeactivatedUser']);

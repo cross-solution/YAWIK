@@ -35,11 +35,11 @@ class ExceptionStrategyFactory implements FactoryInterface
     {
         switch ($requestedName)
         {
-            case 'unauthorizedaccesslistener':
+            case 'UnauthorizedAccessListener':
                 $listener = new \Auth\Listener\UnauthorizedAccessListener();
                 break;
 
-            case 'deactivateduserlistener':
+            case 'DeactivatedUserListener':
                 $listener = new \Auth\Listener\DeactivatedUserListener();
                 break;
 
