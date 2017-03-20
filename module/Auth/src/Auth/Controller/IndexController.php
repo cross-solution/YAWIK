@@ -34,8 +34,8 @@ use Zend\Http\PhpEnvironment\Response;
 class IndexController extends AbstractActionController
 {
 
-    const LOGIN='login';
-    const REGISTER='register';
+    const LOGIN = 'login';
+    const REGISTER = 'register';
 
     /**
      * @var AuthenticationService
@@ -91,7 +91,7 @@ class IndexController extends AbstractActionController
         $registerForm = $this->forms[self::REGISTER];
 
         /* @var $request \Zend\Http\Request */
-        $request   = $this->getRequest();
+        $request = $this->getRequest();
 
         if ($request->isPost()) {
             $data                          = $this->params()->fromPost();
@@ -109,7 +109,7 @@ class IndexController extends AbstractActionController
             if (array_key_exists('credentials', $data) &&
                 array_key_exists('login', $data['credentials']) &&
                 array_key_exists('credential', $data['credentials'])) {
-                $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
+                $adapter->setIdentity($data['credentials']['login'].$loginSuffix)
                     ->setCredential($data['credentials']['credential']);
             }
             
@@ -120,14 +120,14 @@ class IndexController extends AbstractActionController
             if ($result->isValid()) {
                 $user = $auth->getUser();
                 $language = $services->get('Core/Locale')->detectLanguage($request, $user);
-                $this->logger->info('User ' . $user->getLogin() . ' logged in');
+                $this->logger->info('User '.$user->getLogin().' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);
 
                 if ($ref) {
                     $ref = urldecode($ref);
-                    $url = preg_replace('~/[a-z]{2}(/|$)~', '/' . $language . '$1', $ref);
-                    $url = $request->getBasePath() . $url;
+                    $url = preg_replace('~/[a-z]{2}(/|$)~', '/'.$language.'$1', $ref);
+                    $url = $request->getBasePath().$url;
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
                     $url = $urlHelper('lang', array('lang' => $language));
@@ -137,9 +137,9 @@ class IndexController extends AbstractActionController
             } else {
                 $loginName = $data['credentials']['login'];
                 if (!empty($loginSuffix)) {
-                    $loginName = $loginName . ' (' . $loginName . $loginSuffix . ')';
+                    $loginName = $loginName.' ('.$loginName.$loginSuffix.')';
                 }
-                $this->logger->info('Failed to authenticate User ' . $loginName);
+                $this->logger->info('Failed to authenticate User '.$loginName);
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
@@ -198,11 +198,11 @@ class IndexController extends AbstractActionController
             try {
                 $user          = $auth->getUser();
                 $password      = substr(md5(uniqid()), 0, 6);
-                $login         = uniqid() . ($this->options->auth_suffix != "" ? '@' . $this->options->auth_suffix : '');
-                $externalLogin = isset($user->login)?$user->login:'-- not communicated --';
-                $this->logger->debug('first login via ' . $provider . ' as: ' . $externalLogin);
+                $login         = uniqid().($this->options->auth_suffix != "" ? '@'.$this->options->auth_suffix : '');
+                $externalLogin = isset($user->login) ? $user->login : '-- not communicated --';
+                $this->logger->debug('first login via '.$provider.' as: '.$externalLogin);
 
-                $user->login=$login;
+                $user->login = $login;
                 $user->setPassword($password);
                 $user->setRole($this->options->getRole());
 
@@ -219,11 +219,11 @@ class IndexController extends AbstractActionController
                 );
                 $mail->addTo($user->getInfo()->getEmail());
 
-                $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
+                $loggerId = $login.' ('.$provider.': '.$externalLogin.')';
                 if (isset($mail) && $this->mailer($mail)) {
-                    $this->logger->info('Mail first-login for ' . $loggerId . ' sent to ' . $user->getInfo()->getEmail());
+                    $this->logger->info('Mail first-login for '.$loggerId.' sent to '.$user->getInfo()->getEmail());
                 } else {
-                    $this->logger->warn('No Mail was sent for ' . $loggerId);
+                    $this->logger->warn('No Mail was sent for '.$loggerId);
                 }
             } catch (\Exception $e) {
                 $this->logger->crit($e);
@@ -234,11 +234,11 @@ class IndexController extends AbstractActionController
         }
         
         $user = $auth->getUser();
-        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
+        $this->logger->info('User '.$auth->getUser()->getInfo()->getDisplayName().' logged in via '.$provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
-            $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(?=/|$)~', $basePath . '/' . $settings->localization->language, $ref);
+            $ref = preg_replace('~^'.$basePath.'/[a-z]{2}(?=/|$)~', $basePath.'/'.$settings->localization->language, $ref);
         }
         return $this->redirect()->toUrl($ref);
     }
@@ -270,8 +270,8 @@ class IndexController extends AbstractActionController
         
         if ($result->isValid()) {
             $this->logger->info(
-                'User ' . $this->params()->fromPost('user') .
-                ' logged via ' . $appKey
+                'User '.$this->params()->fromPost('user').
+                ' logged via '.$appKey
             );
             
             // the external login may include some parameters for an update
@@ -302,7 +302,7 @@ class IndexController extends AbstractActionController
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === true) {
                 // first external Login
                 $userName = $this->params()->fromPost('user');
-                $this->logger->debug('first login for User: ' .  $userName);
+                $this->logger->debug('first login for User: '.$userName);
                 //
                 if (preg_match('/^(.*)@\w+$/', $userName, $realUserName)) {
                     $userName = $realUserName[1];
@@ -326,7 +326,7 @@ class IndexController extends AbstractActionController
 
                 try {
                     $this->mailer($mail);
-                    $this->logger->info('Mail first-login sent to ' . $userName);
+                    $this->logger->info('Mail first-login sent to '.$userName);
                 } catch (\Zend\Mail\Transport\Exception\ExceptionInterface $e) {
                     $this->logger->warn('No Mail was sent');
                     $this->logger->debug($e);
@@ -341,8 +341,8 @@ class IndexController extends AbstractActionController
             );
         } else {
             $this->logger->info(
-                'Failed to authenticate User ' . $this->params()->fromPost('user') .
-                ' via ' . $this->params()->fromPost('appKey')
+                'Failed to authenticate User '.$this->params()->fromPost('user').
+                ' via '.$this->params()->fromPost('appKey')
             );
             
             $this->getResponse()->setStatusCode(Response::STATUS_CODE_401);
@@ -367,8 +367,8 @@ class IndexController extends AbstractActionController
                 array(
                 'format' => 'json',
                     'group' => array(
-                        0 => 'testuser4711', 1 => 'flatscreen', 2 => 'flatscreen1', 3 => 'flatscreen2', 4 => 'flatscreen3',  5 => 'flatscreen4',
-                        6 => 'flatscreen5', 7 => 'flatscreen6', 8 => 'flatscreen7',  9 => 'flatscreen8', 10 => 'flatscreen9'
+                        0 => 'testuser4711', 1 => 'flatscreen', 2 => 'flatscreen1', 3 => 'flatscreen2', 4 => 'flatscreen3', 5 => 'flatscreen4',
+                        6 => 'flatscreen5', 7 => 'flatscreen6', 8 => 'flatscreen7', 9 => 'flatscreen8', 10 => 'flatscreen9'
                     ),
                     'name' => '(die) Rauscher – Unternehmensberatung & Consulting',
                 )
@@ -377,7 +377,7 @@ class IndexController extends AbstractActionController
         }
         $auth = $this->auth;
         $userGrpAdmin = $auth->getUser();
-        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName());
+        $this->logger->info('User '.$auth->getUser()->getInfo()->getDisplayName());
         $grp = $this->params()->fromQuery('group');
         
         // if the request is made by an external host, add his identification-key to the name
@@ -398,16 +398,16 @@ class IndexController extends AbstractActionController
             foreach ($params->group as $grp_member) {
                 try
                 {
-                    $user = $users->findByLogin($grp_member . $loginSuffix);
+                    $user = $users->findByLogin($grp_member.$loginSuffix);
                     if (!empty($user)) {
                         $groupUserId[] = $user->id;
                     } else {
-                        $notFoundUsers[] = $grp_member . $loginSuffix;
+                        $notFoundUsers[] = $grp_member.$loginSuffix;
                     }
                 }
                 catch (\Auth\Exception\UserDeactivatedException $e)
                 {
-                    $notFoundUsers[] = $grp_member . $loginSuffix;
+                    $notFoundUsers[] = $grp_member.$loginSuffix;
                 }
             }
         }
@@ -417,9 +417,9 @@ class IndexController extends AbstractActionController
             $group->setUsers($groupUserId);
         }
         $this->logger->info(
-            'Update Group Name: ' . $name . PHP_EOL . str_repeat(' ', 36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL .
-            str_repeat(' ', 36) . 'Group Members Param: ' . implode(',', $params->group) . PHP_EOL .
-            str_repeat(' ', 36) . 'Group Members: ' . count($groupUserId) . PHP_EOL . str_repeat(' ', 36) . 'Group Members not found: ' . implode(',', $notFoundUsers)
+            'Update Group Name: '.$name.PHP_EOL.str_repeat(' ', 36).'Group Owner: '.$userGrpAdmin->getLogin().PHP_EOL.
+            str_repeat(' ', 36).'Group Members Param: '.implode(',', $params->group).PHP_EOL.
+            str_repeat(' ', 36).'Group Members: '.count($groupUserId).PHP_EOL.str_repeat(' ', 36).'Group Members not found: '.implode(',', $notFoundUsers)
         );
         
         return new JsonModel(
@@ -436,7 +436,7 @@ class IndexController extends AbstractActionController
     public function logoutAction()
     {
         $auth = $this->auth;
-        $this->logger->info('User ' . ($auth->getUser()->getLogin()==''?$auth->getUser()->getInfo()->getDisplayName():$auth->getUser()->getLogin()) . ' logged out');
+        $this->logger->info('User '.($auth->getUser()->getLogin() == '' ? $auth->getUser()->getInfo()->getDisplayName() : $auth->getUser()->getLogin()).' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
 

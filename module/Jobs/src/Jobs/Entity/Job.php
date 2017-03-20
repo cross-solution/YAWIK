@@ -460,10 +460,10 @@ class Job extends BaseEntity implements JobInterface,
     public function getLocation()
     {
         if (null === $this->location) {
-            $array=[];
-            if(null != $this->locations){
+            $array = [];
+            if (null != $this->locations) {
                 foreach ($this->locations as $location) { /* @var \Core\Entity\LocationInterface $location */
-                    $array[]=$location->getCity();
+                    $array[] = $location->getCity();
                 }
                 return implode(', ', $array);
             }
@@ -518,7 +518,7 @@ class Job extends BaseEntity implements JobInterface,
             if ($removePermissions) {
                 $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL);
             }
-            $this->user=null;
+            $this->user = null;
         }
 
         return $this;
@@ -768,7 +768,7 @@ class Job extends BaseEntity implements JobInterface,
         $organization = $this->organization;
         if (is_object($organization) && $organization->getImage()) {
             $organizationImage = $organization->getImage();
-            return "/file/Organizations.OrganizationImage/" . $organizationImage->getId();
+            return "/file/Organizations.OrganizationImage/".$organizationImage->getId();
         }
         return $this->logoRef;
     }

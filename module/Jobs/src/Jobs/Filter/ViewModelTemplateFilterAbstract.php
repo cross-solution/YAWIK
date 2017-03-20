@@ -123,7 +123,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
         }
-        $model->setTemplate('templates/' . $this->job->getTemplate() . '/index');
+        $model->setTemplate('templates/'.$this->job->getTemplate().'/index');
         return $model;
     }
 
@@ -183,7 +183,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without aa $job');
         }
         $location = $this->job->getLocation();
-        $this->container['location'] = isset($location)?$location:'';
+        $this->container['location'] = isset($location) ? $location : '';
         return $this;
     }
 
@@ -204,7 +204,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         }
         $description = $this->job->getTemplateValues()->getDescription();
 
-        $this->container['description'] = isset($description)?$description:'';
+        $this->container['description'] = isset($description) ? $description : '';
         return $this;
     }
 
@@ -268,9 +268,9 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
-        $labelQualifications='';
-        $labelBenefits='';
-        $labelRequirements='';
+        $labelQualifications = '';
+        $labelBenefits = '';
+        $labelRequirements = '';
 
         $organization = $this->job->getOrganization();
         if (isset($organization)) {

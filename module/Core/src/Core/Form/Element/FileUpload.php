@@ -144,7 +144,7 @@ class FileUpload extends File implements
 
     public function prepareElement(FormInterface $form)
     {
-        $form->setAttribute('class', ($this->isMultiple() ? 'multi' : 'single') . '-file-upload');
+        $form->setAttribute('class', ($this->isMultiple() ? 'multi' : 'single').'-file-upload');
         $form->setAttribute('data-is-empty', null === $this->getValue());
         parent::prepareElement($form);
     }
@@ -247,7 +247,7 @@ class FileUpload extends File implements
         $entityName = $this->getName();
 
         try {
-            $fileEntity = $object->{"get" . $entityName}();
+            $fileEntity = $object->{"get".$entityName}();
         } catch (\OutOfBoundsException $e) {
             return null;
         }

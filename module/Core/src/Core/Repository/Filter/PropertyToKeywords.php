@@ -23,7 +23,7 @@ class PropertyToKeywords implements FilterInterface
             $entity = $value;
             $value = array();
             foreach ($entity->getSearchableProperties() as $name) {
-                $result = $entity->{'get' .$name}();
+                $result = $entity->{'get'.$name}();
                 if (is_array($result)) {
                     $value = array_merge($value, $result);
                 } else {
@@ -48,8 +48,8 @@ class PropertyToKeywords implements FilterInterface
         $innerPattern = StringUtils::hasPcreUnicodeSupport()
                       ? '[^\p{L}]'
                       : '[^a-z0-9ßäöü ]';
-        $pattern      = '~' . $innerPattern . '~isu';
-        $stripPattern = '~^' . $innerPattern . '+|' . $innerPattern . '+$~isu';
+        $pattern      = '~'.$innerPattern.'~isu';
+        $stripPattern = '~^'.$innerPattern.'+|'.$innerPattern.'+$~isu';
         $parts     = array();
         $textParts = explode(' ', $string);
         foreach ($textParts as $part) {

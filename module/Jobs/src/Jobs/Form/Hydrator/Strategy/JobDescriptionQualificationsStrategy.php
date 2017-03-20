@@ -18,7 +18,7 @@ class JobDescriptionQualificationsStrategy implements StrategyInterface
     {
         /* @var \Jobs\Entity\Job $value */
         $result = null;
-        if (method_exists($value,'getTemplateValues')) {
+        if (method_exists($value, 'getTemplateValues')) {
             $result = $value->getTemplateValues()->getQualifications();
         }
         return $result;

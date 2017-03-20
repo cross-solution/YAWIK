@@ -56,8 +56,8 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                
                 foreach ($document->getAttachments() as $attachment) {  /* @var \Applications\Entity\Attachment $attachment */
                     $attachment->getPermissions()
-                               ->clear()
-                               ->inherit($permissions);
+                                ->clear()
+                                ->inherit($permissions);
                     if ($isUpdate) {
                         $uow->computeChangeSet(
                             $dm->getClassMetadata(get_class($attachment)),
@@ -68,8 +68,8 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                 
                 if ($image = $document->getContact()->getImage()) {
                     $image->getPermissions()
-                          ->clear()
-                          ->inherit($permissions);
+                            ->clear()
+                            ->inherit($permissions);
                     if ($isUpdate) {
                         $uow->computeChangeSet(
                             $dm->getClassMetadata(get_class($image)),

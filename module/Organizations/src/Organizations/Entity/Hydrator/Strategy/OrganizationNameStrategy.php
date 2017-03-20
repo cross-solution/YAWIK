@@ -34,7 +34,7 @@ class OrganizationNameStrategy implements StrategyInterface
     public function extract($value)
     {
         $name = '';
-        if (method_exists($value,"getName")) {
+        if (method_exists($value, "getName")) {
             $name = $value->getName();
         }
         return $name;

@@ -97,8 +97,8 @@ class Auth extends AbstractHelper
             $value = null;
             $service = $this->getService();
             $user    = $service->getUser();
-            if (method_exists($user,"get".$property)) {
-                $value = $user->{"get" . $property}();
+            if (method_exists($user, "get".$property)) {
+                $value = $user->{"get".$property}();
             }
             return $value;
         } catch (\OutOfBoundsException $e) {

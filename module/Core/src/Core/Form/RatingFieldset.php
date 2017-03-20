@@ -49,11 +49,11 @@ class RatingFieldset extends Fieldset
         $properties = $refl->getProperties();
         
         foreach ($properties as $property) {
-            $name  = $property->getName();
+            $name = $property->getName();
             if ('_' == $name{0}) {
                 continue;
             }
-            $value = $rating->{'get' . $name}();
+            $value = $rating->{'get'.$name}();
             $input = array(
                 'type' => 'Core/Rating',
                 'name' => $name,

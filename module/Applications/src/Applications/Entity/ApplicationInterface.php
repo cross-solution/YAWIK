@@ -240,7 +240,7 @@ interface ApplicationInterface extends
     /**
      * Gets all comments for the application.
      *
-     * @return ArrayCollection;
+     * @return Collection
 
      */
     public function getComments();
@@ -271,7 +271,7 @@ interface ApplicationInterface extends
     /**
      * Gets all attributes for an application.
      *
-     * @return ArrayCollection;
+     * @return Attributes
 
      */
     public function getAttributes();

@@ -92,7 +92,7 @@ class Auth extends AbstractPlugin
                 }
                 return $value;
             }
-            return 'id' == $property ? $auth->getIdentity() : $auth->getUser()->{'get' . $property}();
+            return 'id' == $property ? $auth->getIdentity() : $auth->getUser()->{'get'.$property}();
         }
         return null;
     }

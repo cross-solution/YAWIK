@@ -58,7 +58,7 @@ class TemplateController extends AbstractActionController
     public function viewAction()
     {
         $id = $this->params()->fromQuery('id');
-        $channel = $this->params()->fromRoute('channel','default');
+        $channel = $this->params()->fromRoute('channel', 'default');
         $response = $this->getResponse();
         /* @var \Jobs\Entity\Job $job */
         try {
@@ -87,7 +87,7 @@ class TemplateController extends AbstractActionController
             $this->auth()->isAdmin()
         ) {
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
-        }elseif(Status::EXPIRED == $job->getStatus() or  Status::INACTIVE == $job->getStatus()) {
+        }elseif (Status::EXPIRED == $job->getStatus() or Status::INACTIVE == $job->getStatus()) {
             $response->setStatusCode(Response::STATUS_CODE_410);
             $model->setTemplate('jobs/error/expired');
             $model->setVariables(
@@ -115,7 +115,7 @@ class TemplateController extends AbstractActionController
     protected function editTemplateAction()
     {
         $id = $this->params('id');
-        $formIdentifier=$this->params()->fromQuery('form');
+        $formIdentifier = $this->params()->fromQuery('form');
         //$job = $this->jobRepository->find($id);
         $job = $this->initializeJob()->get($this->params(), true, true); /* @var \Jobs\Entity\Job $job */
         $this->acl($job, 'edit');
@@ -139,7 +139,7 @@ class TemplateController extends AbstractActionController
 
         $formTemplate->setParam('id', $job->getId());
         $formTemplate->setParam('applyId', $job->getApplyId());
-        $formTemplate->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '' );
+        $formTemplate->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '');
 
         $formTemplate->setEntity($job);
 
@@ -148,7 +148,7 @@ class TemplateController extends AbstractActionController
 
             $instanceForm = $formTemplate->get($formIdentifier);
             if (!isset($instanceForm)) {
-                throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
+                throw new \RuntimeException('No form found for "'.$formIdentifier.'"');
             }
 
             // the id is part of the postData, but it never should be altered

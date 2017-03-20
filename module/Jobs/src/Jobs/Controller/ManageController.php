@@ -165,7 +165,6 @@ class ManageController extends AbstractActionController
      *
      * parameter are arbitrary elements for defaults or programming flow
      *
-     * @param array $parameter
      * @return null|ViewModel
      * @throws \RuntimeException
      */
@@ -178,7 +177,7 @@ class ManageController extends AbstractActionController
         if (empty($user->getInfo()->getEmail())) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
         }
-        $userOrg            = $user->getOrganization();
+        $userOrg = $user->getOrganization();
         if (!$userOrg->hasAssociation() || $userOrg->getOrganization()->isDraft()) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noCompany'));
         }
@@ -208,7 +207,7 @@ class ManageController extends AbstractActionController
         }
 
 
-        $viewModel          = null;
+        $viewModel = null;
         $this->acl($jobEntity, 'edit');
         if ($status = $params->fromQuery('status')) {
             $this->changeStatus($jobEntity, $status);
@@ -220,11 +219,11 @@ class ManageController extends AbstractActionController
         $instanceForm       = null;
         $formErrorMessages = array();
 
-        if (isset($formIdentifier) &&  $request->isPost()) {
+        if (isset($formIdentifier) && $request->isPost()) {
             // at this point the form get instantiated and immediately accumulated
             $instanceForm = $form->getForm($formIdentifier);
             if (!isset($instanceForm)) {
-                throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
+                throw new \RuntimeException('No form found for "'.$formIdentifier.'"');
             }
             // the id may be part of the postData, but it never should be altered
             $postData = $request->getPost();
@@ -278,20 +277,20 @@ class ManageController extends AbstractActionController
             $jobValid = false;
             $errorMessage[] = $this->translator->translate('Accept the Terms');
         }
-        $result = $formEvents->trigger('ValidateJob', $this, [ 'form' => $form ]);
+        $result = $formEvents->trigger('ValidateJob', $this, ['form' => $form]);
         foreach ($result as $messages) {
             if (!$messages) {
                 continue;
             }
             if (!is_array($messages)) {
-                $messages = [ $messages ];
+                $messages = [$messages];
             }
 
             $errorMessage = array_merge($errorMessage, $messages);
             $jobValid = false;
         }
 
-        $errorMessage = '<br />' . implode('<br />', $errorMessage);
+        $errorMessage = '<br />'.implode('<br />', $errorMessage);
         if ($isAjax) {
             if ($instanceForm instanceof SummaryForm) {
                 $instanceForm->setRenderMode(SummaryForm::RENDER_SUMMARY);
@@ -299,7 +298,7 @@ class ManageController extends AbstractActionController
             } else {
                 $viewHelper = 'form';
             }
-            $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
+            $viewHelperManager = $serviceLocator->get('ViewHelperManager');
             $content = $viewHelperManager->get($viewHelper)->__invoke($instanceForm);
             $viewModel = new JsonModel(
                 array(
@@ -322,7 +321,7 @@ class ManageController extends AbstractActionController
                     }
                 }
             } else {
-                $formEvents->trigger('DisableElements', $this, [ 'form' => $form, 'job'=>$jobEntity ]);
+                $formEvents->trigger('DisableElements', $this, ['form' => $form, 'job'=>$jobEntity]);
                 // Job is deployed, some changes are now disabled
                 $form->enableAll();
             }
@@ -330,7 +329,7 @@ class ManageController extends AbstractActionController
 
             $completionLink = $this->url()->fromRoute(
                 'lang/jobs/completion',
-                [ 'id' => $jobEntity->getId()]
+                ['id' => $jobEntity->getId()]
             );
 
             $viewModel = $this->getViewModel($form);
@@ -388,7 +387,7 @@ class ManageController extends AbstractActionController
 
     /**
      * @param  $job \Jobs\Entity\Job
-     * @return mixed
+     * @return \Jobs\Form\Job
      */
     protected function getFormular($job)
     {
@@ -411,7 +410,7 @@ class ManageController extends AbstractActionController
     }
 
     /**
-     * @param $form
+     * @param \Jobs\Form\Job $form
      * @param array $params
      * @return ViewModel
      */
@@ -501,7 +500,7 @@ class ManageController extends AbstractActionController
         // array with differences between the last snapshot and the actual entity
         // is remains Null if there is no snapshot
         // it will be an empty array if the snapshot and the actual entity do not differ
-        $diff           = null;
+        $diff = null;
 
 
         if ($params == 'declined') {
@@ -560,7 +559,7 @@ class ManageController extends AbstractActionController
      */
     public function deactivateAction()
     {
-        $user           = $this->auth->getUser();
+        $user = $this->auth->getUser();
 
         $jobEntity = $this->initializeJob()->get($this->params());
 
@@ -604,7 +603,7 @@ class ManageController extends AbstractActionController
     }
 
     /**
-     * @param $script
+     * @param string $script
      * @param array $parameter
      * @return ViewModel
      */

@@ -102,9 +102,9 @@ class Application extends AbstractRepository
     {
         $qb = $this->getPaginationQueryBuilder($params);
         $cursor = $qb->hydrate(false)
-                     ->select('_id')
-                     ->getQuery()
-                     ->execute();
+                        ->select('_id')
+                        ->getQuery()
+                        ->execute();
         
         $list = new PaginationList(array_keys(ArrayUtils::iteratorToArray($cursor)));
         return $list;
@@ -133,8 +133,8 @@ class Application extends AbstractRepository
     {
         $auth=$this->getService('AuthenticationService');
         $qb=$this->createQueryBuilder()
-                  ->field("readBy")->notIn(array($auth->getUser()->getId()))
-                  ->field("job")->equals(new \MongoId($job->getId()));
+                    ->field("readBy")->notIn(array($auth->getUser()->getId()))
+                    ->field("job")->equals(new \MongoId($job->getId()));
         return $qb->getQuery()->execute();
     }
 

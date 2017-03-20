@@ -105,7 +105,7 @@ class CommentController extends AbstractActionController
                     $application->getComments()->add($comment);
                     $application->changeStatus($application->getStatus(), sprintf(
                                     /* @translate */ 'Application was rated by %s',
-                                     $this->auth()->getUser()->getInfo()->getDisplayName())
+                                        $this->auth()->getUser()->getInfo()->getDisplayName())
                         );
                 }
                 $viewModel->setVariable('isSaved', true);

@@ -18,20 +18,20 @@ class Period extends AbstractHelper
      * returns the number of years of the education or work experience
      *
      * @param array $array
-     * @return string
+     * @return double
      */
     public function __invoke($array)
     {
         // calculate EndDate - StartDate = X Years.
         // eg. 4.2 Years
         
-        $days=0;
+        $days = 0;
         foreach ($array as $obj) {
             $date1 = new \DateTime($obj->getEndDate());
             $date2 = new \DateTime($obj->getStartDate());
             $interval = $date1->diff($date2);
-            $days+=abs($interval->format('%R%a'));
+            $days += abs($interval->format('%R%a'));
         }
-        return round($days/365, 1);
+        return round($days / 365, 1);
     }
 }
