@@ -44,19 +44,19 @@ class AbstractEntityTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Core\Entity\Exception\OutOfBoundsException
      */
-    public function testSettingInvalidAttributes(){
-        $this->markTestSkipped('must be revisited. https://github.com/cross-solution/YAWIK/issues/348');
+    public function testSettingInvalidAttributes()
+    {
         $input = "myValue";
-        $this->target->invalidAttribute=$input;
+        @$this->target->invalidAttribute=$input;
     }
 
     /**
      * @expectedException \Core\Entity\Exception\OutOfBoundsException
      */
-    public function testGettingInvalidAttributes(){
-        $this->markTestSkipped('must be revisited. https://github.com/cross-solution/YAWIK/issues/348');
+    public function testGettingInvalidAttributes()
+    {
         $input = "myValue";
-        $this->assertSame($this->target->invalidAttribute,$input);
+        $this->assertSame(@$this->target->invalidAttribute,$input);
     }
 }
 

@@ -128,7 +128,7 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
      */
     public function testOrganizationInterfaceMethodsReturnsExpectedValues($func, $args, $expected, $assertionType = 'same')
     {
-        $this->markTestSkipped('must be revisited. https://github.com/cross-solution/YAWIK/issues/348 ');
+        //$this->markTestSkipped('must be revisited. https://github.com/cross-solution/YAWIK/issues/348 ');
 
         $organization = new Organization();
         $rep = $this->getMockBuilder('\Organizations\Repository\Organization')
@@ -178,11 +178,6 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
         $workflowSettings->setAcceptApplicationByDepartmentManager(true);
 
         return [
-            [
-                ['__set', '__get', '__isset'],
-                [['id', '4321'], ['id'], ['id']],
-                ['__self__', '4321', true]
-            ],
             ['setHydrator', [$hydrator], '__self__'],
             ['getHydrator', [], '\Zend\Hydrator\HydratorInterface', 'instance'],
             [['setId', 'getId'], [['4321'], []], ['__self__', '4321']],
