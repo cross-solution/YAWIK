@@ -25,6 +25,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *                    "title"="text"},
  *              name="fulltext")
  * })
+ * @since 0.29 Adds html field.
  */
 class TemplateValues extends AbstractEntity implements TemplateValuesInterface
 {
@@ -76,6 +77,15 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * @ODM\Field(type="string")
      */
     protected $language='en';
+
+    /**
+     * Pure HTML
+     *
+     * @ODM\Field(type="string")
+     * @var string
+     * @since 0.29
+     */
+    protected $html='';
 
     /**
      * free values (currently not in use)
@@ -215,6 +225,30 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
     {
         return $this->language;
     }
+
+    /**
+     * @param string $html
+     *
+     * @return self
+     * @since 0.29
+     */
+    public function setHtml($html)
+    {
+        $this->html = $html;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     * @since 0.29
+     */
+    public function getHtml()
+    {
+        return $this->html;
+    }
+
+
 
     /**
      * @param null $key

@@ -170,6 +170,20 @@ class TemplateController extends AbstractActionController
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
+            $headScript->appendScript('
+                $(document).ready(function() {
+                    var submitTextarea = function($area, $form) {
+                        var bg = $area.css("background-color");
+                        $area.css("background-color", "lightgrey");
+                        $form.one("yk:forms:success yk:forms:fail", function() { $area.css("background-color", bg); }).submit();
+                    };
+
+                    $("textarea").blur(function(e) { var $area = $(e.target); submitTextarea($area, $area.parents("form")); })
+                                 .keydown(function(e) { if ((10 == e.keyCode || 13 == e.keyCode) && e.ctrlKey) {
+                                                var $area = $(e.target); submitTextarea($area, $area.parents("form"));
+                                          }});
+                });
+            ');
 
             $headStyle = $viewHelperManager->get('headstyle');
             $headStyle->prependStyle('form > input {

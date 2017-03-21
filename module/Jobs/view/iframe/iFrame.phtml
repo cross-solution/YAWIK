@@ -48,6 +48,11 @@ $lang = $this->params('lang');
                         <?php echo $this->translate("Modern")?>
                     </a>
                 </li>
+                <li>
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'html'))?>">
+                        <?php echo $this->translate("Pure HTML")?>
+                    </a>
+                </li>
 
                 <?php
                 $this->headScript()->appendFile($this->basePath('/Jobs/js/templates.js'));

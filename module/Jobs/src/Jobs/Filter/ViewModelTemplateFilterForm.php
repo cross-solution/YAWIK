@@ -49,6 +49,7 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
         $formLabelBenefits = $form->get('templateLabelBenefits');
         $formQualifications = $form->get('descriptionFormQualifications');
         $descriptionFormTitle = $form->get('descriptionFormTitle');
+        $descriptionFormHtml  = $form->get('descriptionFormHtml');
 
         $viewHelperForm = $this->getViewHelperForm();
 
@@ -61,6 +62,7 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
         $this->container['qualifications'] = $viewHelperForm->render($formQualifications);
         $this->container['title'] = $viewHelperForm->render($descriptionFormTitle);
         $this->container['headTitle'] = $job->getTemplateValues()->getTitle();
+        $this->container['html'] = $viewHelperForm->render($descriptionFormHtml);
 
         $this->container['jobId'] = $job->getId();
         $this->container['uriJob'] = $this->urlPlugin->fromRoute(

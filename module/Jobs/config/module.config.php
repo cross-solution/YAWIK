@@ -360,6 +360,7 @@ return array(
             'Jobs/TemplateLabelBenefits'        => 'Jobs\Form\TemplateLabelBenefits',
             'Jobs/JobDescriptionQualifications' => 'Jobs\Form\JobDescriptionQualifications',
             'Jobs/JobDescriptionTitle'          => 'Jobs\Form\JobDescriptionTitle',
+            'Jobs/JobDescriptionHtml'           => 'Jobs\Form\JobDescriptionHtml',
             'Jobs/Description/Template'         => 'Jobs\Form\JobDescriptionTemplate',
             'Jobs/Preview'                      => 'Jobs\Form\Preview',
             'Jobs/PreviewFieldset'              => 'Jobs\Form\PreviewFieldset',
