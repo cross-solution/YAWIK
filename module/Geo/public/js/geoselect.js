@@ -54,11 +54,15 @@
             minimumInputLength: 2,
 
             ajax: {
-                url: basePath + '/' + lang + '/' + $node.data('uri'),
+                url: basePath + '/',
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
-                    return { q: params.term };
+                    return {
+                        q: params.term,
+                        ajax: 'geo',
+                        lang: lang
+                    };
                 },
                 processResults: function(data, params) {
                     console.debug('results:', data);
