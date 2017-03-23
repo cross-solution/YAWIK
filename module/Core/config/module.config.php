@@ -209,6 +209,7 @@ return array(
             'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate::factory',
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
             'Core/Locale' => 'Core\I18n\LocaleFactory',
+            \Core\Listener\AjaxRouteListener::class => \Core\Factory\Listener\AjaxRouteListenerFactory::class,
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
@@ -480,6 +481,11 @@ return array(
 
         'Core/ViewSnippets/Events' => [
             'service' => 'Core/EventManager',
+        ],
+
+        'Core/Ajax/Events' => [
+            'service' => 'Core/EventManager',
+            'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
     ],
     

@@ -8,10 +8,9 @@
  */
   
 /** */
-namespace Geo\Factory\Form;
+namespace Geo\Factory\Listener;
 
-use Geo\Form\GeoSelect;
-use Geo\Form\GeoSelectHydratorStrategy;
+use Geo\Listener\AjaxQuery;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -22,35 +21,26 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
-class GeoSelectFactory implements FactoryInterface
+class AjaxQueryFactory implements FactoryInterface
 {
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var \Geo\Options\ModuleOptions $geoOptions */
-        $geoOptions = $container->get('Geo/Options');
-
-        $select = new GeoSelect();
-
-        //$select->setAttribute('data-type', $geoOptions->getPlugin());
-
         $client = $container->get('Geo/Client');
-        $strategy = new GeoSelectHydratorStrategy($client);
+        $listener = new AjaxQuery($client);
 
-        $select->setHydratorStrategy($strategy);
-
-        return $select;
+        return $listener;
     }
 
     /**
      * Create service
      *
-     * @param \Zend\ServiceManager\AbstractPluginManager|ServiceLocatorInterface $serviceLocator
+     * @param ServiceLocatorInterface $serviceLocator
      *
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), 'LocationSelect');
+        return $this($serviceLocator, AjaxQuery::class);
     }
 }

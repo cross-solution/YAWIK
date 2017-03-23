@@ -37,6 +37,7 @@ return [
     'service_manager' => [
         'factories' => [
             'Geo/Client' => 'Geo\Factory\Service\ClientFactory',
+            \Geo\Listener\AjaxQuery::class => \Geo\Factory\Listener\AjaxQueryFactory::class,
         ],
     ],
 
@@ -103,5 +104,11 @@ return [
             __DIR__ . '/../view',
         ),
     ),
+
+    'event_manager' => [
+        'Core/Ajax/Events' => ['listeners' => [
+            \Geo\Listener\AjaxQuery::class => ['geo', true],
+        ]]
+    ],
 
 ];
