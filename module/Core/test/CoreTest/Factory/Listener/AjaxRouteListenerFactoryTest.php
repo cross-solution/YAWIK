@@ -14,7 +14,7 @@ use Core\Factory\Listener\AjaxRouteListenerFactory;
 use Core\Listener\AjaxRouteListener;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\EventManager\EventManager;
+use Core\EventManager\EventManager;
 use Zend\ServiceManager\FactoryInterface;
 
 /**
