@@ -38,7 +38,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
     		<?=$this->translate('Active filters:')?>
             <?php foreach ($activeFacets as $facetName => $facetValues):?>
                 <?php foreach ($facetValues as $facetValue):?>
-                	<button type="button" class="btn btn-default btn-sm facet-active" data-name="params[<?=$this->escapeHtmlAttr($facetName)?>][<?=$this->escapeHtmlAttr($facetValue)?>]" title="<?=$this->translate('Remove filter')?>"><?=$facetValue?> <span>&times;</span></button>
+                	<button type="button" class="btn btn-default btn-sm facet-active" data-name="<?=$this->escapeHtmlAttr($facetName)?>[<?=$this->escapeHtmlAttr($facetValue)?>]" title="<?=$this->translate('Remove filter')?>"><?=$facetValue?> <span>&times;</span></button>
                 <?php endforeach;?>
             <?php endforeach;?>
         	<button type="button" class="btn btn-link facet-reset"><?=$this->translate('Remove all filters')?></button>
@@ -53,7 +53,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
                 <?php foreach ($facetValues as $facetValue => $facetValueCount):?>
                 	<div>
                     	<label>
-                    		<input type="checkbox" name="params[<?=$this->escapeHtmlAttr($facetName)?>][<?=$this->escapeHtmlAttr($facetValue)?>]" class="facet-checkbox"<?php if ($facets->isValueActive($facetName, $facetValue)):?> checked<?php endif;?>>
+                    		<input type="checkbox" name="<?=$this->escapeHtmlAttr($facetName)?>[<?=$this->escapeHtmlAttr($facetValue)?>]" class="facet-checkbox"<?php if ($facets->isValueActive($facetName, $facetValue)):?> checked<?php endif;?>>
                         	<?=$facetValue?> (<?=$facetValueCount?>)
                         </label>
                     </div>
