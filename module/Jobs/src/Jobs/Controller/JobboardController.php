@@ -96,12 +96,10 @@ class JobboardController extends AbstractActionController
                 'paginator' => ['as' => 'jobs', 'Jobs/Board']
             ]);
 
-        $params['by'] = "guest";
-
         $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
 
         $result['organizationImageCache'] = $organizationImageCache;
 
-        return $result;
+        return new ViewModel($result);
     }
 }
