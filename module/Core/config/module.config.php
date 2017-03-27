@@ -382,13 +382,15 @@ return array(
             'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
             'services' => 'Core\View\Helper\Services::factory',
             'insertFile' => 'Core\View\Helper\InsertFile::factory',
-            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class
+            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
+            \Core\View\Helper\Proxy::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
         ),
         'aliases' => [
             'snippet' => \Core\View\Helper\Snippet::class,
+            'proxy' => \Core\View\Helper\Proxy::class,
         ],
     ),
     
