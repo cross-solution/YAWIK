@@ -20,6 +20,7 @@ use Zend\View\Helper\AbstractHelper;
  */
 class HelperProxy 
 {
+
     /**#@+
      * Special expected result types.
      * @var string
@@ -47,26 +48,46 @@ class HelperProxy
     /**
      * Proxy invokation to the helper.
      *
+     * Note:
+     *      This will always return NULL.
+     *
      * @return mixed
      */
     public function __invoke()
     {
         $args = func_get_args();
 
-        return $this->call('__invoke', $args);
+        return $this->call('__invoke', $args, null);
     }
 
     /**
      * Proxy all methods calls to the helper.
      *
-     * @param $method
-     * @param $args
+     * Note:
+     *      The expected value is NULL.
      *
-     * @return self
+     *      You may specify an alternate expect value when prefixing
+     *      the method name with "call" and provide the expected value
+     *      as the last argument. (This is popped of the args array before
+     *      proxy to call(),)
+     *
+     *      e.g. callOriginalMethod(arg1, arg2, expectedValue)
+     *
+     * @param string $method
+     * @param array  $args
+     *
+     * @return null|mixed
      */
     public function __call($method, $args)
     {
-        return $this->call($method, $args);
+        if (0 === strpos($method, 'call')) {
+            $method = substr($method, 4);
+            $expect = array_pop($args);
+        } else {
+            $expect = null;
+        }
+
+        return $this->call($method, $args, $expect);
     }
 
     /**
@@ -211,4 +232,5 @@ class HelperProxy
 
         return $expect;
     }
+
 }

@@ -48,9 +48,8 @@ use Zend\View\Helper\AbstractHelper;
  *      //
  *      <?=$this->proxy('helper')->someOutput()?>
  *
- *      // If 'helper' does not exist, a ProxyNoopHelper is returned, which
- *      // simply returns NULL on any method call and whose string representation is
- *      // an empty string.
+ *      // Proxy view helper will return a {@link \Core\View\Helper\Proxy\HelperProxy} instance
+ *      // which will return null on every method call, if the helper does not exist.
  * <pre>
  *
  * Advanced usage:
@@ -138,7 +137,7 @@ class Proxy extends AbstractHelper
      * @param string $plugin
      * @param true|array  $options if true, only return if plugin exists or not.
      *
-     * @return bool|object
+     * @return bool|HelperProxy
      */
     public function plugin($plugin, $options = null)
     {
