@@ -34,22 +34,22 @@ $lang = $this->params('lang');
             <div id="template-links">
             <ul >
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id,'template'=>'default'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id,'template'=>'default'), $linkOptions)?>">
                         <?php echo $this->translate("Default")?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'classic'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'classic'), $linkOptions)?>">
                         <?php echo $this->translate("Classic")?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'modern'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'modern'), $linkOptions)?>">
                         <?php echo $this->translate("Modern")?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'html'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'html'), $linkOptions)?>">
                         <?php echo $this->translate("Pure HTML")?>
                     </a>
                 </li>
