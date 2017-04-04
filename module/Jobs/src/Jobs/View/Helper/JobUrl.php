@@ -6,6 +6,7 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 namespace Jobs\View\Helper;
@@ -86,9 +87,9 @@ class JobUrl extends AbstractHelper
                 'id' => $jobEntity->getId()
             ];
             $route = 'lang/jobs/view';
-            $params = [
+            $params = array_filter([
                 'lang' => $paramsHelper('lang'),
-            ];
+            ]);
             if ($paramsHelper('channel')) {
                 $params['channel'] = $paramsHelper('channel');
             }
