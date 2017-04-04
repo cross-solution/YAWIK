@@ -4,10 +4,9 @@ namespace Core\Repository;
 
 use Core\Entity\EntityInterface;
 use Doctrine\ODM\MongoDB as ODM;
-use Doctrine\ODM\MongoDB\DocumentRepository;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-abstract class AbstractRepository extends DocumentRepository implements RepositoryInterface
+abstract class AbstractRepository extends ODM\DocumentRepository implements RepositoryInterface
 {
 
     protected $entityPrototype;
