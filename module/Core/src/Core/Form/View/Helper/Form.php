@@ -110,7 +110,7 @@ class Form extends ZendForm
         $formContent = '';
     
         if ($form instanceof ViewPartialProviderInterface) {
-            return $renderer->partial($form->getViewPartial(), array('element' => $form));
+            return $renderer->partial($form->getViewPartial(), array_merge(['element' => $form], $parameter));
         }
 
         /* @var $element \Zend\Form\ElementInterface */

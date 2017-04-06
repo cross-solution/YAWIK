@@ -58,7 +58,13 @@ class JobUrl extends AbstractHelper
         return $this;
     }
 
-    public function __invoke(Job $jobEntity, $options = [])
+    /**
+     * @param Job $jobEntity
+     * @param array $options
+     * @param array $urlParams
+     * @return string
+     */
+    public function __invoke(Job $jobEntity, $options = [], $urlParams = [])
     {
 
         $options= array_merge($this->options, $options);
@@ -87,12 +93,13 @@ class JobUrl extends AbstractHelper
                 'id' => $jobEntity->getId()
             ];
             $route = 'lang/jobs/view';
-            $params = array_filter([
+            $params = [
                 'lang' => $paramsHelper('lang'),
-            ]);
+            ];
             if ($paramsHelper('channel')) {
                 $params['channel'] = $paramsHelper('channel');
             }
+            $params = array_merge($params, $urlParams);
             $url = $urlHelper($route, $params, array('query' => $query));
         }
 
