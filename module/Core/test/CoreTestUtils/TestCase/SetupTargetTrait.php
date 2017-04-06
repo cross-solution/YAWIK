@@ -179,7 +179,12 @@ trait SetupTargetTrait
             $spec['class'] = $spec[0];
         }
 
-        if (isset($spec['class']) && !class_exists($spec['class']) && !isset($spec['method'])) {
+        if (false === $spec['class']) {
+            $this->target = null;
+            return;
+        }
+
+        if (!class_exists($spec['class']) && !isset($spec['method'])) {
             $spec['method'] = $spec['class'];
         }
 
