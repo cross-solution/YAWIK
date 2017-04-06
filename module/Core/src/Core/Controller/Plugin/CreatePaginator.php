@@ -61,7 +61,7 @@ class CreatePaginator extends AbstractPlugin
      *
      * @param string $paginatorName
      * @param array  $defaultParams
-     * @param bool   $usePostParams if true, the POST parameters from the request are used.
+     * @param Parameters|bool   $params false: Use query parameters; true: use post parameters
      *
      * @return \Zend\Paginator\Paginator
      * @throws \InvalidArgumentException
@@ -69,6 +69,7 @@ class CreatePaginator extends AbstractPlugin
     public function __invoke($paginatorName, $defaultParams = array(), $params = false)
     {
         if (is_bool($defaultParams)) {
+            $params = $defaultParams;
             $defaultParams = array();
         }
 
@@ -120,6 +121,7 @@ class CreatePaginator extends AbstractPlugin
     /**
      * @param ControllerManager $controllerManager
      * @return CreatePaginator
+     * @codeCoverageIgnore
      */
     public static function factory(ControllerManager $controllerManager)
     {
