@@ -40,6 +40,7 @@ class HelperProxyTest extends \PHPUnit_Framework_TestCase
             'mock' => ['call'],
         ],
         '@testMagicCalls' => '@testInvokation',
+        '@testMagicCallsWithExpectValue' => '@testInvokation',
         '@testCallWithHelper' => false,
         '@testChain' => false,
         '@testConsecutive' => false,
@@ -52,16 +53,23 @@ class HelperProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokation()
     {
-        $this->target->expects($this->once())->method('call')->with('__invoke', ['arg'], HelperProxy::EXPECT_SELF);
+        $this->target->expects($this->once())->method('call')->with('__invoke', ['arg']);
 
         $this->target->__invoke('arg');
     }
 
     public function testMagicCalls()
     {
-        $this->target->expects($this->once())->method('call')->with('method', ['arg'], HelperProxy::EXPECT_SELF);
+        $this->target->expects($this->once())->method('call')->with('method', ['arg'], null);
 
         $this->target->__call('method', ['arg']);
+    }
+
+    public function testMagicCallsWithExpectValue()
+    {
+        $this->target->expects($this->once())->method('call')->with('Method', ['arg1', 'arg2'], 'expectedValue');
+
+        $this->target->callMethod('arg1', 'arg2', 'expectedValue');
     }
 
     public function provideCallTestData()
