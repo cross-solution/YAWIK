@@ -46,6 +46,7 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
             [ 'Test/Paginator', ['test' => 'value'], ['merged' => 'yes'], false, ['page' => 1, 'count' => 10, 'range' => 5] ],
             [ 'Test2/YetAnotherPager', ['page' => 2], [], true, ['page' => 2, 'count' => 10, 'range' => 5] ],
             [ 'Yet/Another', ['page' => 3, 'count' => 90, 'range' => 2], false, false, ['page' => 3, 'count' => 90, 'range' => 2] ],
+            [ 'Even/Another', ['test' => 'value'], [], new \ArrayObject(['test' => 'value']), ['page' => 1, 'count' => 10, 'range' => 5]],
         ];
     }
 
