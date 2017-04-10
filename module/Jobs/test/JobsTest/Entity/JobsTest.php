@@ -251,7 +251,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     public function provideSetGetStatusTestData()
     {
         return array(
-            array("CREATED",        Status::CREATED),
+            array(Status::CREATED,  Status::CREATED),
             array(Status::ACTIVE,   Status::ACTIVE),
             array(Status::EXPIRED,  Status::EXPIRED),
             array(Status::PUBLISH,  Status::PUBLISH),
