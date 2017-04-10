@@ -43,20 +43,20 @@ class StatusTest extends \PHPUnit_Framework_TestCase
      */
     public function testExtendsAbstractEntityAndImplementsStatusInterface()
     {
-        $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
+        $this->assertInstanceOf('\Core\Entity\Status\AbstractSortableStatus', $this->target);
         $this->assertInstanceOf('\Jobs\Entity\StatusInterface', $this->target);
     }
 
     public function provideCreatingInstancesTestData()
     {
         return array(
-            array("CREATED",              Status::CREATED               , 10),
-            array("WAITING_FOR_APPROVAL", Status::WAITING_FOR_APPROVAL  , 20),
-            array("REJECTED",             Status::REJECTED              , 30),
-            array("PUBLISH",              Status::PUBLISH               , 40),
-            array("ACTIVE",               Status::ACTIVE                , 50),
-            array("INACTIVE",             Status::INACTIVE              , 60),
-            array("EXPIRED",              Status::EXPIRED               , 70),
+            array(Status::CREATED,              Status::CREATED               , 10),
+            array(Status::WAITING_FOR_APPROVAL, Status::WAITING_FOR_APPROVAL  , 20),
+            array(Status::REJECTED,             Status::REJECTED              , 30),
+            array(Status::PUBLISH,              Status::PUBLISH               , 40),
+            array(Status::ACTIVE,               Status::ACTIVE                , 50),
+            array(Status::INACTIVE,             Status::INACTIVE              , 60),
+            array(Status::EXPIRED,              Status::EXPIRED               , 70),
         );
     }
 
@@ -82,8 +82,8 @@ class StatusTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox setMode() throws an exception if invalid mode is passed.
-     * @expectedException DomainException
-     * @expectedExceptionMessage Unknown status:
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid state name:
      */
     public function testStatusThrowsExceptionIfInvalidStatusPassed()
     {
@@ -92,13 +92,13 @@ class StatusTest extends \PHPUnit_Framework_TestCase
 
     public function testGetStates(){
         $expected = [
-            'created',
-            'waiting for approval',
-            'rejected',
-            'publish',
-            'active',
-            'inactive',
-            'expired'
+            Status::CREATED,
+            Status::WAITING_FOR_APPROVAL,
+            Status::REJECTED,
+            Status::PUBLISH,
+            Status::ACTIVE,
+            Status::INACTIVE,
+            Status::EXPIRED
         ];
         $this->assertEquals($expected,$this->target->getStates());
     }
