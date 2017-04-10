@@ -2,7 +2,7 @@
 <?php $this->headTitle($this->translate('Jobs'));
 
       $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
-                         ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
+                         ->appendFile($this->basePath('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js'))
                          ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
                          ->appendFile($this->basePath('Core/js/core.forms.js'))
                          ->appendFile($this->basePath('Core/js/core.spinnerbutton.js'))
@@ -111,6 +111,48 @@ $this->headScript()->captureStart() ?>
 
 })(jQuery, BootstrapDialog);
 
+(function($, Dialog) {
+
+    var $container, boxTitle, boxMessage, boxDeleteLabel, boxCancelLabel;
+
+    function linkClicked(e) //initDeleteLinks()
+    {
+
+            var $link = $(e.currentTarget);
+
+            var $box  = new Dialog.confirm({
+                title: boxTitle.replace(/%s/,$link.data('jobtitle')),
+                message: boxMessage,
+                type: Dialog.TYPE_DANGER,
+                size: Dialog.SIZE_SMALL,
+                btnOKLabel: boxDeleteLabel,
+                btnCancelLabel: boxCancelLabel,
+                callback: function(result) {
+                    if (result) {
+                        $.get($link.attr('href')).done(function() {
+                            $container.paginationContainer('reload');
+                        });
+                    }
+                }
+            });
+
+
+            return false;
+    }
+
+    $(function() {
+        var $tmpl = $('#delete-job-i18n');
+        boxTitle = $tmpl.data('title');
+        boxMessage = $tmpl.data('message');
+        boxDeleteLabel = $tmpl.data('delete');
+        boxCancelLabel = $tmpl.data('cancel');
+        $container = $('#jobs-list-container');
+
+        $container.on('click.job-delete', '.delete-link', linkClicked);
+    });
+
+})(jQuery, BootstrapDialog);
+
 <?php $this->headScript()->captureEnd();
       $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))
                        ->appendStylesheet($this->basePath('/css/select2.css'))?>
@@ -123,6 +165,13 @@ $this->headScript()->captureStart() ?>
         cursor: pointer;
     }
 </style>
+
+<span id="delete-job-i18n"
+      data-title="<?=$this->escapeHtmlAttr($this->translate('Delete job "%s"'))?>"
+      data-message="<?=$this->translate('Would you really like to delete this job?')?>"
+      data-delete="<?=$this->translate('Delete')?>"
+      data-cancel="<?=$this->translate('Cancel')?>"
+></span>
 
 <h1><?php echo $this->translate('Jobs') ?></h1>
 

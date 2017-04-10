@@ -85,6 +85,9 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
                     $snapshot = $this->services('repositories.Jobs/JobSnapshot')->findLatest($job->getId(), true);?>
                     <a href="<?php echo $this->url('lang/jobs/approval', array('action' => 'edit'), array('query' => array('snapshot' => $snapshot->getSnapshotId())), true) ?>" class="btn btn-success btn-xs"><span class="yk-icon fa-check"></span></a>
                 <?php endif ?>
+                <a data-jobtitle="<?=$job->getTitle()?>" href="<?=$this->ajaxUrl('jobs.delete', ['id' => $job->getId()])?>" class="delete-link btn btn-danger btn-xs" title="<?=$this->translate('Delete')?>">
+                    <i class="yk-icon yk-icon-delete"></i>
+                </a>
         </div></td>
 </tr>
 <?php endforeach?>

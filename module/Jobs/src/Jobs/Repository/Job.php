@@ -17,7 +17,9 @@ use Auth\Entity\UserInterface;
 use Core\Entity\Tree\EmbeddedLeafs;
 use Core\Repository\AbstractRepository;
 use Core\Repository\DoctrineMongoODM;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Query;
 use Jobs\Entity\Category;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\StatusInterface;
@@ -67,13 +69,11 @@ class Job extends AbstractRepository
      */
     public function findByAssignedPermissionsResourceId($resourceId)
     {
-        return $this->findBy(
-            array(
-            'permissions.assigned.' . $resourceId => array(
-                '$exists' => true
-            )
-            )
+        $criteria = $this->getIsDeletedCriteria(
+                ['permissions.assigned.' . $resourceId => [ '$exists' => true]]
         );
+
+        return $this->findBy($criteria);
     }
 
     /**
@@ -111,12 +111,12 @@ class Job extends AbstractRepository
             $user = $user->getId();
         }
 
-        $document = $this->findOneBy(
-            array(
+        $criteria = $this->getIsDeletedCriteria([
             'isDraft' => true,
-            'user' => $user
-            )
-        );
+            'user' => $user,
+        ]);
+
+        $document = $this->findOneBy($criteria);
 
         if (!empty($document)) {
             return $document;
@@ -141,9 +141,11 @@ class Job extends AbstractRepository
      */
     public function findByOrganization($organizationId)
     {
-        return $this->findBy([
-            'organization' => new \MongoId($organizationId)
+        $criteria = $this->getIsDeletedCriteria([
+            'organization' => new \MongoId($organizationId),
         ]);
+
+        return $this->findBy($criteria);
     }
 
     /**
@@ -207,5 +209,36 @@ class Job extends AbstractRepository
         }
     
         return $qb->getQuery()->execute();
+    }
+
+    /**
+     * Create a query builder instance.
+     *
+     * @param bool $isDeleted Value of the isDeleted flag. Pass "null" to ignore this field.
+     *
+     * @return Query\Builder
+     */
+    public function createQueryBuilder($isDeleted = false)
+    {
+        $qb =  parent::createQueryBuilder();
+
+        if (null !== $isDeleted) {
+            $qb->addAnd(
+               $qb->expr()->addOr($qb->expr()->field('isDeleted')->equals($isDeleted))
+                          ->addOr($qb->expr()->field('isDeleted')->exists(false))
+            );
+        }
+
+        return $qb;
+    }
+
+    private function getIsDeletedCriteria($criteria)
+    {
+        $criteria[] = ['$or' => [
+            ['isDeleted' => ['$exists' => false]],
+            ['isDeleted' => false],
+        ]];
+
+        return $criteria;
     }
 }

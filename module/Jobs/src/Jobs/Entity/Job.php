@@ -31,6 +31,10 @@ use Zend\I18n\Validator\DateTime;
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @since 0.29 add temporary isDeleted flag and corresponding delete() method.
  */
 class Job extends BaseEntity implements JobInterface,
                                         DraftableEntityInterface,
@@ -295,6 +299,19 @@ class Job extends BaseEntity implements JobInterface,
      * @since 0.29
      */
     protected $classifications;
+
+    /**
+     * Delete flag.
+     *
+     * @internal
+     *      This is meant as a temporary flag, until
+     *      SoftDelete is implemented.
+     *
+     * @ODM\Field(type="boolean")
+     * @var bool
+     * @since 0.29
+     */
+    protected $isDeleted = false;
 
     /**
      * @return string
@@ -1034,6 +1051,23 @@ class Job extends BaseEntity implements JobInterface,
         }
 
         return $this->classifications;
+    }
+
+    /**
+     * Mark this job as deleted.
+     *
+     * @internal
+     *      This is meant as temporary solution, until
+     *      SoftDelete is implemented.
+     *
+     * @return self
+     * @since 0.29
+     */
+    public function delete()
+    {
+        $this->isDeleted = true;
+
+        return $this;
     }
 
 
