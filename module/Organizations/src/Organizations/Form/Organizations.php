@@ -47,7 +47,7 @@ class Organizations extends Container
 
             'organizationLogo' => array(
                 'type' => 'Organizations/Image',
-                'property' => true,
+                'property' => 'images',
                 'use_files_array' => true,
             ),
 

@@ -14,6 +14,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\ImageSet;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\Collection;
@@ -89,6 +90,13 @@ class Organization extends BaseEntity implements
      */
     protected $image;
 
+    /**
+     *
+     *
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\ImageSet")
+     * @var Images
+     */
+    protected $images;
     /**
      * Flag indicating draft state of this job.
      *
@@ -537,6 +545,44 @@ class Organization extends BaseEntity implements
     {
         return $this->image;
     }
+
+    /**
+     * @param ImageSet $images
+     *
+     * @return self
+     */
+    public function setImages(ImageSet $images)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @return \Organizations\Entity\Images
+     */
+    public function getImages()
+    {
+        if (!$this->images) {
+            $this->images = new ImageSet();
+        }
+
+        return $this->images;
+    }
+
+    /**
+     *
+     *
+     * @return self
+     */
+    public function removeImages()
+    {
+        $this->images = null;
+
+        return $this;
+    }
+
+
 
     /**
      * Sets the Contact Data of an organization
