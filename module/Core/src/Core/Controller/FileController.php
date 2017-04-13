@@ -10,6 +10,7 @@
 /** FileController.php */
 namespace Core\Controller;
 
+use Core\Listener\Events\FileEvent;
 use Organizations\Entity\OrganizationImage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -48,7 +49,7 @@ class FileController extends AbstractActionController
         $fileStoreName = $this->params('filestore');
         list($module, $entityName) = explode('.', $fileStoreName);
         $response      = $this->getResponse();
-        
+
         try {
             $repository = $this->serviceLocator->get('repositories')->get($module . '/' . $entityName);
         } catch (\Exception $e) {
@@ -125,7 +126,17 @@ class FileController extends AbstractActionController
         }
         
         $this->acl($file, PermissionsInterface::PERMISSION_CHANGE);
-        $this->serviceLocator->get('repositories')->remove($file);
+
+
+        /* @var \Core\EventManager\EventManager $events */
+        $events = $this->serviceLocator->get('Core/File/Events');
+        $event = $events->getEvent(FileEvent::EVENT_DELETE, $this, ['file' => $file]);
+        $results = $events->triggerEventUntil(function($r) { return true === $r; }, $event);
+
+        if (true !== $results->last()) {
+            $this->serviceLocator->get('repositories')->remove($file);
+        }
+
         return new JsonModel(
             array(
             'result' => true

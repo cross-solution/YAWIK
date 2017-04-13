@@ -21,6 +21,7 @@ return [
 
     'options' => [
         'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
+        \Core\Options\ImagineOptions::class => [],
         ],
     
     'Core' => [
@@ -210,6 +211,8 @@ return [
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
             'Core/Locale' => 'Core\I18n\LocaleFactory',
             \Core\Listener\AjaxRouteListener::class => \Core\Factory\Listener\AjaxRouteListenerFactory::class,
+            \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
+            'Imagine' => \Core\Factory\Service\ImagineFactory::class,
         ],
         'abstract_factories' => [
             'Core\Log\LoggerAbstractFactory',
@@ -491,6 +494,13 @@ return [
             'service' => 'Core/EventManager',
             'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
+        'Core/File/Events' => [
+            'service' => 'Core/EventManager',
+            'event'   => \Core\Listener\Events\FileEvent::class,
+            'listeners' => [
+                \Core\Listener\DeleteImageSetListener::class => [\Core\Listener\Events\FileEvent::EVENT_DELETE, -1000],
+            ],
+        ]
     ],
     
 ];
