@@ -26,5 +26,6 @@ interface ImageInterface extends FileInterface
     public function setBelongsTo($imageSetId);
     public function belongsTo();
 
-
+    public function setKey($key);
+    public function getKey();
 }

@@ -10,6 +10,8 @@
 /** */
 namespace Core\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -19,7 +21,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
-class ImageSet implements EntityInterface
+class ImageSet implements ImageSetInterface
 {
     use EntityTrait;
 
@@ -30,54 +32,51 @@ class ImageSet implements EntityInterface
      */
     protected $id;
 
+    /**
+     *
+     * @ODM\ReferenceMany(discriminatorField="_entity", cascade="all", orphanRemoval=true)
+     * @var Collection
+     */
+    protected $images;
+
     public function __construct()
     {
         $this->id = new \MongoId();
     }
 
-    /**
-     *
-     * @ODM\ReferenceOne(discriminatorField="_entity", cascade="all", orphanRemoval=true)
-     * @var \Core\Entity\ImageInterface
-     */
-    protected $original;
+    public function __call($method, $args)
+    {
+        if (0 === strpos($method, 'get')) {
+            $key = lcfirst(substr($method, 3));
+            return $this->get($key);
+        }
 
-    /**
-     *
-     * @ODM\ReferenceOne(discriminatorField="_entity", cascade="all", orphanRemoval=true)
-     * @var \Core\Entity\ImageInterface
-     */
-    protected $large;
+        throw new \BadMethodCallException('Unknowm method "' . $method . '" in "' . get_class($this));
+    }
 
-    /**
-     *
-     * @ODM\ReferenceOne(discriminatorField="_entity", cascade="all", orphanRemoval=true)
-     * @var \Core\Entity\ImageInterface
-     */
-    protected $mid;
+    public function clear()
+    {
+        if ($this->images) {
+            $this->images->clear();
+        }
 
-    /**
-     *
-     * @ODM\ReferenceOne(discriminatorField="_entity", cascade="all", orphanRemoval=true)
-     * @var \Core\Entity\ImageInterface
-     */
-    protected $small;
+        return $this;
+    }
 
-    /**
-     *
-     * @ODM\ReferenceOne(discriminatorField="_entity", cascade="all", orphanRemoval=true)
-     * @var \Core\Entity\ImageInterface
-     */
-    protected $thumbnail;
+    public function setImagesCollection(Collection $images)
+    {
+        $this->clear();
+        $this->images = $images;
 
+        return $this;
+    }
 
     public function setImages(array $images, PermissionsInterface $permissions = null)
     {
+        $this->clear();
+
         foreach ($images as $prop => $image) {
-            if ($image) {
-                $image->setBelongsTo($this->id);
-                $this->$prop = $image;
-            }
+            $this->set($prop, $image, /* check */ false);
         }
 
         if ($permissions) {
@@ -87,74 +86,50 @@ class ImageSet implements EntityInterface
         return $this;
     }
 
-    /**
-     * @return \Core\Entity\ImageInterface
-     */
-    public function getOriginal()
+    protected function getImages()
     {
-        return $this->original;
+        if (!$this->images) {
+            $this->images = new ArrayCollection();
+        }
+
+        return $this->images;
     }
 
-    /**
-     * @return \Core\Entity\ImageInterface
-     */
-    public function getLarge()
+    public function get($key)
     {
-        return $this->large ?: $this->original;
+        foreach ($this->getImages() as $image) {
+            /* @var ImageInterface $image */
+            if ($key == $image->getKey()) {
+                return $image;
+            }
+        }
+
+        return null;
     }
 
-    /**
-     * @return \Core\Entity\ImageInterface
-     */
-    public function getMid()
+    public function set($key, ImageInterface $image, $check = true)
     {
-        return $this->mid ?: $this->original;
-    }
+        if ($check && ($img = $this->get($key))) {
+            $this->images->remove($img);
+        }
 
-    /**
-     * @return \Core\Entity\ImageInterface
-     */
-    public function getSmall()
-    {
-        return $this->small ?: $this->original;
-    }
+        $image->setBelongsTo($this->id);
+        $image->setKey($key);
 
-    /**
-     * @return \Core\Entity\ImageInterface
-     */
-    public function getThumbnail()
-    {
-        return $this->thumbnail;
-    }
-
-    public function remove($repository)
-    {
-        $this->loop(function($file) use ($repository) {
-            /* @var \Core\Repository\RepositoryInterface|\Core\Repository\RepositoryService $repository */
-            $repository->remove($file);
-        });
+        $this->images->add($image);
 
         return $this;
     }
 
+
     public function setPermissions(PermissionsInterface $permissions)
     {
-        $this->loop(function($file) use ($permissions) {
+        foreach ($this->getImages() as $file) {
             /* @var PermissionsInterface $filePermissions */
             /* @var \Core\Entity\FileInterface $file */
             $filePermissions = $file->getPermissions();
             $filePermissions->clear();
             $filePermissions->inherit($permissions);
-        });
-    }
-
-    private function loop(\Closure $function)
-    {
-        foreach (['original', 'large', 'mid', 'small', 'thumbnail'] as $prop) {
-            $file = $this->$prop;
-            if ($file) {
-                $function($file);
-            }
         }
     }
 }

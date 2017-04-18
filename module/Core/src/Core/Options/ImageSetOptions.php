@@ -10,7 +10,8 @@
 /** */
 namespace Core\Options;
 
-use Core\Entity\FileEntity;
+use Core\Entity\Image;
+use Core\Entity\ImageSetInterface;
 use Zend\Stdlib\AbstractOptions;
 
 /**
@@ -22,15 +23,11 @@ use Zend\Stdlib\AbstractOptions;
 class ImageSetOptions extends AbstractOptions
 {
 
-    protected $entityClass = FileEntity::class;
+    protected $entityClass = Image::class;
 
-    protected $thumbnailSize = [100, 100];
-
-    protected $largeSize = [1200, 1200];
-
-    protected $midSize = [600, 600];
-
-    protected $smallSize = [300, 300];
+    protected $images = [
+        ImageSetInterface::THUMBNAIL => [100,100],
+    ];
 
     /**
      * @param mixed $entityClass
@@ -53,13 +50,13 @@ class ImageSetOptions extends AbstractOptions
     }
 
     /**
-     * @param array $largeSize
+     * @param array $images
      *
      * @return self
      */
-    public function setLargeSize($largeSize)
+    public function setImages($images)
     {
-        $this->largeSize = $largeSize;
+        $this->images = $images;
 
         return $this;
     }
@@ -67,71 +64,8 @@ class ImageSetOptions extends AbstractOptions
     /**
      * @return array
      */
-    public function getLargeSize()
+    public function getImages()
     {
-        return $this->largeSize;
+        return $this->images;
     }
-
-    /**
-     * @param array $midSize
-     *
-     * @return self
-     */
-    public function setMidSize($midSize)
-    {
-        $this->midSize = $midSize;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMidSize()
-    {
-        return $this->midSize;
-    }
-
-    /**
-     * @param array $smallSize
-     *
-     * @return self
-     */
-    public function setSmallSize($smallSize)
-    {
-        $this->smallSize = $smallSize;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getSmallSize()
-    {
-        return $this->smallSize;
-    }
-
-    /**
-     * @param array $thumbnailSize
-     *
-     * @return self
-     */
-    public function setThumbnailSize($thumbnailSize)
-    {
-        $this->thumbnailSize = $thumbnailSize;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getThumbnailSize()
-    {
-        return $this->thumbnailSize;
-    }
-
-
-    
 }

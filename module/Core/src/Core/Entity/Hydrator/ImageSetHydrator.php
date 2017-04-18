@@ -11,6 +11,7 @@
 namespace Core\Entity\Hydrator;
 
 use Core\Entity\ImageSet;
+use Core\Entity\ImageSetInterface;
 use Core\Options\ImageSetOptions;
 use Doctrine\MongoDB\GridFSFile;
 use Imagine\Image\Box;
@@ -80,15 +81,19 @@ class ImageSetHydrator implements HydratorInterface
         $file  = $data['tmp_name'];
 
         $image = $this->imagine->open($file);
-        $thumbnailSize = $this->options->getThumbnailSize();
+        $imageSpecs = $this->options->getImages();
 
-        $images = [
-            'original'  => $this->createEntity($file, $data),
-            'thumbnail' => $this->createEntity($this->createImage($image, $this->options->getThumbnailSize()), $data, 'thumbnail-'),
-            'large'     => $this->createEntity($this->createImage($image, $this->options->getLargeSize()), $data, 'large-'),
-            'mid'       => $this->createEntity($this->createImage($image, $this->options->getMidSize()), $data, 'mid-'),
-            'small'     => $this->createEntity($this->createImage($image, $this->options->getSmallSize()), $data, 'small-'),
-        ];
+
+        $images = [ 'original' => $this->createEntity($file, $data) ];
+
+        foreach ($imageSpecs as $key => $size) {
+            $newImage = ImageSetInterface::THUMBNAIL == $key
+                ? $image->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
+                : $this->createImage($image, $size);
+
+            $entity   = $this->createEntity($newImage, $data, $key);
+            $images[$key] = $entity;
+        }
 
         $object->setImages($images);
 
@@ -134,7 +139,7 @@ class ImageSetHydrator implements HydratorInterface
 
         $entity
             ->setFile($file)
-            ->setName($prefix . $data['name'])
+            ->setName(($prefix ? "$prefix-" : '') . $data['name'])
             ->setType($data['type'])
         ;
 

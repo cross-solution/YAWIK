@@ -12,6 +12,7 @@ namespace Core\Listener;
 
 use Core\Entity\ImageInterface;
 use Core\Listener\Events\FileEvent;
+use Core\Repository\RepositoryService;
 
 /**
  * ${CARET}
@@ -22,9 +23,17 @@ use Core\Listener\Events\FileEvent;
 class DeleteImageSetListener 
 {
 
+    /**
+     * @var array
+     */
     private $config = [];
 
-    public function __construct($repositories, array $config = [])
+    /**
+     * @var RepositoryService
+     */
+    private $repositories;
+
+    public function __construct(RepositoryService $repositories, array $config = [])
     {
         $this->repositories = $repositories;
         $this->config = $config;
@@ -51,13 +60,9 @@ class DeleteImageSetListener
             return false;
         }
 
+        /* @var \Core\Entity\ImageSetInterface $imageSet */
         $imageSet = $entity->$getter();
-        $imageSet->remove($this->repositories);
-
-        $callback = [$entity, "remove$property"];
-        if (is_callable($callback)) {
-            call_user_func($callback);
-        }
+        $imageSet->clear();
 
         return true;
     }

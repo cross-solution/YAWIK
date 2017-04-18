@@ -27,6 +27,13 @@ trait ImageTrait
      */
     protected $belongsTo;
 
+    /**
+     *
+     * @ODM\Field
+     * @var string
+     */
+    protected $key;
+
     public function setBelongsTo($imageSetId)
     {
         $this->belongsTo = $imageSetId;
@@ -38,4 +45,26 @@ trait ImageTrait
     {
         return $this->belongsTo;
     }
+
+    /**
+     * @param string $key
+     *
+     * @return self
+     */
+    public function setKey($key)
+    {
+        $this->key = $key;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+
 }
