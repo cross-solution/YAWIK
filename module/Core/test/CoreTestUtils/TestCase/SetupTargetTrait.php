@@ -241,13 +241,9 @@ trait SetupTargetTrait
 
             $call = function($spec) {
                 $cb   = [$this, $spec[0]];
-                $args = isset($spec[1]) ? (array) $spec[1] : false;
+                $args = isset($spec[1]) ? (array) $spec[1] : [];
 
-                if ($args) {
-                    return call_user_func_array($cb, $args);
-                }
-
-                return $this->$cb();
+                return call_user_func_array($cb, $args);
             };
 
             $methods = [];
@@ -276,7 +272,7 @@ trait SetupTargetTrait
                         'return'  => isset($methodSpec['@return'])
                                      ? $call((array) $methodSpec['@return'])
                                      : (isset($methodSpec['return'])
-                                        ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
+                                        ? ('__self__' === $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
                                         : null
                                        ),
                     ];
