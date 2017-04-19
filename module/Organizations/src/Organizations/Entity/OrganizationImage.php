@@ -78,6 +78,8 @@ class OrganizationImage extends FileEntity implements ImageInterface, ResourceIn
      */
     public function preRemove()
     {
-        //$this->getOrganization()->setImage(null);
+        if ($org = $this->getOrganization()) {
+            $this->getOrganization()->setImage(null);
+        }
     }
 }
