@@ -16,13 +16,23 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * ${CARET}
+ * Factory for Imagine service.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class ImagineFactory implements FactoryInterface
 {
+    /**
+     *
+     *
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array              $options
+     *
+     * @return \Imagine\Image\ImagineInterface
+     * @throws \UnexpectedValueException
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $options = $container->get(ImagineOptions::class);
@@ -50,7 +60,7 @@ class ImagineFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return mixed
+     * @return \Imagine\Image\ImagineInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

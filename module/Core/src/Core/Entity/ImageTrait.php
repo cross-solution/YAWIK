@@ -13,14 +13,15 @@ namespace Core\Entity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * ${CARET}
+ * Implements \Core\Entity\ImageInterface
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 trait ImageTrait
 {
     /**
+     * Id of the image set.
      *
      * @ODM\Field(type="string")
      * @var string
@@ -28,12 +29,18 @@ trait ImageTrait
     protected $belongsTo;
 
     /**
+     * Key name in the set.
      *
      * @ODM\Field
      * @var string
      */
     protected $key;
 
+    /**
+     * @param string $imageSetId
+     *
+     * @return self
+     */
     public function setBelongsTo($imageSetId)
     {
         $this->belongsTo = $imageSetId;
@@ -41,6 +48,9 @@ trait ImageTrait
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function belongsTo()
     {
         return $this->belongsTo;
@@ -65,6 +75,4 @@ trait ImageTrait
     {
         return $this->key;
     }
-
-
 }

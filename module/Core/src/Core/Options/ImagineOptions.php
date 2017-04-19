@@ -10,13 +10,15 @@
 /** */
 namespace Core\Options;
 
+use Zend\Stdlib\AbstractOptions;
+
 /**
  * ${CARET}
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
-class ImagineOptions 
+class ImagineOptions extends AbstractOptions
 {
 
     const LIB_GD = 'Gd';

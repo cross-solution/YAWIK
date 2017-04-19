@@ -16,14 +16,22 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * ${CARET}
+ * Factory for \Core\Listener\DeleteImageSetListener
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class DeleteImageSetListenerFactory implements FactoryInterface
 {
-
+    /**
+     *
+     *
+     * @param ContainerInterface $container
+     * @param                    $requestedName
+     * @param array              $options
+     *
+     * @return DeleteImageSetListener
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $repositories = $container->get('repositories');
@@ -42,7 +50,7 @@ class DeleteImageSetListenerFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return mixed
+     * @return DeleteImageSetListener
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

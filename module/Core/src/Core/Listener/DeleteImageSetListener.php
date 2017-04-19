@@ -15,10 +15,10 @@ use Core\Listener\Events\FileEvent;
 use Core\Repository\RepositoryService;
 
 /**
- * ${CARET}
+ * Deletes/Clear image sets if one image of this set is deleted.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class DeleteImageSetListener 
 {
@@ -33,12 +33,21 @@ class DeleteImageSetListener
      */
     private $repositories;
 
+    /**
+     * @param RepositoryService $repositories
+     * @param array             $config
+     */
     public function __construct(RepositoryService $repositories, array $config = [])
     {
         $this->repositories = $repositories;
         $this->config = $config;
     }
 
+    /**
+     * @param FileEvent $event
+     *
+     * @return bool
+     */
     public function __invoke(FileEvent $event)
     {
         $file = $event->getFile();

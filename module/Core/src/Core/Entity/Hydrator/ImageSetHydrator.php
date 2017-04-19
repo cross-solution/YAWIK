@@ -20,22 +20,24 @@ use Imagine\Image\ImagineInterface;
 use Zend\Hydrator\HydratorInterface;
 
 /**
- * ${CARET}
- * 
+ * Hydrator for ImageSets.
+ *
+ * @see \Core\Entity\ImageSetInterface
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class ImageSetHydrator implements HydratorInterface
 {
 
     /**
-     *
+     * Imagine
      *
      * @var \Imagine\Image\ImagineInterface
      */
     protected $imagine;
 
     /**
+     * Options
      *
      * @var ImageSetOptions
      */
@@ -50,17 +52,17 @@ class ImageSetHydrator implements HydratorInterface
     /**
      * Extract values from an object
      *
-     * @param  object $object
+     * @param object $object
      *
      * @return array
      */
     public function extract($object)
     {
-        if (!$object instanceOf ImageSet || !($image = $object->getOriginal())) {
+        if (!$object instanceOf ImageSet || !($image = $object->get(ImageSetInterface::ORIGINAL))) {
             return [];
         }
 
-        return ['original' => $image->getId()];
+        return [$this->options->getFormElementName() => $image->getId()];
     }
 
     /**
@@ -84,15 +86,17 @@ class ImageSetHydrator implements HydratorInterface
         $imageSpecs = $this->options->getImages();
 
 
-        $images = [ 'original' => $this->createEntity($file, $data) ];
+        $images = [ ImageSetInterface::ORIGINAL => $this->createEntity($file, $data) ];
 
         foreach ($imageSpecs as $key => $size) {
             $newImage = ImageSetInterface::THUMBNAIL == $key
                 ? $image->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
                 : $this->createImage($image, $size);
 
-            $entity   = $this->createEntity($newImage, $data, $key);
-            $images[$key] = $entity;
+            if ($newImage) {
+                $entity   = $this->createEntity($newImage, $data, $key);
+                $images[$key] = $entity;
+            }
         }
 
         $object->setImages($images);
@@ -123,10 +127,9 @@ class ImageSetHydrator implements HydratorInterface
 
     private function createEntity($image, &$data, $prefix = '')
     {
-        if (is_null($image)) { return null; }
-        /* @var \Core\Entity\FileEntity $entity */
-        $entityClass = $this->options->getEntityClass();
-        $entity = new $entityClass();
+        /* @var \Core\Entity\ImageInterface $entity */
+        $entity = $this->options->getEntity();
+
 
         if (is_string($image)) {
             $file = $image;

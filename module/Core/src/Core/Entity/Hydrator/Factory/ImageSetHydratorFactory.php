@@ -18,14 +18,23 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * ${CARET}
+ * Factory for \Core\Entity\Hydrator\ImageSetHydrator
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class ImageSetHydratorFactory implements FactoryInterface
 {
 
+    /**
+     * Create service.
+     *
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array              $options
+     *
+     * @return ImageSetHydrator
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $imagine = $container->get('Imagine');
@@ -48,6 +57,11 @@ class ImageSetHydratorFactory implements FactoryInterface
     }
 
 
+    /**
+     * Get the options key to load the specific options.
+     *
+     * @return string
+     */
     protected function getOptionsName()
     {
         return ImageSetOptions::class;

@@ -11,10 +11,10 @@
 namespace Core\Entity;
 
 /**
- * ${CARET}
+ * An image.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class Image extends FileEntity implements ImageInterface
 {
