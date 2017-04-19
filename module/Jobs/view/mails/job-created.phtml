@@ -71,7 +71,7 @@ $job=$this->job; /* @var Jobs\Entity\Job $job */
                 <?= $channelData->getLabel() ?>,
 
         <?php endforeach; $priceFilter = $this->services('FilterManager.Jobs/ChannelPrices');
-                            $total = $priceFilter->filter($this->job->portals);?>
+                            $total = $priceFilter->filter($job->getPortals());?>
     </p>
     <table>
         <tr>
