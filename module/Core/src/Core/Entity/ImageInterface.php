@@ -10,22 +10,42 @@
 /** */
 namespace Core\Entity;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-
 /**
- * ${CARET}
- *
- *
- * @ODM\MappedSuperclass
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 interface ImageInterface extends FileInterface
 {
 
+    /**
+     * Set the id of the image set this image belongs to.
+     *
+     * @param string $imageSetId
+     *
+     * @return self
+     */
     public function setBelongsTo($imageSetId);
+
+    /**
+     * Get the id of the image set this image belongs to.
+     *
+     * @return string
+     */
     public function belongsTo();
 
+    /**
+     * Set image key.
+     *
+     * @param string $key
+     *
+     * @return self
+     */
     public function setKey($key);
+
+    /**
+     * Get image key.
+     *
+     * @return string
+     */
     public function getKey();
 }

@@ -16,18 +16,23 @@ use Zend\EventManager\Event;
 use Zend\EventManager\Exception;
 
 /**
- * ${CARET}
+ * File event.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class FileEvent extends Event
 {
+    /**#@+
+     * Event name.
+     *
+     * @var string
+     */
     const EVENT_DELETE = 'delete';
 
+    /**#@-*/
+
     /**
-     *
-     *
      * @var FileEntity
      */
     private $file;
