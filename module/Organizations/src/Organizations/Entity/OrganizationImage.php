@@ -10,6 +10,8 @@
 /** UserImage.php */
 namespace Organizations\Entity;
 
+use Core\Entity\ImageInterface;
+use Core\Entity\ImageTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Core\Entity\FileEntity;
@@ -20,8 +22,10 @@ use Core\Entity\FileEntity;
  * @ODM\HasLifecycleCallbacks()
  * @ODM\Document(collection="organizations.images", repositoryClass="Organizations\Repository\OrganizationImage")
  */
-class OrganizationImage extends FileEntity implements ResourceInterface
+class OrganizationImage extends FileEntity implements ImageInterface, ResourceInterface
 {
+    use ImageTrait;
+
     /**
      * Organization which belongs to the company logo
      *
@@ -74,6 +78,8 @@ class OrganizationImage extends FileEntity implements ResourceInterface
      */
     public function preRemove()
     {
-        $this->getOrganization()->setImage(null);
+        if ($org = $this->getOrganization()) {
+            $this->getOrganization()->setImage(null);
+        }
     }
 }

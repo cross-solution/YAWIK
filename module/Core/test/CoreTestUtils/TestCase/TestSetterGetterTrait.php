@@ -193,6 +193,10 @@ trait TestSetterGetterTrait
 
         if (isset($spec['@value'])) {
             $spec['value'] = InstanceCreator::fromSpec($spec['@value'], InstanceCreator::FORCE_INSTANTIATION);
+        } else if (isset($spec['value']) && is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
+            $spec['value'] = InstanceCreator::newClass($spec['value']);
+        } else if (isset($spec['value@'])) {
+            $spec['value'] = '@' . $spec['value@'];
         }
 
         /* Value could be 'null', so we need to use array_key_exists here. */
@@ -219,9 +223,7 @@ trait TestSetterGetterTrait
             $spec['default'] = '@' . $spec['default@'];
         }
 
-        if (is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
-            $spec['value'] = InstanceCreator::newClass($spec['value']);
-        }
+
 
         $this->_setterGetter_triggerHook('pre', $spec);
 
