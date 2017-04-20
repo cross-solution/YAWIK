@@ -66,7 +66,9 @@ class ImageSet implements ImageSetInterface
     {
         if (0 === strpos($method, 'get')) {
             $key = lcfirst(substr($method, 3));
-            return $this->get($key);
+            $fallback = count($args) ? $args[0] : true;
+
+            return $this->get($key, $fallback);
         }
 
         if (0 === strpos($method, 'set')) {
@@ -152,14 +154,15 @@ class ImageSet implements ImageSetInterface
      * Get an image
      *
      * If no image with the $key is found, the image with the key
-     * self::ORIGINAL is returned. Unless self::ORIGINAL is requested,
-     * in that case NULL is returned.
+     * self::ORIGINAL is returned. Unless self::ORIGINAL is requested
+     * or $fallback is false - in that case NULL is returned.
      *
      * @param string $key
+     * @param bool   $fallback true: Return ORIGINAL image, if not found.
      *
      * @return ImageInterface|null
      */
-    public function get($key)
+    public function get($key, $fallback = true)
     {
         foreach ($this->getImages() as $image) {
             /* @var ImageInterface $image */
@@ -168,7 +171,7 @@ class ImageSet implements ImageSetInterface
             }
         }
 
-        return self::ORIGINAL == $key ? null : $this->get(self::ORIGINAL);
+        return !$fallback || self::ORIGINAL == $key ? null : $this->get(self::ORIGINAL);
     }
 
     /**

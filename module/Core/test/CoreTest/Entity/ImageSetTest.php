@@ -30,9 +30,14 @@ class ImageSetTest extends \PHPUnit_Framework_TestCase
 {
     use TestInheritanceTrait;
 
+    /**
+     *
+     *
+     * @var array|ImageSet|\PHPUnit_Framework_MockObject_MockObject
+     */
     private $target = [
         ImageSet::class,
-        '@testCallProxiesToGet' => ['mock' => ['get' => ['count' => 1, 'with' => 'key', 'return' => true]]],
+        '@testCallProxiesToGet' => ['mock' => ['get']],
         '@testCallProxiesToSet' => ['mock' => ['set']],
         '@testSetImagesWithoutPermissions' => ['mock' => ['clear' => 1, 'set', 'setPermissions' => 0]],
         '@testSetImagesWithPermissions' => ['mock' => ['clear' => 1, 'set' => 0, 'setPermissions']],
@@ -67,7 +72,14 @@ class ImageSetTest extends \PHPUnit_Framework_TestCase
 
     public function testCallProxiesToGet()
     {
+        $this->target->expects($this->exactly(2))->method('get')
+            ->withConsecutive(
+                ['key', true],
+                ['key', false]
+            )->willReturn(true);
+
         $this->assertTrue($this->target->getKey());
+        $this->assertTrue($this->target->getKey(false));
     }
 
     public function testCallProxiesToSet()
@@ -142,10 +154,14 @@ class ImageSetTest extends \PHPUnit_Framework_TestCase
         $this->target->setImages([ImageSet::ORIGINAL => $image]);
 
         $this->assertSame($image, $this->target->get('key'));
+        $this->assertNull($this->target->get('key', false));
 
         $this->target->setImages(['key' => $image]);
 
         $this->assertSame($image, $this->target->get('key'));
+
+
+
     }
 
     /**
