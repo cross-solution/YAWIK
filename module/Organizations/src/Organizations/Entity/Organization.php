@@ -528,6 +528,7 @@ class Organization extends BaseEntity implements
      * @param OrganizationImage $image
      *
      * @return self
+     * @deprecated since 0.29; use $this->getImages()->set()
      */
     public function setImage(OrganizationImage $image = null)
     {
@@ -539,11 +540,21 @@ class Organization extends BaseEntity implements
     /**
      * Gets the Logo of an organization
      *
+     * @param string|bool $key Key of the image to get.
+     *                         If true: get Thumbnail
+     *                         If false: get Original
+     *
      * @return OrganizationImage
+     * @deprecated since 0.29; use $this->getImages()->get()
+     * @since 0.29 modified to return images from the image set for compatibility reasons
      */
-    public function getImage()
+    public function getImage($key = ImageSet::ORIGINAL)
     {
-        return $this->image;
+        if (is_bool($key)) {
+            $key = $key ? ImageSet::THUMBNAIL : ImageSet::ORIGINAL;
+        }
+
+        return $this->getImages()->get($key, false) ?: $this->image;
     }
 
     /**
@@ -559,7 +570,7 @@ class Organization extends BaseEntity implements
     }
 
     /**
-     * @return \Organizations\Entity\Images
+     * @return ImageSet
      */
     public function getImages()
     {
