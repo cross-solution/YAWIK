@@ -196,12 +196,15 @@ class ApplyController extends AbstractActionController
         
         $form->setParam('applicationId', $application->getId());
 
+        $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
+
         $model = new ViewModel(
-            array(
+            [
             'form' => $form,
             'isApplicationValid' => $this->checkApplication($application),
             'application' => $application,
-            )
+            'organizationImageCache' =>  $organizationImageCache
+            ]
         );
         $model->setTemplate('applications/apply/index');
         return $model;

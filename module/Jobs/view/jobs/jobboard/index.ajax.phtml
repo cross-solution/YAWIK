@@ -80,7 +80,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
         <td>
             <?php if ($job->getOrganization() && $job->getOrganization()->getImage() &&  $job->getOrganization()->getOrganizationName()): ?>
                 <div class="yk-logo-list">
-                    <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($job->getOrganization()->getImage())) ?>">
+                    <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($job->getOrganization()->getImage(true))) ?>">
                 </div>
             <?php endif ?>
             <?=$this->jobUrl($job, [ 'target' => '_new' ]) ?>

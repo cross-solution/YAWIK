@@ -42,7 +42,8 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     /**
      * creating absolute links like the apply-link
      * absolute links are needed on the server of the provider
-     * @var
+     *
+     * @var $urlPlugin \Zend\Mvc\Controller\Plugin\Url
      */
     protected $urlPlugin;
 
@@ -53,9 +54,14 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     protected $basePathHelper;
 
     /**
-     * @var
+     * @var $serverUrlHelper \Zend\View\Helper\ServiceUrl
      */
     protected $serverUrlHelper;
+
+    /**
+     * @var $imageFileCacheHelper \Organizations\ImageFileCache\Manager
+     */
+    protected $imageFileCacheHelper;
 
     /**
      * @param $config
@@ -76,7 +82,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
-     * @param $basePathHelper
+     * @param $basePathHelper \Zend\View\Helper\Basepath
      */
     public function setBasePathHelper($basePathHelper)
     {
@@ -107,6 +113,23 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     public function getServerUrlHelper()
     {
         return $this->serverUrlHelper;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setImageFileCacheHelper($imageFileCacheHelper)
+    {
+        $this->imageFileCacheHelper=$imageFileCacheHelper;
+        return;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFileCacheHelper()
+    {
+        return $this->imageFileCacheHelper;
     }
 
     /**
@@ -250,7 +273,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         $this->container['fax'] = $organizationFax;
 
         if (is_object($organization) && is_object($organization->getImage()) && $organization->getImage()->getUri()) {
-            $this->container['uriLogo'] = $this->makeAbsolutePath($organization->getImage()->getUri());
+            $this->container['uriLogo'] = $this->basePathHelper->__invoke($this->imageFileCacheHelper->getUri($organization->getImage(true)));
         } else {
             $this->container['uriLogo'] = $this->makeAbsolutePath($this->config->default_logo);
         }

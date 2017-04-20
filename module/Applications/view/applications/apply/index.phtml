@@ -11,21 +11,8 @@ $this->headTitle($this->translate('Apply'));
 
 $job = $this->application->getJob(); /* @var Jobs\Entity\Job $job */
 
-// @TODO own viewhelper
-// does serverUrl do the right thing ? basePath und url don't
-function getImageRef($url, $self) {
-    if (preg_match('/^https?:\/\//',$url)) {
-        // pass
-    }
-    else {
-        $url = $self->basePath('/' . ltrim($url, '/'));
-        $url = $self->serverUrl($url);
-    }
-    return $url;
-}
-
 ?>
-<h1><?php echo $this->translate('Application')?></h1>
+<h1><?= $this->translate('Application')?></h1>
     <div class="row">
         <div class="col-md-8">
             <p class="lead">
@@ -37,9 +24,11 @@ function getImageRef($url, $self) {
             </p>
         </div>
         <div class="col-md-4">
-            <?php if ($job->getLogoRef()):?>
-                <img src="<?php echo getImageRef($job->getLogoRef(), $this) ?>">
-            <?php endif;?>
+            <?php if ($job->getOrganization() && $job->getOrganization()->getImages()->getThumbnail() &&  $job->getOrganization()->getOrganizationName()): ?>
+                <div>
+                    <img src="<?=$this->basePath($this->organizationImageCache->getUri($job->getOrganization()->getImages()->getThumbnail())) ?>">
+                </div>
+            <?php endif ?>
         </div>
     </div>
     <?php
@@ -57,12 +46,12 @@ function getImageRef($url, $self) {
 
 ?>
 <div class="alert alert-success">
-    <p><?php echo $this->translate('your application was sent successfully') ?></p>
+    <p><?=$this->translate('your application was sent successfully') ?></p>
 </div>
 <div class="alert alert-info">
     <?php if ($this->auth()->isLoggedIn()):?>
     <p>
-        <?php echo sprintf(
+        <?=sprintf(
             $this->translate('The application was added to your %slist%s, so you can keep up-to-date with the process.'),
             '<a class="alert-link" href="' . $this->url('lang/applications', array(), true) . '">',
             '</a>'
@@ -70,12 +59,16 @@ function getImageRef($url, $self) {
     </p>
     <?php else: ?>
     <p>
-        <?php echo $this->translate('Keep up-to-date with the process of your application by bookmarking this link:')?>
+        <?=$this->translate('Keep up-to-date with the process of your application by bookmarking this link:')?>
     </p>
     <p>
         <?php 
-            $href = $this->url('lang/applications/detail', array('id' => $this->application->getId()), array('force_canonical' => true), true)
-                  . '?token=' . $this->auth('token');
+            $href = $this->url(
+                    'lang/applications/detail',
+                    ['id' => $this->application->getId()],
+                    ['force_canonical' => true],
+                    true
+                ) . '?token=' . $this->auth('token');
             
             echo $this->link($href, array('class' => 'alert-link'));
         ?>
@@ -95,9 +88,9 @@ if ('recruiter-preview' == $this->application->getId()) {
     ?>
 
     <?php $this->alert()->info(array('dismissable' => false)) ?>
-    <h4><?php echo $this->translate('This is a preview of the application form for your job') ?></h4>
-    <p><?php echo $this->translate('You may expand any section and check the available fields, but you can not save anything.') ?></p>
-    <?php echo $this->alert()->end();
+    <h4><?=$this->translate('This is a preview of the application form for your job') ?></h4>
+    <p><?=$this->translate('You may expand any section and check the available fields, but you can not save anything.') ?></p>
+    <?=$this->alert()->end();
 
 } else { echo $this->partial('applications/apply/_buttons',
                     array('application' => $this->application)

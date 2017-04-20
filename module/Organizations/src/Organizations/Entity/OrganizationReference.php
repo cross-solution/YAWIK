@@ -285,6 +285,16 @@ class OrganizationReference implements
         return $this->proxy('getImage');
     }
 
+    public function getImages()
+    {
+        return $this->proxy('getImages');
+    }
+
+    public function setImages(\Core\Entity\ImageSet $images)
+    {
+        return $this->proxy('setImages',$images);
+    }
+
     public function setOrganizationName(OrganizationName $organizationNames)
     {
         return $this->proxy('setOrganizationName', $organizationNames);

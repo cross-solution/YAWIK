@@ -63,7 +63,9 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         $viewManager = $this->service->get('viewHelperManager');
         $basePathHelper = $viewManager->get('basePath');
         $serverUrlHelper = $viewManager->get('serverUrl');
+        $imageFileCacheHelper = $this->service->get('Organizations\ImageFileCache\Manager');
         $filter->setBasePathHelper($basePathHelper);
+        $filter->setImageFileCacheHelper($imageFileCacheHelper);
         $filter->setServerUrlHelper($serverUrlHelper);
 
         $urlPlugin = $this->service->get('controllerPluginManager')->get('url');
