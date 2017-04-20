@@ -24,7 +24,7 @@ $info = $user->getInfo();
         : 'Sehr geehrte Frau' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
 
 <p>
-    Ihre Stellenanzeige "<?php echo $job->getTitle() ?>" mit der Referenz <?php echo $job->getReference() ?>.
+    Ihre Stellenanzeige "<?= $job->getTitle() ?>" mit der Referenz <?= $job->getReference() ?>.
     wurde freigeschaltet.
 </p>
 

@@ -234,10 +234,10 @@ class Job extends AbstractRepository
 
     private function getIsDeletedCriteria($criteria)
     {
-        $criteria[] = ['$or' => [
+        $criteria['$or'] = [
             ['isDeleted' => ['$exists' => false]],
             ['isDeleted' => false],
-        ]];
+        ];
 
         return $criteria;
     }

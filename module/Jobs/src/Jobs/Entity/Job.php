@@ -9,14 +9,11 @@
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
-use Core\Entity\ClonableEntityInterface;
 use Core\Entity\ClonePropertiesTrait;
 use Core\Entity\AttachableEntityTrait;
 use Core\Entity\EntityInterface;
-use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\MetaDataProviderTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
@@ -31,6 +28,10 @@ use Zend\I18n\Validator\DateTime;
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
+ * @ODM\Indexes({
+ *     @ODM\Index(keys={"datePublishStart.date"="asc"})
+ * })
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
