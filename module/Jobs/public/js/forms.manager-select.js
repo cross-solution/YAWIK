@@ -21,7 +21,7 @@
 
         var orgId = $organizationSelect.val();
 
-        $.get('/' + basePath + '?ajax=jobs.manager-select&lang=' + lang + '&organization=' + orgId)
+        $.get('?ajax=jobs.manager-select&lang=' + lang + '&organization=' + orgId)
             .done(function(data) {
                 if (data.managers) {
                     console.debug(data.managers);
