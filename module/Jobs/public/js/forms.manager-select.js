@@ -16,7 +16,6 @@
 
     function loadOptions(ev)
     {
-        alert('loaing');
         $select[0].selectedIndex = -1;
         $select.trigger('change');
 
@@ -45,7 +44,6 @@
     }
 
     $(function() {
-        alert('juhu');
         $select = $('select.manager-select');
         $('<input type="hidden" name="' + $select.attr('name').slice(0,-2) + '" value="__empty__">').insertBefore($select);
         $organizationSelect = $select.parents('form').find('select[data-element="' + $select.data('organization-element') + '"]');
