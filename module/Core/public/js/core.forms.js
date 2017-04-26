@@ -145,6 +145,7 @@
 			});
 			console.debug($select, options);
 			$select.select2(options);
+            $select.trigger('yk:forms:initSelect');
 		},
 
         initWizardContainer: function()

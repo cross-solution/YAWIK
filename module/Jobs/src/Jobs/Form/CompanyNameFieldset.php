@@ -10,6 +10,12 @@
 
 namespace Jobs\Form;
 
+use Core\Form\HeadscriptProviderInterface;
+use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ViewPartialProviderTrait;
+use Jobs\Entity\JobInterface;
+use Organizations\Entity\EmployeeInterface;
+use string;
 use Zend\Form\Fieldset;
 
 /**
@@ -17,27 +23,69 @@ use Zend\Form\Fieldset;
  *
  * @package Jobs\Form
  */
-class CompanyNameFieldset extends Fieldset
+class CompanyNameFieldset extends Fieldset implements HeadscriptProviderInterface, ViewPartialProviderInterface
 {
+    use ViewPartialProviderTrait;
+
+    private $defaultPartial = 'jobs/form/company-name-fieldset';
+    /**
+     *
+     *
+     * @var array
+     */
+    protected $headscripts = [ 'Jobs/js/forms.manager-select.js' ];
+
+    public function setHeadscripts(array $scripts)
+    {
+        $this->headscripts = $scripts;
+
+        return $this;
+    }
+
+    public function getHeadscripts()
+    {
+        return $this->headscripts;
+    }
+
+
     public function init()
     {
         $this->setAttribute('id', 'jobcompanyname-fieldset');
         $this->setName('jobCompanyName');
 
         $this->add(
-            array(
+            [
                 'type' => 'Jobs/HiringOrganizationSelect',
                 'property' => true,
                 'name' => 'companyId',
-                'options' => array(
+                'options' => [
                     'label' => /*@translate*/ 'Companyname',
-                ),
-                'attributes' => array(
+                ],
+                'attributes' => [
                     'data-placeholder' => /*@translate*/ 'Select hiring organization',
                     'data-allowclear'  => 'false',
                     'data-width' => '100%'
-                ),
-            )
+                ],
+            ]
         );
+
+        $this->add([
+                'type' => 'Jobs/ManagerSelect',
+                'property' => true,
+                'name' => 'managers',
+                'options' => [
+                    'label' => /*@translate*/ 'Choose Managers',
+                ],
+                'attributes' => [
+                    'data-allowclear'  => true,
+                    'data-width' => '100%',
+                    'multiple' => true,
+                    'class' => 'manager-select',
+                    'data-organization-element' => 'organization-select',
+                ],
+
+            ]);
     }
+
+
 }

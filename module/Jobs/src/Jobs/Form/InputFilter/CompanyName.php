@@ -21,5 +21,10 @@ class CompanyName extends InputFilter
                 'required' => true,
             ]
         );
+
+        $this->add([
+                'name' => 'managers',
+                'required' => false,
+            ]);
     }
 }
