@@ -221,6 +221,7 @@ return [
             'Jobs\Auth\Dependency\ListListener'           => 'Jobs\Factory\Auth\Dependency\ListListenerFactory',
             'Jobs/DefaultCategoriesBuilder'              => 'Jobs\Factory\Repository\DefaultCategoriesBuilderFactory',
             \Jobs\Listener\DeleteJob::class               => \Jobs\Factory\Listener\DeleteJobFactory::class,
+            \Jobs\Listener\GetOrganizationManagers::class => \Jobs\Factory\Listener\GetOrganizationManagersFactory::class,
 
         ],
         'shared' => [
@@ -228,6 +229,7 @@ return [
             'Jobs/Options/Channel' => false,
         ]
     ],
+
 
     'event_manager' => [
         'Core/AdminController/Events' => [ 'listeners' => [
@@ -251,6 +253,7 @@ return [
         ],
         'Core/Ajax/Events' => ['listeners' => [
             \Jobs\Listener\DeleteJob::class => ['jobs.delete', true],
+            \Jobs\Listener\GetOrganizationManagers::class => ['jobs.manager-select', true],
         ]],
     ],
 
@@ -303,6 +306,7 @@ return [
             'jobs/form/multiposting-checkboxes' => __DIR__ . '/../view/form/multiposting-checkboxes.phtml',
             'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
             'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
+            'jobs/form/company-name-fieldset' => __DIR__ . '/../view/form/company-name-fieldset.phtml',
             'jobs/form/preview' => __DIR__ . '/../view/form/preview.phtml',
             'jobs/form/customer-note' => __DIR__ . '/../view/form/customer-note.phtml',
             'jobs/partials/channel-list' => __DIR__ . '/../view/partials/channel-list.phtml',
@@ -390,6 +394,7 @@ return [
             'Jobs/ClassificationsFieldset'      => 'Jobs\Form\ClassificationsFieldset',
             'Jobs/CustomerNote'                 => 'Jobs\Form\CustomerNote',
             'Jobs/CustomerNoteFieldset'         => 'Jobs\Form\CustomerNoteFieldset',
+            'Jobs/ManagerSelect'                => 'Jobs\Form\Element\ManagerSelect',
 
         ],
         'factories' => [
