@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-08 23:14+0100\n"
+"POT-Creation-Date: 2017-04-27 19:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/content/imprint.phtml:19 view/layout/layout.phtml:126
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:124
 msgid "Imprint"
 msgstr ""
 
@@ -37,19 +37,19 @@ msgstr ""
 msgid "First"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:43
-#: view/partial/pagination-control.phtml:47
+#: view/partial/pagination-control.phtml:41
+#: view/partial/pagination-control.phtml:45
 msgid "Back"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:76
-#: view/partial/pagination-control.phtml:80
+#: view/partial/pagination-control.phtml:73
+#: view/partial/pagination-control.phtml:77
 #: src/Core/Form/View/Helper/FormWizardContainer.php:103
 msgid "Next"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:85
-#: view/partial/pagination-control.phtml:92
+#: view/partial/pagination-control.phtml:82
+#: view/partial/pagination-control.phtml:89
 msgid "Last"
 msgstr ""
 
@@ -212,15 +212,15 @@ msgid ""
 "JavaScript is required to use this site. Please enable JavaScript and reload."
 msgstr ""
 
-#: view/layout/layout.phtml:40
+#: view/layout/layout.phtml:42
 msgid "YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:93
+#: view/layout/layout.phtml:91
 msgid "Help to translate YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:125
+#: view/layout/layout.phtml:123
 msgid "All rights reserved."
 msgstr ""
 

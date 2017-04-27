@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Cv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 11:08+0100\n"
+"POT-Creation-Date: 2017-04-27 19:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,44 +81,44 @@ msgstr ""
 msgid "resume state"
 msgstr ""
 
-#: view/cv/view/index.phtml:144
+#: view/cv/view/index.phtml:142
 msgid "last modification date"
 msgstr ""
 
-#: view/cv/view/index.phtml:164 view/cv/index/index.ajax.phtml:21
+#: view/cv/view/index.phtml:159 view/cv/index/index.ajax.phtml:21
 msgid "work experience"
 msgstr ""
 
-#: view/cv/view/index.phtml:169 view/cv/view/index.phtml:199
+#: view/cv/view/index.phtml:164 view/cv/view/index.phtml:194
 msgid "Start"
 msgstr ""
 
-#: view/cv/view/index.phtml:170 view/cv/view/index.phtml:200
+#: view/cv/view/index.phtml:165 view/cv/view/index.phtml:195
 msgid "End"
 msgstr ""
 
-#: view/cv/view/index.phtml:171
+#: view/cv/view/index.phtml:166
 msgid "Company"
 msgstr ""
 
-#: view/cv/view/index.phtml:172 view/cv/view/index.phtml:202
+#: view/cv/view/index.phtml:167 view/cv/view/index.phtml:197
 #: language/_annotated_strings.php:36 language/_annotated_strings.php:60
 msgid "Description"
 msgstr ""
 
-#: view/cv/view/index.phtml:195
+#: view/cv/view/index.phtml:190
 msgid "education and training"
 msgstr ""
 
-#: view/cv/view/index.phtml:201
+#: view/cv/view/index.phtml:196
 msgid "University"
 msgstr ""
 
-#: view/cv/view/index.phtml:219
+#: view/cv/view/index.phtml:214
 msgid "personal skills"
 msgstr ""
 
-#: view/cv/view/index.phtml:221
+#: view/cv/view/index.phtml:216
 msgid "native language"
 msgstr ""
 

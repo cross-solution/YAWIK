@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-08 23:14+0100\n"
-"PO-Revision-Date: 2017-02-08 22:31+0000\n"
+"POT-Creation-Date: 2017-04-27 19:26+0200\n"
+"PO-Revision-Date: 2017-04-27 17:34+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -199,7 +199,7 @@ msgstr "\"%s\" bearbeiten"
 
 #: view/auth/index/login-info.phtml:65
 msgid "Clear switched user"
-msgstr ""
+msgstr "Geänderte Identität beenden"
 
 #: view/auth/index/login-info.phtml:70 view/auth/index/login-info.phtml:186
 msgid "Switch user"
@@ -558,7 +558,3 @@ msgstr "Benutzer"
 #: language/_annotated_strings.php:219
 msgid "recruiter"
 msgstr "Personaler"
-
-#: language/_annotated_strings.php:225
-msgid "Data"
-msgstr "Daten"

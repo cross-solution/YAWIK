@@ -59,25 +59,25 @@ translate('Excellent');
 //: ./src/Core/Form/Element/Phone.php:26
 translate('Please enter a phone Number. You can use the intenational format. Only digits and \'+\'.');
 
-//: ./src/Core/Form/FileUploadFactory.php:137
+//: ./src/Core/Form/FileUploadFactory.php:144
 translate('Remove all');
 
 //: ./src/Core/Form/CollectionContainer.php:229
 translate('Remove');
 
-//: ./src/Core/Form/SearchForm.php:136
+//: ./src/Core/Form/SearchForm.php:140
 translate('q');
 
-//: ./src/Core/Form/SearchForm.php:137
+//: ./src/Core/Form/SearchForm.php:141
 translate('Search');
 
-//: ./src/Core/Form/SearchForm.php:138
+//: ./src/Core/Form/SearchForm.php:142
 translate('Search query');
 
-//: ./src/Core/Form/SearchForm.php:144
+//: ./src/Core/Form/SearchForm.php:148
 translate('Search', -1000, 'submit');
 
-//: ./src/Core/Form/SearchForm.php:145
+//: ./src/Core/Form/SearchForm.php:149
 translate('Clear', -1001, 'reset');
 
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:33
@@ -116,12 +116,12 @@ translate('choose your timzone');
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:67
 translate('defines your local timezone.');
 
-//: ./config/module.config.php:29
+//: ./config/module.config.php:30
 translate('general settings');
 
-//: ./config/module.config.php:243
+//: ./config/module.config.php:257
 translate('Home');
 
-//: ./config/module.config.php:248
+//: ./config/module.config.php:262
 translate('Admin');
 
