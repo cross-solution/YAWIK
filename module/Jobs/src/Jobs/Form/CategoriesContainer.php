@@ -37,7 +37,27 @@ class CategoriesContainer extends WizardContainer
                         'property' => true,
                         'options' => [
                             'enable_descriptions' => true,
-                            'description' => /*@translate*/ 'Manage the professions you want to assign to jobs.',
+                            'description' => /*@translate*/ 'Manage the professions you want to assign to jobs.' .
+                                             /*@translate*/ 'The order of categories can be modified by drag&drop.',
+                            'display_mode' => SummaryForm::DISPLAY_SUMMARY,
+                        ],
+                    ],
+                ],
+            ],
+            'industries' => [
+                'options' => [
+                    'label' => 'Industries',
+                ],
+                'entity' => 'industries',
+                'property' => true,
+                'forms' => [
+                    'industries' => [
+                        'type' => 'Core/Tree/Management',
+                        'property' => true,
+                        'options' => [
+                            'enable_descriptions' => true,
+                            'description' => /*@translate*/ 'Manage the industries you want to assign to jobs.' .
+                                             /*@translate*/ 'The order of categories can be modified by drag&drop.',
                             'display_mode' => SummaryForm::DISPLAY_SUMMARY,
                         ],
                     ],
@@ -55,7 +75,8 @@ class CategoriesContainer extends WizardContainer
                         'property' => true,
                         'options' => [
                             'enable_descriptions' => true,
-                            'description' => /*@translate*/ 'Manage the employment types you want to assign to jobs.',
+                            'description' => /*@translate*/ 'Manage the employment types you want to assign to jobs.'.
+                                             /*@translate*/ 'The order of categories can be modified by drag&drop.',
                             'display_mode' => SummaryForm::DISPLAY_SUMMARY,
                         ],
                     ],

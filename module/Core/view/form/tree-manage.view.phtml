@@ -12,7 +12,7 @@ $loop = function($tree) use (&$loop) {
 
     if ($tree->hasChildren()) {
         foreach ($tree->getChildren() as $child) {
-            echo '<ul><li>' . $child->getName() . '(' . $child->getValue() . ')</li>';
+            echo '<ul><li text="'. $child->getValue() .'">' . $child->getName() . '</li>';
             $loop($child);
             echo '</ul>';
         }
