@@ -15,26 +15,34 @@ use Organizations\Entity\EmployeeInterface;
 use Organizations\Repository\Organization as OrganizationRepository;
 
 /**
- * ${CARET}
+ * Gets list of department managers for job form manager select element.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.29
  */
 class GetOrganizationManagers 
 {
 
     /**
-     *
-     *
      * @var OrganizationRepository
      */
     private $repository;
 
+    /**
+     * @param OrganizationRepository $repository
+     */
     public function __construct(OrganizationRepository $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * Handle ajax event.
+     *
+     * @param AjaxEvent $event
+     *
+     * @return array
+     */
     public function __invoke(AjaxEvent $event)
     {
 
@@ -46,6 +54,10 @@ class GetOrganizationManagers
             return ['status' => 'fail', 'error' => $orgId ? 'no organization found.' : 'missing organization id'];
         }
 
+        if ($org->isHiringOrganization()) {
+            $org = $org->getParent();
+        }
+
         $workflowSettings = $org->getWorkflowSettings();
 
         if (!$workflowSettings->getAcceptApplicationByDepartmentManager()
@@ -54,7 +66,6 @@ class GetOrganizationManagers
             return ['status' => 'disabled'];
         }
 
-        $managers = [];
         foreach ($org->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER) as $employee) {
             /* @var EmployeeInterface $employee */
             $user = $employee->getUser();
