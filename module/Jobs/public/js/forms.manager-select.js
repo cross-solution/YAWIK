@@ -23,9 +23,10 @@
 
         $.get('?ajax=jobs.manager-select&lang=' + lang + '&organization=' + orgId)
             .done(function(data) {
-                if (data.managers) {
+                if (data.managers && data.managers.length) {
+                    $select.prop('disabled', false);
                     console.debug(data.managers);
-                    var html = '<option></option>';
+                    var html = '';
                     var selected = true === ev.data.init ? $select.data('initialvalue').split(',') : [];
                     $.each(data.managers, function(i, manager) {
                         html += '<option value="'
@@ -38,6 +39,8 @@
                     $select.html(html);
                     $select.parent().parent().slideDown();
                 } else {
+                    $select.html('');
+                    $select.prop('disabled', true);
                     $select.parent().parent().slideUp();
                 }
             });
