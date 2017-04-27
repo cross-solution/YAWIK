@@ -86,7 +86,7 @@ class EventApplicationCreated
                     $this->mailService->send(
                         'Applications/NewApplication',
                         [
-                            'job' => $job,
+                            'application' => $this->application,
                             'user' => $employee->getUser(),
                             'bcc' => $adminSettings->getMailBCC() ? [ $admin ] : null,
                         ]
