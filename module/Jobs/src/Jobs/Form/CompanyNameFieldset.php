@@ -74,6 +74,7 @@ class CompanyNameFieldset extends Fieldset implements HeadscriptProviderInterfac
                 'property' => true,
                 'name' => 'managers',
                 'options' => [
+                    'description' => /*@translate*/ 'There are department managers assigned to your organization. Please select the department manager, who will receive notifications for incoming applications',
                     'label' => /*@translate*/ 'Choose Managers',
                 ],
                 'attributes' => [

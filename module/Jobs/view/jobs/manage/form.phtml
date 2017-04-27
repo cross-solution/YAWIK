@@ -147,7 +147,7 @@ echo $this->formWizardContainer(
          * if is inactive
          */
         ?>
-        <?php elseif ($job->status == \Jobs\Entity\Status::INACTIVE):?>
+        <?php elseif ($job->getStatus() == \Jobs\Entity\Status::INACTIVE):?>
             <div class="alert alert-info">
                 <?php echo $this->translate('Your job opening is inactive. You can reactivate it. Chargeable channels are not updated.'); ?>
                 <a href="<?=$activateLink?>" class="btn btn-success btn-xs pull-right"><?=$this->translate('Activate')?></a>
