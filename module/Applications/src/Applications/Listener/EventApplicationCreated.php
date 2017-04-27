@@ -70,10 +70,10 @@ class EventApplicationCreated
             $assignedManagers = $job->getMetaData('organizations:managers', []);
             if (count($assignedManagers)) {
                 $managers = [];
-                foreach ($assignedManagers['managers'] as $manager) {
+                foreach ($assignedManagers as $manager) {
                     $manager = $org->getEmployee($manager['id']);
                     if ($manager) {
-                        $managers[] = $org->getEmployee($manager['id']);
+                        $managers[] = $manager;
                     }
                 }
             } else {
