@@ -42,7 +42,7 @@ class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
             ->with([
             'professions' => [
                 'options' => [
-                    'label' => 'Professions',
+                    'label' => /*@translate*/ 'Professions',
                 ],
                 'entity' => 'professions',
                 'property' => true,
@@ -60,7 +60,7 @@ class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
             ],
             'industries' => [
                 'options' => [
-                    'label' => 'Industries',
+                    'label' => /*@translate*/ 'Industries',
                 ],
                 'entity' => 'industries',
                 'property' => true,
@@ -78,7 +78,7 @@ class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
             ],
             'employmentTypes' => [
                 'options' => [
-                    'label' => 'Employment Types',
+                    'label' => /*@translate*/ 'Employment Types',
                 ],
                 'entity' => 'employmentTypes',
                 'property' => true,

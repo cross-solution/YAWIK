@@ -104,6 +104,9 @@ translate('Companyname');
 //: ./src/Jobs/Form/ListFilterAdminFieldset.php:63
 translate('Select hiring organization');
 
+//: ./src/Jobs/Form/Job.php:63
+translate('Basic Data');
+
 //: ./src/Jobs/Form/Job.php:72
 translate('Please choose a descriptive title and a location for your job posting ');
 
@@ -117,7 +120,13 @@ translate('Classify the job.');
 translate('Please choose the portals, where you wish to publish your job opening.');
 
 //: ./src/Jobs/Form/Job.php:107
-translate('If there si something you want us to know about this job offering, you can type it here.');
+translate('If there is something you want us to know about this job offering, you can type it here.');
+
+//: ./src/Jobs/Form/Job.php:116
+translate('Create job opening');
+
+//: ./src/Jobs/Form/Job.php:128
+translate('Preview');
 
 //: ./src/Jobs/Form/AdminSearchForm.php:26
 translate('search for position or company');
@@ -212,17 +221,26 @@ translate('One click apply');
 //: ./src/Jobs/Form/AtsModeFieldset.php:118
 translate('Social profiles');
 
+//: ./src/Jobs/Form/CategoriesContainer.php:30
+translate('Professions');
+
 //: ./src/Jobs/Form/CategoriesContainer.php:40
 translate('Manage the professions you want to assign to jobs.');
 
 //: ./src/Jobs/Form/CategoriesContainer.php:41
 translate('The order of categories can be modified by drag&drop.');
 
+//: ./src/Jobs/Form/CategoriesContainer.php:49
+translate('Industries');
+
 //: ./src/Jobs/Form/CategoriesContainer.php:59
 translate('Manage the industries you want to assign to jobs.');
 
 //: ./src/Jobs/Form/CategoriesContainer.php:60
 translate('The order of categories can be modified by drag&drop.');
+
+//: ./src/Jobs/Form/CategoriesContainer.php:68
+translate('Employment Types');
 
 //: ./src/Jobs/Form/CategoriesContainer.php:78
 translate('Manage the employment types you want to assign to jobs.');
@@ -427,6 +445,15 @@ translate('Location');
 
 //: ./test/JobsTest/Form/BaseFieldsetTest.php:59
 translate('Please enter the location of the job');
+
+//: ./test/JobsTest/Form/CategoriesContainerTest.php:45
+translate('Professions');
+
+//: ./test/JobsTest/Form/CategoriesContainerTest.php:63
+translate('Industries');
+
+//: ./test/JobsTest/Form/CategoriesContainerTest.php:81
+translate('Employment Types');
 
 //: ./test/JobsTest/Form/ListFilterPersonalTest.php:37
 translate('Show all jobs');

@@ -99,7 +99,7 @@ $finishLabel = false;
 if ($job->isDraft()) {
     $finishLabel = sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'');
 } else if ($job->isActive()) {
-    $finishLabel = 'submit changes';
+    $finishLabel = $this->translate('submit changes');
 }
 
 

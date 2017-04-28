@@ -65,9 +65,6 @@ translate('Remove all');
 //: ./src/Core/Form/CollectionContainer.php:229
 translate('Remove');
 
-//: ./src/Core/Form/SearchForm.php:140
-translate('q');
-
 //: ./src/Core/Form/SearchForm.php:141
 translate('Search');
 

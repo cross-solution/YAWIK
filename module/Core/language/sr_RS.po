@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-08 23:14+0100\n"
-"PO-Revision-Date: 2017-02-08 22:15+0000\n"
+"POT-Creation-Date: 2017-04-28 11:56+0200\n"
+"PO-Revision-Date: 2017-04-28 09:57+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/yawik/yawik/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: sr_RS\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: view/content/imprint.phtml:19 view/layout/layout.phtml:126
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:124
 msgid "Imprint"
 msgstr ""
 
@@ -34,19 +34,19 @@ msgstr ""
 msgid "First"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:43
-#: view/partial/pagination-control.phtml:47
+#: view/partial/pagination-control.phtml:41
+#: view/partial/pagination-control.phtml:45
 msgid "Back"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:76
-#: view/partial/pagination-control.phtml:80
+#: view/partial/pagination-control.phtml:73
+#: view/partial/pagination-control.phtml:77
 #: src/Core/Form/View/Helper/FormWizardContainer.php:103
 msgid "Next"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:85
-#: view/partial/pagination-control.phtml:92
+#: view/partial/pagination-control.phtml:82
+#: view/partial/pagination-control.phtml:89
 msgid "Last"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Add permission"
 msgstr ""
 
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:126
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:123
 msgid "Admin"
 msgstr ""
 
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:123
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:120
 msgid "Home"
 msgstr ""
 
@@ -211,15 +211,15 @@ msgid ""
 "reload."
 msgstr ""
 
-#: view/layout/layout.phtml:40
+#: view/layout/layout.phtml:42
 msgid "YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:93
+#: view/layout/layout.phtml:91
 msgid "Help to translate YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:125
+#: view/layout/layout.phtml:123
 msgid "All rights reserved."
 msgstr ""
 
@@ -281,7 +281,7 @@ msgid "Edit"
 msgstr ""
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:117
 msgid "general settings"
 msgstr ""
 
@@ -357,66 +357,62 @@ msgstr ""
 msgid "Remove all"
 msgstr ""
 
-#: language/_annotated_strings.php:69
-msgid "q"
-msgstr ""
-
-#: language/_annotated_strings.php:72 language/_annotated_strings.php:78
+#: language/_annotated_strings.php:69 language/_annotated_strings.php:75
 msgid "Search"
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:72
 msgid "Search query"
 msgstr ""
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:78
 msgid "Clear"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:81
 msgid "choose your language"
 msgstr ""
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:84
 msgid "English"
 msgstr ""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:87
 msgid "French"
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:90
 msgid "German"
 msgstr ""
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:93
 msgid "Italian"
 msgstr ""
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:96
 msgid "Polish"
 msgstr ""
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:99
 msgid "Russian"
 msgstr ""
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:102
 msgid "Turkish"
 msgstr ""
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:105
 msgid "Spanish"
 msgstr ""
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:108
 msgid "defines the languages of this frontend."
 msgstr ""
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:111
 msgid "choose your timzone"
 msgstr ""
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:114
 msgid "defines your local timezone."
 msgstr ""

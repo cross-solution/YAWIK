@@ -27,7 +27,7 @@ class CategoriesContainer extends WizardContainer
         $this->setForms([
             'professions' => [
                 'options' => [
-                    'label' => 'Professions',
+                    'label' => /*@translate*/ 'Professions',
                 ],
                 'entity' => 'professions',
                 'property' => true,
@@ -46,7 +46,7 @@ class CategoriesContainer extends WizardContainer
             ],
             'industries' => [
                 'options' => [
-                    'label' => 'Industries',
+                    'label' => /*@translate*/ 'Industries',
                 ],
                 'entity' => 'industries',
                 'property' => true,
@@ -65,7 +65,7 @@ class CategoriesContainer extends WizardContainer
             ],
             'employmentTypes' => [
                 'options' => [
-                    'label' => 'Employment Types',
+                    'label' => /*@translate*/ 'Employment Types',
                 ],
                 'entity' => 'employmentTypes',
                 'property' => true,
