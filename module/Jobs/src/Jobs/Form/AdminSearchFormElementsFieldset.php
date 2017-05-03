@@ -35,6 +35,7 @@ class AdminSearchFormElementsFieldset extends SearchForm
         $this->add(
             array(
                 'type'       => 'Jobs/StatusSelect',
+                'name'       => 'status',
                 'options' => [
                     'include_all_option' => true,
                     'span' => 6
