@@ -86,7 +86,7 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
                 $user->getOrganization()->getOrganization()->getOrganizationName()->getName();
         }
 
-        $mail = $container->get('MailService')->get('htmltemplate');
+        $mail = $container->get('Core/MailService')->get('htmltemplate');
         $mail->setTemplate($this->options['template'])
                 ->setVariables($variables)
                 ->setSubject(
