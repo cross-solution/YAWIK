@@ -199,10 +199,10 @@ class IndexController extends AbstractActionController
                 $user          = $auth->getUser();
                 $password      = substr(md5(uniqid()), 0, 6);
                 $login         = uniqid() . ($this->options->auth_suffix != "" ? '@' . $this->options->auth_suffix : '');
-                $externalLogin = isset($user->login)?$user->login:'-- not communicated --';
+                $externalLogin = $user->getLogin() ?: '-- not communicated --';
                 $this->logger->debug('first login via ' . $provider . ' as: ' . $externalLogin);
 
-                $user->login=$login;
+                $user->setLogin($login);
                 $user->setPassword($password);
                 $user->setRole($this->options->getRole());
 
