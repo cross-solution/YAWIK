@@ -12,13 +12,14 @@ namespace Auth\Entity\SocialProfiles;
 
 use Doctrine\Common\Collections\Collection;
 use Core\Entity\EntityInterface;
+use Core\Entity\IdentifiableEntityInterface;
 
 /**
  * Interface of a social network profile entity.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-interface ProfileInterface extends EntityInterface
+interface ProfileInterface extends EntityInterface, IdentifiableEntityInterface
 {
     
     /**

@@ -108,13 +108,15 @@ class HybridAuth implements AdapterInterface
        
        
         $currentInfo = $user->getProfile($this->_provider);
+        $socialData = [];
         
         try {
-            $socialData = $this->socialProfilePlugin->fetch($this->_provider)->getData();
-        } catch (\InvalidArgumentException $e) {
-            // social profile adapter does not exist
-            $socialData = [];
-        }
+            $socialProfile = $this->socialProfilePlugin->fetch($this->_provider);
+            
+            if (false !== $socialProfile) {
+                $socialData = $socialProfile->getData();
+            }
+        } catch (\InvalidArgumentException $e) {}
         
         $newInfo = [
             'auth' => (array) $userProfile,

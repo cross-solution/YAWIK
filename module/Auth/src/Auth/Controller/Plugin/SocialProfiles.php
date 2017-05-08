@@ -35,6 +35,10 @@ class SocialProfiles extends AbstractPlugin
         return $this->fetch($network);
     }
     
+    /**
+     * @param string $network
+     * @return \Auth\Entity\SocialProfiles\ProfileInterface|bool
+     */
     public function fetch($network)
     {
         $returnUri    = $this->getController()->getRequest()->getRequestUri();

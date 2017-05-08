@@ -28,6 +28,10 @@ abstract class AbstractAdapter extends AbstractPlugin
     public function init($api, Hybrid_Provider_Adapter $hauthAdapter)
     {}
     
+    /**
+     * @param string $network
+     * @return \Auth\Entity\SocialProfiles\ProfileInterface|bool
+     */
     public function fetch($api)
     {
         $result  = $this->queryApi($api);
