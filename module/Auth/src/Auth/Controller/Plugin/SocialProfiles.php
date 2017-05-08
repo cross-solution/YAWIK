@@ -41,6 +41,7 @@ class SocialProfiles extends AbstractPlugin
         $hauthAdapter = $this->hybridAuth->authenticate($network, array('hauth_return_to' => $returnUri));
         $api          = $hauthAdapter->api();
         $adapter      = $this->getAdapter($network);
+        $adapter->init($api, $hauthAdapter);
         $profile      = $adapter->fetch($api);
         
         return $profile;
