@@ -122,22 +122,23 @@ class HybridAuth implements AdapterInterface
         ];
        
         if ($forceSave || $currentInfo != $newInfo) {
-            /*  */
-
             $dm = $this->getRepository()->getDocumentManager();
-            if ('' == $user->getInfo()->email) {
-                $user->getInfo()->email = $email;
+            $userInfo = $user->getInfo();
+            
+            if ('' == $userInfo->getEmail()) {
+                $userInfo->setEmail($email);
             }
-            $user->getInfo()->firstName = $userProfile->firstName;
-            $user->getInfo()->lastName = $userProfile->lastName;
-            $user->getInfo()->birthDay = $userProfile->birthDay;
-            $user->getInfo()->birthMonth = $userProfile->birthMonth;
-            $user->getInfo()->birthYear = $userProfile->birthYear;
-            $user->getInfo()->postalcode = $userProfile->zip;
-            $user->getInfo()->city = $userProfile->city;
-            $user->getInfo()->street = $userProfile->address;
-            $user->getInfo()->phone = $userProfile->phone;
-            $user->getInfo()->gender = $userProfile->gender;
+            
+            $userInfo->setFirstName($userProfile->firstName);
+            $userInfo->setLastName($userProfile->lastName);
+            $userInfo->setBirthDay($userProfile->birthDay);
+            $userInfo->setBirthMonth($userProfile->birthMonth);
+            $userInfo->setBirthYear($userProfile->birthYear);
+            $userInfo->setPostalCode($userProfile->zip);
+            $userInfo->setCity($userProfile->city);
+            $userInfo->setStreet($userProfile->address);
+            $userInfo->setPhone($userProfile->phone);
+            $userInfo->setGender($userProfile->gender);
             
             // $user->setLogin($email); // this may cause duplicate key exception
             $user->addProfile($this->_provider, $newInfo);
@@ -149,7 +150,7 @@ class HybridAuth implements AdapterInterface
             /*
             * This must be after flush because a newly created user has no id!
             */
-            if ($forceSave || (!$user->getInfo()->image && $userProfile->photoURL)) {
+            if ($forceSave || (!$userInfo->getImage() && $userProfile->photoURL)) {
                 // get user image
                 if ('' != $userProfile->photoURL) {
                     $client = new \Zend\Http\Client($userProfile->photoURL, array('sslverifypeer' => false));
@@ -162,7 +163,7 @@ class HybridAuth implements AdapterInterface
                     $userImage->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
                     $userImage->setUser($user);
                     $userImage->setFile($file);
-                    $user->getInfo()->setImage($userImage);
+                    $userInfo->setImage($userImage);
                     $dm->persist($userImage);
                     //$this->getRepository()->store($user->info);
                 }

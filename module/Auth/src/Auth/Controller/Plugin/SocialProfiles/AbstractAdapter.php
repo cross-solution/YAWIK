@@ -11,7 +11,7 @@
 namespace Auth\Controller\Plugin\SocialProfiles;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Auth\Entity\SocialProfiles\Facebook;
+use Hybrid_Provider_Adapter;
 
 abstract class AbstractAdapter extends AbstractPlugin
 {
@@ -20,6 +20,13 @@ abstract class AbstractAdapter extends AbstractPlugin
     {
         return $this->fetch($api);
     }
+    
+    /**
+     * @param mixed $api
+     * @param Hybrid_Provider_Adapter $hauthAdapter
+     */
+    public function init($api, Hybrid_Provider_Adapter $hauthAdapter)
+    {}
     
     public function fetch($api)
     {
