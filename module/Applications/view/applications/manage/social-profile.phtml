@@ -14,7 +14,6 @@ $profile = $this->profile; /** @var \Auth\Entity\SocialProfiles\ProfileInterface
 </div>
 
 <div class="modal-body">
-<?=$profile->getEmployments()?>
 <?=$this->partial('applications/manage/social-profile/'.strtolower($profile->getName()).'.phtml',$profile->getData()) ?>
 
 <div class="col-md-12 sp-raw-data-<?=$profile->getId() ?>">
