@@ -47,10 +47,10 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
             array(
             'type' => 'TextEditorLight',
             'name' => 'description-title',
-            'options' => array(
+            'options' => [
                 'use_as_base_fieldset' => true,
-                'placeholder' => 'Title'
-            ),
+                'placeholder' => 'Job title'
+            ],
             )
         );
     }
