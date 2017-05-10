@@ -35,12 +35,17 @@ class SocialProfiles extends AbstractPlugin
         return $this->fetch($network);
     }
     
+    /**
+     * @param string $network
+     * @return \Auth\Entity\SocialProfiles\ProfileInterface|bool
+     */
     public function fetch($network)
     {
         $returnUri    = $this->getController()->getRequest()->getRequestUri();
         $hauthAdapter = $this->hybridAuth->authenticate($network, array('hauth_return_to' => $returnUri));
         $api          = $hauthAdapter->api();
         $adapter      = $this->getAdapter($network);
+        $adapter->init($api, $hauthAdapter);
         $profile      = $adapter->fetch($api);
         
         return $profile;

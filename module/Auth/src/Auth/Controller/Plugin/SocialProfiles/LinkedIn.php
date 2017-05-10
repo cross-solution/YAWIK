@@ -10,16 +10,31 @@
 /** LinkedIn.php */
 namespace Auth\Controller\Plugin\SocialProfiles;
 
+use Hybrid_Provider_Adapter;
+
 class LinkedIn extends AbstractAdapter
 {
+    /**
+     * {@inheritDoc}
+     * @see \Auth\Controller\Plugin\SocialProfiles\AbstractAdapter::initFetch()
+     */
+    public function init($api, Hybrid_Provider_Adapter $hauthAdapter)
+    {
+        $api->curl_header = [
+            "Authorization: Bearer {$hauthAdapter->getAccessToken()['access_token']}"
+        ];
+    }
+    
     protected function queryApi($api)
     {
-        $result = (array) $api->profile('~:(id,first-name,last-name,location,industry,public-profile-url,picture-url,email-address,date-of-birth,phone-numbers,summary,positions,educations,languages,last-modified-timestamp)');
-        if (!isset($result['success']) || !$result['success']) {
+        /** @var \OAuth2Client $api */
+        $result = $api->get('people/~:(id,first-name,last-name,location,industry,public-profile-url,picture-url,email-address,date-of-birth,phone-numbers,summary,positions,educations,languages,last-modified-timestamp)', [], false);
+        $xml = @simplexml_load_string($result);
+        
+        if (false === $xml) {
             return false;
         }
-       
-        $xml  = @ new \SimpleXMLElement($result['linkedin']);
+        
         $data = $this->getDataArray($xml);
        
         return $data;

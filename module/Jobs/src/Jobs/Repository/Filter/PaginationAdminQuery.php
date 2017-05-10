@@ -46,10 +46,10 @@ class PaginationAdminQuery extends AbstractPaginationQuery
 
         $queryBuilder->field('isDraft')->equals(false);
 
-        if (isset($params['statusselect']) &&
-            !empty($params['statusselect'])) {
-            if ($params['statusselect'] != 'all') {
-                $queryBuilder->field('status.name')->equals($params['statusselect']);
+        if (isset($params['status']) &&
+            !empty($params['status'])) {
+            if ($params['status'] != 'all') {
+                $queryBuilder->field('status.name')->equals($params['status']);
             }
         }
 

@@ -8,7 +8,7 @@ $this->headTitle($this->translate('Resumes'));
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 
 <nav class="navbar yk-toolbar" id="cv-list-filter-wrapper">
-    <?php echo $this->form($this->filterForm) ?>
+    <?php echo $this->searchform($this->filterForm) ?>
 </nav>
 <div
     id="cv-list-container"
@@ -16,7 +16,9 @@ $this->headTitle($this->translate('Resumes'));
     data-message="<?php echo $this->escapeHtmlAttr(sprintf(
         $this->translate('%sSorry%s, there are not any resumes matching your search criteria.'),
         '<strong>', '</strong>'
-    )) ?>">
+    )) ?>"
+    data-uri="<?php
+    echo $this->url('lang/cvs', array(), array('query' => $this->params()->fromQuery()), true)?>">
     <div class="pagination-content">
         <?php echo $this->render('cv/index/index.ajax.phtml') ?>
     </div>

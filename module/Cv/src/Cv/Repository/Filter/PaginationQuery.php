@@ -40,8 +40,8 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field(null)->equals($expr->getQuery());
         }
 
-        if (isset($params['location']) && $params['location'] instanceof \Core\Entity\AbstractLocation) {
-            $location = $params['location']; /* @var \Core\Entity\LocationInterface $location */
+        if (isset($params['l']) && $params['l'] instanceof \Core\Entity\AbstractLocation) {
+            $location = $params['l']; /* @var \Core\Entity\LocationInterface $location */
             if ($location->getCoordinates()) {
                 $coordinates = $location->getCoordinates()->getCoordinates();
                 $queryBuilder->field('preferredJob.desiredLocations.coordinates')->geoWithinCenter(

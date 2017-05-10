@@ -7,14 +7,13 @@
  * @license   MIT
  */
 
-$profile = $this->profile; /* @var Auth\Entity\SocialProfiles\ProfileInterface $profile*/
+$profile = $this->profile; /** @var \Auth\Entity\SocialProfiles\ProfileInterface $profile */
 ?>
 <div class="modal-title" id="social-profile-label">
 <?=$profile->getName()?>
 </div>
 
 <div class="modal-body">
-<?=$profile->getEmployments()?>
 <?=$this->partial('applications/manage/social-profile/'.strtolower($profile->getName()).'.phtml',$profile->getData()) ?>
 
 <div class="col-md-12 sp-raw-data-<?=$profile->getId() ?>">
@@ -37,7 +36,7 @@ $profile = $this->profile; /* @var Auth\Entity\SocialProfiles\ProfileInterface $
             
             echo $indent . $key . ': ' . $value . "\n";
         }
-    } 
+    }
     sp_export_data($profile->getData());
     
     ?>
@@ -47,20 +46,20 @@ $profile = $this->profile; /* @var Auth\Entity\SocialProfiles\ProfileInterface $
 <script type="text/javascript">
 (function($) {
 	$(function() {
-		var $rawDataDiv = $('.sp-raw-data-<?php echo $this->profile->id ?>');
+		var $rawDataDiv = $('.sp-raw-data-<?=$profile->getId()?>');
 		var $toggle     = $rawDataDiv.find('h2');
 		var $display    = $rawDataDiv.find('pre');
 		
 		$display.hide();
-		$toggle.click(function() { 
-			$display.slideToggle(); 
+		$toggle.click(function() {
+			$display.slideToggle();
 			var $icon = $toggle.find('span');
 			if ($icon.hasClass('fa-chevron-up')) {
 				$icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
 			} else {
 				$icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
 			}
-			return false; 
+			return false;
 		});
 	});
 })(jQuery);

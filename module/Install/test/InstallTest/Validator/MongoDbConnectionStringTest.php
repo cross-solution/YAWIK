@@ -41,13 +41,23 @@ class MongoDbConnectionStringTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testValidationFailsIfProvidedInvalidConnectionString()
+    public function invalidConnectionStringProvider()
+    {
+        return [
+            [ 'noconnstr' ],
+            [ 'mongodb://user name:pass@server' ],
+            [ 'mongodb://server/db.with.dot' ],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidConnectionStringProvider
+     */
+    public function testValidationFailsIfProvidedInvalidConnectionString($connStr)
     {
         $target = new MongoDbConnectionString();
 
-        $this->assertFalse($target->isValid('noconnstr'), 'Passing invalid connection string did not return false');
-        $this->assertTrue($target->isValid('mongodb://server:23432/dbName?option=value'), 'Passing valid connection string did not return true');
-
+        $this->assertFalse($target->isValid($connStr), 'Failed with: ' . $connStr);
     }
 
     public function validConnectionStringsProvider()
@@ -65,6 +75,8 @@ class MongoDbConnectionStringTest extends \PHPUnit_Framework_TestCase
             [ 'mongodb://user:pass@server/database' ],
             [ 'mongodb://user:pass@server:1234' ],
             [ 'mongodb://user:pass@server:1234/database' ],
+            [ 'mongodb://server:23432/dbName?option=value' ],
+            [ 'mongodb://name:pass@cluster0-shard-00-00-nvwmc.mongodb.net:27017,cluster0-shard-00-01-nvwmc.mongodb.net:27017,cluster0-shard-00-02-nvwmc.mongodb.net:27017/?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin' ],
         ];
     }
 

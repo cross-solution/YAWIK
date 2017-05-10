@@ -52,14 +52,15 @@ class MailForgotPassword
     public function __invoke(AuthEvent $e)
     {
         $siteName=$this->coreOptions->getSiteName();
-
+        /* @var \Auth\Entity\User $user */
         $user                    = $e->getUser();
-        $userEmail               = $user->info->email;
-        $userName                = $user->info->getDisplayName(false);
+        $userEmail               = $user->getInfo()->getEmail();
+        $userName                = $user->getInfo()->getDisplayName(false);
         $resetLink               = $e->getResetLink();
 
         $fromEmail               =  $this->options->getFromEmail();
         $fromName                =  $this->options->getFromName();
+
 
         $mail                    = $this->mailService->get('htmltemplate');
         $mail->user              = $user;
