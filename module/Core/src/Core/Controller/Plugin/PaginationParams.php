@@ -13,6 +13,7 @@ namespace Core\Controller\Plugin;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Session\Container;
 use Core\Repository\RepositoryInterface;
+use Zend\Stdlib\Parameters;
 
 /**
  * Manages pagination parameters in a session container.
@@ -34,14 +35,14 @@ class PaginationParams extends AbstractPlugin
      * @param array|RepositoryInterface $defaults
      * @return \Core\Controller\Plugin\PaginationParams|Parameters|PaginationList
      */
-    public function __invoke($namespace = null, $defaults = array('page' => 1))
+    public function __invoke($namespace = null, $defaults = array('page' => 1), $params = null)
     {
         if (null === $namespace) {
             return $this;
         }
         
         if (is_array($defaults) && !is_callable($defaults)) {
-            return $this->getParams($namespace, $defaults);
+            return $this->getParams($namespace, $defaults, $params);
         }
         
         if ($defaults instanceof RepositoryInterface || is_callable($defaults)) {
@@ -76,14 +77,15 @@ class PaginationParams extends AbstractPlugin
      *         Set default value if paramName is not present in params
      *      2. [paramName]
      *         Store paramName if it is present, do nothing if not.
+     * @param Parameters $params
      *
      * @return Parameters
      */
-    public function getParams($namespace, $defaults)
+    public function getParams($namespace, $defaults, $params = null)
     {
         $session        = new Container($namespace);
         $sessionParams  = $session->params ?: array();
-        $params         = $this->getController()->getRequest()->getQuery();
+        $params         = $params ?: clone $this->getController()->getRequest()->getQuery();
         
         if ($params->get('clear')) {
             $sessionParams = array();
@@ -131,6 +133,8 @@ class PaginationParams extends AbstractPlugin
      *
      * @param string $namespace
      * @param RepositoryInterface|callable $callback
+     *
+     * @return array
      */
     public function getList($namespace, $callback)
     {
@@ -158,9 +162,9 @@ class PaginationParams extends AbstractPlugin
     {
         $list = $this->getList($namespace, $callback);
         $list->setCurrent($id);
-        return array(
+        return [
             $list->getPrevious(),
             $list->getNext()
-        );
+        ];
     }
 }

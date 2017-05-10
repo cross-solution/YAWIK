@@ -135,8 +135,18 @@ return [
                                 'action' => 'index'
                             ]
                         ]
-                    ]
-                ]
+                    ],
+                    'user-switch' => [
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/user/switch',
+                            'defaults' => [
+                                'controller' => 'Auth/Users',
+                                'action' => 'switch',
+                            ],
+                        ],
+                    ],
+                ],
             ],
             'auth-provider' => [
                 'type' => 'Segment',

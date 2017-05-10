@@ -14,7 +14,6 @@ use Acl\Assertion\AssertionEvent;
 use Auth\Entity\UserInterface;
 use Organizations\Entity\EmployeePermissionsInterface;
 use Zend\EventManager\SharedEventManagerInterface;
-use Zend\EventManager\SharedListenerAggregateInterface;
 
 /**
  * Checks if an user may create jobs according to the organization permissions.
@@ -22,7 +21,7 @@ use Zend\EventManager\SharedListenerAggregateInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
-class CheckJobCreatePermissionListener implements SharedListenerAggregateInterface
+class CheckJobCreatePermissionListener
 {
 
     /**

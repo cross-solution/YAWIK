@@ -71,11 +71,11 @@ class Form extends ZendForm
         $basepath   = $renderer->plugin('basepath');
         
         $headscript->appendFile($basepath('Core/js/core.spinnerbutton.js'))
-                   ->appendFile($basepath('js/select2.min.js'))
+                   ->appendFile($basepath('assets/select2/js/select2.min.js'))
                    ->appendFile($basepath('Core/js/core.forms.js'));
 
         /* @noinspection PhpParamsInspection */
-        $renderer->headLink()->appendStylesheet($basepath('css/select2.css'));
+        $renderer->headLink()->appendStylesheet($basepath('assets/select2/css/select2.css'));
 
         if ($scripts = $form->getOption('headscript')) {
             if (!is_array($scripts)) {
@@ -93,13 +93,14 @@ class Form extends ZendForm
         $form->setAttribute('class', $class);
 
         $formId = $form->getAttribute('id') ?: $form->getName();
+        $formId = preg_replace(
+            array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+            array('-'              , '-'    , ''       ),
+            $formId
+        );
         $form->setAttribute(
-            'id',
-            preg_replace(
-                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
-                array('-'              , '-'    , ''       ),
-                $formId
-            )
+            'id', $formId
+
         );
 
         if (method_exists($form, 'prepare')) {
@@ -109,20 +110,22 @@ class Form extends ZendForm
         $formContent = '';
     
         if ($form instanceof ViewPartialProviderInterface) {
-            return $renderer->partial($form->getViewPartial(), array('element' => $form));
+            return $renderer->partial($form->getViewPartial(), array_merge(['element' => $form], $parameter));
         }
 
         /* @var $element \Zend\Form\ElementInterface */
         foreach ($form as $element) {
             $parameterPartial = $parameter;
-            if (!$element->hasAttribute('id')) {
+            $elementId = $element->getAttribute('id');
+            if (!$elementId) {
                 $elementId = preg_replace(
                     array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
                     array('-'             , '-',     ''),
                     $element->getName()
                 );
-                $element->setAttribute('id', $elementId);
             }
+            $element->setAttribute('id', "$formId-$elementId");
+            $element->setOption('__form_id__', $formId);
             if ($element instanceof ExplicitParameterProviderInterface) {
                 /* @var $element ExplicitParameterProviderInterface */
                 $parameterPartial = array_merge($element->getParams(), $parameterPartial);

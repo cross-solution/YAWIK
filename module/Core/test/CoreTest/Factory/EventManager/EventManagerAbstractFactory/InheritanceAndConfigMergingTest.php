@@ -41,16 +41,14 @@ class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
     {
         $services = new ServiceManager();
         $this->assertTrue(
-             $this->target->canCreateServiceWithName(
-                $services, 'irrelevant',
-                'Any.string/Value/Events'
+             $this->target->canCreate(
+                $services,'Any.string/Value/Events'
              ),
              'Checking correct name failed.'
         );
         $this->assertFalse(
-             $this->target->canCreateServiceWithName(
-                $services, 'irrelevant',
-                'Any.string.not.ending/in/Events.but has it in the middle!'
+             $this->target->canCreate(
+                $services,'Any.string.not.ending/in/Events.but has it in the middle!'
              ),
              'Checking invalid name failed.'
         );
@@ -107,6 +105,6 @@ class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
 
         $target->expects($this->once())->method('createEventManager')->with($services, $expected);
 
-        $target->createServiceWithName($services, 'irrelevant', $reqName);
+        $target($services,$reqName);
     }
 }

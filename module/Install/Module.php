@@ -30,13 +30,13 @@ class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProvi
     public function getAutoloaderConfig()
     {
         return array(
-            'Zend\Loader\ClassMapAutoloader' => array(
-                __DIR__ . '/autoload_classmap.php',
-                array(
+            'Zend\Loader\ClassMapAutoloader' => [
+                __DIR__ . '/src/autoload_classmap.php',
+                [
                     // We need this filter for initial user creation.
                     'Auth\Entity\Filter\CredentialFilter' => __DIR__ . '/../Auth/src/Auth/Entity/Filter/CredentialFilter.php',
-                ),
-            ),
+                ],
+            ],
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src' /* . __NAMESPACE__*/,

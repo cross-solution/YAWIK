@@ -36,6 +36,13 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         '@testInvokationCallsGetResult' => [
             'mock' => ['getResult' => ['count' => 2, 'return' => '__self__']],
         ],
+        '@testInvokationSetsUpStack' => [
+            'mock' => [
+                'params' => 1,
+                'paginator',
+                'form',
+            ],
+        ],
     ];
 
     protected $inheritance = [ '\Zend\Mvc\Controller\Plugin\AbstractPlugin' ];
@@ -69,7 +76,9 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokationWithInvalidArgumentThrowsException($argument)
     {
-        $this->setExpectedException('\InvalidArgumentException', 'Expected argument to be of type array');
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage('Expected argument to be of type array');
+
         $this->target->__invoke($argument);
     }
 
@@ -82,14 +91,14 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     public function argumentsStackProvider()
     {
         return [
-            [ 'paginator', ['paginator'], ['as' => 'paginator', 'paginator', [], false] ],
-            [ 'paginator', ['name', 'alias'], ['as' => 'alias', 'name', [], false] ],
-            [ 'paginator', ['name', ['param' => 'value'], 'alias'], ['as' => 'alias', 'name', ['param' => 'value'], false] ],
-            [ 'paginator', ['name', [], true], ['as' => 'paginator', 'name', [], true]],
-            [ 'form', ['elements'], ['as' => 'searchform', 'elements', null]],
-            [ 'form', ['elements', 'buttons'], ['as' => 'searchform', 'elements', 'buttons']],
-            [ 'form', ['elements', null, 'alias'], ['as' => 'alias', 'elements', null]],
-            [ 'form', ['elements', '@alias'], ['as' => 'alias', 'elements', null]],
+            [ 'paginator', ['paginator'], ['as' => 'paginator', 'paginator', []] ],
+            [ 'paginator', ['name', 'alias'], ['as' => 'alias', 'name', []] ],
+            [ 'paginator', ['name', ['param' => 'value'], 'alias'], ['as' => 'alias', 'name', ['param' => 'value']] ],
+            [ 'paginator', ['name', []], ['as' => 'paginator', 'name', []]],
+            [ 'form', ['formName'], ['as' => 'searchform', 'formName', null]],
+            [ 'form', ['formName', ['testOpt' => 'testVal']], ['as' => 'searchform', 'formName', ['testOpt' => 'testVal']]],
+            [ 'form', ['formName', null, 'alias'], ['as' => 'alias', 'formName', null]],
+            [ 'form', ['formName', 'alias'], ['as' => 'alias', 'formName', null]],
             [ 'params', ['namespace'], ['namespace', ['page' => 1]]],
             [ 'params', ['namespace', ['param' => 'value']], ['namespace', ['param' => 'value']]],
         ];
@@ -107,4 +116,40 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target, call_user_func_array([$this->target, $method], $args), 'Fluent interface broken!');
         $this->assertAttributeEquals([$method => $expect], 'stack', $this->target);
     }
+
+    /**
+     *
+     */
+    public function testInvokationSetsUpStack()
+    {
+        $this->target->expects($this->exactly(2))->method('paginator')
+            ->withConsecutive(
+                [ 'Name' ],
+                [ 'Name', 'Alias']
+            )->willReturn($this->returnSelf());
+
+        $this->target->expects($this->exactly(2))->method('form')
+            ->withConsecutive(
+                [ 'Name' ],
+                [ 'Name', 'Alias']
+            )->willReturn($this->returnSelf());
+
+        $stack = [
+            'params' => ['Namespace'],
+            'paginator' => ['Name'],
+            'form' => ['Name'],
+            'something' => ['ShouldNotBeConsidered'],
+        ];
+
+        $this->target->__invoke($stack, false);
+
+        $stack = [
+            'paginator' => ['as' => 'Alias', 'Name'],
+            'form' => ['as' => 'Alias', 'Name'],
+        ];
+
+        $this->target->__invoke($stack, false);
+
+    }
+
 }

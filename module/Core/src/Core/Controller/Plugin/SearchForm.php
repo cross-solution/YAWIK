@@ -10,9 +10,10 @@
 /** */
 namespace Core\Controller\Plugin;
 
-use Core\Form\TextSearchForm;
+use Zend\Form\Form;
 use Zend\Form\FormElementManager;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Zend\Stdlib\Parameters;
 
 /**
  * Fetches a text search form.
@@ -50,9 +51,9 @@ class SearchForm extends AbstractPlugin
      *
      * @return \Core\Form\TextSearchForm
      */
-    public function __invoke($elementsFieldset, $buttonsFieldset = null)
+    public function __invoke($form, $options = null, $params = null)
     {
-        return $this->get($elementsFieldset, $buttonsFieldset);
+        return $this->get($form, $options, $params);
     }
 
     /**
@@ -62,38 +63,31 @@ class SearchForm extends AbstractPlugin
      * it will fetch a "Core/TextSearch" form and pass the
      * elements fieldset along.
      *
-     * @param string|array     $elementsFieldset
-     * @param string|null $buttonsFieldset
+     * @param string|Form     $form
+     * @param array|null $options
+     * @param Parameters $params
      *
-     * @return \Core\Form\TextSearchForm
+     * @return \Core\Form\SearchForm
      */
-    public function get($elementsFieldset, $buttonsFieldset = null)
+    public function get($form, $options = null, $params = null)
     {
-        if (is_array($elementsFieldset)) {
-            $elementsOptions = isset($elementsFieldset[1]) ? $elementsFieldset[1] : [];
-            $elementsFieldset = $elementsFieldset[0];
-
-        } else {
-            $elementsOptions = [];
+        if (!is_object($form)) {
+            $form             = $this->formElementManager->get($form, $options);
         }
 
-        $form             = $this->formElementManager->get($elementsFieldset, $elementsOptions);
         /** @noinspection PhpUndefinedMethodInspection */
-        $params           = $this->getController()->getRequest()->getQuery()->toArray();
+        $params           = $params ?: clone $this->getController()->getRequest()->getQuery();
 
-        if (!$form instanceOf TextSearchForm) {
+        /* I tried using form methods (bind, isValid)...
+         * but because the search form could be in an invalidated state
+         * when the page is loaded, we need to hydrate the params manually.
+         */
+        $hydrator = $form->getHydrator();
+        $data     = $hydrator->extract($params);
+        $form->setData($data);
 
-            $options = [
-                'elements_fieldset' => $form,
-            ];
-            if (null !== $buttonsFieldset) {
-                $options['buttons_fieldset'] = $buttonsFieldset;
-            }
+        $hydrator->hydrate($data, $params);
 
-            $form = $this->formElementManager->get('Core/TextSearch', $options);
-        }
-
-        $form->setSearchParams($params);
         return $form;
     }
 }

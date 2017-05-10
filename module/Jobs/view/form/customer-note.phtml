@@ -1,0 +1,21 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ */
+
+if ($this->renderSummary):
+    $note = $this->element->getObject()->getMetaData('note');
+    if (!empty($note)):
+
+    ?>
+<div><pre><?=$note?></pre></div>
+<?php endif;
+
+else:
+    echo $this->formCollection()->render($this->element, /*useViewPartial*/ false);
+endif;
+  

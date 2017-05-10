@@ -11,6 +11,7 @@
 
 namespace Jobs\Controller\Plugin;
 
+use Jobs\Entity\StatusInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Core\Repository\RepositoryService;
 use Auth\AuthenticationService;
@@ -61,7 +62,7 @@ class InitializeJob extends AbstractPlugin
      * @throws \Doctrine\ODM\MongoDB\LockException
      * @throws NotFoundException
      */
-    public function get(Params $params, $allowDraft = false)
+    public function get(Params $params, $allowDraft = false, $getSnapshot = false)
     {
         /* @var \Jobs\Repository\Job $jobRepository */
         $jobRepository  = $this->repositoryService->get('Jobs/Job');
@@ -70,8 +71,9 @@ class InitializeJob extends AbstractPlugin
         $idFromSubForm = $params->fromPost('job', 0);
 
         $id = empty($idFromRoute)? (empty($idFromQuery)?$idFromSubForm:$idFromQuery) : $idFromRoute;
+        $snapshotId = $params->fromPost('snapshot') ?: ($params->fromQuery('snapshot') ?: null);
 
-        if (empty($id) && $allowDraft) {
+        if (empty($id) && empty($snapshotId) && $allowDraft) {
             $this->acl->__invoke('Jobs/Manage', 'new');
             $user = $this->auth->getUser();
             /** @var \Jobs\Entity\Job $job */
@@ -85,10 +87,25 @@ class InitializeJob extends AbstractPlugin
             return $job;
         }
 
-        $job = $jobRepository->find($id);
+        if ($snapshotId) {
+            $snapshotRepo = $this->repositoryService->get('Jobs/JobSnapshot');
+            $job = $snapshotRepo->find($snapshotId);
+
+        } else {
+            /* @var \Jobs\Entity\Job $job */
+            $job = $jobRepository->find($id);
+            if ($job && $getSnapshot && !$job->isDraft() && $job->getStatus()->getName() != \Jobs\Entity\StatusInterface::CREATED) {
+                $snapshotRepo = $this->repositoryService->get('Jobs/JobSnapshot');
+                $snapshot = $snapshotRepo->findLatest($job->getId(), /*isDraft*/ true);
+
+                $job = $snapshot ?: $snapshotRepo->create($job, true);
+            }
+        }
+
         if (!$job) {
             throw new NotFoundException($id);
         }
+
         return $job;
     }
 }

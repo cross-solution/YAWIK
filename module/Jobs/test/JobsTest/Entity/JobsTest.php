@@ -15,9 +15,16 @@ use Auth\Entity\Info;
 use Auth\Entity\User;
 use Core\Entity\AbstractEntity;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\MetaDataProviderInterface;
+use Core\Entity\MetaDataProviderTrait;
 use CoreTest\Entity\ConcreteEntity;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
+use CoreTestUtils\TestCase\TestUsesTraitsTrait;
+use Jobs\Entity\Classifications;
 use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Location;
+use Jobs\Entity\Publisher;
 use Jobs\Entity\Status;
 use Jobs\Entity\AtsMode;
 use Jobs\Entity\Job;
@@ -38,17 +45,25 @@ use Organizations\Entity\OrganizationName;
  */
 class JobsTest extends \PHPUnit_Framework_TestCase
 {
+    use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
+
+    public function propertiesProvider()
+    {
+        return [
+            ['classifications', ['value' => new Classifications(), 'default@' => Classifications::class]],
+        ];
+    }
     /**
      * The "Class under Test"
      *
      * @var Job
      */
-    private $target;
+    private $target = Job::class;
 
-    public function setup()
-    {
-        $this->target = new Job();
-    }
+    private $inheritance = [ MetaDataProviderInterface::class ];
+
+    private $traits = [ MetaDataProviderTrait::class ];
+
 
     /**
      * @testdox Extends \Core\Entity\AbstractEntity and implements \Jobs\Entity\AtsModeInterface
@@ -164,6 +179,17 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($link, $this->target->getPortals());
     }
 
+    /**
+     * @testdox Allows setting of a logo reference
+     * @covers Jobs\Entity\Job::getLogoRef
+     * @covers Jobs\Entity\Job::setLogoRef
+     */
+    public function testSetGetLogoRef()
+    {
+        $link = 'my/image.jpg';
+        $this->target->setLogoRef($link);
+        $this->assertEquals($link, $this->target->getLogoRef());
+    }
 
     /**
      * @testdox Allows setting the application link of a job posting
@@ -225,7 +251,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     public function provideSetGetStatusTestData()
     {
         return array(
-            array("CREATED",        Status::CREATED),
+            array(Status::CREATED,  Status::CREATED),
             array(Status::ACTIVE,   Status::ACTIVE),
             array(Status::EXPIRED,  Status::EXPIRED),
             array(Status::PUBLISH,  Status::PUBLISH),
@@ -541,8 +567,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $templateValues1->setBenefits("test");
 
         $templateValues2 = new ConcreteEntityForTemplateValues();
-        $templateValues2->description='my description';
-        $templateValues2->test='invalid';
+        $templateValues2->setDescription('my description');
+        $templateValues2->setTest('invalid');
 
 
         return [

@@ -1,38 +1,4 @@
 
-holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
-    // triggerRef = true if there are no open tinyMC-Editors, it triggers a click on the targetRef
-    var iFrames = jQuery("iframe");
-    var result = true;
-    if (0 < iFrames.length) {
-        // look out for tinyMC only if there are iFrames
-        var iFrameWindow = $("iframe")[0].contentWindow;
-        if (typeof iFrameWindow.tinyMCE != "undefined") {
-            // ensure that the tinyMC-Management is active
-            //console.log('iFrameWindow', iFrameWindow.tinyMCE);
-            for (tinyEditorIndex in iFrameWindow.tinyMCE.editors) {
-                var tinyEditor = iFrameWindow.tinyMCE.editors[tinyEditorIndex];
-                //console.log (tinyEditor, tinyEditor.isNotDirty);
-                if (!tinyEditor.isNotDirty) {
-                    console.log('dirty', tinyEditor);
-                    result = false;
-                    tinyEditor.fire("blur");
-                    setTimeout(function() { holdupRefUntiliFramesAreSaved(targetRef, true); }, 2500);
-                    break;
-                }
-            }
-        }
-    }
-    //console.log("holdupRefUntiliFramesAreSaved", result, triggerRef);
-    if (result && triggerRef) {
-        // now trigger the a-tag
-        //console.log('trigger this', targetRef);
-        var href = $(targetRef).prop('href');
-        //targetRef.click();
-        window.location.href = href;
-    }
-    return result;
-}
-
 
 ;(function ($) {
 	
@@ -126,7 +92,7 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
 	
 	$.fn.summaryform = function ()
 	{
-		var containers = {}
+		var containers = {};
 		return this.each(function () {
 			var $div = $(this);
 			new Container($div);
@@ -140,44 +106,77 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
      */
     $.fn.summaryform.ensureSave = function (event)
     {
-        var returnValue = true;
-        var eventTarget = event.target;
-
-        if (typeof eventTarget !== 'undefined' && typeof eventTarget.href !== 'undefined' && eventTarget.href.match(/#/)) {
+        if (checkForms() && checkIFrames()) {
             return true;
         }
 
-        $(".sf-container").each(function() {
-            var containers = $(this);
-            if (containers.hasClass("yk-changed")) {
-                //console.log("test-container", containers, containers.hasClass("yk-changed"));
-                var sfForm = $(this).find(".sf-form");
-                var sfSummary = $(this).find(".sf-summary");
-                var title = $(this).find(".sf-headline").text();
-                if (sfForm.length == 1 && sfSummary.length == 1) {
-                    //console.log(title, sfForm.css("display"), sfSummary.css("display"));
-                    if (sfForm.css("display") == "block" && sfSummary.css("display") == "none") {
-                        var res = confirm("Form '" + title + "' has not been saved\ncontinue ?");
-                        if (!res) {
-                            // set the return-value and end the loop, so that you don't have to go through all other open forms
-                            returnValue = false;
-                            // this return is intentional, it ends the each loop primarily - like a break statement would end a normal for-loop
-                            return false;
+        event.preventDefault();
+        event.stopPropagation();
+
+        return false;
+
+        function checkForms() {
+            var result = true;
+            $(".sf-container").each(function() {
+                var containers = $(this);
+                if (containers.hasClass("yk-changed")) {
+                    //console.log("test-container", containers, containers.hasClass("yk-changed"));
+                    var sfForm = $(this).find(".sf-form");
+                    var sfSummary = $(this).find(".sf-summary");
+                    var title = $(this).find(".sf-headline").text();
+                    if (sfForm.length == 1 && sfSummary.length == 1) {
+                        //console.log(title, sfForm.css("display"), sfSummary.css("display"));
+                        if (sfForm.css("display") == "block" && sfSummary.css("display") == "none") {
+                            var res = confirm("Form '" + title + "' has not been saved\ncontinue ?");
+                            if (!res) {
+                                // set the return-value and end the loop, so that you don't have to go through all other open forms
+                                result = false;
+                                // this return is intentional, it ends the each loop primarily - like a break statement would end a normal for-loop
+                                return false;
+                            }
+                            else {
+                                containers.removeClass('yk-changed');
+                            }
                         }
-                        else {
-                            containers.removeClass('yk-changed');
+                    }
+                }
+            });
+
+            return result;
+        }
+
+        function checkIFrames() {
+
+            var iFrames = jQuery("iframe");
+            var result = true;
+
+            if (0 < iFrames.length) {
+                // look out for tinyMC only if there are iFrames
+                var iFrameWindow = $("iframe")[0].contentWindow;
+                if (typeof iFrameWindow.tinyMCE != "undefined") {
+                    // ensure that the tinyMC-Management is active
+                    //console.log('iFrameWindow', iFrameWindow.tinyMCE);
+                    for (tinyEditorIndex in iFrameWindow.tinyMCE.editors) {
+                        var tinyEditor = iFrameWindow.tinyMCE.editors[tinyEditorIndex];
+                        //console.log (tinyEditor, tinyEditor.isNotDirty);
+                        if (!tinyEditor.isNotDirty) {
+                            var res = confirm("Discard unsaved changes in job description?");
+                            if (!res) {
+                                // set the return-value and end the loop, so that you don't have to go through all other open forms
+                                result = false;
+                                // this return is intentional, it ends the each loop primarily - like a break statement would end a normal for-loop
+                                return false;
+                            } else {
+                                //tinyEditor.fire("blur");
+                            }
                         }
                     }
                 }
             }
-        });
+
+            return result;
+        }
         //console.log("returnValue", returnValue);
-
-        // test for not saved tinyMC-Editoren in the iFrame
-        returnValue = returnValue && holdupRefUntiliFramesAreSaved(eventTarget, false);
-
-        return returnValue;
-
     };
 
     /**
@@ -186,7 +185,6 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
 	$(function() {
         $(".sf-container").summaryform();
         $("a").click($.fn.summaryform.ensureSave);
-        //$(".sf-container").markChangeTrigger();
     });
 	
 })(jQuery);

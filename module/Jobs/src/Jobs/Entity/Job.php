@@ -9,9 +9,11 @@
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
+use Core\Entity\ClonePropertiesTrait;
+use Core\Entity\AttachableEntityTrait;
 use Core\Entity\EntityInterface;
+use Core\Entity\MetaDataProviderTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
@@ -26,11 +28,26 @@ use Zend\I18n\Validator\DateTime;
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
+ * @ODM\Indexes({
+ *     @ODM\Index(keys={"datePublishStart.date"="asc"})
+ * })
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @since 0.29 add temporary isDeleted flag and corresponding delete() method.
  */
 class Job extends BaseEntity implements JobInterface,
                                         DraftableEntityInterface,
                                         SnapshotGeneratorProviderInterface
+
 {
+    use AttachableEntityTrait, MetaDataProviderTrait, ClonePropertiesTrait;
+
+
+    private $cloneProperties = [
+        'classifications', 'atsMode',
+    ];
 
     /**
      * unique ID of a job posting used by applications to reference
@@ -189,7 +206,6 @@ class Job extends BaseEntity implements JobInterface,
     /**
      * Unified Resource Locator to the company-Logo
      *
-     * @deprecated (use $organization->image->uri instead)
      * @var String
      * @ODM\Field(type="string")
      */
@@ -275,6 +291,28 @@ class Job extends BaseEntity implements JobInterface,
      * @ODM\Boolean
      */
     protected $isDraft = false;
+
+    /**
+     * Classifications
+     *
+     * @ODM\EmbedOne(targetDocument="\Jobs\Entity\Classifications")
+     * @var Classifications
+     * @since 0.29
+     */
+    protected $classifications;
+
+    /**
+     * Delete flag.
+     *
+     * @internal
+     *      This is meant as a temporary flag, until
+     *      SoftDelete is implemented.
+     *
+     * @ODM\Field(type="boolean")
+     * @var bool
+     * @since 0.29
+     */
+    protected $isDeleted = false;
 
     /**
      * @return string
@@ -439,6 +477,15 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function getLocation()
     {
+        if (null === $this->location) {
+            $array=[];
+            if(null != $this->locations){
+                foreach ($this->locations as $location) { /* @var \Core\Entity\LocationInterface $location */
+                    $array[]=$location->getCity();
+                }
+                return implode(', ', $array);
+            }
+        }
         return $this->location;
     }
     /**
@@ -729,25 +776,23 @@ class Job extends BaseEntity implements JobInterface,
         return $this;
     }
     /**
-     * returns an uri to the organization logo
+     * returns an uri to the organization logo.
      *
-     * @deprecated
      * @return string
      */
     public function getLogoRef()
     {
         /** @var $organization \Organizations\Entity\Organization */
         $organization = $this->organization;
-        if (isset($organization) && isset($organization->image)) {
-            $organizationImage = $organization->image;
-            return "/file/Organizations.OrganizationImage/" . $organizationImage->id;
+        if (is_object($organization) && $organization->getImage()) {
+            $organizationImage = $organization->getImage();
+            return "/file/Organizations.OrganizationImage/" . $organizationImage->getId();
         }
         return $this->logoRef;
     }
     /**
      * Set the uri to the organisations logo
      *
-     * @deprecated
      * @param string $logoRef
      * @return \Jobs\Entity\Job
      */
@@ -895,7 +940,9 @@ class Job extends BaseEntity implements JobInterface,
     }
 
     /**
-     * {@inheritdoc}
+     * @param EntityInterface $templateValues
+     *
+     * @return $this
      */
     public function setTemplateValues(EntityInterface $templateValues = null)
     {
@@ -958,7 +1005,7 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function isActive()
     {
-        return !$this->isDraft && is_object($this->status) && $this->status->name == 'active';
+        return !$this->isDraft && is_object($this->status) && $this->status->getName() == 'active';
     }
 
     /**
@@ -982,4 +1029,47 @@ class Job extends BaseEntity implements JobInterface,
         );
         return $generator;
     }
+
+    /**
+     * @param \Jobs\Entity\Classifications $classifications
+     *
+     * @return self
+     */
+    public function setClassifications($classifications)
+    {
+        $this->classifications = $classifications;
+
+        return $this;
+    }
+
+    /**
+     * @return \Jobs\Entity\Classifications
+     */
+    public function getClassifications()
+    {
+        if (!$this->classifications) {
+            $this->setClassifications(new Classifications());
+        }
+
+        return $this->classifications;
+    }
+
+    /**
+     * Mark this job as deleted.
+     *
+     * @internal
+     *      This is meant as temporary solution, until
+     *      SoftDelete is implemented.
+     *
+     * @return self
+     * @since 0.29
+     */
+    public function delete()
+    {
+        $this->isDeleted = true;
+
+        return $this;
+    }
+
+
 }

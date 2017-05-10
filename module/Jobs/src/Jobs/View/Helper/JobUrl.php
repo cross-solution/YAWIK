@@ -6,6 +6,7 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 
 namespace Jobs\View\Helper;
@@ -57,7 +58,13 @@ class JobUrl extends AbstractHelper
         return $this;
     }
 
-    public function __invoke(Job $jobEntity, $options = [])
+    /**
+     * @param Job $jobEntity
+     * @param array $options
+     * @param array $urlParams
+     * @return string
+     */
+    public function __invoke(Job $jobEntity, $options = [], $urlParams = [])
     {
 
         $options= array_merge($this->options, $options);
@@ -92,6 +99,7 @@ class JobUrl extends AbstractHelper
             if ($paramsHelper('channel')) {
                 $params['channel'] = $paramsHelper('channel');
             }
+            $params = array_merge($params, $urlParams);
             $url = $urlHelper($route, $params, array('query' => $query));
         }
 

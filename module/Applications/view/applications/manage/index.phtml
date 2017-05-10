@@ -19,7 +19,10 @@ if ($this->isAjaxRequest) {
     return;
 }
 
-if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
+/* @var \Jobs\Entity\Job $job */
+$job = $this->job;
+
+if ($job):        $subTitle = sprintf($this->translate('for the job "%s"'), $job->getTitle());
 elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
 else:                   $subTitle = false;
 endif;

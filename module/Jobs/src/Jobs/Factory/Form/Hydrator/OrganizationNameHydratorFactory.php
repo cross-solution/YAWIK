@@ -9,8 +9,11 @@
 
 namespace Jobs\Factory\Form\Hydrator;
 
+use Core\Entity\Hydrator\MappingEntityHydrator;
+use Interop\Container\ContainerInterface;
 use Jobs\Form\Hydrator\OrganizationNameHydrator;
-use Organizations\Repository\Organization;
+use Jobs\Form\Hydrator\Strategy\JobManagerStrategy;
+use Jobs\Form\Hydrator\Strategy\OrganizationNameStrategy;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -21,6 +24,35 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class OrganizationNameHydratorFactory implements FactoryInterface
 {
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $organizationRepository = $container->get('repositories')->get('Organizations/Organization');
+        $organizationNameStrategy = new OrganizationNameStrategy($organizationRepository);
+
+        $hydrator = new MappingEntityHydrator([
+            'organization' => 'companyId',
+            'metaData'     => 'managers',
+        ]);
+        $hydrator->addStrategy('companyId', $organizationNameStrategy);
+        $hydrator->addStrategy('managers', new JobManagerStrategy());
+
+        return $hydrator;
+    }
+
+
+    /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -29,11 +61,6 @@ class OrganizationNameHydratorFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $hydrator Organization */
-        $organizationRepository = $serviceLocator->get('repositories')->get('Organizations/Organization');
-
-        $hydrator = new OrganizationNameHydrator($organizationRepository);
-
-        return $hydrator;
+        return $this($serviceLocator, OrganizationNameHydrator::class);
     }
 }

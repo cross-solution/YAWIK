@@ -10,11 +10,16 @@
     <files>
         <directory>module/*</directory>
         <ignore>vendor/*</ignore>
+        <ignore>module/Ac*</ignore>
+        <ignore>module/Px*</ignore>        
+        <ignore>module/Xe*</ignore>
         <ignore>module/YawikDemo*</ignore>
+        <ignore>module/Cam*</ignore>
         <ignore>module/JobsDeutschland*</ignore>
         <ignore>module/Karriere24*</ignore>
         <ignore>module/Karrierelounge*</ignore>
         <ignore>module/Greenjobs*</ignore>
+        <ignore>module/Gastro24</ignore>
         <ignore>module/NextKraftwerke*</ignore>
         <ignore>module/Cam*</ignore>
         <ignore>*/language/*</ignore>

@@ -41,9 +41,9 @@ interface EventProviderInterface
      *
      * @param array|string|null $name
      * @param array|object|null $target
-     * @param array $params
+     * @param array|\Traversable|null $params
      *
      * @return EventInterface
      */
-    public function getEvent($name = null, $target = null, array $params = []);
+    public function getEvent($name = null, $target = null, $params = null);
 }

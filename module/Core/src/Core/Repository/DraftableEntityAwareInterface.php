@@ -14,7 +14,6 @@ namespace Core\Repository;
  * ${CARET}
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 interface DraftableEntityAwareInterface 
 {

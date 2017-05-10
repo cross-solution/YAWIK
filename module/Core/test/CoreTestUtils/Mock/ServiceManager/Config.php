@@ -35,6 +35,10 @@ class Config extends ZfConfig
                 if (isset($spec['count_has'])) {
                     $serviceManager->setExpectedCallCount('has', $name, $spec['count_has']);
                 }
+                if (isset($spec['direct'])) {
+                    $serviceManager->setService($name, $spec['service']);
+                    continue;
+                }
 
                 $spec = $spec['service'];
             }

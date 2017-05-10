@@ -11,6 +11,9 @@
 namespace Organizations\Mail;
 
 use Auth\Entity\UserInterface;
+use Core\Mail\HTMLTemplateMessage;
+use Interop\Container\ContainerInterface;
+use Organizations\ImageFileCache\ODMListener;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -19,16 +22,83 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * This Factory creates and configures the HTMLTemplateMail send to an invited person.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since  0.19
  */
 class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOptionsInterface
 {
     /**
-     * Dynamic options for each invokation.
+     * Dynamic options for each invocation.
      *
      * @var array
      */
     protected $options;
+
+    /**
+     * Create a ODMListener
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     * @TODO   fix method description, this method is not used to create an ODMListener but it will configure HTMLTemplateMail
+     *
+     * @return ODMListener
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var $serviceLocator \Core\Mail\MailService */
+        /* @var $owner \Auth\Entity\UserInterface */
+        /* @var $user \Auth\Entity\UserInterface */
+
+        $auth     = $container->get('AuthenticationService');
+        $router   = $container->get('Router');
+
+        // we assume here, that the logged in user is the inviter.
+        $owner   = $auth->getUser();
+        $org     = $owner->getOrganization()->getOrganization();
+        $orgName = $org->getOrganizationName()->getName();
+        $user    = $this->options['user'];
+
+        $url = $router->assemble(
+            array('action' => 'accept'),
+            array(
+                'name'  => 'lang/organizations/invite',
+                'query' => array(
+                    'token'        => $this->options['token'],
+                    'organization' => $org->getId()
+                )
+            )
+        );
+
+        $variables = array(
+            'inviter'        => $owner->getInfo()->getDisplayName(),
+            'organization'   => $orgName,
+            'token'          => $this->options['token'],
+            'user'           => $user->getInfo()->getDisplayName(/*emailifEmpty*/ false),
+            'hasAssociation' => false,
+            'url'            => $url,
+        );
+
+        if ($user->getOrganization()->hasAssociation()) {
+            $variables['hasAssociation']      = true;
+            $variables['isOwner']             = $user->getOrganization()->isOwner();
+            $variables['currentOrganization'] =
+                $user->getOrganization()->getOrganization()->getOrganizationName()->getName();
+        }
+
+        $mail = $container->get('Core/MailService')->get('htmltemplate');
+        $mail->setTemplate($this->options['template'])
+                ->setVariables($variables)
+                ->setSubject(
+                    sprintf(
+                    /* @translate */ 'Invitation to join the team of %s',
+                                    $orgName
+                    )
+                )
+                ->addTo($user->getEmail());
+
+        return $mail;
+    }
 
     /**
      * Sets creation options.
@@ -55,7 +125,6 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
         $this->options = $options;
     }
 
-
     /**
      * Create service
      *
@@ -66,56 +135,6 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Core\Mail\MailService */
-        /* @var $owner \Auth\Entity\UserInterface */
-        /* @var $user \Auth\Entity\UserInterface */
-        $services = $serviceLocator->getServiceLocator();
-        $auth     = $services->get('AuthenticationService');
-        $router   = $services->get('Router');
-
-        // we assume here, that the logged in user is the inviter.
-        $owner   = $auth->getUser();
-        $org     = $owner->getOrganization()->getOrganization();
-        $orgName = $org->getOrganizationName()->getName();
-        $user    = $this->options['user'];
-
-        $url = $router->assemble(
-            array('action' => 'accept'),
-            array(
-                                     'name'  => 'lang/organizations/invite',
-                                     'query' => array(
-                                         'token'        => $this->options['token'],
-                                         'organization' => $org->getId()
-                                     )
-                                 )
-        );
-
-        $variables = array(
-            'inviter'        => $owner->getInfo()->getDisplayName(),
-            'organization'   => $orgName,
-            'token'          => $this->options['token'],
-            'user'           => $user->getInfo()->getDisplayName(/*emailifEmpty*/ false),
-            'hasAssociation' => false,
-            'url'            => $url,
-        );
-
-        if ($user->getOrganization()->hasAssociation()) {
-            $variables['hasAssociation']      = true;
-            $variables['isOwner']             = $user->getOrganization()->isOwner();
-            $variables['currentOrganization'] =
-                $user->getOrganization()->getOrganization()->getOrganizationName()->getName();
-        }
-
-        $mail = $serviceLocator->get('htmltemplate');
-        $mail->setTemplate($this->options['template'])
-             ->setVariables($variables)
-             ->setSubject(
-                 sprintf(
-                     /* @translate */ 'Invitation to join the team of %s',
-                     $orgName
-                 )
-             )
-             ->addTo($user->getEmail());
-
-        return $mail;
+        return $this($serviceLocator->getServiceLocator(), HTMLTemplateMessage::class);
     }
 }

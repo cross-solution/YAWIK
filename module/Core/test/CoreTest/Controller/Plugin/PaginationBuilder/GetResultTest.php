@@ -12,6 +12,7 @@ namespace CoreTest\Controller\Plugin\PaginationBuilder;
 
 use Core\Controller\Plugin\PaginationBuilder;
 use Zend\Http\Request;
+use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\PaginationBuilder::getResult()
@@ -99,6 +100,24 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
         $result = $this->target->getResult();
 
         $this->assertEmpty($result);
+    }
+
+    public function testQueryParameterAreFiltered()
+    {
+        $query = new Parameters([
+            'a' => 'test',
+            ',b' => 'test1,test2',
+            '!c' => 'test1!test2',
+        ]);
+        $this->request->setQuery($query);
+
+        $this->target->getResult();
+
+        $actual = $query->toArray();
+
+        $this->assertAttributeEquals(
+             new Parameters(['a' => 'test', 'b' => ['test1', 'test2'], 'c' => ['test1', 'test2']]),
+             'parameters', $this->target);
     }
 }
 

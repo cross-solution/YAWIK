@@ -266,35 +266,33 @@ class SummaryForm extends AbstractHelper
                       : $element->getValue();
 
         if ('' != $elementValue && $element instanceof \Zend\Form\Element\Select) {
-            $generalOptGroupName = '__general__';
-            $options = $element->getValueOptions();
-            $translator = $this->getTranslator();
-            if (true == $element->getAttribute('multiple')) {
-
-                $multiOptions = [];
-                foreach ($elementValue as $optionKey) {
-                    if (isset($options[$optionKey])) {
-                        $multiOptions[$generalOptGroupName][] = $translator->translate($options[$optionKey]);
-                        continue;
-                    }
-
-                    foreach ($options as $optKey => $optVal) {
-                        if (!is_array($optVal) || !array_key_exists($optionKey, $optVal['options'])) { continue; }
-
-                        $optGroupLabel = isset($optVal['label']) ? $translator->translate($optVal['label']) : $optKey;
-                        $multiOptions[$optGroupLabel][] = $translator->translate($optVal['options'][$optionKey]);
-                    }
-                }
-
-                $elementValue = [];
-                $numberOfmultiOptions = count($multiOptions);
-                foreach ($multiOptions as $optGroupLabel => $vals) {
-                    $elementValue[] = ($numberOfmultiOptions > 1 || $optGroupLabel !== $generalOptGroupName ? "<b>$optGroupLabel</b><br>" : '') . join(', ', $vals);
-                }
-                $elementValue = join('<br>', $elementValue) . '<br>';
-
+            if ($summaryValue = $element->getOption('summary_value')) {
+                $elementValue = is_callable($summaryValue) ? $summaryValue() : $summaryValue;
             } else {
-                $elementValue = $translator->translate($options[$elementValue]);
+                $options = $element->getValueOptions();
+                $translator = $this->getTranslator();
+                if (true == $element->getAttribute('multiple')) {
+
+                    $multiOptions = [];
+                    foreach ($elementValue as $optionKey) {
+                        if (isset($options[$optionKey])) {
+                            $multiOptions[] = $translator->translate($options[$optionKey]);
+                            continue;
+                        }
+
+                        foreach ($options as $optKey => $optVal) {
+                            if (!is_array($optVal) || !array_key_exists($optionKey, $optVal['options'])) { continue; }
+
+                            $optGroupLabel = isset($optVal['label']) ? $translator->translate($optVal['label']) : $optKey;
+                            $multiOptions[] = $optGroupLabel . ' | ' . $translator->translate($optVal['options'][$optionKey]);
+                        }
+                    }
+
+                    $elementValue = '<ul><li>' . join('</li><li>' , $multiOptions) . '</li></ul>';
+
+                } else {
+                    $elementValue = $translator->translate($options[$elementValue]);
+                }
             }
         }
 

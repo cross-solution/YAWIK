@@ -38,7 +38,7 @@ if ($this->renderSummary):?>
         <strong><?php echo $data[0] ?></strong><br>
         <small><?php echo implode(', ', $info) ?></small>
                 </div>
-                <?php if (isset($data[4])):?>
+                <?php if (isset($data[4]) && !empty($data[4])):?>
                      <div class="col-md-6 pull-right">
                          <img src="<?php echo $this->basepath($data[4]) ?>" class="yk-logo-sm">
                      </div>

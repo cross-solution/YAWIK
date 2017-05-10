@@ -111,14 +111,14 @@ class Application extends AbstractRepository
     }
 
     /**
-     * @param $job
+     * @param \Jobs\Entity\Job $job
      *
      * @return mixed
      */
     public function loadApplicationsForJob($job)
     {
         return $this->createQueryBuilder()
-                    ->field("job")->equals(new \MongoId($job->id))
+                    ->field("job")->equals(new \MongoId($job->getId()))
                     ->getQuery()
                     ->execute();
     }
@@ -133,8 +133,8 @@ class Application extends AbstractRepository
     {
         $auth=$this->getService('AuthenticationService');
         $qb=$this->createQueryBuilder()
-                  ->field("readBy")->notIn(array($auth->getUser()->id))
-                  ->field("job")->equals(new \MongoId($job->id));
+                  ->field("readBy")->notIn(array($auth->getUser()->getId()))
+                  ->field("job")->equals(new \MongoId($job->getId()));
         return $qb->getQuery()->execute();
     }
 

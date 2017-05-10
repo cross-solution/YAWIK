@@ -9,6 +9,7 @@
 
 namespace Auth\Factory\Adapter;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Adapter\HybridAuth as HybridAuthAdapter;
@@ -18,23 +19,37 @@ use Auth\Adapter\HybridAuth as HybridAuthAdapter;
  */
 class HybridAuthAdapterFactory implements FactoryInterface
 {
+    /**
+     * Create a HybridAuthAdapter adapter
+     *
+     * authentication with HybridAuth
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return HybridAuthAdapter
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $adapter = new HybridAuthAdapter();
+        $adapter->setHybridAuth($container->get('HybridAuth'));
+        $adapter->setRepository($container->get('repositories')->get('Auth/User'));
+        $adapter->setSocialProfilePlugin($container->get('ControllerPluginManager')->get('Auth/SocialProfiles'));
+        return $adapter;
+    }
 
     /**
-     * Creates an instance of \Auth\Adapter\HybridAuth
-     *
-     * - injects the \HybridAuth
-     * - injects the UserMapper fetched from the service manager.
-     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\Adapter\HybridAuth
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $adapter = new HybridAuthAdapter();
-        $adapter->setHybridAuth($serviceLocator->get('HybridAuth'));
-        $adapter->setRepository($serviceLocator->get('repositories')->get('Auth/User'));
-        $adapter->setSocialProfilePlugin($serviceLocator->get('ControllerPluginManager')->get('Auth/SocialProfiles'));
-        return $adapter;
+        return $this($serviceLocator, HybridAuthAdapter::class);
     }
 }

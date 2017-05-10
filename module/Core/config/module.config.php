@@ -15,79 +15,90 @@
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
 
-return array(
+return [
 
     'doctrine' => $doctrineConfig,
 
     'options' => [
         'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
+        \Core\Options\ImagineOptions::class => [],
         ],
     
-    'Core' => array(
-        'settings' => array(
+    'Core' => [
+        'settings' => [
             'entity' => '\\Core\\Entity\\SettingsContainer',
             'navigation_label' => /* @translate */ 'general settings',
             'navigation_class' => 'yk-icon yk-icon-settings'
-        ),
-    ),
+        ],
+    ],
 
 
     // Logging
-    'log' => array(
-        'Core/Log' => array(
-            'writers' => array(
-                 array(
+    'log' => [
+        'Core/Log' => [
+            'writers' => [
+                 [
                      'name' => 'stream',
                     'priority' => 1000,
-                    'options' => array(
+                    'options' => [
                          'stream' => __DIR__ .'/../../../log/yawik.log',
-                    ),
-                 ),
-            ),
-        ),
-        'Log/Core/Mail' => array(
-            'writers' => array(
-                 array(
+                    ],
+                 ],
+            ],
+        ],
+        'Log/Core/Mail' => [
+            'writers' => [
+                 [
                      'name' => 'stream',
                     'priority' => 1000,
-                    'options' => array(
+                    'options' => [
                          'stream' => __DIR__ .'/../../../log/mails.log',
-                    ),
-                 ),
-            ),
-        ),
-        'ErrorLogger' => array(
+                    ],
+                 ],
+            ],
+        ],
+        'ErrorLogger' => [
             'service' => 'Core/ErrorLogger',
-            'config'  => array(
+            'config'  => [
                 'stream' => __DIR__ . '/../../../log/error.log',
                 'log_errors' => true,
                 'log_exceptions' => true,
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
 
     'log_processors' => [
         'invokables' => [
             'Core/UniqueId' => 'Core\Log\Processor\UniqueId',
         ],
     ],
+    
+    'tracy' => [
+        'enabled' => true, // flag whether to load tracy at all
+        'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
+        'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
+        'strict' => true, // bool = cause immediate death|int = matched against error severity
+        'log' => __DIR__ . '/../../../log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+        'email' => null, // in production mode notifies the recipient
+        'email_snooze' => 900 // interval for sending email in seconds
+    ],
 
 
     // Routes
-    'router' => array(
-        'routes' => array(
-            'lang' => array(
+    'router' => [
+        'routes' => [
+            'lang' => [
                 'type' => 'Segment',
-                'options' => array(
+                'options' => [
                     'route' => '/:lang',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'Core\Controller\Index',
                         'action' => 'index',
-                    ),
-                ),
+                    ],
+                ],
                 'may_terminate' => true,
-                'child_routes' => array(
-                    'admin' => array(
+                'child_routes' => [
+                    'admin' => [
                         'type' => 'Literal',
                         'options' => [
                             'route' => '/admin',
@@ -97,90 +108,90 @@ return array(
                             ],
                         ],
                         'may_terminate' => true,
-                    ),
-                    'error' => array(
+                    ],
+                    'error' => [
                         'type' => 'Literal',
-                        'options' => array(
+                        'options' => [
                             'route' => '/error',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'Core\Controller\Index',
                                 'action' => 'error',
-                            ),
-                        ),
+                            ],
+                        ],
                         'may_terminate' => true,
-                    ),
-                    'mailtest' => array(
+                    ],
+                    'mailtest' => [
                         'type' => 'Segment',
-                        'options' => array(
+                        'options' => [
                             'route' => '/mail',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'Core\Controller\Index',
                                 'action' => 'mail',
-                            ),
-                        ),
+                            ],
+                        ],
                         'may_terminate' => true,
-                    ),
-                    'content' => array(
+                    ],
+                    'content' => [
                         'type' => 'Regex',
-                        'options' => array(
+                        'options' => [
                             'regex' => '/content/(?<view>.*)$',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'Core\Controller\Content',
                                 'action' => 'index',
-                            ),
+                            ],
                             'spec' => '/content/%view%'
-                        ),
+                        ],
                         'may_terminate' => true,
 
-                    )
-                ),
-            ),
-            'file' => array(
+                    ]
+                ],
+            ],
+            'file' => [
                 'type' => 'Segment',
-                'options' => array(
+                'options' => [
                     'route' => '/file/:filestore/:fileId[/:fileName]',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => '\Core\Controller\File',
                         'action' => 'index'
-                    ),
-                ),
+                    ],
+                ],
                 'may_terminate' => true,
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     
-    'acl' => array(
-        'rules' => array(
-            'guest' => array(
-                'allow' => array(
+    'acl' => [
+        'rules' => [
+            'guest' => [
+                'allow' => [
                     //'route/file',
-                    'Entity/File' => array(
+                    'Entity/File' => [
                         '__ALL__' => 'Core/FileAccess'
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'admin' => [
                 'allow' => [
                     'route/lang/admin',
                     //'Core/Navigation/Admin',
                 ],
             ],
-        ),
-        'assertions' => array(
-            'invokables' => array(
+        ],
+        'assertions' => [
+            'invokables' => [
                 'Core/FileAccess' => 'Core\Acl\FileAccessAssertion',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     
     // Setup the service manager
-    'service_manager' => array(
-        'invokables' => array(
+    'service_manager' => [
+        'invokables' => [
             'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
             'Core/EventManager'          => 'Core\EventManager\EventManager',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'configaccess' => 'Core\Service\Config::factory',
             'templateProvider' => 'Core\Service\TemplateProvider::factory',
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
@@ -198,27 +209,30 @@ return array(
             'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy::factory',
             'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate::factory',
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
-            'Core/Locale' => 'Core\I18n\Locale::factory',
-        ),
-        'abstract_factories' => array(
+            'Core/Locale' => 'Core\I18n\LocaleFactory',
+            \Core\Listener\AjaxRouteListener::class => \Core\Factory\Listener\AjaxRouteListenerFactory::class,
+            \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
+            'Imagine' => \Core\Factory\Service\ImagineFactory::class,
+        ],
+        'abstract_factories' => [
             'Core\Log\LoggerAbstractFactory',
             'Core\Factory\OptionsAbstractFactory',
             'Core\Factory\EventManager\EventManagerAbstractFactory',
-        ),
-        'aliases' => array(
+        ],
+        'aliases' => [
             'forms' => 'FormElementManager',
             'repositories' => 'Core/RepositoryService',
             'translator' => 'mvctranslator',
-        ),
-        'shared' => array(
+        ],
+        'shared' => [
             'Core/Listener/DeferredListenerAggregate' => false,
-        ),
-    ),
+        ],
+    ],
 
     // Translation settings consumed by the 'translator' factory above.
-    'translator' => array(
+    'translator' => [
         'locale' => 'de_DE',
-        'translation_file_patterns' => array(
+        'translation_file_patterns' => [
             [
                 'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
@@ -234,36 +248,36 @@ return array(
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => 'Zend_Captcha.%s.php',
             ]
-        ),
-    ),
+        ],
+    ],
     // Defines the Core/Navigation.
-    'navigation' => array(
-        'default' => array(
-             'home' => array(
+    'navigation' => [
+        'default' => [
+             'home' => [
                  'label' => /*@translate*/ 'Home',
                  'route' => 'lang',
                  'visible' => false
-             ),
-             'admin' => array(
+             ],
+             'admin' => [
                  'label ' => /*@translate*/ 'Admin',
                  'route' => 'lang/admin',
                  'resource' => 'route/lang/admin',
                  'order' => 200,
-             ),
-        ),
-    ),
+             ],
+        ],
+    ],
     // Configuration of the controller service manager (Which loads controllers)
-    'controllers' => array(
-        'invokables' => array(
+    'controllers' => [
+        'invokables' => [
             'Core\Controller\Index' => 'Core\Controller\IndexController',
             'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
             'Core/Admin' => 'Core\Controller\AdminController',
-        ),
-    ),
+        ],
+    ],
     // Configuration of the controller plugin service manager
-    'controller_plugins' => array(
-        'factories' => array(
+    'controller_plugins' => [
+        'factories' => [
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
             'entitysnapshot' => 'Core\Controller\Plugin\Service\EntitySnapshotFactory',
@@ -273,14 +287,14 @@ return array(
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer::factory',
             'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator::factory',
             'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService::factory',
-        ),
-        'invokables' => array(
+        ],
+        'invokables' => [
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
             'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
             'Core/PaginationBuilder' => 'Core\Controller\Plugin\PaginationBuilder',
-        ),
-        'aliases' => array(
+        ],
+        'aliases' => [
             'filesender'       => 'Core/FileSender',
             'mailer'           => 'Core/Mailer',
             'pagination'       => 'Core/PaginationBuilder',
@@ -288,10 +302,10 @@ return array(
             'paginatorservice' => 'Core/PaginatorService',
             'paginationparams' => 'Core/PaginationParams',
             'searchform'       => 'Core/SearchForm',
-        )
-    ),
+        ]
+    ],
     // Configure the view service manager
-    'view_manager' => array(
+    'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'doctype' => 'HTML5',
@@ -299,7 +313,7 @@ return array(
         'unauthorized_template' => 'error/403',
         'exception_template' => 'error/index',
         // Map template to files. Speeds up the lookup through the template stack.
-        'template_map' => array(
+        'template_map' => [
             'noscript-notice' => __DIR__ . '/../view/layout/_noscript-notice.phtml',
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
@@ -315,18 +329,21 @@ return array(
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
             'core/form/container-view' => __DIR__ . '/../view/form/container.view.phtml',
+            'core/form/tree-manage.view' => __DIR__ . '/../view/form/tree-manage.view.phtml',
+            'core/form/tree-manage.form' => __DIR__ . '/../view/form/tree-manage.form.phtml',
+            'core/form/tree-add-item' => __DIR__ . '/../view/form/tree-add-item.phtml',
             'mail/header' =>  __DIR__ . '/../view/mail/header.phtml',
             'mail/footer' =>  __DIR__ . '/../view/mail/footer.phtml',
             'mail/footer.en' =>  __DIR__ . '/../view/mail/footer.en.phtml',
             //'startpage' => __DIR__ . '/../view/layout/startpage.phtml',
-        ),
+        ],
         // Where to look for view templates not mapped above
-        'template_path_stack' => array(
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-    ),
-    'view_helpers' => array(
-        'invokables' => array(
+        ],
+    ],
+    'view_helpers' => [
+        'invokables' => [
             'form_element' => 'Core\Form\View\Helper\FormElement',
             'formLabel'  => 'Core\Form\View\Helper\RequiredMarkInFormLabel',
             'form' => 'Core\Form\View\Helper\Form',
@@ -352,6 +369,7 @@ return array(
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
             'link'   => 'Core\View\Helper\Link',
+            'languageSwitcher' => 'Core\View\Helper\LanguageSwitcher',
             'rating' => 'Core\View\Helper\Rating',
             'base64' => 'Core\View\Helper\Base64',
             'alert' => 'Core\View\Helper\Alert',
@@ -359,46 +377,54 @@ return array(
             'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
             'TinyMCEditor' => 'Core\Form\View\Helper\FormEditor',
             'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor'
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
             'socialbuttons' => 'Core\Factory\View\Helper\SocialButtonsFactory',
             'TinyMCEditorLight' => 'Core\Factory\Form\View\Helper\FormEditorLightFactory',
             'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
             'services' => 'Core\View\Helper\Services::factory',
             'insertFile' => 'Core\View\Helper\InsertFile::factory',
-        ),
-        'initializers' => array(
+            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
+            \Core\View\Helper\Proxy::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \Core\View\Helper\AjaxUrl::class => \Core\Factory\View\Helper\AjaxUrlFactory::class,
+        ],
+        'initializers' => [
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
-        ),
-    ),
+        ],
+        'aliases' => [
+            'snippet' => \Core\View\Helper\Snippet::class,
+            'proxy' => \Core\View\Helper\Proxy::class,
+            'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
+        ],
+    ],
     
-    'view_helper_config' => array(
-        'flashmessenger' => array(
+    'view_helper_config' => [
+        'flashmessenger' => [
             'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
             'message_separator_string' => '</li><li>',
             'message_close_string'     => '</li></ul></div>',
-        ),
+        ],
         'form_editor' => [
             'light' => [
                 'toolbar' => 'undo redo | formatselect | alignleft aligncenter alignright ',
                 'block_formats' => 'Job title=h1;Subtitle=h2'
                 ]
         ]
-    ),
+    ],
     
-    'filters' => array(
-        'invokables' => array(
+    'filters' => [
+        'invokables' => [
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             "Core/XssFilter" => 'Core\Filter\XssFilterFactory',
             "Core/HtmlAbsPathFilter" => 'Core\Factory\Filter\HtmlAbsPathFilterFactory',
-        ),
-    ),
+        ],
+    ],
     
-    'form_elements' => array(
-        'invokables' => array(
+    'form_elements' => [
+        'invokables' => [
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
             'FormSubmitButtonsFieldset' => '\Core\Form\FormSubmitButtonsFieldset',
             'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
@@ -419,18 +445,22 @@ return array(
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
             'Core/Container' => 'Core\Form\Container',
-            'Core/TextSearch' => 'Core\Form\TextSearchForm',
-            'Core/TextSearch/Elements' => 'Core\Form\TextSearchFormFieldset',
-            'Core/TextSearch/Buttons' => 'Core\Form\TextSearchFormButtonsFieldset',
-        ),
-        'initializers' => array(
+            'Core/Tree/Management' => 'Core\Form\Tree\ManagementForm',
+            'Core/Tree/ManagementFieldset' => 'Core\Form\Tree\ManagementFieldset',
+            'Core/Tree/AddItemFieldset' => 'Core\Form\Tree\AddItemFieldset',
+            'Core/Search' => 'Core\Form\SearchForm',
+        ],
+        'factories' => [
+            'Core/Tree/Select' => 'Core\Factory\Form\Tree\SelectFactory',
+        ],
+        'initializers' => [
             '\Core\Form\Service\InjectHeadscriptInitializer',
             '\Core\Form\Service\Initializer',
-        ),
-        'aliases' => array(
+        ],
+        'aliases' => [
             'submitField' => 'FormSubmitButtonsFieldset'
-        ),
-    ),
+        ],
+    ],
 
     'paginator_manager' => [
         'abstract_factories' => [
@@ -438,12 +468,12 @@ return array(
         ],
     ],
     
-    'mails_config' => array(
-        'from' => array(
+    'mails_config' => [
+        'from' => [
             'email' => 'no-reply@host.tld',
             'name'  => 'YAWIK'
-        ),
-    ),
+        ],
+    ],
 
     'event_manager' => [
         'Core/AdminController/Events' => [
@@ -454,7 +484,23 @@ return array(
         'Core/CreatePaginator/Events' => [
             'service' => 'Core/EventManager',
             'event' => '\Core\Listener\Events\CreatePaginatorEvent'
+        ],
+
+        'Core/ViewSnippets/Events' => [
+            'service' => 'Core/EventManager',
+        ],
+
+        'Core/Ajax/Events' => [
+            'service' => 'Core/EventManager',
+            'event'   => \Core\Listener\Events\AjaxEvent::class,
+        ],
+        'Core/File/Events' => [
+            'service' => 'Core/EventManager',
+            'event'   => \Core\Listener\Events\FileEvent::class,
+            'listeners' => [
+                \Core\Listener\DeleteImageSetListener::class => [\Core\Listener\Events\FileEvent::EVENT_DELETE, -1000],
+            ],
         ]
     ],
     
-);
+];

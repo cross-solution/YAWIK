@@ -99,6 +99,7 @@ return array(
             'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter::factory',
             'OAuth' => '\Auth\Controller\Plugin\OAuth::factory',
             'Auth' => '\Auth\Controller\Plugin\Auth::factory',
+            'Auth/User/Switcher' => 'Auth\Factory\Controller\Plugin\UserSwitcherFactory',
         ),
         'shared' => array(
             'OAuth' => false,
@@ -203,7 +204,8 @@ return array(
                     'route/auth-logout',
                     'route/lang/my',
                     'route/lang/my-password',
-                    'route/lang/user-remove'
+                    'route/lang/user-remove',
+                    'Auth/Users' => 'switch',
                 ),
                 'deny' => array(
                    // 'route/lang/auth',
@@ -226,6 +228,7 @@ return array(
                     'Users',
                     'route/lang/user-list',
                     'route/lang/user-edit',
+                    'Auth/Users' => '__ALL__',
                 ],
             ),
         ),
@@ -257,6 +260,7 @@ return array(
             'mail/first-external-login' => __DIR__ . '/../view/mail/first-external-login.phtml',
             'mail/first-socialmedia-login' => __DIR__ . '/../view/mail/first-socialmedia-login.phtml',
             'mail/forgotPassword' =>  __DIR__ . '/../view/mail/forgot-password.phtml',
+            'mail/forgotPassword.en' =>  __DIR__ . '/../view/mail/forgot-password.en.phtml',
             'mail/register' =>  __DIR__ . '/../view/mail/register.phtml',
         ),
     

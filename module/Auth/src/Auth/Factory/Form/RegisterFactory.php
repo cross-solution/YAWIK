@@ -10,12 +10,40 @@ namespace Auth\Factory\Form;
 
 use Auth\Form\Register;
 use Auth\Form\RegisterInputFilter;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Options\CaptchaOptions;
 
 class RegisterFactory implements FactoryInterface
 {
+    /**
+     * Create a Register form
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return Register
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var RegisterInputFilter $filter */
+        $filter = $container->get('Auth\Form\RegisterInputFilter');
+
+        /* @var CaptchaOptions $config */
+        $config = $container->get('Auth/CaptchaOptions');
+
+        $form = new Register(null, $config);
+        $form->setAttribute('id', 'registration');
+        $form->setInputfilter($filter);
+
+        return $form;
+    }
     /**
      * Create service
      *
@@ -25,21 +53,6 @@ class RegisterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /**
-         * @var $serviceLocator \Zend\Form\FormElementManager
-         * @var $filter RegisterInputFilter
-         */
-        $filter = $serviceLocator->getServiceLocator()->get('Auth\Form\RegisterInputFilter');
-
-        /* @var $config CaptchaOptions */
-        $config = $serviceLocator->getServiceLocator()->get('Auth/CaptchaOptions');
-
-        $form = new Register(null, $config);
-
-        $form->setAttribute('id', 'registration');
-
-        $form->setInputfilter($filter);
-
-        return $form;
+        return $this($serviceLocator->getServiceLocator(), Register::class);
     }
 }

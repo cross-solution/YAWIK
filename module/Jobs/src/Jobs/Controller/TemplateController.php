@@ -13,7 +13,9 @@
 
 namespace Jobs\Controller;
 
+use Core\Entity\Exception\NotFoundException;
 use Core\Entity\PermissionsInterface;
+use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
 use Jobs\Repository;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -59,9 +61,10 @@ class TemplateController extends AbstractActionController
         $channel = $this->params()->fromRoute('channel','default');
         $response = $this->getResponse();
         /* @var \Jobs\Entity\Job $job */
-        $job = $this->jobRepository->find($id);
-        
-        if (!$job) {
+        try {
+            $job = $this->initializeJob()->get($this->params(), true);
+
+        } catch (NotFoundException $e) {
             $response->setStatusCode(Response::STATUS_CODE_404);
             return [
                 'message' => sprintf($this->serviceLocator->get('Translator')->translate('Job with id "%s" not found'), $id)
@@ -79,6 +82,7 @@ class TemplateController extends AbstractActionController
 
         if (
             Status::ACTIVE == $job->getStatus() or
+            Status::WAITING_FOR_APPROVAL == $job->getStatus() or
             $job->getPermissions()->isGranted($user, PermissionsInterface::PERMISSION_VIEW) or
             $this->auth()->isAdmin()
         ) {
@@ -112,7 +116,8 @@ class TemplateController extends AbstractActionController
     {
         $id = $this->params('id');
         $formIdentifier=$this->params()->fromQuery('form');
-        $job = $this->jobRepository->find($id);
+        //$job = $this->jobRepository->find($id);
+        $job = $this->initializeJob()->get($this->params(), true, true); /* @var \Jobs\Entity\Job $job */
         $this->acl($job, 'edit');
 
         /** @var \Zend\Http\Request $request */
@@ -128,12 +133,13 @@ class TemplateController extends AbstractActionController
         $formTemplate         = $forms->get(
             'Jobs/Description/Template',
             array(
-            'mode' => $job->id ? 'edit' : 'new'
+            'mode' => $job->getId() ? 'edit' : 'new'
             )
         );
 
-        $formTemplate->setParam('id', $job->id);
-        $formTemplate->setParam('applyId', $job->applyId);
+        $formTemplate->setParam('id', $job->getId());
+        $formTemplate->setParam('applyId', $job->getApplyId());
+        $formTemplate->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '' );
 
         $formTemplate->setEntity($job);
 
@@ -150,6 +156,7 @@ class TemplateController extends AbstractActionController
 
             unset($postData['id']);
             unset($postData['applyId']);
+            unset($postData['snapshot']);
 
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
@@ -163,6 +170,20 @@ class TemplateController extends AbstractActionController
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
+            $headScript->appendScript('
+                $(document).ready(function() {
+                    var submitTextarea = function($area, $form) {
+                        var bg = $area.css("background-color");
+                        $area.css("background-color", "lightgrey");
+                        $form.one("yk:forms:success yk:forms:fail", function() { $area.css("background-color", bg); }).submit();
+                    };
+
+                    $("textarea").blur(function(e) { var $area = $(e.target); submitTextarea($area, $area.parents("form")); })
+                                 .keydown(function(e) { if ((10 == e.keyCode || 13 == e.keyCode) && e.ctrlKey) {
+                                                var $area = $(e.target); submitTextarea($area, $area.parents("form"));
+                                          }});
+                });
+            ');
 
             $headStyle = $viewHelperManager->get('headstyle');
             $headStyle->prependStyle('form > input {

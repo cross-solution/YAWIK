@@ -50,7 +50,7 @@ translate('Define, how notifications about new applications reach your employees
 //: ./src/Organizations/Form/OrganizationsDescriptionFieldset.php:44
 translate('Description');
 
-//: ./src/Organizations/Form/LogoImageFactory.php:51
+//: ./src/Organizations/Form/LogoImageFactory.php:52
 translate('Choose a Logo. This logo will be shown in the job opening and the application form.');
 
 //: ./src/Organizations/Form/OrganizationsNameFieldset.php:54
@@ -95,7 +95,7 @@ translate('Phone');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:93
 translate('Fax');
 
-//: ./src/Organizations/Controller/IndexController.php:101
+//: ./src/Organizations/Controller/IndexController.php:100
 translate('Search for organizations');
 
 //: ./src/Organizations/Controller/InviteEmployeeController.php:78
@@ -104,12 +104,12 @@ translate('The organization referenced in your request could not be found.');
 //: ./src/Organizations/Controller/InviteEmployeeController.php:84
 translate('The access token you provided seems to have expired.');
 
-//: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
+//: ./src/Organizations/Mail/EmployeeInvitationFactory.php:94
 translate('Invitation to join the team of %s');
 
-//: ./config/module.config.php:175
+//: ./config/module.config.php:185
 translate('Overview');
 
-//: ./config/module.config.php:179
+//: ./config/module.config.php:189
 translate('Insert');
 

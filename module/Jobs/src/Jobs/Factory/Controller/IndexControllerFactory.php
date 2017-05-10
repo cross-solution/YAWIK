@@ -9,6 +9,7 @@
 
 namespace Jobs\Factory\Controller;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Controller\IndexController;
 use Jobs\Form\ListFilter;
 use Jobs\Repository;
@@ -20,6 +21,32 @@ class IndexControllerFactory implements FactoryInterface
 {
 
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $searchForm = $container->get('forms')->get('Jobs/ListFilterPersonal');
+
+        /**
+         * @var $jobRepository Repository\Job
+         */
+        $jobRepository = $container->get('repositories')->get('Jobs/Job');
+
+        return new IndexController($jobRepository, $searchForm);
+    }
+
+
+    /**
      * Injects all needed services into the IndexController
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -28,17 +55,6 @@ class IndexControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /** @var ControllerManager $serviceLocator */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-
-        $searchForm = $serviceLocator->get('forms')
-            ->get('Jobs/ListFilterPersonal');
-
-        /**
-         * @var $jobRepository Repository\Job
-         */
-        $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
-
-        return new IndexController($jobRepository, $searchForm);
+        return $this($serviceLocator->getServiceLocator(), IndexController::class);
     }
 }

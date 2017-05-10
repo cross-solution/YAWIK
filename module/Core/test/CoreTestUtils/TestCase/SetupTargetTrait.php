@@ -40,6 +40,9 @@ use Zend\Stdlib\ArrayUtils;
  *      // FQCN of the target class
  *      'class' => FQCN,
  *
+ *      // Get a \ReflectionClass instance instead of the class instance
+ *      'as_reflection' => true,
+ *
  *      // Arguments provided by an TestCase method
  *      'args' => 'method',
  *
@@ -60,6 +63,7 @@ use Zend\Stdlib\ArrayUtils;
  *      '@testName' => [
  *
  *          // Override 'class' and 'args', when needed. (or use key 0 and 1)
+ *          // 'as_reflection' can also be set per testCase here
  *
  *          // generate a mock from the target class
  *          'mock' = [ mockedMethod, ... ]
@@ -90,6 +94,7 @@ use Zend\Stdlib\ArrayUtils;
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25 /refactored in 0.26
+ * @since 0.29 added 'as_reflection' option.
  */
 trait SetupTargetTrait
 {
@@ -111,7 +116,12 @@ trait SetupTargetTrait
         $spec = $this->target;
 
         if (is_string($spec)) {
-            $this->target = new $spec();
+            if (class_exists($spec)) {
+                $this->target = new $spec();
+            } else {
+                $this->target = $this->$spec();
+            }
+
             return;
         }
 
@@ -130,7 +140,9 @@ trait SetupTargetTrait
 
         if (null !== $testSpec) {
             if (is_string($testSpec)) {
-                if (class_exists($testSpec)) {
+                if (isset($spec[$testSpec])) {
+                    $testSpec = $spec[$testSpec];
+                } else if (class_exists($testSpec)) {
                     $testSpec = [ $testSpec ];
                 } else {
                     $this->target = $this->{$testSpec}();
@@ -140,16 +152,19 @@ trait SetupTargetTrait
 
             /* Override specs for specific test */
             foreach ($testSpec as $key => $value) {
+                if ('ignore' === $key || 'unset' === $key) {
+                    foreach ((array) $value as $ignKey) {
+                        unset($spec[$ignKey]);
+                    }
+                    continue;
+                }
+
                 $spec[$key] = $value;
             }
         }
 
-        if (isset($spec[0])) {
-            $spec['class'] = $spec[0];
-        }
-
-        if (!isset($spec['args'])) {
-            $spec['args'] = isset($spec[1]) ? $spec[1] : [];
+        if (isset($spec['pre']) && is_string($spec['pre'])) {
+            $this->{$spec['pre']}();
         }
 
         if (isset($spec['method'])) {
@@ -157,16 +172,44 @@ trait SetupTargetTrait
             return;
         }
 
+        if (!isset($spec['class'])) {
+            if (!isset($spec[0])) {
+                throw new \PHPUnit_Framework_Exception(__TRAIT__ . ': No target class name specified.');
+            }
+            $spec['class'] = $spec[0];
+        }
+
+        if (false === $spec['class']) {
+            $this->target = null;
+            return;
+        }
+
+        if (!class_exists($spec['class']) && !isset($spec['method'])) {
+            $spec['method'] = $spec['class'];
+        }
+
+        if (isset($spec['as_reflection']) && $spec['as_reflection']) {
+            $this->target = new \ReflectionClass($spec['class']);
+            return;
+        }
+
+        if (!isset($spec['args'])) {
+            $spec['args'] = isset($spec[1]) ? $spec[1] : [];
+        }
+
         if (is_string($spec['args'])) {
             $spec['args'] = $this->{$spec['args']}();
         }
 
-        if (isset($spec['mock'])) {
-            $this->target = $this->_setupTarget_setupMock($spec['class'], $spec['args'], $spec['mock']);
-            return;
+
+        $this->target = isset($spec['mock'])
+        ? $this->_setupTarget_setupMock($spec['class'], $spec['args'], $spec['mock'])
+        : $this->target = InstanceCreator::newClass($spec['class'], $spec['args']);
+
+        if (isset($spec['post']) && is_string($spec['post'])) {
+            $this->{$spec['post']}();
         }
 
-        $this->target = InstanceCreator::newClass($spec['class'], $spec['args']);
     }
 
     /**
@@ -198,41 +241,42 @@ trait SetupTargetTrait
 
             $call = function($spec) {
                 $cb   = [$this, $spec[0]];
-                $args = isset($spec[1]) ? (array) $spec[1] : false;
+                $args = isset($spec[1]) ? (array) $spec[1] : [];
 
-                if ($args) {
-                    return call_user_func_array($cb, $args);
-                }
-
-                return $this->$cb();
+                return call_user_func_array($cb, $args);
             };
 
             $methods = [];
             $methodMocks  = [];
 
-            foreach ($spec as $method => $methodSpec) {
-                if (is_int($method)) {
-                    $methods[] = $methodSpec;
-                    continue;
-                }
+            if (is_array($spec)) {
+                foreach ($spec as $method => $methodSpec) {
+                    if (is_int($method)) {
+                        $methods[] = $methodSpec;
+                        continue;
+                    }
 
-                if (is_string($methodSpec)) {
-                    $methodSpec = $this->$methodSpec();
-                }
+                    if (is_string($methodSpec)) {
+                        $methodSpec = $this->$methodSpec();
 
-                $methods[] = $method;
-                $methodMocks[$method] = [
-                    'expects' => isset($methodSpec['count']) ? $this->exactly($methodSpec['count']) : $this->any(),
-                    'with'    => isset($methodSpec['@with'])
-                                 ? $call($methodSpec['@with'])
-                                 : (isset($methodSpec['with']) ? $methodSpec['with'] : null),
-                    'return'  => isset($methodSpec['@return'])
-                                 ? $call($methodSpec['@return'])
-                                 : (isset($methodSpec['return'])
-                                    ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
-                                    : null
-                                   ),
-                ];
+                    } else if (is_int($methodSpec)) {
+                        $methodSpec = ['count' => $methodSpec];
+                    }
+
+                    $methods[] = $method;
+                    $methodMocks[$method] = [
+                        'expects' => isset($methodSpec['count']) ? $this->exactly($methodSpec['count']) : $this->any(),
+                        'with'    => isset($methodSpec['@with'])
+                                     ? $call((array) $methodSpec['@with'])
+                                     : (isset($methodSpec['with']) ? $methodSpec['with'] : null),
+                        'return'  => isset($methodSpec['@return'])
+                                     ? $call((array) $methodSpec['@return'])
+                                     : (isset($methodSpec['return'])
+                                        ? ('__self__' === $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
+                                        : null
+                                       ),
+                    ];
+                }
             }
 
             $mockBuilder = $this
@@ -252,8 +296,13 @@ trait SetupTargetTrait
                 $methodMock = $mock->expects($mockSpec['expects'])->method($method);
 
                 if ($mockSpec['with']) {
-                    $methodMock->with($mockSpec['with']);
+                    if (!is_array($mockSpec['with'])) {
+                        $mockSpec['with'] = [$mockSpec['with']];
+                    }
+
+                    call_user_func_array([$methodMock, 'with'], $mockSpec['with']);
                 }
+
 
                 if ($mockSpec['return']) {
                     $methodMock->will($mockSpec['return']);
@@ -263,5 +312,4 @@ trait SetupTargetTrait
 
         return $mock;
     }
-    
 }

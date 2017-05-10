@@ -14,37 +14,38 @@
 <?php echo $this->partial('mail/header'); ?>
 <?php
 $sm = $this->getHelperPluginManager()->getServiceLocator();
-$channels = $sm->get('Jobs/Options/Provider');
+$channels = $sm->get('Jobs/Options/Provider'); /* @var Jobs\Options\ProviderOptions $channels  */
 $options = $sm->get('Core/Options');
 $defaultCurrencyCode = $options->defaultCurrencyCode;
 $defaultTaxRate = $options->defaultTaxRate;
+$job=$this->job; /* @var Jobs\Entity\Job $job */
 ?>
 <h2><?php echo $this->translate("Job details")?></h2>
 <table>
     <tr>
-        <td><?php echo $this->translate("Title of the job")?></td>
-        <td><?php echo $this->job->title ?></td>
+        <td><?=$this->translate("Title of the job")?></td>
+        <td><?=$job->getTitle() ?></td>
     </tr>
     <tr>
-        <td><?php echo $this->translate("Location")?></td>
-        <td><?php echo $this->job->location ?></td>
+        <td><?=$this->translate("Location")?></td>
+        <td><?=$job->getLocation() ?></td>
     </tr>
     <tr>
-        <td><?php echo $this->translate("Companyname")?></td>
-        <td><?php echo $this->job->company ?></td>
+        <td><?=$this->translate("Companyname")?></td>
+        <td><?=$job->getCompany() ?></td>
     </tr>
 </table>
 
-<h2><?php echo $this->translate("Publisher details")?></h2>
+<h2><?=$this->translate("Publisher details")?></h2>
 
 <table>
     <tr>
-        <td><?php echo $this->translate("Name")?></td>
-        <td><?php echo $this->job->user->info->displayName ?></td>
+        <td><?=$this->translate("Name")?></td>
+        <td><?=$job->getUser()->getInfo()->getDisplayName() ?></td>
     </tr>
     <tr>
-        <td><?php echo $this->translate("Email")?></td>
-        <td><?php echo $this->job->user->info->email ?></td>
+        <td><?=$this->translate("Email")?></td>
+        <td><?=$job->getUser()->getInfo()->getEmail() ?></td>
     </tr>
 </table>
 
@@ -59,37 +60,35 @@ $defaultTaxRate = $options->defaultTaxRate;
 
 <?php $total = 0;?>
 
-<?php if (empty($this->job->portals)) : ?>
+<?php if (empty($job->getPortals())) : ?>
     <?php echo $this->translate('no Portal chosen') ?>
 <?php else:  ?>
     <h2><?php echo $this->translate("Selected Channels") ?></h2>
     <p>
-        <?php foreach ($this->job->portals as $portalName): ?>
-
+        <?php foreach ($job->getPortals() as $portalName): ?>
                 <?php $channelData=$channels->getChannel($portalName); ?>
-                <?php echo $channelData->label ?>,
-
+                <?=$channelData->getLabel() ?>,
         <?php endforeach; $priceFilter = $this->services('FilterManager.Jobs/ChannelPrices');
-                            $total = $priceFilter->filter($this->job->portals);?>
+                            $total = $priceFilter->filter($job->getPortals());?>
     </p>
     <table>
         <tr>
-            <td><?php echo $this->translate("Price")?>:</td>
-            <td><?php echo $this->currencyFormat((round($total,2)), $defaultCurrencyCode) ?></td>
+            <td><?=$this->translate("Price")?>:</td>
+            <td><?=$this->currencyFormat((round($total,2)), $defaultCurrencyCode) ?></td>
         </tr>
         <tr>
-            <td><?php echo $this->translate("plus VAT")?> (<?php echo $defaultTaxRate?>%)</td>
-            <td><?php echo $this->currencyFormat((round($total * $defaultTaxRate/100,2)), $defaultCurrencyCode) ?></td>
+            <td><?=$this->translate("plus VAT")?> (<?php echo $defaultTaxRate?>%)</td>
+            <td><?=$this->currencyFormat((round($total * $defaultTaxRate/100,2)), $defaultCurrencyCode) ?></td>
         </tr>
         <tr>
-            <td><?php echo $this->translate("Invoice amount")?>:</td>
-            <td><?php echo $this->currencyFormat((round(($total * $defaultTaxRate/100)+$total,2)), $defaultCurrencyCode) ?></td>
+            <td><?=$this->translate("Invoice amount")?>:</td>
+            <td><?=$this->currencyFormat((round(($total * $defaultTaxRate/100)+$total,2)), $defaultCurrencyCode) ?></td>
         </tr>
     </table>
 <?php endif; ?>
 
-<a href="<?php echo $this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>">
-    <?php echo $this->translate("Click here to accept or reject the job opening")?>
+<a href="<?=$this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>">
+    <?=$this->translate("Click here to accept or reject the job opening")?>
 </a>
 
 

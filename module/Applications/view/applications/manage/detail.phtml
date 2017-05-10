@@ -477,6 +477,25 @@ endif;
                         <td><?php echo $this->translate('agent')?>:</td>
                         <td><?php echo $this->link($job->getUser()->getInfo()->getDisplayName())?></td>
                     </tr>
+                    <?php
+                    if ($job->hasMetaData('organizations:managers')): ?>
+                    <tr>
+                        <td><?php echo $this->translate('Manager')?>:</td>
+                        <td>
+                            <ul>
+                            <?php
+
+                            $managers = $job->getMetaData('organizations:managers');
+
+                            foreach ($managers as $manager) {
+                                echo '<li>'.$manager['name'].'</li>';
+                            }
+                            
+                            ?>
+                            </ul>
+                        </td>
+                    </tr>
+                    <?php endif;?>
                 <?php endif; # allowed only for recruiters ?>
                 <?php if($application->getFacts()->getWillingnessToTravel()):?>
                     <tr>
@@ -521,7 +540,7 @@ endif;
     </div>
 </div>
 
-<?php if(count($this->application->cv->employments)>0):?>
+<?php if(count($this->application->getCv()->getEmployments())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -552,7 +571,7 @@ endif;
     </div>
 <?php endif;?>
 
-<?php if(count($this->application->cv->educations)>0):?>
+<?php if(count($this->application->getCv()->getEducations())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -581,7 +600,7 @@ endif;
     </div>
 <?php endif;?>
 
-<?php if(count($this->application->cv->skills)>0):?>
+<?php if(count($this->application->getCv()->getSkills())>0):?>
     <h2><?php echo  $this->translate('personal skills')?></h2>
     <?php foreach( $this->application->cv->skills as $kill): ?>
         <div class="col-md-3"><?php echo $this->translate('native language')?></div>

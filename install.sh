@@ -3,6 +3,7 @@
 PHING=phing.phar
 COMPOSER=composer.phar
 PROPERTIES=build.properties
+NPM=npm
 VERBOSE=
 
 function usage {
@@ -76,5 +77,8 @@ else
 	./$PHING $VERBOSE -Dbuild.properties $PROPERTIES generate-autoload-config
 fi;
 
+
+echo "Installing Assets"
+npm install
 
           

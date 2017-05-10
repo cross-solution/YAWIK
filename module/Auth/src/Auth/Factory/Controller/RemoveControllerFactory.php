@@ -8,26 +8,43 @@
  */
 namespace Auth\Factory\Controller;
 
+use Auth\Controller\RemoveController;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class RemoveControllerFactory implements FactoryInterface
 {
+    /**
+     * Create a RemoveController controller
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return RemoveController
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $dependencyManager = $container->get('Auth/Dependency/Manager');
+        $authService = $container->get('AuthenticationService');
+
+        return new RemoveController($dependencyManager, $authService);
+    }
 
     /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return UsersController
+     * @return RemoveController
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator ServiceLocatorInterface */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-        $dependencyManager = $serviceLocator->get('Auth/Dependency/Manager');
-        $authService = $serviceLocator->get('AuthenticationService');
-        
-        return new \Auth\Controller\RemoveController($dependencyManager, $authService);
+        return $this($serviceLocator->getServiceLocator(), RemoveController::class);
     }
 }

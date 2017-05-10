@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Factory\Listener;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Listener\MailSender;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -22,26 +23,45 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class MailSenderFactory implements FactoryInterface
 {
+
     /**
-     * Create service
+     * Create an object
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
      *
-     * @return NewJobMailSender
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var $mailService \Core\Mail\MailService */
-        $mailService = $serviceLocator->get('Core/MailService');
-        $jobsOptions = $serviceLocator->get('Jobs/Options');
-        $coreOptions = $serviceLocator->get('Core/Options');
+        $mailService = $container->get('Core/MailService');
+        $jobsOptions = $container->get('Jobs/Options');
+        $coreOptions = $container->get('Core/Options');
         $options = array(
             'siteName' => $coreOptions->siteName,
             'adminEmail' => $jobsOptions->getMultipostingApprovalMail(),
         );
 
         $listener = new MailSender($mailService, $options);
-
         return $listener;
+    }
+
+    /**
+     * Create service
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     *
+     * @return MailSender
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+
+        return $this($serviceLocator, MailSender::class);
     }
 }

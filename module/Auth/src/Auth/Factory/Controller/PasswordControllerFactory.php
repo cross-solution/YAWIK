@@ -13,12 +13,39 @@ use Auth\AuthenticationService;
 use Auth\Controller\PasswordController;
 use Auth\Form;
 use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class PasswordControllerFactory implements FactoryInterface
 {
+    /**
+     * Create a PasswordController controller
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return PasswordController
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /**
+         * @var AuthenticationService $authenticationService
+         * @var Form\UserPassword     $form
+         * @var RepositoryService     $repositoryService
+         */
+        $authenticationService = $container->get('AuthenticationService');
+        $form = $container->get('forms')->get('user-password');
+        $repositoryService = $container->get('repositories');
+
+        return new PasswordController($authenticationService, $form, $repositoryService);
+    }
 
     /**
      * Create service
@@ -29,18 +56,6 @@ class PasswordControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /** @var ControllerManager $serviceLocator */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-
-        /**
-         * @var AuthenticationService $authenticationService
-         * @var Form\UserPassword     $form
-         * @var RepositoryService     $repositoryService
-         */
-        $authenticationService = $serviceLocator->get('AuthenticationService');
-        $form = $serviceLocator->get('forms')->get('user-password');
-        $repositoryService = $serviceLocator->get('repositories');
-
-        return new PasswordController($authenticationService, $form, $repositoryService);
+        return $this($serviceLocator->getServiceLocator(), PasswordController::class);
     }
 }

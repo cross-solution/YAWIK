@@ -10,6 +10,7 @@
 /** Auth forms */
 namespace Auth\Factory\Form;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Form\SocialProfilesFieldset;
@@ -21,7 +22,6 @@ use Auth\Form\SocialProfilesFieldset;
  */
 class SocialProfilesFieldsetFactory implements FactoryInterface
 {
-    
     /**
      * Creates a {@link SocialProfilesFieldset}
      *
@@ -31,21 +31,26 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
      *  - preview_url: Route named "lang/applications/detail" with the suffix "?action=social-profile&network=%s"
      *  - name: "social_profiles"
      *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return SocialProfilesFieldset
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Zend\Form\FormElementManager
-         * @var $router         \Zend\Mvc\Router\RouteStackInterface */
-        $services = $serviceLocator->getServiceLocator();
-        $router = $services->get('Router');
-        $config = $services->get('Config');
+        /* @var $router         \Zend\Mvc\Router\RouteStackInterface */
+
+        $router = $container->get('Router');
+        $config = $container->get('Config');
         $options = isset($config['form_element_config']['attach_social_profiles_fieldset'])
-                ? $config['form_element_config']['attach_social_profiles_fieldset']
-                : array();
-        
+            ? $config['form_element_config']['attach_social_profiles_fieldset']
+            : array();
+
         if (!isset($options['fetch_url'])) {
             $options['fetch_url'] =
                 $router->assemble(array('action' => 'fetch'), array('name' => 'auth-social-profiles'))
@@ -65,9 +70,18 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
         $options['is_disable_capable'] = false;
         $options['is_disable_elements_capable'] = false;
 
-        
         $fieldset = new SocialProfilesFieldset($name, $options);
-        
+
         return $fieldset;
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return SocialProfilesFieldset
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator->getServiceLocator(), SocialProfilesFieldset::class);
     }
 }

@@ -8,6 +8,7 @@
  */
 namespace Organizations\Factory\ImageFileCache;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\ImageFileCache\ODMListener;
@@ -19,11 +20,24 @@ use Organizations\ImageFileCache\ODMListener;
 class ODMListenerFactory implements FactoryInterface
 {
     /**
+     * Create a ODMListener
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return ODMListener
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        return new ODMListener($container->get('Organizations\ImageFileCache\Manager'));
+    }
+    /**
      * {@inheritDoc}
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new ODMListener($serviceLocator->get('Organizations\ImageFileCache\Manager'));
+        return $this($serviceLocator, ODMListener::class);
     }
 }

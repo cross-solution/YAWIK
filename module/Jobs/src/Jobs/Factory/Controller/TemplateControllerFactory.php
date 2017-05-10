@@ -9,6 +9,7 @@
 
 namespace Jobs\Factory\Controller;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Controller\TemplateController;
 use Jobs\Repository;
 use Zend\Mvc\Controller\ControllerManager;
@@ -19,6 +20,30 @@ class TemplateControllerFactory implements FactoryInterface
 {
 
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /**
+         * @var $jobRepository Repository\Job
+         */
+        $jobRepository = $container->get('repositories')->get('Jobs/Job');
+        $options = $container->get('Jobs/Options');
+
+        return new TemplateController($jobRepository, $options);
+    }
+
+    /**
      * Injects all needed services into the TemplateController
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -27,15 +52,6 @@ class TemplateControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /** @var ControllerManager $serviceLocator */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-
-        /**
-         * @var $jobRepository Repository\Job
-         */
-        $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
-        $options = $serviceLocator->get('Jobs/Options');
-
-        return new TemplateController($jobRepository, $options);
+        return $this($serviceLocator->getServiceLocator(), TemplateController::class);
     }
 }

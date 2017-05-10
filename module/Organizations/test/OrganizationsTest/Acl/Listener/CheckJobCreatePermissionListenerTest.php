@@ -28,19 +28,6 @@ use Organizations\Entity\OrganizationReference;
  */
 class CheckJobCreatePermissionListenerTest extends \PHPUnit_Framework_TestCase
 {
-
-    /**
-     * Does the listener implements correct interface?
-     *
-     */
-    public function testImplementsSharedListenerAggregrateInterface()
-    {
-        $target = new CheckJobCreatePermissionListener();
-
-        $this->assertInstanceOf('\Zend\EventManager\SharedListenerAggregateInterface', $target);
-    }
-
-
     /**
      * Does the listener attachs itself to the shared event manager?
      * Does it do that on the right event name?

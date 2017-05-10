@@ -19,5 +19,13 @@ namespace Core\Entity;
  */
 interface SnapshotInterface
 {
+    public function __construct(EntityInterface $source);
+
+    /**
+     * Get the meta data.
+     *
+     * @return self|SnapshotMeta
+     */
+    public function getSnapshotMeta();
 
 }

@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo $this->titleHead?></title>
+    <title><?=$this->headTitle?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/modern/job.css")?>" type="text/css">
+    <meta property="og:url" content="<?= $this->uriJob;?>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<?=$this->headTitle; ?> - <?=$this->organizationName;?>" />
+    <link rel="stylesheet" href="<?=$this->basePath("/Jobs/templates/modern/job.css")?>" type="text/css">
     <link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <style>
         form > div:hover {
@@ -34,16 +37,16 @@
             <div class="one-third column">
                 <div>
                     <div>
-                        <img src="<?php echo $this->uriLogo?>">
+                        <img src="<?=$this->uriLogo?>">
                     </div>
 
-                    <p><?php echo $this->descriptionEditable ?></p>
+                    <p><?=$this->descriptionEditable?></p>
 
                     <address>
-                        <strong><?php echo $this->organizationName?><br></strong>
-                        <?php echo $this->street?><br>
-                        <?php echo $this->postalCode?> <?php echo $this->city?><br><br>
-                        <?php echo $this->phone?>
+                        <strong><?=$this->organizationName?><br></strong>
+                        <?=$this->street?><br>
+                        <?=$this->postalCode?> <?=$this->city?><br><br>
+                        <?=$this->phone?>
                     </address>
                 </div>
             </div>
@@ -55,16 +58,16 @@
 
 
                 <div class="panel">
-                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelRequirements);?></h4></div>
+                    <div class="panel-heading"><h4><?=$this->translate($this->labelRequirements);?></h4></div>
                     <div class="panel-body"><?php echo $this->requirements;?></div>
                 </div>
                 <div class="panel">
-                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelQualifications);?></h4></div>
+                    <div class="panel-heading"><h4><?=$this->translate($this->labelQualifications);?></h4></div>
                     <div class="panel-body"><?php echo $this->qualifications;?></div>
                 </div>
                 <div class="panel">
-                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelBenefits);?></h4></div>
-                    <div class="panel-body"><?php echo $this->benefits;?></div>
+                    <div class="panel-heading"><h4><?=$this->translate($this->labelBenefits);?></h4></div>
+                    <div class="panel-body"><?=$this->benefits;?></div>
                 </div>
 
                 <?=$this->jobApplyButtons($this->applyData)?>

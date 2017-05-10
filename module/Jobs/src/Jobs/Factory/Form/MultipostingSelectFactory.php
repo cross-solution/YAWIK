@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Factory\Form;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Form\MultipostingSelect;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -21,26 +22,37 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class MultipostingSelectFactory implements FactoryInterface
 {
+
     /**
-     * Creates the multiposting select box.
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager
-         * @var $headScript     \Zend\View\Helper\HeadScript
+
+        /* @var $headScript     \Zend\View\Helper\HeadScript
          * @var $channels       \Jobs\Options\ProviderOptions
          * @var $currency       \Zend\I18n\View\Helper\CurrencyFormat */
-        $services = $serviceLocator->getServiceLocator();
-        $router = $services->get('Router');
+
+        $router = $container->get('Router');
         $select  = new MultipostingSelect();
-        $helpers = $services->get('ViewHelperManager');
-       // $headScript = $helpers->get('headScript');
-       /// $basePath  = $helpers->get('basePath');
+        $helpers = $container->get('ViewHelperManager');
         $currencyFormat  = $helpers->get('currencyFormat');
 
-        $channels = $services->get('Jobs/Options/Provider');
+        $channels = $container->get('Jobs/Options/Provider');
 
-        //$headScript->appendFile($basePath('Jobs/js/form.multiposting-select.js'));
+        // $headScript = $helpers->get('headScript');
+        // $basePath  = $helpers->get('basePath');
+        // $headScript->appendFile($basePath('Jobs/js/form.multiposting-select.js'));
 
         $groups = array();
 
@@ -55,24 +67,32 @@ class MultipostingSelectFactory implements FactoryInterface
 
             $link = $router->assemble($channel->getParams(), array('name' => $channel->getRoute()));
             $groups[$category]['options'][$channel->getKey()] =
-                              $channel->getLabel() . '|'
-                            . $channel->getHeadLine() . '|'
-                            . $channel->getDescription() . '|'
-                            . $channel->getLinkText() . '|'
-                            . $link . '|' . $channel->getPublishDuration() . '|'
-                            . $channel->getLogo();
+                $channel->getLabel() . '|'
+                . $channel->getHeadLine() . '|'
+                . $channel->getDescription() . '|'
+                . $channel->getLinkText() . '|'
+                . $link . '|' . $channel->getPublishDuration() . '|'
+                . $channel->getLogo();
         }
 
 
         $select->setAttributes(
             array(
-            'data-autoinit' => 'false',
-            'multiple' => 'multiple'
+                'data-autoinit' => 'false',
+                'multiple' => 'multiple'
             )
         );
 
         $select->setValueOptions($groups);
 
         return $select;
+    }
+
+    /**
+     * Creates the multiposting select box.
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator->getServiceLocator(), MultipostingSelect::class);
     }
 }

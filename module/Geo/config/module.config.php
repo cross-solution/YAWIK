@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     'options' => [
         'Geo/Options' => [
@@ -33,6 +33,13 @@ return array(
             ),
         ),
     ),
+
+    'service_manager' => [
+        'factories' => [
+            'Geo/Client' => 'Geo\Factory\Service\ClientFactory',
+            \Geo\Listener\AjaxQuery::class => \Geo\Factory\Listener\AjaxQueryFactory::class,
+        ],
+    ],
 
     'controllers' => array(
         'factories' => array(
@@ -73,11 +80,15 @@ return array(
             ),
         ),
     ),
-    'form_elements' => array(
-        'invokables' => array(
+    'form_elements' => [
+        'invokables' => [
             'Location' => 'Geo\Form\GeoText',
-         ),
-    ),
+            'SimpleLocationSelect' => 'Geo\Form\GeoSelectSimple',
+        ],
+        'factories' => [
+            'LocationSelect' => 'Geo\Factory\Form\GeoSelectFactory',
+        ],
+    ],
     
     'view_manager' => array(
     
@@ -94,4 +105,10 @@ return array(
         ),
     ),
 
-);
+    'event_manager' => [
+        'Core/Ajax/Events' => ['listeners' => [
+            \Geo\Listener\AjaxQuery::class => ['geo', true],
+        ]]
+    ],
+
+];

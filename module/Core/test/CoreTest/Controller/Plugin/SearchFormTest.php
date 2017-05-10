@@ -10,10 +10,11 @@
 /** */
 namespace CoreTest\Controller\Plugin;
 
-use Core\Form\TextSearchForm;
-use Core\Form\TextSearchFormFieldset;
+use Zend\Form\Form;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Form\FormElementManager;
+use Zend\Hydrator\HydratorInterface;
+use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\SearchForm
@@ -57,21 +58,19 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokationProxiesToGet()
     {
-        $elements = 'TestElements';
-        $buttons  = 'TestButtons';
+        $form = 'TestForm';
+        $options  = ['test' => 'test'];
 
-        $this->target->expects($this->once())->method('get')->with($elements, $buttons);
+        $this->target->expects($this->once())->method('get')->with($form, $options);
 
-        $this->target->__invoke($elements, $buttons);
+        $this->target->__invoke($form, $options);
     }
 
     private function setControllerMock($params = [])
     {
-        $query = $this->getMockBuilder('\Zend\Stdlib\Parameters')->disableOriginalConstructor()->setMethods(['toArray'])->getMock();
-        $query->expects($this->once())->method('toArray')->willReturn($params);
 
         $request = $this->getMockBuilder('\Zend\Http\Request')->disableOriginalConstructor()->setMethods(['getQuery'])->getMock();
-        $request->expects($this->once())->method('getQuery')->willReturn($query);
+        $request->expects($this->once())->method('getQuery')->willReturn(is_array($params) ? new Parameters($params) : $params);
 
         $controller = $this
             ->getMockForAbstractClass('\Zend\Mvc\Controller\AbstractActionController', [], '', false, true, true, ['getRequest']);
@@ -83,85 +82,66 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testGetIsAbleToPassOptionsAlongToTheFormElementManager()
+    public function testGetFetchesFormFromFormElementManager()
     {
-        $params = ['page' => 1234, 'test' => 'works'];
+        $params = new Parameters(['page' => 1234, 'test' => 'works']);
         $this->setControllerMock($params);
 
-        $elementsOpt = ['some_options' => 'some_value'];
-        $elementsFs = [ 'Test/Elements', $elementsOpt];
+        $formOpt = ['some_options' => 'some_value'];
+        $formName = 'Test/Elements';
 
-        $form = $this->getMockBuilder(TextSearchForm::class)
-            ->setMethods(['setSearchParams'])
+        $formData = ['data' => 'value'];
+        $hydrator = $this->getMockBuilder(HydratorInterface::class)
+            ->setMethods(['hydrate', 'extract'])
+            ->getMockForAbstractClass();
+        $hydrator->expects($this->once())->method('extract')->with($this->isInstanceOf(Parameters::class))->willReturn($formData);
+        $hydrator->expects($this->once())->method('hydrate')->with($formData, $params);
+
+        $form = $this->getMockBuilder(Form::class)
+            ->setMethods(['getHydrator', 'setData'])
             ->getMock();
-        $form->expects($this->once())->method('setSearchParams')->with($params);
+        $form->expects($this->once())->method('gethydrator')->willReturn($hydrator);
+        $form->expects($this->once())->method('setData')->with($formData);
 
         $this->formElementManagerMock
             ->expects($this->once())
             ->method('get')
-            ->with($elementsFs[0], $elementsOpt)
+            ->with($formName, $formOpt)
             ->willReturn($form);
 
-        $actual = $this->target->get($elementsFs);
+        $actual = $this->target->get($formName, $formOpt);
 
         $this->assertSame($form, $actual);
 
     }
 
-    public function testGetPassesEmptyOptionsArrayIfElementsFieldsetIsAString()
+    public function testGetJustSetSearchParamsOnFormObject()
     {
-        $form = new TextSearchForm();
-        $elements = 'Test/Elements';
+        $params = ['page' => 1234, 'test' => 'works'];
+        $this->setControllerMock($params);
+
+
+        $formData = ['data' => 'value'];
+        $hydrator = $this->getMockBuilder(HydratorInterface::class)
+                         ->setMethods(['hydrate', 'extract'])
+                         ->getMockForAbstractClass();
+        $hydrator->expects($this->once())->method('extract')->with($this->isInstanceOf(Parameters::class))->willReturn($formData);
+        $hydrator->expects($this->once())->method('hydrate')->with($formData, $this->isInstanceOf(Parameters::class));
+
+        $form = $this->getMockBuilder(Form::class)
+                     ->setMethods(['getHydrator', 'setData'])
+                     ->getMock();
+        $form->expects($this->once())->method('gethydrator')->willReturn($hydrator);
+        $form->expects($this->once())->method('setData')->with($formData);
         $this->formElementManagerMock
-            ->expects($this->once())
-            ->method('get')
-            ->with($elements, [])
-            ->willReturn($form);
+            ->expects($this->never())
+            ->method('get');
 
-        $this->setControllerMock();
+        $actual = $this->target->get($form);
 
-        $this->target->get($elements);
+        $this->assertSame($form, $actual);
+
     }
 
-    public function testGetCreatesTextSearchFormIfOnlyAFieldsetIsPassed()
-    {
-        $form = new TextSearchFormFieldset();
-        $elements = 'Test/Elements';
-        $this->setControllerMock();
-        $expectFormGet = [
-            'elements_fieldset' => $form,
-        ];
 
-        $this->formElementManagerMock
-            ->expects($this->exactly(2))
-            ->method('get')
-            ->withConsecutive(
-                [$elements], ['Core/TextSearch', $expectFormGet]
-            )
-            ->will($this->onConsecutiveCalls($form, new TextSearchForm()));
-
-        $this->target->get($elements);
-    }
-
-    public function testGetPassesButtonsFieldset()
-    {
-        $elementsFs = new TextSearchFormFieldset();
-        $elements = 'Test/Elements';
-        $buttons  = 'Test/Buttons';
-        $this->setControllerMock();
-        $expectFormGet = [
-            'elements_fieldset' => $elementsFs,
-            'buttons_fieldset' => $buttons,
-        ];
-
-        $this->formElementManagerMock
-            ->expects($this->exactly(2))
-            ->method('get')
-            ->withConsecutive(
-            [$elements], ['Core/TextSearch', $expectFormGet]
-            )
-            ->will($this->onConsecutiveCalls($elementsFs, new TextSearchForm()));
-
-        $this->target->get($elements, $buttons);
-    }
 }

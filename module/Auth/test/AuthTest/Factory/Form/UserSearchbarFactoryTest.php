@@ -11,6 +11,7 @@
 namespace AuthTest\Factory\Form;
 
 use Auth\Factory\Form\Element\UserSearchbarFactory;
+use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Zend\Form\Element\Text;
 
 /**
@@ -23,6 +24,7 @@ use Zend\Form\Element\Text;
  */
 class UserSearchbarFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    use ServiceManagerMockTrait;
 
     public function testImplementsFactoryInterface()
     {
@@ -53,13 +55,17 @@ class UserSearchbarFactoryTest extends \PHPUnit_Framework_TestCase
                 )
                 ->will($this->onConsecutiveCalls($headscript, $basepath));
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
-        $services->expects($this->once())->method('get')->with('ViewHelperManager')->willReturn($helpers);
+        $formElements = $this->createPluginManagerMock([
+            'text' => ['service' => $textElement, 'count_get' => 1],
+                                                       ]);
 
-        $formElements = $this->getMockBuilder('\Zend\Form\FormElementManager')->disableOriginalConstructor()->getMock();
-        $formElements->expects($this->once())->method('getServiceLocator')->willReturn($services);
-        $formElements->expects($this->once())->method('get')->with('text')->willReturn($textElement);
 
+        $services = $this->getServiceManagerMock([
+            'ViewHelperManager' => ['service' => $helpers, 'count_get' => 1],
+            'forms' => $formElements,
+                                                 ]);
+
+        $formElements->setServiceLocator($services, 1);
         $element = $factory->createService($formElements);
 
         $this->assertInstanceOf('\Zend\Form\Element\Text', $element);

@@ -53,7 +53,7 @@ class SettingsFieldset extends Fieldset
             array('type' => 'Zend\Form\Element\Textarea',
                 'name' => 'mailAccessText',
                 'options' => array('label' => /* @translate */ 'Mailtext',
-                                            'description' => /* @translate */ 'default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>'))
+                                            'description' => /* @translate */ 'default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li><li>##link## = Url of the application detail page</li></ul>'))
         );
         
         $this->add(

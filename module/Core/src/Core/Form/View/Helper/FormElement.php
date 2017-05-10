@@ -5,6 +5,7 @@
 
 namespace Core\Form\View\Helper;
 
+use Core\Form\ViewPartialProviderInterface;
 use Zend\Form\View\Helper\FormElement as ZendFormElement;
 use Zend\Form\Element;
 use Zend\Form\ElementInterface;
@@ -19,12 +20,17 @@ class FormElement extends ZendFormElement
      *
      * @return string
      */
-    public function render(ElementInterface $element)
+    public function render(ElementInterface $element, $ignoreViewPartial = false)
     {
         $renderer = $this->getView();
         if (!method_exists($renderer, 'plugin')) {
             // Bail early if renderer is not pluggable
             return '';
+        }
+
+        if ($element instanceof ViewPartialProviderInterface && !$ignoreViewPartial) {
+            $partial = $element->getViewPartial();
+            return $renderer->partial($partial, ['element' => $element]);
         }
 
         if ($element instanceof CoreElementInterface) {

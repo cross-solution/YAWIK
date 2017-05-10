@@ -118,34 +118,42 @@ class FileUploadFactory implements FactoryInterface
         $element->setIsMultiple($this->multiple);
         
         $user = $serviceLocator->getServiceLocator()->get('AuthenticationService')->getUser();
-        /* @var $fileEntity \Core\Entity\FileInterface */
-        $fileEntity = new $this->fileEntityClass();
-        if ($user instanceof AnonymousUser) {
-            $fileEntity->getPermissions()->grant($user, 'all');
+
+        if (isset($this->config['hydrator']) && $this->config['hydrator']) {
+            /** @noinspection PhpUndefinedVariableInspection */
+            $hydrator = $services->get('HydratorManager')->get($this->config['hydrator']);
         } else {
-            $fileEntity->setUser($user);
+
+
+            /* @var $fileEntity \Core\Entity\FileInterface */
+            $fileEntity = new $this->fileEntityClass();
+            if ($user instanceof AnonymousUser) {
+                $fileEntity->getPermissions()->grant($user, 'all');
+            } else {
+                $fileEntity->setUser($user);
+            }
+
+            $strategy = new FileUploadStrategy($fileEntity);
+            if ($this->multiple) {
+                $hydrator = new FileCollectionUploadHydrator($this->fileName, $strategy);
+                $form->add(
+                    array(
+                    'type' => 'button',
+                    'name' => 'remove',
+                    'options' => array(
+                        'label' => /*@translate*/ 'Remove all',
+                    ),
+                    'attributes' => array(
+                        'class' => 'fu-remove-all btn btn-danger btn-xs pull-right'
+                    ),
+                    )
+                );
+            } else {
+                $hydrator = new EntityHydrator();
+                $hydrator->addStrategy($this->fileName, $strategy);
+            }
         }
-        
-        $strategy = new FileUploadStrategy($fileEntity);
-        if ($this->multiple) {
-            $hydrator = new FileCollectionUploadHydrator($this->fileName, $strategy);
-            $form->add(
-                array(
-                'type' => 'button',
-                'name' => 'remove',
-                'options' => array(
-                    'label' => /*@translate*/ 'Remove all',
-                ),
-                'attributes' => array(
-                    'class' => 'fu-remove-all btn btn-danger btn-xs pull-right'
-                ),
-                )
-            );
-        } else {
-            $hydrator = new EntityHydrator();
-            $hydrator->addStrategy($this->fileName, $strategy);
-        }
-        
+
         $form->setHydrator($hydrator);
         $form->setOptions(array('use_files_array' => true));
         

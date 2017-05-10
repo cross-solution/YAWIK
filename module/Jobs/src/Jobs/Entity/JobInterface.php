@@ -8,6 +8,8 @@
 
 namespace Jobs\Entity;
 
+use Core\Entity\MetaDataProviderInterface;
+use Core\Entity\AttachableEntityInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
@@ -29,7 +31,9 @@ interface JobInterface extends
     IdentifiableEntityInterface,
     ModificationDateAwareEntityInterface,
     PermissionsAwareInterface,
-    ResourceInterface
+    ResourceInterface,
+    MetaDataProviderInterface,
+    AttachableEntityInterface
 {
 
     /**
@@ -364,4 +368,31 @@ interface JobInterface extends
      * @return Array
      */
     public function getPortals();
+
+    /**
+     * @param \Jobs\Entity\Classifications $classifications
+     *
+     * @return self
+     */
+    public function setClassifications($classifications);
+
+    /**
+     * @return \Jobs\Entity\Classifications
+     */
+    public function getClassifications();
+
+    /**
+     * Gets the Values of a job template
+     *
+     * @return TemplateValues
+     */
+    public function getTemplateValues();
+
+
+    /**
+     * @param EntityInterface $templateValues
+     *
+     * @return $this
+     */
+    public function setTemplateValues(EntityInterface $templateValues = null);
 }

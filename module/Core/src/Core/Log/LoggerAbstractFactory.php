@@ -12,6 +12,7 @@
 /** LoggerAbstractFactory.php */
 namespace Core\Log;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Log\Logger;
@@ -36,14 +37,36 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     protected $configKey = 'log';
 
     /**
-     * @param  ServiceLocatorInterface $services
-     * @param  string                  $name
-     * @param  string                  $requestedName
+     * Create a new Logger instance
+     *
+     * @param ContainerInterface        $container
+     * @param string                    $requestedName
+     * @param array|null                $options
+     * @return Logger
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config  = $this->getConfig($container);
+        $config  = $config[$requestedName];
+        if (is_string($config) || isset($config['service'])) {
+            $serviceName = is_string($config) ? $config : $config['service'];
+            return $container->get($serviceName);
+        }
+        $this->processConfig($config, $container);
+        return new Logger($config);
+    }
+
+    /**
+     * Check if the factory can create an instance for the given $requestedName service
+     *
+     * @param ContainerInterface        $container
+     * @param string                    $requestedName
+     * @param array|null                $options
      * @return bool
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $this->getConfig($services);
+        $config = $this->getConfig($container);
         if (empty($config)) {
             return false;
         }
@@ -52,6 +75,21 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     }
 
     /**
+     * Determines if we can create a Logger instance with give $requestedName
+     *
+     * @param  ServiceLocatorInterface $services
+     * @param  string                  $name
+     * @param  string                  $requestedName
+     * @return bool
+     */
+    public function canCreateServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
+    {
+        return $this->canCreate($services,$requestedName);
+    }
+
+    /**
+     * Create a Logger instance with given $requestedName service
+     *
      * @param  ServiceLocatorInterface $services
      * @param  string                  $name
      * @param  string                  $requestedName
@@ -59,14 +97,7 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
     {
-        $config  = $this->getConfig($services);
-        $config  = $config[$requestedName];
-        if (is_string($config) || isset($config['service'])) {
-            $serviceName = is_string($config) ? $config : $config['service'];
-            return $services->get($serviceName);
-        }
-        $this->processConfig($config, $services);
-        return new Logger($config);
+        return $this($services,$requestedName);
     }
 
     /**

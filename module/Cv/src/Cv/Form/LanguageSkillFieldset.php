@@ -102,8 +102,7 @@ class LanguageSkillFieldset extends Fieldset
                     ]
                 ],
                 'attributes' => array(
-                    'title'           => /*@translate */
-                        'level',
+                    'title'           => /*@translate */ 'level',
                     'class'           => 'level-select',
                     'data-allowclear' => 'true',
                     'data-searchbox'  => -1,
@@ -117,8 +116,7 @@ class LanguageSkillFieldset extends Fieldset
                 'name'       => 'levelSpokenProduction',
                 'type'       => 'Zend\Form\Element\Select',
                 'options'    => array(
-                    'label'         => /*@translate */
-                        'Spoken Production',
+                    'label'         => /*@translate */ 'Spoken Production',
                     'value_options' => array(
                         ''   => /*@translate */ 'Spoken Production ...',
                         'a1' => /*@translate */ 'I can use simple phrases and sentences to describe where I live and people I know.',

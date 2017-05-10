@@ -12,6 +12,7 @@
 namespace Jobs\Controller;
 
 use Jobs\Entity\JobInterface;
+use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
 use Core\Repository\RepositoryService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -144,7 +145,7 @@ class ManageController extends AbstractActionController
 
 
 
-        $jobEntity = $this->initializeJob()->get($this->params());
+        $jobEntity = $this->initializeJob()->get($this->params(), true);
 
         $model = new ViewModel([
                                    'portals' => $jobEntity->getPortals(),
@@ -174,7 +175,7 @@ class ManageController extends AbstractActionController
         $formEvents         = $serviceLocator->get('Jobs/JobContainer/Events');
 
         $user               = $this->auth->getUser();
-        if (empty($user->info->email)) {
+        if (empty($user->getInfo()->getEmail())) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
         }
         $userOrg            = $user->getOrganization();
@@ -183,7 +184,7 @@ class ManageController extends AbstractActionController
         }
         
         try {
-            $jobEntity = $this->initializeJob()->get($this->params(), true);
+            $jobEntity = $this->initializeJob()->get($this->params(), true, true);
         } catch (NotFoundException $e) {
             $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
             return [
@@ -191,13 +192,20 @@ class ManageController extends AbstractActionController
                 'exception' => $e
             ];
         }
-        
+
+
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
 
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
+
+        if ('1' == $params->fromQuery('admin')) {
+            /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */
+            $switcher = $this->plugin('Auth/User/Switcher');
+            $switcher($jobEntity->getUser(), ['return' => urldecode($params->fromQuery('return'))]);
+        }
 
 
         $viewModel          = null;
@@ -232,18 +240,18 @@ class ManageController extends AbstractActionController
                  * @todo This is a workaround for GeoJSON data insertion
                  * until we figured out, what we really want it to be.
                  */
-                if ('general.locationForm' == $formIdentifier) {
-                    $locElem = $instanceForm->getBaseFieldset()->get('geo-location');
-                    if ($locElem instanceof \Geo\Form\GeoText) {
-                        $loc = $locElem->getValue('entity');
-                        $locations = $jobEntity->getLocations();
-                        if (count($locations)) {
-                            $locations->clear();
-                        }
-                        $locations->add($loc);
-                        $jobEntity->setLocation($locElem->getValue());
-                    }
-                }
+//                if ('general.locationForm' == $formIdentifier) {
+//                    $locElem = $instanceForm->getBaseFieldset()->get('geo-location');
+//                    if ($locElem instanceof \Geo\Form\GeoText) {
+//                        $loc = $locElem->getValue('entity');
+//                        $locations = $jobEntity->getLocations();
+//                        if (count($locations)) {
+//                            $locations->clear();
+//                        }
+//                        $locations->add($loc);
+//                        $jobEntity->setLocation($locElem->getValue());
+//                    }
+//                }
 
                 $title = $jobEntity->getTitle();
                 $templateTitle = $jobEntity->getTemplateValues()->getTitle();
@@ -251,7 +259,7 @@ class ManageController extends AbstractActionController
                 if (empty($templateTitle)) {
                     $jobEntity->getTemplateValues()->setTitle($title);
                 }
-                $this->repositoryService->persist($jobEntity);
+                $this->repositoryService->store($jobEntity);
             }
         }
 
@@ -262,7 +270,7 @@ class ManageController extends AbstractActionController
             $jobValid = false;
             $errorMessage[] = $this->translator->translate('No Title');
         }
-        if (empty($jobEntity->getLocation())) {
+        if (!$jobEntity->getLocations()->count()) {
             $jobValid = false;
             $errorMessage[] = $this->translator->translate('No Location');
         }
@@ -306,7 +314,7 @@ class ManageController extends AbstractActionController
                 $form->getForm('general.nameForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                 $form->getForm('general.portalForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                 $locElem = $form->getForm('general.locationForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM)
-                                ->getBaseFieldset()->get('geo-location');
+                                ->getBaseFieldset()->get('geoLocation');
                 if ($locElem instanceof \Geo\Form\GeoText) {
                     $loc = $jobEntity->getLocations();
                     if (count($loc)) {
@@ -379,7 +387,7 @@ class ManageController extends AbstractActionController
     }
 
     /**
-     * @param $job
+     * @param  $job \Jobs\Entity\Job
      * @return mixed
      */
     protected function getFormular($job)
@@ -392,12 +400,13 @@ class ManageController extends AbstractActionController
         $container = $forms->get(
             'Jobs/Job',
             array(
-            'mode' => $job->id ? 'edit' : 'new'
+            'mode' => $job->getId() ? 'edit' : 'new'
             )
         );
         $container->setEntity($job);
-        $container->setParam('job', $job->id);
-        $container->setParam('applyId', $job->applyId);
+        $container->setParam('job', $job->getId());
+        $container->setParam('snapshot', $job instanceOf JobSnapshot ? $job->getSnapshotId() : '');
+        $container->setParam('applyId', $job->getApplyId());
         return $container;
     }
 
@@ -428,30 +437,46 @@ class ManageController extends AbstractActionController
     {
         $serviceLocator = $this->serviceLocator;
 
-        $job = $this->initializeJob()->get($this->params());
+        $job = $this->initializeJob()->get($this->params(), false, true);
 
-        $job->setIsDraft(false);
+        if ($job->isDraft()) {
 
-        $reference = $job->getReference();
+            $job->setIsDraft(false);
 
-        if (empty($reference)) {
-            /* @var $repository \Jobs\Repository\Job */
-            $repository = $this->repositoryService->get('Jobs/Job');
-            $job->setReference($repository->getUniqueReference());
+            $reference = $job->getReference();
+
+            if (empty($reference)) {
+                /* @var $repository \Jobs\Repository\Job */
+                $repository = $this->repositoryService->get('Jobs/Job');
+                $job->setReference($repository->getUniqueReference());
+            }
+            $job->changeStatus(Status::CREATED, "job was created");
+            $job->setAtsEnabled(true);
+
+            // sets ATS-Mode on intern
+            $job->getAtsMode();
+
+            /*
+            * make the job opening persist and fire the EVENT_JOB_CREATED
+            */
+            $this->repositoryService->store($job);
+
+            $jobEvents = $serviceLocator->get('Jobs/Events');
+            $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
+        } else if ($job->isActive()) {
+            $job->getSnapshotMeta()->getEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
         }
-        $job->changeStatus(Status::CREATED, "job was created");
-        $job->setAtsEnabled(true);
 
-        // sets ATS-Mode on intern
-        $job->getAtsMode();
+        /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */
+        $switcher = $this->plugin('Auth/User/Switcher');
+        if ($switcher->isSwitchedUser()) {
+            $return = $switcher->getSessionParam('return');
+            $switcher->clear();
 
-        /*
-         * make the job opening persist and fire the EVENT_JOB_CREATED
-         */
-        $this->repositoryService->store($job);
-
-        $jobEvents = $serviceLocator->get('Jobs/Events');
-        $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
+            if ($return) {
+                return $this->redirect()->toUrl($return);
+            }
+        }
 
         return array('job' => $job);
     }
@@ -468,7 +493,7 @@ class ManageController extends AbstractActionController
 
         $params         = $this->params('state');
 
-        $jobEntity = $this->initializeJob()->get($this->params());
+        $jobEntity = $this->initializeJob()->get($this->params(), false, true);
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
         $jobEvent->addPortal('XingVendorApi');
@@ -477,20 +502,7 @@ class ManageController extends AbstractActionController
         // is remains Null if there is no snapshot
         // it will be an empty array if the snapshot and the actual entity do not differ
         $diff           = null;
-        // preliminary difference, contain all differences
-        $prelDiff = $this->entitySnapshot()->diff($jobEntity);
-        if (isset($prelDiff)) {
-            // we want just some Values to be compared
-            $diff = null;
-            foreach (array('title', 'organization', 'location',
-                         'templateValues.qualifications', 'templateValues.requirements', 'templateValues.benefits', 'templateValues.title',
-                         'templateValues._freeValues.description',
-                     ) as $prelKey) {
-                if (array_key_exists($prelKey, $prelDiff)) {
-                    $diff[$prelKey] = $prelDiff[$prelKey];
-                }
-            }
-        }
+
 
         if ($params == 'declined') {
             $jobEntity->changeStatus(Status::REJECTED, sprintf(/*@translate*/ "Job opening was rejected by %s", $user->getInfo()->getDisplayName()));
@@ -501,34 +513,37 @@ class ManageController extends AbstractActionController
         }
 
         if ($params == 'approved') {
+            if ($jobEntity instanceOf JobSnapshot) {
+                $jobEntity = $this->repositoryService->get('Jobs/JobSnapshot')->merge($jobEntity);
+            } else {
+                $jobEntity->setDatePublishStart();
+            }
             $jobEntity->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ "Job opening was activated by %s", $user->getInfo()->getDisplayName()));
-            $jobEntity->setDatePublishStart();
             $this->repositoryService->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
-            $this->entitySnapshot($jobEntity);
+            //$this->entitySnapshot($jobEntity);
             $this->notification()->success(/* @translate */ 'Job has been approved');
             return $this->redirect()->toRoute('lang/admin/jobs', array('lang' => $this->params('lang')));
         }
 
+        $query = $jobEntity instanceOf JobSnapshot ? ['snapshot' => $jobEntity->getSnapshotId()] : ['id' => $jobEntity->getId()];
         $viewLink = $this->url()->fromRoute(
             'lang/jobs/view',
             array(),
-            array('query' =>
-                      array( 'id' => $jobEntity->getId()))
+            array('query' => $query
+                      )
         );
 
         $approvalLink = $this->url()->fromRoute(
             'lang/jobs/approval',
             array('state' => 'approved'),
-            array('query' =>
-                      array( 'id' => $jobEntity->getId()))
+            array('query' => $query)
         );
 
         $declineLink = $this->url()->fromRoute(
             'lang/jobs/approval',
             array('state' => 'declined'),
-            array('query' =>
-                      array( 'id' => $jobEntity->getId()))
+            array('query' => $query)
         );
 
         return array('job' => $jobEntity,
@@ -558,6 +573,17 @@ class ManageController extends AbstractActionController
         return $this->save(array('page' => 2));
     }
 
+    public function deleteAction()
+    {
+        $job = $this->initializeJob()->get($this->params());
+        $this->acl($job, 'edit');
+
+        $this->repositoryService->remove($job);
+
+        $this->notification()->success(/*@translate*/ 'Job has been deleted.');
+        return $this->redirect()->toRoute('lang/jobs');
+
+    }
     /**
      * Assign a template to a job posting
      *

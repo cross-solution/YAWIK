@@ -10,6 +10,7 @@
 /** AclFactory.php */
 namespace Acl\Factory\View\Helper;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Acl\View\Helper\Acl;
 
@@ -19,16 +20,34 @@ use Acl\View\Helper\Acl;
  */
 class AclFactory implements FactoryInterface
 {
+
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $plugins  = $container->get('controllerpluginmanager');
+        $acl      = $plugins->get('acl');
+
+        $helper = new Acl($acl);
+        return $helper;
+    }
+
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        $services = $serviceLocator->getServiceLocator();
-        $plugins  = $services->get('controllerpluginmanager');
-        $acl      = $plugins->get('acl');
-        
-        $helper = new Acl($acl);
-        return $helper;
+        return $this($serviceLocator->getServiceLocator(), Acl::class);
     }
 }

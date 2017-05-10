@@ -327,9 +327,9 @@ class FormFileUpload extends FormFile
         $renderer = $this->getView();
         $basepath = $renderer->plugin('basepath');
         $renderer->headscript()
-            ->appendFile($basepath('js/jquery-file-upload/vendor/jquery.ui.widget.js'))
-            ->appendFile($basepath('js/jquery-file-upload/jquery.iframe-transport.js'))
-            ->appendFile($basepath('js/jquery-file-upload/jquery.fileupload.js'))
+            ->appendFile($basepath('assets/blueimp-file-upload/js/vendor/jquery.ui.widget.js'))
+            ->appendFile($basepath('assets/blueimp-file-upload/js/jquery.iframe-transport.js'))
+            ->appendFile($basepath('assets/blueimp-file-upload/js/jquery.fileupload.js'))
             ->appendFile($basepath($this->scriptFile));
 	}
 }

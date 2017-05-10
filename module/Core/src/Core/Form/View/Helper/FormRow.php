@@ -105,7 +105,7 @@ class FormRow extends ZendFormRow
             $element->setAttribute('class', $element->getAttribute('class').' form-control ');
         }
         
-        $elementString = $elementHelper->render($element);
+        $elementString = $elementHelper->render($element, $ignoreViewPartial);
         $desc = $element->getOption('description', false);
         if ($desc && $this->layout != Form::LAYOUT_BARE) {
             if (null !== ($translator = $this->getTranslator())) {

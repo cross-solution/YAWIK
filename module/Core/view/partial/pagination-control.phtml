@@ -21,7 +21,7 @@ if ($this->pageCount):
 
     ?>
     <div class="row yk-pagination">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <!-- First page link -->
             <ul class="pagination">
                 <?php if (isset($this->previous)): ?>
@@ -37,14 +37,12 @@ if ($this->pageCount):
                 <!-- Previous page link -->
                 <?php if ($enablePrevButton): ?>
                     <?php if (isset($this->previous)): $query['page'] = $this->previous; ?>
-                        <?php $url                                    =
-                            $this->url($this->route, array('lang' => $this->lang), array('query' => $query), true); ?>
-                        <li><a href="<?php echo $url ?>">
-                                <?php echo $this->translate('Back') ?>
+                        <?php $url = $this->url($this->route, ['lang' => $this->lang], ['query' => $query], true); ?>
+                        <li><a title="<?= $this->translate('Back') ?>" href="<?php echo $url ?>" rel="nofollow"><i class="fa fa-angle-left"></i>
                                 <?php $this->headLink(array('rel' => 'prev', 'href' => $url), 'PREPEND'); ?>
                             </a></li>
                     <?php else: ?>
-                        <li class="disabled"><a><?php echo $this->translate('Back') ?></a></li>
+                        <li class="disabled"><a title="<?=$this->translate('Back') ?>"><i class="fa fa-angle-left"></i></a></li>
                     <?php endif; ?>
                 <?php endif;?>
 
@@ -55,7 +53,7 @@ if ($this->pageCount):
                         <li>
                             <a href="<?php echo $this->url($this->route, array('lang' => $this->lang),
                                                            array('query' => $query), true
-                            ); ?>">
+                            ); ?>" rel="nofollow">
                                 <?php echo $page; ?>
                             </a>
                         </li>
@@ -70,22 +68,21 @@ if ($this->pageCount):
                 <!-- Next page link -->
                 <?php if ($enableNextButton): ?>
                 <?php if (isset($this->next)): $query['page'] = $this->next; ?>
-                    <?php $url                                                     =
+                    <?php $url                 =
                         $this->url($this->route, array('lang' => $this->lang), array('query' => $query), true); ?>
-                    <li><a href="<?php echo $url ?>">
-                            <?php echo $this->translate('Next') ?>
+                    <li><a title="<?=$this->translate('Next') ?>" href="<?php echo $url ?>" rel="nofollow"><i class="fa fa-angle-right"></i>
                             <?php $this->headLink(array('rel' => 'next', 'href' => $url), 'PREPEND'); ?>
                         </a></li>
                 <?php else: ?>
-                    <li class="disabled"><a><?php echo $this->translate('Next') ?></a></li>
+                    <li class="disabled"><a title="<?=$this->translate('Next') ?>"><i class="fa fa-angle-right"></i></a></li>
                 <?php endif; ?>
                 <?php endif; ?>
                 <!-- Last page link -->
                 <?php if (isset($this->next)): $query['page'] = $this->last; ?>
-                    <li><a title="<?php echo $this->translate('Last') ?>"
-                           href="<?php echo $this->url($this->route, array('lang' => $this->lang),
-                                                       array('query' => $query), true
-                           ); ?>">
+                    <li><a title="<?=$this->translate('Last') ?>" href="<?=$this->url($this->route,
+                                                                                      ['lang' => $this->lang],
+                                                                                      ['query' => $query],
+                                                                                      true); ?>" rel="nofollow">
                             <i class="yk-icon yk-icon-pagination-end"></i>
                         </a></li>
                 <?php else: ?>
@@ -94,7 +91,7 @@ if ($this->pageCount):
                 <?php endif; ?>
             </ul>
         </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-3 text-right">
             <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
             of <?php echo $this->totalItemCount; ?>
         </div>

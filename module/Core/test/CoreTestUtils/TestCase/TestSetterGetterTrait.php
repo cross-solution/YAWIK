@@ -193,11 +193,15 @@ trait TestSetterGetterTrait
 
         if (isset($spec['@value'])) {
             $spec['value'] = InstanceCreator::fromSpec($spec['@value'], InstanceCreator::FORCE_INSTANTIATION);
+        } else if (isset($spec['value']) && is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
+            $spec['value'] = InstanceCreator::newClass($spec['value']);
+        } else if (isset($spec['value@'])) {
+            $spec['value'] = '@' . $spec['value@'];
         }
 
         /* Value could be 'null', so we need to use array_key_exists here. */
         if (!array_key_exists('value', $spec)) {
-            if (!array_key_exists('default', $spec)) {
+            if (!array_key_exists('default', $spec) && !array_key_exists('@default', $spec) && !array_key_exists('default@', $spec)) {
                 throw new \PHPUnit_Framework_Exception($errTmpl . ': Specification must contain the key "value" or "default".');
             }
 
@@ -219,9 +223,7 @@ trait TestSetterGetterTrait
             $spec['default'] = '@' . $spec['default@'];
         }
 
-        if (is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
-            $spec['value'] = InstanceCreator::newClass($spec['value']);
-        }
+
 
         $this->_setterGetter_triggerHook('pre', $spec);
 
@@ -239,7 +241,7 @@ trait TestSetterGetterTrait
         }
 
 
-        if (isset($spec['default'])) {
+        if (array_key_exists('default', $spec)) {
             $defaultGetterArgs = isset($spec['default_args']) ? $spec['default_args'] : $getterArgs;
             $assert            = isset($spec['default_assert']) ? $spec['default_assert'] : null;
             $this->_setterGetter_assertGetterValue($getterMethod, $spec['default'], $defaultGetterArgs, $assert, true);
@@ -268,7 +270,7 @@ trait TestSetterGetterTrait
 
         } else if (!isset($spec['ignore_getter']) || !$spec['ignore_getter']) {
             $assert = isset($spec['getter_assert']) ? $spec['getter_assert'] : null;
-            $this->_setterGetter_assertGetterValue($getterMethod, isset($spec['expect']) ? $spec['expect'] : $spec['value'],
+            $this->_setterGetter_assertGetterValue($getterMethod, array_key_exists('expect', $spec) ? $spec['expect'] : $spec['value'],
                                                    $getterArgs, $assert
             );
         }

@@ -2,20 +2,38 @@
 
 namespace Cv\Factory\Form;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Form\CollectionContainer;
 
 class EducationCollectionFactory implements FactoryInterface
 {
-    
+    /**
+     * Create a CollectionContainer form for the education history
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return CollectionContainer
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $collectionContainer = new CollectionContainer('CvEducationForm', new \Cv\Entity\Education());
+        $collectionContainer->setLabel(/*@translate */ 'Education history');
+        return $collectionContainer;
+    }
+
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $container = new \Core\Form\CollectionContainer('CvEducationForm', new \Cv\Entity\Education());
-        $container->setLabel(/*@translate */ 'Education history');
-        
-        return $container;
+        return $this($serviceLocator->getServiceLocator(), "");
     }
 }

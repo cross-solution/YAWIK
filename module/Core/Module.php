@@ -13,12 +13,15 @@
 /** Core */
 namespace Core;
 
+use Core\Listener\AjaxRouteListener;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
 use Core\Listener\XmlRenderListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
+use Core\Listener\TracyListener;
+use Core\Service\Tracy as TracyService;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Core\Listener\ErrorHandlerListener;
@@ -72,6 +75,13 @@ class Module implements ConsoleBannerProviderInterface
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
         
+        $tracyConfig = $sm->get('Config')['tracy'];
+        
+        if ($tracyConfig['enabled']) {
+            (new TracyService())->register($tracyConfig);
+            (new TracyListener())->attach($eventManager);
+        }
+        
         if (!\Zend\Console\Console::isConsole()) {
             $redirectCallback = function () use ($e) {
                 $routeMatch = $e->getRouteMatch();
@@ -81,8 +91,10 @@ class Module implements ConsoleBannerProviderInterface
                 header('Location: ' . $uri);
             };
             
-            $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
-            $errorHandlerListener->attach($eventManager);
+            if (!$tracyConfig['enabled']) {
+                $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
+                $errorHandlerListener->attach($eventManager);
+            }
 
             /* @var \Core\Options\ModuleOptions $options */
             $languageRouteListener = new LanguageRouteListener($sm->get('Core/Locale'));
@@ -91,6 +103,9 @@ class Module implements ConsoleBannerProviderInterface
         
             $ajaxRenderListener = new AjaxRenderListener();
             $ajaxRenderListener->attach($eventManager);
+
+            $ajaxRouteListener = $sm->get(AjaxRouteListener::class);
+            $ajaxRouteListener->attach($eventManager);
 
             $xmlRenderListener = new XmlRenderListener();
             $xmlRenderListener->attach($eventManager);
@@ -109,9 +124,7 @@ class Module implements ConsoleBannerProviderInterface
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($notificationAjaxHandler, 'injectView'), -20);
         $notificationListener->attach(NotificationEvent::EVENT_NOTIFICATION_HTML, array($notificationAjaxHandler, 'render'), -20);
         
-        $persistenceListener = new PersistenceListener();
-        $persistenceListener->attach($eventManager);
-        
+
         $eventManager->attach(
             MvcEvent::EVENT_DISPATCH_ERROR,
             function ($event) {
@@ -145,12 +158,6 @@ class Module implements ConsoleBannerProviderInterface
     {
         $config = include __DIR__ . '/config/module.config.php';
         return $config;
-        if (\Zend\Console\Console::isConsole()) {
-            $config['doctrine']['configuration']['odm_default']['generate_proxies'] = false;
-            $config['doctrine']['configuration']['odm_default']['generate_hydrators'] = false;
-            
-        }
-        return $config;
     }
 
     /**
@@ -161,6 +168,9 @@ class Module implements ConsoleBannerProviderInterface
     public function getAutoloaderConfig()
     {
         return array(
+            'Zend\Loader\ClassMapAutoloader' => [
+                __DIR__ . '/src/autoload_classmap.php'
+            ],
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,

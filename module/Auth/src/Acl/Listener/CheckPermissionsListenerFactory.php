@@ -9,6 +9,7 @@
 
 namespace Acl\Listener;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -17,6 +18,30 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class CheckPermissionsListenerFactory implements FactoryInterface
 {
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $acl          = $container->get('acl');
+        $user         = $container->get('AuthenticationService')->getUser();
+        $config       = $container->get('Config');
+        $exceptionMap = isset($config['acl']['exceptions']) ? $config['acl']['exceptions'] : array();
+        $listener = new CheckPermissionsListener($acl, $user, $exceptionMap);
+
+        return $listener;
+    }
+
     /**
      * Creates an instance of \Auth\View\Helper\Auth
      *
@@ -28,12 +53,6 @@ class CheckPermissionsListenerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $acl          = $serviceLocator->get('acl');
-        $user         = $serviceLocator->get('AuthenticationService')->getUser();
-        $config       = $serviceLocator->get('Config');
-        $exceptionMap = isset($config['acl']['exceptions']) ? $config['acl']['exceptions'] : array();
-        $listener = new CheckPermissionsListener($acl, $user, $exceptionMap);
-        
-        return $listener;
+        return $this($serviceLocator, CheckPermissionsListener::class);
     }
 }

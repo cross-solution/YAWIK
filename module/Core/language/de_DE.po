@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014-2016
+# Carsten Bleek <cbleek@yawik.org>, 2014-2017
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:24+0200\n"
-"PO-Revision-Date: 2016-10-10 14:43+0000\n"
+"POT-Creation-Date: 2017-04-28 11:56+0200\n"
+"PO-Revision-Date: 2017-04-28 09:57+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:124
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -39,19 +39,19 @@ msgstr "Wird geladen"
 msgid "First"
 msgstr "Anfang"
 
-#: view/partial/pagination-control.phtml:43
-#: view/partial/pagination-control.phtml:47
+#: view/partial/pagination-control.phtml:41
+#: view/partial/pagination-control.phtml:45
 msgid "Back"
 msgstr "Zurück"
 
-#: view/partial/pagination-control.phtml:76
-#: view/partial/pagination-control.phtml:80
-#: src/Core/Form/View/Helper/FormWizardContainer.php:101
+#: view/partial/pagination-control.phtml:73
+#: view/partial/pagination-control.phtml:77
+#: src/Core/Form/View/Helper/FormWizardContainer.php:103
 msgid "Next"
 msgstr "Weiter"
 
-#: view/partial/pagination-control.phtml:85
-#: view/partial/pagination-control.phtml:92
+#: view/partial/pagination-control.phtml:82
+#: view/partial/pagination-control.phtml:89
 msgid "Last"
 msgstr "Ende"
 
@@ -59,7 +59,7 @@ msgstr "Ende"
 msgid "Add permission"
 msgstr "Zugriffsrechte hinzufügen"
 
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:117
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:123
 msgid "Admin"
 msgstr "Administrator"
 
@@ -68,7 +68,7 @@ msgstr "Administrator"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:114
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:120
 msgid "Home"
 msgstr "Start"
 
@@ -216,15 +216,15 @@ msgid ""
 "reload."
 msgstr "Diese Seite erfordert Javascript. Bitte aktivieren Sie Javascript und laden Sie dann die Seite erneut."
 
-#: view/layout/layout.phtml:36
+#: view/layout/layout.phtml:42
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:89
+#: view/layout/layout.phtml:91
 msgid "Help to translate YAWIK"
 msgstr "Hilf bei der Übersetzung von YAWIK"
 
-#: view/layout/layout.phtml:121
+#: view/layout/layout.phtml:123
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
@@ -259,7 +259,7 @@ msgstr "Hier klicken, um Anhänge hinzuzufügen oder Dateien hierher ziehen."
 msgid "Click here to add an image or use drag and drop."
 msgstr "Zur Bildauswahl hier klicken, oder ein Bild hierher ziehen."
 
-#: src/Core/Form/View/Helper/FormWizardContainer.php:100
+#: src/Core/Form/View/Helper/FormWizardContainer.php:102
 msgid "previous"
 msgstr "zurück"
 
@@ -268,7 +268,7 @@ msgid "processing"
 msgstr "bearbeiten"
 
 #: src/Core/Form/View/Helper/FormCollectionContainer.php:64
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:66
 msgid "Remove"
 msgstr "Löschen"
 
@@ -286,27 +286,27 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:117
 msgid "general settings"
 msgstr "Allgemeine Einstellungen"
 
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:33
-msgid "Search"
-msgstr "Suche"
-
-#: language/_annotated_strings.php:6
-msgid "Clear"
-msgstr "Filter löschen"
-
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:15
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:27
 msgid "Save"
 msgstr "Speichern"
 
-#: language/_annotated_strings.php:12 language/_annotated_strings.php:18
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:30
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: language/_annotated_strings.php:15
+msgid "Name"
+msgstr "Name"
+
+#: language/_annotated_strings.php:18
+msgid "Value"
+msgstr "Wert"
 
 #: language/_annotated_strings.php:21
 msgid "Apply filter"
@@ -316,100 +316,108 @@ msgstr "Filter anwenden"
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
-#: language/_annotated_strings.php:36
-msgid "Search query"
-msgstr "Suchanfrage"
-
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:33
 msgid "Rights"
 msgstr "Rechte"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:36
 msgid "View"
 msgstr "Ansehen"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:39
 msgid "Write"
 msgstr "Bearbeiten"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:42
 msgid "Not Rated"
 msgstr "Nicht bewertet"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:45
 msgid "Poor"
 msgstr "Ungeeignet"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:48
 msgid "Bad"
 msgstr "Unterdurchschnittlich"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:51
 msgid "Average"
 msgstr "Durchschnittlich"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:54
 msgid "Good"
 msgstr "Gut"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:57
 msgid "Excellent"
 msgstr "Sehr gut"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:60
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr "Bitte geben Die eine Telefonnummer ein. Sie können das internationale Format verwenden. Erlaubt sind Ziffern und \"+\"."
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:63
 msgid "Remove all"
 msgstr "Alle entfernen"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:69 language/_annotated_strings.php:75
+msgid "Search"
+msgstr "Suche"
+
+#: language/_annotated_strings.php:72
+msgid "Search query"
+msgstr "Suchanfrage"
+
+#: language/_annotated_strings.php:78
+msgid "Clear"
+msgstr "Filter löschen"
+
+#: language/_annotated_strings.php:81
 msgid "choose your language"
 msgstr "wählen Sie Ihre Sparche"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:84
 msgid "English"
 msgstr "Englisch"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:87
 msgid "French"
 msgstr "Französisch"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:90
 msgid "German"
 msgstr "Deutsch"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:93
 msgid "Italian"
 msgstr "Italienisch"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:96
 msgid "Polish"
 msgstr "Polnisch"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:99
 msgid "Russian"
 msgstr "Russisch"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:102
 msgid "Turkish"
 msgstr "Türkisch"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:105
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:108
 msgid "defines the languages of this frontend."
 msgstr "Sprache dieses Frontends"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:111
 msgid "choose your timzone"
 msgstr "Wählen Sie Ihre Zeitzone"
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:114
 msgid "defines your local timezone."
 msgstr "Definiert Ihre Zeitzone"

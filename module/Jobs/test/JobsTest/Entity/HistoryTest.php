@@ -34,7 +34,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->target = new History("CREATED");
+        $this->target = new History(Status::CREATED);
     }
 
     /**
@@ -50,13 +50,13 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     public function provideCreatingInstancesTestData()
     {
         return array(
-            array("CREATED",               null       , new Status("CREATED"),              "[System]"),
-            array("WAITING_FOR_APPROVAL", 'message2'  , new Status("WAITING_FOR_APPROVAL"), "message2"),
-            array("REJECTED",             'message3'  , new Status("REJECTED"),             "message3"),
-            array("PUBLISH",              'message4'  , new Status("PUBLISH"),              "message4"),
-            array("ACTIVE",               'message5'  , new Status("ACTIVE"),               "message5"),
-            array("INACTIVE",             'message6'  , new Status("INACTIVE"),             "message6"),
-            array("EXPIRED",              'message7'  , new Status("EXPIRED"),              "message7"),
+            array(Status::CREATED,               null       , new Status(Status::CREATED),              "[System]"),
+            array(Status::WAITING_FOR_APPROVAL, 'message2'  , new Status(Status::WAITING_FOR_APPROVAL), "message2"),
+            array(Status::REJECTED,             'message3'  , new Status(Status::REJECTED),             "message3"),
+            array(Status::PUBLISH,              'message4'  , new Status(Status::PUBLISH),              "message4"),
+            array(Status::ACTIVE,               'message5'  , new Status(Status::ACTIVE),               "message5"),
+            array(Status::INACTIVE,             'message6'  , new Status(Status::INACTIVE),             "message6"),
+            array(Status::EXPIRED,              'message7'  , new Status(Status::EXPIRED),              "message7"),
         );
     }
 
@@ -81,8 +81,8 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Status() throws an exception if invalid status is passed.
-     * @expectedException DomainException
-     * @expectedExceptionMessage Unknown status:
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid state name:
      */
     public function testStatusThrowsExceptionIfInvalidStatusPassed()
     {
@@ -96,7 +96,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     */
     public function testSetGetDate()
     {
-        $date=new \DateTime();
+        $date=new \DateTime("2017-02-28 11:11:11");
         $this->target->setDate($date);
 
         $this->assertEquals($date, $this->target->getDate());
@@ -120,7 +120,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     */
     public function testSetGetStatus()
     {
-        $status=new Status("CREATED");
+        $status=new Status(Status::CREATED);
         $this->target->setStatus($status);
         $this->assertEquals($status, $this->target->getStatus());
     }

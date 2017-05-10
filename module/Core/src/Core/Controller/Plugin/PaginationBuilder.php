@@ -11,6 +11,7 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Zend\Stdlib\Parameters;
 
 /**
  * Collects pagination related configuration and passes it to the appropriate
@@ -44,6 +45,13 @@ class PaginationBuilder extends AbstractPlugin
     protected $result = [];
 
     /**
+     * Internal parameters.
+     *
+     * @var Parameters
+     */
+    protected $parameters;
+
+    /**
      * Entry point.
      *
      * if $stack is provided, the internal stack is set to exact that value, so
@@ -73,7 +81,14 @@ class PaginationBuilder extends AbstractPlugin
             throw new \InvalidArgumentException('Expected argument to be of type array, but received ' . gettype($stack));
         }
 
-        $this->stack = $stack;
+        $stack = array_intersect_key($stack, ['params' => true, 'form' => true, 'paginator' => true]);
+        foreach ($stack as $method => $args) {
+            if (isset($args['as'])) {
+                array_push($args, $args['as']);
+                unset($args['as']);
+            }
+            call_user_func_array([$this, $method], $args);
+        }
 
         return $returnResult ? $this->getResult() : $this;
     }
@@ -85,22 +100,18 @@ class PaginationBuilder extends AbstractPlugin
      *
      * @param string       $paginatorName
      * @param array  $defaultParams
-     * @param bool   $usePostParams
      * @param string $as The name of the key in the result array.
      *
      * @return self
      */
-    public function paginator($paginatorName, $defaultParams = [], $usePostParams = false, $as = 'paginator')
+    public function paginator($paginatorName, $defaultParams = [], $as = 'paginator')
     {
         if (is_string($defaultParams)) {
             $as = $defaultParams;
             $defaultParams = [];
-        } else if (is_string($usePostParams)) {
-            $as = $usePostParams;
-            $usePostParams = false;
         }
 
-        $this->stack['paginator'] = ['as' => $as, $paginatorName, $defaultParams, $usePostParams];
+        $this->stack['paginator'] = ['as' => $as, $paginatorName, $defaultParams];
         return $this;
     }
 
@@ -115,14 +126,14 @@ class PaginationBuilder extends AbstractPlugin
      *
      * @return self
      */
-    public function form($elementsFieldset, $buttonsFieldset = null, $as = 'searchform')
+    public function form($form, $options = null, $as = 'searchform')
     {
-        if (null !== $buttonsFieldset && 0 === strpos($buttonsFieldset, '@')) {
-            $as = substr($buttonsFieldset, 1);
-            $buttonsFieldset = null;
+        if (is_string($options)) {
+            $as = $options;
+            $options = null;
         }
 
-        $this->stack['form'] = ['as' => $as, $elementsFieldset, $buttonsFieldset];
+        $this->stack['form'] = ['as' => $as, $form, $options];
         return $this;
     }
 
@@ -174,12 +185,17 @@ class PaginationBuilder extends AbstractPlugin
         $controller = $this->getController();
         $request = $controller->getRequest();
 
+        $this->setParameters($request->getQuery());
+
         if (isset($this->stack['params'])) {
             $this->callPlugin('paginationParams', $this->stack['params']);
         }
 
-        if (isset($this->stack['form']) && !$request->isXmlHttpRequest()) {
-            $result[$formAlias] = $this->callPlugin('searchform', $this->stack['form']);
+        if (isset($this->stack['form'])) {
+            $form = $this->callPlugin('searchform', $this->stack['form']);
+            if (!$request->isXmlHttpRequest()) {
+                $result[$formAlias] = $form;
+            }
         }
 
         if (isset($this->stack['paginator'])) {
@@ -207,6 +223,25 @@ class PaginationBuilder extends AbstractPlugin
          * because we want to keep it in the stack array */
         unset($args['as']);
 
+        /* Inject the internal parameters as last argument.
+         * This is needed to prevent messing with the original query params. */
+        array_push($args, $this->parameters);
+
         return call_user_func_array($plugin, $args);
+    }
+
+    protected function setParameters($query)
+    {
+        $queryArray = $query->toArray();
+
+        foreach ($queryArray as $key => $value) {
+            if (preg_match('~^(?<separator>\W)(?<name>.*)$~', $key, $match)) {
+                $value = explode($match['separator'], $value);
+                $queryArray[$match['name']] = $value;
+                unset($queryArray[$key]);
+            }
+        }
+
+        $this->parameters = new Parameters($queryArray);
     }
 }

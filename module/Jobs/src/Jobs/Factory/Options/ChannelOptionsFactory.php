@@ -10,18 +10,32 @@
 
 namespace Jobs\Factory\Options;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Options\ChannelOptions;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ChannelOptionsFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $channel = new ChannelOptions();
 
         /* @var $core \Core\Options\ModuleOptions */
-        $core = $serviceLocator->get("Core/Options");
+        $core = $container->get("Core/Options");
 
         if ('' == $channel->getCurrency()) {
             $currency=$core->getDefaultCurrencyCode();
@@ -31,7 +45,12 @@ class ChannelOptionsFactory implements FactoryInterface
         if ('' == $channel->getTax()) {
             $channel->setTax($core->getDefaultTaxRate());
         }
-
         return $channel;
+    }
+
+
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator, ChannelOptions::class);
     }
 }

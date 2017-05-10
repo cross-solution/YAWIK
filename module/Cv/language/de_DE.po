@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014,2016
+# Carsten Bleek <cbleek@yawik.org>, 2014,2016-2017
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-23 10:10+0200\n"
-"PO-Revision-Date: 2016-06-23 11:30+0000\n"
+"POT-Creation-Date: 2017-04-27 19:26+0200\n"
+"PO-Revision-Date: 2017-04-27 18:05+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,112 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/cv/index/index.phtml:3 language/_annotated_strings.php:644
+#: view/cv/view/index.phtml:15
+msgid "View"
+msgstr "Ansehen"
+
+#: view/cv/view/index.phtml:24 language/_annotated_strings.php:681
+msgid "Resume"
+msgstr "Lebenslauf"
+
+#: view/cv/view/index.phtml:38
+msgid "Enter an email address"
+msgstr "Bitte geben Sie eine E-Mail Adresse ein"
+
+#: view/cv/view/index.phtml:39
+msgid ""
+"This application will be send as an email to the given address in a layout "
+"similar to that on this page with all attachments included."
+msgstr "Diese Bewerbung inclusive der Anlagen wird an die eingegebene E-Mail Adresse  gesendet."
+
+#: view/cv/view/index.phtml:46
+msgid "Forward"
+msgstr "Weiterleiten"
+
+#: view/cv/view/index.phtml:55
+msgid "download as PDF"
+msgstr "als PDF runterladen"
+
+#: view/cv/view/index.phtml:63
+msgid "Delete application"
+msgstr "Bewerbung löschen"
+
+#: view/cv/view/index.phtml:64
+msgid "Delete"
+msgstr "Löschen"
+
+#: view/cv/view/index.phtml:73
+msgid "personal information"
+msgstr "Angaben zur Person"
+
+#: view/cv/view/index.phtml:93
+msgid "Phone"
+msgstr "Telefon"
+
+#: view/cv/view/index.phtml:107
+#: src/Cv/Factory/Form/AttachmentsFormFactory.php:84
+#: language/_annotated_strings.php:663
+msgid "Attachments"
+msgstr "Anlagen"
+
+#: view/cv/view/index.phtml:118
+msgid "no attachments available"
+msgstr "keine Anlagen vorhanden"
+
+#: view/cv/view/index.phtml:126
+msgid "State"
+msgstr "Status"
+
+#: view/cv/view/index.phtml:129
+msgid "date of creation"
+msgstr "Erstellungsdatum"
+
+#: view/cv/view/index.phtml:136
+msgid "resume state"
+msgstr "Veröffentlichungsstatus"
+
+#: view/cv/view/index.phtml:142
+msgid "last modification date"
+msgstr "letztes Änderungsdatum"
+
+#: view/cv/view/index.phtml:159 view/cv/index/index.ajax.phtml:21
+msgid "work experience"
+msgstr "Berufserfahrung"
+
+#: view/cv/view/index.phtml:164 view/cv/view/index.phtml:194
+msgid "Start"
+msgstr "Beginn"
+
+#: view/cv/view/index.phtml:165 view/cv/view/index.phtml:195
+msgid "End"
+msgstr "Ende"
+
+#: view/cv/view/index.phtml:166
+msgid "Company"
+msgstr "Firmenname"
+
+#: view/cv/view/index.phtml:167 view/cv/view/index.phtml:197
+#: language/_annotated_strings.php:36 language/_annotated_strings.php:60
+msgid "Description"
+msgstr "Beschreibung"
+
+#: view/cv/view/index.phtml:190
+msgid "education and training"
+msgstr "Schul- und Berufsbildung"
+
+#: view/cv/view/index.phtml:196
+msgid "University"
+msgstr "Universität"
+
+#: view/cv/view/index.phtml:214
+msgid "personal skills"
+msgstr "persönliche Fähigkeiten"
+
+#: view/cv/view/index.phtml:216
+msgid "native language"
+msgstr "Muttersprache"
+
+#: view/cv/index/index.phtml:3
 msgid "Resumes"
 msgstr "Lebensläufe"
 
@@ -33,36 +138,46 @@ msgid "%sSorry%s, there are not any resumes matching your search criteria."
 msgstr "%sEs tut uns Leid%s. Auf Ihre Suchanfrage konnten keine Lebensläufe gefunden werden."
 
 #: view/cv/index/index.ajax.phtml:4
-msgid "Id"
-msgstr "ID"
-
-#: view/cv/index/index.ajax.phtml:5
 msgid "Name"
 msgstr "Name"
 
-#: view/cv/index/index.ajax.phtml:6
+#: view/cv/index/index.ajax.phtml:5
 msgid "Career"
 msgstr "Karriere"
 
-#: view/cv/index/index.ajax.phtml:7 view/cv/form/search.phtml:40
+#: view/cv/index/index.ajax.phtml:6 view/cv/form/search.phtml:40
 msgid "Desired Work"
 msgstr "Gewünschte Position"
 
-#: view/cv/index/index.ajax.phtml:8
+#: view/cv/index/index.ajax.phtml:7
 msgid "Desired Location"
 msgstr "Gewünschter Arbeitsort"
 
-#: view/cv/index/index.ajax.phtml:19
+#: view/cv/index/index.ajax.phtml:8
+msgid "Actions"
+msgstr "Aktion"
+
+#: view/cv/index/index.ajax.phtml:18
 msgid "education"
 msgstr "Ausbildung"
 
-#: view/cv/index/index.ajax.phtml:19 view/cv/index/index.ajax.phtml:22
+#: view/cv/index/index.ajax.phtml:18 view/cv/index/index.ajax.phtml:21
 msgid "years"
 msgstr "Jahre"
 
-#: view/cv/index/index.ajax.phtml:22
-msgid "work experience"
-msgstr "Berufserfahrung"
+#: view/cv/form/employment.view.phtml:15 view/cv/form/education.view.phtml:15
+msgid "Date"
+msgstr "Datum"
+
+#: view/cv/form/employment.view.phtml:18 view/cv/form/education.view.phtml:18
+#, php-format
+msgid "Since %s"
+msgstr "Seit %s"
+
+#: view/cv/form/employment.view.phtml:20 view/cv/form/education.view.phtml:20
+#, php-format
+msgid "%s to %s"
+msgstr "%s bis %s"
 
 #: view/cv/form/search.phtml:59
 msgid "Type in a location"
@@ -76,26 +191,31 @@ msgstr "Suche"
 msgid "Clear"
 msgstr "Filter löschen"
 
-#: view/cv/form/cv-container.phtml:20
+#: view/cv/form/cv-container.phtml:19
 msgid "Image"
 msgstr "Bild"
 
-#: view/cv/manage/form.phtml:6
+#: view/cv/form/cv-container.phtml:24
+msgid "Desired Employment"
+msgstr "Gewünschte Tätigkeit"
+
+#: view/cv/form/cv-container.phtml:35
+#: src/Cv/Form/NativeLanguageFieldset.php:136
+#: language/_annotated_strings.php:78
+msgid "Native Language"
+msgstr "Muttersprache"
+
+#: view/cv/manage/form.phtml:13
+msgid "Manage my resume"
+msgstr "Meinen Lebenslauf bearbeiten"
+
+#: view/cv/manage/form.phtml:15
+msgid "Edit a resume"
+msgstr "Lebenslauf bearbeiten"
+
+#: view/cv/manage/form.phtml:17
 msgid "Create a new resume"
 msgstr "neuen Lebenslauf erstellen"
-
-#: src/Cv/Form/EducationFieldset.php:17
-msgid "Education"
-msgstr "Ausbildung"
-
-#: src/Cv/Form/LanguageSkillCollectionFactory.php:17
-#: language/_annotated_strings.php:42
-msgid "Additional Language Skills"
-msgstr "Weitere Sprachkenntnisse"
-
-#: src/Cv/Form/EmploymentFieldset.php:16
-msgid "Employment"
-msgstr "Anstellung"
 
 #: src/Cv/Form/SkillFieldset.php:29
 msgid "Languages"
@@ -105,39 +225,40 @@ msgstr "Sprachen"
 msgid "Language"
 msgstr "Sprache"
 
-#: src/Cv/Form/PreferredJobFieldset.php:52
-msgid "Desired Employment"
-msgstr "Gewünschte Tätigkeit"
+#: src/Cv/Controller/ViewController.php:56
+#, php-format
+msgid "Resume with id \"%s\" not found"
+msgstr "Der Lebenslauf mit der ID \"%s\" konnte nicht gefunden werden."
 
-#: src/Cv/Form/EmploymentCollectionFactory.php:17
-#: language/_annotated_strings.php:305
+#: src/Cv/Factory/Form/LanguageSkillCollectionFactory.php:27
+#: language/_annotated_strings.php:654
+msgid "Additional Language Skills"
+msgstr "Weitere Sprachkenntnisse"
+
+#: src/Cv/Factory/Form/EmploymentCollectionFactory.php:28
+#: language/_annotated_strings.php:657
 msgid "Employment history"
 msgstr "beruflicher Werdegang"
 
-#: src/Cv/Form/NativeLanguageFieldset.php:129
-#: language/_annotated_strings.php:81
-msgid "Native Language"
-msgstr "Muttersprache"
-
-#: src/Cv/Form/EducationCollectionFactory.php:17
-#: language/_annotated_strings.php:638
+#: src/Cv/Factory/Form/EducationCollectionFactory.php:28
+#: language/_annotated_strings.php:666
 msgid "Education history"
 msgstr "Ausbildungsverlauf"
 
-#: src/Cv/Form/SkillCollectionFactory.php:17
-#: language/_annotated_strings.php:641
+#: src/Cv/Factory/Form/SkillCollectionFactory.php:28
+#: language/_annotated_strings.php:669
 msgid "Skills"
 msgstr "Fähigkeiten"
 
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:48
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:45
 msgid "Start date"
 msgstr "Beginn"
 
-#: language/_annotated_strings.php:6 language/_annotated_strings.php:51
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:48
 msgid "End date"
 msgstr "Ende"
 
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:54
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:51
 msgid "ongoing"
 msgstr "bis heute"
 
@@ -161,7 +282,7 @@ msgstr "Bitte nennen Sie den Namen der Universität, an der Sie studiert haben"
 msgid "Country"
 msgstr "Land"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:27 language/_annotated_strings.php:687
 msgid "please select the country"
 msgstr "Bitte wählen Sie ein Land"
 
@@ -173,74 +294,70 @@ msgstr "Ort"
 msgid "please enter the name of the city"
 msgstr "Bitte nennen Sie den Namen der Stadt"
 
-#: language/_annotated_strings.php:36 language/_annotated_strings.php:63
-msgid "Description"
-msgstr "Beschreibung"
-
 #: language/_annotated_strings.php:39
 msgid "please enter a description"
 msgstr "Bitte geben Sie eine Beschreibung ein"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:42
 msgid "Please select a language and self-assess your level"
 msgstr "Wählen Sie eine Sprache aus imd bewerten Sie selbst Ihr Niveau"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:54
 msgid "Company Name"
 msgstr "Firmenname"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:57
 msgid "please enter the name of the company"
 msgstr "Bitte geben Sie den Namen des Unternehmens ein"
 
-#: language/_annotated_strings.php:66 language/_annotated_strings.php:263
-#: language/_annotated_strings.php:275 language/_annotated_strings.php:284
-#: language/_annotated_strings.php:302
+#: language/_annotated_strings.php:63 language/_annotated_strings.php:267
+#: language/_annotated_strings.php:279 language/_annotated_strings.php:288
+#: language/_annotated_strings.php:306
 msgid "please describe your position"
 msgstr "Bitte beschreiben Sie die ausgeübte Tätigkeit"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:66
 msgid "Search for resumes"
 msgstr "Suche nach Lebensläufen"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:69
 msgid "Location"
 msgstr "Ort"
 
-#: language/_annotated_strings.php:75 language/_annotated_strings.php:78
+#: language/_annotated_strings.php:72 language/_annotated_strings.php:75
 msgid "Distance"
 msgstr "Umkreis"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:81
 msgid "Other languages"
 msgstr "weitere Sprachen"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:84
 msgid ""
 "Focus on the work experience that gives added weight to your application. "
 "Add separate entries for each course. Start from the most recent."
 msgstr "Konzentrieren Sie sich auf die Arbeitserfahrungen, die Ihrer Bewerbung einen Mehrwert verleihen. Nehmen Sie für jeden relevanten Arbeitsplatz eine separate Eintragung vor. Beginnen Sie mit Ihrer aktuellen Tätigkeit. "
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:87
 msgid "which language are you speeking"
 msgstr "Welche Sprachen sprechen Sie?"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:90
 msgid "Listening"
 msgstr "Verstehen"
 
-#: language/_annotated_strings.php:96 language/_annotated_strings.php:120
+#: language/_annotated_strings.php:93 language/_annotated_strings.php:117
 msgid "Understanding Listening ..."
 msgstr "Verstehen, zuhören ..."
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:96
 msgid ""
 "I can understand familiar words and very basic phrases concerning myself, my"
 " family and immediate concrete surroundings when people speak slowly and "
 "clearly."
 msgstr "Ich kann vertraute Wörter und ganz einfache Sätze verstehen, die sich auf mich selbst, meine Familie oder auf konkrete Dinge um mich herum beziehen, vorausgesetzt es wird langsam und deutlich gesprochen."
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:99
 msgid ""
 "I can understand phrases and the highest frequency vocabulary related to "
 "areas of most immediate personal relevance (e.g. very basic personal and "
@@ -248,7 +365,7 @@ msgid ""
 "point in short, clear, simple messages and announcements."
 msgstr "Ich kann einzelne Sätze und die gebräuchlichsten Wörter verstehen, wenn es um für mich wichtige Dinge geht (z. B. sehr einfache Informationen zur Person und zur Familie,  Einkaufen, Arbeit, nähere Umgebung). Ich verstehe das Wesentliche von kurzen, klaren und einfachen Mitteilungen und Aussagen."
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:102
 msgid ""
 "I can understand the main points of clear standard speech on familiar "
 "matters regularly encountered in work, school, leisure, etc. I can "
@@ -257,7 +374,7 @@ msgid ""
 "relatively slow and clear."
 msgstr "Ich kann die Hauptpunkte verstehen, wenn klare Standardsprache verwendet wird und wenn es um vertraute Dinge aus Arbeit, Schule, Freizeit usw. geht. Ich kann vielen Radio- oder Fernsehsendungen über aktuelle Ereignisse und über Themen aus meinem Berufs- oder Interessengebiet die Hauptinformation entnehmen, wenn relativ langsam und deutlich gesprochen wird."
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:105
 msgid ""
 "I can understand extended speech and lectures and follow even complex lines "
 "of argument provided the topic is reasonably familiar. I can understand most"
@@ -265,40 +382,41 @@ msgid ""
 "films in standard dialect."
 msgstr "Ich kann längere Redebeiträge und Vorträge verstehen und auch komplexer Argumentation folgen, wenn mir das Thema einigermaßen vertraut ist. Ich kann im Fernsehen die meisten Nachrichtensendungen und aktuellen Reportagen verstehen. Ich kann die meisten Spielfilme verstehen, sofern Standardsprache gesprochen wird."
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:108
 msgid ""
 "I can understand extended speech even when it is not clearly structured and "
 "when relationships are only implied and not signalled explicitly. I can "
 "understand television programmes and films without too much effort."
 msgstr "Ich kann längeren Redebeiträgen folgen, auch wenn diese nicht klar strukturiert sind und wenn Zusammenhänge nicht explizit ausgedrückt sind. Ich kann ohne allzu große Mühe Fernsehsendungen und Spielfilme verstehen."
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:111
 msgid ""
 "I have no difficulty in understanding any kind of spoken language, whether "
 "live or broadcast, even when delivered at fast native speed, provided I have"
 " some time to get familiar with the accent."
 msgstr "Ich habe keinerlei Schwierigkeit, gesprochene Sprache zu verstehen, gleichgültig ob \"live\" oder in den Medien, und zwar auch, wenn schnell gesprochen wird. Ich brauche nur etwas Zeit, mich an einen besonderen Akzent zu gewöhnen."
 
-#: language/_annotated_strings.php:117 language/_annotated_strings.php:147
-#: language/_annotated_strings.php:200 language/_annotated_strings.php:227
+#: language/_annotated_strings.php:114 language/_annotated_strings.php:144
+#: language/_annotated_strings.php:174 language/_annotated_strings.php:201
+#: language/_annotated_strings.php:228
 msgid "level"
 msgstr "Level"
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:120
 msgid "Reading"
 msgstr "Sprechen"
 
-#: language/_annotated_strings.php:126 language/_annotated_strings.php:150
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:147
 msgid "Understanding Reading ..."
 msgstr "Verstehen, Lesen ..."
 
-#: language/_annotated_strings.php:129
+#: language/_annotated_strings.php:126
 msgid ""
 "I can understand familiar names, words and very simple sentences, for "
 "example on notices and posters or in catalogues."
 msgstr "Ich kann einzelne vertraute Namen, Wörter und ganz einfache Sätze verstehen, z.&nbsp;B. auf Schildern, Plakaten oder in Katalogen."
 
-#: language/_annotated_strings.php:132
+#: language/_annotated_strings.php:129
 msgid ""
 "I can read very short, simple texts. I can find specific, predictable "
 "information in simple everyday material such as advertisements, "
@@ -306,43 +424,43 @@ msgid ""
 "personal letters."
 msgstr "Ich kann ganz kurze, einfache Texte lesen. Ich kann in einfachen Alltagstexten (z.&nbsp;B. Anzeigen, Prospekten, Speisekarten oder Fahrplänen) konkrete, vorhersehbare Informationen auffinden und ich kann kurze, einfache persönliche Briefe verstehen."
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:132
 msgid ""
 "I can understand texts that consist mainly of high frequency everyday or "
 "job-related language. I can understand the description of events, feelings "
 "and wishes in personal letters."
 msgstr "Ich kann Texte verstehen, in denen vor allem sehr gebräuchliche Alltags- oder Berufssprache vorkommt. Ich kann private Briefe verstehen, in denen von Ereignissen, Gefühlen und Wünschen berichtet wird."
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:135
 msgid ""
 "I can read articles and reports concerned with contemporary problems in "
 "which the writers adopt particular attitudes or viewpoints. I can understand"
 " contemporary literary prose."
 msgstr "Ich kann Artikel und Berichte über Probleme der Gegenwart lesen und verstehen, in denen die Schreibenden eine bestimmte Haltung oder einen bestimmten Standpunkt vertreten. Ich kann zeitgenössische literarische Prosatexte verstehen."
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:138
 msgid ""
 "I can understand long and complex factual and literary texts, appreciating "
 "distinctions of style. I can understand specialised articles and longer "
 "technical instructions, even when they do not relate to my field."
 msgstr "Ich kann lange, komplexe Sachtexte und literarische Texte verstehen und Stilunterschiede wahrnehmen. Ich kann Fachartikel und längere technische Anleitungen verstehen, auch wenn sie nicht in meinem Fachgebiet liegen."
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:141
 msgid ""
 "I can read with ease virtually all forms   of the written language, "
 "including abstract, structurally or linguistically complex texts such as "
 "manuals, specialised articles and literary works."
 msgstr "Ich kann praktisch jede Art von geschriebenen Texten mühelos lesen, auch wenn sie abstrakt oder inhaltlich und sprachlich komplex sind, z.B. Handbücher, Fachartikel und literarische Werke."
 
-#: language/_annotated_strings.php:153
+#: language/_annotated_strings.php:150
 msgid "Spoken Interaction"
 msgstr "An Gesrächen teilnehmen"
 
-#: language/_annotated_strings.php:156
+#: language/_annotated_strings.php:153
 msgid "Spoken Interaction ..."
 msgstr "An Gesprächen teilnehmen ..."
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:156
 msgid ""
 "I can interact in a simple way provided the other person is prepared to "
 "repeat or rephrase things at a slower rate of speech and help me formulate "
@@ -350,7 +468,7 @@ msgid ""
 "immediate need or on very familiar topics."
 msgstr "Ich kann mich auf einfache Art verständigen, wenn meine Gesprächspartnerin oder mein Gesprächspartner bereit ist, etwas langsamer zu wiederholen oder anders zu sagen, und mir dabei hilft zu formulieren, was ich zu sagen versuche. Ich kann einfache Fragen stellen und beantworten, sofern es sich um unmittelbar notwendige Dinge und um sehr vertraute Themen handelt."
 
-#: language/_annotated_strings.php:162
+#: language/_annotated_strings.php:159
 msgid ""
 "I can communicate in simple and routine tasks requiring a simple and direct "
 "exchange of information on familiar topics and activities. I can handle very"
@@ -358,7 +476,7 @@ msgid ""
 "keep the conversation going myself."
 msgstr "Ich kann mich in einfachen, routinemäßigen Situationen verständigen, in denen es um einen einfachen, direkten Austausch von Informationen und um vertraute Themen und Tätigkeiten geht. Ich kann ein sehr kurzes Kontaktgespräch führen, verstehe aber normalerweise nicht genug, um selbst das Gespräch in Gang zu halten."
 
-#: language/_annotated_strings.php:165
+#: language/_annotated_strings.php:162
 msgid ""
 "I can deal with most situations likely to arise whilst travelling in an area"
 " where the language is spoken. I can enter unprepared into conversation on "
@@ -366,14 +484,14 @@ msgid ""
 " (e.g. family, hobbies, work, travel and current events)."
 msgstr "Ich kann die meisten Situationen bewältigen, denen man auf Reisen im Sprachgebiet begegnet. Ich kann ohne Vorbereitung an Gesprächen über Themen teilnehmen, die mir vertraut sind, die mich persönlich interessieren oder die sich auf Themen des Alltags wie Familie, Hobbys, Arbeit, Reisen, aktuelle Ereignisse beziehen."
 
-#: language/_annotated_strings.php:168
+#: language/_annotated_strings.php:165
 msgid ""
 "I can interact with a degree of fluency and spontaneity that makes regular "
 "interaction with native speakers quite possible. I can take an active part "
 "in discussion in familiar contexts, accounting for  and sustaining my views."
 msgstr "Ich kann mich so spontan und fließend verständigen, dass ein normales Gespräch mit einer Muttersprachlerin oder einem Muttersprachler recht gut möglich ist. Ich kann mich in vertrauten Situationen aktiv an einer Diskussion beteiligen und meine Ansichten begründen und verteidigen."
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:168
 msgid ""
 "I can express myself fluently and spontaneously without much obvious "
 "searching for expressions. I can use language flexibly and effectively for "
@@ -381,7 +499,7 @@ msgid ""
 "precision and relate my contribution skilfully to those of other speakers."
 msgstr "Ich kann mich spontan und fließend ausdrücken, ohne öfter deutlich erkennbar nach Worten suchen zu müssen. Ich kann die Sprache im gesellschaftlichen und beruflichen Leben wirksam und flexibel gebrauchen. Ich kann meine Gedanken und Meinungen präzise ausdrücken und meine eigenen Beiträge geschickt mit denen anderer Personen verknüpfen."
 
-#: language/_annotated_strings.php:174
+#: language/_annotated_strings.php:171
 msgid ""
 "I can take part effortlessly in any conversation or discussion and have a "
 "good familiarity with idiomatic expressions and colloquialisms. I can "
@@ -390,24 +508,28 @@ msgid ""
 "smoothly that other people are hardly aware of it."
 msgstr "Ich kann mich mühelos an allen Gesprächen und Diskussionen beteiligen und bin auch mit Redewendungen und umgangssprachlichen Wendungen gut vertraut. Ich kann fließend sprechen und auch feinere Bedeutungsnuancen genau ausdrücken. Bei Ausdrucksschwierigkeiten kann ich so reibungslos wieder ansetzen und umformulieren, dass man es kaum merkt."
 
-#: language/_annotated_strings.php:179
+#: language/_annotated_strings.php:177
+msgid "Spoken Production"
+msgstr "Zusammenhängendes Sprechen"
+
+#: language/_annotated_strings.php:180
 msgid "Spoken Production ..."
 msgstr "Zusammenhängendes Sprechen ..."
 
-#: language/_annotated_strings.php:182
+#: language/_annotated_strings.php:183
 msgid ""
 "I can use simple phrases and sentences to describe where I live and people I"
 " know."
 msgstr "Ich kann einfache Wendungen und Sätze gebrauchen, um Leute, die ich kenne, zu beschreiben und um zu beschreiben, wo ich wohne."
 
-#: language/_annotated_strings.php:185
+#: language/_annotated_strings.php:186
 msgid ""
 "I can use a series of phrases and sentences to describe in simple terms my "
 "family and other people, living conditions, my educational background and my"
 " present or most recent job."
 msgstr "Ich kann einfache Wendungen und Sätze gebrauchen, um Leute, die ich kenne, zu beschreiben und um zu beschreiben, wo ich wohne."
 
-#: language/_annotated_strings.php:188
+#: language/_annotated_strings.php:189
 msgid ""
 "I can connect phrases in a simple way in order to describe experiences and "
 "events, my dreams, hopes and ambitions. I can briefly give reasons and "
@@ -415,56 +537,56 @@ msgid ""
 "plot of a book or film and describe my reactions."
 msgstr "Ich kann einzelne Sätze und die gebräuchlichsten Wörter verstehen, wenn es um für mich wichtige Dinge geht (z. B. sehr einfache Informationen zur Person und zur Familie, Einkaufen, Arbeit, nähere Umgebung). Ich verstehe das Wesentliche von kurzen, klaren und einfachen Mitteilungen und Aussagen."
 
-#: language/_annotated_strings.php:191
+#: language/_annotated_strings.php:192
 msgid ""
 "I can present clear, detailed descriptions on a wide range of subjects "
 "related to my field of interest. I can explain a viewpoint on a topical "
 "issue giving the advantages and disadvantages of various options."
 msgstr "Ich kann zu vielen Themen aus meinen Interessengebieten eine klare und detaillierte Darstellung geben. Ich kann einen Standpunkt zu einer aktuellen Frage erläutern und Vor- und Nachteile verschiedener Möglichkeiten angeben."
 
-#: language/_annotated_strings.php:194
+#: language/_annotated_strings.php:195
 msgid ""
 "I can present clear, detailed descriptions of complex subjects integrating "
 "sub-themes, developing particular points and rounding off with an "
 "appropriate conclusion."
 msgstr "Ich kann komplexe Sachverhalte ausführlich darstellen und dabei Themenpunkte miteinander verbinden, bestimmte Aspekte besonders ausführen und meinen Beitrag angemessen abschließen."
 
-#: language/_annotated_strings.php:197
+#: language/_annotated_strings.php:198
 msgid ""
 "I can present a clear, smoothly-flowing description or argument in a style "
 "appropriate to the context and with an effective logical structure which "
 "helps the recipient to notice and remember significant points."
 msgstr "Ich kann Sachverhalte klar, flüssig und im Stil der jeweiligen Situation angemessen darstellen und erörtern; ich kann meine Darstellung logisch aufbauen und es so den Zuhörenden erleichtern, wichtige Punkte zu erkennen und sich diese zu merken."
 
-#: language/_annotated_strings.php:203
+#: language/_annotated_strings.php:204
 msgid "Writing"
 msgstr "Schreiben"
 
-#: language/_annotated_strings.php:206
+#: language/_annotated_strings.php:207
 msgid "Writing ..."
 msgstr "Schreiben ..."
 
-#: language/_annotated_strings.php:209
+#: language/_annotated_strings.php:210
 msgid ""
 "I can write a short, simple postcard, for example sending holiday greetings."
 " I can fill in forms with personal details, for example entering my name, "
 "nationality and address on a hotel registration form."
 msgstr "Ich kann eine kurze einfache Postkarte schreiben, z. B. Feriengrüße. Ich kann auf Formularen, z. B. in Hotels, Namen, Adresse, Nationalität usw. eintragen."
 
-#: language/_annotated_strings.php:212
+#: language/_annotated_strings.php:213
 msgid ""
 "I can write short, simple notes and messages. I can write a very simple "
 "personal letter, for example thanking someone for something."
 msgstr "Ich kann kurze, einfache Notizen und Mitteilungen schreiben. Ich kann einen ganz einfachen persönlichen Brief schreiben, z.B. um mich für etwas zu bedanken."
 
-#: language/_annotated_strings.php:215
+#: language/_annotated_strings.php:216
 msgid ""
 "I can write simple connected text on topics which are familiar or of "
 "personal interest. I can write personal letters describing experiences and "
 "impressions."
 msgstr "Ich kann über Themen, die mir vertraut sind oder mich persönlich interessieren, einfache zusammenhängende Texte schreiben. Ich kann persönliche Briefe schreiben und darin von Erfahrungen und Eindrücken berichten."
 
-#: language/_annotated_strings.php:218
+#: language/_annotated_strings.php:219
 msgid ""
 "I can write clear, detailed text on a wide range of subjects related to my "
 "interests. I can write an essay or report, passing on information or giving "
@@ -472,7 +594,7 @@ msgid ""
 "letters highlighting the personal significance of events and experiences."
 msgstr "Ich kann über eine Vielzahl von Themen, die mich interessieren, klare und detaillierte Texte schreiben. Ich kann in einem Aufsatz oder Bericht Informationen wiedergeben oder Argumente und Gegenargumente für oder gegen einen bestimmten Standpunkt darlegen. Ich kann Briefe schreiben und darin die persönliche Bedeutung von Ereignissen und Erfahrungen deutlich machen."
 
-#: language/_annotated_strings.php:221
+#: language/_annotated_strings.php:222
 msgid ""
 "I can express myself in clear, well-structured text, expressing points of "
 "view at some length. I can write about complex subjects in a letter, an "
@@ -480,7 +602,7 @@ msgid ""
 "can select a style appropriate to the reader in mind."
 msgstr "Ich kann mich schriftlich klar und gut strukturiert ausdrücken und meine Ansichten ausführlich darstellen. Ich kann in Briefen, Aufsätzen oder Berichten über komplexe Sachverhalte schreiben und die für mich wesentlichen Aspekte hervorheben. Ich kann in meinen schriftlichen Texten den Stil wählen, der für die jeweiligen Leserinnen und Leser angemessen ist."
 
-#: language/_annotated_strings.php:224
+#: language/_annotated_strings.php:225
 msgid ""
 "I can write clear, smoothly-flowing  text in an appropriate style. I can "
 "write complex letters, reports or articles which present a case with an "
@@ -489,7 +611,7 @@ msgid ""
 "literary works."
 msgstr "Ich kann klar, flüssig und stilistisch dem jeweiligen Zweck angemessen schreiben. Ich kann anspruchsvolle Briefe und komplexe Berichte oder  Artikel verfassen, die einen Sachverhalt gut strukturiert darstellen und so dem Leser helfen, wichtige Punkte zu erkennen und sich diese zu merken. Ich kann Fachtexte und literarische Werke schriftlich zusammenfassen und besprechen."
 
-#: language/_annotated_strings.php:230
+#: language/_annotated_strings.php:231
 msgid ""
 " Focus on the work experience that gives added weight to your "
 "application.<br>Add separate entries for each experience. Start with the "
@@ -498,532 +620,567 @@ msgid ""
 "work placements which provide evidence of work experience.</li></ul>"
 msgstr "Konzentrieren Sie sich auf die Arbeitserfahrungen, die Ihrer Bewerbung einen Mehrwert verleihen.<br>Nehmen Sie für jeden relevanten Arbeitsplatz eine separate Eintragung vor. Beginnen Sie mit Ihrer aktuellen Tätigkeit.<br>Sollte es Ihnen noch an Berufserfahrung mangeln:<ul><li>Machen Sie zuerst Angaben zu Ihrer Schul- und Berufsbildung</li><li>Erwähnen Sie ehrenamtliche Tätigkeiten sowie bezahlte und unbezahlte Praktika, die Ihre Arbeitserfahrung belegen.</li></ul>"
 
-#: language/_annotated_strings.php:233
+#: language/_annotated_strings.php:234
+msgid "Click here to enter your employment expectation"
+msgstr "Klicken Sie hier, um ihre gewünschte Anstellung einzugeben"
+
+#: language/_annotated_strings.php:237
 msgid "Temporary"
 msgstr "Zeitarbeit"
 
-#: language/_annotated_strings.php:236
+#: language/_annotated_strings.php:240
 msgid "Permanent"
 msgstr "Festanstellung"
 
-#: language/_annotated_strings.php:239
+#: language/_annotated_strings.php:243
 msgid "Contracting"
 msgstr "Projektarbeit"
 
-#: language/_annotated_strings.php:242
+#: language/_annotated_strings.php:246
 msgid "Freelance"
 msgstr "Freie Mitarbeit"
 
-#: language/_annotated_strings.php:245
+#: language/_annotated_strings.php:249
 msgid "Internship"
 msgstr "Praktikum"
 
-#: language/_annotated_strings.php:248
+#: language/_annotated_strings.php:252
 msgid "Yes"
 msgstr "Ja"
 
-#: language/_annotated_strings.php:251
+#: language/_annotated_strings.php:255
 msgid "conditioned"
 msgstr "bedingt"
 
-#: language/_annotated_strings.php:254
+#: language/_annotated_strings.php:258
 msgid "No"
 msgstr "Nein"
 
-#: language/_annotated_strings.php:257
+#: language/_annotated_strings.php:261
 msgid "desired type of work"
 msgstr "Gewünschte Art der Anstellung"
 
-#: language/_annotated_strings.php:260
+#: language/_annotated_strings.php:264
 msgid "Do you want to work permanently or temporary?"
 msgstr "Welche Art der Anstellung streben Sie an? Bevorzugen Sie eine Festanstellung oder eher die Freie Mitarbeit. Mehrere Angaben sind möglich."
 
-#: language/_annotated_strings.php:266 language/_annotated_strings.php:293
+#: language/_annotated_strings.php:270 language/_annotated_strings.php:297
 msgid "please select"
 msgstr "Bitte wählen"
 
-#: language/_annotated_strings.php:269
+#: language/_annotated_strings.php:273
 msgid "desired job position"
 msgstr "angestrebte Tätigkeit"
 
-#: language/_annotated_strings.php:272
+#: language/_annotated_strings.php:276
 msgid ""
 "Enter the title of your desired job. Eg. \"Software Developer\" or "
 "\"Customer Service Representative\""
 msgstr "Wählen Sie den Titel Ihres nächsten gewünschten Jobs. Etwa \"Software Entwickler\" oder \"Kundendienstvertretung\""
 
-#: language/_annotated_strings.php:278
+#: language/_annotated_strings.php:282
 msgid "desired job location"
 msgstr "Gewünschter Arbeitsort"
 
-#: language/_annotated_strings.php:281
+#: language/_annotated_strings.php:285
 msgid "Where do you want to work?"
 msgstr "Wo möchten Sie arbeiten?"
 
-#: language/_annotated_strings.php:287
+#: language/_annotated_strings.php:291
 msgid "Willingness to travel"
 msgstr "Reisebereitschaft"
 
-#: language/_annotated_strings.php:290
+#: language/_annotated_strings.php:294
 msgid "Enter your willingness to travel."
 msgstr "Bitte machen Sie Angaben zu Ihrer Reisebereitschaft."
 
-#: language/_annotated_strings.php:296
+#: language/_annotated_strings.php:300
 msgid "expected Salary"
 msgstr "Gehaltsvorstellung"
 
-#: language/_annotated_strings.php:299
+#: language/_annotated_strings.php:303
 msgid "What is your expected Salary?"
 msgstr "Wie hoch ist ihr erwartetes Einkommen?"
 
-#: language/_annotated_strings.php:308
+#: language/_annotated_strings.php:309
 msgid ""
 "Where do you want to work tomorrow? This heading gives an immediate overview"
 " of your desired next job."
 msgstr "Wo und als was möchten sie zukünftig arbeiten? Dieser Abschnitt gibt einen Überblick über ihre nächste gewünschte Tätigkeit."
 
-#: language/_annotated_strings.php:311
+#: language/_annotated_strings.php:312
 msgid "Please select from list or enter your mother tongue."
 msgstr "Wählen Sie Ihre Mutterspache aus der Liste. Sie können mehrere Sprachen angeben."
 
-#: language/_annotated_strings.php:314
+#: language/_annotated_strings.php:315
+msgid "Click here to enter your native language(s)"
+msgstr "Klicken Sie hier, um ihre Muttersprache(n) einzugeben"
+
+#: language/_annotated_strings.php:318
 msgid "Abkhazian"
 msgstr "Abchasisch"
 
-#: language/_annotated_strings.php:317
+#: language/_annotated_strings.php:321
 msgid "Afrikaans"
 msgstr "Afrikaans"
 
-#: language/_annotated_strings.php:320
+#: language/_annotated_strings.php:324
 msgid "Albanian"
 msgstr "Albanisch"
 
-#: language/_annotated_strings.php:323
+#: language/_annotated_strings.php:327
 msgid "Amharic"
 msgstr "Amharisch"
 
-#: language/_annotated_strings.php:326
+#: language/_annotated_strings.php:330
 msgid "Arabic"
 msgstr "Arabisch"
 
-#: language/_annotated_strings.php:329
+#: language/_annotated_strings.php:333
 msgid "Armenian"
 msgstr "Armenisch"
 
-#: language/_annotated_strings.php:332
+#: language/_annotated_strings.php:336
 msgid "Assamese"
 msgstr "Aserbeidschanisch"
 
-#: language/_annotated_strings.php:335
+#: language/_annotated_strings.php:339
 msgid "Azerbaijani"
 msgstr "Assamesisch"
 
-#: language/_annotated_strings.php:338
+#: language/_annotated_strings.php:342
 msgid "Basque"
 msgstr "Baskisch"
 
-#: language/_annotated_strings.php:341
+#: language/_annotated_strings.php:345
 msgid "Belarusian"
 msgstr "Weißrussisch"
 
-#: language/_annotated_strings.php:344
+#: language/_annotated_strings.php:348
 msgid "Bengali"
 msgstr "Bengali"
 
-#: language/_annotated_strings.php:347
+#: language/_annotated_strings.php:351
 msgid "Bosnian"
 msgstr "Bosnisch"
 
-#: language/_annotated_strings.php:350
+#: language/_annotated_strings.php:354
 msgid "Breton"
 msgstr "Bretonisch"
 
-#: language/_annotated_strings.php:353
+#: language/_annotated_strings.php:357
 msgid "Bulgarian"
 msgstr "Bulgarisch"
 
-#: language/_annotated_strings.php:356
+#: language/_annotated_strings.php:360
 msgid "Burmese"
 msgstr "Birmanisch/Burmesisch"
 
-#: language/_annotated_strings.php:359
+#: language/_annotated_strings.php:363
 msgid "Catalan/Valencian"
 msgstr "Katalanisch"
 
-#: language/_annotated_strings.php:362
+#: language/_annotated_strings.php:366
 msgid "Chechen"
 msgstr "Tschechisch"
 
-#: language/_annotated_strings.php:365
+#: language/_annotated_strings.php:369
 msgid "Chinese"
 msgstr "Chinesisch"
 
-#: language/_annotated_strings.php:368
+#: language/_annotated_strings.php:372
 msgid "Cornish"
 msgstr "Kornisch"
 
-#: language/_annotated_strings.php:371
+#: language/_annotated_strings.php:375
 msgid "Corsican"
 msgstr "Korsisch"
 
-#: language/_annotated_strings.php:374
+#: language/_annotated_strings.php:378
 msgid "Croatian"
 msgstr "Kroatisch"
 
-#: language/_annotated_strings.php:377
+#: language/_annotated_strings.php:381
 msgid "Czech"
 msgstr "Tschechisch"
 
-#: language/_annotated_strings.php:380
+#: language/_annotated_strings.php:384
 msgid "Danish"
 msgstr "Dänisch"
 
-#: language/_annotated_strings.php:383
+#: language/_annotated_strings.php:387
 msgid "Dutch"
 msgstr "Holländisch"
 
-#: language/_annotated_strings.php:386
+#: language/_annotated_strings.php:390
 msgid "English"
 msgstr "Englisch"
 
-#: language/_annotated_strings.php:389
+#: language/_annotated_strings.php:393
 msgid "Estonian"
 msgstr "Estnisch"
 
-#: language/_annotated_strings.php:392
+#: language/_annotated_strings.php:396
 msgid "Faroese"
 msgstr "Färöisch"
 
-#: language/_annotated_strings.php:395
+#: language/_annotated_strings.php:399
 msgid "Fijian"
 msgstr "Fidschi"
 
-#: language/_annotated_strings.php:398
+#: language/_annotated_strings.php:402
 msgid "Finnish"
 msgstr "Finnisch"
 
-#: language/_annotated_strings.php:401
+#: language/_annotated_strings.php:405
 msgid "French"
 msgstr "Französisch"
 
-#: language/_annotated_strings.php:404
+#: language/_annotated_strings.php:408
 msgid "Gaelic/Scottish Gaelic"
 msgstr "Gälisch/Schottisch-Gälisch"
 
-#: language/_annotated_strings.php:407
+#: language/_annotated_strings.php:411
 msgid "Galician"
 msgstr "Galicisch"
 
-#: language/_annotated_strings.php:410
+#: language/_annotated_strings.php:414
 msgid "Georgian"
 msgstr "Georgisch"
 
-#: language/_annotated_strings.php:413
+#: language/_annotated_strings.php:417
 msgid "German"
 msgstr "Deutsch"
 
-#: language/_annotated_strings.php:416
+#: language/_annotated_strings.php:420
 msgid "Greek"
 msgstr "Griechisch"
 
-#: language/_annotated_strings.php:419
+#: language/_annotated_strings.php:423
 msgid "Gujarati"
 msgstr "Gujarati"
 
-#: language/_annotated_strings.php:422
+#: language/_annotated_strings.php:426
 msgid "Haitian/Haitian Creole"
 msgstr "Haitianisch/Frankokreolisch"
 
-#: language/_annotated_strings.php:425
+#: language/_annotated_strings.php:429
 msgid "Hebrew"
 msgstr "Hebräisch"
 
-#: language/_annotated_strings.php:428
+#: language/_annotated_strings.php:432
 msgid "Hindi"
 msgstr "Hindi"
 
-#: language/_annotated_strings.php:431
+#: language/_annotated_strings.php:435
 msgid "Hungarian"
 msgstr "Ungarisch"
 
-#: language/_annotated_strings.php:434
+#: language/_annotated_strings.php:438
 msgid "Icelandic"
 msgstr "Isländisch"
 
-#: language/_annotated_strings.php:437
+#: language/_annotated_strings.php:441
 msgid "Indonesian"
 msgstr "Indonesisch"
 
-#: language/_annotated_strings.php:440
+#: language/_annotated_strings.php:444
 msgid "Irish"
 msgstr "Irisch"
 
-#: language/_annotated_strings.php:443
+#: language/_annotated_strings.php:447
 msgid "Italian"
 msgstr "Italienisch"
 
-#: language/_annotated_strings.php:446
+#: language/_annotated_strings.php:450
 msgid "Japanese"
 msgstr "Japanisch"
 
-#: language/_annotated_strings.php:449
+#: language/_annotated_strings.php:453
 msgid "Javanese"
 msgstr "Javanisch"
 
-#: language/_annotated_strings.php:452
+#: language/_annotated_strings.php:456
 msgid "Kannada"
 msgstr "Kannada"
 
-#: language/_annotated_strings.php:455
+#: language/_annotated_strings.php:459
 msgid "Kazakh"
 msgstr "Kasachisch"
 
-#: language/_annotated_strings.php:458
+#: language/_annotated_strings.php:462
 msgid "Kirghiz"
 msgstr "Kirgisisch"
 
-#: language/_annotated_strings.php:461
+#: language/_annotated_strings.php:465
 msgid "Kongo/Kikongo"
 msgstr "Kongo/Kikongo"
 
-#: language/_annotated_strings.php:464
+#: language/_annotated_strings.php:468
 msgid "Korean"
 msgstr "Koreanisch"
 
-#: language/_annotated_strings.php:467
+#: language/_annotated_strings.php:471
 msgid "Kurdish"
 msgstr "Kurdisch"
 
-#: language/_annotated_strings.php:470
+#: language/_annotated_strings.php:474
 msgid "Lao"
 msgstr "Laotisch"
 
-#: language/_annotated_strings.php:473
+#: language/_annotated_strings.php:477
 msgid "Latvian"
 msgstr "Lettisch"
 
-#: language/_annotated_strings.php:476
+#: language/_annotated_strings.php:480
 msgid "Limburgish/Limburgian/Limburgic"
 msgstr "Limburgisch"
 
-#: language/_annotated_strings.php:479
+#: language/_annotated_strings.php:483
 msgid "Lingala"
 msgstr "Lingala"
 
-#: language/_annotated_strings.php:482
+#: language/_annotated_strings.php:486
 msgid "Lithuanian"
 msgstr "Litauisch"
 
-#: language/_annotated_strings.php:485
+#: language/_annotated_strings.php:489
 msgid "Luxembourgish"
 msgstr "Luxemburgisch"
 
-#: language/_annotated_strings.php:488
+#: language/_annotated_strings.php:492
 msgid "Macedonian"
 msgstr "Makedonisch"
 
-#: language/_annotated_strings.php:491
+#: language/_annotated_strings.php:495
 msgid "Malagasy"
 msgstr "Malagasy/Malgache"
 
-#: language/_annotated_strings.php:494
+#: language/_annotated_strings.php:498
 msgid "Malay"
 msgstr "Malaiisch"
 
-#: language/_annotated_strings.php:497
+#: language/_annotated_strings.php:501
 msgid "Malayalam"
 msgstr "Malayalam"
 
-#: language/_annotated_strings.php:500
+#: language/_annotated_strings.php:504
 msgid "Maltese"
 msgstr "Maltesisch"
 
-#: language/_annotated_strings.php:503
+#: language/_annotated_strings.php:507
 msgid "Manx"
 msgstr "Manx"
 
-#: language/_annotated_strings.php:506
+#: language/_annotated_strings.php:510
 msgid "Marathi"
 msgstr "Marathi"
 
-#: language/_annotated_strings.php:509
+#: language/_annotated_strings.php:513
 msgid "Moldavian"
 msgstr "Moldauisch"
 
-#: language/_annotated_strings.php:512
+#: language/_annotated_strings.php:516
 msgid "Mongolian"
 msgstr "Mongolisch"
 
-#: language/_annotated_strings.php:515
+#: language/_annotated_strings.php:519
 msgid "Nepali"
 msgstr "Nepali"
 
-#: language/_annotated_strings.php:518
+#: language/_annotated_strings.php:522
 msgid "Norwegian"
 msgstr "Norwegisch"
 
-#: language/_annotated_strings.php:521
+#: language/_annotated_strings.php:525
 msgid "Norwegian (Bokmal)"
 msgstr "Norwegisch (Bokmål)"
 
-#: language/_annotated_strings.php:524
+#: language/_annotated_strings.php:528
 msgid "Norwegian (Nynorsk)"
 msgstr "Norwegisch (Nynorsk)"
 
-#: language/_annotated_strings.php:527
+#: language/_annotated_strings.php:531
 msgid "Pashto"
 msgstr "Paschtunisch"
 
-#: language/_annotated_strings.php:530
+#: language/_annotated_strings.php:534
 msgid "Persian"
 msgstr "Persisch"
 
-#: language/_annotated_strings.php:533
+#: language/_annotated_strings.php:537
 msgid "Polish"
 msgstr "Polnisch"
 
-#: language/_annotated_strings.php:536
+#: language/_annotated_strings.php:540
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
-#: language/_annotated_strings.php:539
+#: language/_annotated_strings.php:543
 msgid "Punjabi"
 msgstr "Panjabi"
 
-#: language/_annotated_strings.php:542
+#: language/_annotated_strings.php:546
 msgid "Romani"
 msgstr "Romani"
 
-#: language/_annotated_strings.php:545
+#: language/_annotated_strings.php:549
 msgid "Romanian"
 msgstr "Rumänisch"
 
-#: language/_annotated_strings.php:548
+#: language/_annotated_strings.php:552
 msgid "Russian"
 msgstr "Russisch"
 
-#: language/_annotated_strings.php:551
+#: language/_annotated_strings.php:555
 msgid "Sardinian"
 msgstr "Sardisch"
 
-#: language/_annotated_strings.php:554
+#: language/_annotated_strings.php:558
 msgid "Serbian"
 msgstr "Serbisch"
 
-#: language/_annotated_strings.php:557
+#: language/_annotated_strings.php:561
 msgid "Sindhi"
 msgstr "Sindhi"
 
-#: language/_annotated_strings.php:560
+#: language/_annotated_strings.php:564
 msgid "Slovak"
 msgstr "Slowakisch"
 
-#: language/_annotated_strings.php:563
+#: language/_annotated_strings.php:567
 msgid "Slovenian"
 msgstr "Slowenisch"
 
-#: language/_annotated_strings.php:566
+#: language/_annotated_strings.php:570
 msgid "Somali"
 msgstr "Somali"
 
-#: language/_annotated_strings.php:569
+#: language/_annotated_strings.php:573
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: language/_annotated_strings.php:572
+#: language/_annotated_strings.php:576
 msgid "Swahili"
 msgstr "Swahili"
 
-#: language/_annotated_strings.php:575
+#: language/_annotated_strings.php:579
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: language/_annotated_strings.php:578
+#: language/_annotated_strings.php:582
 msgid "Tagalog"
 msgstr "Tagalog"
 
-#: language/_annotated_strings.php:581
+#: language/_annotated_strings.php:585
 msgid "Tahitian"
 msgstr "Tahitisch"
 
-#: language/_annotated_strings.php:584
+#: language/_annotated_strings.php:588
 msgid "Tajik"
 msgstr "Tadschikisch"
 
-#: language/_annotated_strings.php:587
+#: language/_annotated_strings.php:591
 msgid "Tamil"
 msgstr "Tamil"
 
-#: language/_annotated_strings.php:590
+#: language/_annotated_strings.php:594
 msgid "Tatar"
 msgstr "Tatarisch"
 
-#: language/_annotated_strings.php:593
+#: language/_annotated_strings.php:597
 msgid "Telugu"
 msgstr "Telugu"
 
-#: language/_annotated_strings.php:596
+#: language/_annotated_strings.php:600
 msgid "Thai"
 msgstr "Thailändisch"
 
-#: language/_annotated_strings.php:599
+#: language/_annotated_strings.php:603
 msgid "Tibetan"
 msgstr "Tibetisch"
 
-#: language/_annotated_strings.php:602
+#: language/_annotated_strings.php:606
 msgid "Turkish"
 msgstr "Türkisch"
 
-#: language/_annotated_strings.php:605
+#: language/_annotated_strings.php:609
 msgid "Turkmen"
 msgstr "Turkmenisch"
 
-#: language/_annotated_strings.php:608
+#: language/_annotated_strings.php:612
 msgid "Ukrainian"
 msgstr "Ukrainisch"
 
-#: language/_annotated_strings.php:611
+#: language/_annotated_strings.php:615
 msgid "Urdu"
 msgstr "Urdu"
 
-#: language/_annotated_strings.php:614
+#: language/_annotated_strings.php:618
 msgid "Uzbek"
 msgstr "Usbekisch"
 
-#: language/_annotated_strings.php:617
+#: language/_annotated_strings.php:621
 msgid "Vietnamese"
 msgstr "Vietnamesisch"
 
-#: language/_annotated_strings.php:620
+#: language/_annotated_strings.php:624
 msgid "Welsh"
 msgstr "Walisisch"
 
-#: language/_annotated_strings.php:623
+#: language/_annotated_strings.php:627
 msgid "Western Frisian"
 msgstr "Friesisch"
 
-#: language/_annotated_strings.php:626
+#: language/_annotated_strings.php:630
 msgid "Yiddish"
 msgstr "Jiddisch"
 
-#: language/_annotated_strings.php:629
+#: language/_annotated_strings.php:633
 msgid "Yoruba"
 msgstr "Yoruba"
 
-#: language/_annotated_strings.php:632
+#: language/_annotated_strings.php:636 language/_annotated_strings.php:684
 msgid "what is your native language"
 msgstr "was ist Ihre Muttersprache"
 
-#: language/_annotated_strings.php:635
+#: language/_annotated_strings.php:639
 msgid ""
 " Where do you want to work tomorrow. This heading gives an immediate "
 "overview of your desired next job."
 msgstr "Wo und als was möchten Sie morgen arbeiten? Dieser Abschnitt gibt einen Überblick über Ihre nächste gewünschte Tätigkeit"
 
-#: language/_annotated_strings.php:647
+#: language/_annotated_strings.php:642
+msgid "private"
+msgstr "privat"
+
+#: language/_annotated_strings.php:645
+msgid "public to all"
+msgstr "öffentlich"
+
+#: language/_annotated_strings.php:648
+msgid "Status has been successfully changed"
+msgstr "Der Status wurde erfolgreich geändert"
+
+#: language/_annotated_strings.php:651
+msgid "Invalid status"
+msgstr "ungültiger Status"
+
+#: language/_annotated_strings.php:660
+#, php-format
+msgid ""
+"Attach images or PDF Documents to your CV. Drag&drop them, or click into the"
+" attachement area. You can upload up to %sMB"
+msgstr "Hängen Sie PDF Dokumente per Drag&Drop an Ihren Lebenslauf. Oder klicken Sie auf den Anhänge Bereich. Sie können bis zu %s MB hochladen."
+
+#: language/_annotated_strings.php:672
+msgid "Talent-Pool"
+msgstr "Talent-Pool"
+
+#: language/_annotated_strings.php:675
 msgid "Overview"
 msgstr "Übersicht"
 
-#: language/_annotated_strings.php:650
+#: language/_annotated_strings.php:678
 msgid "Create resume"
 msgstr "Lebenslauf erstellen"

@@ -16,7 +16,6 @@ use Zend\Stdlib\AbstractOptions;
  * ${CARET}
  * 
  * @author Carsten Bleek <bleek@cross-solution.de>
- * @todo write test 
  */
 class ModuleOptions extends AbstractOptions
 {

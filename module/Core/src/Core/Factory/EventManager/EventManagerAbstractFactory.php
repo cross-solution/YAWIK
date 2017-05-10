@@ -11,8 +11,12 @@
 namespace Core\Factory\EventManager;
 
 use Core\EventManager\EventProviderInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\ArrayUtils;
 
@@ -102,7 +106,37 @@ use Zend\Stdlib\ArrayUtils;
  */
 class EventManagerAbstractFactory implements AbstractFactoryInterface
 {
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config = $this->getConfig($container, $requestedName);
+        $events = $this->createEventManager($container, $config);
+
+        $this->attachListeners($container, $events, $config['listeners']);
+        return $events;
+    }
+
+    /**
+     * Can the factory create an instance for the service?
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     *
+     * @return bool
+     */
+    public function canCreate(ContainerInterface $container, $requestedName)
     {
         /* We check, if $requestedName ends with the string '/Events'.
          * Instead of parsing the string with regular expressions (eg. ~/Events$~),
@@ -110,6 +144,12 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
          * with the reverted '/Events' string.
          */
         return 0 === strpos(strrev($requestedName), 'stnevE/');
+    }
+
+
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    {
+        return $this->canCreate($serviceLocator, $requestedName);
     }
 
     /**
@@ -124,12 +164,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        $config = $this->getConfig($serviceLocator, $requestedName);
-        $events = $this->createEventManager($serviceLocator, $config);
-
-        $this->attachListeners($serviceLocator, $events, $config['listeners']);
-
-        return $events;
+        return $this($serviceLocator,$requestedName);
     }
 
     /**

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:24+0200\n"
-"PO-Revision-Date: 2016-10-10 14:34+0000\n"
+"POT-Creation-Date: 2017-04-27 19:26+0200\n"
+"PO-Revision-Date: 2017-04-27 17:28+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/yawik/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -80,7 +80,7 @@ msgstr "Rol"
 
 #: view/auth/users/list.ajax.phtml:22 view/auth/index/index.phtml:14
 #: view/auth/index/index.phtml:15 view/auth/index/index.phtml:36
-#: view/auth/index/login-info.phtml:74
+#: view/auth/index/login-info.phtml:110
 msgid "Login"
 msgstr "Login"
 
@@ -146,7 +146,7 @@ msgstr "Registro"
 msgid "I forgot my password"
 msgstr "Olvidé mi contraseña"
 
-#: view/auth/index/index.phtml:66 view/auth/index/login-info.phtml:82
+#: view/auth/index/index.phtml:66 view/auth/index/login-info.phtml:118
 #, php-format
 msgid "Login with %s"
 msgstr "Ingresar con %s"
@@ -176,40 +176,60 @@ msgstr "Identificador de solicitud desconocido"
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr "No se pudo encontrar una publicacion de empleo con el identificador de solicitud proporcionado."
 
-#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:11
+#: view/auth/index/login-info.phtml:19
+msgid "switched"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:28 view/auth/manage/profile.phtml:11
 #: view/auth/manage/profile.phtml:20
 msgid "My profile"
 msgstr "Mi perfil"
 
-#: view/auth/index/login-info.phtml:29
+#: view/auth/index/login-info.phtml:31
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
-#: view/auth/index/login-info.phtml:44
+#: view/auth/index/login-info.phtml:46
 msgid "Create my organization"
 msgstr "Crear mi organización"
 
-#: view/auth/index/login-info.phtml:47
+#: view/auth/index/login-info.phtml:49
 #, php-format
 msgid "Edit \"%s\""
 msgstr ""
 
-#: view/auth/index/login-info.phtml:55
+#: view/auth/index/login-info.phtml:65
+msgid "Clear switched user"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:70 view/auth/index/login-info.phtml:186
+msgid "Switch user"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:91
 msgid "Logout"
 msgstr "Salir"
 
-#: view/auth/index/login-info.phtml:62
+#: view/auth/index/login-info.phtml:98
 #, php-format
 msgid "Hello %s"
 msgstr "Hola %s"
 
-#: view/auth/index/login-info.phtml:63
+#: view/auth/index/login-info.phtml:99
 msgid "Guest"
 msgstr "Invitado"
 
-#: view/auth/index/login-info.phtml:79
+#: view/auth/index/login-info.phtml:115
 msgid "Login via"
 msgstr "Ingresar a través de"
+
+#: view/auth/index/login-info.phtml:135
+msgid "Select the user to switch to"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:187
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: view/auth/forgot-password/index.phtml:1
 #: view/auth/forgot-password/index.phtml:2
@@ -524,7 +544,7 @@ msgstr "No se le permite acceder a este recurso."
 
 #: language/_annotated_strings.php:210
 #, php-format
-msgid "a new password was requestet for %s"
+msgid "a new password was requested for %s"
 msgstr ""
 
 #: language/_annotated_strings.php:213
@@ -539,7 +559,3 @@ msgstr "usuario"
 #: language/_annotated_strings.php:219
 msgid "recruiter"
 msgstr "reclutador"
-
-#: language/_annotated_strings.php:225
-msgid "Data"
-msgstr ""

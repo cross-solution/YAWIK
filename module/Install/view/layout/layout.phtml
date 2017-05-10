@@ -15,8 +15,8 @@
 
 $this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
 
-$this->headScript()->prependFile($this->basePath('js/bootstrap.min.js'));
-$this->headScript()->prependFile($this->basePath('js/jquery.min.js'));
+$this->headScript()->prependFile($this->basePath('/assets/bootstrap/js/bootstrap.min.js'));
+$this->headScript()->prependFile($this->basePath('/assets/jquery/jquery.min.js'));
 $this->headScript()->appendScript('var lang="' . $this->lang . '";'
                                       . 'var basePath="' . $this->basePath() . '";');
 

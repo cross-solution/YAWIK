@@ -52,21 +52,22 @@ class MailForgotPassword
     public function __invoke(AuthEvent $e)
     {
         $siteName=$this->coreOptions->getSiteName();
-
+        /* @var \Auth\Entity\User $user */
         $user                    = $e->getUser();
-        $userEmail               = $user->info->email;
-        $userName                = $user->info->displayName;
+        $userEmail               = $user->getInfo()->getEmail();
+        $userName                = $user->getInfo()->getDisplayName(false);
         $resetLink               = $e->getResetLink();
 
         $fromEmail               =  $this->options->getFromEmail();
         $fromName                =  $this->options->getFromName();
 
+
         $mail                    = $this->mailService->get('htmltemplate');
         $mail->user              = $user;
         $mail->resetlink         = $resetLink;
         $mail->setTemplate('mail/forgotPassword');
-        $mail->setSubject(sprintf(/*@translate*/ 'a new password was requestet for %s', $siteName));
-        $mail->setTo($userEmail);
+        $mail->setSubject(/*@translate*/ 'a new password was requested for %s', $siteName);
+        $mail->setTo($userEmail, $userName);
         $mail->setFrom($fromEmail, $fromName);
         return $this->mailService->send($mail);
     }

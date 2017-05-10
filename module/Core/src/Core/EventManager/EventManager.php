@@ -43,7 +43,7 @@ class EventManager extends ZfEventManager implements EventProviderInterface
         return $this;
     }
 
-    public function getEvent($name = null, $target = null, array $params = [])
+    public function getEvent($name = null, $target = null, $params = null)
     {
         if (!$this->eventPrototype) {
             $this->setEventPrototype(new Event());
@@ -71,8 +71,8 @@ class EventManager extends ZfEventManager implements EventProviderInterface
         }
 
         $event->setName($name);
-        $event->setTarget($target);
-        $event->setParams($params);
+        if (null !== $target) { $event->setTarget($target); }
+        if (null !== $params) { $event->setParams($params); }
 
         return $event;
     }

@@ -1,3 +1,14 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+?>
+
+
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -6,8 +17,8 @@
     <div class="modal-body">
         <table class="table table-striped table-bordered table-hover">
             <tr><th><?php echo $this->translate('Date'); ?></th><th><?php echo $this->translate('Comment'); ?></th></tr>
-<?php foreach ($this->history as $historyItem): ?>
-            <tr><td><?php echo $this->dateFormat($historyItem->date); ?></td><td><?php echo $historyItem->message; ?></td></tr>
+<?php foreach ($this->history as $historyItem): /* @var Jobs\Entity\HistoryInterface $historyItem */?>
+            <tr><td><?php echo $this->dateFormat($historyItem->getDate()); ?></td><td><?php echo $historyItem->getMessage(); ?></td></tr>
 <?php endforeach; ?>
         </table>
     </div>

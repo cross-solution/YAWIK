@@ -111,41 +111,40 @@ foreach ($this->applications as $application):
     <td>
         <?php
         $formCheckBox = $this->services("FormElementManager.checkBox");
-        $formCheckBox->setAttributes(array('id' => $application->id, 'name' => 'cb_' . $application->id ));
+        $formCheckBox->setAttributes(array('id' => $application->getId(), 'name' => 'cb_' . $application->getId() ));
         echo $this->formCheckBox($formCheckBox);
         ?>
     </td>
     <td>
     <div class="portrait">
-        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
-    <?php if ($application->contact->image):?>
-    <img src="<?php echo $this->basePath($application->contact->image->uri) ?>" />
+        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->getId()), /* reuse matched params*/ true)?>">
+    <?php if ($application->getContact()->getImage()):?>
+    <img src="<?php echo $this->basePath($application->getContact()->getImage()->getUri()) ?>" />
     <?php else:?>
     <span class="yk-icon yk-icon-portrait fa-3x"></span>
     <?php endif?>
     </div>
-       <?php echo $this->translate($this->salutation($application->contact->gender))?>
-       <?php echo $application->contact->displayName?><br>
-       <?php echo $application->contact->city?>
-        </a>
+       <?php echo $this->translate($this->salutation($application->getContact()->getGender()))?>
+       <?php echo $application->getContact()->getDisplayName()?><br>
+       <?php echo $application->getContact()->getCity()?>
     </td>
     <td class="yk-career">
-    <?php if (count($application->cv->educations)>0):?>
-      <?php echo $this->translate('education').': '.$this->period($application->cv->educations).' '.$this->translate('years')?><br/>
+    <?php if (count($application->getCv()->getEducations())>0):?>
+      <?php echo $this->translate('education').': '.$this->period($application->getCv()->getEducations()).' '.$this->translate('years')?><br/>
     <?php endif;?>
-    <?php if (count($application->cv->employments)>0):?>
-      <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
+    <?php if (count($application->getCv()->getEmployments())>0):?>
+      <?php echo $this->translate('work experience').': '.$this->period($application->getCv()->getEmployments()).' '.$this->translate('years')?><br/>
     <?php endif;?>
     </td>
     <td class="yk-attachment">
-     <?php if(count($application->attachments)>0):?>
+     <?php if(count($application->getAttachments())>0):?>
      <ul class="media-list">
-     <?php foreach ($application->attachments as $attachment):?>
+     <?php foreach ($application->getAttachments() as $attachment): /* @var Applications\Entity\Attachment $attachment */?>
        <li class="media">
         <i class="yk-icon yk-icon-paperclip pull-left"></i>
         <div class="media-body">
-         <a href="<?php echo $this->basePath($attachment->uri)?>">
-         <?php echo $attachment->name ?>
+         <a href="<?php echo $this->basePath($attachment->getUri())?>">
+         <?php echo $attachment->getName() ?>
          </a>
         </div>
        </li>
@@ -154,10 +153,10 @@ foreach ($this->applications as $application):
      <?php else:?>
      <?php echo $this->translate('no attachments')?>
      <?php endif;?>
-     <?php if(count($application->profiles)>0):?>
+     <?php if(count($application->getProfiles())>0):?>
          <div>
-     <?php foreach ($application->profiles as $profile):?>
-         <span class="btn btn-default btn-xs"><i class="yk-icon yk-icon-<?php echo strtolower($profile->name); ?>"></i></span>
+     <?php foreach ($application->getProfiles() as $profile): /* @var \Auth\Entity\SocialProfiles\ProfileInterface $profile */?>
+         <span class="btn btn-default btn-xs"><i class="yk-icon yk-icon-<?php echo strtolower($profile->getName()); ?>"></i></span>
      <?php endforeach;?>
          </div>
      <?php endif;?>
@@ -166,16 +165,16 @@ foreach ($this->applications as $application):
         <?= $this->jobUrl($application->getJob()); ?>
     </td>
     <td>
-     <?php echo $this->translate($application->status->name) ?>
-     <br/><small><?php echo isset($application->subscriber)?$application->subscriber->name:'' ?></small>
+     <?php echo $this->translate($application->getStatus()->getName()) ?>
+     <br/><small><?php echo is_object($application->getSubscriber())?$application->getSubscriber()->getName():'' ?></small>
     </td>
-    <td><?php echo $this->rating($application->rating)?></td>
-    <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">
-        <?php echo $this->dateFormat($application->dateModified);?>
+    <td><?php echo $this->rating($application->getRating())?></td>
+    <td title="Created: <?php echo $this->dateFormat($application->getDateCreated(),'short');?>">
+        <?php echo $this->dateFormat($application->getDateModified());?>
     </td>
     <td>
         <div class="btn-group">
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('edit')?>"><span class="yk-icon yk-icon-edit"></span></a>
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->getId()), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('edit')?>"><span class="yk-icon yk-icon-edit"></span></a>
         </div>
     </td>
 </tr>

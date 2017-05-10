@@ -13,6 +13,7 @@ namespace Core\Form\View\Helper;
 use Core\Form\Element\ViewHelperProviderInterface;
 use Core\Form\TextSearchFormFieldset;
 use Core\Form\ViewPartialProviderInterface;
+use Zend\Form\ElementPrepareAwareInterface;
 use Zend\Form\FieldsetInterface;
 use Zend\Form\FormInterface;
 use Zend\Form\View\Helper\Form;
@@ -47,21 +48,22 @@ class SearchForm extends Form
         $headscript = $this->getView()->plugin('headscript');
         $basepath   = $this->getView()->plugin('basepath');
 
-        $headscript->appendFile($basepath('Core/js/core.searchform.js'));
+        $headscript
+            ->appendFile($basepath('Core/js/core.forms.js'))
+            ->appendFile($basepath('Core/js/core.searchform.js'));
 
         if (is_int($colMap)) {
             $buttonsSpan = $colMap;
             $colMap = null;
         }
 
+        $form->prepare();
+
         if ($form instanceOf ViewPartialProviderInterface) {
             return $this->getView()->partial($form->getViewPartial(), [ 'element' => $form, 'colMap' => $colMap, 'buttonsSpan' => $buttonsSpan ]);
         }
 
-        $elements = $form->getElements();
-        $buttons  = $form->getButtons();
-
-        $content = $this->renderElements($elements, $buttons, $colMap, $buttonsSpan);
+        $content = $this->renderElements($form, $colMap, $buttonsSpan);
 
         return $this->openTag($form)
              . '<div class="row" style="padding: 0 15px;">'
@@ -69,28 +71,31 @@ class SearchForm extends Form
 
     }
 
-    public function renderButtons($fieldset)
+    public function renderButtons($buttons)
     {
-        return $this->renderElements($fieldset, true);
-    }
+        $helper = $this->getView()->plugin('formButton');
 
-    public function renderElements($fieldset, $buttonsFieldset, $colMap = null, $buttonsSpan = null)
-    {
-        if ($fieldset instanceOf ViewPartialProviderInterface) {
-            return $this->getView()->partial($fieldset->getViewPartial(), [ 'element' => $fieldset, 'colMap' => $colMap, 'buttonsSpan' => $buttonsSpan ]);
+        $content = '';
+        foreach ($buttons as $button) {
+            $content.= $helper($button);
         }
 
-        if (true !== $buttonsFieldset && null === $colMap) {
-            $colMap = $fieldset->getColumnMap();
+        return $content;
+    }
+
+    public function renderElements($form, $colMap = null, $buttonsSpan = null)
+    {
+        if ($form instanceOf ViewPartialProviderInterface) {
+            return $this->getView()->partial($form->getViewPartial(), [ 'element' => $form, 'colMap' => $colMap, 'buttonsSpan' => $buttonsSpan ]);
+        }
+
+        if (null === $colMap) {
+            $colMap = $form->getColumnMap();
         }
 
         $formElement = $this->getView()->plugin('formElement');
         $content = ''; $buttonsRendered = false; $i=0;
-        foreach ($fieldset as $element) {
-            if (true === $buttonsFieldset) {
-                $content .= $formElement($element);
-                continue;
-            }
+        foreach ($form as $element) {
 
             if (isset($colMap[$element->getName()])) {
                 $cols = $colMap[$element->getName()];
@@ -102,11 +107,11 @@ class SearchForm extends Form
                 $cols = $element->getOption('span') ?: 12;
             }
 
-            if ($fieldset instanceOf TextSearchFormFieldset && $element->getName() == $fieldset->getButtonElement()) {
+            if ($element->getName() == $form->getButtonElement()) {
                 $content.='<div class="input-group col-md-' . $cols . '">'
                               . $formElement($element)
-                              . '<div class="input-group-btn search-form-buttons" style="width: 0px;">'
-                              . $this->renderElements($buttonsFieldset, true) . '</div>'
+                              . '<div class="input-group-btn search-form-buttons" style="width: 1px;">'
+                              . $this->renderButtons($form->getButtons()) . '</div>'
                               . '</div>';
                 $buttonsRendered = true;
             } else {
@@ -118,12 +123,12 @@ class SearchForm extends Form
             $i += 1;
         }
 
-        if (true !== $buttonsFieldset && !$buttonsRendered) {
+        if (!$buttonsRendered) {
             if (null === $buttonsSpan) {
-                $buttonsSpan = $buttonsFieldset->getSpan();
+                $buttonsSpan = $form->getOption('buttons_span') ?: 12;
             }
             $content .= '<div class="input-group search-form-buttons col-md-' . $buttonsSpan . ' text-right">'
-                      . '<div class="btn-group">' . $this->renderElements($buttonsFieldset, true) .'</div></div>';
+                      . '<div class="btn-group">' . $this->renderButtons($form->getButtons()) .'</div></div>';
         }
 
         return $content;

@@ -12,6 +12,7 @@ namespace Organizations\Factory\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Hydrator\Strategy\CollectionStrategy;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Form\EmployeesFieldset;
@@ -25,6 +26,33 @@ use Organizations\Form\EmployeesFieldset;
 class EmployeesFieldsetFactory implements FactoryInterface
 {
     /**
+     * Create a EmployeesFieldset fieldset
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return EmployeesFieldset
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+
+        /* @var $headScript     \Zend\View\Helper\HeadScript */
+        $helpers  = $container->get('ViewHelperManager');
+        $headScript = $helpers->get('headscript');
+        $basePath   = $helpers->get('basepath');
+        $fieldset = new EmployeesFieldset();
+        $hydrator = new EntityHydrator();
+
+        $hydrator->addStrategy('employees', new CollectionStrategy());
+        $fieldset->setHydrator($hydrator);
+
+        $headScript->appendFile($basePath('Organizations/js/organizations.employees.js'));
+
+        return $fieldset;
+    }
+
+    /**
      * Creates fieldset
      * {@inheritdoc}
      *
@@ -32,20 +60,7 @@ class EmployeesFieldsetFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager
-         * @var $headscript     \Zend\View\Helper\HeadScript */
-        $services = $serviceLocator->getServiceLocator();
-        $helpers  = $services->get('ViewHelperManager');
-        $headscript = $helpers->get('headscript');
-        $basepath   = $helpers->get('basepath');
-        $fieldset = new EmployeesFieldset();
-        $hydrator = new EntityHydrator();
-
-        $hydrator->addStrategy('employees', new CollectionStrategy());
-        $fieldset->setHydrator($hydrator);
-
-        $headscript->appendFile($basepath('Organizations/js/organizations.employees.js'));
-
-        return $fieldset;
+        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
+        return $this($serviceLocator->getServiceLocator(), EmployeesFieldset::class);
     }
 }

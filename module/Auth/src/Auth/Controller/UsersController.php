@@ -11,6 +11,7 @@
 namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Auth\Repository\User as UserRepository;
@@ -47,12 +48,12 @@ class UsersController extends AbstractActionController
         return $this->pagination([
             'paginator' => ['Auth/User', 'as' => 'users'],
             'form' => [
-                [ 'Core/TextSearch', [
-                        'elements_options' => [
-                            'text_placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
-                            'button_element' => 'text',
-                        ],
-                ]],
+                'Core/Search',
+                [
+                    'text_name' => 'text',
+                    'text_placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
+                    'button_element' => 'text',
+                ],
                 'as' => 'form'
             ],
         ]);
@@ -136,5 +137,44 @@ class UsersController extends AbstractActionController
             'infoContainer' => $infoContainer,
             'statusContainer' => $statusContainer
         ];
+    }
+
+    public function switchAction()
+    {
+        /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */
+        $do = $this->params()->fromQuery('do');
+        if ('clear' == $do) {
+            $switcher = $this->plugin('Auth/User/Switcher');
+            $success  = $switcher();
+
+            return new JsonModel(['success' => $success]);
+        }
+
+        $this->acl('Auth/Users', 'admin-access');
+
+        if ('list' == $do) {
+            /* @var \Auth\Entity\User $user */
+            /* @var \Zend\Paginator\Paginator $paginator */
+            $paginator = $this->paginator('Auth/User', ['page' => 1]);
+            $result = [];
+
+            foreach ($paginator as $user) {
+                $result[] = [
+                    'id' => $user->getId(),
+                    'name' => $user->getInfo()->getDisplayName(false),
+                    'email' => $user->getInfo()->getEmail(),
+                    'login' => $user->getLogin()
+                ];
+            }
+            return new JsonModel([
+                'items' => $result,
+                'total' => $paginator->getTotalItemCount(),
+            ]);
+        }
+
+        $switcher = $this->plugin('Auth/User/Switcher');
+        $success  = $switcher($this->params()->fromQuery('id'));
+
+        return new JsonModel(['success' => true]);
     }
 }

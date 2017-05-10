@@ -15,15 +15,16 @@
   * $this->siteName: The site name (from Core/AbstractOptions)
   */
 
-$user = $this->job->getUser();
+$job = $this->job; /* @var \Jobs\Entity\Job $job */
+$user = $job->getUser();
 $info = $user->getInfo();
 ?>
 <p><?php echo 'male' == $info->getGender()
         ? 'Dear Mr'
-        : 'Dear Ms' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+        : 'Dear Ms' ?> <?=$info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
 
 <p>
-    Your job opening "<?php echo $this->job->getTitle() ?>" with the reference <?php echo $this->job->getReference() ?>.
+    Your job opening "<?=$job->getTitle() ?>" with the reference <?=$job->getReference() ?>.
     war approved.
 </p>
 

@@ -8,15 +8,17 @@
  * @license   MIT
  */
 ?>
-<?php $lang = isset($this->lang)?$this->lang:$this->params('lang'); ?>
+<?php $switchUserSession = new \Zend\Session\Container(\Auth\Controller\Plugin\UserSwitcher::SESSION_NAMESPACE);
+$lang = isset($this->lang)?$this->lang:$this->params('lang'); ?>
 <ul id="yk-login-info" class="nav navbar-nav navbar-collapse collapse navbar-right">
     <li class="dropdown">
 
         <?php if ($this->auth()->isLoggedIn()):?>
 
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                (<?php echo $this->translate($this->Acl()->getUser()->role)?>)
-                <strong><?php echo $this->auth('info')->displayName?></strong>
+                <?php if ($switchUserSession->isSwitchedUser): ?> [<?=$this->translate('switched')?>]<?php endif ?>
+                (<?php echo $this->translate($this->Acl()->getUser()->getRole())?>)
+                <strong><?php echo $this->auth('info')->getDisplayName()?></strong>
                 <b class="caret"></b>
             </a>
 
@@ -35,7 +37,7 @@
                       </li>*/
 
                     $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\User */
-                    $org  = $user->getOrganization();
+                    $org  = $user->getOrganization(); /* @var \Organizations\Entity\OrganizationReference $org */
                     if ($org): /* An Anonymous user does not have the OrganizationReference */
                         if (!$org->hasAssociation() || $org->isOwner() ):?>
                             <li>
@@ -49,6 +51,40 @@
                                 ?></a>
                             </li><?php endif ?>
                     <?php endif; ?>
+                <?php endif ?>
+                <?php
+                    if ($switchUserSession->isSwitchedUser): ?>
+                <li class="divider"></li>
+                <li><a id="su-clear-link" href="<?=$this->url(
+                    'lang/user-switch',
+                    [],
+                    ['query' => ['do' => 'clear']],
+                    true
+                    )?>"
+                        onclick="$.get($(this).attr('href'), function() { window.location.reload(); }); return false;">
+                        <?=$this->translate('Clear switched user')?></a>
+                </li>
+                <?php elseif ($this->acl()->isRole(\Auth\Entity\User::ROLE_ADMIN)): ?>
+                <li class="divider"></li>
+                    <li><a id="su-switch-link" href="#switch-user">
+                            <?=$this->translate('Switch user')?> &hellip;
+                    </a>
+                    </li>
+                        <script type="text/javascript">
+                            ;(function($) {
+
+
+                                $(function() {
+                                   $('#su-switch-link').click(function(e) {
+                                       var $modal = $('#su-select-dialog');
+                                       $modal.modal({backdrop:false});
+                                       return false;
+
+                                   }) ;
+                                });
+                            })(jQuery);
+
+                        </script>
                 <?php endif ?>
                 <li class="divider"></li>
                 <li>
@@ -90,3 +126,66 @@
         <?php endif ?>
     </li>
 </ul>
+
+
+<div id="su-select-dialog" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?=$this->translate('Select the user to switch to')?>:
+                <button type="button" class="close pull-right" data-dismiss="modal">
+                    <span>&times;</span>
+                </button></h5>
+            </div>
+            <div class="modal-body">
+                <form id="su-form" action="<?=$this->url('lang/user-switch', [], [], true)?>" method="get" class="form-horizontal"><select id="su-user-list" name="id" class="form-control"></select></form>
+
+                <script type="text/javascript">
+                    $('#su-form').submit(function(e) {
+                       var $form = $(e.target);
+                        $.get($form.attr('action'), $form.serialize(), function() { window.location.reload(); });
+                        return false;
+                    });
+
+                    $('#su-user-list').select2({
+                        theme: "bootstrap",
+                        width: '100%',
+                        minimumInputLength: 0,
+                        ajax: {
+                            url: basePath + '/' + lang + '/user/switch',
+                            dataType: 'json',
+                            delay: 200,
+                            data: function(params) {
+                                return { "do": "list", q: params.term, page: params.page };
+                            },
+                            processResults: function(data, params) {
+                                params.page = params.page || 1;
+                                return {
+                                    results: data.items,
+                                    pagination: {
+                                        more: params.page * 20 < data.total
+                                    }
+                                };
+                            }
+                        },
+                        templateResult: function(data) {
+                            if (data.loading) { return data.text; }
+                            return data.name + (data.email ? ' <' + data.email + '>' : '') + (data.login ? ' [' + data.login + ']' : '');
+                        },
+                        templateSelection: function(data) {
+                            if (!data.id) { return data.text; }
+                            return data.login;
+                        },
+                        escapeMarkup: function (m) { return m; }
+                    });
+
+                </script>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="$('#su-form').submit()"><?=$this->translate('Switch user')?></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?=$this->translate('Cancel')?></button>
+            </div>
+        </div>
+    </div>
+</div>

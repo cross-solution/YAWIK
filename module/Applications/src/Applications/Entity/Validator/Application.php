@@ -41,12 +41,12 @@ class Application extends AbstractValidator
 
         $error = false;
 
-        if ('' == $value->contact->email) {
+        if ('' == $value->getContact()->getEmail()) {
             $error = true;
             $this->error('NO_EMAIL');
         }
 
-        if (!$value->attributes->acceptedPrivacyPolicy) {
+        if (!$value->getAttributes()->getAcceptedPrivacyPolicy()) {
             $error = true;
             $this->error('NO_ACCEPT_PP');
         }

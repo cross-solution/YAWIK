@@ -65,7 +65,7 @@
     }
 
     $(function() {
-        var $select = $('#jobPortals-portals');
+        var $select = $('#general-portalForm-jobPortals-portals');
         var data = $select.data();
 
         // get templates

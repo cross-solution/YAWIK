@@ -69,7 +69,7 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
-     * Sets the date of an history enrtry
+     * Sets the date of an history entry
      *
      * @param \DateTime $date
      * @return $this

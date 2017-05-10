@@ -10,6 +10,7 @@
 /** */
 namespace Core\Factory;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\AbstractOptions;
@@ -18,6 +19,7 @@ use Zend\Stdlib\AbstractOptions;
  * Creates options instances from configuration specifications.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since  0.23
  */
 class OptionsAbstractFactory implements AbstractFactoryInterface
@@ -58,6 +60,61 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
     protected $optionsConfig;
 
     /**
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config = $this->getOptionsConfig($requestedName);
+
+        if (!isset($config['class']) && !class_exists($requestedName)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Missing index "class" from the config array for options "%s"',
+                $requestedName
+            ));
+        }
+
+        $className = isset($config['class']) ? $config['class'] : $requestedName;
+        $mode      = isset($config['mode']) ? $config['mode'] : self::MODE_SIMPLE;
+        $options   = isset($config['options']) ? $config['options'] : (isset($config[0]) ? $config[0] : []);
+
+        if (self::MODE_SIMPLE == $mode) {
+            return new $className($options);
+        }
+
+        if (self::MODE_NESTED == $mode) {
+            return $this->createNestedOptions($className, $options);
+
+        }
+
+        throw new \InvalidArgumentException(sprintf('Unknown mode "%s".', $mode));
+    }
+
+    /**
+     * Can the factory create an instance for the service?
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     *
+     * @return bool
+     */
+    public function canCreate(ContainerInterface $container, $requestedName)
+    {
+        // Load options config specifications the first time this method is called.
+        if (null === $this->optionsConfig) {
+            $mainConfig          = $container->get('config');
+            $this->optionsConfig = isset($mainConfig['options']) ? $mainConfig['options'] : [];
+        }
+        return false !== $this->getOptionsConfig($requestedName);
+    }
+
+
+    /**
      * Determines if we can create an options instance with name.
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -68,13 +125,7 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        // Load options config specifications the first time this method is called.
-        if (null === $this->optionsConfig) {
-            $mainConfig          = $serviceLocator->get('config');
-            $this->optionsConfig = isset($mainConfig['options']) ? $mainConfig['options'] : [];
-        }
-
-        return false !== $this->getOptionsConfig($requestedName, $name);
+        return $this->canCreate($serviceLocator, $requestedName);
     }
 
     /**
@@ -89,29 +140,7 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        $config = $this->getOptionsConfig($requestedName, $name);
-
-        if (!isset($config['class'])) {
-            throw new \InvalidArgumentException(sprintf(
-                                                    'Missing index "class" from the config array for options "%s"',
-                                                    $requestedName
-                                                ));
-        }
-
-        $className = $config['class'];
-        $mode      = isset($config['mode']) ? $config['mode'] : self::MODE_SIMPLE;
-        $options   = isset($config['options']) ? $config['options'] : [];
-
-        if (self::MODE_SIMPLE == $mode) {
-            return new $className($options);
-        }
-
-        if (self::MODE_NESTED == $mode) {
-            return $this->createNestedOptions($className, $options);
-
-        }
-
-        throw new \InvalidArgumentException(sprintf('Unknown mode "%s".', $mode));
+        return $this($serviceLocator, $requestedName);
     }
 
 
@@ -146,18 +175,13 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
      * Returns FALSE if configuration cannot be found.
      *
      * @param string $fullName
-     * @param string $normalizedName
      *
      * @return array|bool
      */
-    protected function getOptionsConfig($fullName, $normalizedName)
+    protected function getOptionsConfig($fullName)
     {
         if (array_key_exists($fullName, $this->optionsConfig)) {
             return $this->optionsConfig[$fullName];
-        }
-
-        if (array_key_exists($normalizedName, $this->optionsConfig)) {
-            return $this->optionsConfig[$normalizedName];
         }
 
         return false;

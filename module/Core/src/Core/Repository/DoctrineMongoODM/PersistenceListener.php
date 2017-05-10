@@ -10,20 +10,29 @@
 /** MongoPersistenceListener.php */
 namespace Core\Repository\DoctrineMongoODM;
 
+use Core\Repository\RepositoryService;
 use Zend\Mvc\MvcEvent;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 
 class PersistenceListener implements ListenerAggregateInterface
 {
+    /**
+     * @var RepositoryService
+     */
+    protected $repositories;
 
-    
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
     
     protected $hasRun = false;
+
+    public function __construct(RepositoryService $repositories)
+    {
+        $this->repositories = $repositories;
+    }
 
     /**
      * Attach to an event manager
@@ -66,10 +75,7 @@ class PersistenceListener implements ListenerAggregateInterface
             return;
         }
         
-        $services = $event->getApplication()->getServiceManager();
-        $repos    = $services->get('repositories');
-
-        $repos->flush();
+        $this->repositories->flush();
         $this->hasRun = true;
     }
 }

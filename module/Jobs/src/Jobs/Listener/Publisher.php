@@ -12,7 +12,6 @@ namespace Jobs\Listener;
 
 use Zend\ServiceManager\ServiceManager;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\SharedEventManagerInterface;
@@ -24,7 +23,7 @@ use Jobs\Listener\Response\JobResponse;
  * @package Jobs\Listener
  */
 
-class Publisher implements ListenerAggregateInterface, SharedListenerAggregateInterface
+class Publisher implements ListenerAggregateInterface
 {
     protected $serviceManager;
 

@@ -9,6 +9,7 @@
 
 namespace Auth\Factory\Listener;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -18,27 +19,37 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class ExceptionStrategyFactory implements FactoryInterface
 {
     /**
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * Create an object
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return object
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
      */
-    public function createService(ServiceLocatorInterface $serviceLocator, $canonicalName = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        switch ($canonicalName)
+        switch ($requestedName)
         {
             case 'unauthorizedaccesslistener':
                 $listener = new \Auth\Listener\UnauthorizedAccessListener();
-            break;
-            
+                break;
+
             case 'deactivateduserlistener':
                 $listener = new \Auth\Listener\DeactivatedUserListener();
-            break;
-            
+                break;
+
             default:
-                throw new \InvalidArgumentException(sprintf('Unknown service %s', $canonicalName));
-            break;
+                throw new \InvalidArgumentException(sprintf('Unknown service %s', $requestedName));
+                break;
         }
-        
-        $config   = $serviceLocator->get('Config');
-         
+
+        $config   = $container->get('Config');
+
         if (isset($config['view_manager'])) {
             if (isset($config['view_manager']['display_exceptions'])) {
                 $listener->setDisplayExceptions($config['view_manager']['display_exceptions']);
@@ -48,5 +59,13 @@ class ExceptionStrategyFactory implements FactoryInterface
             }
         }
         return $listener;
+    }
+
+    /**
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator, $canonicalName = null)
+    {
+        return $this($serviceLocator, $canonicalName);
     }
 }

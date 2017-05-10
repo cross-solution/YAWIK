@@ -10,11 +10,32 @@
 namespace Auth\Factory\Controller;
 
 use Auth\Controller\UsersController;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class UsersControllerFactory implements FactoryInterface
 {
+    /**
+     * Create a UsersController controller
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return UsersController
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var $users \Auth\Repository\User */
+        $users = $container->get('repositories')->get('Auth/User');
+
+        return new UsersController($users);
+    }
 
     /**
      * Create service
@@ -25,12 +46,6 @@ class UsersControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator ServiceLocatorInterface */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-
-        /* @var $users \Auth\Repository\User */
-        $users = $serviceLocator->get('repositories')->get('Auth/User');
-
-        return new UsersController($users);
+        return $this($serviceLocator->getServiceLocator(), UsersController::class);
     }
 }

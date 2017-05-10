@@ -45,7 +45,6 @@ use Zend\EventManager\ListenerAggregateTrait as ZfListenerAggregateTrait;
  *
  * @property array $events
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 trait ListenerAggregateTrait
 {

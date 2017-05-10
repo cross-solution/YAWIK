@@ -21,6 +21,11 @@ use Zend\Paginator\Paginator;
  */
 class PaginatorService extends AbstractPluginManager
 {
+    
+    /**
+     * @var bool
+     */
+    protected $shareByDefault = false;
 
     public function __construct(ServiceLocatorInterface $serviceLocator, ConfigInterface $configuration = null)
     {

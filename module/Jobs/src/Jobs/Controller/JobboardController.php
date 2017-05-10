@@ -10,7 +10,9 @@
 /** ActionController of Jobs */
 namespace Jobs\Controller;
 
+use Core\Form\SearchForm;
 use Jobs\Form\ListFilter;
+use Jobs\Listener\Events\JobEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Jobs\Repository;
@@ -30,22 +32,21 @@ class JobboardController extends AbstractActionController
     private $jobRepository;
 
     /**
-     * Formular for searching job postings
-     *
-     * @var ListFilter $searchForm
+     * @var array
      */
-    private $searchForm;
+    private $options = [
+        'count' => 10
+    ];
 
     /**
      * Construct the jobboard controller
      *
      * @param Repository\Job $jobRepository
-     * @param ListFilter $searchForm
      */
-    public function __construct(Repository\Job $jobRepository, ListFilter $searchForm)
+    public function __construct(Repository\Job $jobRepository, $options)
     {
         $this->jobRepository = $jobRepository;
-        $this->searchForm = $searchForm;
+        $this->options = $options;
     }
     /**
      * attaches further Listeners for generating / processing the output
@@ -68,64 +69,37 @@ class JobboardController extends AbstractActionController
      */
     public function indexAction()
     {
-        /* @var \Zend\Http\Request $request */
-        $request          = $this->getRequest();
-        $params           = $request->getQuery();
-        $jsonFormat       = 'json' == $request->getQuery()->get('format');
-        $event            = $this->getEvent();
-        $routeMatch       = $event->getRouteMatch();
-        $matchedRouteName = $routeMatch->getMatchedRouteName();
-        $url              = $this->url()->fromRoute($matchedRouteName, array(), array('force_canonical' => true));
-
-        if (!$jsonFormat && !$request->isXmlHttpRequest()) {
-            $session = new Session('Jobs\Index');
-            $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
-            $sessionParams = $session[$sessionKey];
-            if ($sessionParams) {
-                foreach ($sessionParams as $key => $value) {
-                    $params->set($key, $params->get($key, $value));
-                }
-            }
-            $session[$sessionKey] = $params->toArray();
-
-            $this->searchForm->bind($params);
+        /* @todo: move this into a listener.
+         *
+         * The following lines allow to override get param[q] with the
+         * param from route. This feature is needed for a landing-page feature, where
+         * human readable urls like http://yawik.org/demo/de/jobs/sales.html
+         *
+         * move the Logic into a Listener, which can be activated, if needed
+         */
+        $request = $this->getRequest();
+        $getParams = $request->getQuery();
+        $routeParams = $this->params()->fromRoute();
+        if (isset($routeParams['q']) && !isset($getParams['q'])){
+            $getParams['q']=$routeParams['q'];
         }
 
-        $params = $params->get('params', []);
+        $result = $this->pagination([
+                'params' => ['Jobs_Board', [
+                    'q',
+                    'count' => $this->options['count'],
+                    'page' => 1,
+                    'l',
+                    'd' => 10]
+                ],
+                'form' => ['as' => 'filterForm', 'Jobs/JobboardSearch'],
+                'paginator' => ['as' => 'jobs', 'Jobs/Board']
+            ]);
 
-        if (isset($params['l']['data']) &&
-            isset($params['l']['name']) &&
-            !empty($params['l']['name'])) {
-            /* @var \Geo\Form\GeoText $geoText */
-            $geoText = $this->searchForm->get('params')->get('l');
-
-            $geoText->setValue($params['l']);
-            $params['location'] = $geoText->getValue('entity');
-        }
-
-        if (!isset($params['sort'])) {
-            $params['sort']='-date';
-        }
-
-        $this->searchForm->setAttribute('action', $url);
-
-        $params['by'] = "guest";
-
-        $paginator = $this->paginator('Jobs/Board', $params);
-
-        $options = $this->searchForm->getOptions();
-        $options['showButtons'] = false;
-        $this->searchForm->setOptions($options);
         $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
-        
-        $return = array(
-            'by' => $params['by'],
-            'jobs' => $paginator,
-            'filterForm' => $this->searchForm,
-            'organizationImageCache' => $organizationImageCache
-        );
-        $model = new ViewModel($return);
 
-        return $model;
+        $result['organizationImageCache'] = $organizationImageCache;
+
+        return new ViewModel($result);
     }
 }

@@ -74,6 +74,14 @@ trait AttachableEntityTrait
         
         return $this->getAttachableEntityManager()->getAttachedEntity($key);
     }
+
+    /**
+     * @see AttachableEntityInterface::createAttachedEntity()
+     */
+    public function createAttachedEntity($entityClass, $values = [], $key=null)
+    {
+        return $this->getAttachableEntityManager()->createAttachedEntity($entityClass, $values, $key);
+    }
     
     /**
      * @see AttachableEntityInterface::hasAttachedEntity()

@@ -9,6 +9,7 @@
 
 namespace Organizations\Factory\Controller;
 
+use Interop\Container\ContainerInterface;
 use Organizations\Controller\TypeAHeadController;
 use Organizations\Repository;
 use Zend\Mvc\Controller\ControllerManager;
@@ -17,6 +18,24 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TypeAHeadControllerFactory implements FactoryInterface
 {
+    /**
+     * Create a TypeAHeadController controller
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return TypeAHeadController
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /**
+         * @var $organizationRepository Repository\Organization
+         */
+        $organizationRepository = $container->get('repositories')->get('Organizations/Organization');
+
+        return new TypeAHeadController($organizationRepository);
+    }
 
     /**
      * Create service
@@ -28,13 +47,6 @@ class TypeAHeadControllerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /** @var ControllerManager $serviceLocator */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-
-        /**
-         * @var $organizationRepository Repository\Organization
-         */
-        $organizationRepository = $serviceLocator->get('repositories')->get('Organizations/Organization');
-
-        return new TypeAHeadController($organizationRepository);
+        return $this($serviceLocator->getServiceLocator(), TypeAHeadController::class);
     }
 }

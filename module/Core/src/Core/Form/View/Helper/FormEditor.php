@@ -12,6 +12,7 @@ namespace Core\Form\View\Helper;
 
 use Zend\Form\ElementInterface;
 use Zend\Form\View\Helper\FormTextarea;
+use Zend\Json\Json;
 
 class FormEditor extends FormTextarea
 {
@@ -67,6 +68,9 @@ class FormEditor extends FormTextarea
             );
         }
 
+        if ($editorOptions = $element->getOption('editor')) {
+            $this->setOptions($editorOptions);
+        }
         /* @var \Zend\View\Renderer\PhpRenderer $renderer */
         $renderer = $this->getView();
         /* @var \Zend\View\Helper\HeadScript  $headscript */
@@ -75,7 +79,7 @@ class FormEditor extends FormTextarea
         $basepath = $renderer->plugin('basepath');
 
         $headscript->appendFile($basepath('js/tinymce/tinymce.jquery.min.js'));
-        $headscript->prependFile($basepath('js/jquery.min.js'));
+        $headscript->prependFile($basepath('/assets/jquery/jquery.min.js'));
 
         $headscript->offsetSetScript(
             '1000_tinymce_' . $this->getTheme(),
@@ -162,9 +166,9 @@ class FormEditor extends FormTextarea
 
     protected function additionalOptions()
     {
-        $str = json_encode($this->options, ~JSON_HEX_QUOT & ~JSON_FORCE_OBJECT  );
-        $str = preg_replace('/"([a-zA-Z_]+[a-zA-Z0-9_]*)":/','$1:',$str);
-        return  trim($str,'{}');
+        $str = Json::encode($this->options, false, ['enableJsonExprFinder' => true]);
+
+        return  substr($str, 1, -1);
     }
 
     /**
@@ -192,14 +196,9 @@ class FormEditor extends FormTextarea
      * @param $value
      */
     public function setOption($name,$value){
-        if (array_key_exists($name, $this->options)) {
-            $this->options[$name] = $value;
-        }elseif ('language' == $name or 'language_url' == $name ) {
-            $this->options[$name] = $value;
+        $this->options[$name] = $value;
 
-        }else{
-            throw new \InvalidArgumentException('Unknown Option ' . $name . ' in ' .  __FILE__ . ' Line ' . __LINE__ );
-        }
+        return $this;
     }
 
     /**

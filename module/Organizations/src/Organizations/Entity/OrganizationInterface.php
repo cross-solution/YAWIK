@@ -12,9 +12,9 @@ namespace Organizations\Entity;
 use Auth\Entity\UserInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\PermissionsResourceInterface;
-use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
+use Core\Entity\ImageSet;
 use Core\Entity\ModificationDateAwareEntityInterface;
 use Doctrine\Common\Collections\Collection;
 use Zend\Hydrator\HydratorAwareInterface;
@@ -104,6 +104,18 @@ interface OrganizationInterface extends
      * @return OrganizationImage
      */
     public function getImage();
+
+    /**
+     * @param ImageSet $images
+     *
+     * @return self
+     */
+    public function setImages(ImageSet $images);
+
+    /**
+     * @return ImageSet
+     */
+    public function getImages();
 
 
     /**
@@ -222,8 +234,6 @@ interface OrganizationInterface extends
     public function setTemplate(TemplateInterface $template);
 
     /**
-     *
-     *
      * @return WorkflowSettingsInterface
      */
     public function getWorkflowSettings();

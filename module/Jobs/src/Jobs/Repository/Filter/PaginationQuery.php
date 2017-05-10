@@ -15,11 +15,13 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Permissions\Acl\Acl;
 use Zend\Stdlib\Parameters;
 use Auth\Entity\UserInterface;
+use DateTime;
 
 /**
  * maps query parameters to entity attributes
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class PaginationQuery extends AbstractPaginationQuery
 {
@@ -69,6 +71,10 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $this->value = $params;
 
+        if (isset($params['q'])) {
+            $params['search'] = $params['q'];
+        }
+
         /*
          * search jobs by keywords
          */
@@ -78,9 +84,10 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
 
-        if (isset($this->value['location']->coordinates)) {
-            $coordinates = $this->value['location']->coordinates->getCoordinates();
-            $queryBuilder->field('locations.coordinates')->geoWithinCenter($coordinates[0], $coordinates[1], (float) $this->value['d']/100);
+        if (isset($params['l'])) {
+
+            $coords = $params['l']->getCoordinates()->getCoordinates();
+            $queryBuilder->field('locations.coordinates')->geoWithinCenter((float) $coords[0], (float) $coords[1], (float) $this->value['d']/100);
         }
 
         if (isset($params['channel']) && !empty($params['channel']) && $params['channel']!="default" ){
@@ -95,9 +102,9 @@ class PaginationQuery extends AbstractPaginationQuery
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
             if (isset($params['by']) && 'me' == $params['by']) {
-                $queryBuilder->field('user')->equals($this->user->id);
+                $queryBuilder->field('user')->equals($this->user->getId());
             } else {
-                $queryBuilder->field('permissions.view')->equals($this->user->id);
+                $queryBuilder->field('permissions.view')->equals($this->user->getId());
             }
             if (
                 isset($params['status']) &&
@@ -109,8 +116,20 @@ class PaginationQuery extends AbstractPaginationQuery
         } else {
             /*
              * an applicants or guests can see all active jobs
+             * Active jobs are also jobs which are WAITING_FOR_APPROVAL, because the actual change is
+             * only in the snapshot.
              */
-            $queryBuilder->field('status.name')->equals(Status::ACTIVE);
+            $queryBuilder->field('status.name')->in([Status::ACTIVE, Status::WAITING_FOR_APPROVAL]);
+        }
+        
+        if (isset($params['publishedSince'])) {
+            $publishedSince = $params['publishedSince'];
+            
+            if (!$publishedSince instanceof DateTime) {
+                $publishedSince = new DateTime($publishedSince);
+            }
+            
+            $queryBuilder->field('datePublishStart.date')->gte($publishedSince);
         }
 
         if (isset($this->value['sort'])) {

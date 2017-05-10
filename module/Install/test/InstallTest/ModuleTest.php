@@ -69,7 +69,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'Zend\Loader\ClassMapAutoloader' => array(
-                $this->moduleDir . '/autoload_classmap.php',
+                $this->moduleDir . '/src/autoload_classmap.php',
                 array(
                     'Auth\Entity\Filter\CredentialFilter' => $this->moduleDir . '/../Auth/src/Auth/Entity/Filter/CredentialFilter.php',
                 ),

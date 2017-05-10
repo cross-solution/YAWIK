@@ -1,0 +1,25 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @author    Carsten Bleek <bleek@cross-solution.de>
+ * @copyright 2013-2017 Cross Solution (http://cross-solution.de)
+ * @version   GIT: $Id$
+ * @license   https://yawik.org/LICENSE.txt MIT
+ */
+
+/* @var $options \Core\Options\ModuleOptions */
+$options = $this->services('Core/Options');
+$languages = $options->getSupportedLanguages();
+$lang = $this->params('lang');
+
+?>
+<script src="<?=$this->basePath('/Core/js/core.language-switcher.js')?>"></script>
+<div id="language-switcher">
+    <select data-autoinit="false" class="language-switcher form-control">
+    <?php  foreach ($languages as $availableLang=>$value): ?>
+    <option <?=$availableLang == $lang ? 'selected="selected"' : ''?> value="<?=strtolower($value)?>"><?=strtoupper($availableLang) ?></option>
+<?php endforeach ?>
+</select>
+</div>

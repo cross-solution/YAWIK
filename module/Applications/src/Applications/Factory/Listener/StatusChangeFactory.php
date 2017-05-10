@@ -11,6 +11,10 @@
 namespace Applications\Factory\Listener;
 
 use Applications\Listener\StatusChange;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -23,6 +27,28 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class StatusChangeFactory implements FactoryInterface
 {
     /**
+     * Create a StatusChange listener
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return StatusChange
+     * @throws ServiceNotFoundException if unable to resolve the service.
+     * @throws ServiceNotCreatedException if an exception is raised when
+     *     creating a service.
+     * @throws ContainerException if any other error occurs
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $options         = $container->get('Applications/Options');
+        $mailService     = $container->get('Core/MailService');
+        $translator      = $container->get('translator');
+        $listener        = new StatusChange($options, $mailService, $translator);
+        return $listener;
+    }
+
+    /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -31,10 +57,6 @@ class StatusChangeFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $options         = $serviceLocator->get('Applications/Options');
-        $mailService     = $serviceLocator->get('Core/MailService');
-        $translator      = $serviceLocator->get('translator');
-        $listener        = new StatusChange($options, $mailService, $translator);
-        return $listener;
+        return $this($serviceLocator, StatusChange::class);
     }
 }

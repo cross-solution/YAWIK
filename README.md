@@ -2,8 +2,8 @@ YAWIK
 =====
 
 YAWIK offers a Web based solution for managing job applications. Jobs ads can
-be entered or pushed to the system. The sytem assigns application forms to job
-ads. Applicants and Recruiters can connect to YAWIK using social networks. 
+be entered or pushed to the system. The system assigns application forms to job
+ads. Applicants and recruiters can connect to YAWIK using social networks. 
 Currently it is possible to integrate YAWIK into a corporate Web site by 
 extending it with a module. It is intended to become a distributed system for 
 connecting recruiters and applicants.

@@ -10,6 +10,7 @@
 /** */
 namespace Organizations\Factory\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Organizations\Controller\Plugin\AcceptInvitationHandler;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -22,6 +23,31 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class AcceptInvitationHandlerFactory implements FactoryInterface
 {
+
+    /**
+     * Create a AcceptInvitationHandler controller plugin
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return AcceptInvitationHandler
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $repositories           = $container->get('repositories');
+        $userRepository         = $repositories->get('Auth/User');
+        $organizationRepository = $repositories->get('Organizations');
+        $authenticationService  = $container->get('AuthenticationService');
+
+        $plugin = new AcceptInvitationHandler();
+        $plugin->setUserRepository($userRepository)
+               ->setOrganizationRepository($organizationRepository)
+               ->setAuthenticationService($authenticationService);
+
+        return $plugin;
+    }
+
     /**
      * Creates an AcceptInvitationHandler
      *
@@ -32,17 +58,6 @@ class AcceptInvitationHandlerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        $services               = $serviceLocator->getServiceLocator();
-        $repositories           = $services->get('repositories');
-        $userRepository         = $repositories->get('Auth/User');
-        $organizationRepository = $repositories->get('Organizations');
-        $authenticationService  = $services->get('AuthenticationService');
-
-        $plugin = new AcceptInvitationHandler();
-        $plugin->setUserRepository($userRepository)
-               ->setOrganizationRepository($organizationRepository)
-               ->setAuthenticationService($authenticationService);
-
-        return $plugin;
+        return $this($serviceLocator->getServiceLocator(), AcceptInvitationHandler::class);
     }
 }

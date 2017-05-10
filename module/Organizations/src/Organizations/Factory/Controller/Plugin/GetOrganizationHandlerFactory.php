@@ -10,23 +10,38 @@
 
 namespace Organizations\Factory\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Core\Repository\RepositoryService;
 use Organizations\Controller\Plugin\GetOrganizationHandler;
 
 class GetOrganizationHandlerFactory implements FactoryInterface {
-    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+
+    /**
+     * Create a GetOrganizationHandler controller plugin
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return GetOrganizationHandler
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        $services = $serviceLocator->getServiceLocator();
         /* @var $repositories RepositoryService */
-        $repositories = $services->get('repositories');
+        $repositories = $container->get('repositories');
         /* @var \Auth\AuthenticationService */
-        $auth = $services->get('AuthenticationService');
+        $auth = $container->get('AuthenticationService');
         /* @var \Acl\Controller\Plugin\Acl */
-        $acl = $serviceLocator->get('acl');
+        $acl = $container->get('ControllerPluginManager')->get('acl');
 
         $plugin = new GetOrganizationHandler($repositories, $auth, $acl);
         return $plugin;
+    }
+
+    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    {
+        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
+        return $this($serviceLocator->getServiceLocator(), GetOrganizationHandler::class);
     }
 }

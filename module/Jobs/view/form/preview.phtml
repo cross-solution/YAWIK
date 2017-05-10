@@ -7,26 +7,28 @@
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
 
-$job = $this->element->getObject();
+$job = $this->element->getObject(); /* @var \Jobs\Entity\JobInterface $job */
+
+if ($job instanceOf \Jobs\Entity\JobSnapshot) {
+    $query = ['snapshot' => $job->getSnapshotId()];
+} else {
+    $query = ['id' => $job->getId()];
+}
 
 $viewLink = $this->url(
-    'lang/jobs/view',
-    array(),
-    array(
-        'query' => array(
-            'id' => $job->id
-        )
-    )
-);
+                     'lang/jobs/view',
+                         array(),
+                         array(
+                             'query' => $query,
+                         )
+    );
 
+$query['page'] = 0;
 $multipostLink = $this->url(
     'lang/jobs/manage',
     array(),
     array(
-        'query' => array(
-           'id' => $job->id,
-           'page' => 0
-        ),
+        'query' => $query,
     )
 );
 
@@ -42,14 +44,30 @@ $defaultTaxRate = $options->defaultTaxRate;
     <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <iframe style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
+                <iframe id="previewJob" style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="alert alert-info">
+            <script type="text/javascript">
+                function printIframe(id)
+                {
+                    var iframe = document.frames ? document.frames[id] : document.getElementById(id);
+                    var ifWin = iframe.contentWindow || iframe;
+                    iframe.focus();
+                    ifWin.yawikPrintJob();
+                    return false;
+                }
+            </script>
             <?php echo sprintf($this->translate('Please check the preview of your job position. Click %s to open the preview in a new window'),
-                               '<a target="_blank" href="'.$viewLink.'">'.$this->translate("here").'</a>'); ?>
+                               '<a target="_blank" href="'.$viewLink.'">'.$this->translate("here").'</a>'); ?><br/>
+            <a target="_blank" href="<?=$viewLink?>" class="btn btn-info" role="button"><i class="fa fa-external-link"></i>
+                <?=$this->translate('Open new Window')?>
+            </a>
+            <a href="#" onclick="javascript:printIframe('previewJob');return false;" class="btn btn-info" role="button"><i class="fa fa-print"></i>
+                <?=$this->translate('Print')?>
+            </a>
         </div>
     </div>
 </div>

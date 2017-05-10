@@ -14,6 +14,7 @@ use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Language;
 use Cv\Factory\Form\LanguageSkillCollectionFactory;
+use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceManager;
 
@@ -36,7 +37,9 @@ class LanguageSkillCollectionFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-        $container = $this->target->createService(new ServiceManager());
+        $fm=new FormElementManagerV2Polyfill();
+        $fm->setServiceLocator(new ServiceManager);
+        $container = $this->target->createService($fm);
 
         $this->assertInstanceOf(CollectionContainer::class, $container);
         $this->assertAttributeEquals('Cv/LanguageSkillForm', 'formService', $container);

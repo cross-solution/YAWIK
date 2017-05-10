@@ -168,7 +168,27 @@ class AttachableEntityTraitTest extends \PHPUnit_Framework_TestCase
             ->willReturn($return);
         $this->assertSame($return, $this->attachableEntityTrait->getAttachedEntity($key));
     }
-    
+
+    /**
+     * @covers ::createAttachedEntity()
+     */
+    public function testCreateAttachedEntity()
+    {
+        $attachableEntityManager = $this->injectManager($this->attachableEntityTrait);
+        $attachableEntityManager->expects($this->exactly(4))->method('createAttachedEntity')
+            ->withConsecutive(
+                ['EntityClass', [], null],
+                ['EntityClass', 'testkey'],
+                ['EntityClass', ['param' => 'value']],
+                ['EntityClass', ['param' => 'value'], 'testkey']
+            );
+
+        $this->attachableEntityTrait->createAttachedEntity('EntityClass');
+        $this->attachableEntityTrait->createAttachedEntity('EntityClass', 'testkey');
+        $this->attachableEntityTrait->createAttachedEntity('EntityClass', ['param' => 'value']);
+        $this->attachableEntityTrait->createAttachedEntity('EntityClass', ['param' => 'value'], 'testkey');
+    }
+
     /**
      * @covers ::hasAttachedEntity()
      * @covers ::getAttachableEntityManager()

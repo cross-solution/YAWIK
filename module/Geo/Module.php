@@ -25,7 +25,7 @@ class Module
      */
     public function getConfig()
     {
-        return ModuleConfigLoader::load(__DIR__ . '/config');
+        return include __DIR__ . '/config/module.config.php';
     }
     
     /**
@@ -36,6 +36,9 @@ class Module
     public function getAutoloaderConfig()
     {
         return array(
+            'Zend\Loader\ClassMapAutoloader' => [
+                __DIR__ . '/src/autoload_classmap.php'
+            ],
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,

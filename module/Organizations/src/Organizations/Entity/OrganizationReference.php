@@ -285,6 +285,16 @@ class OrganizationReference implements
         return $this->proxy('getImage');
     }
 
+    public function getImages()
+    {
+        return $this->proxy('getImages');
+    }
+
+    public function setImages(\Core\Entity\ImageSet $images)
+    {
+        return $this->proxy('setImages',$images);
+    }
+
     public function setOrganizationName(OrganizationName $organizationNames)
     {
         return $this->proxy('setOrganizationName', $organizationNames);
@@ -384,11 +394,6 @@ class OrganizationReference implements
     public function clearKeywords()
     {
         return $this->proxy('clearKeywords');
-    }
-
-    public function getKeywords()
-    {
-        return $this->proxy('getKeywords');
     }
 
     public function getTemplate()

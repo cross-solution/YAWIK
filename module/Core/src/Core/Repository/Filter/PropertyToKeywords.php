@@ -23,7 +23,7 @@ class PropertyToKeywords implements FilterInterface
             $entity = $value;
             $value = array();
             foreach ($entity->getSearchableProperties() as $name) {
-                $result = $entity->$name;
+                $result = $entity->{'get' .$name}();
                 if (is_array($result)) {
                     $value = array_merge($value, $result);
                 } else {

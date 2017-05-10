@@ -94,14 +94,11 @@ class IndexController extends AbstractActionController
                 'as' => 'organizations'
             ],
             'form' => [
+                'Core/Search',
                 [
-                    'Core/TextSearch',
-                    [
-                        'elements_options' => [
-                            'text_placeholder' => /*@translate*/ 'Search for organizations',
-                            'button_element' => 'text'
-                        ]
-                    ]
+                    'text_name' => 'text',
+                    'text_placeholder' => /*@translate*/ 'Search for organizations',
+                    'button_element' => 'text'
                 ],
                 'as' => 'form'
             ]
@@ -240,7 +237,7 @@ class IndexController extends AbstractActionController
             )
         );
         $container->setEntity($organization);
-        $container->setParam('id', $organization->id);
+        $container->setParam('id', $organization->getId());
 //        $container->setParam('applyId',$job->applyId);
 
         if ('__my__' != $this->params('id', '')) {

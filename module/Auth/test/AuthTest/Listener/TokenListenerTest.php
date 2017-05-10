@@ -33,11 +33,6 @@ class TokenListenerTest extends \PHPUnit_Framework_TestCase
         return parent::run($result);
     }
 
-    public function testImplementsSharedListenerAggregateInterface()
-    {
-        $this->assertInstanceOf('\Zend\EventManager\SharedListenerAggregateInterface', new TokenListener());
-    }
-
     public function testWorksAsSharedListenerAggregate()
     {
         $target = new TokenListener();

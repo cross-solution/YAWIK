@@ -10,6 +10,7 @@
 /** PaginationQueryFactory.php */
 namespace Organizations\Repository\Filter;
 
+use Interop\Container\ContainerInterface;
 use \Zend\ServiceManager\FactoryInterface;
 use \Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -23,6 +24,21 @@ use \Zend\ServiceManager\ServiceLocatorInterface;
 class PaginationQueryFactory implements FactoryInterface
 {
     /**
+     * Create a PaginationQuery
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @param  null|array         $options
+     *
+     * @return PaginationQuery
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $auth = $container->get('AuthenticationService');
+        $filter = new PaginationQuery($auth);
+        return $filter;
+    }
+    /**
      * Creates pagination Service
      *
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -31,8 +47,7 @@ class PaginationQueryFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $auth  = $serviceLocator->getServiceLocator()->get('AuthenticationService');
-        $filter = new PaginationQuery($auth);
-        return $filter;
+        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
+        return $this($serviceLocator->getServiceLocator(), PaginationQuery::class);
     }
 }
