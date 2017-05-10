@@ -151,6 +151,8 @@
 
         <mkdir dir="${builddir}/log"/>
         <chmod file="${builddir}/log" mode="0777"/>
+        <mkdir dir="${builddir}/public/static"/>
+        <chmod file="${builddir}/public/static" mode="0777"/>
         <mkdir dir="${builddir}/log/tracy"/>
         <chmod file="${builddir}/log/tracy" mode="0777"/>
         <mkdir dir="${builddir}/cache"/>
@@ -291,6 +293,7 @@
             <include name="vendor/hybridauth/**"/>
             <include name="vendor/facebook/**"/>
             <include name="vendor/tracy/**"/>
+            <include name="vendor/imagine/**"/>
             <include name="vendor/doctrine/**"/>
             <include name="vendor/symfony/polyfill-mbstring/**"/>
             <include name="vendor/jmikola/geojson/src/**"/>
@@ -306,14 +309,13 @@
             <exclude name="public/Auth"/>
             <exclude name="public/Core"/>
             <exclude name="public/Geo"/>
-            <exclude name="public/js/bloodhound.min.js"/>
-            <exclude name="public/js/typeahead.jquery.min.js"/>
             <exclude name="public/Jobs"/>
             <exclude name="public/Organizations"/>
             <exclude name="**/*.po"/>
             <exclude name="**/*.pot"/>
             <exclude name="**/language/_annotated_strings.php"/>
             <exclude name="public/fonts"/>
+            <exclude name="public/static**"/>
             <exclude name="public/flags"/>
             <exclude name="public/css/select2**"/>
         </fileset>
