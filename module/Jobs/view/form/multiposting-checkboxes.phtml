@@ -33,7 +33,7 @@ else:
                     <div class="col-md-4">
                         <?php
                         $popup = $spec[6]
-                            ? '<img src="' . $spec[6] . '" alt="' . $spec[1] . '" class="img-responsive">'
+                            ? '<img src="' . $this->basePath($spec[6]) . '" alt="' . $spec[1] . '" class="img-responsive">'
                             : '' .
                               sprintf($spec[2], '<a href="' . $spec[4] . '">' . $spec[3] . '</a>');
                         ?>
