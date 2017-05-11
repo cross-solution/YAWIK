@@ -8,20 +8,19 @@
         <target>docs</target>
     </transformer>
     <files>
-        <directory>module/*</directory>
+        <directory>module/Core/*</directory>
+        <directory>module/Auth/*</directory>
+        <directory>module/Applications/*</directory>
+        <directory>module/Jobs/*</directory>
+        <directory>module/JobsByMail/*</directory>
+        <directory>module/Organizations/*</directory>
+        <directory>module/Orders/*</directory>
+        <directory>module/Pdf/*</directory>
+        <directory>module/Install/*</directory>
+        <directory>module/Geo/*</directory>
+        <directory>module/CompanyRegistration/*</directory>
+        <directory>module/Settings/*</directory>
         <ignore>vendor/*</ignore>
-        <ignore>module/Ac*</ignore>
-        <ignore>module/Px*</ignore>        
-        <ignore>module/Xe*</ignore>
-        <ignore>module/YawikDemo*</ignore>
-        <ignore>module/Cam*</ignore>
-        <ignore>module/JobsDeutschland*</ignore>
-        <ignore>module/Karriere24*</ignore>
-        <ignore>module/Karrierelounge*</ignore>
-        <ignore>module/Greenjobs*</ignore>
-        <ignore>module/Gastro24</ignore>
-        <ignore>module/NextKraftwerke*</ignore>
-        <ignore>module/Cam*</ignore>
         <ignore>*/language/*</ignore>
         <ignore>*/view/*</ignore>
         <ignore>config/*</ignore>
