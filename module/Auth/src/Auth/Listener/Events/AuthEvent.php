@@ -24,6 +24,10 @@ class AuthEvent extends Event
      */
     const EVENT_AUTH_NEWPASSWORD   = 'auth.newpassword';
 
+    const EVENT_USER_REGISTERED    = 'auth.user-registered';
+
+    const EVENT_USER_CONFIRMED     = 'auth.user-confirmed';
+
     protected $userEntity;
 
     protected $newPassword;
@@ -32,23 +36,13 @@ class AuthEvent extends Event
 
     protected $user;
 
-    /**
-     * Sets the job entity
-     *
-     * @param  Job $jobEntity
-     * @return MvcEvent
-     */
+
     public function setUserEntity($userEntity)
     {
         $this->userEntity = $userEntity;
         return $this;
     }
 
-    /**
-     * Gets the job entity
-     *
-     * @return Job
-     */
     public function getUserEntity()
     {
         return $this->userEntity;

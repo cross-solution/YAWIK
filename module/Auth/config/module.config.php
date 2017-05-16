@@ -7,45 +7,51 @@
  * @license   MIT
  */
 
-return array(
+namespace Auth;
+
+use Auth\Listener\Events\AuthEvent;
+
+return [
 
     'options' => [
+        'Auth/Options' => [
+            'class' => Options\ModuleOptions::class,
+        ],
         'Auth/CaptchaOptions' => [
             'class' => '\Auth\Options\CaptchaOptions',
         ],
     ],
     
-    'doctrine' => array(
-        'driver' => array(
-            'odm_default' => array(
-                'drivers' => array(
+    'doctrine' => [
+        'driver' => [
+            'odm_default' => [
+                'drivers' => [
                     'Auth\Entity' => 'annotation',
-                ),
-            ),
-            'annotation' => array(
+                ],
+            ],
+            'annotation' => [
                 /*
                  * All drivers (except DriverChain) require paths to work on. You
                  * may set this value as a string (for a single path) or an array
                  * for multiple paths.
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
-                'paths' => array( __DIR__ . '/../src/Auth/Entity'),
-            ),
-        ),
-    ),
+                'paths' => [ __DIR__ . '/../src/Auth/Entity'],
+            ],
+        ],
+    ],
 
 
 
-    'service_manager' => array(
-        'invokables' => array(
+    'service_manager' => [
+        'invokables' => [
             'SessionManager' => '\Zend\Session\SessionManager',
             'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
             'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
             'Auth\Form\LoginInputFilter' => 'Auth\Form\LoginInputFilter',
             'Auth\LoginFilter' => 'Auth\Filter\LoginFilter',
-        ),
-        'factories' => array(
-            'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
+        ],
+        'factories' => [
             'HybridAuth' => '\Auth\Factory\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Factory\Adapter\HybridAuthAdapterFactory',
             'ExternalApplicationAdapter' => '\Auth\Factory\Adapter\ExternalApplicationAdapterFactory',
@@ -53,7 +59,8 @@ return array(
             'AuthenticationService' => '\Auth\Factory\Service\AuthenticationServiceFactory',
             'UnauthorizedAccessListener' => '\Auth\Factory\Listener\ExceptionStrategyFactory',
             'DeactivatedUserListener' => '\Auth\Factory\Listener\ExceptionStrategyFactory',
-            'Auth\Listener\MailForgotPassword' => '\Auth\Factory\Listener\MailForgotPasswordFactory',
+            Listener\MailForgotPassword::class => '\Auth\Factory\Listener\MailForgotPasswordFactory',
+            Listener\SendRegistrationNotifications::class => Factory\Listener\SendRegistrationNotificationsFactory::class,
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
             'Acl' => '\Acl\Factory\Service\AclFactory',
             'Acl\AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
@@ -63,24 +70,23 @@ return array(
             'Auth\Service\GotoResetPassword' => 'Auth\Factory\Service\GotoResetPasswordFactory',
             'Auth\Service\Register' => 'Auth\Factory\Service\RegisterFactory',
             'Auth\Service\RegisterConfirmation' => 'Auth\Factory\Service\RegisterConfirmationFactory',
-            'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener::factory',
             'Auth/Dependency/Manager' => 'Auth\Factory\Dependency\ManagerFactory',
-        ),
-        'aliases' => array(
+        ],
+        'aliases' => [
             'assertions' => 'Acl\AssertionManager',
             'Auth/UserTokenGenerator' => 'Auth\Service\UserUniqueTokenGenerator',
-        )
-    ),
+        ]
+    ],
 
-    'controllers' => array(
-        'invokables' => array(
+    'controllers' => [
+        'invokables' => [
             'Auth\Controller\Manage' => 'Auth\Controller\ManageController',
             'Auth/ManageGroups' => 'Auth\Controller\ManageGroupsController',
             'Auth\Controller\Image' => 'Auth\Controller\ImageController',
             'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
             'Auth/SocialProfiles' => 'Auth\Controller\SocialProfilesController',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'Auth\Controller\ForgotPassword' => 'Auth\Factory\Controller\ForgotPasswordControllerFactory',
             'Auth\Controller\GotoResetPassword' => 'Auth\Factory\Controller\GotoResetPasswordControllerFactory',
             'Auth\Controller\Register' => 'Auth\Factory\Controller\RegisterControllerFactory',
@@ -89,61 +95,61 @@ return array(
             'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
             'Auth\Users' => 'Auth\Factory\Controller\UsersControllerFactory',
             'Auth\Controller\Remove' => 'Auth\Factory\Controller\RemoveControllerFactory'
-        )
-    ),
+        ]
+    ],
     
-    'controller_plugins' => array(
-        'factories' => array(
+    'controller_plugins' => [
+        'factories' => [
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
             'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter::factory',
             'OAuth' => '\Auth\Controller\Plugin\OAuth::factory',
             'Auth' => '\Auth\Controller\Plugin\Auth::factory',
             'Auth/User/Switcher' => 'Auth\Factory\Controller\Plugin\UserSwitcherFactory',
-        ),
-        'shared' => array(
+        ],
+        'shared' => [
             'OAuth' => false,
-        )
-    ),
-    'hybridauth' => array(
-        "Facebook" => array(
+        ]
+    ],
+    'hybridauth' => [
+        "Facebook" => [
             "enabled" => true,
-            "keys"    => array( "id" => "", "secret" => "" ),
+            "keys"    => [ "id" => "", "secret" => "" ],
             "scope"      => 'email, user_about_me, user_birthday, user_hometown, user_website',
             "display" => 'popup',
-        ),
-        "LinkedIn" => array(
+        ],
+        "LinkedIn" => [
             "enabled" => true,
-            "keys"    => array( "key" => "", "secret" => "" ),
-        ),
-        "XING" => array(
+            "keys"    => [ "key" => "", "secret" => "" ],
+        ],
+        "XING" => [
             "enabled" => true,
             // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
-            "wrapper" => array(
+            "wrapper" => [
                 'class' => 'Hybrid_Providers_XING',
                 'path' => __FILE__,
-            ),
-            "keys"    => array( "key" => "", "secret" => "" ),
-        ),
-        "Github" => array(
+            ],
+            "keys"    => [ "key" => "", "secret" => "" ],
+        ],
+        "Github" => [
             "enabled" => true,
             // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
-            "wrapper" => array(
+            "wrapper" => [
                 'class' => 'Hybrid_Providers_Github',
                 'path' => __FILE__,
-            ),
-            "keys"    => array( "key" => "", "secret" => "" ),
-        ),
+            ],
+            "keys"    => [ "key" => "", "secret" => "" ],
+        ],
 
-    ),
+    ],
 
-    'mails' => array(
-        'invokables' => array(
+    'mails' => [
+        'invokables' => [
             'Auth\Mail\RegisterConfirmation' => 'Auth\Mail\RegisterConfirmation',
-        ),
-    ),
+        ],
+    ],
 
     /*
      * Acl definitions.
@@ -172,23 +178,23 @@ return array(
      *                      index 1: array of parameters to pass to the constructor of the assertion.
      *
      */
-    'acl' => array(
-        'roles' => array(
+    'acl' => [
+        'roles' => [
             'guest',
             'user' => 'guest',
             'recruiter' => 'user',
             'admin' => 'recruiter',
             'employee_recruiter' => 'recruiter',
-        ),
+        ],
         
-        'public_roles' => array(
+        'public_roles' => [
             /*@translate*/ 'user',
             /*@translate*/ 'recruiter',
-        ),
+        ],
         
-        'rules' => array(
-            'guest' => array(
-                'allow' => array(
+        'rules' => [
+            'guest' => [
+                'allow' => [
                     'route/lang/auth',
                     'route/auth-provider',
                     'route/auth-hauth',
@@ -197,17 +203,17 @@ return array(
                     'route/lang/goto-reset-password',
                     'route/lang/register',
                     'route/lang/register-confirmation',
-                ),
-            ),
-            'user' => array(
-                'allow' => array(
+                ],
+            ],
+            'user' => [
+                'allow' => [
                     'route/auth-logout',
                     'route/lang/my',
                     'route/lang/my-password',
                     'route/lang/user-remove',
                     'Auth/Users' => 'switch',
-                ),
-                'deny' => array(
+                ],
+                'deny' => [
                    // 'route/lang/auth',
                     'route/auth-provider',
                     'route/auth-extern',
@@ -215,14 +221,14 @@ return array(
                     'route/lang/goto-reset-password',
                     'route/lang/register',
                     'route/lang/register-confirmation',
-                ),
-            ),
-            'recruiter' => array(
-                'allow' => array(
+                ],
+            ],
+            'recruiter' => [
+                'allow' => [
                     'route/lang/my-groups',
-                ),
-            ),
-            'admin' => array(
+                ],
+            ],
+            'admin' => [
                 'allow' => [
                     '__ALL__',
                     'Users',
@@ -230,22 +236,22 @@ return array(
                     'route/lang/user-edit',
                     'Auth/Users' => '__ALL__',
                 ],
-            ),
-        ),
-    ),
-    'translator' => array(
-        'translation_file_patterns' => array(
-            array(
+            ],
+        ],
+    ],
+    'translator' => [
+        'translation_file_patterns' => [
+            [
                 'type'     => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern'  => '%s.mo',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     
     // Configure the view service manager
-    'view_manager' => array(
-        'template_map' => array(
+    'view_manager' => [
+        'template_map' => [
             'form/auth/contact.form' => __DIR__ . '/../view/form/contact.form.phtml',
             'form/auth/contact.view' => __DIR__ . '/../view/form/contact.view.phtml',
             'form/auth/status.form' => __DIR__ . '/../view/form/status.form.phtml',
@@ -262,40 +268,42 @@ return array(
             'mail/forgotPassword' =>  __DIR__ . '/../view/mail/forgot-password.phtml',
             'mail/forgotPassword.en' =>  __DIR__ . '/../view/mail/forgot-password.en.phtml',
             'mail/register' =>  __DIR__ . '/../view/mail/register.phtml',
-        ),
+            'auth/mail/new-registration.en' => __DIR__ . '/../view/mail/new-registration.en.phtml',
+            'auth/mail/user-confirmed.en' => __DIR__ . '/../view/mail/user-confirmed.en.phtml',
+        ],
     
-        'template_path_stack' => array(
+        'template_path_stack' => [
             'Auth' => __DIR__ . '/../view',
-        ),
-    ),
+        ],
+    ],
     
-    'filters' => array(
-        'invokables' => array(
+    'filters' => [
+        'invokables' => [
             'Auth/StripQueryParams' => '\Auth\Filter\StripQueryParams',
             'Auth/Entity/UserToSearchResult' => '\Auth\Entity\Filter\UserToSearchResult',
             'PaginationQuery/Auth/User'   => 'Auth\Repository\Filter\PaginationSearchUsers',
-        ),
-    ),
+        ],
+    ],
     
-    'validators' => array(
-        'factories' => array(
+    'validators' => [
+        'factories' => [
             'Auth/Form/UniqueGroupName' => 'Auth\Form\Validator\UniqueGroupNameFactory',
-        ),
-    ),
+        ],
+    ],
     
-    'view_helpers' => array(
-        'invokables' => array(
+    'view_helpers' => [
+        'invokables' => [
             'buildReferer' => '\Auth\View\Helper\BuildReferer',
             'loginInfo' => '\Auth\View\Helper\LoginInfo',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'auth' => '\Auth\Factory\View\Helper\AuthFactory',
             'acl'  => '\Acl\Factory\View\Helper\AclFactory',
-         ),
-    ),
+         ],
+    ],
     
-    'form_elements' => array(
-        'invokables' => array(
+    'form_elements' => [
+        'invokables' => [
             'Auth/Login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset',
@@ -312,8 +320,8 @@ return array(
             'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
             'Auth/UserStatusContainer' => 'Auth\Form\UserStatusContainer',
             'Auth/UserStatus' => 'Auth\Form\UserStatus'
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'Auth/RoleSelect' => 'Auth\Factory\Form\RoleSelectFactory',
             'Auth/UserInfoFieldset' => 'Auth\Factory\Form\UserInfoFieldsetFactory',
             'Auth/UserStatusFieldset' => 'Auth\Factory\Form\UserStatusFieldsetFactory',
@@ -323,6 +331,20 @@ return array(
             'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
             'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
             'user-password' => 'Auth\Form\UserPassword::factory',
-        )
-    ),
-);
+        ]
+    ],
+
+    'event_manager' => [
+        'Auth/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => AuthEvent::class,
+            'listeners' => [
+                Listener\MailForgotPassword::class => [ AuthEvent::EVENT_AUTH_NEWPASSWORD, 10, true ],
+                Listener\SendRegistrationNotifications::class => [
+                    [ AuthEvent::EVENT_USER_REGISTERED, AuthEvent::EVENT_USER_CONFIRMED ],
+                    true
+                ],
+            ],
+        ]
+    ]
+];
