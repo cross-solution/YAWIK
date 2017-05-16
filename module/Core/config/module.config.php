@@ -226,6 +226,7 @@ return [
         ],
         'shared' => [
             'Core/Listener/DeferredListenerAggregate' => false,
+            'Core/Eventmanager' => false,
         ],
     ],
 

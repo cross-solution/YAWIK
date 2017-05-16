@@ -26,7 +26,7 @@ class MailServiceFactory implements FactoryInterface
         $mails = isset($config['mails']) ? $config['mails'] : [];
 
         /* @var \Auth\Options\ModuleOptions $authOptions */
-        $authOptions = $serviceLocator->get('Auth\Options');
+        $authOptions = $serviceLocator->get('Auth/Options');
 
         /* @var \Core\Options\MailServiceOptions $mailServiceOptions */
         $mailServiceOptions = $serviceLocator->get('Core/MailServiceOptions');
