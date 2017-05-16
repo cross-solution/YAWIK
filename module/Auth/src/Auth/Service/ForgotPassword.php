@@ -25,7 +25,7 @@ use Auth\Listener\Events\AuthEvent;
  * Class ForgotPassword
  * @package Auth\Service
  */
-class ForgotPassword implements EventManagerAwareInterface
+class ForgotPassword
 {
     /**
      * @var Repository\User
@@ -86,7 +86,6 @@ class ForgotPassword implements EventManagerAwareInterface
      */
     public function setEventManager(EventManagerInterface $eventManager)
     {
-        $eventManager->setIdentifiers('Auth');
         $this->eventManager = $eventManager;
         return $this;
     }

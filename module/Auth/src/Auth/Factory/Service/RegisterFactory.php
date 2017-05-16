@@ -44,7 +44,12 @@ class RegisterFactory implements FactoryInterface
         /* @var \Core\Options\ModuleOptions $config */
         $config = $container->get('Core/Options');
 
-        return new Register($userRepository, $mailService, $config);
+        $service = new Register($userRepository, $mailService, $config);
+
+        $events = $container->get('Auth/Events');
+        $service->setEventManager($events);
+
+        return $service;
     }
 
     /**

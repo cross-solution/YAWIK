@@ -44,7 +44,12 @@ class ForgotPasswordFactory implements FactoryInterface
         $loginFilter = $container->get('Auth\LoginFilter');
         $config = $container->get('Auth/Options');
 
-        return new ForgotPassword($userRepository, $tokenGenerator, $loginFilter, $config);
+        $service = new ForgotPassword($userRepository, $tokenGenerator, $loginFilter, $config);
+
+        $events = $container->get('Auth/Events');
+        $service->setEventManager($events);
+
+        return $service;
     }
     /**
      * Create service
