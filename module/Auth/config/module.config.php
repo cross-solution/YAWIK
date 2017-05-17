@@ -268,8 +268,10 @@ return [
             'mail/forgotPassword' =>  __DIR__ . '/../view/mail/forgot-password.phtml',
             'mail/forgotPassword.en' =>  __DIR__ . '/../view/mail/forgot-password.en.phtml',
             'mail/register' =>  __DIR__ . '/../view/mail/register.phtml',
-            'auth/mail/new-registration.en' => __DIR__ . '/../view/mail/new-registration.en.phtml',
-            'auth/mail/user-confirmed.en' => __DIR__ . '/../view/mail/user-confirmed.en.phtml',
+            'auth/mail/new-registration' => __DIR__ . '/../view/mail/new-registration.phtml',
+            'auth/mail/new-registration.de' => __DIR__ . '/../view/mail/new-registration.de.phtml',
+            'auth/mail/user-confirmed' => __DIR__ . '/../view/mail/user-confirmed.phtml',
+            'auth/mail/user-confirmed.de' => __DIR__ . '/../view/mail/user-confirmed.de.phtml',
         ],
     
         'template_path_stack' => [

@@ -46,6 +46,10 @@ class SendRegistrationNotifications
 
     public function __invoke(AuthEvent $e)
     {
+        if (!$this->options->notifyOnRegistration()) {
+            return;
+        }
+        
         /* @var \Core\Mail\HTMLTemplateMessage $mail */
         $tmpl = sprintf(
             'auth/mail/%s',
