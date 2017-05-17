@@ -48,18 +48,17 @@ class SendRegistrationNotifications
     {
         /* @var \Core\Mail\HTMLTemplateMessage $mail */
         $tmpl = sprintf(
-            'auth/mail/%s.%s',
+            'auth/mail/%s',
             $e->getName() == AuthEvent::EVENT_USER_REGISTERED
                 ? 'new-registration'
-                : 'user-confirmed',
-            $this->options->getNotificationLanguage()
+                : 'user-confirmed'
         );
 
         $mail = $this->mailer->get('htmltemplate');
         $mail->setTemplate($tmpl);
         $mail->setVariable('user', $e->getUser());
         $mail->setTo($this->options->getNotificationEmail());
-        $mail->renderBodyText(true);
+        $mail->renderBodyText(true, $this->options->getNotificationLanguage());
 
         try {
             $this->mailer->send($mail);

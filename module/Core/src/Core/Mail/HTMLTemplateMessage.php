@@ -218,7 +218,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
      * @return string
      * @throws \InvalidArgumentException the mail body must completely be provided by the template, any other attempt is a misconception that may leave the coder in an quagmire
      */
-    public function renderBodyText($force = true)
+    public function renderBodyText($force = true, $forceLanguage = null)
     {
         if (!$this->renderedBody || $force ) {
             $viewModel    = new ViewModel();
@@ -234,7 +234,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
 
             /* @var \Zend\Mvc\MvcEvent $event */
             $event = $this->serviceManager->get('application')->getMvcEvent();
-            $lang = $event->getRouteMatch()->getParam('lang');
+            $lang = $forceLanguage ?: $event->getRouteMatch()->getParam('lang');
 
 
             if ($resolver->resolve($this->getTemplate() . '.' . $lang)) {
