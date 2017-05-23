@@ -63,5 +63,31 @@ class DefaultNavigationFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expect, $actual);
     }
+
+    public function testDoesNothingIfNoRouteMatchIsPassed()
+    {
+        $pages = [
+            'page1' => [
+                'active_on' => 'matchedRouteName',
+            ],
+            'page2' => [
+                'active_on' => 'notMatchedRoute',
+            ],
+            'page3' => [
+                'active_on' => [ 'matchedRouteName', 'anotherRoute' ],
+            ],
+            'page4' => []
+        ];
+
+        $expect = $pages;
+
+        $m = new \ReflectionMethod($this->target, 'injectComponents');
+        $m->setAccessible(true);
+
+        $actual = $m->invoke($this->target, $pages, null);
+
+        $this->assertEquals($expect, $actual);
+
+    }
 }
 

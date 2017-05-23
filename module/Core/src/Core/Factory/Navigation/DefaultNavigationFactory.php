@@ -21,6 +21,8 @@ use Zend\Mvc\Router\RouteMatch;
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.26
+ * @since 0.30 - will do nothing if $routeMatch is null
+ *               (prevent fatal error)
  */
 class DefaultNavigationFactory extends ZfDefaultNavigationFactory
 {
@@ -33,7 +35,7 @@ class DefaultNavigationFactory extends ZfDefaultNavigationFactory
      *      sets the active flag if one of the routes match.
      *
      * {@inheritDoc}
-     *
+     * @since 0.30 add check, if $routeMatch is null
      */
     protected function injectComponents(
         array $pages,
@@ -41,12 +43,14 @@ class DefaultNavigationFactory extends ZfDefaultNavigationFactory
         $router = null,
         $request = null
     ) {
-        /* @var RouteMatch|MvcRouter\RouteMatch $routeMatch */
-        $routeName = $routeMatch->getMatchedRouteName();
+        if ($routeMatch) {
+            /* @var RouteMatch|MvcRouter\RouteMatch $routeMatch */
+            $routeName = $routeMatch->getMatchedRouteName();
 
-        foreach ($pages as &$page) {
-            if (isset($page['active_on']) && in_array($routeName, (array) $page['active_on'])) {
-                $page['active'] = true;
+            foreach ($pages as &$page) {
+                if (isset($page['active_on']) && in_array($routeName, (array) $page['active_on'])) {
+                    $page['active'] = true;
+                }
             }
         }
 
