@@ -13,6 +13,12 @@ $plugin = 'photon';
  */
 $geoCoderUrl = 'http://photon.yawik.org/api';
 
+/**
+ * Default country. This currently only affects the "geo" plugin. Possible values DE,CH,AT,FR,IT,LI,ES,CZ
+ */
+$country = "DE";
+
+
 //
 // Do not change below this line!
 //
@@ -22,6 +28,7 @@ return [
         'Geo/Options' => [
             'options' => [
                 'plugin' => $plugin,
+                'country' => $country,
                 'geoCoderUrl' => $geoCoderUrl,
             ],
         ],

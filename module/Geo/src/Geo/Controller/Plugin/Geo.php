@@ -28,7 +28,7 @@ class Geo extends AbstractPlugin
         // more countries 'country' => 'DE,CH,AT'
         // with countryCode 'zoom' => 2
         $plz = 0 < (int) $par?1:0;
-        $client->setParameterGet(array('q' => $par, 'country' => 'DE', 'plz' => $plz, 'zoom' => 1));
+        $client->setParameterGet(array('q' => $par, 'country' => 'CH', 'plz' => $plz, 'zoom' => 1));
         $response = $client->send();
         $result = $response->getBody();
         $result = json_decode($result);

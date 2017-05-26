@@ -32,6 +32,7 @@ class ClientFactory implements FactoryInterface
         $geoOptions = $container->get('Geo/Options');
         $plugin = strtolower($geoOptions->getPlugin());
         $url = $geoOptions->getGeoCoderUrl();
+        $country = $geoOptions->getCountry();
         $cache = StorageFactory::factory([
             'adapter' => [
                 'name' => 'filesystem',
@@ -52,11 +53,11 @@ class ClientFactory implements FactoryInterface
         switch ($plugin) {
             default:
             case 'photon':
-                $client = new Photon($url, $cache);
+                $client = new Photon($url, $country, $cache);
                 break;
 
             case 'geo':
-                $client = new Geo($url, $cache);
+                $client = new Geo($url, $country, $cache);
                 break;
         }
 
