@@ -46,14 +46,6 @@ return [
             'Geo\Controller\Index' => 'Geo\Factory\Controller\IndexControllerFactory',
         )
     ),
-    'controller_plugins' => array(
-        'factories' => array(
-        ),
-        'invokables' => array(
-            'geo/geo' => 'Geo\Controller\Plugin\Geo',
-            'geo/photon' => 'Geo\Controller\Plugin\Photon',
-            ),
-        ),
     
     // Routes
     'router' => array(
