@@ -33,7 +33,10 @@ class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
      *
      * @var EventManagerAbstractFactory
      */
-    protected $target = '\Core\Factory\EventManager\EventManagerAbstractFactory';
+    protected $target = [
+        '\Core\Factory\EventManager\EventManagerAbstractFactory',
+        '@testCanCreateServiceWithName' => ['mock' => ['canCreate' => 1]],
+    ];
 
     protected $inheritance = [ '\Zend\ServiceManager\AbstractFactoryInterface' ];
 
@@ -106,5 +109,12 @@ class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
         $target->expects($this->once())->method('createEventManager')->with($services, $expected);
 
         $target($services,$reqName);
+    }
+
+    public function testCanCreateServiceWithName()
+    {
+        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceLocatorInterface')->getMockForAbstractClass();
+
+        $this->target->canCreateServiceWithName($services, 'irrelevant', 'irrelevant');
     }
 }

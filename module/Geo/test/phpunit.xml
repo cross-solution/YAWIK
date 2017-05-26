@@ -12,7 +12,7 @@
     </filter>
     <testsuites>
             <testsuite name="YAWIK Geo">
-		    <directory>./InstallTest</directory>
+		    <directory>./GeoTest</directory>
             </testsuite>
      </testsuites>
 </phpunit>

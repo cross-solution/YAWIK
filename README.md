@@ -54,7 +54,7 @@ http://yawik.org/docs/
 Forum
 -----
 
-https://groups.google.com/forum/?hl=de#!forum/yawik
+https://forum.yawik.org
 
 
 Contribute!

@@ -11,6 +11,7 @@
 namespace Core\Mail;
 
 use Zend\Mail\Header;
+use Zend\Mail\Headers;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Zend\Stdlib\Response;
@@ -34,6 +35,8 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
      * @var array|\ArrayAccess|\Traversable
      */
     protected $variables = array();
+
+    protected $renderedBody;
 
     /**
      * @param ServiceLocatorInterface $serviceManager
@@ -215,38 +218,47 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
      * @return string
      * @throws \InvalidArgumentException the mail body must completely be provided by the template, any other attempt is a misconception that may leave the coder in an quagmire
      */
+    public function renderBodyText($force = true, $forceLanguage = null)
+    {
+        if (!$this->renderedBody || $force ) {
+            $viewModel    = new ViewModel();
+            $response     = new Response();
+            $body         = parent::getBodyText();
+            if (!empty($body)) {
+                throw new \InvalidArgumentException('mail body shall come from Template.');
+            }
+
+            /* @var \Zend\Mvc\View\Http\ViewManager $viewManager */
+            $viewManager  = $this->serviceManager->get('viewManager');
+            $resolver = $this->serviceManager->get('viewResolver');
+
+            /* @var \Zend\Mvc\MvcEvent $event */
+            $event = $this->serviceManager->get('application')->getMvcEvent();
+            $lang = $forceLanguage ?: $event->getRouteMatch()->getParam('lang');
+
+
+            if ($resolver->resolve($this->getTemplate() . '.' . $lang)) {
+                $viewModel->setTemplate($this->getTemplate() . '.' . $lang);
+            }else{
+                $viewModel->setTemplate($this->getTemplate());
+            }
+
+            $view         = $viewManager->getView();
+
+            $viewModel->setVariables($this->getVariables());
+            $viewModel->setVariable('mail', $this);
+            $view->setResponse($response);
+            $view->render($viewModel);
+            $body = $response->getContent();
+
+            $this->renderedBody = $body;
+        }
+    }
+
     public function getBodyText()
     {
-        $viewModel    = new ViewModel();
-        $response     = new Response();
-        $body         = parent::getBodyText();
-        if (!empty($body)) {
-            throw new \InvalidArgumentException('mail body shall come from Template.');
-        }
-
-        /* @var \Zend\Mvc\View\Http\ViewManager $viewManager */
-        $viewManager  = $this->serviceManager->get('viewManager');
-        $resolver = $this->serviceManager->get('viewResolver');
-
-        /* @var \Zend\Mvc\MvcEvent $event */
-        $event = $this->serviceManager->get('application')->getMvcEvent();
-        $lang = $event->getRouteMatch()->getParam('lang');
-
-
-        if ($resolver->resolve($this->getTemplate() . '.' . $lang)) {
-            $viewModel->setTemplate($this->getTemplate() . '.' . $lang);
-        }else{
-            $viewModel->setTemplate($this->getTemplate());
-        }
-
-        $view         = $viewManager->getView();
-
-        $viewModel->setVariables($this->getVariables());
-        $view->setResponse($response);
-        $view->render($viewModel);
-        $body = $response->getContent();
-
-        return $body;
+        $this->renderBodyText();
+        return $this->renderedBody;
     }
     
     /**

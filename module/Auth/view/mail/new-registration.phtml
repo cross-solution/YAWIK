@@ -1,0 +1,22 @@
+<?php
+/**
+ * YAWIK
+ * Auth Module
+ *
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/*
+ * Sends a confirmation link to the user, after registration
+ */
+
+$this->mail->setSubject('A new user just registered.');
+?>
+<?php echo $this->partial('mail/header'); ?>
+
+    <p>A new user registered: <?=$this->user->getInfo()->getDisplayName(false) ?>
+                              &lt;<?=$this->user->getInfo()->getEmail()?>&gt;</p>
+
+    <p>This user is not confirmed yet.</p>
+
+<?php echo $this->partial('mail/footer.en'); ?>

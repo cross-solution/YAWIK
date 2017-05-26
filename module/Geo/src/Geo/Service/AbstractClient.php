@@ -35,9 +35,12 @@ class AbstractClient
      */
     protected $cache;
 
+    protected $country;
 
-    public function __construct($uri, $cache = false)
+
+    public function __construct($uri, $country="DE", $cache = false)
     {
+        $this->country = $country;
         $this->client = $this->setupClient($uri);
         $this->cache = $cache;
 

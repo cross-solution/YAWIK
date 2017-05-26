@@ -40,6 +40,10 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
                 'value' => 'http://api.cross-solution.de/geo',
                 'default' => 'http://photon.yawik.org/api'
             ]],
+            ['country', [
+                'value' => 'CH',
+                'default' => 'DE'
+            ]],
         ];
     }
 }

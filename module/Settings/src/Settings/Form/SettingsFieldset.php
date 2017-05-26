@@ -26,7 +26,7 @@ class SettingsFieldset extends Fieldset
         parent::__construct();
         $this->formManager = $formManager;
     }
-    
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -120,14 +120,5 @@ class SettingsFieldset extends Fieldset
             $this->add($fieldset);
         }
         $this->isBuild = true;
-    }
-    
-    /**
-     * @param ServiceLocatorInterface $formManager
-     * @return \Settings\Form\SettingsFieldset
-     */
-    public static function factory(ServiceLocatorInterface $formManager)
-    {
-        return new static($formManager);
     }
 }

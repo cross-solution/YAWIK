@@ -1,0 +1,22 @@
+<?php
+/**
+ * YAWIK
+ * Auth Module
+ *
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/*
+ *
+ */
+
+$this->mail->setSubject('Ein Benutzer wurde bestätigt.');
+?>
+<?php echo $this->partial('mail/header'); ?>
+
+    <p>Ein Benutzer hat seine Registrierung bestätigt: <?=$this->user->getInfo()->getDisplayName(false) ?>
+                                  &lt;<?=$this->user->getInfo()->getEmail()?>&gt;</p>
+
+    <p>Der Benutzeraccount ist jetzt vollständig registriert und aktiv.</p>
+
+<?php echo $this->partial('mail/footer'); ?>

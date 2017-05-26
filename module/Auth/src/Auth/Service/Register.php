@@ -10,9 +10,12 @@
 namespace Auth\Service;
 
 use Auth\Entity\User;
+use Auth\Listener\Events\AuthEvent;
 use Auth\Service\Exception;
+use Core\EventManager\EventManager;
 use Core\Options\ModuleOptions;
 use Core\Controller\Plugin;
+use Zend\EventManager\EventManagerInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
 use Auth\Repository\User as UserRepository;
@@ -74,6 +77,13 @@ class Register
      */
     protected $user;
 
+    /**
+     * Auth/Events
+     *
+     * @var EventManagerInterface
+     */
+    protected $events;
+
     public function __construct(UserRepository $userRepository, MailService $mailService, ModuleOptions $options)
     {
         $this->userRepository = $userRepository;
@@ -106,6 +116,32 @@ class Register
         $this->filter = $filter;
         return $this;
     }
+
+    /**
+     * @param \Zend\EventManager\EventManagerInterface $events
+     *
+     * @return self
+     */
+    public function setEventManager($events)
+    {
+        $this->events = $events;
+
+        return $this;
+    }
+
+    /**
+     * @return \Zend\EventManager\EventManagerInterface
+     */
+    public function getEventManager()
+    {
+        if (!$this->events) {
+            $this->events = new EventManager();
+            $this->events->setEventPrototype(new AuthEvent());
+        }
+        return $this->events;
+    }
+
+
 
     /**
      * @param Plugin\Mailer $mailer
@@ -291,6 +327,13 @@ class Register
 
             $userRepository->store($user);
             $this->setUser($user);
+
+            /* @var \Core\EventManager\EventManager $events */
+            /* @var \Auth\Listener\Events\AuthEvent $event */
+            $events = $this->getEventManager();
+            $event  = $events->getEvent(AuthEvent::EVENT_USER_REGISTERED, $this);
+            $event->setUser($user);
+            $events->triggerEvent($event);
         }
 
         return $this->getUser();

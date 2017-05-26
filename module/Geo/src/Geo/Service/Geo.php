@@ -24,7 +24,7 @@ class Geo extends AbstractClient
     {
         $client = parent::setupClient($uri);
         $client->setMethod('GET');
-        $client->setParameterGet(['country' => 'DE', 'zoom' => 1]);
+        $client->setParameterGet(['country' => $this->country, 'zoom' => 1]);
 
         return $client;
     }

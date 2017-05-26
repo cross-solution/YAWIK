@@ -12,66 +12,66 @@
  * @license   MIT
  */
 
-return array(
+return [
         
-        'doctrine' => array(
-                'driver' => array(
-                        'odm_default' => array(
-                                'drivers' => array(
+        'doctrine' => [
+                'driver' => [
+                        'odm_default' => [
+                                'drivers' => [
                                         'Settings\Entity' => 'annotation',
-                                ),
-                        ),
-                ),
-                'eventmanager' => array(
-                'odm_default' => array(
-                'subscribers' => array(
+                                ],
+                        ],
+                ],
+                'eventmanager' => [
+                'odm_default' => [
+                'subscribers' => [
                     'Settings/InjectEntityResolverListener',
-                 ),
-                ),
-                ),
-        ),
+                 ],
+                ],
+                ],
+        ],
     
         
     // Translations
-        'translator' => array(
-        'translation_file_patterns' => array(
-            array(
+        'translator' => [
+        'translation_file_patterns' => [
+            [
                 'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => '%s.mo',
-            ),
-        ),
-        ),
+            ],
+        ],
+        ],
     // Routes
-        'router' => array(
-        'routes' => array(
-            'lang' => array(
-                'child_routes' => array(
-                    'settings' => array(
+        'router' => [
+        'routes' => [
+            'lang' => [
+                'child_routes' => [
+                    'settings' => [
                         'type' => 'Segment',
-                        'options' => array(
+                        'options' => [
                             'route' => '/settings[/:module]',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'Settings\Controller\Index',
                                 'action' => 'index',
                                 'module' => 'Core',
-                            ),
-                        ),
+                            ],
+                        ],
                         'may_terminate' => true,
-                    ),
-                ),
-            ),
-        ),
-        ),
+                    ],
+                ],
+            ],
+        ],
+        ],
     
-        'acl' => array('rules' => array(
-        'user' => array(
-            'allow' => array(
+        'acl' => ['rules' => [
+        'user' => [
+            'allow' => [
                 'route/lang/settings',
                 'Settings\Controller\Index',
-            ),
-        ),
-        )),
+            ],
+        ],
+        ]],
         'navigation' => [
             'default' => [
                 'settings' => [
@@ -79,66 +79,69 @@ return array(
                     'route'    => 'lang/settings',
                     'resource' => 'route/lang/settings',
                     'order'    => 100,
-                    'params'   => array('module' => null),
+                    'params'   => ['module' => null],
                 ],
             ],
         ],
     
     // Configuration of the controller service manager (Which loads controllers)
-        'controllers' => array(
-        'invokables' => array(
+        'controllers' => [
+        'invokables' => [
             'Settings\Controller\Index' => 'Settings\Controller\IndexController'
-        ),
-        ),
+        ],
+        ],
    
     // Configure the view service manager
-        'view_manager' => array(
+        'view_manager' => [
         // Map template to files. Speeds up the lookup through the template stack.
-        'template_map' => array(
-        ),
+        'template_map' => [
+        ],
         
         // Where to look for view templates not mapped above
-        'template_path_stack' => array(
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-        ),
+        ],
+        ],
     
-        'view_helpers' => array(
-        'invokables' => array(
+        'view_helpers' => [
+        'invokables' => [
             'Settings/FormDisableElementsCapableFormSettings' => 'Settings\Form\View\Helper\FormDisableElementsCapableFormSettings',
-        ),
-        'factories' => array(
-        ),
-        ),
+        ],
+        'factories' => [
+        ],
+        ],
     
-        'service_manager' => array(
-        'factories' => array(
+        'service_manager' => [
+        'factories' => [
             'Settings' => '\Settings\Settings\SettingsFactory',
             'Settings/EntityResolver' => '\Settings\Repository\SettingsEntityResolverFactory',
             'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener::factory',
-        ),
-        'initializers' => array(),
-        'shared' => array(),
-        'aliases' => array(),
-        ),
+        ],
+        'initializers' => [],
+        'shared' => [],
+        'aliases' => [],
+        ],
     
-        'controller_plugins' => array(
-        'factories' => array('settings' => '\Settings\Controller\Plugin\SettingsFactory'),
-        ),
+        'controller_plugins' => [
+        'factories' => ['settings' => '\Settings\Controller\Plugin\SettingsFactory'],
+        ],
     
-        'form_elements' => array(
-        'factories' => array(
-            'Settings/Fieldset' => '\Settings\Form\SettingsFieldset::factory',
-            'Settings/Form' => '\Settings\Form\AbstractSettingsForm::factory',
-            'Settings/DisableElementsCapableFormSettingsFieldset' => '\Settings\Form\DisableElementsCapableFormSettingsFieldset::factory',
-        ),
-        ),
+        'form_elements' => [
+            'factories' => [
+                \Settings\Form\SettingsFieldset::class => \Settings\Form\Factory\SettingsFieldsetFactory::class,
+                'Settings/Form' => '\Settings\Form\AbstractSettingsForm::factory',
+                'Settings/DisableElementsCapableFormSettingsFieldset' => '\Settings\Form\DisableElementsCapableFormSettingsFieldset::factory',
+            ],
+            'aliases' => [
+                'Settings/Fieldset' => \Settings\Form\SettingsFieldset::class,
+            ],
+        ],
 
-        'filters' => array(
-        'invokables' => array(
+        'filters' => [
+        'invokables' => [
             'Settings/DisableElementsCapableFormSettings' => '\Settings\Form\Filter\DisableElementsCapableFormSettings',
-        )
-        )
+        ]
+        ]
     
     
-);
+];
