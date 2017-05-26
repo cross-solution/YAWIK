@@ -353,6 +353,10 @@ class ManageController extends AbstractActionController
 
     protected function changeStatus(JobInterface $job, $status)
     {
+        if ($job instanceOf JobSnapshot) {
+            $job = $job->getSnapshotMeta()->getEntity();
+        }
+
         $oldStatus = $job->getStatus();
 
         if ($status == $oldStatus->getName()) {
