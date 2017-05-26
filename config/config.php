@@ -90,6 +90,7 @@ $config = array(
     
     'service_manager' => array(
     ),
+    'timezone' => 'Europe/Berlin'
 );
 
 $envConfigFile = __DIR__ . '/config.' . $env . '.php';
