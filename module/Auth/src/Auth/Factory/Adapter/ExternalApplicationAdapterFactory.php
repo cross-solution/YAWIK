@@ -23,22 +23,18 @@ class ExternalApplicationAdapterFactory implements FactoryInterface
      *
      * authentication for external applications
      *
-     * @param  ContainerInterface $container
-     * @param  string             $requestedName
-     * @param  null|array         $options
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @param  string                  $requestedName
+     * @param  null|array              $options
      *
      * @return ExternalApplication
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ServiceLocatorInterface $serviceLocator, $requestedName, array $options = null)
     {
-        $repository = $container->get('repositories')->get('Auth/User');
+        $repository = $serviceLocator->get('repositories')->get('Auth/User');
         $adapter = new ExternalApplication($repository);
-        $adapter->setServiceLocator($container);
-        $config  = $container->get('Config');
+        $adapter->setServiceLocator($serviceLocator);
+        $config  = $serviceLocator->get('Config');
         if (isset($config['Auth']['external_applications']) && is_array($config['Auth']['external_applications'])) {
             $adapter->setApplicationKeys($config['Auth']['external_applications']);
         }
