@@ -222,6 +222,7 @@ return [
             'Jobs/DefaultCategoriesBuilder'              => 'Jobs\Factory\Repository\DefaultCategoriesBuilderFactory',
             \Jobs\Listener\DeleteJob::class               => \Jobs\Factory\Listener\DeleteJobFactory::class,
             \Jobs\Listener\GetOrganizationManagers::class => \Jobs\Factory\Listener\GetOrganizationManagersFactory::class,
+            \Jobs\Listener\LoadActiveOrganizations::class => \Jobs\Factory\Listener\LoadActiveOrganizationsFactory::class,
 
         ],
         'shared' => [
@@ -254,6 +255,8 @@ return [
         'Core/Ajax/Events' => ['listeners' => [
             \Jobs\Listener\DeleteJob::class => ['jobs.delete', true],
             \Jobs\Listener\GetOrganizationManagers::class => ['jobs.manager-select', true],
+            \Jobs\Listener\LoadActiveOrganizations::class => [ 'jobs.admin.activeorganizations', true],
+
         ]],
     ],
 
@@ -290,6 +293,7 @@ return [
         'factories' => [
             'Jobs/Job'   => 'Jobs\Paginator\JobsPaginatorFactory',
             'Jobs/Admin' => 'Jobs\Paginator\JobsAdminPaginatorFactory',
+            'Jobs\Paginator\ActiveOrganizations' => \Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory::class,
         ],
         'aliases' => [
             'Jobs/Board' => 'Jobs/Job'

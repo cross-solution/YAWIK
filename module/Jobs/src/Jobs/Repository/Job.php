@@ -154,18 +154,23 @@ class Job extends AbstractRepository
      * @return mixed
      * @throws \Doctrine\ODM\MongoDB\MongoDBException
      */
-    public function findActiveOrganizations()
+    public function findActiveOrganizations($term = null)
     {
         $qb = $this->createQueryBuilder();
         $qb->distinct('organization')
             ->hydrate(true)
            ->field('status.name')->notIn([ StatusInterface::EXPIRED, StatusInterface::INACTIVE ]);
+
         $q = $qb->getQuery();
         $r = $q->execute();
         $r = $r->toArray();
 
         $qb = $this->dm->createQueryBuilder('Organizations\Entity\Organization');
         $qb->field('_id')->in($r);
+        if ($term) {
+            $qb->field('_organizationName')->equals(new \MongoRegex('/' . addslashes($term) . '/i'));
+        }
+
         $q = $qb->getQuery();
         $r = $q->execute();
 
