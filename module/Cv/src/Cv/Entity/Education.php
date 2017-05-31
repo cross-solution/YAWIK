@@ -129,7 +129,7 @@ class Education extends AbstractIdentifiableEntity
     }
     
     /**
-     * @return the $organizationName
+     * @return $organizationName
      */
     public function getOrganizationName()
     {

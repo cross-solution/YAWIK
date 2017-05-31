@@ -160,7 +160,7 @@ endif;
             echo $externActionButtons;
         }
         ?>
-        <?php if ($this->acl($this->application, 'delete')):?>
+        <?php if ($this->acl($application, 'delete')):?>
             <button class="btn btn-sm btn-default" data-title="delete Application"
                     data-toggle="modal"
                     data-target="#cam-delete-application"
@@ -168,7 +168,7 @@ endif;
                 <i class="yk-icon yk-icon-delete"></i> <?php echo $this->translate("Delete");?>
             </button>
         <?php endif ?>
-        <?php if ($this->acl($this->application, 'move')):?>
+        <?php if ($this->acl($application, 'move')):?>
             <button class="btn btn-sm btn-default" data-title="<?=$this->translate('Move application to Talent Pool')?>"
                     data-toggle="modal"
                     data-target="#cam-move-application"
@@ -421,8 +421,8 @@ endif;
                 <tr>
                     <td><?php echo $this->translate('date of receipt')?>:</td>
                     <td>
-                        <?php echo $this->dateFormat($application->getDateCreated()->getTimestamp(), 'short'); ?>
-                        <?php echo $application->getSubscriber()? '<br/>' . $this->translate("via"). ': '. $application->getSubscriber()->getName():'';?>
+                        <?=$this->dateFormat($application->getDateCreated()->getTimestamp(), 'short'); ?>
+                        <?=$application->getSubscriber()? '<br/>' . $this->translate("via"). ': '. $application->getSubscriber()->getName():'';?>
                     </td>
                 </tr>
                 <?php if(!$application->isDraft()):?>
@@ -540,29 +540,29 @@ endif;
     </div>
 </div>
 
-<?php if(count($this->application->getCv()->getEmployments())>0):?>
+<?php if(count($application->getCv()->getEmployments())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="yk-icon yk-icon-work-experience"></i>
-                    <?php echo $this->translate('work experience')?>
+                    <?=$this->translate('work experience')?>
                 </div>
                 <table class="table table-condensed table-bordered">
                     <thead>
                     <tr>
-                        <th class="col-md-1"><?php echo $this->translate('Start')?></th>
-                        <th class="col-md-1"><?php echo $this->translate('End')?></th>
-                        <th class="col-md-3"><?php echo $this->translate('Company')?></th>
-                        <th><?php echo $this->translate('Description')?></th>
+                        <th class="col-md-1"><?=$this->translate('Start')?></th>
+                        <th class="col-md-1"><?=$this->translate('End')?></th>
+                        <th class="col-md-3"><?=$this->translate('Company')?></th>
+                        <th><?=$this->translate('Description')?></th>
                     </tr>
                     </thead>
-                    <?php foreach( $this->application->cv->employments as $employment): ?>
+                    <?php foreach( $application->getCv()->getEmployments() as $employment): /* @var $employment \Cv\Entity\Employment */ ?>
                         <tr>
-                            <td><?php echo $this->dateFormat($employment->startDate,'medium', 'null')?></td>
-                            <td><?php echo $this->dateFormat($employment->endDate,'medium', 'null')?></td>
-                            <td><?php echo $employment->organizationName ?></td>
-                            <td><?php echo $employment->description ?></td>
+                            <td><?=$this->dateFormat($employment->getStartDate(),'medium', 'null')?></td>
+                            <td><?=$this->dateFormat($employment->getEndDate(),'medium', 'null')?></td>
+                            <td><?=$employment->getOrganizationName() ?></td>
+                            <td><?=$employment->getDescription() ?></td>
                         </tr>
                     <?php endforeach; // employments?>
                 </table>
@@ -571,27 +571,27 @@ endif;
     </div>
 <?php endif;?>
 
-<?php if(count($this->application->getCv()->getEducations())>0):?>
+<?php if(count($application->getCv()->getEducations())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="yk-icon yk-icon-university"></i>
-                    <?php echo $this->translate('education and training')?>
+                    <?=$this->translate('education and training')?>
                 </div>
                 <table class="table table-condensed table-bordered">
                     <tr>
-                        <th class="col-md-1"><?php echo $this->translate('Start')?></th>
-                        <th class="col-md-1"><?php echo $this->translate('End')?></th>
-                        <th class="col-md-3"><?php echo $this->translate('University')?></th>
-                        <th><?php echo $this->translate('Description')?></th>
+                        <th class="col-md-1"><?=$this->translate('Start')?></th>
+                        <th class="col-md-1"><?=$this->translate('End')?></th>
+                        <th class="col-md-3"><?=$this->translate('University')?></th>
+                        <th><?=$this->translate('Description')?></th>
                     </tr>
-                    <?php foreach( $this->application->cv->educations as $education): ?>
+                    <?php foreach( $application->getCv()->getEducations() as $education): /* @var $education \Cv\Entity\Education */ ?>
                         <tr>
-                            <td><?php echo $this->dateFormat($education->startDate,'medium', 'null') ?></td>
-                            <td><?php echo $this->dateFormat($education->endDate,'medium', 'null') ?></td>
-                            <td><?php echo $education->organizationName ?></td>
-                            <td><?php echo $education->description ?></td>
+                            <td><?=$this->dateFormat($education->getStartDate(),'medium', 'null') ?></td>
+                            <td><?=$this->dateFormat($education->getEndDate(),'medium', 'null') ?></td>
+                            <td><?=$education->getOrganizationName() ?></td>
+                            <td><?=$education->getDescription() ?></td>
                         </tr>
                     <?php endforeach; // educations?>
                 </table>
@@ -600,9 +600,9 @@ endif;
     </div>
 <?php endif;?>
 
-<?php if(count($this->application->getCv()->getSkills())>0):?>
-    <h2><?php echo  $this->translate('personal skills')?></h2>
-    <?php foreach( $this->application->cv->skills as $kill): ?>
+<?php if(count($application->getCv()->getSkills())>0):?>
+    <h2><?=$this->translate('personal skills')?></h2>
+    <?php foreach( $application->getCv()->getSkills() as $kill): ?>
         <div class="col-md-3"><?php echo $this->translate('native language')?></div>
         <div class="col-md-3">TODO</div>
     <?php endforeach; // skills?>
