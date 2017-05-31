@@ -187,7 +187,17 @@
         <echo msg="generate YAWIK-${version-short}.zip and YAWIK-${version-short}.tgz"/>
         <exec dir="${builddir}/.." command="tar -czpf YAWIK-${version-short}.tgz YAWIK-${version-short}" logoutput="false"/>
         <exec dir="${builddir}/.." command="zip -r YAWIK-${version-short}.zip YAWIK-${version-short}" logoutput="false"/>
-
+	<delete file="build/YAWIK-${version-short}/public/NextKraftwerke" />
+	<delete file="build/YAWIK-${version-short}/public/Karrierelounge" />
+	<delete file="build/YAWIK-${version-short}/public/Greenjobs" />
+	<delete file="build/YAWIK-${version-short}/public/Xenagos" />
+	<delete file="build/YAWIK-${version-short}/public/PxSkin" />
+	<delete file="build/YAWIK-${version-short}/public/YawikDemoSkin" />
+	<delete file="build/YAWIK-${version-short}/public/YawikXingVendorApi" />
+	<delete file="build/YAWIK-${version-short}/public/Karriere24" />
+	<delete file="build/YAWIK-${version-short}/public/YawikDemoJobboard" />
+	<delete file="build/YAWIK-${version-short}/public/Orders" />
+	<delete file="build/YAWIK-${version-short}/public/Gastro24" />
     </target>
 
     <!-- ============================================  -->
