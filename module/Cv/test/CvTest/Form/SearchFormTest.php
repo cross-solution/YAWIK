@@ -37,7 +37,7 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         SearchForm::class,
         '@testInitializesItself' => [
             'mock' => [
-                'setName' => ['with' => 'cv-list-filter', 'count' => 1],
+                'setName',
                 'setAttributes' => ['with' => [['id' => 'cv-list-filter']], 'count' => 1],
                 'setOption',
                 'add',
@@ -59,6 +59,11 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
                 ['text_span', 5]
             );
 
+        $this->target->expects($this->exactly(2))->method('setName')
+            ->withConsecutive(
+                [$this->anything()],
+                ['cv-list-filter']
+            );
         $add1 = [
                  'name' => 'l',
                  'type' => 'LocationSelect',
