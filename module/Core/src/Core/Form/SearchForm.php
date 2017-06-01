@@ -136,6 +136,8 @@ class SearchForm extends ZfForm
 
     public function init()
     {
+        $this->setName($this->getOption('name') ?: 'searchform');
+
         $this->addTextElement(
             $this->getOption('text_name') ?: 'q',
             $this->getOption('text_label') ?: /*@translate*/ 'Search',
