@@ -10,6 +10,7 @@
 /** Applications controller */
 namespace Applications\Controller;
 
+use Applications\Form\ApplicationsFilter;
 use Applications\Listener\Events\ApplicationEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -63,46 +64,14 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     {
-        $services              = $this->serviceLocator;
-        /* @var \Jobs\Repository\Job $jobRepository */
-        $jobRepository         = $services->get('repositories')->get('Jobs/Job');
-        /* @var \Applications\Repository\Application $applicationRepository */
-        $applicationRepository = $services->get('repositories')->get('Applications/Application');
-        $services_form         = $services->get('forms');
-        /* @var \Applications\Form\FilterApplication $form */
-        $form                  = $services_form->get('Applications/Filter');
-        $params                = $this->getRequest()->getQuery();
-        /* @var \Zend\Form\Element\Select $statusElement */
-        $statusElement         = $form->get('status');
-
-        $states                = $applicationRepository->getStates()->toArray();
-        $states                = array_merge(array(/*@translate*/ 'all'), $states);
-        
-        $statesForSelections = array();
-        foreach ($states as $state) {
-            $statesForSelections[$state] = $state;
-        }
-        $statusElement->setValueOptions($statesForSelections);
-        
-        $job = $params->job ? $jobRepository->find($params->job)  : null;
-        $paginator = $this->paginator('Applications');
-
-        if ($job) {
-            $params['job_title'] = '[' . $job->getApplyId() . '] ' . $job->getTitle();
-        }
-
-        $form->bind($params);
-                
-        return array(
-            'form' => $form,
-            'applications' => $paginator,
-            'byJobs' => 'jobs' == $params->get('by', 'me'),
-            'sort' => $params->get('sort', 'none'),
-            'search' => $params->get('search', ''),
-            'job' => $job,
-            'applicationStates' => $states,
-            'applicationState' => $params->get('status', '')
-        );
+        return $this->pagination([
+                'params' => ['Application_List', ['q', 'job', 'page' => 1, 'unread', 'status' => 'all']],
+                'paginator' => ['Applications', 'as' => 'applications'],
+                'form' => [
+                    ApplicationsFilter::class,
+                    'as' => 'form'
+                ],
+            ]);
     }
 
     /**

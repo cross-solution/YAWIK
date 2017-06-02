@@ -1,5 +1,4 @@
 <?php
-
 /**
  * YAWIK
  * Configuration file of the Applications module
@@ -8,149 +7,154 @@
  * @license   MIT
  */
 
-return array(
-    'doctrine' => array(
-       'driver' => array(
-            'odm_default' => array(
-                'drivers' => array(
+namespace Applications;
+
+use Zend\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'doctrine' => [
+       'driver' => [
+            'odm_default' => [
+                'drivers' => [
                     'Applications\Entity' => 'annotation',
-                ),
-            ),
-            'annotation' => array(
+                ],
+            ],
+            'annotation' => [
                /*
                 * All drivers (except DriverChain) require paths to work on. You
                 * may set this value as a string (for a single path) or an array
                 * for multiple paths.
                 * example https://github.com/doctrine/DoctrineORMModule
                 */
-               'paths' => array( __DIR__ . '/../src/Applications/Entity')
-            ),
-        ),
-        'eventmanager' => array(
-            'odm_default' => array(
-                'subscribers' => array(
+               'paths' => [ __DIR__ . '/../src/Applications/Entity']
+            ],
+        ],
+        'eventmanager' => [
+            'odm_default' => [
+                'subscribers' => [
                     '\Applications\Repository\Event\JobReferencesUpdateListener',
                     '\Applications\Repository\Event\UpdatePermissionsSubscriber',
                     '\Applications\Repository\Event\UpdateFilesPermissionsSubscriber',
                     '\Applications\Repository\Event\DeleteRemovedAttachmentsSubscriber',
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
     
-    'Applications' => array(
+    'Applications' => [
         /*
          * Settings for the application form.
          */
-        'dashboard' => array(
+        'dashboard' => [
             'enabled' => true,
-            'widgets' => array(
-                'recentApplications' => array(
+            'widgets' => [
+                'recentApplications' => [
                     'controller' => 'Applications\Controller\Index',
-                ),
-            ),
-        ),
-        'settings' => array(
+                ],
+            ],
+        ],
+        'settings' => [
             'entity' => '\Applications\Entity\Settings',
             'navigation_order' => 1,
             'navigation_label' => /*@translate*/ "E-Mail Templates",
             'navigation_class' => 'yk-icon yk-icon-envelope'
-        ),
-    ),
+        ],
+    ],
     
-    'service_manager' => array(
-        'invokables' => array(
+    'service_manager' => [
+        'invokables' => [
             'Applications/Options/ModuleOptions' => 'Applications\Options\ModuleOptions',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
            'Applications/Options' => 'Applications\Factory\ModuleOptionsFactory',
            'ApplicationRepository' => 'Applications\Repository\Service\ApplicationRepositoryFactory',
            'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
            'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
            'Applications/Listener/ApplicationCreated' => 'Applications\Factory\Listener\EventApplicationCreatedFactory',
            'Applications/Listener/ApplicationStatusChangePre' => 'Applications\Factory\Listener\StatusChangeFactory',
-           'Applications\Auth\Dependency\ListListener' => 'Applications\Factory\Auth\Dependency\ListListenerFactory'
-        ),
+           'Applications\Auth\Dependency\ListListener' => 'Applications\Factory\Auth\Dependency\ListListenerFactory',
+            Listener\JobSelectValues::class => Factory\Listener\JobSelectValuesFactory::class,
+        ],
         'aliases' => [
            'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
         ]
-    ),
-    'controllers' => array(
-        'invokables' => array(
+    ],
+    'controllers' => [
+        'invokables' => [
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Apply' => 'Applications\Controller\ApplyController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
             'Applications/CommentController' => 'Applications\Controller\CommentController',
             'Applications/Console' => 'Applications\Controller\ConsoleController',
             'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
-        ),
-    ),
+        ],
+    ],
     
-    'acl' => array(
-        'rules' => array(
-            'guest' => array(
-                'allow' => array(
+    'acl' => [
+        'rules' => [
+            'guest' => [
+                'allow' => [
                     'route/lang/applications/detail',
                     'Applications\Controller\Manage' => 'detail',
-                    'Entity/Application' => array(
+                    'Entity/Application' => [
                         'read' => 'Applications/Access',
-                        Applications\Entity\ApplicationInterface::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD => 'Applications/Access',
-                    ),
-                ),
-            ),
-            'user' => array(
-                'allow' => array(
+                        Entity\ApplicationInterface::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD => 'Applications/Access',
+                    ],
+                ],
+            ],
+            'user' => [
+                'allow' => [
                     'route/lang/applications',
                     'Applications\Controller\Manage',
-                    'Entity/Application' => array(
+                    'Entity/Application' => [
                         '__ALL__' => 'Applications/Access',
                         
-                    ),
-                ),
-            ),
-        ),
-        'assertions' => array(
-            'invokables' => array(
+                    ],
+                ],
+            ],
+        ],
+        'assertions' => [
+            'invokables' => [
                 'Applications/Access' => 'Applications\Acl\ApplicationAccessAssertion',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     
     // Navigation
-    'navigation' => array(
-        'default' => array(
-            'apply' => array(
+    'navigation' => [
+        'default' => [
+            'apply' => [
                 'label' => 'Applications',
                 'route' => 'lang/applications',
                 'order' => 20,
                 'resource' => 'route/lang/applications',
-                'query' => array(
+                'query' => [
                     'clear' => '1'
-                ),
-                'pages' => array(
-                    'list' => array(
+                ],
+                'pages' => [
+                    'list' => [
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/applications',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    'translator' => array(
-        'translation_file_patterns' => array(
-            array(
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'translator' => [
+        'translation_file_patterns' => [
+            [
                 'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => '%s.mo',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     // Configure the view service manager
-    'view_manager' => array(
-        'template_path_stack' => array(
+    'view_manager' => [
+        'template_path_stack' => [
             'Applications' => __DIR__ . '/../view',
-        ),
-        'template_map' => array(
+        ],
+        'template_map' => [
             'applications/error/not-found' => __DIR__ . '/../view/error/not-found.phtml',
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
@@ -158,19 +162,19 @@ return array(
             'applications/detail/pdf' => __DIR__ . '/../view/applications/manage/detail.pdf.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
             'content/applications-privacy-policy' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
-        )
-    ),
-    'view_helpers' => array(
+        ]
+    ],
+    'view_helpers' => [
         
-    ),
+    ],
 
-    'view_helper_config' => array(
-        'headscript' => array(
-            'lang/applications' => array('Core/js/jquery.barrating.min.js'),
-        ),
-    ),
-    'form_elements' => array(
-        'invokables' => array(
+    'view_helper_config' => [
+        'headscript' => [
+            'lang/applications' => ['Core/js/jquery.barrating.min.js'],
+        ],
+    ],
+    'form_elements' => [
+        'invokables' => [
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset',
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
@@ -182,51 +186,61 @@ return array(
              'Applications/Facts' => 'Applications\Form\Facts',
              'Applications/FactsFieldset' => 'Applications\Form\FactsFieldset',
              'Applications/Attributes' => 'Applications\Form\Attributes',
-             'Applications/Filter' => 'Applications\Form\FilterApplication',
              'href' => 'Applications\Form\Element\Ref',
-         ),
-        'factories' => array(
+
+         ],
+        'factories' => [
             'Applications/ContactImage' => 'Applications\Factory\Form\ContactImageFactory',
             'Applications/Attachments' => 'Applications\Factory\Form\AttachmentsFactory',
-        ),
-     ),
+            Form\ApplicationsFilter::class => InvokableFactory::class,
+            'Applications\Form\Element\StatusSelect' => Factory\Form\StatusSelectFactory::class,
+            Form\Element\JobSelect::class => Factory\Form\JobSelectFactory::class
+        ],
+     ],
 
-    'form_elements_config' => array(
-        'Applications/Apply' => array(
+    'form_elements_config' => [
+        'Applications/Apply' => [
             /*
              * you can hide form fieldsets, which implements the DisableElementsCapableInterface
              * These are: profiles, facts
              */
-            'disable_elements' => array('facts'),
-        ),
-    ),
+            'disable_elements' => ['facts'],
+        ],
+    ],
      
-    'filters' => array(
-        'invokables' => array(
+    'filters' => [
+        'invokables' => [
             'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
-        ),
-        'factories'=> array(
+        ],
+        'factories'=> [
             'PaginationQuery/Applications' => '\Applications\Repository\Filter\PaginationQueryFactory'
-        ),
-    ),
+        ],
+    ],
     
-    'validators' => array(
-        'invokables' => array(
+    'validators' => [
+        'invokables' => [
             'Applications/Application' => 'Applications\Entity\Validator\Application',
-        ),
-    ),
+        ],
+    ],
      
-    'mails' => array(
-        'invokables' => array(
+    'mails' => [
+        'invokables' => [
             'Applications/Confirmation'   => 'Applications\Mail\Confirmation',
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
             'Applications/Forward'        => 'Applications\Mail\Forward',
             'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
-        ),
+        ],
         'factories' => [
             'Applications/NewApplication' => 'Applications\Factory\Mail\NewApplicationFactory',
         ],
-    ),
+    ],
+
+    'paginator_manager' => [
+        'factories' => [
+            Paginator\JobSelectPaginator::class => Factory\Paginator\JobSelectPaginatorFactory::class,
+        ],
+    ],
+
     'event_manager' => [
         'Applications/Events' => [
             'event' => '\Applications\Listener\Events\ApplicationEvent',
@@ -259,6 +273,9 @@ return array(
                     /* lazy */ true
                 ]
             ]
-        ]
+        ],
+        'Core/Ajax/Events' => ['listeners' => [
+            Listener\JobSelectValues::class => ['applications.job-select', true],
+        ]],
     ],
-);
+];

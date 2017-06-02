@@ -9,12 +9,16 @@
 namespace Applications\Repository\Filter;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
+use Doctrine\MongoDB\Query\Builder;
 use Zend\Stdlib\Parameters;
 
 /**
  * maps query parameters to entity attributes
  *
- * @package Applications
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @since 0.29.2 [mg] - modified to match new ApplicationsFilter form parameters.
  */
 class PaginationQuery extends AbstractPaginationQuery
 {
@@ -48,7 +52,8 @@ class PaginationQuery extends AbstractPaginationQuery
      * Creates a query for filtering applications
      * @see \Core\Repository\Filter\AbstractPaginationQuery::createQuery()
      * @param array $params
-     * @param $queryBuilder
+     * @param Builder $queryBuilder
+     * @return Builder
      */
     public function createQuery($params, $queryBuilder)
     {
@@ -59,25 +64,16 @@ class PaginationQuery extends AbstractPaginationQuery
             $value = $params;
         }
     
-         
-//        if (isset($value['by']) && 'me' == $value['by']) {
-//            #            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
-//        }
-//        if (isset($value['by']) && 'new' == $value['by']) {
-//            #             $queryBuilder->field('readBy')->notEqual( new \MongoId($this->auth->getUser()->id));
-//        }
         if (isset($value['job']) && !empty($value['job'])) {
             $queryBuilder->field('job')->equals($value['job']);
         }
-        
-        
+
         if (isset($value['unread']) && !empty($value['unread'])) {
             $queryBuilder->field('readBy')->notEqual($userID);
         }
-        
-    
-        if (isset($value['search']) && !empty($value['search'])) {
-            $search = strtolower($value['search']);
+
+        if (isset($value['q']) && !empty($value['q'])) {
+            $search = strtolower($value['q']);
             $searchPatterns = array();
     
             foreach (explode(' ', $search) as $searchItem) {

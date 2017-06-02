@@ -187,7 +187,7 @@ class Application extends AbstractRepository
         $qb = $this->createQueryBuilder();
         $qb->hydrate(false)->distinct('status.name');
         $result = $qb->getQuery()->execute();
-        return $result;
+        return $result->toArray();
     }
 
     /**

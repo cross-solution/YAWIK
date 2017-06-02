@@ -31,7 +31,7 @@ $this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle
 
 $this->headScript()->appendFile($this->basePath('/Core/js/core.js'))
                    ->appendFile($this->basePath('/Core/js/multiCheckbox.js'));
-$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
+$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
 $this->headScript()->appendFile($this->basePath('/js/typeahead.jquery.min.js'));
 $this->headScript()->appendFile($this->basePath('/js/bloodhound.min.js'));
@@ -67,7 +67,7 @@ $this->headScript()->appendFile($this->basePath('/js/bloodhound.min.js'));
 
 <?php if ($this->acl()->isRole('recruiter')):?>
   <nav class="navbar yk-toolbar">
-    <?php echo $this->filterform($this->form); ?>
+    <?php echo $this->searchform($this->form); ?>
   </nav>
 <?php endif;?>
 
@@ -106,11 +106,13 @@ endif;
 ?>
 <div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(),
                   array('query' => $this->params()->fromQuery()), true) ?>">
+    <div class="pagination-content">
 <?php if ($this->acl()->isRole('recruiter')):?>
   <?php echo $this->render('applications/manage/index.recruiter.ajax.phtml') ?>
 <?php else: ?>
   <?php echo $this->render('applications/manage/index.applicant.ajax.phtml') ?>
 <?php endif?>
+        </div>
 </div>
 
 <div id="application-multiple-move-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="application-multiple-move-modal-label" aria-hidden="true">
