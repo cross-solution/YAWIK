@@ -15,7 +15,6 @@ class SearchForm extends \Core\Form\SearchForm
 {
     public function init()
     {
-        $this->setName('cv-list-filter');
         $this->setAttributes([
             'id' => 'cv-list-filter',
             //'data-handle-by' => 'native',
@@ -27,6 +26,7 @@ class SearchForm extends \Core\Form\SearchForm
 
         parent::init();
 
+        $this->setName('cv-list-filter');
         $this->setButtonElement('d');
     }
 
