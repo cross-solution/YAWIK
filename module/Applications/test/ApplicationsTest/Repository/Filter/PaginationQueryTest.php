@@ -96,14 +96,14 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $params2 = [
             'job' => '',
             'unread' => '',
-            'search' => '',
+            'q' => '',
             'status' => 'all',
 
         ];
         $params3 = [
             'job' => 'testJob',
             'unread' => true,
-            'search' => 'test',
+            'q' => 'test',
             'status' => 'some',
             'sort' => 'testSort',
         ];

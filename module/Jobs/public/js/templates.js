@@ -21,7 +21,7 @@
                 $.get(href, function(data){
                     $(document).trigger('ajax.ready', {'data': data});
                     // hackishly force iframe to reload
-                    var iframe = $('iframe');
+                    var iframe = $('iframe#editJob');
                     iframe.prop('src', iframe.prop('src'));
                     $('#template-links a').show();
                     $('#template-links-loading').hide();

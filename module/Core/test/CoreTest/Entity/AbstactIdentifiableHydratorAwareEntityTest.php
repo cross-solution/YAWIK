@@ -32,13 +32,13 @@ class AbstactIdentifiableHydratorAwareEntityTest extends \PHPUnit_Framework_Test
 
     public function testSetGetHydrator(){
         $input = new EntityHydrator();
-        $this->target->hydrator = $input;
+        $this->target->setHydrator($input);
         $this->assertSame($this->target->getHydrator(),$input);
     }
 
     public function testSetGetIdByMethod(){
         $input = new EntityHydrator();
-        $this->assertEquals($this->target->hydrator,$input);
+        $this->assertEquals($this->target->getHydrator(),$input);
     }
 }
 

@@ -67,14 +67,26 @@ class EventApplicationCreated
 
         if ($workflow->getAcceptApplicationByDepartmentManager()) {
             /* Send mail to department manager, if there is at least one. */
-            $managers = $org->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
+            $assignedManagers = $job->getMetaData('organizations:managers', []);
+            if (count($assignedManagers)) {
+                $managers = [];
+                foreach ($assignedManagers as $manager) {
+                    $manager = $org->getEmployee($manager['id']);
+                    if ($manager) {
+                        $managers[] = $manager;
+                    }
+                }
+            } else {
+                $managers = $org->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
+            }
+
             if (count($managers)) {
                 foreach ($managers as $employee) {
                     /* @var EmployeeInterface $employee */
                     $this->mailService->send(
                         'Applications/NewApplication',
                         [
-                            'job' => $job,
+                            'application' => $this->application,
                             'user' => $employee->getUser(),
                             'bcc' => $adminSettings->getMailBCC() ? [ $admin ] : null,
                         ]

@@ -30,6 +30,21 @@ $options = array(
          'enableRegistration' => true,
 
         /*
+         * if true, a mail will be send to the admin email when an user registers.
+         */
+         //'notifyOnRegistration' => false,
+
+         /*
+          * The email address to send all notifications related to the auth module to.
+          */
+         //'notificationEmail' => '',
+
+         /*
+          * Language to send the notificartions in
+          */
+         //'notificationLanguage' => 'en',
+
+        /*
          * if true, users can reset their password.
          */
          'enableResetPassword' => true,
@@ -38,6 +53,4 @@ $options = array(
 
 ### do not edit below ###
 
-return array(
-        'auth_options' => $options
-    );
+return [ 'options' => [ 'Auth/Options' => [ 'options' => $options ] ] ];

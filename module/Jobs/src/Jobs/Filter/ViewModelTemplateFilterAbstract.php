@@ -42,7 +42,8 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     /**
      * creating absolute links like the apply-link
      * absolute links are needed on the server of the provider
-     * @var
+     *
+     * @var $urlPlugin \Zend\Mvc\Controller\Plugin\Url
      */
     protected $urlPlugin;
 
@@ -53,9 +54,14 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     protected $basePathHelper;
 
     /**
-     * @var
+     * @var $serverUrlHelper \Zend\View\Helper\ServiceUrl
      */
     protected $serverUrlHelper;
+
+    /**
+     * @var $imageFileCacheHelper \Organizations\ImageFileCache\Manager
+     */
+    protected $imageFileCacheHelper;
 
     /**
      * @param $config
@@ -76,7 +82,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
-     * @param $basePathHelper
+     * @param $basePathHelper \Zend\View\Helper\Basepath
      */
     public function setBasePathHelper($basePathHelper)
     {
@@ -107,6 +113,23 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     public function getServerUrlHelper()
     {
         return $this->serverUrlHelper;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setImageFileCacheHelper($imageFileCacheHelper)
+    {
+        $this->imageFileCacheHelper=$imageFileCacheHelper;
+        return;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFileCacheHelper()
+    {
+        return $this->imageFileCacheHelper;
     }
 
     /**
@@ -199,10 +222,10 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
 
-        if (empty($this->job->templateValues->description) && isset($this->job->organization)) {
-            $this->job->templateValues->description = $this->job->organization->description;
+        if (empty($this->job->getTemplateValues()->getDescription()) && is_object($this->job->getOrganization())) {
+            $this->job->getTemplateValues()->setDescription($this->job->getOrganization()->getDescription());
         }
-        $description = $this->job->templateValues->description;
+        $description = $this->job->getTemplateValues()->getDescription();
 
         $this->container['description'] = isset($description)?$description:'';
         return $this;
@@ -223,16 +246,16 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         $organizationStreet = '';
         $organizationPostalCode = '';
         $organizationPostalCity = '';
-        $organization = $this->job->organization;
+        $organization = $this->job->getOrganization();
         $user = $this->job->getUser();
 
         if (isset($organization)) {
-            $organizationName = $organization->organizationName->name;
-            $organizationStreet = $organization->contact->street.' '.$organization->contact->houseNumber;
-            $organizationPostalCode = $organization->contact->postalcode;
-            $organizationPostalCity = $organization->contact->city;
-            $organizationPhone = $organization->contact->phone;
-            $organizationFax = $organization->contact->fax;
+            $organizationName = $organization->getOrganizationName()->getName();
+            $organizationStreet = $organization->getContact()->getStreet().' '.$organization->getContact()->getHouseNumber();
+            $organizationPostalCode = $organization->getContact()->getPostalcode();
+            $organizationPostalCity = $organization->getContact()->getCity();
+            $organizationPhone = $organization->getContact()->getPhone();
+            $organizationFax = $organization->getContact()->getFax();
         } else {
             $organizationName =
             $organizationStreet =
@@ -249,8 +272,8 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         $this->container['phone'] = $organizationPhone;
         $this->container['fax'] = $organizationFax;
 
-        if (isset($organization) && isset($organization->image) && $organization->image->uri) {
-            $this->container['uriLogo'] = $this->makeAbsolutePath($organization->image->uri);
+        if (is_object($organization) && is_object($organization->getImage()) && $organization->getImage()->getUri()) {
+            $this->container['uriLogo'] = $this->basePathHelper->__invoke($this->imageFileCacheHelper->getUri($organization->getImage(true)));
         } else {
             $this->container['uriLogo'] = $this->makeAbsolutePath($this->config->default_logo);
         }
@@ -272,7 +295,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         $labelBenefits='';
         $labelRequirements='';
 
-        $organization = $this->job->organization;
+        $organization = $this->job->getOrganization();
         if (isset($organization)) {
             $labelRequirements = $organization->getTemplate()->getLabelRequirements();
             $labelQualifications = $organization->getTemplate()->getLabelQualifications();
@@ -292,7 +315,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
      */
     protected function setTemplate()
     {
-        $this->container['templateName'] = $this->job->template;
+        $this->container['templateName'] = $this->job->getTemplate();
         return $this;
     }
 

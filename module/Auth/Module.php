@@ -104,10 +104,6 @@ class Module
         $deactivatedUserListener = $services->get('DeactivatedUserListener');
         $deactivatedUserListener->attach($eventManager);
 
-        $sharedManager = $eventManager->getSharedManager();
-        $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');
-        $defaultlistener->attachShared($sharedManager);
-
         $socialProfilesUnconfiguredErrorListener = new SocialProfilesUnconfiguredErrorListener();
         $socialProfilesUnconfiguredErrorListener->attach($eventManager);
     }

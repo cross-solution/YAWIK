@@ -10,18 +10,19 @@
  /*
   * Confirmation Mail to the Customer
   */
-
-$user = $this->job->getUser();
+$job = $this->job; /* @var \Jobs\Entity\Job $job */
+$user = $job->getUser();
 $info = $user->getInfo();
 ?>
 <?php echo $this->partial('mail/header'); ?>
 <p><?php echo 'male' == $info->getGender()
          ? 'Sehr geehrter Herr'
-         : 'Sehr geehrte Frau' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+         : 'Sehr geehrte Frau' ?>
+    <?=$info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
 
 <p>
-    hiermit bestätigen wir Ihnen den Eingang Ihrer Stellenanzeige <b></b><?php echo $this->job->getTitle() ?></b> mit der
-    Referenz <b><?php echo $this->job->getReference() ?></b>. Sie erhalten von uns eine Nachricht, sobald die Anzeige von
+    hiermit bestätigen wir Ihnen den Eingang Ihrer Stellenanzeige <b><?=$job->getTitle() ?></b> mit der
+    Referenz <b><?=$job->getReference() ?></b>. Sie erhalten von uns eine Nachricht, sobald die Anzeige von
     freigegeben und veröffentlicht wurde.
 </p>
 <p>

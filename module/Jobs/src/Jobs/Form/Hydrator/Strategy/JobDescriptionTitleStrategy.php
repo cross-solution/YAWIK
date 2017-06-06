@@ -17,8 +17,8 @@ class JobDescriptionTitleStrategy implements StrategyInterface
     public function extract($value)
     {
         $result = null;
-        if (isset($value->templateValues)) {
-            $result = $value->templateValues->title;
+        if (method_exists($value,'templateValues')) {
+            $result = $value->getTemplateValues()->getTitle();
         }
         return $result;
     }
@@ -26,7 +26,7 @@ class JobDescriptionTitleStrategy implements StrategyInterface
     public function hydrate($value, $object = null)
     {
         if (isset($value['description-title'])) {
-            $object->templateValues->title = $value['description-title'];
+            $object->getTemplateValues()->setTitle($value['description-title']);
         }
         return;
     }

@@ -76,7 +76,7 @@ class SearchForm extends AbstractPlugin
         }
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $params           = $params ?: $this->getController()->getRequest()->getQuery();
+        $params           = $params ?: clone $this->getController()->getRequest()->getQuery();
 
         /* I tried using form methods (bind, isValid)...
          * but because the search form could be in an invalidated state

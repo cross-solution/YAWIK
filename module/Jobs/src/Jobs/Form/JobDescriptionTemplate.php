@@ -100,5 +100,14 @@ class JobDescriptionTemplate extends Container
             )
             )
         );
+
+        $this->setForms([
+                'descriptionFormHtml' => [
+                    'type' => 'Jobs/JobDescriptionHtml',
+                    'property' => true,
+                ],
+            ]);
+
+
     }
 }

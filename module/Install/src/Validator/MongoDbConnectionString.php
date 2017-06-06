@@ -46,7 +46,7 @@ class MongoDbConnectionString extends AbstractValidator
      *
      * @var string
      */
-    protected $pattern = '~^mongodb://(?:[^ :]+:[^ @]+@)?[^ :,]+(?::\d+)?(?:,[^ :,/]+(?::\d+)?)*(?:/[^ \?]+)?(?:\?[^ ]+)?$~';
+    protected $pattern = '~^mongodb://(?:[^ :]+:[^ @]+@)?[^ :,/]+(?::\d+)?(?:,[^ :,/]+(?::\d+)?)*(?:/[^ \?\.]*)?(?:\?[^ ]+)?$~';
 
     /**
      * Returns true if the passed string is a valid mongodb connection string.

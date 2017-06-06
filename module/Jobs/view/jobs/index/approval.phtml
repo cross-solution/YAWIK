@@ -1,9 +1,9 @@
 <?php //description: Renders the list of jobs. used by applicants and recruiters ?>
 <?php $this->headTitle($this->translate('Jobs'));
       $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
-                         ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
+                         ->appendFile($this->basePath('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js'))
                          ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
-                         ->appendFile($this->basePath('/js/select2.min.js'));
+                         ->appendFile($this->basePath('/assets/select2/js/select2.min.js'));
 $this->headScript()->captureStart() ?>
 /* This code is generated in jobs/index/approval.phtml
  *

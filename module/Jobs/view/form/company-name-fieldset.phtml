@@ -1,0 +1,39 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ */
+
+
+if ($this->renderSummary):
+    echo $this->summaryForm()->renderSummaryElement($this->element->get('companyId'));
+
+    /* @var Organizations\Entity\Organization $organization */
+    $organization = $this->element->getObject()->getOrganization();
+    if ($organization
+        && $organization->getWorkflowSettings()->getAcceptApplicationByDepartmentManager()
+        && $organization->getWorkflowSettings()->getAssignDepartmentManagersToJobs()
+        && ($managers = $this->element->getObject()->getMetaData('organizations:managers'))
+    ): ?>
+
+    <div class="row">
+        <div class="col-md-3 yk-label">
+            <label><?=$this->element->get('managers')->getLabel()?></label>
+        </div>
+        <div class="col-md-9">
+            <ul>
+            <?php foreach ($managers as $manager):?>
+                <li><?=$manager['name']?></li>
+            <?php endforeach ?>
+            </ul>
+        </div>
+    </div>
+
+    <?php endif;
+
+else:
+    echo $this->formCollection($this->element);
+endif;

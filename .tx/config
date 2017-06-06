@@ -84,3 +84,10 @@ source_file = module/Orders/language/messages.pot
 source_lang = en_US
 type = PO
 lang_map = de: de_DE, en: en_US
+
+[yawik.jobsbymail]
+file_filter = module/JobsByMail/language/<lang>.po
+source_file = module/JobsByMail/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US

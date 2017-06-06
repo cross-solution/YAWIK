@@ -10,10 +10,13 @@
 /** NewApplication.php */
 namespace Applications\Mail;
 
+use Applications\Entity\ApplicationInterface;
 use Auth\Entity\UserInterface;
+use Core\Exception\MissingDependencyException;
 use Jobs\Entity\JobInterface;
 use Core\Mail\StringTemplateMessage;
 use Organizations\Entity\EmployeeInterface;
+use Zend\Mvc\Router\RouteStackInterface;
 
 /**
  * Sends Information about a new Application to the recruiter
@@ -26,9 +29,9 @@ class NewApplication extends StringTemplateMessage
     /**
      * Job posting
      *
-     * @var \Jobs\Entity\Job $job
+     * @var ApplicationInterface
      */
-    protected $job;
+    protected $application;
 
     /**
      * Owner of the job posting
@@ -50,30 +53,54 @@ class NewApplication extends StringTemplateMessage
     private $callInitOnSetJob = false;
 
     /**
+     *
+     *
+     * @var RouteStackInterface
+     */
+    private $router;
+
+    /**
      * @param array $options
      */
-    public function __construct(array $options = array())
+    public function __construct($options = array())
     {
+        if (!is_array($options)) {
+            $this->router = $options;
+            $options = [];
+        } else if (isset($options['router'])) {
+            $this->router = $options['router'];
+            unset($options['router']);
+        }
+
+        if (!$this->router) {
+            throw new MissingDependencyException('Router', $this);
+        }
+
         parent::__construct($options);
         $this->callInitOnSetJob = true;
     }
-    
+
     public function init()
     {
-        if (!$this->job) {
+        if (!$this->application) {
             return false;
         }
 
         /* @var \Auth\Entity\Info $userInfo */
+        $job = $this->application->getJob();
         $userInfo = $this->user->getInfo();
         $name = $userInfo->getDisplayName();
         if ('' == trim($name)) {
             $name = $userInfo->getEmail();
         }
-        
+
         $variables = [
             'name' => $name,
-            'title' => $this->job->getTitle()
+            'title' => $job->getTitle(),
+            'link'  => $this->router->assemble(
+                            ['id' => $this->application->getId()],
+                            ['name'=>'lang/applications/detail', 'force_canonical'=>true]
+                       ),
         ];
 
         $this->setTo($this->user->getInfo()->getEmail(), $this->user->getInfo()->getDisplayName(false));
@@ -84,7 +111,7 @@ class NewApplication extends StringTemplateMessage
         if ($this->isTranslatorEnabled()) {
             $subject = $this->getTranslator()->translate($subject);
         }
-        $this->setSubject(sprintf($subject, $this->job->getTitle()));
+        $this->setSubject(sprintf($subject, $job->getTitle()));
         
         /* @var \Applications\Entity\Settings $settings */
         $settings = $this->user->getSettings('Applications');
@@ -92,9 +119,11 @@ class NewApplication extends StringTemplateMessage
         $body = $settings->getMailAccessText();
         if ('' == $body) {
             $body = /*@translate*/ "Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n";
+
             if ($this->isTranslatorEnabled()) {
                 $body = $this->getTranslator()->translate($body);
             }
+            $body .= "##link##\n\n";
         }
         
         $this->setBody($body);
@@ -102,14 +131,14 @@ class NewApplication extends StringTemplateMessage
     }
 
     /**
-     * @param JobInterface $job
+     * @param ApplicationInterface $application
      * @param bool $init
      * @return $this
      */
-    public function setJob(JobInterface $job, $init = true)
+    public function setApplication(ApplicationInterface $application, $init = true)
     {
-        $this->job = $job;
-        if ($this->callInitOnSetJob) {
+        $this->application = $application;
+        if ($this->callInitOnSetApplication) {
             $this->init();
         }
         return $this;

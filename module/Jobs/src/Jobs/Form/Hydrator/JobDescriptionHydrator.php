@@ -42,6 +42,8 @@ class JobDescriptionHydrator extends EntityHydrator
         $data['description-benefits']       = $this->extractValue('descriptionbenefits', $object);
         $data['description-qualifications'] = $this->extractValue('descriptionqualifications', $object);
         $data['description-title']          = $this->extractValue('descriptiontitle', $object);
+
+        $data['description-html']           = $object->getTemplateValues()->getHtml();
         return $data;
     }
 
@@ -53,6 +55,9 @@ class JobDescriptionHydrator extends EntityHydrator
         $this->hydrateValue('descriptionbenefits', $data, $object);
         $this->hydrateValue('descriptionqualifications', $data, $object);
         $this->hydrateValue('descriptiontitle', $data, $object);
+        if (isset($data['description-html'])) {
+            $object->getTemplateValues()->setHtml($data['description-html']);
+        }
         return $object;
     }
 }

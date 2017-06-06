@@ -11,20 +11,23 @@
     
 namespace Jobs\Entity;
 
-use Core\Entity\AbstractEntity;
+use Core\Entity\EntityTrait;
+use Core\Entity\Status\AbstractSortableStatus;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Application status entity
+ * Job status entity
  *
  * @ODM\EmbeddedDocument
  */
-class Status extends AbstractEntity implements StatusInterface
+class Status extends AbstractSortableStatus implements StatusInterface
 {
+    use EntityTrait;
+
     /**
      * status values
      */
-    protected static $orderMap = array(
+    protected static $sortMap = array(
         self::CREATED => 10,
         self::WAITING_FOR_APPROVAL => 20,
         self::REJECTED => 30,
@@ -39,6 +42,7 @@ class Status extends AbstractEntity implements StatusInterface
      *
      * @var string
      * @ODM\Field(type="string")
+     * @deprecated since 0.29, replaced by AbstractStatus::$state
      */
     protected $name;
 
@@ -47,11 +51,14 @@ class Status extends AbstractEntity implements StatusInterface
      *
      * @var int
      * @ODM\Field(type="int")
+     * @deprecated since 0.29, replaced by AbstractSortableStatus::$sort
      */
     protected $order;
 
     public function __construct($status = self::CREATED)
     {
+        parent::__construct($status);
+
         $constant = 'self::' . strtoupper(str_replace(' ', '_', $status));
         if (!defined($constant)) {
             throw new \DomainException('Unknown status: ' . $status);
@@ -63,6 +70,7 @@ class Status extends AbstractEntity implements StatusInterface
     /**
      * @see \Jobs\Entity\StatusInterface::getName()
      * @return String
+     * @deprecated since 0,29, use __toString()
      */
     public function getName()
     {
@@ -72,21 +80,39 @@ class Status extends AbstractEntity implements StatusInterface
     /**
      * @see \Jobs\Entity\StatusInterface::getOrder()
      * @return Int
+     * @deprecated since 0,29, no replacement.
      */
     public function getOrder()
     {
-        return self::$orderMap[$this->getName()];
+        return self::$sortMap[$this->getName()];
     }
 
+    /**
+     * @todo remove this some versions after 0.29
+     *
+     * @return string
+     */
     public function __toString()
     {
-        return $this->getName();
+        if (!$this->state) {
+            $this->state = $this->name;
+        }
+        return parent::__toString();
     }
 
-    public function getStates()
+    /**
+     * @todo remove this some versions after 0.29
+     *
+     * @param object|string $state
+     *
+     * @return bool
+     */
+    public function is($state)
     {
-        $states = self::$orderMap;
-        asort($states, SORT_NUMERIC);
-        return array_keys($states);
+        if (!$this->state) {
+            $this->state = $this->name;
+        }
+
+        return parent::is($state);
     }
 }

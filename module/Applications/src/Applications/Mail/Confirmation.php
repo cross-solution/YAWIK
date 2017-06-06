@@ -40,8 +40,8 @@ class Confirmation extends StringTemplateMessage
      */
     public function setVariablesFromApplication(ApplicationInterface $application)
     {
-        $contact = $application->contact;
-        $name    = $contact->displayName;
+        $contact = $application->getContact();
+        $name    = $contact->getDisplayName();
         
         $variables = array(
             'name' => $name,
@@ -56,7 +56,7 @@ class Confirmation extends StringTemplateMessage
     public function setApplication(ApplicationInterface $application)
     {
         $this->application = $application;
-        $this->setTo($application->contact->email, $application->contact->displayName);
+        $this->setTo($application->getContact()->getEmail(), $application->getContact()->getDisplayName());
         $this->setVariablesFromApplication($application);
         return $this;
     }
@@ -76,9 +76,9 @@ class Confirmation extends StringTemplateMessage
      */
     protected function getFormalSalutation()
     {
-        $contact = $this->application->contact;
-        $name    = $contact->displayName;
-        $gender  = $contact->gender;
+        $contact = $this->application->getContact();
+        $name    = $contact->getDisplayName();
+        $gender  = $contact->getGender();
         $translator = $this->getTranslator();
         
         $salutation = 'male' == $gender
@@ -93,8 +93,8 @@ class Confirmation extends StringTemplateMessage
      */
     protected function getInformalSalutation()
     {
-        $contact = $this->application->contact;
-        $name    = $contact->displayName;
+        $contact = $this->application->getContact();
+        $name    = $contact->getDisplayName();
         
         $salutation = $this->getTranslator()
                     ->translate('Hello %s');
@@ -107,7 +107,7 @@ class Confirmation extends StringTemplateMessage
      */
     protected function getJobTitle()
     {
-        return $this->application->job->title;
+        return $this->application->getJob()->getTitle();
     }
 
     /**
@@ -116,7 +116,7 @@ class Confirmation extends StringTemplateMessage
     protected function getDate()
     {
         /** @var $date \DateTime */
-        $date = $this->application->dateCreated;
+        $date = $this->application->getDateCreated();
         return strftime('%x', $date->getTimestamp());
     }
 

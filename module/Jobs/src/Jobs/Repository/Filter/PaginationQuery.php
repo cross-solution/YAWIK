@@ -15,11 +15,13 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Permissions\Acl\Acl;
 use Zend\Stdlib\Parameters;
 use Auth\Entity\UserInterface;
+use DateTime;
 
 /**
  * maps query parameters to entity attributes
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class PaginationQuery extends AbstractPaginationQuery
 {
@@ -100,9 +102,9 @@ class PaginationQuery extends AbstractPaginationQuery
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
             if (isset($params['by']) && 'me' == $params['by']) {
-                $queryBuilder->field('user')->equals($this->user->id);
+                $queryBuilder->field('user')->equals($this->user->getId());
             } else {
-                $queryBuilder->field('permissions.view')->equals($this->user->id);
+                $queryBuilder->field('permissions.view')->equals($this->user->getId());
             }
             if (
                 isset($params['status']) &&
@@ -118,6 +120,16 @@ class PaginationQuery extends AbstractPaginationQuery
              * only in the snapshot.
              */
             $queryBuilder->field('status.name')->in([Status::ACTIVE, Status::WAITING_FOR_APPROVAL]);
+        }
+        
+        if (isset($params['publishedSince'])) {
+            $publishedSince = $params['publishedSince'];
+            
+            if (!$publishedSince instanceof DateTime) {
+                $publishedSince = new DateTime($publishedSince);
+            }
+            
+            $queryBuilder->field('datePublishStart.date')->gte($publishedSince);
         }
 
         if (isset($this->value['sort'])) {

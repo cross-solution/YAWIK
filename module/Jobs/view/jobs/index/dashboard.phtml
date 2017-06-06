@@ -17,30 +17,33 @@
        </tr>
      </thead>
      <tbody>
-     <?php foreach ($this->jobs as $job):?>
+     <?php foreach ($this->jobs as $job): /* @var Jobs\Entity\Job $job */?>
      <tr>
        <td>
            <?php if ($this->acl()->isRole( Auth\Entity\User::ROLE_ADMIN )):?>
-               <a href="<?php echo $job->link ? $job->link : $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->id)), true); ?>"><?php echo $job->title ?></a></td>
+               <a href="<?php echo $job->getLink() ? $job->getLink() : $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->getId())), true); ?>">
+                   <?php echo $job->getTitle() ?></a>
            <?php else: ?>
-                <a target="_new" href="<?php echo $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>"><?php echo $job->title ?></a></td>
+                <a target="_new" href="<?php echo $job->getLink() ? $job->getLink() : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->getId())), true); ?>">
+                <?php echo $job->getTitle() ?></a>
             <?php endif ?>
+         </td>
        <td>
-       <?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none');
-              elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
+       <?php if ($job->getDatePublishStart()): echo $this->dateFormat($job->getDatePublishStart(), 'short', 'none');
+              elseif ($job->getDateCreated()): echo $this->dateFormat($job->getDateCreated(), 'short', 'none'); endif?>
        </td>
        <?php if ($this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER )):?>
        <td>     
-         <?php if ($job->applications->count()>0):?>
-            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id), true) ?>">
-            <span class="badge"><?php echo $job->applications->count() ;?></span>
+         <?php if ($job->getApplications()->count()>0):?>
+            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->getId()), true) ?>">
+            <span class="badge"><?php echo $job->getApplications()->count() ;?></span>
             </a>
          <?php endif;?>
-         <?php if ($job->unreadApplications->count()):?>       
+         <?php if ($job->getUnreadApplications()->count()):?>
             / 
             <a title="<?php echo $this->translate("unread")?>" 
-               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id . '&unread=1'), true) ?>">
-            <span class="badge"> <?php echo $job->unreadApplications->count()?></span>
+               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->getId() . '&unread=1'), true) ?>">
+            <span class="badge"> <?php echo $job->getUnreadApplications()->count()?></span>
             </a>
          <?php endif;?>
        </td>

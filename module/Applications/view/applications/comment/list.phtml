@@ -18,22 +18,21 @@
  * @author       gelhausen@cross-solution.de
  */
 ?>
-
 <?php if (count($this->comments)): ?>
 
-<?php foreach($this->comments as $comment):
-    $isOwnComment = $comment->user->id == $this->auth('id');
+<?php foreach($this->comments as $comment): /* @var \Applications\Entity\Comment $comment */
+    $isOwnComment = $comment->getUser()->getId() == $this->auth('id');
 ?>
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-9">
-                <h4 style="margin: 2px 0 0;"><?php echo $comment->user->info->displayName ?></h4>
+                <h4 style="margin: 2px 0 0;"><?php echo $comment->getUser()->getInfo()->getDisplayName() ?></h4>
                 <div style="line-height: 10px; font-size: 10px">
-                <span class="yk-icon yk-icon-new" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateCreated);?>
+                <span class="yk-icon yk-icon-new" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->getDateCreated());?>
                 
-                <?php if ($comment->dateModified) : ?><span class="yk-icon yk-icon-edit" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateModified); endif ?>
+                <?php if ($comment->getDateModified()) : ?><span class="yk-icon yk-icon-edit" style="font-size: 10px;"></span> <?=$this->dateFormat($comment->getDateModified()); endif ?>
                 
                 </div> 
                 </div>
@@ -41,7 +40,7 @@
                 <div class="pull-right panel panel-default" style="margin: 0">
                     <div class="panel-body" style="padding: 5px 10px;">
                 
-                        <?php echo $this->rating($comment->rating->average, 'compact') ?>
+                        <?php echo $this->rating($comment->getRating()->getAverage(), 'compact') ?>
                     </div>
                 </div>
                 </div>
@@ -50,11 +49,11 @@
         </div>
         <div class="panel-body">
         <?php if ($isOwnComment):?>
-                <button class="pull-right comment-edit btn btn-default btn-xs" data-comment-id="<?php echo $comment->id ?>">
+                <button class="pull-right comment-edit btn btn-default btn-xs" data-comment-id="<?php echo $comment->getId() ?>">
                     <span class="yk-icon yk-icon-edit"></span>
                 </button>
                 <?php endif?>
-            <?php echo nl2br($comment->message) ?>
+            <?php echo nl2br($comment->getMessage()) ?>
             
         </div>
         

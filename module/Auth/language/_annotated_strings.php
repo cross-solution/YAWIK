@@ -221,6 +221,3 @@ translate('recruiter');
 //: ./config/navigation.config.php:16
 translate('Users');
 
-//: ./config/navigation.config.php:22
-translate('Data');
-

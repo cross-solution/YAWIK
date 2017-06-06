@@ -30,8 +30,8 @@ $channels = $sm->get('Jobs/Options/Provider');
         echo $this->partial('jobs/history', $this->vars());
     ?>
 <?php endif; ?>
-            <a class="btn btn-warning" href="<?php echo $this->declineLink ?>"><?php echo $this->translate("Reject Job")?></a>
-            <a class="btn btn-success" href="<?php echo $this->approvalLink ?>"><?php echo $this->translate("Accept Job")?></a>
+            <a class="btn btn-warning" href="<?=$this->declineLink ?>"><?php echo $this->translate("Reject Job")?></a>
+            <a class="btn btn-success" href="<?=$this->approvalLink ?>"><?php echo $this->translate("Accept Job")?></a>
         </div>
     </div>
 </div>

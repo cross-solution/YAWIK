@@ -33,7 +33,6 @@ class GeoSelectFactory implements FactoryInterface
         $select = new GeoSelect();
 
         //$select->setAttribute('data-type', $geoOptions->getPlugin());
-        $select->setAttribute('data-uri', 'geo/' . $geoOptions->getPlugin());
 
         $client = $container->get('Geo/Client');
         $strategy = new GeoSelectHydratorStrategy($client);

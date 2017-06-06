@@ -12,7 +12,7 @@ return array(
         'Cv',
         'Settings',
         'Applications',
-        'Orders',
+//        'Orders',
         'Organizations',
     ),
 

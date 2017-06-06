@@ -18,7 +18,6 @@ use Organizations\Entity\Employee;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
-use Zend\Stdlib\Parameters;
 use Core\Entity\PermissionsInterface;
 use Jobs\Listener\Events\JobEvent;
 use Jobs\Listener\Response\JobResponse;
@@ -57,6 +56,7 @@ class ImportController extends AbstractActionController
 
         $params          = $this->params();
         $p               = $params->fromPost();
+        /* @var \Auth\Entity\User $user */
         $user            = $services->get('AuthenticationService')->getUser();
         $repositories    = $services->get('repositories');
         /* @var \Jobs\Repository\Job $repositoriesJob */
@@ -65,7 +65,7 @@ class ImportController extends AbstractActionController
 
         $result = array('token' => session_id(), 'isSaved' => false, 'message' => '', 'portals' => array());
         try {
-            if (isset($user) && !empty($user->login)) {
+            if (isset($user) && !empty($user->getLogin())) {
                 $formElementManager = $services->get('FormElementManager');
                 /* @var \Jobs\Form\Import $form */
                 $form               = $formElementManager->get('Jobs/Import');
@@ -115,6 +115,7 @@ class ImportController extends AbstractActionController
                         $entity->setStatus($params['status']);
                         /*
                          * Search responsible user via contactEmail
+                         * @var \Auth\Repository\User $users
                          */
                         $users = $repositories->get('Auth/User');
                         $responsibleUser = $users->findByEmail($params['contactEmail']);
@@ -126,7 +127,7 @@ class ImportController extends AbstractActionController
                             $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
                         }
                         $result['isSaved'] = true;
-                        $log->info('Jobs/manage/saveJob [user: ' . $user->login . ']:' . var_export($p, true));
+                        $log->info('Jobs/manage/saveJob [user: ' . $user->getLogin() . ']:' . var_export($p, true));
 
                         if (!empty($params->companyId)) {
                             $companyId                = $params->companyId . $loginSuffix;

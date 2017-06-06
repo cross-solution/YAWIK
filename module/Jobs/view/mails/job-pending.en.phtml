@@ -10,8 +10,8 @@
  /*
   * Confirmation Mail to the Customer
   */
-
-$user = $this->job->getUser();
+$job = $this->job; /* @var \Jobs\Entity\Job $job */
+$user = $job->getUser();
 $info = $user->getInfo();
 ?>
 <?php echo $this->partial('mail/header'); ?>
@@ -20,8 +20,8 @@ $info = $user->getInfo();
          : 'Dear Mrs ' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
 
 <p>
-    We hereby acknowledge receipt of your job announcement with the headline <b></b><?php echo $this->job->getTitle() ?></b>
-    and the reference  <b><?php echo $this->job->getReference() ?></b>. You will receive a message as soon as the ad is
+    We hereby acknowledge receipt of your job announcement with the headline <b><?=$job->getTitle() ?></b>
+    and the reference  <b><?=$job->getReference() ?></b>. You will receive a message as soon as the ad is
     approved and published.
 </p>
 <p>

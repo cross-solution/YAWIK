@@ -63,7 +63,7 @@ translate('if checked, you\'ll be informed by mail about new applications.');
 translate('Mailtext');
 
 //: ./src/Applications/Form/SettingsFieldset.php:56
-translate('default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>');
+translate('default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li><li>##link## = Url of the application detail page</li></ul>');
 
 //: ./src/Applications/Form/SettingsFieldset.php:62
 translate('confirm application immidiatly after submit');
@@ -221,13 +221,13 @@ translate('Application has been successfully moved to Talent Pool');
 //: ./src/Applications/Controller/ApplyController.php:185
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:358
+//: ./src/Applications/Controller/ApplyController.php:361
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:364
+//: ./src/Applications/Controller/ApplyController.php:367
 translate('Mail has been send');
 
-//: ./src/Applications/Controller/ApplyController.php:380
+//: ./src/Applications/Controller/ApplyController.php:383
 translate('Application has been send.');
 
 //: ./src/Applications/Controller/MultimanageController.php:138
@@ -239,16 +239,16 @@ translate('%d Application(s) has been successfully moved to Talent Pool');
 //: ./src/Applications/Controller/CommentController.php:107
 translate('Application was rated by %s');
 
-//: ./src/Applications/Listener/EventApplicationCreated.php:119
+//: ./src/Applications/Listener/EventApplicationCreated.php:131
 translate('Application confirmation');
 
 //: ./src/Applications/Mail/Forward.php:58
 translate('Fwd: Application to "%s" dated %s');
 
-//: ./src/Applications/Mail/NewApplication.php:82
+//: ./src/Applications/Mail/NewApplication.php:109
 translate('New application for your vacancy "%s"');
 
-//: ./src/Applications/Mail/NewApplication.php:94
+//: ./src/Applications/Mail/NewApplication.php:121
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
 //: ./src/Applications/Factory/Form/AttachmentsFactory.php:79

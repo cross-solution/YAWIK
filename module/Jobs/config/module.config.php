@@ -1,66 +1,66 @@
 <?php
 
-return array(
-    'doctrine' => array(
-        'driver' => array(
-            'odm_default' => array(
-                'drivers' => array(
+return [
+    'doctrine' => [
+        'driver' => [
+            'odm_default' => [
+                'drivers' => [
                     'Jobs\Entity' => 'annotation',
-                ),
-            ),
-            'annotation' => array(
+                ],
+            ],
+            'annotation' => [
                 /*
                  * All drivers (except DriverChain) require paths to work on. You
                  * may set this value as a string (for a single path) or an array
                  * for multiple paths.
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
-                'paths' => array( __DIR__ . '/../src/Jobs/Entity'),
-            ),
-        ),
-        'eventmanager' => array(
-            'odm_default' => array(
-                'subscribers' => array(
+                'paths' => [ __DIR__ . '/../src/Jobs/Entity'],
+            ],
+        ],
+        'eventmanager' => [
+            'odm_default' => [
+                'subscribers' => [
                     '\Jobs\Repository\Event\UpdatePermissionsSubscriber',
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
 
     'options' => [
         'Jobs/JobboardSearchOptions' => [ 'class' => '\Jobs\Options\JobboardSearchOptions' ],
         'Jobs/BaseFieldsetOptions' => [ 'class' => '\Jobs\Options\BaseFieldsetOptions' ],
     ],
 
-    'Jobs' => array(
-        'dashboard' => array(
+    'Jobs' => [
+        'dashboard' => [
             'enabled' => true,
-            'widgets' => array(
-                'recentJobs' => array(
+            'widgets' => [
+                'recentJobs' => [
                     'controller' => 'Jobs/Index',
-                    'params' => array(
+                    'params' => [
                         'type' => 'recent'
-                    ),
-                ),
-            ),
-        ),
-    ),
+                    ],
+                ],
+            ],
+        ],
+    ],
 
     // Translations
-    'translator' => array(
-            'translation_file_patterns' => array(
-                    array(
+    'translator' => [
+            'translation_file_patterns' => [
+                    [
                             'type'     => 'gettext',
                             'base_dir' => __DIR__ . '/../language',
                             'pattern'  => '%s.mo',
-                    ),
-            ),
-    ),
+                    ],
+            ],
+    ],
 
-    'acl' => array(
-        'rules' => array(
-            'recruiter' => array(
-                'allow' => array(
+    'acl' => [
+        'rules' => [
+            'recruiter' => [
+                'allow' => [
                     'Jobs',
                     'JobList',
                     'Jobs/Manage' => [
@@ -77,72 +77,73 @@ return array(
                     'JobboardRecruiter',
                     'route/lang/jobs/manage',
                     'route/lang/jobs/template',
-                    'Entity/Jobs/Job' => array(
+                    'Entity/Jobs/Job' => [
                         'edit' => 'Jobs/Write',
-                    ),
-                ),
-                'deny' => array(
+                    ],
+                ],
+                'deny' => [
                     'Jobboard',
                     'route/lang/jobs/approval',
-                ),
-            ),
-            'guest' => array(
-                'allow' => array(
+                ],
+            ],
+            'guest' => [
+                'allow' => [
                     'Jobboard',
                     'Jobs/Jobboard',
                     'Jobs/ApiJobListByChannel',
                     'Jobs/Template' => [ 'view', 'edittemplate' ],
-                    'Jobs/Manage' => array(
+                    'Jobs/Manage' => [
                         'template',
-                    ),
+                    ],
                     'Jobs/ApiJobList',
                     'Jobs/ApiJobListByOrganization',
                     'route/lang/jobs/template',
                     'route/lang/jobboard',
-                ),
+                ],
                 'deny' => 'JobList'
-            ),
-            'applicant' => array(
-                'allow' => array(
+            ],
+            'applicant' => [
+                'allow' => [
                     'Jobboard'
-                ),
-            ),
-            'admin' => array(
-                'allow' => array(
+                ],
+            ],
+            'admin' => [
+                'allow' => [
                     'route/lang/jobs/approval',
                     'route/auth-logout',
                     'route/lang/my',
                     'Jobboard',
                     'route/lang/my-password',
-                    'Jobs/Manage' => array(
+                    'Jobs/Manage' => [
                         'approval',
-                    ),
+                    ],
                     //'route/lang/jobs/listOpenJobs',
                     'pendingJobs',
-                ),
-                'deny' => array(
+                    'Entity/Jobs/Job' => ['delete'],
+                ],
+                'deny' => [
                     'lang/jobs',
-                )
-            )
-        ),
-        'assertions' => array(
-            'invokables' => array(
+                ]
+            ]
+        ],
+        'assertions' => [
+            'invokables' => [
                 'Jobs/Write' => 'Jobs\Acl\WriteAssertion',
                 'Jobs/Create' => 'Jobs\Acl\CreateAssertion',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
 
-    'navigation' => array(
-        'default' => array(
+    'navigation' => [
+        'default' => [
             'admin' => [
                 'pages' => [
                     'jobs' => [
                         'label' => /*@translate*/ 'Jobs',
                         'route' => 'lang/admin/jobs',
-                        'query' => array(
+                        'query' => [
                             'clear' => '1'
-                        ),
+                        ],
                     ],
                     'jobs-categories' => [
                         'label' => /*@translate*/ 'Jobs categories',
@@ -150,60 +151,60 @@ return array(
                     ],
                 ],
             ],
-            'jobboard' => array(
+            'jobboard' => [
                 'label' =>  /*@translate*/ 'Jobboard',
                 'route' => 'lang/jobboard',
                 'order' => '30',
                 'resource' => 'Jobboard',
-            ),
-            'jobs' => array(
+            ],
+            'jobs' => [
                 'label' =>  /*@translate*/ 'Jobs',
                 'route' => 'lang/jobs',
                 'order' => '30',
                 'resource' => 'Jobs',
-                'pages' => array(
-                    'list' => array(
+                'pages' => [
+                    'list' => [
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/jobs',
                         'resource' => 'JobList'
-                    ),
+                    ],
 //                    'pending-list' => array(
 //                        'label' => /*@translate*/ 'Pending jobs',
 //                        'route' => 'lang/jobs/listOpenJobs',
 //                        'resource' => 'pendingJobs'
 //                    ),
-                    'new' => array(
+                    'new' => [
                         'label' => /*@translate*/ 'Create job',
                         'route' => 'lang/jobs/manage',
                         'resource' => 'route/lang/jobs/manage',
-                        'params' => array(
+                        'params' => [
                             'action' => 'edit'
-                        ),
+                        ],
                         'id' => 'Jobs/new',
-                    ),
-                    'edit' => array(
+                    ],
+                    'edit' => [
                         'label' => /*@translate*/ 'Edit job',
                         'resource' => 'route/lang/jobs/manage',
                         'uri' => '#',
                         'visible' => false,
                         'id' => 'Jobs/edit'
-                    ),
+                    ],
 //                    'jobboard-recruiter' => array(
 //                        'label' =>  /*@translate*/ 'Jobboard',
 //                        'route' => 'lang/jobboard',
 //                        'order' => '30',
 //                        'resource' => 'JobboardRecruiter',
 //                    ),
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
 
-    'service_manager' => array(
-        'invokables' => array(
+    'service_manager' => [
+        'invokables' => [
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
             'Jobs/Options/Provider'                       => 'Jobs\Factory\Options\ProviderOptionsFactory',
             'Jobs/Options/Channel'                        => 'Jobs\Factory\Options\ChannelOptionsFactory',
@@ -219,13 +220,17 @@ return array(
             'Jobs/PreviewLinkHydrator'                    => 'Jobs\Form\Hydrator\PreviewLinkHydrator::factory',
             'Jobs\Auth\Dependency\ListListener'           => 'Jobs\Factory\Auth\Dependency\ListListenerFactory',
             'Jobs/DefaultCategoriesBuilder'              => 'Jobs\Factory\Repository\DefaultCategoriesBuilderFactory',
+            \Jobs\Listener\DeleteJob::class               => \Jobs\Factory\Listener\DeleteJobFactory::class,
+            \Jobs\Listener\GetOrganizationManagers::class => \Jobs\Factory\Listener\GetOrganizationManagersFactory::class,
+            \Jobs\Listener\LoadActiveOrganizations::class => \Jobs\Factory\Listener\LoadActiveOrganizationsFactory::class,
 
-        ),
-        'shared' => array(
+        ],
+        'shared' => [
             'Jobs/Event' => false,
             'Jobs/Options/Channel' => false,
-        )
-    ),
+        ]
+    ],
+
 
     'event_manager' => [
         'Core/AdminController/Events' => [ 'listeners' => [
@@ -246,8 +251,15 @@ return array(
                     /* lazy */ true
                 ]
             ]
-        ]
+        ],
+        'Core/Ajax/Events' => ['listeners' => [
+            \Jobs\Listener\DeleteJob::class => ['jobs.delete', true],
+            \Jobs\Listener\GetOrganizationManagers::class => ['jobs.manager-select', true],
+            \Jobs\Listener\LoadActiveOrganizations::class => [ 'jobs.admin.activeorganizations', true],
+
+        ]],
     ],
+
 
     'controllers' => [
         'invokables' => [
@@ -275,21 +287,22 @@ return array(
         ],
     ],
 
-    'paginator_manager' => array(
-        'invokables' => array(
-        ),
-        'factories' => array(
+    'paginator_manager' => [
+        'invokables' => [
+        ],
+        'factories' => [
             'Jobs/Job'   => 'Jobs\Paginator\JobsPaginatorFactory',
             'Jobs/Admin' => 'Jobs\Paginator\JobsAdminPaginatorFactory',
-        ),
-        'aliases' => array(
+            'Jobs\Paginator\ActiveOrganizations' => \Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory::class,
+        ],
+        'aliases' => [
             'Jobs/Board' => 'Jobs/Job'
-        )
-    ),
+        ]
+    ],
 
-    'view_manager' => array(
+    'view_manager' => [
         // Map template to files. Speeds up the lookup through the template stack.
-        'template_map' => array(
+        'template_map' => [
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
             'jobs/form/hiring-organization-select' => __DIR__ . '/../view/form/hiring-organization-select.phtml',
@@ -297,6 +310,7 @@ return array(
             'jobs/form/multiposting-checkboxes' => __DIR__ . '/../view/form/multiposting-checkboxes.phtml',
             'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
             'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
+            'jobs/form/company-name-fieldset' => __DIR__ . '/../view/form/company-name-fieldset.phtml',
             'jobs/form/preview' => __DIR__ . '/../view/form/preview.phtml',
             'jobs/form/customer-note' => __DIR__ . '/../view/form/customer-note.phtml',
             'jobs/partials/channel-list' => __DIR__ . '/../view/partials/channel-list.phtml',
@@ -319,30 +333,30 @@ return array(
             'mail/job-rejected.en' => __DIR__ . '/../view/mails/job-rejected.en.phtml',
             'jobs/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
             'jobs/error/expired' => __DIR__ . '/../view/error/expired.phtml',
-        ),
+        ],
 
         // Where to look for view templates not mapped above
-        'template_path_stack' => array(
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-    ),
+        ],
+    ],
 
-    'view_helpers' => array(
-        'invokables' => array(
+    'view_helpers' => [
+        'invokables' => [
             'jobPreviewLink' => 'Jobs\Form\View\Helper\PreviewLink',
             'jobApplyButtons' => 'Jobs\View\Helper\ApplyButtons'
 
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'applyUrl' => 'Jobs\Factory\View\Helper\ApplyUrlFactory',
             'jobUrl' => 'Jobs\Factory\View\Helper\JobUrlFactory',
             'Jobs/AdminEditLink' => 'Jobs\Factory\View\Helper\AdminEditLinkFactory',
-        ),
+        ],
 
-    ),
+    ],
 
-    'form_elements' => array(
-        'invokables' => array(
+    'form_elements' => [
+        'invokables' => [
             'Jobs/Base'                         => 'Jobs\Form\Base',
             'Jobs/Employers'                    => 'Jobs\Form\JobEmployers',
             'Jobs/JobEmployersFieldset'         => 'Jobs\Form\JobEmployersFieldset',
@@ -360,6 +374,7 @@ return array(
             'Jobs/TemplateLabelBenefits'        => 'Jobs\Form\TemplateLabelBenefits',
             'Jobs/JobDescriptionQualifications' => 'Jobs\Form\JobDescriptionQualifications',
             'Jobs/JobDescriptionTitle'          => 'Jobs\Form\JobDescriptionTitle',
+            'Jobs/JobDescriptionHtml'           => 'Jobs\Form\JobDescriptionHtml',
             'Jobs/Description/Template'         => 'Jobs\Form\JobDescriptionTemplate',
             'Jobs/Preview'                      => 'Jobs\Form\Preview',
             'Jobs/PreviewFieldset'              => 'Jobs\Form\PreviewFieldset',
@@ -383,9 +398,10 @@ return array(
             'Jobs/ClassificationsFieldset'      => 'Jobs\Form\ClassificationsFieldset',
             'Jobs/CustomerNote'                 => 'Jobs\Form\CustomerNote',
             'Jobs/CustomerNoteFieldset'         => 'Jobs\Form\CustomerNoteFieldset',
+            'Jobs/ManagerSelect'                => 'Jobs\Form\Element\ManagerSelect',
 
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'Jobs/Job'                          => 'Jobs\Factory\Form\JobFactory',
             'Jobs/BaseFieldset'                 => 'Jobs\Factory\Form\BaseFieldsetFactory',
             'Jobs/ListFilterLocationFieldset'   => 'Jobs\Factory\Form\ListFilterLocationFieldsetFactory',
@@ -395,38 +411,38 @@ return array(
             'Jobs/ActiveOrganizationSelect'     => 'Jobs\Factory\Form\ActiveOrganizationSelectFactory',
             'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingMultiCheckboxFactory',
             'Jobs/Import'                       => 'Jobs\Factory\Form\ImportFactory',
-        )
-    ),
+        ]
+    ],
 
-    'input_filters' => array(
-        'invokables' => array(
+    'input_filters' => [
+        'invokables' => [
             'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
             'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
             'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'Jobs/AtsMode'                      => 'Jobs\Factory\Form\InputFilter\AtsModeFactory',
-        )
-    ),
+        ]
+    ],
 
-    'filters' => array(
+    'filters' => [
         'invokables' => [
             'Jobs/PaginationAdminQuery' => 'Jobs\Repository\Filter\PaginationAdminQuery',
         ],
-        'factories'=> array(
+        'factories'=> [
             'Jobs/PaginationQuery'      => 'Jobs\Factory\Repository\Filter\PaginationQueryFactory',
             'Jobs/ChannelPrices'        => 'Jobs\Factory\Filter\ChannelPricesFactory',
-        ),
-    ),
+        ],
+    ],
 
-    'validators' => array(
-        'factories' => array(
+    'validators' => [
+        'factories' => [
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
-        ),
-    ),
+        ],
+    ],
 
 
 
 
 
-);
+];

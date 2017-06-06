@@ -192,16 +192,19 @@ class ApplyController extends AbstractActionController
     {
         /* @var \Applications\Form\Apply $form */
         $form        = $this->container;
-        $application = $form->getEntity();
+        $application = $form->getEntity(); /* @var \Applications\Entity\Application $application */
         
-        $form->setParam('applicationId', $application->id);
+        $form->setParam('applicationId', $application->getId());
+
+        $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
 
         $model = new ViewModel(
-            array(
+            [
             'form' => $form,
             'isApplicationValid' => $this->checkApplication($application),
             'application' => $application,
-            )
+            'organizationImageCache' =>  $organizationImageCache
+            ]
         );
         $model->setTemplate('applications/apply/index');
         return $model;
@@ -339,6 +342,7 @@ class ApplyController extends AbstractActionController
         $config       = $services->get('Config');
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
+        $organizationImageCache = $services->get('Organizations\ImageFileCache\Manager');
         /* @var Application $application*/
         $application  = $repository->findDraft(
             $this->auth()->getUser(),
@@ -380,6 +384,7 @@ class ApplyController extends AbstractActionController
             //$this->notification()->success(/*@translate*/ 'Application has been send.');
             $model = new ViewModel(
                 array(
+                'organizationImageCache' =>  $organizationImageCache,
                 'success' => true,
                 'job' => $jobEntity,
                 )
@@ -403,6 +408,7 @@ class ApplyController extends AbstractActionController
             array(
             'success' => true,
             'application' => $application,
+            'organizationImageCache' =>  $organizationImageCache,
             )
         );
         $model->setTemplate('applications/apply/index');

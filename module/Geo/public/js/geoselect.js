@@ -54,11 +54,15 @@
             minimumInputLength: 2,
 
             ajax: {
-                url: basePath + '/' + lang + '/' + $node.data('uri'),
+                url: basePath + '/',
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
-                    return { q: params.term };
+                    return {
+                        q: params.term,
+                        ajax: 'geo',
+                        lang: lang
+                    };
                 },
                 processResults: function(data, params) {
                     console.debug('results:', data);
@@ -86,20 +90,29 @@
             $node.prepend($option);
             $node.trigger('change');
         }
+        
+        $node.parents('form').on('reset.geoselect', function(event) {
+            window.setTimeout(function() {
+                $node.val('').trigger('change');
+            }, 10)
+        })
     }
 
-    $(function() {
-        $('select.geoselect').each(function() {
-            var $select = $(this);
-            setupGeoSelect($select);
-            $select.parents('form').on('reset.geoselect', function(event) {
-                window.setTimeout(function() {
-                    $select.val('').trigger('change');
-                }, 10)
-            })
-        });
-    });
+    $.fn.geoSelect = function () {
+        return this.each(function () {
+            var $this = $(this);
+            var data = $this.data('geoSelectInitialized');
 
+            if (!data) {
+                $this.data('geoSelectInitialized', true);
+                setupGeoSelect($this);
+            }
+        });
+    };
+    
+    $(function() {
+        $('select.geoselect').geoSelect();
+    });
 
 })(jQuery); 
  

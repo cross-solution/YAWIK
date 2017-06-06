@@ -13,6 +13,7 @@
 /** Core */
 namespace Core;
 
+use Core\Listener\AjaxRouteListener;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
@@ -103,6 +104,9 @@ class Module implements ConsoleBannerProviderInterface
             $ajaxRenderListener = new AjaxRenderListener();
             $ajaxRenderListener->attach($eventManager);
 
+            $ajaxRouteListener = $sm->get(AjaxRouteListener::class);
+            $ajaxRouteListener->attach($eventManager);
+
             $xmlRenderListener = new XmlRenderListener();
             $xmlRenderListener->attach($eventManager);
         
@@ -120,9 +124,7 @@ class Module implements ConsoleBannerProviderInterface
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($notificationAjaxHandler, 'injectView'), -20);
         $notificationListener->attach(NotificationEvent::EVENT_NOTIFICATION_HTML, array($notificationAjaxHandler, 'render'), -20);
         
-        $persistenceListener = new PersistenceListener();
-        $persistenceListener->attach($eventManager);
-        
+
         $eventManager->attach(
             MvcEvent::EVENT_DISPATCH_ERROR,
             function ($event) {

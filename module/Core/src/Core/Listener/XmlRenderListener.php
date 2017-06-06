@@ -11,6 +11,13 @@ use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\JsonModel;
 
+/**
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo   write test
+ * @since 0.30 - do nothing if no route matched.
+ */
 class XmlRenderListener implements ListenerAggregateInterface
 {
 
@@ -70,9 +77,18 @@ class XmlRenderListener implements ListenerAggregateInterface
             }
         }
     }
-    
+
+    /**
+     *
+     *
+     * @param MvcEvent $e
+     *
+     * @since 0.30 - Return early if no $routeMatch is set.
+     */
     public function injectXmlTemplate(MvcEvent $e)
     {
+        if (!($routeMatch = $e->getRouteMatch())) { return; };
+
         $format = $e->getRouteMatch()->getParam('format',"html");
         $channel = $e->getRouteMatch()->getParam('channel',"default");
 

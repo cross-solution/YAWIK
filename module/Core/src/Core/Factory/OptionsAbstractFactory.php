@@ -19,6 +19,7 @@ use Zend\Stdlib\AbstractOptions;
  * Creates options instances from configuration specifications.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since  0.23
  */
 class OptionsAbstractFactory implements AbstractFactoryInterface
@@ -174,7 +175,6 @@ class OptionsAbstractFactory implements AbstractFactoryInterface
      * Returns FALSE if configuration cannot be found.
      *
      * @param string $fullName
-     * @param string $normalizedName
      *
      * @return array|bool
      */

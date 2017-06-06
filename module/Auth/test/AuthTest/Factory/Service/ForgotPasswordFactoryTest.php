@@ -10,6 +10,7 @@
 namespace AuthTest\Factory\Service;
 
 use Auth\Factory\Service\ForgotPasswordFactory;
+use Core\EventManager\EventManager;
 use Test\Bootstrap;
 
 class ForgotPasswordFactoryTest extends \PHPUnit_Framework_TestCase
@@ -44,7 +45,11 @@ class ForgotPasswordFactoryTest extends \PHPUnit_Framework_TestCase
 
         $sm->setService('repositories', $repositoriesMock);
 
+        $events = new EventManager();
+        $sm->setService('Auth/Events', $events);
+
         $result = $this->testedObj->createService($sm);
         $this->assertInstanceOf('Auth\Service\ForgotPassword', $result);
+        $this->assertSame($events, $result->getEventManager());
     }
 }

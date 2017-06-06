@@ -11,7 +11,9 @@
 namespace Organizations\Mail;
 
 use Auth\Entity\UserInterface;
+use Core\Mail\HTMLTemplateMessage;
 use Interop\Container\ContainerInterface;
+use Organizations\ImageFileCache\ODMListener;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -20,6 +22,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * This Factory creates and configures the HTMLTemplateMail send to an invited person.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since  0.19
  */
 class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOptionsInterface
@@ -37,6 +40,7 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
      * @param  ContainerInterface $container
      * @param  string             $requestedName
      * @param  null|array         $options
+     * @TODO   fix method description, this method is not used to create an ODMListener but it will configure HTMLTemplateMail
      *
      * @return ODMListener
      */
@@ -82,7 +86,7 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
                 $user->getOrganization()->getOrganization()->getOrganizationName()->getName();
         }
 
-        $mail = $container->get('MailService')->get('htmltemplate');
+        $mail = $container->get('Core/MailService')->get('htmltemplate');
         $mail->setTemplate($this->options['template'])
                 ->setVariables($variables)
                 ->setSubject(
@@ -121,8 +125,6 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
         $this->options = $options;
     }
 
-
-
     /**
      * Create service
      *
@@ -133,7 +135,6 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Core\Mail\MailService */
-        return $this($serviceLocator->getServiceLocator(), ODMListener::class);
-
+        return $this($serviceLocator->getServiceLocator(), HTMLTemplateMessage::class);
     }
 }

@@ -37,6 +37,7 @@ return [
     'service_manager' => [
         'factories' => [
             'Geo/Client' => 'Geo\Factory\Service\ClientFactory',
+            \Geo\Listener\AjaxQuery::class => \Geo\Factory\Listener\AjaxQueryFactory::class,
         ],
     ],
 
@@ -45,14 +46,6 @@ return [
             'Geo\Controller\Index' => 'Geo\Factory\Controller\IndexControllerFactory',
         )
     ),
-    'controller_plugins' => array(
-        'factories' => array(
-        ),
-        'invokables' => array(
-            'geo/geo' => 'Geo\Controller\Plugin\Geo',
-            'geo/photon' => 'Geo\Controller\Plugin\Photon',
-            ),
-        ),
     
     // Routes
     'router' => array(
@@ -103,5 +96,11 @@ return [
             __DIR__ . '/../view',
         ),
     ),
+
+    'event_manager' => [
+        'Core/Ajax/Events' => ['listeners' => [
+            \Geo\Listener\AjaxQuery::class => ['geo', true],
+        ]]
+    ],
 
 ];

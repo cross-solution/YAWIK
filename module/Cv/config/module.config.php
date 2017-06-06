@@ -1,75 +1,75 @@
 <?php
-return array(
+return [
     
-    'doctrine' => array(
-        'driver' => array(
-            'odm_default' => array(
-                'drivers' => array(
+    'doctrine' => [
+        'driver' => [
+            'odm_default' => [
+                'drivers' => [
                     'Cv\Entity' => 'annotation',
-                ),
-            ),
-            'annotation' => array(
+                ],
+            ],
+            'annotation' => [
                 /*
                  * All drivers (except DriverChain) require paths to work on. You
                  * may set this value as a string (for a single path) or an array
                  * for multiple paths.
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
-                'paths' => array( __DIR__ . '/../src/Cv/Entity'),
-            ),
-        ),
-        'eventmanager' => array(
-            'odm_default' => array(
-                'subscribers' => array(
+                'paths' => [ __DIR__ . '/../src/Cv/Entity'],
+            ],
+        ],
+        'eventmanager' => [
+            'odm_default' => [
+                'subscribers' => [
                     '\Cv\Repository\Event\InjectContactListener',
                     '\Cv\Repository\Event\DeleteRemovedAttachmentsSubscriber',
                     '\Cv\Repository\Event\UpdateFilesPermissionsSubscriber',
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
     
     
     
     // Translations
-    'translator' => array(
-        'translation_file_patterns' => array(
-            array(
+    'translator' => [
+        'translation_file_patterns' => [
+            [
                 'type'     => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern'  => '%s.mo',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     
     // Routes
     /* DISABLED until module is fixed */
     // TODO: Remove comments when module is fixed.
-    'router' => array(
-        'routes' => array(
-            'lang' => array(
-                'child_routes' => array(
-                    'cvs' => array(
+    'router' => [
+        'routes' => [
+            'lang' => [
+                'child_routes' => [
+                    'cvs' => [
                         'type' => 'Literal',
-                        'options' => array(
+                        'options' => [
                             'route'    => '/cvs',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'Cv/Index',
                                 'action'     => 'index',
-                            ),
-                        ),
+                            ],
+                        ],
                         'may_terminate' => true,
-                        'child_routes' => array(
-                            'create' => array(
+                        'child_routes' => [
+                            'create' => [
                                 'type' => 'Literal',
-                                'options' => array(
+                                'options' => [
                                     'route' => '/create',
-                                    'defaults' => array(
+                                    'defaults' => [
                                         'controller' => 'Cv\Controller\Manage',
                                         'action' => 'form'
-                                    ),
-                                ),
-                            ),
+                                    ],
+                                ],
+                            ],
                             'edit' => [
                                 'type' => 'Segment',
                                 'options' => [
@@ -89,8 +89,8 @@ return array(
                                     ],
                                 ],
                             ],
-                        ),
-                    ),
+                        ],
+                    ],
                     'my-cv' => [
                         'type' => 'Literal',
                         'options' => [
@@ -102,21 +102,21 @@ return array(
                             ],
                         ],
                     ],
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
     
-    'acl' => array(
-        'rules' => array(
-            'user' => array(
-                'allow' => array(
+    'acl' => [
+        'rules' => [
+            'user' => [
+                'allow' => [
                     'route/lang/my-cv',
                     'Cv\Controller\Manage',
                     'navigation/resume-user',
                     'Cv/Status' => ['change'],
-                ),
-            ),
+                ],
+            ],
             'recruiter' => [
                 'deny' => [
                     'route/lang/my-cv',
@@ -132,80 +132,86 @@ return array(
                     ],
                 ],
             ],
-        ),
+        ],
         'assertions' => [
             'invokables' => [
                 'Cv/MayView'   => 'Cv\Acl\Assertion\MayViewCv',
                 'Cv/MayChange' => 'Cv\Acl\Assertion\MayChangeCv',
             ],
         ],
-    ),
+    ],
     
     // Configuration of the controller service manager (Which loads controllers)
-    'controllers' => array(
-        'invokables' => array(
+    'controllers' => [
+        'invokables' => [
             //'Cv\Controller\Index' => 'Cv\Controller\IndexController',
             'Cv\Controller\Manage' => 'Cv\Controller\ManageController',
-        ),
-        'factories' => array(
-            'Cv/Index' => 'Cv\Factory\Controller\IndexControllerFactory',
+        ],
+        'factories' => [
+            \Cv\Controller\IndexController::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
             'Cv/View'  => 'Cv\Factory\Controller\ViewControllerFactory',
-        ),
-    ),
+        ],
+        'aliases' => [
+            'Cv/Index' => \Cv\Controller\IndexController::class,
+        ]
+    ],
     
     // Navigation
     // Disabled until module is fixed
     // TODO: Remove comments when module is fixed
-    'navigation' => array(
-        'default' => array(
-            'resume-recruiter' => array(
+    'navigation' => [
+        'default' => [
+            'resume-recruiter' => [
                 'label' =>  /*@translate*/ 'Talent-Pool',
                 'route' => 'lang/cvs',
                 'active_on' => [ 'lang/cvs/edit', 'lang/cvs/view' ],
                 'resource' => 'navigation/resume-recruiter',
                 'order' => 10,
-                'pages' => array(
-                    'list' => array(
+                'query' => [
+                    'clear' => '1'
+                ],
+                'pages' => [
+                    'list' => [
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/cvs',
-                    ),
-                    'create' => array(
+                    ],
+                    'create' => [
                         'label' => /*@translate*/ 'Create resume',
                         'route' => 'lang/cvs/create',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'resume-user' => [
                 'label' => /*@translate*/ 'Resume',
                 'route' => 'lang/my-cv',
                 'resource' => 'navigation/resume-user',
                 'order' => 10
             ],
-        ),
-    ),
+        ],
+    ],
     
-    'view_manager' => array(
+    'view_manager' => [
         
     
         // Map template to files. Speeds up the lookup through the template stack.
-        'template_map' => array(
+        'template_map' => [
             'cv/form/employment.view' => __DIR__ . '/../view/cv/form/employment.view.phtml',
             'cv/form/employment.form' => __DIR__ . '/../view/cv/form/employment.form.phtml',
             'cv/form/education.view' => __DIR__ . '/../view/cv/form/education.view.phtml',
             'cv/form/education.form' => __DIR__ . '/../view/cv/form/education.form.phtml'
-        ),
+        ],
     
         // Where to look for view templates not mapped above
-        'template_path_stack' => array(
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-    ),
+        ],
+    ],
 
-    'filters' => array(
-        'factories' => array(
+    'filters' => [
+        'factories' => [
             'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
-        ),
-    ),
+        ],
+    ],
     
     'input_filters' => [
         'invokables' => [
@@ -214,14 +220,14 @@ return array(
         ],
     ],
 
-    'paginator_manager' => array(
-        'factories' => array(
+    'paginator_manager' => [
+        'factories' => [
             'Cv/Paginator' => 'Cv\Paginator\PaginatorFactory',
-        ),
-    ),
+        ],
+    ],
     
-    'form_elements' => array(
-        'invokables' => array(
+    'form_elements' => [
+        'invokables' => [
             'CvContainer'       => '\Cv\Form\CvContainer',
             'EducationFieldset' => '\Cv\Form\EducationFieldset',
             'EmploymentFieldset' => '\Cv\Form\EmploymentFieldset',
@@ -236,8 +242,8 @@ return array(
             'Cv/NativeLanguageForm' => '\Cv\Form\NativeLanguageForm',
             'Cv/NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
             'Cv/SearchForm' => '\Cv\Form\SearchForm',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'CvEmploymentCollection' => '\Cv\Factory\Form\EmploymentCollectionFactory',
             'CvEducationCollection' => '\Cv\Factory\Form\EducationCollectionFactory',
             'CvSkillCollection' => '\Cv\Factory\Form\SkillCollectionFactory',
@@ -246,12 +252,12 @@ return array(
             'Cv/PreferredJobFieldset' => '\Cv\Factory\Form\PreferredJobFieldsetFactory',
             'Cv/SearchFormFieldset' => '\Cv\Factory\Form\SearchFormFieldsetFactory',
             'Cv/Attachments' => '\Cv\Factory\Form\AttachmentsFormFactory',
-        ),
-    ),
+        ],
+    ],
     
     'options' => [
         'Cv/Options' => [
             'class' => '\Cv\Options\ModuleOptions'
         ]
     ]
-);
+];

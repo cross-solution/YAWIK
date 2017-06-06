@@ -13,12 +13,29 @@ namespace Settings\Listener;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\MvcEvent;
 
+/**
+ *
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @todo   write test
+ * @since 0.30 return early if no route matched.
+ */
 class InjectSubNavigationListener
 {
-    
+
+    /**
+     *
+     *
+     * @param MvcEvent $event
+     * @since 0.30 return early if no route matched.
+     */
     public function __invoke(MvcEvent $event)
     {
-        if ($event->getViewModel()->terminate()) {
+        $routeMatch   = $event->getRouteMatch();
+        $router       = $event->getRouter();
+
+        if ($event->getViewModel()->terminate() || !$routeMatch) {
             /*
              * No need for navigation when it is not rendered anyway.
              */
@@ -42,11 +59,7 @@ class InjectSubNavigationListener
         $modules             = $moduleManager->getLoadedModules();
         $modulesWithSettings = $configPlugin("settings", array_keys($modules));
         
-        $routeMatch   = $event->getRouteMatch();
-        $router       = $event->getRouter();
-        if (!$routeMatch) {
-            throw new \InvalidArgumentException('Could not get a Route Match. route is invalid.');
-        }
+
         $activeModule = $event->getParam('__settings_active_module', false);
         $settingsMenu->setActive((bool) $activeModule);
 

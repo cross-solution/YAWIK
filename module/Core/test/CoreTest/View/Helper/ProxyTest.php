@@ -24,8 +24,6 @@ use Zend\View\Renderer\RendererInterface;
  * Tests for \Core\View\Helper\Proxy
  * 
  * @covers \Core\View\Helper\Proxy
- * @covers \Core\View\Helper\Proxy\NoopHelper
- * @covers \Core\View\Helper\Proxy\NoopIterator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.View
@@ -43,8 +41,8 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
     private $target = [
         Proxy::class,
         '@testInvokationInvokesInvokableHelpers' => '#mockPlugin',
-        '@testInvokationReturnsNonInvokablePlugin' => '#mockPlugin',
-        '@testInvokationReturnsExpectedValues' => '#mockPlugin',
+        '@testInvokationReturnsHelperProxyIfOnlyOneArgument' => '#mockPlugin',
+        '@testInvokationCallsHelperProxyMethod' => '#mockPlugin',
         '@testExistsProxiesToPlugin' => ['mock' => ['plugin' => ['with' => ['helper', true]]]],
         '#mockPlugin' => [
             'mock' => ['plugin'],
@@ -78,52 +76,27 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target, $this->target->__invoke());
     }
 
-    public function testInvokationInvokesInvokableHelpers()
+    public function testInvokationReturnsHelperProxyIfOnlyOneArgument()
     {
-        $invokableHelper = new PtInvokableHelperDummy();
-        $this->target->expects($this->exactly(2))->method('plugin')->with('invokableHelper')->willReturn($invokableHelper);
+        $expect = new Proxy\HelperProxy(false);
 
-        $result = $this->target->__invoke('invokableHelper');
+        $this->target->expects($this->once())->method('plugin')->willReturn($expect);
 
-        $this->assertEquals('returnFromInvoke', $result);
-        $this->assertTrue($invokableHelper->isInvoked);
+        $actual = $this->target->__invoke('helper');
 
-        $invokableHelper->reset();
-        $this->target->__invoke('invokableHelper', ['arg1', 'arg2']);
-
-        $this->assertEquals(['arg1', 'arg2'], $invokableHelper->args);
+        $this->assertSame($expect, $actual);
     }
 
-    public function testInvokationReturnsNonInvokablePlugin()
+    public function testInvokationCallsHelperProxyMethod()
     {
-        $helper = new PtHelperDummy();
+        $helper = $this->getMockBuilder(Proxy\HelperProxy::class)->disableOriginalConstructor()
+            ->setMethods(['call'])->getMock();
+        $helper->expects($this->once())->method('call')->with('__invoke', ['invokeArg'], Proxy\HelperProxy::EXPECT_SELF)
+            ->will($this->returnSelf());
 
         $this->target->expects($this->once())->method('plugin')->willReturn($helper);
 
-        $result = $this->target->__invoke('helper');
-
-        $this->assertSame($helper, $result);
-    }
-
-    public function testInvokationReturnsExpectedValues()
-    {
-        $this->target->expects($this->any())->method('plugin')->willReturn(false);
-
-        $result = $this->target->__invoke('helper', ['arg1']);
-
-        $this->assertInstanceOf(NoopHelper::class, $result);
-
-        $result = $this->target->__invoke('helper', Proxy::EXPECT_ARRAY);
-
-        $this->assertEquals([], $result);
-
-        $result = $this->target->__invoke('helper', Proxy::EXPECT_ITARATOR);
-
-        $this->assertInstanceOf(NoopIterator::class, $result);
-
-        $result = $this->target->__invoke('helper', 'fancyoutput');
-
-        $this->assertEquals('fancyoutput', $result);
+        $this->target->__invoke('helper', ['invokeArg']);
     }
 
     public function testPluginReturnsFalseIfRendererDoesNotHaveHelperManager()
@@ -131,14 +104,18 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $renderer = new ConsoleRenderer();
         $this->target->setView($renderer);
 
-        $this->assertFalse($this->target->plugin('helper'));
+        $plugin = $this->target->plugin('helper');
+        $this->assertInstanceOf(Proxy\HelperProxy::class, $this->target->plugin('helper'));
+        $this->assertAttributeEquals(false, 'helper', $plugin);
     }
 
-    public function testPluginReturnsFalseIfPluginDoesNotExist()
+    public function testPluginReturnIfPluginDoesNotExist()
     {
         $this->injectHelperManager();
 
-        $this->assertFalse($this->target->plugin('helper'));
+        $plugin = $this->target->plugin('helper');
+        $this->assertInstanceOf(Proxy\HelperProxy::class, $this->target->plugin('helper'));
+        $this->assertAttributeEquals(false, 'helper', $plugin);
     }
 
     public function testPluginReturnsBool()
@@ -157,7 +134,9 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $helper = new PtHelperDummy();
         $this->injectHelperManager(['helper' => $helper]);
 
-        $this->assertSame($helper, $this->target->plugin('helper'));
+        $actual = $this->target->plugin('helper');
+        $this->assertInstanceOf(Proxy\HelperProxy::class, $actual);
+        $this->assertAttributeSame($helper, 'helper', $actual);
     }
 
     public function testPluginPassesOptionsToHelperManager()
@@ -175,19 +154,6 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $this->target->exists('helper');
     }
 
-    public function testNoopHelpers()
-    {
-        $helper = new NoopHelper();
-        $this->assertNull($helper->__call('anyMethod', []));
-        $this->assertEmpty($helper->__toString());
-        $this->assertNull($helper->__get('anyProperty'));
-        $this->assertFalse($helper->__isset('anyProperty'));
-        $iterator = new NoopIterator();
-        $this->assertInstanceOf('\IteratorAggregate', $iterator);
-        $this->assertInstanceOf('\ArrayIterator', $iterator->getIterator());
-        $this->assertEquals(0, $iterator->getIterator()->count());
-    }
-
 }
 
 class PtHelperDummy
@@ -195,21 +161,3 @@ class PtHelperDummy
 
 }
 
-class PtInvokableHelperDummy
-{
-    public $isInvoked = false;
-    public $args;
-
-    public function __invoke() {
-        $this->isInvoked = true;
-        $this->args = func_get_args();
-
-        return 'returnFromInvoke';
-    }
-
-    public function reset()
-    {
-        $this->isInvoked = false;
-        $this->args = null;
-    }
-}

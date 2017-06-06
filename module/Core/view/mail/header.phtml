@@ -1,7 +1,26 @@
-<style>
-    <!--
-    p {
-        font-family: Arial, " Helvetica Neue ", Helvetica, sans-serif;
-    }
-    -->
+<?php
+/* @var \Core\Options\ModuleOptions $options */
+$options = $this->services('Core/Options');
+$logoUrl=$this->serverUrl($this->basePath($options->getSiteLogo()));
+$homepageUrl=$this->serverUrl($this->basePath('/'));
+?>
+<meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+<title><?=$this->title?></title>
+<!--[if mso]>
+<style type="text/css">
+    body, table, td, th, h1, h2, h3 {font-family: Helvetica, Arial, sans-serif !important;}
 </style>
+<![endif]-->
+<span style="display:none!important;color:#f3f3f3;font-size:1px;line-height:1px;max-height:0;max-width:0;mso-hide:all!important;opacity:0;overflow:hidden;visibility:hidden">
+        <?=$this->title?>
+</span>
+
+<table style="background-color:#ffffff;width:100%;">
+    <tr>
+        <td align="center" style="text-align: center;padding: 20px 0; font-family:Helvetica,Arial,sans-serif;">
+            <a href="<?=$homepageUrl?>" style="text-decoration:none;font-weight:bold;color:#333333;font-size:22px;text-decoration:none;">
+                <img src="<?=$logoUrl?>" height="40" style="clear:both;display:block;height:40px;margin:auto;max-width:100%;outline:0;text-decoration:none;" alt="<?=$options->getSiteName()?>">
+            </a>
+        </td>
+    </tr>
+</table>

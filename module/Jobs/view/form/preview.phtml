@@ -7,7 +7,7 @@
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
 
-$job = $this->element->getObject();
+$job = $this->element->getObject(); /* @var \Jobs\Entity\JobInterface $job */
 
 if ($job instanceOf \Jobs\Entity\JobSnapshot) {
     $query = ['snapshot' => $job->getSnapshotId()];
