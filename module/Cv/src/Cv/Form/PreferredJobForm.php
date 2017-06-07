@@ -7,7 +7,7 @@ use Core\Form\SummaryForm;
 class PreferredJobForm extends SummaryForm
 {
     
-    protected $baseFieldset = 'Cv/PreferredJobFieldset';
+    protected $baseFieldset = PreferredJobFieldset::class;
     protected $displayMode = self::DISPLAY_SUMMARY;
 
     public function init()

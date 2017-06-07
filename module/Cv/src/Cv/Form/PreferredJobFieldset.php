@@ -2,18 +2,23 @@
 
 namespace Cv\Form;
 
+use Core\Form\HydratorStrategyAwareTrait;
+use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ViewPartialProviderTrait;
+use Cv\Entity\Location;
 use Cv\Entity\PreferredJob;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\EmptySummaryAwareInterface;
 use Core\Form\EmptySummaryAwareTrait;
 
-class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterface
+class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterface, ViewPartialProviderInterface
 {
     
-    use EmptySummaryAwareTrait;
+    use EmptySummaryAwareTrait, HydratorStrategyAwareTrait, ViewPartialProviderTrait;
 
     private $defaultEmptySummaryNotice =  /*@translate*/ 'Click here to enter your employment expectation';
+    private $defaultPartial = 'cv/form/preferred-job-fieldset';
     
     /**
      * Type of Application Options
@@ -36,27 +41,8 @@ class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterfac
         "no"=>/*@translate*/ "No"
     ];
 
-    /**
-     * name of the used geo location Engine
-     *
-     * @var string $locationEngineType
-     */
-    protected $locationEngineType;
-
-    /**
-     * @param $locationEngineType
-     */
-    public function setLocationEngineType($locationEngineType)
-    {
-        $this->locationEngineType = $locationEngineType;
-    }
-
     public function init()
     {
-        $this->setName('preferredJob')
-             ->setHydrator(new EntityHydrator())
-             ->setObject(new PreferredJob());
-
         $this->add(
             array(
                 'name' => 'typeOfApplication',
@@ -94,15 +80,17 @@ class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterfac
 
         $this->add(
             array(
-                'name' => 'geo-location',
-                'type' => 'Location',
+                'name' => 'desiredLocations',
+                'type' => 'LocationSelect',
                 'options' => array(
                     'label' => /*@translate */ 'desired job location',
                     'description' => /*@translate*/ 'Where do you want to work?',
-                    'engine_type' => $this->locationEngineType,
+                    'location_entity' => new Location(),
                 ),
                 'attributes' => array(
                     'title' => /*@translate */ 'please describe your position',
+                    'multiple' => true,
+                    'data-width' => '100%',
                 ),
             )
         );
@@ -138,5 +126,9 @@ class PreferredJobFieldset extends Fieldset implements EmptySummaryAwareInterfac
                 ),
             )
         );
+
+        $this->setName('preferredJob')
+             ->setHydrator(new EntityHydrator())
+             ->setObject(new PreferredJob());
     }
 }
