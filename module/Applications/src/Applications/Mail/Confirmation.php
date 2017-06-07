@@ -10,8 +10,11 @@
 /** Confirmation.php */
 namespace Applications\Mail;
 
+use Auth\Entity\AnonymousUser;
+use Auth\Entity\UserInterface;
 use Core\Mail\StringTemplateMessage;
 use Applications\Entity\ApplicationInterface;
+use Zend\Mvc\Router\RouteStackInterface;
 
 /**
  * Sends an confirmation Mail to the applicant.
@@ -31,8 +34,50 @@ class Confirmation extends StringTemplateMessage
         'anrede_informell' => 'getInformalSalutation',
         'salutation_informal' => 'getInformalSalutation',
         'job_title' => 'getJobTitle',
-        'date' => 'getDate'
+        'date' => 'getDate',
+        'link' => 'getApplicationLink',
     );
+
+    /**
+     *
+     *
+     * @var RouteStackInterface
+     */
+    protected $router;
+
+    /**
+     *
+     *
+     * @var UserInterface
+     */
+    protected $user;
+
+    /**
+     * @param RouteStackInterface $router
+     *
+     * @return self
+     */
+    public function setRouter($router)
+    {
+        $this->router = $router;
+
+        return $this;
+    }
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return self
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+
+
 
     /**
      * @param ApplicationInterface $application
@@ -118,6 +163,23 @@ class Confirmation extends StringTemplateMessage
         /** @var $date \DateTime */
         $date = $this->application->getDateCreated();
         return strftime('%x', $date->getTimestamp());
+    }
+
+    protected function getApplicationLink()
+    {
+        $router = $this->router;
+        $user   = $this->user;
+
+        if (!$router || !$user) { return ''; }
+
+        $token = $user instanceOf AnonymousUser ? '?token=' . $user->getToken() : '';
+        $href  = $router->assemble(
+                        ['id' => $this->application->getId()],
+                        ['name'=>'lang/applications/detail', 'force_canonical'=>true]
+        ) . $token;
+
+        return $href;
+
     }
 
     /**

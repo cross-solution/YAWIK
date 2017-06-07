@@ -225,13 +225,16 @@ return [
      
     'mails' => [
         'invokables' => [
-            'Applications/Confirmation'   => 'Applications\Mail\Confirmation',
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
             'Applications/Forward'        => 'Applications\Mail\Forward',
             'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ],
         'factories' => [
             'Applications/NewApplication' => 'Applications\Factory\Mail\NewApplicationFactory',
+            Mail\Confirmation::class      => Factory\Mail\ConfirmationFactory::class,
+        ],
+        'aliases' => [
+            'Applications/Confirmation'   => Mail\Confirmation::class,
         ],
     ],
 
