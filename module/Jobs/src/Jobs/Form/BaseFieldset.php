@@ -41,18 +41,25 @@ class BaseFieldset extends Fieldset implements CustomizableFieldsetInterface
                 'locations' => 'geoLocation'
             ]);
 
+            $geoLocationIsMultiple = $this->get('geoLocation')->getAttribute('multiple', false);
             $geoLocationStrategy = $this->get('geoLocation')->getHydratorStrategy();
 
             $locationsStrategy = new \Zend\Hydrator\Strategy\ClosureStrategy(
                 /* extract */
-                function ($value) use ($geoLocationStrategy)
+                function ($value) use ($geoLocationStrategy, $geoLocationIsMultiple)
                 {
-                    return $geoLocationStrategy->extract($value->first());
+                    $value = $geoLocationIsMultiple ? $value : $value->first();
+
+                    return $geoLocationStrategy->extract($value);
                 },
 
                 /* hydrate */
-                function ($value) use ($geoLocationStrategy)
+                function ($value) use ($geoLocationStrategy, $geoLocationIsMultiple)
                 {
+                    if ($geoLocationIsMultiple) {
+                        return $geoLocationStrategy->hydrate($value);
+                    }
+
                     return new ArrayCollection([$geoLocationStrategy->hydrate($value)]);
                 }
             );
@@ -96,15 +103,7 @@ class BaseFieldset extends Fieldset implements CustomizableFieldsetInterface
                     'label' => /*@translate*/ 'Location',
                     'description' => /*@translate*/ 'Please enter the location of the job',
                     'location_entity' => Location::class,
-                    'summary_value' => function() {
-                            $loc = $this->object->getLocations()->first();
-                            if (!$loc) { return ''; }
-
-                            $value = $loc->getPostalCode() . ' ' . $loc->getCity() . ', ' . $loc->getRegion();
-                            $value = trim($value, ' ,');
-
-                            return $value;
-                    },
+                    'summary_value' => [$this, 'getLocationsSummaryValue'],
                 ],
                 'attributes' => [
                     'data-width' => '100%',
@@ -112,6 +111,35 @@ class BaseFieldset extends Fieldset implements CustomizableFieldsetInterface
             ]
         );
 
+    }
+
+    /**
+     *
+     * @codeCoverageIgnore
+     * @return string
+     */
+    public function getLocationsSummaryValue()
+    {
+        $element = $this->get('geoLocation');
+        $isMultiple = $element->getAttribute('multiple', false);
+
+        $values = [];
+        foreach ($this->object->getLocations() as $loc) {
+            $values[] = trim(
+                $loc->getPostalCode() . ' ' . $loc->getCity() . ', ' . $loc->getRegion(),
+                ' ,'
+            );
+        }
+
+        if (count($values)) {
+            if ($isMultiple) {
+                return '<ul><li>' . join('</li><li>', $values) . '</li></ul>';
+            } else {
+                return $values[0];
+            }
+        } else {
+            return '';
+        }
     }
 }
 
