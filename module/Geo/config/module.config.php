@@ -8,31 +8,24 @@ return [
         ],
     ],
 
-    'doctrine' => array(
-        'driver' => array(
-            'odm_default' => array(
-                'drivers' => array(
+    'doctrine' => [
+        'driver' => [
+            'odm_default' => [
+                'drivers' => [
                     'Geo\Entity' => 'annotation',
-                ),
-            ),
-            'annotation' => array(
+                ],
+            ],
+            'annotation' => [
                 /*
                  * All drivers (except DriverChain) require paths to work on. You
                  * may set this value as a string (for a single path) or an array
                  * for multiple paths.
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
-                'paths' => array( __DIR__ . '/../src/Geo/Entity'),
-            ),
-        ),
-        'eventmanager' => array(
-            'odm_default' => array(
-                'subscribers' => array(
-                    '\Jobs\Repository\Event\UpdatePermissionsSubscriber',
-                ),
-            ),
-        ),
-    ),
+                'paths' => [ __DIR__ . '/../src/Geo/Entity'],
+            ],
+        ],
+    ],
 
     'service_manager' => [
         'factories' => [
@@ -41,40 +34,39 @@ return [
         ],
     ],
 
-    'controllers' => array(
-        'factories' => array(
+    'controllers' => [
+        'factories' => [
             'Geo\Controller\Index' => 'Geo\Factory\Controller\IndexControllerFactory',
-        )
-    ),
+        ]
+    ],
     
     // Routes
-    'router' => array(
-        'routes' => array(
-            'lang' => array(
-                'child_routes' => array(
-                    'geo' => array(
+    'router' => [
+        'routes' => [
+            'lang' => [
+                'child_routes' => [
+                    'geo' => [
                         'type' => 'Segment',
-                        'options' => array(
+                        'options' => [
                             'route' => '/geo[/:plugin]',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'Geo\Controller\Index',
                                 'action' => 'index',
                                 'module' => 'Geo',
                                 'plugin' => 'photon'
-                            ),
-                            'constraints' => array(
+                            ],
+                            'constraints' => [
                                 'plugin' => '(geo|photon)',
-                            ),
-                        ),
+                            ],
+                        ],
                         'may_terminate' => true,
-                    ),
-                ),
-            ),
-        ),
-    ),
+                    ],
+                ],
+            ],
+        ],
+    ],
     'form_elements' => [
         'invokables' => [
-            'Location' => 'Geo\Form\GeoText',
             'SimpleLocationSelect' => 'Geo\Form\GeoSelectSimple',
         ],
         'factories' => [
@@ -82,21 +74,6 @@ return [
         ],
     ],
     
-    'view_manager' => array(
-    
-    
-        // Map template to files. Speeds up the lookup through the template stack.
-        'template_map' => array(
-            'geo/form/GeoText' => __DIR__ . '/../view/form/geotext.phtml',
-            'geo/form/GeoHorizontal' => __DIR__ . '/../view/form/geo-horizontal.phtml',
-        ),
-    
-        // Where to look for view templates not mapped above
-        'template_path_stack' => array(
-            __DIR__ . '/../view',
-        ),
-    ),
-
     'event_manager' => [
         'Core/Ajax/Events' => ['listeners' => [
             \Geo\Listener\AjaxQuery::class => ['geo', true],

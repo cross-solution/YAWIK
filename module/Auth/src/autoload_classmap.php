@@ -78,7 +78,6 @@ return array(
     'Auth\Factory\Controller\RemoveControllerFactory'               => __DIR__ . '/Auth/Factory/Controller/RemoveControllerFactory.php',
     'Auth\Factory\Controller\UsersControllerFactory'                => __DIR__ . '/Auth/Factory/Controller/UsersControllerFactory.php',
     'Auth\Factory\Dependency\ManagerFactory'                        => __DIR__ . '/Auth/Factory/Dependency/ManagerFactory.php',
-    'Auth\Factory\Form\Element\UserSearchbarFactory'                => __DIR__ . '/Auth/Factory/Form/Element/UserSearchbarFactory.php',
     'Auth\Factory\Form\ForgotPasswordFactory'                       => __DIR__ . '/Auth/Factory/Form/ForgotPasswordFactory.php',
     'Auth\Factory\Form\LoginFactory'                                => __DIR__ . '/Auth/Factory/Form/LoginFactory.php',
     'Auth\Factory\Form\RegisterFactory'                             => __DIR__ . '/Auth/Factory/Form/RegisterFactory.php',

@@ -215,60 +215,6 @@ class Organization extends AbstractRepository
     }
 
     /**
-     * @param string $query
-     * @param UserInterface    $user
-     * @return array
-     */
-    public function getTypeAheadResults($query, $user)
-    {
-        $organizationNames = array();
-
-        $organizationNameQb = $this->getDocumentManager()->createQueryBuilder('Organizations\Entity\OrganizationName');
-        $organizationNameQb->hydrate(false)
-            ->select(array('id', 'name'))
-            ->field('name')->equals(new \MongoRegex('/' . $query . '/i'))
-            ->sort('name')
-            ->limit(5);
-
-        $organizationNameResults = $organizationNameQb->getQuery()->execute();
-
-        foreach ($organizationNameResults as $id => $item) {
-            $organizationNames[$id] = $item;
-        }
-
-        $organizations = array();
-
-        $userOrg = $user->getOrganization();
-
-        $qb = $this->createQueryBuilder();
-        $qb->hydrate(false)
-            ->select(array('contact.city', 'contact.street', 'contact.houseNumber', 'organizationName'))
-            ->limit(5)
-            ->addAnd(
-                $qb->expr()->field('permissions.view')->equals($user->getId())
-                                ->field('organizationName')->in(array_keys($organizationNames))
-            );
-
-
-        if ($userOrg->hasAssociation()) {
-            $qb->addAnd(
-                $qb->expr()->addOr($qb->expr()->field('parent')->equals($userOrg->getId()))
-                           ->addOr($qb->expr()->field('_id')->equals($userOrg->getId()))
-            );
-        }
-
-        $result = $qb->getQuery()->execute();
-
-        foreach ($result as $id => $item) {
-            $organizations[$id] = $item;
-            $organizationNameId = (string)$organizations[$id]['organizationName'];
-            $organizations[$id]['organizationName'] = $organizationNames[$organizationNameId];
-        }
-
-        return $organizations;
-    }
-
-    /**
      * Look for an drafted Document of a given user
      *
      * @param $user

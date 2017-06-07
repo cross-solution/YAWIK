@@ -9,12 +9,10 @@
 
 namespace Geo;
 
-use Core\ModuleManager\ModuleConfigLoader;
-
 /**
  * Geocoder Module
  *
- * This module automatically adds a typeahead feature to formular fields type="location"
+ * This module provides a LocationSelect form element.
  */
 class Module
 {

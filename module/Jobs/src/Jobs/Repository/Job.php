@@ -77,29 +77,6 @@ class Job extends AbstractRepository
     }
 
     /**
-     * Gets the Job Titles of a certain user.
-     *
-     * @param $query
-     * @param $userId
-     * @return mixed
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     */
-    public function getTypeAheadResults($query, $userId)
-    {
-        $qb = $this->createQueryBuilder();
-        $qb->hydrate(false)
-           ->select('title', 'applyId')
-           ->field('permissions.view')->equals($userId)
-           ->field('title')->equals(new \MongoRegex('/' . $query . '/i'))
-           ->sort('title')
-           ->limit(5);
-        
-        $result = $qb->getQuery()->execute();
-        
-        return $result;
-    }
-
-    /**
      * Look for an drafted Document of a given user
      *
      * @param $user
