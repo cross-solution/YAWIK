@@ -12,21 +12,10 @@ use Zend\Stdlib\ArrayUtils;
 
 $env = getenv('APPLICATION_ENV') ?: 'production';
 
-$coreModules = [
-	'Zend\ServiceManager\Di',
-	'Zend\Session',
-	'Zend\Router',
-	'Zend\Navigation',
-	'Zend\I18n',
-	'Zend\Mvc\Plugin\Prg',
-	'Zend\Mvc\Plugin\Identity',
-	'Zend\Mvc\Plugin\FlashMessenger',
-	'Zend\Mvc\I18n',
-	'Zend\Form',
-];
+$coreModules = include 'common.modules.php';
 if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     $modules = array_merge($coreModules,[
-        'Install'
+        'Install',
     ]);
 } else {
     $modules = array_merge($coreModules,[
