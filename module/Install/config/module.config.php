@@ -8,12 +8,24 @@
  */
 
 return array(
-
+	'tracy' => [
+		'enabled' => true, // flag whether to load tracy at all
+		'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
+		'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
+		'strict' => true, // bool = cause immediate death|int = matched against error severity
+		'log' => __DIR__ . '/../../../log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+		'email' => null, // in production mode notifies the recipient
+		'email_snooze' => 900 // interval for sending email in seconds
+	],
 
     'service_manager' => array(
         'invokables' => array(
             'Install/Listener/LanguageSetter' => 'Install\Listener\LanguageSetter',
         ),
+	    'factories' => array(
+		    'mvctranslator' => \Zend\Mvc\I18n\TranslatorFactory::class,
+		    'FilterManager' => \Zend\Filter\FilterPluginManagerFactory::class
+	    ),
     ),
 
     'router' => array(
@@ -23,7 +35,7 @@ return array(
                 'options' => array(
                     'route' => '/',
                     'defaults' => array(
-                        'controller' => 'Install/Index',
+                        'controller' => \Install\Controller\Index::class,
                         'action' => 'index'
                     ),
                 ),
@@ -33,9 +45,9 @@ return array(
     ),
 
     'controllers' => array(
-        'invokables' => array(
-            'Install/Index' => 'Install\Controller\Index',
-        ),
+	    'abstract_factories' => [
+	    	\Install\Factory\Controller\LazyControllerFactory::class
+	    ],
     ),
 
     'controller_plugins' => array(
@@ -63,9 +75,9 @@ return array(
 
     'validators' => array(
         'invokables' => array(
-            'Install/ConnectionString' => 'Install\Validator\MongoDbConnectionString',
-            'Install/Connection'       => 'Install\Validator\MongoDbConnection',
-        ),
+            'InstallConnectionString' => \Install\Validator\MongoDbConnectionString::class,
+            'InstallConnection'       => \Install\Validator\MongoDbConnection::class,
+        )
     ),
 
     // Configure the view service manager

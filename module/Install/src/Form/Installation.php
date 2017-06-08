@@ -10,6 +10,8 @@
 /** */
 namespace Install\Form;
 
+use Install\Validator\MongoDbConnection;
+use Install\Validator\MongoDbConnectionString;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -24,57 +26,57 @@ class Installation extends Form implements InputFilterProviderInterface
 
     public function init()
     {
-        $this->setName('installation');
-
-        $this->setAttributes(
-            array(
-                                 'method' => 'post',
-                             )
-        );
-
-        $this->add(
-            array(
-                       'type'       => 'Text',
-                       'name'       => 'db_conn',
-                       'options'    => array(
-                           'label' => /* @translate */ 'Database connection string',
-                       ),
-                       'attributes' => array(
-                           'placeholder' => 'mongodb://localhost:27017/YAWIK',
-                       ),
-
-                   )
-        );
-
-        $this->add(
-            array(
-                       'type'    => 'Text',
-                       'name'    => 'username',
-                       'options' => array(
-                           'label' => /* @translate */ 'Initial user name',
-                       ),
-                   )
-        );
-
-        $this->add(
-            array(
-                       'type'    => 'Password',
-                       'name'    => 'password',
-                       'options' => array(
-                           'label' => /* @translate */ 'Password',
-                       ),
-                   )
-        );
-
-        $this->add(
-            array(
-                       'type' => 'Text',
-                       'name' => 'email',
-                       'options' => array(
-                           'label' => /* @translate */ 'Email address for system messages',
-                       ),
-                   )
-        );
+	    $this->setName('installation');
+	
+	    $this->setAttributes(
+		    array(
+			    'method' => 'post',
+		    )
+	    );
+	
+	    $this->add(
+		    array(
+			    'type'       => 'Text',
+			    'name'       => 'db_conn',
+			    'options'    => array(
+				    'label' => /* @translate */ 'Database connection string',
+			    ),
+			    'attributes' => array(
+				    'placeholder' => 'mongodb://localhost:27017/YAWIK',
+			    ),
+		
+		    )
+	    );
+	
+	    $this->add(
+		    array(
+			    'type'    => 'Text',
+			    'name'    => 'username',
+			    'options' => array(
+				    'label' => /* @translate */ 'Initial user name',
+			    ),
+		    )
+	    );
+	
+	    $this->add(
+		    array(
+			    'type'    => 'Password',
+			    'name'    => 'password',
+			    'options' => array(
+				    'label' => /* @translate */ 'Password',
+			    ),
+		    )
+	    );
+	
+	    $this->add(
+		    array(
+			    'type' => 'Text',
+			    'name' => 'email',
+			    'options' => array(
+				    'label' => /* @translate */ 'Email address for system messages',
+			    ),
+		    )
+	    );
     }
 
     public function getInputFilterSpecification()
@@ -87,9 +89,9 @@ class Installation extends Form implements InputFilterProviderInterface
                     array('name' => 'StringTrim'),
                 ),
                 'validators'        => array(
-                    array('name' => 'Install/ConnectionString',
+                    array('name' => MongoDbConnectionString::class,
                           'break_chain_on_failure' => true),
-                    array('name' => 'Install/Connection'),
+                    array('name' => MongoDbConnection::class),
                 ),
             ),
             'username' => array(

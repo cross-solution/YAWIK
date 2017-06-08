@@ -8,8 +8,10 @@
  */
 namespace Core\Form\Service;
 
-use Zend\ServiceManager\InitializerInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Form\Container as FormContainer;
 
 /**
  * This is common form initializer
@@ -19,8 +21,15 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class Initializer implements InitializerInterface
 {
-
-    /**
+	public function __invoke( ContainerInterface $container, $instance )
+	{
+		if ($instance instanceof FormContainer) {
+			$instance->setFormElementManager($container->get('ServiceLocator'));
+		}
+	}
+	
+	
+	/**
      * @see \Zend\ServiceManager\InitializerInterface::initialize()
      */
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)

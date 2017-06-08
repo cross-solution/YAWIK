@@ -11,7 +11,6 @@
 namespace Install\Controller;
 
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\Http\PhpEnvironment\Response;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
@@ -65,21 +64,20 @@ class Index extends AbstractActionController
     {
         $form    = $this->installForm;
         $prereqs = $this->plugin('Install/Prerequisites')->check();
-
-
-        return $this->createViewModel(
-            array(
-                                          'prerequisites' => $prereqs,
-                                          'form'          => $form,
-                                          'lang'          => $this->params('lang'),
-                                      )
-        );
+	
+	    return $this->createViewModel(
+		    array(
+			    'prerequisites' => $prereqs,
+			    'form'          => $form,
+			    'lang'          => $this->params('lang'),
+		    )
+	    );
     }
 
     /**
      * Action to check prerequisites via ajax request.
      *
-     * @return ViewModel
+     * @return ViewModel|ResponseInterface
      */
     public function prereqAction()
     {
@@ -94,7 +92,7 @@ class Index extends AbstractActionController
     /**
      * Main working action. Creates the configuration.
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|ViewModel
      */
     public function installAction()
     {
@@ -102,12 +100,12 @@ class Index extends AbstractActionController
         $form->setData($_POST);
 
         if (!$form->isValid()) {
-            return $this->createJsonResponse(
-                array(
-                                                 'ok'     => false,
-                                                 'errors' => $form->getMessages(),
-                                             )
-            );
+	        return $this->createJsonResponse(
+		        array(
+			        'ok'     => false,
+			        'errors' => $form->getMessages(),
+		        )
+	        );
         }
 
         $data = $form->getData();

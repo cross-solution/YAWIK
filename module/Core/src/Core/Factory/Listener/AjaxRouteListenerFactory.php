@@ -12,13 +12,14 @@ namespace Core\Factory\Listener;
 
 use Core\Listener\AjaxRouteListener;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for \Core\Listener\AjaxRouteListener
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since 0.29
  */
 class AjaxRouteListenerFactory implements FactoryInterface

@@ -11,7 +11,8 @@
 namespace Core\Form\Service;
 
 use Core\Form\HeadscriptProviderInterface;
-use Zend\ServiceManager\InitializerInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -23,7 +24,32 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class InjectHeadscriptInitializer implements InitializerInterface
 {
-    /**
+	public function __invoke( ContainerInterface $container, $instance ) {
+		/* @var $serviceLocator \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
+		
+		if (!$instance instanceof HeadscriptProviderInterface) {
+			return;
+		}
+		
+		$scripts = $instance->getHeadscripts();
+		
+		if (!is_array($scripts) || empty($scripts)) {
+			return;
+		}
+		
+		/* @var $basepath \Zend\View\Helper\BasePath
+		 * @var $headscript \Zend\View\Helper\HeadScript */
+		$services = $serviceLocator;
+		$helpers  = $services->get('ViewHelperManager');
+		$basepath = $helpers->get('basepath');
+		$headscript = $helpers->get('headscript');
+		
+		foreach ($scripts as $script) {
+			$headscript->appendFile($basepath($script));
+		}
+	}
+	
+	/**
      * Injects scripts to the headscript view helper.
      *
      * If the created instance implements {@link HeadscriptProviderInterface},
@@ -37,7 +63,7 @@ class InjectHeadscriptInitializer implements InitializerInterface
      */
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator \Zend\Form\FormElementManager */
+        /* @var $serviceLocator \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
 
         if (!$instance instanceof HeadscriptProviderInterface) {
             return;
@@ -51,7 +77,7 @@ class InjectHeadscriptInitializer implements InitializerInterface
 
         /* @var $basepath \Zend\View\Helper\BasePath
          * @var $headscript \Zend\View\Helper\HeadScript */
-        $services = $serviceLocator->getServiceLocator();
+        $services = $serviceLocator;
         $helpers  = $services->get('ViewHelperManager');
         $basepath = $helpers->get('basepath');
         $headscript = $helpers->get('headscript');

@@ -10,9 +10,13 @@
 /** */
 namespace Install\Factory\Controller\Plugin;
 
+use Auth\Entity\Filter\CredentialFilter;
 use Install\Controller\Plugin\UserCreator;
+use Install\Filter\DbNameExtractor;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\Filter\FilterPluginManager;
+use Zend\InputFilter\InputFilterPluginManager;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -36,8 +40,8 @@ class UserCreatorFactory implements FactoryInterface
     {
         $filters = $container->get('FilterManager');
 
-        $dbNameExctractor = $filters->get('Install/DbNameExtractor');
-        $credentialFilter = $filters->get('Auth/CredentialFilter');
+        $dbNameExctractor = $filters->get(DbNameExtractor::class);
+        $credentialFilter = $filters->get(CredentialFilter::class);
 
         $plugin = new UserCreator($dbNameExctractor, $credentialFilter);
 
@@ -54,6 +58,6 @@ class UserCreatorFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        return $this($serviceLocator->getServiceLocator(), UserCreator::class);
+        return $this($serviceLocator, UserCreator::class);
     }
 }

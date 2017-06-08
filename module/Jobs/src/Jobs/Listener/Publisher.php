@@ -41,7 +41,7 @@ class Publisher implements ListenerAggregateInterface
      * @param EventManagerInterface $events
      * @return $this
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority=1)
     {
         return $this;
     }

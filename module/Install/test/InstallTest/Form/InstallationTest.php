@@ -11,6 +11,8 @@
 namespace InstallTest\Form;
 
 use Install\Form\Installation;
+use Install\Validator\MongoDbConnection;
+use Install\Validator\MongoDbConnectionString;
 
 /**
  * Tests for \Install\Form\Installation
@@ -98,9 +100,9 @@ class InstallationTest extends \PHPUnit_Framework_TestCase
                     array('name' => 'StringTrim'),
                 ),
                 'validators'        => array(
-                    array('name' => 'Install/ConnectionString',
+                    array('name' => MongoDbConnectionString::class,
                           'break_chain_on_failure' => true),
-                    array('name' => 'Install/Connection'),
+                    array('name' => MongoDbConnection::class),
                 ),
             ),
             'username' => array(
