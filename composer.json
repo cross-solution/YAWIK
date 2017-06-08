@@ -44,6 +44,7 @@
         "zendframework/zend-permissions-acl": "^2.6",
         "zendframework/zend-form": "^2.10",
         "zendframework/zend-mail": "^2.7",
+        "zendframework/zend-json": "^3.0",
         "doctrine/doctrine-mongo-odm-module": "*",
         "hybridauth/hybridauth": "2.6.*",
         "mpdf/mpdf": "5.7.*",
@@ -53,8 +54,7 @@
         "jmikola/geojson": "*",
         "mikey179/vfsStream": "*",
         "ircmaxell/random-lib": "1.1.0",
-        "tracy/tracy": "^2.4",
-        "zendframework/zend-json": "^3.0"
+        "tracy/tracy": "^2.4"
     },
     "require-dev": {
         "phpunit/phpunit": "5.6.*",
