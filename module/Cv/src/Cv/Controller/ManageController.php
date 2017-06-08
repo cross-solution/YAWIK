@@ -11,6 +11,7 @@
 namespace Cv\Controller;
 
 use Cv\Entity\CvInterface;
+use Geo\Form\GeoSelect;
 use Geo\Form\GeoText;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -92,18 +93,18 @@ class ManageController extends AbstractActionController
                  * until we figured out, what we really want it to be.
                  */
                 $formId = $params->fromQuery('form');
-                if ('preferredJob' == $formId) {
-                    $locElem = $form->getBaseFieldset()->get('geo-location');
-                    if ($locElem instanceof GeoText) {
-                        $loc = $locElem->getValue('entity');
-                        $locations = $cv->getPreferredJob()->getDesiredLocations();
-                        if (count($locations)) {
-                            $locations->clear();
-                        }
-                        $locations->add($loc);
-                        $cv->getPreferredJob()->setDesiredLocation($locElem->getValue());
-                    }
-                }
+//                if ('preferredJob' == $formId) {
+//                    $locElem = $form->getBaseFieldset()->get('geo-location');
+//                    if ($locElem instanceof GeoText) {
+//                        $loc = $locElem->getValue('entity');
+//                        $locations = $cv->getPreferredJob()->getDesiredLocations();
+//                        if (count($locations)) {
+//                            $locations->clear();
+//                        }
+//                        $locations->add($loc);
+//                        $cv->getPreferredJob()->setDesiredLocation($locElem->getValue());
+//                    }
+//                }
 
                 $this->validateCv($cv);
 
@@ -135,15 +136,6 @@ class ManageController extends AbstractActionController
                 return new JsonModel($container->executeAction($action, $params->fromPost()));
             }
         }// end of process post method
-        else {
-            $locElem = $container->getForm('preferredJob')->getBaseFieldset()->get('geo-location');
-            if ($locElem instanceof GeoText) {
-                $loc = $cv->getPreferredJob()->getDesiredLocations();
-                if (count($loc)) {
-                    $locElem->setValue($loc->first());
-                }
-            }
-        }
 
         return [
             'container' => $container,

@@ -13,6 +13,7 @@ namespace CvTest\Form;
 use Core\Form\SummaryForm;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
+use Cv\Form\PreferredJobFieldset;
 use Cv\Form\PreferredJobForm;
 
 /**
@@ -44,7 +45,7 @@ class PreferredJobFormTest extends \PHPUnit_Framework_TestCase
     private $inheritance = [ SummaryForm::class ];
 
     private $attributes = [
-        'baseFieldset' => 'Cv/PreferredJobFieldset',
+        'baseFieldset' => PreferredJobFieldset::class,
     ];
 
     public function testInitializesItself()

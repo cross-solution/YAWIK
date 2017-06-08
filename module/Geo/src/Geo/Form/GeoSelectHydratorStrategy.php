@@ -10,14 +10,18 @@
 /** */
 namespace Geo\Form;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Geo\Service\AbstractClient;
-use Jobs\Entity\Location;
+use Core\Entity\AbstractLocation as Location;
 use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
- * ${CARET}
+ * Strategy to hydrate/extract a location entity.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @since 0.29
+ * @since 0.29.2 - add support for multiple locations.
  * @todo write test 
  */
 class GeoSelectHydratorStrategy implements StrategyInterface
@@ -65,6 +69,14 @@ class GeoSelectHydratorStrategy implements StrategyInterface
      */
     public function extract($value, $object = null)
     {
+        if ($value instanceOf Collection || is_array($value)) {
+            $values = [];
+            foreach ($value as $collItem) {
+                $values[] = $this->extract($collItem, $object);
+            }
+            return $values;
+        }
+
         if ($value instanceOf Location) {
             return $value->toString();
         }
@@ -90,6 +102,14 @@ class GeoSelectHydratorStrategy implements StrategyInterface
      */
     public function hydrate($value, $data = [])
     {
+        if (is_array($value)) {
+            $coll = new ArrayCollection();
+            foreach ($value as $v) {
+                $coll->add($this->hydrate($v, $data));
+            }
+            return $coll;
+        }
+
         if (empty($value) || 0 !== strpos($value, '{')) {
             return null;
         }

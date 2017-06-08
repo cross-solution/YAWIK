@@ -48,7 +48,6 @@
         "hybridauth/hybridauth": "2.6.*",
         "mpdf/mpdf": "5.7.*",
         "components/jquery": "<3",
-        "twitter/typeahead.js": "0.10.*",
         "tinymce/tinymce": "*",
         "mikemix/zf2htmlpurifier": "*",
         "jmikola/geojson": "*",

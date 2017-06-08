@@ -13,7 +13,7 @@ namespace CvTest\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use CoreTestUtils\TestCase\TestSetterGetterTrait;
+use Cv\Entity\Location;
 use Cv\Entity\PreferredJob;
 use Cv\Form\PreferredJobFieldset;
 use Zend\Form\Fieldset;
@@ -30,7 +30,7 @@ use Zend\Form\Fieldset;
 class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
 {
 
-    use TestInheritanceTrait, TestDefaultAttributesTrait, TestSetterGetterTrait;
+    use TestInheritanceTrait, TestDefaultAttributesTrait;
 
     /**
      *
@@ -68,11 +68,7 @@ class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
             "no"=> "No"
         ],
         'defaultEmptySummaryNotice' =>  'Click here to enter your employment expectation',
-    ];
-
-
-    private $properties = [
-        ['locationEngineType', ['value' => 'locationEngine', 'expect_property' => 'locationEngine', 'setter_value' => null]]
+        'defaultPartial' => 'cv/form/preferred-job-fieldset',
     ];
 
     /**
@@ -112,15 +108,17 @@ class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
                  ],
              ],
              [
-                 'name' => 'geo-location',
-                 'type' => 'Location',
+                 'name' => 'desiredLocations',
+                 'type' => 'LocationSelect',
                  'options' => [
                      'label' =>  'desired job location',
                      'description' =>  'Where do you want to work?',
-                     'engine_type' => 'testengine',
+                     'location_entity' => new Location(),
                  ],
                  'attributes' => [
                      'title' =>  'please describe your position',
+                     'multiple' => true,
+                     'data-width' => '100%',
                  ],
              ],
              [
@@ -158,7 +156,7 @@ class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
             /* PPHUnit calls this callback again after all invokations are made
              * I don't know why, but therefor the need to check if $count is greater that 7
              */
-            return $callCount - 1  < $count || $arg === $add[$count++];
+            return $callCount - 1  < $count || $arg == $add[$count++];
         };
 
         $this->target
@@ -168,7 +166,6 @@ class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnSelf())
         ;
 
-        $this->target->setLocationEngineType('testengine');
         $this->target->init();
     }
 }

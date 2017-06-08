@@ -1,4 +1,9 @@
 <?php
+namespace Cv;
+
+use Cv\Form\PreferredJobFieldset;
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 return [
     
     'doctrine' => [
@@ -249,7 +254,7 @@ return [
             'CvSkillCollection' => '\Cv\Factory\Form\SkillCollectionFactory',
             'Cv/LanguageSkillCollection' => '\Cv\Factory\Form\LanguageSkillCollectionFactory',
             'CvContactImage' => '\Cv\Factory\Form\CvContactImageFactory',
-            'Cv/PreferredJobFieldset' => '\Cv\Factory\Form\PreferredJobFieldsetFactory',
+            PreferredJobFieldset::class => InvokableFactory::class,
             'Cv/SearchFormFieldset' => '\Cv\Factory\Form\SearchFormFieldsetFactory',
             'Cv/Attachments' => '\Cv\Factory\Form\AttachmentsFormFactory',
         ],

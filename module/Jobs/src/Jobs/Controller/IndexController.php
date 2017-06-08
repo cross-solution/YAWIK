@@ -110,10 +110,10 @@ class IndexController extends AbstractActionController
 
         $paginator = $this->paginator('Jobs/Job', $params);
 
-        $return = array(
+        $return = [
             'by'   => $queryParams->get('by', 'all'),
             'jobs' => $paginator,
-        );
+        ];
         if (isset($this->searchForm)) {
             $return['filterForm'] = $this->searchForm;
         }
@@ -142,32 +142,11 @@ class IndexController extends AbstractActionController
 
         $paginator = $this->paginator('Jobs/Job');
 
-        return array(
+        return [
             'script' => 'jobs/index/dashboard',
             'type'   => $this->params('type'),
             'myJobs' => $this->jobRepository,
             'jobs'   => $paginator
-        );
-    }
-
-    /**
-     * Action hook for Job search bar in list filter.
-     *
-     * @return JsonModel
-     */
-    public function typeaheadAction()
-    {
-        $query      = $this->params()->fromQuery('q', '*');
-
-        $return = array();
-        foreach ($this->jobRepository->getTypeaheadResults($query, $this->auth('id')) as $id => $item) {
-            $return[] = array(
-                'id'      => $id,
-                'title'   => $item['title'],
-                'applyId' => $item['applyId'],
-            );
-        }
-
-        return new JsonModel($return);
+        ];
     }
 }

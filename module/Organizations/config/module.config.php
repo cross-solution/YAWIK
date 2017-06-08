@@ -52,7 +52,6 @@ return [
             'Organizations/InviteEmployee' => 'Organizations\Controller\InviteEmployeeController',
         ],
         'factories' => [
-            'Organizations/TypeAHead' => 'Organizations\Factory\Controller\TypeAHeadControllerFactory',
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
         ]
     ],

@@ -331,7 +331,6 @@ return [
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
             'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
             'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
-            'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
             'user-password' => 'Auth\Form\UserPassword::factory',
         ]
     ],

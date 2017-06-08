@@ -13,6 +13,7 @@ namespace Applications\Listener;
 use Applications\Entity\Settings;
 use Applications\Entity\StatusInterface;
 use Applications\Entity\Application;
+use Applications\Mail\Confirmation;
 use Core\Mail\MailService;
 use Applications\Listener\Events\ApplicationEvent;
 use Applications\Options\ModuleOptions;
@@ -119,7 +120,7 @@ class EventApplicationCreated
             if (!empty($ackBody)) {
                 /* confirmation mail to the applicant */
                 $ackMail = $this->mailService->get(
-                    'Applications/Confirmation',
+                    Confirmation::class,
                     [
                         'application' => $this->application,
                         'body'        => $ackBody,
