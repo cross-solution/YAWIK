@@ -175,7 +175,7 @@ class DeferredListenerAggregate implements ListenerAggregateInterface
      *
      * @return void
      */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority = 1)
     {
         foreach ($this->listenerSpecs as $name => $spec) {
             $this->listeners[] = $events->attach($spec['event'], array($this, "do$name"), $spec['priority']);

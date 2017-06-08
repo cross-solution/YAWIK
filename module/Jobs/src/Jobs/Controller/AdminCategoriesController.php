@@ -64,8 +64,15 @@ class AdminCategoriesController extends AbstractActionController
             $repositories->store($types);
         }
 
+        $industries = $rep->findOneBy(['value' => 'industries']);
+        if (!$industries) {
+            $industries = new Category('Industries', 'industries');
+            $repositories->store($industries);
+        }
+
         $form->setEntity($professions, 'professions');
         $form->setEntity($types, 'employmentTypes');
+        $form->setEntity($industries, 'industries');
 
         return $form;
     }

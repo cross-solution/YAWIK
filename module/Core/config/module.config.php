@@ -206,10 +206,16 @@ return array(
             'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber::factory',
             'defaultListeners' => 'Core\Listener\DefaultListener::factory',
             'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy::factory',
-            'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate::factory',
+            'Core/Listener/DeferredListenerAggregate' => function($sm){
+            	// @TODO: Provide better implementation
+            	return \Core\Listener\DeferredListenerAggregate::factory($sm);
+            },
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
             'Core/Locale' => 'Core\I18n\LocaleFactory',
-            'mvctranslator' => \Zend\I18n\Translator\TranslatorServiceFactory::class,
+            'mvctranslator' => \Zend\Mvc\I18n\TranslatorFactory::class,
+            \Core\Listener\AjaxRouteListener::class => \Core\Factory\Listener\AjaxRouteListenerFactory::class,
+            \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
+            'Imagine' => \Core\Factory\Service\ImagineFactory::class,
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',

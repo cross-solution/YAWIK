@@ -89,13 +89,17 @@ class FileCopyStrategy implements StrategyInterface
         }
         fclose($in);
         fclose($out);
-        
-        return array(
-            'user' => $value->getUser(),
-            'name' => $value->getName(),
-            'type' => $value->getType(),
-            'file' => $tmp,
-        );
+
+        $return = ["file" => $tmp];
+
+        foreach(['user', 'name', 'type'] as $key) {
+            $v = $value->{"get$key"}();
+            if($v) {
+                $return[$key]=$v;
+            }
+        }
+
+        return $return;
     }
     
     /**
@@ -117,12 +121,10 @@ class FileCopyStrategy implements StrategyInterface
         }
 
         $entity = $this->getTargetEntity();
-        
-        $entity->setUser($value['user'])
-               ->setName($value['name'])
-               ->setType($value['type'])
-               ->setFile($value['file']);
-        
+
+        foreach($value as $key=>$v) {
+            $entity->{"set$key"}($v);
+        }
         return $entity;
     }
 }

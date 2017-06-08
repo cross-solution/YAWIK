@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-$id = $this->element->getEntity()->id;
+$id = $this->element->getEntity()->getId();
 $lang = $this->params('lang');
 
 ?>
@@ -24,7 +24,7 @@ $lang = $this->params('lang');
                     $linkOptions = [];
                 }
 
-                echo $this->url('lang/jobs/editTemplate', array('id' => $this->element->getEntity()->id), $linkOptions); ?>"></iframe>
+                echo $this->url('lang/jobs/editTemplate', array('id' => $id), $linkOptions); ?>"></iframe>
             </div>
         </div>
     </div>
@@ -34,18 +34,23 @@ $lang = $this->params('lang');
             <div id="template-links">
             <ul >
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id,'template'=>'default'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id,'template'=>'default'), $linkOptions)?>">
                         <?php echo $this->translate("Default")?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id, 'template'=>'classic'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'classic'), $linkOptions)?>">
                         <?php echo $this->translate("Classic")?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id, 'template'=>'modern'))?>">
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'modern'), $linkOptions)?>">
                         <?php echo $this->translate("Modern")?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $id, 'template'=>'html'), $linkOptions)?>">
+                        <?php echo $this->translate("Pure HTML")?>
                     </a>
                 </li>
 
@@ -59,7 +64,7 @@ $lang = $this->params('lang');
         <div class="alert alert-info">
             <h4><?php echo $this->translate('Track applications')?></h4>
 
-            <?php echo $this->summaryform($this->element->getForm('atsMode'), 'form-horizontal') ?>
+            <?=$this->summaryform($this->element->getForm('atsMode'), 'form-horizontal') ?>
 
         </div>
     </div>

@@ -13,6 +13,7 @@ namespace Applications\Listener;
 use Applications\Entity\Settings;
 use Applications\Entity\StatusInterface;
 use Applications\Entity\Application;
+use Applications\Mail\Confirmation;
 use Core\Mail\MailService;
 use Applications\Listener\Events\ApplicationEvent;
 use Applications\Options\ModuleOptions;
@@ -67,14 +68,26 @@ class EventApplicationCreated
 
         if ($workflow->getAcceptApplicationByDepartmentManager()) {
             /* Send mail to department manager, if there is at least one. */
-            $managers = $org->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
+            $assignedManagers = $job->getMetaData('organizations:managers', []);
+            if (count($assignedManagers)) {
+                $managers = [];
+                foreach ($assignedManagers as $manager) {
+                    $manager = $org->getEmployee($manager['id']);
+                    if ($manager) {
+                        $managers[] = $manager;
+                    }
+                }
+            } else {
+                $managers = $org->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
+            }
+
             if (count($managers)) {
                 foreach ($managers as $employee) {
                     /* @var EmployeeInterface $employee */
                     $this->mailService->send(
                         'Applications/NewApplication',
                         [
-                            'job' => $job,
+                            'application' => $this->application,
                             'user' => $employee->getUser(),
                             'bcc' => $adminSettings->getMailBCC() ? [ $admin ] : null,
                         ]
@@ -107,7 +120,7 @@ class EventApplicationCreated
             if (!empty($ackBody)) {
                 /* confirmation mail to the applicant */
                 $ackMail = $this->mailService->get(
-                    'Applications/Confirmation',
+                    Confirmation::class,
                     [
                         'application' => $this->application,
                         'body'        => $ackBody,

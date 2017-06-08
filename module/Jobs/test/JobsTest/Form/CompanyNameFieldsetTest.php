@@ -58,7 +58,7 @@ class CompanyNameFieldsetTest extends \PHPUnit_Framework_TestCase
                      ->method('setName')
                      ->with('jobCompanyName');
 
-        $addParam = array(
+        $addParam1 = array(
             'type' => 'Jobs/HiringOrganizationSelect',
             'property' => true,
             'name' => 'companyId',
@@ -72,9 +72,30 @@ class CompanyNameFieldsetTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->target->expects($this->once())
+        $addParam2 = [
+            'type' => 'Jobs/ManagerSelect',
+                'property' => true,
+                'name' => 'managers',
+                'options' => [
+                    'description' => 'There are department managers assigned to your organization. Please select the department manager, who will receive notifications for incoming applications',
+                    'label' => 'Choose Managers',
+                ],
+                'attributes' => [
+                    'data-allowclear'  => true,
+                    'data-width' => '100%',
+                    'multiple' => true,
+                    'class' => 'manager-select',
+                    'data-organization-element' => 'organization-select',
+                ],
+
+            ];
+
+        $this->target->expects($this->exactly(2))
                      ->method('add')
-                     ->with($addParam);
+                     ->withConsecutive(
+                        [$addParam1],
+                        [$addParam2]
+                    );
 
         $this->target->init();
     }

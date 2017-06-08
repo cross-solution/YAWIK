@@ -10,68 +10,95 @@
 /** */
 namespace JobsTest\Factory\Form;
 
+use CoreTestUtils\TestCase\ServiceManagerMockTrait;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\Form\ActiveOrganizationSelectFactory;
-use Organizations\Entity\Organization;
+use Jobs\Form\OrganizationSelect;
+use Organizations\Repository\Organization;
 use Organizations\Entity\OrganizationContact;
 use Organizations\Entity\OrganizationName;
+use Zend\Http\PhpEnvironment\Request;
+use Zend\ServiceManager\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Form\ActiveOrganizationSelect
  * 
  * @covers \Jobs\Factory\Form\ActiveOrganizationSelectFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ * @group Jobs
+ * @group Jobs.Factory
+ * @group Jobs.Factory.Form
  */
 class ActiveOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    use TestInheritanceTrait, ServiceManagerMockTrait;
 
-    public function testImplementsFactoryInterface()
+    /**
+     *
+     *
+     * @var array|ActiveOrganizationSelectFactory|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $target = [
+        ActiveOrganizationSelectFactory::class,
+        '@testCreateService' => ['mock' => ['__invoke' => ['count' => 1]]],
+    ];
+
+    private $inheritance = [ FactoryInterface::class ];
+
+
+    public function testCreateService()
     {
-        $target = new ActiveOrganizationSelectFactory();
+        $container = $this->getServiceManagerMock();
+        $formElements = $this->getPluginManagerMock($container);
 
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $target);
+        $this->target->createService($formElements);
     }
 
-    public function testCreatesOrganizationSelect()
+    public function testServiceCreationWithoutPreSelectedOrganization()
     {
-        $org1Values = [
-            'id' => 'org1',
-            'name' => 'Org1',
-            'city' => 'Org1City',
-            'street' => 'Org1Street',
-            'number' => '1'
-        ];
+        $this->serviceCreation();
+    }
 
-        $org1 = new OrganizationEntityMock($org1Values);
-        $orgs = [ $org1 ];
+    public function testServiceCreationWithPreSelectOrg()
+    {
+        $this->serviceCreation(true);
+    }
 
+    private function serviceCreation($withPreSelectOrg = false)
+    {
+        $services = [];
+        $request = new Request();
+        $query   = $request->getQuery();
 
-        $jobRepo = $this->getMockBuilder('\Jobs\Repository\Job')->disableOriginalConstructor()->getMock();
+        $services['Request'] = $request;
 
-        $jobRepo->expects($this->once())->method('findActiveOrganizations')->willReturn($orgs);
+        if ($withPreSelectOrg) {
+            $query->set('companyId', 'orgId');
+            $org = new OrganizationEntityMock([
+                'id' => 'orgId',
+                'name' => 'TestOrg',
+                'city' => 'TestCity',
+                'street' => 'TestStreet',
+                'number' => '123',
+            ]);
+            $repository = $this->getMockBuilder(Organization::class)->disableOriginalConstructor()
+                ->setMethods(['find'])->getMock();
+            $repository->expects($this->once())->method('find')->with('orgId')->willReturn($org);
+            $repositories = $this->createPluginManagerMock(['Organizations' => $repository]);
+            $services['repositories'] = $repositories;
+        }
 
-        $repos = $this->getMockBuilder('\Core\Repository\RepositoryService')->disableOriginalConstructor()->getMock();
+        $container = $this->getServiceManagerMock($services);
 
-        $repos->expects($this->once())->method('get')->with('Jobs')->willReturn($jobRepo);
+        $select = $this->target->__invoke($container, 'irrelevant');
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        if (!$withPreSelectOrg) {
+            $this->assertInstanceOf(OrganizationSelect::class, $select);
+            $this->assertEquals('?ajax=jobs.admin.activeorganizations', $select->getAttribute('data-ajax'));
+        } else {
+            $this->assertEquals(2, count($select->getValueOptions()));
+        }
 
-        $services->expects($this->once())->method('get')->with('repositories')->willReturn($repos);
-
-        $formsMock = $this->getMockBuilder('\Zend\Form\FormElementManager')->disableOriginalConstructor()->getMock();
-
-        $formsMock->expects($this->once())->method('getServiceLocator')->willReturn($services);
-
-        $target = new ActiveOrganizationSelectFactory();
-
-        $select = $target->createService($formsMock);
-
-        $this->assertInstanceOf('\Jobs\Form\OrganizationSelect', $select);
-
-        $actual = $select->getValueOptions();
-        $expected = [ '0' => '', 'org1' => 'Org1|Org1City|Org1Street|1|' ];
-
-        $this->assertEquals($expected, $actual);
     }
 }
 
@@ -84,5 +111,25 @@ class OrganizationEntityMock extends Organization
         $contact = new OrganizationContact();
         $contact->setCity($values['city'])->setStreet($values['street'])->setHouseNumber($values['number']);
         $this->contact = $contact;
+    }
+
+    public function getOrganizationName()
+    {
+        return $this->organizationName;
+    }
+
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    public function getImage()
+    {
+        return null;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }

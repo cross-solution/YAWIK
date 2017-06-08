@@ -147,10 +147,14 @@
 
         <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.photon.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.photon.js"/>
         <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.geo.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.geo.js"/>
-        <copy file="${project.basedir}/public/js/jquery.bootstrapwizard.min.js" tofile="${builddir}/public/js/jquery.bootstrapwizard.min.js"/>
+        <copy file="${project.basedir}/module/Geo/public/js/geoselect.js" tofile="${builddir}/public/Geo/js/geoselect.js"/>
 
         <mkdir dir="${builddir}/log"/>
         <chmod file="${builddir}/log" mode="0777"/>
+        <mkdir dir="${builddir}/public/static"/>
+        <chmod file="${builddir}/public/static" mode="0777"/>
+        <mkdir dir="${builddir}/log/tracy"/>
+        <chmod file="${builddir}/log/tracy" mode="0777"/>
         <mkdir dir="${builddir}/cache"/>
         <chmod file="${builddir}/cache" mode="0777"/>
         <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Hydrator"/>
@@ -183,7 +187,17 @@
         <echo msg="generate YAWIK-${version-short}.zip and YAWIK-${version-short}.tgz"/>
         <exec dir="${builddir}/.." command="tar -czpf YAWIK-${version-short}.tgz YAWIK-${version-short}" logoutput="false"/>
         <exec dir="${builddir}/.." command="zip -r YAWIK-${version-short}.zip YAWIK-${version-short}" logoutput="false"/>
-
+	<delete file="build/YAWIK-${version-short}/public/NextKraftwerke" />
+	<delete file="build/YAWIK-${version-short}/public/Karrierelounge" />
+	<delete file="build/YAWIK-${version-short}/public/Greenjobs" />
+	<delete file="build/YAWIK-${version-short}/public/Xenagos" />
+	<delete file="build/YAWIK-${version-short}/public/PxSkin" />
+	<delete file="build/YAWIK-${version-short}/public/YawikDemoSkin" />
+	<delete file="build/YAWIK-${version-short}/public/YawikXingVendorApi" />
+	<delete file="build/YAWIK-${version-short}/public/Karriere24" />
+	<delete file="build/YAWIK-${version-short}/public/YawikDemoJobboard" />
+	<delete file="build/YAWIK-${version-short}/public/Orders" />
+	<delete file="build/YAWIK-${version-short}/public/Gastro24" />
     </target>
 
     <!-- ============================================  -->
@@ -269,7 +283,16 @@
         <!-- ============================================  -->
 
         <fileset id="core" dir="${project.basedir}">
-            <include name="module/**"/>
+            <include name="module/Core/**"/>
+            <include name="module/Auth/**"/>
+            <include name="module/Install/**"/>
+            <include name="module/Pdf/**"/>
+            <include name="module/Jobs/**"/>
+            <include name="module/Applications/**"/>
+            <include name="module/Organizations/**"/>
+            <include name="module/Geo/**"/>
+            <include name="module/Settings/**"/>
+            <include name="module/Cv/**"/>
             <include name="public/**"/>
             <include name="bin/console"/>
             <include name="config/config.php"/>
@@ -278,6 +301,9 @@
             <include name="vendor/zendframework/**"/>
             <include name="vendor/container-interop/**"/>
             <include name="vendor/hybridauth/**"/>
+            <include name="vendor/facebook/**"/>
+            <include name="vendor/tracy/**"/>
+            <include name="vendor/imagine/**"/>
             <include name="vendor/doctrine/**"/>
             <include name="vendor/symfony/polyfill-mbstring/**"/>
             <include name="vendor/jmikola/geojson/src/**"/>
@@ -289,33 +315,17 @@
             <include name="LICENCE"/>
             <include name="README"/>
             <exclude name="public/js/*"/>
-            <exclude name="**/YawikDemo*/**"/>
-            <exclude name="**/Solr/**"/>
-            <exclude name="**/YawikXingVendorApi/**"/>
-            <exclude name="**/YawikCompanyRegistration/**"/>
-            <exclude name="**/CamMediaintown/**"/>
-            <exclude name="**/NextKraftwerke/**"/>
-            <exclude name="**/JobsDeutschland/**"/>
-            <exclude name="**/Karrierelounge/**"/>
-            <exclude name="**/Greenjobs/**"/>
-            <exclude name="**/Xenagos/**"/>
-            <exclude name="**/Karriere24/**"/>
-            <exclude name="**/Phoenixdesign/**"/>
-            <exclude name="**/PxSkin/**"/>
-            <exclude name="**/mhq-yawik-modul/**"/>
-            <exclude name="**/Acpages/**"/>
             <exclude name="public/Applications"/>
             <exclude name="public/Auth"/>
             <exclude name="public/Core"/>
             <exclude name="public/Geo"/>
-            <exclude name="public/js/bloodhound.min.js"/>
-            <exclude name="public/js/typeahead.jquery.min.js"/>
             <exclude name="public/Jobs"/>
             <exclude name="public/Organizations"/>
             <exclude name="**/*.po"/>
             <exclude name="**/*.pot"/>
             <exclude name="**/language/_annotated_strings.php"/>
             <exclude name="public/fonts"/>
+            <exclude name="public/static**"/>
             <exclude name="public/flags"/>
             <exclude name="public/css/select2**"/>
         </fileset>

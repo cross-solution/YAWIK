@@ -17,7 +17,9 @@ use Auth\Entity\UserInterface;
 use Core\Entity\Tree\EmbeddedLeafs;
 use Core\Repository\AbstractRepository;
 use Core\Repository\DoctrineMongoODM;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Query;
 use Jobs\Entity\Category;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\StatusInterface;
@@ -67,36 +69,11 @@ class Job extends AbstractRepository
      */
     public function findByAssignedPermissionsResourceId($resourceId)
     {
-        return $this->findBy(
-            array(
-            'permissions.assigned.' . $resourceId => array(
-                '$exists' => true
-            )
-            )
+        $criteria = $this->getIsDeletedCriteria(
+                ['permissions.assigned.' . $resourceId => [ '$exists' => true]]
         );
-    }
 
-    /**
-     * Gets the Job Titles of a certain user.
-     *
-     * @param $query
-     * @param $userId
-     * @return mixed
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     */
-    public function getTypeAheadResults($query, $userId)
-    {
-        $qb = $this->createQueryBuilder();
-        $qb->hydrate(false)
-           ->select('title', 'applyId')
-           ->field('permissions.view')->equals($userId)
-           ->field('title')->equals(new \MongoRegex('/' . $query . '/i'))
-           ->sort('title')
-           ->limit(5);
-        
-        $result = $qb->getQuery()->execute();
-        
-        return $result;
+        return $this->findBy($criteria);
     }
 
     /**
@@ -111,12 +88,12 @@ class Job extends AbstractRepository
             $user = $user->getId();
         }
 
-        $document = $this->findOneBy(
-            array(
+        $criteria = $this->getIsDeletedCriteria([
             'isDraft' => true,
-            'user' => $user
-            )
-        );
+            'user' => $user,
+        ]);
+
+        $document = $this->findOneBy($criteria);
 
         if (!empty($document)) {
             return $document;
@@ -141,9 +118,11 @@ class Job extends AbstractRepository
      */
     public function findByOrganization($organizationId)
     {
-        return $this->findBy([
-            'organization' => new \MongoId($organizationId)
+        $criteria = $this->getIsDeletedCriteria([
+            'organization' => new \MongoId($organizationId),
         ]);
+
+        return $this->findBy($criteria);
     }
 
     /**
@@ -152,18 +131,23 @@ class Job extends AbstractRepository
      * @return mixed
      * @throws \Doctrine\ODM\MongoDB\MongoDBException
      */
-    public function findActiveOrganizations()
+    public function findActiveOrganizations($term = null)
     {
         $qb = $this->createQueryBuilder();
         $qb->distinct('organization')
             ->hydrate(true)
            ->field('status.name')->notIn([ StatusInterface::EXPIRED, StatusInterface::INACTIVE ]);
+
         $q = $qb->getQuery();
         $r = $q->execute();
         $r = $r->toArray();
 
         $qb = $this->dm->createQueryBuilder('Organizations\Entity\Organization');
         $qb->field('_id')->in($r);
+        if ($term) {
+            $qb->field('_organizationName')->equals(new \MongoRegex('/' . addslashes($term) . '/i'));
+        }
+
         $q = $qb->getQuery();
         $r = $q->execute();
 
@@ -207,5 +191,36 @@ class Job extends AbstractRepository
         }
     
         return $qb->getQuery()->execute();
+    }
+
+    /**
+     * Create a query builder instance.
+     *
+     * @param bool $isDeleted Value of the isDeleted flag. Pass "null" to ignore this field.
+     *
+     * @return Query\Builder
+     */
+    public function createQueryBuilder($isDeleted = false)
+    {
+        $qb =  parent::createQueryBuilder();
+
+        if (null !== $isDeleted) {
+            $qb->addAnd(
+               $qb->expr()->addOr($qb->expr()->field('isDeleted')->equals($isDeleted))
+                          ->addOr($qb->expr()->field('isDeleted')->exists(false))
+            );
+        }
+
+        return $qb;
+    }
+
+    private function getIsDeletedCriteria($criteria)
+    {
+        $criteria['$or'] = [
+            ['isDeleted' => ['$exists' => false]],
+            ['isDeleted' => false],
+        ];
+
+        return $criteria;
     }
 }

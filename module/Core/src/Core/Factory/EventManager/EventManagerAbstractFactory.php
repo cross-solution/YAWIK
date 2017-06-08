@@ -278,7 +278,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
                 foreach ($options['attach'] as $spec) {
                     $lazyListeners[] = [
                         'service' => $options['service'],
-                        'event' => $spec['events'],
+                        'event' => $spec['event'],
                         'method' => $spec['method'],
                         'priority' => $spec['priority'],
                     ];
@@ -305,7 +305,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
 
             foreach ($options['attach'] as $spec) {
                 $callback = $spec['method'] ? [ $listener, $spec['method'] ] : $listener;
-                $eventManager->attach($spec['events'], $callback, $spec['priority']);
+                $eventManager->attach($spec['event'], $callback, $spec['priority']);
             }
         }
 
@@ -355,7 +355,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         $normalized = [
             'service' => $name,
             'attach' => null,
-            'priority' => 0,
+            'priority' => 1,
             'lazy' => false,
         ];
 
@@ -375,7 +375,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
 
         if (is_string($options)) {
             /* Only an event name is provided in config */
-            $normalized['attach'] = [ [ 'events' => [ $options ], 'method' => null, 'priority' => 0 ] ];
+            $normalized['attach'] = [ [ 'event' => $options, 'method' => null, 'priority' => 1 ] ];
             return $normalized;
 
         }
@@ -392,7 +392,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         }
 
         $event = $method = null;
-        $priority = 0;
+        $priority = 1;
         $lazy = false;
 
         foreach ($options as $opt) {
@@ -420,7 +420,11 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
             }
         }
 
-        $normalized['attach'] = [ [ 'events' => $event, 'method' => $method, 'priority' => $priority ] ];
+        foreach ($event as &$eventSpec) {
+            $eventSpec = [ 'event' => $eventSpec, 'method' => $method, 'priority' => $priority ];
+        }
+
+        $normalized['attach'] = $event;
         $normalized['lazy']   = $lazy;
 
         return $normalized;
@@ -428,7 +432,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
 
     protected function normalizeEventsSpec($options)
     {
-        $listenerPriority = isset($options['priority']) ? $options['priority'] : 0;
+        $listenerPriority = isset($options['priority']) ? $options['priority'] : 1;
         $listenerMethod   = isset($options['method'])   ? $options['method']   : '__none__';
         $events = [];
 
@@ -468,7 +472,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         foreach ($events as $method => $priorities) {
             foreach ($priorities as $priority => $event) {
                 $eventsSpec[] = [
-                    'events' => $event,
+                    'event' => $event,
                     'method' => '__none__' == $method ? null : $method,
                     'priority' => $priority,
                 ];

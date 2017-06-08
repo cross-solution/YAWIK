@@ -52,7 +52,7 @@
 
         $buttons = $container.find('.mpc-button');
         $buttons.popover().click(onButtonClick);
-        $('.mps-calculate-btn').click($.fn.multipostingSelect.calculatePrice);
+        $('.mps-calculate-btn').click(function() { $.fn.multipostingSelect.calculatePrice(true); });
         $('.mps-calculate').click(function() {
 
             $.fn.multipostingSelect.calculatePrice(true);
@@ -82,6 +82,10 @@
             selectedChannels.push($(this).find('input').val());
         });
         console.debug(selectedChannels);
+
+        if (true === toggleButton) {
+                    $('.mps-calculate').spinnerbutton('toggle');
+                }
 
         var url = '?do=calculate';
 

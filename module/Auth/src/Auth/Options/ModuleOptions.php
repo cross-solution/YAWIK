@@ -16,6 +16,8 @@ use Zend\Stdlib\AbstractOptions;
  * Class ModuleOptions
  *
  * defines AbstractOptions of the Auth Module
+ * @since 0.30
+ *        - add $notifyOnRegistration, $notificationEmail and notificationLanguage options.
  */
 class ModuleOptions extends AbstractOptions
 {
@@ -69,6 +71,28 @@ class ModuleOptions extends AbstractOptions
      * @var bool
      */
     protected $enableRegistration = true;
+
+    /**
+     * Notify via email user registration?
+     *
+     * @see ::notificationEmail
+     * @var bool
+     */
+    protected $notifyOnRegistration = false;
+
+    /**
+     * Email to send notifications to.
+     *
+     * @var string
+     */
+    protected $notificationEmail;
+
+    /**
+     * Language in which to send the notifications.
+     *
+     * @var string
+     */
+    protected $notificationLanguage = 'en';
 
     /**
      * Enable to reset the password
@@ -220,6 +244,86 @@ class ModuleOptions extends AbstractOptions
     {
         return $this->enableRegistration;
     }
+
+    /**
+     * @param string $notificationEmail
+     *
+     * @return self
+     * @since 0.30
+     */
+    public function setNotificationEmail($notificationEmail)
+    {
+        $this->notificationEmail = $notificationEmail;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     * @since 0.30
+     */
+    public function getNotificationEmail()
+    {
+        return $this->notificationEmail;
+    }
+
+    /**
+     * @param boolean $notifyOnRegistration
+     *
+     * @return self
+     * @since 0.30
+     */
+    public function setNotifyOnRegistration($notifyOnRegistration)
+    {
+        $this->notifyOnRegistration = $notifyOnRegistration;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     * @since 0.30
+     */
+    public function getNotifyOnRegistration()
+    {
+        return $this->notifyOnRegistration;
+    }
+
+    /**
+     * @internal
+     *      Convinience method.
+     *
+     * @return string
+     * @since 0,30
+     */
+    public function notifyOnRegistration()
+    {
+        return $this->getNotificationEmail();
+    }
+
+    /**
+     * @param string $notificationLanguage
+     *
+     * @return self
+     * @since 0.30
+     */
+    public function setNotificationLanguage($notificationLanguage)
+    {
+        $this->notificationLanguage = $notificationLanguage;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     * @since 0.30
+     */
+    public function getNotificationLanguage()
+    {
+        return $this->notificationLanguage;
+    }
+
+
 
     /**
      * @param $enableResetPassword

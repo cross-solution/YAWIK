@@ -42,7 +42,7 @@ class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
             ->with([
             'professions' => [
                 'options' => [
-                    'label' => 'Professions',
+                    'label' => /*@translate*/ 'Professions',
                 ],
                 'entity' => 'professions',
                 'property' => true,
@@ -52,7 +52,25 @@ class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
                         'property' => true,
                         'options' => [
                             'enable_descriptions' => true,
-                            'description' => /*@translate*/ 'Manage the professions you want to assign to jobs.',
+                            'description' => 'Manage the professions you want to assign to jobs.The order of categories can be modified by drag&drop.',
+                            'display_mode' => SummaryForm::DISPLAY_SUMMARY,
+                        ],
+                    ],
+                ],
+            ],
+            'industries' => [
+                'options' => [
+                    'label' => /*@translate*/ 'Industries',
+                ],
+                'entity' => 'industries',
+                'property' => true,
+                'forms' => [
+                    'industries' => [
+                        'type' => 'Core/Tree/Management',
+                        'property' => true,
+                        'options' => [
+                            'enable_descriptions' => true,
+                            'description' => 'Manage the industries you want to assign to jobs.The order of categories can be modified by drag&drop.',
                             'display_mode' => SummaryForm::DISPLAY_SUMMARY,
                         ],
                     ],
@@ -60,7 +78,7 @@ class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
             ],
             'employmentTypes' => [
                 'options' => [
-                    'label' => 'Employment Types',
+                    'label' => /*@translate*/ 'Employment Types',
                 ],
                 'entity' => 'employmentTypes',
                 'property' => true,
@@ -70,7 +88,7 @@ class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
                         'property' => true,
                         'options' => [
                             'enable_descriptions' => true,
-                            'description' => /*@translate*/ 'Manage the employment types you want to assign to jobs.',
+                            'description' => 'Manage the employment types you want to assign to jobs.The order of categories can be modified by drag&drop.',
                             'display_mode' => SummaryForm::DISPLAY_SUMMARY,
                         ],
                     ],

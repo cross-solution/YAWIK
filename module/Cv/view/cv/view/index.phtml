@@ -14,7 +14,7 @@ use Cv\Entity\StatusInterface as Status;
 
 $this->headTitle($this->translate('View'));
 
-/* @var Applications\Entity\Application $application */
+/* @var Cv\Entity\Cv $resume */
 $resume = $this->resume;
 
 /* @var \Auth\Entity\User $user */
@@ -138,24 +138,19 @@ $user = $this->auth()->getUser();
                         <?php echo $this->translate($resume->getStatus()->getName()) ?>
                     </td>
                 </tr>
-
-
                         <tr>
-                            <td><?php echo $this->translate('last modification date')?>:</td>
+                            <td><?=$this->translate('last modification date')?>:</td>
                             <td>
-                                    <?php echo $this->dateFormat($resume->getDateModified()->getTimestamp(), 'short'); ?>
-
+                                <?=$this->dateFormat($resume->getDateModified()->getTimestamp(), 'short'); ?>
                             </td>
                         </tr>
-
-
             </table>
         </div>
     </div>
 </div>
 
 
-<?php if(count($this->resume->employments)>0):?>
+<?php if(count($resume->getEmployments())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -172,12 +167,12 @@ $user = $this->auth()->getUser();
                         <th><?php echo $this->translate('Description')?></th>
                     </tr>
                     </thead>
-                    <?php foreach( $this->resume->employments as $employment): ?>
+                    <?php foreach( $resume->getEmployments() as $employment): /* @var Cv\Entity\Employment $employment */ ?>
                         <tr>
-                            <td><?php echo $this->dateFormat($employment->startDate,'medium', 'null')?></td>
-                            <td><?php echo $this->dateFormat($employment->endDate,'medium', 'null')?></td>
-                            <td><?php echo $employment->organizationName ?></td>
-                            <td><?php echo $employment->description ?></td>
+                            <td><?php echo $this->dateFormat($employment->getStartDate(),'medium', 'null')?></td>
+                            <td><?php echo $this->dateFormat($employment->getEndDate(),'medium', 'null')?></td>
+                            <td><?php echo $employment->getOrganizationName() ?></td>
+                            <td><?php echo $employment->getDescription() ?></td>
                         </tr>
                     <?php endforeach; // employments?>
                 </table>
@@ -186,7 +181,7 @@ $user = $this->auth()->getUser();
     </div>
 <?php endif;?>
 
-<?php if(count($this->resume->educations)>0):?>
+<?php if(count($resume->getEducations())>0):?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -201,12 +196,12 @@ $user = $this->auth()->getUser();
                         <th class="col-md-3"><?php echo $this->translate('University')?></th>
                         <th><?php echo $this->translate('Description')?></th>
                     </tr>
-                    <?php foreach( $this->resume->educations as $education): ?>
+                    <?php foreach( $resume->getEducations() as $education): /* @var Cv\Entity\Employment $education */ ?>
                         <tr>
-                            <td><?php echo $this->dateFormat($education->startDate,'medium', 'null') ?></td>
-                            <td><?php echo $this->dateFormat($education->endDate,'medium', 'null') ?></td>
-                            <td><?php echo $education->organizationName ?></td>
-                            <td><?php echo $education->description ?></td>
+                            <td><?php echo $this->dateFormat($education->getStartDate(),'medium', 'null') ?></td>
+                            <td><?php echo $this->dateFormat($education->getEndDate(),'medium', 'null') ?></td>
+                            <td><?php echo $education->getOrganizationName() ?></td>
+                            <td><?php echo $education->getDescription() ?></td>
                         </tr>
                     <?php endforeach; // educations?>
                 </table>
@@ -215,9 +210,9 @@ $user = $this->auth()->getUser();
     </div>
 <?php endif;?>
 
-<?php if(count($this->resume->skills)>0):?>
+<?php if(count($resume->getSkills())>0):?>
     <h2><?php echo  $this->translate('personal skills')?></h2>
-    <?php foreach( $this->resume->skills as $kill): ?>
+    <?php foreach( $resume->getSkills() as $kill): /* @var Cv\Entity\SkillInterface $skill */ ?>
         <div class="col-md-3"><?php echo $this->translate('native language')?></div>
         <div class="col-md-3">TODO</div>
     <?php endforeach; // skills?>

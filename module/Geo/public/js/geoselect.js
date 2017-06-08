@@ -54,11 +54,15 @@
             minimumInputLength: 2,
 
             ajax: {
-                url: basePath + '/' + lang + '/' + $node.data('uri'),
+                url: basePath + '/',
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
-                    return { q: params.term };
+                    return {
+                        q: params.term,
+                        ajax: 'geo',
+                        lang: lang
+                    };
                 },
                 processResults: function(data, params) {
                     console.debug('results:', data);
@@ -79,27 +83,48 @@
 
         var initialValue = $node.data('val');
 
-        if (initialValue) {
-            var $option = $('<option selected>Test</option>');
-            $option.val($node.attr('data-val'));
-            $option.text(formatSelection({id: $node.attr('data-val'), data: initialValue}));
-            $node.prepend($option);
+
+
+        if (!initialValue) {
+            initialValue = [];
+        } else if (!$.isArray(initialValue)) {
+            initialValue = [initialValue];
+        }
+
+        console.debug(initialValue);
+        if (initialValue.length) {
+            for (var i=initialValue.length-1; i>=0; i-=1) {
+                console.debug("initVal " + i + ": "+ initialValue[i]);
+                var $option = $('<option selected>Test</option>');
+                $option.val(initialValue[i]);
+                $option.text(formatSelection({id: initialValue[i], data: $.parseJSON(initialValue[i])}));
+                $node.prepend($option);
+            }
             $node.trigger('change');
         }
+        
+        $node.parents('form').on('reset.geoselect', function(event) {
+            window.setTimeout(function() {
+                $node.val('').trigger('change');
+            }, 10)
+        })
     }
 
-    $(function() {
-        $('select.geoselect').each(function() {
-            var $select = $(this);
-            setupGeoSelect($select);
-            $select.parents('form').on('reset.geoselect', function(event) {
-                window.setTimeout(function() {
-                    $select.val('').trigger('change');
-                }, 10)
-            })
-        });
-    });
+    $.fn.geoSelect = function () {
+        return this.each(function () {
+            var $this = $(this);
+            var data = $this.data('geoSelectInitialized');
 
+            if (!data) {
+                $this.data('geoSelectInitialized', true);
+                setupGeoSelect($this);
+            }
+        });
+    };
+    
+    $(function() {
+        $('select.geoselect').geoSelect();
+    });
 
 })(jQuery); 
  

@@ -149,7 +149,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
                  ->withConsecutive(
                         array('AuthenticationService'),
                         array('Router'),
-                        ['MailService']
+                        ['Core/MailService']
                  )->will($this->onConsecutiveCalls($authService, $router, $mailService));
 
 

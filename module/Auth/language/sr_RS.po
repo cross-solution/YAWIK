@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-08 23:14+0100\n"
-"PO-Revision-Date: 2017-02-08 22:15+0000\n"
+"POT-Creation-Date: 2017-04-27 19:26+0200\n"
+"PO-Revision-Date: 2017-04-27 17:28+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/yawik/yawik/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
@@ -555,8 +555,4 @@ msgstr ""
 
 #: language/_annotated_strings.php:219
 msgid "recruiter"
-msgstr ""
-
-#: language/_annotated_strings.php:225
-msgid "Data"
 msgstr ""

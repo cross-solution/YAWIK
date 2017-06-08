@@ -16,9 +16,10 @@ class JobDescriptionBenefitsStrategy implements StrategyInterface
 {
     public function extract($value)
     {
+        /* @var \Jobs\Entity\Job $value */
         $result = null;
-        if (isset($value->templateValues)) {
-            $result = $value->templateValues->benefits;
+        if (method_exists($value, 'getTemplateValues')) {
+            $result = $value->getTemplateValues()->getBenefits();
         }
         return $result;
     }
@@ -29,8 +30,9 @@ class JobDescriptionBenefitsStrategy implements StrategyInterface
      */
     public function hydrate($value, $object = null)
     {
+        /* @var \Jobs\Entity\Job $object */
         if (isset($value['description-benefits'])) {
-            $object->templateValues->benefits = $value['description-benefits'];
+            $object->getTemplateValues()->setBenefits($value['description-benefits']);
         }
         return;
     }

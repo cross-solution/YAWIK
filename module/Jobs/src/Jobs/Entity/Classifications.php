@@ -29,7 +29,7 @@ class Classifications implements EntityInterface
     use EntityTrait, ClonePropertiesTrait;
 
     private $cloneProperties = [
-        'professions', 'employmentTypes'
+        'professions', 'employmentTypes', 'industries'
     ];
 
     /**
@@ -39,6 +39,14 @@ class Classifications implements EntityInterface
      * @var EmbeddedLeafs
      */
     private $professions;
+
+    /**
+     * The industries.
+     *
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\Tree\EmbeddedLeafs")
+     * @var EmbeddedLeafs
+     */
+    private $industries;
 
     /**
      * The employment types.
@@ -102,6 +110,34 @@ class Classifications implements EntityInterface
         }
 
         return $this->professions;
+    }
+
+    /**
+     * Set the industries.
+     *
+     * @param \Core\Entity\Tree\EmbeddedLeafs $industries
+     *
+     * @return self
+     */
+    public function setIndustries($industries)
+    {
+        $this->industries = $industries;
+
+        return $this;
+    }
+
+    /**
+     * Get the professions.
+     *
+     * @return \Core\Entity\Tree\EmbeddedLeafs
+     */
+    public function getIndustries()
+    {
+        if (!$this->industries) {
+            $this->setIndustries(new EmbeddedLeafs());
+        }
+
+        return $this->industries;
     }
 
 

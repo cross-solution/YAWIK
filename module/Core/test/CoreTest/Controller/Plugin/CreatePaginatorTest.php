@@ -13,7 +13,6 @@ namespace CoreTest\Controller\Plugin;
 use Core\Controller\Plugin\CreatePaginator;
 use Core\Listener\Events\CreatePaginatorEvent;
 use Zend\EventManager\EventManager;
-use Zend\EventManager\ResponseCollection;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 
@@ -23,6 +22,7 @@ use Zend\Stdlib\Parameters;
  * @covers \Core\Controller\Plugin\CreatePaginator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @group Core
  * @group Core.Controller
  * @group Core.Controller.Plugin
@@ -35,7 +35,11 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testExtendsAbstractControllerPlugin()
     {
-        $target = new CreatePaginator($this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock());
+        $serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $target = new CreatePaginator($serviceManager, new Request());
 
         $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', $target);
     }
@@ -46,6 +50,7 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
             [ 'Test/Paginator', ['test' => 'value'], ['merged' => 'yes'], false, ['page' => 1, 'count' => 10, 'range' => 5] ],
             [ 'Test2/YetAnotherPager', ['page' => 2], [], true, ['page' => 2, 'count' => 10, 'range' => 5] ],
             [ 'Yet/Another', ['page' => 3, 'count' => 90, 'range' => 2], false, false, ['page' => 3, 'count' => 90, 'range' => 2] ],
+            [ 'Even/Another', ['test' => 'value'], [], new \ArrayObject(['test' => 'value']), ['page' => 1, 'count' => 10, 'range' => 5]],
         ];
     }
 
@@ -112,15 +117,8 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
             ->method('trigger')
             ->with($event)
         ;
-        $controller = $this->getMockBuilder('\Zend\Mvc\Controller\AbstractActionController')
-                           ->setMethods(['getServiceLocator', 'getRequest'])
-                           ->getMockForAbstractClass();
 
-        $controller->expects($this->once())->method('getRequest')->willReturn($request);
-
-
-        $target = new CreatePaginator($sm);
-        $target->setController($controller);
+        $target = new CreatePaginator($sm, $request);
 
         $pager = false === $defaultParams ? $target($paginatorName, $usePostParams) : $target($paginatorName, $defaultParams, $usePostParams);
 
@@ -133,7 +131,10 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassingInvalidDefaultParamsThrowsException()
     {
-        $target = new CreatePaginator($this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock());
+        $serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $target = new CreatePaginator($serviceManager, new Request());
 
         $target('NotNeeded', new \stdClass);
     }

@@ -48,7 +48,7 @@ class Photon extends AbstractClient
     protected function preQuery($term, array $params)
     {
         $query = $this->client->getRequest()->getQuery();
-        $query->set('q', $term);
+        $query->set('q', $term)->set('lon', '10.4486')->set('lat', '51.1641');
 
         if (isset($params['lang'])) {
             $query->set('lang', $params['lang']);
@@ -80,7 +80,7 @@ class Photon extends AbstractClient
                     'coordinates' => $val->geometry->coordinates,
                 ];
             }
-            $row['id'] = json_encode($row);
+            //$row['id'] = json_encode($row);
             $r[]=$row;
         }
         return $r;

@@ -13,6 +13,7 @@ namespace Core\Controller\Plugin;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Session\Container;
 use Core\Repository\RepositoryInterface;
+use Zend\Stdlib\Parameters;
 
 /**
  * Manages pagination parameters in a session container.
@@ -76,6 +77,7 @@ class PaginationParams extends AbstractPlugin
      *         Set default value if paramName is not present in params
      *      2. [paramName]
      *         Store paramName if it is present, do nothing if not.
+     * @param Parameters $params
      *
      * @return Parameters
      */
@@ -83,7 +85,7 @@ class PaginationParams extends AbstractPlugin
     {
         $session        = new Container($namespace);
         $sessionParams  = $session->params ?: array();
-        $params         = $params ?: $this->getController()->getRequest()->getQuery();
+        $params         = $params ?: clone $this->getController()->getRequest()->getQuery();
         
         if ($params->get('clear')) {
             $sessionParams = array();
@@ -131,6 +133,8 @@ class PaginationParams extends AbstractPlugin
      *
      * @param string $namespace
      * @param RepositoryInterface|callable $callback
+     *
+     * @return array
      */
     public function getList($namespace, $callback)
     {
@@ -158,9 +162,9 @@ class PaginationParams extends AbstractPlugin
     {
         $list = $this->getList($namespace, $callback);
         $list->setCurrent($id);
-        return array(
+        return [
             $list->getPrevious(),
             $list->getNext()
-        );
+        ];
     }
 }

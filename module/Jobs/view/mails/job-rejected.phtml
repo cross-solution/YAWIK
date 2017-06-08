@@ -13,8 +13,8 @@
  * $this->job : The job entity
  * $this->siteName: The site name (from Core/AbstractOptions)
  */
-
-$user = $this->job->getUser();
+$job = $this->job; /* @var \Jobs\Entity\Job $job */
+$user = $job->getUser();
 $info = $user->getInfo();
 ?>
 <?php echo $this->partial('mail/header'); ?>
@@ -23,7 +23,7 @@ $info = $user->getInfo();
         : 'Sehr geehrte Frau' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
 
 <p>
-    Ihrer Stellenanzeige "<?php echo $this->job->getTitle() ?>" mit der Referenz <?php echo $this->job->getReference() ?>.
+    Ihrer Stellenanzeige "<?= $job->getTitle() ?>" mit der Referenz <?= $job->getReference() ?>.
     wurde abgelehnt. Bitte korrigieren Sie die Stellenanzeige.
 </p>
 

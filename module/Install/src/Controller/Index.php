@@ -10,10 +10,11 @@
 /** */
 namespace Install\Controller;
 
-use Zend\Http\PhpEnvironment\Response;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
+use Zend\Stdlib\ResponseInterface;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -25,7 +26,14 @@ use Zend\View\Model\ViewModel;
  */
 class Index extends AbstractActionController
 {
-    /**
+	protected $installForm;
+	
+	public function __construct(FormElementManager $formElementManager)
+	{
+		$this->installForm = $formElementManager->get('Install/Installation');
+	}
+	
+	/**
      * Hook for custom preDispatch event.
      *
      * @param MvcEvent $event
@@ -54,23 +62,22 @@ class Index extends AbstractActionController
      */
     public function indexAction()
     {
-        $form    = $this->getForm();
+        $form    = $this->installForm;
         $prereqs = $this->plugin('Install/Prerequisites')->check();
-
-
-        return $this->createViewModel(
-            array(
-                                          'prerequisites' => $prereqs,
-                                          'form'          => $form,
-                                          'lang'          => $this->params('lang'),
-                                      )
-        );
+	
+	    return $this->createViewModel(
+		    array(
+			    'prerequisites' => $prereqs,
+			    'form'          => $form,
+			    'lang'          => $this->params('lang'),
+		    )
+	    );
     }
 
     /**
      * Action to check prerequisites via ajax request.
      *
-     * @return ViewModel
+     * @return ViewModel|ResponseInterface
      */
     public function prereqAction()
     {
@@ -85,20 +92,20 @@ class Index extends AbstractActionController
     /**
      * Main working action. Creates the configuration.
      *
-     * @return Response|ViewModel
+     * @return ResponseInterface|ViewModel
      */
     public function installAction()
     {
-        $form = $this->getForm();
+        $form = $this->installForm;
         $form->setData($_POST);
 
         if (!$form->isValid()) {
-            return $this->createJsonResponse(
-                array(
-                                                 'ok'     => false,
-                                                 'errors' => $form->getMessages(),
-                                             )
-            );
+	        return $this->createJsonResponse(
+		        array(
+			        'ok'     => false,
+			        'errors' => $form->getMessages(),
+		        )
+	        );
         }
 
         $data = $form->getData();
@@ -126,24 +133,10 @@ class Index extends AbstractActionController
      */
     protected function attachDefaultListeners()
     {
-        parent::attachDefaultListeners();
-
-        $events = $this->getEventManager();
-        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 100);
-    }
-
-    /**
-     * Gets the installation form
-     *
-     * @return \Install\Form\Installation
-     */
-    protected function getForm()
-    {
-        $services = $this->serviceLocator;
-        $forms    = $services->get('FormElementManager');
-        $form     = $forms->get('Install/Installation');
-
-        return $form;
+	    parent::attachDefaultListeners();
+	
+	    $events = $this->getEventManager();
+	    $events->attach( MvcEvent::EVENT_DISPATCH, array( $this, 'preDispatch' ), 100 );
     }
 
     /**

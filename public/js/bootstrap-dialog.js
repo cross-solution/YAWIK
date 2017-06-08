@@ -1,1 +1,0 @@
-../../node_modules/bootstrap3-dialog/dist/js/bootstrap-dialog.js

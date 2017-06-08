@@ -251,7 +251,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     public function provideSetGetStatusTestData()
     {
         return array(
-            array("CREATED",        Status::CREATED),
+            array(Status::CREATED,  Status::CREATED),
             array(Status::ACTIVE,   Status::ACTIVE),
             array(Status::EXPIRED,  Status::EXPIRED),
             array(Status::PUBLISH,  Status::PUBLISH),
@@ -567,8 +567,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $templateValues1->setBenefits("test");
 
         $templateValues2 = new ConcreteEntityForTemplateValues();
-        $templateValues2->description='my description';
-        $templateValues2->test='invalid';
+        $templateValues2->setDescription('my description');
+        $templateValues2->setTest('invalid');
 
 
         return [

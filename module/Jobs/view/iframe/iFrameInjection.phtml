@@ -30,9 +30,15 @@ $addHead .= '<script type="text/javascript">
 </script>';
 
 $content = $this->content;
-if (!empty($addHead) && preg_match("/^(.*)(<\/head>[^\w]*<body>.*)$/ms", $this->content, $matches)) {
-    $head = $matches[1];
-    $body = $matches[2];
+if (!empty($addHead)) {
+
+    if (preg_match("/^(.*)(<\/head>[^\w]*<body>.*)$/ms", $this->content, $matches)) {
+        $head = $matches[1];
+        $body = $matches[2];
+    } else {
+        $head = '';
+        $body = $this->content;
+    }
     //$content = $head . PHP_EOL . $headLink . PHP_EOL . $headScript . PHP_EOL .  $headStyle . PHP_EOL . $body;
     $content = $head . PHP_EOL . $addHead . $body;
 } else {

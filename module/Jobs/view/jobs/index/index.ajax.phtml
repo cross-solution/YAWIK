@@ -31,8 +31,8 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 <tbody>
 <?php foreach ($jobs as $job): /* @var  \Jobs\Entity\Job $job */?>
 <tr>
-    <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); 
-              elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
+    <td><?php if ($job->getDatePublishStart()): echo $this->dateFormat($job->getDatePublishStart(), 'short', 'none');
+              elseif ($job->getDateCreated()): echo $this->dateFormat($job->getDateCreated(), 'short', 'none'); endif?>
         <?php if ($isRecruiter):?>
         <br>(<?php
             $displayName = '';
@@ -51,22 +51,22 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
         <small><?=$job->getClassifications()->getProfessions()?></small> |
         <small><?=$job->getClassifications()->getEmploymentTypes()?></small>
     </td>
-    <td><?php echo $job->location?></td>
-    <td><?php echo $job->company?></td>
-    <td><?php echo empty($job->reference)? $job->applyId:$job->reference ?></td>
+    <td><?php echo $job->getLocation()?></td>
+    <td><?php echo $job->getCompany()?></td>
+    <td><?php echo empty($job->getReference())? $job->getApplyId():$job->getReference() ?></td>
 
       <?php if ($isRecruiter):?>
           <td>
-         <?php if ($job->applications->count()>0):?>
-            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id), true) ?>">
-            <span class="badge"><?php echo $job->applications->count() ;?></span>
+         <?php if ($job->getApplications()->count()>0):?>
+            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->getId()), true) ?>">
+            <span class="badge"><?php echo $job->getApplications()->count() ;?></span>
             </a>
          <?php endif;?>
-         <?php if ($job->unreadApplications->count()):?>       
+         <?php if ($job->getUnreadApplications()->count()):?>
             / 
             <a title="<?php echo $this->translate("unread")?>" 
-               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id . '&unread=1'), true) ?>">
-            <span class="badge"> <?php echo $job->unreadApplications->count()?></span>
+               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->getId() . '&unread=1'), true) ?>">
+            <span class="badge"> <?php echo $job->getUnreadApplications()->count()?></span>
             </a>
              </td>
          <?php endif;?>
@@ -84,11 +84,11 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
          </td>
          <td class="btn-group btn-toolbar"><?php if ($this->acl($job, 'edit')): ?>
              <?php $org = $job->getOrganization(); if ($org && $org->getUser()):?>
-             <a href="<?php echo $this->url('lang/jobs/assign-user', array(), array('query' => array('id' => $job->id)), true)?>"
-                data-id="<?php echo $job->id ?>"
+             <a href="<?php echo $this->url('lang/jobs/assign-user', array(), array('query' => array('id' => $job->getId())), true)?>"
+                data-id="<?php echo $job->getId() ?>"
                 data-i18n='{"title":"<?php echo $this->escapeHtmlAttr(sprintf(
                                             $this->translate('Change responsible user for job \\"%s\\"'),
-                                            $job->title
+                                            $job->getTitle()
                                        ))?>"}'
                 class="btn btn-default btn-xs assign-user-button"><span class="yk-icon yk-icon-user"></span></a>
                      <?php endif; ?>
@@ -102,7 +102,8 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
              <i class="yk-icon yk-icon-history"></i>
          </a>
 
-         <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs"><span class="yk-icon yk-icon-edit"></span></a>
+         <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->getId())), true) ?>" class="btn btn-default btn-xs">
+             <span class="yk-icon yk-icon-edit"></span></a>
                  <?php if ($job->isDraft()):?>
          <a href="<?php echo $this->url('lang/jobs/manage', ['action' => 'delete'], ['query' => ['id' => $job->getId()]], true)?>"
             onclick="return window.confirm('<?=$this->translate('Are you sure to delete this job?')?>')"

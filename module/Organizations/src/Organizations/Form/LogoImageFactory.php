@@ -10,6 +10,7 @@
 namespace Organizations\Form;
 
 use Core\Form\FileUploadFactory;
+use Organizations\Form\Hydrator\ImageHydrator;
 use Zend\Stdlib\AbstractOptions;
 
 /**
@@ -19,7 +20,7 @@ use Zend\Stdlib\AbstractOptions;
  */
 class LogoImageFactory extends FileUploadFactory
 {
-    protected $fileName = 'image';
+    protected $fileName = 'original';
     protected $fileEntityClass = '\Organizations\Entity\OrganizationImage';
     protected $configKey = 'organization_logo_image';
 
@@ -50,5 +51,7 @@ class LogoImageFactory extends FileUploadFactory
         $form->setDescription(
             /*@translate*/ 'Choose a Logo. This logo will be shown in the job opening and the application form.'
         );
+
+        //$form->setHydrator(new ImageHydrator());
     }
 }

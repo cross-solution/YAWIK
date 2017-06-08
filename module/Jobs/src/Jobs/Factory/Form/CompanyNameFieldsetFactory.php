@@ -30,7 +30,6 @@ class CompanyNameFieldsetFactory implements FactoryInterface
          * @var $hydrator OrganizationNameHydrator
          */
         $hydrator = $container->get('Jobs\Form\Hydrator\OrganizationNameHydrator');
-
         $form = new CompanyNameFieldset();
         $form->setHydrator($hydrator);
 

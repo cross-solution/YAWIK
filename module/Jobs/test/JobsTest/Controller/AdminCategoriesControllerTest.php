@@ -46,10 +46,11 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['setEntity', 'getForm'])
             ->getMock();
-        $form->expects($this->exactly(2))->method('setEntity')
+        $form->expects($this->exactly(3))->method('setEntity')
             ->withConsecutive(
                 [$this->isInstanceOf(Category::class), 'professions'],
-                [$this->isInstanceOf(Category::class), 'employmentTypes']
+                [$this->isInstanceOf(Category::class), 'employmentTypes'],
+                [$this->isInstanceOf(Category::class), 'industries']
             );
 
         if ($postRequest) {
@@ -81,20 +82,24 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
 
         if ($rootExists) {
             $professions = new Category('professions');
+            $industries = new Category('industries');
             $types = new Category('Employment Types', 'employmentTypes');
-            $repository->expects($this->exactly(2))->method('findOneBy')
+            $repository->expects($this->exactly(3))->method('findOneBy')
                 ->withConsecutive(
                     [['value' => 'professions']],
-                    [['value' => 'employmentTypes']]
+                    [['value' => 'employmentTypes']],
+                    [['value' => 'industries']]
                 )->will($this->onConsecutiveCalls(
                                      $professions,
+                                     $industries,
                                      $types
                                  ));
         } else {
-            $repository->expects($this->exactly(2))->method('findOneBy')
+            $repository->expects($this->exactly(3))->method('findOneBy')
                        ->withConsecutive(
                        [['value' => 'professions']],
-                           [['value' => 'employmentTypes']]
+                       [['value' => 'employmentTypes']],
+                       [['value' => 'industries']]
                 )->willReturn(null);
         }
 
@@ -105,7 +110,7 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
         $repositories->expects($this->once())->method('get')->with('Jobs/Category')->willReturn($repository);
 
         if (!$rootExists) {
-            $repositories->expects($this->exactly(2))->method('store')
+            $repositories->expects($this->exactly(3))->method('store')
                 ->with($this->isInstanceOf(Category::class));
         } else if ($postRequest) {
             $repositories->expects($this->exactly(1))->method('store')

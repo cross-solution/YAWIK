@@ -39,7 +39,12 @@ class RegisterConfirmationFactory implements FactoryInterface
         $userRepository = $container->get('repositories')->get('Auth/User');
         $authenticationService = new AuthenticationService();
 
-        return new RegisterConfirmation($userRepository, $authenticationService);
+        $service = new RegisterConfirmation($userRepository, $authenticationService);
+
+        $events = $container->get('Auth/Events');
+        $service->setEventManager($events);
+
+        return $service;
     }
 
     /**

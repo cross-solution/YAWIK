@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-08 23:14+0100\n"
-"PO-Revision-Date: 2017-02-08 22:15+0000\n"
+"POT-Creation-Date: 2017-04-27 19:25+0200\n"
+"PO-Revision-Date: 2017-04-27 17:27+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Serbian (http://www.transifex.com/yawik/yawik/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: sr\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: view/applications/comment/list.phtml:67
+#: view/applications/comment/list.phtml:66
 msgid ""
 "There are no comments for this application yet. Be the first to comment by "
 "clicking the \"Add new comment\" button below!"
@@ -31,20 +31,20 @@ msgid "Apply"
 msgstr "Применити"
 
 #: view/applications/index/index.phtml:16
-#: view/applications/apply/index.phtml:28
+#: view/applications/apply/index.phtml:15
 #: view/applications/apply/success.phtml:28
 #: view/applications/manage/detail.pdf.phtml:98
 msgid "Application"
 msgstr "апликација"
 
 #: view/applications/index/index.phtml:18
-#: view/applications/apply/index.phtml:33
+#: view/applications/apply/index.phtml:20
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
 #: view/applications/index/index.phtml:19
-#: view/applications/apply/index.phtml:35
+#: view/applications/apply/index.phtml:22
 msgid "click to open the job ad"
 msgstr "кликните да бисте отворили оглас за посао"
 
@@ -82,58 +82,58 @@ msgstr "посао"
 msgid "Date"
 msgstr "датум"
 
-#: view/applications/apply/index.phtml:60
+#: view/applications/apply/index.phtml:49
 msgid "your application was sent successfully"
 msgstr "Ваш захтев је успешно послат"
 
-#: view/applications/apply/index.phtml:66
+#: view/applications/apply/index.phtml:55
 #, php-format
 msgid ""
 "The application was added to your %slist%s, so you can keep up-to-date with "
 "the process."
 msgstr ""
 
-#: view/applications/apply/index.phtml:73
+#: view/applications/apply/index.phtml:62
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
 msgstr "Будите у току-то-дате са процесом свог захтева од означавање тхис линк:"
 
-#: view/applications/apply/index.phtml:98
+#: view/applications/apply/index.phtml:91
 msgid "This is a preview of the application form for your job"
 msgstr "Ово је преглед обрасца за пријаву за свој посао"
 
-#: view/applications/apply/index.phtml:99
+#: view/applications/apply/index.phtml:92
 msgid ""
 "You may expand any section and check the available fields, but you can not "
 "save anything."
 msgstr "Можете проширити било који део и провери доступне поља, али не можете да сачувате ништа."
 
-#: view/applications/apply/_buttons.phtml:20
+#: view/applications/apply/_buttons.phtml:21
 msgid ""
 "Your application is incomplete. You have to add your contact data and accept"
 " the privacy policy to be able to submit the application. You can always "
 "preview or abort your application."
 msgstr "Ваш захтев није потпун. Морате да додате контакт податке и прихватити политику приватности да бисте могли да поднесе пријаву. Увек можете да прегледате или прекинете своју пријаву."
 
-#: view/applications/apply/_buttons.phtml:38
+#: view/applications/apply/_buttons.phtml:39
 msgid "Back to the formular"
 msgstr "Назад на формулар"
 
-#: view/applications/apply/_buttons.phtml:57
+#: view/applications/apply/_buttons.phtml:58
 msgid "Preview application"
 msgstr "Преглед апликација"
 
-#: view/applications/apply/_buttons.phtml:63
-#: view/applications/apply/_buttons.phtml:73
+#: view/applications/apply/_buttons.phtml:64
+#: view/applications/apply/_buttons.phtml:74
 msgid "Send application"
 msgstr "послати захтев"
 
-#: view/applications/apply/_buttons.phtml:70
+#: view/applications/apply/_buttons.phtml:71
 msgid "Send preview to my email"
 msgstr "Пошаљи преглед на мој е-маил"
 
-#: view/applications/apply/_buttons.phtml:81
+#: view/applications/apply/_buttons.phtml:82
 msgid "Abort application"
 msgstr "прекид апликације"
 
@@ -146,30 +146,30 @@ msgstr ""
 msgid "your application had been posted. Godspeed."
 msgstr "Ваш захтев је постављен. Срећно."
 
-#: view/applications/manage/index.phtml:22
+#: view/applications/manage/index.phtml:25
 #, php-format
 msgid "for the job \"%s\""
 msgstr ""
 
-#: view/applications/manage/index.phtml:23
+#: view/applications/manage/index.phtml:26
 msgid "to all of your jobs"
 msgstr "за све ваше послове"
 
-#: view/applications/manage/index.phtml:27
+#: view/applications/manage/index.phtml:30
 #: src/Applications/Auth/Dependency/ListListener.php:45
 msgid "Applications"
 msgstr "aplikacije"
 
-#: view/applications/manage/index.phtml:39
+#: view/applications/manage/index.phtml:42
 msgid "List of received applications"
 msgstr "Списак примљених пријава"
 
-#: view/applications/manage/index.phtml:44
+#: view/applications/manage/index.phtml:47
 msgid "Overview of your sent applications"
 msgstr "Преглед ваших послатих пријава"
 
-#: view/applications/manage/index.phtml:58
-#: view/applications/manage/index.phtml:127
+#: view/applications/manage/index.phtml:61
+#: view/applications/manage/index.phtml:130
 #: view/applications/manage/detail.phtml:195
 #: view/applications/manage/detail.phtml:214
 #: view/applications/manage/detail.phtml:234
@@ -177,37 +177,37 @@ msgstr "Преглед ваших послатих пријава"
 msgid "Cancel"
 msgstr "отказати"
 
-#: view/applications/manage/index.phtml:59
+#: view/applications/manage/index.phtml:62
 #: view/applications/manage/detail.phtml:196
 msgid "Send mail"
 msgstr "Пошаљи пошту"
 
-#: view/applications/manage/index.phtml:79
+#: view/applications/manage/index.phtml:82
 msgid "search applications"
 msgstr "претраге апликација"
 
-#: view/applications/manage/index.phtml:84 language/_annotated_strings.php:108
+#: view/applications/manage/index.phtml:87 language/_annotated_strings.php:108
 msgid "Enter job title"
 msgstr "Унесите радно место"
 
-#: view/applications/manage/index.phtml:94 language/_annotated_strings.php:105
+#: view/applications/manage/index.phtml:97 language/_annotated_strings.php:105
 #: language/_annotated_strings.php:114
 msgid "Search"
 msgstr "Претраживање"
 
-#: view/applications/manage/index.phtml:96 language/_annotated_strings.php:117
+#: view/applications/manage/index.phtml:99 language/_annotated_strings.php:117
 msgid "Clear"
 msgstr "Јасно"
 
-#: view/applications/manage/index.phtml:119
+#: view/applications/manage/index.phtml:122
 msgid "Move selected applications to Talent Pool"
 msgstr ""
 
-#: view/applications/manage/index.phtml:123
+#: view/applications/manage/index.phtml:126
 msgid "Are you sure you want to move selected applications to Talent Pool?"
 msgstr ""
 
-#: view/applications/manage/index.phtml:128
+#: view/applications/manage/index.phtml:131
 msgid "Move applications to Talent Pool"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgstr ""
 msgid "To"
 msgstr "До"
 
-#: view/applications/manage/social-profile.phtml:19
+#: view/applications/manage/social-profile.phtml:22
 msgid "Profile data"
 msgstr "Профил подаци"
 
@@ -437,45 +437,49 @@ msgid "agent"
 msgstr "заступник"
 
 #: view/applications/manage/detail.phtml:483
+msgid "Manager"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:502
 #: view/applications/manage/detail.pdf.phtml:165
 #: language/_annotated_strings.php:141
 msgid "Willingness to travel"
 msgstr "Спремност за путовања"
 
-#: view/applications/manage/detail.phtml:489
+#: view/applications/manage/detail.phtml:508
 #: view/applications/manage/detail.pdf.phtml:171
 #: language/_annotated_strings.php:153
 msgid "Earliest starting date"
 msgstr "Најранији датум почетка"
 
-#: view/applications/manage/detail.phtml:495
+#: view/applications/manage/detail.phtml:514
 #: view/applications/manage/detail.pdf.phtml:177
 #: language/_annotated_strings.php:162
 msgid "Expected salary"
 msgstr "Очекивана Плата"
 
-#: view/applications/manage/detail.phtml:501
+#: view/applications/manage/detail.phtml:520
 msgid "Driving license"
 msgstr "Возачка дозвола"
 
-#: view/applications/manage/detail.phtml:502
+#: view/applications/manage/detail.phtml:521
 #: language/_annotated_strings.php:132 language/_annotated_strings.php:171
 msgid "Yes"
 msgstr "да"
 
-#: view/applications/manage/detail.phtml:502
+#: view/applications/manage/detail.phtml:521
 #: language/_annotated_strings.php:138 language/_annotated_strings.php:174
 msgid "No"
 msgstr "Не"
 
-#: view/applications/manage/detail.phtml:515
+#: view/applications/manage/detail.phtml:534
 #: view/applications/manage/detail.pdf.phtml:184
 #: language/_annotated_strings.php:42
 msgid "Cover Letter"
 msgstr "Пропратно писмо"
 
-#: view/applications/manage/detail.phtml:530
-#: view/applications/manage/index.recruiter.ajax.phtml:137
+#: view/applications/manage/detail.phtml:549
+#: view/applications/manage/index.recruiter.ajax.phtml:136
 #: view/applications/manage/social-profile/facebook.phtml:62
 #: view/applications/manage/social-profile/linkedin.phtml:87
 #: view/applications/manage/social-profile/xing.phtml:78
@@ -483,27 +487,27 @@ msgstr "Пропратно писмо"
 msgid "work experience"
 msgstr "радно искуство"
 
-#: view/applications/manage/detail.phtml:535
-#: view/applications/manage/detail.phtml:565
+#: view/applications/manage/detail.phtml:554
+#: view/applications/manage/detail.phtml:584
 #: view/applications/manage/detail.pdf.phtml:197
 #: view/applications/manage/detail.pdf.phtml:220
 msgid "Start"
 msgstr "Почетак"
 
-#: view/applications/manage/detail.phtml:536
-#: view/applications/manage/detail.phtml:566
+#: view/applications/manage/detail.phtml:555
+#: view/applications/manage/detail.phtml:585
 #: view/applications/manage/detail.pdf.phtml:198
 #: view/applications/manage/detail.pdf.phtml:221
 msgid "End"
 msgstr "Крај"
 
-#: view/applications/manage/detail.phtml:537
+#: view/applications/manage/detail.phtml:556
 #: language/_annotated_strings.php:30
 msgid "Company"
 msgstr "Компанија"
 
-#: view/applications/manage/detail.phtml:538
-#: view/applications/manage/detail.phtml:568
+#: view/applications/manage/detail.phtml:557
+#: view/applications/manage/detail.phtml:587
 #: view/applications/manage/social-profile/facebook.phtml:68
 #: view/applications/manage/social-profile/linkedin.phtml:93
 #: view/applications/manage/social-profile/xing.phtml:84
@@ -512,42 +516,42 @@ msgstr "Компанија"
 msgid "Description"
 msgstr "опис"
 
-#: view/applications/manage/detail.phtml:561
+#: view/applications/manage/detail.phtml:580
 #: view/applications/manage/detail.pdf.phtml:217
 msgid "education and training"
 msgstr "Образовање и обука"
 
-#: view/applications/manage/detail.phtml:567
+#: view/applications/manage/detail.phtml:586
 msgid "University"
 msgstr "универзитет"
 
-#: view/applications/manage/detail.phtml:585
+#: view/applications/manage/detail.phtml:604
 #: view/applications/manage/detail.pdf.phtml:240
 msgid "personal skills"
 msgstr "личне вештине"
 
-#: view/applications/manage/detail.phtml:587
+#: view/applications/manage/detail.phtml:606
 #: view/applications/manage/detail.pdf.phtml:242
 msgid "native language"
 msgstr "матерњи језик"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:134
+#: view/applications/manage/index.recruiter.ajax.phtml:133
 #: view/applications/manage/social-profile/facebook.phtml:31
 #: view/applications/manage/social-profile/linkedin.phtml:50
 #: view/applications/manage/social-profile/xing.phtml:49
 msgid "education"
 msgstr "образовање"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:134
-#: view/applications/manage/index.recruiter.ajax.phtml:137
+#: view/applications/manage/index.recruiter.ajax.phtml:133
+#: view/applications/manage/index.recruiter.ajax.phtml:136
 msgid "years"
 msgstr "године"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:155
+#: view/applications/manage/index.recruiter.ajax.phtml:154
 msgid "no attachments"
 msgstr "нема прилога"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:178
+#: view/applications/manage/index.recruiter.ajax.phtml:177
 msgid "edit"
 msgstr "уреди"
 
@@ -787,8 +791,8 @@ msgstr "Маилтект"
 msgid ""
 "default text of the notification mail about new applications. The following "
 "variables can be used:<ul><li>##name## = your name</li><li>##title## = title"
-" of the job</li></ul>"
-msgstr "подразумевани текст обавештења поште о новим апликацијама. Следеће варијабле могу користити: <ul><li> ## Назив ## = Ваше име </li><li> ## Наслов ## = назив посла </li></ul>"
+" of the job</li><li>##link## = Url of the application detail page</li></ul>"
+msgstr ""
 
 #: language/_annotated_strings.php:69
 msgid "confirm application immidiatly after submit"

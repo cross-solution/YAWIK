@@ -9,11 +9,16 @@
 
 namespace JobsTest\Factory\Form\Hydrator;
 
+use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory;
-use Test\Bootstrap;
+use Jobs\Form\Hydrator\Strategy\JobManagerStrategy;
+use Jobs\Form\Hydrator\Strategy\OrganizationNameStrategy;
+
 
 class OrganizationNameHydratorSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    use ServiceManagerMockTrait;
+
     /**
      * @var OrganizationNameHydratorFactory
      */
@@ -26,25 +31,23 @@ class OrganizationNameHydratorSLFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-        $sm = clone Bootstrap::getServiceManager();
-        $sm->setAllowOverride(true);
 
         $organizationRepositoryMock = $this->getMockBuilder('Organizations\Repository\Organization')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $repositories = $this->createPluginManagerMock([
+                'Organizations/Organization' => $organizationRepositoryMock,
+            ]);
 
-        $repositoriesMock->expects($this->once())
-            ->method('get')
-            ->with('Organizations/Organization')
-            ->willReturn($organizationRepositoryMock);
+        $container = $this->getServiceManagerMock([
+                'repositories' => $repositories,
+            ]);
 
-        $sm->setService('repositories', $repositoriesMock);
 
-        $result = $this->testedObj->createService($sm);
-        $this->assertInstanceOf('Jobs\Form\Hydrator\OrganizationNameHydrator', $result);
+        $result = $this->testedObj->createService($container, 'irrelevant');
+        $this->assertInstanceOf('Core\Entity\Hydrator\MappingEntityHydrator', $result);
+        $this->assertInstanceOf(OrganizationNameStrategy::class, $result->getStrategy('companyId'));
+        $this->assertInstanceOf(JobManagerStrategy::class, $result->getStrategy('managers'));
     }
 }

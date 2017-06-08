@@ -50,7 +50,7 @@ class Categories extends AbstractRepository
             $value = isset($value['value']) ? $value['value'] : '';
         }
 
-        if ('professions' != $value && 'employmentTypes' != $value) {
+        if ('professions' != $value && 'employmentTypes' != $value && 'industries' != $value) {
             return null;
         }
 

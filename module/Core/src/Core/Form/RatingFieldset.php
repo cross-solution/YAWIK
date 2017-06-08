@@ -53,7 +53,7 @@ class RatingFieldset extends Fieldset
             if ('_' == $name{0}) {
                 continue;
             }
-            $value = $rating->$name;
+            $value = $rating->{'get' . $name}();
             $input = array(
                 'type' => 'Core/Rating',
                 'name' => $name,

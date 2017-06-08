@@ -97,12 +97,31 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
-        $services->expects($this->once())->method('get')->with('Install/Listener/LanguageSetter')->willReturn($listener);
+        //$services->expects($this->once())->method('get')->with('Install/Listener/LanguageSetter')->willReturn($listener);
+        $services->expects($this->exactly(2))
+	        ->method('get')
+	        ->withConsecutive(
+	        	['Install/Listener/LanguageSetter'],
+		        ['Config']
+	        )
+	        ->will($this->onConsecutiveCalls(
+	        	$listener,[
+	        		'tracy' => [
+	        			'enabled' => true,
+				        'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
+				        'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
+				        'strict' => true, // bool = cause immediate death|int = matched against error severity
+				        'log' => __DIR__ . '/../../../../log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+				        'email' => null, // in production mode notifies the recipient
+				        'email_snooze' => 900 // interval for sending email in seconds
+			        ]
+		        ]
+	        ))
+        ;
 
         $application = $this->getMockBuilder('\Zend\Mvc\Application')->disableOriginalConstructor()->getMock();
         $application->expects($this->once())->method('getEventManager')->willReturn($events);
         $application->expects($this->once())->method('getServiceManager')->willReturn($services);
-
 
         $event = $this->getMockBuilder('\Zend\Mvc\MvcEvent')
                       ->disableOriginalConstructor()

@@ -5,18 +5,19 @@ return array(
         "Facebook" => array ( 
             "enabled" => true,
             "keys"    => array ( "id" => "###Your Facebook AppID ###", "secret" => "###Your Facebook Secret ###" ),
-            "scope"   => "%%facebook.scope%%",// optional
+            "scope"   => "email, user_about_me, user_birthday, user_hometown, user_work_history, user_education_history",// optional
             "display" => "popup"
+
         ),
         "LinkedIn" => array (
             "enabled" => true,
-            "keys"    => array ( "key" => "###Your LinkedIn AppID ###", "secret" => "###Your LinkedIn AppID ###" ),
-            "scope"   => "%%linkedin.scope%%"
+            "keys"    => array ( "id" => "###Your LinkedIn AppID ###", "secret" => "###Your LinkedIn AppID ###" ),
+            "scope"   => "r_basicprofile, r_emailaddress"
         ),
         "XING" => array(
             "enabled" => true,
             'keys'    => array ( "key" => '###Your XING AppID ###', 'secret' => '###Your XING Secret ###'),
-            "scope"   => '%%xing.scope%%'
+            "scope"   => ''
         ),
         "Github" => array(
             "enabled" => true,
@@ -51,21 +52,4 @@ return array(
             '%%external.app.prefix%%' => '%%external.app.key%%',
         ),
     ),
-    'captcha' => array(
-        'use' => 'reCaptcha', // possible Values are 'image' or 'reCaptcha'
-        'reCaptcha' => array(
-            // these information you need to get from: https://www.google.com/recaptcha/admin#list
-            'public_key' => '%%captcha.recapture.public_key%%',   // "site_key"
-            'private_key' => '%%captcha.recapture.private_key%%', // "secret_key"
-            'ssl' => true,                                        // include google api via http(s)
-        ),
-        'image' => array(
-            'expiration' => '300',
-            'wordlen' => '7',
-            'font' => 'data/fonts/arial.ttf',
-            'fontSize' => '20',
-            'imgDir' => 'public/captcha',
-            'imgUrl' => '/captcha'
-        ),
-    )
 );

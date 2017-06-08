@@ -10,8 +10,11 @@
 /** Confirmation.php */
 namespace Applications\Mail;
 
+use Auth\Entity\AnonymousUser;
+use Auth\Entity\UserInterface;
 use Core\Mail\StringTemplateMessage;
 use Applications\Entity\ApplicationInterface;
+use Zend\Mvc\Router\RouteStackInterface;
 
 /**
  * Sends an confirmation Mail to the applicant.
@@ -31,8 +34,50 @@ class Confirmation extends StringTemplateMessage
         'anrede_informell' => 'getInformalSalutation',
         'salutation_informal' => 'getInformalSalutation',
         'job_title' => 'getJobTitle',
-        'date' => 'getDate'
+        'date' => 'getDate',
+        'link' => 'getApplicationLink',
     );
+
+    /**
+     *
+     *
+     * @var RouteStackInterface
+     */
+    protected $router;
+
+    /**
+     *
+     *
+     * @var UserInterface
+     */
+    protected $user;
+
+    /**
+     * @param RouteStackInterface $router
+     *
+     * @return self
+     */
+    public function setRouter($router)
+    {
+        $this->router = $router;
+
+        return $this;
+    }
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return self
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+
+
 
     /**
      * @param ApplicationInterface $application
@@ -40,8 +85,8 @@ class Confirmation extends StringTemplateMessage
      */
     public function setVariablesFromApplication(ApplicationInterface $application)
     {
-        $contact = $application->contact;
-        $name    = $contact->displayName;
+        $contact = $application->getContact();
+        $name    = $contact->getDisplayName();
         
         $variables = array(
             'name' => $name,
@@ -56,7 +101,7 @@ class Confirmation extends StringTemplateMessage
     public function setApplication(ApplicationInterface $application)
     {
         $this->application = $application;
-        $this->setTo($application->contact->email, $application->contact->displayName);
+        $this->setTo($application->getContact()->getEmail(), $application->getContact()->getDisplayName());
         $this->setVariablesFromApplication($application);
         return $this;
     }
@@ -76,9 +121,9 @@ class Confirmation extends StringTemplateMessage
      */
     protected function getFormalSalutation()
     {
-        $contact = $this->application->contact;
-        $name    = $contact->displayName;
-        $gender  = $contact->gender;
+        $contact = $this->application->getContact();
+        $name    = $contact->getDisplayName();
+        $gender  = $contact->getGender();
         $translator = $this->getTranslator();
         
         $salutation = 'male' == $gender
@@ -93,8 +138,8 @@ class Confirmation extends StringTemplateMessage
      */
     protected function getInformalSalutation()
     {
-        $contact = $this->application->contact;
-        $name    = $contact->displayName;
+        $contact = $this->application->getContact();
+        $name    = $contact->getDisplayName();
         
         $salutation = $this->getTranslator()
                     ->translate('Hello %s');
@@ -107,7 +152,7 @@ class Confirmation extends StringTemplateMessage
      */
     protected function getJobTitle()
     {
-        return $this->application->job->title;
+        return $this->application->getJob()->getTitle();
     }
 
     /**
@@ -116,8 +161,25 @@ class Confirmation extends StringTemplateMessage
     protected function getDate()
     {
         /** @var $date \DateTime */
-        $date = $this->application->dateCreated;
+        $date = $this->application->getDateCreated();
         return strftime('%x', $date->getTimestamp());
+    }
+
+    protected function getApplicationLink()
+    {
+        $router = $this->router;
+        $user   = $this->user;
+
+        if (!$router || !$user) { return ''; }
+
+        $token = $user instanceOf AnonymousUser ? '?token=' . $user->getToken() : '';
+        $href  = $router->assemble(
+                        ['id' => $this->application->getId()],
+                        ['name'=>'lang/applications/detail', 'force_canonical'=>true]
+        ) . $token;
+
+        return $href;
+
     }
 
     /**

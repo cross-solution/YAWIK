@@ -14,7 +14,8 @@
  * $this->siteName: The site name (from Core/AbstractOptions)
  */
 
-$user = $this->job->getUser();
+$job = $this->job; /* @var \Jobs\Entity\Job $job */
+$user = $job->getUser();
 $info = $user->getInfo();
 ?>
 <?php echo $this->partial('mail/header'); ?>
@@ -23,11 +24,11 @@ $info = $user->getInfo();
         : 'Dear Mrs' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
 
 <p>
-    Your job opening "<?php echo $this->job->getTitle() ?>" referenced by <?php echo $this->job->getReference() ?>.
+    Your job opening "<?=$job->getTitle() ?>" referenced by <?=$job->getReference() ?>.
     was rejected.
 </p>
 <p>
-    Please korrekt your job opening
+    Please correct your job opening
 </p>
 
 <?php echo $this->partial('mail/footer'); ?>

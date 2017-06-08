@@ -70,7 +70,7 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
     {
 
         $request = $this->getMockBuilder('\Zend\Http\Request')->disableOriginalConstructor()->setMethods(['getQuery'])->getMock();
-        $request->expects($this->once())->method('getQuery')->willReturn($params);
+        $request->expects($this->once())->method('getQuery')->willReturn(is_array($params) ? new Parameters($params) : $params);
 
         $controller = $this
             ->getMockForAbstractClass('\Zend\Mvc\Controller\AbstractActionController', [], '', false, true, true, ['getRequest']);
@@ -94,7 +94,7 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $hydrator = $this->getMockBuilder(HydratorInterface::class)
             ->setMethods(['hydrate', 'extract'])
             ->getMockForAbstractClass();
-        $hydrator->expects($this->once())->method('extract')->with($params)->willReturn($formData);
+        $hydrator->expects($this->once())->method('extract')->with($this->isInstanceOf(Parameters::class))->willReturn($formData);
         $hydrator->expects($this->once())->method('hydrate')->with($formData, $params);
 
         $form = $this->getMockBuilder(Form::class)
@@ -125,8 +125,8 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $hydrator = $this->getMockBuilder(HydratorInterface::class)
                          ->setMethods(['hydrate', 'extract'])
                          ->getMockForAbstractClass();
-        $hydrator->expects($this->once())->method('extract')->with($params)->willReturn($formData);
-        $hydrator->expects($this->once())->method('hydrate')->with($formData, $params);
+        $hydrator->expects($this->once())->method('extract')->with($this->isInstanceOf(Parameters::class))->willReturn($formData);
+        $hydrator->expects($this->once())->method('hydrate')->with($formData, $this->isInstanceOf(Parameters::class));
 
         $form = $this->getMockBuilder(Form::class)
                      ->setMethods(['getHydrator', 'setData'])

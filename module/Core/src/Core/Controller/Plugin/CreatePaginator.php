@@ -16,6 +16,7 @@ use Zend\Mvc\Controller\PluginManager as ControllerManager;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\Parameters;
+use Zend\Http\Request as HttpRequest;
 
 /**
  * Creates a paginator from the paginator service.
@@ -24,21 +25,29 @@ use Zend\Stdlib\Parameters;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
 class CreatePaginator extends AbstractPlugin
 {
     const EVENT_CREATE_PAGINATOR = 'core.create_paginator';
+    
     /**
      * @var ServiceLocatorInterface
      */
     protected $serviceManager;
     
     /**
+     * @var HttpRequest
+     */
+    protected $request;
+    
+    /**
      * @param ServiceLocatorInterface $serviceManager
      */
-    public function __construct(ServiceLocatorInterface $serviceManager)
+    public function __construct(ServiceLocatorInterface $serviceManager, HttpRequest $request)
     {
         $this->serviceManager = $serviceManager;
+        $this->request = $request;
     }
     
     /**
@@ -52,7 +61,7 @@ class CreatePaginator extends AbstractPlugin
      *
      * @param string $paginatorName
      * @param array  $defaultParams
-     * @param bool   $usePostParams if true, the POST parameters from the request are used.
+     * @param Parameters|bool   $params false: Use query parameters; true: use post parameters
      *
      * @return \Zend\Paginator\Paginator
      * @throws \InvalidArgumentException
@@ -60,7 +69,7 @@ class CreatePaginator extends AbstractPlugin
     public function __invoke($paginatorName, $defaultParams = array(), $params = false)
     {
         if (is_bool($defaultParams)) {
-            $usePostParams = $defaultParams;
+            $params = $defaultParams;
             $defaultParams = array();
         }
 
@@ -68,18 +77,13 @@ class CreatePaginator extends AbstractPlugin
             throw new \InvalidArgumentException('$defaultParams must be an array or implement \Traversable');
         }
 
-        /* @var $controller \Zend\Mvc\Controller\AbstractController
-         * @var $paginators \Core\Paginator\PaginatorService
-         * @var $request    \Zend\Http\Request
-         */
-        $controller = $this->getController();
+        /** @var \Core\Paginator\PaginatorService $paginators */
         $paginators = $this->serviceManager->get('Core/PaginatorService');
-        $request    = $controller->getRequest();
 
         if (!$params) {
-            $params = $request->getQuery()->toArray();
+            $params = $this->request->getQuery()->toArray();
         } else if (true === $params) {
-            $params = $request->getPost()->toArray();
+            $params = $this->request->getPost()->toArray();
         } else if ($params instanceOf \ArrayObject) {
             $params = $params->getArrayCopy();
         }
@@ -117,9 +121,18 @@ class CreatePaginator extends AbstractPlugin
     /**
      * @param ControllerManager $controllerManager
      * @return CreatePaginator
+     * @codeCoverageIgnore
      */
     public static function factory(ControllerManager $controllerManager)
     {
-        return new static($controllerManager->getServiceLocator());
+        $serviceManager = $controllerManager->getServiceLocator();
+        $request = $serviceManager->get('Request');
+        
+        if (!$request instanceof HttpRequest) {
+            // use an empty HTTP request in a CLI environment
+            $request = new HttpRequest();
+        }
+        
+        return new static($serviceManager, $request);
     }
 }

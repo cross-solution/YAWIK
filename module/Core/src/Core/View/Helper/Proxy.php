@@ -8,8 +8,9 @@
  */
   
 /** */
-namespace Core\View\Helper {
+namespace Core\View\Helper;
 
+use Core\View\Helper\Proxy\HelperProxy;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\View\Helper\AbstractHelper;
@@ -47,15 +48,14 @@ use Zend\View\Helper\AbstractHelper;
  *      //
  *      <?=$this->proxy('helper')->someOutput()?>
  *
- *      // If 'helper' does not exist, a ProxyNoopHelper is returned, which
- *      // simply returns NULL on any method call and whose string representation is
- *      // an empty string.
+ *      // Proxy view helper will return a {@link \Core\View\Helper\Proxy\HelperProxy} instance
+ *      // which will return null on every method call, if the helper does not exist.
  * <pre>
  *
  * Advanced usage:
  *
  * - Load a helper without risking an exception:
- *   This will return FALSE, if the helper does not exist.
+ *   This will return a {@link \Core\View\Helper\Proxy\HelperProxy} instance.
  *   <pre><? $helper = $this->proxy()->plugin('HelperServiceName', [options])?></pre>
  *
  * - Call an invokable helper and expect an array returned.
@@ -81,21 +81,29 @@ use Zend\View\Helper\AbstractHelper;
  *      <?=$this->proxy('invokableHelper', ['arg1', 'arg2'], false)?>
  *   </pre>
  *
+ * - Call a method on a plugin
+ *   (see {@link HelperProxy::call()})
+ *   <pre>
+ *      $this->proxy('helper')->call('method', ['arg1',...], 'expectedValue');
+ *   </pre>
+ *
+ * - Call consecutive methods on plugin
+ *   (see {@link HelperProxy::consecutive()})
+ *   <pre>
+ *      $this->proxy('helper')->consecutive(['method1', 'method2' => ['arg1', ... ], ...]);
+ *   </pre>
+ *
+ * - Call chained methods on plugin
+ *   (see {@link HelperProxy::chain()})
+ *   <pre>
+ *      $this->proxy('helper')->chain(['method' => ['arg'], 'method2'], 'expectedValue');
+ *   </pre>
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29
  */
 class Proxy extends AbstractHelper
 {
-    /**#@+
-     * Special expected result types.
-     * @var string
-     */
-    const EXPECT_ARRAY  = '__ARRAY__';
-    const EXPECT_ITARATOR = '__ITERATOR__';
-    const EXPECT_OBJECT = '__OBJECT__';
-
-    /**#@-*/
-
     /**
      * Loads and possiblity executes a view helper.
      *
@@ -105,38 +113,19 @@ class Proxy extends AbstractHelper
      *
      * @return mixed|self|ProxyNoopHelper|ProxyNoopIterator
      */
-    public function __invoke($plugin = null, $args = array(), $expect = self::EXPECT_OBJECT)
+    public function __invoke($plugin = null, $args = null, $expect = HelperProxy::EXPECT_SELF)
     {
         if (null === $plugin) {
             return $this;
         }
 
-        if (!is_array($args)) {
-            $expect = $args;
-            $args = [];
-        }
-
         $plugin = $this->plugin($plugin);
 
-        if ($plugin) {
-            return is_callable($plugin)
-            ? call_user_func_array($plugin, $args)
-            : $plugin;
+        if (null === $args) {
+            return $plugin;
         }
 
-        if (self::EXPECT_OBJECT == $expect) {
-            return new Proxy\NoopHelper();
-        }
-
-        if (self::EXPECT_ITARATOR == $expect) {
-            return new Proxy\NoopIterator();
-        }
-
-        if (self::EXPECT_ARRAY == $expect) {
-            return [];
-        }
-
-        return $expect;
+        return $plugin->call('__invoke', $args, $expect);
     }
 
     /**
@@ -148,25 +137,31 @@ class Proxy extends AbstractHelper
      * @param string $plugin
      * @param true|array  $options if true, only return if plugin exists or not.
      *
-     * @return bool|object
+     * @return bool|HelperProxy
      */
     public function plugin($plugin, $options = null)
     {
         $renderer = $this->getView();
 
         if (!method_exists($renderer, 'getHelperPluginManager')) {
-            return false;
+            return true === $options ? false : new HelperProxy(false);
         }
 
         /* @var \Zend\View\HelperPluginManager $manager */
         $manager   = $renderer->getHelperPluginManager();
         $hasPlugin = $manager->has($plugin);
 
-        if (!$hasPlugin || true === $options) {
+        if (true === $options) {
             return $hasPlugin;
         }
 
-        return $manager->get($plugin, $options);
+        if ($hasPlugin) {
+            $pluginInstance = $manager->get($plugin, $options);
+        } else {
+            $pluginInstance = false;
+        }
+
+        return new HelperProxy($pluginInstance);
     }
 
     /**
@@ -180,63 +175,5 @@ class Proxy extends AbstractHelper
     {
         return $this->plugin($plugin, true);
     }
+
 }
-
-} // end namespace
-
-namespace Core\View\Helper\Proxy {
-
-/**
- * NoopHelper
- *
- * View helper which does nothing but returns null on any method call, and which
- * represents as empty string.
- *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.29
- */
-class NoopHelper
-{
-    public function __call($method, $args)
-    {
-        return null;
-    }
-
-    public function __get($name)
-    {
-        return null;
-    }
-
-    public function __set($name, $value)
-    {
-
-    }
-
-    public function __isset($name)
-    {
-        return false;
-    }
-
-    public function __toString()
-    {
-        return '';
-    }
-}
-
-/**
- * NoopIterator
- *
- * View helper which returns an empty ArrayIterator when used as Iterator.
- *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.29
- */
-class NoopIterator extends NoopHelper implements \IteratorAggregate
-{
-    public function getIterator()
-    {
-        return new \ArrayIterator([]);
-    }
-}
-
-} // end namespace

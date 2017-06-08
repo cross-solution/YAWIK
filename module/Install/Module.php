@@ -12,6 +12,8 @@ namespace Install;
 
 use Zend\ModuleManager\Feature;
 use Zend\EventManager\EventInterface;
+use Install\Listener\TracyListener;
+use Install\Tracy as TracyService;
 
 /**
  * Module "Install" initialization.
@@ -61,5 +63,12 @@ class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProvi
 
         $services->get('Install/Listener/LanguageSetter')
                  ->attach($eventManager);
+	
+	    $tracyConfig = $services->get('Config')['tracy'];
+	
+	    if ($tracyConfig['enabled']) {
+		    (new TracyService())->register($tracyConfig);
+		    (new TracyListener())->attach($eventManager);
+	    }
     }
 }

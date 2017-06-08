@@ -14,6 +14,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\ImageSet;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\Collection;
@@ -89,6 +90,13 @@ class Organization extends BaseEntity implements
      */
     protected $image;
 
+    /**
+     *
+     *
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\ImageSet")
+     * @var Images
+     */
+    protected $images;
     /**
      * Flag indicating draft state of this job.
      *
@@ -198,7 +206,7 @@ class Organization extends BaseEntity implements
             return '';
         }
 
-        return $this->organizationName->name;
+        return $this->organizationName->getName();
     }
 
     /**
@@ -520,6 +528,7 @@ class Organization extends BaseEntity implements
      * @param OrganizationImage $image
      *
      * @return self
+     * @deprecated since 0.29; use $this->getImages()->set()
      */
     public function setImage(OrganizationImage $image = null)
     {
@@ -531,12 +540,60 @@ class Organization extends BaseEntity implements
     /**
      * Gets the Logo of an organization
      *
+     * @param string|bool $key Key of the image to get.
+     *                         If true: get Thumbnail
+     *                         If false: get Original
+     *
      * @return OrganizationImage
+     * @deprecated since 0.29; use $this->getImages()->get()
+     * @since 0.29 modified to return images from the image set for compatibility reasons
      */
-    public function getImage()
+    public function getImage($key = ImageSet::ORIGINAL)
     {
-        return $this->image;
+        if (is_bool($key)) {
+            $key = $key ? ImageSet::THUMBNAIL : ImageSet::ORIGINAL;
+        }
+
+        return $this->getImages()->get($key, false) ?: $this->image;
     }
+
+    /**
+     * @param ImageSet $images
+     *
+     * @return self
+     */
+    public function setImages(ImageSet $images)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @return ImageSet
+     */
+    public function getImages()
+    {
+        if (!$this->images) {
+            $this->images = new ImageSet();
+        }
+
+        return $this->images;
+    }
+
+    /**
+     *
+     *
+     * @return self
+     */
+    public function removeImages()
+    {
+        $this->images = null;
+
+        return $this;
+    }
+
+
 
     /**
      * Sets the Contact Data of an organization

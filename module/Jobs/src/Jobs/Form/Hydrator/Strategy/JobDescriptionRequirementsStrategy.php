@@ -16,17 +16,19 @@ class JobDescriptionRequirementsStrategy implements StrategyInterface
 {
     public function extract($value)
     {
+        /* @var \Jobs\Entity\Job $value */
         $result = null;
-        if (isset($value->templateValues)) {
-            $result = $value->templateValues->requirements;
+        if (method_exists($value, 'getTemplateValues')) {
+            $result = $value->getTemplateValues()->getRequirements();
         }
         return $result;
     }
 
     public function hydrate($value, $object = null)
     {
+        /* @var \Jobs\Entity\Job $object */
         if (isset($value['description-requirements'])) {
-            $object->templateValues->requirements = $value['description-requirements'];
+            $object->getTemplateValues()->setRequirements($value['description-requirements']);
         }
         return;
     }

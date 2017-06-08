@@ -161,18 +161,6 @@ $routes = [
                     ),
                     'may_terminate' => true,
                 ),
-                'typeahead' => array(
-                    'type' => 'Literal',
-                    'options' => array(
-                        'route' => '/typeahead',
-                        'defaults' => array(
-                            'controller' => 'Jobs/Index',
-                            'action' => 'typeahead',
-                            'forceJson' => true,
-                        ),
-                    ),
-                    'may_terminate' => true,
-                ),
                 'editTemplate' => array(
                     'type' => 'Segment',
                     'options' => array(

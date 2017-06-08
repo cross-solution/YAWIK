@@ -12,6 +12,8 @@ return array(
         'Zend\Session',
         'Zend\Router',
         'Zend\Navigation',
+	    'Zend\Form',
+	    'Zend\Validator',
         'Zend\Mvc\Plugin\Prg',
         'Zend\Mvc\Plugin\Identity',
         'Zend\Mvc\Plugin\FlashMessenger',

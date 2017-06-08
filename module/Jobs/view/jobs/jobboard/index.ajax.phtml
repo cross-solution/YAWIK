@@ -9,6 +9,7 @@
 
 $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
 ?>
+<?=$this->proxy('jobsByMailSubscriptionForm')->render($jobs)?>
 <?php if ($hasFacets):?>
 	<?php
 	$facets = $jobs->getFacets();
@@ -38,7 +39,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
     		<?=$this->translate('Active filters:')?>
             <?php foreach ($activeFacets as $facetName => $facetValues):?>
                 <?php foreach ($facetValues as $facetValue):?>
-                	<button type="button" class="btn btn-default btn-sm facet-active" data-name="params[<?=$this->escapeHtmlAttr($facetName)?>][<?=$this->escapeHtmlAttr($facetValue)?>]" title="<?=$this->translate('Remove filter')?>"><?=$facetValue?> <span>&times;</span></button>
+                	<button type="button" class="btn btn-default btn-sm facet-active" data-name="<?=$this->escapeHtmlAttr($facetName)?>[<?=$this->escapeHtmlAttr($facetValue)?>]" title="<?=$this->translate('Remove filter')?>"><?=$facetValue?> <span>&times;</span></button>
                 <?php endforeach;?>
             <?php endforeach;?>
         	<button type="button" class="btn btn-link facet-reset"><?=$this->translate('Remove all filters')?></button>
@@ -53,7 +54,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
                 <?php foreach ($facetValues as $facetValue => $facetValueCount):?>
                 	<div>
                     	<label>
-                    		<input type="checkbox" name="params[<?=$this->escapeHtmlAttr($facetName)?>][<?=$this->escapeHtmlAttr($facetValue)?>]" class="facet-checkbox"<?php if ($facets->isValueActive($facetName, $facetValue)):?> checked<?php endif;?>>
+                    		<input type="checkbox" name="<?=$this->escapeHtmlAttr($facetName)?>[<?=$this->escapeHtmlAttr($facetValue)?>]" class="facet-checkbox"<?php if ($facets->isValueActive($facetName, $facetValue)):?> checked<?php endif;?>>
                         	<?=$facetValue?> (<?=$facetValueCount?>)
                         </label>
                     </div>
@@ -74,27 +75,27 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
     </tr>
     </thead>
 
-<?php foreach ($jobs as $job):?>
+<?php foreach ($jobs as $job): /* @var \Jobs\Entity\Job $job */?>
     <tr>
         <td>
-            <?php if ($job->organization && $job->organization->image &&  $job->organization->organizationName): ?>
+            <?php if ($job->getOrganization() && $job->getOrganization()->getImage() &&  $job->getOrganization()->getOrganizationName()): ?>
                 <div class="yk-logo-list">
-                    <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($job->organization->image)) ?>">
+                    <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($job->getOrganization()->getImage(true))) ?>">
                 </div>
             <?php endif ?>
             <?=$this->jobUrl($job, [ 'target' => '_new' ]) ?>
             <br/><?php
-            if (isset($job->organization) && isset($job->organization->organizationName) && isset($job->organization->organizationName->name)) {
-                echo $job->organization->organizationName->name;
+            if (is_object($job->getOrganization()) && is_object($job->getOrganization()->getOrganizationName()) && $job->getOrganization()->getOrganizationName()->getName()) {
+                echo $job->getOrganization()->getOrganizationName()->getName();
             }
             ?>
         </td>
         <td>
-            <div><?php echo $job->location?></div>
+            <div><?php echo $job->getLocation()?></div>
             <small>
                 <?php
-                if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none');
-                elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none');
+                if ($job->getDatePublishStart()): echo $this->dateFormat($job->getdatePublishStart(), 'short', 'none');
+                elseif ($job->getDateCreated()): echo $this->dateFormat($job->getDateCreated(), 'short', 'none');
                 endif
                 ?>
             </small>

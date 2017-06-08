@@ -40,8 +40,8 @@ class CaptchaOptions extends AbstractOptions
      * @var array
      */
     protected $reCaptcha = [
-        'public_key' => 'Your Recapture Public Key',      // "site_key"
-        'private_key' => 'Your Recapture Private Key',    // "secret_key"
+        'site_key' => 'Your Recapture Public Key',      // "site_key"
+        'secret_key' => 'Your Recapture Private Key',    // "secret_key"
         'ssl' => true,                                    // include google api via http(s)
         ];
 
