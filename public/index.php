@@ -12,7 +12,8 @@ ini_set('error_reporting', E_ALL | E_STRICT);
 date_default_timezone_set('Europe/Berlin');
 
 if (php_sapi_name() == 'cli-server') {
-    $route = parse_url(substr($_SERVER["REQUEST_URI"], 1))["path"];
+    $parseUrl = parse_url(substr($_SERVER["REQUEST_URI"], 1));
+    $route = isset($parseUrl['path']) ? $parseUrl['path']:null;
     if (is_file(__DIR__ . '/' . $route)) {
         if(substr($route, -4) == ".php"){
             require __DIR__ . '/' . $route;     // Include requested script files
