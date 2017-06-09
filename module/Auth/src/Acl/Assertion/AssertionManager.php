@@ -11,6 +11,7 @@
 namespace Acl\Assertion;
 
 use Interop\Container\ContainerInterface;
+use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
@@ -55,21 +56,24 @@ class AssertionManager extends AbstractPluginManager
      * @param AssertionInterface      $assertion
      * @param AssertionManager $serviceLocator
      */
-    public function injectEventManager($assertion, $serviceLocator)
+    public function injectEventManager($serviceLocator, $assertion)
     {
+    	//@TODO: [ZF3] check if ACL working properly
         /* @var $serviceLocator AssertionManager */
 
         if (!$assertion instanceof EventManagerAwareInterface) {
             return;
         }
+        /* @var EventManager $events */
 	    $container = $this->container;
         $events = $assertion->getEventManager();
         if (!$events instanceof EventManagerInterface) {
             $events = $container->get('EventManager'); /* @var $events \Zend\EventManager\EventManagerInterface */
             $assertion->setEventManager($events);
         } else {
-            $sharedEvents = $container->get('SharedEventManager'); /* @var $sharedEvents \Zend\EventManager\SharedEventManagerInterface */
-            $events->setSharedManager($sharedEvents);
+        	//@TODO: [ZF3] setSharedManager method now is removed
+            //$sharedEvents = $container->get('SharedEventManager'); /* @var $sharedEvents \Zend\EventManager\SharedEventManagerInterface */
+            //$events->setSharedManager($sharedEvents);
         }
     }
 
