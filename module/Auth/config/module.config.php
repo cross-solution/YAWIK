@@ -9,6 +9,9 @@
 
 namespace Auth;
 
+use Acl\Assertion\AssertionManagerFactory;
+use Acl\Factory\Service\AclFactory;
+use Auth\Controller\Plugin\Auth;
 use Auth\Listener\Events\AuthEvent;
 
 return [
@@ -62,8 +65,8 @@ return [
             Listener\MailForgotPassword::class => '\Auth\Factory\Listener\MailForgotPasswordFactory',
             Listener\SendRegistrationNotifications::class => Factory\Listener\SendRegistrationNotificationsFactory::class,
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
-            'Acl' => '\Acl\Factory\Service\AclFactory',
-            'Acl\AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
+            'Acl' => AclFactory::class,
+            'Acl\AssertionManager' => AssertionManagerFactory::class,
             'Auth\Form\ForgotPassword' => 'Auth\Factory\Form\ForgotPasswordFactory',
             'Auth\Service\ForgotPassword' => 'Auth\Factory\Service\ForgotPasswordFactory',
             'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Factory\Service\UserUniqueTokenGeneratorFactory',
@@ -103,8 +106,8 @@ return [
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
             'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter::factory',
-            'OAuth' => '\Auth\Controller\Plugin\OAuth::factory',
-            'Auth' => '\Auth\Controller\Plugin\Auth::factory',
+            'OAuth' => [Auth\Controller\Plugin\OAuth::class,'factory'],
+            'Auth' => [Auth::class,'factory'],
             'Auth/User/Switcher' => 'Auth\Factory\Controller\Plugin\UserSwitcherFactory',
         ],
         'shared' => [

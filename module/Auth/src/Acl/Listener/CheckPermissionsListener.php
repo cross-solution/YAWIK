@@ -59,7 +59,7 @@ class CheckPermissionsListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @param  integer $priority
     */
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority=1)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, array($this, 'onRoute'), -10);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'), 10);

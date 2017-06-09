@@ -10,6 +10,7 @@
 /** */
 namespace Acl\Assertion;
 
+use Interop\Container\ContainerInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
@@ -24,6 +25,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class AssertionManager extends AbstractPluginManager
 {
+	/**
+	 * @var ContainerInterface
+	 */
+	protected $container;
+	
     /**
      * Creates an instance.
      *
@@ -33,10 +39,10 @@ class AssertionManager extends AbstractPluginManager
      * implementing {@link EventManagerAwareInterface}.
      *
      */
-    public function __construct(ServiceLocatorInterface $serviceLocator, ConfigInterface $configuration = null)
+    public function __construct(ContainerInterface $container, ConfigInterface $configuration = null)
     {
         parent::__construct($configuration);
-        $this->serviceLocator = $serviceLocator;
+        $this->container = $container;
 
         // Pushing to bottom of stack to ensure this is done last
         $this->addInitializer(array($this, 'injectEventManager'), false);
@@ -47,23 +53,22 @@ class AssertionManager extends AbstractPluginManager
      *
      *
      * @param AssertionInterface      $assertion
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param AssertionManager $serviceLocator
      */
-    public function injectEventManager(AssertionInterface $assertion, ServiceLocatorInterface $serviceLocator)
+    public function injectEventManager($assertion, $serviceLocator)
     {
         /* @var $serviceLocator AssertionManager */
 
         if (!$assertion instanceof EventManagerAwareInterface) {
             return;
         }
-
-        $parentLocator = $serviceLocator->getServiceLocator();
+	    $container = $this->container;
         $events = $assertion->getEventManager();
         if (!$events instanceof EventManagerInterface) {
-            $events = $parentLocator->get('EventManager'); /* @var $events \Zend\EventManager\EventManagerInterface */
+            $events = $container->get('EventManager'); /* @var $events \Zend\EventManager\EventManagerInterface */
             $assertion->setEventManager($events);
         } else {
-            $sharedEvents = $parentLocator->get('SharedEventManager'); /* @var $sharedEvents \Zend\EventManager\SharedEventManagerInterface */
+            $sharedEvents = $container->get('SharedEventManager'); /* @var $sharedEvents \Zend\EventManager\SharedEventManagerInterface */
             $events->setSharedManager($sharedEvents);
         }
     }

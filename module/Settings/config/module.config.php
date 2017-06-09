@@ -115,7 +115,10 @@ return [
         'factories' => [
             'Settings' => '\Settings\Settings\SettingsFactory',
             'Settings/EntityResolver' => '\Settings\Repository\SettingsEntityResolverFactory',
-            'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener::factory',
+            'Settings/InjectEntityResolverListener' => function($sm){
+	            //'Settings\Repository\Event\InjectSettingsEntityResolverListener::factory'
+	            return \Settings\Repository\Event\InjectSettingsEntityResolverListener::factory($sm);
+            },
         ],
         'initializers' => [],
         'shared' => [],

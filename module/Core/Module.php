@@ -14,6 +14,7 @@
 namespace Core;
 
 use Core\Listener\AjaxRouteListener;
+use Zend\EventManager\Event;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
@@ -128,14 +129,15 @@ class Module implements ConsoleBannerProviderInterface
         $eventManager->attach(
             MvcEvent::EVENT_DISPATCH_ERROR,
             function ($event) {
-                $application = $event->getApplication();
-                if ($application::ERROR_EXCEPTION == $event->getError()) {
-                    $ex = $event->getParam('exception');
-                    if (404 == $ex->getCode()) {
-                        $event->setError($application::ERROR_CONTROLLER_NOT_FOUND);
-                    }
-                }
-            
+            	if($event instanceof MvcEvent){
+		            $application = $event->getApplication();
+		            if ($application::ERROR_EXCEPTION == $event->getError()) {
+			            $ex = $event->getParam('exception');
+			            if (404 == $ex->getCode()) {
+				            $event->setError($application::ERROR_CONTROLLER_NOT_FOUND);
+			            }
+		            }
+	            }
             },
             500
         );
