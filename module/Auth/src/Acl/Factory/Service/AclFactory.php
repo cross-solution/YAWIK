@@ -4,7 +4,7 @@ namespace Acl\Factory\Service;
 
 use Acl\Config;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Permissions\Acl\Acl;
 //use Acl\Service\Acl;

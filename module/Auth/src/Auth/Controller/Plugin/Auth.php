@@ -6,6 +6,7 @@ use Auth\Entity\User;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Auth\AuthenticationService as AuthenticationService;
 use Zend\Mvc\Controller\PluginManager as ControllerManager;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * @method \Auth\Entity\UserInterface getUser()
@@ -101,8 +102,9 @@ class Auth extends AbstractPlugin
      * @param ControllerManager $controllerManager
      * @return \Auth\Controller\Plugin\Auth
      */
-    public static function factory(ControllerManager $controllerManager)
+    public static function factory(ServiceManager $sm)
     {
-        return new static($controllerManager->getServiceLocator()->get('AuthenticationService'));
+    	//$manager = $sm->get('ControllerManager');
+        return new static($sm->get('AuthenticationService'));
     }
 }

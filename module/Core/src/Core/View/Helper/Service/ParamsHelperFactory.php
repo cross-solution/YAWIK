@@ -10,7 +10,11 @@
 /** Core view helper factories*/
 namespace Core\View\Helper\Service;
 
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\View\Helper\Params;
 
@@ -21,8 +25,14 @@ use Core\View\Helper\Params;
  */
 class ParamsHelperFactory implements FactoryInterface
 {
-
-    /**
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$event = $container->get('Application')->getMvcEvent();
+		$helper = new Params($event);
+		return $helper;
+	}
+	
+	/**
      * Creates an instance of \Core\View\Helper\Params
      *
      * - injects the MvcEvent instance
@@ -33,8 +43,6 @@ class ParamsHelperFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $event = $serviceLocator->getServiceLocator()->get('Application')->getMvcEvent();
-        $helper = new Params($event);
-        return $helper;
+		return $this($serviceLocator);
     }
 }

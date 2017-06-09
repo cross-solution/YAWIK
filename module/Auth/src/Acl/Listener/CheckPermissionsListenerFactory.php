@@ -33,7 +33,7 @@ class CheckPermissionsListenerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $acl          = $container->get('acl');
+        $acl          = $container->get('Acl');
         $user         = $container->get('AuthenticationService')->getUser();
         $config       = $container->get('Config');
         $exceptionMap = isset($config['acl']['exceptions']) ? $config['acl']['exceptions'] : array();

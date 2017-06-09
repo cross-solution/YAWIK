@@ -89,8 +89,8 @@ class Services extends AbstractHelper
      * @param HelperPluginManager $helperPluginManager
      * @return Services
      */
-    public static function factory(HelperPluginManager $helperPluginManager)
+    public static function factory($sm)
     {
-        return new static($helperPluginManager->getServiceLocator());
+        return new static($sm);
     }
 }

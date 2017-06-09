@@ -10,7 +10,10 @@
 /** ActionController of Core */
 namespace Core\Controller;
 
+use Core\Listener\DefaultListener;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
 
 //use Settings\Repository\Settings;
@@ -22,17 +25,26 @@ use Zend\View\Model\ViewModel;
  */
 class IndexController extends AbstractActionController
 {
+	/** @var  DefaultListener */
+	private $defaultListener;
+	
+	private $config;
+	
+	public function __construct($defaultListener,$config)
+	{
+		$this->defaultListener = $defaultListener;
+		$this->config = $config;
+	}
     /**
      * attaches further Listeners for generating / processing the output
      * @return $this
      */
     public function attachDefaultListeners()
     {
+    	// @TODO: [ZF3] check if attach the default listener is really work
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
-        $events->attach($defaultServices);
+        $this->defaultListener->attach($events);
         return $this;
     }
 
@@ -42,10 +54,10 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        $auth = $this->auth();
+        $auth = $this->Auth();
         $services = $this->serviceLocator;
         if (!$auth->isLoggedIn()) {
-            $config = $services->get('config');
+            $config = $this->config;
             if (array_key_exists('startpage', $config['view_manager']['template_map'])) {
                 $this->layout()->setTerminal(true)->setTemplate('startpage');
             }
@@ -132,5 +144,12 @@ class IndexController extends AbstractActionController
         $viewModel->setTemplate('error/index')
                   ->setVariable('message', 'An unexpected error had occured. Please try again later.');
         return $viewModel;
+    }
+	
+    static public function factory(ContainerInterface $container)
+    {
+	    $defaultListener = $container->get('DefaultListeners');
+	    $config = $container->get('config');
+	    return new static($defaultListener,$config);
     }
 }

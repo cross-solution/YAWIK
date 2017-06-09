@@ -178,7 +178,7 @@ return array(
         ),
         'assertions' => array(
             'invokables' => array(
-                'Core/FileAccess' => 'Core\Acl\FileAccessAssertion',
+                'Core/FileAccess' => \Core\Acl\FileAccessAssertion::class,
             ),
         ),
     ),
@@ -203,13 +203,10 @@ return array(
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
             'Core/EntityHydrator' => 'Core\Entity\Hydrator\EntityHydratorFactory',
             'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
-            'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber::factory',
-            'defaultListeners' => 'Core\Listener\DefaultListener::factory',
-            'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy::factory',
-            'Core/Listener/DeferredListenerAggregate' => function($sm){
-            	// @TODO: Provide better implementation
-            	return \Core\Listener\DeferredListenerAggregate::factory($sm);
-            },
+            'Core/DoctrineMongoODM/RepositoryEvents' => [\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber::class,'factory'],
+            'DefaultListeners' => ['Core\Listener\DefaultListener','factory'],
+            'templateProviderStrategy'   => ['Core\Form\Hydrator\Strategy\TemplateProviderStrategy','factory'],
+            'Core/Listener/DeferredListenerAggregate' => [\Core\Listener\DeferredListenerAggregate::class,'factory'],
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
             'Core/Locale' => 'Core\I18n\LocaleFactory',
             'mvctranslator' => \Zend\Mvc\I18n\TranslatorFactory::class,
@@ -272,11 +269,15 @@ return array(
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
         'invokables' => array(
-            'Core\Controller\Index' => 'Core\Controller\IndexController',
+            
             'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
             'Core/Admin' => 'Core\Controller\AdminController',
         ),
+	    'factories' => [
+	    	// @TODO: improve this factory
+		    'Core\Controller\Index' => [\Core\Controller\IndexController::class,'factory'],
+	    ]
     ),
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
@@ -385,8 +386,10 @@ return array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
             'socialbuttons' => 'Core\Factory\View\Helper\SocialButtonsFactory',
             'TinyMCEditorLight' => 'Core\Factory\Form\View\Helper\FormEditorLightFactory',
-            'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
-            'services' => 'Core\View\Helper\Services::factory',
+            'configHeadScript' => 'Core\View\Helper\Service\HeadScriptFactory',
+            'services' => function($sm){
+            	return \Core\View\Helper\Services::factory($sm);
+            },
             'insertFile' => 'Core\View\Helper\InsertFile::factory',
             \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class
         ),

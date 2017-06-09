@@ -32,11 +32,11 @@ class DefaultListener implements ListenerAggregateInterface
         $this->serviceLocator = $serviceLocator;
     }
 
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events,$priority=1000)
     {
         $eventsApplication = $this->serviceLocator->get("Application")->getEventManager();
 
-        $postDispatch = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'postDispatch'), 1000);
+        $postDispatch = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'postDispatch'),$priority);
         //$events->detach($postDispatch);
 
         return $this;

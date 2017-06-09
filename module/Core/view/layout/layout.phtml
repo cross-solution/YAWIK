@@ -43,7 +43,7 @@ $this->headLink()->appendStylesheet($this->basePath('/assets/select2/css/select2
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
-        <?php echo $this->configheadScript();?>
+        <?php echo $this->configHeadScript();?>
         <?php
 
         // See: http://yawik.readthedocs.org/en/latest/customize.html#css
@@ -73,7 +73,7 @@ $this->headLink()->appendStylesheet($this->basePath('/assets/select2/css/select2
                   <nav id="main-navigation" class="navbar-collapse collapse navbar-collapse" role="navigation">
                      <?php 
                         echo $this->navigation('Core/Navigation')
-                                  ->setAcl($this->services('acl'))
+                                  ->setAcl($this->services('Acl'))
                                   ->setRole($this->auth('role'))
                                   ->menu()
                                   ->setMaxDepth(0)
