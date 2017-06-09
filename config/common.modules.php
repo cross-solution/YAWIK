@@ -17,10 +17,10 @@ return array(
 	'Zend\Navigation',
 	'Zend\I18n',
 	'Zend\Filter',
+	'Zend\Form',
+	'Zend\Validator',
 	'Zend\Mvc\Plugin\Prg',
 	'Zend\Mvc\Plugin\Identity',
 	'Zend\Mvc\Plugin\FlashMessenger',
 	'Zend\Mvc\I18n',
-	'Zend\Form',
-	'Zend\Validator',
 );
