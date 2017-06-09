@@ -246,6 +246,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
             $events->setEventPrototype($event);
         }
         else {
+        	//@TODO: [ZF3] setEventClass method is removed
             $events->setEventClass($config['event']);
         }
 

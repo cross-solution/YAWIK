@@ -39,8 +39,7 @@ class InjectHeadscriptInitializer implements InitializerInterface
 		
 		/* @var $basepath \Zend\View\Helper\BasePath
 		 * @var $headscript \Zend\View\Helper\HeadScript */
-		$services = $serviceLocator;
-		$helpers  = $services->get('ViewHelperManager');
+		$helpers  = $container->get('ViewHelperManager');
 		$basepath = $helpers->get('basepath');
 		$headscript = $helpers->get('headscript');
 		

@@ -28,21 +28,6 @@ use Zend\EventManager\Exception;
 class EventManager extends ZfEventManager implements EventProviderInterface
 {
 
-    /**
-     * The event prototype.
-     *
-     * @var EventInterface
-     */
-    protected $eventPrototype;
-
-    public function setEventPrototype(EventInterface $event)
-    {
-        $this->eventPrototype = $event;
-        $this->setEventClass(get_class($event));
-
-        return $this;
-    }
-
     public function getEvent($name = null, $target = null, $params = null)
     {
         if (!$this->eventPrototype) {

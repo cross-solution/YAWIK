@@ -10,6 +10,8 @@
 
 namespace Core\Paginator;
 
+use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -26,13 +28,26 @@ class PaginatorService extends AbstractPluginManager
      * @var bool
      */
     protected $shareByDefault = false;
-
-    public function __construct(ServiceLocatorInterface $serviceLocator, ConfigInterface $configuration = null)
+	
+	/**
+	 * @var ContainerInterface
+	 */
+    protected $container;
+    
+    public function __construct(ContainerInterface $container, ConfigInterface $configuration = null)
     {
         parent::__construct($configuration);
-        $this->serviceLocator = $serviceLocator;
+        $this->container = $container;
     }
-    
+	
+	/**
+	 * @return ContainerInterface
+	 */
+	public function getContainer()
+	{
+		return $this->container;
+	}
+	
     /**
      * check class
      *

@@ -289,8 +289,8 @@ return array(
             'listquery' => 'Core\Controller\Plugin\ListQuery::factory',
             'mail' => 'Core\Controller\Plugin\Mail::factory',
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer::factory',
-            'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator::factory',
-            'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService::factory',
+            'Core/CreatePaginator' => [\Core\Controller\Plugin\CreatePaginator::class,'factory'],
+            'Core/PaginatorService' => [\Core\Controller\Plugin\CreatePaginatorService::class,'factory'],
         ),
         'invokables' => array(
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
@@ -304,7 +304,7 @@ return array(
             'pagination'       => 'Core/PaginationBuilder',
             'paginator'        => 'Core/CreatePaginator',
             'paginatorservice' => 'Core/PaginatorService',
-            'paginationparams' => 'Core/PaginationParams',
+            'paginationParams' => 'Core/PaginationParams',
             'searchform'       => 'Core/SearchForm',
         )
     ),
@@ -380,7 +380,8 @@ return array(
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
             'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
             'TinyMCEditor' => 'Core\Form\View\Helper\FormEditor',
-            'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor'
+            'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor',
+	        'proxy' => \Core\View\Helper\Proxy\HelperProxy::class
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',

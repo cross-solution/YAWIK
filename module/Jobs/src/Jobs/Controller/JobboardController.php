@@ -11,12 +11,14 @@
 namespace Jobs\Controller;
 
 use Core\Form\SearchForm;
+use Core\Listener\DefaultListener;
 use Jobs\Form\ListFilter;
 use Jobs\Listener\Events\JobEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Jobs\Repository;
 use Zend\View\Model\ViewModel;
+use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
 
 /**
  * @method \Auth\Controller\Plugin\Auth auth()
@@ -37,16 +39,27 @@ class JobboardController extends AbstractActionController
     private $options = [
         'count' => 10
     ];
+    
+    private $defaultListener;
+    
+    private $imageFileCacheManager;
 
     /**
      * Construct the jobboard controller
      *
      * @param Repository\Job $jobRepository
      */
-    public function __construct(Repository\Job $jobRepository, $options)
+    public function __construct(
+    	DefaultListener $defaultListener,
+	    Repository\Job $jobRepository,
+	    ImageFileCacheManager $imageFileCacheManager,
+	    $options
+	)
     {
         $this->jobRepository = $jobRepository;
         $this->options = $options;
+        $this->defaultListener = $defaultListener;
+        $this->imageFileCacheManager = $imageFileCacheManager;
     }
     /**
      * attaches further Listeners for generating / processing the output
@@ -55,10 +68,8 @@ class JobboardController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
-        $events->attach($defaultServices);
+        $this->defaultListener->attach($events);
         return $this;
     }
 
@@ -96,7 +107,7 @@ class JobboardController extends AbstractActionController
                 'paginator' => ['as' => 'jobs', 'Jobs/Board']
             ]);
 
-        $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
+        $organizationImageCache = $this->imageFileCacheManager;
 
         $result['organizationImageCache'] = $organizationImageCache;
 
