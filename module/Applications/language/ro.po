@@ -815,8 +815,9 @@ msgid ""
 " Includes gender, firstname and lastname.<li>##anrede_informell## = "
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
-"of recipt of the application.</li></ul>"
-msgstr "text implicit al confirmării de primire e-mail solicitantului. Următoarele variabile pot fi utilizate: <br><ul><li> ## Anrede_formell ## = salutare. Include sexul, și prenumele lastname. <li> ## Anrede_informell ## = salutare. Include fistname și LastName. </li><li> ## JOB_TITLE ## = titlul de la locurile de muncă </li><li> ## Name ## = numele solicitantului. </li><li> ## Data ## = data recipt cererii. </li></ul>"
+"of recipt of the application.</li><li>##link## = Link to the application "
+"details</li></ul>"
+msgstr "text implicit al confirmării de primire e-mail solicitantului. Următoarele variabile pot fi utilizate: <br><ul><li> ## Anrede_formell ## = salutare. Include sexul, și prenumele lastname. <li> ## Anrede_informell ## = salutare. Include fistname și LastName. </li><li> ## JOB_TITLE ## = titlul de la locurile de muncă </li><li> ## Name ## = numele solicitantului. </li><li> ## Data ## = data recipt cererii. </li><li>##link## = Link to the application details</li></ul>"
 
 #: language/_annotated_strings.php:81
 msgid "Invitation mail text"

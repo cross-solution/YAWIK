@@ -4,7 +4,7 @@
 # 
 # Translators:
 # blu-IT, 2015
-# blu-IT, 2015-2016
+# blu-IT, 2015-2017
 # blu-IT, 2015
 # Carsten Bleek <cbleek@yawik.org>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-27 19:25+0200\n"
-"PO-Revision-Date: 2017-04-27 17:27+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2017-05-15 05:49+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -442,7 +442,7 @@ msgstr "agente"
 
 #: view/applications/manage/detail.phtml:483
 msgid "Manager"
-msgstr ""
+msgstr "Manager"
 
 #: view/applications/manage/detail.phtml:502
 #: view/applications/manage/detail.pdf.phtml:165
@@ -819,8 +819,9 @@ msgid ""
 " Includes gender, firstname and lastname.<li>##anrede_informell## = "
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
-"of recipt of the application.</li></ul>"
-msgstr "testo predefinito della ricevuta della conferma al richiedente. Le seguenti variabili possono essere utilizzate: <br><ul><li>##anrede_formell## = saluto. Include sesso, nome e cognome.<li>##anrede_informell## = saluto. Include nome e cognome. </li><li>##job_title## = titolo dei posti di lavoro</li><li> ##name## = nome del richiedente.</li><li> ##date## = data della ricevuta domanda.</li></ul>"
+"of recipt of the application.</li><li>##link## = Link to the application "
+"details</li></ul>"
+msgstr "testo predefinito della ricevuta della conferma al richiedente. Le seguenti variabili possono essere utilizzate: <br><ul><li>##anrede_formell## = saluto. Include sesso, nome e cognome.<li>##anrede_informell## = saluto. Include nome e cognome. </li><li>##job_title## = titolo dei posti di lavoro</li><li> ##name## = nome del richiedente.</li><li> ##date## = data della ricevuta domanda.</li><li>##link## = Link to the application details</li></ul>"
 
 #: language/_annotated_strings.php:81
 msgid "Invitation mail text"

@@ -20,8 +20,11 @@ $fields = [
                       'enabled' => true
                   ],
                   'geoLocation' => [
-                      'enabled' => true
-                  ],
+                      'enabled' => true,
+                      'attributes' => [
+                          'multiple' => true,
+                      ]
+                  ]
               ];
 
 
