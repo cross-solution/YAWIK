@@ -62,7 +62,8 @@
         "phpunit/phpunit": "5.6.*",
         "cbleek/pecl-solr-hint": "dev-master",
         "satooshi/php-coveralls": "^1.0",
-        "zendframework/zend-component-installer": "^0.7.0"
+        "zendframework/zend-component-installer": "^0.7.0",
+        "zendframework/zend-test": "^3.1"
     },
     "scripts": {
         "post-install-cmd": [
