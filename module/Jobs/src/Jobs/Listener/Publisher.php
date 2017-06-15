@@ -20,6 +20,11 @@ use Jobs\Listener\Response\JobResponse;
 /**
  * Job listener for publishing job opening via REST
  *
+ * @author Mathias Weitz
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author fedys
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @package Jobs\Listener
  */
 
@@ -93,7 +98,7 @@ class Publisher implements ListenerAggregateInterface
                 $entity = $e->getJobEntity();
 
                 $render = $serviceManager->get('ViewPhpRendererStrategy')->getRenderer();
-                $viewModel = $serviceManager->get('Jobs/ViewModelTemplateFilter')->__invoke($entity);
+                $viewModel = $serviceManager->get('Jobs/ViewModelTemplateFilter')->getModel($entity);
                 $html = $render->render($viewModel);
                 $absUrlFilter = $serviceManager->get('filterManager')->get('Core/HtmlAbsPathFilter');
                 $html = $absUrlFilter->filter($html);
@@ -166,7 +171,14 @@ class Publisher implements ListenerAggregateInterface
                     $response_externalIdUpdate = $decodedBody->applyIdUpdate;
 
                     if ($publisher->externalId != $response_externalIdUpdate || $publisher->reference != $response_referenceUpdate) {
-                        $log->info('RestCall changed externalID [' . var_export($publisher->externalId, true) . ' => ' . var_export($response_externalIdUpdate, true) . '], reference  [' . var_export($publisher->reference, true) . ' => ' . var_export($response_referenceUpdate, true) . ']');
+                    	$logInfo = 'RestCall changed externalID ['
+	                               . var_export($publisher->externalId, true)
+	                               . ' => '
+	                               . var_export($response_externalIdUpdate, true) . '], reference  ['
+	                               . var_export($publisher->reference, true)
+	                               . ' => '
+	                               . var_export($response_referenceUpdate, true) . ']';
+                        $log->info($logInfo);
                         $publisher->reference = $response_referenceUpdate;
                         $publisher->externalId = $response_externalIdUpdate;
                         $serviceManager->get('repositories')->store($entity);

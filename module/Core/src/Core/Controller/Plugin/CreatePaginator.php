@@ -42,10 +42,13 @@ class CreatePaginator extends AbstractPlugin
      * @var HttpRequest
      */
     protected $request;
-    
-    /**
-     * @param ServiceLocatorInterface $serviceManager
-     */
+	
+	/**
+	 * CreatePaginator constructor.
+	 *
+	 * @param ContainerInterface $container
+	 * @param HttpRequest $request
+	 */
     public function __construct(ContainerInterface $container, HttpRequest $request)
     {
         $this->serviceManager = $container->get('ServiceManager');
@@ -101,7 +104,6 @@ class CreatePaginator extends AbstractPlugin
         /* @var \Core\EventManager\EventManager $events */
         /* @var \Zend\Paginator\Paginator $paginator */
         /* @var CreatePaginatorEvent $event */
-	    //$events = $this->serviceManager->get('Core/CreatePaginator/Events');
 	    $events = $this->serviceManager->get('Core/CreatePaginator/Events');
 	    
 	    $event = $events->getEvent(CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,$this,[

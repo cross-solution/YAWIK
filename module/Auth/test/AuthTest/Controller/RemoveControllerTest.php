@@ -19,6 +19,9 @@ use Zend\Mvc\Controller\Plugin\Redirect;
 use Zend\Http\PhpEnvironment\Response;
 
 /**
+ *
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @coversDefaultClass \Auth\Controller\RemoveController
  */
 class RemoveControllerTest extends \PHPUnit_Framework_TestCase
@@ -109,9 +112,9 @@ class RemoveControllerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('confirm'))
             ->willReturn('1');
         
-        $this->controller->getPluginManager()
-            ->setService('redirect', $redirect)
-            ->setService('params', $params);
+        $pluginManager = $this->controller->getPluginManager();
+        $pluginManager->setService('redirect', $redirect);
+		$pluginManager->setService('params', $params);
         
         $user = $this->getMockBuilder(User::class)
             ->getMock();

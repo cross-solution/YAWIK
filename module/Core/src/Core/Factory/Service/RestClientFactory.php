@@ -11,9 +11,21 @@
 namespace Core\Factory\Service;
 
 use Core\Service\RestClient;
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * Class RestClientFactory
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
+ * @package Core\Factory\Service
+ */
 abstract class RestClientFactory implements FactoryInterface
 {
     /**
@@ -25,8 +37,16 @@ abstract class RestClientFactory implements FactoryInterface
      * @var ServiceLocatorInterface
      */
     protected $serviceLocator;
-
-    /**
+	
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$this->serviceLocator = $container;
+		$service = new RestClient($this->getUri(), $this->getConfig());
+		return $service;
+	}
+	
+	
+	/**
      * Create the settings service
      *
      * @param  ServiceLocatorInterface $serviceLocator
@@ -34,9 +54,7 @@ abstract class RestClientFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $this->serviceLocator = $serviceLocator;
-        $service = new RestClient($this->getUri(), $this->getConfig());
-        return $service;
+        return $this($serviceLocator,RestClient::class);
     }
 
     /**

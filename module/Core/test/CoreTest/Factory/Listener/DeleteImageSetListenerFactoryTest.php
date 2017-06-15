@@ -15,13 +15,15 @@ use Core\Listener\DeleteImageSetListener;
 use Core\Repository\RepositoryService;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Listener\DeleteImageSetListenerFactory
  * 
  * @covers \Core\Factory\Listener\DeleteImageSetListenerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @group Core
  * @group Core.Factory
  * @group Core.Factory.Listener
@@ -54,9 +56,8 @@ class DeleteImageSetListenerFactoryTest extends \PHPUnit_Framework_TestCase
             DeleteImageSetListener::class => ['is' => 'here'],
         ];
 
-        $container = $this->getServiceManagerMock([
-                'repositories' => $repositories,
-            ]);
+        $container = $this->getServiceManagerMock();
+        $container->setService('repositories',$repositories);
         $container->setService('Config', $config);
 
         $listener = $this->target->__invoke($container, 'irrelevant');

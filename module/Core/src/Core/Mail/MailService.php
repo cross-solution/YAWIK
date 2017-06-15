@@ -10,6 +10,7 @@
 /** */
 namespace Core\Mail;
 
+use Interop\Container\ContainerInterface;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Mail\Address;
 use Zend\Mail\AddressList;
@@ -25,6 +26,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class MailService extends AbstractPluginManager
 {
@@ -78,12 +80,13 @@ class MailService extends AbstractPluginManager
      * - Inject the translator to mails implementing TranslatorAwareInterface
      * - Call init() method on Mails if such method exists.
      *
-     * @param ConfigInterface $configuration
+     * @param ContainerInterface $container
+     * @param mixed $configuration
      */
-    public function __construct(ServiceLocatorInterface $serviceLocator, ConfigInterface $configuration = null)
+    public function __construct(ContainerInterface $container, $configuration = null)
     {
-        parent::__construct($configuration);
-        $this->serviceLocator = $serviceLocator;
+        parent::__construct($container,$configuration);
+        $this->serviceLocator = $container;
         $self = $this;
 
         $this->addInitializer(

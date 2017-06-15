@@ -16,12 +16,15 @@ use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Entity\OrganizationReference;
 use Organizations\Mail\EmployeeInvitationFactory;
+use Zend\Router\RouteStackInterface;
 
 /**
  * Tests for \Organizations\Mail\EmployeeInvitationFactory
  *
  * @covers \Organizations\Mail\EmployeeInvitationFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @group Organizations
  * @group Organizations.Mail
  */
@@ -35,8 +38,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $target = new EmployeeInvitationFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $target);
-        $this->assertInstanceOf('\Zend\ServiceManager\MutableCreationOptionsInterface', $target);
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -131,7 +133,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
         $authService = $this->getMockBuilder('\Auth\AuthenticationService')->disableOriginalConstructor()->getMock();
         $authService->expects($this->once())->method('getUser')->willReturn($owner);
 
-        $router = $this->getMockForAbstractClass('\Zend\Mvc\Router\RouteStackInterface');
+        $router = $this->getMockForAbstractClass(RouteStackInterface::class);
         $router->expects($this->once())
                ->method('assemble')
                ->with(array('action' => 'accept'),

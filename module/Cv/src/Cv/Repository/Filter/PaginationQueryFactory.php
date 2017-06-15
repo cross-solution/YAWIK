@@ -10,18 +10,34 @@
 /** PaginationQueryFactory.php */
 namespace Cv\Repository\Filter;
 
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
+/**
+ * Class PaginationQueryFactory
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
+ * @package Cv\Repository\Filter
+ */
 class PaginationQueryFactory implements FactoryInterface
 {
-    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$auth     = $container->get('AuthenticationService');
+		$user     = $auth->hasIdentity() ? $auth->getUser() : null;
+		$filter   = new PaginationQuery($user);
+		
+		return $filter;
+	}
+	
+	public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        $services = $serviceLocator->getServiceLocator();
-        $auth     = $services->get('AuthenticationService');
-        $user     = $auth->hasIdentity() ? $auth->getUser() : null;
-        $filter   = new PaginationQuery($user);
-        
-        return $filter;
-        
+	    return $this($serviceLocator->get('ServiceManager'),PaginationQuery::class);
     }
 }

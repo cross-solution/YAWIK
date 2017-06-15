@@ -7,7 +7,7 @@
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
 
-namespace Install\Factory\Controller;
+namespace Core\Factory\Controller;
 use Interop\Container\ContainerInterface;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Zend\Mvc\I18n\Translator;

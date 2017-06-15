@@ -18,6 +18,7 @@ use Zend\EventManager\EventManager;
  *
  * @covers \Jobs\Factory\JobEventManagerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @group Jobs
  * @group Jobs.Factory
  */
@@ -54,7 +55,7 @@ class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
         $events = $target->createService($services);
 
         $this->assertSame($eventManager, $events);
-        $this->assertAttributeEquals($expectedEventClass, 'eventClass', $events);
+        $this->assertAttributeInstanceOf($expectedEventClass, 'eventPrototype', $events);
         $this->assertEquals($expectedIdentifiers, $events->getIdentifiers());
     }
 }

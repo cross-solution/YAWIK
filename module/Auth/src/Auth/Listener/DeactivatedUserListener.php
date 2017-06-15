@@ -10,6 +10,15 @@ use Zend\Mvc\MvcEvent;
 use Auth\Exception\UserDeactivatedException;
 use Zend\Http\PhpEnvironment\Response;
 
+/**
+ * Class DeactivatedUserListener
+ *
+ * @author  Carsten Bleek <bleek@cross-solution.de>
+ * @author  fedys
+ * @author  Anthonius Munthi <me@itstoni.com>
+ *
+ * @package Auth\Listener
+ */
 class DeactivatedUserListener extends ExceptionStrategy
 {
     /**

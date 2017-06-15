@@ -17,8 +17,8 @@ use CoreTest\Form\Hydrator\Strategy\TreeSelectStrategyTest;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+//use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -26,6 +26,8 @@ use Zend\ServiceManager\ServiceManager;
  * 
  * @covers \Core\Factory\Form\Tree\SelectFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @group Core
  * @group Core.Factory
  * @group Core.Factory.Form
@@ -47,7 +49,7 @@ class SelectFactoryTest extends \PHPUnit_Framework_TestCase
         ],
     ];
 
-    private $inheritance = [ FactoryInterface::class, MutableCreationOptionsInterface::class ];
+    private $inheritance = [ FactoryInterface::class];
 
     public function testSetCreationOptions()
     {

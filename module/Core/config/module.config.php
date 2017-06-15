@@ -269,7 +269,6 @@ return array(
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
         'invokables' => array(
-            
             'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
             'Core/Admin' => 'Core\Controller\AdminController',
@@ -277,7 +276,10 @@ return array(
 	    'factories' => [
 	    	// @TODO: improve this factory
 		    'Core\Controller\Index' => [\Core\Controller\IndexController::class,'factory'],
-	    ]
+	    ],
+        'abstract_factories' => [
+	        \Core\Factory\Controller\LazyControllerFactory::class
+        ],
     ),
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(

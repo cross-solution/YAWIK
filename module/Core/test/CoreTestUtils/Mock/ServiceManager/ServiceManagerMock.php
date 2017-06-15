@@ -19,6 +19,8 @@ use Zend\ServiceManager\ServiceManager;
  * Allows tracking of method calls (with service name arguments).
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @since  0.25
  */
 class ServiceManagerMock extends ServiceManager
@@ -29,35 +31,36 @@ class ServiceManagerMock extends ServiceManager
     ];
 
     protected $expectedCallCount = [];
-
-    public function setService($name, $service)
-    {
+	
+	
+    //public function setService($name, $service)
+    //{
         /*
          * No checks here to not pollute the "has" method invokation counter.
          * If you mess up here, your test config must be checked.
          */
-        $cName = $this->canonicalizeName($name);
-        $this->instances[$cName] = $service;
+    //    $cName = $this->canonicalizeName($name);
+    //    $this->instances[$cName] = $service;
 
-        return $this;
-    }
+    //    return $this;
+    //}
 
 
-    public function get($name, $usePeeringServiceManagers = true)
-    {
-        $this->incrementCallCount('get', $name);
+    //public function get($name, $usePeeringServiceManagers = true)
+    //{
+    //    $this->incrementCallCount('get', $name);
+	//
+    //    return parent::get($name, $usePeeringServiceManagers);
+    //}
 
-        return parent::get($name, $usePeeringServiceManagers);
-    }
+    //public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
+    //{
+    //    if (is_string($name)) { // internally called with an array [normalizedName, requestedName].
+    //        $this->incrementCallCount('has', $name);
+    //    }
 
-    public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
-    {
-        if (is_string($name)) { // internally called with an array [normalizedName, requestedName].
-            $this->incrementCallCount('has', $name);
-        }
-
-        return parent::has($name, $checkAbstractFactories, $usePeeringServiceManagers);
-    }
+//        return parent::has($name, $checkAbstractFactories, $usePeeringServiceManagers);
+//    }
 
     /**
      * Increment the call count.

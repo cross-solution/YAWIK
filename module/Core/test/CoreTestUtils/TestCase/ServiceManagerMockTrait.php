@@ -18,6 +18,8 @@ use CoreTestUtils\Mock\ServiceManager\ServiceManagerMock;
  * Creates a service manager mock with configured services.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @since  0.25
  */
 trait ServiceManagerMockTrait
@@ -60,6 +62,7 @@ trait ServiceManagerMockTrait
      */
     public function createServiceManagerMock(array $services = [])
     {
+    	// @TODO: [ZF3] Looks like create mock by passing $services is not working in ZF3
         $serviceManagerMock = new ServiceManagerMock();
         if (!empty($services)) {
             $config = new ServiceManagerMockConfig(['mocks' => $services]);
@@ -108,7 +111,7 @@ trait ServiceManagerMockTrait
             $parent = $services;
         }
 
-        $pluginManagerMock = new PluginManagerMock($config);
+        $pluginManagerMock = new PluginManagerMock($services,$config);
 
         if (null !== $parent) {
             $pluginManagerMock->setServiceLocator($parent, $count);

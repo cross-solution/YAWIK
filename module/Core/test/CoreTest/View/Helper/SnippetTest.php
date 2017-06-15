@@ -24,6 +24,7 @@ use Zend\View\Model\ViewModel;
  * 
  * @covers \Core\View\Helper\Snippet
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  *  
  */
 class SnippetTest extends \PHPUnit_Framework_TestCase
@@ -96,7 +97,9 @@ class SnippetTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsEmptyString()
     {
-        $this->args['event']->setName('nothingToDo')->setTarget($this->target);
+    	$event = $this->args['event'];
+        $event->setName('nothingToDo');
+        $event->setTarget($this->target);
 
         $this->assertSame('', $this->target->__invoke('nothingToDo'));
     }
