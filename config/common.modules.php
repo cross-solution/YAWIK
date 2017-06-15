@@ -19,6 +19,8 @@ return array(
 	'Zend\Filter',
 	'Zend\Form',
 	'Zend\Validator',
+	'Zend\Recaptcha',
+	'Zend\Log',
 	'Zend\Mvc\Plugin\Prg',
 	'Zend\Mvc\Plugin\Identity',
 	'Zend\Mvc\Plugin\FlashMessenger',
