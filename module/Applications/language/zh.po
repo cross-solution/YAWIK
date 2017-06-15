@@ -815,8 +815,9 @@ msgid ""
 " Includes gender, firstname and lastname.<li>##anrede_informell## = "
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
-"of recipt of the application.</li></ul>"
-msgstr "收据邮寄给申请人确认的默认文本。以下变量可以用于： <br><ul><li> ## anrede_formell ## =称呼。包括性别，名字和姓氏。 <li> ## anrede_informell ## =称呼。包括fistname和姓氏。 </li><li> ## JOB_TITLE ## =称号职位</li><li> ##名## =名申请人。 </li><li> ##日## =日申请recipt的。 </li></ul>"
+"of recipt of the application.</li><li>##link## = Link to the application "
+"details</li></ul>"
+msgstr "收据邮寄给申请人确认的默认文本。以下变量可以用于： <br><ul><li> ## anrede_formell ## =称呼。包括性别，名字和姓氏。 <li> ## anrede_informell ## =称呼。包括fistname和姓氏。 </li><li> ## JOB_TITLE ## =称号职位</li><li> ##名## =名申请人。 </li><li> ##日## =日申请recipt的。 </li><li>##link## = Link to the application details</li></ul>"
 
 #: language/_annotated_strings.php:81
 msgid "Invitation mail text"

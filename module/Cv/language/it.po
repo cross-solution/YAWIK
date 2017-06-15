@@ -4,15 +4,15 @@
 # 
 # Translators:
 # BLU-IT, 2015
-# blu-IT, 2016
+# blu-IT, 2016-2017
 # blu-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-27 19:26+0200\n"
-"PO-Revision-Date: 2017-04-27 17:28+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2017-05-15 05:55+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +44,7 @@ msgstr "Avanti"
 
 #: view/cv/view/index.phtml:55
 msgid "download as PDF"
-msgstr ""
+msgstr "scarica PDF"
 
 #: view/cv/view/index.phtml:63
 msgid "Delete application"
@@ -78,11 +78,11 @@ msgstr "Stato"
 
 #: view/cv/view/index.phtml:129
 msgid "date of creation"
-msgstr ""
+msgstr "Data di creazione"
 
 #: view/cv/view/index.phtml:136
 msgid "resume state"
-msgstr ""
+msgstr "Riprendere lo stato"
 
 #: view/cv/view/index.phtml:142
 msgid "last modification date"
@@ -623,7 +623,7 @@ msgstr "Concentratevi sulla esperienza di lavoro che fornisce un valore aggiunti
 
 #: language/_annotated_strings.php:234
 msgid "Click here to enter your employment expectation"
-msgstr ""
+msgstr "Clicca qui per inserire l'aspettativa di occupazione"
 
 #: language/_annotated_strings.php:237
 msgid "Temporary"
@@ -715,7 +715,7 @@ msgstr "Si prega di selezionare dalla lista o immettere la propria lingua matern
 
 #: language/_annotated_strings.php:315
 msgid "Click here to enter your native language(s)"
-msgstr ""
+msgstr "Clicca qui per inserire la tua/tue madre lingua/lingue"
 
 #: language/_annotated_strings.php:318
 msgid "Abkhazian"
@@ -1153,30 +1153,30 @@ msgstr "Dove vuoi lavorare domani. Questa rubrica fornisce una panoramica immedi
 
 #: language/_annotated_strings.php:642
 msgid "private"
-msgstr ""
+msgstr "privato"
 
 #: language/_annotated_strings.php:645
 msgid "public to all"
-msgstr ""
+msgstr "pubblico a tutti"
 
 #: language/_annotated_strings.php:648
 msgid "Status has been successfully changed"
-msgstr ""
+msgstr "Lo stato è stato modificato correttamente"
 
 #: language/_annotated_strings.php:651
 msgid "Invalid status"
-msgstr ""
+msgstr "Stato non valido"
 
 #: language/_annotated_strings.php:660
 #, php-format
 msgid ""
 "Attach images or PDF Documents to your CV. Drag&drop them, or click into the"
 " attachement area. You can upload up to %sMB"
-msgstr ""
+msgstr "Allegare immagini o documenti PDF al tuo CV. Trascina e rilascia, oppure fai clic nell'area attacchi. Puoi caricare fino a %sMB"
 
 #: language/_annotated_strings.php:672
 msgid "Talent-Pool"
-msgstr ""
+msgstr "Talent-Pool"
 
 #: language/_annotated_strings.php:675
 msgid "Overview"

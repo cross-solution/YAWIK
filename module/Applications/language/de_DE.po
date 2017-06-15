@@ -816,8 +816,9 @@ msgid ""
 " Includes gender, firstname and lastname.<li>##anrede_informell## = "
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
-"of recipt of the application.</li></ul>"
-msgstr "Standard-Text einer Eingangsbestätigung an den Bewerber. Folgende Variablen können verwendet werden. <br><ul><li>##anrede_formell## = Formelle Anrede.<li>##anrede_informell## = normale Anrede.</li><li>##job_title## = Titel der Stellenanzeige</li><li>##name## = Name des Bewerbers</li><li>##date## = Eingangsdatum der Bewerbung.</li></ul>"
+"of recipt of the application.</li><li>##link## = Link to the application "
+"details</li></ul>"
+msgstr "Standard-Text einer Eingangsbestätigung an den Bewerber. Folgende Variablen können verwendet werden. <br><ul><li>##anrede_formell## = Formelle Anrede.<li>##anrede_informell## = normale Anrede.</li><li>##job_title## = Titel der Stellenanzeige</li><li>##name## = Name des Bewerbers</li><li>##date## = Eingangsdatum der Bewerbung.</li><li>##link## = Link to the application details</li></ul>"
 
 #: language/_annotated_strings.php:81
 msgid "Invitation mail text"

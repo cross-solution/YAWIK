@@ -817,7 +817,8 @@ msgid ""
 " Includes gender, firstname and lastname.<li>##anrede_informell## = "
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
-"of recipt of the application.</li></ul>"
+"of recipt of the application.</li><li>##link## = Link to the application "
+"details</li></ul>"
 msgstr ""
 
 #: language/_annotated_strings.php:81

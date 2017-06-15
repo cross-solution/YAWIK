@@ -75,7 +75,7 @@ translate('if checked, an application is immediatly confirmed. If unchecked conf
 translate('Confirmation mail text');
 
 //: ./src/Applications/Form/SettingsFieldset.php:70
-translate('default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li></ul>');
+translate('default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li><li>##link## = Link to the application details</li></ul>');
 
 //: ./src/Applications/Form/SettingsFieldset.php:76
 translate('Invitation mail text');
@@ -101,20 +101,14 @@ translate('get blind carbon copy of all own mails');
 //: ./src/Applications/Form/SettingsFieldset.php:109
 translate('if checked, you\'ll get a copy of all mails you send.');
 
-//: ./src/Applications/Form/FilterApplication.php:56
-translate('Search');
-
-//: ./src/Applications/Form/FilterApplication.php:66
+//: ./src/Applications/Form/ApplicationsFilter.php:43
 translate('Enter job title');
 
-//: ./src/Applications/Form/FilterApplication.php:89
+//: ./src/Applications/Form/ApplicationsFilter.php:61
 translate('Status');
 
-//: ./src/Applications/Form/FilterApplication.php:116
-translate('Search');
-
-//: ./src/Applications/Form/FilterApplication.php:126
-translate('Clear');
+//: ./src/Applications/Form/ApplicationsFilter.php:66
+translate('all');
 
 //: ./src/Applications/Form/CommentForm.php:50
 translate('Comment message');
@@ -206,28 +200,25 @@ translate('Click here to enter a summary.');
 //: ./src/Applications/Form/BaseFieldset.php:50
 translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.');
 
-//: ./src/Applications/Controller/ManageController.php:79
-translate('all');
-
-//: ./src/Applications/Controller/ManageController.php:132
+//: ./src/Applications/Controller/ManageController.php:101
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ManageController.php:147
+//: ./src/Applications/Controller/ManageController.php:116
 translate('Application was read by %s');
 
-//: ./src/Applications/Controller/ManageController.php:489
+//: ./src/Applications/Controller/ManageController.php:458
 translate('Application has been successfully moved to Talent Pool');
 
 //: ./src/Applications/Controller/ApplyController.php:185
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:361
+//: ./src/Applications/Controller/ApplyController.php:362
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:367
+//: ./src/Applications/Controller/ApplyController.php:368
 translate('Mail has been send');
 
-//: ./src/Applications/Controller/ApplyController.php:383
+//: ./src/Applications/Controller/ApplyController.php:384
 translate('Application has been send.');
 
 //: ./src/Applications/Controller/MultimanageController.php:138
@@ -239,7 +230,7 @@ translate('%d Application(s) has been successfully moved to Talent Pool');
 //: ./src/Applications/Controller/CommentController.php:107
 translate('Application was rated by %s');
 
-//: ./src/Applications/Listener/EventApplicationCreated.php:131
+//: ./src/Applications/Listener/EventApplicationCreated.php:132
 translate('Application confirmation');
 
 //: ./src/Applications/Mail/Forward.php:58
@@ -257,9 +248,9 @@ translate('Attach images or PDF Documents to your application. Drag&drop them, o
 //: ./src/Applications/Factory/Form/AttachmentsFactory.php:83
 translate('Attachments');
 
-//: ./config/module.config.php:56
+//: ./config/module.config.php:59
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:132
+//: ./config/module.config.php:136
 translate('Overview');
 

@@ -815,8 +815,9 @@ msgid ""
 " Includes gender, firstname and lastname.<li>##anrede_informell## = "
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
-"of recipt of the application.</li></ul>"
-msgstr "standaardtekst van de ontvangstbevestiging mail naar de aanvrager. De volgende variabelen kunnen worden gebruikt: <br><ul><li> ## Anrede_formell ## = begroeting. Inclusief geslacht, voornaam en achternaam. <li> ## Anrede_informell ## = begroeting. Inclusief fistname en achternaam. </li><li> ## Job_title ## = titel van de banen </li><li> ## Naam ## = naam van de aanvrager. </li><li> ## Datum ## = datum van de bon van de applicatie. </li></ul>"
+"of recipt of the application.</li><li>##link## = Link to the application "
+"details</li></ul>"
+msgstr "standaardtekst van de ontvangstbevestiging mail naar de aanvrager. De volgende variabelen kunnen worden gebruikt: <br><ul><li> ## Anrede_formell ## = begroeting. Inclusief geslacht, voornaam en achternaam. <li> ## Anrede_informell ## = begroeting. Inclusief fistname en achternaam. </li><li> ## Job_title ## = titel van de banen </li><li> ## Naam ## = naam van de aanvrager. </li><li> ## Datum ## = datum van de bon van de applicatie. </li><li>##link## = Link to the application details</li></ul>"
 
 #: language/_annotated_strings.php:81
 msgid "Invitation mail text"

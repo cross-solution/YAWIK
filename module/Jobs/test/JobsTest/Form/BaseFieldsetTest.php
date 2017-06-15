@@ -58,7 +58,7 @@ class BaseFieldsetTest extends \PHPUnit_Framework_TestCase
                             'label' => /*@translate*/ 'Location',
                             'description' => /*@translate*/ 'Please enter the location of the job',
                             'location_entity' => Location::class,
-                            'summary_value' => function() {},
+                            'summary_value' => [$this->target, 'getLocationsSummaryValue'],
                         ],
                         'attributes' => [
                             'data-width' => '100%'
