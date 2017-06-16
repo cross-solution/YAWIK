@@ -11,7 +11,7 @@
 namespace Core\Factory\Paginator;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractFactoryInterface;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -49,9 +49,10 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
+ * @TODO    [ZF3] fix remove implementation of MutableCreationOptionsInterface
  * @since 0.24
  */
-class RepositoryAbstractFactory implements AbstractFactoryInterface, MutableCreationOptionsInterface
+class RepositoryAbstractFactory implements AbstractFactoryInterface
 {
     /**
      * Creation options.

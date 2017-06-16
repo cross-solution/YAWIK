@@ -14,17 +14,19 @@ use Core\Entity\Tree\NodeInterface;
 use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
 use Core\Form\Tree\Select;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+//use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for a tree select form element.
  * 
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.29
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Anthonius Munthi <me@itstoni.com>
+ * @since   0.29
+ * @TODO    [ZF3] Check if removed MutableCreationOptionsInterface affecting Yawik
  */
-class SelectFactory implements FactoryInterface, MutableCreationOptionsInterface
+class SelectFactory implements FactoryInterface
 {
 
     /**

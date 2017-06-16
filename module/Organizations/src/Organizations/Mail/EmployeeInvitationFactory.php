@@ -14,18 +14,19 @@ use Auth\Entity\UserInterface;
 use Core\Mail\HTMLTemplateMessage;
 use Interop\Container\ContainerInterface;
 use Organizations\ImageFileCache\ODMListener;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * This Factory creates and configures the HTMLTemplateMail send to an invited person.
  *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @author Anthonius Munthi <me@itstoni.com>
- * @since  0.19
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Anthonius Munthi <me@itstoni.com>
+ *
+ * @TODO    [ZF3] Check if removing MutableCreationsOptionsInterface is not affecting application
+ * @since   0.19
  */
-class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOptionsInterface
+class EmployeeInvitationFactory implements FactoryInterface
 {
     /**
      * Dynamic options for each invocation.

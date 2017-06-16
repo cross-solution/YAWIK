@@ -10,6 +10,14 @@ use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
+
+/**
+ * Class AbstractFunctionalControllerTestCase
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @package CoreTest\Controller
+ */
 abstract class AbstractFunctionalControllerTestCase extends AbstractHttpControllerTestCase
 {
     /**

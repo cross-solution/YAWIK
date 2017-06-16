@@ -10,7 +10,11 @@
 
 namespace Core\Paginator;
 
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -21,19 +25,23 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class PaginatorServiceFactory implements FactoryInterface
 {
-
-    /** (non-PHPdoc)
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$configArray = $container->get('Config');
+		$configArray = isset($configArray['paginator_manager']) ? $configArray['paginator_manager'] : array();
+		$config      = new PaginatorServiceConfig($configArray);
+		
+		$service   = new PaginatorService($container,$config);
+		
+		return $service;
+	}
+	
+	
+	/** (non-PHPdoc)
     * @see \Zend\ServiceManager\FactoryInterface::createService()
     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-
-        $configArray = $serviceLocator->get('Config');
-        $configArray = isset($configArray['paginator_manager']) ? $configArray['paginator_manager'] : array();
-        $config      = new PaginatorServiceConfig($configArray);
-
-        $service   = new PaginatorService($serviceLocator, $config);
-
-        return $service;
+	    return $this($serviceLocator, PaginatorService::class);
     }
 }

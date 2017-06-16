@@ -18,6 +18,8 @@ use Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory;
  * 
  * @covers \Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @group Organizations
  * @group Organizations.Factory
  * @group Organizations.Factory.Controller
@@ -50,16 +52,28 @@ class AcceptInvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $auth = $this->getMockBuilder('\Auth\AuthenticationService')->disableOriginalConstructor()->getMock();
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
-        $services->expects($this->exactly(2))->method('get')->will($this->returnValueMap(
-            array(
-                array('repositories', true, $repositories),
-                array('AuthenticationService', true, $auth)
-            )
-        ));
+        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+                         ->disableOriginalConstructor()
+                         ->getMock()
+        ;
+        $services->expects($this->exactly(2))
+                 ->method('get')
+                 ->will($this->returnValueMap(
+		            array(
+		                array('repositories',$repositories),
+		                array('AuthenticationService', $auth)
+		            )
+                 ))
+        ;
 
-        $plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
-        $plugins->expects($this->once())->method('getServiceLocator')->willReturn($services);
+        $plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')
+                        ->disableOriginalConstructor()
+                        ->getMock()
+        ;
+        $plugins->expects($this->once())
+                ->method('getServiceLocator')
+                ->willReturn($services)
+        ;
 
         $target = new AcceptInvitationHandlerFactory();
         /*

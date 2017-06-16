@@ -11,6 +11,7 @@
 namespace Acl\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
+use Zend\Mvc\Controller\PluginManager;
 use Zend\ServiceManager\FactoryInterface;
 use Acl\View\Helper\Acl;
 
@@ -36,8 +37,8 @@ class AclFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $plugins  = $container->get('controllerpluginmanager');
-        $acl      = $plugins->get('acl');
+        $plugins  = $container->get(PluginManager::class);
+        $acl      = $plugins->get('Acl');
 
         $helper = new Acl($acl);
         return $helper;

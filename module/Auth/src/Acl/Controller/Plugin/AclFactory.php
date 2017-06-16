@@ -35,7 +35,7 @@ class AclFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $acl      = $container->get('acl');
+        $acl      = $container->get('Acl');
         $auth     = $container->get('AuthenticationService');
 
         $plugin = new Acl($acl, $auth->getUser());

@@ -12,7 +12,7 @@ namespace AuthTest\Listener;
 use Zend\Mvc\MvcEvent;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManager;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Router\RouteMatch;
 use Zend\Mvc\ApplicationInterface as Application;
 use Zend\ServiceManager\ServiceLocatorInterface as ServiceManager;
 use Zend\Authentication\AuthenticationServiceInterface as AuthenticationService;
@@ -21,6 +21,8 @@ use Zend\Http\PhpEnvironment\Response;
 use Auth\Listener\DeactivatedUserListener as Listener;
 
 /**
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @author fedys
  * @covers \Auth\Listener\DeactivatedUserListener
  */
 class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
@@ -75,7 +77,7 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
             ->willReturn($this->user);
 
         $this->serviceManager = $this->getMockBuilder(ServiceManager::class)
-            ->setMethods(['get', 'has'])
+            ->setMethods(['get', 'has', 'build'])
             ->getMock();
         $this->serviceManager->expects($this->any())
             ->method('get')

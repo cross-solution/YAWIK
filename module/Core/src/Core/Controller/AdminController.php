@@ -10,6 +10,7 @@
 /** */
 namespace Core\Controller;
 
+use Core\EventManager\EventManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -17,14 +18,23 @@ use Zend\View\Model\ViewModel;
  * Admin Dashboard controller.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @since 0.25
  */
 class AdminController extends AbstractActionController
 {
 
     protected $serviceLocator;
-
-    public function setServiceLocator($sl)
+	
+    protected $adminControllerEvents;
+    
+    public function __construct(EventManager $adminControllerEvents)
+    {
+        $this->adminControllerEvents = $adminControllerEvents;
+    }
+	
+	public function setServiceLocator($sl)
     {
         $this->serviceLocator = $sl;
     }
@@ -38,7 +48,7 @@ class AdminController extends AbstractActionController
     {
         /* @var \Core\EventManager\EventManager $events
          * @var AdminControllerEvent $event */
-        $events = $this->serviceLocator->get(AdminControllerEvent::class);
+        $events = $this->adminControllerEvents;
         $event  = $events->getEvent(AdminControllerEvent::EVENT_DASHBOARD, $this);
         $events->trigger($event);
 

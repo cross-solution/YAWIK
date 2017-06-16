@@ -12,13 +12,18 @@ namespace Jobs\Factory;
 
 use Core\EventManager\EventManager;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Jobs\Listener\Events\JobEvent;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factors the JobEventManager which is used to trigger Job Events.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since 0.19
  */
 class JobEventManagerFactory implements FactoryInterface
@@ -45,8 +50,7 @@ class JobEventManagerFactory implements FactoryInterface
     {
         /* @var $events \Zend\EventManager\EventManagerInterface */
         $events = $container->get('EventManager');
-
-        $events->setEventClass('\Jobs\Listener\Events\JobEvent');
+        $events->setEventPrototype(new JobEvent());
         $events->setIdentifiers($this->identifiers);
 
         return $events;
@@ -62,6 +66,6 @@ class JobEventManagerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, EventMfutanager::class);
+        return $this($serviceLocator, EventManager::class);
     }
 }

@@ -140,13 +140,6 @@
 
         <copy file="${project.basedir}/module/Jobs/config/channel.options.local.php.dist" tofile="${builddir}/config/autoload/channel.options.local.php"/>
         <copy file="${project.basedir}/module/Core/config/module.core.options.local.php.dist" tofile="${builddir}/config/autoload/module.core.options.local.php"/>
-
-
-        <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/js/bloodhound.min.js"/>
-        <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/js/typeahead.jquery.min.js"/>
-
-        <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.photon.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.photon.js"/>
-        <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.geo.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.geo.js"/>
         <copy file="${project.basedir}/module/Geo/public/js/geoselect.js" tofile="${builddir}/public/Geo/js/geoselect.js"/>
 
         <mkdir dir="${builddir}/log"/>
@@ -300,6 +293,7 @@
             <include name="vendor/composer/**"/>
             <include name="vendor/zendframework/**"/>
             <include name="vendor/container-interop/**"/>
+            <include name="vendor/psr/**"/>
             <include name="vendor/hybridauth/**"/>
             <include name="vendor/facebook/**"/>
             <include name="vendor/tracy/**"/>

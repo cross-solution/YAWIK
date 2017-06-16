@@ -15,11 +15,14 @@ use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 
+
 /**
  * Sends mails on job events.
  *
  * @since  0.19
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class MailSender implements ListenerAggregateInterface
 {
@@ -59,7 +62,7 @@ class MailSender implements ListenerAggregateInterface
         $this->options = array_merge($this->options, $options);
     }
 
-    public function attach(EventManagerInterface $events)
+    public function attach(EventManagerInterface $events, $priority=1)
     {
         $this->listeners[] = $events->attach(JobEvent::EVENT_JOB_CREATED, array($this, 'onJobCreated'));
         $this->listeners[] = $events->attach(JobEvent::EVENT_JOB_ACCEPTED, array($this, 'onJobAccepted'));

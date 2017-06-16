@@ -46,8 +46,8 @@ class CreatePaginatorEvent extends Event
      * @var Paginator
      */
     protected $paginator;
-
-    /**
+	
+	/**
      * @return string
      */
     public function getPaginatorName()
@@ -139,6 +139,6 @@ class CreatePaginatorEvent extends Event
                 unset($params['paginatorName']);
             }
         }
-        return parent::setParams($params);
+        parent::setParams($params);
     }
 }

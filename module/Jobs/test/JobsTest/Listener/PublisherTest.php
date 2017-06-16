@@ -14,12 +14,18 @@ use Jobs\Listener\Publisher;
 
 /**
  * Class PublisherTest
+ *
+ * @author Mathias Weitz
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author fedys
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @package JobsTest\Listener
  */
 class PublisherTest  extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var
+     * @var Publisher
      */
     protected $target;
 
@@ -228,7 +234,7 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
                                 ->getMock();
 
         $this->templateFilter->expects($this->once())
-                        ->method('__invoke')
+                        ->method('getModel')
                         ->will($this->returnValue($this->viewModel));
 
         $this->job

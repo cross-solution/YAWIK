@@ -10,7 +10,9 @@
 /**  */
 namespace Core\Controller\Plugin;
 
+use Core\EventManager\EventManager;
 use Core\Listener\Events\CreatePaginatorEvent;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\Controller\PluginManager as ControllerManager;
 use Zend\Paginator\Paginator;
@@ -40,13 +42,16 @@ class CreatePaginator extends AbstractPlugin
      * @var HttpRequest
      */
     protected $request;
-    
-    /**
-     * @param ServiceLocatorInterface $serviceManager
-     */
-    public function __construct(ServiceLocatorInterface $serviceManager, HttpRequest $request)
+	
+	/**
+	 * CreatePaginator constructor.
+	 *
+	 * @param ContainerInterface $container
+	 * @param HttpRequest $request
+	 */
+    public function __construct(ContainerInterface $container, HttpRequest $request)
     {
-        $this->serviceManager = $serviceManager;
+        $this->serviceManager = $container->get('ServiceManager');
         $this->request = $request;
     }
     
@@ -99,13 +104,14 @@ class CreatePaginator extends AbstractPlugin
         /* @var \Core\EventManager\EventManager $events */
         /* @var \Zend\Paginator\Paginator $paginator */
         /* @var CreatePaginatorEvent $event */
-        $events = $this->serviceManager->get('Core/CreatePaginator/Events');
-        $event = $events->getEvent(CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,$this,[
+	    $events = $this->serviceManager->get('Core/CreatePaginator/Events');
+	    
+	    $event = $events->getEvent(CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,$this,[
             'paginatorParams' => $params,
             'paginators' => $paginators,
             'paginatorName' => $paginatorName
         ]);
-        $events->trigger($event);
+        $events->trigger($event->getName(),$event);
         $paginator = $event->getPaginator();
         if(!$paginator instanceof Paginator){
             // no paginator created by listener, so let's create default paginator
@@ -123,16 +129,15 @@ class CreatePaginator extends AbstractPlugin
      * @return CreatePaginator
      * @codeCoverageIgnore
      */
-    public static function factory(ControllerManager $controllerManager)
+    public static function factory(ContainerInterface $container)
     {
-        $serviceManager = $controllerManager->getServiceLocator();
-        $request = $serviceManager->get('Request');
+        $request = $container->get('Request');
         
         if (!$request instanceof HttpRequest) {
             // use an empty HTTP request in a CLI environment
             $request = new HttpRequest();
         }
         
-        return new static($serviceManager, $request);
+        return new static($container, $request);
     }
 }

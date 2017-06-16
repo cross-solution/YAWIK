@@ -14,7 +14,7 @@ $form->get('mailText')->setAttribute('style', 'height: 250px');
 ?>
 <div>
 <?php
-list ($email, $name) = each ($this->recipient);
+list ($email, $name) = each ($recipient);
 if (is_int($email)) {
     $email = $name;
     $name = '';

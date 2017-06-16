@@ -10,6 +10,7 @@
 /** */
 namespace CoreTestUtils\Mock\ServiceManager;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -20,6 +21,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Allows tracking of method calls (with service name arguments and even passed options array).
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @since  0.25
  */
 class PluginManagerMock extends AbstractPluginManager
@@ -45,11 +48,11 @@ class PluginManagerMock extends AbstractPluginManager
      *
      * @return AbstractPluginManager
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator, $count = 1)
+    public function setServiceLocator(ContainerInterface $container, $count = 1)
     {
         $this->setExpectedCallCount('getServiceLocator', $count);
-
-        return parent::setServiceLocator($serviceLocator);
+	    
+        return parent::setServiceLocator($container);
     }
 
     public function getServiceLocator()

@@ -17,6 +17,8 @@ use Organizations\Factory\Controller\Plugin\InvitationHandlerFactory;
  * 
  * @covers \Organizations\Factory\Controller\Plugin\InvitationHandlerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @group Organizations
  * @group Organizations.Factory
  * @group Organizations.Factory.Controller
@@ -30,7 +32,7 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new InvitationHandlerFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new InvitationHandlerFactory());
     }
 
     /**
@@ -58,18 +60,22 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
         $validators->expects($this->once())->method('get')->with('EmailAddress')->willReturn($emailValidator);
 
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
-        $services->expects($this->exactly(4))
+        $services->expects($this->exactly(5))
                  ->method('get')
                  ->will($this->returnValueMap(array(
-                     array('ValidatorManager', true, $validators),   // get ha signature ($name, $usePeeringManagers = true)
-                     array('translator', true, $translator),
-                     array('repositories', true, $repositories),
-                     array('Auth/UserTokenGenerator', true, $tokenGenerator)
+                     array('ValidatorManager', $validators),   // get ha signature ($name, $usePeeringManagers = true)
+                     array('translator', $translator),
+                     array('repositories', $repositories),
+                     array('Auth/UserTokenGenerator', $tokenGenerator),
+	                 array('Mailer',$mailer)
                  )));
 
         $plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
-        $plugins->expects($this->once())->method('getServiceLocator')->willReturn($services);
-        $plugins->expects($this->once())->method('get')->with('Mailer')->willReturn($mailer);
+        $plugins->expects($this->once())
+                ->method('get')
+	            ->with('ServiceManager')
+                ->willReturn($services)
+        ;
 
         /*
          * test start here

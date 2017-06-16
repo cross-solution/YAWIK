@@ -10,6 +10,7 @@
 /** */
 namespace CoreTest\Controller;
 
+use Core\Controller\AdminController;
 use Core\Controller\AdminControllerEvent;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Core\EventManager\EventManager;
@@ -21,6 +22,7 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
  * 
  * @covers \Core\Controller\AdminController
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @group Core
  * @group Core.Controller
  */
@@ -37,33 +39,41 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
 
     protected $inheritance = [ 'Zend\Mvc\Controller\AbstractActionController' ];
 
+    public function setUp()
+    {
+	    $events = $this->getMockBuilder(EventManager::class)
+	                   ->setMethods(['getEvent', 'trigger'])
+	                   ->getMock();
+	    $this->target = new AdminController($events);
+    }
+    
     public function testIndexAction()
     {
-        $event = new AdminControllerEvent(AdminControllerEvent::EVENT_DASHBOARD, $this->target);
-        $event->addViewVariables('test', ['testVar' => 'value']);
-
         $events = $this->getMockBuilder(EventManager::class)
             ->setMethods(['getEvent', 'trigger'])
             ->getMock();
+	    $target = new AdminController($events);
+	    $event = new AdminControllerEvent(AdminControllerEvent::EVENT_DASHBOARD, $target);
+	    $event->addViewVariables('test', ['testVar' => 'value']);
         $events->expects($this->once())->method('getEvent')
-            ->with(AdminControllerEvent::EVENT_DASHBOARD, $this->identicalTo($this->target))
+            ->with(AdminControllerEvent::EVENT_DASHBOARD, $this->identicalTo($target))
             ->willReturn($event);
 
         $events->expects($this->once())->method('trigger')->with($this->identicalTo($event));
 
 
-        $services = $this->getServiceManagerMock([
-                                                     'Core/AdminController/Events' => [
-                                                         'service' => $events,
-                                                         'count_get' => 1,
-                                                     ]
-
-                                                  ]);
+        //$services = $this->getServiceManagerMock([
+        //                                             'Core/AdminController/Events' => [
+        //                                                 'service' => $events,
+        //                                                 'count_get' => 1,
+        //                                             ]
+		//
+        //                                          ]);
 
         /* @var \Zend\View\Model\ViewModel $child
          * @var \Zend\View\Model\ViewModel $viewModel */
-        $this->target->setServiceLocator($services);
-        $viewModel = $this->target->indexAction();
+        
+        $viewModel = $target->indexAction();
 
         $this->assertInstanceOf('\Zend\View\Model\ViewModel', $viewModel);
         $children = $viewModel->getChildren();

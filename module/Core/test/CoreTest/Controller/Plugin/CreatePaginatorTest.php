@@ -12,6 +12,7 @@ namespace CoreTest\Controller\Plugin;
 
 use Core\Controller\Plugin\CreatePaginator;
 use Core\Listener\Events\CreatePaginatorEvent;
+use Interop\Container\ContainerInterface;
 use Zend\EventManager\EventManager;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
@@ -23,6 +24,7 @@ use Zend\Stdlib\Parameters;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ *
  * @group Core
  * @group Core.Controller
  * @group Core.Controller.Plugin
@@ -75,7 +77,8 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
         } else {
             $request->setQuery(new Parameters($params));
         }
-
+		
+        
         $paginator = $this->getMockBuilder('\Zend\Paginator\Paginator')->disableOriginalConstructor()->getMock();
         $paginator->expects($this->once())->method('setCurrentPageNumber')->with($expect['page'])->will($this->returnSelf());
         $paginator->expects($this->once())->method('setItemCountPerPage')->with($expect['count'])->will($this->returnSelf());
@@ -89,12 +92,20 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
+	    $container = $this->getMockBuilder(ContainerInterface::class)
+	                      ->getMock();
+	    $container->expects($this->once())
+		    ->method('get')
+		    ->with('ServiceManager')
+		    ->willReturn($sm)
+		;
+		    
         $em = $this->getMockBuilder(EventManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['getEvent','trigger'])
             ->getMock()
         ;
-
+	    
         $sm->expects($this->exactly(2))
             ->method('get')
             ->withConsecutive(
@@ -118,7 +129,7 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
             ->with($event)
         ;
 
-        $target = new CreatePaginator($sm, $request);
+        $target = new CreatePaginator($container, $request);
 
         $pager = false === $defaultParams ? $target($paginatorName, $usePostParams) : $target($paginatorName, $defaultParams, $usePostParams);
 

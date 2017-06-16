@@ -16,13 +16,15 @@ use Core\Paginator\PaginatorService;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Repository\Filter\PaginationQueryFactory;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Cv\Repository\Filter\PaginationQueryFactory
  * 
  * @covers \Cv\Repository\Filter\PaginationQueryFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @group Cv
  * @group Cv.Repository
  * @group Cv.Repository.Filter

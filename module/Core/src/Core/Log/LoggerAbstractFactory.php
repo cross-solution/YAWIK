@@ -13,7 +13,7 @@
 namespace Core\Log;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractFactoryInterface;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Log\Logger;
 
@@ -21,6 +21,11 @@ use Zend\Log\Logger;
  * Logger abstract service factory.
  *
  * Allow to configure multiple loggers for application.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  */
 class LoggerAbstractFactory implements AbstractFactoryInterface
 {

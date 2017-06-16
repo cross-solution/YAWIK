@@ -1,8 +1,11 @@
 <?php
 return array(
     // This should be an array of module namespaces used in the application.
-    'modules' => array(
-        'Core', 'Auth', 'Jobs', 'Applications', 'Organizations'
+    'modules' => array_merge(
+    	include_once __DIR__.'/../../../config/common.modules.php',
+	    array(
+            'Core', 'Auth', 'Jobs', 'Applications', 'Organizations'
+	    )
     ),
 
     // These are various options for the listeners attached to the ModuleManager

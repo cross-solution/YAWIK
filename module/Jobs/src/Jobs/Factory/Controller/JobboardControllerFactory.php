@@ -35,8 +35,9 @@ class JobboardControllerFactory implements FactoryInterface
          * @var $jobRepository Repository\Job
          */
         $jobRepository = $container->get('repositories')->get('Jobs/Job');
-
-        return new JobboardController($jobRepository, ['count'=>$options->getPerPage()]);
+	    $defaultListener = $container->get('DefaultListeners');
+	    $imageFileCacheManager = $container->get('Organizations\ImageFileCache\Manager');
+        return new JobboardController($defaultListener,$jobRepository,$imageFileCacheManager, ['count'=>$options->getPerPage()]);
     }
 
     /**

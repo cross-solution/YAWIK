@@ -15,14 +15,14 @@ use Applications\Repository\Filter\PaginationQueryFactory;
 use Auth\AuthenticationService;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Repository\Filter\PaginationQueryFactory
  * 
- * @covers \Applications\Repository\Filter\PaginationQueryFactory
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ * @covers  \Applications\Repository\Filter\PaginationQueryFactory
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author  Anthonius Munthi <me@itstoni.com>
  */
 class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
 {

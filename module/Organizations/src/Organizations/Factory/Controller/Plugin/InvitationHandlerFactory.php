@@ -12,7 +12,7 @@ namespace Organizations\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\Plugin\InvitationHandler;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -20,14 +20,17 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @since  0.19
  */
 class InvitationHandlerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+    	// @TODO: [ZF3] Check if InvitationHandlerFactory still working properly
+	    
         /* @var $container \Zend\Mvc\Controller\PluginManager */
-        $services   = $container->getServiceLocator();
+        $services   = $container;
         $validator  = $services->get('ValidatorManager')->get('EmailAddress');
         $mailer     = $container->get('Mailer');
         $translator = $services->get('translator');
@@ -53,6 +56,6 @@ class InvitationHandlerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator,InvitationHandler::class);
+        return $this($serviceLocator->get('ServiceManager'),InvitationHandler::class);
     }
 }
