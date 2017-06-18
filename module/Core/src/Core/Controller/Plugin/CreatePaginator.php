@@ -111,7 +111,7 @@ class CreatePaginator extends AbstractPlugin
             'paginators' => $paginators,
             'paginatorName' => $paginatorName
         ]);
-        $events->trigger($event->getName(),$event);
+        $events->trigger($event,$event);
         $paginator = $event->getPaginator();
         if(!$paginator instanceof Paginator){
             // no paginator created by listener, so let's create default paginator

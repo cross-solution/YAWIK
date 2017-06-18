@@ -14,7 +14,7 @@ use Core\EventManager\EventProviderInterface;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\AbstractFactoryInterface;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -145,8 +145,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
          */
         return 0 === strpos(strrev($requestedName), 'stnevE/');
     }
-
-
+	
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
         return $this->canCreate($serviceLocator, $requestedName);
@@ -239,16 +238,10 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         }
 
         $events->setIdentifiers($config['identifiers']);
-
-        if ($events instanceOf EventProviderInterface || method_exists($events, 'setEventPrototype')) {
-            /* @var \Zend\EventManager\EventInterface $event */
-            $event = $services->has($config['event']) ? $services->get($config['event']) : new $config['event']();
-            $events->setEventPrototype($event);
-        }
-        else {
-        	//@TODO: [ZF3] setEventClass method is removed
-            $events->setEventClass($config['event']);
-        }
+	
+	    /* @var \Zend\EventManager\EventInterface $event */
+	    $event = $services->has($config['event']) ? $services->get($config['event']) : new $config['event']();
+	    $events->setEventPrototype($event);
 
         if ('EventManager' != $config['service'] && method_exists($events, 'setSharedManager') && $services->has('SharedEventManager')) {
             /* @var \Zend\EventManager\SharedEventManagerInterface $sharedEvents */

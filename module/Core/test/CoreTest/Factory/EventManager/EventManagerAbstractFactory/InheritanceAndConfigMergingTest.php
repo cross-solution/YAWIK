@@ -38,7 +38,7 @@ class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
         '@testCanCreateServiceWithName' => ['mock' => ['canCreate' => 1]],
     ];
 
-    protected $inheritance = [ '\Zend\ServiceManager\AbstractFactoryInterface' ];
+    protected $inheritance = [ '\Zend\ServiceManager\Factory\AbstractFactoryInterface' ];
 
     public function testDeterminesIfItCanCreateAnEventManagerByName()
     {

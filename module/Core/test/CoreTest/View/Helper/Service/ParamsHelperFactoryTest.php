@@ -34,10 +34,10 @@ class ParamsHelperFactoryTest extends \PHPUnit_Framework_TestCase
         
         $sm->setService('Application', $application);
         
-        $hm = new HelperPluginManager();
-        $hm->setServiceLocator($sm);
+        //$hm = new HelperPluginManager($sm);
+        //$hm->setServiceLocator($sm);
         
-        $helper = $factory->createService($hm);
+        $helper = $factory->createService($sm);
         $this->assertInstanceOf('\Core\View\Helper\Params', $helper);
     }
     

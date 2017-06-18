@@ -25,6 +25,9 @@ use Zend\EventManager\ResponseCollection;
  */
 class TriggerTest extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * @var EventManager
+	 */
     protected $target;
 
     public function setUp()
@@ -55,15 +58,16 @@ class TriggerTest extends \PHPUnit_Framework_TestCase
     {
         $event = new Event();
         $callback = function() {};
-        $this->target->trigger($event, $callback);
+        $this->target->triggerUntil($callback,$event->getName());
 
         $this->assertSame($callback, $this->target->callback);
 
         $this->target->callback = false;
+		
+        //@TODO: [ZF3] remove this line, because it's not compatible with ZF3 EventManager
+        //$this->target->triggerUntil('test', null, []);
 
-        $this->target->trigger('test', null, [], $callback);
-
-        $this->assertSame($callback, $this->target->callback);
+        //$this->assertSame($callback, $this->target->callback);
     }
 }
 

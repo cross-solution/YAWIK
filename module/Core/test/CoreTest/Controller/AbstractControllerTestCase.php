@@ -13,9 +13,10 @@ use Test\Bootstrap;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\SimpleRouteStack;
-use Zend\Mvc\Service\RouterFactory;
+use Zend\Router\Http\RouteMatch;
+use Zend\Router\SimpleRouteStack;
+use Zend\Router\Http\HttpRouterFactory as RouterFactory;
+//use Zend\Router\RouterFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase

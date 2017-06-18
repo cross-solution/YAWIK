@@ -15,8 +15,8 @@ use Core\Listener\LanguageRouteListener;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\RouteStackInterface;
+use Zend\Router\Http\RouteMatch;
+use Zend\Router\RouteStackInterface;
 use Core\I18n\Locale as LocaleService;
 
 /**
@@ -127,7 +127,10 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
     {
         $event = $this->getEventMock('/base/uri', '/see/no/lang');
 
-        $event->expects($this->once())->method('stopPropagation')->with(true);
+        $event->expects($this->once())
+              ->method('stopPropagation')
+              ->with(true)
+        ;
         $response = new Response();
         $event->setResponse($response);
         $routeMatch = new RouteMatch([]);
@@ -140,10 +143,18 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
                     return true;
                 }
               ))
-            ->willReturn($routeMatch);
+            ->willReturn($routeMatch)
+        ;
 
-        $this->target->expects($this->once())->method('redirect')->with($response, '/base/uri/xx/see/no/lang');
-        $this->target->expects($this->never())->method('setLocale');
+        $this->target
+	        ->expects($this->once())
+	        ->method('redirect')
+	        ->with($response, '/base/uri/xx/see/no/lang')
+        ;
+        $this->target
+	        ->expects($this->never())
+	        ->method('setLocale')
+        ;
 
         $this->target->onDispatchError($event);
     }

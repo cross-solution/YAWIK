@@ -126,20 +126,32 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testAttachesAndDetachesToAndFromAnEventManager()
     {
-        $this->target->setHook('test', 'service');
-        $this->target->setHook('test2', 'service2', 10);
-
+    	$testListener = new DLATListenerMock();
+        $this->target->setListener('test01', 'service01');
+        $this->target->setListener('test02', 'service02', 10);
+		
+        //In ZF3 EventManager detach should be a callable or it will throws an error
+        $callback = [$testListener,'callback'];
         $events = $this->getMockBuilder(EventManager::class)
             ->setMethods(['attach', 'detach'])
             ->getMock();
-        $events->expects($this->exactly(2))->method('attach')
-            ->withConsecutive(    [ $this->equalTo('test'), $this->anything(), $this->equalTo(0) ],
-                                  [ $this->equalTo('test2'), $this->anything(), $this->equalTo(10) ]
-                              )
-            ->will($this->onConsecutiveCalls(0, 1));
+        $events->expects($this->exactly(2))
+			->method('attach')
+            ->withConsecutive(
+            	[ $this->equalTo('test01'), $this->anything(), $this->equalTo(0) ],
+				[ $this->equalTo('test02'), $this->anything(), $this->equalTo(10) ]
+            )
+            ->will($this->onConsecutiveCalls(
+            	[$testListener,'callback'], [$testListener,'callback'])
+            );
 
-        $events->expects($this->exactly(2))->method('detach')
-            ->withConsecutive([ 0], [1] )->will($this->onConsecutiveCalls([true, false]));
+        $events
+	        ->expects($this->exactly(2))
+	        ->method('detach')
+            ->withConsecutive(
+            	[$callback], [$callback] )
+            ->will($this->onConsecutiveCalls([true, false]))
+        ;
 
         $this->target->attach($events);
         $this->assertFalse($this->target->detach($events));

@@ -10,7 +10,11 @@
 /** */
 namespace CoreTestUtils\Mock\ServiceManager;
 
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -48,8 +52,28 @@ class CreateInstanceFactory implements FactoryInterface
         $this->class = $class;
         $this->args  = $args;
     }
-
-    /**
+	
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		if (empty($this->args)) {
+			return new $this->class;
+		}
+		
+		$reflection = new \ReflectionClass($this->class);
+		$args       = array_map(
+			function ($arg) use ($container) {
+				return is_string($arg) && 0 === strpos($arg, '@') ? $container->get(substr($arg, 1)) : $arg;
+			},
+			$this->args
+		);
+		
+		$instance = $reflection->newInstanceArgs($args);
+		
+		return $instance;
+	}
+	
+	
+	/**
      * Creates a service instance.
      *
      * @param ServiceLocatorInterface $serviceLocator
@@ -58,20 +82,6 @@ class CreateInstanceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        if (empty($this->args)) {
-            return new $this->class;
-        }
-
-        $reflection = new \ReflectionClass($this->class);
-        $args       = array_map(
-            function ($arg) use ($serviceLocator) {
-                return is_string($arg) && 0 === strpos($arg, '@') ? $serviceLocator->get(substr($arg, 1)) : $arg;
-            },
-            $this->args
-        );
-
-        $instance = $reflection->newInstanceArgs($args);
-
-        return $instance;
+		return $this($serviceLocator,$this->class);
     }
 }

@@ -12,7 +12,7 @@ namespace Core\Factory\Paginator;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+//use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**

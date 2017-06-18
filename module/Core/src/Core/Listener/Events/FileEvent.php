@@ -46,7 +46,8 @@ class FileEvent extends Event
             }
         }
 
-        return parent::setParams($params);
+        parent::setParams($params);
+        return $this;
     }
 
     /**

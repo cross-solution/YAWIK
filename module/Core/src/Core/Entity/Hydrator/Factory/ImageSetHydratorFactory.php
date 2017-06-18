@@ -14,7 +14,7 @@ use Core\Entity\Hydrator\ImageSetHydrator;
 use Core\Options\ImageSetOptions;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -53,7 +53,7 @@ class ImageSetHydratorFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), ImageSetHydrator::class);
+        return $this($serviceLocator, ImageSetHydrator::class);
     }
 
 

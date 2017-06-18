@@ -11,6 +11,7 @@
 namespace CoreTest\Form\Service;
 
 use Core\Form\Service\InjectHeadscriptInitializer;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 
 /**
  * Tests for InjectHeadscriptInitializer
@@ -59,7 +60,7 @@ class InjectHeadscriptInitializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsInitializerInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\InitializerInterface', $this->target);
+        $this->assertInstanceOf(InitializerInterface::class, $this->target);
     }
 
     /**

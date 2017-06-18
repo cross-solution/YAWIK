@@ -21,12 +21,16 @@ use Zend\ServiceManager\ServiceManager;
  */
 class Config extends ZfConfig
 {
-
-    public function configureServiceManager(ServiceManager $serviceManager)
+	public function __construct( array $config = [] ) {
+		parent::__construct( $config );
+		$this->config = array_merge($this->config,$config);
+	}
+	
+	public function configureServiceManager(ServiceManager $serviceManager)
     {
         /* @var ServiceManagerMock $serviceManager */
         parent::configureServiceManager($serviceManager);
-
+		
         foreach ($this->getMocks() as $name => $spec) {
             if (is_array($spec) && array_key_exists('service', $spec)) {
                 if (isset($spec['count_get'])) {

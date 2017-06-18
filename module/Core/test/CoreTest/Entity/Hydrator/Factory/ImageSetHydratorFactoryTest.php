@@ -17,7 +17,7 @@ use Core\Options\ImagineOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Imagine\Image\ImagineInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Entity\Hydrator\Factory\ImageSetHydratorFactory
@@ -35,7 +35,14 @@ class ImageSetHydratorFactoryTest extends \PHPUnit_Framework_TestCase
 
     private $target = [
         ImageSetHydratorFactory::class,
-        '@testCreateService' => ['mock' => ['__invoke' => ['@with' => 'getInvocationArgs', 'count' => 1]]],
+        '@testCreateService' => [
+        	'mock' => [
+        		'__invoke' => [
+        			'@with' => 'getInvocationArgs',
+			        'count' => 1
+		        ]
+	        ]
+        ],
     ];
 
     private $inheritance = [ FactoryInterface::class ];
@@ -50,7 +57,9 @@ class ImageSetHydratorFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-        $this->target->createService($this->getPluginManagerMock());
+    	$container = $this->getServiceManagerMock();
+    	$pluginManager = $this->getPluginManagerMock();
+        $this->target->createService($container,$pluginManager);
     }
 
     public function testInvokation()
@@ -58,10 +67,9 @@ class ImageSetHydratorFactoryTest extends \PHPUnit_Framework_TestCase
         $imagine = $this->getMockBuilder(ImagineInterface::class)->getMockForAbstractClass();
         $options = new ImageSetOptions();
 
-        $container = $this->getServiceManagerMock([
-                'Imagine' => $imagine,
-                ImageSetOptions::class => $options
-        ]);
+        $container = $this->getServiceManagerMock();
+        $container->setService('Imagine',$imagine);
+        $container->setService(ImageSetOptions::class,$options);
 
         $hydrator = $this->target->__invoke($container, 'irrelevant');
 

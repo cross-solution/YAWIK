@@ -16,7 +16,7 @@ use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
 use CoreTest\Form\Hydrator\Strategy\TreeSelectStrategyTest;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\ServiceManager\Factory\FactoryInterface;
 //use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceManager;
@@ -65,17 +65,19 @@ class SelectFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateServiceInvokesItself()
     {
         $services = new ServiceManager();
-        $forms    = new FormElementManagerV2Polyfill();
-        $forms->setServiceLocator($services);
+        $forms    = new FormElementManagerV3Polyfill($services);
 
         $options = [ 'test' => 'work?' ];
         $this->target->setCreationOptions($options);
 
-        $this->target->expects($this->once())->method('__invoke')
+        $this->target
+	        ->expects($this->once())
+	        ->method('__invoke')
             ->with($services, SelectFactory::class, $options)
-            ->willReturn(true);
+            ->willReturn(true)
+        ;
 
-        $this->assertTrue($this->target->createService($forms));
+        $this->assertTrue($this->target->createService($services));
         $this->assertAttributeEmpty('options', $this->target);
     }
 
