@@ -35,7 +35,7 @@ class IndexController extends AbstractActionController
         /* @var Request $request */
         $request = $this->getRequest();
         $params = $request->getQuery();
-        $isRecruiter = $this->acl()->isRole('recruiter');
+        $isRecruiter = $this->Acl()->isRole('recruiter');
         if ($isRecruiter) {
             $params->set('by', 'me');
         }

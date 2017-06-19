@@ -12,7 +12,7 @@ namespace Applications\Factory\Form;
 
 use Applications\Form\Element\JobSelect;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface; 
 
 /**
@@ -46,6 +46,6 @@ class JobSelectFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
-        return $this($serviceLocator->getServiceLocator(), JobSelect::class);
+        return $this($serviceLocator, JobSelect::class);
     }
 }

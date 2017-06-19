@@ -15,7 +15,7 @@ use Applications\Listener\JobSelectValues;
 use Applications\Paginator\JobSelectPaginator;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Factory\Listener\JobSelectValuesFactory
@@ -37,7 +37,11 @@ class JobSelectValuesFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $target = [
         JobSelectValuesFactory::class,
-        '@testCreateService' => ['mock' => ['__invoke' => ['@with' => 'getInvokeArgs', 'count' => 1]]],
+        '@testCreateService' => [
+        	'mock' => [
+        		'__invoke' => ['@with' => 'getInvokeArgs', 'count' => 1]
+	        ]
+        ],
     ];
 
     private $inheritance = [ FactoryInterface::class ];
@@ -54,9 +58,16 @@ class JobSelectValuesFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testServiceCreation()
     {
-        $paginator = $this->getMockBuilder(JobSelectPaginator::class)->disableOriginalConstructor()->getMock();
-        $paginators = $this->createPluginManagerMock([JobSelectPaginator::class => $paginator]);
-        $container = $this->getServiceManagerMock(['Core/PaginatorService' => $paginators]);
+        $paginator = $this
+	        ->getMockBuilder(JobSelectPaginator::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+        $paginators = $this->createPluginManagerMock(
+        	[JobSelectPaginator::class => $paginator],
+	        $this->getServiceManagerMock()
+        );
+        $container = $this->createServiceManagerMock(['Core/PaginatorService' => $paginators]);
 
         $listener = $this->target->__invoke($container, 'irrelevant');
 
