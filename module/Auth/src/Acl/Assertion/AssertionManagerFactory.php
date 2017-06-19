@@ -21,11 +21,11 @@ use Zend\ServiceManager\Config;
 class AssertionManagerFactory implements FactoryInterface
 {
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null ) {
-		$configArray = $container->get('Config');
-		$configArray = isset($configArray['acl']['assertions'])
-			? $configArray['acl']['assertions']
+		$configContainer = $container->get('Config');
+		$configArray = isset($configContainer['acl']['assertions'])
+			? $configContainer['acl']['assertions']
 			: array();
-		$config      = new Config($configArray);
+
 		$manager     = new AssertionManager($container, $configArray);
 		
 		$manager->configure(['shared_by_default'=>false]);
