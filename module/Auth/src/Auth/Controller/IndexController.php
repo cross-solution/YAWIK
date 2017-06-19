@@ -57,18 +57,35 @@ class IndexController extends AbstractActionController
      */
     protected $options;
 
+    protected $userLoginAdapter;
+    
+    protected $locale;
+    
+    protected $viewHelperManager;
+    
     /**
      * @param $auth  AuthenticationService
      * @param $logger LoggerInterface
      * @param $forms
      * @param $options ModuleOptions
      */
-    public function __construct(AuthenticationService $auth, LoggerInterface $logger, array $forms, $options)
+    public function __construct(
+    	AuthenticationService $auth,
+	    LoggerInterface $logger,
+	    $userLoginAdapter,
+	    $locale,
+	    $urlHelper,
+	    array $forms,
+	    $options
+    )
     {
-        $this->auth = $auth;
-        $this->forms = $forms;
-        $this->logger = $logger;
-        $this->options = $options;
+        $this->auth              = $auth;
+        $this->forms             = $forms;
+        $this->logger            = $logger;
+        $this->options           = $options;
+        $this->userLoginAdapter  = $userLoginAdapter;
+        $this->locale            = $locale;
+        $this->viewHelperManager = $urlHelper;
     }
 
     /**
@@ -83,7 +100,7 @@ class IndexController extends AbstractActionController
         }
 
         $viewModel        = new ViewModel();
-        $services         = $this->serviceLocator;
+        //$services         = $this->serviceLocator;
 
         /* @var $loginForm Login */
         $loginForm        = $this->forms[self::LOGIN];
@@ -95,7 +112,7 @@ class IndexController extends AbstractActionController
 
         if ($request->isPost()) {
             $data                          = $this->params()->fromPost();
-            $adapter                       = $services->get('Auth/Adapter/UserLogin');
+            $adapter                       = $this->userLoginAdapter;
             // inject suffixes via shared Events
             $loginSuffix                   = '';
             // @TODO: replace this by the Plugin LoginFilter
@@ -119,7 +136,7 @@ class IndexController extends AbstractActionController
             
             if ($result->isValid()) {
                 $user = $auth->getUser();
-                $language = $services->get('Core/Locale')->detectLanguage($request, $user);
+                $language = $this->locale->detectLanguage($request, $user);
                 $this->logger->info('User ' . $user->getLogin() . ' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);
@@ -129,7 +146,7 @@ class IndexController extends AbstractActionController
                     $url = preg_replace('~/[a-z]{2}(/|$)~', '/' . $language . '$1', $ref);
                     $url = $request->getBasePath() . $url;
                 } else {
-                    $urlHelper = $services->get('ViewHelperManager')->get('url');
+                    $urlHelper = $this->viewHelperManager->get('url');
                     $url = $urlHelper('lang', array('lang' => $language));
                 }
                 $this->notification()->success(/*@translate*/ 'You are now logged in.');

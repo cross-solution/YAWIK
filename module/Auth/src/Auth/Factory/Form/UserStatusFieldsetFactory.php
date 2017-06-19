@@ -31,7 +31,7 @@ class UserStatusFieldsetFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $translator = $container->get('Translator');
+        $translator = $container->get('translator');
         $statusOptions = (new \Auth\Entity\Status())->getOptions($translator);
         $fieldset = new UserStatusFieldset();
         $fieldset->setStatusOptions($statusOptions);

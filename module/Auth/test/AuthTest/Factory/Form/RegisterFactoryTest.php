@@ -10,6 +10,7 @@
 namespace AuthTest\Factory\Form;
 
 use Auth\Factory\Form\RegisterFactory;
+use Auth\Form\Register;
 use Test\Bootstrap;
 
 class RegisterFactoryTest extends \PHPUnit_Framework_TestCase
@@ -24,11 +25,10 @@ class RegisterFactoryTest extends \PHPUnit_Framework_TestCase
         $this->testedObj = new RegisterFactory();
     }
 
-    public function testCreateService()
+    public function testInvoke()
     {
         $sm = clone Bootstrap::getServiceManager();
-        $fm = $sm->get('formElementManager');
-        $result = $this->testedObj->createService($fm);
+        $result = $this->testedObj->__invoke($sm,Register::class);
         $this->assertInstanceOf('Auth\Form\Register', $result);
     }
 }

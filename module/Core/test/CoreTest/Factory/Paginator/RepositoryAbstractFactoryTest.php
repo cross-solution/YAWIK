@@ -136,9 +136,12 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
                                        ->will($this->onConsecutiveCalls($repositories, $filters));
 
         $pm = $this->getMockBuilder('\Core\Paginator\PaginatorService')
-                   ->disableOriginalConstructor()->getMock();
+	        ->setMethods(['getContainer'])
+			->disableOriginalConstructor()
+			->getMock()
+        ;
 
-        $pm->expects($this->once())->method('getServiceLocator')->willReturn($sm);
+        $pm->expects($this->once())->method('getContainer')->willReturn($sm);
 
         $target = $this->target;
         $target->setCreationOptions($options);

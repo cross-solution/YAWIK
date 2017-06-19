@@ -55,9 +55,9 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->controller->setEvent($this->event);
 
         /** @var \Zend\Mvc\Controller\PluginManager $controllerPluginManager */
-        $this->servicemanager = clone Bootstrap::getServiceManager();
-        $controllerPluginManager = $this->servicemanager->get('ControllerPluginManager');
-        $this->controller->setServiceLocator($this->servicemanager);
+        $this->serviceManager = clone Bootstrap::getServiceManager();
+        $controllerPluginManager = $this->serviceManager->get('ControllerPluginManager');
+        //$this->controller->setServiceLocator($this->servicemanager);
         $this->controller->setPluginManager($controllerPluginManager);
     }
 
@@ -95,7 +95,8 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $result = $this->controller->dispatch($request);
 
         $mvcEvent = new MvcEvent();
-        $notifications = $this->servicemanager->get('coreListenerNotification');
+        //$notifications = $this->serviceManager->get('coreListenerNotification');
+	    $notifications = $this->serviceManager->get('Core/Listener/Notification');
         $notifications->reset()->renderHTML($mvcEvent);
 
         $expected = array(
@@ -128,7 +129,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->formMock->expects($this->once())
             ->method('isValid')
             ->willReturn(true);
-
+	    
         $this->formMock->expects($this->once())
             ->method('getInputFilter')
             ->willReturn(new ForgotPasswordInputFilter());
@@ -144,14 +145,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         );
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertSame($expected, $result);
-
-        //$fm = $this->controller->flashMessenger();
-        //$fm->setNamespace(Notification::NAMESPACE_DANGER);
-        //$expectedMessages = array(
-        //    'User cannot be found for specified username or email'
-        //);
-        //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
+        $this->assertSame($expected, $result);;
     }
 
     public function testIndexAction_WithPostRequest_WhenUserDoesNotHaveAnEmail()
@@ -181,7 +175,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $result = $this->controller->dispatch($request);
 
         $mvcEvent = new MvcEvent();
-        $notifications = $this->servicemanager->get('coreListenerNotification');
+        $notifications = $this->serviceManager->get('Core/Listener/Notification');
         $notifications->reset()->renderHTML($mvcEvent);
 
         $expected = array(

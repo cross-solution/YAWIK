@@ -215,4 +215,6 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         }
         $this->assertFalse((bool)preg_match($pattern, $responseHeader->getFieldValue()));
     }
+    
+    
 }

@@ -58,9 +58,8 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
         $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\Zend\Permissions\Acl\Assertion\AssertionInterface');
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceLocatorInterface')
-            ->setMethods(['get', 'has', 'getServiceLocator'])
+            ->setMethods(['get', 'has', 'build'])
             ->getMock();
-        $services->expects($this->never())->method('getServiceLocator');
         $services->expects($this->never())->method('get');
 
         $this->assertNull($target->injectEventManager($assertion, $services));
@@ -68,16 +67,37 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testInjectEventManagerInitializerCallbackGetsEventManagerFromServicesIfNotSetInAssertion()
     {
-        $target = new AssertionManager($this->serviceManager);
-        $assertion = $this->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock');
-        $services = $this->getMockForAbstractClass('\Zend\ServiceManager\AbstractPluginManager');
-        $parentServices = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $assertion = $this
+	        ->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock')
+        ;
+        $services = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+        $parentServices = $this
+	        ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
         $events = new EventManager();
+	    $target = new AssertionManager($parentServices);
+        $assertion
+	        ->expects($this->once())
+	        ->method('getEventManager')
+	        ->willReturn(null)
+        ;
+        $assertion
+	        ->expects($this->once())
+	        ->method('setEventManager')
+	        ->with($events)
+        ;
 
-        $assertion->expects($this->once())->method('getEventManager')->willReturn(null);
-        $assertion->expects($this->once())->method('setEventManager')->with($events);
-
-        $parentServices->expects($this->once())->method('get')->with('EventManager')->willReturn($events);
+        $parentServices
+	        ->expects($this->once())
+	        ->method('get')
+	        ->with('EventManager')
+	        ->willReturn($events)
+        ;
         /*
          * Wanted to use:
          * //$services->expects($this->once())->method('getServiceLocator')->willReturn($parentServices);
@@ -85,7 +105,7 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
          *
          * So I have to do it this way:
          */
-        $services->setServiceLocator($parentServices);
+        //$services->setServiceLocator($parentServices);
 
         $this->assertNull($target->injectEventManager($assertion, $services));
     }
@@ -94,15 +114,28 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
     {
         $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock');
-        $services = $this->getMockForAbstractClass('\Zend\ServiceManager\AbstractPluginManager');
+        $services = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+        
         $parentServices = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $events = new EventManager();
         $sharedEvents = new SharedEventManager();
 
-        $services->setServiceLocator($parentServices);
+        //$services->setServiceLocator($parentServices);
 
-        $parentServices->expects($this->once())->method('get')->with('SharedEventManager')->willReturn($sharedEvents);
-        $assertion->expects($this->once())->method('getEventManager')->willReturn($events);
+        $parentServices
+	        ->expects($this->once())
+	        ->method('get')
+	        ->with('SharedEventManager')
+	        ->willReturn($sharedEvents)
+        ;
+        $assertion
+	        ->expects($this->once())
+	        ->method('getEventManager')
+	        ->willReturn($events)
+        ;
 
         $this->assertNull($target->injectEventManager($assertion, $services));
         $this->assertSame($sharedEvents, $events->getSharedManager());
@@ -112,13 +145,13 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Expected plugin to be of type Assertion.
      */
-    public function testValidatePluginThrowsExceptionIfPluginIsInvalid()
+    public function testValidateThrowsExceptionIfPluginIsInvalid()
     {
         $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\Zend\Permissions\Acl\Assertion\AssertionInterface');
 
-        $this->assertNull($target->validatePlugin($assertion));
-        $target->validatePlugin(new \stdClass());
+        $this->assertNull($target->validate($assertion));
+        $target->validate(new \stdClass());
     }
 }
 

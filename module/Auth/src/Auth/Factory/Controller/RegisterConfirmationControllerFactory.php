@@ -53,6 +53,6 @@ class RegisterConfirmationControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), RegisterConfirmationController::class);
+        return $this($serviceLocator, RegisterConfirmationController::class);
     }
 }

@@ -41,7 +41,8 @@ class TokenListener
     public function attachShared(SharedEventManagerInterface $events, $priority = 1000)
     {
         /* @var $events \Zend\EventManager\SharedEventManager */
-        $this->listener = $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), $priority);
+        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), $priority);
+        $this->listener = [$this,'onBootstrap'];
     }
 
     /**
@@ -52,7 +53,7 @@ class TokenListener
      */
     public function detachShared(SharedEventManagerInterface $events)
     {
-        if ($events->detach('Zend\Mvc\Application', $this->listener)) {
+        if ($events->detach($this->listener,'Zend\Mvc\Application')) {
             $this->listener = null;
         }
         return $this;

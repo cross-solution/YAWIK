@@ -25,11 +25,10 @@ class UserStatusFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $this->factory = new UserStatusFieldsetFactory();
     }
 
-    public function testCreateService()
+    public function testInvoke()
     {
 		$sm = clone Bootstrap::getServiceManager();
-		$fm = $sm->get('formElementManager');
-		$result = $this->factory->createService($fm);
+		$result = $this->factory->__invoke($sm,UserStatusFieldset::class);
 		$this->assertInstanceOf(UserStatusFieldset::class, $result);
     }
 }

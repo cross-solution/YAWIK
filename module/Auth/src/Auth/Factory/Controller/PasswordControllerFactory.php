@@ -15,7 +15,7 @@ use Auth\Form;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class PasswordControllerFactory implements FactoryInterface
@@ -56,6 +56,6 @@ class PasswordControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), PasswordController::class);
+        return $this($serviceLocator, PasswordController::class);
     }
 }

@@ -66,12 +66,12 @@ class HybridAuthAdapterFactoryTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValueMap(
                 array(
-                    array('HybridAuth', true, $hybridAuthMock),
-                    array('repositories', true, $repositoriesMock),
-                    array('ControllerPluginManager', true, $contollerPluginsMock)
+                    array('HybridAuth', $hybridAuthMock),
+                    array('repositories', $repositoriesMock),
+                    array('ControllerPluginManager', $contollerPluginsMock)
                 )
             ));
-
+	    
         $result = $this->testedObj->createService($sm);
         $this->assertInstanceOf('Auth\Adapter\HybridAuth', $result);
     }

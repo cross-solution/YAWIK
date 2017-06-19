@@ -42,7 +42,7 @@ class RegisterConfirmationControllerSLFactoryTest extends \PHPUnit_Framework_Tes
 
         $controllerManager = new ControllerManager($sm);
 
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->createService($sm);
 
         $this->assertInstanceOf('Auth\Controller\RegisterConfirmationController', $result);
     }

@@ -24,4 +24,6 @@ return array(
 	'Zend\Mvc\Plugin\Identity',
 	'Zend\Mvc\Plugin\FlashMessenger',
 	'Zend\Mvc\I18n',
+	'DoctrineModule',
+	'DoctrineMongoODMModule',
 );

@@ -10,8 +10,9 @@
 
 namespace Auth\Factory\Controller;
 
+use Auth\Form\UserStatusFieldset;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Log\LoggerInterface;
 use Auth\Controller\IndexController;
@@ -37,8 +38,11 @@ class IndexControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $auth = $container->get('AuthenticationService');
-        $formElementManager = $container->get('formElementManager');
+        $formElementManager = $container->get('FormElementManager');
         $loginForm = $formElementManager->get('Auth\Form\Login');
+        $userLoginAdapter = $container->get('Auth/Adapter/UserLogin');
+        $locale = $container->get('Core/Locale');
+        $viewHelperManager = $container->get('ViewHelperManager');
 
         /* @var $logger LoggerInterface*/
         $logger = $container->get('Core/Log');
@@ -54,7 +58,7 @@ class IndexControllerFactory implements FactoryInterface
             $forms[IndexController::REGISTER] = $registerForm;
         }
 
-        $controller = new IndexController($auth, $logger, $forms, $options);
+        $controller = new IndexController($auth, $logger, $userLoginAdapter,$locale,$viewHelperManager,$forms, $options);
         return $controller;
     }
     /**
@@ -66,6 +70,6 @@ class IndexControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $controllerManager)
     {
-        return $this($controllerManager->getServiceLocator(), UserStatusFieldset::class);
+        return $this($controllerManager, IndexController::class);
     }
 }

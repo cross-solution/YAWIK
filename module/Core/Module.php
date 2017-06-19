@@ -131,6 +131,7 @@ class Module implements ConsoleBannerProviderInterface
             function ($event) {
             	if($event instanceof MvcEvent){
 		            $application = $event->getApplication();
+		            
 		            if ($application::ERROR_EXCEPTION == $event->getError()) {
 			            $ex = $event->getParam('exception');
 			            if (404 == $ex->getCode()) {

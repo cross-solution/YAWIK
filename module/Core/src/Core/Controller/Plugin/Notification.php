@@ -13,7 +13,7 @@ namespace Core\Controller\Plugin;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\I18n\Translator\TranslatorAwareTrait;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Mvc\Controller\Plugin\FlashMessenger;
+use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Core\Listener\Events\NotificationEvent;
 use Core\Log\Notification\NotificationEntity;
 use Core\Log\Notification\NotificationEntityInterface;

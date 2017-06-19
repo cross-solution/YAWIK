@@ -10,6 +10,7 @@
 namespace AuthTest\Factory\View\Helper;
 
 use Auth\Factory\View\Helper\AuthFactory;
+use Auth\View\Helper\Auth;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 
@@ -23,11 +24,9 @@ class AuthFactoryTest extends \PHPUnit_Framework_TestCase
         $auth = $this->getMockBuilder('\Zend\Authentication\AuthenticationService')->getMock();
         $sm->setService('AuthenticationService', $auth);
         
-        $hm = new HelperPluginManager();
-        $hm->setServicelocator($sm);
+        $hm = new HelperPluginManager($sm);
         
-        
-        $helper = $f->createService($hm);
+        $helper = $f->__invoke($sm,Auth::class);
         
         $this->assertInstanceOf('\Auth\View\Helper\Auth', $helper);
         $this->assertSame($auth, $helper->getService());

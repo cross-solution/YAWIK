@@ -62,8 +62,7 @@ class PasswordControllerTest extends AbstractControllerTestCase
         $this->controller->setEvent($this->event);
 
         $serviceManager = Bootstrap::getServiceManager();
-        $controllerPluginManager = $serviceManager->get('controllerPluginManager');
-        $this->controller->setServiceLocator($serviceManager);
+        $controllerPluginManager = $serviceManager->get('ControllerPluginManager');
         $this->controller->setPluginManager($controllerPluginManager);
     }
 

@@ -44,7 +44,7 @@ class UserPassword extends Form
             $this->forms->get('Auth/UserPasswordFieldset')
         );
         
-        $this->add($this->forms->get('submitField'));
+        $this->add($this->forms->get('submit'));
     }
     
     /**
@@ -54,7 +54,7 @@ class UserPassword extends Form
     public static function factory(ServiceLocatorInterface $forms)
     {
         $form = new static();
-        $form->forms = $forms;
+        $form->forms = $forms->get('FormElementManager');
         
 		return $form;
     }

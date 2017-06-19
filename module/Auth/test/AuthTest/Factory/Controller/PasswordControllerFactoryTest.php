@@ -43,7 +43,7 @@ class PasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $controllerManager = new ControllerManager($sm);
 
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->createService($sm);
 
         $this->assertInstanceOf('Auth\Controller\PasswordController', $result);
     }

@@ -88,6 +88,9 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
     
     public function testWithImageField()
     {
+	    if (! function_exists("imageftbbox")) {
+		    return $this->markTestSkipped('This test requires GD FT fonts support');
+	    }
         $options = new CaptchaOptions();
         $options->setMode("image");
         $testedObject = new Register(null, $options);
