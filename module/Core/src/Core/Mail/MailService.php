@@ -83,40 +83,37 @@ class MailService extends AbstractPluginManager
      * @param ContainerInterface $container
      * @param mixed $configuration
      */
-    public function __construct(ContainerInterface $container, $configuration = null)
+    public function __construct($container, array $configuration = [])
     {
         parent::__construct($container,$configuration);
-        $this->serviceLocator = $container;
-        $self = $this;
-
         $this->addInitializer(
-            function ($instance) use ($self) {
+            function ($context,$instance){
                 if ($instance instanceof TranslatorAwareInterface) {
-                    $translator = $self->getServiceLocator()->get('translator');
+                    $translator = $context->get('translator');
                     $instance->setTranslator($translator);
                     if (null === $instance->getTranslatorTextDomain()) {
                         $instance->setTranslatorTextDomain();
                     }
                     $instance->setTranslatorEnabled(true);
                 }
-            }, /*topOfStack*/
-            false
+            }
         );
+        
+        //@TODO: [ZF3] verify that removing this lines is save
+        //$this->addInitializer(
+        //   function ($context,$instance) {
+        //        if (method_exists($instance, 'setServiceLocator')) {
+        //            //$instance->setServiceLocator($this);
+        //        }
+         //   }
+        //);
+        
         $this->addInitializer(
-            function ($instance) {
-                if (method_exists($instance, 'setServiceLocator')) {
-                    $instance->setServiceLocator($this);
-                }
-            },
-            false
-        );
-        $this->addInitializer(
-            function ($instance) {
+            function ($context,$instance) {
                 if (method_exists($instance, 'init')) {
                     $instance->init();
                 }
-            },
-            false
+            }
         );
     }
 
@@ -125,7 +122,7 @@ class MailService extends AbstractPluginManager
      *
      * @throws \InvalidArgumentException
      */
-    public function validatePlugin($plugin)
+    public function validate($plugin)
     {
         if (!$plugin instanceof MailMessage) {
             throw new \InvalidArgumentException(

@@ -52,6 +52,6 @@ class AjaxUrlFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), AjaxUrl::class);
+        return $this($serviceLocator, AjaxUrl::class);
     }
 }

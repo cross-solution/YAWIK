@@ -61,9 +61,16 @@ class EventManager extends ZfEventManager implements EventProviderInterface
 
         return $event;
     }
-
-    public function trigger($event, $target = null, $argv = [], $callback = null)
+	
+	/**
+	 * @inheritdoc
+	 *
+	 * @TODO: [ZF3] removing callback arguments to make it to be compatible with ZF3
+	 */
+    public function trigger($event, $target = null, $argv = [])
     {
+	    $eventName = ($event instanceof EventInterface) ? $event->getName():$event;
+	    
         if (!$event instanceOf EventInterface
             && !$target instanceOf EventInterface
             && !$argv instanceOf EventInterface
@@ -72,12 +79,12 @@ class EventManager extends ZfEventManager implements EventProviderInterface
              * Create the event from the prototype, and not
              * from eventClass as the parent implementation does.
              */
-            $e = $this->getEvent($event, $target, $argv);
+            $event = $this->getEvent($event, $target, $argv);
 
-            return parent::trigger($e, $callback);
+            //return parent::trigger($e, $callback);
         }
-
-        return parent::trigger($event, $target, $argv, $callback);
+	    
+        return parent::trigger($eventName, $target, $argv);
     }
 
 

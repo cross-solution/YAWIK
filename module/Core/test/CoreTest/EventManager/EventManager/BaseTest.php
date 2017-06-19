@@ -37,8 +37,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     {
         $event = new MockEvent();
         $this->target->setEventPrototype($event);
-
-        $this->assertAttributeEquals(get_class($event), 'eventClass', $this->target, 'Setting event class failed.');
         $this->assertAttributeSame($event, 'eventPrototype', $this->target, 'Setting event prototype object failed.');
     }
 

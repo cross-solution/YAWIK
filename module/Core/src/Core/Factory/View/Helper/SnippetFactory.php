@@ -13,7 +13,7 @@ namespace Core\Factory\View\Helper;
 use Core\View\Helper\Snippet;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -57,8 +57,8 @@ class SnippetFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $container = $serviceLocator->getServiceLocator();
+        //$container = $serviceLocator->getServiceLocator();
 
-        return $this($container, Snippet::class);
+        return $this($serviceLocator, Snippet::class);
     }
 }

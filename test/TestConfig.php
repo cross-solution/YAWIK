@@ -1,4 +1,5 @@
 <?php
+$commonModules = include __DIR__.'/../config/common.modules.php';
 return array(
     'doctrine' => array(
         'configuration' => array(
@@ -7,29 +8,19 @@ return array(
             ),
         ),
     ),
-    'modules' => array(
-        'Zend\ServiceManager\Di',
-        'Zend\Session',
-        'Zend\Router',
-        'Zend\Navigation',
-	    'Zend\Form',
-	    'Zend\Validator',
-        'Zend\Mvc\Plugin\Prg',
-        'Zend\Mvc\Plugin\Identity',
-        'Zend\Mvc\Plugin\FlashMessenger',
-        'Zend\Mvc\I18n',
-        'DoctrineModule',
-        'DoctrineMongoODMModule',
-        'Install',
-        'Core',
-        'Auth',
-        'Jobs',
-        'Geo',
-        'Cv',
-        'Settings',
-        'Applications',
-        'Organizations',
-    ),
+    'modules' => array_merge($commonModules,[
+	    'DoctrineModule',
+	    'DoctrineMongoODMModule',
+	    'Install',
+	    'Core',
+	    'Auth',
+	    'Jobs',
+	    'Geo',
+	    'Cv',
+	    'Settings',
+	    'Applications',
+	    'Organizations',
+    ]),
     'module_listener_options' => array(
         'module_paths' => array(
             './module',

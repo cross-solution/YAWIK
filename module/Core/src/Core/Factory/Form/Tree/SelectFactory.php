@@ -129,7 +129,7 @@ class SelectFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
-        $select = $this($serviceLocator->getServiceLocator(), self::class, $this->options);
+        $select = $this($serviceLocator, self::class, $this->options);
         $this->options = [];
 
         return $select;

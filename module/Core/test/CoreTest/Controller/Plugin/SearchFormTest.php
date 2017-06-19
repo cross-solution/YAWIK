@@ -10,10 +10,14 @@
 /** */
 namespace CoreTest\Controller\Plugin;
 
+use Core\Controller\Plugin\SearchForm;
+use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use Interop\Container\ContainerInterface;
 use Zend\Form\Form;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Form\FormElementManager;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Zend\Hydrator\HydratorInterface;
+use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Stdlib\Parameters;
 
 /**
@@ -27,8 +31,8 @@ use Zend\Stdlib\Parameters;
  */
 class SearchFormTest extends \PHPUnit_Framework_TestCase
 {
-    use TestInheritanceTrait;
-
+	use TestInheritanceTrait;
+	
     protected $formElementManagerMock;
 
     protected $target = [
@@ -39,16 +43,16 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
             'args' => false,
         ],
         '@testInheritance' => [
-            'args' => [ 'formElementManager' => '@\Zend\Form\FormElementManager' ],
+            'args' => 'getTargetArgs',
         ],
     ];
 
-    protected $inheritance = [ '\Zend\Mvc\Controller\Plugin\AbstractPlugin' ];
+    protected $inheritance = [ AbstractPlugin::class ];
 
     protected function getTargetArgs()
     {
         $this->formElementManagerMock = $this
-            ->getMockBuilder('\Zend\Form\FormElementManager')
+            ->getMockBuilder(FormElementManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['get'])
             ->getMock()
@@ -142,6 +146,5 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($form, $actual);
 
     }
-
-
+    
 }

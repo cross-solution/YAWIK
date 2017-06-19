@@ -15,7 +15,7 @@ use Core\Form\CustomizableFieldsetInterface;
 use Core\Options\FieldsetCustomizationOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 
 /**
@@ -52,7 +52,7 @@ class AbstractCustomizableFieldsetFactoryTest extends \PHPUnit_Framework_TestCas
         ],
     ];
 
-    private $inheritance = [ FactoryInterface::class, MutableCreationOptionsInterface::class ];
+    private $inheritance = [ FactoryInterface::class ];
 
     public function testCreationOptions()
     {
@@ -107,10 +107,8 @@ class AbstractCustomizableFieldsetFactoryTest extends \PHPUnit_Framework_TestCas
     public function testInvokationCreatesInstance()
     {
         $options = new FieldsetCustomizationOptions();
-        $container = $this->getServiceManagerMock([
-                'testOptions' => ['service' => $options, 'count_get' => 1]
-            ]);
-
+        $container = $this->getServiceManagerMock(['testOptions' => ['service' => $options, 'count_get' => 1]]);
+	    
         $instance = $this->target->__invoke($container, '');
 
         $this->assertSame($options, $instance->getCustomizationOptions());

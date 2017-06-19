@@ -79,7 +79,7 @@ trait ListenerAggregateTrait
         if (null === $eventsSpec) {
             $eventsSpec = $this->eventsProvider();
         }
-
+		
         foreach ($eventsSpec as $spec) {
             if (!is_array($spec) || 2 > count($spec)) {
                 throw new \UnexpectedValueException('Event specification must be an array with at least two entries: event name and method name.');

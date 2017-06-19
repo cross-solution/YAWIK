@@ -11,6 +11,7 @@
 namespace CoreTest\Factory\EventManager\EventManagerAbstractFactory;
 
 use Core\Factory\EventManager\EventManagerAbstractFactory;
+use Zend\EventManager\Event;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\SharedEventManager;
 use Zend\ServiceManager\ServiceManager;
@@ -57,7 +58,11 @@ class CreateEventManagerTest extends \PHPUnit_Framework_TestCase
         if (!isset($config['event'])) {
             $config['event'] = '\Zend\EventManager\Event';
         }
-        $this->target->expects($this->once())->method('getConfig')->willReturn($config);
+        $this->target
+	        ->expects($this->once())
+	        ->method('getConfig')
+	        ->willReturn($config)
+        ;
     }
 
     protected function getServiceManagerMock($events, $args = [])
@@ -73,21 +78,25 @@ class CreateEventManagerTest extends \PHPUnit_Framework_TestCase
             $eventsService = 'Test/Events/Manager';
         }
 
-        $hasMap = [ [ $eventsService, true, true, true ] ];
-        $getMap = [ [ $eventsService, true, $events ] ];
+        $hasMap = [ [ $eventsService, true ] ];
+        $getMap = [ [ $eventsService, $events ] ];
 
         foreach ($args as $serviceName => $serviceValue) {
             if (false === $serviceValue) {
-                $hasMap[] = [ $serviceName, true, true, false ];
+                $hasMap[] = [ $serviceName, true ];
             } else {
-                $hasMap[] = [ $serviceName, true, true, true ];
-                $getMap[] = [ $serviceName, true, $serviceValue ];
+                $hasMap[] = [ $serviceName, true];
+                $getMap[] = [ $serviceName, $serviceValue ];
             }
         }
 
-        $services->expects($this->exactly(count($hasMap)))
+        /*$services->expects($this->exactly(count($hasMap)))
                  ->method('has')->will($this->returnValueMap($hasMap));
-
+        */
+        $services->expects($this->any())
+	        ->method('has')
+	        ->will($this->returnValueMap($hasMap))
+        ;
         $services->expects($this->exactly(count($getMap)))
                  ->method('get')->will($this->returnValueMap($getMap));
 
@@ -119,7 +128,8 @@ class CreateEventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testThrowsExceptionIfNoEventManagerCanBeCreated()
     {
-        $this->setExpectedException('\UnexpectedValueException', 'Cannot create');
+    	$this->expectException(\UnexpectedValueException::class);
+    	$this->expectExceptionMessage('Cannot create');
 
         $this->setTargetConfig(['service' => 'NonExistantClass' ]);
 
@@ -152,7 +162,11 @@ class CreateEventManagerTest extends \PHPUnit_Framework_TestCase
         $event = new \Zend\EventManager\Event();
         $events = $this->getMockBuilder('\Core\EventManager\EventManager')->disableOriginalConstructor()
                         ->setMethods(['setIdentifiers', 'setEventPrototype'])->getMock();
-        $events->expects($this->once())->method('setEventPrototype')->with($event);
+        $events
+	        ->expects($this->once())
+	        ->method('setEventPrototype')
+	        ->with($event)
+        ;
 
         $services = $this->getServiceManagerMock(['EventManager' => $events], [ 'Event' => $event ]);
         $this->setTargetConfig(['configure' => true, 'service' => 'EventManager', 'event' => 'Event']);
@@ -162,9 +176,16 @@ class CreateEventManagerTest extends \PHPUnit_Framework_TestCase
     public function testSetsEventClassOnNonEventProviderEventManagers()
     {
         $event = new \Zend\EventManager\Event();
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')->disableOriginalConstructor()
-                       ->setMethods(['setIdentifiers', 'setEventClass'])->getMock();
-        $events->expects($this->once())->method('setEventClass')->with('\Zend\EventManager\Event');
+        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+                       ->disableOriginalConstructor()
+                       ->setMethods(['setIdentifiers', 'setEventPrototype'])
+                       ->getMock()
+        ;
+        $events
+	        ->expects($this->once())
+	        ->method('setEventPrototype')
+	        ->with($this->isInstanceOf(Event::class))
+        ;
 
         $services = $this->getServiceManagerMock(['EventManager' => $events]);
         $this->setTargetConfig(['configure' => true, 'service' => 'EventManager', 'event' => '\Zend\EventManager\Event']);
@@ -181,7 +202,5 @@ class CreateEventManagerTest extends \PHPUnit_Framework_TestCase
         $services = $this->getServiceManagerMock($events, ['SharedEventManager' => $sharedEvents]);
         $this->setTargetConfig(['configure' => true]);
         $this->target->createServiceWithName($services, 'irrelevant', 'Test/Events');
-
-
     }
 }

@@ -11,7 +11,7 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Form\Form;
-use Zend\Form\FormElementManager;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Stdlib\Parameters;
 
@@ -27,7 +27,7 @@ class SearchForm extends AbstractPlugin
     /**
      * The form element manager.
      *
-     * @var \Zend\Form\FormElementManager
+     * @var FormElementManager
      */
     protected $formElementManager;
 

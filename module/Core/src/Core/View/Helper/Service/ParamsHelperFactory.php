@@ -43,6 +43,6 @@ class ParamsHelperFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-		return $this($serviceLocator);
+		return $this($serviceLocator,Params::class);
     }
 }

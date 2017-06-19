@@ -11,6 +11,7 @@
 namespace CoreTest\Factory\Paginator;
 
 use Core\Factory\Paginator\RepositoryAbstractFactory;
+use Zend\ServiceManager\AbstractPluginManager;
 
 /**
  * Tests for \Core\Factory\Paginator\RepositoryAbstractFactory
@@ -35,8 +36,7 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsInterfaces()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\AbstractFactoryInterface', $this->target);
-        $this->assertInstanceOf('\Zend\ServiceManager\MutableCreationOptionsInterface', $this->target);
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\AbstractFactoryInterface', $this->target);
     }
 
     public function testDefaultCreationOptionsAreEmpty()
@@ -73,7 +73,10 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanCreateService($serviceName, $expected)
     {
-        $sm = $this->getMockForAbstractClass('\Zend\ServiceManager\AbstractPluginManager');
+        $sm = $this->getMockBuilder(AbstractPluginManager::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
         $method = "assert" . ($expected ? 'True' : 'False');
 
         $this->{$method}($this->target->canCreate($sm, $serviceName));

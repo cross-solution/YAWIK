@@ -1,9 +1,11 @@
 <?php
+$commonModules = include __DIR__.'/../../../config/common.modules.php';
 return array(
     // This should be an array of module namespaces used in the application.
-    'modules' => array(
-        'Core', 'Auth',
-    ),
+    'modules' => array_merge($commonModules,[
+	    'Core',
+	    'Auth',
+    ]),
 
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => array(

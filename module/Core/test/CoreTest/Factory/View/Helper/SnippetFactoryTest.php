@@ -15,7 +15,7 @@ use Core\Factory\View\Helper\SnippetFactory;
 use Core\View\Helper\Snippet;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\View\Helper\Partial;
 
 /**
@@ -50,26 +50,30 @@ class SnippetFactoryTest extends \PHPUnit_Framework_TestCase
         $container = $this->createServiceManagerMock();
         $plugins = $this->createPluginManagerMock($container, 1);
 
-        $this->target->expects($this->once())->method('__invoke')->with($container, Snippet::class);
+        $this->target
+	        ->expects($this->once())
+	        ->method('__invoke')
+	        ->with($container, Snippet::class)
+        ;
 
-        $this->target->createService($plugins);
+        $this->target->createService($container);
     }
 
     public function testInvokationCreatesService()
     {
         $events = new EventManager();
         $partialHelper = new Partial();
+	    $config = ['test' => 'works'];
+	    
+	    $container = $this->createServiceManagerMock([
+		    'Config' => ['service' => ['view_helper_config' => ['snippets' => $config]], 'count_get' => 1, 'direct' => true],
+		    'Core/ViewSnippets/Events' => ['service' => $events, 'count_get' => 1],
+		    //'ViewHelperManager' => ['service' => $helpers, 'count_get' => 1],
+	    ]);
         $helpers = $this->createPluginManagerMock([
                 'partial' => ['service' => $partialHelper, 'count_get' => 1],
-            ]);
-        $config = ['test' => 'works'];
-
-        $container = $this->createServiceManagerMock([
-                'Config' => ['service' => ['view_helper_config' => ['snippets' => $config]], 'count_get' => 1, 'direct' => true],
-                'Core/ViewSnippets/Events' => ['service' => $events, 'count_get' => 1],
-                'ViewHelperManager' => ['service' => $helpers, 'count_get' => 1],
-
-            ]);
+            ],$container);
+        $container->setService('ViewHelperManager',$helpers);
 
         $instance = $this->target->__invoke($container, Snippet::class);
 

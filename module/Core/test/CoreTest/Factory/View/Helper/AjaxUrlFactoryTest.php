@@ -15,7 +15,7 @@ use Core\View\Helper\AjaxUrl;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\View\Helper\AjaxUrlFactory
@@ -46,13 +46,12 @@ class AjaxUrlFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateService()
     {
         $container = $this->getServiceManagerMock();
-        $helpers   = $this->getPluginManagerMock($container, 1);
-
         $this->target
-            ->expects($this->once())->method('__invoke')
-            ->with($container, AjaxUrl::class);
-
-        $this->target->createService($helpers);
+            ->expects($this->once())
+            ->method('__invoke')
+            ->with($container, AjaxUrl::class)
+        ;
+        $this->target->createService($container);
     }
 
     public function testInvokation()

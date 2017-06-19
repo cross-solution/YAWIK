@@ -13,6 +13,8 @@ namespace CoreTestUtils\TestCase;
 use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
 use CoreTestUtils\Mock\ServiceManager\PluginManagerMock;
 use CoreTestUtils\Mock\ServiceManager\ServiceManagerMock;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Creates a service manager mock with configured services.
@@ -62,10 +64,10 @@ trait ServiceManagerMockTrait
      */
     public function createServiceManagerMock(array $services = [])
     {
-    	// @TODO: [ZF3] Looks like create mock by passing $services is not working in ZF3
         $serviceManagerMock = new ServiceManagerMock();
         if (!empty($services)) {
             $config = new ServiceManagerMockConfig(['mocks' => $services]);
+            
             $config->configureServiceManager($serviceManagerMock);
         }
 
@@ -102,20 +104,24 @@ trait ServiceManagerMockTrait
      */
     public function createPluginManagerMock($services = [], $parent = null, $count = 1)
     {
-
+    	$arrConfig = array();
         if (is_array($services)) {
             $config = new ServiceManagerMockConfig(['mocks' => $services]);
         } else {
-            $config = null;
+            $config = array();
             $count = is_int($parent) ? $parent : $count;
             $parent = $services;
         }
-
-        $pluginManagerMock = new PluginManagerMock($services,$config);
-
-        if (null !== $parent) {
-            $pluginManagerMock->setServiceLocator($parent, $count);
+	    
+        $pluginManagerMock = new PluginManagerMock($parent);
+        if($config instanceof ServiceManagerMockConfig){
+	        $config->configureServiceManager($pluginManagerMock);
         }
+
+        //@TODO: [ZF3] Check if removing the lines below is safe
+	    //if (null !== $parent) {
+        //    $pluginManagerMock->setServiceLocator($parent, $count);
+        //}
 
         $this->__ServiceManagerMockTrait__mocks[] = $pluginManagerMock;
         return $pluginManagerMock;

@@ -70,26 +70,37 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testDetach()
     {
+    	$callableListener = [new CallableListenerMock(),'doSomething'];
+    	
         $events = $this
             ->getMockBuilder(EventManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['attach', 'detach'])
             ->getMock();
 
-        $events->expects($this->any())->method('attach')->will($this->onConsecutiveCalls('listener1', 'listener2'));
+        $events
+	        ->expects($this->any())
+	        ->method('attach')
+	        ->will(
+	        	$this->onConsecutiveCalls($callableListener, $callableListener)
+	        )
+        ;
 
         $events
             ->expects($this->exactly(2))
             ->method('detach')
-            ->withConsecutive(['listener1'], ['listener2'])
+            ->withConsecutive([$callableListener], [$callableListener])
             ->will($this->onConsecutiveCalls(true, false))
         ;
 
         $this->target->attach($events);
         $this->target->detach($events);
 
-        $this->assertAttributeEquals([1 => 'listener2'], 'listeners', $this->target);
+        $this->assertAttributeEquals([1 => $callableListener], 'listeners', $this->target);
     }
 }
 
-
+class CallableListenerMock
+{
+	public function doSomething(){}
+}

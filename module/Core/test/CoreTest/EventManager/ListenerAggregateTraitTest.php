@@ -112,7 +112,19 @@ class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class Latt_Simple
+/**
+ * Class BaseTestLatt
+ * @TODO: [ZF3] EventManager::attach will throw exceptions if the callback is not callable
+ * @package CoreTest\EventManager
+ */
+abstract class BaseTestLatt
+{
+	public function testProp(){}
+	
+	public function testProp2(){}
+}
+
+class Latt_Simple extends BaseTestLatt
 {
     use ListenerAggregateTrait;
 
@@ -126,14 +138,14 @@ class Latt_Simple
 
 }
 
-class Latt_EventsProperty
+class Latt_EventsProperty extends BaseTestLatt
 {
     use ListenerAggregateTrait;
 
     public $events = [];
 }
 
-class Latt_EventsProvider
+class Latt_EventsProvider extends BaseTestLatt
 {
     use ListenerAggregateTrait;
 

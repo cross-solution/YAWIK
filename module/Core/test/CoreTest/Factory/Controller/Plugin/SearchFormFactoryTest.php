@@ -12,7 +12,8 @@ namespace CoreTest\Factory\Controller\Plugin;
 
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
-use Zend\Form\FormElementManager;
+use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 
 /**
  * Tests for \Core\Factory\Controller\Plugin\SearchFormFactory
@@ -39,16 +40,18 @@ class SearchFormFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatesPluginAndInjectsFormElementManager()
     {
-        $forms = new FormElementManager();
-
-        $services = $this->getServiceManagerMock([
-                                                     'forms' => [
-                                                         'service' => $forms,
-                                                         'count_get' => 1,
-                                                     ]]);
-
-        $plugins = $this->getPluginManagerMock($services);
-
+	    $forms = $this->getMockBuilder(FormElementManager::class)
+		    ->disableOriginalConstructor()
+		    ->getMock()
+	    ;
+	    /*$services = $this->getServiceManagerMock([
+		    'forms' => [
+			    'service' => $forms,
+			    'count_get' => 1,
+		    ]]);*/
+	    $services = $this->getServiceManagerMock();
+	    $services->setService('forms',$forms);
+	    $plugins = $this->getPluginManagerMock($services);
         $plugin = $this->target->createService($plugins);
 
         $this->assertInstanceOf('\Core\Controller\Plugin\SearchForm', $plugin);

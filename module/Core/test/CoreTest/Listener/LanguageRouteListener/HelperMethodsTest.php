@@ -19,8 +19,8 @@ use Zend\Http\Response;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\Http\RouteMatch;
-use Zend\Mvc\Router\SimpleRouteStack;
+use Zend\Router\Http\RouteMatch;
+use Zend\Router\SimpleRouteStack;
 use Zend\ServiceManager\ServiceManager;
 use Core\I18n\Locale as LocaleService;
 

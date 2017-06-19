@@ -60,13 +60,21 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
     private function injectHelperManager($services = [])
     {
-        $manager = $this->createPluginManagerMock($services);
+    	$sm = $this->createServiceManagerMock();
+        $manager = $this->createPluginManagerMock($services,$sm);
 
-        $renderer = $this->getMockBuilder(PhpRenderer::class)->disableOriginalConstructor()
-            ->setMethods(['getHelperPluginManager'])->getMock();
+        $renderer = $this->getMockBuilder(PhpRenderer::class)
+			->disableOriginalConstructor()
+            ->setMethods(['getHelperPluginManager'])
+            ->getMock()
+        ;
 
-        $renderer->expects($this->any())->method('getHelperPluginManager')->will($this->returnValue($manager));
-
+        $renderer
+	        ->expects($this->any())
+	        ->method('getHelperPluginManager')
+	        ->will($this->returnValue($manager))
+        ;
+	    
         $this->target->setView($renderer);
         $this->helperManager = $manager;
     }
@@ -141,10 +149,12 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testPluginPassesOptionsToHelperManager()
     {
-        $helper = new PtHelperDummy();
+        //$helper = new PtHelperDummy();
         $options = ['option' => 'value'];
-        $this->injectHelperManager(['helper' => $helper]);
-        $this->helperManager->setExpectedCallCount('get', 'helper', $options, 1);
+        $this->injectHelperManager(['helper' => PtHelperDummy::class]);
+        $this->helperManager
+	        ->setExpectedCallCount('get', 'helper', $options, 1)
+        ;
 
         $this->target->plugin('helper', $options);
     }

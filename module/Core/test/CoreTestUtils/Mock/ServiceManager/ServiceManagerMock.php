@@ -31,36 +31,22 @@ class ServiceManagerMock extends ServiceManager
     ];
 
     protected $expectedCallCount = [];
+
+    public function get($name, $usePeeringServiceManagers = true)
+    {
+        $this->incrementCallCount('get', $name);
 	
-	
-    //public function setService($name, $service)
-    //{
-        /*
-         * No checks here to not pollute the "has" method invokation counter.
-         * If you mess up here, your test config must be checked.
-         */
-    //    $cName = $this->canonicalizeName($name);
-    //    $this->instances[$cName] = $service;
+        return parent::get($name, $usePeeringServiceManagers);
+    }
 
-    //    return $this;
-    //}
+    public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
+    {
+        if (is_string($name)) { // internally called with an array [normalizedName, requestedName].
+            $this->incrementCallCount('has', $name);
+        }
 
-
-    //public function get($name, $usePeeringServiceManagers = true)
-    //{
-    //    $this->incrementCallCount('get', $name);
-	//
-    //    return parent::get($name, $usePeeringServiceManagers);
-    //}
-
-    //public function has($name, $checkAbstractFactories = true, $usePeeringServiceManagers = true)
-    //{
-    //    if (is_string($name)) { // internally called with an array [normalizedName, requestedName].
-    //        $this->incrementCallCount('has', $name);
-    //    }
-
-//        return parent::has($name, $checkAbstractFactories, $usePeeringServiceManagers);
-//    }
+        return parent::has($name, $checkAbstractFactories, $usePeeringServiceManagers);
+    }
 
     /**
      * Increment the call count.

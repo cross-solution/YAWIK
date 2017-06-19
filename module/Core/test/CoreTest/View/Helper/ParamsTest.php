@@ -10,7 +10,7 @@ namespace CoreTest\View\Helper;
 
 use Zend\Mvc\MvcEvent;
 use Core\View\Helper\Params as Helper;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Router\Http\RouteMatch;
 use Zend\Http\PhpEnvironment\Request;
 
 class ParamsTest extends \PHPUnit_Framework_TestCase

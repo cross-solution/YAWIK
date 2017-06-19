@@ -143,7 +143,7 @@ abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, 
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $instance = $this($serviceLocator->getServiceLocator(), '', $this->options);
+        $instance = $this($serviceLocator, '', $this->options);
         $this->resetCreationOptions();
 
         return $instance;

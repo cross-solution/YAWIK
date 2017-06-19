@@ -50,6 +50,6 @@ class SearchFormFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), ModuleOptions::class);
+        return $this(@$serviceLocator->getServiceLocator(), ModuleOptions::class);
     }
 }

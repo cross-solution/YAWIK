@@ -95,8 +95,9 @@ class FormEvent extends Event
         if ($target instanceOf FormInterface || $target instanceOf Container) {
             $this->setForm($target);
         }
-
-        return parent::setTarget($target);
+        parent::setTarget($target);
+        
+        return $this;
     }
 
     public function setParams($params)
