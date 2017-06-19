@@ -52,7 +52,7 @@ class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $services->expects($this->once())->method('get')->with('EventManager')->willReturn($eventManager);
 
-        $events = $target->createService($services);
+        $events = $target->__invoke($services,'irrelevant');
 
         $this->assertSame($eventManager, $events);
         $this->assertAttributeInstanceOf($expectedEventClass, 'eventPrototype', $events);

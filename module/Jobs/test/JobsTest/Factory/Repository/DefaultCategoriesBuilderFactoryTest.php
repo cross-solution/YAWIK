@@ -15,7 +15,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Category;
 use Jobs\Factory\Repository\DefaultCategoriesBuilderFactory;
 use org\bovigo\vfs\vfsStream;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Repository\DefaultCategoriesBuilderFactory
@@ -80,7 +80,7 @@ class DefaultCategoriesBuilderFactoryTest extends \PHPUnit_Framework_TestCase
         $sm = $this->getServiceManagerMock();
         $sm->setService('ApplicationConfig', $appConfig);
 
-        $builder = $this->target->createService($sm);
+        $builder = $this->target->__invoke($sm,'irrelevant');
 
         $this->assertAttributeSame($expectModulePath, 'moduleConfigPath', $builder);
         $this->assertAttributeSame($expectGlobalPaths, 'globalConfigPaths', $builder);

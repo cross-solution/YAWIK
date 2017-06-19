@@ -86,12 +86,4 @@ class MultipostingSelectFactory implements FactoryInterface
 
         return $select;
     }
-
-    /**
-     * Creates the multiposting select box.
-     */
-    //public function createService(ServiceLocatorInterface $serviceLocator)
-    //{
-	//        return $this($serviceLocator->getServiceLocator(), MultipostingSelect::class);
-    //}
 }

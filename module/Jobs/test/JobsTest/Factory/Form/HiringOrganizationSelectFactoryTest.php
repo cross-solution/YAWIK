@@ -12,6 +12,7 @@ namespace JobsTest\Factory\Form;
 
 use Auth\Entity\User;
 use Core\Entity\Collection\ArrayCollection;
+use Interop\Container\ContainerInterface;
 use Jobs\Factory\Form\HiringOrganizationSelectFactory;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationContact;
@@ -49,6 +50,11 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
      * @var FormElementManager
      */
     private $formElements;
+	
+	/**
+	 * @var ContainerInterface
+	 */
+    private $services;
 
     public function setUp()
     {
@@ -85,13 +91,8 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
                  ->method('get')
                  ->with('AuthenticationService')
                  ->willReturn($auth);
-
-        $formElements = $this->getMockBuilder('\Zend\Form\FormElementManager')
-                             ->disableOriginalConstructor()
-                             ->getMock();
-
-        $formElements->expects($this->once())->method('getServiceLocator')->willReturn($services);
-        $this->formElements = $formElements;
+	    
+        $this->services = $services;
     }
 
     /**
@@ -99,7 +100,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $this->target);
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $this->target);
     }
 
     /**
@@ -111,7 +112,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $org = $this->user->getOrganization();
         $org->expects($this->once())->method('hasAssociation')->willReturn(false);
 
-        $select = $this->target->createService($this->formElements);
+        $select = $this->target->__invoke($this->services,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Form\HiringOrganizationSelect', $select);
     }
@@ -124,7 +125,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $org = $this->user->getOrganization();
         $org->expects($this->once())->method('hasAssociation')->willReturn(false);
 
-        $select = $this->target->createService($this->formElements);
+        $select = $this->target->__invoke($this->services,'irrelevant');
 
         $this->assertEquals(array(), $select->getValueOptions());
     }
@@ -160,7 +161,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
             'testOrg1' => 'testOrg1.name|org1.city|org1.street|org1.number|'
         );
 
-        $select = $this->target->createService($this->formElements);
+        $select = $this->target->__invoke($this->services,'irrelevant');
 
         $actual = $select->getValueOptions();
 

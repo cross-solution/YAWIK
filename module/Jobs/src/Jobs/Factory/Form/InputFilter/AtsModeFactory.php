@@ -11,8 +11,7 @@
 namespace Jobs\Factory\Form\InputFilter;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Jobs\Form\InputFilter\AtsMode;
 
 class AtsModeFactory implements FactoryInterface
@@ -39,11 +38,5 @@ class AtsModeFactory implements FactoryInterface
         $filter = new AtsMode();
         $filter->setHost($host);
         return $filter;
-    }
-
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }

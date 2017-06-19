@@ -12,8 +12,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\HiringOrganizationSelect;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the HiringOrganization select box
@@ -58,15 +57,5 @@ class HiringOrganizationSelectFactory implements FactoryInterface
         }
 
         return $select;
-    }
-
-
-    /**
-     * Creates the hiring organization select box.
-     *
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }

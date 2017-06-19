@@ -13,7 +13,7 @@ namespace Jobs\Factory\Repository;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\Category;
 use Jobs\Repository\DefaultCategoriesBuilder;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -59,18 +59,5 @@ class DefaultCategoriesBuilderFactory implements FactoryInterface
         $builder = new DefaultCategoriesBuilder($moduleConfigPath, $globalConfigPaths, new Category());
 
         return $builder;
-    }
-
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, DefaultCategoriesBuilder::class);
     }
 }

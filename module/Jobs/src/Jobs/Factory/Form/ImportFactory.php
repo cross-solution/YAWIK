@@ -11,8 +11,7 @@
 namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Jobs\Form\Import;
 
 class ImportFactory implements FactoryInterface
@@ -38,11 +37,5 @@ class ImportFactory implements FactoryInterface
         $form = new Import();
         $form->setHost($host);
         return $form;
-    }
-
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), Import::class);
     }
 }

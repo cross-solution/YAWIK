@@ -5,7 +5,7 @@ namespace Jobs\Factory\Repository\Filter;
 use Auth\AuthenticationService;
 use Interop\Container\ContainerInterface;
 use Jobs\Repository\Filter\PaginationQuery;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -38,15 +38,5 @@ class PaginationQueryFactory implements FactoryInterface
 
         $filter = new PaginationQuery($auth, $acl);
         return $filter;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $services
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $services)
-    {
-        return $this($services, PaginationQuery::class);
     }
 }

@@ -12,8 +12,7 @@ namespace Jobs\Factory\Controller;
 use Interop\Container\ContainerInterface;
 use Jobs\Controller\ManageController;
 use Core\Repository\RepositoryService;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class ManageControllerFactory implements FactoryInterface
 {
@@ -37,17 +36,5 @@ class ManageControllerFactory implements FactoryInterface
         $repositoryService =    $container->get('repositories');
         $translator =    $container->get('translator');
         return new ManageController($auth, $repositoryService, $translator);
-    }
-
-    /**
-     * Injects all needed services into the ManageController
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return ManageController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), ManageController::class);
     }
 }

@@ -29,7 +29,7 @@ class MailSenderFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new MailSenderFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new MailSenderFactory());
     }
 
     public function testCreatesAMailSenderListenerWithAllDependencies()
@@ -61,7 +61,7 @@ class MailSenderFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $target = new MailSenderFactory();
-        $listener = $target->createService($services);
+        $listener = $target->__invoke($services,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Listener\MailSender', $listener);
         $this->assertAttributeSame($mailService, 'mailer', $listener);

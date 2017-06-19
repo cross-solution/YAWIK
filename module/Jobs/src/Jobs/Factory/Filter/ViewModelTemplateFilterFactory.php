@@ -40,16 +40,6 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
 		$this->service = $container;
 		return $this;
 	}
-	
-	
-	/**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return $this|mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator,self::class);
-    }
 
     /**
      * @param $element

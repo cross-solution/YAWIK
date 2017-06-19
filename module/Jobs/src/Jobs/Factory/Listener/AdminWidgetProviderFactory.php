@@ -12,8 +12,7 @@ namespace Jobs\Factory\Listener;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Listener\AdminWidgetProvider;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * ${CARET}
@@ -43,18 +42,4 @@ class AdminWidgetProviderFactory implements FactoryInterface
         $listener     = new AdminWidgetProvider($jobs);
         return $listener;
     }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, AdminWidgetProvider::class);
-    }
-
-
 }
