@@ -9,8 +9,6 @@ return array(
         ),
     ),
     'modules' => array_merge($commonModules,[
-	    'DoctrineModule',
-	    'DoctrineMongoODMModule',
 	    'Install',
 	    'Core',
 	    'Auth',

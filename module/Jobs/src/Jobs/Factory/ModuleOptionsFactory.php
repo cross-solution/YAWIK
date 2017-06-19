@@ -14,8 +14,7 @@ use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Jobs\Options\ModuleOptions;
 
 /**
@@ -49,17 +48,5 @@ class ModuleOptionsFactory implements FactoryInterface
         }
 
         return new ModuleOptions($jobs_options);
-    }
-
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return ModuleOptions
-     */
-    public function createService(ServiceLocatorInterface $services)
-    {
-        return $this($services, ModuleOptions::class);
     }
 }

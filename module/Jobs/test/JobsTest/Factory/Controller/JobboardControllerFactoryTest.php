@@ -9,6 +9,7 @@
 
 namespace JobsTest\Factory\Controller;
 
+use Jobs\Controller\JobboardController;
 use Jobs\Factory\Controller\JobboardControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
@@ -35,7 +36,7 @@ class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function testCreateService()
+    public function testInvoke()
     {
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
@@ -54,11 +55,7 @@ class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($jobRepositoryMock);
 
         $sm->setService('repositories', $repositoriesMock);
-
-
-        $controllerManager = new ControllerManager($sm);
-
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->__invoke($sm,JobboardController::class);
 
         $this->assertInstanceOf('Jobs\Controller\JobboardController', $result);
     }

@@ -12,8 +12,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\MultipostingSelect;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the Multiposting select box
@@ -91,8 +90,8 @@ class MultipostingSelectFactory implements FactoryInterface
     /**
      * Creates the multiposting select box.
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), MultipostingSelect::class);
-    }
+    //public function createService(ServiceLocatorInterface $serviceLocator)
+    //{
+	//        return $this($serviceLocator->getServiceLocator(), MultipostingSelect::class);
+    //}
 }

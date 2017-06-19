@@ -9,7 +9,7 @@
 namespace Organizations\Factory\ImageFileCache;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\ImageFileCache\ApplicationListener;
 

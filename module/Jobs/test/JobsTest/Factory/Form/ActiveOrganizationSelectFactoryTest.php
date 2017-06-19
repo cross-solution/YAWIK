@@ -18,7 +18,7 @@ use Organizations\Repository\Organization;
 use Organizations\Entity\OrganizationContact;
 use Organizations\Entity\OrganizationName;
 use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Form\ActiveOrganizationSelect
@@ -51,7 +51,7 @@ class ActiveOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $container = $this->getServiceManagerMock();
         $formElements = $this->getPluginManagerMock($container);
 
-        $this->target->createService($formElements);
+        $this->target->__invoke($container,OrganizationSelect::class);
     }
 
     public function testServiceCreationWithoutPreSelectedOrganization()
@@ -81,14 +81,23 @@ class ActiveOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
                 'street' => 'TestStreet',
                 'number' => '123',
             ]);
-            $repository = $this->getMockBuilder(Organization::class)->disableOriginalConstructor()
-                ->setMethods(['find'])->getMock();
-            $repository->expects($this->once())->method('find')->with('orgId')->willReturn($org);
+            $repository = $this
+	            ->getMockBuilder(Organization::class)
+	            ->disableOriginalConstructor()
+                ->setMethods(['find'])
+                ->getMock()
+            ;
+            $repository
+	            ->expects($this->once())
+	            ->method('find')
+	            ->with('orgId')
+	            ->willReturn($org)
+            ;
             $repositories = $this->createPluginManagerMock(['Organizations' => $repository]);
             $services['repositories'] = $repositories;
         }
 
-        $container = $this->getServiceManagerMock($services);
+        $container = $this->createServiceManagerMock($services);
 
         $select = $this->target->__invoke($container, 'irrelevant');
 

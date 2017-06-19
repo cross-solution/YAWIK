@@ -17,7 +17,7 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
      * test, if configuration overwrites default values
      *
      * @dataProvider providerTestFactory
-     * @covers Jobs\Factory\ModuleOptionsFactory
+     * @covers \Jobs\Factory\ModuleOptionsFactory
      */
     public function testFactory($config)
     {
@@ -39,7 +39,7 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new ModuleOptionsFactory;
         $defaultOption = new ModuleOptions(array());
 
-        $object = $factory->createService($serviceManager);
+        $object = $factory->__invoke($serviceManager,'irrelevant');
 
         $this->assertInstanceOf('Jobs\Options\ModuleOptions', $object);
 

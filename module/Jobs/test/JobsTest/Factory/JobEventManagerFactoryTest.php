@@ -30,7 +30,7 @@ class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new JobEventManagerFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new JobEventManagerFactory());
     }
 
     public function testProvidesDefaultIdentifiers()

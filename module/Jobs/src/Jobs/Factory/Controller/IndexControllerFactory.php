@@ -14,7 +14,7 @@ use Jobs\Controller\IndexController;
 use Jobs\Form\ListFilter;
 use Jobs\Repository;
 use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class IndexControllerFactory implements FactoryInterface
@@ -43,18 +43,5 @@ class IndexControllerFactory implements FactoryInterface
         $jobRepository = $container->get('repositories')->get('Jobs/Job');
 
         return new IndexController($jobRepository, $searchForm);
-    }
-
-
-    /**
-     * Injects all needed services into the IndexController
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return IndexController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), IndexController::class);
     }
 }

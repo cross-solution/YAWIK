@@ -9,6 +9,7 @@
 
 namespace JobsTest\Factory\Controller;
 
+use Jobs\Controller\ApprovalController;
 use Jobs\Factory\Controller\ApprovalControllerFactory;
 use Jobs\Form\OrganizationSelect;
 use Test\Bootstrap;
@@ -38,7 +39,7 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function testCreateService()
+    public function testInvoke()
     {
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
@@ -67,7 +68,7 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $controllerManager = new ControllerManager($sm);
 
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->__invoke($sm,ApprovalController::class);
 
         $this->assertInstanceOf('Jobs\Controller\ApprovalController', $result);
     }

@@ -57,23 +57,6 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * attaches further Listeners for generating / processing the output
-     *
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-
-        return $this;
-    }
-
-    /**
      * List job postings
      *
      * @return ViewModel
@@ -134,7 +117,7 @@ class IndexController extends AbstractActionController
         /* @var $request \Zend\Http\Request */
         $request     = $this->getRequest();
         $params      = $request->getQuery();
-        $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
+        $isRecruiter = $this->Acl()->isRole(User::ROLE_RECRUITER);
 
         if ($isRecruiter) {
             $params->set('by', 'me');

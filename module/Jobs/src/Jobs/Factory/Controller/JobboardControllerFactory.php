@@ -13,7 +13,7 @@ use Interop\Container\ContainerInterface;
 use Jobs\Controller\JobboardController;
 use Jobs\Repository;
 use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class JobboardControllerFactory implements FactoryInterface
@@ -47,8 +47,8 @@ class JobboardControllerFactory implements FactoryInterface
      *
      * @return JobboardController
      */
-    public function createService(ServiceLocatorInterface $services)
+    /*public function createService(ServiceLocatorInterface $services)
     {
         return $this($services->getServiceLocator(), JobboardController::class);
-    }
+    }*/
 }

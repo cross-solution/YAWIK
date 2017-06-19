@@ -12,8 +12,7 @@ namespace Jobs\Factory\Listener;
 
 use Jobs\Listener\LoadActiveOrganizations;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface; 
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Jobs\Listener\LoadActiveOrganizations
@@ -32,10 +31,5 @@ class LoadActiveOrganizationsFactory implements FactoryInterface
 
         return $listener;
 
-    }
-    
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, LoadActiveOrganizations::class);
     }
 }

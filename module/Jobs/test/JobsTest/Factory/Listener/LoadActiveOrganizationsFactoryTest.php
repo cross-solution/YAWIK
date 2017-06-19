@@ -15,7 +15,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\Listener\LoadActiveOrganizationsFactory;
 use Jobs\Listener\LoadActiveOrganizations;
 use Zend\Paginator\Paginator;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Listener\LoadActiveOrganizationsFactory
@@ -42,13 +42,7 @@ class LoadActiveOrganizationsFactoryTest extends \PHPUnit_Framework_TestCase
     ];
 
     private $inheritance = [ FactoryInterface::class ];
-
-    public function testCreateService()
-    {
-        $container = $this->getServiceManagerMock();
-
-        $this->target->createService($container);
-    }
+	
 
     public function testServiceCreation()
     {
@@ -56,7 +50,7 @@ class LoadActiveOrganizationsFactoryTest extends \PHPUnit_Framework_TestCase
         $paginators = $this->getPluginManagerMock([
                 'Jobs\Paginator\ActiveOrganizations' => $paginator,
             ]);
-        $container = $this->getServiceManagerMock(['Core/PaginatorService' => $paginators]);
+        $container = $this->createServiceManagerMock(['Core/PaginatorService' => $paginators]);
 
         $listener = $this->target->__invoke($container, 'irrelevant');
 

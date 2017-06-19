@@ -14,7 +14,7 @@ use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -41,17 +41,5 @@ class ActiveOrganizationsPaginatorFactory implements FactoryInterface
         $service        = new Paginator($adapter);
 
         return $service;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface|AbstractPluginManager $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), 'Jobs\Paginator\ActiveOrganizations');
     }
 }

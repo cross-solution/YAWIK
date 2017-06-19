@@ -40,12 +40,12 @@ class OrganizationNameHydratorSLFactoryTest extends \PHPUnit_Framework_TestCase
                 'Organizations/Organization' => $organizationRepositoryMock,
             ]);
 
-        $container = $this->getServiceManagerMock([
+        $container = $this->createServiceManagerMock([
                 'repositories' => $repositories,
             ]);
 
 
-        $result = $this->testedObj->createService($container, 'irrelevant');
+        $result = $this->testedObj->__invoke($container, 'irrelevant');
         $this->assertInstanceOf('Core\Entity\Hydrator\MappingEntityHydrator', $result);
         $this->assertInstanceOf(OrganizationNameStrategy::class, $result->getStrategy('companyId'));
         $this->assertInstanceOf(JobManagerStrategy::class, $result->getStrategy('managers'));

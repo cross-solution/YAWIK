@@ -12,8 +12,7 @@ namespace Jobs\Factory\Listener;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Listener\DeleteJob;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Jobs\Listener\DeleteJob
@@ -33,17 +32,5 @@ class DeleteJobFactory implements FactoryInterface
         $listener = new DeleteJob($repository, $user, $acl);
 
         return $listener;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, DeleteJob::class);
     }
 }

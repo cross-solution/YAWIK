@@ -17,7 +17,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory;
 use Jobs\Repository\Job;
 use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory
@@ -43,17 +43,7 @@ class ActiveOrganizationsPaginatorFactoryTest extends \PHPUnit_Framework_TestCas
     ];
 
     private $inheritance = [ FactoryInterface::class ];
-
-
-    public function testCreateService()
-    {
-        $container = $this->getServiceManagerMock();
-        $paginators = $this->getPluginManagerMock($container);
-
-        $this->target->createService($paginators);
-    }
-
-
+	
     public function testServiceCreation()
     {
         $request = new Request();

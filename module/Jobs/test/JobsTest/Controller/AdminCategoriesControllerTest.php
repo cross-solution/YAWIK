@@ -52,7 +52,8 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
                 [$this->isInstanceOf(Category::class), 'employmentTypes'],
                 [$this->isInstanceOf(Category::class), 'industries']
             );
-
+		
+        $sm = $this->getServiceManagerMock();
         if ($postRequest) {
             $subForm = $this->getMockBuilder(ManagementForm::class)->disableOriginalConstructor()
                 ->setMethods(['setData', 'isValid', 'bind', 'setRenderMode', 'getObject', 'getMessages'])
@@ -69,11 +70,11 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
                 ->setMethods(['__invoke'])->getMock();
             $helper->expects($this->once())->method('__invoke')->with($subForm);
 
-            $viewHelpers = $this->createPluginManagerMock(['summaryform' => $helper]);
+            $viewHelpers = $this->createPluginManagerMock(['summaryform' => $helper],$sm);
         } else {
-            $viewHelpers = $this->createPluginManagerMock();
+            $viewHelpers = $this->createPluginManagerMock([],$sm);
         }
-        $forms = $this->createPluginManagerMock(['Jobs/AdminCategories' => $form]);
+        $forms = $this->createPluginManagerMock(['Jobs/AdminCategories' => $form],$sm);
 
         $repository = $this->getMockBuilder(AbstractRepository::class)
             ->disableOriginalConstructor()
@@ -122,7 +123,7 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
 
 
 
-        $services = $this->getServiceManagerMock([
+        $services = $this->createServiceManagerMock([
                 'forms' => $forms,
                 'repositories' => $repositories,
                 'ViewHelperManager' => $viewHelpers,
@@ -134,8 +135,8 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
     public function testNonPostRequestWithExistantRoots()
     {
         $services = $this->getConfiguredServiceManager();
-        $this->target->setServiceLocator($services);
-
+        $this->target->initContainer($services);
+	    
         $model = $this->target->indexAction();
 
         $this->assertSame($services->get('forms')->get('Jobs/AdminCategories'), $model->getVariable('form'));
@@ -146,10 +147,8 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
     public function testNonPostRequestWithNonExistantRoots()
     {
         $services = $this->getConfiguredServiceManager(false);
-        $this->target->setServiceLocator($services);
-
+        $this->target->initContainer($services);
         $model = $this->target->indexAction();
-
         $this->assertSame($services->get('forms')->get('Jobs/AdminCategories'), $model->getVariable('form'));
         $this->assertEquals('jobs/admin/categories', $model->getTemplate());
 
@@ -158,7 +157,7 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
     public function testPostRequest()
     {
         $services = $this->getConfiguredServiceManager(true, true);
-        $this->target->setServiceLocator($services);
+        $this->target->initContainer($services);
         $this->target->getRequest()->setMethod('POST')->getQuery()->set('form', 'testFormId');
 
         $model = $this->target->indexAction();

@@ -13,7 +13,7 @@ use Interop\Container\ContainerInterface;
 use Jobs\Controller\ApprovalController;
 use Jobs\Repository;
 use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ApprovalControllerFactory implements FactoryInterface
@@ -37,18 +37,5 @@ class ApprovalControllerFactory implements FactoryInterface
         $jobRepository = $container->get('repositories')->get('Jobs/Job');
 
         return new ApprovalController($jobRepository, $searchForm);
-    }
-
-    /**
-     * Injects all needed services into the ApprovalController
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return ApprovalController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var ControllerManager $serviceLocator */
-        return $this($serviceLocator->getServiceLocator(), ApprovalController::class);
     }
 }

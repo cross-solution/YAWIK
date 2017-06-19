@@ -30,7 +30,7 @@ class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $target = new MultipostingMultiCheckboxFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $target);
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     public function testAllowsSettingAndGettingOfParentFactory()

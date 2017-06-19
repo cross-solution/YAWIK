@@ -104,21 +104,27 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
                        ->disableOriginalConstructor()
                        ->getMock();
 
+        $callback1 = [new MailSenderListenerMock(),'listen1'];
+	    $callback2 = [new MailSenderListenerMock(),'listen2'];
+	    $callback3 = [new MailSenderListenerMock(),'listen3'];
         $events->expects($this->exactly(3))
-               ->method('attach')->withConsecutive(
+               ->method('attach')
+               ->withConsecutive(
                     array(JobEvent::EVENT_JOB_CREATED, array($this->target, 'onJobCreated')),
                     array(JobEvent::EVENT_JOB_ACCEPTED, array($this->target, 'onJobAccepted')),
                     array(JobEvent::EVENT_JOB_REJECTED, array($this->target, 'onJobRejected'))
                )
-               ->will($this->onConsecutiveCalls('listener1', 'listener2', 'listener3'));
+               ->will($this->onConsecutiveCalls($callback1,$callback2,$callback3))
+        ;
 
         $events->expects($this->exactly(3))
-               ->method('detach')->withConsecutive(
-                    array('listener1'), array('listener2'), array('listener3')
+               ->method('detach')
+               ->withConsecutive(
+                    array($callback1), array($callback2), array($callback3)
                )->willReturn(true);
 
         $this->target->attach($events);
-        $this->assertAttributeEquals(array('listener1', 'listener2', 'listener3'), 'listeners', $this->target);
+        $this->assertAttributeEquals(array($callback1, $callback2, $callback3), 'listeners', $this->target);
 
         $this->target->detach($events);
         $this->assertAttributeEquals(array(), 'listeners', $this->target);
@@ -185,4 +191,11 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
+}
+
+class MailSenderListenerMock
+{
+	public function listen1(){}
+	public function listen2(){}
+	public function listen3(){}
 }
