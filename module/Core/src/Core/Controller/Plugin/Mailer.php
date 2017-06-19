@@ -2,6 +2,7 @@
 
 namespace Core\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mail\Message;
 use Zend\Mvc\Controller\PluginManager as ControllerManager;
@@ -98,13 +99,14 @@ class Mailer extends AbstractPlugin
 
         return $sendMail ? $this->send($mail) : $mail;
     }
-    
-    /**
-     * @param ControllerManager $controllerManager
-     * @return Mailer
-     */
-    public static function factory(ControllerManager $controllerManager)
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return Mailer
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($controllerManager->getServiceLocator());
+        return new static($container);
     }
 }

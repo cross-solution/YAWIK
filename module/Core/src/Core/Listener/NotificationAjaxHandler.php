@@ -24,7 +24,7 @@ class NotificationAjaxHandler
     {
         $viewModel = $event->getViewModel();
         $this->viewModel = $viewModel;
-        if ($event->getApplication()->getServiceManager()->has('viewHelperManager')) {
+        if ($event->getApplication()->getServiceManager()->has('ViewHelperManager')) {
             $this->viewHelperManager = $event->getApplication()->getServiceManager()->get('ViewHelperManager');
         }
     }

@@ -106,7 +106,7 @@ return [
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
             'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter::factory',
-            'OAuth' => [Auth\Controller\Plugin\OAuth::class,'factory'],
+            'OAuth' => [\Auth\Controller\Plugin\OAuth::class,'factory'],
             'Auth' => [Auth::class,'factory'],
             'Auth/User/Switcher' => 'Auth\Factory\Controller\Plugin\UserSwitcherFactory',
         ],
@@ -334,7 +334,7 @@ return [
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
             'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
             'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
-            'user-password' => 'Auth\Form\UserPassword::factory',
+            'user-password' => [\Auth\Form\UserPassword::class,'factory'],
         ]
     ],
 

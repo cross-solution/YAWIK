@@ -53,17 +53,17 @@ class TokenListenerTest extends \PHPUnit_Framework_TestCase
         $events->expects($this->once())
                ->method('attach')
                ->with($expId, $expEvent, $expCallback, $expPriority)
-               ->willReturn($callback);
+               ->willReturn($expCallback);
 
         $events->expects($this->once())
                ->method('detach')
-               ->with($expId, $callback)
+               ->with($expCallback,'Zend\Mvc\Application')
                ->willReturn(true);
 
 
         $target->attachShared($events);
 
-        $this->assertAttributeEquals($callback, 'listener', $target);
+        $this->assertAttributeEquals($expCallback, 'listener', $target);
 
         $target->detachShared($events);
 

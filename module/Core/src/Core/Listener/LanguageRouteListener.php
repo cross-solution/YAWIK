@@ -87,7 +87,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
         } else {
             $e->setError(Application::ERROR_ROUTER_NO_MATCH);
             $e->setTarget($this);
-            $result = $e->getApplication()->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
+            $eventManager = $e->getApplication()->getEventManager();
+            $eventManager->setEventPrototype($e);
+            $result = $eventManager->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
             
             return $result->last();
         }

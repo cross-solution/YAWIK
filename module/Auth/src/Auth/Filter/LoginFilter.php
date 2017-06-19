@@ -22,7 +22,7 @@ class LoginFilter implements FilterInterface, EventManagerAwareInterface
 
     public function setEventManager(EventManagerInterface $eventManager)
     {
-        $eventManager->setIdentifiers('Auth');
+        $eventManager->setIdentifiers(['Auth']);
         $this->eventManager = $eventManager;
         return $this;
     }

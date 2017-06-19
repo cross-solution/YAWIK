@@ -186,7 +186,6 @@ return array(
     // Setup the service manager
     'service_manager' => array(
         'invokables' => array(
-            'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
             'Core/EventManager'          => 'Core\EventManager\EventManager',
         ),
@@ -213,6 +212,7 @@ return array(
             \Core\Listener\AjaxRouteListener::class => \Core\Factory\Listener\AjaxRouteListenerFactory::class,
             \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
             'Imagine' => \Core\Factory\Service\ImagineFactory::class,
+            'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
@@ -290,7 +290,7 @@ return array(
             'Core/SearchForm' => 'Core\Factory\Controller\Plugin\SearchFormFactory',
             'listquery' => 'Core\Controller\Plugin\ListQuery::factory',
             'mail' => 'Core\Controller\Plugin\Mail::factory',
-            'Core/Mailer' => 'Core\Controller\Plugin\Mailer::factory',
+            'Core/Mailer' => ['Core\Controller\Plugin\Mailer','factory'],
             'Core/CreatePaginator' => [\Core\Controller\Plugin\CreatePaginator::class,'factory'],
             'Core/PaginatorService' => [\Core\Controller\Plugin\CreatePaginatorService::class,'factory'],
         ),
@@ -303,11 +303,13 @@ return array(
         'aliases' => array(
             'filesender'       => 'Core/FileSender',
             'mailer'           => 'Core/Mailer',
+            'Mailer'           => 'Core/Mailer',
             'pagination'       => 'Core/PaginationBuilder',
             'paginator'        => 'Core/CreatePaginator',
             'paginatorservice' => 'Core/PaginatorService',
             'paginationParams' => 'Core/PaginationParams',
             'searchform'       => 'Core/SearchForm',
+	        'notification'     => 'Notification',
         )
     ),
     // Configure the view service manager
@@ -362,8 +364,8 @@ return array(
             'filterForm' => 'Core\Form\View\Helper\FilterForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
-            'formrow' => 'Core\Form\View\Helper\FormRow',
-            'formrowsimple' => 'Core\Form\View\Helper\FormSimpleRow',
+            'formRow' => 'Core\Form\View\Helper\FormRow',
+            'formRowSimple' => 'Core\Form\View\Helper\FormSimpleRow',
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
             'formfileupload' => 'Core\Form\View\Helper\FormFileUpload',
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',

@@ -55,6 +55,6 @@ class GotoResetPasswordControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), GotoResetPasswordController::class);
+        return $this($serviceLocator, GotoResetPasswordController::class);
     }
 }

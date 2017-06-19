@@ -42,7 +42,7 @@ class RegisterControllerFactory implements FactoryInterface
          * @var $logger  LoggerInterface
          * @var $options  ModuleOptions
          */
-        $formElementManager = $container->get('formElementManager');
+        $formElementManager = $container->get('FormElementManager');
         $form = $formElementManager->get('Auth\Form\Register');
 
         $service = $container->get('Auth\Service\Register');
@@ -62,6 +62,6 @@ class RegisterControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), RegisterController::class);
+        return $this($serviceLocator, RegisterController::class);
     }
 }

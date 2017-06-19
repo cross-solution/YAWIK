@@ -11,8 +11,7 @@ namespace Auth\Factory\Form;
 use Auth\Form\Register;
 use Auth\Form\RegisterInputFilter;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Auth\Options\CaptchaOptions;
 
 class RegisterFactory implements FactoryInterface
@@ -43,16 +42,5 @@ class RegisterFactory implements FactoryInterface
         $form->setInputfilter($filter);
 
         return $form;
-    }
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return Register
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), Register::class);
     }
 }

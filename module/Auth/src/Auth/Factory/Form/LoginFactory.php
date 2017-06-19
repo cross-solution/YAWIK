@@ -48,6 +48,6 @@ class LoginFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), Login::class);
+        return $this($serviceLocator, Login::class);
     }
 }

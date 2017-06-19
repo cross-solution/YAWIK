@@ -40,9 +40,9 @@ class AssertionManager extends AbstractPluginManager
      * implementing {@link EventManagerAwareInterface}.
      *
      */
-    public function __construct(ContainerInterface $container, ConfigInterface $configuration = null)
+    public function __construct(ContainerInterface $container, array $configuration = [])
     {
-        parent::__construct($configuration);
+        parent::__construct($container,$configuration);
         $this->container = $container;
 
         // Pushing to bottom of stack to ensure this is done last
@@ -54,9 +54,9 @@ class AssertionManager extends AbstractPluginManager
      *
      *
      * @param AssertionInterface      $assertion
-     * @param AssertionManager $serviceLocator
+     * @param ServiceLocatorInterface $serviceLocator
      */
-    public function injectEventManager($serviceLocator, $assertion)
+    public function injectEventManager($assertion, $serviceLocator)
     {
     	//@TODO: [ZF3] check if ACL working properly
         /* @var $serviceLocator AssertionManager */
@@ -85,7 +85,7 @@ class AssertionManager extends AbstractPluginManager
      * @param mixed $plugin
      * @throws \RuntimeException if invalid
      */
-    public function validatePlugin($plugin)
+    public function validate($plugin)
     {
         if (!$plugin instanceof AssertionInterface) {
             throw new \RuntimeException('Expected plugin to be of type Assertion.');

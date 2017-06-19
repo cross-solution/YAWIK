@@ -10,6 +10,7 @@
 /** */
 namespace Core\Factory\Paginator;
 
+use Core\Paginator\PaginatorService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 //use Zend\ServiceManager\MutableCreationOptionsInterface;
@@ -74,8 +75,9 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
         /**
          * @var $repositories \Core\Repository\RepositoryService
          * @var $filter       \Zend\Filter\FilterInterface
+         * @var $container PaginatorService
          */
-        $services     = $container->getServiceLocator();
+        $services     = $container->getContainer();
         $repositories = $services->get('repositories');
         $queryBuilder = $repositories->createQueryBuilder();
 

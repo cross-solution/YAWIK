@@ -56,6 +56,6 @@ class ForgotPasswordControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), ForgotPasswordController::class);
+        return $this($serviceLocator, ForgotPasswordController::class);
     }
 }

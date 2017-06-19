@@ -39,10 +39,10 @@ class ForgotPasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $sm->setService('Auth\Service\ForgotPassword', $forgotPasswordMock);
         $sm->setService('Core/Log', $loggerMock);
-
         $controllerManager = new ControllerManager($sm);
+	    $sm->setService('ControllerManager',$controllerManager);
 
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->createService($sm);
 
         $this->assertInstanceOf('Auth\Controller\ForgotPasswordController', $result);
     }

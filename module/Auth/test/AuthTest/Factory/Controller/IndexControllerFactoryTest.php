@@ -10,8 +10,10 @@
 namespace AuthTest\Factory\Controller;
 
 use Auth\Factory\Controller\IndexControllerFactory;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
+use Zend\Mvc\MvcEvent;
 
 class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,15 +41,21 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
             ->getMock();
-
+        
+        $dmMock = $this
+            ->getMockBuilder(DocumentManager::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+	    
         $sm->setService('AuthenticationService', $authenticationServiceMock);
         $sm->setService('Core/Log', $loggerMock);
         $sm->setService('Auth\Form\Login', $formMock);
 
 
         $controllerManager = new ControllerManager($sm);
-
-        $result = $this->testedObj->createService($controllerManager);
+		$sm->setService('ControllerManager',$controllerManager);
+        $result = $this->testedObj->createService($sm);
 
         $this->assertInstanceOf('Auth\Controller\IndexController', $result);
     }

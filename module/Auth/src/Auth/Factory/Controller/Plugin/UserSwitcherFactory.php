@@ -53,6 +53,6 @@ class UserSwitcherFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), 'Auth/User/Switcher');
+        return $this($serviceLocator, 'Auth/User/Switcher');
     }
 }

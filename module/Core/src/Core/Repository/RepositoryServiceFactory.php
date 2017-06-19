@@ -20,11 +20,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class RepositoryServiceFactory implements FactoryInterface
 {
-    
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-    
-    }
 	
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null ) {
 		$dm      = $container->get('Core/DocumentManager');

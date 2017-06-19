@@ -41,8 +41,9 @@ class GotoResetPasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $sm->setService('Core/Log', $loggerMock);
 
         $controllerManager = new ControllerManager($sm);
+        $sm->setService('ControllerManager',$controllerManager);
 
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->createService($sm);
 
         $this->assertInstanceOf('Auth\Controller\GotoResetPasswordController', $result);
     }

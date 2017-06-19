@@ -34,7 +34,10 @@ class PaginatorService extends AbstractPluginManager
 	 */
     protected $container;
     
-    public function __construct(ContainerInterface $container, ConfigInterface $configuration = null)
+    public function __construct(
+    	ContainerInterface $container,
+	    ConfigInterface $configuration = null
+    )
     {
         parent::__construct($configuration);
         $this->container = $container;
@@ -43,7 +46,7 @@ class PaginatorService extends AbstractPluginManager
 	/**
 	 * @return ContainerInterface
 	 */
-	public function getContainer()
+	public function getRepositories()
 	{
 		return $this->container;
 	}

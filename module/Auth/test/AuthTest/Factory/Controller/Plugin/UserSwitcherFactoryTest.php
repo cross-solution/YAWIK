@@ -15,7 +15,7 @@ use Auth\AuthenticationService;
 use Auth\Factory\Controller\Plugin\UserSwitcherFactory;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Auth\Factory\Controller\Plugin\USerSwitcherFactory
@@ -49,16 +49,21 @@ class UserSwitcherFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->getServiceManagerMock();
         $plugins   = $this->getPluginManagerMock($container);
-        $this->target->expects($this->once())->method('__invoke')->with($container, 'Auth/User/Switcher');
+        $this->target
+	        ->expects($this->once())
+	        ->method('__invoke')
+	        ->with($container, 'Auth/User/Switcher')
+        ;
 
-        $this->target->createService($plugins);
+        $this->target->createService($container);
     }
 
     public function testInvokationCreatesPluginInstance()
     {
         $auth = $this->getMockBuilder(AuthenticationService::class)->disableOriginalConstructor()->getMock();
         $acl = $this->getMockBuilder(Acl::class)->disableOriginalConstructor()->getMock();
-        $controllerPlugins = $this->getPluginManagerMock(['Acl' => ['service' => $acl, 'count_get' => 1]]);
+        $sm = $this->createServiceManagerMock();
+        $controllerPlugins = $this->getPluginManagerMock(['Acl' => ['service' => $acl, 'count_get' => 1]],$sm);
         $container = $this->getServiceManagerMock([
                 'AuthenticationService' => ['service' => $auth, 'count_get' => 1],
                 'ControllerPluginManager' => ['service' => $controllerPlugins, 'count_get' => 1]

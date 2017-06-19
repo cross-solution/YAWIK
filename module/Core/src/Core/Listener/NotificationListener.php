@@ -10,6 +10,7 @@
 
 namespace Core\Listener;
 
+use Interop\Container\ContainerInterface;
 use Zend\EventManager\SharedEventManagerInterface;
 use Core\Listener\Events\NotificationEvent;
 use Zend\Mvc\MvcEvent;
@@ -33,8 +34,8 @@ class NotificationListener extends EventManager
      * @var bool
      */
     protected $hasRunned = true;
-
-    /**
+	
+	/**
      * @param SharedEventManagerInterface $events
      *
      * @return $this
@@ -120,10 +121,23 @@ class NotificationListener extends EventManager
         if (!$this->hasRunned) {
             $nEvent = new NotificationEvent();
             $nEvent->setNotifications($this->notifications);
-            $this->trigger(NotificationEvent::EVENT_NOTIFICATION_HTML, $nEvent);
+            $this->trigger(NotificationEvent::EVENT_NOTIFICATION_HTML, $this);
             $this->notifications = array();
             $this->hasRunned = true;
         }
         return $this;
+    }
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return NotificationListener
+	 */
+    static public function factory(ContainerInterface $container)
+    {
+	    $evtManager = $container->get(\Zend\EventManager\SharedEventManager::class);
+	    $instance = new \Core\Listener\NotificationListener($evtManager);
+	    $instance->setEventPrototype(new \Core\Listener\Events\NotificationEvent());
+	    return $instance;
     }
 }

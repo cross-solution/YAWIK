@@ -43,9 +43,7 @@ class RegisterControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $sm->setService('Core/Log', $loggerMock);
         $sm->setService('Auth/ModuleOptions', $options);
 
-        $controllerManager = new ControllerManager($sm);
-
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->createService($sm);
 
         $this->assertInstanceOf('Auth\Controller\RegisterController', $result);
     }

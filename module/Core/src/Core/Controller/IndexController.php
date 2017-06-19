@@ -12,6 +12,7 @@ namespace Core\Controller;
 
 use Core\Listener\DefaultListener;
 use Interop\Container\ContainerInterface;
+use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
@@ -30,10 +31,16 @@ class IndexController extends AbstractActionController
 	
 	private $config;
 	
-	public function __construct($defaultListener,$config)
+	/**
+	 * @var ModuleManager
+	 */
+	private $moduleManager;
+	
+	public function __construct($defaultListener,$config,$moduleManager)
 	{
 		$this->defaultListener = $defaultListener;
 		$this->config = $config;
+		$this->moduleManager = $moduleManager;
 	}
     /**
      * attaches further Listeners for generating / processing the output
@@ -55,17 +62,14 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $auth = $this->Auth();
-        $services = $this->serviceLocator;
+	    $config = $this->config;
         if (!$auth->isLoggedIn()) {
-            $config = $this->config;
+            
             if (array_key_exists('startpage', $config['view_manager']['template_map'])) {
                 $this->layout()->setTerminal(true)->setTemplate('startpage');
             }
             return;
         }
-
-        $services = $this->serviceLocator;
-        $config   = $services->get('Config');
 
         $dashboardConfig = array(
             'controller' => 'Core\Controller\Index',
@@ -94,7 +98,7 @@ class IndexController extends AbstractActionController
         $model->setTemplate('core/index/dashboard');
         
         $widgets = array();
-        $modules = $this->serviceLocator->get('ModuleManager')->getLoadedModules();
+        $modules = $this->moduleManager->getLoadedModules();
         $widgets = array();
         foreach ($this->config('dashboard', array_keys($modules)) as $module => $cfg) {
             if (!isset($cfg['enabled']) || true !== $cfg['enabled']) {
@@ -150,6 +154,6 @@ class IndexController extends AbstractActionController
     {
 	    $defaultListener = $container->get('DefaultListeners');
 	    $config = $container->get('config');
-	    return new static($defaultListener,$config);
+	    return new static($defaultListener,$config,$container->get('ModuleManager'));
     }
 }

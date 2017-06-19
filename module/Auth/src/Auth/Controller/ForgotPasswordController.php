@@ -26,6 +26,11 @@ class ForgotPasswordController extends AbstractCoreController
      * @var Service\ForgotPassword
      */
     private $service;
+	
+	/**
+	 * @var LoggerInterface
+	 */
+    private $logger;
 
     /**
      * @param Form\ForgotPassword    $form
