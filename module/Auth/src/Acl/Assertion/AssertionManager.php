@@ -16,7 +16,6 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -40,9 +39,10 @@ class AssertionManager extends AbstractPluginManager
      * implementing {@link EventManagerAwareInterface}.
      *
      */
+
     public function __construct(ContainerInterface $container, array $configuration = [])
     {
-        parent::__construct($container,$configuration);
+        parent::__construct($container, $configuration);
         $this->container = $container;
 
         // Pushing to bottom of stack to ensure this is done last
