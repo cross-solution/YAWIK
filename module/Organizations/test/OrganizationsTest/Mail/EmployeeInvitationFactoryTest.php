@@ -89,7 +89,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @testdox Creates a proper configured HTMLTemplate Mail.
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         
         $user = new User();
@@ -154,20 +154,23 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
                         ['Core/MailService']
                  )->will($this->onConsecutiveCalls($authService, $router, $mailService));
 
-
-        $mailService->expects($this->once())->method('getServiceLocator')->willReturn($services);
-
         $mailMock = new HTMLTemplateMessage(new \Zend\ServiceManager\ServiceManager());
         $translator = $this->getMockBuilder('\Zend\I18n\Translator\Translator')->disableOriginalConstructor()->getMock();
-        $translator->expects($this->any())->method('translate')->will($this->returnArgument(0));
+        $translator
+	        ->expects($this->any())
+	        ->method('translate')
+	        ->will($this->returnArgument(0));
         $mailMock->setTranslator($translator);
-        $mailService->expects($this->once())->method('get')->with('htmltemplate')
-                    ->willReturn($mailMock);
+        $mailService
+	        ->expects($this->once())
+	        ->method('get')
+	        ->with('htmltemplate')
+	        ->willReturn($mailMock);
 
 
         $target = new EmployeeInvitationFactory();
         $target->setCreationOptions($options);
-        $mail = $target->createService($mailService);
+        $mail = $target->__invoke($services,'irrelevant');
 
 
         $vars = $mail->getVariables()->getArrayCopy();

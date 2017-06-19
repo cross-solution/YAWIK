@@ -25,29 +25,30 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->testedObj = new IndexControllerFactory();
     }
 
-    public function testCreateService()
+    public function testInvokation()
     {
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
 
-        $organizationRepositoryMock = $this->getMockBuilder('Organizations\Repository\Organization')
+        $organizationRepositoryMock = $this
+	        ->getMockBuilder('Organizations\Repository\Organization')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
+        $repositoriesMock = $this
+	        ->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $repositoriesMock->expects($this->once())
+        $repositoriesMock
+	        ->expects($this->once())
             ->method('get')
             ->with('Organizations/Organization')
             ->willReturn($organizationRepositoryMock);
 
         $sm->setService('repositories', $repositoriesMock);
 
-        $controllerManager = new ControllerManager($sm);
-
-        $result = $this->testedObj->createService($controllerManager);
+        $result = $this->testedObj->__invoke($sm,'irrelevant');
 
         $this->assertInstanceOf('Organizations\Controller\IndexController', $result);
     }

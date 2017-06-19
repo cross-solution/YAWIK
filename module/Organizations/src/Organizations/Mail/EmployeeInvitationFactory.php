@@ -11,11 +11,9 @@
 namespace Organizations\Mail;
 
 use Auth\Entity\UserInterface;
-use Core\Mail\HTMLTemplateMessage;
 use Interop\Container\ContainerInterface;
 use Organizations\ImageFileCache\ODMListener;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * This Factory creates and configures the HTMLTemplateMail send to an invited person.
@@ -124,18 +122,5 @@ class EmployeeInvitationFactory implements FactoryInterface
         }
 
         $this->options = $options;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Core\Mail\MailService */
-        return $this($serviceLocator->getServiceLocator(), HTMLTemplateMessage::class);
     }
 }

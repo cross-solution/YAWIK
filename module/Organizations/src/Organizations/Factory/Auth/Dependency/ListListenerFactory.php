@@ -10,8 +10,7 @@
 namespace Organizations\Factory\Auth\Dependency;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Organizations\Auth\Dependency\ListListener;
 
 class ListListenerFactory implements FactoryInterface
@@ -28,13 +27,5 @@ class ListListenerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         return new ListListener($container->get('repositories')->get('Organizations'));
-    }
-
-    /**
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, ListListener::class);
     }
 }

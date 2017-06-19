@@ -13,7 +13,6 @@ namespace Organizations\Factory\Controller\Plugin;
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\Plugin\InvitationHandler;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for an InvitationHandler.
@@ -45,17 +44,5 @@ class InvitationHandlerFactory implements FactoryInterface
             ->setUserTokenGenerator($generator);
 
         return $plugin;
-    }
-
-    /**
-     * Creates an InvitationHandler
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return InvitationHandler
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->get('ServiceManager'),InvitationHandler::class);
     }
 }

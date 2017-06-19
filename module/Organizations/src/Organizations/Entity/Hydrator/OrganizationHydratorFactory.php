@@ -11,11 +11,7 @@
 namespace Organizations\Entity\Hydrator;
 
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Entity\Hydrator\Strategy\HttploadStrategy;
 use Organizations\Entity\Hydrator\Strategy\OrganizationNameStrategy;
 
@@ -35,9 +31,4 @@ class OrganizationHydratorFactory implements FactoryInterface
 		$object->addStrategy('organizationName', $organizationName);
 		return $object;
 	}
-	
-	public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-    	return $this($serviceLocator,OrganizationHydrator::class);
-    }
 }

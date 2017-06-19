@@ -11,7 +11,7 @@
 namespace Organizations\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Core\Repository\RepositoryService;
 use Organizations\Controller\Plugin\GetOrganizationHandler;
 
@@ -37,11 +37,5 @@ class GetOrganizationHandlerFactory implements FactoryInterface {
 
         $plugin = new GetOrganizationHandler($repositories, $auth, $acl);
         return $plugin;
-    }
-
-    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        return $this($serviceLocator->getServiceLocator(), GetOrganizationHandler::class);
     }
 }

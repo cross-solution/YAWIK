@@ -23,7 +23,7 @@ class ManagerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::createService
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
@@ -34,7 +34,7 @@ class ManagerFactoryTest extends \PHPUnit_Framework_TestCase
             ]));
         
         $factory = new ManagerFactory();
-        $listener = $factory->createService($serviceLocator);
+        $listener = $factory->__invoke($serviceLocator,'irrelevant');
         $this->assertInstanceOf(Manager::class, $listener);
     }
 }

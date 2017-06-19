@@ -31,7 +31,7 @@ class EmployeeFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $target = new EmployeeFieldsetFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $target);
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -39,7 +39,7 @@ class EmployeeFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
      *
      * Are all dependencies configured properly and injected?
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $target = new EmployeeFieldsetFactory();
 
@@ -52,12 +52,8 @@ class EmployeeFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->once())
                  ->method('get')->with('repositories')->willReturn($repos);
-
-        $formElements = $this->getMockBuilder('\Zend\Form\FormElementManager')->disableOriginalConstructor()->getMock();
-        $formElements->expects($this->once())
-                     ->method('getServiceLocator')->willReturn($services);
-
-        $fieldset = $target->createService($formElements);
+	    
+        $fieldset = $target->__invoke($services,'irrelevant');
 
         $this->assertInstanceOf('\Organizations\Form\EmployeeFieldset', $fieldset);
 

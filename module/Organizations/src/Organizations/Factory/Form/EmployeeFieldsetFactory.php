@@ -12,8 +12,7 @@ namespace Organizations\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Entity\EmployeePermissions;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Hydrator\Strategy\ClosureStrategy;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 use Organizations\Form\EmployeeFieldset;
@@ -100,18 +99,5 @@ class EmployeeFieldsetFactory implements FactoryInterface
         $fieldset->setObject(new \Organizations\Entity\Employee());
 
         return  $fieldset;
-    }
-
-    /**
-     * Create the fieldset.
-     *
-     * {@inheritDoc}
-     *
-     * @return EmployeeFieldset
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
-        return $this($serviceLocator->getServiceLocator(), EmployeeFieldset::class);
     }
 }
