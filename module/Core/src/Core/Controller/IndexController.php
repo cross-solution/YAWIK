@@ -55,7 +55,6 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $auth = $this->Auth();
-        $services = $this->serviceLocator;
         if (!$auth->isLoggedIn()) {
             $config = $this->config;
             if (array_key_exists('startpage', $config['view_manager']['template_map'])) {

@@ -16,7 +16,6 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -40,9 +39,9 @@ class AssertionManager extends AbstractPluginManager
      * implementing {@link EventManagerAwareInterface}.
      *
      */
-    public function __construct(ContainerInterface $container, ConfigInterface $configuration = null)
+    public function __construct(ContainerInterface $container, $configuration = null)
     {
-        parent::__construct($configuration);
+        parent::__construct($container, $configuration);
         $this->container = $container;
 
         // Pushing to bottom of stack to ensure this is done last
@@ -85,7 +84,7 @@ class AssertionManager extends AbstractPluginManager
      * @param mixed $plugin
      * @throws \RuntimeException if invalid
      */
-    public function validatePlugin($plugin)
+    public function validate($plugin)
     {
         if (!$plugin instanceof AssertionInterface) {
             throw new \RuntimeException('Expected plugin to be of type Assertion.');

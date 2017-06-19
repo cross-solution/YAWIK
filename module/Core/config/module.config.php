@@ -177,9 +177,12 @@ return array(
             ],
         ),
         'assertions' => array(
-            'invokables' => array(
-                'Core/FileAccess' => \Core\Acl\FileAccessAssertion::class,
+            'factories' => array(
+                \Core\Acl\FileAccessAssertion::class => \Zend\ServiceManager\Factory\InvokableFactory::class
             ),
+            'aliases' =>  [
+                'Core/FileAccess' => \Core\Acl\FileAccessAssertion::class,
+            ],
         ),
     ),
     
