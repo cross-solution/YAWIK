@@ -89,7 +89,7 @@ class ViewControllerTest extends \PHPUnit_Framework_TestCase
 
         $params->expects($this->once())->method('__invoke')->with('id')->willReturn(1234);
 
-        $plugins = new PluginManager();
+        $plugins = new PluginManager($this->getServiceManagerMock());
         $plugins->setService('params', $params);
         $target->setPluginManager($plugins);
 

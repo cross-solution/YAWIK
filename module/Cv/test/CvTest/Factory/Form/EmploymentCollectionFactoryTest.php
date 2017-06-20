@@ -14,8 +14,7 @@ use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Employment;
 use Cv\Factory\Form\EmploymentCollectionFactory;
-use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -23,6 +22,8 @@ use Zend\ServiceManager\ServiceManager;
  * 
  * @covers \Cv\Factory\Form\EmploymentCollectionFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @group Cv
  * @group Cv.Factory
  * @group Cv.Factory.Form
@@ -35,11 +36,10 @@ class EmploymentCollectionFactoryTest extends \PHPUnit_Framework_TestCase
 
     private $inheritance = [ FactoryInterface::class ];
 
-    public function testCreateService()
+    public function testInvokation()
     {
-        $fm=new FormElementManagerV2Polyfill();
-        $fm->setServiceLocator(new ServiceManager);
-        $container = $this->target->createService($fm);
+        $sm = new ServiceManager();
+        $container = $this->target->__invoke($sm,'irrelevant');
 
         $this->assertInstanceOf(CollectionContainer::class, $container);
         $this->assertAttributeEquals('CvEmploymentForm', 'formService', $container);

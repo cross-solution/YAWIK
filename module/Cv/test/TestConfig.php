@@ -1,21 +1,22 @@
 <?php
+$modules = array_merge(
+	include_once __DIR__.'/../../../config/common.modules.php',
+	[
+		'Install',
+		'Core',
+		'Auth',
+		'Jobs',
+		'Geo',
+		'Cv',
+		'Settings',
+		'Applications',
+		'Organizations',
+	]
+);
 return array(
     // This should be an array of module namespaces used in the application.
-    'modules' => array(
-        'DoctrineModule',
-        'DoctrineMongoODMModule',
-        'Install',
-        'Core',
-        'Auth',
-        'Jobs',
-        'Geo',
-        'Cv',
-        'Settings',
-        'Applications',
-//        'Orders',
-        'Organizations',
-    ),
-
+    'modules' => $modules,
+    
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => array(
         // This should be an array of paths in which modules reside.

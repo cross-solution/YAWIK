@@ -11,9 +11,6 @@
 namespace Cv\Repository\Filter;
 
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -35,9 +32,4 @@ class PaginationQueryFactory implements FactoryInterface
 		
 		return $filter;
 	}
-	
-	public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
-    {
-	    return $this($serviceLocator->get('ServiceManager'),PaginationQuery::class);
-    }
 }

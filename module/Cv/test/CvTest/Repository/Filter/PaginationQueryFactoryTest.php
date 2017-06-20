@@ -50,7 +50,7 @@ class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
      *
      * @param $user
      */
-    public function testCreateService($user)
+    public function testInvokation($user)
     {
         $auth = $this
             ->getMockBuilder(AuthenticationService::class)
@@ -78,7 +78,7 @@ class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
 
         $paginators = $this->createPluginManagerMock([], $services);
 
-        $filter = $this->target->createService($paginators);
+        $filter = $this->target->__invoke($services,'irrelevant');
 
         $this->assertAttributeSame($user, 'user', $filter);
     }

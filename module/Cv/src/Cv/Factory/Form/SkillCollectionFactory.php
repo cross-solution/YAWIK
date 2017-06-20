@@ -3,8 +3,7 @@
 namespace Cv\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Core\Form\CollectionContainer;
 
 class SkillCollectionFactory implements FactoryInterface
@@ -28,13 +27,5 @@ class SkillCollectionFactory implements FactoryInterface
         $container->setLabel(/*@translate */ 'Skills');
 
         return $container;
-    }
-
-    /* (non-PHPdoc)
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-    */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), "");
     }
 }
