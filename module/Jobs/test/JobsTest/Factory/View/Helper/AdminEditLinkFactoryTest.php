@@ -14,7 +14,7 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\View\Helper\AdminEditLinkFactory;
 use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Stdlib\Parameters;
 
 /**
@@ -45,17 +45,6 @@ class AdminEditLinkFactoryTest extends \PHPUnit_Framework_TestCase
 
     private $inheritance = [ FactoryInterface::class ];
 
-    public function testCreateService()
-    {
-        $services = $this->getServiceManagerMock();
-        $plugins  = $this->getPluginManagerMock($services, 1);
-
-        $this->target->expects($this->once())->method('__invoke')
-            ->with($services, 'Jobs/AdminEditLink');
-
-        $this->target->createService($plugins);
-    }
-
     public function testInvoke()
     {
         $request = new Request();
@@ -67,13 +56,16 @@ class AdminEditLinkFactoryTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['__invoke'])
             ->getMock();
 
-        $urlHelper->expects($this->once())->method('__invoke')
+        $urlHelper
+	        ->expects($this->once())
+	        ->method('__invoke')
             ->with(null, [], ['query' => $query->toArray()], true)
-            ->willReturn('returnUrl');
+            ->willReturn('returnUrl')
+        ;
 
         $helperManager = $this->getPluginManagerMock(['url' => $urlHelper]);
 
-        $services = $this->getServiceManagerMock([
+        $services = $this->createServiceManagerMock([
                 'Request' => $request,
                 'viewhelpermanager' => $helperManager
             ]);

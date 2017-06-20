@@ -12,8 +12,7 @@ namespace Jobs\Factory\Model;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Model\ApiJobDehydrator;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for ApiJobDehydrator
@@ -43,16 +42,5 @@ class ApiJobDehydratorFactory implements FactoryInterface
         $apiJobDehydrator = new ApiJobDehydrator();
         $apiJobDehydrator->setUrl($urlHelper);
         return $apiJobDehydrator;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return ApiJobDehydrator
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-;
-        return $this($serviceLocator, ApiJobDehydrator::class);
     }
 }

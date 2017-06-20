@@ -30,13 +30,13 @@ class ChannelPricesFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new ChannelPricesFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new ChannelPricesFactory());
     }
 
     /**
      * @testdox createService creates an ApplyUrl view helper and injects the required dependencies
      */
-    public function testServiceCreation()
+    public function testInvokation()
     {
         $provider=new ProviderOptions();
 
@@ -44,21 +44,17 @@ class ChannelPricesFactoryTest extends \PHPUnit_Framework_TestCase
                                    ->disableOriginalConstructor()
                                    ->getMock();
 
-        $filterPluginManagerMock = $this->getMockBuilder('\Zend\Filter\FilterPluginManager')
-                                   ->disableOriginalConstructor()
-                                   ->getMock();
 
-        $filterPluginManagerMock->expects($this->once())->method('getServiceLocator')
-                           ->willReturn($serviceManagerMock);
-
-
-        $serviceManagerMock->expects($this->once())->method('get')
-                           ->with('Jobs/Options/Provider')
-                           ->willReturn($provider);
+        $serviceManagerMock
+	        ->expects($this->once())
+	        ->method('get')
+	        ->with('Jobs/Options/Provider')
+	        ->willReturn($provider)
+        ;
         
         $target = new ChannelPricesFactory();
 
-        $service = $target->createService($filterPluginManagerMock);
+        $service = $target->__invoke($serviceManagerMock,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Filter\ChannelPrices', $service);
     }

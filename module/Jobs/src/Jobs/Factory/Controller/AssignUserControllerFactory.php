@@ -12,7 +12,7 @@ namespace Jobs\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Controller\AssignUserController;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -40,17 +40,5 @@ class AssignUserControllerFactory implements FactoryInterface
         $controller = new AssignUserController($repository);
 
         return $controller;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), AssignUserController::class);
     }
 }

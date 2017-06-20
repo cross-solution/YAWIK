@@ -12,8 +12,7 @@ namespace Jobs\Factory\Options;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Options\ChannelOptions;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class ChannelOptionsFactory implements FactoryInterface
 {
@@ -46,11 +45,5 @@ class ChannelOptionsFactory implements FactoryInterface
             $channel->setTax($core->getDefaultTaxRate());
         }
         return $channel;
-    }
-
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, ChannelOptions::class);
     }
 }

@@ -30,7 +30,7 @@ class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new JobEventManagerFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new JobEventManagerFactory());
     }
 
     public function testProvidesDefaultIdentifiers()
@@ -52,7 +52,7 @@ class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $services->expects($this->once())->method('get')->with('EventManager')->willReturn($eventManager);
 
-        $events = $target->createService($services);
+        $events = $target->__invoke($services,'irrelevant');
 
         $this->assertSame($eventManager, $events);
         $this->assertAttributeInstanceOf($expectedEventClass, 'eventPrototype', $events);

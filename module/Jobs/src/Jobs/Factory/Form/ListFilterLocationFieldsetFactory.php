@@ -12,8 +12,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\ListFilterLocationFieldset;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the ListFilterLocation (Job Title and Location)
@@ -41,13 +40,5 @@ class ListFilterLocationFieldsetFactory implements FactoryInterface
         $options = $container->get('Geo/Options');
         $fs = new ListFilterLocationFieldset(['location_engine_type' => $options->getPlugin()]);
         return $fs;
-    }
-
-    /**
-     * Creates the multiposting select box.
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), ListFilterLocationFieldset::class);
     }
 }

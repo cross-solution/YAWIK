@@ -12,8 +12,7 @@ namespace Jobs\Factory\Listener;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Listener\GetOrganizationManagers;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * ${CARET}
@@ -31,17 +30,5 @@ class GetOrganizationManagersFactory implements FactoryInterface
         $listener     = new GetOrganizationManagers($repository);
 
         return $listener;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, GetOrganizationManagers::class);
     }
 }

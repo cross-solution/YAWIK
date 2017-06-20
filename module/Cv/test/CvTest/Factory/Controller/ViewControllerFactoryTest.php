@@ -14,7 +14,7 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Controller\ViewController;
 use Cv\Factory\Controller\ViewControllerFactory;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\I18n\Translator\TranslatorInterface;
 
@@ -50,20 +50,30 @@ class ViewControllerFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateServiceProxiesToInvokeAndPassServiceManager($reqName)
     {
         $services = $this->getServiceManagerMock();
-        $plugins  = $this->getPluginManagerMock([], $services, 1);
-
-        $this->target->createService($plugins, null, $reqName);
+        $this->target->__invoke($services,$reqName);
 
         $this->assertEquals($reqName ?: ViewController::class, $this->target->reqName);
     }
 
     public function testInvokeCreatesController()
     {
-        $repository = $this->getMockBuilder('\Cv\Repository\Cv')->disableOriginalConstructor()->getMock();
-        $repositories = $this->createPluginManagerMock(['Cv/Cv' => [ 'service' => $repository, 'count_get' => 1 ]]);
-        $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+        $repository = $this
+	        ->getMockBuilder('\Cv\Repository\Cv')
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+        $repositories = $this
+	        ->createPluginManagerMock([
+	        	'Cv/Cv' => [ 'service' => $repository, 'count_get' => 1 ]
+	        ]
+	        )
+        ;
+        $translator = $this
+	        ->getMockBuilder(TranslatorInterface::class)
+	        ->getMock()
+        ;
 
-        $services = $this->getServiceManagerMock([
+        $services = $this->createServiceManagerMock([
             'repositories' => [
                 'service' => $repositories,
                 'count_get' => 1
@@ -93,6 +103,6 @@ class VCF_Mock extends ViewControllerFactory
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $this->reqName = $requestedName;
+        $this->reqName = is_null($requestedName) ? ViewController::class:$requestedName;
     }
 }

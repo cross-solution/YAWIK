@@ -30,7 +30,7 @@ class ApiJobDehydratorFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new ApiJobDehydratorFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new ApiJobDehydratorFactory());
     }
 
     /**
@@ -59,7 +59,7 @@ class ApiJobDehydratorFactoryTest extends \PHPUnit_Framework_TestCase
                            ->willReturn($helpers);
 
 
-        $service = $target->createService($serviceManagerMock);
+        $service = $target->__invoke($serviceManagerMock,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Model\ApiJobDehydrator', $service);
         $this->assertAttributeSame($urlHelper, 'url', $service);

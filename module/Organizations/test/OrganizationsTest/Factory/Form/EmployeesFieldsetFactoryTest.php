@@ -30,7 +30,7 @@ class EmployeesFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $target = new EmployeesFieldsetFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $target);
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -71,14 +71,7 @@ class EmployeesFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
                  ->with('ViewHelperManager')
                  ->willReturn($helpers);
 
-        $formElements = $this->getMockBuilder('\Zend\Form\FormElementManager')->disableOriginalConstructor()
-                                 ->getMock();
-
-        $formElements->expects($this->once())
-                     ->method('getServiceLocator')
-                     ->willReturn($services);
-
-        $fieldset = $target->createService($formElements);
+        $fieldset = $target->__invoke($services,'irrelevant');
 
         $this->assertInstanceOf('\Organizations\Form\EmployeesFieldset', $fieldset);
 

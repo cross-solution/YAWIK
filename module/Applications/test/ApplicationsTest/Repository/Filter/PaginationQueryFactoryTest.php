@@ -48,7 +48,7 @@ class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
         $services = $this->getServiceManagerMock(['AuthenticationService' => ['service' => $auth, 'count_get' => 1]]);
         $plugins  = $this->getPluginManagerMock($services, 1);
 
-        $filter   = $this->target->createService($plugins);
+        $filter   = $this->target->createService($services);
 
         $this->assertInstanceOf(PaginationQuery::class, $filter);
     }

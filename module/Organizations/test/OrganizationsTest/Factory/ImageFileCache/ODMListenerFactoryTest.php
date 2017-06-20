@@ -23,7 +23,7 @@ class ODMListenerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::createService
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
@@ -38,7 +38,7 @@ class ODMListenerFactoryTest extends \PHPUnit_Framework_TestCase
             ]));
         
         $factory = new ODMListenerFactory();
-        $listener = $factory->createService($serviceLocator);
+        $listener = $factory->__invoke($serviceLocator,'irrelevant');
         $this->assertInstanceOf(ODMListener::class, $listener);
     }
 }

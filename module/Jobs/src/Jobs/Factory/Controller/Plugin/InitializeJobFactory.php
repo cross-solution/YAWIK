@@ -11,7 +11,7 @@
 namespace Jobs\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Core\Repository\RepositoryService;
 use Jobs\Controller\Plugin\InitializeJob;
 
@@ -38,10 +38,5 @@ class InitializeJobFactory implements FactoryInterface
 
         $plugin = new InitializeJob($repositories, $auth, $acl);
         return $plugin;
-    }
-    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var \Zend\Mvc\Controller\PluginManager $serviceLocator */
-        return $this($serviceLocator->getServiceLocator(), InitializeJob::class);
     }
 }

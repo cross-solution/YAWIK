@@ -33,13 +33,13 @@ class AcceptInvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new AcceptInvitationHandlerFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new AcceptInvitationHandlerFactory());
     }
 
     /**
      * @testdox Creates a proper configured AcceptInvitationHandler plugin instance.
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $userRep = $this->getMockBuilder('\Auth\Repository\User')->disableOriginalConstructor()->getMock();
         $orgRep = $this->getMockBuilder('\Organizations\Repository\Organization')->disableOriginalConstructor()->getMock();
@@ -66,22 +66,13 @@ class AcceptInvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
                  ))
         ;
 
-        $plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')
-                        ->disableOriginalConstructor()
-                        ->getMock()
-        ;
-        $plugins->expects($this->once())
-                ->method('getServiceLocator')
-                ->willReturn($services)
-        ;
-
         $target = new AcceptInvitationHandlerFactory();
         /*
          * Test start here
          */
 
-        $plugin = $target->createService($plugins);
-
+        $plugin = $target->__invoke($services,'irrelevant');
+	    
         $this->assertInstanceOf('\Organizations\Controller\Plugin\AcceptInvitationHandler', $plugin);
         $this->assertSame($userRep, $plugin->getUserRepository());
         $this->assertSame($orgRep, $plugin->getOrganizationRepository());

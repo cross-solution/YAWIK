@@ -18,7 +18,7 @@ use Jobs\Factory\Listener\DeleteJobFactory;
 use Jobs\Listener\DeleteJob;
 use Jobs\Repository\Job;
 use Zend\Permissions\Acl\Acl;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Listener\DeleteJobFactory
@@ -45,30 +45,28 @@ class DeleteJobFactoryTest extends \PHPUnit_Framework_TestCase
 
     private $inheritance = [ FactoryInterface::class ];
 
-    public function testCreateService()
-    {
-        $container = $this->getServiceManagerMock();
-
-        $this->target->expects($this->once())->method('__invoke')->with($container, DeleteJob::class);
-
-        $this->target->createService($container);
-    }
-
     public function testInvokation()
     {
         $acl = new Acl();
         $user = new User();
-        $auth = $this->getMockBuilder(AuthenticationService::class)
-            ->disableOriginalConstructor()->setMethods(['getUser'])->getMock();
+        $auth = $this
+	        ->getMockBuilder(AuthenticationService::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getUser'])
+            ->getMock()
+        ;
 
-        $auth->expects($this->once())->method('getUser')->will($this->returnValue($user));
+        $auth->expects($this->once())
+             ->method('getUser')
+             ->will($this->returnValue($user))
+        ;
 
         $repository = $this->getMockBuilder(Job::class)->disableOriginalConstructor()->getMock();
 
         $repositories = $this->createPluginManagerMock(['Jobs' => $repository]);
 
-        $container = $this->getServiceManagerMock([
-                'acl' => $acl,
+        $container = $this->createServiceManagerMock([
+                'Acl' => $acl,
                 'AuthenticationService' => $auth,
                 'repositories' => $repositories
             ]);

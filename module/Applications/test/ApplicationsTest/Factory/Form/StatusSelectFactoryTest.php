@@ -37,7 +37,11 @@ class StatusSelectFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $target = [
         StatusSelectFactory::class,
-        '@testCreateService' => ['mock' => ['__invoke' => ['@with' => 'getInvokeMockArgs', 'count' => 1]]],
+        '@testCreateService' => [
+        	'mock' => [
+        		'__invoke' => ['@with' => 'getInvokeMockArgs','count' => 1]
+	        ]
+        ],
     ];
 
     private $inheritance = [ FactoryInterface::class ];
@@ -49,7 +53,7 @@ class StatusSelectFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-        $this->target->createService($this->getPluginManagerMock($this->getServiceManagerMock()));
+        $this->target->createService($this->getServiceManagerMock());
     }
 
     public function testServiceCreation()
@@ -59,13 +63,24 @@ class StatusSelectFactoryTest extends \PHPUnit_Framework_TestCase
             'stateTwo',
         ];
 
-        $applications = $this->getMockBuilder(ApplicationsRepository::class)->disableOriginalConstructor()
-            ->setMethods(['getStates'])->getMock();
-        $applications->expects($this->once())->method('getStates')->will($this->returnValue($states));
+        $applications = $this
+	        ->getMockBuilder(ApplicationsRepository::class)
+	        ->disableOriginalConstructor()
+            ->setMethods(['getStates'])
+            ->getMock()
+        ;
+        $applications
+	        ->expects($this->once())
+	        ->method('getStates')
+	        ->will($this->returnValue($states))
+        ;
 
-        $repositories = $this->createPluginManagerMock(['Applications' => $applications]);
+        $repositories = $this->createPluginManagerMock(
+        	['Applications' => $applications],
+	        $this->getServiceManagerMock()
+        );
 
-        $container = $this->getServiceManagerMock(['repositories' => $repositories]);
+        $container = $this->createServiceManagerMock(['repositories' => $repositories]);
 
         $select = $this->target->__invoke($container, 'irrelevant');
 

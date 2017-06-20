@@ -4,10 +4,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\CompanyNameFieldset;
-use Jobs\Form\Hydrator\OrganizationNameHydrator;
-use Zend\Form\FormElementManager;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class CompanyNameFieldsetFactory implements FactoryInterface
 {
@@ -34,18 +31,5 @@ class CompanyNameFieldsetFactory implements FactoryInterface
         $form->setHydrator($hydrator);
 
         return $form;
-    }
-
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return CompanyNameFieldset
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), CompanyNameFieldset::class);
     }
 }

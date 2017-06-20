@@ -38,7 +38,7 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @testdox Creates an InvitationHandler instance and injects the dependencies.
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $target = new InvitationHandlerFactory();
 
@@ -70,17 +70,10 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
 	                 array('Mailer',$mailer)
                  )));
 
-        $plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
-        $plugins->expects($this->once())
-                ->method('get')
-	            ->with('ServiceManager')
-                ->willReturn($services)
-        ;
-
         /*
          * test start here
          */
-        $plugin = $target->createService($plugins);
+        $plugin = $target->__invoke($services,'irrelevant');
 
         $this->assertInstanceOf('\Organizations\Controller\Plugin\InvitationHandler', $plugin);
         $this->assertSame($tokenGenerator, $plugin->getUserTokenGenerator());

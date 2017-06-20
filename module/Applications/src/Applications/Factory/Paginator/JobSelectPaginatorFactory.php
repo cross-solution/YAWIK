@@ -48,6 +48,6 @@ class JobSelectPaginatorFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), JobSelectPaginator::class);
+        return $this($serviceLocator, JobSelectPaginator::class);
     }
 }

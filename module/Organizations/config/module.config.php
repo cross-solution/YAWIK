@@ -48,10 +48,8 @@ return [
 
 
     'controllers' => [
-        'invokables' => [
-            'Organizations/InviteEmployee' => 'Organizations\Controller\InviteEmployeeController',
-        ],
         'factories' => [
+	        'Organizations/InviteEmployee' => [\Organizations\Controller\InviteEmployeeController::class,'factory'],
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
         ]
     ],

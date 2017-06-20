@@ -12,8 +12,7 @@ namespace Jobs\Factory\Listener;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Listener\MailSender;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Jobs\Listener\NewJobMailSender
@@ -50,18 +49,5 @@ class MailSenderFactory implements FactoryInterface
 
         $listener = new MailSender($mailService, $options);
         return $listener;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return MailSender
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-
-        return $this($serviceLocator, MailSender::class);
     }
 }

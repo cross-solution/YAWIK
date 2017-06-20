@@ -34,7 +34,7 @@ class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $target = new MultipostingSelectFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $target);
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -65,35 +65,52 @@ class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $currencyFormat = $this->getMockBuilder('\Zend\I18n\View\Helper\CurrencyFormat')->disableOriginalConstructor()->getMock();
         $currencyFormat->expects($this->any())->method('__invoke')->will($this->returnArgument(0));
 
-        $helpers = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
-                        ->setMethods(array('get'))
-                        ->getMockForAbstractClass();
+        $helpers = $this
+	        ->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+	        ->disableOriginalConstructor()
+	        ->setMethods(array('get'))
+			->getMockForAbstractClass()
+        ;
 
-        $helpers->expects($this->once())->method('get')->with('currencyFormat')->willReturn($currencyFormat);
+        $helpers
+	        ->expects($this->once())
+	        ->method('get')
+	        ->with('currencyFormat')
+	        ->willReturn($currencyFormat)
+        ;
 
-        $router = $this->getMockBuilder('\Zend\Mvc\Router\SimpleRouteStack')->disableOriginalConstructor()->getMock();
-        $router->expects($this->any())->method('assemble')->willReturn('/test/uri');
+        $router = $this
+	        ->getMockBuilder('\Zend\Mvc\Router\SimpleRouteStack')
+	        ->disableOriginalConstructor()
+	        ->setMethods(['assemble'])
+	        ->getMock()
+        ;
+        $router
+	        ->expects($this->any())
+	        ->method('assemble')
+	        ->willReturn('/test/uri')
+        ;
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this
+	        ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
 
         $servicesMap = array(
-            array('Router', true, $router),
-            array('ViewHelperManager', true, $helpers),
-            array('Jobs/Options/Provider', true, $providerOptions),
+            array('Router', $router),
+            array('ViewHelperManager', $helpers),
+            array('Jobs/Options/Provider', $providerOptions),
         );
 
         $services->expects($this->exactly(3))
-                 ->method('get')->will($this->returnValueMap($servicesMap));
-
-        $elements = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
-                         ->setMethods(array('getServiceLocator'))
-                         ->getMockForAbstractClass();
-
-        $elements->expects($this->once())->method('getServiceLocator')->willReturn($services);
+                 ->method('get')
+                 ->will($this->returnValueMap($servicesMap))
+        ;
 
         $target = new MultipostingSelectFactory();
 
-        $select = $target->createService($elements);
+        $select = $target->__invoke($services,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Form\MultipostingSelect', $select);
         $this->assertEquals('false', $select->getAttribute('data-autoinit'));

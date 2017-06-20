@@ -13,7 +13,7 @@ namespace Jobs\Factory\Form;
 use Interop\Container\ContainerInterface;
 use Jobs\Form\OrganizationSelect;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -66,15 +66,5 @@ class ActiveOrganizationSelectFactory implements FactoryInterface
 
         return $select;
 
-    }
-
-    /**
-     * Creates the organization select box.
-     *
-     * @param ServiceLocatorInterface|AbstractPluginManager $serviceLocator
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), OrganizationSelect::class);
     }
 }

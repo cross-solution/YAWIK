@@ -9,8 +9,7 @@
 namespace Organizations\Factory\ImageFileCache;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Organizations\ImageFileCache\Manager;
 
 /**
@@ -31,14 +30,5 @@ class ManagerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         return new Manager($container->get('Organizations/ImageFileCacheOptions'));
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, Manager::class);
     }
 }

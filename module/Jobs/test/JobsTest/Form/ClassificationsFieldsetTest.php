@@ -17,7 +17,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Jobs\Entity\Category;
 use Jobs\Form\ClassificationsFieldset;
 use Zend\Form\Fieldset;
-use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\Hydrator\Strategy\DefaultStrategy;
 use Zend\ServiceManager\AbstractPluginManager;
 
@@ -51,9 +51,16 @@ class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
         $select = new Select();
         $strategy = new DefaultStrategy();
         $select->setHydratorStrategy($strategy);
-        $formElements = $this->getMockBuilder(FormElementManagerV2Polyfill::class)->disableOriginalConstructor()->setMethods(['get'])->getMock();
-        $formElements->expects($this->exactly(3))->method('get')
-                ->withConsecutive(
+        $formElements = $this
+	        ->getMockBuilder(FormElementManagerV3Polyfill::class)
+	        ->disableOriginalConstructor()
+	        ->setMethods(['get'])
+	        ->getMock()
+        ;
+        $formElements
+	        ->expects($this->exactly(3))
+	        ->method('get')
+	        ->withConsecutive(
                     [
                         'Core/Tree/Select',
                         [
@@ -110,7 +117,9 @@ class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
                             ]
                         ]
                     ]
-            )->willReturn($select);
+            )
+	        ->willReturn($select)
+        ;
         $this->target->expects($this->exactly(3))->method('add')->with($select);
 
         $this->target->getFormFactory()->setFormElementManager($formElements);

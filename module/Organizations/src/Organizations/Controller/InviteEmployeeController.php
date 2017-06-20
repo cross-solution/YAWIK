@@ -10,6 +10,7 @@
 /** */
 namespace Organizations\Controller;
 
+use Interop\Container\ContainerInterface;
 use Organizations\Controller\Plugin\AcceptInvitationHandler;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -28,6 +29,8 @@ use Zend\View\Model\ViewModel;
  */
 class InviteEmployeeController extends AbstractActionController
 {
+	protected $repositories;
+	
     /**
      * Invitation first step: Create or find user and send mail.
      *
@@ -121,8 +124,7 @@ class InviteEmployeeController extends AbstractActionController
     protected function getOrganizationEntity()
     {
         /* @var $organizations \Organizations\Repository\Organization */
-        $services      = $this->serviceLocator;
-        $repositories  = $services->get('repositories');
+        $repositories  = $this->repositories;
         $organizations = $repositories->get('Organizations');
         $organiationId = $this->params()->fromQuery('organization');
 
@@ -167,4 +169,21 @@ class InviteEmployeeController extends AbstractActionController
 
         return $model;
     }
+	
+	/**
+	 * Initialize required used service for this container
+	 *
+	 * @param ContainerInterface $container
+	 */
+    public function initContainer(ContainerInterface $container)
+    {
+    	$this->repositories = $container->get('repositories');
+    }
+    
+	static public function factory(ContainerInterface $container)
+	{
+		$ob = new static();
+		$ob->initContainer($container);
+		return $ob;
+	}
 }

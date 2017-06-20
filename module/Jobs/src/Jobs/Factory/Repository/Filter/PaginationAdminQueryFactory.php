@@ -13,8 +13,7 @@ namespace Jobs\Factory\Repository\Filter;
 use Auth\AuthenticationService;
 use Interop\Container\ContainerInterface;
 use Jobs\Repository\Filter\PaginationAdminQuery;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class PaginationAdminQueryFactory implements FactoryInterface
 {
@@ -39,16 +38,5 @@ class PaginationAdminQueryFactory implements FactoryInterface
         $filter = new PaginationAdminQuery($auth, $acl);
         return $filter;
 
-    }
-
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return PaginationAdminQuery|mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-
-        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }

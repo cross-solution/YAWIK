@@ -9,8 +9,7 @@
 namespace Organizations\Factory\ImageFileCache;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Organizations\ImageFileCache\ApplicationListener;
 
 /**
@@ -35,14 +34,5 @@ class ApplicationListenerFactory implements FactoryInterface
         $repository = $container->get('repositories')->get('Organizations/OrganizationImage');
 
         return new ApplicationListener($manager, $repository);
-    }
-
-    /**
-     * {@inheritDoc}
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, ApplicationListener::class);
     }
 }

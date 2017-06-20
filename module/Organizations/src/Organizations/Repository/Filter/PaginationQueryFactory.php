@@ -11,8 +11,7 @@
 namespace Organizations\Repository\Filter;
 
 use Interop\Container\ContainerInterface;
-use \Zend\ServiceManager\FactoryInterface;
-use \Zend\ServiceManager\ServiceLocatorInterface;
+use \Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the PaginationQuery
@@ -37,17 +36,5 @@ class PaginationQueryFactory implements FactoryInterface
         $auth = $container->get('AuthenticationService');
         $filter = new PaginationQuery($auth);
         return $filter;
-    }
-    /**
-     * Creates pagination Service
-     *
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return \Organizations\Repository\Filter\PaginationQuery|mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
-        return $this($serviceLocator->getServiceLocator(), PaginationQuery::class);
     }
 }

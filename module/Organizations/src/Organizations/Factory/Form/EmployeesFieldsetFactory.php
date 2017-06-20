@@ -13,7 +13,7 @@ namespace Organizations\Factory\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Hydrator\Strategy\CollectionStrategy;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Form\EmployeesFieldset;
 
@@ -50,17 +50,5 @@ class EmployeesFieldsetFactory implements FactoryInterface
         $headScript->appendFile($basePath('Organizations/js/organizations.employees.js'));
 
         return $fieldset;
-    }
-
-    /**
-     * Creates fieldset
-     * {@inheritdoc}
-     *
-     * @return EmployeesFieldset
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
-        return $this($serviceLocator->getServiceLocator(), EmployeesFieldset::class);
     }
 }

@@ -35,7 +35,7 @@ class ApplyUrlFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new ApplyUrlFactory());
+        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new ApplyUrlFactory());
     }
 
     /**
@@ -61,7 +61,7 @@ class ApplyUrlFactoryTest extends \PHPUnit_Framework_TestCase
                 )
                 ->will($this->onConsecutiveCalls($urlHelper, $translateHelper, $paramsHelper, $serverUrl));
 
-        $service = $target->createService($helpers);
+        $service = $target->__invoke($helpers,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\View\Helper\ApplyUrl', $service);
         $this->assertAttributeSame($urlHelper, 'urlHelper', $service);

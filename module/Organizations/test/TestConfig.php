@@ -1,11 +1,15 @@
 <?php
+$modules = array_merge(
+	include_once __DIR__.'/../../../config/common.modules.php',
+	[
+		'Core',
+		'Auth',
+		'Jobs',
+		'Organizations'
+	]
+);
 return array(
-    'modules' => array(
-        'Core',
-        'Auth',
-        'Jobs',
-        'Organizations'
-    ),
+    'modules' => $modules,
     'module_listener_options' => array(
         'module_paths' => array(
             './module',

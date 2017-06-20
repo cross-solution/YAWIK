@@ -55,6 +55,6 @@ class StatusSelectFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), Select::class);
+        return $this($serviceLocator, Select::class);
     }
 }

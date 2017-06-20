@@ -11,7 +11,7 @@
 namespace Jobs\Factory\Filter;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -43,17 +43,5 @@ class ChannelPricesFactory implements FactoryInterface
         $filter = new $class($providerOptions);
 
         return $filter;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), JobboardSearch::class);
     }
 }

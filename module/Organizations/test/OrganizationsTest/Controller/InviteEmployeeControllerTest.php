@@ -37,14 +37,33 @@ class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
         }
 
 
-        $plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
-        $plugins->expects($this->any())->method('get')->will($this->returnCallback(array($this, 'retrievePluginMock')));
+        $plugins = $this
+	        ->getMockBuilder('\Zend\Mvc\Controller\PluginManager')
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+        $plugins
+	        ->expects($this->any())
+	        ->method('get')
+	        ->will($this->returnCallback(array($this, 'retrievePluginMock')))
+        ;
 
         $this->target->setPluginManager($plugins);
 
-        $params = $this->getMockBuilder('\Zend\Mvc\Controller\Plugin\Params')->disableOriginalConstructor()->getMock();
-        $params->expects($this->any())->method('__invoke')->will($this->returnSelf());
-        $params->expects($this->any())->method('fromQuery')->will($this->returnCallback(array($this, 'retrieveQueryParam')));
+        $params = $this->getMockBuilder('\Zend\Mvc\Controller\Plugin\Params')
+                       ->disableOriginalConstructor()
+                       ->getMock()
+        ;
+        $params
+	        ->expects($this->any())
+	        ->method('__invoke')
+	        ->will($this->returnSelf())
+        ;
+        $params
+	        ->expects($this->any())
+	        ->method('fromQuery')
+	        ->will($this->returnCallback(array($this, 'retrieveQueryParam')))
+        ;
 
         $this->pluginsMockMap['params'] = $params;
     }
@@ -102,7 +121,7 @@ class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->once())->method('get')->with('repositories')->willReturn($repositories);
 
-        $this->target->setServiceLocator($services);
+        $this->target->initContainer($services);
     }
 
     private function setupForwardPluginMock($result)

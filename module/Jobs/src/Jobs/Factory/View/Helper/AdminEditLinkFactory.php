@@ -12,7 +12,7 @@ namespace Jobs\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
 use Jobs\View\Helper\AdminEditLink;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -40,17 +40,5 @@ class AdminEditLinkFactory implements FactoryInterface
         $returnUrl = $urlHelper(null, [], ['query' => $request->getQuery()->toArray()], true);
 
         return new AdminEditLink($urlHelper, $returnUrl);
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface|\Zend\ServiceManager\AbstractPluginManager $serviceLocator
-     *
-     * @return AdminEditLink
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), 'Jobs/AdminEditLink');
     }
 }

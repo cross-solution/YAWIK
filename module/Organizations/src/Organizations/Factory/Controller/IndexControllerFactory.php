@@ -11,11 +11,8 @@ namespace Organizations\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\IndexController;
-use Organizations\Repository;
 use Organizations\Form;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class IndexControllerFactory implements FactoryInterface
 {
@@ -35,18 +32,5 @@ class IndexControllerFactory implements FactoryInterface
         $form = new Form\Organizations(null);
 
         return new IndexController($form, $organizationRepository);
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return IndexController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /** @var ControllerManager $serviceLocator */
-        return $this($serviceLocator->getServiceLocator(), IndexController::class);
     }
 }

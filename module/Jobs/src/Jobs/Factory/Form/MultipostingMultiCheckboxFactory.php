@@ -11,8 +11,7 @@
 namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the Multiposting select box
@@ -75,13 +74,5 @@ class MultipostingMultiCheckboxFactory implements FactoryInterface
         $select->setViewPartial('jobs/form/multiposting-checkboxes');
         $select->setHeadscripts(array('Jobs/js/form.multiposting-checkboxes.js'));
         return $select;
-    }
-
-    /**
-     * Creates the multiposting select box.
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, MultipostingMultiCheckbo::class);
     }
 }

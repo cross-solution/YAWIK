@@ -12,8 +12,7 @@ namespace Jobs\Factory\Options;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Options\ProviderOptions;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class ProviderOptionsFactory implements FactoryInterface
 {
@@ -48,10 +47,5 @@ class ProviderOptionsFactory implements FactoryInterface
             }
         }
         return $providerOptions;
-    }
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, ProviderOptions::class);
     }
 }
