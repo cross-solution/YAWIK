@@ -20,7 +20,7 @@ use Zend\View\View;
  *
  * @package     CoreTest\Mail
  * @ticket      222
- * @covers      HTMLTemplateMessage
+ * @covers      \Core\Mail\HTMLTemplateMessage
  */
 class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
 {
