@@ -19,6 +19,12 @@
 $transport = 'smtp';
 
 /**
+ * Fully-qualified classname or short name resolvable via Zend\Mail\Protocol\SmtpLoader.
+ * Typically, this will be one of “smtp”, “plain”, “login”, or “crammd5”, and defaults to “smtp”.
+ */
+$auth = 'plain';
+
+/**
  * @var string Local client hostname
  */
 $name = 'localhost';
@@ -58,7 +64,7 @@ return [
         'Core/MailServiceOptions' => [
             'options' => [
                 'name' => $name,
-                'connectionClass' => $transport,
+                'connectionClass' => $auth,
                 'host' => $host,
                 'port' => $port,
                 'username' => $username,
