@@ -60,7 +60,10 @@ class Job extends WizardContainer
         $elements = [
             'general' => [
                 'priority' => 100,
-                'options' => [ 'label' => /*@translate*/ 'Basic Data' ],
+                'label' => /*@translate*/ 'Basic Data',
+                'options' => [
+                	'label' => /*@translate*/ 'Basic Data'
+                ],
                 'property' => true,
                 'forms' => [
 

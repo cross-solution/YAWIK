@@ -42,7 +42,7 @@ class Apply extends Container
                     'is_disable_capable' => false,
                 ),
             ),
-            'facts' => 'Applications\Facts',
+            'facts' => 'Applications/Facts',
             'profiles' => array(
                 'type' => 'Auth/SocialProfiles',
                 'options' => array(

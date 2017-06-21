@@ -16,7 +16,7 @@ $renderedFormCheckBox = '';
  * @todo: should we write a view helper? Or should we move some code into the contoller?
  */
 
-$formCheckBox = $this->services("FormElementManager.checkBox");
+$formCheckBox = $this->services("FormElementManager.Checkbox");
 /**
  * FormCheckbox::render requires the attribute "name". The value of the attribute
  * is currently unused
@@ -110,7 +110,7 @@ foreach ($this->applications as $application):
   <tr<?php echo ($isUnread?' class="yk-new"':"")?>>
     <td>
         <?php
-        $formCheckBox = $this->services("FormElementManager.checkBox");
+        $formCheckBox = $this->services("FormElementManager.Checkbox");
         $formCheckBox->setAttributes(array('id' => $application->getId(), 'name' => 'cb_' . $application->getId() ));
         echo $this->formCheckBox($formCheckBox);
         ?>

@@ -11,7 +11,6 @@
 namespace Core\Mail;
 
 use Zend\Mail\Header;
-use Zend\Mail\Headers;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 use Zend\Stdlib\Response;

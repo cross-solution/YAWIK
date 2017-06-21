@@ -38,11 +38,10 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface
         $this->options = $options;
     }
 
-    public function __invoke( ContainerInterface $paginatorService, $requestedName, array $options = null )
+    public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
     {
 	    /* @var PaginatorService $paginatorService */
 	    /* @var RepositoryService $repositories */
-	    $container      = $paginatorService->getContainer();
 	    $repositories   = $container->get('repositories');
 	    $repository     = $repositories->get($this->getRepository());
 	    $queryBuilder   = $repository->createQueryBuilder();

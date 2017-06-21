@@ -9,6 +9,7 @@
 
 namespace Applications;
 
+use Applications\Controller\ManageController;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -79,11 +80,12 @@ return [
            'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
         ]
     ],
+	
     'controllers' => [
         'invokables' => [
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Apply' => 'Applications\Controller\ApplyController',
-            'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
+            'Applications/Controller/Manage' => ManageController::class,
             'Applications/CommentController' => 'Applications\Controller\CommentController',
             'Applications/Console' => 'Applications\Controller\ConsoleController',
             'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
@@ -140,6 +142,7 @@ return [
             ],
         ],
     ],
+	
     'translator' => [
         'translation_file_patterns' => [
             [

@@ -1,6 +1,9 @@
 <?php
 namespace Cv;
 
+use Cv\Controller\ManageController;
+use Cv\Form\InputFilter\Education;
+use Cv\Form\InputFilter\Employment;
 use Cv\Form\PreferredJobFieldset;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -148,13 +151,10 @@ return [
     
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => [
-        'invokables' => [
-            //'Cv\Controller\Index' => 'Cv\Controller\IndexController',
-            'Cv\Controller\Manage' => 'Cv\Controller\ManageController',
-        ],
         'factories' => [
             \Cv\Controller\IndexController::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
             'Cv/View'  => 'Cv\Factory\Controller\ViewControllerFactory',
+            'Cv\Controller\Manage' => [ManageController::class,'factory'],
         ],
         'aliases' => [
             'Cv/Index' => \Cv\Controller\IndexController::class,
@@ -219,9 +219,13 @@ return [
     ],
     
     'input_filters' => [
+	    'aliases' => [
+	    	'Cv/Employment' => Employment::class,
+		    'Cv/Education' => Education::class
+	    ],
         'invokables' => [
-            'Cv/Employment' => 'Cv\Form\InputFilter\Employment',
-            'Cv/Education' => 'Cv\Form\InputFilter\Education'
+            'Cv/Employment' => Employment::class,
+            'Cv/Education' => Education::class
         ],
     ],
 

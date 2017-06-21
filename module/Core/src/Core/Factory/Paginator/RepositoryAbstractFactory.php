@@ -77,13 +77,12 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
          * @var $filter       \Zend\Filter\FilterInterface
          * @var $container PaginatorService
          */
-        $services     = $container->getContainer();
-        $repositories = $services->get('repositories');
+        $repositories = $container->get('repositories');
         $queryBuilder = $repositories->createQueryBuilder();
 
         $queryBuilder->find($this->getEntityClassName($requestedName));
 
-        $filterManager = $services->get('FilterManager');
+        $filterManager = $container->get('FilterManager');
         $filterName    = 'PaginationQuery/' . $requestedName;
 
         if ($filterManager->has($filterName)) {

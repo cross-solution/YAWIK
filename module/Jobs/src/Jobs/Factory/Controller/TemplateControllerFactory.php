@@ -33,7 +33,13 @@ class TemplateControllerFactory implements FactoryInterface
          */
         $jobRepository = $container->get('repositories')->get('Jobs/Job');
         $options = $container->get('Jobs/Options');
-
-        return new TemplateController($jobRepository, $options);
+		$viewModelTemplateFilter = $container->get('Jobs/ViewModelTemplateFilter');
+		$translator = $container->get('translator');
+        return new TemplateController(
+        	$jobRepository,
+	        $viewModelTemplateFilter,
+	        $translator,
+	        $options
+        );
     }
 }

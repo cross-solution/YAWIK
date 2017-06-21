@@ -135,17 +135,9 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
                                        ->withConsecutive([ 'repositories' ], [ 'FilterManager'])
                                        ->will($this->onConsecutiveCalls($repositories, $filters));
 
-        $pm = $this->getMockBuilder('\Core\Paginator\PaginatorService')
-	        ->setMethods(['getContainer'])
-			->disableOriginalConstructor()
-			->getMock()
-        ;
-
-        $pm->expects($this->once())->method('getContainer')->willReturn($sm);
-
         $target = $this->target;
         $target->setCreationOptions($options);
-        $paginator = $target($pm,$serviceName);
+        $paginator = $target($sm,$serviceName);
 
         $this->assertInstanceOf('\Zend\Paginator\Paginator', $paginator, 'No Paginator returned.');
         $this->assertAttributeEquals([], 'options', $target, 'Cleaning creation options did not work.');

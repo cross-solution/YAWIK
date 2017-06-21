@@ -106,7 +106,7 @@ class WizardContainer extends Container implements HeadscriptProviderInterface, 
     public function getForm($key, $asInstance = true)
     {
         $form = parent::getForm($key, $asInstance);
-
+        
         /*
          * We must check here, if a lazy loaded top level form is an
          * instance of Container.

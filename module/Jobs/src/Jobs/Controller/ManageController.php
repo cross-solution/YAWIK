@@ -16,6 +16,7 @@ use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
 use Core\Repository\RepositoryService;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryForm;
@@ -41,6 +42,7 @@ use Core\Entity\Exception\NotFoundException;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Rafal Ksiazek
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class ManageController extends AbstractActionController
 {
@@ -58,7 +60,13 @@ class ManageController extends AbstractActionController
      * @var Translator
      */
     protected $translator;
-
+	
+	/**
+	 * @var ServiceManager
+	 * @TODO: [ZF3] remove this property if possible
+	 */
+    protected $services;
+    
     /**
      * @param AuthenticationService $auth
      * @param RepositoryService     $repositoryService
@@ -79,12 +87,6 @@ class ManageController extends AbstractActionController
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
-        $serviceLocator = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events = $this->getEventManager();
-        $events->attach($defaultServices);
-
-        return $this;
     }
 
     /**
@@ -102,14 +104,15 @@ class ManageController extends AbstractActionController
         }
         $routeMatch = $e->getRouteMatch();
         $action = $routeMatch->getParam('action');
-
+	    $services = $e->getApplication()->getServiceManager();
         if (in_array($action, array('edit', 'approval', 'completion'))) {
-            $services = $this->serviceLocator;
             $jobEvents = $services->get('Jobs/Events');
             $mailSender = $services->get('Jobs/Listener/MailSender');
 
             $mailSender->attach($jobEvents);
         }
+        
+        $this->services = $services;
     }
 
     /**
@@ -139,9 +142,9 @@ class ManageController extends AbstractActionController
 
     public function channelListAction()
     {
-        $serviceLocator = $this->serviceLocator;
-        $options = $serviceLocator->get('Core/Options');
-        $channels = $serviceLocator->get('Jobs/Options/Provider');
+        $services = $this->services;
+        $options = $services->get('Core/Options');
+        $channels = $services->get('Jobs/Options/Provider');
 
 
 
@@ -171,8 +174,8 @@ class ManageController extends AbstractActionController
      */
     protected function save()
     {
-        $serviceLocator     = $this->serviceLocator;
-        $formEvents         = $serviceLocator->get('Jobs/JobContainer/Events');
+        $services     = $this->services;
+        $formEvents   = $services->get('Jobs/JobContainer/Events');
 
         $user               = $this->auth->getUser();
         if (empty($user->getInfo()->getEmail())) {
@@ -299,7 +302,7 @@ class ManageController extends AbstractActionController
             } else {
                 $viewHelper = 'form';
             }
-            $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
+            $viewHelperManager  = $services->get('ViewHelperManager');
             $content = $viewHelperManager->get($viewHelper)->__invoke($instanceForm);
             $viewModel = new JsonModel(
                 array(
@@ -379,8 +382,8 @@ class ManageController extends AbstractActionController
      */
     public function checkApplyIdAction()
     {
-        $services = $this->serviceLocator;
-        $validator = $services->get('validatormanager')->get('Jobs/Form/UniqueApplyId');
+        $services = $this->services;
+        $validator = $services->get('ValidatorManager')->get('Jobs/Form/UniqueApplyId');
         if (!$validator->isValid($this->params()->fromQuery('applyId'))) {
             return array(
                 'ok' => false,
@@ -396,8 +399,8 @@ class ManageController extends AbstractActionController
      */
     protected function getFormular($job)
     {
-        $services = $this->serviceLocator;
-        /* @var $forms \Zend\Form\FormElementManager */
+        $services = $this->services;
+        /* @var $forms \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
         $forms    = $services->get('FormElementManager');
         /* @var $container \Jobs\Form\Job */
 
@@ -439,7 +442,7 @@ class ManageController extends AbstractActionController
      */
     public function completionAction()
     {
-        $serviceLocator = $this->serviceLocator;
+        $services = $this->services;
 
         $job = $this->initializeJob()->get($this->params(), false, true);
 
@@ -465,7 +468,7 @@ class ManageController extends AbstractActionController
             */
             $this->repositoryService->store($job);
 
-            $jobEvents = $serviceLocator->get('Jobs/Events');
+            $jobEvents = $services->get('Jobs/Events');
             $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
         } else if ($job->isActive()) {
             $job->getSnapshotMeta()->getEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
@@ -492,16 +495,16 @@ class ManageController extends AbstractActionController
      */
     public function approvalAction()
     {
-        $serviceLocator = $this->serviceLocator;
+        $services = $this->services;
         $user           = $this->auth->getUser();
 
         $params         = $this->params('state');
 
         $jobEntity = $this->initializeJob()->get($this->params(), false, true);
-        $jobEvent       = $serviceLocator->get('Jobs/Event');
+        $jobEvent       = $services->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
         $jobEvent->addPortal('XingVendorApi');
-        $jobEvents      = $serviceLocator->get('Jobs/Events');
+        $jobEvents      = $services->get('Jobs/Events');
         // array with differences between the last snapshot and the actual entity
         // is remains Null if there is no snapshot
         // it will be an empty array if the snapshot and the actual entity do not differ

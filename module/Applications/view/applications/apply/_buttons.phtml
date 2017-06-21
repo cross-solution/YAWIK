@@ -9,7 +9,7 @@
  */
 $this->headScript()->appendFile($this->basePath('Applications/js/application.form.js'));
 $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->getJob()->getApplyId()), true);
-$isApplicationValid = $this->services('validatormanager.applicationsapplication')->isValid($this->application);
+$isApplicationValid = $this->services('ValidatorManager.Applications/Application')->isValid($this->application);
 $job=$this->application->getJob(); /* @var Jobs\Entity\Job $job */
 ?>
 
@@ -59,7 +59,7 @@ else:
 
                 </a>
                 <a href="<?php echo $applyUrl ?>?do=send" id="send-application" class="btn btn-lg btn-primary<?php
-                echo $this->services('validatormanager.applicationsapplication')->isValid($this->application)
+                echo $this->services('ValidatorManager.Applications/Application')->isValid($this->application)
                     ? '' : ' hidden' ?>">
                     <?php echo $this->translate('Send application') ?>
                 </a>

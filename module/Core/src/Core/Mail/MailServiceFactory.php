@@ -18,14 +18,6 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mail\Transport\Smtp;
 
-/**
- * Class MailServiceFactory
- *
- * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
- * @author  Carsten Bleek <bleek@cross-solution.de>
- * @author  Anthonius Munthi <me@itstoni.com>
- * @package Core\Mail
- */
 class MailServiceFactory implements FactoryInterface
 {
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
@@ -46,25 +38,16 @@ class MailServiceFactory implements FactoryInterface
 			],
 		];
 		
-		if ($mailServiceOptions->getConnectionClass() == 'smtp') {
+		if ($mailServiceOptions->getTransportClass() == 'smtp') {
 			$configArray['transport'] = new Smtp($mailServiceOptions);
 		}
 		
 		$configArray = array_merge($configArray, $mails);
 		
 		$config = new MailServiceConfig($configArray);
-		$service   = new MailService($container,$config->toArray());
+		
+		$service   = new MailService($container, $config->toArray());
 		
 		return $service;
-		
 	}
-	
-	
-	/* (non-PHPdoc)
-	 * @see \Zend\ServiceManager\FactoryInterface::createService()
-	 */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator,MailService::class);
-    }
 }

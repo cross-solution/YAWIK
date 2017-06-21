@@ -4,7 +4,6 @@ namespace CoreTest\Mail;
 
 use Core\Mail\HTMLTemplateMessage;
 use Core\Mail\MailService as CoreMailService;
-use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Router\Http\RouteMatch;

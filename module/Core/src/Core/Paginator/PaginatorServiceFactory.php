@@ -36,13 +36,4 @@ class PaginatorServiceFactory implements FactoryInterface
 		
 		return $service;
 	}
-	
-	
-	/** (non-PHPdoc)
-    * @see \Zend\ServiceManager\FactoryInterface::createService()
-    */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-	    return $this($serviceLocator, PaginatorService::class);
-    }
 }

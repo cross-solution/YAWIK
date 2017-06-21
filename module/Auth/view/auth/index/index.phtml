@@ -62,7 +62,7 @@
                 </div>
                 <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
                     <?php echo $this->partial('core/social-buttons',[
-                            'SocialButtons' => $this->socialbuttons(),
+                            'SocialButtons' => $this->socialButtons(),
                             'alt' => $this->translate('Login with %s'),
                             'label' => $this->translate('Login with ...')]
                     );?>
@@ -80,7 +80,7 @@
                 ?>
                 <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
                     <?php echo $this->partial('core/social-buttons',[
-                            'SocialButtons' => $this->socialbuttons() ,
+                            'SocialButtons' => $this->socialButtons() ,
                             'alt' => $this->translate('Register with %s'),
                             'label' => $this->translate('Register with ...')
                         ]

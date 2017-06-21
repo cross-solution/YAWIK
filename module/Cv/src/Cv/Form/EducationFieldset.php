@@ -2,6 +2,7 @@
 
 namespace Cv\Form;
 
+use Cv\Form\InputFilter\Education;
 use Zend\Form\Fieldset;
 use Cv\Entity\Education as EducationEntity;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -128,7 +129,7 @@ class EducationFieldset extends Fieldset implements InputFilterProviderInterface
     public function getInputFilterSpecification()
     {
         return [
-            'type' => 'Cv/Education'
+            'type' => Education::class
         ];
     }
 

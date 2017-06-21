@@ -13,6 +13,7 @@ namespace Cv\Controller;
 use Cv\Entity\CvInterface;
 use Geo\Form\GeoSelect;
 use Geo\Form\GeoText;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
@@ -27,25 +28,26 @@ use Cv\Entity\Contact;
  */
 class ManageController extends AbstractActionController
 {
-
-    /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
-     */
-    public function attachDefaultListeners()
+	private $repositories;
+	
+	private $formElements;
+	
+	static public function factory(ContainerInterface $container)
+	{
+		$controller = new static();
+		$controller->init($container);
+		return $controller;
+	}
+	
+	public function init(ContainerInterface $container)
+	{
+		$this->repositories = $container->get('repositories');
+		$this->formElements = $container->get('FormElementManager');
+	}
+	
+	public function formAction()
     {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
-    }
-    
-    public function formAction()
-    {
-        $serviceLocator = $this->serviceLocator;
-        $repositories = $serviceLocator->get('repositories');
+        $repositories = $this->repositories;
         /* @var $cvRepository \Cv\Repository\Cv */
         $cvRepository = $repositories->get('Cv/Cv');
         $user = $this->auth()->getUser();
@@ -68,7 +70,7 @@ class ManageController extends AbstractActionController
         }
         
         /* @var $container \Core\Form\Container */
-        $container = $serviceLocator->get('FormElementManager')
+        $container = $this->formElements
             ->get('CvContainer')
             ->setEntity($cv);
 

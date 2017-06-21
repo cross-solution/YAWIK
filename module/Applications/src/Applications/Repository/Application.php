@@ -16,6 +16,7 @@ use Auth\AuthenticationService;
 use Core\Repository\AbstractRepository;
 use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
+use Doctrine\ODM\MongoDB as ODM;
 use Interop\Container\ContainerInterface;
 use Zend\Stdlib\ArrayUtils;
 use Auth\Entity\UserInterface;
@@ -29,15 +30,6 @@ use Auth\Entity\UserInterface;
  */
 class Application extends AbstractRepository
 {
-	
-	/**
-	 * @param ContainerInterface $container
-	 */
-	static public function factory(ContainerInterface $container)
-	{
-	
-	}
-	
     /**
      * {@inheritDoc}
      */

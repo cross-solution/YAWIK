@@ -46,17 +46,20 @@ class ApplyController extends AbstractActionController
     
     protected $container;
     
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $events = $this->getEventManager();
-        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events->attach($defaultServices);
-        return $this;
-    }
+    protected $config;
     
+    protected $imageCacheManager;
+    
+    protected $validator;
+    
+	public function attachDefaultListeners()
+	{
+		parent::attachDefaultListeners();
+		$events = $this->getEventManager();
+		$events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
+		return $this;
+	}
+	
     public function preDispatch(MvcEvent $e)
     {
         /* @var $application \Applications\Entity\Application */
@@ -69,7 +72,7 @@ class ApplyController extends AbstractActionController
         /* @var $repository \Applications\Repository\Application */
         /* @var $container  \Applications\Form\Apply */
         $request      = $this->getRequest();
-        $services     = $this->serviceLocator;
+        $services     = $e->getApplication()->getServiceManager();
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
         $container    = $services->get('forms')->get('Applications/Apply');
@@ -176,6 +179,9 @@ class ApplyController extends AbstractActionController
         $container->setEntity($application);
         $this->configureContainer($container);
         $this->container = $container;
+        $this->config = $services->get('Config');
+        $this->imageCacheManager = $services->get('Organizations\ImageFileCache\Manager');
+        $this->validator = $services->get('ValidatorManager');
     }
     
     public function jobNotFoundAction()
@@ -196,7 +202,7 @@ class ApplyController extends AbstractActionController
         
         $form->setParam('applicationId', $application->getId());
 
-        $organizationImageCache = $this->serviceLocator->get('Organizations\ImageFileCache\Manager');
+        $organizationImageCache = $this->imageCacheManager;
 
         $model = new ViewModel(
             [
@@ -418,7 +424,7 @@ class ApplyController extends AbstractActionController
 
     protected function checkApplication($application)
     {
-        return $this->serviceLocator->get('validatormanager')->get('Applications/Application')
+        return $this->validator->get('Applications/Application')
                     ->isValid($application);
     }
 
@@ -444,7 +450,7 @@ class ApplyController extends AbstractActionController
             return;
         }
 
-        $config = $this->serviceLocator->get('Config');
+        $config = $this->config;
         $config = isset($config['form_elements_config']['Applications/Apply']['disable_elements'])
                 ? $config['form_elements_config']['Applications/Apply']['disable_elements']
                 : null;

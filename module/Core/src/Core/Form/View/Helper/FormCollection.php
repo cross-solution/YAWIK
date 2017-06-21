@@ -14,6 +14,7 @@ class FormCollection extends ZendFormCollection
    
     protected $layout;
     protected $isWithinCollection = false;
+    protected $defaultElementHelper = 'formRow';
     
     public function __invoke(ElementInterface $element = null, $wrap = true, $layout = null)
     {

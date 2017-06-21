@@ -45,7 +45,7 @@ class Attributes extends Form
         
         $this->add(
             array(
-            'type' => 'infocheckbox',
+            'type' => 'infoCheckBox',
             'name' => 'acceptedPrivacyPolicy',
             'options' => array(
                 'headline' => /*@translate*/ 'Privacy Policy',

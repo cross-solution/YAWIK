@@ -19,8 +19,6 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     ]);
 } else {
     $modules = array_merge($coreModules,[
-        'DoctrineModule',
-        'DoctrineMongoODMModule',
         'Core',
         'Auth',
         'Cv',

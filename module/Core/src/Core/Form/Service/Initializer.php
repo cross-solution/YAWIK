@@ -24,7 +24,7 @@ class Initializer implements InitializerInterface
 	public function __invoke( ContainerInterface $container, $instance )
 	{
 		if ($instance instanceof FormContainer) {
-			$instance->setFormElementManager($container->get('ServiceLocator'));
+			$instance->setFormElementManager($container->get('FormElementManager'));
 		}
 	}
 	

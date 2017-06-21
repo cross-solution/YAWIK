@@ -324,8 +324,10 @@ class Container extends Element implements
             $formInstance->setAttribute('action', '?form=' . $formName);
         }
 
-        if (isset($form['label'])) {
-            $formInstance->setLabel($form['label']);
+        // @TODO: [ZF3] which one is correct? $form[options][label] or $form[options]
+	    $formLabel = isset($form['label']) ? $form['label']:$form['options']['label'];
+        if (isset($formLabel)) {
+            $formInstance->setLabel($formLabel);
         }
 
         if (isset($form['disable_elements'])

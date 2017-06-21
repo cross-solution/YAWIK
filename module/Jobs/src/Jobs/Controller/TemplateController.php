@@ -42,9 +42,21 @@ class TemplateController extends AbstractActionController
      * @var AbstractOptions
      */
     protected $config;
+    
+    protected $viewModelTemplateFilter;
+    
+    protected $translator;
 
-    public function __construct(Repository\Job $jobRepository, AbstractOptions $config)
+    public function __construct(
+    	Repository\Job $jobRepository,
+	    $viewModelTemplateFilter,
+	    $translator,
+	    AbstractOptions $config
+	    
+    )
     {
+    	$this->viewModelTemplateFilter = $viewModelTemplateFilter;
+    	$this->translator = $translator;
         $this->jobRepository = $jobRepository;
         $this->config = $config;
     }
@@ -78,7 +90,7 @@ class TemplateController extends AbstractActionController
         $user = $this->auth()->getUser();
 
         /* @var \Zend\View\Model\ViewModel $model */
-        $model = $this->serviceLocator->get('Jobs/viewModelTemplateFilter')->__invoke($job);
+        $model = $this->viewModelTemplateFilter->getModel($job);
 
         if (
             Status::ACTIVE == $job->getStatus() or
@@ -123,7 +135,6 @@ class TemplateController extends AbstractActionController
         /** @var \Zend\Http\Request $request */
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
-        $services             = $this->serviceLocator;
         $viewHelperManager    = $services->get('ViewHelperManager');
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();

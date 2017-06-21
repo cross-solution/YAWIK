@@ -25,7 +25,7 @@ class DatePicker extends Date implements ViewHelperProviderInterface
     /**
      * @var string
      */
-    protected $helper = 'formDatepicker';
+    protected $helper = 'formDatePicker';
 
     /**
      * @param string|\Zend\View\Helper\HelperInterface $helper
