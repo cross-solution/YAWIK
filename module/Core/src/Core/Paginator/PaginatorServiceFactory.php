@@ -31,7 +31,8 @@ class PaginatorServiceFactory implements FactoryInterface
 		$configArray = isset($configArray['paginator_manager']) ? $configArray['paginator_manager'] : array();
 		$config      = new PaginatorServiceConfig($configArray);
 		
-		$service   = new PaginatorService($container,$config->toArray());
+		$repositoryService = $container->get('repositories');
+		$service   = new PaginatorService($container,$repositoryService,$config);
 		
 		return $service;
 	}
