@@ -62,7 +62,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         if (!isset($filter)) {
             throw new \InvalidArgumentException(get_class($element) . ' cannot be used to initialize a template');
         }
-        $viewManager = $this->service->get('viewHelperManager');
+        $viewManager = $this->service->get('ViewHelperManager');
         $basePathHelper = $viewManager->get('basePath');
         $serverUrlHelper = $viewManager->get('serverUrl');
         $imageFileCacheHelper = $this->service->get('Organizations\ImageFileCache\Manager');
@@ -70,7 +70,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         $filter->setImageFileCacheHelper($imageFileCacheHelper);
         $filter->setServerUrlHelper($serverUrlHelper);
 
-        $urlPlugin = $this->service->get('controllerPluginManager')->get('url');
+        $urlPlugin = $this->service->get('ControllerPluginManager')->get('url');
         $filter->setUrlPlugin($urlPlugin);
         $options = $this->service->get('Jobs/Options');
         $filter->setConfig($options);

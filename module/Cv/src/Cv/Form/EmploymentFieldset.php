@@ -2,6 +2,7 @@
 
 namespace Cv\Form;
 
+use Cv\Form\InputFilter\Employment;
 use Zend\Form\Fieldset;
 use Cv\Entity\Employment as EmploymentEntity;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -86,7 +87,8 @@ class EmploymentFieldset extends Fieldset implements InputFilterProviderInterfac
     public function getInputFilterSpecification()
     {
         return [
-            'type' => 'Cv/Employment'
+            //'type' => 'Cv/Employment'
+	        'type' => Employment::class
         ];
     }
     

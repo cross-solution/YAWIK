@@ -15,5 +15,5 @@ namespace Core\Form\Element;
  */
 class InfoCheckbox extends Checkbox implements ViewHelperProviderInterface
 {
-    protected $helper = 'forminfocheckbox';
+    protected $helper = 'formInfoCheckBox';
 }

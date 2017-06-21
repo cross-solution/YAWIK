@@ -78,6 +78,7 @@ return [
         'aliases' => [
             'assertions' => 'Acl\AssertionManager',
             'Auth/UserTokenGenerator' => 'Auth\Service\UserUniqueTokenGenerator',
+	        'acl' => 'Acl'
         ]
     ],
 
@@ -112,7 +113,11 @@ return [
         ],
         'shared' => [
             'OAuth' => false,
-        ]
+        ],
+	    'aliases' => [
+	    	'acl' => 'Acl',
+		    'auth' => 'Auth'
+	    ]
     ],
     'hybridauth' => [
         "Facebook" => [

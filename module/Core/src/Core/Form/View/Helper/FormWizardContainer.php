@@ -75,7 +75,7 @@ class FormWizardContainer extends AbstractHelper
         }
 
         $translate = $this->getView()->plugin('translate');
-        $formContainer = $this->getView()->plugin('formcontainer');
+        $formContainer = $this->getView()->plugin('formContainer');
 
         if ($container instanceof ViewPartialProviderInterface) {
             return $this->getView()->partial($container->getViewPartial(), array('element' => $container));

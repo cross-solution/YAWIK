@@ -155,7 +155,7 @@ class EducationFieldsetTest extends \PHPUnit_Framework_TestCase
 
     public function testGetInputFilterSpecification()
     {
-        $this->assertEquals(['type' => 'Cv/Education'], $this->target->getInputFilterSpecification());
+        $this->assertEquals(['type' => \Cv\Form\InputFilter\Education::class], $this->target->getInputFilterSpecification());
     }
 
 

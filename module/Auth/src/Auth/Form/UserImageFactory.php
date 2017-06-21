@@ -54,7 +54,7 @@ class UserImageFactory extends FileUploadFactory
     protected function configureForm($form, AbstractOptions $options)
     {
         /* @var $options \Applications\Options\ModuleOptions */
-        $form->get($this->fileName)->setViewHelper('FormImageUpload')
+        $form->get($this->fileName)->setViewHelper('formImageUpload')
            ->setMaxSize($options->getContactImageMaxSize())
            ->setAllowedTypes($options->getContactImageMimeType())
            ->setForm($form);

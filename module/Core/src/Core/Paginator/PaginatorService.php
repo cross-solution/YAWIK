@@ -36,10 +36,10 @@ class PaginatorService extends AbstractPluginManager
     
     public function __construct(
     	ContainerInterface $container,
-	    ConfigInterface $configuration = null
+	    array $configuration = array()
     )
     {
-        parent::__construct($configuration);
+        parent::__construct($container,$configuration);
         $this->container = $container;
     }
 	
@@ -57,7 +57,7 @@ class PaginatorService extends AbstractPluginManager
      * @param mixed $plugin
      * @return bool|void
      */
-    public function validatePlugin($plugin)
+    public function validate($plugin)
     {
         if ($plugin instanceof Paginator) {
             return true;

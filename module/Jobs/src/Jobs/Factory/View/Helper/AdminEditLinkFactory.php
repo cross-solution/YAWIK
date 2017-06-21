@@ -36,7 +36,7 @@ class AdminEditLinkFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $request = $container->get('Request');
-        $urlHelper = $container->get('viewhelpermanager')->get('url');
+        $urlHelper = $container->get('ViewHelperManager')->get('url');
         $returnUrl = $urlHelper(null, [], ['query' => $request->getQuery()->toArray()], true);
 
         return new AdminEditLink($urlHelper, $returnUrl);

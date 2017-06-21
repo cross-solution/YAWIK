@@ -12,7 +12,7 @@ class FormRowCombined extends AbstractHelper
      
     public function getFormRowHelper()
     {
-        $helper = clone $this->view->plugin('formrow');
+        $helper = clone $this->view->plugin('formRow');
         $helper->setShouldWrap(false);
         return $helper;
     }

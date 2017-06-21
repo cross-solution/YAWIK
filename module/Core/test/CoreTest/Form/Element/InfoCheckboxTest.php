@@ -29,6 +29,6 @@ class InfoCheckboxTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Core\Form\Element\InfoCheckbox', $this->target);
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
-        $this->assertAttributeSame('forminfocheckbox',  'helper', $this->target);
+        $this->assertAttributeSame('formInfoCheckBox',  'helper', $this->target);
     }
 }

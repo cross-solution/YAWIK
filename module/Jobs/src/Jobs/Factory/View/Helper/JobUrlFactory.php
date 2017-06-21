@@ -10,12 +10,15 @@
 
 namespace Jobs\Factory\View\Helper;
 
+use Core\View\Helper\Params;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Jobs\View\Helper\JobUrl;
+use Zend\View\Helper\ServerUrl;
+use Zend\View\Helper\Url;
 
 /**
  * Factory for JobUrl view helper
@@ -39,10 +42,12 @@ class JobUrlFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $helper    = new JobUrl();
-        $url       = $container->get('url');
-        $params    = $container->get('params');
-        $serverUrl = $container->get('serverUrl');
+        $viewHelper = $container->get('ViewHelperManager');
+        $url       = $viewHelper->get('url');
+        $params    = $viewHelper->get('params');
+        $serverUrl = $viewHelper->get('serverUrl');
+	
+	    $helper    = new JobUrl();
         $helper->setUrlHelper($url)
                ->setParamsHelper($params)
                ->setServerUrlHelper($serverUrl);

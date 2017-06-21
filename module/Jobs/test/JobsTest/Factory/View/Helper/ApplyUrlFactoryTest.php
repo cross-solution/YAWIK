@@ -13,6 +13,7 @@ namespace JobsTest\Factory\View\Helper;
 use Core\View\Helper\Params;
 use Zend\I18n\View\Helper\Translate;
 use Zend\Mvc\MvcEvent;
+use Zend\ServiceManager\ServiceManager;
 use Zend\View\Helper\ServerUrl;
 use Zend\View\Helper\Url;
 use Jobs\Factory\View\Helper\ApplyUrlFactory;
@@ -60,8 +61,16 @@ class ApplyUrlFactoryTest extends \PHPUnit_Framework_TestCase
                     array('url'), array('translate'), array('params'), array('serverUrl')
                 )
                 ->will($this->onConsecutiveCalls($urlHelper, $translateHelper, $paramsHelper, $serverUrl));
-
-        $service = $target->__invoke($helpers,'irrelevant');
+		
+        $sm = $this->getMockBuilder(ServiceManager::class)
+	        ->disableOriginalConstructor()
+	        ->getMock();
+	    $sm->expects($this->once())
+		    ->method('get')
+		    ->with('ViewHelperManager')
+		    ->willReturn($helpers);
+	    
+        $service = $target->__invoke($sm,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\View\Helper\ApplyUrl', $service);
         $this->assertAttributeSame($urlHelper, 'urlHelper', $service);

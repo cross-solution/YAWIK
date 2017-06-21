@@ -22,5 +22,5 @@ class Ref extends Button
     /**
      * @var string
      */
-    protected $helper = 'forminfocheckbox';
+    protected $helper = 'formInfoCheckBox';
 }

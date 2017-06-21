@@ -67,7 +67,7 @@ class AdminEditLinkFactoryTest extends \PHPUnit_Framework_TestCase
 
         $services = $this->createServiceManagerMock([
                 'Request' => $request,
-                'viewhelpermanager' => $helperManager
+                'ViewHelperManager' => $helperManager
             ]);
 
         $helper = $this->target->__invoke($services, 'irrelevant');
