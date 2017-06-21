@@ -4,7 +4,6 @@ namespace CoreTest\Mail;
 
 use Core\Mail\HTMLTemplateMessage;
 use Core\Mail\MailService as CoreMailService;
-use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\Router\Http\RouteMatch;
@@ -20,7 +19,7 @@ use Zend\View\View;
  *
  * @package     CoreTest\Mail
  * @ticket      222
- * @covers      HTMLTemplateMessage
+ * @covers      \Core\Mail\HTMLTemplateMessage
  */
 class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
 {
