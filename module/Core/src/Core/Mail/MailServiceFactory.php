@@ -38,7 +38,7 @@ class MailServiceFactory implements FactoryInterface
                 ],
         ];
 
-        if ($mailServiceOptions->getConnectionClass() == 'smtp') {
+        if ($mailServiceOptions->getTransportClass() == 'smtp') {
             $configArray['transport'] = new Smtp($mailServiceOptions);
         }
 
