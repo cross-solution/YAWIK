@@ -11,6 +11,7 @@
 namespace Core\Controller;
 
 use Core\EventManager\EventManager;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -33,12 +34,21 @@ class AdminController extends AbstractActionController
     {
         $this->adminControllerEvents = $adminControllerEvents;
     }
+    
+    static public function factory(ContainerInterface $sm)
+    {
+    	/* @var EventManager $eventManager */
+    	$eventManager = $sm->get('Core/EventManager');
+    	$eventManager->setEventPrototype(new AdminControllerEvent());
+    	$ob = new static($eventManager);
+    	return $ob;
+    }
 	
 	public function setServiceLocator($sl)
     {
         $this->serviceLocator = $sl;
     }
-
+	
     /**
      * Controls the admin dashboard page.
      *

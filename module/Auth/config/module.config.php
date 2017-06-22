@@ -97,7 +97,7 @@ return [
             'Auth\Controller\RegisterConfirmation' => 'Auth\Factory\Controller\RegisterConfirmationControllerFactory',
             'Auth\Controller\Password' => 'Auth\Factory\Controller\PasswordControllerFactory',
             'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
-            'Auth\Users' => 'Auth\Factory\Controller\UsersControllerFactory',
+            'Auth/Users' => 'Auth\Factory\Controller\UsersControllerFactory',
             'Auth\Controller\Remove' => 'Auth\Factory\Controller\RemoveControllerFactory'
         ]
     ],

@@ -33,8 +33,8 @@ class UsersControllerFactory implements FactoryInterface
     {
         /* @var $users \Auth\Repository\User */
         $users = $container->get('repositories')->get('Auth/User');
-
-        return new UsersController($users);
+		$formManager = $container->get('forms');
+        return new UsersController($users,$formManager);
     }
 
     /**

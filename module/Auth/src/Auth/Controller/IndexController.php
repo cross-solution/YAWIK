@@ -62,13 +62,18 @@ class IndexController extends AbstractActionController
     protected $locale;
     
     protected $viewHelperManager;
-    
-    /**
-     * @param $auth  AuthenticationService
-     * @param $logger LoggerInterface
-     * @param $forms
-     * @param $options ModuleOptions
-     */
+	
+	/**
+	 * IndexController constructor.
+	 *
+	 * @param AuthenticationService $auth
+	 * @param LoggerInterface $logger
+	 * @param $userLoginAdapter
+	 * @param $locale
+	 * @param $urlHelper
+	 * @param array $forms
+	 * @param $options
+	 */
     public function __construct(
     	AuthenticationService $auth,
 	    LoggerInterface $logger,
@@ -100,8 +105,6 @@ class IndexController extends AbstractActionController
         }
 
         $viewModel        = new ViewModel();
-        //$services         = $this->serviceLocator;
-
         /* @var $loginForm Login */
         $loginForm        = $this->forms[self::LOGIN];
         /* @var $registerForm Register */

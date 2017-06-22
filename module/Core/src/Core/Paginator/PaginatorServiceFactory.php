@@ -32,7 +32,7 @@ class PaginatorServiceFactory implements FactoryInterface
 		$config      = new PaginatorServiceConfig($configArray);
 		
 		$repositoryService = $container->get('repositories');
-		$service   = new PaginatorService($container,$repositoryService,$config);
+		$service   = new PaginatorService($container,$config->toArray());
 		
 		return $service;
 	}
