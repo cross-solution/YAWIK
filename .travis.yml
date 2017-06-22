@@ -38,7 +38,7 @@ before_script:
   - "wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/bin"
   - ./vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=/usr/bin/chromedriver > /dev/null 2>&1 &
   - sleep 5
-  - php -S localhost:8000 -t public public/index.php &
+  - APPLICATION_ENV=development php -S localhost:8000 -t public public/index.php &
   - sleep 3
 
 
@@ -47,7 +47,7 @@ script:
   - cd test
   - ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml.dist
   - cd $TRAVIS_BUILD_DIR
-  - ./vendor/bin/behat
+  - APPLICATION_ENV=development ./vendor/bin/behat
 
 after_script:
   - cd $TRAVIS_BUILD_DIR

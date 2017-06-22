@@ -83,7 +83,7 @@
             "./install.sh"
         ]
     },
-    "autoload-dev": {
+    "autoload": {
         "psr-4": {
             "Yawik\\Behat\\": "module/Behat/src"
         }
