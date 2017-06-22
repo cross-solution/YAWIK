@@ -25,6 +25,8 @@ before_script:
   # install Mongo extension
   - mkdir -p config/autoload
   - cp .travis/yawik.config.global.php config/autoload
+  - pwd
+  - ls -l config/autoload
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
   - sh -c "tar xfz $PECLMONGO.tgz"
   - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
@@ -40,7 +42,7 @@ before_script:
   - "wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/bin"
   - ./vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=/usr/bin/chromedriver > /dev/null 2>&1 &
   - sleep 5
-  - APPLICATION_ENV=development php -S localhost:8000 -t public public/index.php &
+  - APPLICATION_ENV=development php -S localhost:8000 -t public public/index.php > /dev/null 2>&1 &
   - sleep 3
 
 

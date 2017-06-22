@@ -83,11 +83,10 @@ class UserContext implements Context
 		
 		/* @var \Core\EventManager\EventManager $events */
 		/* @var \Auth\Listener\Events\AuthEvent $event */
-		//@TODO: [Behat] event not working in travis
-		//$events = $this->coreContext->getEventManager();
-		//$event  = $events->getEvent(AuthEvent::EVENT_USER_REGISTERED, $this);
-		//$event->setUser($user);
-		//$events->triggerEvent($event);
+		$events = $this->coreContext->getEventManager();
+		$event  = $events->getEvent(AuthEvent::EVENT_USER_REGISTERED, $this);
+		$event->setUser($user);
+		$events->triggerEvent($event);
 		return $user;
 	}
 	
