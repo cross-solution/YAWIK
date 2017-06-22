@@ -23,11 +23,11 @@ install:
 
 before_script:
   # install Mongo extension
+  - mkdir -p config/autoload
+  - cp .travis/yawik.config.global.php config/autoload
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
   - sh -c "tar xfz $PECLMONGO.tgz"
   - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
-  - mkdir -p config/autoload
-  - cp .travis/yawik.config.global.php config/autoload
 
   - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
