@@ -45,7 +45,8 @@ class CoreContext extends RawMinkContext
 	{
 		if(!is_object(static::$application)){
 			$configFile = realpath(__DIR__.'/../../../config/config.php');
-			static::$application = Application::init(include $configFile)->bootstrap();
+			$config = include($configFile);
+			static::$application = Application::init($config);
 		}
 		return static::$application;
 	}

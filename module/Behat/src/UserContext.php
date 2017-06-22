@@ -57,10 +57,6 @@ class UserContext implements Context
 		$repo = $this->getUserRepository();
 		if(!is_object($user=$repo->findByEmail($email))){
 			$this->createUser($email,$password,$name);
-		}else{
-			$user->setPassword($password);
-			$user->setLogin($name);
-			$repo->store($user);
 		}
 	}
 	
@@ -68,25 +64,25 @@ class UserContext implements Context
 	{
 		/* @var Register $service */
 		$repo = $this->getUserRepository();
-		$user = $repo->create([
-			'login' => $email,
-			'name' => $name,
-			'password' => $password,
-			'role' => $role
-		]);
+		$user = $repo->create([]);
+		$user->setLogin($name);
+		$user->setPassword($password);
+		$user->setRole($role);
+		
 		$info = $user->getInfo();
 		$info->setEmail($email);
 		$info->setEmailVerified(true);
 		
-		$user->setPassword(uniqid('credentials', true));
 		$repo->store($user);
+		
 		
 		/* @var \Core\EventManager\EventManager $events */
 		/* @var \Auth\Listener\Events\AuthEvent $event */
-		$events = $this->coreContext->getEventManager();
-		$event  = $events->getEvent(AuthEvent::EVENT_USER_REGISTERED, $this);
-		$event->setUser($user);
-		$events->triggerEvent($event);
+		//@TODO: [Behat] event not working in travis
+		//$events = $this->coreContext->getEventManager();
+		//$event  = $events->getEvent(AuthEvent::EVENT_USER_REGISTERED, $this);
+		//$event->setUser($user);
+		//$events->triggerEvent($event);
 		return $user;
 	}
 	

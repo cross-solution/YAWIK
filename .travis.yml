@@ -22,11 +22,12 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 before_script:
-  # install Mongo extension
+  # copy default app config
   - mkdir -p config/autoload
+  - mkdir - p build/behat
   - cp .travis/yawik.config.global.php config/autoload
-  - pwd
-  - ls -l config/autoload
+
+  # install Mongo extension
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
   - sh -c "tar xfz $PECLMONGO.tgz"
   - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
