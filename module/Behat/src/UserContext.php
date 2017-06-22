@@ -141,7 +141,8 @@ class UserContext implements Context
 	public function iPressLogoutLink()
 	{
 		//@TODO: [ZF3] replace this with click method
-		$this->minkContext->visit($this->coreContext->generateUrl('/logout'));
+		$url = $this->coreContext->generateUrl('/logout');
+		$this->minkContext->visit($url);
 	}
 	
 }
