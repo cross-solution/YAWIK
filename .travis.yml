@@ -30,7 +30,7 @@ before_script:
   - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
   - ./composer.phar self-update
-  - ./composer.phar install
+  - ./composer.phar install --dev
 
   # setup display, behat, and selenium
   - "sh -e /etc/init.d/xvfb start"
@@ -40,7 +40,6 @@ before_script:
   - sleep 5
   - php -S localhost:8000 -t public public/index.php &
   - sleep 3
-  - export IMGUR_API_KEY="52ad4ba928121d6598456d7d4ee59b38ea213539"
 
 
 script:
