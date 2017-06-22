@@ -53,8 +53,10 @@ script:
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
-  - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"${TRAVIS_BUILD_DIR}/build/behat/*.log\""
-  - "IMGUR_API_KEY=52ad4ba928121d6598456d7d4ee59b38ea213539 ./vendor/lakion/mink-debug-extension/travis/tools/upload-screenshots \"${TRAVIS_BUILD_DIR}/build/behat/*.png\""
+  - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"build/behat/*.log\""
+  - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/*.log\""
+  - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/tracy/*.log\""
+  - "IMGUR_API_KEY=52ad4ba928121d6598456d7d4ee59b38ea213539 ./vendor/lakion/mink-debug-extension/travis/tools/upload-screenshots \"build/behat/*.png\""
   - ls -l test/build/logs
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
