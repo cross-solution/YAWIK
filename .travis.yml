@@ -35,9 +35,11 @@ before_script:
   # setup display, behat, and selenium
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
-  - "wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip > chromedriver.zip && sudo mv chromedriver /usr/bin"
+  - "wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/bin"
   - ./vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=/usr/bin/chromedriver > /dev/null 2>&1 &
   - sleep 5
+  - php -S localhost:8000 -t public public/index.php
+  - sleep 3
 
 
 script:
