@@ -44,8 +44,8 @@ class CoreContext extends RawMinkContext
 	public function getApplication()
 	{
 		if(!is_object(static::$application)){
-			$configFile = __DIR__.'/../../../config/config.php';
-			$config = include_once $configFile;
+			$configFile = realpath(__DIR__.'/../../../config/config.php');
+			$config = include $configFile;
 			static::$application = Application::init($config);
 		}
 		return static::$application;
@@ -83,6 +83,7 @@ class CoreContext extends RawMinkContext
 	 */
 	public function generateUrl($name,$params=array())
 	{
+		$urlHelper = $this->getServiceManager()->get('ViewHelperManager')->getUrl();
 		$path = $name;
 		return $this->minkContext->locatePath($path);
 	}
