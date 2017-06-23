@@ -11,6 +11,7 @@ namespace Auth;
 
 use Acl\Assertion\AssertionManagerFactory;
 use Acl\Factory\Service\AclFactory;
+use Auth\Controller\ManageController;
 use Auth\Controller\Plugin\Auth;
 use Auth\Listener\Events\AuthEvent;
 
@@ -84,13 +85,13 @@ return [
 
     'controllers' => [
         'invokables' => [
-            'Auth\Controller\Manage' => 'Auth\Controller\ManageController',
             'Auth/ManageGroups' => 'Auth\Controller\ManageGroupsController',
             'Auth\Controller\Image' => 'Auth\Controller\ImageController',
             'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
             'Auth/SocialProfiles' => 'Auth\Controller\SocialProfilesController',
         ],
         'factories' => [
+	        'Auth\Controller\Manage' => [ManageController::class,'factory'],
             'Auth\Controller\ForgotPassword' => 'Auth\Factory\Controller\ForgotPasswordControllerFactory',
             'Auth\Controller\GotoResetPassword' => 'Auth\Factory\Controller\GotoResetPasswordControllerFactory',
             'Auth\Controller\Register' => 'Auth\Factory\Controller\RegisterControllerFactory',

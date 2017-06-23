@@ -10,7 +10,16 @@
 /** Auth controller */
 namespace Auth\Controller;
 
+use Auth\Adapter\HybridAuth;
+use Auth\AuthenticationService;
+use Auth\Form\SocialProfiles;
+use Auth\Form\UserProfileContainer;
+use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\I18n\Translator;
+use Zend\View\HelperPluginManager;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
 
@@ -20,51 +29,94 @@ use Core\Form\SummaryFormInterface;
  */
 class ManageController extends AbstractActionController
 {
-    /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
-    }
-
-    /**
+	private $userProfileContainer;
+	
+	private $authService;
+	
+	private $socialProfileForm;
+	
+	private $translator;
+	
+	private $repositories;
+	
+	private $viewHelper;
+	
+	private $hybridAuthAdapter;
+	
+	/**
+	 * @param ContainerInterface $container
+	 * @return ManageController
+	 */
+	static public function factory(ContainerInterface $container)
+	{
+		$forms = $container->get('forms');
+		$userProfileContainer = $forms->get('Auth/UserProfileContainer');
+		$socialProfileForm = $forms->get('Auth/SocialProfiles');
+		$authService = $container->get('AuthenticationService');
+		$translator = $container->get('translator');
+		$repositories = $container->get('repositories');
+		$viewHelper = $container->get('ViewHelperManager');
+		$hybridAuthAdapter = $container->get('HybridAuthAdapter');
+		$controller = new ManageController(
+			$userProfileContainer,
+			$authService,
+			$repositories,
+			$socialProfileForm,
+			$translator,
+			$viewHelper,
+			$hybridAuthAdapter
+		);
+		return $controller;
+	}
+	
+	public function __construct(
+		UserProfileContainer $userProfileContainer,
+		AuthenticationService $authService,
+		RepositoryService $repositories,
+		SocialProfiles $socialProfileForm,
+		Translator $translator,
+		HelperPluginManager $viewHelper,
+		HybridAuth $hybridAuthAdapter
+	)
+	{
+		$this->userProfileContainer = $userProfileContainer;
+		$this->authService = $authService;
+		$this->socialProfileForm = $socialProfileForm;
+		$this->repositories = $repositories;
+		$this->translator = $translator;
+		$this->viewHelper = $viewHelper;
+		$this->hybridAuthAdapter = $hybridAuthAdapter;
+	}
+	
+	/**
      * @return array|JsonModel
      */
     public function profileAction()
     {
-        $serviceLocator = $this->serviceLocator;
-        $forms = $serviceLocator->get('forms');
-        /* @var \Auth\Form\UserProfileContainer $container */
-        $container = $forms->get('Auth/userprofilecontainer');
-        $user = $serviceLocator->get('AuthenticationService')->getUser(); /* @var $user \Auth\Entity\User */
+        /* @var \Auth\Form\UserProfileContainer $userProfileContainer */
+        $userProfileContainer = $this->userProfileContainer;
+        $user = $this->authService->getUser(); /* @var $user \Auth\Entity\User */
         $postProfiles = (array)$this->params()->fromPost('social_profiles');
         $userProfiles = $user->getProfile();
-        $formSocialProfiles = $forms->get('Auth/SocialProfiles')
+        $formSocialProfiles = $this->socialProfileForm
             ->setUseDefaultValidation(true)
             ->setData(['social_profiles' => array_map(function ($array)
             {
                 return $array['data'];
             }, $userProfiles)]);
         
-        $translator = $serviceLocator->get('Translator');
+        $translator = $this->translator;
         /* @var \Auth\Form\SocialProfiles $formSocialProfiles */
         $formSocialProfiles->getBaseFieldset()
             ->setOption(
                 'description',
                 $translator->translate('You can connect your user profile with social networks. This allows you to log in via these networks.')
             );
-        $container->setEntity($user);
+        $userProfileContainer->setEntity($user);
 
         if ($this->request->isPost()) {
             $formName  = $this->params()->fromQuery('form');
-            $form      = $container->getForm($formName);
+            $form      = $userProfileContainer->getForm($formName);
             
             if ($form) {
                 $postData  = $form->getOption('use_post_array') ? $_POST : array();
@@ -81,18 +133,18 @@ class ManageController extends AbstractActionController
                     );
                 }
                 
-                $serviceLocator->get('repositories')->store($user);
+                $this->repositories->store($user);
                 
                 if ('file-uri' === $this->params()->fromPost('return')) {
                     $content = $form->getHydrator()->getLastUploadedFile()->getUri();
                 } else {
                     if ($form instanceof SummaryFormInterface) {
                         $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
-                        $viewHelper = 'summaryform';
+                        $viewHelper = 'summaryForm';
                     } else {
                         $viewHelper = 'form';
                     }
-                    $content = $serviceLocator->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
+                    $content = $this->viewHelper->get($viewHelper)->__invoke($form);
                 }
                 
                 return new JsonModel(
@@ -107,9 +159,8 @@ class ManageController extends AbstractActionController
                 
                 if ($formSocialProfiles->isValid()) {
                     $dataProfiles = $formSocialProfiles->getData()['social_profiles'];
-                    $userRepository = $serviceLocator->get('repositories')->get('Auth/User'); /* @var $userRepository \Auth\Repository\User */
-                    $hybridAuth = $serviceLocator->get('HybridAuthAdapter')
-                        ->getHybridAuth();
+                    $userRepository = $this->repositories->get('Auth/User'); /* @var $userRepository \Auth\Repository\User */
+                    $hybridAuth = $this->hybridAuthAdapter->getHybridAuth();
                     
                     foreach ($dataProfiles as $network => $postProfile) {
                         // remove
@@ -149,7 +200,7 @@ class ManageController extends AbstractActionController
         }
         
         return array(
-            'form' => $container,
+            'form' => $userProfileContainer,
             'socialProfilesForm' => $formSocialProfiles
         );
     }
