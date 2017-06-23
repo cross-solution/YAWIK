@@ -16,7 +16,9 @@ use Auth\Service\Register;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Testwork\Hook\Scope\AfterSuiteScope;
 
 class UserContext implements Context
 {
@@ -31,6 +33,21 @@ class UserContext implements Context
 	private $minkContext;
 	
 	/**
+	 * @var User
+	 */
+	private $currentUser;
+	
+	/**
+	 * @var User[]
+	 */
+	static private $users = [];
+	
+	/**
+	 * @var UserRepository
+	 */
+	static private $userRepo;
+	
+	/**
 	 * @BeforeScenario
 	 * @param BeforeScenarioScope $scope
 	 */
@@ -38,8 +55,22 @@ class UserContext implements Context
 	{
 		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
+		static::$userRepo = $this->getUserRepository();
 	}
 	
+	/**
+	 * @AfterSuite
+	 * @param AfterSuiteScope $scope
+	 */
+	static  public function afterSuite(AfterSuiteScope $scope)
+	{
+		$repo = static::$userRepo;
+		foreach(static::$users as $user){
+			if($repo->findByLogin($user->getLogin())){
+				$repo->remove($user,true);
+			}
+		}
+	}
 	
 	/**
 	 * @return UserRepository
@@ -52,24 +83,29 @@ class UserContext implements Context
 	/**
 	 * @Given there is a user :email identified by :password
 	 */
-	public function thereIsAUserIdentifiedBy($email, $password,$name='test.user')
+	public function thereIsAUserIdentifiedBy($email, $password,$username='test.user',$fullname="Test User")
 	{
 		$repo = $this->getUserRepository();
 		if(!is_object($user=$repo->findByEmail($email))){
-			$this->createUser($email,$password,$name);
+			$user = $this->createUser($email,$password,$username,$fullname);
 		}
+		$this->currentUser = $user;
+		$this->addCreatedUser($user);
 	}
 	
-	public function createUser($email,$password,$name="Test Recruiter",$role=User::ROLE_RECRUITER)
+	public function createUser($email,$password,$username,$fullname="Test Recruiter",$role=User::ROLE_RECRUITER)
 	{
 		/* @var Register $service */
 		$repo = $this->getUserRepository();
 		$user = $repo->create([]);
-		$user->setLogin($name);
+		$user->setLogin($username);
 		$user->setPassword($password);
 		$user->setRole($role);
 		
+		$expFullName = explode(' ',$fullname);
 		$info = $user->getInfo();
+		$info->setFirstName(array_shift($expFullName));
+		$info->setLastName(count($expFullName)>0 ? implode(' ',$expFullName):'');
 		$info->setEmail($email);
 		$info->setEmailVerified(true);
 		
@@ -140,5 +176,53 @@ class UserContext implements Context
 		$url = $this->coreContext->generateUrl('/logout');
 		$this->minkContext->visit($url);
 	}
+	
+	/**
+	 * @Given I log in with username :username and password :password
+	 */
+	public function iLogInWith($username, $password)
+	{
+		$this->iWantToLogIn();
+		$this->iSpecifyTheUsernameAs($username);
+		$this->iSpecifyThePasswordAs($password);
+		$this->iLogIn();
+	}
+	
+	/**
+	 * @When I go to profile page
+	 */
+	public function iGoToProfilePage()
+	{
+		$url = $this->coreContext->generateUrl('/en/my/profile');
+		$this->minkContext->visit($url);
+	}
+	
+	/**
+	 * @Given there is a user with the following:
+	 */
+	public function thereIsAUserWithTheFollowing(TableNode $table)
+	{
+		$repo = $this->getUserRepository();
+		$data = $table->getRowsHash();
+		$email = isset($data['email']) ? $data['email']:'test@example.com';
+		$login = isset($data['login']) ? $data['login']:'test.user';
+		$password = isset($data['password']) ? $data['password']:'test';
+		$fullname = isset($data['fullname']) ? $data['fullname']:'Test User';
+		$role = isset($data['role']) ? $data['role']:User::ROLE_RECRUITER;
+		
+		if(!is_object($user=$repo->findByLogin($login))){
+			$user = $this->createUser($email,$password,$login,$fullname,$role);
+		}
+		$this->currentUser = $user;
+		$this->addCreatedUser($user);
+	}
+	
+	private function addCreatedUser(User $user)
+	{
+		if(!in_array($user,static::$users)){
+			static::$users[] = $user;
+		}
+	}
+	
 	
 }

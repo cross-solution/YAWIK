@@ -10,7 +10,10 @@
 /** FileController.php */
 namespace Core\Controller;
 
+use Core\EventManager\EventManager;
 use Core\Listener\Events\FileEvent;
+use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Organizations\Entity\OrganizationImage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -25,15 +28,39 @@ use Core\Entity\PermissionsInterface;
  */
 class FileController extends AbstractActionController
 {
-    protected function attachDefaultListeners()
+	/**
+	 * @var RepositoryService
+	 */
+	private $repositories;
+	
+	/**
+	 * @var EventManager
+	 */
+	private $coreFileEvents;
+	
+	static public function factory(ContainerInterface $container)
+	{
+		$repositories = $container->get('repositories');
+		$coreFileEvents = $container->get('Core/File/Events');
+		
+		return new static($repositories,$coreFileEvents);
+	}
+	
+	public function __construct(
+		RepositoryService $repositories,
+		EventManager $eventManager
+	)
+	{
+		$this->repositories = $repositories;
+		$this->coreFileEvents = $eventManager;
+	}
+	
+	
+	protected function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
-
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events->attach($defaultServices);
     }
 
     public function preDispatch(MvcEvent $e)
@@ -51,7 +78,7 @@ class FileController extends AbstractActionController
         $response      = $this->getResponse();
 
         try {
-            $repository = $this->serviceLocator->get('repositories')->get($module . '/' . $entityName);
+            $repository = $this->repositories->get($module . '/' . $entityName);
         } catch (\Exception $e) {
             $response->setStatusCode(404);
             $this->getEvent()->setParam('exception', $e);
@@ -129,12 +156,12 @@ class FileController extends AbstractActionController
 
 
         /* @var \Core\EventManager\EventManager $events */
-        $events = $this->serviceLocator->get('Core/File/Events');
+        $events = $this->coreFileEvents;
         $event = $events->getEvent(FileEvent::EVENT_DELETE, $this, ['file' => $file]);
         $results = $events->triggerEventUntil(function($r) { return true === $r; }, $event);
 
         if (true !== $results->last()) {
-            $this->serviceLocator->get('repositories')->remove($file);
+            $this->repositories->remove($file);
         }
 
         return new JsonModel(

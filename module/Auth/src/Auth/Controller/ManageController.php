@@ -16,7 +16,6 @@ use Auth\Form\SocialProfiles;
 use Auth\Form\UserProfileContainer;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\I18n\Translator;
 use Zend\View\HelperPluginManager;
@@ -120,7 +119,9 @@ class ManageController extends AbstractActionController
             
             if ($form) {
                 $postData  = $form->getOption('use_post_array') ? $_POST : array();
-                $filesData = $form->getOption('use_files_array') ? $_FILES : array();
+                //@TODO: [ZF3] option use_files_array is false by default
+                //$filesData = $form->getOption('use_files_array') ? $_FILES : array();
+	            $filesData = $_FILES;
                 $data      = array_merge($postData, $filesData);
                 $form->setData($data);
                 

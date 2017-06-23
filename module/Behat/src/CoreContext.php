@@ -85,4 +85,52 @@ class CoreContext extends RawMinkContext
 	{
 		return $this->minkContext->locatePath($name);
 	}
+	
+	/**
+	 * @When /^I hover over the element "([^"]*)"$/
+	 */
+	public function iHoverOverTheElement($locator)
+	{
+		$session = $this->minkContext->getSession(); // get the mink session
+		$element = $session->getPage()->find('css', $locator); // runs the actual query and returns the element
+		
+		// errors must not pass silently
+		if (null === $element) {
+			throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector: "%s"', $locator));
+		}
+		
+		// ok, let's hover it
+		$element->mouseOver();
+	}
+	
+	/**
+	 * @Given I wait for :second seconds
+	 */
+	public function iWaitForSecond($second)
+	{
+		sleep($second);
+	}
+	
+	/**
+	 * @Then /^I wait for the ajax response$/
+	 */
+	public function iWaitForTheAjaxResponse()
+	{
+		$this->getSession()->wait(5000, '(0 === jQuery.active)');
+	}
+	
+	/**
+	 * Some forms do not have a Submit button just pass the ID
+	 *
+	 * @Given /^I submit the form with id "([^"]*)"$/
+	 */
+	public function iSubmitTheFormWithId($arg)
+	{
+		$node = $this->minkContext->getSession()->getPage()->find('css', $arg);
+		if($node) {
+			$this->minkContext->getSession()->executeScript("jQuery('$arg').submit();");
+		} else {
+			throw new \Exception('Element not found');
+		}
+	}
 }

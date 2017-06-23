@@ -121,11 +121,13 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         return $this;
     }
 
-    public function remove($entity)
+    public function remove($entity,$flush=false)
     {
         $this->checkEntityType($entity);
         $this->dm->remove($entity);
-
+		if($flush){
+			$this->dm->flush($entity);
+		}
         return $this;
     }
 
