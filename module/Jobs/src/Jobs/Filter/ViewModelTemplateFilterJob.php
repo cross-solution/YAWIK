@@ -27,6 +27,7 @@ class ViewModelTemplateFilterJob extends ViewModelTemplateFilterAbstract
     protected function extract($job)
     {
         $this->job = $job;
+        $this->jsonLdHelper->setJob($job);
         $this->setApplyData();
         $this->setOrganizationInfo();
         $this->setLocation();

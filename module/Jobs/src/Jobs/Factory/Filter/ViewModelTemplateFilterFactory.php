@@ -10,6 +10,7 @@
 
 namespace Jobs\Factory\Filter;
 
+use Jobs\View\Helper\JsonLd;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\Form\Element;
@@ -67,6 +68,9 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         $filter->setBasePathHelper($basePathHelper);
         $filter->setImageFileCacheHelper($imageFileCacheHelper);
         $filter->setServerUrlHelper($serverUrlHelper);
+
+        $jsonLdHelper = $viewManager->get(JsonLd::class);
+        $filter->jsonLdHelper = $jsonLdHelper;
 
         $urlPlugin = $this->service->get('controllerPluginManager')->get('url');
         $filter->setUrlPlugin($urlPlugin);
