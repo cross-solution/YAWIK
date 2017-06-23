@@ -22,6 +22,11 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 before_script:
+  # copy default app config
+  - mkdir -p config/autoload
+  - mkdir -p build/behat
+  - cp .travis/yawik.config.global.php config/autoload
+
   # install Mongo extension
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
   - sh -c "tar xfz $PECLMONGO.tgz"
@@ -30,15 +35,31 @@ before_script:
   - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
   - ./composer.phar self-update
-  - ./composer.phar install
+  - ./composer.phar install --dev
+
+  # setup display, behat, and selenium
+  - "sh -e /etc/init.d/xvfb start"
+  - "export DISPLAY=:99.0"
+  - "wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/bin"
+  - ./vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=/usr/bin/chromedriver > /dev/null 2>&1 &
+  - sleep 5
+  - APPLICATION_ENV=development php -S localhost:8000 -t public public/index.php > /dev/null 2>&1 &
+  - sleep 3
+
 
 script:
   - ln -s ../test/build/logs build
   - cd test
   - ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml.dist
+  - cd $TRAVIS_BUILD_DIR
+  - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction -vvv -f progress --tags="@javascript && ~@todo"
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
+  - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"build/behat/*.log\""
+  - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/*.log\""
+  - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/tracy/*.*\""
+  - "IMGUR_CLIENT_ID=bec050c54e1bb52 ./bin/imgur-uploader.sh build/behat/*.png"
   - ls -l test/build/logs
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar

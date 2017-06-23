@@ -274,11 +274,11 @@ return array(
         'invokables' => array(
             'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
-            'Core/Admin' => 'Core\Controller\AdminController',
         ),
 	    'factories' => [
 	    	// @TODO: improve this factory
 		    'Core\Controller\Index' => [\Core\Controller\IndexController::class,'factory'],
+		    'Core/Admin' => [\Core\Controller\AdminController::class,'factory'],
 	    ],
         'abstract_factories' => [
 	        \Core\Factory\Controller\LazyControllerFactory::class
