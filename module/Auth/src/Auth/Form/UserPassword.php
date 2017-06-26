@@ -44,7 +44,7 @@ class UserPassword extends Form
             $this->forms->get('Auth/UserPasswordFieldset')
         );
         
-        $this->add($this->forms->get('submit'));
+        $this->add($this->forms->get('submitField'));
     }
     
     /**

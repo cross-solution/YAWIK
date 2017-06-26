@@ -67,7 +67,8 @@ class NotificationListener extends EventManager
      */
     public function add(NotificationEvent $event)
     {
-        $notification = $event->getNotification();
+    	//@TODO: [ZF3] $event->getNotification() is not working
+        $notification = $event->getTarget()->getNotification();
         $this->notifications[] = $notification;
         $this->hasRunned = false;
         return $this;

@@ -10,6 +10,7 @@
 /** Notification.php */
 namespace Core\Controller\Plugin;
 
+use Core\Listener\NotificationListener;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\I18n\Translator\TranslatorAwareTrait;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -56,6 +57,10 @@ class Notification extends AbstractPlugin implements TranslatorAwareInterface
     protected $namespace = self::NAMESPACE_INFO;
     
     protected $flashMessenger;
+	
+	/**
+	 * @var NotificationListener
+	 */
     protected $notificationListener;
     
     public function __construct(FlashMessenger $flashMessenger)

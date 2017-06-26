@@ -10,6 +10,7 @@
 namespace Yawik\Behat;
 
 use Auth\Entity\User as User;
+use Auth\Entity\UserInterface;
 use Auth\Listener\Events\AuthEvent;
 use Auth\Repository\User as UserRepository;
 use Auth\Service\Register;
@@ -125,6 +126,15 @@ class UserContext implements Context
 		$this->addCreatedUser($user);
 	}
 	
+	/**
+	 * @param $email
+	 * @param $password
+	 * @param $username
+	 * @param string $fullname
+	 * @param string $role
+	 *
+	 * @return \Auth\Entity\UserInterface
+	 */
 	public function createUser($email,$password,$username,$fullname="Test Recruiter",$role=User::ROLE_RECRUITER)
 	{
 		/* @var Register $service */
@@ -249,12 +259,21 @@ class UserContext implements Context
 		$this->addCreatedUser($user);
 	}
 	
-	private function addCreatedUser(User $user)
+	private function addCreatedUser(UserInterface $user)
 	{
 		if(!in_array($user,static::$users)){
 			static::$users[] = $user;
 		}
 	}
 	
+	/**
+	 * @When I want to change my password
+	 */
+	public function iWantToChangeMyPassword()
+	{
+		$mink = $this->minkContext;
+		$url = $this->coreContext->generateUrl('/en/my/password');
+		$mink->getSession()->visit($url);
+	}
 	
 }
