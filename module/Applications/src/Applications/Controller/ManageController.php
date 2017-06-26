@@ -12,6 +12,8 @@ namespace Applications\Controller;
 
 use Applications\Form\ApplicationsFilter;
 use Applications\Listener\Events\ApplicationEvent;
+use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -28,7 +30,35 @@ use Applications\Entity\Application;
  */
 class ManageController extends AbstractActionController
 {
-    /**
+	/**
+	 * @var RepositoryService
+	 */
+	private $repositories;
+	
+	/**
+	 * ManageController constructor.
+	 *
+	 * @param RepositoryService $repositories
+	 */
+	public function __construct(RepositoryService $repositories)
+	{
+		$this->repositories = $repositories;
+	}
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return ManageController
+	 */
+	static public function factory(ContainerInterface $container)
+	{
+		$ob = new self(
+			$container->get('Core/RepositoryService')
+		);
+		return $ob;
+	}
+	
+	/**
      * (non-PHPdoc)
      * @see \Zend\Mvc\Controller\AbstractActionController::onDispatch()
      */
@@ -222,7 +252,7 @@ class ManageController extends AbstractActionController
     public function socialProfileAction()
     {
         if ($spId = $this->params()->fromQuery('spId')) {
-            $repositories = $this->serviceLocator->get('repositories');
+            $repositories = $this->repositories;
             $repo = $repositories->get('Applications/Application');
             $profile = $repo->findProfile($this->params()->fromQuery('spId'));
             if (!$profile) {

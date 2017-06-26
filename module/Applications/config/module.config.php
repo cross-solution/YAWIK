@@ -85,11 +85,13 @@ return [
         'invokables' => [
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Apply' => 'Applications\Controller\ApplyController',
-            'Applications/Controller/Manage' => ManageController::class,
             'Applications/CommentController' => 'Applications\Controller\CommentController',
             'Applications/Console' => 'Applications\Controller\ConsoleController',
             'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
         ],
+	    'factories' => [
+		    'Applications/Controller/Manage' => [ManageController::class,'factory'],
+	    ]
     ],
     
     'acl' => [
