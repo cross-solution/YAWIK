@@ -46,7 +46,7 @@
         "zendframework/zend-mail": "^2.7",
         "zendframework/zend-json": "^3.0",
         "doctrine/doctrine-mongo-odm-module": "*",
-        "hybridauth/hybridauth": "2.6.*",
+        "hybridauth/hybridauth": "^2.9",
         "mpdf/mpdf": "5.7.*",
         "components/jquery": "<3",
         "tinymce/tinymce": "*",

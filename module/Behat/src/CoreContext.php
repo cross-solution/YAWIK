@@ -133,4 +133,33 @@ class CoreContext extends RawMinkContext
 			throw new \Exception('Element not found');
 		}
 	}
+	
+	/**
+	 * @Then I switch to popup :name
+	 *
+	 * @param $name
+	 */
+	public function iSwitchToPopup($name)
+	{
+		$this->iSetMainWindowName();
+		$this->getSession()->switchToWindow($name);
+	}
+	
+	/**
+	 * @Then I set main window name
+	 */
+	public function iSetMainWindowName()
+	{
+		$window_name = 'main_window';
+		$script = 'window.name = "' . $window_name . '"';
+		$this->getSession()->executeScript($script);
+	}
+	
+	/**
+	 * @Then I switch back to main window
+	 */
+	public function iSwitchBackToMainWindow()
+	{
+		$this->getSession()->switchToWindow('main_window');
+	}
 }

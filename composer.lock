@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "73430c16755ebb975d82b105b766cd16",
+    "content-hash": "be3e03b78e89815b5b2faa51296d5865",
     "packages": [
         {
             "name": "components/jquery",
@@ -918,22 +918,84 @@
             "time": "2017-03-13T06:30:53+00:00"
         },
         {
-            "name": "hybridauth/hybridauth",
-            "version": "v2.6.0",
+            "name": "facebook/graph-sdk",
+            "version": "5.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "45e52d12dccc00d4de25dc534961ab46204a15cf"
+                "url": "https://github.com/facebook/php-graph-sdk.git",
+                "reference": "93d7dc87e55a541d2e27d38f3aed40abbffdf6e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/45e52d12dccc00d4de25dc534961ab46204a15cf",
-                "reference": "45e52d12dccc00d4de25dc534961ab46204a15cf",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/93d7dc87e55a541d2e27d38f3aed40abbffdf6e1",
+                "reference": "93d7dc87e55a541d2e27d38f3aed40abbffdf6e1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4|^7.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "~5.0",
+                "mockery/mockery": "~0.8",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client",
+                "paragonie/random_compat": "Provides a better CSPRNG option in PHP 5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Facebook\\": "src/Facebook/"
+                },
+                "files": [
+                    "src/Facebook/polyfills.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Facebook Platform"
+            ],
+            "authors": [
+                {
+                    "name": "Facebook",
+                    "homepage": "https://github.com/facebook/php-graph-sdk/contributors"
+                }
+            ],
+            "description": "Facebook SDK for PHP",
+            "homepage": "https://github.com/facebook/php-graph-sdk",
+            "keywords": [
+                "facebook",
+                "sdk"
+            ],
+            "time": "2017-04-20T14:15:02+00:00"
+        },
+        {
+            "name": "hybridauth/hybridauth",
+            "version": "v2.9.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "4e95e9c4a9e85a6ce4735dbb3924715a0493981a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/4e95e9c4a9e85a6ce4735dbb3924715a0493981a",
+                "reference": "4e95e9c4a9e85a6ce4735dbb3924715a0493981a",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
+                "facebook/graph-sdk": "^5.4",
                 "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "2.*"
             },
             "type": "library",
             "autoload": {
@@ -967,7 +1029,7 @@
                 "twitter",
                 "yahoo"
             ],
-            "time": "2016-01-12T12:19:25+00:00"
+            "time": "2017-05-06T07:11:02+00:00"
         },
         {
             "name": "imagine/imagine",

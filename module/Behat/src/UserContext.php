@@ -47,6 +47,38 @@ class UserContext implements Context
 	 */
 	static private $userRepo;
 	
+	
+	private $socialLoginInfo = [];
+	
+	public function __construct($parameters=[])
+	{
+		$defaultLoginInfo = [
+			'facebook' => [
+				'email' => getenv('FACEBOOK_USER_EMAIL'),
+				'pass' => getenv('FACEBOOK_USER_PASSWORD')
+			],
+			'linkedin' => [
+				'session_key-login' => getenv('LINKEDIN_USER_EMAIL'),
+				'session_password-login' => getenv('LINKEDIN_USER_PASSWORD')
+			],
+		];
+		$socialLoginConfig = isset($parameters['social_login_info']) ? $parameters['social_login_info']:[];
+		$this->socialLoginInfo = array_merge($defaultLoginInfo,$socialLoginConfig);
+		
+	}
+	
+	/**
+	 * @When I fill in login form with :provider user
+	 */
+	public function iSignInWithSocialUser($provider)
+	{
+		$provider = strtolower($provider);
+		$mink = $this->minkContext;
+		foreach($this->socialLoginInfo[$provider] as $field=>$value){
+			$mink->fillField($field,$value);
+		}
+	}
+	
 	/**
 	 * @BeforeScenario
 	 * @param BeforeScenarioScope $scope
