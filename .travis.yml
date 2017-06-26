@@ -26,6 +26,7 @@ before_script:
   - mkdir -p config/autoload
   - mkdir -p build/behat
   - cp .travis/yawik.config.global.php config/autoload
+  - cp .travis/module.auth.local.php config/autoload
 
   # install Mongo extension
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
