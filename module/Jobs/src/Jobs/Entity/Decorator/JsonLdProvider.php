@@ -44,6 +44,7 @@ class JsonLdProvider implements JsonLdProviderInterface
             '@context'=>'http://schema.org/',
             '@type' => 'JobPosting',
             'title' => $this->job->getTitle(),
+            'description' => $this->getDescription($this->job),
             'datePosted' => $this->job->getDatePublishStart()->format('Y-m-d'),
             'identifier' => [
                 '@type' => 'PropertyValue',
@@ -80,5 +81,22 @@ class JsonLdProvider implements JsonLdProviderInterface
                 ]);
         }
         return $array;
+    }
+
+    private function getDescription(JobInterface $job) {
+
+        $description=sprintf(
+            "<p>%s</p>".
+            "<h1>%s</h1>".
+            "<h3>Requirements</h3><p>%s</p>".
+            "<h3>Qualifications</h3><p>%s</p>".
+            "<h3>Benefits</h3><p>%s</p>",
+            $job->getTemplateValues()->getDescription(),
+            $job->getTemplateValues()->getTitle(),
+            $job->getTemplateValues()->getRequirements(),
+            $job->getTemplateValues()->getQualifications(),
+            $job->getTemplateValues()->getBenefits()
+        );
+        return $description;
     }
 }
