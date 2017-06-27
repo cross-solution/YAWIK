@@ -88,7 +88,7 @@ $lang = isset($this->lang)?$this->lang:$this->params('lang'); ?>
                 <?php endif ?>
                 <li class="divider"></li>
                 <li>
-                    <a href="<?php echo $this->url('auth-logout',array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-logout fa-fw"></span><?php echo $this->translate('Logout')?></a>
+                    <a id="ykLogoutButton" href="<?php echo $this->url('auth-logout',array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-logout fa-fw"></span><?php echo $this->translate('Logout')?></a>
                 </li>
             </ul>
 

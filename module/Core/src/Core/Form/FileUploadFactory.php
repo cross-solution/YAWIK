@@ -79,18 +79,16 @@ class FileUploadFactory implements FactoryInterface
     protected $options;
 	
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null ) {
-		/* @var $serviceLocator \Zend\Form\FormElementManager */
-		$serviceLocator = $container->get('FormElementManager');
-		$service = $serviceLocator->getServiceLocator();
+		/* @var $formElementManager \Zend\Form\FormElementManager */
+		$formElementManager = $container->get('FormElementManager');
 		$options=null;
 		if ($this->options) {
-			$options = $service->get($this->options);
+			$options = $container->get($this->options);
 		}
 		
 		// Retrieve configuration.
 		if ($this->configKey) {
-			$services = $serviceLocator->getServiceLocator();
-			$config   = $services->get('config');
+			$config   = $container->get('config');
 			$config   = isset($config['form_elements_config']['file_upload_factories'][$this->configKey])
 				? $config['form_elements_config']['file_upload_factories'][$this->configKey]
 				: array();
@@ -99,7 +97,7 @@ class FileUploadFactory implements FactoryInterface
 		
 		
 		$form = new Form();
-		$serviceLocator->injectFactory($serviceLocator,$form);
+		$formElementManager->injectFactory($formElementManager,$form);
 		$form->add(
 			array(
 				'type' => $this->fileElement,
@@ -116,7 +114,7 @@ class FileUploadFactory implements FactoryInterface
 		$element = $form->get($this->fileName);
 		$element->setIsMultiple($this->multiple);
 		
-		$user = $serviceLocator->getServiceLocator()->get('AuthenticationService')->getUser();
+		$user = $container->get('AuthenticationService')->getUser();
 		
 		if (isset($this->config['hydrator']) && $this->config['hydrator']) {
 			/** @noinspection PhpUndefinedVariableInspection */

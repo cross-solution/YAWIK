@@ -1,0 +1,46 @@
+# This file is part of the YAWIK Project
+# (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+
+default:
+    formatters:
+        pretty:
+            verbose: true
+            paths: false
+    extensions:
+        Lakion\Behat\MinkDebugExtension:
+            directory: build/behat
+            clean_start: true
+            screenshot: true
+
+        Behat\MinkExtension:
+            files_path: "%paths.base%/module/Behat/resources/fixtures/"
+            base_url: "http://localhost:8000"
+            javascript_session: chrome
+            sessions:
+                chrome:
+                    selenium2:
+                        browser: chrome
+                        capabilities:
+                            browserName: chrome
+                            browser: chrome
+                            version: ""
+                            chrome:
+                                switches:
+                                    - "start-fullscreen"
+                                    - "start-maximized"
+                                    - "no-sandbox"
+                firefox:
+                    selenium2:
+                        browser: firefox
+            show_auto: false
+
+    gherkin:
+        filters:
+            tags: "~@todo && ~@cli" # CLI is excluded as it registers an error handler that mutes fatal errors
+
+    suites:
+        user:
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - Yawik\Behat\CoreContext
+                - Yawik\Behat\UserContext

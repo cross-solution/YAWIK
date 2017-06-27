@@ -8,6 +8,7 @@
  */
 
 namespace Core\Factory\Controller;
+use Core\EventManager\EventManager;
 use Interop\Container\ContainerInterface;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Zend\ModuleManager\ModuleManager;
@@ -28,6 +29,7 @@ class LazyControllerFactory implements AbstractFactoryInterface
 		ValidatorPluginManager::class => 'ValidatorManager',
 		Translator::class => 'translator',
 		ModuleManager::class => 'ModuleManager',
+		EventManager::class => 'Core/EventManager'
 	];
 	
 	public function canCreate( ContainerInterface $container, $requestedName )

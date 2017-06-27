@@ -30,12 +30,15 @@ class UsersController extends AbstractActionController
      */
     protected $userRepository;
 
+    protected $formManager;
+    
     /**
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository,$formManager)
     {
         $this->userRepository = $userRepository;
+        $this->formManager = $formManager;
     }
     
     /**
@@ -75,10 +78,9 @@ class UsersController extends AbstractActionController
         }
         
         $params = $this->params();
-        $serviceLocator = $this->serviceLocator;
-        $forms = $serviceLocator->get('forms');
+        $forms = $this->formManager;
         /* @var $infoContainer \Auth\Form\UserProfileContainer */
-        $infoContainer = $forms->get('Auth/userprofilecontainer');
+        $infoContainer = $forms->get('Auth/UserProfileContainer');
         $infoContainer->setEntity($user);
         $statusContainer = $forms->get('Auth/UserStatusContainer');
         $statusContainer->setEntity($user);

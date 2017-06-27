@@ -51,7 +51,7 @@ class Container extends Element implements
     
     /**
      * The form element manager.
-     * @var \Zend\Form\FormElementManager
+     * @var \Zend\Form\FormElementManager\FormElementManagerV3Polyfill
      */
     protected $formElementManager;
     
@@ -309,9 +309,12 @@ class Container extends Element implements
         if (!isset($options['use_files_array'])) {
             $options['use_files_array'] = false;
         }
-
+	    
+        //@TODO: [ZF3] Passing options in $formElementManager->get is not working need to do manually set options
         $formInstance = $this->formElementManager->get($form['type'], $options);
+        $formInstance->setOptions(array_merge($formInstance->getOptions(),$options));
         $formInstance->setParent($this);
+        
         if (isset($form['attributes'])) {
             $formInstance->setAttributes($form['attributes']);
         }
@@ -325,7 +328,12 @@ class Container extends Element implements
         }
 
         // @TODO: [ZF3] which one is correct? $form[options][label] or $form[options]
-	    $formLabel = isset($form['label']) ? $form['label']:$form['options']['label'];
+	    if(isset($form['label'])){
+		    $formLabel = $form['label'];
+	    }elseif(isset($form['options']['label'])){
+		    $formLabel = $form['options']['label'];
+	    }
+	    
         if (isset($formLabel)) {
             $formInstance->setLabel($formLabel);
         }

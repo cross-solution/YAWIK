@@ -62,6 +62,7 @@ class UserInfoContainer extends Container implements ViewPartialProviderInterfac
             'info' => array(
                 'type' => 'Auth/UserInfo',
                 'property' => true,
+	            'use_post_array' => true
             ),
             'image' => array(
                 'type' => 'Auth/UserImage',

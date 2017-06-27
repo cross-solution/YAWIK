@@ -150,7 +150,7 @@ return array(
                 'options' => array(
                     'route' => '/file/:filestore/:fileId[/:fileName]',
                     'defaults' => array(
-                        'controller' => '\Core\Controller\File',
+                        'controller' => 'Core\Controller\File',
                         'action' => 'index'
                     ),
                 ),
@@ -273,12 +273,12 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Core\Controller\Content' => 'Core\Controller\ContentController',
-            'Core\Controller\File'  => 'Core\Controller\FileController',
-            'Core/Admin' => 'Core\Controller\AdminController',
         ),
 	    'factories' => [
 	    	// @TODO: improve this factory
 		    'Core\Controller\Index' => [\Core\Controller\IndexController::class,'factory'],
+		    'Core/Admin' => [\Core\Controller\AdminController::class,'factory'],
+		    'Core\Controller\File'  => [\Core\Controller\FileController::class,'factory'],
 	    ],
         'abstract_factories' => [
 	        \Core\Factory\Controller\LazyControllerFactory::class
@@ -499,6 +499,11 @@ return array(
         'Core/ViewSnippets/Events' => [
             'service' => 'Core/EventManager',
         ],
+	    
+	    'Core/File/Events' => [
+		    'service' => 'Core/EventManager',
+		    'event' => \Core\Listener\Events\FileEvent::class
+	    ]
     ],
     
 );
