@@ -10,32 +10,40 @@
 /** */
 namespace Jobs\Entity\Decorator;
 
+use Doctrine\Common\Collections\Collection;
 use Jobs\Entity\JobInterface;
 use Jobs\Entity\JsonLdProviderInterface;
+use Jobs\Entity\TemplateValuesInterface;
+use Zend\Json\Json;
 
 /**
- * ${CARET}
+ * Decorates a job with implementing a toJsonLd method.
+ *
+ * This decorator *does not* delegate other methods.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
  * @todo write test 
  */
 class JsonLdProvider implements JsonLdProviderInterface
 {
 
+    /**
+     * the decorated job entity.
+     *
+     * @var \Jobs\Entity\JobInterface
+     */
     private $job;
 
+    /**
+     * @param JobInterface $job
+     */
     public function __construct(JobInterface $job)
     {
         $this->job = $job;
     }
 
-    /**
-     * creates a JSON-LD specified in https://developers.google.com/search/docs/data-types/job-postings
-     * 
-     * Results can be tested in https://search.google.com/structured-data/testing-tool
-     *
-     * @return string
-     */
+
     public function toJsonLd()
     {
         $organizationName = $this->job->getOrganization()->getOrganizationName()->getName();
@@ -44,7 +52,7 @@ class JsonLdProvider implements JsonLdProviderInterface
             '@context'=>'http://schema.org/',
             '@type' => 'JobPosting',
             'title' => $this->job->getTitle(),
-            'description' => $this->getDescription($this->job),
+            'description' => $this->getDescription($this->job->getTemplateValues()),
             'datePosted' => $this->job->getDatePublishStart()->format('Y-m-d'),
             'identifier' => [
                 '@type' => 'PropertyValue',
@@ -61,9 +69,17 @@ class JsonLdProvider implements JsonLdProviderInterface
             'jobLocation' => $this->getLocations($this->job->getLocations()),
             'employmentType' => $this->job->getClassifications()->getEmploymentTypes()->getValues()
         ];
-        return json_encode($array);
+
+        return Json::encode($array);
     }
 
+    /**
+     * Generates a location array
+     *
+     * @param Collection $locations
+     *
+     * @return array
+     */
     private function getLocations($locations){
         $array=[];
         foreach($locations as $location){ /* @var \Core\Entity\LocationInterface $location */
@@ -83,7 +99,14 @@ class JsonLdProvider implements JsonLdProviderInterface
         return $array;
     }
 
-    private function getDescription(JobInterface $job) {
+    /**
+     * Generates a description from template values
+     *
+     * @param TemplateValuesInterface $values
+     *
+     * @return string
+     */
+    private function getDescription(TemplateValuesInterface $values) {
 
         $description=sprintf(
             "<p>%s</p>".
@@ -91,11 +114,11 @@ class JsonLdProvider implements JsonLdProviderInterface
             "<h3>Requirements</h3><p>%s</p>".
             "<h3>Qualifications</h3><p>%s</p>".
             "<h3>Benefits</h3><p>%s</p>",
-            $job->getTemplateValues()->getDescription(),
-            $job->getTemplateValues()->getTitle(),
-            $job->getTemplateValues()->getRequirements(),
-            $job->getTemplateValues()->getQualifications(),
-            $job->getTemplateValues()->getBenefits()
+            $values->getDescription(),
+            $values->getTitle(),
+            $values->getRequirements(),
+            $values->getQualifications(),
+            $values->getBenefits()
         );
         return $description;
     }

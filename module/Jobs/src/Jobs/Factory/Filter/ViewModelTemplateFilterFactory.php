@@ -70,7 +70,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         $filter->setServerUrlHelper($serverUrlHelper);
 
         $jsonLdHelper = $viewManager->get(JsonLd::class);
-        $filter->jsonLdHelper = $jsonLdHelper;
+        $filter->setJsonLdHelper($jsonLdHelper);
 
         $urlPlugin = $this->service->get('controllerPluginManager')->get('url');
         $filter->setUrlPlugin($urlPlugin);
