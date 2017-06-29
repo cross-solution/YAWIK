@@ -104,7 +104,7 @@ class CoreContext extends RawMinkContext
 	}
 	
 	/**
-	 * @Given I wait for :second seconds
+	 * @Given /^I wait for (\d+) seconds$/
 	 */
 	public function iWaitForSecond($second)
 	{
@@ -161,5 +161,10 @@ class CoreContext extends RawMinkContext
 	public function iSwitchBackToMainWindow()
 	{
 		$this->getSession()->switchToWindow('main_window');
+	}
+	
+	public function iVisit($url)
+	{
+		$this->minkContext->getSession()->visit($url);
 	}
 }

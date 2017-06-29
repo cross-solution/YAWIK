@@ -48,7 +48,7 @@ class EmployeeInvitationFactory implements FactoryInterface
         /* @var $serviceLocator \Core\Mail\MailService */
         /* @var $owner \Auth\Entity\UserInterface */
         /* @var $user \Auth\Entity\UserInterface */
-
+		$this->setCreationOptions($options);
         $auth     = $container->get('AuthenticationService');
         $router   = $container->get('Router');
 
@@ -107,7 +107,7 @@ class EmployeeInvitationFactory implements FactoryInterface
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function setCreationOptions(array $options)
+    public function setCreationOptions(array $options=null)
     {
         if (!isset($options['user']) || !$options['user'] instanceof UserInterface) {
             throw new \InvalidArgumentException('An user interface is required!');

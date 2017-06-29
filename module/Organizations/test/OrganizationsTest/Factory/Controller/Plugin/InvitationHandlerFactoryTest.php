@@ -11,6 +11,7 @@
 namespace OrganizationsTest\Factory\Controller\Plugin;
 
 use Organizations\Factory\Controller\Plugin\InvitationHandlerFactory;
+use Zend\Mvc\Controller\PluginManager;
 
 /**
  * Tests for \Organizations\Factory\Controller\Plugin\InvitationHandlerFactory
@@ -51,8 +52,22 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
         $repositories->expects($this->once())->method('get')->with('Auth/User')->willReturn($userRepository);
 
         $translator = new \Zend\I18n\Translator\Translator();
-
-        $mailer = $this->getMockBuilder('\Core\Controller\Plugin\Mailer')->disableOriginalConstructor()->getMock();
+	
+	    $mailer = $this->getMockBuilder('\Core\Controller\Plugin\Mailer')
+	                   ->disableOriginalConstructor()
+	                   ->getMock()
+	    ;
+	    
+        $pluginManager = $this->getMockBuilder(PluginManager::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+        
+        $pluginManager->expects($this->once())
+	        ->method('get')
+	        ->with('Core/Mailer')
+	        ->willReturn($mailer)
+	    ;
 
         $emailValidator = new \Zend\Validator\EmailAddress();
 
@@ -67,7 +82,7 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
                      array('translator', $translator),
                      array('repositories', $repositories),
                      array('Auth/UserTokenGenerator', $tokenGenerator),
-	                 array('Mailer',$mailer)
+	                 array('ControllerPluginManager',$pluginManager),
                  )));
 
         /*

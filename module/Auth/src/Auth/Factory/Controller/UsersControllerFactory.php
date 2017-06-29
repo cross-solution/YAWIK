@@ -11,7 +11,7 @@ namespace Auth\Factory\Controller;
 
 use Auth\Controller\UsersController;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class UsersControllerFactory implements FactoryInterface
@@ -34,7 +34,8 @@ class UsersControllerFactory implements FactoryInterface
         /* @var $users \Auth\Repository\User */
         $users = $container->get('repositories')->get('Auth/User');
 		$formManager = $container->get('forms');
-        return new UsersController($users,$formManager);
+		$viewHelper = $container->get('ViewHelperManager');
+        return new UsersController($users,$formManager,$viewHelper);
     }
 
     /**

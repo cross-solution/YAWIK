@@ -10,6 +10,7 @@
 /** */
 namespace CoreTest\Mail\MailService;
 
+use Core\Mail\HTMLTemplateMessage;
 use Core\Mail\MailService;
 use Core\Mail\MailServiceConfig;
 use Zend\Mail\Address;
@@ -63,7 +64,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
             'stringtemplate' => '\Core\Mail\StringTemplateMessage',
         );
         $factories = array(
-            'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage::factory'
+            'htmltemplate'   => [HTMLTemplateMessage::class,'factory']
         );
 
         $this->assertAttributeEquals(false, 'shareByDefault', $target, 'shareByDefault is not set to FALSE');

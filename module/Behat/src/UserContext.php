@@ -51,6 +51,11 @@ class UserContext implements Context
 	
 	private $socialLoginInfo = [];
 	
+	/**
+	 * @var UserInterface
+	 */
+	private $loggedInUser;
+	
 	public function __construct($parameters=[])
 	{
 		$defaultLoginInfo = [
@@ -95,7 +100,7 @@ class UserContext implements Context
 	 * @AfterSuite
 	 * @param AfterSuiteScope $scope
 	 */
-	static  public function afterSuite(AfterSuiteScope $scope)
+	static public function afterSuite(AfterSuiteScope $scope)
 	{
 		$repo = static::$userRepo;
 		foreach(static::$users as $user){
@@ -105,6 +110,17 @@ class UserContext implements Context
 		}
 	}
 	
+	/**
+	 * @Given I am logged in as a recruiter
+	 */
+	public function iAmLoggedInAsARecruiter()
+	{
+		$this->thereIsAUserIdentifiedBy('test@recruiter.com','test');
+		$this->iWantToLogIn();
+		$this->iSpecifyTheUsernameAs('test@recruiter.com');
+		$this->iSpecifyThePasswordAs('test');
+		$this->iLogIn();
+	}
 	/**
 	 * @return UserRepository
 	 */
@@ -116,11 +132,11 @@ class UserContext implements Context
 	/**
 	 * @Given there is a user :email identified by :password
 	 */
-	public function thereIsAUserIdentifiedBy($email, $password,$username='test.user',$fullname="Test User")
+	public function thereIsAUserIdentifiedBy($email, $password)
 	{
 		$repo = $this->getUserRepository();
 		if(!is_object($user=$repo->findByEmail($email))){
-			$user = $this->createUser($email,$password,$username,$fullname);
+			$user = $this->createUser($email,$password);
 		}
 		$this->currentUser = $user;
 		$this->addCreatedUser($user);
@@ -135,12 +151,12 @@ class UserContext implements Context
 	 *
 	 * @return \Auth\Entity\UserInterface
 	 */
-	public function createUser($email,$password,$username,$fullname="Test Recruiter",$role=User::ROLE_RECRUITER)
+	public function createUser($email,$password,$fullname="Test Recruiter",$role=User::ROLE_RECRUITER)
 	{
 		/* @var Register $service */
 		$repo = $this->getUserRepository();
 		$user = $repo->create([]);
-		$user->setLogin($username);
+		$user->setLogin($email);
 		$user->setPassword($password);
 		$user->setRole($role);
 		
@@ -224,10 +240,15 @@ class UserContext implements Context
 	 */
 	public function iLogInWith($username, $password)
 	{
-		$this->iWantToLogIn();
-		$this->iSpecifyTheUsernameAs($username);
-		$this->iSpecifyThePasswordAs($password);
-		$this->iLogIn();
+		$repo = $this->getUserRepository();
+		$user = $repo->findByLogin($username);
+		if($this->loggedInUser !== $user){
+			$this->iWantToLogIn();
+			$this->iSpecifyTheUsernameAs($username);
+			$this->iSpecifyThePasswordAs($password);
+			$this->iLogIn();
+			$this->loggedInUser = $user;
+		}
 	}
 	
 	/**
@@ -247,13 +268,12 @@ class UserContext implements Context
 		$repo = $this->getUserRepository();
 		$data = $table->getRowsHash();
 		$email = isset($data['email']) ? $data['email']:'test@example.com';
-		$login = isset($data['login']) ? $data['login']:'test.user';
 		$password = isset($data['password']) ? $data['password']:'test';
 		$fullname = isset($data['fullname']) ? $data['fullname']:'Test User';
 		$role = isset($data['role']) ? $data['role']:User::ROLE_RECRUITER;
 		
-		if(!is_object($user=$repo->findByLogin($login))){
-			$user = $this->createUser($email,$password,$login,$fullname,$role);
+		if(!is_object($user=$repo->findByLogin($email))){
+			$user = $this->createUser($email,$password,$fullname,$role);
 		}
 		$this->currentUser = $user;
 		$this->addCreatedUser($user);

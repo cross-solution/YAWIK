@@ -10,6 +10,7 @@
 
 namespace Core\Mail;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mail\Header;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
@@ -36,12 +37,17 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
     protected $variables = array();
 
     protected $renderedBody;
-
-    /**
-     * @param ServiceLocatorInterface $serviceManager
-     * @param array $options
-     */
-    public function __construct(ServiceLocatorInterface $serviceManager, array $options = array())
+	
+	/**
+	 * HTMLTemplateMessage constructor.
+	 *
+	 * @param ContainerInterface $serviceManager
+	 * @param array $options
+	 */
+    public function __construct(
+    	ContainerInterface $serviceManager,
+	    array $options = array()
+    )
     {
         // @TODO make this multipart
         parent::__construct($options);
@@ -228,11 +234,11 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
             }
 
             /* @var \Zend\Mvc\View\Http\ViewManager $viewManager */
-            $viewManager  = $this->serviceManager->get('viewManager');
-            $resolver = $this->serviceManager->get('viewResolver');
+            $viewManager  = $this->serviceManager->get('ViewManager');
+            $resolver = $this->serviceManager->get('ViewResolver');
 
             /* @var \Zend\Mvc\MvcEvent $event */
-            $event = $this->serviceManager->get('application')->getMvcEvent();
+            $event = $this->serviceManager->get('Application')->getMvcEvent();
             $lang = $forceLanguage ?: $event->getRouteMatch()->getParam('lang');
 
 
@@ -259,13 +265,14 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
         $this->renderBodyText();
         return $this->renderedBody;
     }
-    
-    /**
-     * @param MailService $mailService
-     * @return \Core\Mail\HTMLTemplateMessage
-     */
-    public static function factory(MailService $mailService)
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return static
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($mailService->getServiceLocator());
+        return new static($container);
     }
 }
