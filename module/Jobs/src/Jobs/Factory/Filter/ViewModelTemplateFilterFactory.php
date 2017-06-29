@@ -10,9 +10,8 @@
 
 namespace Jobs\Factory\Filter;
 
-use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\ServiceManager\FactoryInterface;
 use Zend\Form\Element;
 use Jobs\Filter\ViewModelTemplateFilterForm;
 use Jobs\Filter\ViewModelTemplateFilterJob;
@@ -22,10 +21,6 @@ use Core\Entity\EntityInterface;
  * create a ViewModel for the ViewModel, either with tinyMC or rendered content
  * the Factory has to make a choice
  *
- * @author Carsten Bleek <bleek@cross-solution.de>
- * @author fedys
- * @author Anthonius Munthi <me@itstoni.com>
- *
  * @param $element
  */
 class ViewModelTemplateFilterFactory implements FactoryInterface
@@ -34,20 +29,23 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
      * @var ServiceLocatorInterface
      */
     protected $service;
-	
-	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
-	{
-		$this->service = $container;
-		return $this;
-	}
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return $this|mixed
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->service = $serviceLocator;
+        return $this;
+    }
 
     /**
      * @param $element
      * @return \Zend\View\Model\ViewModel
      * @throws \InvalidArgumentException
-     * @TODO: [ZF3] renamed this method into getModel because conflict with FactoryInterface::__invoke() method
      */
-    public function getModel($element)
+    public function __invoke($element)
     {
         $filter = null;
         if ($element instanceof EntityInterface) {
@@ -62,7 +60,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         if (!isset($filter)) {
             throw new \InvalidArgumentException(get_class($element) . ' cannot be used to initialize a template');
         }
-        $viewManager = $this->service->get('ViewHelperManager');
+        $viewManager = $this->service->get('viewHelperManager');
         $basePathHelper = $viewManager->get('basePath');
         $serverUrlHelper = $viewManager->get('serverUrl');
         $imageFileCacheHelper = $this->service->get('Organizations\ImageFileCache\Manager');
@@ -70,7 +68,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         $filter->setImageFileCacheHelper($imageFileCacheHelper);
         $filter->setServerUrlHelper($serverUrlHelper);
 
-        $urlPlugin = $this->service->get('ControllerPluginManager')->get('url');
+        $urlPlugin = $this->service->get('controllerPluginManager')->get('url');
         $filter->setUrlPlugin($urlPlugin);
         $options = $this->service->get('Jobs/Options');
         $filter->setConfig($options);

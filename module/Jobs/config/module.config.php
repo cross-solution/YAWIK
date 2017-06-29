@@ -1,5 +1,5 @@
 <?php
-
+namespace Jobs;
 return [
     'doctrine' => [
         'driver' => [
@@ -354,6 +354,10 @@ return [
             'applyUrl' => 'Jobs\Factory\View\Helper\ApplyUrlFactory',
             'jobUrl' => 'Jobs\Factory\View\Helper\JobUrlFactory',
             'Jobs/AdminEditLink' => 'Jobs\Factory\View\Helper\AdminEditLinkFactory',
+            View\Helper\JsonLd::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+        ],
+        'aliases' => [
+            'jsonLd' => View\Helper\JsonLd::class,
         ],
 
     ],

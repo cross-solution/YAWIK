@@ -10,6 +10,8 @@
 
 namespace Jobs\Filter;
 
+use Jobs\View\Helper\JsonLd;
+
 /**
  * template ViewModel html
  *
@@ -20,6 +22,34 @@ namespace Jobs\Filter;
 class ViewModelTemplateFilterJob extends ViewModelTemplateFilterAbstract
 {
     /**
+     *
+     *
+     * @var JsonLd
+     */
+    protected $jsonLdHelper;
+
+    /**
+     * @param \Jobs\View\Helper\JsonLd $jsonLdHelper
+     *
+     * @return self
+     */
+    public function setJsonLdHelper(JsonLd $jsonLdHelper)
+    {
+        $this->jsonLdHelper = $jsonLdHelper;
+
+        return $this;
+    }
+
+    /**
+     * @return \Jobs\View\Helper\JsonLd
+     */
+    public function getJsonLdHelper()
+    {
+        return $this->jsonLdHelper;
+    }
+
+
+    /**
      * assign the form-elements to the template
      * @param \Jobs\Entity\Job $job
      * @return $this
@@ -27,6 +57,7 @@ class ViewModelTemplateFilterJob extends ViewModelTemplateFilterAbstract
     protected function extract($job)
     {
         $this->job = $job;
+        $this->getJsonLdHelper()->setJob($job);
         $this->setApplyData();
         $this->setOrganizationInfo();
         $this->setLocation();
