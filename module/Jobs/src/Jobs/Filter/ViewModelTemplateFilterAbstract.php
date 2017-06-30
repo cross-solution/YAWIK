@@ -54,7 +54,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     protected $basePathHelper;
 
     /**
-     * @var $serverUrlHelper \Zend\View\Helper\ServiceUrl
+     * @var $serverUrlHelper \Zend\View\Helper\ServerUrl
      */
     protected $serverUrlHelper;
 
