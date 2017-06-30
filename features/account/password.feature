@@ -9,7 +9,7 @@ Feature: Change user password
             | login         | test.password           |
             | password      | test                    |
             | fullname      | Test Password           |
-        And I log in with username "test.password" and password "test"
+        And I log in with username "test@password.com" and password "test"
 
     Scenario: Changing my password
         When I want to change my password
