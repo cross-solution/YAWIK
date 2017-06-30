@@ -25,7 +25,7 @@ before_script:
   # copy default app config
   - mkdir -p config/autoload
   - mkdir -p build/behat
-  - cp .travis/*.* config/autoload
+  - cp .travis/autoload/*.* config/autoload
 
   # install Mongo extension
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
