@@ -49,3 +49,14 @@ Feature: Updating my organization
         And I wait for the ajax response
         And I wait for 5 seconds
         Then I should see "test.invite@example.com"
+
+    @javascript @organization-workflow
+    Scenario: Setup Workflow
+        When I click edit on workflow form
+        And I uncheck "accept Applications by Department Managers"
+        And I uncheck "assign department managers to jobs"
+        And I wait for the ajax response
+        And I save workflow form
+        And I wait for the ajax response
+        Then the "accept Applications by Department Managers" checkbox should not be checked
+        And the "assign department managers to jobs" checkbox should not be checked
