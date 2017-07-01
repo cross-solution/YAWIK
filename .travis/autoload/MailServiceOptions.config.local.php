@@ -16,7 +16,7 @@
  *
  * @var string
  */
-$transport = 'sendmail';
+$transport = 'smtp';
 
 /**
  * Fully-qualified classname or short name resolvable via Zend\Mail\Protocol\SmtpLoader.
