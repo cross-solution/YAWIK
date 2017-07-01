@@ -2,11 +2,13 @@
 
 namespace Settings\Repository;
 
+use Doctrine\ODM\MongoDB\LockMode;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\MvcEvent;
 use Settings\Entity\Settings as SettingsEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\EntityResolverStrategyInterface;
+
 use Core\Repository\AbstractRepository;
 
 class Settings extends AbstractRepository implements EntityResolverStrategyInterface
@@ -84,24 +86,10 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
             }
         }
     }
-    
-    public function find($id)
-    {
-        return $this->getSettingsByUser($user);
-    }
-    
-    public function fetch()
-    {
-    }
-    
-    public function create($data = null)
-    {
-    }
-    
-    public function save(EntityInterface $entity)
-    {
-        
-    }
+	
+	public function find( $user, $lockMode = LockMode::NONE, $lockVersion = null ) {
+		return $this->getSettingsByUser($user);
+	}
     
     public function getEntityByStrategy($namespace)
     {

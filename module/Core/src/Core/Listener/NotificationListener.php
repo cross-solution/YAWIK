@@ -65,11 +65,16 @@ class NotificationListener extends EventManager
      * @param NotificationEvent $event
      * @return \Core\Listener\NotificationListener
      */
-    public function add(NotificationEvent $event)
+    public function add($event)
     {
-        $notification = $event->getNotification();
-        $this->notifications[] = $notification;
-        $this->hasRunned = false;
+    	//@TODO: [ZF3] $event->getNotification() is not working
+	    $target = $event->getTarget();
+	    if($target instanceof NotificationEvent){
+		    $notification = $target->getNotification();
+		    $this->notifications[] = $notification;
+		    $this->hasRunned = false;
+	    }
+        
         return $this;
     }
 
@@ -121,7 +126,7 @@ class NotificationListener extends EventManager
         if (!$this->hasRunned) {
             $nEvent = new NotificationEvent();
             $nEvent->setNotifications($this->notifications);
-            $this->trigger(NotificationEvent::EVENT_NOTIFICATION_HTML, $this);
+            $this->trigger(NotificationEvent::EVENT_NOTIFICATION_HTML, $nEvent);
             $this->notifications = array();
             $this->hasRunned = true;
         }
@@ -135,9 +140,9 @@ class NotificationListener extends EventManager
 	 */
     static public function factory(ContainerInterface $container)
     {
-	    $evtManager = $container->get(\Zend\EventManager\SharedEventManager::class);
-	    $instance = new \Core\Listener\NotificationListener($evtManager);
-	    $instance->setEventPrototype(new \Core\Listener\Events\NotificationEvent());
+    	$sharedManager = $container->get('Application')->getEventManager()->getSharedManager();
+	    $instance = new NotificationListener($sharedManager);
+	    $instance->setEventPrototype(new NotificationEvent());
 	    return $instance;
     }
 }

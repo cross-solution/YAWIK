@@ -13,9 +13,12 @@ namespace Organizations\Controller;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Form\SummaryForm;
 use Organizations\Exception\MissingParentOrganizationException;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Organizations\Repository;
 use Organizations\Form;
+use Zend\Mvc\I18n\Translator;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\Http\PhpEnvironment\Response;
@@ -30,6 +33,7 @@ use Core\Entity\Exception\NotFoundException;
  * @author Rafal Ksiazek
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Anthonius Munthi <me@itstoni.com>
  *
  * @method \Acl\Controller\Plugin\Acl acl()
  * @method \Core\Controller\Plugin\PaginationParams paginationParams()
@@ -51,36 +55,43 @@ class IndexController extends AbstractActionController
      * @var Repository\Organization
      */
     private $repository;
-
-    /**
-     * Creates an instance.
-     *
-     * @param Form\Organizations      $form         Organization form.
-     * @param Repository\Organization $repository   Organization repository
-     */
-    public function __construct(Form\Organizations $form, Repository\Organization $repository)
+	
+	/**
+	 * @var FormElementManagerV3Polyfill
+	 */
+    private $formManager;
+    
+    private $viewHelper;
+	
+	/**
+	 * @var TranslatorInterface
+	 */
+    private $translator;
+	
+	/**
+	 * Create new controller instance
+	 *
+	 * @param Form\Organizations $form
+	 * @param Repository\Organization $repository
+	 * @param TranslatorInterface $translator
+	 * @param $formManager
+	 * @param $viewHelper
+	 */
+    public function __construct(
+    	Form\Organizations $form,
+	    Repository\Organization $repository,
+		TranslatorInterface $translator,
+		$formManager,
+		$viewHelper
+    )
     {
         $this->repository = $repository;
         $this->form = $form;
+        $this->formManager = $formManager;
+        $this->viewHelper = $viewHelper;
+        $this->translator = $translator;
     }
-
-    /**
-     * attaches further Listeners for generating / processing the output
-     *
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-
-        $events->attach($defaultServices);
-        return $this;
-    }
-
+	
     /**
      * Generates a list of organizations
      *
@@ -109,13 +120,13 @@ class IndexController extends AbstractActionController
     /**
      * Change (Upsert) organizations
      *
-     * @return JsonModel
+     * @return JsonModel|array
      * @throws \RuntimeException
      */
     public function editAction()
     {
         /* @var $request \Zend\Http\Request */
-        $serviceLocator  = $this->serviceLocator;
+        $translator      = $this->translator;
         $return          = null;
         $request         = $this->getRequest();
         $params          = $this->params();
@@ -130,7 +141,7 @@ class IndexController extends AbstractActionController
         } catch (NotFoundException $e) {
             $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
             return [
-                'message' => sprintf($serviceLocator->get('Translator')->translate('Organization with id "%s" not found'), $e->getId()),
+                'message' => sprintf($translator->translate('Organization with id "%s" not found'), $e->getId()),
                 'exception' => $e
             ];
         }
@@ -178,11 +189,11 @@ class IndexController extends AbstractActionController
                 if ($orgName && '' !== (string) $orgName->getName()) {
                     $org->setIsDraft(false);
                 }
-                $serviceLocator->get('repositories')->persist($org);
+                $this->repository->store($org);
             }
 
             $organization = $container->getEntity();
-            $serviceLocator->get('repositories')->store($organization);
+            $this->repository->store($organization);
 
             if ('file-uri' === $this->params()->fromPost('return')) {
                 /* @var $hydrator \Core\Entity\Hydrator\FileCollectionUploadHydrator
@@ -195,11 +206,12 @@ class IndexController extends AbstractActionController
                 if ($form instanceof SummaryForm) {
                     /* @var $form \Core\Form\SummaryForm */
                     $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
-                    $viewHelper = 'summaryform';
+                    $viewHelper = 'summaryForm';
                 } else {
                     $viewHelper = 'form';
                 }
-                $content = $serviceLocator->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
+                
+                $content = $this->viewHelper->get($viewHelper)->__invoke($form);
             }
 
             return new JsonModel(
@@ -228,10 +240,10 @@ class IndexController extends AbstractActionController
     protected function getFormular($organization)
     {
         /* @var $container \Organizations\Form\Organizations */
-        $services  = $this->serviceLocator;
-        $forms     = $services->get('FormElementManager');
+        //$services  = $this->serviceLocator;
+        $forms     = $this->formManager;
         $container = $forms->get(
-            'organizations/form',
+            'Organizations/Form',
             array(
             'mode' => $organization->getId() ? 'edit' : 'new'
             )

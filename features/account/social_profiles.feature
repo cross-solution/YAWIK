@@ -7,10 +7,9 @@ Feature: Social profile feature
     Background:
         Given there is a user with the following:
             | email         | test@social-profile.com |
-            | login         | test.social             |
             | password      | test                    |
             | fullname      | Test Social Profile     |
-        And I log in with username "test.social" and password "test"
+        And I log in with username "test@social-profile.com" and password "test"
 
     @javascript @profile-facebook
     Scenario: Link to facebook
@@ -25,7 +24,7 @@ Feature: Social profile feature
         And I wait for the ajax response
         Then I should see an ".btn-success .fa-facebook" element
 
-    @javascript @profile-linkedin
+    @todo @javascript @profile-linkedin
     Scenario: Link to LinkedIn
         When I go to profile page
         And I press "LinkedIn"

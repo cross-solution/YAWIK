@@ -9,7 +9,7 @@ Feature: Login to yawik
     @javascript
     Scenario: Sign in with username
         When I want to log in
-        And I specify the username as "test.user"
+        And I specify the username as "test@example.com"
         And I specify the password as "test"
         And I log in
         Then I should see "Dashboard"
@@ -18,7 +18,7 @@ Feature: Login to yawik
     @javascript
     Scenario: Sign in with bad credentials
         When I want to log in
-        And I specify the username as "test.user"
+        And I specify the username as "test@example.com"
         And I specify the password as "false"
         And I log in
         Then I should see "Authentication failed."
@@ -34,7 +34,7 @@ Feature: Login to yawik
 
     @javascript
     Scenario: Sign out
-        Given I am logged in as "test.user" identified by "test"
+        Given I am logged in as "test@example.com" identified by "test"
         When I press logout link
         And I should see "Welcome to YAWIK"
         Then I should see "You are now logged out"

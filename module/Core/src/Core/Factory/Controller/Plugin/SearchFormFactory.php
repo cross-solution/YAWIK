@@ -10,16 +10,15 @@
 /** */
 namespace Core\Factory\Controller\Plugin;
 
-use Core\Options\ModuleOptions;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use \Core\Controller\Plugin\SearchForm;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Core\Controller\Plugin\SearchForm;
 
 /**
  * Factory for \Core\Controller\Plugin\SearchForm
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since 0.25
  */
 class SearchFormFactory implements FactoryInterface
@@ -39,17 +38,5 @@ class SearchFormFactory implements FactoryInterface
         $plugin = new SearchForm($forms);
 
         return $plugin;
-    }
-
-    /**
-     * Creates a SearchForm plugin.
-     *
-     * @param ServiceLocatorInterface|\Zend\Mvc\Controller\ControllerManager $serviceLocator
-     *
-     * @return SearchForm
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this(@$serviceLocator->getServiceLocator(), ModuleOptions::class);
     }
 }

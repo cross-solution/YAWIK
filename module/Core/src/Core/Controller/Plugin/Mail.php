@@ -2,6 +2,7 @@
 
 namespace Core\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\Plugin\PluginInterface;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Mail\Message;
@@ -10,14 +11,13 @@ use Zend\Mail\AddressList;
 use Zend\EventManager\Event;
 use Zend\Stdlib\Parameters;
 use Zend\Stdlib\ArrayUtils;
-use Zend\Mvc\Controller\PluginManager as ControllerManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class mail extends Message implements PluginInterface
 {
     
     /**
-     * @var ServiceLocatorInterface
+     * @var ContainerInterface
      */
     protected $serviceManager;
     
@@ -37,9 +37,9 @@ class mail extends Message implements PluginInterface
     protected $config;
 
     /**
-     * @param ServiceLocatorInterface $serviceManager
+     * @param ContainerInterface $serviceManager
      */
-    public function __construct(ServiceLocatorInterface $serviceManager)
+    public function __construct(ContainerInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;
     }
@@ -216,18 +216,17 @@ class mail extends Message implements PluginInterface
             $log->info($this);
         } catch (\Exception $e) {
             $log->err('Mail failure ' . $e->getMessage());
-            //$this->serviceManager->get('Core/Log')->warn('Mail failure ' . $e->getMessage());
         }
-        //}
         return $erg;
     }
     
-    /**
-     * @param ControllerManager $controllerManager
-     * @return mail
-     */
-    public static function factory(ControllerManager $controllerManager)
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return static
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($controllerManager->getServiceLocator());
+        return new static($container);
     }
 }

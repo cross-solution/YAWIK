@@ -118,6 +118,7 @@ class FileUploadFactory implements FactoryInterface
 		
 		if (isset($this->config['hydrator']) && $this->config['hydrator']) {
 			/** @noinspection PhpUndefinedVariableInspection */
+			$manager = $services->getHydratorManager();
 			$hydrator = $services->get('HydratorManager')->get($this->config['hydrator']);
 		} else {
 			

@@ -28,9 +28,11 @@ class IndexControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $organizationRepository = $container->get('repositories')->get('Organizations/Organization');
-
         $form = new Form\Organizations(null);
+        $formManager = $container->get('FormElementManager');
+        $viewHelper = $container->get('ViewHelperManager');
+        $translator = $container->get('translator');
 
-        return new IndexController($form, $organizationRepository);
+        return new IndexController($form, $organizationRepository,$translator,$formManager,$viewHelper);
     }
 }

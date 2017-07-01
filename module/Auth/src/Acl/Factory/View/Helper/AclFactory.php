@@ -12,7 +12,7 @@ namespace Acl\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\PluginManager;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Acl\View\Helper\Acl;
 
 /**
@@ -30,10 +30,7 @@ class AclFactory implements FactoryInterface
      * @param  null|array         $options
      *
      * @return object
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
+     * @inheritdoc
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -42,13 +39,5 @@ class AclFactory implements FactoryInterface
 
         $helper = new Acl($acl);
         return $helper;
-    }
-
-    /* (non-PHPdoc)
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), Acl::class);
     }
 }

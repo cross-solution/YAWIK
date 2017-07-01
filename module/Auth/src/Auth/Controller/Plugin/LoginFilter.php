@@ -10,9 +10,9 @@
 
 namespace Auth\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Auth\Filter\LoginFilter as LoginFilterService;
-use Zend\Mvc\Controller\PluginManager as ControllerManager;
 
 /**
  * Class LoginFilter
@@ -42,13 +42,15 @@ class LoginFilter extends AbstractPlugin
     {
         return $this->loginFilter->filter($name);
     }
-    
-    /**
-     * @param ControllerManager $controllerManager
-     * @return \Auth\Controller\Plugin\LoginFilter
-     */
-    public static function factory(ControllerManager $controllerManager)
+	
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return static
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($controllerManager->getServiceLocator()->get('Auth/LoginFilter'));
+        return new static($container->get('Auth/LoginFilter'));
     }
 }

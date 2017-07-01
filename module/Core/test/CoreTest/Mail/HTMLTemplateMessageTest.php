@@ -79,9 +79,9 @@ class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
         $serviceManager
             ->method('get')
             ->willReturnMap([
-                ['viewManager', $viewManager],
-                ['viewResolver', $viewResolver],
-                ['application', $application]
+                ['ViewManager', $viewManager],
+                ['ViewResolver', $viewResolver],
+                ['Application', $application]
             ]);
 
         $this->resolver = $viewResolver;
@@ -186,10 +186,10 @@ class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $service
+        /*$service
             ->expects($this->once())
             ->method('getServiceLocator')
-            ->willReturn($this->serviceManager);
+            ->willReturn($this->serviceManager);*/
 
         $this->assertInstanceOf(
             HTMLTemplateMessage::class,

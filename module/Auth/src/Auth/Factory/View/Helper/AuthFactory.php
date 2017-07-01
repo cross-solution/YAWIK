@@ -12,11 +12,12 @@ namespace Auth\Factory\View\Helper;
 use Auth\View\Helper\Auth;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating the Auth view helper.
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class AuthFactory implements FactoryInterface
 {
@@ -40,19 +41,5 @@ class AuthFactory implements FactoryInterface
         $helper = new Auth();
         $helper->setService($auth);
         return $helper;
-    }
-
-    /**
-     * Creates an instance of \Auth\View\Helper\Auth
-     *
-     * - Injects the AuthenticationService
-     *
-     * @param ServiceLocatorInterface $helpers
-     * @return \Auth\View\Helper\Auth
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(ServiceLocatorInterface $helpers)
-    {
-        return $this($helpers->getServiceLocator(), Auth::class);
     }
 }

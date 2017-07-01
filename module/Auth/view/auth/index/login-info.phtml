@@ -9,7 +9,8 @@
  */
 ?>
 <?php $switchUserSession = new \Zend\Session\Container(\Auth\Controller\Plugin\UserSwitcher::SESSION_NAMESPACE);
-$lang = isset($this->lang)?$this->lang:$this->params('lang'); ?>
+$defaultLang = is_null($this->params('lang')) ? "en":$this->params('lang');
+$lang = isset($this->lang)?$this->lang:$defaultLang; ?>
 <ul id="yk-login-info" class="nav navbar-nav navbar-collapse collapse navbar-right">
     <li class="dropdown">
 

@@ -72,7 +72,7 @@ return [
              'organizations/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
              'organizations/error/invite' => __DIR__ . '/../view/error/invite.phtml',
              'organizations/mail/invite-employee' => __DIR__ . '/../view/mail/invite-employee.phtml',
-            'organizations/form/workflow-fieldset' => __DIR__ . '/../view/form/workflow-fieldset.phtml',
+             'organizations/form/workflow-fieldset' => __DIR__ . '/../view/form/workflow-fieldset.phtml',
         ],
         // Where to look for view templates not mapped above
         'template_path_stack' => [
@@ -81,7 +81,7 @@ return [
     ],
     'form_elements' => [
         'invokables' => [
-             'Organizations/form' => 'Organizations\Form\Organizations',
+             'Organizations/Form' => 'Organizations\Form\Organizations',
              'Organizations/OrganizationsContactForm'     => 'Organizations\Form\OrganizationsContactForm',
              'Organizations/OrganizationsNameForm'        => 'Organizations\Form\OrganizationsNameForm',
              'Organizations/OrganizationsDescriptionForm' => 'Organizations\Form\OrganizationsDescriptionForm',

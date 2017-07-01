@@ -11,8 +11,7 @@
 namespace Geo\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Geo\Controller\IndexController;
 use Geo\Options\ModuleOptions;
 
@@ -34,18 +33,5 @@ class IndexControllerFactory implements FactoryInterface
         $options = $container->get('Geo/Options');
         $controller = new IndexController($options);
         return $controller;
-    }
-
-    /**
-     * Create controller
-     *
-     * @param ServiceLocatorInterface $controllerManager
-     *
-     * @return IndexController
-     */
-    public function createService(ServiceLocatorInterface $controllerManager)
-    {
-        /* @var \Zend\Mvc\Controller\PluginManager $controllerManager */
-        return $this($controllerManager->getServiceLocator(), IndexController::class);
     }
 }

@@ -9,7 +9,7 @@ Feature: Editing user profile
             | login         | test.profile     |
             | password      | test             |
             | fullname      | Test Profile     |
-        And I log in with username "test.profile" and password "test"
+        And I log in with username "test@profile.com" and password "test"
 
     Scenario: Successfully access profile page
         When I go to profile page

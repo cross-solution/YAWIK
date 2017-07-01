@@ -12,8 +12,7 @@ namespace Install\Factory\Controller\Plugin;
 
 use Install\Controller\Plugin\YawikConfigCreator;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for a YawikConfigCreator plugin instance.
@@ -40,18 +39,5 @@ class YawikConfigCreatorFactory implements FactoryInterface
         $plugin = new YawikConfigCreator($dbNameExtractor);
 
         return $plugin;
-    }
-
-    /**
-     * Creates a YawikConfigCreator plugin instance.
-     *
-     * @param ServiceLocatorInterface|\Zend\Mvc\Controller\PluginManager $serviceLocator
-     *
-     * @return YawikConfigCreator
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        return $this($serviceLocator->getServiceLocator(), YawikConfigCreator::class);
     }
 }

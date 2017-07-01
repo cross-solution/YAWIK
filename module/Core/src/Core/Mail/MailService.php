@@ -70,7 +70,7 @@ class MailService extends AbstractPluginManager
     );
 
     protected $factories = array(
-        'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage::factory',
+        'htmltemplate'   => [HTMLTemplateMessage::class,'factory'],
     );
 
     /**
@@ -83,9 +83,10 @@ class MailService extends AbstractPluginManager
      * @param ContainerInterface $container
      * @param mixed $configuration
      */
-    public function __construct($container, array $configuration = [])
+    public function __construct($container, $configuration = [])
     {
         parent::__construct($container,$configuration);
+        
         $this->addInitializer(
             function ($context,$instance){
                 if ($instance instanceof TranslatorAwareInterface) {
@@ -154,9 +155,13 @@ class MailService extends AbstractPluginManager
      */
     public function setFrom($email, $name = null)
     {
-        $this->from = is_object($email) || null === $name
-            ? $email
-            : array($email => $name);
+    	if(is_array($email)){
+    		$this->from = [$email['email'] => $email['name']];
+	    }else{
+		    $this->from = is_object($email) || null === $name
+			    ? $email
+			    : array($email => $name);
+	    }
 
         return $this;
     }

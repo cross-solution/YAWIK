@@ -19,7 +19,7 @@
 <div>
 <b><?php echo $this->name;?></b>
 <br/><?php echo $this->location['name'];?>
-<br/><?php echo $this->translate("Birthday");?>: <?php echo $this->DateFormat($this->birthday,'short','null');?>
+<br/><?php echo $this->translate("Birthday");?>: <?php echo !is_null($this->birthday) ? $this->DateFormat($this->birthday,'short','null'):"";?>
 <br/><i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->email); ?>
 <br/><i class="yk-icon yk-icon-facebook"></i> <?php echo $this->link($this->link,'Facebook'); ?>
 </div>

@@ -42,6 +42,7 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
      */
     public function getService($name)
     {
+    	/* @TODO: [ZF3] ->getServiceLocator() should be removed in future */
     	$config = $this->dm->getConfiguration();
         return $this->dm->getConfiguration()->getServiceLocator()->get($name);
     }

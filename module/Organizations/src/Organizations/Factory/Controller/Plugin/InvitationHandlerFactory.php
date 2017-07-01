@@ -29,12 +29,11 @@ class InvitationHandlerFactory implements FactoryInterface
     	// @TODO: [ZF3] Check if InvitationHandlerFactory still working properly
 	    
         /* @var $container \Zend\Mvc\Controller\PluginManager */
-        $services   = $container;
-        $validator  = $services->get('ValidatorManager')->get('EmailAddress');
-        $mailer     = $container->get('Mailer');
-        $translator = $services->get('translator');
-        $repository = $services->get('repositories')->get('Auth/User');
-        $generator  = $services->get('Auth/UserTokenGenerator');
+        $validator  = $container->get('ValidatorManager')->get('EmailAddress');
+        $mailer     = $container->get('ControllerPluginManager')->get('Core/Mailer');
+        $translator = $container->get('translator');
+        $repository = $container->get('repositories')->get('Auth/User');
+        $generator  = $container->get('Auth/UserTokenGenerator');
 
         $plugin = new InvitationHandler();
         $plugin->setEmailValidator($validator)

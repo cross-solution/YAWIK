@@ -10,6 +10,7 @@
 namespace Yawik\Behat;
 
 use Auth\Entity\User as User;
+use Auth\Entity\UserInterface;
 use Auth\Listener\Events\AuthEvent;
 use Auth\Repository\User as UserRepository;
 use Auth\Service\Register;
@@ -49,6 +50,11 @@ class UserContext implements Context
 	
 	
 	private $socialLoginInfo = [];
+	
+	/**
+	 * @var UserInterface
+	 */
+	private $loggedInUser;
 	
 	public function __construct($parameters=[])
 	{
@@ -94,7 +100,7 @@ class UserContext implements Context
 	 * @AfterSuite
 	 * @param AfterSuiteScope $scope
 	 */
-	static  public function afterSuite(AfterSuiteScope $scope)
+	static public function afterSuite(AfterSuiteScope $scope)
 	{
 		$repo = static::$userRepo;
 		foreach(static::$users as $user){
@@ -104,6 +110,17 @@ class UserContext implements Context
 		}
 	}
 	
+	/**
+	 * @Given I am logged in as a recruiter
+	 */
+	public function iAmLoggedInAsARecruiter()
+	{
+		$this->thereIsAUserIdentifiedBy('test@recruiter.com','test');
+		$this->iWantToLogIn();
+		$this->iSpecifyTheUsernameAs('test@recruiter.com');
+		$this->iSpecifyThePasswordAs('test');
+		$this->iLogIn();
+	}
 	/**
 	 * @return UserRepository
 	 */
@@ -115,22 +132,31 @@ class UserContext implements Context
 	/**
 	 * @Given there is a user :email identified by :password
 	 */
-	public function thereIsAUserIdentifiedBy($email, $password,$username='test.user',$fullname="Test User")
+	public function thereIsAUserIdentifiedBy($email, $password)
 	{
 		$repo = $this->getUserRepository();
 		if(!is_object($user=$repo->findByEmail($email))){
-			$user = $this->createUser($email,$password,$username,$fullname);
+			$user = $this->createUser($email,$password);
 		}
 		$this->currentUser = $user;
 		$this->addCreatedUser($user);
 	}
 	
-	public function createUser($email,$password,$username,$fullname="Test Recruiter",$role=User::ROLE_RECRUITER)
+	/**
+	 * @param $email
+	 * @param $password
+	 * @param $username
+	 * @param string $fullname
+	 * @param string $role
+	 *
+	 * @return \Auth\Entity\UserInterface
+	 */
+	public function createUser($email,$password,$fullname="Test Recruiter",$role=User::ROLE_RECRUITER)
 	{
 		/* @var Register $service */
 		$repo = $this->getUserRepository();
 		$user = $repo->create([]);
-		$user->setLogin($username);
+		$user->setLogin($email);
 		$user->setPassword($password);
 		$user->setRole($role);
 		
@@ -142,7 +168,6 @@ class UserContext implements Context
 		$info->setEmailVerified(true);
 		
 		$repo->store($user);
-		
 		
 		/* @var \Core\EventManager\EventManager $events */
 		/* @var \Auth\Listener\Events\AuthEvent $event */
@@ -214,10 +239,15 @@ class UserContext implements Context
 	 */
 	public function iLogInWith($username, $password)
 	{
-		$this->iWantToLogIn();
-		$this->iSpecifyTheUsernameAs($username);
-		$this->iSpecifyThePasswordAs($password);
-		$this->iLogIn();
+		$repo = $this->getUserRepository();
+		$user = $repo->findByLogin($username);
+		if($this->loggedInUser !== $user){
+			$this->iWantToLogIn();
+			$this->iSpecifyTheUsernameAs($username);
+			$this->iSpecifyThePasswordAs($password);
+			$this->iLogIn();
+			$this->loggedInUser = $user;
+		}
 	}
 	
 	/**
@@ -237,24 +267,32 @@ class UserContext implements Context
 		$repo = $this->getUserRepository();
 		$data = $table->getRowsHash();
 		$email = isset($data['email']) ? $data['email']:'test@example.com';
-		$login = isset($data['login']) ? $data['login']:'test.user';
 		$password = isset($data['password']) ? $data['password']:'test';
 		$fullname = isset($data['fullname']) ? $data['fullname']:'Test User';
 		$role = isset($data['role']) ? $data['role']:User::ROLE_RECRUITER;
 		
-		if(!is_object($user=$repo->findByLogin($login))){
-			$user = $this->createUser($email,$password,$login,$fullname,$role);
+		if(!is_object($user=$repo->findByLogin($email))){
+			$user = $this->createUser($email,$password,$fullname,$role);
 		}
 		$this->currentUser = $user;
 		$this->addCreatedUser($user);
 	}
 	
-	private function addCreatedUser(User $user)
+	private function addCreatedUser(UserInterface $user)
 	{
 		if(!in_array($user,static::$users)){
 			static::$users[] = $user;
 		}
 	}
 	
+	/**
+	 * @When I want to change my password
+	 */
+	public function iWantToChangeMyPassword()
+	{
+		$mink = $this->minkContext;
+		$url = $this->coreContext->generateUrl('/en/my/password');
+		$mink->getSession()->visit($url);
+	}
 	
 }

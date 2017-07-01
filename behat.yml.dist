@@ -43,4 +43,5 @@ default:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - Yawik\Behat\CoreContext
+                - Yawik\Behat\OrganizationContext
                 - Yawik\Behat\UserContext

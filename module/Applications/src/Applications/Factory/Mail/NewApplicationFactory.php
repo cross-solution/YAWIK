@@ -12,17 +12,16 @@ namespace Applications\Factory\Mail;
 
 use Applications\Mail\NewApplication;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Applications\Mail\NewApplication
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @todo write test  
  */
-class NewApplicationFactory implements FactoryInterface, MutableCreationOptionsInterface
+class NewApplicationFactory implements FactoryInterface
 {
     private $options = [];
 
@@ -44,16 +43,8 @@ class NewApplicationFactory implements FactoryInterface, MutableCreationOptionsI
         $options = $options ?: $this->options;
         $router = $container->get('Router');
         $options['router'] = $router;
-
+		$this->setCreationOptions($options);
         $mail   = new NewApplication($options);
-
-        return $mail;
-    }
-    
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $mail = $this($serviceLocator->getServiceLocator(), NewApplication::class);
-        $this->options = [];
 
         return $mail;
     }

@@ -10,16 +10,14 @@
 
 namespace Core\View\Helper;
 
+use Interop\Container\ContainerInterface;
 use Zend\View\ViewEvent;
 use Core\View\Helper\InsertFile\FileEvent;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\HelperPluginManager;
 
 class InsertFile extends AbstractEventsHelper
 {
-    
     /**
-     * @var ServiceLocatorInterface
+     * @var ContainerInterface
      */
     protected $serviceManager;
     
@@ -30,10 +28,10 @@ class InsertFile extends AbstractEventsHelper
     protected $event;
 
     /**
-     * @param ServiceLocatorInterface $serviceManager
+     * @param ContainerInterface $serviceManager
      * @param string $identifiers
      */
-    public function __construct(ServiceLocatorInterface $serviceManager, $identifiers = null)
+    public function __construct(ContainerInterface $serviceManager, $identifiers = null)
     {
         parent::__construct($identifiers);
         $this->serviceManager = $serviceManager;
@@ -94,13 +92,14 @@ class InsertFile extends AbstractEventsHelper
         $event = $this->getEvent();
         $this->trigger(FileEvent::INSERTFILE, $event);
     }
-    
-    /**
-     * @param HelperPluginManager $helperPluginManager
-     * @return InsertFile
-     */
-    public static function factory(HelperPluginManager $helperPluginManager)
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return InsertFile
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($helperPluginManager->getServiceLocator());
+        return new static($container);
     }
 }

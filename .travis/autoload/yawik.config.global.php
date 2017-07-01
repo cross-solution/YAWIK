@@ -20,6 +20,6 @@ return array(
   ),
   'core_options' => 
   array(
-    'system_message_email' => 'me@itstoni.com',
+    'system_message_email' => 'test.yawik@gmail.com',
   ),
 );

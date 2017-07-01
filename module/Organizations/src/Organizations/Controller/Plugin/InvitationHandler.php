@@ -243,7 +243,7 @@ class InvitationHandler extends AbstractPlugin
         } catch (\Exception $e) {
             return array(
                 'ok'      => false,
-                'message' => $translator->translate('Sending invitation mail failed.')
+                'message' => $translator->translate(trim('Sending invitation mail failed. '.$e->getMessage()))
             );
         }
 

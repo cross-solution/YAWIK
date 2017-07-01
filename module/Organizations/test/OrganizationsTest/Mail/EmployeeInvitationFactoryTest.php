@@ -169,8 +169,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
 
 
         $target = new EmployeeInvitationFactory();
-        $target->setCreationOptions($options);
-        $mail = $target->__invoke($services,'irrelevant');
+        $mail = $target->__invoke($services,'irrelevant',$options);
 
 
         $vars = $mail->getVariables()->getArrayCopy();

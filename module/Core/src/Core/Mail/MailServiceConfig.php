@@ -10,7 +10,7 @@
 /** MailManagerConfig.php */
 namespace Core\Mail;
 
-use Zend\ServiceManager\Config;
+use Zend\Config\Config;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mail\AddressList;
 
@@ -42,19 +42,19 @@ class MailServiceConfig extends Config
 
     public function getMailer()
     {
-        return isset($this->config['mailer'])
-            ? $this->config['mailer']
+        return isset($this->data['mailer'])
+            ? $this->data['mailer']
             : 'php/YAWIK';
     }
     
     public function getOverrideRecipient()
     {
-        if (!isset($this->config['develop']['override_recipient'])
-            || '' == trim($this->config['develop']['override_recipient'])
+        if (!isset($this->data['develop']['override_recipient'])
+            || '' == trim($this->data['develop']['override_recipient'])
         ) {
             return false;
         }
-        $recipientsStr = $this->config['develop']['override_recipient'];
+        $recipientsStr = $this->data['develop']['override_recipient'];
         $recipientsArr = false !== strpos($recipientsStr, ',')
                        ? explode(',', $recipientsStr)
                        : array($recipientsStr);
@@ -81,7 +81,7 @@ class MailServiceConfig extends Config
             throw new \DomainException('Can only configure instances of \Core\Mail\MailService.');
         }
         
-        parent::configureServiceManager($serviceManager);
+        //parent::configureServiceManager($serviceManager);
         
         $serviceManager->setTransport($this->getTransport());
         $serviceManager->setFrom($this->getFrom());

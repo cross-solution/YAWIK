@@ -45,8 +45,14 @@ class MailServiceFactory implements FactoryInterface
 		$configArray = array_merge($configArray, $mails);
 		
 		$config = new MailServiceConfig($configArray);
-		
-		$service   = new MailService($container, $config->toArray());
+		$service   = new MailService($container,$config->toArray());
+		$config->configureServiceManager($service);
+		foreach($config->toArray() as $name=>$value){
+			$method = 'set'.$name;
+			if(method_exists($service,$method)){
+				call_user_func([$service,$method],$value);
+			}
+		}
 		
 		return $service;
 	}

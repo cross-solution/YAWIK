@@ -31,13 +31,13 @@ class SocialButtonsFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new SocialButtonsFactory());
+        $this->assertInstanceOf(\Zend\ServiceManager\Factory\FactoryInterface::class, new SocialButtonsFactory());
     }
 
     /**
      * @testdox createService creates an ApplyUrl view helper and injects the required dependencies
      */
-    public function testServiceCreation()
+    public function testInvokation()
     {
         $serviceLocator = $this->getMockBuilder('\Zend\View\HelperPluginManager')->disableOriginalConstructor()->getMock();
 
@@ -47,11 +47,9 @@ class SocialButtonsFactoryTest extends \PHPUnit_Framework_TestCase
         $HauptServiceLocator =  $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $HauptServiceLocator->expects($this->exactly(2))->method('get')->withConsecutive(['Auth/Options'],['Config'])->will($this->onConsecutiveCalls($options, $config));
 
-        $serviceLocator->expects($this->exactly(1))->method('getServiceLocator')->willReturn($HauptServiceLocator);
-
         $target = new SocialButtonsFactory();
 
-        $helper = $target->createService($serviceLocator);
+        $helper = $target($HauptServiceLocator,'irrelevant');
 
         $this->assertInstanceOf("Core\View\Helper\SocialButtons",$helper);
         $this->assertAttributeSame($options,'options',$helper);

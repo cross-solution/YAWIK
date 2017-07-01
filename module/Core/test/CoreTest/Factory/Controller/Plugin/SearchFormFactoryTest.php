@@ -10,16 +10,19 @@
 /** */
 namespace CoreTest\Factory\Controller\Plugin;
 
+use Core\Factory\Controller\Plugin\SearchFormFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Controller\Plugin\SearchFormFactory
  * 
  * @covers \Core\Factory\Controller\Plugin\SearchFormFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @group Core
  * @group Core.Factory
  * @group Core.Factory.Controller
@@ -34,9 +37,9 @@ class SearchFormFactoryTest extends \PHPUnit_Framework_TestCase
      *
      * @var \Core\Factory\Controller\Plugin\SearchFormFactory
      */
-    protected $target = '\Core\Factory\Controller\Plugin\SearchFormFactory';
+    protected $target = SearchFormFactory::class;
 
-    protected $inheritance = [ '\Zend\ServiceManager\FactoryInterface' ];
+    protected $inheritance = [ FactoryInterface::class ];
 
     public function testCreatesPluginAndInjectsFormElementManager()
     {
@@ -51,8 +54,8 @@ class SearchFormFactoryTest extends \PHPUnit_Framework_TestCase
 		    ]]);*/
 	    $services = $this->getServiceManagerMock();
 	    $services->setService('forms',$forms);
-	    $plugins = $this->getPluginManagerMock($services);
-        $plugin = $this->target->createService($plugins);
+	    
+        $plugin = $this->target->__invoke($services,'irrelevant');
 
         $this->assertInstanceOf('\Core\Controller\Plugin\SearchForm', $plugin);
         $this->assertAttributeSame($forms, 'formElementManager', $plugin);

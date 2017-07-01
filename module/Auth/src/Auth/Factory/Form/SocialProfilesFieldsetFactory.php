@@ -11,14 +11,14 @@
 namespace Auth\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Auth\Form\SocialProfilesFieldset;
 
 /**
  * Factory for a SocialProfilesFieldset
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class SocialProfilesFieldsetFactory implements FactoryInterface
 {
@@ -73,15 +73,5 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
         $fieldset = new SocialProfilesFieldset($name, $options);
 
         return $fieldset;
-    }
-    
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return SocialProfilesFieldset
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), SocialProfilesFieldset::class);
     }
 }

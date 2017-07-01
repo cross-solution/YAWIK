@@ -11,7 +11,6 @@
 namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Auth\Repository\User as UserRepository;
@@ -19,6 +18,10 @@ use Core\Form\SummaryFormInterface;
 
 /**
  * List registered users
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  *
  * @method \Core\Controller\Plugin\CreatePaginator pagination()
  */
@@ -32,13 +35,16 @@ class UsersController extends AbstractActionController
 
     protected $formManager;
     
+    protected $viewHelper;
+    
     /**
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository,$formManager)
+    public function __construct(UserRepository $userRepository,$formManager,$viewHelper)
     {
         $this->userRepository = $userRepository;
         $this->formManager = $formManager;
+        $this->viewHelper = $viewHelper;
     }
     
     /**
@@ -65,7 +71,7 @@ class UsersController extends AbstractActionController
     /**
      * Edit user
      *
-     * @return \Zend\Http\Response|ViewModel
+     * @return \Zend\Http\Response|ViewModel|array
      */
     public function editAction()
     {
@@ -112,18 +118,18 @@ class UsersController extends AbstractActionController
                     );
                 }
                 
-                $serviceLocator->get('repositories')->store($user);
+                $this->userRepository->store($user);
         
                 if ('file-uri' === $params->fromPost('return')) {
                     $content = $form->getHydrator()->getLastUploadedFile()->getUri();
                 } else {
                     if ($form instanceof SummaryFormInterface) {
                         $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
-                        $viewHelper = 'summaryform';
+                        $viewHelper = 'summaryForm';
                     } else {
                         $viewHelper = 'form';
                     }
-                    $content = $serviceLocator->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
+                    $content = $this->viewHelper->get($viewHelper)->__invoke($form);
                 }
         
                 return new JsonModel(

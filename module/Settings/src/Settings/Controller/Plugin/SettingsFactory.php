@@ -10,18 +10,17 @@
 /** SettingsFactory.php */
 namespace Settings\Controller\Plugin;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class SettingsFactory implements FactoryInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $services = $serviceLocator->getServiceLocator();
-        $auth     = $services->get('AuthenticationService');
-        $user     = $auth->getUser();
-        $plugin   = new Settings($user);
-        
-        return $plugin;
-    }
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$auth     = $container->get('AuthenticationService');
+		$user     = $auth->getUser();
+		$plugin   = new Settings($user);
+		
+		return $plugin;
+	}
 }
