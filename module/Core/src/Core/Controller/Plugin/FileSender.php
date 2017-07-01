@@ -10,19 +10,40 @@
 /** FileSender.php */
 namespace Core\Controller\Plugin;
 
+use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
+/**
+ * Class FileSender
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
+ * @package Core\Controller\Plugin
+ */
 class FileSender extends AbstractPlugin
 {
-    
-    public function __invoke($repositoryName, $fileId)
+	/**
+	 * @var RepositoryService
+	 */
+    private $repositories;
+	
+	public function __construct(RepositoryService $repositories)
+	{
+		$this->repositories = $repositories;
+	}
+	
+	
+	public function __invoke($repositoryName, $fileId)
     {
         return $this->sendFile($repositoryName, $fileId);
     }
     
     public function sendFile($repositoryName, $fileId)
     {
-        $repository = $this->getRepository($repositoryName);
+        $repository = $this->repositories->get($repositoryName);
         $file       = $repository->find($fileId);
         $response   = $this->getController()->getResponse();
         
@@ -39,17 +60,19 @@ class FileSender extends AbstractPlugin
         while (!feof($resource)) {
             echo fread($resource, 1024);
         }
-        exit;
+        //@TODO: [ZF3] check if removing "exit;" is safe
+        //exit;
         return $response;
-        
-        
     }
-    
-    protected function getRepository($name)
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return static
+	 */
+    static public function factory(ContainerInterface $container)
     {
-        return $this->getController()
-                    ->getServiceLocator()
-                    ->get('repositories')
-                    ->get($name);
+    	$repositories = $container->get('repositories');
+    	return new static($repositories);
     }
 }

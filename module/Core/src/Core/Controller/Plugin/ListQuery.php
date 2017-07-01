@@ -2,9 +2,8 @@
 
 namespace Core\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Mvc\Controller\PluginManager as ControllerManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class ListQuery
@@ -15,7 +14,7 @@ class ListQuery extends AbstractPlugin
 {
 
     /**
-     * @var ServiceLocatorInterface
+     * @var ContainerInterface
      */
     protected $serviceManager;
     
@@ -45,9 +44,9 @@ class ListQuery extends AbstractPlugin
     protected $sortParamName = 'sort';
     
     /**
-     * @param ServiceLocatorInterface $serviceManager
+     * @param ContainerInterface $serviceManager
      */
-    public function __construct(ServiceLocatorInterface $serviceManager)
+    public function __construct(ContainerInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;
     }
@@ -88,7 +87,7 @@ class ListQuery extends AbstractPlugin
     }
     
     /**
-     * @return Array $propertiesMap
+     * @return array $propertiesMap
      */
     public function getPropertiesMap()
     {
@@ -96,7 +95,7 @@ class ListQuery extends AbstractPlugin
     }
 
     /**
-     * @param Array $propertiesMap
+     * @param array $propertiesMap
      */
     public function setPropertiesMap($propertiesMap)
     {
@@ -210,13 +209,13 @@ class ListQuery extends AbstractPlugin
         }
         return $dbQuery;
     }
-    
-    /**
-     * @param ControllerManager $controllerManager
-     * @return ListQuery
-     */
-    public static function factory(ControllerManager $controllerManager)
+	
+	/**
+	 * @param ContainerInterface $container
+	 * @return ListQuery
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($controllerManager->getServiceLocator());
+        return new static($container);
     }
 }

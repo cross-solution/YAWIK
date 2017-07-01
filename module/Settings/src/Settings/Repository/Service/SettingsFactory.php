@@ -5,29 +5,23 @@
 
 namespace Settings\Repository\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Settings\Repository\Settings;
 
 class SettingsFactory implements FactoryInterface
 {
-    /**
-     * Create the settings Repository service
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return ControllerManager
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $settings = new Settings;
-        $settings->setServiceLocator($serviceLocator->getServiceLocator());
-        $settings->setUserRepository($serviceLocator->getServiceLocator()->get('RepositoryManager')->get('User'));
-        $config = $serviceLocator->getServiceLocator()->get('Config');
-        
-        // put on the Listener for saving the entity
-        $application = $serviceLocator->getServiceLocator()->get('Application');
-        $events = $application->getEventManager();
-        $events->attach('postDispatch', array($settings, 'onPostDispatch'));
-        return $settings;
-    }
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$settings = new Settings();
+		$settings->setServiceLocator($container);
+		$settings->setUserRepository($container->get('RepositoryManager')->get('User'));
+		$config = $container->get('Config');
+		
+		// put on the Listener for saving the entity
+		$application = $container->get('Application');
+		$events = $application->getEventManager();
+		$events->attach('postDispatch', array($settings, 'onPostDispatch'));
+		return $settings;
+	}
 }

@@ -44,8 +44,8 @@ Feature: Updating my organization
         And I wait for the ajax response
         And I click edit on employees form
         And I wait for the ajax response
-        And I fill in "Via email address" with "test.yawik@gmail.com"
+        And I fill in "Via email address" with "test.invite@example.com"
         And I press "Invite"
         And I wait for the ajax response
         And I wait for 5 seconds
-        Then I should see "test.yawik@gmail.com"
+        Then I should see "test.invite@example.com"

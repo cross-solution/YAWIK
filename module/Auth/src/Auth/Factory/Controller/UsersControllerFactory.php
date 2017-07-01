@@ -24,10 +24,7 @@ class UsersControllerFactory implements FactoryInterface
      * @param  null|array         $options
      *
      * @return UsersController
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
+     * @inheritdoc
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -36,17 +33,5 @@ class UsersControllerFactory implements FactoryInterface
 		$formManager = $container->get('forms');
 		$viewHelper = $container->get('ViewHelperManager');
         return new UsersController($users,$formManager,$viewHelper);
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return UsersController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), UsersController::class);
     }
 }

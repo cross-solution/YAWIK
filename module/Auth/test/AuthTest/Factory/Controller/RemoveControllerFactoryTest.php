@@ -9,8 +9,7 @@
 
 namespace AuthTest\Factory\Controller;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Mvc\Controller\ControllerManager;
+use Interop\Container\ContainerInterface;
 use Auth\Factory\Controller\RemoveControllerFactory;
 use Auth\Controller\RemoveController;
 use Auth\Dependency\Manager;
@@ -25,7 +24,7 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::createService
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
@@ -35,7 +34,7 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         
-        $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
+        $serviceLocator = $this->getMockBuilder(ContainerInterface::class)
             ->getMock();
         $serviceLocator->expects($this->exactly(2))
             ->method('get')
@@ -44,14 +43,7 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
                 ['AuthenticationService', $authService]
             ]));
         
-        $controllerManager = $this->getMockBuilder(ControllerManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $controllerManager->expects($this->once())
-            ->method('getServiceLocator')
-            ->willReturn($serviceLocator);
-        
         $controllerFactory = new RemoveControllerFactory();
-        $this->assertInstanceOf(RemoveController::class, $controllerFactory->createService($controllerManager));
+        $this->assertInstanceOf(RemoveController::class, $controllerFactory($serviceLocator,'irrelevant'));
     }
 }

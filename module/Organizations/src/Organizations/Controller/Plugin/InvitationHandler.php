@@ -241,7 +241,6 @@ class InvitationHandler extends AbstractPlugin
             $mailer('Organizations/InviteEmployee', $userAndToken, true);
 
         } catch (\Exception $e) {
-        	$foo = "bar";
             return array(
                 'ok'      => false,
                 'message' => $translator->translate('Sending invitation mail failed.')

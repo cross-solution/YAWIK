@@ -10,8 +10,8 @@
 /** UniqueApplyIdFactory.php */
 namespace Auth\Form\Validator;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for UniqueGroupName validator.
@@ -36,20 +36,15 @@ class UniqueGroupNameFactory implements FactoryInterface
     {
         $this->options['allowName'] = isset($options['allowName']) ? $options['allowName'] : null;
     }
-    
-    /**
-     * Creates an UniqueGroupName validator.
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $services  = $serviceLocator->getServiceLocator();
-        $auth      = $services->get('AuthenticationService');
-        $user      = $auth->getUser();
-        $options   = $this->options;
-        $options['user'] = $user;
-        $validator = new UniqueGroupName($options);
-
-        return $validator;
-    }
+	
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$auth      = $container->get('AuthenticationService');
+		$user      = $auth->getUser();
+		$options   = $this->options;
+		$options['user'] = $user;
+		$validator = new UniqueGroupName($options);
+		
+		return $validator;
+	}
 }

@@ -10,6 +10,7 @@
 
 namespace Core\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Paginator\Paginator as ZendPaginator;
 use Zend\Paginator\Adapter\AdapterInterface;
@@ -108,8 +109,8 @@ class CreatePaginatorService extends AbstractPlugin
      * @param ControllerManager $controllerManager
      * @return CreatePaginatorService
      */
-    public static function factory(ControllerManager $controllerManager)
+    public static function factory(ContainerInterface $container)
     {
-        return new static($controllerManager->getServiceLocator());
+        return new static($container);
     }
 }

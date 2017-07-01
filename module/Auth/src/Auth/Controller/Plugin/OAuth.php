@@ -10,9 +10,9 @@
 
 namespace Auth\Controller\Plugin;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Mvc\Controller\PluginManager as ControllerManager;
 
 /**
  * Class OAuth
@@ -32,11 +32,13 @@ class OAuth extends AbstractPlugin
     protected $providerKey;
 
     protected $adapter;
-
-    /**
-     * @param ServiceLocatorInterface $serviceManager
-     */
-    public function __construct(ServiceLocatorInterface $serviceManager)
+	
+	/**
+	 * OAuth constructor.
+	 *
+	 * @param ContainerInterface $serviceManager
+	 */
+    public function __construct(ContainerInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;
     }
@@ -145,13 +147,14 @@ class OAuth extends AbstractPlugin
         unset($this->adapter);
         return $this;
     }
-    
-    /**
-     * @param ControllerManager $controllerManager
-     * @return OAuth
-     */
-    public static function factory(ControllerManager $controllerManager)
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return static
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($controllerManager->getServiceLocator());
+        return new static($container);
     }
 }

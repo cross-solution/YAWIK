@@ -11,53 +11,26 @@
 namespace Applications\Factory\Mail;
 
 use Applications\Mail\Confirmation;
-use Applications\Mail\NewApplication;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Applications\Mail\Confirmation
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @todo write test  
  */
-class ConfirmationFactory implements FactoryInterface, MutableCreationOptionsInterface
+class ConfirmationFactory implements FactoryInterface
 {
-    private $options = [];
-
-    /**
-     * Set creation options
-     *
-     * @param  array $options
-     *
-     * @return void
-     */
-    public function setCreationOptions(array $options)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = [])
     {
-        $this->options = $options;
-    }
-
-
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
-    {
-        $options = $options ?: $this->options;
         $router = $container->get('Router');
         $options['router'] = $router;
         $auth = $container->get('AuthenticationService');
         $user = $auth->getUser();
         $options['user'] = $user;
-
         $mail   = new Confirmation($options);
-
-        return $mail;
-    }
-    
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $mail = $this($serviceLocator->getServiceLocator(), NewApplication::class);
-        $this->options = [];
 
         return $mail;
     }

@@ -103,7 +103,7 @@ class Config
     protected function getMapConfig($key)
     {
         if (!isset($this->map[$key])) {
-            $config          = $this->serviceManager->getServiceLocator()->get('Config');
+            $config          = $this->serviceManager->get('Config');
             $this->map[$key] = isset($config[$key]) ? $config[$key] : array();
         }
         if (!empty($this->map[$key])) {

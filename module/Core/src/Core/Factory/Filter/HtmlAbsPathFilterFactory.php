@@ -11,7 +11,7 @@
 namespace Core\Factory\Filter;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Filter\HtmlAbsPathFilter;
 
@@ -25,10 +25,6 @@ class HtmlAbsPathFilterFactory implements FactoryInterface
      * @param  null|array         $options
      *
      * @return HtmlAbsPathFilter
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -38,10 +34,5 @@ class HtmlAbsPathFilterFactory implements FactoryInterface
         $filter = new HtmlAbsPathFilter();
         $filter->setUri($uri);
         return $filter;
-    }
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), HtmlAbsPathFilter::class);
     }
 }

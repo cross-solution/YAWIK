@@ -11,8 +11,7 @@
 namespace Core\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Core\View\Helper\SocialButtons;
 
 class SocialButtonsFactory implements FactoryInterface {
@@ -25,10 +24,6 @@ class SocialButtonsFactory implements FactoryInterface {
      * @param  null|array         $options
      *
      * @return SocialButtons
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -37,16 +32,6 @@ class SocialButtonsFactory implements FactoryInterface {
         $config = $container->get('Config');
         $helper = new SocialButtons($options,$config);
         return $helper;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return SocialButtons
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), SocialButtons::class);
     }
 }
 

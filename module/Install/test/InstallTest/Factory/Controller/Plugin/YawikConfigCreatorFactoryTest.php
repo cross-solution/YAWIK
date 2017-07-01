@@ -12,6 +12,7 @@ namespace InstallTest\Factory\Controller\Plugin;
 
 use Install\Factory\Controller\Plugin\YawikConfigCreatorFactory;
 use Install\Filter\DbNameExtractor;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Install\Factory\Controller\Plugin\YawikConfigCreatorFactory
@@ -31,7 +32,7 @@ class YawikConfigCreatorFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', new YawikConfigCreatorFactory());
+        $this->assertInstanceOf(FactoryInterface::class, new YawikConfigCreatorFactory());
     }
 
     public function testCreatesAnUserCreatorPluginInstance()
@@ -45,11 +46,8 @@ class YawikConfigCreatorFactoryTest extends \PHPUnit_Framework_TestCase
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->once())->method('get')->with('FilterManager')->willReturn($filters);
 
-        $plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
-        $plugins->expects($this->once())->method('getServiceLocator')->willReturn($services);
-
         $target = new YawikConfigCreatorFactory();
-        $plugin = $target->createService($plugins);
+        $plugin = $target($services,'irrelevant');
 
         $this->assertInstanceOf('\Install\Controller\Plugin\YawikConfigCreator', $plugin);
     }

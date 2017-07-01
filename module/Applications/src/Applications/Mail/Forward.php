@@ -19,7 +19,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
 * Sends an e-mail containing an applications
 */
-
 class Forward extends TranslatorAwareMessage
 {
     /**
@@ -115,7 +114,7 @@ class Forward extends TranslatorAwareMessage
      */
     protected function generateHtml()
     {
-        $services = $this->getServiceLocator()->getServiceLocator();
+        $services = $this->getServiceLocator();
 
          /*
           * "ViewHelperManager" defined by ZF2

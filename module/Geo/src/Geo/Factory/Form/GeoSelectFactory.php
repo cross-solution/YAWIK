@@ -13,13 +13,13 @@ namespace Geo\Factory\Form;
 use Geo\Form\GeoSelect;
 use Geo\Form\GeoSelectHydratorStrategy;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * ${CARET}
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @todo write test 
  */
 class GeoSelectFactory implements FactoryInterface
@@ -40,17 +40,5 @@ class GeoSelectFactory implements FactoryInterface
         $select->setHydratorStrategy($strategy);
 
         return $select;
-    }
-
-    /**
-     * Create service
-     *
-     * @param \Zend\ServiceManager\AbstractPluginManager|ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator->getServiceLocator(), 'LocationSelect');
     }
 }
