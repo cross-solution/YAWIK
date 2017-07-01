@@ -38,7 +38,7 @@ class NotificationAjaxHandler
             } elseif ($this->viewModel instanceof ViewModel) {
                 $headScript = $this->viewHelperManager->get('headScript');
 
-                $notifications = $event->getNotifications();
+                $notifications = $event->getTarget()->getNotifications();
                 if (is_array($notifications) && !empty($notifications)) {
                     foreach ($notifications as $notification) {
                         $headScript->appendScript('/* ' . $notification->getNotification() . ' */');

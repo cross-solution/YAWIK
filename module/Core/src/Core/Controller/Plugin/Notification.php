@@ -137,7 +137,7 @@ class Notification extends AbstractPlugin implements TranslatorAwareInterface
 
     public function createOutput(NotificationEvent $event)
     {
-        $notifications = $event->getNotifications();
+        $notifications = $event->getTarget()->getNotifications();
         if (is_array($notifications) && !empty($notifications)) {
             foreach ($notifications as $notification) {
                 $this->renderMessage($notification->getNotification(), $this->priority2namespace[$notification->getPriority()]);
