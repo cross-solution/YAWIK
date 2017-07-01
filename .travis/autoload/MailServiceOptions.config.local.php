@@ -16,7 +16,7 @@
  *
  * @var string
  */
-$transport = 'smtp';
+$transport = 'sendmail';
 
 /**
  * Fully-qualified classname or short name resolvable via Zend\Mail\Protocol\SmtpLoader.
@@ -47,12 +47,12 @@ $port = 587;
 /**
  * Username
  */
-$username = getenv('SMTP_USER_EMAIL');
+$username = '';
 
 /**
  * password
  */
-$password = getenv('SMTP_USER_PASSWORD');
+$password = '';
 
 
 //
