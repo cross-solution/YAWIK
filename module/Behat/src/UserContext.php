@@ -169,7 +169,6 @@ class UserContext implements Context
 		
 		$repo->store($user);
 		
-		
 		/* @var \Core\EventManager\EventManager $events */
 		/* @var \Auth\Listener\Events\AuthEvent $event */
 		//@TODO: [Behat] event not working in travis

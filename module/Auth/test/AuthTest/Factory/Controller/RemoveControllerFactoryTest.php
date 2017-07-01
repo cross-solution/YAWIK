@@ -22,7 +22,7 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers ::createService
+     * @covers ::__invoke
      */
     public function testInvokation()
     {
