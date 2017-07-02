@@ -10,7 +10,9 @@
 namespace Applications\Form;
 
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
+use Zend\Form\Element\Checkbox;
 use Zend\Form\Fieldset;
+use Zend\Stdlib\InitializableInterface;
 
 //use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -41,10 +43,11 @@ class SettingsFieldset extends Fieldset
     {
         $this->setName('emails')
              ->setLabel(/* @translate */ 'E-Mail Notifications');
-
+	    
         $this->add(
-            array('type' => 'Zend\Form\Element\Checkbox',
+            array('type' => Checkbox::class,
                 'name' => 'mailAccess',
+                'label' => 'foo',
                 'options' => array('label' => /* @translate */ 'receive E-Mail alert',
                                    'long_label' => /* @translate */ 'if checked, you\'ll be informed by mail about new applications.'),
                 )
@@ -114,11 +117,11 @@ class SettingsFieldset extends Fieldset
 
         $this->add(
             array(
-            'type' => 'Settings/DisableElementsCapableFormSettingsFieldset',
-            'name' => 'applyFormSettings',
-            'options' => array(
-
-            )
+	            'type' => 'Settings/DisableElementsCapableFormSettingsFieldset',
+	            'name' => 'applyFormSettings',
+	            'options' => array(
+	
+	            )
             )
         );
     }

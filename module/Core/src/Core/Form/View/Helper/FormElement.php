@@ -7,7 +7,6 @@ namespace Core\Form\View\Helper;
 
 use Core\Form\ViewPartialProviderInterface;
 use Zend\Form\View\Helper\FormElement as ZendFormElement;
-use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Core\Form\Element\ViewHelperProviderInterface as CoreElementInterface;
 use Zend\View\Helper\HelperInterface;

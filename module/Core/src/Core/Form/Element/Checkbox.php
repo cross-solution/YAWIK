@@ -22,7 +22,7 @@ class Checkbox extends ZfCheckbox implements ViewHelperProviderInterface
     /**
      * @var string
      */
-    protected $helper = 'formcheckbox';
+    protected $helper = 'formCheckBox';
 
     /**
      * @param string|\Zend\View\Helper\HelperInterface $helper

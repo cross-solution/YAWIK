@@ -11,10 +11,13 @@
 namespace Settings\Form;
 
 use Core\Form\Form;
+use Interop\Container\ContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\FormInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
+use Zend\View\HelperPluginManager;
 
 class AbstractSettingsForm extends Form
 {
@@ -22,19 +25,31 @@ class AbstractSettingsForm extends Form
      * @var bool
      */
     protected $isBuild = false;
-    
-    /**
-     * @var ServiceLocatorInterface
-     */
+	
+	/**
+	 * @var FormElementManager
+	 */
     protected $formManager;
-    
-    /**
-     * @param ServiceLocatorInterface $formManager
-     */
-    public function __construct(ServiceLocatorInterface $formManager)
+	
+	/**
+	 * @var array|HelperPluginManager
+	 */
+    protected $viewHelper;
+	
+	/**
+	 * AbstractSettingsForm constructor.
+	 *
+	 * @param FormElementManager $formManager
+	 * @param HelperPluginManager $viewHelper
+	 */
+    public function __construct(
+    	FormElementManager $formManager,
+	    HelperPluginManager $viewHelper
+    )
     {
         parent::__construct();
         $this->formManager = $formManager;
+        $this->viewHelper = $viewHelper;
     }
     
     /**
@@ -71,7 +86,9 @@ class AbstractSettingsForm extends Form
         $fieldset->setObject($object);
         $this->add($fieldset);
         
-        $this->add($this->formManager->get('DefaultButtonsFieldset'));
+        $this->add([
+        	'type' => 'DefaultButtonsFieldset'
+        ]);
         $this->isBuild=true;
     }
         
@@ -91,9 +108,7 @@ class AbstractSettingsForm extends Form
     public function setName($name)
     {
         parent::setName(strtolower($name) . '-settings');
-        $urlHelper = $this->formManager->getServiceLocator()
-                     ->get('ViewHelperManager')
-                     ->get('url');
+        $urlHelper = $this->viewHelper->get('url');
         
         $url = $urlHelper('lang/settings', array('module' => $name), true);
         $this->setAttribute('action', $url);
@@ -116,13 +131,17 @@ class AbstractSettingsForm extends Form
 
         return strtolower($moduleName);
     }
-    
-    /**
-     * @param ServiceLocatorInterface $formManager
-     * @return AbstractSettingsForm
-     */
-    public static function factory(ServiceLocatorInterface $formManager)
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return AbstractSettingsForm
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($formManager);
+        return new static(
+        	$container->get('FormElementManager'),
+	        $container->get('ViewHelperManager')
+        );
     }
 }

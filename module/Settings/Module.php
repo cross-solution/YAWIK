@@ -32,7 +32,7 @@ class Module
     	// we attach with wildcard events name
         $events = $e->getApplication()->getEventManager();
         $events->attach(
-            'render*',
+            MvcEvent::EVENT_RENDER,
             new InjectSubNavigationListener(),
             10
         );

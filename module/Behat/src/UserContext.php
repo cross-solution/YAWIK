@@ -121,6 +121,19 @@ class UserContext implements Context
 		$this->iSpecifyThePasswordAs('test');
 		$this->iLogIn();
 	}
+	
+	/**
+	 * @Given I am logged in as an administrator
+	 */
+	public function iAmLoggedInAsAnAdmin()
+	{
+		$this->thereIsAUserIdentifiedBy('test@admin.com','test',User::ROLE_ADMIN);
+		$this->iWantToLogIn();
+		$this->iSpecifyTheUsernameAs('test@admin.com');
+		$this->iSpecifyThePasswordAs('test');
+		$this->iLogIn();
+	}
+	
 	/**
 	 * @return UserRepository
 	 */
@@ -132,7 +145,7 @@ class UserContext implements Context
 	/**
 	 * @Given there is a user :email identified by :password
 	 */
-	public function thereIsAUserIdentifiedBy($email, $password)
+	public function thereIsAUserIdentifiedBy($email, $password,$role=User::ROLE_RECRUITER)
 	{
 		$repo = $this->getUserRepository();
 		if(!is_object($user=$repo->findByEmail($email))){

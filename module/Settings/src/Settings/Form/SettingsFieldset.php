@@ -6,12 +6,12 @@ use Zend\Form\Fieldset;
 use Settings\Entity\SettingsContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 
 class SettingsFieldset extends Fieldset
 {
     /**
-     * @var ServiceLocatorInterface
+     * @var FormElementManager
      */
     protected $formManager;
     
@@ -19,9 +19,9 @@ class SettingsFieldset extends Fieldset
     protected $labelMap = [];
     
     /**
-     * @param ServiceLocatorInterface $formManager
+     * @param FormElementManager $formManager
      */
-    public function __construct(ServiceLocatorInterface $formManager)
+    public function __construct(FormElementManager $formManager)
     {
         parent::__construct();
         $this->formManager = $formManager;
@@ -109,7 +109,7 @@ class SettingsFieldset extends Fieldset
                     $fieldset->setHydrator($this->getHydrator());
                 }
             } else {
-                $fieldset = new self();
+                $fieldset = new self($this->formManager);
                 $label = preg_replace('~([A-Z])~', ' $1', $name);
                 $fieldset->setLabel(ucfirst($label));
             }

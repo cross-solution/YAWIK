@@ -10,11 +10,9 @@
 /** */
 namespace Settings\Form\Factory;
 
-use Settings\Form\SettingsFieldset;
 use Interop\Container\ContainerInterface;
-use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface; 
+use Settings\Form\SettingsFieldset;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Settings\Form\SettingsFieldset
@@ -25,18 +23,10 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class SettingsFieldsetFactory implements FactoryInterface
 {
-    
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        if (!$container instanceOf FormElementManagerV2Polyfill) {
-            $container = $container->get('FormElementManager');
-        }
-
-        return new $requestedName($container);
-    }
-    
-    public function createService(ServiceLocatorInterface $serviceLocator, $name=null, $requestedName=SettingsFieldset::class)
-    {
-        return $this($serviceLocator, $requestedName);
+    	$ob = new SettingsFieldset($container->get('FormElementManager'));
+    	$ob->setName($requestedName);
+        return $ob;
     }
 }

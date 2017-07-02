@@ -10,7 +10,7 @@
 /** InjectSubNavigationConfigListener.php */
 namespace Settings\Listener;
 
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Router\RouteMatch;
 use Zend\Mvc\MvcEvent;
 
 /**

@@ -355,7 +355,7 @@ return array(
     ),
     'view_helpers' => array(
         'invokables' => array(
-            'formElement' => 'Core\Form\View\Helper\FormElement',
+            'form_element' => 'Core\Form\View\Helper\FormElement',
             'formLabel'  => 'Core\Form\View\Helper\RequiredMarkInFormLabel',
             'form' => 'Core\Form\View\Helper\Form',
             'formSimple' => 'Core\Form\View\Helper\FormSimple',
@@ -372,7 +372,11 @@ return array(
             'formRowCombined' => 'Core\Form\View\Helper\FormRowCombined',
             'formFileUpload' => 'Core\Form\View\Helper\FormFileUpload',
             'formImageUpload' => 'Core\Form\View\Helper\FormImageUpload',
+            
+            /* @TODO: [ZF3] make this setting to be camel cased */
             'formCheckBox' => 'Core\Form\View\Helper\FormCheckbox',
+            'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
+            
             'formDatePicker' => 'Core\Form\View\Helper\FormDatePicker',
             'formInfoCheckBox' => 'Core\Form\View\Helper\FormInfoCheckbox',
             'formSelect' => 'Core\Form\View\Helper\FormSelect',
