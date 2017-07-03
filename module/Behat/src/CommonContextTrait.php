@@ -12,6 +12,7 @@ namespace Yawik\Behat;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
+use Core\Repository\RepositoryInterface;
 
 trait CommonContextTrait
 {
@@ -50,5 +51,24 @@ trait CommonContextTrait
 	public function visit($url)
 	{
 		$this->coreContext->iVisit($this->generateUrl($url));
+	}
+	
+	/**
+	 * @param $id
+	 * @return mixed|object
+	 */
+	public function getService($id)
+	{
+		return $this->coreContext->getServiceManager()->get($id);
+	}
+	
+	/**
+	 * @param $id
+	 *
+	 * @return RepositoryInterface
+	 */
+	public function getRepositories($id)
+	{
+		return $this->coreContext->getRepositories($id);
 	}
 }

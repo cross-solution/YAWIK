@@ -86,7 +86,6 @@ return [
              'Organizations/OrganizationsNameForm'        => 'Organizations\Form\OrganizationsNameForm',
              'Organizations/OrganizationsDescriptionForm' => 'Organizations\Form\OrganizationsDescriptionForm',
              'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
-             'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
              'Organizations/OrganizationsDescriptionFieldset' => 'Organizations\Form\OrganizationsDescriptionFieldset',
              //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
              'Organizations/EmployeesContainer'           => 'Organizations\Form\EmployeesContainer',
@@ -98,7 +97,8 @@ return [
 
         ],
         'factories' => [
-            'Organizations/Image' => 'Organizations\Form\LogoImageFactory',
+	        'Organizations/OrganizationsNameFieldset'    => \Organizations\Factory\Form\OrganizationsNameFieldsetFactory::class,
+            'Organizations/Image'                        => \Organizations\Form\LogoImageFactory::class,
             'Organizations/EmployeesFieldset'            => 'Organizations\Factory\Form\EmployeesFieldsetFactory',
             'Organizations/EmployeeFieldset'             => 'Organizations\Factory\Form\EmployeeFieldsetFactory',
         ]

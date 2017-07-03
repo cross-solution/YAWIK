@@ -20,6 +20,9 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Hook\Scope\AfterSuiteScope;
+use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationName;
+use Organizations\Repository\Organization as OrganizationRepository;
 
 class UserContext implements Context
 {
@@ -70,7 +73,6 @@ class UserContext implements Context
 		];
 		$socialLoginConfig = isset($parameters['social_login_info']) ? $parameters['social_login_info']:[];
 		$this->socialLoginInfo = array_merge($defaultLoginInfo,$socialLoginConfig);
-		
 	}
 	
 	/**
@@ -89,10 +91,10 @@ class UserContext implements Context
 	 * @BeforeScenario
 	 * @param BeforeScenarioScope $scope
 	 */
-	public function gatherContexts(BeforeScenarioScope $scope)
+	public function beforeScenario(BeforeScenarioScope $scope)
 	{
-		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
+		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
 		static::$userRepo = $this->getUserRepository();
 	}
 	
@@ -112,10 +114,16 @@ class UserContext implements Context
 	
 	/**
 	 * @Given I am logged in as a recruiter
+	 * @Given I am logged in as a recruiter with :organization as organization
 	 */
-	public function iAmLoggedInAsARecruiter()
+	public function iAmLoggedInAsARecruiter($organization=null)
 	{
-		$this->thereIsAUserIdentifiedBy('test@recruiter.com','test');
+		$this->currentUser = $this->thereIsAUserIdentifiedBy(
+			'test@recruiter.com',
+			'test',User::ROLE_RECRUITER,
+			'Test Recruiter',
+			$organization
+		);
 		$this->iWantToLogIn();
 		$this->iSpecifyTheUsernameAs('test@recruiter.com');
 		$this->iSpecifyThePasswordAs('test');
@@ -145,14 +153,18 @@ class UserContext implements Context
 	/**
 	 * @Given there is a user :email identified by :password
 	 */
-	public function thereIsAUserIdentifiedBy($email, $password,$role=User::ROLE_RECRUITER)
+	public function thereIsAUserIdentifiedBy($email, $password,$role=User::ROLE_RECRUITER,$fullname="Test Recruiter",$organization=null)
 	{
 		$repo = $this->getUserRepository();
 		if(!is_object($user=$repo->findByEmail($email))){
-			$user = $this->createUser($email,$password);
+			$user = $this->createUser($email,$password,$role,$fullname,$organization);
 		}
 		$this->currentUser = $user;
+		if(!is_null($organization)){
+			$this->iHaveMainOrganization($organization);
+		}
 		$this->addCreatedUser($user);
+		return $user;
 	}
 	
 	/**
@@ -164,7 +176,7 @@ class UserContext implements Context
 	 *
 	 * @return \Auth\Entity\UserInterface
 	 */
-	public function createUser($email,$password,$fullname="Test Recruiter",$role=User::ROLE_RECRUITER)
+	public function createUser($email,$password,$role=User::ROLE_RECRUITER,$fullname="Test Recruiter")
 	{
 		/* @var Register $service */
 		$repo = $this->getUserRepository();
@@ -179,9 +191,7 @@ class UserContext implements Context
 		$info->setLastName(count($expFullName)>0 ? implode(' ',$expFullName):'');
 		$info->setEmail($email);
 		$info->setEmailVerified(true);
-		
 		$repo->store($user);
-		
 		/* @var \Core\EventManager\EventManager $events */
 		/* @var \Auth\Listener\Events\AuthEvent $event */
 		//@TODO: [Behat] event not working in travis
@@ -190,6 +200,25 @@ class UserContext implements Context
 		//$event->setUser($user);
 		//$events->triggerEvent($event);
 		return $user;
+	}
+	
+	/**
+	 * @When I have :organization as my main organization
+	 * @param $orgName
+	 */
+	public function iHaveMainOrganization($orgName)
+	{
+		/* @var $repoOrganization OrganizationRepository */
+		$repoOrganization = $this->coreContext->getRepositories()->get('Organizations/Organization');
+		$organization=$repoOrganization->findByName($orgName);
+		if(!$organization instanceof Organization){
+			$organization = new Organization();
+			$organizationName = new OrganizationName($orgName);
+			$organization->setOrganizationName($organizationName);
+		}
+		$user = $this->currentUser;
+		$organization->setUser($user);
+		$repoOrganization->store($organization);
 	}
 	
 	/**
@@ -254,13 +283,11 @@ class UserContext implements Context
 	{
 		$repo = $this->getUserRepository();
 		$user = $repo->findByLogin($username);
-		if($this->loggedInUser !== $user){
-			$this->iWantToLogIn();
-			$this->iSpecifyTheUsernameAs($username);
-			$this->iSpecifyThePasswordAs($password);
-			$this->iLogIn();
-			$this->loggedInUser = $user;
-		}
+		$this->iWantToLogIn();
+		$this->iSpecifyTheUsernameAs($username);
+		$this->iSpecifyThePasswordAs($password);
+		$this->iLogIn();
+		$this->loggedInUser = $user;
 	}
 	
 	/**
@@ -285,7 +312,7 @@ class UserContext implements Context
 		$role = isset($data['role']) ? $data['role']:User::ROLE_RECRUITER;
 		
 		if(!is_object($user=$repo->findByLogin($email))){
-			$user = $this->createUser($email,$password,$fullname,$role);
+			$user = $this->createUser($email,$password,$role,$fullname);
 		}
 		$this->currentUser = $user;
 		$this->addCreatedUser($user);

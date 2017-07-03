@@ -24,7 +24,7 @@ Feature: Social profile feature
         And I wait for the ajax response
         Then I should see an ".btn-success .fa-facebook" element
 
-    @todo @javascript @profile-linkedin
+    @javascript @profile-linkedin @skip-travis
     Scenario: Link to LinkedIn
         When I go to profile page
         And I press "LinkedIn"

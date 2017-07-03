@@ -191,7 +191,12 @@ class Organization extends AbstractRepository
 
         return $c;
     }
-
+	
+	/**
+	 * @param array|null $data
+	 *
+	 * @return \Organizations\Entity\Organization
+	 */
     public function create(array $data = null)
     {
         $entity = parent::create($data);

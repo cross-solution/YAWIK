@@ -37,16 +37,4 @@ class ModuleOptionsFactory implements FactoryInterface
 
         return new ModuleOptions(isset($config['core_options']) ? $config['core_options'] : array());
     }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return ModuleOptions
-     * @TODO: [ZF3] Remove this method
-     */
-    //public function createService(ServiceLocatorInterface $serviceLocator)
-    //{
-    //    //return $this($serviceLocator, ModuleOptions::class);
-    //}
 }

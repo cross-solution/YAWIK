@@ -49,6 +49,10 @@ class Organizations extends Container
                 'type' => 'Organizations/Image',
                 'property' => 'images',
                 'use_files_array' => true,
+                
+	            'options' => [
+	            
+	            ]
             ),
 
             'descriptionForm' => array(

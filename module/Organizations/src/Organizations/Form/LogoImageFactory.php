@@ -41,8 +41,8 @@ class LogoImageFactory extends FileUploadFactory
     {
         $size = $options->getCompanyLogoMaxSize();
         $type = $options->getCompanyLogoMimeType();
-
-        $form->get($this->fileName)->setViewHelper('FormImageUpload')
+	    
+        $form->get($this->fileName)->setViewHelper('formImageUpload')
             ->setMaxSize($size)
             ->setAllowedTypes($type)
             ->setForm($form);
@@ -53,5 +53,6 @@ class LogoImageFactory extends FileUploadFactory
         );
 
         //$form->setHydrator(new ImageHydrator());
+	    
     }
 }

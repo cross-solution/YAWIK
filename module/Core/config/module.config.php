@@ -191,6 +191,7 @@ return array(
         'invokables' => array(
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
             'Core/EventManager'          => 'Core\EventManager\EventManager',
+            'Core/Options/ImagineOptions'             => \Core\Options\ImagineOptions::class,
         ),
         'factories' => array(
             'configaccess' => 'Core\Service\Config::factory',
@@ -372,6 +373,7 @@ return array(
             'formRowCombined' => 'Core\Form\View\Helper\FormRowCombined',
             'formFileUpload' => 'Core\Form\View\Helper\FormFileUpload',
             'formImageUpload' => 'Core\Form\View\Helper\FormImageUpload',
+            'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
             
             /* @TODO: [ZF3] make this setting to be camel cased */
             'formCheckBox' => 'Core\Form\View\Helper\FormCheckbox',

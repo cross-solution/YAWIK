@@ -52,7 +52,7 @@ script:
   - cd test
   - ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml.dist
   - cd $TRAVIS_BUILD_DIR
-  - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction -vvv -f progress --tags="@javascript && ~@todo"
+  - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction -vvv -f progress --tags="@javascript && ~@todo && ~@skip-travis"
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
