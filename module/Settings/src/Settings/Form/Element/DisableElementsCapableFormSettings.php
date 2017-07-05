@@ -167,7 +167,7 @@ class DisableElementsCapableFormSettings extends Element implements ViewHelperPr
             'required' => true,
             'filters'  => array(
                 array(
-                    'name' => 'Settings/DisableElementsCapableFormSettings',
+                	'name' => \Settings\Form\Filter\DisableElementsCapableFormSettings::class,
                 ),
             ),
         );

@@ -22,20 +22,7 @@ use Behat\MinkExtension\Context\MinkContext;
  */
 class OrganizationContext implements Context
 {
-	/**
-	 * @var MinkContext
-	 */
-	private $minkContext;
-	
-	/**
-	 * @var CoreContext
-	 */
-	private $coreContext;
-	
-	/**
-	 * @var UserContext
-	 */
-	private $userContext;
+	use CommonContextTrait;
 	
 	private $elementMap = array(
 		'name' => '#sf-nameForm',
@@ -43,18 +30,6 @@ class OrganizationContext implements Context
 		'employees' => '#sf-employeesManagement',
 		'workflow' => '#sf-workflowSettings',
 	);
-	
-	/**
-	 * @BeforeScenario
-	 *
-	 * @param BeforeScenarioScope $scope
-	 */
-	public function gatherContexts(BeforeScenarioScope $scope)
-	{
-		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
-		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
-		$this->userContext = $scope->getEnvironment()->getContext(UserContext::class);
-	}
 	
 	/**
 	 * @Given I go to my organization page
@@ -110,5 +85,21 @@ EOC;
 		$locator = $this->elementMap[$type].' button.sf-submit';
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();
+	}
+	
+	/**
+	 * @Given I go to create new organization page
+	 */
+	public function iGoToCreateNewOrganizationPage()
+	{
+		$this->visit('/en/organizations/edit');
+	}
+	
+	/**
+	 * @Given I go to organization overview page
+	 */
+	public function iGoToOrganizationOverviewPage()
+	{
+		$this->visit('/en/organizations');
 	}
 }

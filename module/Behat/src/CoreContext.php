@@ -167,4 +167,57 @@ class CoreContext extends RawMinkContext
 	{
 		$this->minkContext->getSession()->visit($url);
 	}
+	
+	/**
+	 * @When I scroll :selector into view
+	 *
+	 * @param string $selector Allowed selectors: #id, .className, //xpath
+	 *
+	 * @throws \Exception
+	 */
+	public function scrollIntoView($selector)
+	{
+		$locator = substr($selector, 0, 1);
+		
+		switch ($locator) {
+			case '/' : // XPath selector
+				$function = <<<JS
+(function(){
+  var elem = document.evaluate($selector, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  elem.scrollIntoView(false);
+})()
+JS;
+				break;
+			
+			case '#' : // ID selector
+				$selector = substr($selector, 1);
+				$function = <<<JS
+(function(){
+  var elem = document.getElementById("$selector");
+  elem.scrollIntoView(false);
+})()
+JS;
+				break;
+			
+			case '.' : // Class selector
+				$selector = substr($selector, 1);
+				$function = <<<JS
+(function(){
+  var elem = document.getElementsByClassName("$selector");
+  elem[0].scrollIntoView(false);
+})()
+JS;
+				break;
+			
+			default:
+				throw new \Exception(__METHOD__ . ' Couldn\'t find selector: ' . $selector . ' - Allowed selectors: #id, .className, //xpath');
+				break;
+		}
+		
+		try {
+			$this->getSession()->executeScript($function);
+		} catch (Exception $e) {
+			throw new \Exception(__METHOD__ . ' failed');
+		}
+	}
 }

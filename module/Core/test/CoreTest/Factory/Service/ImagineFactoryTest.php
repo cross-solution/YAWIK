@@ -14,7 +14,7 @@ use Core\Factory\Service\ImagineFactory;
 use Core\Options\ImagineOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Service\ImagineFactory
@@ -45,12 +45,7 @@ class ImagineFactoryTest extends \PHPUnit_Framework_TestCase
     {
         return [$this->getServiceManagerMock(), 'Imagine'];
     }
-
-    public function testCreateService()
-    {
-        $this->target->createService($this->getServiceManagerMock());
-    }
-
+	
     public function invokationTestDataProvider()
     {
         return [

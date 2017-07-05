@@ -12,6 +12,7 @@ namespace Core\Form;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
+use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -79,7 +80,7 @@ class FileUploadFactory implements FactoryInterface
     protected $options;
 	
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null ) {
-		/* @var $formElementManager \Zend\Form\FormElementManager */
+		/* @var $formElementManager \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
 		$formElementManager = $container->get('FormElementManager');
 		$options=null;
 		if ($this->options) {
@@ -103,7 +104,8 @@ class FileUploadFactory implements FactoryInterface
 				'type' => $this->fileElement,
 				'name' => $this->fileName,
 				'options' => array(
-					'use_formrow_helper' => false,
+					/* @TODO: [ZF3] set this value to false will make upload field invisible in organization and user profile profile */
+					'use_formrow_helper' => true,
 				),
 				'attributes' => array(
 					'class' => 'hide',
@@ -118,11 +120,8 @@ class FileUploadFactory implements FactoryInterface
 		
 		if (isset($this->config['hydrator']) && $this->config['hydrator']) {
 			/** @noinspection PhpUndefinedVariableInspection */
-			$manager = $services->getHydratorManager();
-			$hydrator = $services->get('HydratorManager')->get($this->config['hydrator']);
+			$hydrator = $container->get('HydratorManager')->get($this->config['hydrator']);
 		} else {
-			
-			
 			/* @var $fileEntity \Core\Entity\FileInterface */
 			$fileEntity = new $this->fileEntityClass();
 			if ($user instanceof AnonymousUser) {

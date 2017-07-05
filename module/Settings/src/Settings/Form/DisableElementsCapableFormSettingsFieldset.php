@@ -10,7 +10,9 @@
 /** */
 namespace Settings\Form;
 
+use Interop\Container\ContainerInterface;
 use Zend\Form\Fieldset;
+use Settings\Form\Element\DisableElementsCapableFormSettings;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
 use Settings\Entity\Hydrator\Strategy\DisableElementsCapableFormSettings as DisableElementsStrategy;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -100,19 +102,20 @@ class DisableElementsCapableFormSettingsFieldset extends Fieldset
             ),
             )
         );
-        $element = new \Settings\Form\Element\DisableElementsCapableFormSettings('disableElements');
+        $element = new DisableElementsCapableFormSettings('disableElements');
         $element->setForm($form);
         $this->add($element);
 
         $this->isBuild = true;
     }
-    
-    /**
-     * @param ServiceLocatorInterface $formManager
-     * @return AbstractSettingsForm
-     */
-    public static function factory(ServiceLocatorInterface $formManager)
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return DisableElementsCapableFormSettingsFieldset
+	 */
+    public static function factory(ContainerInterface $container)
     {
-        return new static($formManager);
+        return new static($container->get('FormElementManager'));
     }
 }

@@ -84,7 +84,7 @@ class FormDisableElementsCapableFormSettings extends FormInput
         if (null !== $class) {
             $box->setAttribute('class', $box->getAttribute('class') . ' ' . $class);
         }
-        $markup = $renderer->formCheckbox($box);
+        $markup = $renderer->formCheckBox($box);
         if ($desc = $box->getOption('description')) {
             $desc = $this->getTranslator()->translate($desc, $this->getTranslatorTextDomain());
             $markup .= '<div class="alert alert-info"><p>' . $desc . '</p></div>';

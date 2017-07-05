@@ -12,8 +12,7 @@ namespace Core\Factory\Service;
 
 use Core\Options\ImagineOptions;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for Imagine service.
@@ -53,17 +52,5 @@ class ImagineFactory implements FactoryInterface
 
         return $imagine;
 
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return \Imagine\Image\ImagineInterface
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, 'Imagine');
     }
 }

@@ -14,10 +14,13 @@
 /** Settings controller */
 namespace Settings\Controller;
 
+use Interop\Container\ContainerInterface;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\EventManager\Event;
 use Zend\Http\PhpEnvironment\Response;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 
 /**
  * Main Action Controller for Settings module
@@ -25,25 +28,42 @@ use Zend\Http\PhpEnvironment\Response;
  */
 class IndexController extends AbstractActionController
 {
-    /**
-     * attaches further Listeners for generating / processing the output
-     *
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
-    }
-
+	/**
+	 * @var TranslatorInterface
+	 */
+	private $translator;
+	
+	/**
+	 * @var FormElementManager
+	 */
+	private $formManager;
+	
+	private $viewHelper;
+	
+	public function __construct(
+		TranslatorInterface $translator,
+		FormElementManager $formManager,
+		$viewHelper
+	)
+	{
+		$this->translator = $translator;
+		$this->formManager = $formManager;
+		$this->viewHelper = $viewHelper;
+	}
+	
+	static public function factory(ContainerInterface $container)
+	{
+		$translator = $container->get('translator');
+		return new self(
+			$translator,
+			$container->get('FormElementManager'),
+			$container->get('ViewHelperManager')
+		);
+	}
+	
     public function indexAction()
     {
-        $services = $this->serviceLocator;
-        $translator = $services->get('translator');
+        $translator = $this->translator;
         $moduleName = $this->params('module', 'Core');
         
         
@@ -65,7 +85,7 @@ class IndexController extends AbstractActionController
         $mvcEvent = $this->getEvent();
         $mvcEvent->setParam('__settings_active_module', $moduleName);
         
-        $formManager = $this->serviceLocator->get('FormElementManager');
+        $formManager = $this->formManager;
         $formName = $moduleName . '/SettingsForm';
         if (!$formManager->has($formName)) {
             $formName = "Settings/Form";
@@ -79,19 +99,18 @@ class IndexController extends AbstractActionController
         
         $form = $formManager->get($formName);
         
+	    $vars = array();
+	    $vars['form'] = $form;
         // Binding the Entity to the Formular
         $form->bind($settings);
         $data = $this->getRequest()->getPost();
         if (0 < count($data)) {
             $form->setData($data);
-            
             $valid   = $form->isValid();
-            $partial = $services->get('viewhelpermanager')->get('partial');
+            $partial = $this->viewHelper->get('partial');
             $text    = $valid
                      ?  /*@translate*/'Changes successfully saved'
                      :  /*@translate*/'Changes could not be saved';
-
-            $vars = array();
             $this->notification()->success($translator->translate($text));
 
             if ($valid) {
@@ -100,15 +119,15 @@ class IndexController extends AbstractActionController
                     $this,
                     array('settings' => $settings)
                 );
-                $this->getEventManager()->trigger($event);
+                $this->getEventManager()->trigger($event->getName(),$event);
+	            $vars['valid'] = true;
             } else {
                 $vars['error'] = $form->getMessages();
             }
-            
             return new JsonModel($vars);
         }
 
-        $vars['form']=$form;
+        
         return $vars;
     }
 }

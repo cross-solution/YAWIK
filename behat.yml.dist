@@ -45,3 +45,4 @@ default:
                 - Yawik\Behat\CoreContext
                 - Yawik\Behat\OrganizationContext
                 - Yawik\Behat\UserContext
+                - Yawik\Behat\SettingsContext

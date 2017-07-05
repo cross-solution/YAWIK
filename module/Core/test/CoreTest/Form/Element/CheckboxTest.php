@@ -30,7 +30,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase {
     {
         $this->assertInstanceOf('Core\Form\Element\Checkbox', $this->target);
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
-        $this->assertAttributeSame('formcheckbox','helper',$this->target);
+        $this->assertAttributeSame('formCheckBox','helper',$this->target);
     }
 
     public function testSetGetViewHelper()
