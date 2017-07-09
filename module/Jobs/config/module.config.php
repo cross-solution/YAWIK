@@ -1,5 +1,9 @@
 <?php
 namespace Jobs;
+use Jobs\Controller\AdminCategoriesController;
+use Jobs\Controller\AdminController;
+use Jobs\Form\InputFilter\JobLocationEdit;
+
 return [
     'doctrine' => [
         'driver' => [
@@ -269,11 +273,11 @@ return [
             'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController',
             'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
-            'Jobs/Admin'      => 'Jobs\Controller\AdminController',
             'Jobs/ApiJobListByChannel' => 'Jobs\Controller\ApiJobListByChannelController',
-            'Jobs/AdminCategories' => 'Jobs\Controller\AdminCategoriesController',
         ],
         'factories' => [
+	        'Jobs/AdminCategories' => [AdminCategoriesController::class,'factory'],
+	        'Jobs/Admin'      => [AdminController::class,'factory'],
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
             'Jobs/Index' => 'Jobs\Factory\Controller\IndexControllerFactory',
             'Jobs/Approval' => 'Jobs\Factory\Controller\ApprovalControllerFactory',
@@ -418,18 +422,22 @@ return [
             'Jobs/ActiveOrganizationSelect'     => 'Jobs\Factory\Form\ActiveOrganizationSelectFactory',
             'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingMultiCheckboxFactory',
             'Jobs/Import'                       => 'Jobs\Factory\Form\ImportFactory',
-        ]
+        ],
     ],
 
     'input_filters' => [
         'invokables' => [
             'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
-            'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
+            //'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
+	        JobLocationEdit::class => JobLocationEdit::class,
             'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
         ],
         'factories' => [
             'Jobs/AtsMode'                      => 'Jobs\Factory\Form\InputFilter\AtsModeFactory',
-        ]
+        ],
+	    'aliases' => [
+	    	'Jobs/Location/Edit' => JobLocationEdit::class
+	    ]
     ],
 
     'filters' => [

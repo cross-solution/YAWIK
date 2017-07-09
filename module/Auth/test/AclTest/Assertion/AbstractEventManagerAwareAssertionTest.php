@@ -89,7 +89,7 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
                        ->getMock();
 
         $events->expects($this->once())
-               ->method('trigger')
+               ->method('triggerUntil')
                ->willReturn(new ResponseCollection());
 
         $target->setEventManager($events);
@@ -116,7 +116,7 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
                        ->getMock();
 
         $events->expects($this->exactly(5))
-               ->method('trigger')
+               ->method('triggerUntil')
                ->will($this->onConsecutiveCalls($responseNull, $responseEmpty, $responseZero, $responseTrue, $responseFalse));
 
         $target->setEventManager($events);
@@ -154,14 +154,16 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
         $privilege = "doTest";
         $self = $this;
 
-        $events->expects($this->once())->method('trigger')
-               ->will($this->returnCallback(function ($event) use ($acl, $role, $resource, $privilege, $self) {
-                   $self->assertSame($acl, $event->getAcl());
-                   $self->assertSame($role, $event->getRole());
-                   $self->assertSame($resource, $event->getResource());
-                   $self->assertSame($privilege, $event->getPrivilege());
+        $events->expects($this->once())->method('triggerUntil')
+               ->will($this->returnCallback(function ($callback,$eventName,$event) use ($acl, $role, $resource, $privilege, $self) {
+               	    $self->assertTrue(is_callable($callback));
+	                $self->assertEquals('assert',$eventName);
+                    $self->assertSame($acl, $event->getAcl());
+                    $self->assertSame($role, $event->getRole());
+                    $self->assertSame($resource, $event->getResource());
+                    $self->assertSame($privilege, $event->getPrivilege());
 
-                   return new ResponseCollection();
+                    return new ResponseCollection();
                }));
 
         $target->setEventManager($events);

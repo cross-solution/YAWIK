@@ -15,8 +15,13 @@ use Jobs\Entity\JobInterface;
 use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
 use Core\Repository\RepositoryService;
+use Zend\EventManager\EventInterface;
+use Zend\EventManager\EventManagerInterface;
+use Zend\Filter\FilterPluginManager;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ServiceManager\ServiceManager;
+use Zend\Validator\ValidatorPluginManager;
+use Zend\View\HelperPluginManager;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryForm;
@@ -62,21 +67,69 @@ class ManageController extends AbstractActionController
     protected $translator;
 	
 	/**
-	 * @var ServiceManager
-	 * @TODO: [ZF3] remove this property if possible
+	 * @var FilterPluginManager
 	 */
-    protected $services;
+    protected $filterManager;
     
-    /**
-     * @param AuthenticationService $auth
-     * @param RepositoryService     $repositoryService
-     * @param                       $translator
-     */
-    public function __construct(AuthenticationService $auth, RepositoryService $repositoryService, Translator $translator)
+    protected $jobFormEvents;
+	
+	/**
+	 * @var
+	 */
+    protected $formManager;
+    
+    protected $options;
+    
+    protected $viewHelper;
+    
+    protected $validatorManager;
+    
+    protected $jobEvents;
+    
+    protected $jobEvent;
+	
+	/**
+	 * ManageController constructor.
+	 *
+	 * @TODO: [ZF3] make this controller more thin, looks like so much things to do
+	 *
+	 * @param AuthenticationService $auth
+	 * @param RepositoryService $repositoryService
+	 * @param TranslatorInterface $translator
+	 * @param FilterPluginManager $filterManager
+	 * @param EventManagerInterface $jobFormEvents
+	 * @param $formManager
+	 * @param $options
+	 * @param HelperPluginManager $viewHelper
+	 * @param ValidatorPluginManager $validatorManager
+	 * @param EventManagerInterface $jobEvents
+	 * @param EventInterface $jobEvent
+	 */
+    public function __construct(
+    	AuthenticationService $auth,
+	    RepositoryService $repositoryService,
+	    TranslatorInterface $translator,
+		FilterPluginManager $filterManager,
+		EventManagerInterface $jobFormEvents,
+		$formManager,
+		$options,
+		HelperPluginManager $viewHelper,
+		ValidatorPluginManager $validatorManager,
+		EventManagerInterface $jobEvents,
+		EventInterface $jobEvent
+    )
     {
         $this->auth = $auth;
         $this->repositoryService = $repositoryService;
         $this->translator = $translator;
+        $this->filterManager = $filterManager;
+        $this->jobFormEvents = $jobFormEvents;
+        $this->formManager = $formManager;
+        $this->options = $options;
+        $this->viewHelper = $viewHelper;
+        $this->validatorManager = $validatorManager;
+        $this->jobEvents = $jobEvents;
+        $this->jobEvent = $jobEvent;
     }
 
     /**
@@ -111,8 +164,6 @@ class ManageController extends AbstractActionController
 
             $mailSender->attach($jobEvents);
         }
-        
-        $this->services = $services;
     }
 
     /**
@@ -123,7 +174,7 @@ class ManageController extends AbstractActionController
     public function editAction()
     {
         if ('calculate' == $this->params()->fromQuery('do')) {
-            $calc = $this->serviceLocator->get('filtermanager')->get('Jobs/ChannelPrices');
+            $calc = $this->filterManager->get('Jobs/ChannelPrices');
             $sum = $calc->filter($this->params()->fromPost('channels'));
 
             return new JsonModel(['sum' => $sum]);
@@ -142,9 +193,9 @@ class ManageController extends AbstractActionController
 
     public function channelListAction()
     {
-        $services = $this->services;
-        $options = $services->get('Core/Options');
-        $channels = $services->get('Jobs/Options/Provider');
+        
+        $options = $this->options['core'];
+        $channels = $this->options['channels'];
 
 
 
@@ -174,9 +225,7 @@ class ManageController extends AbstractActionController
      */
     protected function save()
     {
-        $services     = $this->services;
-        $formEvents   = $services->get('Jobs/JobContainer/Events');
-
+		$formEvents = $this->jobFormEvents;
         $user               = $this->auth->getUser();
         if (empty($user->getInfo()->getEmail())) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
@@ -298,11 +347,11 @@ class ManageController extends AbstractActionController
         if ($isAjax) {
             if ($instanceForm instanceof SummaryForm) {
                 $instanceForm->setRenderMode(SummaryForm::RENDER_SUMMARY);
-                $viewHelper = 'summaryform';
+                $viewHelper = 'summaryForm';
             } else {
                 $viewHelper = 'form';
             }
-            $viewHelperManager  = $services->get('ViewHelperManager');
+            $viewHelperManager  = $this->viewHelper;
             $content = $viewHelperManager->get($viewHelper)->__invoke($instanceForm);
             $viewModel = new JsonModel(
                 array(
@@ -382,8 +431,7 @@ class ManageController extends AbstractActionController
      */
     public function checkApplyIdAction()
     {
-        $services = $this->services;
-        $validator = $services->get('ValidatorManager')->get('Jobs/Form/UniqueApplyId');
+        $validator = $this->validatorManager->get('Jobs/Form/UniqueApplyId');
         if (!$validator->isValid($this->params()->fromQuery('applyId'))) {
             return array(
                 'ok' => false,
@@ -399,9 +447,8 @@ class ManageController extends AbstractActionController
      */
     protected function getFormular($job)
     {
-        $services = $this->services;
         /* @var $forms \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
-        $forms    = $services->get('FormElementManager');
+        $forms    = $this->formManager;
         /* @var $container \Jobs\Form\Job */
 
         $container = $forms->get(
@@ -442,7 +489,6 @@ class ManageController extends AbstractActionController
      */
     public function completionAction()
     {
-        $services = $this->services;
 
         $job = $this->initializeJob()->get($this->params(), false, true);
 
@@ -468,7 +514,7 @@ class ManageController extends AbstractActionController
             */
             $this->repositoryService->store($job);
 
-            $jobEvents = $services->get('Jobs/Events');
+            $jobEvents = $this->jobEvents;
             $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
         } else if ($job->isActive()) {
             $job->getSnapshotMeta()->getEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
@@ -495,16 +541,15 @@ class ManageController extends AbstractActionController
      */
     public function approvalAction()
     {
-        $services = $this->services;
         $user           = $this->auth->getUser();
 
         $params         = $this->params('state');
 
         $jobEntity = $this->initializeJob()->get($this->params(), false, true);
-        $jobEvent       = $services->get('Jobs/Event');
+        $jobEvent       = $this->jobEvent;
         $jobEvent->setJobEntity($jobEntity);
         $jobEvent->addPortal('XingVendorApi');
-        $jobEvents      = $services->get('Jobs/Events');
+        $jobEvents      = $this->jobEvents;
         // array with differences between the last snapshot and the actual entity
         // is remains Null if there is no snapshot
         // it will be an empty array if the snapshot and the actual entity do not differ

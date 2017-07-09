@@ -33,6 +33,7 @@ class AjaxQuery
     {
         $request = $event->getRequest();
         $query   = $request->getQuery();
+        
         $result  = $this->client->query($query->get('q'), ['lang' => $query->get('lang')]);
 
         return ['items' => $result];

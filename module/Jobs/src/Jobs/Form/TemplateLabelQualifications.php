@@ -58,7 +58,7 @@ class TemplateLabelQualifications extends Form implements InputFilterProviderInt
             'description-label-qualifications' => array(
                 'filters' => array(
                     array(
-                        'name' => 'Core\XssFilter'
+                        'name' => 'Core/XssFilter'
                     )
                 )
             )

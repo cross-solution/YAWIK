@@ -12,6 +12,7 @@ namespace Yawik\Behat;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
+use Doctrine\Common\Inflector\Inflector;
 
 /**
  * Class OrganizationContext
@@ -29,6 +30,9 @@ class OrganizationContext implements Context
 		'location' => '#sf-locationForm',
 		'employees' => '#sf-employeesManagement',
 		'workflow' => '#sf-workflowSettings',
+		'jobTitleAndLocation' => '#general-locationForm',
+		'jobClassification' => '#sf-general-classifications',
+		'customerNote' => '#sf-general-customerNote',
 	);
 	
 	/**
@@ -55,9 +59,13 @@ class OrganizationContext implements Context
 	public function iClickEditOnForm($name)
 	{
 		$this->iClickForm($name);
+		$name = Inflector::camelize($name);
 		$type = $this->elementMap[$name];
 		$locator = $type.' .sf-summary .sf-controls button';
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
+		if(!$element){
+			throw new \Exception('No element found with this locator: "'.$locator.'"');
+		}
 		$element->click();
 	}
 	
@@ -66,6 +74,7 @@ class OrganizationContext implements Context
 	 */
 	public function iClickForm($name)
 	{
+		$name = Inflector::camelize($name);
 		$type = $this->elementMap[$name];
 		$locator = $type.' .sf-summary';
 		$session = $this->minkContext->getSession();
@@ -82,6 +91,7 @@ EOC;
 	 */
 	public function iSaveLocationForm($type)
 	{
+		$type = Inflector::camelize($type);
 		$locator = $this->elementMap[$type].' button.sf-submit';
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();

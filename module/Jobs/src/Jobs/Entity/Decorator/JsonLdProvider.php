@@ -48,12 +48,13 @@ class JsonLdProvider implements JsonLdProviderInterface
     {
         $organizationName = $this->job->getOrganization()->getOrganizationName()->getName();
 
+        $datePublishStart = $this->job->getDatePublishStart();
         $array=[
             '@context'=>'http://schema.org/',
             '@type' => 'JobPosting',
             'title' => $this->job->getTitle(),
             'description' => $this->getDescription($this->job->getTemplateValues()),
-            'datePosted' => $this->job->getDatePublishStart()->format('Y-m-d'),
+            'datePosted' => !is_null($datePublishStart) ? $datePublishStart->format('Y-m-d'):null,
             'identifier' => [
                 '@type' => 'PropertyValue',
                 'value' => $this->job->getApplyId(),

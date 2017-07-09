@@ -18,16 +18,11 @@
 /*
  *@todo: inject the needed variables
  */
-
-/* @var $sm \Zend\ServiceManager\ServiceManager */
-$sm = $this->getHelperPluginManager()->getServiceLocator();
-$options = $sm->get('Core/Options');
+$options = $this->services('Core/Options');
 /* @var $provider \Jobs\Options\ProviderOptions */
 $provider = $this->services('Jobs/Options/Provider');
 /* @var $channel \Jobs\Options\ChannelOptions */
 $channel = $provider->getChannel('yawik');
-
-$options = $sm->get('Core/Options');
 
 $defaultCurrencyCode = $options->defaultCurrencyCode;
 ?>

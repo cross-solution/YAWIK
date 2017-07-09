@@ -46,3 +46,4 @@ default:
                 - Yawik\Behat\OrganizationContext
                 - Yawik\Behat\UserContext
                 - Yawik\Behat\SettingsContext
+                - Yawik\Behat\JobContext

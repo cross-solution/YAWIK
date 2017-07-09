@@ -405,13 +405,15 @@ return array(
             	return \Core\View\Helper\Services::factory($sm);
             },
             'insertFile' => 'Core\View\Helper\InsertFile::factory',
-            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class
+            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
+            \Core\View\Helper\AjaxUrl::class => \Core\Factory\View\Helper\AjaxUrlFactory::class,
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
         ),
         'aliases' => [
             'snippet' => \Core\View\Helper\Snippet::class,
+	        'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
         ],
     ),
     
@@ -504,6 +506,11 @@ return array(
 
         'Core/ViewSnippets/Events' => [
             'service' => 'Core/EventManager',
+        ],
+
+        'Core/Ajax/Events' => [
+	        'service' => 'Core/EventManager',
+	        'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
 	    
 	    'Core/File/Events' => [

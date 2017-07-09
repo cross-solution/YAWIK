@@ -61,7 +61,7 @@ class JobDescriptionRequirements extends Form implements InputFilterProviderInte
             'description-requirements' => array(
                 'filters' => array(
                     array(
-                        'name' => 'Core\XssFilter'
+                        'name' => 'Core/XssFilter'
                     )
                 )
             )

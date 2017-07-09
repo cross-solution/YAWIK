@@ -46,19 +46,26 @@ class TemplateController extends AbstractActionController
     protected $viewModelTemplateFilter;
     
     protected $translator;
+    
+    protected $viewHelper;
+    
+    protected $formManager;
 
     public function __construct(
     	Repository\Job $jobRepository,
 	    $viewModelTemplateFilter,
 	    $translator,
-	    AbstractOptions $config
-	    
+	    AbstractOptions $config,
+	    $viewHelper,
+		$formManager
     )
     {
     	$this->viewModelTemplateFilter = $viewModelTemplateFilter;
     	$this->translator = $translator;
         $this->jobRepository = $jobRepository;
         $this->config = $config;
+        $this->formManager = $formManager;
+        $this->viewHelper = $viewHelper;
     }
 
     /**
@@ -135,10 +142,10 @@ class TemplateController extends AbstractActionController
         /** @var \Zend\Http\Request $request */
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
-        $viewHelperManager    = $services->get('ViewHelperManager');
+        $viewHelperManager    = $this->viewHelper;
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
-        $forms                = $services->get('FormElementManager');
+        $forms                = $this->formManager;
 
         /** @var \Jobs\Form\JobDescriptionTemplate $formTemplate */
         $formTemplate         = $forms->get(
@@ -175,7 +182,7 @@ class TemplateController extends AbstractActionController
             }
         }
 
-        $model = $services->get('Jobs/ViewModelTemplateFilter')->__invoke($formTemplate);
+        $model = $this->viewModelTemplateFilter->getModel($formTemplate);
 
         if (!$isAjax) {
             $basePath   = $viewHelperManager->get('basepath');

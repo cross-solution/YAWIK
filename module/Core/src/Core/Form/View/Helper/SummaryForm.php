@@ -108,9 +108,10 @@ class SummaryForm extends AbstractHelper
                 . '%s'
                 . '</div>';
         
+        $id = str_replace('.','-',$form->getAttribute('name'));
         $content = sprintf(
             $markup,
-            $form->getAttribute('name'),
+            $id,
             $form->getDisplayMode(),
             $labelContent,
             $formContent

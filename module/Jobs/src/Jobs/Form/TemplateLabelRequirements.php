@@ -59,7 +59,7 @@ class TemplateLabelRequirements extends Form implements InputFilterProviderInter
             'description-label-requirements' => array(
                 'filters' => array(
                     array(
-                        'name' => 'Core\XssFilter'
+                        'name' => 'Core/XssFilter'
                     )
                 )
             )

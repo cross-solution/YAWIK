@@ -8,8 +8,7 @@
  */
 ?>
 <?php
-$sm = $this->getHelperPluginManager()->getServiceLocator();
-$channels = $sm->get('Jobs/Options/Provider');
+$channels = $this->services('Jobs/Options/Provider');
 ?>
 <h3><?php echo $this->translate("Preview of the posting"); ?></h3>
 <div class="row">

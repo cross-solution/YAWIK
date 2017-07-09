@@ -83,6 +83,7 @@ class AjaxRouteListener implements ListenerAggregateInterface
         /* @var \Zend\Http\PhpEnvironment\Response $response */
         /* @var AjaxEvent $ajaxEvent */
         $response = $event->getResponse();
+        
         $ajaxEvent = $this->ajaxEventManager->getEvent($ajax, $this);
         $ajaxEvent->setRequest($request);
         $ajaxEvent->setResponse($response);

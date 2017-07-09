@@ -23,7 +23,6 @@ class CustomerNote extends SummaryForm
     protected $baseFieldset = 'Jobs/CustomerNoteFieldset';
 
     protected $label = /*@translate*/ 'Customer note';
-
-    protected $displayMode = self::DISPLAY_SUMMARY;
     
+    protected $displayMode = self::DISPLAY_SUMMARY;
 }
