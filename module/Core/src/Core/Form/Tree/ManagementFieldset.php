@@ -50,6 +50,7 @@ class ManagementFieldset extends Fieldset implements ViewPartialProviderInterfac
 
     public function init()
     {
+    	$this->setName('items');
         $this->add([
                 'type' => 'Collection',
                 'name' => 'items',

@@ -123,7 +123,7 @@ class MailSender implements ListenerAggregateInterface
     public function onJobRejected(JobEvent $e)
     {
         $this->sendMail(
-            $e->getJobEntity(),
+            $e->getTarget()->getJobEntity(),
             'mail/job-rejected',
             /*@translate*/ 'Your job has been rejected'
         );

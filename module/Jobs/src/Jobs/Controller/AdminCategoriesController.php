@@ -111,7 +111,7 @@ class AdminCategoriesController extends AbstractActionController
         $this->repositories->store($form->getObject());
         $form->bind($form->getObject());
         $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
-        $helper = $this->viewHelperManager->get('summaryform');
+        $helper = $this->viewHelperManager->get('summaryForm');
 
         return new JsonModel([
             'content' => $helper($form),
