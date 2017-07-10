@@ -14,7 +14,7 @@ Feature: Publish Job
             | Location                    | 10117 Berlin          |
             | Company Name                | Test Company          |
 
-    @javascript
+    @javascript @skip-travis
     Scenario: Successfully publish a job
         Given I go to edit job draft with title "Test Publish a Job"
         And I follow "Publish job"
