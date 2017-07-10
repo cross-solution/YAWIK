@@ -27,7 +27,7 @@ class ViewControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $repository = $container->get('repositories')->get('Cv/Cv');
-        $translator = $container->get('Translator');
+        $translator = $container->get('translator');
 
         return new ViewController($repository, $translator);
     }

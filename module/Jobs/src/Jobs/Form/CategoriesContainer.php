@@ -60,7 +60,6 @@ class CategoriesContainer extends WizardContainer
                                              /*@translate*/ 'The order of categories can be modified by drag&drop.',
                             'display_mode' => SummaryForm::DISPLAY_SUMMARY,
                         ],
-                        'name' => 'industries'
                     ],
                 ],
             ],
@@ -80,7 +79,6 @@ class CategoriesContainer extends WizardContainer
                                              /*@translate*/ 'The order of categories can be modified by drag&drop.',
                             'display_mode' => SummaryForm::DISPLAY_SUMMARY,
                         ],
-	                    'name' => 'employmentTypes'
                     ],
                 ],
             ],

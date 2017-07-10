@@ -70,7 +70,7 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
                 ->setMethods(['__invoke'])->getMock();
             $helper->expects($this->once())->method('__invoke')->with($subForm);
 
-            $viewHelpers = $this->createPluginManagerMock(['summaryform' => $helper],$sm);
+            $viewHelpers = $this->createPluginManagerMock(['summaryForm' => $helper],$sm);
         } else {
             $viewHelpers = $this->createPluginManagerMock([],$sm);
         }
