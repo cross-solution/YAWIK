@@ -10,6 +10,8 @@
 /** CommentController.php */
 namespace Applications\Controller;
 
+use Core\Factory\ContainerAwareInterface;
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Http\PhpEnvironment\Request as HttpRequest;
@@ -21,43 +23,20 @@ use Zend\View\Model\ViewModel;
  *
  * @method \Auth\Controller\Plugin\Auth auth()
  */
-class CommentController extends AbstractActionController
+class CommentController extends AbstractActionController implements ContainerAwareInterface
 {
-    /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see \Zend\Mvc\Controller\AbstractActionController::onDispatch()
-     */
-    public function onDispatch(MvcEvent $event)
-    {
-        $request = $event->getRequest();
-        if (!$request instanceof HttpRequest || !$request->isXmlHttpRequest()) {
-            //throw new \RuntimeException('This controller must only be called with ajax requests.');
-        }
-        return parent::onDispatch($event);
-    }
-    
+	private $repositories;
+	
+	private $formManager;
+	
     /**
      * Lists comments of an application
      *
-     * @return multitype:NULL
+     * @return array
      */
     public function listAction()
     {
-        $repository = $this->serviceLocator->get('repositories')->get('Applications/Application');
+        $repository = $this->repositories->get('Applications/Application');
         $applicationId = $this->params()->fromQuery('applicationId', 0);
         $application = $repository->find($applicationId); /* @var \Applications\Entity\Application $application */
         
@@ -75,8 +54,7 @@ class CommentController extends AbstractActionController
      */
     public function formAction()
     {
-        $services = $this->serviceLocator;
-        $repository = $services->get('repositories')->get('Applications/Application');
+        $repository = $this->repositories->get('Applications/Application');
         
         $mode  = $this->params()->fromQuery('mode', 'new');
         $appId = $this->params()->fromQuery('id');
@@ -93,7 +71,7 @@ class CommentController extends AbstractActionController
         
         $this->acl($application, 'read');
         
-        $form = $services->get('forms')->get('Applications/CommentForm');
+        $form = $this->formManager->get('Applications/CommentForm');
         $form->bind($comment);
         
         if ($this->getRequest()->isPost()) {
@@ -120,5 +98,23 @@ class CommentController extends AbstractActionController
             )
         );
         return $viewModel;
+    }
+	
+	public function setContainer( ContainerInterface $container )
+	{
+		$this->repositories = $container->get('repositories');
+		$this->formManager = $container->get('forms');
+	}
+	
+	/**
+	 * @param ContainerInterface $container
+	 *
+	 * @return CommentController
+	 */
+	static public function factory(ContainerInterface $container)
+    {
+        $ob = new self();
+        $ob->setContainer($container);
+        return $ob;
     }
 }

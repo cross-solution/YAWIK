@@ -12,27 +12,28 @@
 namespace Applications\Mail;
 
 use Applications\Entity\Application;
+use Core\Factory\ContainerAwareInterface;
 use Core\Mail\TranslatorAwareMessage;
+use Interop\Container\ContainerInterface;
 use Zend\Mime;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
 * Sends an e-mail containing an applications
 */
-class Forward extends TranslatorAwareMessage
+class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
 {
     /**
      * @var Application
      */
     protected $application;
+    
     /**
      * @var bool
      */
     protected $isInitialized = false;
-    /**
-     * @var ServiceLocatorInterface
-     */
-    protected $serviceLocator;
+    
+    protected $viewManager;
 
     /**
      * @param $application
@@ -114,32 +115,31 @@ class Forward extends TranslatorAwareMessage
      */
     protected function generateHtml()
     {
-        $services = $this->getServiceLocator();
-
          /*
           * "ViewHelperManager" defined by ZF2
           *  see http://framework.zend.com/manual/2.0/en/modules/zend.mvc.services.html#viewmanager
           */
-         $viewManager = $services->get('ViewHelperManager');
+	    $viewManager = $this->viewManager;
 
         return $viewManager->get("partial")->__invoke('applications/mail/forward', array("application"=>$this->application));
     }
 
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return \Applications\Mail\Forward
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function setContainer(ContainerInterface $container)
     {
-        $this->serviceLocator = $serviceLocator;
-        return $this;
+    	$this->viewManager = $container->get('ViewHelperManager');
     }
-
-    /**
-     * @return ServiceLocatorInterface
-     */
-    public function getServiceLocator()
+	
+	/**
+	 * @param ContainerInterface $container
+	 * @param $requestedName
+	 * @param array $options
+	 *
+	 * @return Forward
+	 */
+    static public function factory(ContainerInterface $container,$requestedName,array $options=[])
     {
-        return $this->serviceLocator;
+        $ob = new self($options);
+        $ob->setContainer($container);
+        return $ob;
     }
 }

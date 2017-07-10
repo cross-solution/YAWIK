@@ -88,7 +88,7 @@ class Application extends AbstractRepository
      */
     protected function getPaginationQueryBuilder($params)
     {
-        $filter = $this->getService('filterManager')->get('PaginationQuery/Applications');
+        $filter = $this->getService('FilterManager')->get('PaginationQuery/Applications');
         $qb = $filter->filter($params, $this->createQueryBuilder());
         
         return $qb;
