@@ -12,7 +12,7 @@ before_install:
   - sudo apt-get update > /dev/null
   - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
   # setup xvfb to be used by selenium
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1680x1050x16"
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 6000x4000x16"
 
 install:
   # install php packages required for running YAWIK phpunit tests
