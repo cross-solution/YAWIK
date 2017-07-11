@@ -12,6 +12,7 @@
 namespace Jobs\Filter;
 
 use Jobs\Entity\Job;
+use Jobs\View\Helper\JsonLd;
 use Zend\Filter\FilterInterface;
 use Zend\View\Model\ViewModel;
 
@@ -62,6 +63,33 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
      * @var $imageFileCacheHelper \Organizations\ImageFileCache\Manager
      */
     protected $imageFileCacheHelper;
+
+    /**
+     *
+     *
+     * @var JsonLd
+     */
+    protected $jsonLdHelper;
+
+    /**
+     * @param \Jobs\View\Helper\JsonLd $jsonLdHelper
+     *
+     * @return self
+     */
+    public function setJsonLdHelper(JsonLd $jsonLdHelper)
+    {
+        $this->jsonLdHelper = $jsonLdHelper;
+
+        return $this;
+    }
+
+    /**
+     * @return \Jobs\View\Helper\JsonLd
+     */
+    public function getJsonLdHelper()
+    {
+        return $this->jsonLdHelper;
+    }
 
     /**
      * @param $config

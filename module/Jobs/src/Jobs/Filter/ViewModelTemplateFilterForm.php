@@ -35,6 +35,7 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
     {
         $job = $form->getEntity();
         $this->job = $job; /* @var \Jobs\Entity\Job $job */
+        $this->getJsonLdHelper()->setJob($job);
         $this->setApplyData();
         $this->setOrganizationInfo();
         $this->setLocation();
