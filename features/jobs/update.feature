@@ -68,4 +68,3 @@ Feature: Update job
         Then I should see "Edited Some Note"
 
 
-

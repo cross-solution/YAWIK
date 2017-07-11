@@ -71,7 +71,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
 		$filter->setImageFileCacheHelper($imageFileCacheHelper);
 		$filter->setServerUrlHelper($serverUrlHelper);
 		
-		if($filter instanceof ViewModelTemplateFilterJob){
+		if($filter instanceof ViewModelTemplateFilterJob || method_exists($filter,'setJsonLdHelper')){
 			$jsonLdHelper = $viewManager->get(JsonLd::class);
 			$filter->setJsonLdHelper($jsonLdHelper);
 		}
