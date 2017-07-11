@@ -145,6 +145,19 @@ class UserContext implements Context
 	}
 	
 	/**
+	 * @Given I don't have :login user
+	 * @param string $login
+	 */
+	public function iDonTHaveUser($login)
+	{
+		$repo = $this->getUserRepository();
+		$user=$repo->findByLogin($login);
+		if($user instanceof UserInterface){
+			$repo->remove($user,true);
+		}
+	}
+	
+	/**
 	 * @Given I am logged in as an administrator
 	 */
 	public function iAmLoggedInAsAnAdmin()
