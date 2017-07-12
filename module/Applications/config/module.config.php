@@ -9,7 +9,10 @@
 
 namespace Applications;
 
+use Applications\Controller\ApplyController;
+use Applications\Controller\CommentController;
 use Applications\Controller\ManageController;
+use Applications\Mail\Forward;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -84,13 +87,13 @@ return [
     'controllers' => [
         'invokables' => [
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
-            'Applications\Controller\Apply' => 'Applications\Controller\ApplyController',
-            'Applications/CommentController' => 'Applications\Controller\CommentController',
             'Applications/Console' => 'Applications\Controller\ConsoleController',
             'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
         ],
 	    'factories' => [
 		    'Applications/Controller/Manage' => [ManageController::class,'factory'],
+		    'Applications\Controller\Apply' => [ApplyController::class,'factory'],
+		    'Applications/CommentController' => [CommentController::class,'factory'],
 	    ]
     ],
     
@@ -231,12 +234,12 @@ return [
     'mails' => [
         'invokables' => [
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
-            'Applications/Forward'        => 'Applications\Mail\Forward',
             'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ],
         'factories' => [
             'Applications/NewApplication' => 'Applications\Factory\Mail\NewApplicationFactory',
             Mail\Confirmation::class      => Factory\Mail\ConfirmationFactory::class,
+            'Applications/Forward'        => [Forward::class,'factory'],
         ],
         'aliases' => [
             'Applications/Confirmation'   => Mail\Confirmation::class,

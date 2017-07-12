@@ -12,9 +12,8 @@
 $this->headScript()->appendFile($this->basePath('Jobs/js/index.list-filter-form.js'));
 $translate = $this->plugin('translate');
 
-$sm = $this->getHelperPluginManager()->getServiceLocator();
 /* @var \Geo\Options\ModuleOptions $options */
-$options = $sm->get('Geo/Options');
+$options = $this->services('Geo/Options');
 $plugin = $options->getPlugin();
 
 $createRadioGroup = function ($element, $id) use ($translate) {

@@ -10,7 +10,11 @@
 /** */
 namespace Jobs\Controller;
 
+use Core\Factory\ContainerAwareInterface;
+use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Jobs\Listener\Events\JobEvent;
+use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -20,10 +24,36 @@ use Zend\View\Model\JsonModel;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
-class AdminController extends AbstractActionController
+class AdminController extends AbstractActionController implements ContainerAwareInterface
 {
-
-    public function indexAction()
+	/**
+	 * @var RepositoryService
+	 */
+	private $repositories;
+	
+	/**
+	 * @var FormElementManagerTrait
+	 */
+	private $formManager;
+	
+	private $jobEvents;
+	
+	static public function factory(ContainerInterface $container)
+	{
+		$ob = new self();
+		$ob->setContainer($container);
+		return $ob;
+	}
+	
+	public function setContainer( ContainerInterface $container )
+	{
+		$this->repositories     = $container->get('repositories');
+		$this->formManager      = $container->get('forms');
+		$this->jobEvents        = $container->get('Jobs/Events');
+	}
+	
+	
+	public function indexAction()
     {
         return $this->pagination([
             'params'    => [ 'Jobs_Admin', ['text', 'page' => 1, 'companyId', 'status' ] ],
@@ -34,11 +64,10 @@ class AdminController extends AbstractActionController
 
     public function editAction()
     {
-        $services = $this->serviceLocator;
-        $repositories = $services->get('repositories');
+        $repositories = $this->repositories;
         $jobs         = $repositories->get('Jobs');
         $job          = $jobs->find($this->params()->fromQuery('id'));
-        $forms        = $services->get('forms');
+        $forms        = $this->formManager;
         $form         = $forms->get('Jobs/AdminJobEdit');
         $request      = $this->getRequest();
 
@@ -53,7 +82,7 @@ class AdminController extends AbstractActionController
                 if ($job->getStatus()->getName() != $post['statusselect']) {
                     $oldStatus = $job->getStatus();
                     $job->changeStatus($post['statusselect'], '[System] Status changed via Admin GUI.');
-                    $events = $services->get('Jobs/Events');
+                    $events = $this->jobEvents;
                     $events->trigger(JobEvent::EVENT_STATUS_CHANGED, $this, [ 'job' => $job, 'status' => $oldStatus ]);
                 }
             }

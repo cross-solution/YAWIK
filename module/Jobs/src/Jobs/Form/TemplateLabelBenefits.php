@@ -58,7 +58,7 @@ class TemplateLabelBenefits extends Form implements InputFilterProviderInterface
             'description-label-benefits' => array(
                 'filters' => array(
                     array(
-                        'name' => 'Core\XssFilter'
+                        'name' => 'Core/XssFilter'
                     )
                 )
             )

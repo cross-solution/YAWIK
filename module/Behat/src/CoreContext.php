@@ -216,8 +216,50 @@ JS;
 		
 		try {
 			$this->getSession()->executeScript($function);
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			throw new \Exception(__METHOD__ . ' failed');
 		}
+	}
+	
+	
+	/**
+	 * @When I click location selector
+	 */
+	public function iClickLocationSelector()
+	{
+		$locator = '#jobBase-geoLocation-span .select2';
+		$element = $this->getElement($locator);
+		$element->click();
+	}
+	
+	/**
+	 * @param $locator
+	 * @param string $selector
+	 *
+	 * @return \Behat\Mink\Element\NodeElement|mixed|null
+	 */
+	public function getElement($locator,$selector='css')
+	{
+		$page = $this->minkContext->getSession()->getPage();
+		$element = $page->find('css',$locator);
+		return $element;
+	}
+	
+	/**
+	 * @When I fill in location search with :term
+	 * @param $term
+	 */
+	public function iFillInLocationSearch($term)
+	{
+		$locator = '.select2-container--open .select2-search__field';
+		$element = $this->getElement($locator);
+		$element->focus();
+		$element->setValue($term);
+		$this->iWaitForTheAjaxResponse();
+	}
+	
+	public function iClickOn()
+	{
+	
 	}
 }

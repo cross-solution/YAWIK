@@ -28,10 +28,11 @@ class CustomerNoteFieldset extends MetaDataFieldset implements ViewPartialProvid
 
     public function init()
     {
+    	$this->setAttribute('id','customerNoteFieldset');
+    	$this->setName('customerNote');
         $this->add([
                 'type' => 'Textarea',
                 'name' => 'note',
-
             ]);
     }
     

@@ -5,7 +5,8 @@ Feature: Add new organization
 
     @javascript @organization
     Scenario: Create organization when main organization not exists
-        Given I am logged in as a recruiter
+        Given I don't have "test@recruiter.com" user
+        When I am logged in as a recruiter
         And I go to create new organization page
         Then I should see "Sorry, you may not create organizations."
         And I should see "Before you are able to create organizations, you have to create your main organization first."

@@ -20,9 +20,12 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Hook\Scope\AfterSuiteScope;
+use Doctrine\Common\Util\Inflector;
+use Geo\Service\Photon;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Repository\Organization as OrganizationRepository;
+use Zend\Stdlib\ArrayObject;
 
 class UserContext implements Context
 {
@@ -51,6 +54,10 @@ class UserContext implements Context
 	 */
 	static private $userRepo;
 	
+	/**
+	 * @var string
+	 */
+	static private $currentSession;
 	
 	private $socialLoginInfo = [];
 	
@@ -76,14 +83,21 @@ class UserContext implements Context
 	}
 	
 	/**
-	 * @When I fill in login form with :provider user
+	 * @AfterSuite
+	 * @param AfterSuiteScope $scope
 	 */
-	public function iSignInWithSocialUser($provider)
+	static public function afterSuite(AfterSuiteScope $scope)
 	{
-		$provider = strtolower($provider);
-		$mink = $this->minkContext;
-		foreach($this->socialLoginInfo[$provider] as $field=>$value){
-			$mink->fillField($field,$value);
+		$repo = static::$userRepo;
+		foreach(static::$users as $user){
+			if($repo->findByLogin($user->getLogin())){
+				try{
+					JobContext::removeJobByUser($user);
+					$repo->remove($user,true);
+				}catch (\Exception $e){
+				
+				}
+			}
 		}
 	}
 	
@@ -99,16 +113,22 @@ class UserContext implements Context
 	}
 	
 	/**
-	 * @AfterSuite
-	 * @param AfterSuiteScope $scope
+	 * @return User
 	 */
-	static public function afterSuite(AfterSuiteScope $scope)
+	public function getCurrentUser()
 	{
-		$repo = static::$userRepo;
-		foreach(static::$users as $user){
-			if($repo->findByLogin($user->getLogin())){
-				$repo->remove($user,true);
-			}
+		return $this->currentUser;
+	}
+	
+	/**
+	 * @When I fill in login form with :provider user
+	 */
+	public function iSignInWithSocialUser($provider)
+	{
+		$provider = strtolower($provider);
+		$mink = $this->minkContext;
+		foreach($this->socialLoginInfo[$provider] as $field=>$value){
+			$mink->fillField($field,$value);
 		}
 	}
 	
@@ -118,16 +138,48 @@ class UserContext implements Context
 	 */
 	public function iAmLoggedInAsARecruiter($organization=null)
 	{
-		$this->currentUser = $this->thereIsAUserIdentifiedBy(
+		$user = $this->thereIsAUserIdentifiedBy(
 			'test@recruiter.com',
 			'test',User::ROLE_RECRUITER,
 			'Test Recruiter',
 			$organization
 		);
-		$this->iWantToLogIn();
-		$this->iSpecifyTheUsernameAs('test@recruiter.com');
-		$this->iSpecifyThePasswordAs('test');
-		$this->iLogIn();
+		$this->startLogin($user,'test');
+	}
+	
+	/**
+	 * @Given I don't have :login user
+	 * @param string $login
+	 */
+	public function iDonTHaveUser($login)
+	{
+		$repo = $this->getUserRepository();
+		$user=$repo->findByLogin($login);
+		if($user instanceof UserInterface){
+			$repo->remove($user,true);
+		}
+	}
+	
+	/**
+	 * @Given I have a :role with the following:
+	 * @param $role
+	 * @param TableNode $fields
+	 */
+	public function iHaveUserWithTheFollowing($role,TableNode $fields)
+	{
+		$normalizedFields = [
+			'login' => 'test@login.com',
+			'fullname' => 'Test Login',
+			'role' => User::ROLE_USER,
+			'password' => 'test'
+		];
+		foreach($fields->getRowsHash() as $field=>$value){
+			$field = Inflector::camelize($field);
+			$normalizedFields[$field] = $value;
+		}
+		
+		$this->thereIsAUserIdentifiedBy($normalizedFields['login'],$normalizedFields['password'],$role,$normalizedFields['fullname']);
+		
 	}
 	
 	/**
@@ -135,11 +187,20 @@ class UserContext implements Context
 	 */
 	public function iAmLoggedInAsAnAdmin()
 	{
-		$this->thereIsAUserIdentifiedBy('test@admin.com','test',User::ROLE_ADMIN);
-		$this->iWantToLogIn();
-		$this->iSpecifyTheUsernameAs('test@admin.com');
-		$this->iSpecifyThePasswordAs('test');
-		$this->iLogIn();
+		$user = $this->thereIsAUserIdentifiedBy('test@admin.com','test',User::ROLE_ADMIN);
+		$this->startLogin($user,'test');
+	}
+	
+	private function startLogin(UserInterface $user, $password)
+	{
+		$currentUser = $this->currentUser;
+		if(!is_object($currentUser) || $user->getId()!=$currentUser->getId()){
+			$this->iWantToLogIn();
+			$this->iSpecifyTheUsernameAs($user->getLogin());
+			$this->iSpecifyThePasswordAs($password);
+			$this->iLogIn();
+			$this->currentUser = $user;
+		}
 	}
 	
 	/**
@@ -159,9 +220,9 @@ class UserContext implements Context
 		if(!is_object($user=$repo->findByEmail($email))){
 			$user = $this->createUser($email,$password,$role,$fullname,$organization);
 		}
-		$this->currentUser = $user;
+		
 		if(!is_null($organization)){
-			$this->iHaveMainOrganization($organization);
+			$this->iHaveMainOrganization($user,$organization);
 		}
 		$this->addCreatedUser($user);
 		return $user;
@@ -206,7 +267,7 @@ class UserContext implements Context
 	 * @When I have :organization as my main organization
 	 * @param $orgName
 	 */
-	public function iHaveMainOrganization($orgName)
+	public function iHaveMainOrganization(UserInterface $user,$orgName)
 	{
 		/* @var $repoOrganization OrganizationRepository */
 		$repoOrganization = $this->coreContext->getRepositories()->get('Organizations/Organization');
@@ -216,7 +277,6 @@ class UserContext implements Context
 			$organizationName = new OrganizationName($orgName);
 			$organization->setOrganizationName($organizationName);
 		}
-		$user = $this->currentUser;
 		$organization->setUser($user);
 		$repoOrganization->store($organization);
 	}

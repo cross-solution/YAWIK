@@ -66,6 +66,7 @@ class GetOrganizationManagers
             return ['status' => 'disabled'];
         }
 
+        $managers = array();
         foreach ($org->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER) as $employee) {
             /* @var EmployeeInterface $employee */
             $user = $employee->getUser();

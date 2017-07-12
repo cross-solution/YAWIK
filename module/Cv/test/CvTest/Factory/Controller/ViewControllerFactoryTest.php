@@ -78,7 +78,7 @@ class ViewControllerFactoryTest extends \PHPUnit_Framework_TestCase
                 'service' => $repositories,
                 'count_get' => 1
             ],
-            'Translator' => [
+            'translator' => [
                 'service' => $translator,
                 'count_get' => 1
             ]

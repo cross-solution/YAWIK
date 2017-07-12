@@ -25,8 +25,6 @@ use Zend\View\Model\ViewModel;
  */
 class AdminController extends AbstractActionController
 {
-
-    protected $serviceLocator;
 	
     protected $adminControllerEvents;
     
@@ -38,17 +36,12 @@ class AdminController extends AbstractActionController
     static public function factory(ContainerInterface $sm)
     {
     	/* @var EventManager $eventManager */
-    	$eventManager = $sm->get('Core/EventManager');
+    	$eventManager = $sm->get('Core/AdminController/Events');
     	$eventManager->setEventPrototype(new AdminControllerEvent());
     	$ob = new static($eventManager);
     	return $ob;
     }
-	
-	public function setServiceLocator($sl)
-    {
-        $this->serviceLocator = $sl;
-    }
-	
+    
     /**
      * Controls the admin dashboard page.
      *
@@ -60,7 +53,7 @@ class AdminController extends AbstractActionController
          * @var AdminControllerEvent $event */
         $events = $this->adminControllerEvents;
         $event  = $events->getEvent(AdminControllerEvent::EVENT_DASHBOARD, $this);
-        $events->trigger($event);
+        $events->trigger($event,$this);
 
         $model = new ViewModel();
         $widgets = [];

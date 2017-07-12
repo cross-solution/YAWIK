@@ -14,6 +14,7 @@ use Core\Form\SummaryForm;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\Category;
 use Jobs\Listener\Events\JobEvent;
+use Jobs\Repository\Categories;
 use Zend\Form\FormInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -29,6 +30,9 @@ class AdminCategoriesController extends AbstractActionController
 {
 	private $adminCategoriesForm;
 	
+	/**
+	 * @var Categories
+	 */
 	private $jobsCategoryRepo;
 	
 	private $repositories;
@@ -107,7 +111,7 @@ class AdminCategoriesController extends AbstractActionController
         $this->repositories->store($form->getObject());
         $form->bind($form->getObject());
         $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
-        $helper = $this->viewHelperManager->get('summaryform');
+        $helper = $this->viewHelperManager->get('summaryForm');
 
         return new JsonModel([
             'content' => $helper($form),

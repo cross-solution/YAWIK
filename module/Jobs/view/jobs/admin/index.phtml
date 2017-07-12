@@ -178,7 +178,7 @@ $this->headScript()->captureStart() ?>
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 
 <nav class="navbar yk-toolbar" id="jobs-list-filter-wrapper">
-<?php echo $this->searchform($this->form)  ?>
+<?php echo $this->searchForm($this->form)  ?>
 </nav>
 <div id="jobs-list-container" class="pagination-container" data-uri="<?php
     echo $this->url('lang/admin/jobs', array(), array('query' => $this->params()->fromQuery()), true)?>">

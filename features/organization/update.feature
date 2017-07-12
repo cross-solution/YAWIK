@@ -10,7 +10,6 @@ Feature: Updating my organization
     @javascript @organization-name
     Scenario: Updating Name
         When I click edit on name form
-        And I press "Edit"
         And I fill in "Organizationname" with "Some Organization"
         And I save name form
         And I wait for the ajax response

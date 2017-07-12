@@ -99,14 +99,17 @@ abstract class AbstractEventManagerAwareAssertion implements EventManagerAwareIn
               ->setRole($role)
               ->setResource($resource)
               ->setPrivilege($privilege);
-
+        
         $events = $this->getEventManager();
 
-        $results = $events->trigger(
-            $event,
-            function ($r) {
-                return false === $r;
-            }
+        $callback = function ($r) {
+	        return false === $r;
+        };
+        
+        $results = $events->triggerUntil(
+        	$callback,
+            $event->getName(),
+            $event
         );
 
         return false === $results->last() ? false : true; // result must be BOOLEAN false (not "", null or 0 or any other value evaluated to FALSE)

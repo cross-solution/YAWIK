@@ -42,7 +42,7 @@ class PreviewFieldset extends Fieldset implements ViewPartialProviderInterface
 
         $this->add(
             array(
-            'type' => 'infocheckbox',
+            'type' => 'infoCheckBox',
             'name' => 'termsAccepted',
             'options' => array(
                 'headline' => /*@translate*/ 'Terms and conditions',

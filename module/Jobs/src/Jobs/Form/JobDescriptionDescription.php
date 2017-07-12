@@ -64,7 +64,7 @@ class JobDescriptionDescription extends Form implements InputFilterProviderInter
             'description-description' => array(
                 'filters' => array(
                     array(
-                        'name' => 'Core\XssFilter'
+                        'name' => 'Core/XssFilter'
                     )
                 )
             )

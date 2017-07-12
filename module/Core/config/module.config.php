@@ -200,7 +200,7 @@ return array(
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
-            'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
+            'Core/Html2Pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'Core/Navigation' => 'Core\Factory\Navigation\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
@@ -404,14 +404,16 @@ return array(
             'services' => function($sm){
             	return \Core\View\Helper\Services::factory($sm);
             },
-            'insertFile' => 'Core\View\Helper\InsertFile::factory',
-            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class
+            'insertFile' => [\Core\View\Helper\InsertFile::class,'factory'],
+            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
+            \Core\View\Helper\AjaxUrl::class => \Core\Factory\View\Helper\AjaxUrlFactory::class,
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
         ),
         'aliases' => [
             'snippet' => \Core\View\Helper\Snippet::class,
+	        'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
         ],
     ),
     
@@ -504,6 +506,11 @@ return array(
 
         'Core/ViewSnippets/Events' => [
             'service' => 'Core/EventManager',
+        ],
+
+        'Core/Ajax/Events' => [
+	        'service' => 'Core/EventManager',
+	        'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
 	    
 	    'Core/File/Events' => [

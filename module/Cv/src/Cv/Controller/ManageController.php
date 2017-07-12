@@ -32,6 +32,8 @@ class ManageController extends AbstractActionController
 	
 	private $formElements;
 	
+	private $viewHelper;
+	
 	static public function factory(ContainerInterface $container)
 	{
 		$controller = new static();
@@ -43,6 +45,7 @@ class ManageController extends AbstractActionController
 	{
 		$this->repositories = $container->get('repositories');
 		$this->formElements = $container->get('FormElementManager');
+		$this->viewHelper = $container->get('ViewHelperManager');
 	}
 	
 	public function formAction()
@@ -111,7 +114,7 @@ class ManageController extends AbstractActionController
                 $this->validateCv($cv);
 
                 $repositories->store($cv);
-                $viewHelperManager = $serviceLocator->get('ViewHelperManager');
+                $viewHelperManager = $this->viewHelper;
                 
                 if ('file-uri' === $params->fromPost('return')) {
                     $content = $viewHelperManager->get('basepath')
@@ -120,7 +123,7 @@ class ManageController extends AbstractActionController
                 else {
                     if ($form instanceof SummaryFormInterface) {
                         $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
-                        $viewHelper = 'summaryform';
+                        $viewHelper = 'summaryForm';
                     } else {
                         $viewHelper = 'form';
                     }

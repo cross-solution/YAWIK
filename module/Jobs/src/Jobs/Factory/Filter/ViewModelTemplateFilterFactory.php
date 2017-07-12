@@ -57,7 +57,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
 		if ($element instanceof Element) {
 			$filter = new ViewModelTemplateFilterForm;
 			$viewHelperManager = $this->service->get('ViewHelperManager');
-			$viewHelperForm = $viewHelperManager->get('formsimple');
+			$viewHelperForm = $viewHelperManager->get('formSimple');
 			$filter->setViewHelperForm($viewHelperForm);
 		}
 		if (!isset($filter)) {
@@ -71,9 +71,10 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
 		$filter->setImageFileCacheHelper($imageFileCacheHelper);
 		$filter->setServerUrlHelper($serverUrlHelper);
 		
-		$jsonLdHelper = $viewManager->get(JsonLd::class);
-		$filter->setJsonLdHelper($jsonLdHelper);
-		
+		if($filter instanceof ViewModelTemplateFilterJob || method_exists($filter,'setJsonLdHelper')){
+			$jsonLdHelper = $viewManager->get(JsonLd::class);
+			$filter->setJsonLdHelper($jsonLdHelper);
+		}
 		$urlPlugin = $this->service->get('ControllerPluginManager')->get('url');
 		$filter->setUrlPlugin($urlPlugin);
 		$options = $this->service->get('Jobs/Options');

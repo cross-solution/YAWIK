@@ -62,15 +62,11 @@ class MultipostingMultiCheckboxFactory implements FactoryInterface
      * @param  null|array         $options
      *
      * @return object
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $factory = $this->getParentFactory();
-        $select = $factory->createService($container);
+        $select = $factory($container,$requestedName);
         $select->setViewPartial('jobs/form/multiposting-checkboxes');
         $select->setHeadscripts(array('Jobs/js/form.multiposting-checkboxes.js'));
         return $select;

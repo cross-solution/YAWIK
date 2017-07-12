@@ -17,6 +17,7 @@ return array(
 	'Zend\Navigation',
 	'Zend\I18n',
 	'Zend\Filter',
+	'Zend\InputFilter',
 	'Zend\Form',
 	'Zend\Validator',
 	'Zend\Log',
@@ -25,6 +26,7 @@ return array(
 	'Zend\Mvc\Plugin\FlashMessenger',
 	'Zend\Mvc\I18n',
 	'Zend\Hydrator',
+	'Zend\Serializer',
 	'DoctrineModule',
 	'DoctrineMongoODMModule',
 );

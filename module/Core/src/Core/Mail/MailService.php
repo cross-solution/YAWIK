@@ -10,6 +10,7 @@
 /** */
 namespace Core\Mail;
 
+use Core\Factory\ContainerAwareInterface;
 use Interop\Container\ContainerInterface;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Mail\Address;
@@ -97,6 +98,9 @@ class MailService extends AbstractPluginManager
                     }
                     $instance->setTranslatorEnabled(true);
                 }
+	            if($instance instanceof ContainerAwareInterface){
+		            $instance->setContainer($context);
+	            }
             }
         );
         
@@ -110,7 +114,7 @@ class MailService extends AbstractPluginManager
         //);
         
         $this->addInitializer(
-            function ($context,$instance) {
+            function ($context,$instance){
                 if (method_exists($instance, 'init')) {
                     $instance->init();
                 }

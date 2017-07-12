@@ -69,13 +69,14 @@ class StatusChange
      * @param ApplicationEvent $e
      */
     public function prepareFormData(ApplicationEvent $e){
-        if ($e->isPostRequest()) {
+    	$target = $e->getTarget();
+        if ($target->isPostRequest()) {
             return;
         }
-
-        $this->application = $e->getApplicationEntity();
-        $status = $e->getStatus();
-        $user = $e->getUser();
+	    
+        $this->application = $target->getApplicationEntity();
+        $status = $target->getStatus();
+        $user = $target->getUser();
         $settings = $user->getSettings('Applications');
 
         /* @var \Applications\Mail\StatusChange $mail */
@@ -113,7 +114,7 @@ class StatusChange
             'mailText'      => $mailText,
             'to'            => $this->getRecipient($this->application, $status),
         );
-        $e->setFormData($data);
+        $target->setFormData($data);
     }
 
     /**
@@ -121,7 +122,8 @@ class StatusChange
      *
      * @param ApplicationEvent $event
      */
-    public function  sendMail(ApplicationEvent $event){
+    public function sendMail(ApplicationEvent $event){
+    	$event = $event->getTarget();
         if (!$event->isPostRequest()) {
             return;
         }

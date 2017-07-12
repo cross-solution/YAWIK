@@ -146,6 +146,7 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
     public function testSendsMailsToRecruiterOnJobAcceptedOrJobRejectedEvent()
     {
         $job = $this->jobEvent->getJobEntity();
+        $this->jobEvent->setTarget($this->jobEvent);
         $info = $job->getUser()->getInfo();
         $to = array($info->getEmail(), $info->getDisplayName(false));
 

@@ -42,7 +42,7 @@ class MultipostFieldset extends Fieldset
 
         $this->add(
             array(
-                 'type' => 'Jobs\MultipostingSelect',
+                 'type' => 'Jobs/MultipostingSelect',
                  'property' => true,
                  'name' => 'portals',
                  'options' => array(

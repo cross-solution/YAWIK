@@ -67,8 +67,16 @@ trait CommonContextTrait
 	 *
 	 * @return RepositoryInterface
 	 */
-	public function getRepositories($id)
+	public function getRepository($id)
 	{
-		return $this->coreContext->getRepositories($id);
+		return $this->coreContext->getRepositories()->get($id);
+	}
+	
+	/**
+	 * @return \Auth\Entity\User
+	 */
+	public function getCurrentUser()
+	{
+		return $this->userContext->getCurrentUser();
 	}
 }

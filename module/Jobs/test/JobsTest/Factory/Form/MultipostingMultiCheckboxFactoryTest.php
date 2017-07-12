@@ -46,7 +46,7 @@ class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @testdox Allows creation of a multiposting multicheckbox element
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $select = $this->getMockBuilder('Jobs\Form\MultipostingSelect')->disableOriginalConstructor()->getMock();
         $select->expects($this->once())
@@ -56,8 +56,14 @@ class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
                ->method('setHeadscripts')->with(array('Jobs/js/form.multiposting-checkboxes.js'));
 
         $factory = $this->getMockBuilder('\Zend\ServiceManager\FactoryInterface')
-                        ->setMethods(array('createService'))->getMockForAbstractClass();
-        $factory->expects($this->once())->method('createService')->willReturn($select);
+                        ->setMethods(array('__invoke'))
+                        ->getMockForAbstractClass()
+        ;
+        $factory
+	        ->expects($this->once())
+	        ->method('__invoke')
+	        ->willReturn($select)
+        ;
 
 
         $sm = $this->getMockForAbstractClass('\Zend\ServiceManager\ServiceLocatorInterface');
@@ -65,7 +71,7 @@ class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
         $target = new MultipostingMultiCheckboxFactory();
         $target->setParentFactory($factory);
 
-        $actual = $target->__invoke($sm,'irrelevant');
+        $actual = $target($sm,'irrelevant');
 
         $this->assertSame($select, $actual);
     }

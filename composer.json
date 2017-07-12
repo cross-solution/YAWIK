@@ -45,6 +45,11 @@
         "zendframework/zend-form": "^2.10",
         "zendframework/zend-mail": "^2.7",
         "zendframework/zend-json": "^3.0",
+        "zendframework/zend-view": "^2.9",
+        "zendframework/zend-feed": "^2.8",
+        "zendframework/zendservice-recaptcha": "^3.0",
+        "zendframework/zend-log": "^2.9",
+        "zendframework/zend-serializer": "^2.8",
         "doctrine/doctrine-mongo-odm-module": "*",
         "hybridauth/hybridauth": "^2.9",
         "mpdf/mpdf": "5.7.*",
@@ -55,11 +60,7 @@
         "mikey179/vfsStream": "*",
         "ircmaxell/random-lib": "1.1.0",
         "tracy/tracy": "^2.4",
-        "zendframework/zend-view": "^2.9",
-        "zendframework/zend-feed": "^2.8",
-        "imagine/imagine": "^0.6.3",
-        "zendframework/zendservice-recaptcha": "^3.0",
-        "zendframework/zend-log": "^2.9"
+        "imagine/imagine": "^0.6.3"
     },
     "require-dev": {
         "cbleek/pecl-solr-hint": "dev-master",
@@ -76,7 +77,8 @@
         "se/selenium-server-standalone": "^2.52",
         "friends-of-behat/context-service-extension": "^0.3.0",
         "friends-of-behat/cross-container-extension": "^0.3.0",
-        "friends-of-behat/service-container-extension": "^0.3.0"
+        "friends-of-behat/service-container-extension": "^0.3.0",
+        "novaway/common-contexts": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
