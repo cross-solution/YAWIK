@@ -62,6 +62,8 @@ Feature: Update job
         Given I don't have any posted job
         And I go to edit job draft with title "Test Job Draft"
         And I click edit on "customer note" form
+        And I scroll "#yk-footer" into view
+        And I wait for the ajax response
         And I fill in "customerNote-note" with "Edited Some Note"
         And I save "customer note" form
         And I wait for the ajax response

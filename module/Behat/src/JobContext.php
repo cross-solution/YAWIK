@@ -9,6 +9,8 @@
 
 namespace Yawik\Behat;
 
+use Auth\Entity\Status;
+use Auth\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
@@ -43,11 +45,34 @@ class JobContext implements Context
 	private $currentJob;
 	
 	/**
+	 * @var JobRepository
+	 */
+	static private $jobRepo;
+	
+	/**
+	 * @param User $user
+	 */
+	static public function removeJobByUser(User $user)
+	{
+		$repo = static::$jobRepo;
+		$results = $repo->findBy(['user' => $user]);
+		foreach($results as $result){
+			$repo->remove($result,true);
+		}
+	}
+	
+	/**
 	 * @BeforeScenario
+	 *
+	 * @param BeforeScenarioScope $scope
 	 */
 	public function beforeScenario(BeforeScenarioScope $scope)
 	{
 		$this->select2Context = $scope->getEnvironment()->getContext(Select2Context::class);
+		if(is_null(static::$jobRepo)){
+			$this->gatherContexts($scope);
+			static::$jobRepo = $this->getJobRepository();
+		}
 	}
 	
 	/**
@@ -190,9 +215,18 @@ class JobContext implements Context
 		$job = new Job();
 		
 		$job->setTitle($normalizedField['title']);
-		$job->setUser($this->getCurrentUser());
+		
+		if($this->getCurrentUser() instanceof User){
+			$job->setUser($this->getCurrentUser());
+			$job->setOrganization($this->getCurrentUser()->getOrganization()->getOrganization());
+		}
 		if($status == 'draft'){
 			$job->setIsDraft(true);
+		}
+		if($status == 'published'){
+			$job->setIsDraft(false);
+			$job->setStatus(Status::ACTIVE);
+			$job->setDatePublishStart(new \DateTime());
 		}
 		
 		if(isset($normalizedField['professions'])){

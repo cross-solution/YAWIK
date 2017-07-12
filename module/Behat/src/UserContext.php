@@ -20,6 +20,7 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Hook\Scope\AfterSuiteScope;
+use Doctrine\Common\Util\Inflector;
 use Geo\Service\Photon;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
@@ -65,9 +66,6 @@ class UserContext implements Context
 	 */
 	private $loggedInUser;
 	
-	private $loggedInSessionID;
-	
-	
 	public function __construct($parameters=[])
 	{
 		$defaultLoginInfo = [
@@ -93,7 +91,12 @@ class UserContext implements Context
 		$repo = static::$userRepo;
 		foreach(static::$users as $user){
 			if($repo->findByLogin($user->getLogin())){
-				$repo->remove($user,true);
+				try{
+					JobContext::removeJobByUser($user);
+					$repo->remove($user,true);
+				}catch (\Exception $e){
+				
+				}
 			}
 		}
 	}
@@ -155,6 +158,28 @@ class UserContext implements Context
 		if($user instanceof UserInterface){
 			$repo->remove($user,true);
 		}
+	}
+	
+	/**
+	 * @Given I have a :role with the following:
+	 * @param $role
+	 * @param TableNode $fields
+	 */
+	public function iHaveUserWithTheFollowing($role,TableNode $fields)
+	{
+		$normalizedFields = [
+			'login' => 'test@login.com',
+			'fullname' => 'Test Login',
+			'role' => User::ROLE_USER,
+			'password' => 'test'
+		];
+		foreach($fields->getRowsHash() as $field=>$value){
+			$field = Inflector::camelize($field);
+			$normalizedFields[$field] = $value;
+		}
+		
+		$this->thereIsAUserIdentifiedBy($normalizedFields['login'],$normalizedFields['password'],$role,$normalizedFields['fullname']);
+		
 	}
 	
 	/**

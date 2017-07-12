@@ -33,9 +33,9 @@ Feature: Social profile feature
         And I wait for the ajax response
         And I fill in login form with LinkedIn user
         And I press "Sign In"
-        And I wait for 5 seconds
+        And I wait for the ajax response
         And I switch back to main window
         And I wait for the ajax response
-        And I wait for 5 seconds
+        And I wait for 6 seconds
         Then I should see an ".btn-success .fa-linkedin" element
 
