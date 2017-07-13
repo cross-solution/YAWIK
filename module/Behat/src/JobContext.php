@@ -15,6 +15,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Doctrine\Common\Util\Inflector;
+use Documents\UserRepository;
 use Geo\Service\Photon;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\Job;
@@ -203,6 +204,7 @@ class JobContext implements Context
 	public function iHaveAJobWithTheFollowing($status,TableNode $fields)
 	{
 		$normalizedField = [
+			'template' => 'modern',
 		];
 		foreach($fields->getRowsHash() as $field => $value){
 			$field = Inflector::camelize($field);
@@ -215,15 +217,22 @@ class JobContext implements Context
 		$job = new Job();
 		
 		$job->setTitle($normalizedField['title']);
-		
-		if($this->getCurrentUser() instanceof User){
-			$job->setUser($this->getCurrentUser());
-			$job->setOrganization($this->getCurrentUser()->getOrganization()->getOrganization());
+		$job->setTemplate($normalizedField['template']);
+		if(isset($normalizedField['user'])){
+			/* @var UserRepository $repo */
+			$repo = $this->getRepository('Auth\Entity\User');
+			$user = $repo->findOneBy(['login' => $normalizedField['user']]);
+			if($user instanceof User){
+				$job->setUser($user);
+				$job->setOrganization($user->getOrganization()->getOrganization());
+			}else{
+				throw new \Exception('There is no user with this login:"'.$normalizedField['user'.'"']);
+			}
 		}
+		
 		if($status == 'draft'){
 			$job->setIsDraft(true);
-		}
-		if($status == 'published'){
+		}elseif($status == 'published'){
 			$job->setIsDraft(false);
 			$job->setStatus(Status::ACTIVE);
 			$job->setDatePublishStart(new \DateTime());

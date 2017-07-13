@@ -33,6 +33,7 @@ class OrganizationContext implements Context
 		'jobTitleAndLocation' => '#general-locationForm',
 		'jobClassification' => '#sf-general-classifications',
 		'customerNote' => '#sf-general-customerNote',
+		'personalInformations' => '#sf-contact-contact'
 	);
 	
 	/**
@@ -55,6 +56,7 @@ class OrganizationContext implements Context
 	
 	/**
 	 * @When I click edit on :name form
+	 * @TODO: [ZF3] move this method to CoreContext
 	 */
 	public function iClickEditOnForm($name)
 	{
