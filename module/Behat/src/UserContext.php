@@ -171,14 +171,21 @@ class UserContext implements Context
 			'login' => 'test@login.com',
 			'fullname' => 'Test Login',
 			'role' => User::ROLE_USER,
-			'password' => 'test'
+			'password' => 'test',
+			'organization' => 'Cross Solution'
 		];
 		foreach($fields->getRowsHash() as $field=>$value){
 			$field = Inflector::camelize($field);
 			$normalizedFields[$field] = $value;
 		}
 		
-		$this->thereIsAUserIdentifiedBy($normalizedFields['login'],$normalizedFields['password'],$role,$normalizedFields['fullname']);
+		$this->thereIsAUserIdentifiedBy(
+			$normalizedFields['login'],
+			$normalizedFields['password'],
+			$role,
+			$normalizedFields['fullname'],
+			$normalizedFields['organization']
+		);
 		
 	}
 	

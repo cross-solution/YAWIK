@@ -103,10 +103,14 @@ class JobContext implements Context
 	/**
 	 * @Given I go to edit job draft with title :jobTitle
 	 * @param $jobTitle
+	 * @throws \Exception when job is not found
 	 */
 	public function iGoToEditJobWithTitle($jobTitle)
 	{
-		$job = $this->getCurrentUserJobDraft($jobTitle);
+		$job = $this->getJobRepository()->findOneBy(['title' => $jobTitle]);
+		if(!$job instanceof Job){
+			throw new \Exception(sprintf('Job with title "%s" is not found',$jobTitle));
+		}
 		$this->currentJob = $job;
 		$url = '/en/jobs/edit?id='.$job->getId();
 		$this->visit($url);
@@ -213,15 +217,16 @@ class JobContext implements Context
 			}
 			$normalizedField[$field] = $value;
 		}
-		
-		$job = new Job();
-		
-		$job->setTitle($normalizedField['title']);
-		$job->setTemplate($normalizedField['template']);
+		$repo = $this->getJobRepository();
+		$job = $repo->findOneBy(['title' => $normalizedField['title']]);
+		if(!$job instanceof Job){
+			$job = new Job();
+			$job->setTitle($normalizedField['title']);
+		}
 		if(isset($normalizedField['user'])){
 			/* @var UserRepository $repo */
-			$repo = $this->getRepository('Auth\Entity\User');
-			$user = $repo->findOneBy(['login' => $normalizedField['user']]);
+			$userRepo = $this->getRepository('Auth\Entity\User');
+			$user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
 			if($user instanceof User){
 				$job->setUser($user);
 				$job->setOrganization($user->getOrganization()->getOrganization());
@@ -259,7 +264,7 @@ class JobContext implements Context
 			$job->setCompany($normalizedField['companyName']);
 		}
 		
-		$this->getJobRepository()->store($job);
+		$repo->store($job);
 		$this->currentJob = $job;
 		return;
 	}
