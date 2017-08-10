@@ -394,19 +394,17 @@ return array(
             'toggleButton' => 'Core\Form\View\Helper\ToggleButton',
             'TinyMCEditor' => 'Core\Form\View\Helper\FormEditor',
             'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor',
-	        'proxy' => \Core\View\Helper\Proxy\HelperProxy::class
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
             'socialButtons' => 'Core\Factory\View\Helper\SocialButtonsFactory',
             'TinyMCEditorLight' => 'Core\Factory\Form\View\Helper\FormEditorLightFactory',
             'configHeadScript' => 'Core\View\Helper\Service\HeadScriptFactory',
-            'services' => function($sm){
-            	return \Core\View\Helper\Services::factory($sm);
-            },
-            'insertFile' => [\Core\View\Helper\InsertFile::class,'factory'],
-            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
             \Core\View\Helper\AjaxUrl::class => \Core\Factory\View\Helper\AjaxUrlFactory::class,
+            'services' => [\Core\View\Helper\Services::class, 'factory'],
+            'insertFile' => 'Core\View\Helper\InsertFile::factory',
+            \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
+            \Core\View\Helper\Proxy::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
@@ -414,6 +412,7 @@ return array(
         'aliases' => [
             'snippet' => \Core\View\Helper\Snippet::class,
 	        'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
+            'proxy' => \Core\View\Helper\Proxy::class,
         ],
     ),
     
