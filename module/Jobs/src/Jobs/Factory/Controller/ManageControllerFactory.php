@@ -38,7 +38,7 @@ class ManageControllerFactory implements FactoryInterface
         $filterManager = $container->get('FilterManager');
         $jobFormEvents = $container->get('Jobs/JobContainer/Events');
         $formManager = $container->get('FormElementManager');
-        $options['options'] = $container->get('Core/Options');
+        $options['core'] = $container->get('Core/Options');
         $options['channels'] = $container->get('Jobs/Options/Provider');
         $viewHelper = $container->get('ViewHelperManager');
         $validatorManager = $container->get('ValidatorManager');
