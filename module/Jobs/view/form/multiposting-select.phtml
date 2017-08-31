@@ -74,7 +74,7 @@ if ($this->renderSummary):?>
                             <th><?php echo $this->translate('Price') ?></th>
                             <th class="text-right"><?php
                                 /* @var $filter \Jobs\Filter\ChannelPrices */
-                                $filter = $this->services('filtermanager.Jobs/ChannelPrices');
+                                $filter = $this->services('FilterManager.Jobs/ChannelPrices');
                                 $total = $filter->filter($valueKey);
                                 echo $this->currencyFormat($total); ?></th>
                         </tr>
