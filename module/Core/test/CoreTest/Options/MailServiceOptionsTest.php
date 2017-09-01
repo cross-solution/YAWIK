@@ -66,11 +66,14 @@ class MailServiceOptionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Core\Options\MailServiceOptions::getTransportClass
      * @covers Core\Options\MailServiceOptions::setTransportClass
+     *
+     * We use "sendmail" as default, because authentication has to be enabled when
+     * using "smtp".
      */
     public function testSetGetTransportClass()
     {
-        $this->assertEquals("smtp", $this->options->getTransportClass());
-        $this->options->setTransportClass("sendmail");
         $this->assertEquals("sendmail", $this->options->getTransportClass());
+        $this->options->setTransportClass("smtp");
+        $this->assertEquals("smtp", $this->options->getTransportClass());
     }
 }

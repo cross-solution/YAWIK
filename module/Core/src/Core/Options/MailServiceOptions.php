@@ -41,7 +41,7 @@ class MailServiceOptions extends SmtpOptions
      *
      * @var string $transportClass
      */
-    protected $transportClass = 'smtp';
+    protected $transportClass = 'sendmail';
 
     /**
      * Connection configuration (passed to the underlying Protocol class)
