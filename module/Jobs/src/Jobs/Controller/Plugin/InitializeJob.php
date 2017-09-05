@@ -102,7 +102,7 @@ class InitializeJob extends AbstractPlugin
             }
         }
 
-        if (!$job) {
+        if (!$job || $job->isDeleted()) {
             throw new NotFoundException($id);
         }
 

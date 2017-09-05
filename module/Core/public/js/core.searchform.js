@@ -22,20 +22,29 @@
 
             $(':input', $form).each(function() {
 
+                var $input = $(this);
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
 
                 if (type == 'text' || type == 'password' || tag == 'textarea') {
                     this.value = "";
-                    $(this).change();
+                    $input.change();
 
                 } else if (type == 'checkbox' || type == 'radio') {
                     this.checked = false;
-                    $(this).change();
+                    $input.change();
 
                 } else if (tag == 'select') {
-                    this.selectedIndex = -1;
-                    $(this).trigger('change', [ true ]);
+                    if ($input.attr('data-placeholder')) {
+                        this.selectedIndex = -1;
+                    } else {
+                        var selected = 0;
+                        $input.find('option[selected]').each(function() {
+                            selected = $(this).prop('index');
+                        });
+                        this.selectedIndex = selected;
+                    }
+                    $input.trigger('change', [true]);
                 }
             });
 
@@ -75,6 +84,7 @@
     {
         var queryParts = [];
         $.each(data, function(name, value) {
+            value=encodeURIComponent(value)
             queryParts.push(name + '=' + value);
         });
 
