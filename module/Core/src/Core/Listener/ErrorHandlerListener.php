@@ -16,7 +16,7 @@ use Zend\Log\LoggerInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Application;
 use Zend\Log\Logger;
-use Zend\Mvc\Router;
+use Zend\Router;
 
 /**
  * Class ErrorHandlerListener
