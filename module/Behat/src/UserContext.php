@@ -319,6 +319,13 @@ class UserContext implements Context
 	 */
 	public function iAmLoggedInAsIdentifiedBy($username, $password)
 	{
+		$repo = $this->getUserRepository();
+		$user = $repo->findByLogin($username);
+		
+		if(!$user instanceof User){
+			throw new \Exception(sprintf('There is no user with this login: "%s"',$username));
+		}
+		$this->currentUser = $user;
 		$this->iWantToLogIn();
 		$this->iSpecifyTheUsernameAs($username);
 		$this->iSpecifyThePasswordAs($password);

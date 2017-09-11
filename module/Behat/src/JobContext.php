@@ -217,14 +217,14 @@ class JobContext implements Context
 			}
 			$normalizedField[$field] = $value;
 		}
-		$repo = $this->getJobRepository();
-		$job = $repo->findOneBy(['title' => $normalizedField['title']]);
+		$jobRepo = $this->getJobRepository();
+		$job = $jobRepo->findOneBy(['title' => $normalizedField['title']]);
 		if(!$job instanceof Job){
 			$job = new Job();
 			$job->setTitle($normalizedField['title']);
 		}
 		if(isset($normalizedField['user'])){
-			/* @var UserRepository $repo */
+			/* @var $userRepo UserRepository */
 			$userRepo = $this->getRepository('Auth\Entity\User');
 			$user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
 			if($user instanceof User){
@@ -239,9 +239,9 @@ class JobContext implements Context
 			$job->setIsDraft(true);
 		}elseif($status == 'published'){
 			$job->setIsDraft(false);
-			$job->setStatus(Status::ACTIVE);
 			$job->setDatePublishStart(new \DateTime());
 		}
+		$job->setStatus(Status::ACTIVE);
 		
 		if(isset($normalizedField['professions'])){
 			$this->addProfessions($job,$normalizedField['professions']);
@@ -264,9 +264,8 @@ class JobContext implements Context
 			$job->setCompany($normalizedField['companyName']);
 		}
 		
-		$repo->store($job);
+		$jobRepo->store($job);
 		$this->currentJob = $job;
-		return;
 	}
 	
 	private function setLocation(Job $job, $term)

@@ -25,17 +25,6 @@ class OrganizationContext implements Context
 {
 	use CommonContextTrait;
 	
-	private $elementMap = array(
-		'name' => '#sf-nameForm',
-		'location' => '#sf-locationForm',
-		'employees' => '#sf-employeesManagement',
-		'workflow' => '#sf-workflowSettings',
-		'jobTitleAndLocation' => '#general-locationForm',
-		'jobClassification' => '#sf-general-classifications',
-		'customerNote' => '#sf-general-customerNote',
-		'personalInformations' => '#sf-contact-contact'
-	);
-	
 	/**
 	 * @Given I go to my organization page
 	 */
@@ -52,51 +41,6 @@ class OrganizationContext implements Context
 	{
 		$locator = '#sf-nameForm .sf-summary';
 		$this->coreContext->iHoverOverTheElement($locator);
-	}
-	
-	/**
-	 * @When I click edit on :name form
-	 * @TODO: [ZF3] move this method to CoreContext
-	 */
-	public function iClickEditOnForm($name)
-	{
-		$this->iClickForm($name);
-		$name = Inflector::camelize($name);
-		$type = $this->elementMap[$name];
-		$locator = $type.' .sf-summary .sf-controls button';
-		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
-		if(!$element){
-			throw new \Exception('No element found with this locator: "'.$locator.'"');
-		}
-		$element->click();
-	}
-	
-	/**
-	 * @When I click :form form
-	 */
-	public function iClickForm($name)
-	{
-		$name = Inflector::camelize($name);
-		$type = $this->elementMap[$name];
-		$locator = $type.' .sf-summary';
-		$session = $this->minkContext->getSession();
-		$script = <<<EOC
-var tElement = jQuery("$locator .sf-controls");
-tElement.css('display','block');
-tElement.css('visibility','visible');
-EOC;
-		$session->executeScript($script);
-	}
-	
-	/**
-	 * @When I save :type form
-	 */
-	public function iSaveLocationForm($type)
-	{
-		$type = Inflector::camelize($type);
-		$locator = $this->elementMap[$type].' button.sf-submit';
-		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
-		$element->click();
 	}
 	
 	/**

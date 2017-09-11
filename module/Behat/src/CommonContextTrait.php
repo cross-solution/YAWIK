@@ -32,6 +32,11 @@ trait CommonContextTrait
 	protected $userContext;
 	
 	/**
+	 * @var SummaryFormContext
+	 */
+	protected $summaryFormContext;
+	
+	/**
 	 * @BeforeScenario
 	 *
 	 * @param BeforeScenarioScope $scope
@@ -41,6 +46,7 @@ trait CommonContextTrait
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
 		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
 		$this->userContext = $scope->getEnvironment()->getContext(UserContext::class);
+		$this->summaryFormContext = $scope->getEnvironment()->getContext(SummaryFormContext::class);
 	}
 	
 	public function generateUrl($url)
