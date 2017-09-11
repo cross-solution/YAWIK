@@ -1071,5 +1071,10 @@ class Job extends BaseEntity implements JobInterface,
         return $this;
     }
 
+    public function isDeleted()
+    {
+        return $this->isDeleted;
+    }
+
 
 }
