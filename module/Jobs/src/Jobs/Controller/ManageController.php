@@ -307,7 +307,8 @@ class ManageController extends AbstractActionController
                 'valid' => $valid,
                 'jobvalid' => $jobValid,
                 'errors' => $formErrorMessages,
-                'errorMessage' => $errorMessage)
+                'errorMessage' => $errorMessage,
+                'displayMode' => $this->params()->fromQuery('displayMode', 'summary'))
             );
         } else {
             if ($jobEntity->isDraft()) {
