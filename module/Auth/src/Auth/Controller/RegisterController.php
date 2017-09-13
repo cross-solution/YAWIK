@@ -41,7 +41,7 @@ class RegisterController extends AbstractCoreController
 
 
     public function __construct(
-        Form\Register $form,
+        Form\RegisterFormInterface $form,
         Service\Register $service,
         LoggerInterface $logger,
         ModuleOptions $options)
