@@ -23,6 +23,7 @@ config/autoload.bak
 config/autoload/*.php
 
 test/config/*.local.php
+test/config/TestConfig.php
 test/phpunit.xml
 build.properties
 
