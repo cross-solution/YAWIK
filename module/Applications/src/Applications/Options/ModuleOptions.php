@@ -35,12 +35,16 @@ class ModuleOptions extends AbstractOptions
      *
      * @var array $attachmentsMimeType
      */
-    protected $attachmentsMimeType = array('image','applications/pdf',
+    protected $attachmentsMimeType = array(
+    	'image',
+	    'application/pdf',
+	    'applications/pdf',
         'application/x-pdf',
         'application/acrobat',
         'applications/vnd.pdf',
         'text/pdf',
-        'text/x-pdf');
+        'text/x-pdf'
+    );
 
     /**
      * maximum number of attachments. Default 3

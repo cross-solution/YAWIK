@@ -329,13 +329,13 @@ class ApplyController extends AbstractActionController implements ContainerAware
     
     public function processAction()
     {
-        $formName  = $this->params()->fromQuery('form');
+    	$params = $this->params();
+        $formName  = $params->fromQuery('form');
         $form      = $this->formContainer->getForm($formName);
-        $postData  = $form->getOption('use_post_array') ? $_POST : array();
-        $filesData = $form->getOption('use_files_array') ? $_FILES : array();
-        $data      = array_merge($postData, $filesData);
-
-        $form->setData($data);
+        $postData  = $form->getOption('use_post_array') ? $params->fromPost() : array();
+	    //@TODO: [ZF3] option use_files_array is false by default
+        //$filesData = $form->getOption('use_files_array') ? $params->fromFiles() : array();
+        $form->setData(array_merge($postData,$_FILES));
         
         if (!$form->isValid()) {
             return new JsonModel(
@@ -348,7 +348,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $application = $this->formContainer->getEntity();
         $this->repositories->store($application);
         
-        if ('file-uri' === $this->params()->fromPost('return')) {
+        if ('file-uri' === $params->fromPost('return')) {
             $basepath = $this->viewHelper->get('basepath');
             $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
         } else {
