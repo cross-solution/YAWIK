@@ -42,25 +42,33 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         'getJob',
         '@testInheritance' => ['as_reflection' => true],
         '@testConstructSetsJob' => false,
+        '@testGeneratesJsonLdWithoutOrganizationAndDate' => [
+            'args' => 'getJobWoOrgAndDate'
+        ],
     ];
 
     private $inheritance = [ JsonLdProviderInterface::class ];
 
-    private function getJob()
+    private function getJob($withOrganization=true, $withDatePublishStart=true)
     {
         $job = new Job();
         $organization = new Organization();
         $name = new OrganizationName('test');
         $organization->setOrganizationName($name);
-        $job->setOrganization($organization);
+        if ($withOrganization) { $job->setOrganization($organization); }
         $job->setTitle('Test JsonLdProvider');
-        $job->setDatePublishStart(new \DateTime());
+        if ($withDatePublishStart) { $job->setDatePublishStart(new \DateTime()); }
         $locations = new ArrayCollection();
         $location = new Location();
         $locations->add($location);
         $job->setLocations($locations);
 
         return [$job];
+    }
+
+    private function getJobWoOrgAndDate()
+    {
+        return $this->getJob(false, false);
     }
 
     public function testConstructSetsJob()
@@ -77,5 +85,17 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         $json = $this->target->toJsonLd();
 
         $this->assertContains('"title":"Test JsonLdProvider"', $json);
+    }
+
+    public function testGeneratesJsonLdWithoutOrganizationAndDate()
+    {
+        $json = $this->target->toJsonLd();
+
+        $array = json_decode($json, JSON_OBJECT_AS_ARRAY);
+        
+        $this->assertTrue(isset($array['hiringOrganization']['name']));
+        $this->assertEquals('', $array['hiringOrganization']['name']);
+
+        $this->assertNull($array['datePosted']);
     }
 }

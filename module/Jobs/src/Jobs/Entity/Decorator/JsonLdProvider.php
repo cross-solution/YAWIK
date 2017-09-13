@@ -46,15 +46,18 @@ class JsonLdProvider implements JsonLdProviderInterface
 
     public function toJsonLd()
     {
-        $organizationName = $this->job->getOrganization()->getOrganizationName()->getName();
+        $organization = $this->job->getOrganization();
+        $organizationName = $organization ? $organization->getOrganizationName()->getName() : '';
 
-        $datePublishStart = $this->job->getDatePublishStart();
+        $dateStart = $this->job->getDatePublishStart();
+        $dateStart = $dateStart ? $dateStart->format('Y-m-d') : null;
+	    
         $array=[
             '@context'=>'http://schema.org/',
             '@type' => 'JobPosting',
             'title' => $this->job->getTitle(),
             'description' => $this->getDescription($this->job->getTemplateValues()),
-            'datePosted' => !is_null($datePublishStart) ? $datePublishStart->format('Y-m-d'):null,
+            'datePosted' => $dateStart,
             'identifier' => [
                 '@type' => 'PropertyValue',
                 'value' => $this->job->getApplyId(),
