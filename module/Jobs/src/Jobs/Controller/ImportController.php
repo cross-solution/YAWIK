@@ -190,31 +190,41 @@ class ImportController extends AbstractActionController
                                 $jobLocations->add($location);
                             }
                         }
+
+                        /* @var \Core\EventManager\EventManager $jobEvents
+                         * @var JobEvent $jobEvent */
+                        $jobEvents = $services->get('Jobs/Events');
+                        $jobEvent = $jobEvents->getEvent(JobEvent::EVENT_IMPORT_DATA, $this);
+                        $jobEvent->setJobEntity($entity);
+
+                        $extra = [];
+                        foreach (array('channels', 'position', 'branches', 'keywords', 'description') as $paramName) {
+                            $data = $params->get($paramName);
+                            if ($data) {
+                                $data = Json::decode($data, Json::TYPE_ARRAY);
+                                $extra[$paramName] = $data;
+                                $jobEvent->setParam($paramName, $data);
+                            }
+                        }
+
+                        $jobEvents->triggerEvent($jobEvent);
                         $repositoriesJob->store($entity);
+
                         $id = $entity->getId();
                         if (!empty($id)) {
-                            $jobEvent = $services->get('Jobs/Event');
+                            $jobEvent = $services->get('Jobs/Event'); // intentinally override
                             $jobEvent->setJobEntity($entity);
 
-                            $extra = [];
-                            foreach (array('channels', 'positions', 'branches', 'keywords', 'description') as $paramName) {
-                                $data = $params->get($paramName);
-                                if ($data) {
-                                    $data = Json::decode($data, Json::TYPE_ARRAY);
-                                    if ('channels' == $paramName) {
-                                        foreach (array_keys($data) as $portalName) {
-                                            $jobEvent->addPortal($portalName);
-                                        }
-                                    }
-
-                                    $extra[$paramName] = $data;
+                            if (isset($extra['channels'])) {
+                                foreach ($extra['channels'] as $portalName => $trash) {
+                                    $jobEvent->addPortal($portalName);
                                 }
                             }
                             $jobEvent->setParam('extraData', $extra);
 
                             if ($createdJob || true) {
                                 /* @var $jobEvents \Zend\EventManager\EventManager */
-                                $jobEvents = $services->get('Jobs/Events');
+
                                 $jobEvent->setName(JobEvent::EVENT_JOB_ACCEPTED)
                                          ->setTarget($this);
                                 $responses = $jobEvents->trigger($jobEvent);
