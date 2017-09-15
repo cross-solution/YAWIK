@@ -418,7 +418,7 @@ return array(
             'configHeadScript' => 'Core\View\Helper\Service\HeadScriptFactory',
             \Core\View\Helper\AjaxUrl::class => \Core\Factory\View\Helper\AjaxUrlFactory::class,
             'services' => [\Core\View\Helper\Services::class, 'factory'],
-            'insertFile' => 'Core\View\Helper\InsertFile::factory',
+            'InsertFile' => [View\Helper\InsertFile::class, 'factory'],
             \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
             \Core\View\Helper\Proxy::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ),

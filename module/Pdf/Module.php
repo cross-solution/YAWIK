@@ -97,8 +97,8 @@ class Module implements PdfInterface, ResolverInterface
     public function initializeViewHelper(MvcEvent $e)
     {
         $viewhelperManager = $this->serviceManager->get('ViewHelperManager');
-        if ($viewhelperManager->has('insertFile')) {
-            $insertFile = $viewhelperManager->get('insertFile');
+        if ($viewhelperManager->has('InsertFile')) {
+            $insertFile = $viewhelperManager->get('InsertFile');
             $insertFile->attach(FileEvent::GETFILE, array($this, 'getFile'));
             $insertFile->attach(FileEvent::RENDERFILE, array($this, 'renderFile'));
             $insertFile->attach(FileEvent::INSERTFILE, array($this, 'collectFiles'));
