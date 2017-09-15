@@ -11,6 +11,9 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+namespace Core;
+
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -56,15 +59,29 @@ return array(
                  ),
             ),
         ),
-        'ErrorLogger' => array(
-            'service' => 'Core/ErrorLogger',
-            'config'  => array(
-                'stream' => __DIR__ . '/../../../log/error.log',
-                'log_errors' => true,
-                'log_exceptions' => true,
-            ),
-        ),
+        'ErrorLogger' => [
+            'writers' => [
+                [
+                    'name' => 'Core/Log/ErrorWriter',
+                    'priority' => 1000,
+                    'options' => [
+                        'stream' => __DIR__ . '/../../../log/error.log',
+                        'log_errors' => true,
+                        'log_exceptions' => true,
+                    ],
+                ],
+            ],
+            'exceptionhandler' => true,
+            'errorhandler' => true,
+            'fatal_error_shutdownfunction' => true,
+        ],
     ),
+
+    'log_writers' => [
+        'factories' => [
+            'Core/Log/ErrorWriter' => Log\Writer\ErrorWriterFactory::class,
+        ],
+    ],
 
     'log_processors' => [
         'invokables' => [
@@ -219,7 +236,6 @@ return array(
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
         ),
         'abstract_factories' => array(
-            'Core\Log\LoggerAbstractFactory',
             'Core\Factory\OptionsAbstractFactory',
             'Core\Factory\EventManager\EventManagerAbstractFactory',
         ),
