@@ -171,14 +171,21 @@ class UserContext implements Context
 			'login' => 'test@login.com',
 			'fullname' => 'Test Login',
 			'role' => User::ROLE_USER,
-			'password' => 'test'
+			'password' => 'test',
+			'organization' => 'Cross Solution'
 		];
 		foreach($fields->getRowsHash() as $field=>$value){
 			$field = Inflector::camelize($field);
 			$normalizedFields[$field] = $value;
 		}
 		
-		$this->thereIsAUserIdentifiedBy($normalizedFields['login'],$normalizedFields['password'],$role,$normalizedFields['fullname']);
+		$this->thereIsAUserIdentifiedBy(
+			$normalizedFields['login'],
+			$normalizedFields['password'],
+			$role,
+			$normalizedFields['fullname'],
+			$normalizedFields['organization']
+		);
 		
 	}
 	
@@ -312,6 +319,13 @@ class UserContext implements Context
 	 */
 	public function iAmLoggedInAsIdentifiedBy($username, $password)
 	{
+		$repo = $this->getUserRepository();
+		$user = $repo->findByLogin($username);
+		
+		if(!$user instanceof User){
+			throw new \Exception(sprintf('There is no user with this login: "%s"',$username));
+		}
+		$this->currentUser = $user;
 		$this->iWantToLogIn();
 		$this->iSpecifyTheUsernameAs($username);
 		$this->iSpecifyThePasswordAs($password);

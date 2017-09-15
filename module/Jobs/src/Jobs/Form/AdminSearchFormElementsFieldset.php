@@ -27,7 +27,7 @@ class AdminSearchFormElementsFieldset extends SearchForm
     {
         $this->setOption('text_name', 'text');
         $this->setOption('text_label', 'Search');
-        $this->setOption('text_placeholder', /*@translate*/ 'search for position or company');
+        $this->setOption('text_placeholder', /*@translate*/ 'Job title');
 
         parent::init();
 

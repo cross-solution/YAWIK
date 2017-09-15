@@ -17,7 +17,7 @@ use Zend\Captcha\Image;
 use Zend\Captcha\ReCaptcha;
 use Zend\Form\Fieldset;
 
-class Register extends Form
+class Register extends Form implements RegisterFormInterface
 {
     public function __construct($name = 'register-form', CaptchaOptions $options, $role = 'recruiter')
     {

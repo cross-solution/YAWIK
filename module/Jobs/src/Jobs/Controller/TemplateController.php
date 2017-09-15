@@ -86,7 +86,7 @@ class TemplateController extends AbstractActionController
         } catch (NotFoundException $e) {
             $response->setStatusCode(Response::STATUS_CODE_404);
             return [
-                'message' => sprintf($this->serviceLocator->get('Translator')->translate('Job with id "%s" not found'), $id)
+                'message' => sprintf($this->translator->translate('Job with id "%s" not found'), $id)
             ];
         }
         
@@ -178,7 +178,7 @@ class TemplateController extends AbstractActionController
 
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
-                $this->serviceLocator->get('repositories')->persist($job);
+                $this->jobRepository->persist($job);
             }
         }
 

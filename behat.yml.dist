@@ -48,3 +48,6 @@ default:
                 - Yawik\Behat\SettingsContext
                 - Yawik\Behat\Select2Context
                 - Yawik\Behat\JobContext
+                - Yawik\Behat\ApplicationContext
+                - Yawik\Behat\SummaryFormContext
+                - Yawik\Behat\CvContext

@@ -7,17 +7,19 @@ Feature: Updating my organization
         Given I am logged in as a recruiter
         And I go to my organization page
 
-    @javascript @organization-name
+    @organization-name
     Scenario: Updating Name
         When I click edit on name form
+        And I wait for the ajax response
         And I fill in "Organizationname" with "Some Organization"
-        And I save name form
+        And I press "Save"
         And I wait for the ajax response
         Then I should see "Some Organization"
 
-    @javascript @organization-location
+    @organization-location
     Scenario: Updating Location
         When I click edit on location form
+        And I wait for the ajax response
         And I fill in the following:
             | street        | Some Street   |
             | house number  | 12345         |
@@ -25,7 +27,7 @@ Feature: Updating my organization
             | City          | Some City     |
             | Phone         | 123123        |
             | Fax           | 321321        |
-        And I save location form
+        And I press "Save"
         And I wait for the ajax response
         Then I should see "Some Street"
         And I should see "12345"
@@ -34,12 +36,12 @@ Feature: Updating my organization
         And I should see "123123"
         And I should see "321321"
 
-    @javascript @organization-employee @skip-travis
+    @organization-employee @skip-travis
     Scenario: Invite employee
         When I click edit on name form
-        And I press "Edit"
+        And I wait for the ajax response
         And I fill in "Organizationname" with "Some Organization"
-        And I save name form
+        And I press "Save"
         And I wait for the ajax response
         And I click edit on employees form
         And I wait for the ajax response
@@ -49,13 +51,13 @@ Feature: Updating my organization
         And I wait for 5 seconds
         Then I should see "test.invite@example.com"
 
-    @javascript @organization-workflow
+    @organization-workflow
     Scenario: Setup Workflow
         When I click edit on workflow form
         And I uncheck "accept Applications by Department Managers"
         And I uncheck "assign department managers to jobs"
         And I wait for the ajax response
-        And I save workflow form
+        And I press "Save"
         And I wait for the ajax response
         Then the "accept Applications by Department Managers" checkbox should not be checked
         And the "assign department managers to jobs" checkbox should not be checked

@@ -15,6 +15,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Doctrine\Common\Util\Inflector;
+use Documents\UserRepository;
 use Geo\Service\Photon;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\Job;
@@ -102,10 +103,14 @@ class JobContext implements Context
 	/**
 	 * @Given I go to edit job draft with title :jobTitle
 	 * @param $jobTitle
+	 * @throws \Exception when job is not found
 	 */
 	public function iGoToEditJobWithTitle($jobTitle)
 	{
-		$job = $this->getCurrentUserJobDraft($jobTitle);
+		$job = $this->getJobRepository()->findOneBy(['title' => $jobTitle]);
+		if(!$job instanceof Job){
+			throw new \Exception(sprintf('Job with title "%s" is not found',$jobTitle));
+		}
 		$this->currentJob = $job;
 		$url = '/en/jobs/edit?id='.$job->getId();
 		$this->visit($url);
@@ -203,6 +208,7 @@ class JobContext implements Context
 	public function iHaveAJobWithTheFollowing($status,TableNode $fields)
 	{
 		$normalizedField = [
+			'template' => 'modern',
 		];
 		foreach($fields->getRowsHash() as $field => $value){
 			$field = Inflector::camelize($field);
@@ -211,23 +217,31 @@ class JobContext implements Context
 			}
 			$normalizedField[$field] = $value;
 		}
-		
-		$job = new Job();
-		
-		$job->setTitle($normalizedField['title']);
-		
-		if($this->getCurrentUser() instanceof User){
-			$job->setUser($this->getCurrentUser());
-			$job->setOrganization($this->getCurrentUser()->getOrganization()->getOrganization());
+		$jobRepo = $this->getJobRepository();
+		$job = $jobRepo->findOneBy(['title' => $normalizedField['title']]);
+		if(!$job instanceof Job){
+			$job = new Job();
+			$job->setTitle($normalizedField['title']);
 		}
+		if(isset($normalizedField['user'])){
+			/* @var $userRepo UserRepository */
+			$userRepo = $this->getRepository('Auth\Entity\User');
+			$user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
+			if($user instanceof User){
+				$job->setUser($user);
+				$job->setOrganization($user->getOrganization()->getOrganization());
+			}else{
+				throw new \Exception('There is no user with this login:"'.$normalizedField['user'.'"']);
+			}
+		}
+		
 		if($status == 'draft'){
 			$job->setIsDraft(true);
-		}
-		if($status == 'published'){
+		}elseif($status == 'published'){
 			$job->setIsDraft(false);
-			$job->setStatus(Status::ACTIVE);
 			$job->setDatePublishStart(new \DateTime());
 		}
+		$job->setStatus(Status::ACTIVE);
 		
 		if(isset($normalizedField['professions'])){
 			$this->addProfessions($job,$normalizedField['professions']);
@@ -250,9 +264,8 @@ class JobContext implements Context
 			$job->setCompany($normalizedField['companyName']);
 		}
 		
-		$this->getJobRepository()->store($job);
+		$jobRepo->store($job);
 		$this->currentJob = $job;
-		return;
 	}
 	
 	private function setLocation(Job $job, $term)

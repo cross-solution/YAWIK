@@ -30,7 +30,7 @@
 				    _this._initSummaryContainer();
                 }
 									   
-				_this.cancel();
+				if ('form' !== result.displayMode) _this.cancel();
 			}
 
             // if we put in a false as return, the bubbling will stop here
