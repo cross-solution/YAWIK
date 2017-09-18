@@ -60,7 +60,8 @@
         "mikey179/vfsStream": "*",
         "ircmaxell/random-lib": "1.1.0",
         "tracy/tracy": "^2.4",
-        "imagine/imagine": "^0.6.3"
+        "imagine/imagine": "^0.6.3",
+        "zendframework/zend-progressbar": "^2.5"
     },
     "require-dev": {
         "cbleek/pecl-solr-hint": "dev-master",
