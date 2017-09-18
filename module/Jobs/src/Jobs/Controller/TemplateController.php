@@ -178,7 +178,7 @@ class TemplateController extends AbstractActionController
 
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
-                $this->jobRepository->persist($job);
+                $this->jobRepository->store($job);
             }
         }
 
