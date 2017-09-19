@@ -530,7 +530,10 @@ return array(
 	    
 	    'Core/File/Events' => [
 		    'service' => 'Core/EventManager',
-		    'event' => \Core\Listener\Events\FileEvent::class
+		    'event' => \Core\Listener\Events\FileEvent::class,
+            'listeners' => [
+                \Core\Listener\DeleteImageSetListener::class => [\Core\Listener\Events\FileEvent::EVENT_DELETE, -1000],
+            ],
 	    ]
     ],
     
