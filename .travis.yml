@@ -42,6 +42,7 @@ before_script:
   # setup display, behat, and selenium
   - "export DISPLAY=:99.0"
   - "wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/bin"
+  - "ls -l /usr/bin/chromedriver"
   - ./vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=/usr/bin/chromedriver > /dev/null 2>&1 &
   - sleep 5
   - APPLICATION_ENV=development php -S localhost:8000 -t public public/index.php > /dev/null 2>&1 &
