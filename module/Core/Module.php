@@ -72,7 +72,7 @@ class Module implements ConsoleBannerProviderInterface
         
         $sm = $e->getApplication()->getServiceManager();
         $translator = $sm->get('translator'); // initialise translator!
-       // \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
+        \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
         
