@@ -14,6 +14,7 @@ namespace Applications\Controller;
 use Applications\Entity\Application;
 use Applications\Repository\Application as ApplicationRepository;
 use Core\Repository\RepositoryService;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Interop\Container\ContainerInterface;
 use Zend\Filter\FilterPluginManager;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -25,18 +26,37 @@ use \Zend\Text\Table\Column;
 
 /**
  * Handles cli actions for applications
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class ConsoleController extends AbstractActionController
 {
+	/**
+	 * @var RepositoryService
+	 */
 	private $repositories;
+	
+	/**
+	 * @var FilterPluginManager
+	 */
 	private $filterManager;
+	
+	/**
+	 * @var array
+	 */
 	private $config;
+	
+	/**
+	 * @var DocumentManager
+	 */
 	private $documentManager;
 	
 	public function __construct(
 		RepositoryService $repositories,
 		FilterPluginManager $filterManager,
-		$documentManager,
+		DocumentManager $documentManager,
 		$config
 	)
 	{
