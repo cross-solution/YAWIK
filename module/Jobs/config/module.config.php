@@ -2,7 +2,9 @@
 namespace Jobs;
 use Jobs\Controller\AdminCategoriesController;
 use Jobs\Controller\AdminController;
+use Jobs\Controller\ConsoleController;
 use Jobs\Form\InputFilter\JobLocationEdit;
+use Jobs\Listener\Publisher;
 
 return [
     'doctrine' => [
@@ -220,10 +222,7 @@ return [
             'Jobs/Listener/AdminWidgetProvider'           => 'Jobs\Factory\Listener\AdminWidgetProviderFactory',
             'Jobs/ViewModelTemplateFilter'                => 'Jobs\Factory\Filter\ViewModelTemplateFilterFactory',
             'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
-            'Jobs/Listener/Publisher'                     => function($sm){
-				// @TODO provide better implementation
-	            return \Jobs\Listener\Publisher::factory($sm);
-            },
+            'Jobs/Listener/Publisher'                     => [Publisher::class,'factory'],
             'Jobs/PreviewLinkHydrator'                    => 'Jobs\Form\Hydrator\PreviewLinkHydrator::factory',
             'Jobs\Auth\Dependency\ListListener'           => 'Jobs\Factory\Auth\Dependency\ListListenerFactory',
             'Jobs/DefaultCategoriesBuilder'              => 'Jobs\Factory\Repository\DefaultCategoriesBuilderFactory',
@@ -271,11 +270,11 @@ return [
     'controllers' => [
         'invokables' => [
             'Jobs/Import' => 'Jobs\Controller\ImportController',
-            'Jobs/Console' => 'Jobs\Controller\ConsoleController',
             'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
             'Jobs/ApiJobListByChannel' => 'Jobs\Controller\ApiJobListByChannelController',
         ],
         'factories' => [
+        	'Jobs/Console' => [ConsoleController::class,'factory'],
 	        'Jobs/AdminCategories' => [AdminCategoriesController::class,'factory'],
 	        'Jobs/Admin'      => [AdminController::class,'factory'],
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',

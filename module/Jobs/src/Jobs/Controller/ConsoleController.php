@@ -11,6 +11,8 @@
 /** ConsoleController of Jobs */
 namespace Jobs\Controller;
 
+use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Jobs\Entity\StatusInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ProgressBar\ProgressBar;
@@ -20,11 +22,28 @@ use Auth\Entity\UserInterface;
 
 class ConsoleController extends AbstractActionController
 {
-
-    public function expireJobsAction()
+	/**
+	 * @var RepositoryService
+	 */
+	private $repositories;
+	
+	public function __construct(
+		RepositoryService $repositories
+	)
+	{
+		$this->repositories = $repositories;
+	}
+	
+	static public function factory(ContainerInterface $container)
+	{
+		return new self(
+			$container->get('repositories')
+		);
+	}
+	
+	public function expireJobsAction()
     {
-        $services     = $this->serviceLocator;
-        $repositories = $services->get('repositories');
+        $repositories = $this->repositories;
         /* @var \Jobs\Repository\Job $jobsRepo */
         $jobsRepo     = $repositories->get('Jobs/Job');
         $days = (int) $this->params('days');
@@ -112,8 +131,7 @@ class ConsoleController extends AbstractActionController
     
     public function setpermissionsAction()
     {
-        $services     = $this->serviceLocator;
-        $repositories = $services->get('repositories');
+        $repositories = $this->repositories;
         $repository   = $repositories->get('Jobs/Job');
         $userRep      = $repositories->get('Auth/User');
         $jobs         = $repository->findAll();
