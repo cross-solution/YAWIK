@@ -1,4 +1,4 @@
-@profileSocialLink
+@profileSocialLink @skip-travis
 Feature: Social profile feature
     In order to use social profile information
     As a User

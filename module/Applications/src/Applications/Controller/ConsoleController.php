@@ -11,6 +11,12 @@
 /** ActionController of Core */
 namespace Applications\Controller;
 
+use Applications\Entity\Application;
+use Applications\Repository\Application as ApplicationRepository;
+use Core\Repository\RepositoryService;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Interop\Container\ContainerInterface;
+use Zend\Filter\FilterPluginManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Core\Console\ProgressBar;
 use Zend\View\Model\ViewModel;
@@ -20,23 +26,55 @@ use \Zend\Text\Table\Column;
 
 /**
  * Handles cli actions for applications
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class ConsoleController extends AbstractActionController
 {
-
-    /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
-    }
+	/**
+	 * @var RepositoryService
+	 */
+	private $repositories;
+	
+	/**
+	 * @var FilterPluginManager
+	 */
+	private $filterManager;
+	
+	/**
+	 * @var array
+	 */
+	private $config;
+	
+	/**
+	 * @var DocumentManager
+	 */
+	private $documentManager;
+	
+	public function __construct(
+		RepositoryService $repositories,
+		FilterPluginManager $filterManager,
+		DocumentManager $documentManager,
+		$config
+	)
+	{
+		$this->repositories = $repositories;
+		$this->filterManager = $filterManager;
+		$this->documentManager = $documentManager;
+		$this->config = $config;
+	}
+	
+	static public function factory(ContainerInterface $container)
+	{
+		return new self(
+			$container->get('repositories'),
+			$container->get('FilterManager'),
+			$container->get('Core/DocumentManager'),
+			$container->get('Config')
+		);
+	}
 
     /**
      * regenerate keywords for applications
@@ -45,10 +83,9 @@ class ConsoleController extends AbstractActionController
      */
     public function generateKeywordsAction()
     {
-        $services     = $this->serviceLocator;
         $applications = $this->fetchApplications();
         $count        = count($applications);
-        $repositories = $services->get('repositories'); //->get('Applications/Application');
+        $repositories = $this->repositories; //->get('Applications/Application');
 
         if (0 === $count) {
             return 'No applications found.';
@@ -64,7 +101,7 @@ class ConsoleController extends AbstractActionController
         $progress     = new ProgressBar($count);
 
         /** @var \Core\Repository\Filter\PropertyToKeywords $filter */
-        $filter = $services->get('filtermanager')->get('Core/Repository/PropertyToKeywords');
+        $filter = $this->filterManager->get('Core/Repository/PropertyToKeywords');
         $i = 0;
 
         /** @var \Applications\Entity\Application $application */
@@ -105,7 +142,7 @@ class ConsoleController extends AbstractActionController
             $application->getRating(/* recalculate */ true);
         }
         $progress->update($i, 'Write to database...');
-        $this->serviceLocator->get('repositories')->flush();
+        $this->repositories->flush();
         $progress->finish();
         
         return PHP_EOL;
@@ -123,10 +160,9 @@ class ConsoleController extends AbstractActionController
 
         $filter = array("before" => $date->format("Y-m-d"),
                         "isDraft" => 1);
-
-        $services        = $this->serviceLocator;
+	    
         $applications    = $this->fetchApplications($filter);
-        $documentManager = $services->get('Core/DocumentManager');
+        $documentManager = $this->documentManager;
 
         $count = count($applications);
         $i=0;
@@ -154,7 +190,7 @@ class ConsoleController extends AbstractActionController
      */
     public function listviewscriptsAction()
     {
-        $config = $this->serviceLocator->get('Config');
+        $config = $this->config;
 
         $table = new Table(
             array('columnWidths' => array(40, 40, 40),
@@ -255,7 +291,7 @@ class ConsoleController extends AbstractActionController
         }
         $progress->update($i, '[DONE]');
         echo "Flushing...";
-        $repos = $this->serviceLocator->get('repositories');
+        $repos = $this->repositories;
         $repos->flush();
 
         echo " [DONE]\n";
@@ -264,15 +300,14 @@ class ConsoleController extends AbstractActionController
     /**
      * Fetches applications
      *
-     * @param Array $filter
-     * @return Array
+     * @param array $filter
+     * @return Application[]
      */
     protected function fetchApplications($filter = array())
     {
-        $services     = $this->serviceLocator;
-        $repositories = $services->get('repositories');
+        $repositories = $this->repositories;
 
-        /** @var Application $appRepo */
+        /** @var ApplicationRepository $appRepo */
         $appRepo      = $repositories->get('Applications/Application');
         $query        = array('isDraft' => null);
 
@@ -317,7 +352,7 @@ class ConsoleController extends AbstractActionController
         }
         
         $applications = $appRepo->findBy($query);
-
+        
         return $applications;
     }
 }

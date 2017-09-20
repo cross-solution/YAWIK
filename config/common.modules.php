@@ -25,6 +25,7 @@ return array(
 	'Zend\Mvc\Plugin\Identity',
 	'Zend\Mvc\Plugin\FlashMessenger',
 	'Zend\Mvc\I18n',
+	'Zend\Mvc\Console',
 	'Zend\Hydrator',
 	'Zend\Serializer',
 	'DoctrineModule',

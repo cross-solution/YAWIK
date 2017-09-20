@@ -86,7 +86,9 @@ abstract class AbstractLeafs implements LeafsInterface
         $values = [];
         /* @var NodeInterface $item */
         foreach ($this->getItems() as $item) {
-            $values[] = $item->getValueWithParents();
+        	if(!is_null($item)){
+		        $values[] = $item->getValueWithParents();
+	        }
         }
 
         $this->values = $values;
