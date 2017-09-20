@@ -11,6 +11,7 @@ namespace Applications;
 
 use Applications\Controller\ApplyController;
 use Applications\Controller\CommentController;
+use Applications\Controller\ConsoleController;
 use Applications\Controller\ManageController;
 use Applications\Mail\Forward;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -87,13 +88,13 @@ return [
     'controllers' => [
         'invokables' => [
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
-            'Applications/Console' => 'Applications\Controller\ConsoleController',
             'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
         ],
 	    'factories' => [
 		    'Applications/Controller/Manage' => [ManageController::class,'factory'],
 		    'Applications\Controller\Apply' => [ApplyController::class,'factory'],
 		    'Applications/CommentController' => [CommentController::class,'factory'],
+		    'Applications/Console' => [ConsoleController::class,'factory'],
 	    ]
     ],
     
