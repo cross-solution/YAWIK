@@ -26,7 +26,7 @@ use Zend\EventManager\ResponseCollection;
 class TriggerTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var EventManager
+	 * @var TriggerTestEventManagerMock
 	 */
     protected $target;
 
@@ -40,16 +40,18 @@ class TriggerTest extends \PHPUnit_Framework_TestCase
     public function testNewEventIsCreatedIfNoEventInstanceIsProvided()
     {
         $this->target->trigger('test', null, []);
-
         $this->assertTrue($this->target->getEventCalled, 'No Event was created!');
+
+        $this->target->getEventCalled = false;
+        $this->target->triggerUntil(function() {}, 'test', null, []);
+        $this->assertTrue($this->target->getEventCalled, 'No Event was created (triggerUntil)');
     }
 
     public function testNoEventIsCreatedIfEventInstanceIsProvided()
     {
         $event = new Event();
-        $this->target->trigger('test', null, $event);
-        $this->target->trigger('test', $event);
         $this->target->trigger($event);
+        $this->target->triggerUntil(function() {}, $event);
 
         $this->assertFalse($this->target->getEventCalled, 'An event was created!');
     }
@@ -58,16 +60,10 @@ class TriggerTest extends \PHPUnit_Framework_TestCase
     {
         $event = new Event();
         $callback = function() {};
-        $this->target->triggerUntil($callback,$event->getName());
+        $this->target->triggerUntil($callback,$event);
 
         $this->assertSame($callback, $this->target->callback);
 
-        $this->target->callback = false;
-		
-        //@TODO: [ZF3] remove this line, because it's not compatible with ZF3 EventManager
-        //$this->target->triggerUntil('test', null, []);
-
-        //$this->assertSame($callback, $this->target->callback);
     }
 }
 

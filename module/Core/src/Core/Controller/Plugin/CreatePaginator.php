@@ -28,6 +28,7 @@ use Zend\Http\Request as HttpRequest;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @since 0.30 - ZF3 compatibility
  */
 class CreatePaginator extends AbstractPlugin
 {
@@ -105,14 +106,16 @@ class CreatePaginator extends AbstractPlugin
         /* @var \Zend\Paginator\Paginator $paginator */
         /* @var CreatePaginatorEvent $event */
 	    $events = $this->serviceManager->get('Core/CreatePaginator/Events');
-	    
+
 	    $event = $events->getEvent(CreatePaginatorEvent::EVENT_CREATE_PAGINATOR,$this,[
             'paginatorParams' => $params,
             'paginators' => $paginators,
             'paginatorName' => $paginatorName
         ]);
-        $events->trigger($event,$event);
+        $events->triggerEvent($event);
+
         $paginator = $event->getPaginator();
+
         if(!$paginator instanceof Paginator){
             // no paginator created by listener, so let's create default paginator
             $paginator = $paginators->get($paginatorName,$params);

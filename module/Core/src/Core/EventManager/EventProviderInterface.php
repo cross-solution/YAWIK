@@ -17,27 +17,18 @@ use Zend\EventManager\EventInterface;
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25
+ * @since 0.30 - remove setEventPrototype() (now in ZF3 EventManagerInterface)
  */
 interface EventProviderInterface 
 {
-
-    /**
-     * Sets the event prototype.
-     *
-     * @param EventInterface $event
-     *
-     * @return self
-     */
-    public function setEventPrototype(EventInterface $event);
-
     /**
      * Gets a new event instance.
      *
      * The instance will be preconfigured with the event name
      * and/or parameters, if provided.
      *
-     * $name and $target can be passed in the $params array under the keys
-     * 'name' and 'target'.
+     * $name and/or $target can be passed in the $params array under the keys
+     * 'name' and 'target'. The $params must then be passed as first or second argument.
      *
      * @param array|string|null $name
      * @param array|object|null $target
