@@ -48,7 +48,7 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface
 	    $filter         = $container->get('FilterManager')->get($this->getFilter());
 	    $adapter        = new \Core\Paginator\Adapter\DoctrineMongoLateCursor($queryBuilder, $filter, $this->options);
 	    $service        = new Paginator($adapter);
-	
+	    $adapter->setParams($options);
 	    $this->setCreationOptions([]);
 	    return $service;
     }
