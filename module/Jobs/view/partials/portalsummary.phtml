@@ -21,9 +21,11 @@ $job=$this->job; /* @var \Jobs\Entity\Job $job */
         <?php foreach($job->getPortals() as $channel):?>
             <?php if($channel):?>
                 <?php $channelData=$channels->getChannel($channel); ?>
+                <?php if(!is_null($channelData)):?>
                 <tr>
                     <td><?php echo $channelData->getLabel() ?></td>
                 </tr>
+                <?php endif; ?>
             <?php endif;?>
         <?php endforeach;?>
     </table>
