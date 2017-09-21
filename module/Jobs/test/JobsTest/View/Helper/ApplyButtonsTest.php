@@ -56,14 +56,12 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid data passed
      * @dataProvider invalidDataThrowsExceptionData
      */
-    public function testInvalidDataThrowsException($data)
+    public function testInvalidDataReturnsEmptyString($data)
     {
         $helper = $this->helper;
-		$helper($data);
+		$this->assertSame('', $helper($data));
     }
     
     public function testDefaults()
