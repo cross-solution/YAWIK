@@ -65,7 +65,7 @@
                     };
                 },
                 processResults: function(data, params) {
-                    console.debug('results:', data);
+                    console.debug('processResults: results:', data);
                     console.debug($.map(data.items, function(item) { return {id: JSON.stringify(item), data: item}; }));
                     //params.page = params.page || 1;
                     return {
@@ -96,8 +96,8 @@
             for (var i=initialValue.length-1; i>=0; i-=1) {
                 console.debug("initVal " + i + ": "+ initialValue[i]);
                 var $option = $('<option selected>Test</option>');
-                $option.val(initialValue[i]);
-                $option.text(formatSelection({id: initialValue[i], data: $.parseJSON(initialValue[i])}));
+                $option.val(JSON.stringify(initialValue[i]));
+                $option.text(formatSelection({id: initialValue[i], data: initialValue[i]}));
                 $node.prepend($option);
             }
             $node.trigger('change');

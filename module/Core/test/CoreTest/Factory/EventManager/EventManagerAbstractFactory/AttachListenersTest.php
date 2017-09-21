@@ -95,7 +95,7 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $services->expects($this->exactly(count($hasMap)))
+        $services->expects($this->atLeast(count($hasMap)))
 	        ->method('has')
 	        ->will($this->returnValueMap($hasMap))
         ;
@@ -285,6 +285,7 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
         $singleAndPriorityAndMethodEvent = [ 'single', 'priority' => 10, 'method' => 'doSomething'];
         $verboseEvent = [ 'verbose' => [ 'method' => 'doSomething', 'priority' => 20]];
         $verboseFullEvent = [ 'verbose' => [ 'method' => ['doSomething', 'doSomethingElse' => 25], 'priority' => 30]];
+        $multiEvent = [ 'multi1', 'multi2' ];
 
         $listeners = [
             'Test01' => [ 'events' => $singleEvent, 'method' => 'doSomething'],
@@ -303,15 +304,16 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
             'Test14' => [ 'events' => $verboseEvent],
             'Test15' => [ 'events' => $verboseFullEvent],
             'Test16' => [ 'events' => $singleEvent, 'lazy' => true],
+            'Test17' => [ 'events' => $multiEvent, 'method' => 'multiMethod' ],
         ];
 	
 	    $servicesCfg = array_fill_keys([
 		    'Test01', 'Test02', 'Test03', 'Test04', 'Test05', 'Test06', 'Test07',
 		    'Test08', 'Test09', 'Test10', 'Test11', 'Test12', 'Test13', 'Test14',
-		    'Test15'
+		    'Test15', 'Test17',
 	    ], $listenerMock);
         $expectedLazyListeners = [
-            [ 'service' => 'Test16', 'event' => $singleEvent, 'method' => null, 'priority' => 1 ],
+            [ 'service' => 'Test16', 'event' => $singleEvent[0], 'method' => null, 'priority' => 1 ],
         ];
 
         $lazyAggregateMock = $this->getLazyAggregateMock();
@@ -328,27 +330,30 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
         $callback1 = [$listenerMock,'doSomething'];
 	    $callback2 = [$listenerMock,'doSomethingElse'];
         $this->events
-	        ->expects($this->exactly(17))
+	        ->expects($this->exactly(20))
 	        ->method('attach')
 	        ->withConsecutive(
-		        [ $singleEvent, $callback1, 1 ],
-		        [ [ 'prioEvent'], $callback1, 10 ],
-		        [ [ 'methodEvent'], $callback1, 1],
-		        [ $singleEvent, $callback1, 12],
-		        [ [ 'prioEvent' ], $callback1, 10],
-		        [ [ 'methodEvent' ], $callback1, 12],
-		        [ $singleEvent, $callback1, 1],
-		        [ [ 'prioEvent' ], $callback1, 10],
-		        [ [ 'methodEvent' ], $callback1, 1],
-		        [ $singleEvent, $callback1, 12],
-		        [ [ 'prioEvent' ], $callback2, 10],
-		        [ [ 'methodEvent' ], $callback1, 12],
-		        [ [ 'single','method' ], $callback1, 1],
-		        [ [ 'priority'], $callback1, 10],
+		        [ $singleEvent[0], $callback1, 1 ],
+		        [ 'prioEvent', $callback1, 10 ],
+		        [ 'methodEvent', $callback1, 1],
+		        [ $singleEvent[0], $callback1, 12],
+		        [ 'prioEvent', $callback1, 10],
+		        [ 'methodEvent', $callback1, 12],
+		        [ $singleEvent[0], $callback1, 1],
+		        [ 'prioEvent' , $callback1, 10],
+		        [ 'methodEvent', $callback1, 1],
+		        [ $singleEvent[0], $callback1, 12],
+		        [ 'prioEvent', $callback2, 10],
+		        [ 'methodEvent', $callback1, 12],
+		        [ 'single', $callback1, 1 ],
+                [ 'method' , $callback1, 1],
+		        [ 'priority', $callback1, 10],
 		        //[ [ 'method' ], $callback1, 1],
-		        [ [ 'verbose' ], $callback1, 20],
-		        [ [ 'verbose' ], $callback1, 30],
-		        [ [ 'verbose' ], $callback2, 25]
+		        [ 'verbose', $callback1, 20],
+		        [ 'verbose', $callback1, 30],
+		        [ 'verbose', $callback2, 25],
+                [ 'multi1', [$listenerMock,'multiMethod'], 1],
+                [ 'multi2', [$listenerMock,'multiMethod'], 1]
             )
         ;
 
@@ -360,4 +365,5 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
 class AttachListenerTestListenerMock {
 	public function doSomething(){}
 	public function doSomethingElse(){}
+	public function multiMethod(){}
 }

@@ -102,7 +102,7 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
 		    
         $em = $this->getMockBuilder(EventManager::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getEvent','trigger'])
+            ->setMethods(['getEvent','triggerEvent'])
             ->getMock()
         ;
 	    
@@ -125,7 +125,7 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
             ->willReturn($event)
         ;
         $em->expects($this->once())
-            ->method('trigger')
+            ->method('triggerEvent')
             ->with($event)
         ;
 

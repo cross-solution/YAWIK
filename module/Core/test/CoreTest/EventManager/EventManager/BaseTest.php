@@ -40,14 +40,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($event, 'eventPrototype', $this->target, 'Setting event prototype object failed.');
     }
 
-    public function testNewEventIsCreatedIfNoPrototypeIsSet()
-    {
-        $event = $this->target->getEvent();
-
-        $this->assertInstanceOf('\Zend\EventManager\Event', $event);
-    }
-
-
     public function provideGetEventTestData()
     {
         $testTarget = new \stdClass();

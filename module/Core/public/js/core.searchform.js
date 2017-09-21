@@ -35,15 +35,12 @@
                     $input.change();
 
                 } else if (tag == 'select') {
-                    if ($input.attr('data-placeholder')) {
-                        this.selectedIndex = -1;
-                    } else {
-                        var selected = 0;
-                        $input.find('option[selected]').each(function() {
-                            selected = $(this).prop('index');
-                        });
-                        this.selectedIndex = selected;
-                    }
+                    var selected = -1;
+                    $input.find('option[selected]').each(function() {
+                        selected = $(this).prop('index');
+                    });
+                    this.selectedIndex = selected;
+
                     $input.trigger('change', [true]);
                 }
             });
