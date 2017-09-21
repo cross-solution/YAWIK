@@ -969,7 +969,7 @@ class Job extends BaseEntity implements JobInterface,
      * Gets the list of channels where the job opening should be published
      *
      * {@inheritdoc}
-     * @return Array
+     * @return array
      */
     public function getPortals()
     {
