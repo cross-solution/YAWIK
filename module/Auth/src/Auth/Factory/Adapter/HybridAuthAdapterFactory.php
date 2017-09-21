@@ -10,7 +10,7 @@
 namespace Auth\Factory\Adapter;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Adapter\HybridAuth as HybridAuthAdapter;
 

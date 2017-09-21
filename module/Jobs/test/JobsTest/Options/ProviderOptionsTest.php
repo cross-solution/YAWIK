@@ -51,7 +51,7 @@ class ProviderOptionsTest extends \PHPUnit_Framework_TestCase
         $channel->setKey('test')->setLabel('label');
         $this->options->addChannel($channel);
         $this->assertEquals($channel, $this->options->getChannel('test'));
-        $this->assertEquals([], $this->options->getChannel('nonexistance'));
+        $this->assertEquals(null, $this->options->getChannel('nonexistance'));
     }
 
     /**

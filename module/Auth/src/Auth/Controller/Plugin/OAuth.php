@@ -11,7 +11,6 @@
 namespace Auth\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
@@ -23,7 +22,7 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 class OAuth extends AbstractPlugin
 {
     /**
-     * @var ServiceLocatorInterface
+     * @var ContainerInterface
      */
     protected $serviceManager;
 
