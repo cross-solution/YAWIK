@@ -19,24 +19,12 @@ use Zend\Paginator\Paginator;
 
 /**
  * Class PaginatorFactoryAbstract
- * @package Core\Paginator
+ *
+ *
+ * @since 0.30 - ZF3 compatibility
  */
 abstract class PaginatorFactoryAbstract implements FactoryInterface
 {
-
-    protected $options = [];
-
-    /**
-     * Set creation options
-     *
-     * @param  array $options
-     *
-     * @return void
-     */
-    public function setCreationOptions(array $options)
-    {
-        $this->options = $options;
-    }
 
     public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
     {
@@ -46,10 +34,9 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface
 	    $repository     = $repositories->get($this->getRepository());
 	    $queryBuilder   = $repository->createQueryBuilder();
 	    $filter         = $container->get('FilterManager')->get($this->getFilter());
-	    $adapter        = new \Core\Paginator\Adapter\DoctrineMongoLateCursor($queryBuilder, $filter, $this->options);
+	    $adapter        = new \Core\Paginator\Adapter\DoctrineMongoLateCursor($queryBuilder, $filter, $options);
 	    $service        = new Paginator($adapter);
 	
-	    $this->setCreationOptions([]);
 	    return $service;
     }
 	

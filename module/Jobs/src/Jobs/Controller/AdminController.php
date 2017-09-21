@@ -55,6 +55,7 @@ class AdminController extends AbstractActionController implements ContainerAware
 	
 	public function indexAction()
     {
+        $params = $this->params()->fromQuery();
         return $this->pagination([
             'params'    => [ 'Jobs_Admin', ['text', 'page' => 1, 'companyId', 'status' ] ],
             'form'      => [ 'as' => 'form', 'Jobs/AdminSearch' ],

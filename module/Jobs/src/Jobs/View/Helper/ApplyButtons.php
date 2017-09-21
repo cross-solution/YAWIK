@@ -14,6 +14,8 @@ use Zend\View\Helper\AbstractHelper;
 
 /**
  * View helper to display apply buttons
+ *
+ * @since 0.30 - do not throw exception on invalid data, but
  */
 class ApplyButtons extends AbstractHelper
 {
@@ -56,7 +58,7 @@ class ApplyButtons extends AbstractHelper
         // check data
         if (!isset($data['uri']) || !isset($data['oneClickProfiles']) || !isset($data['applyId']))
         {
-            throw new \InvalidArgumentException('Invalid data passed');
+            return '';
         }
         
         $variables = [

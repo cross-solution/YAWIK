@@ -465,11 +465,13 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         $eventsSpec = [];
         foreach ($events as $method => $priorities) {
             foreach ($priorities as $priority => $event) {
-                $eventsSpec[] = [
-                    'event' => $event,
-                    'method' => '__none__' == $method ? null : $method,
-                    'priority' => $priority,
-                ];
+                foreach ($event as $ev) {
+                    $eventsSpec[] = [
+                        'event'    => $ev,
+                        'method'   => '__none__' == $method ? null : $method,
+                        'priority' => $priority,
+                    ];
+                }
             }
         }
 
