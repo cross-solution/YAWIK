@@ -22,7 +22,7 @@ use Core\Entity\FileEntity;
  * @ODM\HasLifecycleCallbacks()
  * @ODM\Document(collection="organizations.images", repositoryClass="Organizations\Repository\OrganizationImage")
  */
-class OrganizationImage extends FileEntity implements ImageInterface, ResourceInterface
+class OrganizationImage extends FileEntity implements ImageInterface
 {
     use ImageTrait;
 

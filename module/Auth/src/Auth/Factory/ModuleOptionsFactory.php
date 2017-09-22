@@ -11,8 +11,7 @@
 namespace Auth\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Auth\Options\ModuleOptions;
 
 /**
@@ -23,19 +22,15 @@ use Auth\Options\ModuleOptions;
  */
 class ModuleOptionsFactory implements FactoryInterface
 {
-    /**
-     * Create an ModuleOptions options
-     *
-     * @param  ContainerInterface $container
-     * @param  string             $requestedName
-     * @param  null|array         $options
-     *
-     * @return ModuleOptions
-     * @throws ServiceNotFoundException if unable to resolve the service.
-     * @throws ServiceNotCreatedException if an exception is raised when
-     *     creating a service.
-     * @throws ContainerException if any other error occurs
-     */
+	/**
+	 * Create an ModuleOptions options
+	 *
+	 * @param ContainerInterface $container
+	 * @param string $requestedName
+	 * @param array|null $options
+	 *
+	 * @return ModuleOptions
+	 */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $config = $container->get('Config');
@@ -53,8 +48,8 @@ class ModuleOptionsFactory implements FactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ContainerInterface $container)
     {
-        return $this($serviceLocator, ModuleOptions::class);
+        return $this($container, ModuleOptions::class);
     }
 }

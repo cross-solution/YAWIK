@@ -9,7 +9,11 @@
 
 namespace AuthTest\Factory\Controller;
 
+use Auth\Adapter\ExternalApplication;
+use Auth\Adapter\HybridAuth as HybridAuthAdapter;
+
 use Auth\Factory\Controller\IndexControllerFactory;
+use Core\Repository\RepositoryService;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
@@ -51,10 +55,26 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $sm->setService('AuthenticationService', $authenticationServiceMock);
         $sm->setService('Core/Log', $loggerMock);
         $sm->setService('Auth\Form\Login', $formMock);
-
-
+		
+        $hybridAuthAdapter = $this->getMockBuilder(HybridAuthAdapter::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+        $externalAdapter = $this->getMockBuilder(ExternalApplication::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+	    ;
+        $repositories = $this->getMockBuilder(RepositoryService::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+        ;
+		
+        $sm->setService('HybridAuthAdapter',$hybridAuthAdapter);
+        $sm->setService('ExternalApplicationAdapter',$externalAdapter);
+        $sm->setService('repositories',$repositories);
         $controllerManager = new ControllerManager($sm);
 		$sm->setService('ControllerManager',$controllerManager);
+		
         $result = $this->testedObj->createService($sm);
 
         $this->assertInstanceOf('Auth\Controller\IndexController', $result);

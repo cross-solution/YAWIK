@@ -45,18 +45,20 @@ class MailForgotPassword
     }
 
     /**
-     * @param AuthEvent $e
+     * @param AuthEvent $event
      *
      * @return mixed
      */
-    public function __invoke(AuthEvent $e)
+    public function __invoke(AuthEvent $event)
     {
-        $siteName=$this->coreOptions->getSiteName();
+    	/* @TODO: [ZF3] $e->getUser() is not worked anymore we should using $e->getTarget()->getUser() */
+    	$target     = $event->getTarget();
+        $siteName   = $this->coreOptions->getSiteName();
         /* @var \Auth\Entity\User $user */
-        $user                    = $e->getUser();
+        $user                    = $target->getUser();
         $userEmail               = $user->getInfo()->getEmail();
         $userName                = $user->getInfo()->getDisplayName(false);
-        $resetLink               = $e->getResetLink();
+        $resetLink               = $target->getResetLink();
 
         $fromEmail               =  $this->options->getFromEmail();
         $fromName                =  $this->options->getFromName();

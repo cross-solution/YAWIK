@@ -2,6 +2,7 @@
 
 namespace Auth\Adapter;
 
+use Interop\Container\ContainerInterface;
 use Zend\Authentication\Adapter\AbstractAdapter;
 use Zend\Authentication\Result;
 use Auth\Entity\Filter\CredentialFilter;
@@ -40,11 +41,11 @@ class ExternalApplication extends AbstractAdapter
         $this->setCredential($credential);
         $this->setApplicationKey($applicationKey);
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceManager
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceManager)
+	
+	/**
+	 * @param ContainerInterface $serviceManager
+	 */
+    public function setServiceLocator(ContainerInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;
     }

@@ -198,7 +198,7 @@ class IndexController extends AbstractActionController
             if ('file-uri' === $this->params()->fromPost('return')) {
                 /* @var $hydrator \Core\Entity\Hydrator\FileCollectionUploadHydrator
                  * @var $file     \Organizations\Entity\OrganizationImage */
-                $basepath = $serviceLocator->get('ViewHelperManager')->get('basepath');
+                $basepath = $this->viewHelper->get('basepath');
                 $hydrator = $form->getHydrator();
                 $file     = $hydrator->getLastUploadedFile();
                 $content = $basepath($file->getUri());

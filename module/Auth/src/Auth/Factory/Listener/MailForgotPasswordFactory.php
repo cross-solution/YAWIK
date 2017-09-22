@@ -34,9 +34,9 @@ class MailForgotPasswordFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $options = $container->get('Auth\Options');
-        $coreOptions = $container->get('Core\Options');
-        $mailService = $container->get('Core\MailService');
+        $options = $container->get('Auth/Options');
+        $coreOptions = $container->get('Core/Options');
+        $mailService = $container->get('Core/MailService');
         $listener = new MailForgotPassword($options, $mailService, $coreOptions);
         return $listener;
     }

@@ -10,13 +10,13 @@
 namespace Auth\Form;
 
 use Core\Form\Form;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
 use Auth\Form\Hydrator\UserPasswordHydrator;
 
 class UserPassword extends Form
 {
     /**
-     * @var ServiceLocatorInterface
+     * @var ContainerInterface
      */
     protected $forms;
     
@@ -48,10 +48,10 @@ class UserPassword extends Form
     }
     
     /**
-     * @param ServiceLocatorInterface $forms
+     * @param ContainerInterface $forms
      * @return UserPassword
      */
-    public static function factory(ServiceLocatorInterface $forms)
+    public static function factory(ContainerInterface $forms)
     {
         $form = new static();
         $form->forms = $forms->get('FormElementManager');

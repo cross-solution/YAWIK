@@ -17,6 +17,7 @@ use Auth\AuthenticationService;
 use Auth\Options\ModuleOptions;
 use Auth\Form\Login;
 use Auth\Form\Register;
+use Core\Repository\RepositoryService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
@@ -62,7 +63,13 @@ class IndexController extends AbstractActionController
     protected $locale;
     
     protected $viewHelperManager;
+    
+    protected $hybridAuthAdapter;
 	
+    protected $repositories;
+    
+    protected $externalAdapter;
+    
 	/**
 	 * IndexController constructor.
 	 *
@@ -81,7 +88,10 @@ class IndexController extends AbstractActionController
 	    $locale,
 	    $urlHelper,
 	    array $forms,
-	    $options
+	    $options,
+		$hybridAuthAdapter,
+		$externalAdapter,
+		RepositoryService $repositories
     )
     {
         $this->auth              = $auth;
@@ -91,6 +101,9 @@ class IndexController extends AbstractActionController
         $this->userLoginAdapter  = $userLoginAdapter;
         $this->locale            = $locale;
         $this->viewHelperManager = $urlHelper;
+        $this->hybridAuthAdapter = $hybridAuthAdapter;
+        $this->externalAdapter   = $externalAdapter;
+        $this->repositories      = $repositories;
     }
 
     /**
@@ -208,9 +221,10 @@ class IndexController extends AbstractActionController
     {
         $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
-        $hauth = $this->serviceLocator->get('HybridAuthAdapter');
+        $hauth = $this->hybridAuthAdapter;
         $hauth->setProvider($provider);
         $auth = $this->auth;
+        
         $result = $auth->authenticate($hauth);
         $resultMessage = $result->getMessages();
 
@@ -277,8 +291,7 @@ class IndexController extends AbstractActionController
      */
     public function loginExternAction()
     {
-        $services   = $this->serviceLocator;
-        $adapter    = $services->get('ExternalApplicationAdapter');
+        $adapter    = $this->externalAdapter;
         $appKey     = $this->params()->fromPost('appKey');
 
         $adapter->setIdentity($this->params()->fromPost('user'))
@@ -314,7 +327,7 @@ class IndexController extends AbstractActionController
                     }
                 } catch (\Exception $e) {
                 }
-                $services->get('repositories')->store($user);
+                $this->repositories->store($user);
             }
             
             $resultMessage = $result->getMessages();
@@ -413,7 +426,7 @@ class IndexController extends AbstractActionController
         $groupUserId = array();
         $notFoundUsers = array();
         //$users = $this->getRepository();
-        $users = $this->serviceLocator->get('repositories')->get('Auth/User');
+        $users = $this->repositories->get('Auth/User');
         if (!empty($params->group)) {
             foreach ($params->group as $grp_member) {
                 try

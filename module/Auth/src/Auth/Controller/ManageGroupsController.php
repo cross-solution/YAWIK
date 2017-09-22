@@ -10,6 +10,7 @@
 /** Auth controller */
 namespace Auth\Controller;
 
+use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\JsonModel;
@@ -27,6 +28,32 @@ class ManageGroupsController extends AbstractActionController
      * @var string
      */
     protected $eventIdentifier = 'Auth/ManageGroups';
+    
+    private $formManager;
+    
+    private $repositories;
+    
+    private $filterManager;
+    
+    public function __construct(
+    	$formManager,
+		$repositories,
+		$filterManager
+    )
+    {
+    	$this->formManager = $formManager;
+    	$this->repositories = $repositories;
+    	$this->filterManager = $filterManager;
+    }
+	
+	static public function factory(ContainerInterface $container)
+	{
+		return new self(
+			$container->get('FormElementManager'),
+			$container->get('repositories'),
+			$container->get('FilterManager')
+		);
+	}
     
     /**
      * Register the default events for this controller
@@ -117,9 +144,8 @@ class ManageGroupsController extends AbstractActionController
     public function formAction()
     {
         $isNew     = 'new' == $this->params('mode');
-        $services  = $this->serviceLocator;
-        $form      = $services->get('formelementmanager')->get('Auth/Group', array('mode' => $this->params('mode')));
-        $repository = $services->get('repositories')->get('Auth/Group');
+        $form      = $this->formManager->get('Auth/Group', array('mode' => $this->params('mode')));
+        $repository = $this->repositories->get('Auth/Group');
         
         if ($isNew) {
             $group = new \Auth\Entity\Group();
@@ -191,13 +217,12 @@ class ManageGroupsController extends AbstractActionController
         if (false === $query) {
             $result = array();
         } else {
-            $services     = $this->serviceLocator;
-            $repositories = $services->get('repositories');
+            $repositories = $this->repositories;
             $repository   = $repositories->get('Auth/User');
             
             $users = $repository->findByQuery($query);
         
-            $userFilter = $services->get('filtermanager')->get('Auth/Entity/UserToSearchResult');
+            $userFilter = $this->filterManager->get('Auth/Entity/UserToSearchResult');
             $filterFunc = function ($user) use ($userFilter) {
                 return $userFilter->filter($user);
             };

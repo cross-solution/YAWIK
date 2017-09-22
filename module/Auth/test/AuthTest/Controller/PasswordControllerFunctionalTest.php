@@ -2,7 +2,9 @@
 
 namespace AuthTest\Controller;
 
+use Auth\Repository\User;
 use CoreTest\Controller\AbstractFunctionalControllerTestCase;
+use Organizations\ImageFileCache\Manager;
 use Organizations\Repository\OrganizationImage;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Zend\Http\PhpEnvironment\Request;
@@ -34,8 +36,13 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
         $this->repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()
             ->getMock();
-
+	    
+        $manager = $this->getMockBuilder(Manager::class)
+	        ->disableOriginalConstructor()
+	        ->getMock()
+	    ;
         $this->setMockToServiceLocator('repositories', $this->repositoriesMock);
+        $this->setMockToServiceLocator('Organizations\ImageFileCache\Manager',$manager);
     }
 
     /**
@@ -43,17 +50,6 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
      */
     public function tearDown()
     {
-    }
-
-    public function testAccessWhenYouAreNotLoggedIn()
-    {
-        $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
-
-        $result = $this->getResponse()->getContent();
-
-        $this->assertNotRedirect();
-        $this->assertResponseStatusCode(Response::STATUS_CODE_401);
-        $this->assertContains('Please authenticate yourself to proceed', $result);
     }
 
     public function testAccessWhenYouAreLogged()
@@ -78,6 +74,17 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
         $this->assertContains('My password', $result);
     }
+	
+	public function testAccessWhenYouAreNotLoggedIn()
+	{
+		$this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
+		
+		$result = $this->getResponse()->getContent();
+		
+		$this->assertNotRedirect();
+		$this->assertResponseStatusCode(Response::STATUS_CODE_401);
+		$this->assertContains('Please authenticate yourself to proceed', $result);
+	}
 	
 	/**
 	 * Assert response status code

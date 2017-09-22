@@ -419,7 +419,7 @@ class ManageController extends AbstractActionController
         try {
             $job->changeStatus($status, sprintf('Status changed from %s to %s by %s', $oldStatus->getName(), $status, $user->getInfo()->getDisplayName()));
 
-            $events = $this->serviceLocator->get('Jobs/Events');
+            $events = $this->jobEvents;
             $events->trigger(JobEvent::EVENT_STATUS_CHANGED, $this, ['job' => $job, 'status' => $oldStatus]);
             $this->notification()->success(/*@translate*/ 'Status successfully changed.');
         } catch (\DomainException $e) {

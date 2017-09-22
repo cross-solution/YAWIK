@@ -57,8 +57,11 @@ class IndexControllerFactory implements FactoryInterface
             $registerForm = $formElementManager->get('Auth\Form\Register');
             $forms[IndexController::REGISTER] = $registerForm;
         }
-
-        $controller = new IndexController($auth, $logger, $userLoginAdapter,$locale,$viewHelperManager,$forms, $options);
+        
+        $hybridAuthAdapter = $container->get('HybridAuthAdapter');
+		$externalAdapter = $container->get('ExternalApplicationAdapter');
+		$repositories = $container->get('repositories');
+        $controller = new IndexController($auth, $logger, $userLoginAdapter,$locale,$viewHelperManager,$forms, $options,$hybridAuthAdapter,$externalAdapter,$repositories);
         return $controller;
     }
     /**
