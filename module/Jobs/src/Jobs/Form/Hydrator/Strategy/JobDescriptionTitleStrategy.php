@@ -17,7 +17,7 @@ class JobDescriptionTitleStrategy implements StrategyInterface
     public function extract($value)
     {
         $result = null;
-        if (method_exists($value,'templateValues')) {
+        if (method_exists($value,'getTemplateValues')) {
             $result = $value->getTemplateValues()->getTitle();
         }
         return $result;
