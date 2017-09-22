@@ -71,36 +71,20 @@ class Module implements ConsoleBannerProviderInterface
         }
         
         $sm = $e->getApplication()->getServiceManager();
-        $translator = $sm->get('translator'); // initialise translator!
+        $translator = $sm->get('translator'); // initialize translator!
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
         
-        $tracyConfig = $sm->get('Config')['tracy'];
-        
-        if ($tracyConfig['enabled']) {
-            (new TracyService())->register($tracyConfig);
-            (new TracyListener())->attach($eventManager);
-        }
+        (new TracyService())->register($sm->get('Config')['tracy']);
+        (new TracyListener())->attach($eventManager);
         
         if (!\Zend\Console\Console::isConsole()) {
-            $redirectCallback = function () use ($e) {
-                $routeMatch = $e->getRouteMatch();
-                $lang = $routeMatch ? $routeMatch->getParam('lang', 'en') : 'en';
-                $uri    = $e->getRouter()->getBaseUrl() . '/' . $lang . '/error';
-                
-                header('Location: ' . $uri);
-            };
-            
-            if (!$tracyConfig['enabled']) {
-                $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
-                $errorHandlerListener->attach($eventManager);
-            }
+            (new ErrorHandlerListener())->attach($eventManager);
 
             /* @var \Core\Options\ModuleOptions $options */
             $languageRouteListener = new LanguageRouteListener($sm->get('Core/Locale'));
             $languageRouteListener->attach($eventManager);
-        
         
             $ajaxRenderListener = new AjaxRenderListener();
             $ajaxRenderListener->attach($eventManager);
@@ -116,7 +100,6 @@ class Module implements ConsoleBannerProviderInterface
         
             $stringListener = new StringListener();
             $stringListener->attach($eventManager);
-
         }
 
         $notificationListener = $sm->get('Core/Listener/Notification');

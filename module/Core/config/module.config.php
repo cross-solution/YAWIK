@@ -59,29 +59,7 @@ return array(
                  ),
             ),
         ),
-        'ErrorLogger' => [
-            'writers' => [
-                [
-                    'name' => 'Core/Log/ErrorWriter',
-                    'priority' => 1000,
-                    'options' => [
-                        'stream' => __DIR__ . '/../../../log/error.log',
-                        'log_errors' => true,
-                        'log_exceptions' => true,
-                    ],
-                ],
-            ],
-            'exceptionhandler' => true,
-            'errorhandler' => true,
-            'fatal_error_shutdownfunction' => true,
-        ],
     ),
-
-    'log_writers' => [
-        'factories' => [
-            'Core/Log/ErrorWriter' => Log\Writer\ErrorWriterFactory::class,
-        ],
-    ],
 
     'log_processors' => [
         'invokables' => [
@@ -90,7 +68,6 @@ return array(
     ],
     
     'tracy' => [
-        'enabled' => true, // flag whether to load tracy at all
         'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
         'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
         'strict' => true, // bool = cause immediate death|int = matched against error severity
@@ -98,7 +75,6 @@ return array(
         'email' => null, // in production mode notifies the recipient
         'email_snooze' => 900 // interval for sending email in seconds
     ],
-
 
     // Routes
     'router' => array(
@@ -219,7 +195,6 @@ return array(
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/Html2Pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'Core/Navigation' => 'Core\Factory\Navigation\DefaultNavigationFactory',
-            'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
             'Core/EntityHydrator' => 'Core\Entity\Hydrator\EntityHydratorFactory',
             'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
