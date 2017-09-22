@@ -109,6 +109,11 @@ class UserSwitcher extends AbstractPlugin
             return false;
         }
 
+        $oldSession = unserialize($session->session);
+        $ref        = $session->ref;
+        $_SESSION = $oldSession;
+
+        return $ref ? $ref : true;
         $originalUser = $session->originalUser;
         $this->exchangeAuthUser($originalUser);
         /* @var \Zend\Session\Storage\StorageInterface $sessionStorage */
@@ -132,14 +137,18 @@ class UserSwitcher extends AbstractPlugin
             $id = $id->getId();
         }
 
+        $oldSession = serialize($_SESSION);
+
         $session = $this->getSessionContainer();
         if ($session->isSwitchedUser) {
             return false;
         }
 
+        $session->session      = $oldSession;
         $session->isSwitchedUser = true;
         $session->originalUser = $this->exchangeAuthUser($id);
         $session->params       = $params;
+        $session->ref          = isset($params['ref']) ? $params['ref'] : $this->getController()->getRequest()->getRequestUri();
 
         return true;
     }

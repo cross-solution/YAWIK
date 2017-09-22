@@ -23,7 +23,7 @@ use Core\Form\SummaryFormInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
  *
- * @method \Core\Controller\Plugin\CreatePaginator pagination()
+ * @method array|\Core\Controller\Plugin\PaginationBuilder pagination($stack = null, $returnResult = true)
  */
 class UsersController extends AbstractActionController
 {
@@ -50,7 +50,7 @@ class UsersController extends AbstractActionController
     /**
      * List users
      *
-     * @return \Zend\Http\Response|ViewModel
+     * @return array|\Zend\Http\Response|ViewModel
      */
     public function listAction()
     {
@@ -153,9 +153,14 @@ class UsersController extends AbstractActionController
         $do = $this->params()->fromQuery('do');
         if ('clear' == $do) {
             $switcher = $this->plugin('Auth/User/Switcher');
-            $success  = $switcher();
+            $ref      = $switcher();
+            $result   = ['success' => true];
 
-            return new JsonModel(['success' => $success]);
+            if (true !== $ref && $ref) {
+                $result['ref'] = $ref;
+            }
+
+            return new JsonModel($result);
         }
 
         $this->acl('Auth/Users', 'admin-access');
@@ -181,7 +186,7 @@ class UsersController extends AbstractActionController
         }
 
         $switcher = $this->plugin('Auth/User/Switcher');
-        $success  = $switcher($this->params()->fromQuery('id'));
+        $success  = $switcher($this->params()->fromQuery('id'), [ 'ref' => urldecode($this->params()->fromQuery('ref')) ]);
 
         return new JsonModel(['success' => true]);
     }

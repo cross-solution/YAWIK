@@ -256,7 +256,7 @@ class ManageController extends AbstractActionController
         if ('1' == $params->fromQuery('admin')) {
             /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */
             $switcher = $this->plugin('Auth/User/Switcher');
-            $switcher($jobEntity->getUser(), ['return' => urldecode($params->fromQuery('return'))]);
+            $switcher($jobEntity->getUser(), ['ref' => urldecode($params->fromQuery('return'))]);
         }
 
 

@@ -62,7 +62,7 @@ $lang = isset($this->lang)?$this->lang:$defaultLang; ?>
                     ['query' => ['do' => 'clear']],
                     true
                     )?>"
-                        onclick="$.get($(this).attr('href'), function() { window.location.reload(); }); return false;">
+                        onclick="$.get($(this).attr('href'), function(data) { if (data.ref) { window.location.href = data.ref; } else { window.location.reload(); } }); return false;">
                         <?=$this->translate('Clear switched user')?></a>
                 </li>
                 <?php elseif ($this->acl()->isRole(\Auth\Entity\User::ROLE_ADMIN)): ?>
@@ -144,7 +144,9 @@ $lang = isset($this->lang)?$this->lang:$defaultLang; ?>
                 <script type="text/javascript">
                     $('#su-form').submit(function(e) {
                        var $form = $(e.target);
-                        $.get($form.attr('action'), $form.serialize(), function() { window.location.reload(); });
+                       var data = $form.serialize();
+                       data.ref = encodeURIComponent(window.location.href);
+                            $.get($form.attr('action'), data, function() { window.location.reload(); });
                         return false;
                     });
 
