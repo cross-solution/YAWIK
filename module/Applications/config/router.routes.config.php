@@ -46,7 +46,7 @@ return array(
                         'options' => array(
                             'route' => '/applications-dashboard',
                             'defaults' => array(
-                                'controller' => '\Applications\Controller\Index',
+                                'controller' => 'Applications\Controller\Index',
                                 'action' => 'dashboard'
                             )
                         )
