@@ -25,7 +25,9 @@ class SettingsFieldsetFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-    	$ob = new SettingsFieldset($container->get('FormElementManager'));
+        /* @var SettingsFieldset $ob */
+        $class = class_exists($requestedName) ? $requestedName : SettingsFieldset::class;
+    	$ob = new $class($container->get('FormElementManager'));
     	$ob->setName($requestedName);
         return $ob;
     }
