@@ -39,20 +39,6 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\ServiceManager\Factory\AbstractFactoryInterface', $this->target);
     }
 
-    public function testDefaultCreationOptionsAreEmpty()
-    {
-        $this->assertAttributeEquals([], 'options', $this->target);
-    }
-
-    public function testAllowsSettingCreationOption()
-    {
-        $options = [ 'testOption' => 'testValue' ];
-
-        $this->target->setCreationOptions($options);
-
-        $this->assertAttributeEquals($options, 'options', $this->target);
-    }
-
     public function serviceNamesProvider()
     {
         return [
@@ -136,11 +122,9 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
                                        ->will($this->onConsecutiveCalls($repositories, $filters));
 
         $target = $this->target;
-        $target->setCreationOptions($options);
-        $paginator = $target($sm,$serviceName);
+        $paginator = $target($sm,$serviceName, $options);
 
         $this->assertInstanceOf('\Zend\Paginator\Paginator', $paginator, 'No Paginator returned.');
-        $this->assertAttributeEquals([], 'options', $target, 'Cleaning creation options did not work.');
         $adapter = $paginator->getAdapter();
 
         $this->assertInstanceOf('\Core\Paginator\Adapter\DoctrineMongoCursor', $adapter, 'Adapter is not correct class instance.');
