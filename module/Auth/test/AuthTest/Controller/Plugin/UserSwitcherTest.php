@@ -17,6 +17,8 @@ use Auth\Entity\User;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Zend\Authentication\Storage\StorageInterface;
+use Zend\Http\PhpEnvironment\Request;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Session\Container;
 
@@ -122,11 +124,11 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['read', 'write'])
             ->getMockForAbstractClass();
 
-        $storage->expects($this->atLeast(1))->method('read')->willReturn('originalUser');
-        $storage->expects($this->atLeast(1))->method('write')->with('switchedUser');
+        $storage->expects($this->any())->method('read')->willReturn('originalUser');
+        $storage->expects($this->any())->method('write')->with('switchedUser');
 
-        $auth->expects($this->atLeast(1))->method('getStorage')->willReturn($storage);
-        $auth->expects($this->atLeast(1))->method('clearIdentity');
+        $auth->expects($this->any())->method('getStorage')->willReturn($storage);
+        $auth->expects($this->any())->method('clearIdentity');
 
         $auth->expects($this->any())->method('getUser')->willReturn(new User());
 
@@ -144,14 +146,39 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->target->clear());
     }
 
-    public function testClearRestoresOriginalUserAndClearsSession()
+    public function returnReferenceProvider()
+    {
+        return [
+            [ null ], [ 'some/ref/uri' ],
+        ];
+    }
+
+    /**
+     * @dataProvider returnReferenceProvider
+     *
+     * @param $ref
+     */
+    public function testClearRestoresOriginalUserAndClearsSession($ref)
     {
         $session = new Container(UserSwitcher::SESSION_NAMESPACE);
         $session->isSwitchedUser = true;
         $session->originalUser = 'switchedUser';
+        $oldSession      = [
+            'oldSession' => true,
+            'must'       => 'be same'
+        ];
+        if (null !== $ref) {
+            $session->ref = $ref;
+        }
+        $session->session = serialize($oldSession);
 
-        $this->assertTrue($this->target->clear());
-        $this->assertArrayNotHasKey(UserSwitcher::SESSION_NAMESPACE, $_SESSION);
+        if (null === $ref) {
+            $this->assertTrue($this->target->clear());
+        } else {
+            $this->assertEquals($ref, $this->target->clear());
+        }
+        $this->assertEquals($oldSession, $_SESSION);
+
     }
 
     public function testSwitchUserReturnsEarlyWhenSwitchedUserIsSet()
@@ -165,28 +192,45 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
 
     public function testSwitchUserExchangeOriginalUserAndStoresSession()
     {
+        $request = new Request();
+        $request->setRequestUri('/some/ref');
+
+        $controller = $this->getMockBuilder(AbstractActionController::class)->disableOriginalConstructor()->getMock();
+        $controller->expects($this->once())->method('getRequest')->willReturn($request);
+
+        $this->target->setController($controller);
+        $oldSession = [
+            'this is' => 'the old session'
+        ];
+        $_SESSION = $oldSession;
         $this->assertTrue($this->target->switchUser('switchedUser'));
         $this->assertEquals(
-             ['isSwitchedUser' => true, 'originalUser' => 'originalUser', 'params' => []],
+             [
+                 'isSwitchedUser' => true,
+                 'originalUser' => 'originalUser',
+                 'params' => [], 'ref' => '/some/ref',
+                 'session' => serialize($oldSession)
+             ],
              $_SESSION[UserSwitcher::SESSION_NAMESPACE]->getArrayCopy()
         );
-
         $_SESSION = [];
     }
 
     public function testSwitchUserUsesUserIdFromProvidedUserInterface()
     {
+        $_SESSION = [];
         $user = $this->getMockBuilder(User::class)->disableOriginalConstructor()
             ->setMethods(['getId'])->getMock();
         $user->expects($this->once())->method('getId')->willReturn('switchedUser');
 
-        $this->assertTrue($this->target->switchUser($user));
-
+        $this->assertTrue($this->target->switchUser($user, ['ref' => 'ref']));
+        $this->assertEquals($_SESSION[UserSwitcher::SESSION_NAMESPACE]['ref'], 'ref');
         $_SESSION = [];
     }
 
     public function testSwitchUserSetsUserOnAclPluginIfProvided()
     {
+        $_SESSION = [];
         $acl = $this->getMockBuilder(Acl::class)->disableOriginalConstructor()->setMethods(['setUser'])->getMock();
         $acl->expects($this->once())->method('setUser')->with($this->isInstanceOf(User::class));
 
@@ -194,10 +238,10 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
                      ->setMethods(['getId'])->getMock();
         $user->expects($this->any())->method('getId')->willReturn('switchedUser');
 
-        $this->target->switchUser($user);
+        $this->target->switchUser($user, ['ref' => 'ref']);
         $_SESSION = [];
         $this->target->setAclPlugin($acl);
-        $this->target->switchUser($user);
+        $this->target->switchUser($user, ['ref' => 'ref']);
 
         $_SESSION = [];
     }

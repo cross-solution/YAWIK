@@ -33,16 +33,23 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
 
         parent::setUp();
 
+        $orgImageRepo = $this->getMockBuilder(OrganizationImage::class)->disableOriginalConstructor()->getMock();
         $this->repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->repositoriesMock->expects($this->any())->method('get')
+            ->will($this->returnValueMap([
+                [ 'Organizations/OrganizationImage', $orgImageRepo ]
+            ]));
 	    
         $manager = $this->getMockBuilder(Manager::class)
 	        ->disableOriginalConstructor()
 	        ->getMock()
 	    ;
+        $hybridAuth = $this->getMockBuilder(\Hybrid_Auth::class)->disableOriginalConstructor()->getMock();
         $this->setMockToServiceLocator('repositories', $this->repositoriesMock);
         $this->setMockToServiceLocator('Organizations\ImageFileCache\Manager',$manager);
+        $this->setMockToServiceLocator('HybridAuth', $hybridAuth);
     }
 
     /**

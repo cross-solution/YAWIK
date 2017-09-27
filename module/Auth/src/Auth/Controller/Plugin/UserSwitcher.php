@@ -114,13 +114,6 @@ class UserSwitcher extends AbstractPlugin
         $_SESSION = $oldSession;
 
         return $ref ? $ref : true;
-        $originalUser = $session->originalUser;
-        $this->exchangeAuthUser($originalUser);
-        /* @var \Zend\Session\Storage\StorageInterface $sessionStorage */
-        $sessionStorage = $session->getManager()->getStorage();
-        $sessionStorage->clear(self::SESSION_NAMESPACE);
-
-        return true;
     }
 
     /**
