@@ -57,6 +57,13 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     protected $phone;
 
     /**
+     * country of an organization address
+     *
+     * @var string
+     * @ODM\Field(type="string") */
+    protected $country;
+
+    /**
      * Fax number of an organization address
      *
      * @var string
@@ -158,6 +165,30 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     {
         return $this->street;
     }
+
+    /**
+     * Sets teh country of an organization address
+     *
+     * @param string $country
+     * @return OrganizationContact
+     */
+    public function setCountry($country = "")
+    {
+        $this->country=$country;
+        return $this;
+    }
+
+    /**
+     * Gets the country of an organization address
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+
 
     /**
      * Sets a phone number of an organization address

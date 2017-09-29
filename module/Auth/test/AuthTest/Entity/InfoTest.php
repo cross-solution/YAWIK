@@ -214,6 +214,19 @@ class InfoTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @testdox Allows setting the users country
+     * @covers Auth\Entity\Info::getCountry
+     * @covers Auth\Entity\Info::setCountry
+     */
+    public function testSetGetCountry()
+    {
+        $input = 'Deutschland';
+        $output = 'Deutschland';
+        $this->target->setCountry($input);
+        $this->assertEquals($output, $this->target->getCountry());
+    }
+
+    /**
      * @testdox Allows setting the users city
      * @covers Auth\Entity\Info::getLastName
      * @covers Auth\Entity\Info::setLastName

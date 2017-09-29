@@ -81,12 +81,14 @@ class OrganizationContactTest extends \PHPUnit_Framework_TestCase
     public function provideSetterTestValues()
     {
         return array(
-            array('setFax', 'getFax', 'test1'),
-            array('setPhone', 'getPhone', 'test2'),
-            array('setHouseNumber', 'getHouseNumber', 'test2'),
-            array('setStreet', 'getStreet', 'test2'),
-            array('setPostalcode', 'getPostalcode', 'test2'),
-            array('setCity', 'getCity', 'test2'),
+            ['setFax', 'getFax', 'test1'],
+            ['setPhone', 'getPhone', 'test2'],
+            ['setHouseNumber', 'getHouseNumber', 'test2'],
+            ['setStreet', 'getStreet', 'test2'],
+            ['setPostalcode', 'getPostalcode', 'test2'],
+            ['setCity', 'getCity', 'test2'],
+            ['setCountry', 'getCountry', 'Deutschland'],
+            ['setWebsite', 'getWebsite', '0815.4711'],
         );
     }
 }

@@ -79,6 +79,21 @@ interface OrganizationContactInterface extends EntityInterface
     public function getStreet();
 
     /**
+     * Sets the country of an organization address
+     *
+     * @param string $country
+     * @return OrganizationContact
+     */
+    public function setCountry($country = "");
+
+    /**
+     * Gets the country of an organization address
+     *
+     * @return string
+     */
+    public function getCountry();
+
+    /**
      * Sets a phone number of an organization address
      *
      * @param string $phone
