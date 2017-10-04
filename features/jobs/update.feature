@@ -26,6 +26,7 @@ Feature: Update job
         Then I should see "Test Create Job"
         When I click edit on "job classification" form
         And I wait for the ajax response
+        And I scroll "#general-classifications-buttons-submit" into view
         And I choose "Sales" from professions
         And I choose "Banking" from industries
         And I fill in select2 "#classifications-employmentTypes-span .select2-container" with "Contract"
@@ -34,12 +35,6 @@ Feature: Update job
         Then I should see "Sales"
         And I should see "Banking"
         And I should see "Contract"
-        When I click edit on "customer note" form
-        And I wait for the ajax response
-        And I fill in "customerNote-note" with "Some Note"
-        And I save "customer note" form
-        And I wait for the ajax response
-        Then I should see "Some Note"
 
     Scenario: Successfully edit classifications
         Given I go to edit job draft with title "Test Job Draft"

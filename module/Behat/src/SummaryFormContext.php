@@ -69,9 +69,24 @@ EOC;
 	public function iSaveForm($type)
 	{
 		$type = Inflector::camelize($type);
-		$locator = $this->elementMap[$type].' button.sf-submit';
+		$method = 'iSave'.$type;
+		if(method_exists($this,$method)){
+			call_user_func([$this,$method]);
+		}else{
+			$locator = $this->elementMap[$type].'-buttons-submit';
+			$this->coreContext->scrollIntoView($locator);
+			$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
+			$element->click();
+		}
+	}
+	
+	public function iSaveJobClassification()
+	{
+		$locator = '#general-classifications-buttons-submit';
 		$this->coreContext->scrollIntoView($locator);
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();
 	}
+	
+	
 }

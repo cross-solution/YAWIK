@@ -1,3 +1,4 @@
+@todo
 Feature: Apply a job
     In order to start working
     As a user
@@ -36,6 +37,7 @@ Feature: Apply a job
         And I select "Mr." from "Salutation"
         And I scroll "#send-application-buttons" into view
         And check "I have read the Privacy Policy and accept it"
+        And I wait for 5 seconds
         And I press "Save"
         And I wait for the ajax response
         Then I should see "Guest Applicant"

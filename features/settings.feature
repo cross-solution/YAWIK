@@ -15,7 +15,7 @@ Feature: Update application settings
         And I wait for the ajax response
         Then I should see "Changes successfully saved"
 
-    @javascript @settings-email
+    @todo @javascript @settings-email
     Scenario: Successfully change E-Mail Notifications Settings
         Given I go to email template settings page
         When I check "receive E-Mail alert"
