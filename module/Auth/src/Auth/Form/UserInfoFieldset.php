@@ -189,6 +189,15 @@ class UserInfoFieldset extends Fieldset implements
                 ]
             ]
         );
+
+        $this->add(
+            [
+                'name'    => 'country',
+                'options' => [
+                    'label' => /*@translate*/ 'country'
+                ]
+            ]
+        );
     }
 
     /**

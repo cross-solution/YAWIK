@@ -228,4 +228,20 @@ interface InfoInterface extends EntityInterface
      * @return string
      */
     public function getCity();
+
+    /**
+     * Sets the users country
+     *
+     * @param string $country
+     * @since 0.30
+     */
+    public function setCountry($country);
+
+    /**
+     * Gets the users country
+     *
+     * @since 0.30
+     * @return string
+     */
+    public function getCountry();
 }

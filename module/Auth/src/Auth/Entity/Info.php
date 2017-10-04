@@ -123,7 +123,14 @@ class Info extends AbstractEntity implements InfoInterface
      * @var string
      * @ODM\Field(type="string") */
     protected $street;
-    
+
+    /**
+     * country of the users address
+     *
+     * @var string
+     * @ODM\Field(type="string") */
+    protected $country;
+
     /**
      * {@inheritdoc}
      *
@@ -431,5 +438,26 @@ class Info extends AbstractEntity implements InfoInterface
     public function getStreet()
     {
         return $this->street;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country=$country;
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

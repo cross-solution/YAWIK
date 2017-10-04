@@ -79,6 +79,14 @@ class OrganizationsContactFieldset extends Fieldset
             )
         );
         $this->add(
+            [
+                'name' => 'country',
+                'options' => [
+                    'label' => /* @translate */ 'Country'
+                ]
+            ]
+        );
+        $this->add(
             array(
                 'name' => 'phone',
                 'options' => array(

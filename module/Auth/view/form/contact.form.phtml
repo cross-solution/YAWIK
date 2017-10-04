@@ -26,6 +26,7 @@
                 <?php echo $this->formRowCombined(
                     array(2 => $element->get('postalCode'), 7 => $element->get('city')), null, null, $layout
                 );?>
+                <?php echo $this->formRow($element->get('country'), null, null, $layout); ?>
                 <?php echo $this->formRow($element->get('phone'), null, null, $layout);
                       echo $this->formRow($element->get('email'), null, null, $layout);?>
        
