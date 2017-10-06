@@ -56,6 +56,28 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
     public function __construct()
     {
     }
+    
+    public function __toString()
+    {
+        $coords = $this->getCoordinates();
+        $postalCode = $this->getPostalCode();
+        $city = $this->getCity();
+        $country = $this->getCountry();
+        $region = $this->getRegion();
+        
+        $str = '';
+        if ($postalCode) { $str .= $postalCode . ' '; }
+        if ($city) { $str .= $city; }
+        if ($region) { $str .= ', ' . $region; }
+        if ($country) { $str .= ', ' . $country; }
+        if ($coords) {
+            $coords = $coords->getCoordinates();
+            $str .= ' ( ' . join(', ', $coords) . ' )';
+        }
+        
+        return $str;
+
+    }
 
     public function toString()
     {
@@ -98,6 +120,9 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function preUpdate()
     {
     }

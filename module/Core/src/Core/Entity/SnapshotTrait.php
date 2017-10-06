@@ -32,7 +32,13 @@ trait SnapshotTrait
 
     public function __construct(EntityInterface $source)
     {
-        $this->snapshotMeta = new SnapshotMeta($source);
+        $this->snapshotMeta = new SnapshotMeta();
+        $this->snapshotEntity       = $source;
+    }
+
+    public function getOriginalEntity()
+    {
+        return $this->snapshotEntity;
     }
 
     public function getSnapshotMeta()
@@ -46,13 +52,17 @@ trait SnapshotTrait
         return property_exists($this, 'snapshotAttributes') ? $this->snapshotAttributes : [];
     }
 
-    protected function proxy()
+    /**
+     *
+     *
+     * @param string $method
+     * @param mixed[]  ...$args Arguments to be passed to proxied method.
+     *
+     * @return SnapshotTrait
+     */
+    protected function proxy($method, ...$args)
     {
-        /* @var SnapshotMeta $meta */
-        $args     = func_get_args();
-        $method   = array_shift($args);
-        $meta     = $this->getSnapshotMeta();
-        $entity   = $meta->getEntity();
+        $entity   = $this->getOriginalEntity();
         $callback = [$entity, $method];
 
         if (!is_callable($callback)) {
@@ -62,9 +72,17 @@ trait SnapshotTrait
             ));
         }
 
-        $return = call_user_func_array($callback, $args);
+        $return = $callback(...$args);
 
         return $return === $entity ? $this : $return;
+    }
+
+    protected function proxyClone($method, ...$args)
+    {
+        $value = $this->proxy($method, ...$args);
+        $return = is_object($value) ? clone $value : $value;
+
+        return $return;
     }
 
     protected function inaccessible($property)

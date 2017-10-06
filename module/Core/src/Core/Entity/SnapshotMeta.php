@@ -23,32 +23,4 @@ class SnapshotMeta implements ModificationDateAwareEntityInterface, DraftableEnt
 {
     use ModificationDateAwareEntityTrait, DraftableEntityTrait;
 
-    /**
-     * @var EntityInterface
-     * @ODM\ReferenceOne(discriminatorField="_entity", storeAs="dbRef")
-     */
-    protected $entity;
-
-    /**
-     * Sets the entity
-     *
-     * @param $entity
-     * @throws \Core\Exception\ImmutablePropertyException
-     */
-    public function __construct($entity)
-    {
-        $this->entity = $entity;
-        return $this;
-    }
-
-    /**
-     * Gets the Entity
-     *
-     * @return EntityInterface
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
 }

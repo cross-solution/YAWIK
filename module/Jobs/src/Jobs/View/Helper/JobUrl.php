@@ -11,6 +11,7 @@
 
 namespace Jobs\View\Helper;
 
+use Jobs\Entity\JobSnapshot;
 use Zend\View\Helper\AbstractHelper;
 use Jobs\Entity\JobInterface as Job;
 
@@ -92,6 +93,9 @@ class JobUrl extends AbstractHelper
                 'subscriberUri' => $serverUrlHelper([]) . '/subscriber/' . 1,
                 'id' => $jobEntity->getId()
             ];
+            if ($jobEntity instanceOf JobSnapshot) {
+                $query['snapshot'] = $jobEntity->getSnapshotId();
+            }
             $route = 'lang/jobs/view';
             $params = [
                 'lang' => $paramsHelper('lang'),
