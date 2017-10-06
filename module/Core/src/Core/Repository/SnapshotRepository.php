@@ -13,6 +13,7 @@ namespace Core\Repository;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\SnapshotAttributesProviderInterface;
 use Core\Entity\SnapshotInterface;
 use Doctrine\Common\Collections\Collection;
@@ -115,8 +116,6 @@ class SnapshotRepository extends DocumentRepository
         return $this->snapshotAttributes;
     }
 
-
-
     public function create(EntityInterface $source, $persist = true)
     {
 
@@ -132,38 +131,64 @@ class SnapshotRepository extends DocumentRepository
         return $snapshot;
     }
 
-    protected function copy($source, $target, $attributes = null)
+    protected function copy($source, $target, $inverse = false)
     {
-        if (!$attributes) {
-            if ($source instanceOf SnapshotAttributesProviderInterface) {
-                $attributes = $source->getSnapshotAttributes();
-            } else if ($target instanceOf SnapshotAttributesProviderInterface) {
-                $attributes = $target->getSnapshotAttributes();
-            } else {
-                $attributes = $this->getSnapshotAttributes();
-            }
+        if ($inverse) {
+            $attributes = $this->getCopyAttributes($target, $source);
+            $sourceHydrator = $this->getHydrator();
+            $targetHydrator = $this->getSourceHydrator();
+        } else {
+            $attributes = $this->getCopyAttributes($source, $target);
+            $sourceHydrator = $this->getSourceHydrator();
+            $targetHydrator = $this->getHydrator();
+            $source = clone $source;
         }
 
-        $data = $this->getSourceHydrator()->extract(clone $source);
+
+        $data = $sourceHydrator->extract($source);
         $data = array_intersect_key($data, array_flip($attributes));
-        $this->getHydrator()->hydrate($data, $target);
+        $targetHydrator->hydrate($data, $target);
     }
 
-    public function merge(SnapshotInterface $snapshot)
+    protected function getCopyAttributes($source, $target)
+    {
+        if ($source instanceOf SnapshotAttributesProviderInterface) {
+            return $source->getSnapshotAttributes();
+        }
+
+        if ($target instanceOf SnapshotAttributesProviderInterface) {
+            return $target->getSnapshotAttributes();
+        }
+
+        return $this->getSnapshotAttributes();
+    }
+
+    public function merge(SnapshotInterface $snapshot, $snapshotDraftStatus = false)
     {
         $this->checkEntityType($snapshot);
 
-        $entity = $snapshot->getSnapshotMeta()->getEntity();
+        $meta       = $snapshot->getSnapshotMeta();
+        $entity     = $snapshot->getOriginalEntity();
 
-        $this->copy($snapshot, $entity);
+        $meta->setIsDraft((bool) $snapshotDraftStatus);
+
+        $this->copy($snapshot, $entity, true);
 
         return $entity;
+    }
+
+    public function diff(SnapshotInterface $snapshot)
+    {
+        $entity = $snapshot->getEntity();
+        $attributes = $this->getCopyAttributes($entity, $snapshot);
+
+
     }
 
     public function findLatest($sourceId, $isDraft = false)
     {
         return $this->createQueryBuilder()
-          ->field('snapshotMeta.entity.$id')->equals(new \MongoId($sourceId))
+          ->field('snapshotEntity')->equals(new \MongoId($sourceId))
           ->field('snapshotMeta.isDraft')->equals($isDraft)
           ->sort('snapshotMeta.dateCreated.date', 'desc')
           ->limit(1)
@@ -174,7 +199,7 @@ class SnapshotRepository extends DocumentRepository
 
     public function findBySourceId($sourceId, $includeDrafts = false)
     {
-        $criteria = ['snapshotMeta.entity.$id' => $sourceId];
+        $criteria = ['snapshotEntity' => $sourceId];
 
         if (!$includeDrafts) {
             $criteria['snapshotMeta.isDraft'] = false;

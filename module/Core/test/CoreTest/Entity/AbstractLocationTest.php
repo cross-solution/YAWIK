@@ -35,6 +35,16 @@ class AbstractLocationTest extends \PHPUnit_Framework_TestCase
         $this->target = new ConcreteLocation();
     }
 
+    private function setTargetLocationAttributes()
+    {
+        $this->target
+            ->setPostalCode('9999')
+            ->setCity('XXXX')
+            ->setRegion('YYYY')
+            ->setCountry('ZZZZ')
+            ->setCoordinates(new Point([10,20]));
+    }
+
     /**
      * @testdox Extends \Core\Entity\LocationEntity and implements \Core\Entity\LocationInterface
      * @coversNothing
@@ -104,5 +114,44 @@ class AbstractLocationTest extends \PHPUnit_Framework_TestCase
         $this->target->setCoordinates($coordinates);
 
         $this->assertEquals($coordinates, $this->target->getCoordinates());
+    }
+
+    public function testStringRepresentation()
+    {
+        $this->setTargetLocationAttributes();
+
+        $expect = "9999 XXXX, YYYY, ZZZZ ( 10, 20 )";
+
+        $this->assertEquals($expect, $this->target->__toString());
+    }
+
+    public function testConvertToAndFromJson()
+    {
+        if (false === (@include_once __DIR__ . '/../../../../Geo/src/Geo/Entity/Geometry/Point.php')) {
+            $this->assertTrue(true);
+            return;
+        }
+        $this->setTargetLocationAttributes();
+
+        $expect = json_encode([
+            'city' => 'XXXX',
+            'region' => 'YYYY',
+            'postalCode' => '9999',
+            'country' => 'ZZZZ',
+            'coordinates' => [
+                    'type' => 'Point',
+                    'coordinates' => [10, 20],
+            ]
+
+        ]);
+        $json = $this->target->toString();
+        $this->assertEquals($expect, $json, 'Convert to json did not work');
+
+        $this->target = new ConcreteLocation();
+        $this->target->fromString($json);
+
+        $expect = "9999 XXXX, YYYY, ZZZZ ( 10, 20 )";
+
+        $this->assertEquals($expect, $this->target->__toString(), 'Convert from json did not work');
     }
 }
