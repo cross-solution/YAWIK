@@ -96,8 +96,8 @@
             for (var i=initialValue.length-1; i>=0; i-=1) {
                 console.debug("initVal " + i + ": "+ initialValue[i]);
                 var $option = $('<option selected>Test</option>');
-                $option.val(JSON.stringify(initialValue[i]));
-                $option.text(formatSelection({id: initialValue[i], data: initialValue[i]}));
+                $option.val(initialValue[i]);
+                $option.text(formatSelection({id: initialValue[i], data: $.parseJSON(initialValue[i])}));
                 $node.prepend($option);
             }
             $node.trigger('change');
