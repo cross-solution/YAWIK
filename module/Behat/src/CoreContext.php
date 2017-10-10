@@ -217,7 +217,7 @@ JS;
 		try {
 			$this->getSession()->executeScript($function);
 		} catch (\Exception $e) {
-			throw new \Exception(__METHOD__ . ' failed');
+			throw new \Exception(__METHOD__ . ' failed'. ' Message: for this locator:"'.$selector.'"');
 		}
 	}
 	

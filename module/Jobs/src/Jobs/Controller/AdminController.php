@@ -80,9 +80,9 @@ class AdminController extends AbstractActionController implements ContainerAware
 
             if ($valid) {
                 $job->setDatePublishStart($post['datePublishStart']);
-                if ($job->getStatus()->getName() != $post['statusselect']) {
+                if ($job->getStatus()->getName() != $post['status']) {
                     $oldStatus = $job->getStatus();
-                    $job->changeStatus($post['statusselect'], '[System] Status changed via Admin GUI.');
+                    $job->changeStatus($post['status'], '[System] Status changed via Admin GUI.');
                     $events = $this->jobEvents;
                     $events->trigger(JobEvent::EVENT_STATUS_CHANGED, $this, [ 'job' => $job, 'status' => $oldStatus ]);
                 }
