@@ -9,13 +9,90 @@
 ?>
 <?php
 $channels = $this->services('Jobs/Options/Provider');
+$isSnapshot = $this->job instanceOf \Jobs\Entity\JobSnapshot;
 ?>
 <h3><?php echo $this->translate("Preview of the posting"); ?></h3>
 <div class="row">
     <div class="col-md-8">
-        <?php
-            echo $this->partial('jobs/snapshot_or_preview', $this->vars());
-        ?>
+
+<?php if ($isSnapshot): ?>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#new-preview" data-toggle="tab"><?=$this->translate('Preview')?></a></li>
+            <li><a href="#preview" data-toggle="tab"><?=$this->translate('Original')?></a></li>
+            <li><a href="#changes" data-toggle="tab"><?=$this->translate('Changes')?></a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane" id="preview">
+
+<?php endif ?>
+                <iframe style="width:100%; height:800px;" src="<?php echo $this->viewLink ?>"></iframe>
+
+                <?php if ($isSnapshot):
+                    /* @var \Jobs\Entity\Job $original */
+                    $original = $this->job->getOriginalEntity();
+                ?>
+            </div>
+
+            <div class="tab-pane active" id="new-preview">
+                <iframe style="width:100%; height:800px;" src="<?php echo $this->viewLink ?>&snapshot=<?=$this->job->getSnapshotId()?>"></iframe>
+            </div>
+
+            <div class="tab-pane" id="changes">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th><?=$this->translate('Property')?></th>
+                        <th><?=$this->translate('Original value')?></th>
+                        <th><?=$this->translate('Changed value')?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><?=$this->translate('Job title')?></td>
+                        <td><?=$original->getTitle()?></td>
+                        <td><?=$this->job->getTitle()?></td>
+                    </tr>
+                    <tr>
+                        <td><?=$this->translate('Company')?></td>
+                        <td><?=$original->getOrganization()->getName()?></td>
+                        <td><?=$this->job->getOrganization()->getName()?></td>
+                    </tr>
+                    <tr>
+                        <td><?=$this->translate('Contact Email')?></td>
+                        <td><?=$original->getContactEmail()?></td>
+                        <td><?=$this->job->getContactEmail()?></td>
+                    </tr>
+                    <tr>
+                        <td><?=$this->translate('Industries')?></td>
+                        <td><?=$original->getClassifications()->getIndustries()?></td>
+                        <td><?=$this->job->getClassifications()->getIndustries()?></td>
+                    </tr>
+                    <tr>
+                        <td><?=$this->translate('Professions')?></td>
+                        <td><?=$original->getClassifications()->getProfessions()?></td>
+                        <td><?=$this->job->getClassifications()->getProfessions()?></td>
+                    </tr>
+                    <tr>
+                        <td><?=$this->translate('Employment Types')?></td>
+                        <td><?=$original->getClassifications()->getEmploymentTypes()?></td>
+                        <td><?=$this->job->getClassifications()->getEmploymentTypes()?></td>
+                    </tr>
+                    <tr>
+                        <td><?=$this->translate('Locations')?></td>
+                        <td><?= join('<br>', $original->getLocations()->toArray())?></td>
+                        <td><?= join('<br>', $this->job->getLocations()->toArray())?></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <?php
+
+
+                ?>
+            </div>
+        </div>
+        <?php endif ?>
 
     </div>
     <div class="col-md-4">

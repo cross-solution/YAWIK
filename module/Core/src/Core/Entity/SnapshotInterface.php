@@ -28,4 +28,6 @@ interface SnapshotInterface
      */
     public function getSnapshotMeta();
 
+    public function getOriginalEntity();
+
 }

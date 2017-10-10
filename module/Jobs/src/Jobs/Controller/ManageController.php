@@ -518,7 +518,7 @@ class ManageController extends AbstractActionController
             $jobEvents = $this->jobEvents;
             $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
         } else if ($job->isActive()) {
-            $job->getSnapshotMeta()->getEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
+            $job->getOriginalEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
         }
 
         /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */
@@ -558,8 +558,18 @@ class ManageController extends AbstractActionController
 
 
         if ($params == 'declined') {
-            $jobEntity->changeStatus(Status::REJECTED, sprintf(/*@translate*/ "Job opening was rejected by %s", $user->getInfo()->getDisplayName()));
-            $jobEntity->setIsDraft(true);
+            if ($jobEntity instanceOf JobSnapshot)  {
+                $jobEntity->getOriginalEntity()->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ 'Changes were rejected by %s', $user->getDisplayName()));
+            } else {
+                $jobEntity->changeStatus(
+                    Status::REJECTED,
+                    sprintf(/*@translate*/
+                    "Job opening was rejected by %s", $user->getInfo()->getDisplayName()
+                    )
+                );
+                $jobEntity->setIsDraft(true);
+            }
+
             $this->repositoryService->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
             $this->notification()->success(/*@translate */'Job has been rejected');
@@ -579,7 +589,7 @@ class ManageController extends AbstractActionController
             return $this->redirect()->toRoute('lang/admin/jobs', array('lang' => $this->params('lang')));
         }
 
-        $query = $jobEntity instanceOf JobSnapshot ? ['snapshot' => $jobEntity->getSnapshotId()] : ['id' => $jobEntity->getId()];
+        $query = /*$jobEntity instanceOf JobSnapshot ? ['snapshot' => $jobEntity->getSnapshotId()] : */['id' => $jobEntity->getId()];
         $viewLink = $this->url()->fromRoute(
             'lang/jobs/view',
             array(),

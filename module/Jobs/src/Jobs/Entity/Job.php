@@ -315,6 +315,36 @@ class Job extends BaseEntity implements JobInterface,
     protected $isDeleted = false;
 
     /**
+     *
+     * @ODM\ReferenceMany(targetDocument="\Jobs\Entity\JobSnapshot", mappedBy="snapshotEntity", sort={"snapshotMeta.dateCreated"="desc"})
+     * @var JobSnapshot
+     */
+    protected $snapshots;
+
+    /**
+     * @ODM\ReferenceOne(targetDocument="\Jobs\Entity\JobSnapshot", mappedBy="snapshotEntity", criteria={"snapshotMeta.isDraft":true}, sort={"snapshotMeta.dateCreated"="desc"})
+     *
+     * @var
+     */
+    protected $latestSnapshotDraft;
+
+
+    public function getSnapshots()
+    {
+        return $this->snapshots;
+    }
+
+    public function getSnapshotDraft()
+    {
+        return $this->latestSnapshotDraft;
+    }
+
+    public function hasSnapshotDraft()
+    {
+        return (bool) $this->getSnapshotDraft();
+    }
+
+    /**
      * @return string
      */
     public function getResourceId()

@@ -44,11 +44,30 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
 {
     use SnapshotTrait;
 
+    /**
+     *
+     * @ODM\ReferenceOne(targetDocument="\Jobs\Entity\Job", inversedBy="snapshots", storeAs="id")
+     * @var
+     */
+    private $snapshotEntity;
+
     protected $snapshotAttributes = [
         'title', 'company', 'organization', 'contactEmail', 'language',
         'location', 'locations', 'link', 'datePublishStart', 'datePublishEnd',
         'reference', 'atsEnabled', 'template', 'uriApply', 'templateValues',
         'classifications', 'atsMode', 'metaData',
+    ];
+
+    private $snapshotDiffSpecs = [
+        'title',
+        'company',
+        'organization',
+        'locations' => [
+            'city', 'region', 'postalcode', 'country'
+        ],
+        'templateValues' => [
+            'qualifications'
+        ],
     ];
 
     public function getId()
@@ -59,6 +78,16 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
     public function getSnapshotId()
     {
         return $this->id;
+    }
+
+    public function getSnapshotDraft()
+    {
+        return $this->proxy('getSnapshotDraft');
+    }
+
+    public function hasSnapshotDraft()
+    {
+        return $this->proxy('hasSnapshotDraft');
     }
 
     public function getResourceId()
@@ -114,7 +143,7 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
 
     public function getStatus()
     {
-        return $this->proxy('getStatus');
+        return $this->proxyClone('getStatus');
     }
 
     public function setStatus($status)
@@ -139,7 +168,7 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
 
     public function getTermsAccepted()
     {
-        return $this->proxy('getTermsAccepted');
+        return $this->proxyClone('getTermsAccepted');
     }
 
     public function getUriPublisher()
@@ -165,7 +194,7 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
     public function getPermissions()
     {
         if (!$this->permissions) {
-            $originalPermissions = $this->getSnapshotMeta()->getEntity()->getPermissions();
+            $originalPermissions = $this->getOriginalEntity()->getPermissions();
             $permissions = new Permissions('Job/Permissions');
             $permissions->inherit($originalPermissions);
             $this->permissions = $permissions;
@@ -186,7 +215,7 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
 
     public function getPortals()
     {
-        return $this->proxy('getPortals');
+        return $this->proxyClone('getPortals');
     }
 
     public function isActive()
@@ -196,6 +225,7 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
 
     public function getDateCreated()
     {
+        return $this->proxyClone('getDateCreated');
     }
 
     public function setDateCreated($dateCreated = null)
@@ -204,6 +234,7 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
 
     public function getDateModified()
     {
+        return $this->proxyClone('getDateModified');
     }
 
     public function setDateModified($dateModified = null)
