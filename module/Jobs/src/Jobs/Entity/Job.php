@@ -402,14 +402,16 @@ class Job extends BaseEntity implements JobInterface,
      * Gets the name oof the company. If there is an organization assigned to the
      * job posting. Take the name of the organization.
      *
-     * (non-PHPdoc)
+     * @param bool $useOrganizationEntity Get the name from the organization entity, if it is available.
      * @see \Jobs\Entity\JobInterface::getCompany()
+     * @return string
      */
-    public function getCompany()
+    public function getCompany($useOrganizationEntity = true)
     {
-        if ($this->organization) {
+        if ($this->organization && $useOrganizationEntity) {
             return $this->organization->getOrganizationName()->getName();
         }
+
         return $this->company;
     }
 
