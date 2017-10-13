@@ -407,7 +407,7 @@ class ManageController extends AbstractActionController
     protected function changeStatus(JobInterface $job, $status)
     {
         if ($job instanceOf JobSnapshot) {
-            $job = $job->getSnapshotMeta()->getEntity();
+            $job = $job->getOriginalEntity();
         }
 
         $oldStatus = $job->getStatus();
@@ -633,6 +633,7 @@ class ManageController extends AbstractActionController
         } catch (\Exception $e) {
             $this->notification()->danger(/*@translate*/ 'Job could not be deactivated');
         }
+        exit;
         return $this->save(array('page' => 2));
     }
 
