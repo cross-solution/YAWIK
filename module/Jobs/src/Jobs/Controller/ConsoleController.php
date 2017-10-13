@@ -58,8 +58,17 @@ class ConsoleController extends AbstractActionController
         $date->sub(new \DateInterval('P' . $days . 'D'));
 
         $query        = [
-            'status.name' => StatusInterface::ACTIVE,
-            'datePublishStart.date' => ['$lt' => $date]
+            '$and' => [
+                ['status.name' => StatusInterface::ACTIVE],
+                ['$or' => [
+                    ['datePublishStart.date' => ['$lt' => $date]],
+                    ['datePublishEnd.date' => ['$lt' => new \DateTime('today midnight')]],
+                ]],
+                ['$or' => [
+                    ['isDeleted' => ['$exists' => false]],
+                    ['isDeleted' => false],
+                ]]
+            ]
         ];
 
         $offset = 0;
@@ -187,9 +196,10 @@ class ConsoleController extends AbstractActionController
                 $org = $job->getCompany();
             }
             printf(
-                '%s   %s   %-30s   %-20s' . PHP_EOL,
-                $job->getDatePublishStart()->format('Y-m-d'),
+                '%s   %s   %s   %-30s   %-20s' . PHP_EOL,
                 $id,
+                $job->getDatePublishStart()->format('Y-m-d'),
+                $job->getDatePublishEnd()->format('Y-m-d'),
                 substr($job->getTitle(), 0, 30),
                 substr($org, 0, 20)
             );
