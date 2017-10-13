@@ -62,8 +62,8 @@ class PaginationQuery extends AbstractPaginationQuery
             $value = $params;
         }
 
-        if (isset($params['text']) && $params['text']) {
-            $queryBuilder->text($params['text'])->language('none');
+        if (isset($params['q']) && $params['q']) {
+            $queryBuilder->text($params['q'])->language('none');
         }
         
         /*
