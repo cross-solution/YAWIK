@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:23+0200\n"
-"PO-Revision-Date: 2016-10-10 14:44+0000\n"
+"POT-Creation-Date: 2017-04-27 19:26+0200\n"
+"PO-Revision-Date: 2017-09-22 10:25+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/yawik/yawik/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgid ""
 "organization%s first."
 msgstr ""
 
-#: src/Organizations/Controller/IndexController.php:136
+#: src/Organizations/Controller/IndexController.php:133
 #, php-format
 msgid "Organization with id \"%s\" not found"
 msgstr ""

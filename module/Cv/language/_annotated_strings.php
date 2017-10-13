@@ -1,88 +1,4 @@
 <?php
-//: ./src/Cv/Form/EducationFieldset.php:35
-translate('Start date');
-
-//: ./src/Cv/Form/EducationFieldset.php:46
-translate('End date');
-
-//: ./src/Cv/Form/EducationFieldset.php:55
-translate('ongoing');
-
-//: ./src/Cv/Form/EducationFieldset.php:64
-translate('Degree');
-
-//: ./src/Cv/Form/EducationFieldset.php:67
-translate('please enter the name of your qualification');
-
-//: ./src/Cv/Form/EducationFieldset.php:76
-translate('Organization Name');
-
-//: ./src/Cv/Form/EducationFieldset.php:79
-translate('please enter the name of the university or school');
-
-//: ./src/Cv/Form/EducationFieldset.php:88
-translate('Country');
-
-//: ./src/Cv/Form/EducationFieldset.php:91
-translate('please select the country');
-
-//: ./src/Cv/Form/EducationFieldset.php:100
-translate('City');
-
-//: ./src/Cv/Form/EducationFieldset.php:103
-translate('please enter the name of the city');
-
-//: ./src/Cv/Form/EducationFieldset.php:113
-translate('Description');
-
-//: ./src/Cv/Form/EducationFieldset.php:117
-translate('please enter a description');
-
-//: ./src/Cv/Form/LanguageSkillForm.php:13
-translate('Please select a language and self-assess your level');
-
-//: ./src/Cv/Form/EmploymentFieldset.php:35
-translate('Start date');
-
-//: ./src/Cv/Form/EmploymentFieldset.php:44
-translate('End date');
-
-//: ./src/Cv/Form/EmploymentFieldset.php:53
-translate('ongoing');
-
-//: ./src/Cv/Form/EmploymentFieldset.php:61
-translate('Company Name');
-
-//: ./src/Cv/Form/EmploymentFieldset.php:63
-translate('please enter the name of the company');
-
-//: ./src/Cv/Form/EmploymentFieldset.php:72
-translate('Description');
-
-//: ./src/Cv/Form/EmploymentFieldset.php:75
-translate('please describe your position');
-
-//: ./src/Cv/Form/SearchFormFieldset.php:33
-translate('Search for resumes');
-
-//: ./src/Cv/Form/SearchFormFieldset.php:42
-translate('Location');
-
-//: ./src/Cv/Form/SearchFormFieldset.php:53
-translate('Distance');
-
-//: ./src/Cv/Form/SearchFormFieldset.php:67
-translate('Distance');
-
-//: ./src/Cv/Form/SkillFieldset.php:36
-translate('Native Language');
-
-//: ./src/Cv/Form/SkillFieldset.php:50
-translate('Other languages');
-
-//: ./src/Cv/Form/EducationForm.php:13
-translate('Focus on the work experience that gives added weight to your application. Add separate entries for each course. Start from the most recent.');
-
 //: ./src/Cv/Form/LanguageSkillFieldset.php:27
 translate('which language are you speeking');
 
@@ -227,89 +143,122 @@ translate('I can write clear, smoothly-flowing  text in an appropriate style. I 
 //: ./src/Cv/Form/LanguageSkillFieldset.php:157
 translate('level');
 
-//: ./src/Cv/Form/EmploymentForm.php:14
-translate(' Focus on the work experience that gives added weight to your application.<br>Add separate entries for each experience. Start with the most recent.<br>If your work experience is limited:<ul><li>describe your education and training first</li><li>mention volunteering or (paid/unpaid) work placements which provide evidence of work experience.</li></ul>');
+//: ./src/Cv/Form/PreferredJobForm.php:15
+translate(' Where do you want to work tomorrow. This heading gives an immediate overview of your desired next job.');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:16
+//: ./src/Cv/Form/PreferredJobFieldset.php:20
 translate('Click here to enter your employment expectation');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:25
+//: ./src/Cv/Form/PreferredJobFieldset.php:30
 translate('Temporary');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:26
+//: ./src/Cv/Form/PreferredJobFieldset.php:31
 translate('Permanent');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:27
+//: ./src/Cv/Form/PreferredJobFieldset.php:32
 translate('Contracting');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:28
+//: ./src/Cv/Form/PreferredJobFieldset.php:33
 translate('Freelance');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:29
+//: ./src/Cv/Form/PreferredJobFieldset.php:34
 translate('Internship');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:34
+//: ./src/Cv/Form/PreferredJobFieldset.php:39
 translate('Yes');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:35
+//: ./src/Cv/Form/PreferredJobFieldset.php:40
 translate('conditioned');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:36
+//: ./src/Cv/Form/PreferredJobFieldset.php:41
 translate('No');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:66
+//: ./src/Cv/Form/PreferredJobFieldset.php:52
 translate('desired type of work');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:67
+//: ./src/Cv/Form/PreferredJobFieldset.php:53
 translate('Do you want to work permanently or temporary?');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:70
+//: ./src/Cv/Form/PreferredJobFieldset.php:56
 translate('please describe your position');
+
+//: ./src/Cv/Form/PreferredJobFieldset.php:58
+translate('please select');
 
 //: ./src/Cv/Form/PreferredJobFieldset.php:72
-translate('please select');
-
-//: ./src/Cv/Form/PreferredJobFieldset.php:86
 translate('desired job position');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:87
+//: ./src/Cv/Form/PreferredJobFieldset.php:73
 translate('Enter the title of your desired job. Eg. "Software Developer" or "Customer Service Representative"');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:90
+//: ./src/Cv/Form/PreferredJobFieldset.php:76
 translate('please describe your position');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:100
+//: ./src/Cv/Form/PreferredJobFieldset.php:86
 translate('desired job location');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:101
+//: ./src/Cv/Form/PreferredJobFieldset.php:87
 translate('Where do you want to work?');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:105
+//: ./src/Cv/Form/PreferredJobFieldset.php:91
 translate('please describe your position');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:116
+//: ./src/Cv/Form/PreferredJobFieldset.php:104
 translate('Willingness to travel');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:117
+//: ./src/Cv/Form/PreferredJobFieldset.php:105
 translate('Enter your willingness to travel.');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:120
+//: ./src/Cv/Form/PreferredJobFieldset.php:108
 translate('please select');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:133
+//: ./src/Cv/Form/PreferredJobFieldset.php:121
 translate('expected Salary');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:134
+//: ./src/Cv/Form/PreferredJobFieldset.php:122
 translate('What is your expected Salary?');
 
-//: ./src/Cv/Form/PreferredJobFieldset.php:137
+//: ./src/Cv/Form/PreferredJobFieldset.php:125
 translate('please describe your position');
 
-//: ./src/Cv/Form/CvContainer.php:50
-translate('Where do you want to work tomorrow? This heading gives an immediate overview of your desired next job.');
+//: ./src/Cv/Form/SearchForm.php:24
+translate('Search for resumes');
 
-//: ./src/Cv/Form/CvContainer.php:67
-translate('Please select from list or enter your mother tongue.');
+//: ./src/Cv/Form/SearchForm.php:41
+translate('Location');
+
+//: ./src/Cv/Form/SearchForm.php:56
+translate('Distance');
+
+//: ./src/Cv/Form/SearchForm.php:71
+translate('Distance');
+
+//: ./src/Cv/Form/EmploymentFieldset.php:36
+translate('Start date');
+
+//: ./src/Cv/Form/EmploymentFieldset.php:45
+translate('End date');
+
+//: ./src/Cv/Form/EmploymentFieldset.php:54
+translate('ongoing');
+
+//: ./src/Cv/Form/EmploymentFieldset.php:62
+translate('Company Name');
+
+//: ./src/Cv/Form/EmploymentFieldset.php:64
+translate('please enter the name of the company');
+
+//: ./src/Cv/Form/EmploymentFieldset.php:73
+translate('Description');
+
+//: ./src/Cv/Form/EmploymentFieldset.php:76
+translate('please describe your position');
+
+//: ./src/Cv/Form/SkillFieldset.php:36
+translate('Native Language');
+
+//: ./src/Cv/Form/SkillFieldset.php:50
+translate('Other languages');
 
 //: ./src/Cv/Form/NativeLanguageFieldset.php:16
 translate('Click here to enter your native language(s)');
@@ -635,8 +584,59 @@ translate('Yoruba');
 //: ./src/Cv/Form/NativeLanguageFieldset.php:149
 translate('what is your native language');
 
-//: ./src/Cv/Form/PreferredJobForm.php:15
-translate(' Where do you want to work tomorrow. This heading gives an immediate overview of your desired next job.');
+//: ./src/Cv/Form/EmploymentForm.php:14
+translate(' Focus on the work experience that gives added weight to your application.<br>Add separate entries for each experience. Start with the most recent.<br>If your work experience is limited:<ul><li>describe your education and training first</li><li>mention volunteering or (paid/unpaid) work placements which provide evidence of work experience.</li></ul>');
+
+//: ./src/Cv/Form/EducationFieldset.php:36
+translate('Start date');
+
+//: ./src/Cv/Form/EducationFieldset.php:47
+translate('End date');
+
+//: ./src/Cv/Form/EducationFieldset.php:56
+translate('ongoing');
+
+//: ./src/Cv/Form/EducationFieldset.php:65
+translate('Degree');
+
+//: ./src/Cv/Form/EducationFieldset.php:68
+translate('please enter the name of your qualification');
+
+//: ./src/Cv/Form/EducationFieldset.php:77
+translate('Organization Name');
+
+//: ./src/Cv/Form/EducationFieldset.php:80
+translate('please enter the name of the university or school');
+
+//: ./src/Cv/Form/EducationFieldset.php:89
+translate('Country');
+
+//: ./src/Cv/Form/EducationFieldset.php:92
+translate('please select the country');
+
+//: ./src/Cv/Form/EducationFieldset.php:101
+translate('City');
+
+//: ./src/Cv/Form/EducationFieldset.php:104
+translate('please enter the name of the city');
+
+//: ./src/Cv/Form/EducationFieldset.php:114
+translate('Description');
+
+//: ./src/Cv/Form/EducationFieldset.php:118
+translate('please enter a description');
+
+//: ./src/Cv/Form/LanguageSkillForm.php:13
+translate('Please select a language and self-assess your level');
+
+//: ./src/Cv/Form/EducationForm.php:13
+translate('Focus on the work experience that gives added weight to your application. Add separate entries for each course. Start from the most recent.');
+
+//: ./src/Cv/Form/CvContainer.php:50
+translate('Where do you want to work tomorrow? This heading gives an immediate overview of your desired next job.');
+
+//: ./src/Cv/Form/CvContainer.php:67
+translate('Please select from list or enter your mother tongue.');
 
 //: ./src/Cv/Entity/StatusInterface.php:19
 translate('private');
@@ -644,44 +644,45 @@ translate('private');
 //: ./src/Cv/Entity/StatusInterface.php:21
 translate('public to all');
 
-//: ./src/Cv/Controller/ManageController.php:167
-translate('Status has been successfully changed');
-
-//: ./src/Cv/Controller/ManageController.php:170
-translate('Invalid status');
-
-//: ./src/Cv/Factory/Form/LanguageSkillCollectionFactory.php:27
-translate('Additional Language Skills');
-
-//: ./src/Cv/Factory/Form/EmploymentCollectionFactory.php:28
-translate('Employment history');
-
+23:	    $collectionContainer->setLabel(/*@translate */
 //: ./src/Cv/Factory/Form/AttachmentsFormFactory.php:80
 translate('Attach images or PDF Documents to your CV. Drag&drop them, or click into the attachement area. You can upload up to %sMB');
 
 //: ./src/Cv/Factory/Form/AttachmentsFormFactory.php:84
 translate('Attachments');
 
-//: ./src/Cv/Factory/Form/EducationCollectionFactory.php:28
-translate('Education history');
-
-//: ./src/Cv/Factory/Form/SkillCollectionFactory.php:28
+//: ./src/Cv/Factory/Form/SkillCollectionFactory.php:27
 translate('Skills');
 
-//: ./config/module.config.php:162
+//: ./src/Cv/Factory/Form/EducationCollectionFactory.php:27
+translate('Education history');
+
+//: ./src/Cv/Factory/Form/EmploymentCollectionFactory.php:27
+translate('Employment history');
+
+//: ./src/Cv/Controller/ManageController.php:164
+translate('Status has been successfully changed');
+
+//: ./src/Cv/Controller/ManageController.php:167
+translate('Invalid status');
+
+//: ./config/module.config.php:170
 translate('Talent-Pool');
 
-//: ./config/module.config.php:169
+//: ./config/module.config.php:180
 translate('Overview');
 
-//: ./config/module.config.php:173
+//: ./config/module.config.php:184
 translate('Create resume');
 
-//: ./config/module.config.php:179
+//: ./config/module.config.php:190
 translate('Resume');
 
 //: ./test/CvTest/Form/NativeLanguageFieldsetTest.php:187
 translate('what is your native language');
+
+//: ./test/CvTest/Form/SearchFormTest.php:84
+translate('Distance');
 
 //: ./test/CvTest/Form/EducationFieldsetTest.php:114
 translate('please select the country');

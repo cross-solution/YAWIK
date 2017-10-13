@@ -6,13 +6,14 @@
 # BLU-IT, 2015
 # blu-IT, 2016-2017
 # blu-IT, 2015
+# Paolo Scarnati <scarnati.paolo@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-27 19:26+0200\n"
-"PO-Revision-Date: 2017-05-15 05:55+0000\n"
-"Last-Translator: blu-IT\n"
+"PO-Revision-Date: 2017-10-11 15:09+0000\n"
+"Last-Translator: Paolo Scarnati <scarnati.paolo@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +23,11 @@ msgstr ""
 
 #: view/cv/view/index.phtml:15
 msgid "View"
-msgstr "View"
+msgstr "Vedi"
 
 #: view/cv/view/index.phtml:24 language/_annotated_strings.php:681
 msgid "Resume"
-msgstr ""
+msgstr "Curriculum vitae"
 
 #: view/cv/view/index.phtml:38
 msgid "Enter an email address"
@@ -173,12 +174,12 @@ msgstr "Data"
 #: view/cv/form/employment.view.phtml:18 view/cv/form/education.view.phtml:18
 #, php-format
 msgid "Since %s"
-msgstr ""
+msgstr "Dal %s"
 
 #: view/cv/form/employment.view.phtml:20 view/cv/form/education.view.phtml:20
 #, php-format
 msgid "%s to %s"
-msgstr ""
+msgstr "%s al %s"
 
 #: view/cv/form/search.phtml:59
 msgid "Type in a location"
@@ -208,11 +209,11 @@ msgstr "Madrelingua"
 
 #: view/cv/manage/form.phtml:13
 msgid "Manage my resume"
-msgstr ""
+msgstr "Gestisci il mio curriculum"
 
 #: view/cv/manage/form.phtml:15
 msgid "Edit a resume"
-msgstr ""
+msgstr "Modifica un curriculum"
 
 #: view/cv/manage/form.phtml:17
 msgid "Create a new resume"
@@ -229,7 +230,7 @@ msgstr "Lingua"
 #: src/Cv/Controller/ViewController.php:56
 #, php-format
 msgid "Resume with id \"%s\" not found"
-msgstr ""
+msgstr "CV con id \"%s\" non trovato"
 
 #: src/Cv/Factory/Form/LanguageSkillCollectionFactory.php:27
 #: language/_annotated_strings.php:654
@@ -356,7 +357,7 @@ msgid ""
 "I can understand familiar words and very basic phrases concerning myself, my"
 " family and immediate concrete surroundings when people speak slowly and "
 "clearly."
-msgstr "Capisco parole familiari ed espressioni molto semplici riferite a me stesso, riguardando mia famiglia e l'ambiente circostante, purché le persone parlino lentamente e chiaramente."
+msgstr "Capisco parole familiari ed espressioni molto semplici riferite a me stesso, alla mia famiglia e all'ambiente circostante, purché le persone parlino lentamente e chiaramente."
 
 #: language/_annotated_strings.php:99
 msgid ""
@@ -511,7 +512,7 @@ msgstr "Riesco a partecipare senza sforzi a qualsiasi conversazione e discussion
 
 #: language/_annotated_strings.php:177
 msgid "Spoken Production"
-msgstr ""
+msgstr "Produzione parlata"
 
 #: language/_annotated_strings.php:180
 msgid "Spoken Production ..."

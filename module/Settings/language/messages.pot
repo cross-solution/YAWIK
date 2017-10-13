@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 16:47+0200\n"
+"POT-Creation-Date: 2017-10-13 08:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,32 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: view/settings/index/index.phtml:3 view/settings/index/index.phtml:9
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:3
 msgid "Settings"
 msgstr ""
 
-#: src/Settings/Controller/IndexController.php:55
-#, php-format
-msgid "Settings \"%s\" does not exists"
+#: language/_annotated_strings.php:6
+msgid "Changes successfully saved"
 msgstr ""
 
-#: language/_annotated_strings.php:3
+#: language/_annotated_strings.php:9
+msgid "Changes could not be saved"
+msgstr ""
+
+#: language/_annotated_strings.php:12
 #, php-format
 msgid "Customize enabled elements for %s"
 msgstr ""
 
-#: language/_annotated_strings.php:6
+#: language/_annotated_strings.php:15
 msgid "Activate"
 msgstr ""
 
-#: language/_annotated_strings.php:9
+#: language/_annotated_strings.php:18
 msgid "Enables the form element customization."
 msgstr ""
 
-#: language/_annotated_strings.php:12
-msgid "Changes successfully saved"
-msgstr ""
-
-#: language/_annotated_strings.php:15
-msgid "Changes could not be saved"
+#: src/Settings/Controller/IndexController.php:75
+#, php-format
+msgid "Settings \"%s\" does not exists"
 msgstr ""

@@ -6,12 +6,13 @@
 # blu-IT, 2015
 # blu-IT, 2015-2017
 # blu-IT, 2015
+# Paolo Scarnati <scarnati.paolo@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-28 11:39+0200\n"
-"PO-Revision-Date: 2017-05-28 12:27+0000\n"
+"PO-Revision-Date: 2017-10-11 14:59+0000\n"
 "Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -748,7 +749,7 @@ msgid ""
 "There are department managers assigned to your organization. Please select "
 "the department manager, who will receive notifications for incoming "
 "applications"
-msgstr ""
+msgstr "All'organizzazione sono assegnati alcuni Responsabili di Reparto. Seleziona il Responsabile di Reparto, che riceverà le notifiche per le domande in arrivo"
 
 #: language/_annotated_strings.php:189
 msgid "Choose Managers"
@@ -824,7 +825,7 @@ msgstr "Tipi di occupazione"
 
 #: language/_annotated_strings.php:246 language/_annotated_strings.php:273
 msgid "Manage the employment types you want to assign to jobs."
-msgstr ""
+msgstr "Gestire i tipi di occupazione che si desidera assegnare ai lavori."
 
 #: language/_annotated_strings.php:252
 msgid "The apply identifier \"%value%\" is already in use."
@@ -838,13 +839,13 @@ msgstr "Inserisci codice html puro qui"
 msgid ""
 "Select the professions of the job opening. This allows an applicant to find "
 "job openings by a certain profession."
-msgstr ""
+msgstr "Seleziona le professioni della posizione disponibile. Ciò consente ad un candidato di trovare le posizioni disponibili per una certa professione."
 
 #: language/_annotated_strings.php:267
 msgid ""
 "Select the industry of the hiring organization. This allows an applicant to "
 "search for job opening by industry."
-msgstr ""
+msgstr "Seleziona l'industria dell'organizzazione assunzione. Ciò consente a un richiedente di cercare l'apertura del lavoro da parte dell'industria."
 
 #: language/_annotated_strings.php:276
 #, php-format

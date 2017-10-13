@@ -1,4 +1,10 @@
 <?php
+//: ./config/module.config.php:64
+translate('E-Mail Templates');
+
+//: ./config/module.config.php:144
+translate('Overview');
+
 //: ./view/applications/manage/index.recruiter.ajax.phtml:49
 translate('Applicant');
 
@@ -38,68 +44,41 @@ translate('Status');
 //: ./view/applications/manage/index.applicant.ajax.phtml:22
 translate('Actions');
 
-//: ./src/Applications/Form/Base.php:27
-translate('Cover Letter');
+//: ./src/Applications/Controller/ManageController.php:151
+translate('Invalid apply id');
 
-//: ./src/Applications/Form/Apply.php:40
-translate('Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.');
+//: ./src/Applications/Controller/ManageController.php:166
+translate('Application was read by %s');
 
-//: ./src/Applications/Form/Apply.php:52
-translate('you can add your social profile to your application. You can preview and remove the attached profile before submitting the application.');
+//: ./src/Applications/Controller/ManageController.php:505
+translate('Application has been successfully moved to Talent Pool');
 
-//: ./src/Applications/Form/Apply.php:61
-translate('Customize apply form');
+//: ./src/Applications/Controller/MultimanageController.php:138
+translate('Mail was sent to %s');
 
-//: ./src/Applications/Form/SettingsFieldset.php:43
-translate('E-Mail Notifications');
+//: ./src/Applications/Controller/MultimanageController.php:185
+translate('%d Application(s) has been successfully moved to Talent Pool');
 
-//: ./src/Applications/Form/SettingsFieldset.php:48
-translate('receive E-Mail alert');
+//: ./src/Applications/Controller/CommentController.php:85
+translate('Application was rated by %s');
 
-//: ./src/Applications/Form/SettingsFieldset.php:49
-translate('if checked, you\'ll be informed by mail about new applications.');
+//: ./src/Applications/Controller/ApplyController.php:219
+translate('Invalid apply id');
 
-//: ./src/Applications/Form/SettingsFieldset.php:55
-translate('Mailtext');
+//: ./src/Applications/Controller/ApplyController.php:395
+translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:56
-translate('default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li><li>##link## = Url of the application detail page</li></ul>');
+//: ./src/Applications/Controller/ApplyController.php:401
+translate('Mail has been send');
 
-//: ./src/Applications/Form/SettingsFieldset.php:62
-translate('confirm application immidiatly after submit');
+//: ./src/Applications/Controller/ApplyController.php:417
+translate('Application has been send.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:63
-translate('if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter.');
+//: ./src/Applications/Form/BaseFieldset.php:35
+translate('Click here to enter a summary.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:69
-translate('Confirmation mail text');
-
-//: ./src/Applications/Form/SettingsFieldset.php:70
-translate('default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li><li>##link## = Link to the application details</li></ul>');
-
-//: ./src/Applications/Form/SettingsFieldset.php:76
-translate('Invitation mail text');
-
-//: ./src/Applications/Form/SettingsFieldset.php:77
-translate('default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. ');
-
-//: ./src/Applications/Form/SettingsFieldset.php:86
-translate('Accept mail text');
-
-//: ./src/Applications/Form/SettingsFieldset.php:87
-translate('default text, when accepting an applicant. This mail is send to by a domain admin to the recruiter, who is responsible for the job posting.');
-
-//: ./src/Applications/Form/SettingsFieldset.php:97
-translate('Rejection mail text');
-
-//: ./src/Applications/Form/SettingsFieldset.php:98
-translate('default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.');
-
-//: ./src/Applications/Form/SettingsFieldset.php:108
-translate('get blind carbon copy of all own mails');
-
-//: ./src/Applications/Form/SettingsFieldset.php:109
-translate('if checked, you\'ll get a copy of all mails you send.');
+//: ./src/Applications/Form/BaseFieldset.php:50
+translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.');
 
 //: ./src/Applications/Form/ApplicationsFilter.php:43
 translate('Enter job title');
@@ -109,9 +88,6 @@ translate('Status');
 
 //: ./src/Applications/Form/ApplicationsFilter.php:66
 translate('all');
-
-//: ./src/Applications/Form/CommentForm.php:50
-translate('Comment message');
 
 //: ./src/Applications/Form/Facts.php:41
 translate('Request additional facts from the Applicant. Selected Fields will be added to the application Form.');
@@ -179,6 +155,57 @@ translate('Ask the applicant, if he has a driving license.');
 //: ./src/Applications/Form/FactsFieldset.php:115
 translate('please select');
 
+//: ./src/Applications/Form/SettingsFieldset.php:45
+translate('E-Mail Notifications');
+
+//: ./src/Applications/Form/SettingsFieldset.php:51
+translate('receive E-Mail alert');
+
+//: ./src/Applications/Form/SettingsFieldset.php:52
+translate('if checked, you\'ll be informed by mail about new applications.');
+
+//: ./src/Applications/Form/SettingsFieldset.php:58
+translate('Mailtext');
+
+//: ./src/Applications/Form/SettingsFieldset.php:59
+translate('default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li><li>##link## = Url of the application detail page</li></ul>');
+
+//: ./src/Applications/Form/SettingsFieldset.php:65
+translate('confirm application immidiatly after submit');
+
+//: ./src/Applications/Form/SettingsFieldset.php:66
+translate('if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter.');
+
+//: ./src/Applications/Form/SettingsFieldset.php:72
+translate('Confirmation mail text');
+
+//: ./src/Applications/Form/SettingsFieldset.php:73
+translate('default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li><li>##link## = Link to the application details</li></ul>');
+
+//: ./src/Applications/Form/SettingsFieldset.php:79
+translate('Invitation mail text');
+
+//: ./src/Applications/Form/SettingsFieldset.php:80
+translate('default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. ');
+
+//: ./src/Applications/Form/SettingsFieldset.php:89
+translate('Accept mail text');
+
+//: ./src/Applications/Form/SettingsFieldset.php:90
+translate('default text, when accepting an applicant. This mail is send to by a domain admin to the recruiter, who is responsible for the job posting.');
+
+//: ./src/Applications/Form/SettingsFieldset.php:100
+translate('Rejection mail text');
+
+//: ./src/Applications/Form/SettingsFieldset.php:101
+translate('default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.');
+
+//: ./src/Applications/Form/SettingsFieldset.php:111
+translate('get blind carbon copy of all own mails');
+
+//: ./src/Applications/Form/SettingsFieldset.php:112
+translate('if checked, you\'ll get a copy of all mails you send.');
+
 //: ./src/Applications/Form/Attributes.php:36
 translate('Carbon Copy');
 
@@ -194,53 +221,20 @@ translate('I have read the %s and accept it');
 //: ./src/Applications/Form/Attributes.php:53
 translate('Privacy Policy');
 
-//: ./src/Applications/Form/BaseFieldset.php:35
-translate('Click here to enter a summary.');
+//: ./src/Applications/Form/Base.php:27
+translate('Cover Letter');
 
-//: ./src/Applications/Form/BaseFieldset.php:50
-translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.');
+//: ./src/Applications/Form/CommentForm.php:50
+translate('Comment message');
 
-//: ./src/Applications/Controller/ManageController.php:101
-translate('Invalid apply id');
+//: ./src/Applications/Form/Apply.php:40
+translate('Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.');
 
-//: ./src/Applications/Controller/ManageController.php:116
-translate('Application was read by %s');
+//: ./src/Applications/Form/Apply.php:52
+translate('you can add your social profile to your application. You can preview and remove the attached profile before submitting the application.');
 
-//: ./src/Applications/Controller/ManageController.php:458
-translate('Application has been successfully moved to Talent Pool');
-
-//: ./src/Applications/Controller/ApplyController.php:185
-translate('Invalid apply id');
-
-//: ./src/Applications/Controller/ApplyController.php:362
-translate('There are missing required informations. Your application cannot be send.');
-
-//: ./src/Applications/Controller/ApplyController.php:368
-translate('Mail has been send');
-
-//: ./src/Applications/Controller/ApplyController.php:384
-translate('Application has been send.');
-
-//: ./src/Applications/Controller/MultimanageController.php:138
-translate('Mail was sent to %s');
-
-//: ./src/Applications/Controller/MultimanageController.php:185
-translate('%d Application(s) has been successfully moved to Talent Pool');
-
-//: ./src/Applications/Controller/CommentController.php:107
-translate('Application was rated by %s');
-
-//: ./src/Applications/Listener/EventApplicationCreated.php:132
-translate('Application confirmation');
-
-//: ./src/Applications/Mail/Forward.php:58
-translate('Fwd: Application to "%s" dated %s');
-
-//: ./src/Applications/Mail/NewApplication.php:109
-translate('New application for your vacancy "%s"');
-
-//: ./src/Applications/Mail/NewApplication.php:121
-translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
+//: ./src/Applications/Form/Apply.php:61
+translate('Customize apply form');
 
 //: ./src/Applications/Factory/Form/AttachmentsFactory.php:79
 translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to %sMB');
@@ -248,9 +242,15 @@ translate('Attach images or PDF Documents to your application. Drag&drop them, o
 //: ./src/Applications/Factory/Form/AttachmentsFactory.php:83
 translate('Attachments');
 
-//: ./config/module.config.php:59
-translate('E-Mail Templates');
+//: ./src/Applications/Mail/NewApplication.php:109
+translate('New application for your vacancy "%s"');
 
-//: ./config/module.config.php:136
-translate('Overview');
+//: ./src/Applications/Mail/NewApplication.php:121
+translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
+
+//: ./src/Applications/Mail/Forward.php:58
+translate('Fwd: Application to "%s" dated %s');
+
+//: ./src/Applications/Listener/EventApplicationCreated.php:132
+translate('Application confirmation');
 
