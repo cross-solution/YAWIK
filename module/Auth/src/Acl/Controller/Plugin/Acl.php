@@ -147,7 +147,7 @@ class Acl extends AbstractPlugin
                      is_object($resource) ? $resource->getResourceId() : $resource
                  );
             
-            if ($resource instanceof FileInterface && 0 == strpos($resource->type, 'image/')) {
+            if ($resource instanceof FileInterface && 0 == strpos($resource->getType(), 'image/')) {
                 throw new UnauthorizedImageAccessException(str_replace('resource', 'image', $msg));
             }
             throw new UnauthorizedAccessException($msg);
