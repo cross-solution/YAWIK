@@ -86,7 +86,7 @@ use Zend\Stdlib\ArrayUtils;
  * @property string|array|object $target
  *
  * @method string getName()
- * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder()
+ * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder(string $className)
  * @method exactly()
  * @method any()
  * @method returnSelf()
