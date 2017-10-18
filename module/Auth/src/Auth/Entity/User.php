@@ -421,9 +421,12 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
             }
         }
 
-        $settings = $this->settingsEntityResolver->getNewSettingsEntity($module);
-        $this->settings->add($settings);
-        return $settings;
+        if ($this->settingsEntityResolver) {
+            $settings = $this->settingsEntityResolver->getNewSettingsEntity($module);
+            $this->settings->add($settings);
+            return $settings;
+        }
+
     }
 
     /** {@inheritdoc} */
