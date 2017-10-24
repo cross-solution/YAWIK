@@ -108,6 +108,7 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
             'a' => 'test',
             ',b' => 'test1,test2',
             '!c' => 'test1!test2',
+            ',,d' => 'test1,test2',
         ]);
         $this->request->setQuery($query);
 
@@ -116,7 +117,11 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
         $actual = $query->toArray();
 
         $this->assertAttributeEquals(
-             new Parameters(['a' => 'test', 'b' => ['test1', 'test2'], 'c' => ['test1', 'test2']]),
+             new Parameters([
+                 'a' => 'test', 'b' => ['test1', 'test2'],
+                 'c' => ['test1', 'test2'],
+                 'd' => ['test1' => 1, 'test2' => 1]
+             ]),
              'parameters', $this->target);
     }
 }

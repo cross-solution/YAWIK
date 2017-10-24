@@ -235,9 +235,15 @@ class PaginationBuilder extends AbstractPlugin
         $queryArray = $query->toArray();
 
         foreach ($queryArray as $key => $value) {
-            if (preg_match('~^(?<separator>\W)(?<name>.*)$~', $key, $match)) {
+            if (preg_match('~^(?<separator>\W)(?<setArrayKeys>\W)?(?<name>.*)$~', $key, $match)) {
                 $value = explode($match['separator'], $value);
-                $queryArray[$match['name']] = $value;
+                if ('' !== $match['setArrayKeys']) {
+                    foreach ($value as $v) {
+                        $queryArray[$match['name']][$v] = 1;
+                    }
+                } else {
+                    $queryArray[ $match[ 'name' ] ] = $value;
+                }
                 unset($queryArray[$key]);
             }
         }
