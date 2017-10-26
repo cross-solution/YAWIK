@@ -46,20 +46,6 @@ class ImportController extends AbstractActionController
     }
 
     /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->serviceLocator;
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
-    }
-
-    /**
      * api-interface for transferring jobs
      * @return JsonModel
      */
@@ -112,7 +98,8 @@ class ImportController extends AbstractActionController
                 if ($request->isPost()) {
                     $loginSuffix                   = '';
                     $event                         = $this->getEvent();
-                    $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $event);
+                    $event->setName('login.getSuffix');
+                    $loginSuffixResponseCollection = $this->getEventManager()->triggerEvent($event);
                     if (!$loginSuffixResponseCollection->isEmpty()) {
                         $loginSuffix = $loginSuffixResponseCollection->last();
                     }
@@ -148,9 +135,9 @@ class ImportController extends AbstractActionController
                         if (!empty($params->companyId)) {
                             $companyId                = $params->companyId . $loginSuffix;
                             $repOrganization          = $repositories->get('Organizations/Organization');
-                            $hydratorManager          = $services->get('hydratorManager');
+                            $hydratorManager          = $services->get('HydratorManager');
                             /* @var \Organizations\Entity\Hydrator\OrganizationHydrator $hydrator */
-                            $hydrator                 = $hydratorManager->get('Hydrator/Organization');
+                            $hydrator                 = $hydratorManager->get('Hydrator\Organization');
                             $entityOrganizationFromDB = $repOrganization->findbyRef($companyId);
                             //$permissions              = $entityOrganizationFromDB->getPermissions();
                             $data = array(
@@ -236,9 +223,9 @@ class ImportController extends AbstractActionController
                             if ($createdJob || true) {
                                 /* @var $jobEvents \Zend\EventManager\EventManager */
                                 $jobEvents = $services->get('Jobs/Events');
-                                $jobEvent->setName(JobEvent::EVENT_JOB_ACCEPTED)
-                                         ->setTarget($this);
-                                $responses = $jobEvents->trigger($jobEvent);
+                                $jobEvent->setName(JobEvent::EVENT_JOB_ACCEPTED);
+                                $jobEvent->setTarget($this);
+                                $responses = $jobEvents->triggerEvent($jobEvent);
                                 foreach ($responses as $response) {
                                     // responses from the portals
                                     // @TODO, put this in some conclusion and meaningful messages
