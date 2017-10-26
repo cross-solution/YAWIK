@@ -269,11 +269,11 @@ return [
 
     'controllers' => [
         'invokables' => [
-            'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
             'Jobs/ApiJobListByChannel' => 'Jobs\Controller\ApiJobListByChannelController',
         ],
         'factories' => [
+            'Jobs/Import' => [ Controller\ImportController::class, 'factory'],
         	'Jobs/Console' => [ConsoleController::class,'factory'],
 	        'Jobs/AdminCategories' => [AdminCategoriesController::class,'factory'],
 	        'Jobs/Admin'      => [AdminController::class,'factory'],

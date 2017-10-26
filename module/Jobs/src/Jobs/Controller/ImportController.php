@@ -15,8 +15,10 @@ use Geo\Entity\Geometry\Point;
 use Jobs\Entity\Location;
 use Jobs\Entity\TemplateValues;
 use Organizations\Entity\Employee;
+use Psr\Container\ContainerInterface;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\JsonModel;
 use Core\Entity\PermissionsInterface;
 use Jobs\Listener\Events\JobEvent;
@@ -28,6 +30,20 @@ use Jobs\Listener\Response\JobResponse;
  */
 class ImportController extends AbstractActionController
 {
+
+    /**
+     *
+     *
+     * @var ServiceManager
+     */
+    private $serviceLocator;
+    public static function factory(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $controller = new self();
+        $controller->serviceLocator = $container;
+
+        return $controller;
+    }
 
     /**
      * attaches further Listeners for generating / processing the output
@@ -146,6 +162,11 @@ class ImportController extends AbstractActionController
                             //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
 
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
+
+                            if ($params->companyUrl) {
+                                $entityOrganization->getContact()->setWebsite($params->companyUrl);
+                            }
+
                             if ($responsibleUser && $user !== $responsibleUser) {
                                 /*
                                  * We cannot use custom collections yet
