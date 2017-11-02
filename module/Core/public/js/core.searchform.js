@@ -81,7 +81,7 @@
     {
         var queryParts = [];
         $.each(data, function(name, value) {
-            value=encodeURIComponent(value)
+            value=encodeURIComponent(value);
             queryParts.push(name + '=' + value);
         });
 
@@ -112,32 +112,33 @@
                     });
                 }
 
-                parsed[separator+parsedName] = value.join(separator);
+                parsed[separator+encodeURIComponent(parsedName)] = value.join(separator);
                 processed.push(item.name);
 
             } else {
-                parsed[item.name] = item.value;
+                parsed[encodeURIComponent(item.name)] = item.value;
             }
         });
 
-        console.debug('sierializeForm:', data, parsed);
         return toQuery(parsed);
 
     }
 
     function parseQueryString(queryStr, filter, exclude)
     {
+        queryStr = queryStr.replace(/\%26/g, '__and__');
         queryStr = decodeURIComponent(queryStr);
         var vars = queryStr.split('&');
         var data = {};
 
         for (i=0, c=vars.length; i<c; i++) {
+            vars[i] = vars[i].replace(/__and__/g, '&');
             var varParts = vars[i].split('=');
             if ((exclude && -1 != $.inArray(varParts[0], filter))
                 || (!exclude && -1 == $.inArray(varParts[0], filter))
             ) { continue; }
 
-            data[varParts[0]] = varParts[1];
+            data[encodeURIComponent(varParts[0])] = encodeURIComponent(varParts[1]);
         }
 
         return data;
