@@ -79,7 +79,7 @@ class Tracy
             
             $mailMessage = (new Message())
                 ->addFrom("noreply@$host")
-                ->addTo($email)
+                ->addTo(array_map('trim', explode(',', $email)))
                 ->setSubject("PHP: An error occurred on the server $host")
                 ->setBody($mimeMessage);
                 
