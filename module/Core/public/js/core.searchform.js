@@ -14,12 +14,18 @@
 
     function resetSearchForm(event)
     {
+
         var $form = $(event.target);
+        console.debug('resetsearchform', event.data);
+
+        if ("native" === event.data.handleBy) {
+            var uri = $form.attr('action');
+            uri += (uri.match(/\?/) ? '&' : '?') + 'clear=1';
+            window.location.href = uri;
+            return false;
+        }
+
         win.setTimeout(function() {
-            // iterate over all of the inputs for the form
-
-            // element that was passed in
-
             $(':input', $form).each(function() {
 
                 var $input = $(this);
@@ -41,21 +47,28 @@
                     });
                     this.selectedIndex = selected;
 
-                    $input.trigger('change', [true]);
+                    $input.trigger('change', {isSelect2Change: true});
                 }
             });
-
 
             loadPaginator($form, true);
         }, 100);
     }
 
-    function submitSearchForm(event, isSelect2change)
+    function submitSearchForm(event, flags)
     {
-        if (!isSelect2change) {
-            var $form = $(event.target);
-            loadPaginator($form);
+        flags = flags || {};
+
+        if (flags.isSelect2change) {
+            return false;
         }
+
+        if ('native' === event.data.handleBy && !flags.forceAjax) {
+            return true;
+        }
+
+        var $form = $(event.target);
+        loadPaginator($form);
 
         return false;
     }
@@ -156,13 +169,21 @@
                         $form.find('[name="' + name + '"]').val(searchParams[key]);
                     }
                 }
-                $form.find('select').trigger('change', [ true ]);
+                $form.find('select').trigger('change', {isSelect2Change: true});
             }
 
-            $form.on('reset.yk.core.search-form', resetSearchForm)
-                 .on('submit.yk.core.search-form', submitSearchForm)
-                 .on('change.yk.core.search-form', '[data-submit-on-change="true"]', submitSearchForm)
-                 .on('click.yk.core.search-form', '[data-submit-on-click="true"]', submitSearchForm);
+            var data = $form.data();
+            if ('native' === data.handleBy) {
+                $form.append('<input type="hidden" name="clear" value="1">');
+            }
+
+            $form
+                .on('reset.yk.core.search-form', data, resetSearchForm)
+                .on('submit.yk.core.search-form', data, submitSearchForm)
+                .on('change.yk.core.search-form', '[data-submit-on-change="true"]', data, submitSearchForm)
+                .on('click.yk.core.search-form', '[data-submit-on-click="true"]', data, submitSearchForm)
+            ;
+
 
         });
     };

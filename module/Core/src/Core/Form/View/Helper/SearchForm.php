@@ -78,7 +78,12 @@ class SearchForm extends Form
 
         $content = '';
         foreach ($buttons as $button) {
-            $content.= $helper($button);
+            $button->removeAttribute('name');
+            $attrs = $helper->createAttributesString($button->getAttributes());
+
+            $content.= '<button ' . $attrs . '>'
+                       . $this->getTranslator()->translate($button->getLabel(), $this->getTranslatorTextDomain())
+                       . '</button>';
         }
 
         return $content;
