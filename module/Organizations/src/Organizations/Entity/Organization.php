@@ -94,7 +94,7 @@ class Organization extends BaseEntity implements
      *
      *
      * @ODM\EmbedOne(targetDocument="\Core\Entity\ImageSet")
-     * @var Images
+     * @var ImageSet
      */
     protected $images;
     /**

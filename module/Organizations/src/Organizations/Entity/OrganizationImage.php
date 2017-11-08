@@ -19,7 +19,6 @@ use Core\Entity\FileEntity;
 /**
  * Defines the logo of an organization.
  *
- * @ODM\HasLifecycleCallbacks()
  * @ODM\Document(collection="organizations.images", repositoryClass="Organizations\Repository\OrganizationImage")
  */
 class OrganizationImage extends FileEntity implements ImageInterface
@@ -69,17 +68,5 @@ class OrganizationImage extends FileEntity implements ImageInterface
     public function setOrganization(Organization $organization)
     {
         $this->organization = $organization;
-    }
-
-    /**
-     * Tells Doctrine to delete the image reference, if the image is deleted.
-     *
-     * @ODM\PreRemove()
-     */
-    public function preRemove()
-    {
-        if ($org = $this->getOrganization()) {
-            $this->getOrganization()->setImage(null);
-        }
     }
 }
