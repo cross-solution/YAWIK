@@ -67,11 +67,5 @@ class OrganizationImageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target->getOrganization(), $organization);
     }
 
-    public function testPreRemoveImage(){
-        $organizationMock = $this->getMockBuilder('\Organizations\Entity\Organization')->getMock();
-        $organizationMock->expects($this->once())->method('setImage')->with(null);
-        $this->target->setOrganization($organizationMock);
-        $this->target->preRemove();
-        $this->assertSame($this->target->getOrganization()->getImage(), null);
-    }
+
 }

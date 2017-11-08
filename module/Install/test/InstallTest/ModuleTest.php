@@ -10,6 +10,7 @@
 /** */
 namespace InstallTest;
 
+use Auth\AuthenticationService;
 use Install\Module;
 
 /**
@@ -97,12 +98,15 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
+        $auth = $this->getMockBuilder(AuthenticationService::class)->disableOriginalConstructor()->setMethods(['clearIdentity'])->getMock();
+        $auth->expects($this->once())->method('clearIdentity');
         //$services->expects($this->once())->method('get')->with('Install/Listener/LanguageSetter')->willReturn($listener);
-        $services->expects($this->exactly(2))
+        $services->expects($this->exactly(3))
 	        ->method('get')
 	        ->withConsecutive(
 	        	['Install/Listener/LanguageSetter'],
-		        ['Config']
+		        ['Config'],
+                ['AuthenticationService']
 	        )
 	        ->will($this->onConsecutiveCalls(
 	        	$listener,[
@@ -115,7 +119,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 				        'email' => null, // in production mode notifies the recipient
 				        'email_snooze' => 900 // interval for sending email in seconds
 			        ]
-		        ]
+		        ],$auth
 	        ))
         ;
 

@@ -9,6 +9,8 @@
 
 namespace AuthTest\Factory\Controller;
 
+use Auth\Repository\User;
+use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Interop\Container\ContainerInterface;
 use Auth\Factory\Controller\RemoveControllerFactory;
 use Auth\Controller\RemoveController;
@@ -20,6 +22,7 @@ use Auth\AuthenticationService;
  */
 class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    use ServiceManagerMockTrait;
 
     /**
      * @covers ::__invoke
@@ -33,14 +36,16 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $authService = $this->getMockBuilder(AuthenticationService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+        $userRepo = $this->getMockBuilder(User::class)->disableOriginalConstructor()->getMock();
+        $repositories = $this->createPluginManagerMock(['Users' => ['service' => $userRepo, 'count' => 1]]);
         $serviceLocator = $this->getMockBuilder(ContainerInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->exactly(2))
+        $serviceLocator->expects($this->exactly(3))
             ->method('get')
             ->will($this->returnValueMap([
                 ['Auth/Dependency/Manager', $manager],
-                ['AuthenticationService', $authService]
+                ['AuthenticationService', $authService],
+                ['repositories', $repositories]
             ]));
         
         $controllerFactory = new RemoveControllerFactory();
