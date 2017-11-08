@@ -70,5 +70,8 @@ class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProvi
 		    (new TracyService())->register($tracyConfig);
 		    (new TracyListener())->attach($eventManager);
 	    }
+
+	    // Clear the user identity, if any. (#370)
+        $services->get('AuthenticationService')->clearIdentity();
     }
 }
