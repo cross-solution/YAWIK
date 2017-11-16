@@ -47,6 +47,8 @@ class TreeSelectStrategy implements StrategyInterface
      */
     private $allowSelectMultipleItems = false;
 
+    private $shouldCreateLeafs = false;
+
     /**
      * Set the selected leafs.
      *
@@ -117,6 +119,20 @@ class TreeSelectStrategy implements StrategyInterface
     public function allowSelectMultipleItems()
     {
         $flagOrCallback = $this->allowSelectMultipleItems;
+
+        return is_callable($flagOrCallback) ? (bool) $flagOrCallback() : (bool) $flagOrCallback;
+    }
+
+    public function setShouldCreateLeafs($flagOrCallback)
+    {
+        $this->shouldCreateLeafs = $flagOrCallback;
+
+        return $this;
+    }
+
+    public function shouldCreateLeafs()
+    {
+        $flagOrCallback = $this->shouldCreateLeafs;
 
         return is_callable($flagOrCallback) ? (bool) $flagOrCallback() : (bool) $flagOrCallback;
     }
@@ -195,6 +211,17 @@ class TreeSelectStrategy implements StrategyInterface
 
                 return $item;
             }
+        }
+
+        if ($this->shouldCreateLeafs()) {
+            $nodeClass = get_class($leaf);
+            $node = new $nodeClass($value);
+            $leaf->addChild($node);
+            if (count($parts)) {
+                return $this->findLeaf($node, $parts);
+            }
+
+            return $node;
         }
 
         return null;
