@@ -53,6 +53,11 @@ class NewApplication extends StringTemplateMessage
     private $callInitOnSetJob = false;
 
     /**
+     * @var bool
+     */
+    private $callInitOnSetApplication = false;
+
+    /**
      *
      *
      * @var RouteStackInterface
