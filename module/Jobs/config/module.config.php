@@ -244,6 +244,7 @@ return [
         ]],
 
         'Jobs/Events' => [
+            'service' => 'Core/EventManager',
             'event' => '\Jobs\Listener\Events\JobEvent',
         ],
 

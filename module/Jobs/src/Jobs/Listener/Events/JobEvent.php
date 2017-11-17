@@ -50,13 +50,16 @@ class JobEvent extends Event
     /** Event is fired, when the status of an job has changed. */
     const EVENT_STATUS_CHANGED = 'job.status-changed';
 
+    const EVENT_IMPORT_DATA    = 'job.import-data';
+
     /**
      * get all available names for publishing
      */
     const PORTAL_AVAIL_NAME    = 'portal.availname';
 
     /**
-     * @var portals to be published
+     * portals to be published
+     * @var array
      */
     protected $portals = array();
 
@@ -66,7 +69,7 @@ class JobEvent extends Event
      * Sets the job entity
      *
      * @param  Job $jobEntity
-     * @return MvcEvent
+     * @return self
      */
     public function setJobEntity(Job $jobEntity)
     {
