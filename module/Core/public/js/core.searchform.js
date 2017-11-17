@@ -42,9 +42,13 @@
 
                 } else if (tag == 'select') {
                     var selected = -1;
-                    $input.find('option[selected]').each(function() {
-                        selected = $(this).prop('index');
-                    });
+                    if (true === $input.data('clearOnSelect')) {
+                        $input.html('');
+                    } else {
+                        $input.find('option[selected]').each(function () {
+                            selected = $(this).prop('index');
+                        });
+                    }
                     this.selectedIndex = selected;
 
                     $input.trigger('change', {isSelect2Change: true});
@@ -90,11 +94,12 @@
         $paginator.paginationContainer('load', baseUri + '?' + toQuery(query));
     }
 
-    function toQuery(data)
+    function toQuery(data, encode)
     {
         var queryParts = [];
         $.each(data, function(name, value) {
             value=encodeURIComponent(value);
+            name=encodeURIComponent(name);
             queryParts.push(name + '=' + value);
         });
 
@@ -125,11 +130,11 @@
                     });
                 }
 
-                parsed[separator+encodeURIComponent(parsedName)] = value.join(separator);
+                parsed[separator+parsedName] = value.join(separator);
                 processed.push(item.name);
 
             } else {
-                parsed[encodeURIComponent(item.name)] = item.value;
+                parsed[item.name] = item.value;
             }
         });
 
@@ -139,19 +144,21 @@
 
     function parseQueryString(queryStr, filter, exclude)
     {
-        queryStr = queryStr.replace(/\%26/g, '__and__');
-        queryStr = decodeURIComponent(queryStr);
+        //queryStr = queryStr.replace(/\%26/g, '__and__');
+        //queryStr = decodeURIComponent(queryStr);
         var vars = queryStr.split('&');
         var data = {};
 
         for (i=0, c=vars.length; i<c; i++) {
             vars[i] = vars[i].replace(/__and__/g, '&');
             var varParts = vars[i].split('=');
-            if ((exclude && -1 != $.inArray(varParts[0], filter))
-                || (!exclude && -1 == $.inArray(varParts[0], filter))
+            var name=decodeURIComponent(varParts[0]);
+            var value=decodeURIComponent(varParts[1]);
+            if ((exclude && -1 != $.inArray(name, filter))
+                || (!exclude && -1 == $.inArray(name, filter))
             ) { continue; }
 
-            data[encodeURIComponent(varParts[0])] = encodeURIComponent(varParts[1]);
+            data[name] = value;
         }
 
         return data;

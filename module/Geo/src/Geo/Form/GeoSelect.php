@@ -90,6 +90,7 @@ class GeoSelect extends Select implements HeadscriptProviderInterface, HydratorS
         $this->setAttributes([
                 'data-placeholder' => /*@translate*/ 'Location',
                 'data-autoinit' => false,
+                'data-clear-on-reset' => true,
                 'class' => 'geoselect',
         ]);
 
