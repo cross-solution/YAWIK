@@ -33,7 +33,7 @@ abstract class AbstractLeafs implements LeafsInterface
     /**
      * The leafs.
      *
-     * @ODM\ReferenceMany(discriminatorField="_entity", storeAs="dbRef", strategy="set", sort={"priority"="asc"})
+     * @ODM\ReferenceMany(discriminatorField="_entity", storeAs="dbRef", strategy="set", sort={"priority"="asc"}, cascade={"persist"})
      * @var Collection
      */
     private $items;
