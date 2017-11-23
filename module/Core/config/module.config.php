@@ -347,7 +347,7 @@ return array(
     ),
     'view_helpers' => array(
         'invokables' => array(
-            'form_element' => 'Core\Form\View\Helper\FormElement',
+            'formElement' => 'Core\Form\View\Helper\FormElement',
             'formLabel'  => 'Core\Form\View\Helper\RequiredMarkInFormLabel',
             'form' => 'Core\Form\View\Helper\Form',
             'formSimple' => 'Core\Form\View\Helper\FormSimple',

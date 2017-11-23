@@ -44,6 +44,7 @@ class GeoSelectTest extends \PHPUnit_Framework_TestCase
                         'data-placeholder' => 'Location',
                         'data-autoinit' => false,
                         'class' => 'geoselect',
+                         'data-clear-on-reset' => true
                     ]],
                     'count' => 1
                 ],
