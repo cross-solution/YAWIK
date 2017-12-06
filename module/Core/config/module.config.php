@@ -404,6 +404,7 @@ return array(
             'snippet' => \Core\View\Helper\Snippet::class,
 	        'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
             'proxy' => \Core\View\Helper\Proxy::class,
+            'form_element' => 'formElement',
         ],
     ),
     
