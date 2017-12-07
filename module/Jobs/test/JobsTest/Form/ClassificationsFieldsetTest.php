@@ -113,7 +113,7 @@ class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
                             ],
                             'attributes' => [
                                 'data-width' => '100%',
-                                //'multiple' => true,
+                                'multiple' => true,
                             ]
                         ]
                     ]

@@ -95,7 +95,7 @@ class ClassificationsFieldset extends Fieldset
                 ],
                 'attributes' => [
                     'data-width' => '100%',
-                    //'multiple' => true,
+                    'multiple' => true,
                 ]
             ]
         );
