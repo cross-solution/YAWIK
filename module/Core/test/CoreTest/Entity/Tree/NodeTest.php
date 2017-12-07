@@ -40,6 +40,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
     private $target = [
         Node::class,
         '@testConstruction' => false,
+        '@testValueFilter' => false,
     ];
 
     private $inheritance = [ NodeInterface::class ];
@@ -125,5 +126,25 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('child-gchild', $this->target->getValueWithParents());
         $this->assertEquals('root-child-gchild', $this->target->getValueWithParents(true));
+    }
+
+    public function testGetNameWithParents()
+    {
+        $root = new Node('Root');
+        $child1 = new Node('Child Number One');
+        $child1->setParent($root);
+
+        $this->target->setName('Child Number Two')->setParent($child1);
+
+        $this->assertEquals('Child Number One | Child Number Two', $this->target->getNameWithParents());
+        $this->assertEquals('Root | Child Number One | Child Number Two', $this->target->getNameWithParents(true));
+    }
+
+    public function testValueFilter()
+    {
+        $value    = 'This is aäöüÄßÖ ÜÜ 12 -Test # +fo?r THE val;üe: Filter';
+        $expected = 'this_is_aaeoeueaessoe_ueue_12_test_fo_r_the_val_uee_filter';
+
+        $this->assertEquals($expected, Node::filterValue($value));
     }
 }

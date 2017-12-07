@@ -69,6 +69,15 @@ class Node implements NodeInterface
      */
     protected $parent;
 
+    final public static function filterValue($value)
+    {
+        $value = mb_strtolower($value);
+        $value = str_replace(['ä', 'ö', 'ü', 'ß'], ['ae', 'oe', 'ue', 'ss'], $value);
+        $value = preg_replace(['~[^a-z0-9]~', '~__+~'], '_', $value);
+
+        return $value;
+    }
+
     /**
      * Creates a new Tree item.
      *
@@ -125,7 +134,7 @@ class Node implements NodeInterface
             if (!$this->getName()) {
                 throw new \InvalidArgumentException('Value must not be empty.');
             }
-            $value = strtolower(str_replace([' ', '-'], '_', $this->getName()));
+            $value = self::filterValue($this->getName());
         }
 
         $this->value = (string) $value;
@@ -142,13 +151,13 @@ class Node implements NodeInterface
         return $this->value;
     }
 
-    public function getValueWithParents($withRoot = false)
+    public function getValueWithParents($withRoot = false, $useNames = false)
     {
-        $parts = [ $this->getValue() ];
+        $parts = [ ($useNames ? $this->getName() : $this->getValue()) ];
         $item = $this;
 
         while ($item = $item->getParent()) {
-            $parts[] = $item->getValue();
+            $parts[] = $useNames ? $item->getName() : $item->getValue();
         }
 
         if (!$withRoot) {
@@ -156,9 +165,14 @@ class Node implements NodeInterface
         }
 
         $parts = array_reverse($parts);
-        $value = join('-', $parts);
+        $value = join(($useNames ? ' | ' : '-'), $parts);
 
         return $value;
+    }
+
+    public function getNameWithParents($withRoot = false)
+    {
+        return $this->getValueWithParents($withRoot, true);
     }
 
     public function setPriority($priority)

@@ -49,6 +49,8 @@ class TreeSelectStrategy implements StrategyInterface
 
     private $shouldCreateLeafs = false;
 
+    private $shouldUseNames = false;
+
     /**
      * Set the selected leafs.
      *
@@ -137,6 +139,27 @@ class TreeSelectStrategy implements StrategyInterface
         return is_callable($flagOrCallback) ? (bool) $flagOrCallback() : (bool) $flagOrCallback;
     }
 
+    /**
+     * @return bool
+     */
+    public function shouldUseNames()
+    {
+        return $this->shouldUseNames;
+    }
+
+    /**
+     * @param bool $flag
+     *
+     * @return self
+     */
+    public function setShouldUseNames($flag)
+    {
+        $this->shouldUseNames = (bool) $flag;
+
+        return $this;
+    }
+
+
     public function extract($value)
     {
         if (empty($value)) {
@@ -154,12 +177,12 @@ class TreeSelectStrategy implements StrategyInterface
 
         if (!$this->allowSelectMultipleItems()) {
             $item = $value->getItems()->first();
-            return $item ? $item->getValueWithParents() : null;
+            return $item ? $item->getValueWithParents(false, $this->shouldUseNames()) : null;
         }
 
         $data = [];
         foreach ($value->getItems() as $item) {
-            $data[] = $item->getValueWithParents();
+            $data[] = $item->getValueWithParents(false, $this->shouldUseNames());
         }
 
         return $data;
@@ -199,12 +222,13 @@ class TreeSelectStrategy implements StrategyInterface
      */
     private function findLeaf(NodeInterface $leaf, $value)
     {
-        $parts = is_array($value) ? $value : explode('-', $value);
+        $parts = is_array($value) ? $value : explode($this->shouldUseNames() ? ' | ': '-', $value);
         $value = array_shift($parts);
 
         /* @var NodeInterface $item */
         foreach ($leaf->getChildren() as $item) {
-            if ($item->getValue() == $value) {
+            $compare = $this->shouldUseNames() ? $item->getName() : $item->getValue();
+            if ($compare == $value) {
                 if (count($parts)) {
                     return $this->findLeaf($item, $parts);
                 }

@@ -63,7 +63,7 @@ interface NodeInterface extends EntityInterface, IdentifiableEntityInterface
      *
      * @return string
      */
-    public function getValueWithParents($withRoot = false);
+    public function getValueWithParents($withRoot = false, $useNames = false);
 
     /**
      * Set the order priority.
