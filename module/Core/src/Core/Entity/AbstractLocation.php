@@ -16,6 +16,22 @@ use Zend\Json\Json;
 abstract class AbstractLocation extends AbstractEntity implements LocationInterface
 {
     /**
+     * Street name
+     *
+     * @var string
+     * @ODM\Field(type="string")
+     */
+    protected $streetname;
+
+    /**
+     * Street number
+     *
+     * @var string
+     * @ODM\Field(type="string")
+     */
+    protected $streetnumber;
+
+    /**
      * city name of a job location
      *
      * @ODM\Field(type="string")
@@ -53,19 +69,28 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
      */
     protected $country;
 
-    public function __construct()
+    public function __construct($attributes = null)
     {
+        if (is_string($attributes)) {
+            $this->fromString($attributes);
+        } else if (is_array($attributes)) {
+            $this->fromArray($attributes);
+        }
     }
     
     public function __toString()
     {
         $coords = $this->getCoordinates();
+        $street = $this->getStreetname();
+        $number = $this->getStreetnumber();
         $postalCode = $this->getPostalCode();
         $city = $this->getCity();
         $country = $this->getCountry();
         $region = $this->getRegion();
         
         $str = '';
+        if ($street) { $str .= $street; if (!$number) { $str .= ', '; } }
+        if ($number) { $str .= ' ' . $number . ', '; }
         if ($postalCode) { $str .= $postalCode . ' '; }
         if ($city) { $str .= $city; }
         if ($region) { $str .= ', ' . $region; }
@@ -79,13 +104,15 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
 
     }
 
-    public function toString()
+    public function toArray()
     {
         $coords = $this->getCoordinates();
         $attributes = [
+            'streetname' => $this->getStreetname(),
+            'streetnumber' => $this->getStreetnumber(),
             'city' => $this->getCity(),
             'region' => $this->getRegion(),
-            'postalCode' => $this->getPostalCode(),
+            'postalcode' => $this->getPostalCode(),
             'country' => $this->getCountry(),
             'coordinates' => $coords
                     ? [
@@ -95,15 +122,19 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
                     : null
 
         ];
+        return $attributes;
+    }
+
+    public function toString()
+    {
+        $attributes = $this->toArray();
 
         return Json::encode($attributes);
     }
 
-    public function fromString($serialized)
+    public function fromArray(array $data)
     {
-        $attributes = Json::decode($serialized, Json::TYPE_ARRAY);
-
-        foreach ($attributes as $key => $value) {
+        foreach ($data as $key => $value) {
             if (!$value) { continue; }
 
             if ('coordinates' == $key) {
@@ -118,6 +149,13 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
         }
 
         return $this;
+    }
+
+    public function fromString($serialized)
+    {
+        $attributes = Json::decode($serialized, Json::TYPE_ARRAY);
+
+        return $this->fromArray($attributes);
     }
 
     /**
@@ -161,6 +199,48 @@ abstract class AbstractLocation extends AbstractEntity implements LocationInterf
         $this->postalcode = $postalcode;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getStreetname()
+    {
+        return $this->streetname;
+    }
+
+    /**
+     * @param string $streetname
+     *
+     * @return self
+     */
+    public function setStreetname($streetname)
+    {
+        $this->streetname = $streetname;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreetnumber()
+    {
+        return $this->streetnumber;
+    }
+
+    /**
+     * @param string $streetnumber
+     *
+     * @return self
+     */
+    public function setStreetnumber($streetnumber)
+    {
+        $this->streetnumber = $streetnumber;
+
+        return $this;
+    }
+
+
 
     /**
      * @return mixed
