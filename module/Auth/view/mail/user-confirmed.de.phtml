@@ -12,11 +12,13 @@
 
 $this->mail->setSubject('Ein Benutzer wurde bestätigt.');
 ?>
-<?php echo $this->partial('mail/header'); ?>
+<div class="yk-mail">
+<?= $this->partial('mail/header'); ?>
 
     <p>Ein Benutzer hat seine Registrierung bestätigt: <?=$this->user->getInfo()->getDisplayName(false) ?>
                                   &lt;<?=$this->user->getInfo()->getEmail()?>&gt;</p>
 
     <p>Der Benutzeraccount ist jetzt vollständig registriert und aktiv.</p>
 
-<?php echo $this->partial('mail/footer'); ?>
+<?= $this->partial('mail/footer'); ?>
+</div>

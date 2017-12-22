@@ -10,13 +10,16 @@
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
 ?>
-<?php echo $this->partial('mail/header'); ?>
-<p>Hello <?php echo $this->displayName?>,</p>
+<div class="yk-mail">
+<?= $this->partial('mail/header'); ?>
+<p>Hello <?= $this->displayName?>,</p>
 
-<p>welcome to the YAWIK demo. You've registered the first time via <?php echo $this->provider?>.</p>
+<p>welcome to the YAWIK demo. You've registered the first time via <?= $this->provider?>.</p>
 
-<p>Login data were generated, so you can log into YAWIK directly. This should only show you that YAWIK can be used completely
-without social networks.</p>
+<p>
+    Login data were generated, so you can log into YAWIK directly. This should only show you that YAWIK can be used
+    completely without social networks.
+</p>
 
 <p>
     We've set your role to a recruiter. So you can create jobs and manage applications.
@@ -24,15 +27,19 @@ without social networks.</p>
 </p>
 
 
-<p>Username: <?php echo $this->login ?><br>
+<p>Username: <?= $this->login ?><br>
 
 
-Secret: <?php echo $this->password ?></p>
+Secret: <?= $this->password ?></p>
 
 
-<p>Return to YAWIK and log in at: <a href="<?php $url = $this->serverUrl() . $this->url('lang/auth', array('lang' => 'en')); echo $url; ?>"><?php echo $url ?></a></p>
+<p>
+    Return to YAWIK and log in at:
+    <a href="<?php $url = $this->serverUrl() . $this->url('lang/auth', array('lang' => 'en')); echo $url; ?>">
+        <?= $url ?>
+    </a>
+</p>
 
 
-<?php
-echo $this->partial('mail/footer');
-?>
+<?= $this->partial('mail/footer'); ?>
+</div>

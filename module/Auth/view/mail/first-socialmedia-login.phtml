@@ -10,10 +10,11 @@
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
 ?>
+<div class="yk-mail">
 <?php echo $this->partial('mail/header'); ?>
-<p>Hello <?php echo $this->displayName?>,</p>
+<p>Hello <?= $this->displayName?>,</p>
 
-<p>Herzlich willkommen beim YAWIK demo. Sie haben sich das erste mal über <?php echo $this->provider?> angebeldet.</p>
+<p>Herzlich willkommen beim YAWIK demo. Sie haben sich das erste mal über <?= $this->provider?> angebeldet.</p>
 
 <p>
     Wir haben für Sie Zugangsdaten generiert. Das soll Ihnen zeigen, dass Sie YAWIK auch ganz ohne
@@ -25,14 +26,15 @@
 </p>
 
 
-<p>Benutzername: <?php echo $this->login ?><br>
+<p>Benutzername: <?= $this->login ?><br>
 
 
-Kennwort: <?php echo $this->password ?></p>
+Kennwort: <?= $this->password ?></p>
 
 
-<p>Loggen Sie sich ein unter: <a href="<?php $url = $this->serverUrl() . $this->url('lang/auth', array('lang' => 'en')); echo $url; ?>"><?php echo $url ?></a></p>
+<p>Loggen Sie sich ein unter: <a href="<?php $url = $this->serverUrl() . $this->url('lang/auth', array('lang' => 'en')); echo $url; ?>"><?= $url ?></a></p>
 
 
 
-<?php echo $this->partial('mail/footer'); ?>
+<?= $this->partial('mail/footer'); ?>
+</div>

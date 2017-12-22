@@ -12,11 +12,13 @@
 
 $this->mail->setSubject('A new user just registered.');
 ?>
-<?php echo $this->partial('mail/header'); ?>
+<div class="yk-mail">
+<?= $this->partial('mail/header'); ?>
 
     <p>A new user registered: <?=$this->user->getInfo()->getDisplayName(false) ?>
                               &lt;<?=$this->user->getInfo()->getEmail()?>&gt;</p>
 
     <p>This user is not confirmed yet.</p>
 
-<?php echo $this->partial('mail/footer.en'); ?>
+<?= $this->partial('mail/footer.en'); ?>
+</div>

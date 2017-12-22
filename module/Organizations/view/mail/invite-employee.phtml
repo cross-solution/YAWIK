@@ -23,7 +23,8 @@
    *
    */
 ?>
-
+<div class="yk-mail">
+<?= $this->partial('mail/header') ?>
 <p>
     <?php if ($this->user): echo sprintf($this->translate('Hello %s'), $this->user);
          else: echo $this->translate('Hello');
@@ -31,14 +32,13 @@
 </p>
 
 <p>
-    <?php echo sprintf($this->translate('%s invited you to join the team of %s'),
-                       $this->inviter, $this->organization) ?>
+    <?= sprintf($this->translate('%s invited you to join the team of %s'), $this->inviter, $this->organization) ?>
 </p>
 
 <p>
-    <?php echo $this->translate('You can accept this invitation by visiting the following link') ?>:
+    <?= $this->translate('You can accept this invitation by visiting the following link') ?>:
 </p>
-<?php echo $this->link($this->serverUrl($this->url)) ?>
+<?= $this->link($this->serverUrl($this->url)) ?>
 
 <?php if ($this->hasAssociation): ?>
 <p>
@@ -58,7 +58,8 @@
 <?php endif ?>
 
 <p>
-    <?php echo $this->translate('If you do not want to accept this invitation you can ignore this mail and the request is canceled automatically after a week.'); ?>
+    <?= $this->translate('If you do not want to accept this invitation you can ignore this mail and the request is canceled automatically after a week.'); ?>
 </p>
 
-<?php echo $this->partial('mail/footer') ?>
+<?= $this->partial('mail/footer') ?>
+</div>

@@ -10,13 +10,15 @@
  * Sends a confirmation link to the user, after registration
  */
 ?>
-<?php echo $this->partial('mail/header'); ?>
-<p>Dear <?php echo $this->name; ?>,</p>
+<div class="yk-mail">
+<?= $this->partial('mail/header'); ?>
+<p>Dear <?= $this->name; ?>,</p>
 
-    <p>You've successfully registered on <?php echo $this->siteName; ?></p>
+    <p>You've successfully registered on <?= $this->siteName; ?></p>
 
     <p>please confirm your registration by clicking the following link:</p>
 
-<a href="<?php echo $this->confirmationlink; ?>"><?php echo $this->confirmationlink; ?></a>
+<a href="<?= $this->confirmationlink; ?>"><?= $this->confirmationlink; ?></a>
 
-<?php echo $this->partial('mail/footer.en'); ?>
+<?= $this->partial('mail/footer.en'); ?>
+</div>

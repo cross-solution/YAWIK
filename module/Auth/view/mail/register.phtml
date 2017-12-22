@@ -10,12 +10,15 @@
  * Sends a confirmation link to the user, after registration
  */
 ?>
-<p>Sehr geehrte/-r Herr/Frau <?php echo $this->name; ?>,</p>
+<div class="yk-mail">
+<?= $this->partial('mail/header'); ?>
+<p>Sehr geehrte/-r Herr/Frau <?= $this->name; ?>,</p>
 
-    <p>Sie haben sich erfolgreich auf <?php echo $this->siteName; ?> registriert.</p>
+    <p>Sie haben sich erfolgreich auf <?= $this->siteName; ?> registriert.</p>
 
     <p>Zur Bestätigung Ihrer Registrierung und Freischaltung Ihres Kontos klicken Sie bitte auf folgenden Link:</p>
 
-<a href="<?php echo $this->confirmationlink; ?>"><?php echo $this->confirmationlink; ?></a>
+<a href="<?= $this->confirmationlink; ?>"><?= $this->confirmationlink; ?></a>
 
-<?php echo $this->partial('mail/footer'); ?>
+<?= $this->partial('mail/footer'); ?>
+</div>

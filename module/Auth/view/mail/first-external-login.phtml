@@ -10,23 +10,27 @@
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
 ?>
-<?php echo $this->partial('mail/header'); ?>
+<div class="yk-mail">
+<?= $this->partial('mail/header'); ?>
 <p>Guten Tag,</p>
 
-<p>Sie haben sich das erste Mal an "YAWIK Demo" <?php echo
-    $this->application ? 'über "' . $this->application . '"' : 'über eine externe Applikation' ?> angemeldet.</p>
+<p>
+    Sie haben sich das erste Mal an "YAWIK Demo" <?= $this->application ? 'über "' . $this->application . '"' : 'über eine externe Applikation' ?>
+    angemeldet.
+</p>
 
 <p>Damit Sie sich in Zukunft zusätzlich auch bequem direkt am System anmelden können, haben wir Ihnen dafür Zugangsdaten generiert:</p>
 
 <p>
-    <strong>Login:</strong> <?php echo $this->login ?><br>
-    <strong>Password:</strong> <?php echo $this->password ?>
+    <strong>Login:</strong> <?= $this->login ?><br>
+    <strong>Password:</strong> <?= $this->password ?>
 </p>
 
 <p>
-    Wir empfehlen Ihnen, nach dem ersten einloggen auf <a href="<?php echo $this->serverUrl() . $this->url('lang/auth', array('lang' => 'de'))?>">YAWIK Demo</a>
+    Wir empfehlen Ihnen, nach dem ersten einloggen auf <a href="<?= $this->serverUrl() . $this->url('lang/auth', array('lang' => 'de'))?>">YAWIK Demo</a>
     das Passwort zu ändern. Dazu rufen Sie die Profil-Einstellungen über das Menü auf der rechten oberen Bildschirmseite auf und wählen den Punkt
     "Passwort ändern".
 </p>
 
-<?php echo $this->partial('mail/footer') ?>
+<?= $this->partial('mail/footer') ?>
+</div>

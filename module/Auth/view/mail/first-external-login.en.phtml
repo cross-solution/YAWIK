@@ -10,11 +10,13 @@
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
 ?>
-<?php echo $this->partial('mail/header'); ?>
+<div class="yk-mail">
+<?= $this->partial('mail/header'); ?>
 <p>Hi,</p>
 
-<p>You've registered the first time to the "YAWIK Demo" <?php echo
-    $this->application ? 'über "' . $this->application . '"' : ' via an external application' ?>.</p>
+<p>
+    You've registered the first time to the "YAWIK Demo" <?= $this->application ? 'über "' . $this->application . '"' : ' via an external application' ?>.
+</p>
 
 <p>We've created Login data:</p>
 
@@ -27,4 +29,5 @@
     please login and change your password <a href="<?php echo $this->serverUrl() . $this->url('lang/auth', array('lang' => 'de'))?>">YAWIK Demo</a>
 </p>
 
-<?php echo $this->partial('mail/footer') ?>
+<?= $this->partial('mail/footer') ?>
+</div>
