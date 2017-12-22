@@ -38,6 +38,8 @@ class AbstractLocationTest extends \PHPUnit_Framework_TestCase
     private function setTargetLocationAttributes()
     {
         $this->target
+            ->setStreetname('street')
+            ->setStreetnumber('99')
             ->setPostalCode('9999')
             ->setCity('XXXX')
             ->setRegion('YYYY')
@@ -120,7 +122,7 @@ class AbstractLocationTest extends \PHPUnit_Framework_TestCase
     {
         $this->setTargetLocationAttributes();
 
-        $expect = "9999 XXXX, YYYY, ZZZZ ( 10, 20 )";
+        $expect = "street 99, 9999 XXXX, YYYY, ZZZZ ( 10, 20 )";
 
         $this->assertEquals($expect, $this->target->__toString());
     }
@@ -134,9 +136,11 @@ class AbstractLocationTest extends \PHPUnit_Framework_TestCase
         $this->setTargetLocationAttributes();
 
         $expect = json_encode([
+            'streetname' => 'street',
+            'streetnumber' => '99',
             'city' => 'XXXX',
             'region' => 'YYYY',
-            'postalCode' => '9999',
+            'postalcode' => '9999',
             'country' => 'ZZZZ',
             'coordinates' => [
                     'type' => 'Point',
@@ -150,7 +154,7 @@ class AbstractLocationTest extends \PHPUnit_Framework_TestCase
         $this->target = new ConcreteLocation();
         $this->target->fromString($json);
 
-        $expect = "9999 XXXX, YYYY, ZZZZ ( 10, 20 )";
+        $expect = "street 99, 9999 XXXX, YYYY, ZZZZ ( 10, 20 )";
 
         $this->assertEquals($expect, $this->target->__toString(), 'Convert from json did not work');
     }
