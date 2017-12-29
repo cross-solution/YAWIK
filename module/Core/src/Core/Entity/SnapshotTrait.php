@@ -25,14 +25,18 @@ trait SnapshotTrait
 {
     /**
      *
-     * @ODM\EmbedOne(targetDocument="Core\Entity\SnapshotMeta")
+     * @ODM\EmbedOne(discriminatorField="_entity")
      * @var SnapshotMeta
      */
     protected $snapshotMeta;
 
     public function __construct(EntityInterface $source)
     {
-        $this->snapshotMeta = new SnapshotMeta();
+        $snapshotMetaClass = defined('static::SNAPSHOTMETA_ENTITY_CLASS')
+            ? static::SNAPSHOTMETA_ENTITY_CLASS
+            : SnapshotMeta::class;
+
+        $this->snapshotMeta = new $snapshotMetaClass();
         $this->snapshotEntity       = $source;
     }
 

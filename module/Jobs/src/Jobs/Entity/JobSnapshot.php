@@ -44,10 +44,12 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
 {
     use SnapshotTrait;
 
+    const SNAPSHOTMETA_ENTITY_CLASS = JobSnapshotMeta::class;
+
     /**
      *
      * @ODM\ReferenceOne(targetDocument="\Jobs\Entity\Job", inversedBy="snapshots", storeAs="id")
-     * @var
+     * @var JobSnapshotMeta
      */
     private $snapshotEntity;
 

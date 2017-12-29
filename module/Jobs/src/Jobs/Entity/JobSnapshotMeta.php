@@ -23,9 +23,16 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class JobSnapshotMeta extends SnapshotMeta
 {
 
+    const STATUS_ENTITY_CLASS = JobSnapshotStatus::class;
+
     /**
      * @var Job
      * @ODM\EmbedOne(targetDocument="JobSnapshot")
      */
     protected $entity;
+
+    public function __construct()
+    {
+        $this->setStatus(JobSnapshotStatus::ACTIVE);
+    }
 }

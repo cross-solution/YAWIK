@@ -13,6 +13,7 @@ namespace Jobs\Controller;
 
 use Jobs\Entity\JobInterface;
 use Jobs\Entity\JobSnapshot;
+use Jobs\Entity\JobSnapshotStatus;
 use Jobs\Entity\Status;
 use Core\Repository\RepositoryService;
 use Zend\EventManager\EventInterface;
@@ -559,7 +560,8 @@ class ManageController extends AbstractActionController
 
         if ($params == 'declined') {
             if ($jobEntity instanceOf JobSnapshot)  {
-                $jobEntity->getOriginalEntity()->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ 'Changes were rejected by %s', $user->getDisplayName()));
+                $jobEntity->getOriginalEntity()->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ 'Changes were rejected by %s', $user->getInfo()->getDisplayName()));
+                $jobEntity->getSnapshotMeta()->setStatus(JobSnapshotStatus::REJECTED)->setIsDraft(false);
             } else {
                 $jobEntity->changeStatus(
                     Status::REJECTED,
@@ -577,7 +579,9 @@ class ManageController extends AbstractActionController
 
         if ($params == 'approved') {
             if ($jobEntity instanceOf JobSnapshot) {
+                $jobEntity->getSnapshotMeta()->setStatus(JobSnapshotStatus::ACCEPTED);
                 $jobEntity = $this->repositoryService->get('Jobs/JobSnapshot')->merge($jobEntity);
+                $jobEntity->setDateModified();
             } else {
                 $jobEntity->setDatePublishStart();
             }

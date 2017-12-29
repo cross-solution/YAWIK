@@ -32,7 +32,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 
     $isSnapshot = $job->hasSnapshotDraft() && $job->getStatus()->is(\Jobs\Entity\StatusInterface::WAITING_FOR_APPROVAL);
     if ($isSnapshot):
-        $job = $job->getSnapshotDraft();
+        $job = $job->getLatestSnapshot();
     endif;
     ?>
 <tr>

@@ -48,7 +48,18 @@ $isSnapshot = $job->hasSnapshotDraft();
         <?php endif ?></td>
               
     <td>
-        <?php if ($isSnapshot): ?><span class="label label-warning"><?=$this->translate('Changed')?></span><?php endif ?>
+        <?php if ($isSnapshot): ?><span class="label label-warning"><?=$this->translate('Changed')?></span><?php
+        elseif ( ($snapshot = $job->getLatestSnapshot()) ):
+            $snapshotStatus = $snapshot->getSnapshotMeta()->getStatus();
+            $snapshotAccepted = \Jobs\Entity\JobSnapshotStatus::ACCEPTED == $snapshotStatus; ?>
+
+                <?= $snapshotAccepted ? '<span class="label label-success">'.$this->translate('Accepted').'</span>'
+                    : sprintf('<a class="label label-danger" href="%s">%s</a>',
+                        $this->jobUrl($snapshot, ['showPendingJobs' => $this->showPendingJobs, 'linkOnly' => true]),
+                        $this->translate('Rejected')
+                    ); ?>
+
+        <?php endif ?>
         <?=$this->jobUrl($job,['showPendingJobs' => $this->showPendingJobs ]) ?>
         <br />
         <small><?=$job->getClassifications()->getProfessions()?></small> |

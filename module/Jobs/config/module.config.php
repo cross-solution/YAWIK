@@ -150,6 +150,9 @@ return [
                         'query' => [
                             'clear' => '1'
                         ],
+                        'active_on' => [
+                            'lang/jobs/approval',
+                        ]
                     ],
                     'jobs-categories' => [
                         'label' => /*@translate*/ 'Jobs categories',

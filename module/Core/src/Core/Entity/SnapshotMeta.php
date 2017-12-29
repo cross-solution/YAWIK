@@ -19,8 +19,9 @@ use Core\Exception\ImmutablePropertyException;
  * @ODM\EmbeddedDocument
  * @ODM\HasLifecycleCallbacks
  */
-class SnapshotMeta implements ModificationDateAwareEntityInterface, DraftableEntityInterface
+class SnapshotMeta implements ModificationDateAwareEntityInterface,
+                              DraftableEntityInterface,
+                              Status\StatusAwareEntityInterface
 {
-    use ModificationDateAwareEntityTrait, DraftableEntityTrait;
-
+    use ModificationDateAwareEntityTrait, DraftableEntityTrait, Status\StatusAwareEntityTrait;
 }

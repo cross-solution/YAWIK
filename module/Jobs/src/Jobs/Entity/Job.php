@@ -322,11 +322,11 @@ class Job extends BaseEntity implements JobInterface,
     protected $snapshots;
 
     /**
-     * @ODM\ReferenceOne(targetDocument="\Jobs\Entity\JobSnapshot", mappedBy="snapshotEntity", criteria={"snapshotMeta.isDraft":true}, sort={"snapshotMeta.dateCreated"="desc"})
+     * @ODM\ReferenceOne(targetDocument="\Jobs\Entity\JobSnapshot", mappedBy="snapshotEntity", sort={"snapshotMeta.dateCreated"="desc"})
      *
-     * @var
+     * @var JobSnapshot
      */
-    protected $latestSnapshotDraft;
+    protected $latestSnapshot;
 
 
     public function getSnapshots()
@@ -334,14 +334,15 @@ class Job extends BaseEntity implements JobInterface,
         return $this->snapshots;
     }
 
-    public function getSnapshotDraft()
+    public function getLatestSnapshot()
     {
-        return $this->latestSnapshotDraft;
+        return $this->latestSnapshot;
     }
 
     public function hasSnapshotDraft()
     {
-        return (bool) $this->getSnapshotDraft();
+        $snapshot = $this->getLatestSnapshot();
+        return $snapshot && $snapshot->getSnapshotMeta()->hasStatus(JobSnapshotStatus::ACTIVE);
     }
 
     /**
