@@ -289,6 +289,7 @@
             <include name="public/**"/>
             <include name="bin/console"/>
             <include name="config/config.php"/>
+            <include name="config/common.modules.php"/>
             <include name="vendor/autoload.php"/>
             <include name="vendor/composer/**"/>
             <include name="vendor/zendframework/**"/>
@@ -298,6 +299,7 @@
             <include name="vendor/facebook/**"/>
             <include name="vendor/tracy/**"/>
             <include name="vendor/imagine/**"/>
+            <include name="vendor/paragonie/random_compat/**"/>
             <include name="vendor/doctrine/**"/>
             <include name="vendor/symfony/polyfill-mbstring/**"/>
             <include name="vendor/jmikola/geojson/src/**"/>
