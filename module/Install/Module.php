@@ -72,6 +72,6 @@ class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProvi
 	    }
 
 	    // Clear the user identity, if any. (#370)
-        $services->get('AuthenticationService')->clearIdentity();
+        session_destroy();
     }
 }
