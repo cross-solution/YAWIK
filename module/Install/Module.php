@@ -71,7 +71,5 @@ class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProvi
 		    (new TracyListener())->attach($eventManager);
 	    }
 
-	    // Clear the user identity, if any. (#370)
-        session_destroy();
     }
 }

@@ -62,6 +62,10 @@ class Index extends AbstractActionController
      */
     public function indexAction()
     {
+        // Clear the user identity, if any. (#370)
+        if (PHP_SESSION_ACTIVE !== session_status()) { session_start(); }
+        session_destroy();
+
         $form    = $this->installForm;
         $prereqs = $this->plugin('Install/Prerequisites')->check();
 	
