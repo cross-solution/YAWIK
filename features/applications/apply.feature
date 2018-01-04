@@ -1,4 +1,3 @@
-@todo
 Feature: Apply a job
     In order to start working
     As a user

@@ -50,8 +50,6 @@ class JobContext implements Context
 	 */
 	static private $jobRepo;
 	
-	static private $categoryIsLoaded = false;
-	
 	/**
 	 * @param User $user
 	 */
@@ -317,16 +315,6 @@ class JobContext implements Context
 	private function getCategories(array $categories)
 	{
 		$catRepo = $this->getCategoriesRepository();
-		if(false === static::$categoryIsLoaded){
-			$all = $catRepo->findAll();
-			if(count($all) <= 1){
-				$catRepo->createDefaultCategory('professions');
-				$catRepo->createDefaultCategory('industries');
-				$catRepo->createDefaultCategory('employmentTypes');
-			}
-			static::$categoryIsLoaded = true;
-		}
-		
 		
 		// get a professions
 		$qb = $catRepo->createQueryBuilder()

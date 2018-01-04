@@ -13,6 +13,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Core\Repository\RepositoryService;
+use Jobs\Repository\Categories;
 use Zend\Mvc\Application;
 
 
@@ -29,6 +30,8 @@ class CoreContext extends RawMinkContext
 	 */
 	protected $minkContext;
 	
+	static private $jobCategoryChecked = false;
+	
 	/**
 	 * @BeforeScenario
 	 * @param BeforeScenarioScope $scope
@@ -36,6 +39,17 @@ class CoreContext extends RawMinkContext
 	public function gatherContexts(BeforeScenarioScope $scope)
 	{
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
+		if(false === static::$jobCategoryChecked){
+			/* @var Categories $catRepo */
+			$catRepo = $this->getRepositories()->get('Jobs/Category');
+			$all = $catRepo->findAll();
+			if(count($all) <= 1){
+				$catRepo->createDefaultCategory('professions');
+				$catRepo->createDefaultCategory('industries');
+				$catRepo->createDefaultCategory('employmentTypes');
+			}
+			static::$jobCategoryChecked = true;
+		}
 	}
 	
 	/**
