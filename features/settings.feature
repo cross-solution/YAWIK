@@ -28,6 +28,7 @@ Feature: Update application settings
             | Invitation mail text   | Invitation mail      |
             | Accept mail text       | Accept mail text     |
             | Rejection mail text    | Rejection mail text  |
+        And I scroll "#applications-settings-buttons" into view
         And I press "Save"
         And I wait for the ajax response
         Then I should see "Changes successfully saved"

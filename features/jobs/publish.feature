@@ -31,6 +31,7 @@ Feature: Publish Job
         And I scroll "#job_incomplete" into view
         And I check "I have read the terms an conditions and accept it"
         And I wait for the ajax response
+        And I scroll "#job_incomplete" into view
         And I follow "Publish job"
         And I wait for the ajax response
         Then I should see "Publishing successfully finished"
