@@ -1,4 +1,3 @@
-@todo
 Feature: Publish Job
     In order to get applicants
     As recruiter
@@ -26,8 +25,12 @@ Feature: Publish Job
         And I wait for the ajax response
         And I scroll "#yk-footer" into view
         And I follow "Create job opening"
+        And I wait for the ajax response
         And I follow "Preview"
-        And I click "I have read the terms an conditions and accept it" form
-        And I wait for 60 seconds
+        And I wait for the ajax response
+        And I scroll "#job_incomplete" into view
+        And I check "I have read the terms an conditions and accept it"
+        And I wait for the ajax response
         And I follow "Publish job"
+        And I wait for the ajax response
         Then I should see "Publishing successfully finished"

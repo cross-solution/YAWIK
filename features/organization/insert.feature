@@ -11,14 +11,14 @@ Feature: Add new organization
         Then I should see "Sorry, you may not create organizations."
         And I should see "Before you are able to create organizations, you have to create your main organization first."
 
-    @todo @javascript @organization
+    @javascript @organization
     Scenario: Create organization successfully
         Given I am logged in as a recruiter with "Cross Solution" as organization
         And I go to create new organization page
         And I click edit on name form
         And I wait for the ajax response
         And I fill in "Organizationname" with "Some Organization"
-        And I save name form
+        And I save "organization name" form
         And I wait for the ajax response
         Then I should see "Some Organization"
 
@@ -31,7 +31,7 @@ Feature: Add new organization
             | City          | Some City     |
             | Phone         | 123123        |
             | Fax           | 321321        |
-        And I save location form
+        And I save "organization location" form
         And I wait for the ajax response
         Then I should see "Some Street"
         And I should see "12345"

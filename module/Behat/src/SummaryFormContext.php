@@ -80,6 +80,33 @@ EOC;
 		}
 	}
 	
+	public function iSaveOrganizationName()
+	{
+		$locator = '#nameForm-buttons-submit';
+		$this->coreContext->scrollIntoView($locator);
+		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
+		$element->click();
+	}
+	
+	/**
+	 * Saving organization workflow
+	 */
+	public function iSaveWorkflow()
+	{
+		$locator = '#workflowSettings-buttons-submit';
+		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
+		$element->click();
+	}
+	
+	public function iSaveOrganizationLocation()
+	{
+		$locator = '#locationForm-buttons-submit';
+		$this->coreContext->scrollIntoView($locator);
+		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
+		$element->click();
+	}
+	
+	
 	public function iSaveJobClassification()
 	{
 		$locator = '#general-classifications-buttons-submit';
@@ -88,5 +115,12 @@ EOC;
 		$element->click();
 	}
 	
+	public function iSaveCustomerNote()
+	{
+		$locator = '#general-customerNote-buttons-submit';
+		$this->coreContext->scrollIntoView('#sf-general-customerNote');
+		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
+		$element->click();
+	}
 	
 }

@@ -262,4 +262,31 @@ JS;
 	{
 	
 	}
+	
+	/**
+	 * Click some text
+	 *
+	 * @When /^I click on the text "([^"]*)"$/
+	 */
+	public function iClickOnTheText($text)
+	{
+		$session = $this->getSession();
+		$element = $session->getPage()->find(
+			'xpath',
+			$session->getSelectorsHandler()->selectorToXpath('xpath', '*//*[text()="'. $text .'"]')
+		);
+		if(null === $element){
+			$element = $session->getPage()->find(
+				'named',
+				array('id',$text)
+			);
+		}
+		if (null === $element) {
+			throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', $text));
+		}
+		
+		$element->click();
+		
+	}
+	
 }
