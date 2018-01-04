@@ -1,3 +1,4 @@
+@todo
 Feature: Apply a job
     In order to start working
     As a user
@@ -17,7 +18,6 @@ Feature: Apply a job
             | Location                    | 10117 Berlin          |
             | Company Name                | Test Company          |
             | User                        | test@admin.com        |
-
 
     @javascript
     Scenario: Apply job as guest
