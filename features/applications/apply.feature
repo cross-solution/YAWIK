@@ -33,6 +33,7 @@ Feature: Apply a job
             | Phone             | 654321            |
             | Email             | guest@apply.com   |
         And I select "Mr." from "Salutation"
+        And I scroll "#contact-contact-buttons-submit" into view
         And I press "Save"
         And I wait for the ajax response
         And I scroll "#send-application-buttons" into view
@@ -63,6 +64,7 @@ Feature: Apply a job
             | Phone             | 654321            |
             | Email             | test@apply.com    |
         And I select "Mr." from "Salutation"
+        And I scroll "#contact-contact-buttons-submit" into view
         And I press "Save"
         And I wait for the ajax response
         And I scroll "#send-application-buttons" into view
