@@ -31,6 +31,7 @@ Feature: Add new organization
             | City          | Some City     |
             | Phone         | 123123        |
             | Fax           | 321321        |
+        And I scroll "#form-organizationLogo" into view
         And I save "organization location" form
         And I wait for the ajax response
         Then I should see "Some Street"
