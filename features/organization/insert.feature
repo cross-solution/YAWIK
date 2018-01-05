@@ -11,7 +11,7 @@ Feature: Add new organization
         Then I should see "Sorry, you may not create organizations."
         And I should see "Before you are able to create organizations, you have to create your main organization first."
 
-    @javascript @organization
+    @javascript @organization @todo
     Scenario: Create organization successfully
         Given I am logged in as a recruiter with "Cross Solution" as organization
         And I go to create new organization page
