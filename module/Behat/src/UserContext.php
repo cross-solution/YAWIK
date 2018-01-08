@@ -20,7 +20,10 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Hook\Scope\AfterSuiteScope;
+use Core\Entity\Permissions;
 use Doctrine\Common\Util\Inflector;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Events;
 use Geo\Service\Photon;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
@@ -247,11 +250,13 @@ class UserContext implements Context
 	public function createUser($email,$password,$role=User::ROLE_RECRUITER,$fullname="Test Recruiter")
 	{
 		/* @var Register $service */
+		/* @var User $user */
 		$repo = $this->getUserRepository();
 		$user = $repo->create([]);
 		$user->setLogin($email);
 		$user->setPassword($password);
 		$user->setRole($role);
+		$settings = $user->getSettings('Applications');
 		
 		$expFullName = explode(' ',$fullname);
 		$info = $user->getInfo();
@@ -260,6 +265,13 @@ class UserContext implements Context
 		$info->setEmail($email);
 		$info->setEmailVerified(true);
 		$repo->store($user);
+		$repo->getDocumentManager()->refresh($user);
+		
+		$eventArgs = new LifecycleEventArgs($user, $repo->getDocumentManager());
+		$repo->getDocumentManager()->getEventManager()->dispatchEvent(
+			Events::postLoad,
+			$eventArgs
+		);
 		/* @var \Core\EventManager\EventManager $events */
 		/* @var \Auth\Listener\Events\AuthEvent $event */
 		//@TODO: [Behat] event not working in travis
@@ -283,9 +295,14 @@ class UserContext implements Context
 			$organization = new Organization();
 			$organizationName = new OrganizationName($orgName);
 			$organization->setOrganizationName($organizationName);
+			$permissions = $organization->getPermissions();
+			$permissions->grant($user,Permissions::PERMISSION_ALL);
+		}else {
+			$organization->getPermissions()->grant($user,Permissions::PERMISSION_ALL);
 		}
 		$organization->setUser($user);
 		$repoOrganization->store($organization);
+		$repoOrganization->getDocumentManager()->refresh($organization);
 	}
 	
 	/**
