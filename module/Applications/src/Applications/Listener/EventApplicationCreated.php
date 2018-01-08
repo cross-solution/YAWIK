@@ -63,7 +63,6 @@ class EventApplicationCreated
         $org = $job->getOrganization()->getParent(/*returnSelf*/ true);
         $workflow = $org->getWorkflowSettings();
         $admin = $org->getUser();
-        if(is_null($admin)) return;
         $adminSettings = $admin->getSettings('Applications');
         $mailBcc = $adminSettings->getMailBCC();
 
