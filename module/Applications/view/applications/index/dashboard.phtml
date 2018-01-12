@@ -13,11 +13,11 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
 <div class="panel panel-default pagination-container">
 <?php endif ?>
 <div class="panel-heading">
- <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => ""), true)?>">
+ <a style="text-decoration: none;" href="<?=$this->url('lang/applications', array(), array('query' => ""), true)?>">
   <?php if ($this->acl()->isRole('recruiter')):?>
-    <?php echo $this->translate('Received Applications')?>
+    <?=$this->translate('Received Applications')?>
   <?php else:?>
-    <?php echo $this->translate('Sent Applications')?>
+    <?=$this->translate('Sent Applications')?>
   <?php endif;?>
  </a>
  <small>
@@ -36,37 +36,45 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
 <table class="table table-striped table-bordered table-hover" id="cam-application-list">
 <thead>
  <tr>
-  <th><?php echo $this->translate('Applicant')?></th>
-  <th><?php echo $this->translate('Job')?></th>
-  <th><?php echo $this->translate('Date')?></th>
+  <th><?=$this->translate('Applicant')?></th>
+  <th><?=$this->translate('Job')?></th>
+  <th><?=$this->translate('Date')?></th>
  </tr>
 </thead>
 <?php foreach ($this->applications as $app): /* @var \Applications\Entity\Application $app */?>
-    <tr<?php echo ($app->isUnreadBy($this->auth('id'))?' class="yk-new"':'')?>>
+    <tr<?=($app->isUnreadBy($this->auth('id'))?' class="yk-new"':'')?>>
       <td>
         <div class="portrait">
           <?php if ($app->getContact()->getImage()):?>
-            <img src="<?php echo $this->basePath($app->getContact()->getImage()->getUri()) ?>" />
+            <img src="<?=$this->basePath($app->getContact()->getImage()->getUri()) ?>" />
           <?php else:?>
             <span class="yk-icon yk-icon-portrait fa-3x"></span>
           <?php endif?>
         </div>
-        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $app->getId()), true)?>">
-          <?php echo $this->translate($this->salutation($app->getContact()->getGender()))?>
-          <?php echo $app->getContact()->getDisplayName()?><br>
-          <?php echo $app->getContact()->getCity()?>
+        <a href="<?=$this->url('lang/applications/detail', array('id' => $app->getId()), true)?>">
+          <?=$this->translate($this->salutation($app->getContact()->getGender()))?>
+          <?=$app->getContact()->getDisplayName()?><br>
+          <?=$app->getContact()->getCity()?>
         </a>
       </td>
-      <td><a target="_blank" href="<?php echo $app->getJob()->getLink() ? $app->getJob()->getLink() : $this->url('lang/jobs/view', array(), array('query' => array('id' => $app->getJob()->getId())), true); ?>">
-              <?php echo $app->getJob()->getTitle()?></a></td>
-      <td><?php echo $this->dateFormat($app->getDateCreated(), 'short', 'none') ?></td>
+      <td>
+          <a target="_blank" href="<?= $app->getJob()->getLink() ? $app->getJob()->getLink() : $this->jobUrl($app->getJob(), ['linkOnly' => true ]) ; ?>">
+              <?=$app->getJob()->getTitle()?>
+          </a>
+      </td>
+      <td><?=$this->dateFormat($app->getDateCreated(), 'short', 'none') ?></td>
     </tr>
 <?php endforeach ?>
 </table>
 <div class="yk-panel-foot">
-<?php
-echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications-dashboard'));
-?>
+<?=$this->paginationControl(
+    $this->applications,
+    'Sliding',
+    'pagination-control',
+    [
+        'lang' => $this->params('lang'),
+        'route' => 'lang/applications-dashboard'
+    ]);?>
 </div>
 <?php if (!$this->isAjaxRequest): ?>
 </div>
