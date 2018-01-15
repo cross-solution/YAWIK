@@ -59,7 +59,7 @@
         "jmikola/geojson": "*",
         "mikey179/vfsStream": "*",
         "tracy/tracy": "^2.4",
-        "imagine/imagine": "^0.6.3",
+        "imagine/imagine": "*",
         "zendframework/zend-progressbar": "^2.5",
         "zendframework/zend-math": "^3.0",
         "zendframework/zend-captcha": "^2.7"
