@@ -560,13 +560,20 @@ class ManageController extends AbstractActionController
 
         if ($params == 'declined') {
             if ($jobEntity instanceOf JobSnapshot)  {
-                $jobEntity->getOriginalEntity()->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ 'Changes were rejected by %s', $user->getInfo()->getDisplayName()));
+                $jobEntity->getOriginalEntity()->changeStatus(
+                    Status::ACTIVE,
+                    sprintf(
+                        /*@translate*/ 'Changes were rejected by %s',
+                        $user->getInfo()->getDisplayName()
+                    )
+                );
                 $jobEntity->getSnapshotMeta()->setStatus(JobSnapshotStatus::REJECTED)->setIsDraft(false);
             } else {
                 $jobEntity->changeStatus(
                     Status::REJECTED,
-                    sprintf(/*@translate*/
-                    "Job opening was rejected by %s", $user->getInfo()->getDisplayName()
+                    sprintf(
+                        /*@translate*/ "Job opening was rejected by %s",
+                        $user->getInfo()->getDisplayName()
                     )
                 );
                 $jobEntity->setIsDraft(true);
