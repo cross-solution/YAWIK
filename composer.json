@@ -54,7 +54,7 @@
         "hybridauth/hybridauth": "^2.9",
         "mpdf/mpdf": "5.7.*",
         "components/jquery": "<3",
-        "tinymce/tinymce": "*",
+        "tinymce/tinymce": "4.5.*",
         "mikemix/zf2htmlpurifier": "*",
         "jmikola/geojson": "*",
         "mikey179/vfsStream": "*",
