@@ -23,28 +23,28 @@ translate('integration');
 //: ./config/module.config.php:148
 translate('Jobs');
 
-//: ./config/module.config.php:155
+//: ./config/module.config.php:158
 translate('Jobs categories');
 
-//: ./config/module.config.php:161
+//: ./config/module.config.php:164
 translate('Jobboard');
 
-//: ./config/module.config.php:167
+//: ./config/module.config.php:170
 translate('Jobs');
 
-//: ./config/module.config.php:173
+//: ./config/module.config.php:176
 translate('Overview');
 
-//: ./config/module.config.php:178
+//: ./config/module.config.php:181
 translate('Pending jobs');
 
-//: ./config/module.config.php:183
+//: ./config/module.config.php:186
 translate('Create job');
 
-//: ./config/module.config.php:192
+//: ./config/module.config.php:195
 translate('Edit job');
 
-//: ./config/module.config.php:199
+//: ./config/module.config.php:202
 translate('Jobboard');
 
 //: ./test/JobsTest/Form/ListFilterBaseTest.php:41
@@ -431,40 +431,42 @@ translate('Please enter the location of the job');
 //: ./src/Jobs/Options/BaseFieldsetOptions.php:65
 translate('please select');
 
-//: ./src/Jobs/Controller/ManageController.php:424
+//: ./src/Jobs/Controller/ManageController.php:425
 translate('Status successfully changed.');
 
-//: ./src/Jobs/Controller/ManageController.php:426
+//: ./src/Jobs/Controller/ManageController.php:427
 translate('Change status failed.');
 
-//: ./src/Jobs/Controller/ManageController.php:562
+//: ./src/Jobs/Controller/ManageController.php:566
 translate('Changes were rejected by %s');
 
-566:                    sprintf(/*@translate*/
 //: ./src/Jobs/Controller/ManageController.php:575
-translate('Job has been rejected');
+translate('Job opening was rejected by %s');
 
 //: ./src/Jobs/Controller/ManageController.php:584
+translate('Job has been rejected');
+
+//: ./src/Jobs/Controller/ManageController.php:595
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:588
+//: ./src/Jobs/Controller/ManageController.php:599
 translate('Job has been approved');
 
-//: ./src/Jobs/Controller/ManageController.php:631
+//: ./src/Jobs/Controller/ManageController.php:642
 translate('Job was deactivated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:632
+//: ./src/Jobs/Controller/ManageController.php:643
 translate('Job has been deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:634
+//: ./src/Jobs/Controller/ManageController.php:645
 translate('Job could not be deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:646
+//: ./src/Jobs/Controller/ManageController.php:658
 translate('Job has been deleted.');
 
-//: ./src/Jobs/Controller/ManageController.php:661
+//: ./src/Jobs/Controller/ManageController.php:673
 translate('Template changed');
 
-//: ./src/Jobs/Controller/ManageController.php:663
+//: ./src/Jobs/Controller/ManageController.php:675
 translate('Template not changed');
 

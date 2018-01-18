@@ -28,7 +28,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 <?php foreach ($jobs as $job):
 
     $org = $job->getOrganization();
-    $href = $job->getLink() ? $job->getLink() : $this->url('lang/jobs/view', [], ['query' => ['id' => $job->getId()]], true);
+    $href = $job->getLink() ? $job->getLink() :$this->jobUrl($job, ['linkOnly' => true ]);
 
     $isSnapshot = $job->hasSnapshotDraft() && $job->getStatus()->is(\Jobs\Entity\StatusInterface::WAITING_FOR_APPROVAL);
     if ($isSnapshot):

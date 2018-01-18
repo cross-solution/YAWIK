@@ -644,7 +644,9 @@ translate('private');
 //: ./src/Cv/Entity/StatusInterface.php:21
 translate('public to all');
 
-23:	    $collectionContainer->setLabel(/*@translate */
+//: ./src/Cv/Factory/Form/LanguageSkillCollectionFactory.php:23
+translate('Additional Language Skills');
+
 //: ./src/Cv/Factory/Form/AttachmentsFormFactory.php:80
 translate('Attach images or PDF Documents to your CV. Drag&drop them, or click into the attachement area. You can upload up to %sMB');
 

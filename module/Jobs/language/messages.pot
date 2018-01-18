@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-13 08:50+0200\n"
+"POT-Creation-Date: 2018-01-15 09:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:165 language/_annotated_strings.php:171
 #: language/_annotated_strings.php:183 language/_annotated_strings.php:354
-#: view/jobs/admin/index.ajax.phtml:19 view/jobs/jobboard/index.ajax.phtml:75
+#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:75
 #: view/jobs/index/approval.ajax.phtml:19 view/jobs/index/index.ajax.phtml:19
 #: view/mails/job-created.en.phtml:33 view/mails/job-created.phtml:33
 msgid "Companyname"
@@ -241,6 +241,7 @@ msgid "Published"
 msgstr ""
 
 #: language/_annotated_strings.php:213 language/_annotated_strings.php:348
+#: view/jobs/index/index.ajax.phtml:59
 msgid "Rejected"
 msgstr ""
 
@@ -251,7 +252,7 @@ msgstr ""
 #: language/_annotated_strings.php:222
 #: src/Jobs/Form/Element/StatusSelect.php:55
 #: src/Jobs/Form/Element/StatusSelect.php:68
-#: view/jobs/admin/index.ajax.phtml:22 view/jobs/index/approval.ajax.phtml:21
+#: view/jobs/admin/index.ajax.phtml:21 view/jobs/index/approval.ajax.phtml:21
 #: view/jobs/index/index.ajax.phtml:23
 msgid "Status"
 msgstr ""
@@ -450,41 +451,46 @@ msgstr ""
 msgid "Changes were rejected by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:445
+#: language/_annotated_strings.php:444
+#, php-format
+msgid "Job opening was rejected by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:447
 msgid "Job has been rejected"
 msgstr ""
 
-#: language/_annotated_strings.php:448
+#: language/_annotated_strings.php:450
 #, php-format
 msgid "Job opening was activated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:451
+#: language/_annotated_strings.php:453
 msgid "Job has been approved"
 msgstr ""
 
-#: language/_annotated_strings.php:454
+#: language/_annotated_strings.php:456
 #, php-format
 msgid "Job was deactivated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:457
+#: language/_annotated_strings.php:459
 msgid "Job has been deactivated"
 msgstr ""
 
-#: language/_annotated_strings.php:460
+#: language/_annotated_strings.php:462
 msgid "Job could not be deactivated"
 msgstr ""
 
-#: language/_annotated_strings.php:463
+#: language/_annotated_strings.php:465
 msgid "Job has been deleted."
 msgstr ""
 
-#: language/_annotated_strings.php:466
+#: language/_annotated_strings.php:468
 msgid "Template changed"
 msgstr ""
 
-#: language/_annotated_strings.php:469
+#: language/_annotated_strings.php:471
 msgid "Template not changed"
 msgstr ""
 
@@ -511,20 +517,20 @@ msgid "Apply with %s"
 msgstr ""
 
 #: src/Jobs/Controller/TemplateController.php:89
-#: src/Jobs/Controller/ManageController.php:243
+#: src/Jobs/Controller/ManageController.php:244
 #, php-format
 msgid "Job with id \"%s\" not found"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:323
+#: src/Jobs/Controller/ManageController.php:324
 msgid "No Title"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:327
+#: src/Jobs/Controller/ManageController.php:328
 msgid "No Location"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:331
+#: src/Jobs/Controller/ManageController.php:332
 msgid "Accept the Terms"
 msgstr ""
 
@@ -608,26 +614,26 @@ msgstr ""
 msgid "ATS is disabled."
 msgstr ""
 
-#: view/form/preview.phtml:42
+#: view/form/preview.phtml:36
 msgid "Preview of your job posting"
 msgstr ""
 
-#: view/form/preview.phtml:63
+#: view/form/preview.phtml:57
 #, php-format
 msgid ""
 "Please check the preview of your job position. Click %s to open the preview "
 "in a new window"
 msgstr ""
 
-#: view/form/preview.phtml:64 view/partials/channel-list.phtml:96
+#: view/form/preview.phtml:58 view/partials/channel-list.phtml:96
 msgid "here"
 msgstr ""
 
-#: view/form/preview.phtml:66
+#: view/form/preview.phtml:60
 msgid "Open new Window"
 msgstr ""
 
-#: view/form/preview.phtml:69
+#: view/form/preview.phtml:63
 msgid "Print"
 msgstr ""
 
@@ -710,7 +716,7 @@ msgstr ""
 msgid "Would you really like to delete this job?"
 msgstr ""
 
-#: view/jobs/admin/index.phtml:172 view/jobs/admin/index.ajax.phtml:97
+#: view/jobs/admin/index.phtml:172 view/jobs/admin/index.ajax.phtml:115
 #: view/jobs/manage/form.phtml:89
 msgid "Delete"
 msgstr ""
@@ -739,34 +745,34 @@ msgstr ""
 msgid "Title of the job"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:20 view/jobs/index/approval.ajax.phtml:20
+#: view/jobs/admin/index.ajax.phtml:19 view/jobs/index/approval.ajax.phtml:20
 #: view/mails/job-created.en.phtml:42 view/mails/job-created.phtml:42
 msgid "Name"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:21
+#: view/jobs/admin/index.ajax.phtml:20
 msgid "Note"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:23 view/jobs/index/approval.ajax.phtml:22
+#: view/jobs/admin/index.ajax.phtml:22 view/jobs/index/approval.ajax.phtml:22
 #: view/jobs/index/index.ajax.phtml:24 view/jobs/index/index.ajax.phtml:26
 msgid "Action"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:44 view/jobs/index/index.ajax.phtml:51
+#: view/jobs/admin/index.ajax.phtml:48 view/jobs/index/index.ajax.phtml:51
 msgid "Changed"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:79 view/jobs/index/approval.ajax.phtml:57
-#: view/jobs/index/index.ajax.phtml:104 view/partials/history.phtml:12
+#: view/jobs/admin/index.ajax.phtml:89 view/jobs/index/approval.ajax.phtml:57
+#: view/jobs/index/index.ajax.phtml:115 view/partials/history.phtml:12
 msgid "Status history"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:84
+#: view/jobs/admin/index.ajax.phtml:94
 msgid "Edit state"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:87 view/jobs/jobboard/index.ajax.phtml:109
+#: view/jobs/admin/index.ajax.phtml:97 view/jobs/jobboard/index.ajax.phtml:109
 msgid "Edit"
 msgstr ""
 
@@ -905,7 +911,7 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: view/jobs/manage/history.phtml:19 view/jobs/index/dashboard.phtml:13
+#: view/jobs/manage/history.phtml:19 view/jobs/index/dashboard.phtml:9
 #: view/partials/history.phtml:17
 msgid "Date"
 msgstr ""
@@ -950,40 +956,44 @@ msgstr ""
 msgid "Reference"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:22 view/jobs/index/dashboard.phtml:15
+#: view/jobs/index/index.ajax.phtml:22 view/jobs/index/dashboard.phtml:11
 msgid "Applications"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:64 view/jobs/index/dashboard.phtml:38
+#: view/jobs/index/index.ajax.phtml:56
+msgid "Accepted"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:75 view/jobs/index/dashboard.phtml:33
 msgid "total"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:70 view/jobs/index/dashboard.phtml:44
+#: view/jobs/index/index.ajax.phtml:81 view/jobs/index/dashboard.phtml:39
 msgid "unread"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:83
+#: view/jobs/index/index.ajax.phtml:94
 msgid "draft"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:93
+#: view/jobs/index/index.ajax.phtml:104
 #, php-format
 msgid "Change responsible user for job \\\"%s\\\""
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:112
+#: view/jobs/index/index.ajax.phtml:123
 msgid "Are you sure to delete this job?"
 msgstr ""
 
-#: view/jobs/index/dashboard.phtml:6
+#: view/jobs/index/dashboard.phtml:3
 msgid "Current Jobs"
 msgstr ""
 
-#: view/jobs/index/dashboard.phtml:6
+#: view/jobs/index/dashboard.phtml:3
 msgid "Famous jobs"
 msgstr ""
 
-#: view/jobs/index/dashboard.phtml:12
+#: view/jobs/index/dashboard.phtml:8
 msgid "Job"
 msgstr ""
 

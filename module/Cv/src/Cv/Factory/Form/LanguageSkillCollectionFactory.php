@@ -20,8 +20,7 @@ class LanguageSkillCollectionFactory implements FactoryInterface
 	 */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
 	    $collectionContainer = new CollectionContainer( 'Cv/LanguageSkillForm', new Language() );
-	    $collectionContainer->setLabel(/*@translate */
-		    'Additional Language Skills' );
+	    $collectionContainer->setLabel(/*@translate */ 'Additional Language Skills' );
 	
 	    return $collectionContainer;
     }

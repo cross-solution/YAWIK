@@ -1,10 +1,6 @@
 <div class="panel panel-default pagination-container">
   <div class="panel-heading">
-      <?php /*if ($this->acl()->isRole( Auth\Entity\User::ROLE_ADMIN )):?>
-          <?php echo $this->translate('Jobs waiting for approval')?>
-      <?php else: */?>
-          <?php echo 'recent' == $this->type ? $this->translate('Current Jobs'): $this->translate('Famous jobs')?>
-      <?php //endif; ?>
+      <?php echo 'recent' == $this->type ? $this->translate('Current Jobs'): $this->translate('Famous jobs')?>
   </div>
     <table class="table table-striped table-bordered table-hover">
      <thead>
@@ -20,12 +16,11 @@
      <?php foreach ($this->jobs as $job): /* @var Jobs\Entity\Job $job */?>
      <tr>
        <td>
+           <?php $href = $job->getLink() ? $job->getLink() : $this->jobUrl($job, ['linkOnly' => true ]); ?>
            <?php if ($this->acl()->isRole( Auth\Entity\User::ROLE_ADMIN )):?>
-               <a href="<?php echo $job->getLink() ? $job->getLink() : $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->getId())), true); ?>">
-                   <?php echo $job->getTitle() ?></a>
+               <a href="<?= $job->getLink() ? $job->getLink() : $href ; ?>"><?=$job->getTitle() ?></a>
            <?php else: ?>
-                <a target="_new" href="<?php echo $job->getLink() ? $job->getLink() : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->getId())), true); ?>">
-                <?php echo $job->getTitle() ?></a>
+                <a target="_new" href="<?=$job->getLink() ? $job->getLink() : $href; ?>"><?=$job->getTitle() ?></a>
             <?php endif ?>
          </td>
        <td>
