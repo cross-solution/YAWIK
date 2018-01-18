@@ -41,7 +41,7 @@ endif;
 ?>
 <h1>
     <?php echo $this->translate('application for')?>:
-    <?php $href = $job->getLink() ? $job->getLink() : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->getId())), true); ?>
+    <?php $href = $job->getLink() ? $job->getLink() : $this->jobUrl($job, ['linkOnly' => true ]); ?>
     <?php echo $this->link($href, $job->getTitle())?>
     <?php if (!$application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
         <small class="pull-right">

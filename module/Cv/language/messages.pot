@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Cv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-13 08:53+0200\n"
+"POT-Creation-Date: 2018-01-15 09:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,27 +30,28 @@ msgstr ""
 msgid "Native Language"
 msgstr ""
 
-#: src/Cv/Factory/Form/LanguageSkillCollectionFactory.php:24
+#: src/Cv/Factory/Form/LanguageSkillCollectionFactory.php:23
+#: language/_annotated_strings.php:648
 msgid "Additional Language Skills"
 msgstr ""
 
 #: src/Cv/Factory/Form/AttachmentsFormFactory.php:84
-#: view/cv/view/index.phtml:107 language/_annotated_strings.php:652
+#: view/cv/view/index.phtml:107 language/_annotated_strings.php:654
 msgid "Attachments"
 msgstr ""
 
 #: src/Cv/Factory/Form/SkillCollectionFactory.php:27
-#: language/_annotated_strings.php:655
+#: language/_annotated_strings.php:657
 msgid "Skills"
 msgstr ""
 
 #: src/Cv/Factory/Form/EducationCollectionFactory.php:27
-#: language/_annotated_strings.php:658
+#: language/_annotated_strings.php:660
 msgid "Education history"
 msgstr ""
 
 #: src/Cv/Factory/Form/EmploymentCollectionFactory.php:27
-#: language/_annotated_strings.php:661
+#: language/_annotated_strings.php:663
 msgid "Employment history"
 msgstr ""
 
@@ -63,7 +64,7 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: view/cv/view/index.phtml:24 language/_annotated_strings.php:679
+#: view/cv/view/index.phtml:24 language/_annotated_strings.php:681
 msgid "Resume"
 msgstr ""
 
@@ -609,7 +610,7 @@ msgid "Location"
 msgstr ""
 
 #: language/_annotated_strings.php:231 language/_annotated_strings.php:234
-#: language/_annotated_strings.php:685
+#: language/_annotated_strings.php:687
 msgid "Distance"
 msgstr ""
 
@@ -1065,7 +1066,7 @@ msgstr ""
 msgid "Yoruba"
 msgstr ""
 
-#: language/_annotated_strings.php:585 language/_annotated_strings.php:682
+#: language/_annotated_strings.php:585 language/_annotated_strings.php:684
 msgid "what is your native language"
 msgstr ""
 
@@ -1098,7 +1099,7 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: language/_annotated_strings.php:615 language/_annotated_strings.php:688
+#: language/_annotated_strings.php:615 language/_annotated_strings.php:690
 msgid "please select the country"
 msgstr ""
 
@@ -1142,29 +1143,29 @@ msgstr ""
 msgid "public to all"
 msgstr ""
 
-#: language/_annotated_strings.php:649
+#: language/_annotated_strings.php:651
 #, php-format
 msgid ""
 "Attach images or PDF Documents to your CV. Drag&drop them, or click into the "
 "attachement area. You can upload up to %sMB"
 msgstr ""
 
-#: language/_annotated_strings.php:664
+#: language/_annotated_strings.php:666
 msgid "Status has been successfully changed"
 msgstr ""
 
-#: language/_annotated_strings.php:667
+#: language/_annotated_strings.php:669
 msgid "Invalid status"
 msgstr ""
 
-#: language/_annotated_strings.php:670
+#: language/_annotated_strings.php:672
 msgid "Talent-Pool"
 msgstr ""
 
-#: language/_annotated_strings.php:673
+#: language/_annotated_strings.php:675
 msgid "Overview"
 msgstr ""
 
-#: language/_annotated_strings.php:676
+#: language/_annotated_strings.php:678
 msgid "Create resume"
 msgstr ""

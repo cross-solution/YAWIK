@@ -15,13 +15,7 @@ if ($job instanceOf \Jobs\Entity\JobSnapshot) {
     $query = ['id' => $job->getId()];
 }
 
-$viewLink = $this->url(
-                     'lang/jobs/view',
-                         array(),
-                         array(
-                             'query' => $query,
-                         )
-    );
+$viewLink = $this->jobUrl($job, ['linkOnly' => true ]);
 
 $query['page'] = 0;
 $multipostLink = $this->url(
@@ -39,12 +33,12 @@ $defaultCurrencyCode = $options->defaultCurrencyCode;
 $defaultTaxRate = $options->defaultTaxRate;
 
 ?>
-<h3><?php echo $this->translate("Preview of your job posting"); ?></h3>
+<h3><?=$this->translate("Preview of your job posting"); ?></h3>
 <div class="row">
     <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <iframe id="previewJob" style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
+                <iframe id="previewJob" style="width:100%; height:800px;" src="<?= $viewLink ?>"></iframe>
             </div>
         </div>
     </div>
@@ -74,7 +68,7 @@ $defaultTaxRate = $options->defaultTaxRate;
 
     <div id="product-list-wrapper">
         <?php if ($job->getPortals()): ?>
-            <?php echo $this->partial('jobs/partials/channel-list', [
+            <?= $this->partial('jobs/partials/channel-list', [
                                                                           'portals'             => $job->getPortals(),
                                                                           'channels'            => $this->services('Jobs/Options/Provider'),
                                                                           'defaultCurrencyCode' => $defaultCurrencyCode,
@@ -86,4 +80,4 @@ $defaultTaxRate = $options->defaultTaxRate;
         <?php endif; // $this->job->portals ?>
     </div>
 
-<?php echo $this->formCollection($this->element); ?>
+<?= $this->formCollection($this->element); ?>
