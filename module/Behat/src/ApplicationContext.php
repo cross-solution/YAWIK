@@ -44,4 +44,13 @@ class ApplicationContext implements Context
 		$url = '/en/apply/'.$job->getApplyId();
 		$this->visit($url);
 	}
+	
+	/**
+	 * @Given I visit job categories
+	 */
+	public function visitJobsCategories()
+	{
+		$url = '/en/admin/jobs/categories';
+		$this->visit($url);
+	}
 }

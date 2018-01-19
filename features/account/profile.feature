@@ -36,6 +36,7 @@ Feature: Editing user profile
         And I select "Mr." from "info-gender"
         And I press "Save"
         And I wait for the ajax response
+        And I wait for 3 seconds
         Then I should see "Test Profile Edited"
         And I should see "Some Street Address"
         And I should see "77777"

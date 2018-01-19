@@ -1,3 +1,0 @@
-[submodule "module/Orders"]
-	path = module/Orders
-	url = https://github.com/yawik/Orders.git
