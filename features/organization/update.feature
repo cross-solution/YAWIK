@@ -27,7 +27,7 @@ Feature: Updating my organization
             | City          | Some City     |
             | Phone         | 123123        |
             | Fax           | 321321        |
-        And I press "Save"
+        And I save "organization location" form
         And I wait for the ajax response
         Then I should see "Some Street"
         And I should see "12345"
@@ -57,7 +57,8 @@ Feature: Updating my organization
         And I uncheck "accept Applications by Department Managers"
         And I uncheck "assign department managers to jobs"
         And I wait for the ajax response
-        And I press "Save"
+        And I scroll "#sf-workflowSettings" into view
+        And I save workflow form
         And I wait for the ajax response
         Then the "accept Applications by Department Managers" checkbox should not be checked
         And the "assign department managers to jobs" checkbox should not be checked

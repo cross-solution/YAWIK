@@ -1,4 +1,3 @@
-@todo
 Feature: Apply a job
     In order to start working
     As a user
@@ -19,7 +18,6 @@ Feature: Apply a job
             | Company Name                | Test Company          |
             | User                        | test@admin.com        |
 
-
     @javascript
     Scenario: Apply job as guest
         Given I apply for "Apply a Job Test" job
@@ -35,16 +33,16 @@ Feature: Apply a job
             | Phone             | 654321            |
             | Email             | guest@apply.com   |
         And I select "Mr." from "Salutation"
-        And I scroll "#send-application-buttons" into view
-        And check "I have read the Privacy Policy and accept it"
-        And I wait for 5 seconds
+        And I scroll "#contact-contact-buttons-submit" into view
         And I press "Save"
         And I wait for the ajax response
-        Then I should see "Guest Applicant"
-        And I should see "Some Street 123456"
-        And I should see "4321 Some City"
-        And I should see "654321"
-        And I should see "guest@apply.com"
+        And I scroll "#send-application-buttons" into view
+        And I wait for 3 seconds
+        And check "I have read the Privacy Policy and accept it"
+        And I wait for 5 seconds
+        And I follow "Send application"
+        Then I should see "Apply a Job Test"
+        And I should see "your application was sent successfully"
 
     @javascript
     Scenario: Apply job as registered user
@@ -66,12 +64,13 @@ Feature: Apply a job
             | Phone             | 654321            |
             | Email             | test@apply.com    |
         And I select "Mr." from "Salutation"
-        And I scroll "#send-application-buttons" into view
-        And check "I have read the Privacy Policy and accept it"
+        And I scroll "#contact-contact-buttons-submit" into view
         And I press "Save"
         And I wait for the ajax response
-        Then I should see "Test Applicant"
-        And I should see "Some Street 123456"
-        And I should see "4321 Some City"
-        And I should see "654321"
-        And I should see "test@apply.com"
+        And I scroll "#send-application-buttons" into view
+        And I wait for 3 seconds
+        And check "I have read the Privacy Policy and accept it"
+        And I wait for 5 seconds
+        And I follow "Send application"
+        Then I should see "Apply a Job Test"
+        And I should see "your application was sent successfully"

@@ -243,6 +243,12 @@ class JobContext implements Context
 		}
 		$job->setStatus(Status::ACTIVE);
 		
+		if(isset($normalizedField['location'])){
+			$this->setLocation($job,$normalizedField['location']);
+		}
+		if(isset($normalizedField['companyName'])){
+			//$job->setCompany($normalizedField['companyName']);
+		}
 		if(isset($normalizedField['professions'])){
 			$this->addProfessions($job,$normalizedField['professions']);
 		}
@@ -250,18 +256,13 @@ class JobContext implements Context
 		if(isset($normalizedField['industries'])){
 			$this->addIndustries($job,$normalizedField['industries']);
 		}
-		
-		if(isset($normalizedField['location'])){
-			$this->setLocation($job,$normalizedField['location']);
-		}
 		if(isset($normalizedField['employmentTypes'])){
 			$types = $this->getCategories([$normalizedField['employmentTypes']]);
 			$type = array_shift($types);
-			
-			$job->getClassifications()->getEmploymentTypes()->getItems()->add($type);
-		}
-		if(isset($normalizedField['companyName'])){
-			$job->setCompany($normalizedField['companyName']);
+			$values = $job->getClassifications()->getEmploymentTypes()->getValues();
+			if(!is_array($values) || !in_array($type,$values)){
+				$job->getClassifications()->getEmploymentTypes()->getItems()->add($type);
+			}
 		}
 		
 		$jobRepo->store($job);
@@ -284,19 +285,25 @@ class JobContext implements Context
 		$job->getLocations()->add($location);
 	}
 	
-	private function addProfessions(Job $job,$terms)
+	private function addProfessions(Job &$job,$terms)
 	{
 		$professions = $this->getCategories($terms);
 		foreach($professions as $profession){
-			$job->getClassifications()->getProfessions()->getItems()->add($profession);
+			$values = $job->getClassifications()->getProfessions()->getValues();
+			if(!is_array($values) || !in_array($profession,$values)){
+				$job->getClassifications()->getProfessions()->getItems()->add($profession);
+			}
 		}
 	}
 	
-	private function addIndustries(Job $job, $terms)
+	private function addIndustries(Job &$job, $terms)
 	{
 		$industries = $this->getCategories($terms);
 		foreach($industries as $industry){
-			$job->getClassifications()->getIndustries()->getItems()->add($industry);
+			$values = $job->getClassifications()->getIndustries()->getValues();
+			if(!is_array($values) || !in_array($industry,$values)){
+				$job->getClassifications()->getIndustries()->getItems()->add($industry);
+			}
 		}
 	}
 	
@@ -317,6 +324,7 @@ class JobContext implements Context
 		$results = $qb->execute();
 		return $results->toArray();
 	}
+	
 	
 	/**
 	 * @return Job

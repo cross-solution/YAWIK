@@ -11,7 +11,7 @@ Feature: Social profile feature
             | fullname      | Test Social Profile     |
         And I log in with username "test@social-profile.com" and password "test"
 
-    @javascript @profile-facebook
+    @javascript @profile-facebook @skip-travis
     Scenario: Link to facebook
         When I go to profile page
         And I press "Facebook"

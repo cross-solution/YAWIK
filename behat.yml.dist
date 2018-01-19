@@ -27,6 +27,7 @@ default:
                             chrome:
                                 switches:
                                     - "start-maximized"
+                                    - "start-fullscreen"
                                     - "no-sandbox"
             show_auto: false
 

@@ -15,7 +15,7 @@ Feature: Update application settings
         And I wait for the ajax response
         Then I should see "Changes successfully saved"
 
-    @todo @javascript @settings-email
+    @javascript @settings-email @todo
     Scenario: Successfully change E-Mail Notifications Settings
         Given I go to email template settings page
         When I check "receive E-Mail alert"
@@ -28,6 +28,7 @@ Feature: Update application settings
             | Invitation mail text   | Invitation mail      |
             | Accept mail text       | Accept mail text     |
             | Rejection mail text    | Rejection mail text  |
+        And I scroll "#yk-footer" into view
         And I press "Save"
         And I wait for the ajax response
         Then I should see "Changes successfully saved"
