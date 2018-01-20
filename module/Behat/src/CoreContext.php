@@ -302,5 +302,14 @@ JS;
 		$element->click();
 		
 	}
-	
+
+    /**
+     * @Then /^(?:|I )should see translated text "(?P<text>(?:[^"]|\\")*)"$/
+     */
+	public function iShouldSeeText($text)
+    {
+        $translator = $this->getServiceManager()->get('translator');
+        $translated = $translator->translate($text);
+        $this->minkContext->assertSession()->pageTextContains($translated);
+    }
 }

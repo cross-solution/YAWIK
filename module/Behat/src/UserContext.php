@@ -311,7 +311,7 @@ class UserContext implements Context
 	public function iWantToLogIn()
 	{
 		$session = $this->minkContext->getSession();
-		$url = $this->minkContext->locatePath('/en/login');
+		$url = $this->minkContext->locatePath('/login');
 		$session->visit($url);
 	}
 	
@@ -362,8 +362,8 @@ class UserContext implements Context
 	 */
 	public function iPressLogoutLink()
 	{
-		//@TODO: [ZF3] replace this with click method
 		$url = $this->coreContext->generateUrl('/logout');
+		$url = str_replace('','',$url);
 		$this->minkContext->visit($url);
 	}
 	
@@ -386,7 +386,7 @@ class UserContext implements Context
 	 */
 	public function iGoToProfilePage()
 	{
-		$url = $this->coreContext->generateUrl('/en/my/profile');
+		$url = $this->coreContext->generateUrl('/my/profile');
 		$this->minkContext->visit($url);
 	}
 	
@@ -422,7 +422,7 @@ class UserContext implements Context
 	public function iWantToChangeMyPassword()
 	{
 		$mink = $this->minkContext;
-		$url = $this->coreContext->generateUrl('/en/my/password');
+		$url = $this->coreContext->generateUrl('/my/password');
 		$mink->getSession()->visit($url);
 	}
 	

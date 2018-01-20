@@ -41,7 +41,7 @@ class ApplicationContext implements Context
 		$job->setApplyId($job->getId());
 		$repo->store($job);
 		
-		$url = '/en/apply/'.$job->getApplyId();
+		$url = '/apply/'.$job->getApplyId();
 		$this->visit($url);
 	}
 	
@@ -50,7 +50,7 @@ class ApplicationContext implements Context
 	 */
 	public function visitJobsCategories()
 	{
-		$url = '/en/admin/jobs/categories';
+		$url = '/admin/jobs/categories';
 		$this->visit($url);
 	}
 }

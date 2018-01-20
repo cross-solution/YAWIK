@@ -21,7 +21,7 @@ class SettingsContext implements Context
 	 */
 	public function iGoToSettingsPage()
 	{
-		$this->visit('/en/settings');
+		$this->visit('/settings');
 	}
 	
 	/**
@@ -29,6 +29,6 @@ class SettingsContext implements Context
 	 */
 	public function iGoToEmailTemplatePage()
 	{
-		$this->visit('/en/settings/Applications');
+		$this->visit('/settings/Applications');
 	}
 }

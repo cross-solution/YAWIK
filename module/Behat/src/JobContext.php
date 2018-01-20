@@ -81,7 +81,7 @@ class JobContext implements Context
 	 */
 	public function iGoToJobBoardPage()
 	{
-		$this->visit('/en/jobboard');
+		$this->visit('/jobboard');
 	}
 	
 	/**
@@ -89,7 +89,7 @@ class JobContext implements Context
 	 */
 	public function iGoToMyOrganizationPage()
 	{
-		$this->visit('/en/jobs/edit');
+		$this->visit('/jobs/edit');
 	}
 	
 	/**
@@ -97,7 +97,7 @@ class JobContext implements Context
 	 */
 	public function iGoToJobOverviewPage()
 	{
-		$this->visit('/en/jobs');
+		$this->visit('/jobs');
 	}
 	
 	/**
@@ -112,7 +112,7 @@ class JobContext implements Context
 			throw new \Exception(sprintf('Job with title "%s" is not found',$jobTitle));
 		}
 		$this->currentJob = $job;
-		$url = '/en/jobs/edit?id='.$job->getId();
+		$url = '/jobs/edit?id='.$job->getId();
 		$this->visit($url);
 	}
 	
