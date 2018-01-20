@@ -14,7 +14,7 @@ default:
 
         Behat\MinkExtension:
             files_path: "%paths.base%/module/Behat/resources/fixtures/"
-            base_url: "http://localhost:8000"
+            base_url: "http://localhost:8000/en"
             javascript_session: chrome
             sessions:
                 chrome:
@@ -26,9 +26,9 @@ default:
                             version: ""
                             chrome:
                                 switches:
-                                    - "start-maximized"
-                                    - "start-fullscreen"
-                                    - "no-sandbox"
+                                    - "--headless"
+                                    - "--disable-gpu"
+                                    - "--window-size=2000,1000"
             show_auto: false
 
     gherkin:
