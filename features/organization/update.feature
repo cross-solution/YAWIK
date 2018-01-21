@@ -36,7 +36,7 @@ Feature: Updating my organization
         And I should see "123123"
         And I should see "321321"
 
-    @organization-employee @skip-travis
+    @organization-employee @mail
     Scenario: Invite employee
         When I click edit on name form
         And I wait for the ajax response
