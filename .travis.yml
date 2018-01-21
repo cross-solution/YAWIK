@@ -52,7 +52,7 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit -c test
-  - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction --tags="~@skip-travis"
+  - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
