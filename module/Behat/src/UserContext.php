@@ -28,24 +28,14 @@ use Geo\Service\Photon;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Repository\Organization as OrganizationRepository;
+use Zend\Router\RouteInterface;
+use Zend\Router\RoutePluginManager;
 use Zend\Stdlib\ArrayObject;
+use Zend\View\Helper\Url;
 
 class UserContext implements Context
 {
-	/**
-	 * @var CoreContext
-	 */
-	private $coreContext;
-	
-	/**
-	 * @var MinkContext
-	 */
-	private $minkContext;
-	
-	/**
-	 * @var User
-	 */
-	private $currentUser;
+    use CommonContextTrait;
 	
 	/**
 	 * @var User[]
@@ -68,6 +58,11 @@ class UserContext implements Context
 	 * @var UserInterface
 	 */
 	private $loggedInUser;
+
+    /**
+     * @var User
+     */
+    protected $currentUser;
 	
 	public function __construct($parameters=[])
 	{
@@ -84,7 +79,7 @@ class UserContext implements Context
 		$socialLoginConfig = isset($parameters['social_login_info']) ? $parameters['social_login_info']:[];
 		$this->socialLoginInfo = array_merge($defaultLoginInfo,$socialLoginConfig);
 	}
-	
+
 	/**
 	 * @AfterSuite
 	 * @param AfterSuiteScope $scope
@@ -113,14 +108,6 @@ class UserContext implements Context
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
 		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
 		static::$userRepo = $this->getUserRepository();
-	}
-	
-	/**
-	 * @return User
-	 */
-	public function getCurrentUser()
-	{
-		return $this->currentUser;
 	}
 	
 	/**
@@ -311,7 +298,7 @@ class UserContext implements Context
 	public function iWantToLogIn()
 	{
 		$session = $this->minkContext->getSession();
-		$url = $this->minkContext->locatePath('/login');
+		$url = $this->generateUrl('lang/auth');
 		$session->visit($url);
 	}
 	
@@ -342,11 +329,11 @@ class UserContext implements Context
 		if(!$user instanceof User){
 			throw new \Exception(sprintf('There is no user with this login: "%s"',$username));
 		}
-		$this->currentUser = $user;
 		$this->iWantToLogIn();
 		$this->iSpecifyTheUsernameAs($username);
 		$this->iSpecifyThePasswordAs($password);
 		$this->iLogIn();
+        $this->currentUser = $user;
 	}
 	
 	/**
@@ -362,9 +349,8 @@ class UserContext implements Context
 	 */
 	public function iPressLogoutLink()
 	{
-		$url = $this->coreContext->generateUrl('/logout');
-		$url = str_replace('','',$url);
-		$this->minkContext->visit($url);
+		$url = $this->generateUrl('auth-logout');
+		$this->visit($url);
 	}
 	
 	/**
@@ -386,8 +372,8 @@ class UserContext implements Context
 	 */
 	public function iGoToProfilePage()
 	{
-		$url = $this->coreContext->generateUrl('/my/profile');
-		$this->minkContext->visit($url);
+		$url = $this->generateUrl('lang/my');
+		$this->visit($url);
 	}
 	
 	/**
@@ -421,9 +407,15 @@ class UserContext implements Context
 	 */
 	public function iWantToChangeMyPassword()
 	{
-		$mink = $this->minkContext;
-		$url = $this->coreContext->generateUrl('/my/password');
-		$mink->getSession()->visit($url);
+		$url = $this->generateUrl('lang/my-password');
+		$this->visit($url);
 	}
-	
+
+    /**
+     * @return User
+     */
+	public function getCurrentUser()
+    {
+        return $this->currentUser;
+    }
 }

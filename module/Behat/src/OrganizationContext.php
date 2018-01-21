@@ -30,8 +30,8 @@ class OrganizationContext implements Context
 	 */
 	public function iGoToMyOrganizationPage()
 	{
-		$url = $this->coreContext->generateUrl('/my/organization');
-		$this->coreContext->iVisit($url);
+        $url = $this->generateUrl('lang/my-organization');
+		$this->visit($url);
 	}
 	
 	/**
@@ -48,7 +48,9 @@ class OrganizationContext implements Context
 	 */
 	public function iGoToCreateNewOrganizationPage()
 	{
-		$this->visit('/organizations/edit');
+		//$this->visit('/organizations/edit');
+        $url = $this->generateUrl('lang/organizations/edit');
+        $this->visit($url);
 	}
 	
 	/**
@@ -56,6 +58,8 @@ class OrganizationContext implements Context
 	 */
 	public function iGoToOrganizationOverviewPage()
 	{
-		$this->visit('/organizations');
+		//$this->visit('/organizations');
+		$url = $this->generateUrl('lang/organizations');
+		$this->visit($url);
 	}
 }

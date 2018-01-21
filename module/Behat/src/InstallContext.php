@@ -62,8 +62,7 @@ class InstallContext implements Context
      */
     public function iGoToInstallPage()
     {
-        $url = $this->generateUrl('/');
-        $url = str_replace('/en','',$url);
+        $url = $this->minkContext->locatePath('/');
         $this->visit($url);
     }
 

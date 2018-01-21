@@ -40,8 +40,10 @@ class ApplicationContext implements Context
 		}
 		$job->setApplyId($job->getId());
 		$repo->store($job);
-		
-		$url = '/apply/'.$job->getApplyId();
+
+		$url = $this->generateUrl('lang/apply',[
+		    'applyId' => $job->getApplyId()
+        ]);
 		$this->visit($url);
 	}
 	

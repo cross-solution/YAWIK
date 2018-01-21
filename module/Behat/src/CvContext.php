@@ -30,7 +30,8 @@ class CvContext implements Context
 	 */
 	public function iGoToManageResumePage()
 	{
-		$this->visit('/my/cv');
+	    $url = $this->generateUrl('lang/my-cv');
+		$this->visit($url);
 	}
 	
 	/**

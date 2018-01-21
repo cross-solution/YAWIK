@@ -21,7 +21,9 @@ class SettingsContext implements Context
 	 */
 	public function iGoToSettingsPage()
 	{
-		$this->visit('/settings');
+		//$this->visit('/settings');
+        $url = $this->generateUrl('lang/settings');
+        $this->visit($url);
 	}
 	
 	/**
@@ -29,6 +31,9 @@ class SettingsContext implements Context
 	 */
 	public function iGoToEmailTemplatePage()
 	{
-		$this->visit('/settings/Applications');
+	    $url = $this->generateUrl('lang/settings',[
+	        'module' => 'Applications'
+        ]);
+		$this->visit($url);
 	}
 }

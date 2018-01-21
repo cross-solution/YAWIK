@@ -10,9 +10,11 @@
 namespace Yawik\Behat;
 
 
+use Auth\Entity\User;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
 use Core\Repository\RepositoryInterface;
+use Zend\View\Helper\Url;
 
 trait CommonContextTrait
 {
@@ -49,14 +51,23 @@ trait CommonContextTrait
 		$this->summaryFormContext = $scope->getEnvironment()->getContext(SummaryFormContext::class);
 	}
 	
-	public function generateUrl($url)
+	public function generateUrl($name,array $params=array(),array $options=array())
 	{
-		return $this->coreContext->generateUrl($url);
+	    $defaults = ['lang'=>'en'];
+	    $params = array_merge($defaults,$params);
+        /* @var Url $urlHelper */
+        $urlHelper = $this
+            ->getService('ViewHelperManager')
+            ->get('url')
+        ;
+        $url = $urlHelper($name,$params,$options);
+
+        return $this->coreContext->generateUrl($url);
 	}
 	
 	public function visit($url)
 	{
-		$this->coreContext->iVisit($this->generateUrl($url));
+		$this->coreContext->iVisit($url);
 	}
 	
 	/**
@@ -77,12 +88,12 @@ trait CommonContextTrait
 	{
 		return $this->coreContext->getRepositories()->get($id);
 	}
-	
-	/**
-	 * @return \Auth\Entity\User
-	 */
-	public function getCurrentUser()
-	{
-		return $this->userContext->getCurrentUser();
-	}
+
+    /**
+     * @return UserContext
+     */
+	public function getUserContext()
+    {
+        return $this->userContext;
+    }
 }
