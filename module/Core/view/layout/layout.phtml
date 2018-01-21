@@ -127,9 +127,9 @@ endforeach;?>
                             <version>
                                 <?php
                                     // git describe will fail on travis environment
-                                    //echo exec('git describe',$output,$retVal);
+                                    echo getenv('TRAVIS') ? "undefined":exec('git describe');
                                 ?>
-                                [<?php //echo exec('git rev-parse --abbrev-ref HEAD',$output,$retVal) ?>]
+                                [<?php echo getenv('TRAVIS') ? "undefined":exec('git rev-parse --abbrev-ref HEAD',$output,$retVal) ?>]
                             </version>
                         </small></span>
                             <span class="pull-right"><small>Powered by <a href="http://yawik.org">YAWIK</a></small></span>
