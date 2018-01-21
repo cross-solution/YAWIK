@@ -13,6 +13,7 @@ Feature: Login to yawik
         And I specify the password as "test"
         And I log in
         Then I should see "Dashboard"
+        And I should see "You are now logged in"
 
     @javascript
     Scenario: Sign in with bad credentials
@@ -35,4 +36,4 @@ Feature: Login to yawik
     Scenario: Sign out
         Given I am logged in as "test@example.com" identified by "test"
         When I press logout link
-        Then I should see "YAWIK"
+        Then I should see "Welcome to YAWIK"
