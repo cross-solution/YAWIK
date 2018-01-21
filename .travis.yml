@@ -52,10 +52,7 @@ before_script:
 
 
 script:
-  - ln -s ../test/build/logs build
-  - cd test
-  - ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml.dist
-  - cd $TRAVIS_BUILD_DIR
+  - ./vendor/bin/phpunit -c test
   - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction --tags="~@skip-travis"
 
 after_script:
