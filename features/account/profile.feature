@@ -48,7 +48,6 @@ Feature: Editing user profile
 
     Scenario: Update profile photo
         When I go to profile page
-        Then I should not see an "img.img-polaroid" element
-        When I attach the file "img/person.jpg" to "info-image-image"
+        And I attach the file "img/person.jpg" to "info-image-image"
         And I wait for the ajax response
         Then I should see an "img.img-polaroid" element
