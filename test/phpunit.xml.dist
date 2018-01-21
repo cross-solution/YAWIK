@@ -8,6 +8,7 @@
         <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">../module/*/src</directory>
             <exclude>
+                <dir>../module/Behat</dir>
                 <file>../module/Core/src/autoload_classmap.php</file>
                 <file>../module/Auth/src/autoload_classmap.php</file>
                 <file>../module/Applications/src/autoload_classmap.php</file>
