@@ -65,3 +65,36 @@ Because by default behat will perform test in headless mode,
 you can see screenshot for behat failed test in `build/behat` directory.
 The `*.png` files will show browser screenshot, and `*.log` files
 will show actual html output during tests.
+
+
+### Mail and Social Profile Feature
+By default behat will skip mail and social profile tests,
+because this will cause error in travis. To perform this skipped tests
+you need to be sure that your mail and social login configuration is valid,
+and configure social profile user to be used during tests:
+```yaml
+# path/to/yawik/behat.yml
+default:
+    suites:
+        user:
+            contexts:
+                - Yawik\Behat\UserContext:
+                      parameters:
+                          social_login_info:
+                              facebook:
+                                  email:  <test-facebook-user>
+                                  pass:   <test-facebook-password>
+                              linkedin:
+                                  session_key-login:      <test-linked-in-user>
+                                  session_password-login: <test-linked-in-password>
+```
+You can run this skipped tests by using this command:
+```bash
+# to run mail tests:
+$ cd path/to/yawik
+$ ./vendor/bin/behat --tags=@mail
+
+# to run social profile tests
+$ cd path/to/yawik
+$ ./vendor/bin/behat --tags=@social-profile
+```
