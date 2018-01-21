@@ -127,10 +127,9 @@ endforeach;?>
                             <version>
                                 <?php
                                     // git describe will fail on travis environment
-                                    $retVal = "undefined";
-                                    @passthru('git describe',$retVal);
+                                    echo exec('git describe',$output,$retVal);
                                 ?>
-                                [<?php @passthru('git rev-parse --abbrev-ref HEAD') ?>]
+                                [<?php echo exec('git rev-parse --abbrev-ref HEAD',$output,$retVal) ?>]
                             </version>
                         </small></span>
                             <span class="pull-right"><small>Powered by <a href="http://yawik.org">YAWIK</a></small></span>
