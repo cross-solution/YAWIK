@@ -44,7 +44,6 @@ before_script:
   - ./composer.phar install --dev
 
   # setup display, behat, and selenium
-  - "wget http://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/bin"
   - ./bin/start-selenium.sh > /dev/null 2>&1 &
   - sleep 5
   - APPLICATION_ENV=development php -S localhost:8000 -t public public/index.php > /dev/null 2>&1 &
