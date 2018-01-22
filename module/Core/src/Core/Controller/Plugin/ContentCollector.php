@@ -9,36 +9,68 @@
 
 namespace Core\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\PluginInterface;
+use Zend\EventManager\EventInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-//use Zend\Stdlib\DispatchableInterface as Dispatchable;
-//use Zend\EventManager\Event;
-//use Zend\Stdlib\Parameters;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class ContentCollector
+ *
+ * @package Core\Controller\Plugin
+ * @author Anthonius Munthi <me@itstoni.com>
+ */
 class ContentCollector extends AbstractPlugin
 {
-
+    /**
+     * @var string
+     */
     protected $_captureTo;
+
+    /**
+     * @var string
+     */
     protected $_template;
-    
+
+    /**
+     * ContentCollector constructor.
+     */
     public function __construct()
     {
         $this->_captureTo = 'content_';
     }
-    
+
+    /**
+     * Setting the template name to use
+     *
+     * @param   string  $template
+     * @return  $this
+     */
     public function setTemplate($template)
     {
         $this->_template = $template;
         return $this;
     }
-    
+
+    /**
+     * Setting capture to
+     *
+     * @param $captureTo
+     * @return $this
+     */
     public function captureTo($captureTo)
     {
         $this->_captureTo = $captureTo;
         return $this;
     }
-    
+
+    /**
+     * Trigger capture event
+     *
+     * @param   EventInterface $event
+     * @param   mixed|null  $target
+     *
+     * @return  ViewModel
+     */
     public function trigger($event, $target = null)
     {
         if (empty($this->_template) || !is_string($this->_template)) {
@@ -54,7 +86,7 @@ class ContentCollector extends AbstractPlugin
                       $response = new ViewModel(array('target' => $target));
                       $response->setTemplate($template);
             }
-                    $viewModel->addChild($response, $this->_captureTo . $i);
+            $viewModel->addChild($response, $this->_captureTo . $i);
         }
                 
         return $viewModel;
