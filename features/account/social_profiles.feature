@@ -1,4 +1,3 @@
-@profileSocialLink @skip-travis
 Feature: Social profile feature
     In order to use social profile information
     As a User
@@ -11,7 +10,7 @@ Feature: Social profile feature
             | fullname      | Test Social Profile     |
         And I log in with username "test@social-profile.com" and password "test"
 
-    @javascript @profile-facebook @skip-travis
+    @javascript @profile-facebook @social-profile
     Scenario: Link to facebook
         When I go to profile page
         And I press "Facebook"
@@ -24,7 +23,7 @@ Feature: Social profile feature
         And I wait for the ajax response
         Then I should see an ".btn-success .fa-facebook" element
 
-    @javascript @profile-linkedin @skip-travis
+    @javascript @profile-linkedin @social-profile
     Scenario: Link to LinkedIn
         When I go to profile page
         And I press "LinkedIn"

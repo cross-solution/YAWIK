@@ -20,7 +20,7 @@ Feature: Publish Job
         And I am logged in as "test@recruiter.com" identified by "test"
 
     # disabled because we can not test email feature on travis
-    @javascript @skip-travis
+    @javascript @mail
     Scenario: Successfully publish a job
         Given I go to edit job draft with title "Test Publishing a Job"
         And I wait for the ajax response

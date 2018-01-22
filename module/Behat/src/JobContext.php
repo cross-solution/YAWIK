@@ -81,15 +81,16 @@ class JobContext implements Context
 	 */
 	public function iGoToJobBoardPage()
 	{
-		$this->visit('/en/jobboard');
+		$this->visit('/jobboard');
 	}
 	
 	/**
 	 * @Given I go to create job page
 	 */
-	public function iGoToMyOrganizationPage()
+	public function iGoToCreateJob()
 	{
-		$this->visit('/en/jobs/edit');
+	    $url = $this->generateUrl('lang/jobs/manage',['action' => 'edit']);
+		$this->visit($url);
 	}
 	
 	/**
@@ -97,7 +98,7 @@ class JobContext implements Context
 	 */
 	public function iGoToJobOverviewPage()
 	{
-		$this->visit('/en/jobs');
+		$this->visit('/jobs');
 	}
 	
 	/**
@@ -112,7 +113,9 @@ class JobContext implements Context
 			throw new \Exception(sprintf('Job with title "%s" is not found',$jobTitle));
 		}
 		$this->currentJob = $job;
-		$url = '/en/jobs/edit?id='.$job->getId();
+		$url = $this->generateUrl('lang/jobs/manage',[
+		    'id' => $job->getId()
+        ]);
 		$this->visit($url);
 	}
 	
@@ -132,7 +135,8 @@ class JobContext implements Context
 	{
 		/* @var $jobRepository JobRepository */
 		/* @var $job Job */
-		$user = $this->getCurrentUser();
+		$user = $this->getUserContext()->getCurrentUser();
+
 		$jobRepository = $this->getJobRepository();
 		$results = $jobRepository->getUserJobs($user->getId());
 		foreach($results as $job){

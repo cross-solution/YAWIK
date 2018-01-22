@@ -226,7 +226,7 @@ return array(
 
     // Translation settings consumed by the 'translator' factory above.
     'translator' => array(
-        'locale' => 'de_DE',
+        'locale' => 'en_EN',
         'translation_file_patterns' => array(
             [
                 'type' => 'gettext',

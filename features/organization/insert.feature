@@ -11,7 +11,7 @@ Feature: Add new organization
         Then I should see "Sorry, you may not create organizations."
         And I should see "Before you are able to create organizations, you have to create your main organization first."
 
-    @javascript @organization @todo
+    @javascript @organization
     Scenario: Create organization successfully
         Given I am logged in as a recruiter with "Cross Solution" as organization
         And I go to create new organization page
@@ -45,5 +45,3 @@ Feature: Add new organization
         When I attach the file "img/logo.jpg" to "organizationLogo-original"
         And I wait for the ajax response
         Then I should see an "img.img-polaroid" element
-        When I go to organization overview page
-        Then I should see "Some City"

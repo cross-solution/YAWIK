@@ -16,7 +16,6 @@ use Install\Filter\DbNameExtractor;
 /**
  * Tests for \Install\Controller\Plugin\YawikConfigCreator
  *
- * @runTestsInSeparateProcesses
  * @covers \Install\Controller\Plugin\YawikConfigCreator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Install

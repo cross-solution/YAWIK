@@ -118,11 +118,20 @@ endforeach;?>
 <!-- /container -->
             <footer id="yk-footer">
                 <div class="container">
-		            <span class="pull-left"><small>&copy;<?php echo date("Y")?>
-                        <a href="<?php echo $operator['homepage']?>"><?php echo $operator['companyFullName']?></a>.
-                            <?php echo $this->translate('All rights reserved.') ?> |
+		            <span class="pull-left">
+                        <small>
+                            &copy;<?php echo date("Y")?>
+                            <a href="<?php echo $operator['homepage']?>"><?php echo $operator['companyFullName']?></a>.
+                                <?php echo $this->translate('All rights reserved.') ?> |
                             <a href="<?php echo  $this->basePath($lang .'/content/imprint')?>"><?php echo $this->translate('Imprint') ?></a> |
-                            <version><?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</version></small></span>
+                            <version>
+                                <?php
+                                    // git describe will fail on travis environment
+                                    echo getenv('TRAVIS') ? "undefined":exec('git describe');
+                                ?>
+                                [<?php echo getenv('TRAVIS') ? "undefined":exec('git rev-parse --abbrev-ref HEAD',$output,$retVal) ?>]
+                            </version>
+                        </small></span>
                             <span class="pull-right"><small>Powered by <a href="http://yawik.org">YAWIK</a></small></span>
                 </div>
             </footer>

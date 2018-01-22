@@ -11,6 +11,12 @@ ini_set('error_reporting', E_ALL | E_STRICT);
 
 date_default_timezone_set('Europe/Berlin');
 
+if(!version_compare(PHP_VERSION, '5.6.0', 'ge')){
+    echo sprintf('<p>Sorry, YAWIK requires at least PHP 5.6.0 to run, but this server currently provides PHP %s</p>',PHP_VERSION);
+    echo '<p>Please ask your servers\' administrator to install the proper PHP version.</p>';
+    exit;
+}
+
 if (php_sapi_name() == 'cli-server') {
     $parseUrl = parse_url(substr($_SERVER["REQUEST_URI"], 1));
     $route = isset($parseUrl['path']) ? $parseUrl['path']:null;

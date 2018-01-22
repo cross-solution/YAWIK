@@ -1,9 +1,15 @@
 language: php
+
 php:
   - "5.6"
 
 services:
   - mongodb
+
+cache:
+    directories:
+      - "$HOME/.composer/cache"
+      - "$HOME/.npm"
 
 env:
   - PECLMONGO=mongo-1.6.10
@@ -11,9 +17,6 @@ env:
 before_install:
   - sudo apt-get update > /dev/null
   - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
-  # setup xvfb to be used by selenium
-  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1680x1050x16
-  - export DISPLAY=:99
 
 install:
   # install php packages required for running YAWIK phpunit tests
@@ -41,19 +44,15 @@ before_script:
   - ./composer.phar install --dev
 
   # setup display, behat, and selenium
-  - "wget http://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/bin"
-  - ./vendor/bin/selenium-server-standalone -Dwebdriver.chrome.driver=/usr/bin/chromedriver > /dev/null 2>&1 &
+  - ./bin/start-selenium.sh > /dev/null 2>&1 &
   - sleep 5
   - APPLICATION_ENV=development php -S localhost:8000 -t public public/index.php > /dev/null 2>&1 &
   - sleep 3
 
 
 script:
-  - ln -s ../test/build/logs build
-  - cd test
-  - ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml.dist
-  - cd $TRAVIS_BUILD_DIR
-  - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction -f progress --tags="@javascript && ~@todo && ~@skip-travis"
+  - ./vendor/bin/phpunit -c test
+  - APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
