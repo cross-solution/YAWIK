@@ -10,17 +10,27 @@
 /** NotificationFactory.php */
 namespace Core\Controller\Plugin\Service;
 
-use Core\Listener\Events\NotificationEvent;
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Controller\Plugin\Notification;
 
+/**
+ * Create Notification plugin
+ *
+ * @package Core\Controller\Plugin\Service
+ *
+ * @author Anthonius Munthi <me@itstoni.com>
+ */
 class NotificationFactory implements FactoryInterface
 {
+    /**
+     * Create new Notification object
+     *
+     * @param ContainerInterface    $container
+     * @param string                $requestedName
+     * @param array|null            $options
+     * @return Notification
+     */
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
 	{
 		$pluginManager = $container->get('ControllerPluginManager');
@@ -34,10 +44,4 @@ class NotificationFactory implements FactoryInterface
 		
 		return $notification;
 	}
-	
-	public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var \Zend\Mvc\Controller\PluginManager $serviceLocator */
-        return $this($serviceLocator,Notification::class);
-    }
 }
