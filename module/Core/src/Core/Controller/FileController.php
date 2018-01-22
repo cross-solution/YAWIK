@@ -71,6 +71,9 @@ class FileController extends AbstractActionController
         }
     }
 
+    /**
+     * @return null|object
+     */
     protected function getFile()
     {
         $fileStoreName = $this->params('filestore');
@@ -82,7 +85,7 @@ class FileController extends AbstractActionController
         } catch (\Exception $e) {
             $response->setStatusCode(404);
             $this->getEvent()->setParam('exception', $e);
-            return;
+            return null;
         }
         $fileId = $this->params('fileId', 0);
         if (preg_match('/^(.*)\..*$/', $fileId, $baseFileName)) {
