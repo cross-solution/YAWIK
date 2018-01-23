@@ -15,6 +15,7 @@ use Core\Controller\AdminControllerEvent;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Core\EventManager\EventManager;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
+use Interop\Container\ContainerInterface;
 
 
 /**
@@ -46,7 +47,30 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
 	                   ->getMock();
 	    $this->target = new AdminController($events);
     }
-    
+
+    public function testFactory()
+    {
+        $container = $this->createMock(ContainerInterface::class);
+        $eventManager = $this->createMock(EventManager::class);
+        $container->expects($this->once())
+            ->method('get')
+            ->willReturn($eventManager)
+        ;
+
+        $eventManager->expects($this->once())
+            ->method('setEventPrototype')
+            ->with($this->callback(function($argument){
+                return $argument instanceof AdminControllerEvent;
+            }))
+        ;
+
+        $ob = AdminController::factory($container);
+        $this->assertInstanceOf(
+            AdminController::class,
+            $ob
+        );
+    }
+
     public function testIndexAction()
     {
         $events = $this->getMockBuilder(EventManager::class)
