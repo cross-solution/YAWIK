@@ -3,6 +3,10 @@
 namespace Core\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
+use Zend\EventManager\EventManagerInterface;
+use Zend\Log\LoggerInterface;
+use Zend\Mail\Transport\TransportInterface;
+use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\Mvc\Controller\Plugin\PluginInterface;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Mail\Message;
@@ -11,16 +15,10 @@ use Zend\Mail\AddressList;
 use Zend\EventManager\Event;
 use Zend\Stdlib\Parameters;
 use Zend\Stdlib\ArrayUtils;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\View\Resolver\ResolverInterface;
 
-class mail extends Message implements PluginInterface
+class Mail extends Message implements PluginInterface
 {
-    
-    /**
-     * @var ContainerInterface
-     */
-    protected $serviceManager;
-    
     /**
      * @var Dispatchable
      */
@@ -29,19 +27,57 @@ class mail extends Message implements PluginInterface
     /**
      * @var array
      */
-    protected $param;
+    protected $param = array();
     
     /**
      * @var array
      */
-    protected $config;
+    protected $config = array();
 
     /**
-     * @param ContainerInterface $serviceManager
+     * @var LoggerInterface
      */
-    public function __construct(ContainerInterface $serviceManager)
+    protected $mailLogger;
+
+    /**
+     * @var ResolverInterface
+     */
+    protected $viewResolver;
+
+    /**
+     * @var EventManagerInterface
+     */
+    protected $eventManager;
+
+    /**
+     * @var ModuleManagerInterface
+     */
+    protected $moduleManager;
+
+    /**
+     * @var TransportInterface
+     */
+    protected $transport;
+
+    /**
+     * Mail constructor.
+     * @param LoggerInterface $mailLogger
+     * @param ResolverInterface $viewResolver
+     * @param EventManagerInterface $eventManager
+     * @param ModuleManagerInterface $moduleManager
+     */
+    public function __construct(
+        LoggerInterface $mailLogger,
+        ResolverInterface $viewResolver,
+        EventManagerInterface $eventManager,
+        ModuleManagerInterface $moduleManager
+    )
     {
-        $this->serviceManager = $serviceManager;
+        $this->mailLogger       = $mailLogger;
+        $this->viewResolver     = $viewResolver;
+        $this->eventManager     = $eventManager;
+        $this->moduleManager    = $moduleManager;
+        $this->transport        = new Sendmail();
     }
     
     /**
@@ -64,7 +100,28 @@ class mail extends Message implements PluginInterface
     {
         return $this->controller;
     }
-    
+
+    /**
+     * Set mail transport to be use
+     *
+     * @param TransportInterface $transport
+     * @return $this
+     */
+    public function setTransport(TransportInterface $transport)
+    {
+        $this->transport = $transport;
+
+        return $this;
+    }
+
+    /**
+     * @return TransportInterface
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
     public function __invoke(array $param = array())
     {
         $this->param = $param;
@@ -108,21 +165,21 @@ class mail extends Message implements PluginInterface
     public function template($template)
     {
         $controller =  get_class($this->controller);
-        $services = $this->serviceManager;
         
         $event = new Event();
-        $eventManager = $services->get('EventManager');
-        $eventManager->setIdentifiers('Mail');
+        $eventManager = $this->eventManager;
+        // @TODO: check if change this value into ['Mail'] not causing any errors!
+        $eventManager->setIdentifiers(['Mail']);
         $p = new Parameters(array('mail' => $this, 'template' => $template));
         $event->setParams($p);
         $eventManager->trigger('template.pre', $event);
         
         // get all loaded modules
-        $moduleManager = $services->get('ModuleManager');
+        $moduleManager = $this->moduleManager;
         $loadedModules = $moduleManager->getModules();
         //get_called_class
         $controllerIdentifier = strtolower(substr($controller, 0, strpos($controller, '\\')));
-        $viewResolver = $this->serviceManager->get('ViewResolver');
+        $viewResolver = $this->viewResolver;
                 
         $templateHalf = 'mail/' . $template;
         $resource = $viewResolver->resolve($templateHalf);
@@ -168,47 +225,46 @@ class mail extends Message implements PluginInterface
         } elseif (isset($this->config['templateHalf'])) {
             $template = $this->config['templateHalf'];
         } else {
-              throw new \InvalidArgumentException('Not template provided for Mail.');
+              throw new \InvalidArgumentException('No template provided for Mail.');
         }
         return $template;
     }
     
     public function informationComplete()
     {
-        $log = $this->serviceManager->get('Log/Core/Mail');
+        $log = $this->mailLogger;
         $template = $this->getTemplate();
         if (isset($this->config['from'])) {
             $from = $this->config['from'];
         } else {
             $log->err('A from email address must be provided (Variable $from) in Template: ' . $template);
-              throw new \InvalidArgumentException('A from email address must be provided (Variable $from) in Template: ' . $template);
+            throw new \InvalidArgumentException('A from email address must be provided (Variable $from) in Template: ' . $template);
         }
         if (isset($this->config['fromName'])) {
             $fromName = $this->config['fromName'];
         } else {
             $log->err('A from name must be provided (Variable $fromName) in Template: ' . $template);
-              throw new \InvalidArgumentException('A from name must be provided (Variable $fromName) in Template: ' . $template);
+            throw new \InvalidArgumentException('A from name must be provided (Variable $fromName) in Template: ' . $template);
         }
         if (isset($this->config['subject'])) {
             $subject = $this->config['subject'];
         } else {
             $log->err('A subject must be provided (Variable $subject) in Template: ' . $template);
-              throw new \InvalidArgumentException('A subject must be provided (Variable $subject) in Template: ' . $template);
+            throw new \InvalidArgumentException('A subject must be provided (Variable $subject) in Template: ' . $template);
         }
         $this->setFrom($from, $fromName);
         $this->setSubject($subject);
         return $this;
     }
-    
-    
+
     public function send()
     {
-        $log = $this->serviceManager->get('Log/Core/Mail');
+        $log = $this->mailLogger;
         $this->getHeaders()->addHeaderLine('X-Mailer', 'php/YAWIK');
 
         $this->getHeaders()->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
 
-        $transport = new Sendmail();
+        $transport = $this->transport;
         $erg = false;
         try {
             $transport->send($this);
@@ -227,6 +283,11 @@ class mail extends Message implements PluginInterface
 	 */
     public static function factory(ContainerInterface $container)
     {
-        return new static($container);
+        //@TODO: need to define transport to be use during ::send()
+        $mailLog        = $container->get('Log/Core/Mail');
+        $viewResolver   = $container->get('ViewResolver');
+        $eventManager   = $container->get('EventManager');
+        $moduleManager  = $container->get('ModuleManager');
+        return new static($mailLog,$viewResolver,$eventManager,$moduleManager);
     }
 }
