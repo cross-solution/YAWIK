@@ -53,7 +53,6 @@
         "doctrine/doctrine-mongo-odm-module": "*",
         "hybridauth/hybridauth": "^2.9",
         "mpdf/mpdf": "5.7.*",
-        "components/jquery": "<3",
         "tinymce/tinymce": "4.5.*",
         "mikemix/zf2htmlpurifier": "*",
         "jmikola/geojson": "*",
