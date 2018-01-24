@@ -19,6 +19,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @author Anthonius Munthi <me@itstoni.com>
  * @package CoreTest\Entity
  * @since 0.30.1
+ * @covers \Core\Entity\Timeline
  */
 class TimelineTest extends \PHPUnit_Framework_TestCase
 {
