@@ -13,6 +13,7 @@ namespace CoreTest\Listener\LanguageRouteListener;
 use Auth\AuthenticationService;
 use Auth\Entity\UserInterface;
 use Core\Listener\LanguageRouteListener;
+use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Zend\Http\Request;
 use Zend\Http\Response;
@@ -180,6 +181,14 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
 
 class LrlMock extends LanguageRouteListener
 {
+    public function __construct(LocaleService $localeService, ModuleOptions $moduleOptions = null)
+    {
+        if(is_null($moduleOptions)){
+            $moduleOptions = new ModuleOptions();
+        }
+        parent::__construct($localeService, $moduleOptions);
+    }
+
     public function setLocale(MvcEvent $e, $lang)
     {
         $origLocale = setlocale(LC_ALL, "0");

@@ -10,6 +10,7 @@
 /** */
 namespace CoreTest\Listener\LanguageRouteListener;
 
+use Core\Options\ModuleOptions;
 use Zend\EventManager\EventManager;
 use Core\Listener\LanguageRouteListener;
 use Core\I18n\Locale as LocaleService;
@@ -38,7 +39,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->target = new LanguageRouteListener(new LocaleService(['xx' => 'xx_XX']));
+        $this->target = new LanguageRouteListener(new LocaleService(['xx' => 'xx_XX']),new ModuleOptions());
     }
     
     public function testAttachsToExpectedEvents()
