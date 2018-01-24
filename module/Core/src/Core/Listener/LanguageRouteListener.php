@@ -8,6 +8,7 @@
  */
 namespace Core\Listener;
 
+use Core\Options\ModuleOptions;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
@@ -16,6 +17,15 @@ use Zend\Router\Http\RouteMatch;
 use Locale;
 use Core\I18n\Locale as LocaleService;
 
+/**
+ * Class LanguageRouteListener
+ *
+ * @package Core\Listener
+ * @authro Carsten Bleek <cbleek@yawik.org>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Anthonius Munthi <me@itstoni.com>
+ */
 class LanguageRouteListener implements ListenerAggregateInterface
 {
 
@@ -28,13 +38,23 @@ class LanguageRouteListener implements ListenerAggregateInterface
      * @var LocaleService
      */
     protected $localeService;
-    
+
     /**
-     * @param LocaleService $localeService
+     * @var ModuleOptions
      */
-    public function __construct(LocaleService $localeService)
+    protected $moduleOptions;
+
+
+    /**
+     * LanguageRouteListener constructor.
+     *
+     * @param LocaleService $localeService
+     * @param ModuleOptions $moduleOptions
+     */
+    public function __construct(LocaleService $localeService, ModuleOptions $moduleOptions)
     {
         $this->localeService = $localeService;
+        $this->moduleOptions = $moduleOptions;
     }
         
     /**
@@ -138,7 +158,10 @@ class LanguageRouteListener implements ListenerAggregateInterface
          */
         $request = clone $e->getRequest(); // clone the request, because maybe we
         $origUri = str_replace($basePath, '', $request->getRequestUri());
-        $lang = $this->detectLanguage($e);
+
+        $options = $this->moduleOptions;
+        // using default language if detect language is disabled
+        $lang = $options->isDetectLanguage() ? $this->detectLanguage($e):$options->getDefaultLanguage();
         $langUri = rtrim("$basePath/$lang$origUri", '/');
         if ($router->match($request->setUri($langUri)) instanceof RouteMatch) {
             $e->stopPropagation(true);

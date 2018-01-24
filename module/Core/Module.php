@@ -83,7 +83,9 @@ class Module implements ConsoleBannerProviderInterface
             (new ErrorHandlerListener())->attach($eventManager);
 
             /* @var \Core\Options\ModuleOptions $options */
-            $languageRouteListener = new LanguageRouteListener($sm->get('Core/Locale'));
+            $languageRouteListener = new LanguageRouteListener(
+                $sm->get('Core/Locale'),$sm->get('Core/Options')
+            );
             $languageRouteListener->attach($eventManager);
         
             $ajaxRenderListener = new AjaxRenderListener();
