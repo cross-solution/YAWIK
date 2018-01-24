@@ -19,6 +19,7 @@ use Core\Entity\AbstractIdentifiableEntity;
  * @group  Core
  * @group  Core.Entity
  * @covers \Core\Entity\AbstractIdentifiableEntity
+ * @covers \Core\Entity\IdentifiableEntityTrait
  */
 class AbstractIdentifiableEntityTest extends \PHPUnit_Framework_TestCase
 {
