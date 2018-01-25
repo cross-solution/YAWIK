@@ -10,6 +10,7 @@
 /** */
 namespace CoreTest\Listener\LanguageRouteListener;
 
+use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Zend\EventManager\EventManager;
 use Core\Listener\LanguageRouteListener;
@@ -36,7 +37,7 @@ class OnRouteCallbackTest extends \PHPUnit_Framework_TestCase
     private $target = [
         LanguageRouteListener::class,
         'mock' => [ 'detectLanguage' => ['return' => 'xx'], 'setLocale' ],
-        'args' => 'getLocaleService'
+        'args' => 'getConstructorArgs'
     ];
     
     protected $localeService;
@@ -121,14 +122,14 @@ class OnRouteCallbackTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('response', $actual);
     }
     
-    public function getLocaleService()
+    public function getConstructorArgs()
     {
         $this->localeService = $this->getMockBuilder(LocaleService::class)
             ->setConstructorArgs([[]])
             ->setMethods(['isLanguageSupported'])
             ->getMock();
-        
-        return [$this->localeService];
+
+        return [$this->localeService, new ModuleOptions()];
     }
 }
 

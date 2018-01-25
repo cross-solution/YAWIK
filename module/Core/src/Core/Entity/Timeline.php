@@ -14,6 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * Any type of timeline
  *
+ * @author Anthonius Munthi <me@itstoni.com>
  * @ODM\EmbeddedDocument
  */
 class Timeline extends AbstractEntity
@@ -25,17 +26,14 @@ class Timeline extends AbstractEntity
     
     public function __construct()
     {
-        $this->getDate();
+        $this->date = new \DateTime();
     }
     
     /**
-     * @return $date
+     * @return \DateTime
      */
     public function getDate()
     {
-        if (!$this->date) {
-            $this->setDate(new \DateTime());
-        }
         return $this->date;
     }
 

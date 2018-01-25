@@ -13,37 +13,12 @@ namespace Core\Entity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
+ * Base class for an Entity that should have id on it's class
  *
+ * @author Anthonius Munthi <me@itstoni.com>
  * @ODM\MappedSuperclass
   */
 abstract class AbstractIdentifiableEntity extends AbstractEntity implements IdentifiableEntityInterface
 {
-       
-    /**
-     * Entity id
-     *
-     * @var mixed
-     * @ODM\Id
-     */
-    protected $id;
-    
-    /**
-     * {@inheritdoc}
-     * @see \Core\Entity\EntityInterface::getId()
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * {@inheritdoc}
-     * @see \Core\Entity\EntityInterface::setId()
-     * @return  $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
+    use IdentifiableEntityTrait;
 }
