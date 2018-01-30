@@ -13,6 +13,7 @@
  */
 namespace Core;
 
+use Zend\I18n\Translator\Resources;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
@@ -204,7 +205,6 @@ return array(
             'Core/Listener/DeferredListenerAggregate' => [\Core\Listener\DeferredListenerAggregate::class,'factory'],
             'Core/Listener/CreatePaginator' => 'Core\Listener\CreatePaginatorListener::factory',
             'Core/Locale' => 'Core\I18n\LocaleFactory',
-            'mvctranslator' => \Zend\Mvc\I18n\TranslatorFactory::class,
             \Core\Listener\AjaxRouteListener::class => \Core\Factory\Listener\AjaxRouteListenerFactory::class,
             \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
             'Imagine' => \Core\Factory\Service\ImagineFactory::class,
@@ -217,7 +217,8 @@ return array(
         'aliases' => array(
             'forms' => 'FormElementManager',
             'repositories' => 'Core/RepositoryService',
-            'translator' => 'mvctranslator',
+            'mvctranslator' => 'MvcTranslator',
+            'translator' => 'MvcTranslator',
         ),
         'shared' => array(
             'Core/Listener/DeferredListenerAggregate' => false,
@@ -235,13 +236,13 @@ return array(
             ],
             [
                 'type'     => 'phparray',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern' => 'Zend_Validate.%s.php',
+                'base_dir' => Resources::getBasePath(),
+                'pattern'  => Resources::getPatternForValidator(),
             ],
             [
                 'type'     => 'phparray',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern' => 'Zend_Captcha.%s.php',
+                'base_dir' => Resources::getBasePath(),
+                'pattern' => Resources::getPatternForCaptcha(),
             ]
         ),
     ),

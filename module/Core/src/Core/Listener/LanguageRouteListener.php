@@ -224,6 +224,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         Locale::setDefault($locale);
 
         $translator->setLocale($locale);
+        $translator->setFallbackLocale(substr($locale, 0, 2));
         $routeMatch = $e->getRouteMatch();
         if ($routeMatch && $routeMatch->getParam('lang') === null) {
             $routeMatch->setParam('lang', $lang);
