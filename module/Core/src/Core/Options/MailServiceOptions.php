@@ -10,7 +10,8 @@
 /** */
 namespace Core\Options;
 
-use \Zend\Mail\Transport\SmtpOptions;
+use Zend\Mail\Transport\FileOptions;
+use Zend\Mail\Transport\SmtpOptions;
 
 /**
  * ${CARET}
@@ -35,8 +36,13 @@ class MailServiceOptions extends SmtpOptions
     protected $connectionClass = 'plain';
 
     /**
-     * Mail transport. Possible Values "smtp", "sendmail". If "sendmail" is used, YAWIK will use the php mail() function
+     * Mail transport. Possible Values "smtp", "sendmail","file".
+     * If "sendmail" is used, YAWIK will use the php mail() function
      * for sending mails. This requires a local MTA.
+     *
+     * If "file" is used, YAWIK will use FileTransport class
+     * to be able to test mail functionality
+     *
      * https://docs.zendframework.com/zend-mail/transport/intro/#configuration-options
      *
      * @var string $transportClass
@@ -79,6 +85,12 @@ class MailServiceOptions extends SmtpOptions
      */
     protected $password;
 
+    /**
+     * @var string Path to stored mail files
+     * @see FileOptions::setPath()
+     */
+    protected $path;
+
 
     public function setUsername($username) {
         if ($username) {
@@ -120,5 +132,30 @@ class MailServiceOptions extends SmtpOptions
 
     public function getTransportClass(){
         return $this->transportClass;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        if(is_null($this->path)){
+            $this->setPath(sys_get_temp_dir().'/yawik/mails');
+        }
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     * @return MailServiceOptions
+     */
+    public function setPath($path)
+    {
+        if(!is_dir($path)){
+            mkdir($path,0777,true);
+            chmod($path,0777);
+        }
+        $this->path = $path;
+        return $this;
     }
 }
