@@ -20,7 +20,7 @@ Feature: Publish Job
         And I am logged in as "test@recruiter.com" identified by "test"
 
     # disabled because we can not test email feature on travis
-    @javascript @mail
+    @jobs @mail
     Scenario: Successfully publish a job
         Given I go to edit job draft with title "Test Publishing a Job"
         And I wait for the ajax response
@@ -36,3 +36,7 @@ Feature: Publish Job
         And I follow "Publish job"
         And I wait for the ajax response
         Then I should see "Publishing successfully finished"
+        And an email should be sent to "me@example.com"
+        And an email should be sent from "email@example.com"
+        And sent email should be contain "Click here to accept or reject the job opening"
+        And sent email should be contain "We hereby acknowledge receipt of your job announcement"

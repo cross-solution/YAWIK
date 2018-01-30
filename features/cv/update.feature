@@ -35,5 +35,3 @@ Feature: Resume Management
         And I should see "654321"
         And I should see "test@resume.com"
 
-    Scenario: Change resume visibility
-
