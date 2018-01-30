@@ -11,7 +11,6 @@ namespace Core\Mail;
 
 use Zend\Mail\Transport\File as BaseFileTransport;
 use Zend\Mail\Transport\Exception\RuntimeException;
-use Zend\Mail\Transport\FileOptions;
 
 /**
  * A class to handle mail transport during tests
