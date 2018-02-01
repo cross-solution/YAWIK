@@ -61,7 +61,8 @@
         "imagine/imagine": "*",
         "zendframework/zend-progressbar": "^2.5",
         "zendframework/zend-math": "^3.0",
-        "zendframework/zend-captcha": "^2.7"
+        "zendframework/zend-captcha": "^2.7",
+        "zendframework/zend-i18n-resources": "^2.5"
     },
     "require-dev": {
         "cbleek/pecl-solr-hint": "dev-master",
