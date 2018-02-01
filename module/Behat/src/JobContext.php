@@ -229,8 +229,8 @@ class JobContext implements Context
 		}
 		if(isset($normalizedField['user'])){
 			/* @var $userRepo UserRepository */
-			$userRepo = $this->getRepository('Auth\Entity\User');
-			$user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
+			$user = $this->getUserContext()->getCurrentUser();
+			$jobRepo->getDocumentManager()->refresh($user);
 			if($user instanceof User){
 				$job->setUser($user);
 				$job->setOrganization($user->getOrganization()->getOrganization());
