@@ -68,9 +68,18 @@ class ProfileController extends AbstractActionController
             throw new NotFoundException($id);
         }
 
-        return array(
-            'organization' => $organization
-        );
+        $result = $this->pagination([
+            'params' => [
+                'Organization_Jobs',[
+                    'organization_id' => $organization->getId()
+                ]
+            ],
+            'paginator' => ['as' => 'jobs','Organizations/ListJob'],
+        ]);
+
+        $result['organization'] = $organization;
+
+        return new ViewModel($result);
     }
 
     /**

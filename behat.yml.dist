@@ -36,7 +36,7 @@ default:
 
     gherkin:
         filters:
-            tags: "~@mail && ~@social-profile"
+            tags: "~@social-profile"
 
     suites:
         user:
@@ -52,3 +52,4 @@ default:
                 - Yawik\Behat\SummaryFormContext
                 - Yawik\Behat\CvContext
                 - Yawik\Behat\InstallContext
+                - Yawik\Behat\MailContext

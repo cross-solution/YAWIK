@@ -18,13 +18,14 @@ use Zend\I18n\Translator\TranslatorInterface;
 use Organizations\Repository\Organization as OrganizationRepository;
 use Zend\Mvc\Controller\Plugin\Params;
 use Zend\Mvc\Controller\PluginManager;
+use Zend\View\Model\ViewModel;
 
 /**
  * Class ProfileControllerTest
  *
  * @author Anthonius Munthi <me@itstoni.com>
  * @package OrganizationsTest\Controller
- * @since 0.30.1
+ * @since 0.30
  * @covers \Organizations\Controller\ProfileController
  */
 class ProfileControllerTest extends AbstractControllerTestCase
@@ -142,8 +143,11 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         $target = $this->target;
         $target->setPluginManager($pluginManager);
+
+        /* @var \Zend\View\Model\ViewModel $retVal */
         $retVal = $target->indexAction();
-        $this->assertArrayHasKey('organization',$retVal);
-        $this->assertEquals($entity,$retVal['organization']);
+        $this->assertInstanceOf(ViewModel::class,$retVal);
+        $this->assertArrayHasKey('organization',$retVal->getVariables());
+        $this->assertEquals($entity,$retVal->getVariable('organization'));
     }
 }

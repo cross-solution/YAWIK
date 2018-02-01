@@ -11,6 +11,8 @@ namespace Yawik\Behat;
 
 use Auth\Entity\User;
 use Behat\Behat\Context\Context;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\TableNode;
 use Organizations\Entity\Organization;
 use Yawik\Behat\Exception\FailedExpectationException;
 use Organizations\Repository\Organization as OrganizationRepository;
@@ -25,7 +27,22 @@ use Organizations\Repository\Organization as OrganizationRepository;
 class OrganizationContext implements Context
 {
 	use CommonContextTrait;
-	
+
+    /**
+     * @var JobContext
+     */
+	private $jobContext;
+
+    /**
+     * @BeforeScenario
+     *
+     * @param BeforeScenarioScope $scope
+     */
+    public function setupContext(BeforeScenarioScope $scope)
+    {
+        $this->jobContext = $scope->getEnvironment()->getContext(JobContext::class);
+    }
+
 	/**
 	 * @Given I go to my organization page
 	 */
@@ -66,17 +83,33 @@ class OrganizationContext implements Context
 
     /**
      * @Given I have organization :name
+     * @Given I have organization :name with published jobs:
+     *
+     * @param string $name
+     * @param TableNode|null $jobs
      */
-	public function iHaveOrganization($name)
+	public function iHaveOrganization($name, TableNode $table = null)
     {
         $userContext = $this->getUserContext();
-        $userContext->thereIsAUserIdentifiedBy(
+        $user = $userContext->thereIsAUserIdentifiedBy(
             'recruiter@example.com',
             'test',
             User::ROLE_RECRUITER,
             'Test Recruiter',
             $name
         );
+
+        if(!is_null($table)){
+            foreach($table->getColumnsHash() as $index=>$definitions){
+                $definitions['user'] = $user->getLogin();
+                $this->jobContext->buildJob('published',$definitions);
+            }
+        }
+    }
+
+    private function buildJobs($jobs)
+    {
+
     }
 
     /**

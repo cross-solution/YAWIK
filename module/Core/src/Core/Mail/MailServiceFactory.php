@@ -10,14 +10,20 @@
 /** MailServiceFactory.php */
 namespace Core\Mail;
 
+use Core\Options\MailServiceOptions;
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
+use Zend\Mail\Transport\FileOptions;
+use Zend\Mail\Transport\Sendmail;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mail\Transport\Smtp;
 
+/**
+ * Class MailServiceFactory
+ *
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @package Core\Mail
+ */
 class MailServiceFactory implements FactoryInterface
 {
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
@@ -37,11 +43,8 @@ class MailServiceFactory implements FactoryInterface
 				'email' => $authOptions->getFromEmail()
 			],
 		];
-		
-		if ($mailServiceOptions->getTransportClass() == 'smtp') {
-			$configArray['transport'] = new Smtp($mailServiceOptions);
-		}
-		
+
+		$configArray['transport'] = $this->getTransport($mailServiceOptions);
 		$configArray = array_merge($configArray, $mails);
 		
 		$config = new MailServiceConfig($configArray);
@@ -56,4 +59,25 @@ class MailServiceFactory implements FactoryInterface
 		
 		return $service;
 	}
+
+	public function getTransport(MailServiceOptions $mailServiceOptions)
+    {
+        $type = $mailServiceOptions->getTransportClass();
+        if (MailService::TRANSPORT_SMTP == $type) {
+            return new Smtp($mailServiceOptions);
+        }elseif(MailService::TRANSPORT_FILE == $type){
+            $fileOptions = new FileOptions();
+            $fileOptions->setPath($mailServiceOptions->getPath());
+            return new FileTransport($fileOptions);
+        }elseif(MailService::TRANSPORT_SENDMAIL == $type){
+            return new Sendmail();
+        }
+
+        throw new ServiceNotCreatedException(
+            sprintf(
+                '"%s" is not a valid email transport type. Please use smtp or file as email transport',
+                $type
+            )
+        );
+    }
 }

@@ -2,3 +2,10 @@
 /* @var \Organizations\Entity\Organization $organization */
 ?>
 <h1><?php echo $organization->getName()?></h1>
+
+<div id="jobs-list-container" class="pagination-container"
+
+    <div class="pagination-content">
+        <?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>
+    </div>
+</div>

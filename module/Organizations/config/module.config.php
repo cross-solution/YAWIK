@@ -112,28 +112,34 @@ return [
             ],
         ],
     ],
+
     'input_filters' => [
         'invokables' => [
         ],
     ],
+
     'filters' => [
         'factories' => [
-            'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory'
+            'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory',
+            'Organizations/ListJobQuery' => [\Organizations\Repository\Filter\ListJobQuery::class,'factory'],
         ],
         'aliases' => [
             'PaginationQuery/Organizations/Organization' => 'Organizations/PaginationQuery'
         ]
     ],
+
     'validators' => [
         'factories' => [
         ],
     ],
+
     'hydrators' => [
         'factories' => [
             'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
             'Organizations/Logo' => \Organizations\Factory\Entity\Hydrator\LogoHydratorFactory::class,
         ],
     ],
+
     'mails' => [
         'factories' => [
             'Organizations/InviteEmployee' => 'Organizations\Mail\EmployeeInvitationFactory',
@@ -234,5 +240,11 @@ return [
             'class' => '\Organizations\Options\ImageFileCacheOptions'
         ],
         \Organizations\Options\OrganizationLogoOptions::class => [],
-    ]
+    ],
+
+    'paginator_manager' => [
+        'factories' => [
+            'Organizations/ListJob' => \Organizations\Paginator\ListJobPaginatorFactory::class
+        ]
+    ],
 ];
