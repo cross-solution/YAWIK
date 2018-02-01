@@ -7,7 +7,7 @@ Feature: Updating my organization
         Given I am logged in as a recruiter
         And I go to my organization page
 
-    @organization-name
+    @organization
     Scenario: Updating Name
         When I click edit on name form
         And I wait for the ajax response
@@ -16,7 +16,7 @@ Feature: Updating my organization
         And I wait for the ajax response
         Then I should see "Some Organization"
 
-    @organization-location
+    @organization
     Scenario: Updating Location
         When I click edit on location form
         And I wait for the ajax response
@@ -36,7 +36,7 @@ Feature: Updating my organization
         And I should see "123123"
         And I should see "321321"
 
-    @organization-employee @mail
+    @organization @mail
     Scenario: Invite employee
         When I click edit on name form
         And I wait for the ajax response
@@ -50,8 +50,11 @@ Feature: Updating my organization
         And I wait for the ajax response
         And I wait for 5 seconds
         Then I should see "test.invite@example.com"
+        And an email should be sent to "test.invite@example.com"
+        And an email should be sent from "email@example.com"
+        And sent email should be contain "Test Recruiter invited you"
 
-    @organization-workflow
+    @organization
     Scenario: Setup Workflow
         When I click edit on workflow form
         And I uncheck "accept Applications by Department Managers"
