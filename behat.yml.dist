@@ -52,3 +52,4 @@ default:
                 - Yawik\Behat\SummaryFormContext
                 - Yawik\Behat\CvContext
                 - Yawik\Behat\InstallContext
+                - Yawik\Behat\MailContext
