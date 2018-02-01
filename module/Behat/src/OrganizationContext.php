@@ -86,7 +86,7 @@ class OrganizationContext implements Context
      * @Given I have organization :name with published jobs:
      *
      * @param string $name
-     * @param TableNode|null $jobs
+     * @param TableNode|null $table
      */
 	public function iHaveOrganization($name, TableNode $table = null)
     {
@@ -122,7 +122,7 @@ class OrganizationContext implements Context
         /* @var OrganizationRepository $repo */
         $repo = $this->getRepository('Organizations/Organization');
         $result = $repo->findByName($name);
-        $organization = $result[0];
+        $organization = count($result) > 0 ? $result[0]:null;
         if(!$organization instanceof Organization){
             throw new FailedExpectationException(
                 sprintf('Organization %s is not found.',$name)

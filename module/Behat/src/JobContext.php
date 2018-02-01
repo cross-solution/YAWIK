@@ -14,6 +14,7 @@ use Auth\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
+use Core\Entity\Permissions;
 use Doctrine\Common\Util\Inflector;
 use Documents\UserRepository;
 use Geo\Service\Photon;
@@ -240,6 +241,7 @@ class JobContext implements Context
             $userRepo = $this->getRepository('Auth\Entity\User');
             $user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
             if($user instanceof User){
+                $job->unsetUser(false);
                 $job->setUser($user);
                 $job->setOrganization($user->getOrganization()->getOrganization());
             }else{

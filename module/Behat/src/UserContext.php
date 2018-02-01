@@ -74,25 +74,6 @@ class UserContext implements Context
 		$socialLoginConfig = isset($parameters['social_login_info']) ? $parameters['social_login_info']:[];
 		$this->socialLoginInfo = array_merge($defaultLoginInfo,$socialLoginConfig);
 	}
-
-	/**
-	 * @AfterSuite
-	 * @param AfterSuiteScope $scope
-	 */
-	static public function afterSuite(AfterSuiteScope $scope)
-	{
-		$repo = static::$userRepo;
-		foreach(static::$users as $user){
-			if($repo->findByLogin($user->getLogin())){
-				try{
-					//JobContext::removeJobByUser($user);
-					//$repo->remove($user,true);
-				}catch (\Exception $e){
-				
-				}
-			}
-		}
-	}
 	
 	/**
 	 * @BeforeScenario
@@ -274,7 +255,7 @@ class UserContext implements Context
 		/* @var $repoOrganization OrganizationRepository */
 		$repoOrganization = $this->coreContext->getRepositories()->get('Organizations/Organization');
 		$result = $repoOrganization->findByName($orgName);
-		$organization = $result[0];
+		$organization = count($result) > 0 ? $result[0]:null;
 		if(!$organization instanceof Organization){
 			$organization = new Organization();
 			$organizationName = new OrganizationName($orgName);
