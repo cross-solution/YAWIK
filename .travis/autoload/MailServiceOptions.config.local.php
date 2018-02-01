@@ -15,7 +15,7 @@ $config = [
         'Core/MailServiceOptions' => [
             'options' => [
                 'transportClass' => 'file',
-                'path' => sys_get_temp_dir().'/yawik/mail'
+                'path' => realpath(__DIR__.'/../../build/mails')
             ],
         ],
     ]
