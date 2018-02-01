@@ -211,67 +211,73 @@ class JobContext implements Context
 	 */
 	public function iHaveAJobWithTheFollowing($status,TableNode $fields)
 	{
-		$normalizedField = [
-			'template' => 'modern',
-		];
-		foreach($fields->getRowsHash() as $field => $value){
-			$field = Inflector::camelize($field);
-			if($field == 'professions' || $field == 'industries'){
-				$value = explode(',',$value);
-			}
-			$normalizedField[$field] = $value;
-		}
-		$jobRepo = $this->getJobRepository();
-		$job = $jobRepo->findOneBy(['title' => $normalizedField['title']]);
-		if(!$job instanceof Job){
-			$job = new Job();
-			$job->setTitle($normalizedField['title']);
-		}
-		if(isset($normalizedField['user'])){
-			/* @var $userRepo UserRepository */
-			$userRepo = $this->getRepository('Auth\Entity\User');
-			$user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
-			if($user instanceof User){
-				$job->setUser($user);
-				$job->setOrganization($user->getOrganization()->getOrganization());
-			}else{
-				throw new \Exception('There is no user with this login:"'.$normalizedField['user'.'"']);
-			}
-		}
-		
-		if($status == 'draft'){
-			$job->setIsDraft(true);
-		}elseif($status == 'published'){
-			$job->setIsDraft(false);
-			$job->setDatePublishStart(new \DateTime());
-		}
-		$job->setStatus(Status::ACTIVE);
-		
-		if(isset($normalizedField['location'])){
-			$this->setLocation($job,$normalizedField['location']);
-		}
-		if(isset($normalizedField['companyName'])){
-			//$job->setCompany($normalizedField['companyName']);
-		}
-		if(isset($normalizedField['professions'])){
-			$this->addProfessions($job,$normalizedField['professions']);
-		}
-		
-		if(isset($normalizedField['industries'])){
-			$this->addIndustries($job,$normalizedField['industries']);
-		}
-		if(isset($normalizedField['employmentTypes'])){
-			$types = $this->getCategories([$normalizedField['employmentTypes']]);
-			$type = array_shift($types);
-			$values = $job->getClassifications()->getEmploymentTypes()->getValues();
-			if(!is_array($values) || !in_array($type,$values)){
-				$job->getClassifications()->getEmploymentTypes()->getItems()->add($type);
-			}
-		}
-		
-		$jobRepo->store($job);
-		$this->currentJob = $job;
+		$this->buildJob($status,$fields->getRowsHash());
 	}
+
+	public function buildJob($status, $definitions)
+    {
+        $normalizedField = [
+            'template' => 'modern',
+        ];
+        foreach($definitions as $field => $value){
+            $field = Inflector::camelize($field);
+            if($field == 'professions' || $field == 'industries'){
+                $value = explode(',',$value);
+            }
+            $normalizedField[$field] = $value;
+        }
+
+        $jobRepo = $this->getJobRepository();
+        $job = $jobRepo->findOneBy([
+            'title' => $normalizedField['title']
+        ]);
+        if(!$job instanceof Job){
+            $job = new Job();
+            $job->setTitle($normalizedField['title']);
+        }
+        if(isset($normalizedField['user'])){
+            /* @var $userRepo UserRepository */
+            $userRepo = $this->getRepository('Auth\Entity\User');
+            $user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
+            if($user instanceof User){
+                $job->setUser($user);
+                $job->setOrganization($user->getOrganization()->getOrganization());
+            }else{
+                throw new \Exception('There is no user with this login:"'.$normalizedField['user'.'"']);
+            }
+        }
+
+        if($status == 'draft'){
+            $job->setIsDraft(true);
+        }elseif($status == 'published'){
+            $job->setIsDraft(false);
+            $job->setDatePublishStart(new \DateTime());
+        }
+        $job->setStatus(Status::ACTIVE);
+
+        if(isset($normalizedField['location'])){
+            $this->setLocation($job,$normalizedField['location']);
+        }
+        if(isset($normalizedField['professions'])){
+            $this->addProfessions($job,$normalizedField['professions']);
+        }
+
+        if(isset($normalizedField['industries'])){
+            $this->addIndustries($job,$normalizedField['industries']);
+        }
+        if(isset($normalizedField['employmentTypes'])){
+            $types = $this->getCategories([$normalizedField['employmentTypes']]);
+            $type = array_shift($types);
+            $values = $job->getClassifications()->getEmploymentTypes()->getValues();
+            if(!is_array($values) || !in_array($type,$values)){
+                $job->getClassifications()->getEmploymentTypes()->getItems()->add($type);
+            }
+        }
+
+        $jobRepo->store($job);
+        $this->currentJob = $job;
+    }
+
 	
 	private function setLocation(Job $job, $term)
 	{
