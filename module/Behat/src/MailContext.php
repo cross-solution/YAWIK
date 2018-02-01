@@ -174,14 +174,20 @@ class MailContext implements Context
         // get email to address
         $regex = sprintf('/^To\:\s+%s/im',$radd);
         $hasMatch = preg_match($regex,$contents,$matches);
-        $toAddress = $hasMatch ? $matches[1]:null;
+        $toAddress1 = $hasMatch ? $matches[1]:null;
+
+        // get email to address
+        $regex = sprintf('/^To\:.*%s/im',$radd);
+        $hasMatch = preg_match($regex,$contents,$matches);
+        $toAddress2 = $hasMatch ? $matches[1]:null;
 
         $this->fromMails[] = $fromAddress;
-        $this->toMails[] = $toAddress;
+        $this->toMails[] = $toAddress1;
+        $this->toMails[] = $toAddress2;
 
         return [
             'from' => $fromAddress,
-            'to' => $toAddress,
+            'to' => [$toAddress1,$toAddress2],
         ];
     }
 

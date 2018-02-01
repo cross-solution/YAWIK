@@ -36,7 +36,7 @@ Feature: Publish Job
         And I follow "Publish job"
         And I wait for the ajax response
         Then I should see "Publishing successfully finished"
-        And an email should be sent to "test.yawik@email.com"
+        And an email should be sent to "test@recruiter.com"
         And an email should be sent from "email@example.com"
         And sent email should be contain "Click here to accept or reject the job opening"
         And sent email should be contain "We hereby acknowledge receipt of your job announcement"
