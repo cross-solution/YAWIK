@@ -51,6 +51,7 @@ return [
         'factories' => [
 	        'Organizations/InviteEmployee' => [\Organizations\Controller\InviteEmployeeController::class,'factory'],
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
+            'Organizations/Profile' => [\Organizations\Controller\ProfileController::class,'factory']
         ]
     ],
 
