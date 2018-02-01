@@ -102,6 +102,19 @@ return array(
                             ),
                         ),
                     ),
+                    'organization-profile' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => '/profile/organization[/:id]',
+                            'constraints' => [
+                                'id' => '\w+',
+                            ],
+                            'defaults' => [
+                                'action' => 'index',
+                                'controller' => 'Organizations/Profile'
+                            ],
+                        ],
+                    ],
                 ),
             ),
         ),
