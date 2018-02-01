@@ -9,10 +9,11 @@
 
 namespace Yawik\Behat;
 
+use Auth\Entity\User;
 use Behat\Behat\Context\Context;
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\MinkExtension\Context\MinkContext;
-use Doctrine\Common\Inflector\Inflector;
+use Organizations\Entity\Organization;
+use Yawik\Behat\Exception\FailedExpectationException;
+use Organizations\Repository\Organization as OrganizationRepository;
 
 /**
  * Class OrganizationContext
@@ -62,4 +63,43 @@ class OrganizationContext implements Context
 		$url = $this->generateUrl('lang/organizations');
 		$this->visit($url);
 	}
+
+    /**
+     * @Given I have organization :name
+     */
+	public function iHaveOrganization($name)
+    {
+        $userContext = $this->getUserContext();
+        $userContext->thereIsAUserIdentifiedBy(
+            'recruiter@example.com',
+            'test',
+            User::ROLE_RECRUITER,
+            'Test Recruiter',
+            $name
+        );
+    }
+
+    /**
+     * @Given I go to profile page for organization :name
+     * @param string $name
+     * @throws FailedExpectationException
+     */
+    public function iGoToOrganizationProfilePage($name)
+    {
+        /* @var OrganizationRepository $repo */
+        $repo = $this->getRepository('Organizations/Organization');
+        $result = $repo->findByName($name);
+        $organization = $result[0];
+        if(!$organization instanceof Organization){
+            throw new FailedExpectationException(
+                sprintf('Organization %s is not found.',$name)
+            );
+        }
+
+        $url = $this->generateUrl('lang/organization-profile',[
+            'id' => $organization->getId()
+        ]);
+
+        $this->visit($url);
+    }
 }

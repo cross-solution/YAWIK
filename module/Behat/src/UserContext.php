@@ -24,14 +24,9 @@ use Core\Entity\Permissions;
 use Doctrine\Common\Util\Inflector;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
-use Geo\Service\Photon;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Repository\Organization as OrganizationRepository;
-use Zend\Router\RouteInterface;
-use Zend\Router\RoutePluginManager;
-use Zend\Stdlib\ArrayObject;
-use Zend\View\Helper\Url;
 
 class UserContext implements Context
 {
@@ -90,8 +85,8 @@ class UserContext implements Context
 		foreach(static::$users as $user){
 			if($repo->findByLogin($user->getLogin())){
 				try{
-					JobContext::removeJobByUser($user);
-					$repo->remove($user,true);
+					//JobContext::removeJobByUser($user);
+					//$repo->remove($user,true);
 				}catch (\Exception $e){
 				
 				}
@@ -222,6 +217,7 @@ class UserContext implements Context
 			$this->iHaveMainOrganization($user,$organization);
 		}
 		$this->addCreatedUser($user);
+		$repo->getDocumentManager()->refresh($user);
 		return $user;
 	}
 	
@@ -277,19 +273,19 @@ class UserContext implements Context
 	{
 		/* @var $repoOrganization OrganizationRepository */
 		$repoOrganization = $this->coreContext->getRepositories()->get('Organizations/Organization');
-		$organization=$repoOrganization->findByName($orgName);
+		$result = $repoOrganization->findByName($orgName);
+		$organization = $result[0];
 		if(!$organization instanceof Organization){
 			$organization = new Organization();
 			$organizationName = new OrganizationName($orgName);
 			$organization->setOrganizationName($organizationName);
-			$permissions = $organization->getPermissions();
-			$permissions->grant($user,Permissions::PERMISSION_ALL);
-		}else {
-			$organization->getPermissions()->grant($user,Permissions::PERMISSION_ALL);
 		}
-		$organization->setUser($user);
-		$repoOrganization->store($organization);
-		$repoOrganization->getDocumentManager()->refresh($organization);
+        $permissions = $organization->getPermissions();
+        $permissions->grant($user,Permissions::PERMISSION_ALL);
+
+        $organization->setUser($user);
+        $repoOrganization->store($organization);
+        $repoOrganization->getDocumentManager()->refresh($organization);
 	}
 	
 	/**
