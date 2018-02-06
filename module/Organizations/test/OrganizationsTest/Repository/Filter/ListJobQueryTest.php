@@ -26,19 +26,28 @@ class ListJobQueryTest extends \PHPUnit_Framework_TestCase
     public function testCreateQuery()
     {
         $builder = $this->createMock(Builder::class);
-        $container = $this->createMock(ContainerInterface::class);
-        $target = ListJobQuery::factory($container);
+        $target = new ListJobQuery();
 
-        $builder->expects($this->once())
+        $builder->expects($this->exactly(3))
             ->method('field')
-            ->with('organization')
-            ->willReturn($builder)
+            ->withConsecutive(
+                ['organization'],
+                ['status.name'],
+                ['isDraft']
+            )
+            ->will($this->returnSelf())
         ;
-        $builder->expects($this->once())
+
+        $builder->expects($this->exactly(3))
             ->method('equals')
-            ->with('some-id')
-            ->willReturn($builder)
+            ->withConsecutive(
+                ['some-id'],
+                ['active'],
+                [false]
+            )
+            ->will($this->returnSelf())
         ;
+
         $params=['organization_id' => 'some-id'];
         $target->createQuery($params,$builder);
     }

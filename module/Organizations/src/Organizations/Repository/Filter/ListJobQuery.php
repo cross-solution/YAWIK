@@ -13,6 +13,7 @@ namespace Organizations\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Interop\Container\ContainerInterface;
+use Jobs\Entity\Job;
 
 /**
  * Class ListJobQuery
@@ -38,17 +39,8 @@ class ListJobQuery extends AbstractPaginationQuery
             ->field('organization')
             ->equals($id)
         ;
+        $queryBuilder->field('status.name')->equals('active');
+        $queryBuilder->field('isDraft')->equals(false);
         return $queryBuilder;
-    }
-
-    /**
-     * Create new instance of this filter
-     *
-     * @param ContainerInterface $container
-     * @return ListJobQuery
-     */
-    static public function factory(ContainerInterface $container)
-    {
-        return new self();
     }
 }

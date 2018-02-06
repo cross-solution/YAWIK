@@ -121,10 +121,11 @@ return [
     'filters' => [
         'factories' => [
             'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory',
-            'Organizations/ListJobQuery' => [\Organizations\Repository\Filter\ListJobQuery::class,'factory'],
+            \Organizations\Repository\Filter\ListJobQuery::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
         'aliases' => [
-            'PaginationQuery/Organizations/Organization' => 'Organizations/PaginationQuery'
+            'PaginationQuery/Organizations/Organization' => 'Organizations/PaginationQuery',
+            'Organizations/ListJobQuery' => \Organizations\Repository\Filter\ListJobQuery::class
         ]
     ],
 

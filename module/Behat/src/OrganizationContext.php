@@ -13,6 +13,7 @@ use Auth\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
+use Doctrine\Common\Util\Inflector;
 use Organizations\Entity\Organization;
 use Yawik\Behat\Exception\FailedExpectationException;
 use Organizations\Repository\Organization as OrganizationRepository;
@@ -105,11 +106,29 @@ class OrganizationContext implements Context
                 $this->jobContext->buildJob('published',$definitions);
             }
         }
+
+
     }
 
-    private function buildJobs($jobs)
+    /**
+     * @Given I define contact for :organization organization with:
+     * @param TableNode $table
+     */
+    public function iDefineContactWith($name, TableNode $table)
     {
+        $organization = $this->findOrganizationByName($name);
+        $contact = $organization->getContact();
 
+        $definitions = $table->getRowsHash();
+        foreach($definitions as $name=>$value){
+            $field = Inflector::camelize($name);
+            $method = 'set'.$field;
+            $callback = array($contact,$method);
+            if(is_callable($callback)){
+                call_user_func_array($callback,[$value]);
+            }
+        }
+        $this->getRepository('Organizations/Organization')->store($organization);
     }
 
     /**
@@ -118,6 +137,21 @@ class OrganizationContext implements Context
      * @throws FailedExpectationException
      */
     public function iGoToOrganizationProfilePage($name)
+    {
+        $organization = $this->findOrganizationByName($name);
+        $url = $this->generateUrl('lang/organization-profile',[
+            'id' => $organization->getId()
+        ]);
+
+        $this->visit($url);
+    }
+
+    /**
+     * @param string $name
+     * @return Organization
+     * @throws FailedExpectationException
+     */
+    public function findOrganizationByName($name)
     {
         /* @var OrganizationRepository $repo */
         $repo = $this->getRepository('Organizations/Organization');
@@ -128,11 +162,6 @@ class OrganizationContext implements Context
                 sprintf('Organization %s is not found.',$name)
             );
         }
-
-        $url = $this->generateUrl('lang/organization-profile',[
-            'id' => $organization->getId()
-        ]);
-
-        $this->visit($url);
+        return $organization;
     }
 }
