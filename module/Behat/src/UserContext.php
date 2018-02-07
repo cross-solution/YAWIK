@@ -22,6 +22,7 @@ use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Hook\Scope\AfterSuiteScope;
 use Core\Entity\Permissions;
 use Doctrine\Common\Util\Inflector;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Organizations\Entity\Organization;
@@ -42,12 +43,12 @@ class UserContext implements Context
 	 */
 	static private $userRepo;
 	
-	/**
-	 * @var string
-	 */
-	static private $currentSession;
-	
 	private $socialLoginInfo = [];
+
+    /**
+     * @var DocumentManager
+     */
+	static private $dm;
 	
 	/**
 	 * @var UserInterface
@@ -74,7 +75,35 @@ class UserContext implements Context
 		$socialLoginConfig = isset($parameters['social_login_info']) ? $parameters['social_login_info']:[];
 		$this->socialLoginInfo = array_merge($defaultLoginInfo,$socialLoginConfig);
 	}
-	
+
+    /**
+     * Empty all data every each tests
+     *
+     * @AfterSuite
+     */
+	static public function tearDown()
+    {
+        $dm = static::$dm;
+
+        $documents = [
+            'Applications\Entity\Application',
+            'Cv\Entity\Cv',
+            'Jobs\Entity\Job',
+            'Organizations\Entity\Organization',
+            'Auth\Entity\User',
+            'Jobs\Entity\Category',
+            'Auth\Entity\UserImage',
+            'Organizations\Entity\OrganizationName',
+        ];
+        foreach($documents as $document){
+            $dm->createQueryBuilder($document)
+                ->remove()
+                ->getQuery()
+                ->execute()
+            ;
+        }
+    }
+
 	/**
 	 * @BeforeScenario
 	 * @param BeforeScenarioScope $scope
@@ -84,6 +113,7 @@ class UserContext implements Context
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
 		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
 		static::$userRepo = $this->getUserRepository();
+		static::$dm = $this->getUserRepository()->getDocumentManager();
 	}
 	
 	/**
@@ -396,3 +426,4 @@ class UserContext implements Context
         return $this->currentUser;
     }
 }
+

@@ -11,7 +11,7 @@ Feature: Updating my organization
     Scenario: Updating Name
         When I click edit on name form
         And I wait for the ajax response
-        And I fill in "Organizationname" with "Some Organization"
+        And I fill in "Organization Name" with "Some Organization"
         And I press "Save"
         And I wait for the ajax response
         Then I should see "Some Organization"
@@ -21,9 +21,9 @@ Feature: Updating my organization
         When I click edit on location form
         And I wait for the ajax response
         And I fill in the following:
-            | street        | Some Street   |
-            | house number  | 12345         |
-            | Postalcode    | 54321         |
+            | Street        | Some Street   |
+            | House Number  | 12345         |
+            | Postal Code   | 54321         |
             | City          | Some City     |
             | Phone         | 123123        |
             | Fax           | 321321        |
@@ -40,7 +40,7 @@ Feature: Updating my organization
     Scenario: Invite employee
         When I click edit on name form
         And I wait for the ajax response
-        And I fill in "Organizationname" with "Some Organization"
+        And I fill in "Organization Name" with "Some Organization"
         And I press "Save"
         And I wait for the ajax response
         And I click edit on employees form

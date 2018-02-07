@@ -106,8 +106,6 @@ class OrganizationContext implements Context
                 $this->jobContext->buildJob('published',$definitions);
             }
         }
-
-
     }
 
     /**
