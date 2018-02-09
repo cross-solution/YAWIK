@@ -49,7 +49,7 @@ return [
 
     'controllers' => [
         'factories' => [
-	        'Organizations/InviteEmployee' => [\Organizations\Controller\InviteEmployeeController::class,'factory'],
+	        'Organizations/InviteEmployee' => \Organizations\Factory\Controller\InviteEmployeeControllerFactory::class,
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
             'Organizations/Profile' => 'Organizations\Factory\Controller\ProfileControllerFactory'
         ]
