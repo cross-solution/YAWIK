@@ -11,15 +11,12 @@ namespace Yawik\Behat;
 
 use Auth\Entity\User as User;
 use Auth\Entity\UserInterface;
-use Auth\Listener\Events\AuthEvent;
 use Auth\Repository\User as UserRepository;
 use Auth\Service\Register;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
-use Behat\Testwork\Hook\Scope\AfterSuiteScope;
 use Core\Entity\Permissions;
 use Doctrine\Common\Util\Inflector;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -28,6 +25,7 @@ use Doctrine\ODM\MongoDB\Events;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Repository\Organization as OrganizationRepository;
+use Yawik\Behat\Exception\FailedExpectationException;
 
 class UserContext implements Context
 {
@@ -54,6 +52,11 @@ class UserContext implements Context
 	 * @var UserInterface
 	 */
 	private $loggedInUser;
+
+    /**
+     * @var Organization
+     */
+	private $mainOrganization;
 
     /**
      * @var User
@@ -141,6 +144,9 @@ class UserContext implements Context
 			$organization
 		);
 		$this->startLogin($user,'test');
+		if(!is_null($organization)){
+            $this->iHaveMainOrganization($user,$organization);
+        }
 	}
 	
 	/**
@@ -291,13 +297,25 @@ class UserContext implements Context
 			$organizationName = new OrganizationName($orgName);
 			$organization->setOrganizationName($organizationName);
 		}
+        $organization->setProfileSetting(Organization::PROFILE_ALWAYS_ENABLE);
         $permissions = $organization->getPermissions();
         $permissions->grant($user,Permissions::PERMISSION_ALL);
 
         $organization->setUser($user);
         $repoOrganization->store($organization);
         $repoOrganization->getDocumentManager()->refresh($organization);
+
+        $this->mainOrganization = $organization;
 	}
+
+    /**
+     * @return Organization
+     */
+    public function getMainOrganization()
+    {
+        return $this->mainOrganization;
+    }
+
 	
 	/**
 	 * @When I want to log in
@@ -420,9 +438,13 @@ class UserContext implements Context
 
     /**
      * @return User
+     * @throws FailedExpectationException
      */
 	public function getCurrentUser()
     {
+        if(!$this->currentUser instanceof User){
+            throw new FailedExpectationException('Need to login first before use this step');
+        }
         return $this->currentUser;
     }
 }

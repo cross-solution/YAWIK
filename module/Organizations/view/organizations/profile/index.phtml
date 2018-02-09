@@ -1,17 +1,23 @@
 <?php
-/* @var \Organizations\Entity\Organization $organization */
-$contact = $organization->getContact();
+$this->headScript()->appendFile($this->basePath('Core/js/core.pagination-container.js'));
 ?>
-<h1><?php echo $organization->getName()?></h1>
-<address>
-    <?php echo $contact->getStreet()?> <?php echo $contact->getHouseNumber()?><br/>
-    <?php echo $contact->getCity()?> <?php echo $contact->getPostalcode()?><br/>
-    <?php echo $contact->getCountry()?><br/>
-    <?php echo is_null($contact->getPhone()) ? "":"Phone: ".$contact->getPhone()."<br/>" ?>
-    <?php echo is_null($contact->getFax()) ? "":"Fax: ".$contact->getFax()."<br/>" ?>
-</address>
-<div id="jobs-list-container" class="pagination-container"
-    <div class="pagination-content">
-        <?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>
+<h1><?php echo $this->translate('Organizations Profile')?></h1>
+
+<nav class="navbar yk-toolbar" >
+    <?php echo $this->searchForm($this->form) ?>
+</nav>
+
+<div id="organizations-list-container"
+     class="pagination-container"
+     data-uri="<?php echo $this->url('lang/organizations/profile', array(), array('q' => $this->params()->fromQuery()), true)?>"
+>
+
+    <div class="pagination-message alert alert-info">
+        <?php echo $this->translate('No organization found matching your criteria.') ?>
     </div>
+
+    <div class="pagination-content">
+        <?php echo $this->render('organizations/profile/index.ajax.phtml')?>
+    </div>
+
 </div>

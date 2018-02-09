@@ -18,6 +18,7 @@ use \Zend\ServiceManager\Factory\FactoryInterface;
  *
  * @package Organizations
  * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 
 class PaginationQueryFactory implements FactoryInterface
@@ -33,8 +34,11 @@ class PaginationQueryFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+        /* @TODO: $jobRepository should be removed when using aggregation query in filtering profile */
+        $jobRepository = $container->get('Core/RepositoryService')->get('Jobs/Job');
+
         $auth = $container->get('AuthenticationService');
-        $filter = new PaginationQuery($auth);
+        $filter = new PaginationQuery($auth,$jobRepository);
         return $filter;
     }
 }

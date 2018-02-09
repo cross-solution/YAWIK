@@ -215,7 +215,7 @@ class JobContext implements Context
 		$this->buildJob($status,$fields->getRowsHash());
 	}
 
-	public function buildJob($status, $definitions)
+	public function buildJob($status, $definitions,$organization = null)
     {
         $normalizedField = [
             'template' => 'modern',
@@ -236,13 +236,17 @@ class JobContext implements Context
             $job = new Job();
             $job->setTitle($normalizedField['title']);
         }
+
         if(isset($normalizedField['user'])){
             /* @var $userRepo UserRepository */
             $userRepo = $this->getRepository('Auth\Entity\User');
             $user = $userRepo->findOneBy(['login' => $normalizedField['user']]);
+            if(is_null($organization)){
+                $organization = $user->getOrganization()->getOrganization();
+            }
             if($user instanceof User){
                 $job->setUser($user);
-                $job->setOrganization($user->getOrganization()->getOrganization());
+                $job->setOrganization($organization);
             }else{
                 throw new \Exception('There is no user with this login:"'.$normalizedField['user'.'"']);
             }

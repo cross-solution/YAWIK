@@ -1,0 +1,17 @@
+<?php
+/* @var \Organizations\Entity\Organization $organization */
+$contact = $organization->getContact();
+?>
+<h1><?php echo $organization->getName()?></h1>
+<address>
+    <?php echo $contact->getStreet()?> <?php echo $contact->getHouseNumber()?><br/>
+    <?php echo $contact->getCity()?> <?php echo $contact->getPostalcode()?><br/>
+    <?php echo $contact->getCountry()?><br/>
+    <?php echo is_null($contact->getPhone()) ? "":"Phone: ".$contact->getPhone()."<br/>" ?>
+    <?php echo is_null($contact->getFax()) ? "":"Fax: ".$contact->getFax()."<br/>" ?>
+</address>
+<div id="jobs-list-container" class="pagination-container"
+    <div class="pagination-content">
+        <?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>
+    </div>
+</div>

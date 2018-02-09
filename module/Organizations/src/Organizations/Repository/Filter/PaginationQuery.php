@@ -9,6 +9,9 @@
 namespace Organizations\Repository\Filter;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
+use Jobs\Entity\StatusInterface;
+use Organizations\Entity\Organization;
+use Jobs\Repository\Job as JobRepository;
 use Zend\Stdlib\Parameters;
 
 /**
@@ -16,9 +19,13 @@ use Zend\Stdlib\Parameters;
  *
  * @package Organizations
  * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class PaginationQuery extends AbstractPaginationQuery
 {
+    const PAGE_TYPE_PROFILE = 'profile';
+    const PAGE_TYPE_LIST    = 'list';
+
     /**
      * Repository to query
      *
@@ -34,15 +41,21 @@ class PaginationQuery extends AbstractPaginationQuery
     protected $sortPropertiesMap = array(
         'date' => 'dateCreated.date',
     );
-    
+
+    /**
+     * @var JobRepository
+     */
+    protected $jobRepository;
+
     /**
      * Constructs pagination query.
      *
      * @param \Auth\AuthenticationService $auth
      */
-    public function __construct($auth)
+    public function __construct($auth,$jobRepository)
     {
         $this->auth = $auth;
+        $this->jobRepository = $jobRepository;
     }
     
     /**
@@ -62,21 +75,63 @@ class PaginationQuery extends AbstractPaginationQuery
             $value = $params;
         }
 
-        if (isset($params['q']) && $params['q']) {
+        if (isset($params['q']) && $params['q'] && $params['q'] != 'en/organizations/profile' ) {
             $queryBuilder->text($params['q'])->language('none');
         }
-        
+
         /*
          * We only show organizations to which the user has view permissions.
          */
-        $queryBuilder->field('permissions.view')->equals($userID);
+        $queryBuilder->field('permissions.view')->in([$userID]);
 
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
         }
 
         $queryBuilder->sort($this->filterSort($value['sort']));
-        
+
+        if(isset($params['type']) && $params['type'] === 'profile'){
+            //@TODO: we should use aggregate query here
+            $queryBuilder->field('profileSetting')
+                ->in([Organization::PROFILE_ALWAYS_ENABLE,Organization::PROFILE_ACTIVE_JOBS])
+            ;
+
+            $filters = $this->getOrganizationProfileFilters($queryBuilder);
+            if(count($filters) > 0){
+                $queryBuilder->field('id')->notIn($filters);
+            }
+
+        }
+
         return $queryBuilder;
+    }
+
+    /**
+     * @param \Doctrine\ODM\MongoDB\Query\Builder $queryBuilder $queryBuilder
+     * @return array
+     */
+    private function getOrganizationProfileFilters($queryBuilder)
+    {
+        /* @var \Organizations\Entity\Organization $organization */
+        $jobRepository = $this->jobRepository;
+        $results = $queryBuilder->getQuery()->execute();
+
+        $filters = [];
+        foreach($results->toArray() as $organization){
+            if($organization->getProfileSetting()==Organization::PROFILE_ACTIVE_JOBS){
+                $qb = $jobRepository->createQueryBuilder();
+                $qb
+                    ->field('organization')->equals($organization->getId())
+                    ->field('status.name')->notIn([StatusInterface::EXPIRED, StatusInterface::INACTIVE])
+                    ->field('isDraft')->notEqual(true)
+                ;
+                $count = $qb->getQuery()->execute()->count();
+                if($count == 0){
+                    $filters[] = $organization->getId();
+                }
+            }
+        }
+
+        return $filters;
     }
 }

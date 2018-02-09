@@ -51,7 +51,7 @@ return [
         'factories' => [
 	        'Organizations/InviteEmployee' => [\Organizations\Controller\InviteEmployeeController::class,'factory'],
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
-            'Organizations/Profile' => [\Organizations\Controller\ProfileController::class,'factory']
+            'Organizations/Profile' => 'Organizations\Factory\Controller\ProfileControllerFactory'
         ]
     ],
 
@@ -95,7 +95,8 @@ return [
              'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
              'Organizations/WorkflowSettings'             => 'Organizations\Form\WorkflowSettings',
              'Organizations/WorkflowSettingsFieldset'     => 'Organizations\Form\WorkflowSettingsFieldset',
-
+             'Organizations/Profile'                      => \Organizations\Form\OrganizationsProfileForm::class,
+             'Organizations/ProfileFieldset'              => \Organizations\Form\OrganizationsProfileFieldset::class
         ],
         'factories' => [
 	        'Organizations/OrganizationsNameFieldset'    => \Organizations\Factory\Form\OrganizationsNameFieldsetFactory::class,
@@ -189,6 +190,10 @@ return [
                     'list' => [
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/organizations',
+                    ],
+                    'profile' => [
+                        'label' => /*@translate*/ 'Profiles',
+                        'route' => 'lang/organizations/profile',
                     ],
                     'edit' => [
                         'label' => /*@translate*/ 'Insert',

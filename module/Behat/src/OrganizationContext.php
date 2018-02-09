@@ -9,14 +9,17 @@
 
 namespace Yawik\Behat;
 
-use Auth\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
+use Core\Entity\Permissions;
 use Doctrine\Common\Util\Inflector;
 use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationName;
+use Organizations\Entity\OrganizationReference;
 use Yawik\Behat\Exception\FailedExpectationException;
 use Organizations\Repository\Organization as OrganizationRepository;
+use Jobs\Repository\Job as JobRepository;
 
 /**
  * Class OrganizationContext
@@ -83,29 +86,77 @@ class OrganizationContext implements Context
 	}
 
     /**
-     * @Given I have organization :name
-     * @Given I have organization :name with published jobs:
-     *
-     * @param string $name
-     * @param TableNode|null $table
+     * @Given I want to see list organization profiles
      */
-	public function iHaveOrganization($name, TableNode $table = null)
+	public function iWantToSeeListOrganizationProfiles()
     {
-        $userContext = $this->getUserContext();
-        $user = $userContext->thereIsAUserIdentifiedBy(
-            'recruiter@example.com',
-            'test',
-            User::ROLE_RECRUITER,
-            'Test Recruiter',
-            $name
-        );
+       $url = $this->generateUrl('lang/organizations/profile');
+       $this->visit($url);
+    }
 
-        if(!is_null($table)){
-            foreach($table->getColumnsHash() as $index=>$definitions){
-                $definitions['user'] = $user->getLogin();
-                $this->jobContext->buildJob('published',$definitions);
-            }
+    /**
+     * @Given I have organization :name
+     *
+     * @internal param string $name
+     * @internal param TableNode|null $table
+     */
+	public function iHaveOrganization($name)
+    {
+        $user = $this->getUserContext()->getCurrentUser();
+        $organization = $this->findOrganizationByName($name,false);
+        $repo = $this->getRepository('Organizations/Organization');
+        if(!$organization instanceof Organization){
+
+            $organization = new Organization();
+            $organizationName = new OrganizationName($name);
+            $organization->setOrganizationName($organizationName);
+            $organization->setIsDraft(false);
         }
+        /* @var OrganizationReference $orgReference */
+        $orgReference = $user->getOrganization();
+        $parent = $orgReference->getOrganization();
+        $organization->setParent($parent);
+        $organization->setProfileSetting(Organization::PROFILE_ALWAYS_ENABLE);
+        $permissions = $organization->getPermissions();
+        $permissions->grant($user,Permissions::PERMISSION_ALL);
+
+        $repo->store($organization);
+        $repo->getDocumentManager()->refresh($organization);
+        $repo->getDocumentManager()->refresh($user);
+    }
+
+    /**
+     * @Given organization :name have jobs:
+     */
+    public function organizationHavePublishedJob($name,TableNode $table)
+    {
+        $user = $this->getUserContext()->getCurrentUser();
+        if(is_null($user)){
+            throw new FailedExpectationException('Need to login first');
+        }
+
+        $organization = $this->findOrganizationByName($name);
+        foreach($table->getColumnsHash() as $index=>$definitions){
+            $definitions['user'] = $user->getLogin();
+            $status = isset($definitions['status']) ? $definitions['status']:'draft';
+            unset($definitions['status']);
+            $this->jobContext->buildJob($status,$definitions,$organization);
+        }
+    }
+
+    /**
+     * @Given profile setting for :name is :setting
+     * @param $name
+     * @param $setting
+     */
+    public function profileSetting($name,$setting)
+    {
+        $repo = $this->getRepository('Organizations/Organization');
+        $organization = $this->findOrganizationByName($name);
+
+        $organization->setProfileSetting($setting);
+        $repo->store($organization);
+        $repo->getDocumentManager()->refresh($organization);
     }
 
     /**
@@ -137,7 +188,7 @@ class OrganizationContext implements Context
     public function iGoToOrganizationProfilePage($name)
     {
         $organization = $this->findOrganizationByName($name);
-        $url = $this->generateUrl('lang/organization-profile',[
+        $url = $this->generateUrl('lang/organizations/profileDetail',[
             'id' => $organization->getId()
         ]);
 
@@ -149,17 +200,35 @@ class OrganizationContext implements Context
      * @return Organization
      * @throws FailedExpectationException
      */
-    public function findOrganizationByName($name)
+    public function findOrganizationByName($name, $throwException = true)
     {
         /* @var OrganizationRepository $repo */
         $repo = $this->getRepository('Organizations/Organization');
         $result = $repo->findByName($name);
         $organization = count($result) > 0 ? $result[0]:null;
-        if(!$organization instanceof Organization){
+        if(!$organization instanceof Organization && $throwException){
             throw new FailedExpectationException(
                 sprintf('Organization %s is not found.',$name)
             );
         }
         return $organization;
+    }
+
+    /**
+     * @Given organization :name have no job
+     *
+     * @param string $name
+     */
+    public function organizationHaveNoJob($name)
+    {
+        $org = $this->findOrganizationByName($name);
+
+        /* @var JobRepository $jobRepo */
+        $jobRepo = $this->getRepository('Jobs/Job');
+        $result = $jobRepo->findByOrganization($org->getId());
+
+        foreach($result as $job){
+            $jobRepo->remove($job,true);
+        }
     }
 }

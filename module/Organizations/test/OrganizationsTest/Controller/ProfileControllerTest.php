@@ -9,16 +9,19 @@
 
 namespace OrganizationsTest\Controller;
 
+use Auth\Exception\UnauthorizedAccessException;
 use Core\Entity\Exception\NotFoundException;
 use CoreTest\Controller\AbstractControllerTestCase;
-use Interop\Container\ContainerInterface;
+use Jobs\Repository\Job as JobRepository;
 use Organizations\Controller\ProfileController;
 use Organizations\Entity\Organization;
 use Zend\I18n\Translator\TranslatorInterface;
 use Organizations\Repository\Organization as OrganizationRepository;
 use Zend\Mvc\Controller\Plugin\Params;
 use Zend\Mvc\Controller\PluginManager;
+use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
+use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
 
 /**
  * Class ProfileControllerTest
@@ -38,11 +41,6 @@ class ProfileControllerTest extends AbstractControllerTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $container;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     private $translator;
 
     /**
@@ -50,25 +48,25 @@ class ProfileControllerTest extends AbstractControllerTestCase
      */
     private $repository;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $jobRepository;
+
+    private $imageFileCacheManager;
+
     public function setUp()
     {
-        $container = $this->createMock(ContainerInterface::class);
         $translator = $this->createMock(TranslatorInterface::class);
         $repository = $this->createMock(OrganizationRepository::class);
+        $jobRepository = $this->createMock(JobRepository::class);
+        $imageFileCacheManager = $this->createMock(ImageFileCacheManager::class);
 
-        $container->expects($this->any())
-            ->method('get')
-            ->willReturnMap([
-                ['repositories',$container],
-                ['Organizations/Organization',$repository],
-                ['translator',$translator]
-            ])
-        ;
-
-        $this->target = ProfileController::factory($container);
-        $this->container = $container;
+        $this->target = new ProfileController($repository,$jobRepository,$translator,$imageFileCacheManager);
         $this->translator = $translator;
         $this->repository = $repository;
+        $this->jobRepository = $jobRepository;
+        $this->imageFileCacheManager = $imageFileCacheManager;
     }
 
     public function testIndexThrowsExceptionOnNullID()
@@ -84,7 +82,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         $target = $this->target;
         $target->setPluginManager($pluginManager);
-        $return = $target->indexAction();
+        $return = $target->detailAction();
         $this->assertArrayHasKey('message',$return);
         $this->assertArrayHasKey('exception',$return);
         $this->assertRegExp(
@@ -114,10 +112,42 @@ class ProfileControllerTest extends AbstractControllerTestCase
         $target->setPluginManager($plugins);
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessageRegExp('/some-id/');
-        $target->indexAction();
+        $target->detailAction();
     }
 
-    public function testIndexShouldReturnOrganizationWithGivenId()
+    public function testIndexThrowUnauthorizedWhenProfileDisabled()
+    {
+        $plugins = $this->createMock(PluginManager::class);
+        $params = $this->createMock(Params::class);
+        $plugins->expects($this->any())
+            ->method('get')
+            ->willReturnMap([
+                ['params',null,$params]
+            ])
+        ;
+
+        $params->expects($this->any())
+            ->method('__invoke')
+            ->with('id',null)
+            ->willReturn('some-id')
+        ;
+
+        $organization = new Organization();
+        $organization->setProfileSetting(Organization::PROFILE_DISABLED);
+        $repo = $this->repository;
+        $repo->expects($this->once())
+            ->method('find')
+            ->with('some-id')
+            ->willReturn($organization)
+        ;
+        $target = $this->target;
+        $target->setPluginManager($plugins);
+        $this->expectException(UnauthorizedAccessException::class);
+        $this->expectExceptionMessage('This Organization Profile is disabled');
+        $target->detailAction();
+    }
+
+    public function testDetailShouldReturnOrganizationWithGivenId()
     {
         $pluginManager = $this->createMock(PluginManager::class);
         $params = $this->createMock(Params::class);
@@ -135,6 +165,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
         ;
 
         $entity = new Organization();
+        $entity->setProfileSetting(Organization::PROFILE_ALWAYS_ENABLE);
         $this->repository->expects($this->once())
             ->method('find')
             ->with('some-id')
@@ -145,9 +176,64 @@ class ProfileControllerTest extends AbstractControllerTestCase
         $target->setPluginManager($pluginManager);
 
         /* @var \Zend\View\Model\ViewModel $retVal */
-        $retVal = $target->indexAction();
+        $retVal = $target->detailAction();
         $this->assertInstanceOf(ViewModel::class,$retVal);
         $this->assertArrayHasKey('organization',$retVal->getVariables());
         $this->assertEquals($entity,$retVal->getVariable('organization'));
+    }
+
+    public function testDetailThrowUnauthorizedWhenNoActiveJobs()
+    {
+        $pluginManager = $this->createMock(PluginManager::class);
+        $params = $this->createMock(Params::class);
+        $pluginManager->expects($this->any())
+            ->method('get')
+            ->willReturnMap([
+                ['params',null,$params]
+            ])
+        ;
+
+        $params->expects($this->any())
+            ->method('__invoke')
+            ->with('id',null)
+            ->willReturn('some-id')
+        ;
+
+        $entity = new Organization();
+        $entity->setProfileSetting(Organization::PROFILE_ACTIVE_JOBS);
+        $this->repository->expects($this->once())
+            ->method('find')
+            ->with('some-id')
+            ->willReturn($entity)
+        ;
+
+        $target = $this->getMockBuilder(ProfileController::class)
+            ->setConstructorArgs([
+                $this->repository,
+                $this->jobRepository,
+                $this->translator,
+                $this->imageFileCacheManager
+            ])
+            ->setMethods(['pagination'])
+            ->getMock()
+        ;
+
+        $paginator = $this->createMock(Paginator::class);
+        $paginator->expects($this->once())
+            ->method('getTotalItemCount')
+            ->willReturn(0)
+        ;
+        $target->expects($this->once())
+            ->method('pagination')
+            ->willReturn([
+                'jobs' => $paginator
+            ])
+        ;
+        $target->setPluginManager($pluginManager);
+
+
+        $this->expectException(UnauthorizedAccessException::class);
+        $this->expectExceptionMessage('This Organization Profile is disabled');
+        $target->detailAction();
     }
 }
