@@ -294,7 +294,7 @@ class UserContext implements Context
 	public function iWantToLogIn()
 	{
 		$session = $this->minkContext->getSession();
-		$url = $this->generateUrl('lang/auth');
+		$url = $this->buildUrl('lang/auth');
 		$session->visit($url);
 	}
 	
@@ -345,7 +345,7 @@ class UserContext implements Context
 	 */
 	public function iPressLogoutLink()
 	{
-		$url = $this->generateUrl('auth-logout');
+		$url = $this->buildUrl('auth-logout');
 		$this->visit($url);
 	}
 	
@@ -368,7 +368,7 @@ class UserContext implements Context
 	 */
 	public function iGoToProfilePage()
 	{
-		$url = $this->generateUrl('lang/my');
+		$url = $this->buildUrl('lang/my');
 		$this->visit($url);
 	}
 	
@@ -403,7 +403,7 @@ class UserContext implements Context
 	 */
 	public function iWantToChangeMyPassword()
 	{
-		$url = $this->generateUrl('lang/my-password');
+		$url = $this->buildUrl('lang/my-password');
 		$this->visit($url);
 	}
 

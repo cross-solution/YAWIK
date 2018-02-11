@@ -6,16 +6,13 @@ Feature: Login to yawik
     Background:
         Given there is a user "test@example.com" identified by "test"
 
-    @javascript
     Scenario: Sign in with username
         When I want to log in
         And I specify the username as "test@example.com"
         And I specify the password as "test"
         And I log in
-        Then I should see "Dashboard"
         And I should see "You are now logged in"
 
-    @javascript
     Scenario: Sign in with bad credentials
         When I want to log in
         And I specify the username as "test@example.com"
@@ -23,8 +20,6 @@ Feature: Login to yawik
         And I log in
         Then I should see "Authentication failed."
 
-
-    @javascript
     Scenario: Sign in with unregistered username
         When I want to log in
         And I specify the username as "foo"
@@ -32,7 +27,6 @@ Feature: Login to yawik
         And I log in
         Then I should see "Authentication failed."
 
-    @javascript
     Scenario: Sign out
         Given I am logged in as "test@example.com" identified by "test"
         When I press logout link

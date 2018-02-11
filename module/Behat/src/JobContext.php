@@ -89,7 +89,7 @@ class JobContext implements Context
 	 */
 	public function iGoToCreateJob()
 	{
-	    $url = $this->generateUrl('lang/jobs/manage',['action' => 'edit']);
+	    $url = $this->buildUrl('lang/jobs/manage',['action' => 'edit']);
 		$this->visit($url);
 	}
 	
@@ -113,7 +113,7 @@ class JobContext implements Context
 			throw new \Exception(sprintf('Job with title "%s" is not found',$jobTitle));
 		}
 		$this->currentJob = $job;
-		$url = $this->generateUrl('lang/jobs/manage',[
+		$url = $this->buildUrl('lang/jobs/manage',[
 		    'id' => $job->getId()
         ]);
 		$this->visit($url);

@@ -13,16 +13,15 @@ namespace Core\Controller;
 use Core\Listener\DefaultListener;
 use Interop\Container\ContainerInterface;
 use Zend\ModuleManager\ModuleManager;
+use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-
-//use Settings\Repository\Settings;
 
 /**
  * Main Action Controller for the application.
  * Responsible for displaying the home site.
  *
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class IndexController extends AbstractActionController
 {
@@ -36,24 +35,14 @@ class IndexController extends AbstractActionController
 	 */
 	private $moduleManager;
 	
-	public function __construct($defaultListener,$config,$moduleManager)
+	public function __construct(
+        ModuleManagerInterface $moduleManager,
+        $config
+    )
 	{
-		$this->defaultListener = $defaultListener;
 		$this->config = $config;
 		$this->moduleManager = $moduleManager;
 	}
-    /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
-     */
-    public function attachDefaultListeners()
-    {
-    	// @TODO: [ZF3] check if attach the default listener is really work
-        parent::attachDefaultListeners();
-        $events          = $this->getEventManager();
-        $this->defaultListener->attach($events);
-        return $this;
-    }
 
     /**
      * Home site
@@ -62,45 +51,18 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $auth = $this->Auth();
-	      $config = $this->config;
-
-        if (!$auth->isLoggedIn()) {
-            
-            if (array_key_exists('startpage', $config['view_manager']['template_map'])) {
-                $this->layout()->setTerminal(true)->setTemplate('startpage');
-            }
-            return;
+        $config = $this->config;
+        if (array_key_exists('startpage', $config['view_manager']['template_map'])) {
+            $this->layout()->setTerminal(true)->setTemplate('startpage');
         }
-
-        $dashboardConfig = array(
-            'controller' => 'Core\Controller\Index',
-            'action'     => 'dashboard',
-            'params'     => array()
-        );
-        
-        if (isset($config['dashboard'])) {
-            $dashboardConfig = array_merge(
-                $dashboardConfig,
-                /** Intersect array to filter out invalid keys that might be in config */
-                array_intersect_key($config['dashboard'], $dashboardConfig)
-            );
-        }
-        
-        extract($dashboardConfig); // $controller, $action, $params;
-        $params['action'] = $action;
-        
-        return $this->forward()->dispatch($controller, $params);
-        
+        return ['auth' => $auth];
     }
     
     public function dashboardAction()
     {
         $model = new ViewModel();
         $model->setTemplate('core/index/dashboard');
-        
-        $widgets = array();
         $modules = $this->moduleManager->getLoadedModules();
-        $widgets = array();
         foreach ($this->config('dashboard', array_keys($modules)) as $module => $cfg) {
             if (!isset($cfg['enabled']) || true !== $cfg['enabled']) {
                 continue;
@@ -135,12 +97,9 @@ class IndexController extends AbstractActionController
             
                 $viewModel->setTemplate('core/index/dashboard-widget.phtml');
                 $model->addChild($viewModel, "dashboard_{$module}_{$captureTo}");
-                //$widgets[] = $viewModel;
             }
         }
-        //$model->setVariable('widgets', $widgets);
         return $model;
-        
     }
     
     public function errorAction()
@@ -149,12 +108,5 @@ class IndexController extends AbstractActionController
         $viewModel->setTemplate('error/index')
                   ->setVariable('message', 'An unexpected error had occured. Please try again later.');
         return $viewModel;
-    }
-	
-    static public function factory(ContainerInterface $container)
-    {
-	    $defaultListener = $container->get('DefaultListeners');
-	    $config = $container->get('config');
-	    return new static($defaultListener,$config,$container->get('ModuleManager'));
     }
 }
