@@ -13,6 +13,7 @@ use Core\Controller\IndexController;
 use Core\Controller\Plugin\Config;
 use Core\Listener\DefaultListener;
 use Zend\ModuleManager\ModuleManager;
+use Zend\ModuleManager\ModuleManagerInterface;
 
 /**
  * Class ConfigTest
@@ -54,10 +55,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     private function getController()
     {
-        $defaultListener = $this->createMock(DefaultListener::class);
         $config = include __DIR__.'/fixtures/config-dump.php';
-        $moduleManager = $this->createMock(ModuleManager::class);
-        return new IndexController($defaultListener,$config,$moduleManager);
+        $moduleManager = $this->createMock(ModuleManagerInterface::class);
+        return new IndexController($moduleManager,$config);
     }
 
     /**

@@ -23,12 +23,9 @@ use Zend\Mvc\Application;
  */
 class CoreContext extends RawMinkContext
 {
+    use CommonContextTrait;
+
 	static protected $application;
-	
-	/**
-	 * @var MinkContext
-	 */
-	protected $minkContext;
 	
 	static private $jobCategoryChecked = false;
 	
@@ -36,9 +33,8 @@ class CoreContext extends RawMinkContext
 	 * @BeforeScenario
 	 * @param BeforeScenarioScope $scope
 	 */
-	public function gatherContexts(BeforeScenarioScope $scope)
+	public function setupContexts(BeforeScenarioScope $scope)
 	{
-		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
 		if(false === static::$jobCategoryChecked){
 			/* @var Categories $catRepo */
 			$catRepo = $this->getRepositories()->get('Jobs/Category');
@@ -99,7 +95,7 @@ class CoreContext extends RawMinkContext
 	{
 		return $this->minkContext->locatePath($name);
 	}
-	
+
 	/**
 	 * @When /^I hover over the element "([^"]*)"$/
 	 */
@@ -235,7 +231,6 @@ JS;
 		}
 	}
 	
-	
 	/**
 	 * @When I click location selector
 	 */
@@ -311,5 +306,14 @@ JS;
         $translator = $this->getServiceManager()->get('translator');
         $translated = $translator->translate($text);
         $this->minkContext->assertSession()->pageTextContains($translated);
+    }
+
+    /**
+     * @When I go to dashboard page
+     */
+    public function iGoToDashboardPage()
+    {
+        $url = $this->buildUrl('lang/dashboard');
+        $this->iVisit($url);
     }
 }

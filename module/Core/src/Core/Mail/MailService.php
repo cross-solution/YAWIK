@@ -32,6 +32,13 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class MailService extends AbstractPluginManager
 {
     /**
+     * Define transport type to use
+     */
+    const TRANSPORT_SMTP        = 'smtp';
+    const TRANSPORT_FILE        = 'file';
+    const TRANSPORT_SENDMAIL    = 'sendmail';
+
+    /**
      * The mail Transport
      *
      * @var TransportInterface

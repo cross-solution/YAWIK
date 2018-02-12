@@ -92,6 +92,7 @@ class UserContext implements Context
 				try{
 					JobContext::removeJobByUser($user);
 					$repo->remove($user,true);
+					$repo->getDocumentManager()->refresh($user);
 				}catch (\Exception $e){
 				
 				}
@@ -169,14 +170,13 @@ class UserContext implements Context
 			$normalizedFields[$field] = $value;
 		}
 		
-		$this->thereIsAUserIdentifiedBy(
+		$this->currentUser = $this->thereIsAUserIdentifiedBy(
 			$normalizedFields['login'],
 			$normalizedFields['password'],
 			$role,
 			$normalizedFields['fullname'],
 			$normalizedFields['organization']
 		);
-		
 	}
 	
 	/**
@@ -214,6 +214,7 @@ class UserContext implements Context
 	public function thereIsAUserIdentifiedBy($email, $password,$role=User::ROLE_RECRUITER,$fullname="Test Recruiter",$organization=null)
 	{
 		$repo = $this->getUserRepository();
+
 		if(!is_object($user=$repo->findByEmail($email))){
 			$user = $this->createUser($email,$password,$role,$fullname,$organization);
 		}
@@ -252,6 +253,7 @@ class UserContext implements Context
 		$info->setEmail($email);
 		$info->setEmailVerified(true);
 		$repo->store($user);
+
 		$repo->getDocumentManager()->refresh($user);
 		
 		$eventArgs = new LifecycleEventArgs($user, $repo->getDocumentManager());
@@ -259,13 +261,7 @@ class UserContext implements Context
 			Events::postLoad,
 			$eventArgs
 		);
-		/* @var \Core\EventManager\EventManager $events */
-		/* @var \Auth\Listener\Events\AuthEvent $event */
-		//@TODO: [Behat] event not working in travis
-		//$events = $this->coreContext->getEventManager();
-		//$event  = $events->getEvent(AuthEvent::EVENT_USER_REGISTERED, $this);
-		//$event->setUser($user);
-		//$events->triggerEvent($event);
+
 		return $user;
 	}
 	
@@ -298,7 +294,7 @@ class UserContext implements Context
 	public function iWantToLogIn()
 	{
 		$session = $this->minkContext->getSession();
-		$url = $this->generateUrl('lang/auth');
+		$url = $this->buildUrl('lang/auth');
 		$session->visit($url);
 	}
 	
@@ -349,7 +345,7 @@ class UserContext implements Context
 	 */
 	public function iPressLogoutLink()
 	{
-		$url = $this->generateUrl('auth-logout');
+		$url = $this->buildUrl('auth-logout');
 		$this->visit($url);
 	}
 	
@@ -372,7 +368,7 @@ class UserContext implements Context
 	 */
 	public function iGoToProfilePage()
 	{
-		$url = $this->generateUrl('lang/my');
+		$url = $this->buildUrl('lang/my');
 		$this->visit($url);
 	}
 	
@@ -407,7 +403,7 @@ class UserContext implements Context
 	 */
 	public function iWantToChangeMyPassword()
 	{
-		$url = $this->generateUrl('lang/my-password');
+		$url = $this->buildUrl('lang/my-password');
 		$this->visit($url);
 	}
 

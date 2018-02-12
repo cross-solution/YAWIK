@@ -11,7 +11,6 @@
 namespace Core\Controller;
 
 use Core\EventManager\EventManager;
-use Interop\Container\ContainerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -28,18 +27,9 @@ class AdminController extends AbstractActionController
 	
     protected $adminControllerEvents;
     
-    public function __construct(EventManager $adminControllerEvents)
+    public function __construct(EventManager $eventManager)
     {
-        $this->adminControllerEvents = $adminControllerEvents;
-    }
-    
-    static public function factory(ContainerInterface $sm)
-    {
-    	/* @var EventManager $eventManager */
-    	$eventManager = $sm->get('Core/AdminController/Events');
-    	$eventManager->setEventPrototype(new AdminControllerEvent());
-    	$ob = new static($eventManager);
-    	return $ob;
+        $this->adminControllerEvents = $eventManager;
     }
     
     /**

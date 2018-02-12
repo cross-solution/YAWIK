@@ -31,6 +31,7 @@ before_script:
   # copy default app config
   - mkdir -p config/autoload
   - mkdir -p build/behat
+  - mkdir -p build/mails
   - cp .travis/autoload/*.* config/autoload
 
   # install Mongo extension

@@ -12,6 +12,12 @@ namespace Core\Mail;
 
 use Zend\Mail\Header;
 
+/**
+ * Class StringTemplateMessage
+ *
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @package Core\Mail
+ */
 class StringTemplateMessage extends TranslatorAwareMessage
 {
     protected $variables;
@@ -22,6 +28,8 @@ class StringTemplateMessage extends TranslatorAwareMessage
     public function __construct(array $options = array())
     {
         parent::__construct($options);
+        $this->variables = array();
+        $this->callbacks = array();
         $this->getHeaders()->addHeader(Header\ContentType::fromString('Content-Type: text/plain; charset=UTF-8'));
         $this->setEncoding('UTF-8');
     }
@@ -30,6 +38,41 @@ class StringTemplateMessage extends TranslatorAwareMessage
     {
         $this->variables = array();
         return $this->addVariables($variables);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVariables()
+    {
+        return $this->variables;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCallbacks()
+    {
+        return $this->callbacks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param string $template
+     * @return $this
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+
+        return $this;
     }
     
     public function addVariables($variables = array())
@@ -75,7 +118,7 @@ class StringTemplateMessage extends TranslatorAwareMessage
             }
         }
         
-        foreach ($this->callbacks as $name => $callback) {
+        foreach ($callbacks as $name => $callback) {
             $this->setCallback($name, $callback);
         }
         return $this;
@@ -96,8 +139,9 @@ class StringTemplateMessage extends TranslatorAwareMessage
         $body = $this->parseCallbacks($body);
         
         if (preg_match('~\+\+subject:(?P<subject>.*?)\+\+~is', $body, $match)) {
-            $this->setSubject($match['subject']);
+            $this->setSubject(trim($match['subject']));
             $body = str_replace($match[0], '', $body);
+            $body = trim($body);
         }
         
         return $body;
@@ -105,7 +149,7 @@ class StringTemplateMessage extends TranslatorAwareMessage
     
     protected function parseVariables($body)
     {
-        if (null === $this->variables) {
+        if (empty($this->variables)) {
             return $body;
         }
         

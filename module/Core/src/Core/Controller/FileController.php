@@ -145,12 +145,11 @@ class FileController extends AbstractActionController
         $file = $this->getFile();
         if (!$file) {
             $this->response->setStatusCode(500);
+            $message = ($ex = $this->getEvent()->getParam('exception')) ? $ex->getMessage() : 'File not found.';
             return new JsonModel(
                 array(
-                'result' => false,
-                'message' => ($ex = $this->getEvent()->getParam('exception'))
-                             ? $ex->getMessage()
-                             : 'File not found.'
+                    'result' => false,
+                    'message' => $message
                 )
             );
         }

@@ -18,10 +18,16 @@ use Zend\Mvc\Controller\PluginManager;
 use Core\Controller\IndexController;
 use Core\Listener\DefaultListener;
 use Core\Controller\Plugin\Config;
-use Interop\Container\ContainerInterface;
 use Zend\Http\Request;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class IndexControllerTest
+ *
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @covers \Core\Controller\IndexController
+ * @package CoreTest\Controller
+ */
 class IndexControllerTest extends AbstractControllerTestCase
 {
     private $config;
@@ -34,22 +40,6 @@ class IndexControllerTest extends AbstractControllerTestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     private $pluginsMock;
-
-    public function testFactory()
-    {
-        $container = $this->createMock(ContainerInterface::class);
-        $listener = $this->createMock(DefaultListener::class);
-        $config = $this->createMock(Config::class);
-        $container->expects($this->any())
-            ->method('get')
-            ->willReturnMap([
-                ['DefaultListeners',$listener],
-                ['config',$config]
-            ]);
-        $ob = IndexController::factory($container);
-
-        $this->assertInstanceOf(IndexController::class,$ob);
-    }
 
     /**
      * @return IndexController
@@ -76,9 +66,8 @@ class IndexControllerTest extends AbstractControllerTestCase
         $this->pluginsMock = $plugins;
         $this->moduleManager = $this->createMock(ModuleManager::class);
         $this->controller = new IndexController(
-            $this->defaultListener,
-            $this->config,
-            $this->moduleManager
+            $this->moduleManager,
+            $this->config
         );
         $this->init('index');
         $this->controller->setEvent($this->event);
@@ -92,11 +81,6 @@ class IndexControllerTest extends AbstractControllerTestCase
     public function testIndexRedirectToStartPageWhenNotLoggedIn()
     {
         $auth = $this->createMock(Auth::class);
-
-        $auth->expects($this->once())
-            ->method('isLoggedIn')
-            ->willReturn(false)
-        ;
 
         $this->config['view_manager']['template_map']['startpage'] = ['some.template'];
 
@@ -120,25 +104,6 @@ class IndexControllerTest extends AbstractControllerTestCase
         $request = new Request();
         $this->controller->dispatch($request);
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-    }
-
-    public function testIndexForwardToDashboard()
-    {
-        $auth = $this->createMock(Auth::class);
-        $auth->expects($this->once())
-            ->method('isLoggedIn')
-            ->willReturn(true)
-        ;
-        $this->config['dashboard'] = [];
-
-        $forward = $this->createMock(Forward::class);
-        $forward->expects($this->any())
-            ->method('dispatch')
-            ->with('Core\\Controller\\Index',['action'=>'dashboard'])
-        ;
-        $request = new Request();
-        $this->setupTarget($auth,null,$forward);
-        $this->controller->dispatch($request);
     }
 
     public function testDashboardAction()
@@ -198,7 +163,7 @@ class IndexControllerTest extends AbstractControllerTestCase
         ;
 
         $target = $this->getMockBuilder(IndexController::class)
-            ->setConstructorArgs([$this->defaultListener,$this->config,$this->moduleManager])
+            ->setConstructorArgs([$this->moduleManager,$this->config])
             ->setMethods(['getResponse'])
             ->getMock()
         ;

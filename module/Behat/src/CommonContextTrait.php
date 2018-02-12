@@ -43,7 +43,7 @@ trait CommonContextTrait
 	 *
 	 * @param BeforeScenarioScope $scope
 	 */
-	public function gatherContexts(BeforeScenarioScope $scope)
+	final public function gatherContexts(BeforeScenarioScope $scope)
 	{
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
 		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
@@ -51,7 +51,7 @@ trait CommonContextTrait
 		$this->summaryFormContext = $scope->getEnvironment()->getContext(SummaryFormContext::class);
 	}
 	
-	public function generateUrl($name,array $params=array(),array $options=array())
+	public function buildUrl($name, array $params=array(), array $options=array())
 	{
 	    $defaults = ['lang'=>'en'];
 	    $params = array_merge($defaults,$params);
