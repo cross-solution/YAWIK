@@ -51,17 +51,26 @@ class ProfileController extends AbstractActionController
      */
     private $imageFileCacheManager;
 
+    /**
+     * @var array
+     */
+    private $options = [
+        'count' => 10,
+    ];
+
     public function __construct(
         OrganizationRepository $repo,
         JobRepository $jobRepository,
         TranslatorInterface $translator,
-        ImageFileCacheManager $imageFileCacheManager
+        ImageFileCacheManager $imageFileCacheManager,
+        $options
     )
     {
         $this->repo = $repo;
         $this->translator = $translator;
         $this->imageFileCacheManager = $imageFileCacheManager;
         $this->jobRepo = $jobRepository;
+        $this->options = $options;
     }
 
     /**
@@ -73,6 +82,12 @@ class ProfileController extends AbstractActionController
     {
 
         $result = $this->pagination([
+            'params' => ['Organizations_Profile',[
+                    'q',
+                    'count' => $this->options['count'],
+                    'page' => 1,
+                ]
+            ],
             'paginator' => [
                 'Organizations/Organization',
                 'as' => 'organizations',
@@ -82,12 +97,7 @@ class ProfileController extends AbstractActionController
             ],
             'form' => [
                 'Core/Search',
-                [
-                    'text_name' => 'text',
-                    'text_placeholder' => /*@translate*/ 'Search for organizations',
-                    'button_element' => 'text',
-                ],
-                'as' => 'form'
+                'as' => 'form',
             ]
         ]);
         return new ViewModel($result);
@@ -125,14 +135,15 @@ class ProfileController extends AbstractActionController
         $result = $this->pagination([
             'params' => [
                 'Organization_Jobs',[
-                    'organization_id' => $organization->getId()
+                    'q',
+                    'organization' => $organization,
+                    'count' => $this->options['count'],
+                    'page' => 1,
                 ],
             ],
             'paginator' => [
-                'as' => 'jobs','Organizations/ListJob',
-                'params' => [
-                    'count' => 2,
-                ]
+                'as' => 'jobs',
+                'Organizations/ListJob',
             ],
         ]);
 
@@ -143,7 +154,7 @@ class ProfileController extends AbstractActionController
             $paginator = $result['jobs'];
             $count = $paginator->getTotalItemCount();
             if(0===$count){
-                throw new UnauthorizedAccessException(/*@translate*/ 'This Organization Profile is disabled');
+                throw new UnauthorizedAccessException($this->translator->translate('This Organization Profile is disabled'));
             }
         }
         $result['organization'] = $organization;

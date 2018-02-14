@@ -11,6 +11,7 @@ namespace OrganizationsTest\Repository\Filter;
 
 use Auth\AuthenticationService;
 use Auth\Entity\User;
+use Auth\Entity\UserInterface;
 use Doctrine\MongoDB\Query\Builder as QueryBuilder;
 use Doctrine\MongoDB\Query\Query;
 use Doctrine\ODM\MongoDB\Cursor;
@@ -40,18 +41,39 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
      */
     protected $jobRepository;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $authService;
+
+    /**
+     * @var User
+     */
+    protected $user;
+
     public function setUp()
     {
-        $this->jobRepository = $this->createMock(JobRepository::class);
 
-        $this->target = new PaginationQuery($this->jobRepository);
+        $this->jobRepository = $this->createMock(JobRepository::class);
+        $this->authService = $this->createMock(AuthenticationService::class);
+        $this->target = new PaginationQuery($this->jobRepository,$this->authService);
     }
 
     public function testCreateQuery()
     {
         $builder = $this->createMock(QueryBuilder::class);
         $target = $this->target;
+        $authService = $this->authService;
+        $user = $this->createMock(User::class);
 
+        $authService->expects($this->once())
+            ->method('getUser')
+            ->willReturn($user)
+        ;
+        $user->expects($this->once())
+            ->method('getRole')
+            ->willReturn(User::ROLE_RECRUITER)
+        ;
         $builder->expects($this->any())
             ->method('field')
             ->willReturnMap([
@@ -82,6 +104,18 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $target = $this->target;
         $jobRepository = $this->jobRepository;
         $query = $this->createMock(Query::class);
+
+        $authService = $this->authService;
+        $user = $this->createMock(User::class);
+
+        $authService->expects($this->once())
+            ->method('getUser')
+            ->willReturn($user)
+        ;
+        $user->expects($this->once())
+            ->method('getRole')
+            ->willReturn(User::ROLE_USER)
+        ;
 
         $builder->expects($this->any())
             ->method('field')

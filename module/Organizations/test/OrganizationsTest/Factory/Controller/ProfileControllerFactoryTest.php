@@ -10,6 +10,7 @@
 namespace OrganizationsTest\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
+use Jobs\Options\JobboardSearchOptions;
 use Organizations\Controller\ProfileController;
 use Organizations\Factory\Controller\ProfileControllerFactory;
 use Jobs\Repository\Job as JobRepository;
@@ -36,6 +37,11 @@ class ProfileControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $container = $this->createMock(ContainerInterface::class);
 
+        $options = $this->createMock(JobboardSearchOptions::class);
+        $options->expects($this->once())
+            ->method('getPerPage')
+            ->willReturn(10)
+        ;
         $container->expects($this->any())
             ->method('get')
             ->willReturnMap([
@@ -43,7 +49,8 @@ class ProfileControllerFactoryTest extends \PHPUnit_Framework_TestCase
                 ['Organizations/Organization',$repository],
                 ['translator',$translator],
                 ['Organizations\ImageFileCache\Manager',$imageFileCacheManager],
-                ['Jobs/Job',$jobRepository]
+                ['Jobs/Job',$jobRepository],
+                ['Jobs/JobboardSearchOptions',$options]
             ])
         ;
 

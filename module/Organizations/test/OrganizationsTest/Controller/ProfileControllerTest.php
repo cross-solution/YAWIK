@@ -62,8 +62,16 @@ class ProfileControllerTest extends AbstractControllerTestCase
         $repository = $this->createMock(OrganizationRepository::class);
         $jobRepository = $this->createMock(JobRepository::class);
         $imageFileCacheManager = $this->createMock(ImageFileCacheManager::class);
+        $options = ['count' => 12];
 
-        $this->target = new ProfileController($repository,$jobRepository,$translator,$imageFileCacheManager);
+        $this->target = new ProfileController(
+            $repository,
+            $jobRepository,
+            $translator,
+            $imageFileCacheManager,
+            $options
+        );
+
         $this->translator = $translator;
         $this->repository = $repository;
         $this->jobRepository = $jobRepository;
@@ -231,12 +239,19 @@ class ProfileControllerTest extends AbstractControllerTestCase
                 $this->repository,
                 $this->jobRepository,
                 $this->translator,
-                $this->imageFileCacheManager
+                $this->imageFileCacheManager,
+                ['count' => 10],
             ])
             ->setMethods(['pagination'])
             ->getMock()
         ;
 
+
+        $this->translator->expects($this->once())
+            ->method('translate')
+            ->with('This Organization Profile is disabled')
+            ->willReturn('translated-message')
+        ;
         $paginator = $this->createMock(Paginator::class);
         $paginator->expects($this->once())
             ->method('getTotalItemCount')
@@ -252,7 +267,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
 
         $this->expectException(UnauthorizedAccessException::class);
-        $this->expectExceptionMessage('This Organization Profile is disabled');
+        $this->expectExceptionMessage('translated-message');
         $target->detailAction();
     }
 }

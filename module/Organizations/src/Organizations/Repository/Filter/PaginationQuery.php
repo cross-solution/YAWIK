@@ -8,6 +8,8 @@
 
 namespace Organizations\Repository\Filter;
 
+use Auth\AuthenticationService;
+use Auth\Entity\UserInterface;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Jobs\Entity\StatusInterface;
 use Organizations\Entity\Organization;
@@ -48,13 +50,23 @@ class PaginationQuery extends AbstractPaginationQuery
     protected $jobRepository;
 
     /**
+     * @var AuthenticationService
+     */
+    private $authService;
+
+    /**
      * Constructs pagination query.
      *
-     * @param JobRepository $jobRepository
+     * @param JobRepository         $jobRepository
+     * @param AuthenticationService $auth
      */
-    public function __construct($jobRepository)
+    public function __construct(
+        JobRepository $jobRepository,
+        AuthenticationService $auth
+    )
     {
         $this->jobRepository = $jobRepository;
+        $this->authService = $auth;
     }
     
     /**
@@ -71,6 +83,17 @@ class PaginationQuery extends AbstractPaginationQuery
             $value = $params->toArray();
         } else {
             $value = $params;
+        }
+
+        /*
+         * if user is recruiter or admin
+         * filter query based on permissions.view
+         */
+        $auth = $this->authService;
+        $user = $auth->getUser();
+        $ignored = [null,'guest',UserInterface::ROLE_USER];
+        if(!in_array($user->getRole(),$ignored)){
+            $queryBuilder->field('permissions.view')->equals($user->getId());
         }
 
         if (isset($params['q']) && $params['q'] && $params['q'] != 'en/organizations/profile' ) {

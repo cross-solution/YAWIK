@@ -11,6 +11,8 @@ namespace OrganizationsTest\Repository\Filter;
 
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Interop\Container\ContainerInterface;
+use Jobs\Entity\Status;
+use Organizations\Entity\Organization;
 use Organizations\Repository\Filter\ListJobQuery;
 
 /**
@@ -27,6 +29,7 @@ class ListJobQueryTest extends \PHPUnit_Framework_TestCase
     {
         $builder = $this->createMock(Builder::class);
         $target = new ListJobQuery();
+        $organization = new Organization();
 
         $builder->expects($this->exactly(3))
             ->method('field')
@@ -38,17 +41,22 @@ class ListJobQueryTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnSelf())
         ;
 
-        $builder->expects($this->exactly(3))
+        $builder->expects($this->once())
+            ->method('in')
+            ->with([Status::ACTIVE,Status::PUBLISH])
+            ->willReturn($builder)
+        ;
+        $builder->expects($this->exactly(2))
             ->method('equals')
             ->withConsecutive(
-                ['some-id'],
-                ['active'],
+                [$organization],
                 [false]
             )
             ->will($this->returnSelf())
         ;
 
-        $params=['organization_id' => 'some-id'];
+
+        $params=['organization' =>$organization];
         $target->createQuery($params,$builder);
     }
 }

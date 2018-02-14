@@ -148,6 +148,34 @@ class UserContext implements Context
             $this->iHaveMainOrganization($user,$organization);
         }
 	}
+
+    /**
+     * @Given I have user with the following:
+     *
+     *
+     */
+	public function iHaveRecruiterWithOrganization(TableNode $tableNode)
+    {
+        $rows = $tableNode->getRowsHash();
+
+        $this->thereIsAUserIdentifiedBy(
+            $rows['email'],
+            'test',
+            User::ROLE_RECRUITER,
+            $rows['name'],
+            $rows['organization']
+        );
+    }
+
+    /**
+     * @Given I am logged out
+     */
+    public function iHaveLoggedOut()
+    {
+        $url = $this->minkContext->locatePath('/logout');
+        $this->minkContext->getSession()->visit($url);
+    }
+
 	
 	/**
 	 * @Given I don't have :login user
@@ -316,7 +344,6 @@ class UserContext implements Context
         return $this->mainOrganization;
     }
 
-	
 	/**
 	 * @When I want to log in
 	 */

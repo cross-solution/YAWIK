@@ -32,6 +32,7 @@ class ProfileControllerFactory implements FactoryInterface
         ;
         $translator = $container->get('translator');
         $imageFileCacheManager = $container->get('Organizations\ImageFileCache\Manager');
-        return new ProfileController($repo,$jobRepository,$translator,$imageFileCacheManager);
+        $options = $container->get('Jobs/JobboardSearchOptions');
+        return new ProfileController($repo,$jobRepository,$translator,$imageFileCacheManager,['count' => $options->getPerPage()]);
     }
 }

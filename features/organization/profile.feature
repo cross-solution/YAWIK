@@ -72,3 +72,29 @@ Feature: Organization profile
         Given organization "Profile Active Job" have no job
         And I go to profile page for organization "Profile Active Jobs"
         Then I should see "This Organization Profile is disabled"
+
+    @organization @profile
+    Scenario: Filter organization profile by user roles
+        Given I have user with the following:
+        | name             | Second Recruiter        |
+        | email            | recruiter@example.com   |
+        | organization     | Recruiter Organization  |
+        And organization "Recruiter Organization" have jobs:
+        | title             | professions | industries      | employment types | status    |
+        | Job Recruiter     | IT          | IT & Internet   | Contract         | published |
+        And I am logged out
+        # view profile as guest
+        When I want to see list organization profiles
+        Then I should see "Cross Solution"
+        And I should see "Recruiter Organization"
+        # view profile as recruiter
+        When I am logged in as "recruiter@example.com" identified by "test"
+        And I want to see list organization profiles
+        Then I should see "Recruiter Organization"
+        And I should not see "Cross Solution"
+        And I should not see "Profile Active Job"
+        When I go to profile page for organization "Recruiter Organization"
+        Then I should see "Job Recruiter"
+
+
+

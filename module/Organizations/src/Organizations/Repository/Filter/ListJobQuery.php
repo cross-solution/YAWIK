@@ -14,6 +14,7 @@ use Core\Repository\Filter\AbstractPaginationQuery;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\Job;
+use Jobs\Entity\Status;
 
 /**
  * Class ListJobQuery
@@ -34,12 +35,15 @@ class ListJobQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $id = $params['organization_id'];
+        $organization = $params['organization'];
         $queryBuilder
             ->field('organization')
-            ->equals($id)
+            ->equals($organization)
         ;
-        $queryBuilder->field('status.name')->equals('active');
+        $queryBuilder->field('status.name')->in([
+            Status::ACTIVE,
+            Status::PUBLISH
+        ]);
         $queryBuilder->field('isDraft')->equals(false);
         return $queryBuilder;
     }
