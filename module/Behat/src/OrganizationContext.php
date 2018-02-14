@@ -90,7 +90,7 @@ class OrganizationContext implements Context
      */
 	public function iWantToSeeListOrganizationProfiles()
     {
-       $url = $this->generateUrl('lang/organizations/profile');
+       $url = $this->buildUrl('lang/organizations/profile');
        $this->visit($url);
     }
 
@@ -188,7 +188,7 @@ class OrganizationContext implements Context
     public function iGoToOrganizationProfilePage($name)
     {
         $organization = $this->findOrganizationByName($name);
-        $url = $this->generateUrl('lang/organizations/profileDetail',[
+        $url = $this->buildUrl('lang/organizations/profileDetail',[
             'id' => $organization->getId()
         ]);
 

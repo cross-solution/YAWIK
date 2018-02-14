@@ -50,11 +50,10 @@ class PaginationQuery extends AbstractPaginationQuery
     /**
      * Constructs pagination query.
      *
-     * @param \Auth\AuthenticationService $auth
+     * @param JobRepository $jobRepository
      */
-    public function __construct($auth,$jobRepository)
+    public function __construct($jobRepository)
     {
-        $this->auth = $auth;
         $this->jobRepository = $jobRepository;
     }
     
@@ -68,7 +67,6 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $userID = $this->auth->getUser()->getId();
         if ($params instanceof Parameters) {
             $value = $params->toArray();
         } else {
@@ -78,11 +76,6 @@ class PaginationQuery extends AbstractPaginationQuery
         if (isset($params['q']) && $params['q'] && $params['q'] != 'en/organizations/profile' ) {
             $queryBuilder->text($params['q'])->language('none');
         }
-
-        /*
-         * We only show organizations to which the user has view permissions.
-         */
-        $queryBuilder->field('permissions.view')->in([$userID]);
 
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';

@@ -10,6 +10,7 @@
 namespace OrganizationsTest\Controller;
 
 use Auth\Exception\UnauthorizedAccessException;
+use Core\Controller\Plugin\PaginationBuilder;
 use Core\Entity\Exception\NotFoundException;
 use CoreTest\Controller\AbstractControllerTestCase;
 use Jobs\Repository\Job as JobRepository;
@@ -69,6 +70,24 @@ class ProfileControllerTest extends AbstractControllerTestCase
         $this->imageFileCacheManager = $imageFileCacheManager;
     }
 
+    public function testIndexAction()
+    {
+        $pluginManager = $this->createMock(PluginManager::class);
+
+        $pluginManager->expects($this->once())
+            ->method('get')
+            ->with('pagination')
+            ->willReturn(['foo' => 'bar'])
+        ;
+        $target = $this->target;
+        $target->setPluginManager($pluginManager);
+
+        /* @var ViewModel $result */
+        $result = $target->indexAction();
+        $this->assertArrayHasKey('foo',$result->getVariables());
+        $this->assertEquals('bar',$result->getVariable('foo'));
+    }
+
     public function testIndexThrowsExceptionOnNullID()
     {
         $pluginManager = $this->createMock(PluginManager::class);
@@ -91,7 +110,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
         ;
     }
 
-    public function testIndexThrowNotFoundWhenOrganizationIsNotFound()
+    public function testDetailThrowNotFoundWhenOrganizationIsNotFound()
     {
         $plugins = $this->createMock(PluginManager::class);
         $params = $this->createMock(Params::class);

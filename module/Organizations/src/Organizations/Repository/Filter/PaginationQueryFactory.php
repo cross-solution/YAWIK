@@ -36,9 +36,7 @@ class PaginationQueryFactory implements FactoryInterface
     {
         /* @TODO: $jobRepository should be removed when using aggregation query in filtering profile */
         $jobRepository = $container->get('Core/RepositoryService')->get('Jobs/Job');
-
-        $auth = $container->get('AuthenticationService');
-        $filter = new PaginationQuery($auth,$jobRepository);
+        $filter = new PaginationQuery($jobRepository);
         return $filter;
     }
 }

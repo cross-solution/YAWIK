@@ -1,7 +1,1 @@
-
-<?php foreach($jobs as $job): /* @var \Jobs\Entity\Job $job */?>
-<?php
-    echo $job->getTitle()
-?>
-
-<?php endforeach; ?>
+<?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>

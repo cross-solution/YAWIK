@@ -10,6 +10,8 @@ Feature: Organization profile
             | Software Engineer | IT          | IT & Internet   | Contract         | published |
             | Tester            | IT          | IT & Internet   | Permanent        | published |
             | Senior Developer  | IT          | IT & Internet   | Permanent        | published |
+            | Database Engineer | IT          | IT & Internet   | Permanent        | published |
+            | System Analyst    | IT          | IT & Internet   | Permanent        | published |
             | Draft Engineer    | IT          | IT & Internet   | Contract         | draft     |
         And I define contact for "Cross Solution" organization with:
             | Street        | Some Street   |

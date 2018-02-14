@@ -126,9 +126,14 @@ class ProfileController extends AbstractActionController
             'params' => [
                 'Organization_Jobs',[
                     'organization_id' => $organization->getId()
+                ],
+            ],
+            'paginator' => [
+                'as' => 'jobs','Organizations/ListJob',
+                'params' => [
+                    'count' => 2,
                 ]
             ],
-            'paginator' => ['as' => 'jobs','Organizations/ListJob'],
         ]);
 
         if(
@@ -144,6 +149,8 @@ class ProfileController extends AbstractActionController
         $result['organization'] = $organization;
         $result['organizationImageCache'] = $this->imageFileCacheManager;
 
+        /* @var \Zend\Mvc\Controller\Plugin\Url $url */
+        $result['paginationControlRoute'] = 'lang/organizations/profileDetail';
         return new ViewModel($result);
     }
 }

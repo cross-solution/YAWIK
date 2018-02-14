@@ -156,6 +156,8 @@ return [
                     'Entity/OrganizationImage',
                     'route/lang/organizations/invite',
                     'Organizations/InviteEmployee' => [ 'accept' ],
+                    'route/lang/organizations/profile',
+                    'route/lang/organizations/profileDetail',
                 ],
                 'deny' => [
                     'route/lang/organizations',
@@ -168,6 +170,8 @@ return [
                     'route/lang/organizations',
                     'Organizations/InviteEmployee',
                     'Entity/Organization' => [ 'edit' => 'Organizations/Write' ],
+                    'route/lang/organizations/profile',
+                    'route/lang/organizations/profileDetail'
                 ],
             ],
         ],

@@ -38,30 +38,13 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $auth;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     protected $jobRepository;
 
     public function setUp()
     {
-        $this->auth = $this->createMock(AuthenticationService::class);
         $this->jobRepository = $this->createMock(JobRepository::class);
 
-        $user = $this->createMock(User::class);
-        $this->auth->expects($this->any())
-            ->method('getUser')
-            ->willReturn($user);
-
-        $user->expects($this->any())
-            ->method('getId')
-            ->willReturn('some-id')
-        ;
-
-
-        $this->target = new PaginationQuery($this->auth,$this->jobRepository);
+        $this->target = new PaginationQuery($this->jobRepository);
     }
 
     public function testCreateQuery()
@@ -103,7 +86,6 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $builder->expects($this->any())
             ->method('field')
             ->willReturnMap([
-                ['permissions.view',$builder],
                 ['profileSetting',$builder],
                 ['id',$builder],
                 ['organization',$builder],

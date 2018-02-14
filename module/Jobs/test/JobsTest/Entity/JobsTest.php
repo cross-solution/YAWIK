@@ -607,6 +607,27 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->target->makeSnapshot(), new JobSnapshot($this->target));
     }
+
+    public function testUnsetUser()
+    {
+        $user = new User();
+        $job = new Job();
+        $job->setUser($user);
+        $job->unsetUser($user);
+
+        $this->assertNull($job->getUser());
+    }
+
+    public function testUnsetOrganization()
+    {
+        $organization = new Organization();
+        $job = new Job();
+        $job->setOrganization($organization);
+
+        $job->unsetOrganization(true);
+
+        $this->assertNull($job->getOrganization());
+    }
 }
 
 class ConcreteEntityForTemplateValues extends AbstractEntity
