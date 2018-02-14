@@ -13,8 +13,9 @@
  */
 namespace Core;
 
+use Core\Factory\Controller\AdminControllerFactory;
+use Core\Factory\Controller\LazyControllerFactory;
 use Zend\I18n\Translator\Resources;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -85,7 +86,7 @@ return array(
                 'options' => array(
                     'route' => '/:lang',
                     'defaults' => array(
-                        'controller' => 'Core\Controller\Index',
+                        'controller' => 'Core/Index',
                         'action' => 'index',
                     ),
                 ),
@@ -129,14 +130,24 @@ return array(
                         'options' => array(
                             'regex' => '/content/(?<view>.*)$',
                             'defaults' => array(
-                                'controller' => 'Core\Controller\Content',
+                                'controller' => 'Core/Content',
                                 'action' => 'index',
                             ),
                             'spec' => '/content/%view%'
                         ),
                         'may_terminate' => true,
 
-                    )
+                    ),
+                    'dashboard' => [
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/dashboard',
+                            'defaults' => [
+                                'controller' => 'Core/Index',
+                                'action' => 'dashboard'
+                            ]
+                        ]
+                    ]
                 ),
             ),
             'file' => array(
@@ -144,7 +155,7 @@ return array(
                 'options' => array(
                     'route' => '/file/:filestore/:fileId[/:fileName]',
                     'defaults' => array(
-                        'controller' => 'Core\Controller\File',
+                        'controller' => 'Core/File',
                         'action' => 'index'
                     ),
                 ),
@@ -162,6 +173,9 @@ return array(
                         '__ALL__' => 'Core/FileAccess'
                     ),
                 ),
+                'disallow' => [
+
+                ]
             ),
             'admin' => [
                 'allow' => [
@@ -169,6 +183,11 @@ return array(
                     //'Core/Navigation/Admin',
                 ],
             ],
+            'recruiter' => [
+                'allow' => [
+                    'route/lang/dashboard'
+                ]
+            ]
         ),
         'assertions' => array(
             'factories' => array(
@@ -249,33 +268,33 @@ return array(
     // Defines the Core/Navigation.
     'navigation' => array(
         'default' => array(
-             'home' => array(
-                 'label' => /*@translate*/ 'Home',
-                 'route' => 'lang',
-                 'visible' => false
-             ),
-             'admin' => array(
-                 'label ' => /*@translate*/ 'Admin',
-                 'route' => 'lang/admin',
-                 'resource' => 'route/lang/admin',
-                 'order' => 200,
-             ),
+            'home' => [
+                'label' => /*@translate*/ 'Home',
+                'route' => 'lang',
+                'visible' => false
+            ],
+            'dashboard' => [
+                'label' => /*@translate*/ 'Dashboard',
+                'route' => 'lang/dashboard',
+                'resource' => 'route/lang/dashboard',
+                'order' => -10
+            ],
+            'admin' => [
+                'label ' => /*@translate*/ 'Admin',
+                'route' => 'lang/admin',
+                'resource' => 'route/lang/admin',
+                'order' => 200,
+            ],
         ),
     ),
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
-        'invokables' => array(
-            'Core\Controller\Content' => 'Core\Controller\ContentController',
-        ),
 	    'factories' => [
-	    	// @TODO: improve this factory
-		    'Core\Controller\Index' => [\Core\Controller\IndexController::class,'factory'],
-		    'Core/Admin' => [\Core\Controller\AdminController::class,'factory'],
-		    'Core\Controller\File'  => [\Core\Controller\FileController::class,'factory'],
+		    'Core/Index'   => LazyControllerFactory::class,
+            'Core/Admin'   => AdminControllerFactory::class,
+		    'Core/File'    => LazyControllerFactory::class,
+            'Core/Content' => LazyControllerFactory::class,
 	    ],
-        'abstract_factories' => [
-	        \Core\Factory\Controller\LazyControllerFactory::class
-        ],
     ),
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(

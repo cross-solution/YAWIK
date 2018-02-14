@@ -59,24 +59,6 @@ class FileControllerTest extends AbstractControllerTestCase
      */
     private $events;
 
-    public function testFactory()
-    {
-        $container = $this->createMock(ContainerInterface::class);
-        $repositories = $this->createMock(RepositoryService::class);
-        $fileEvents = $this->createMock(EventManager::class);
-
-        $container->expects($this->any())
-            ->method('get')
-            ->willReturnMap(
-                [
-                    ['repositories',$repositories],
-                    ['Core/File/Events',$fileEvents]
-                ]
-            )
-        ;
-        FileController::factory($container);
-    }
-
     public function setUp()
     {
         $this->init('file');
@@ -215,7 +197,7 @@ class FileControllerTest extends AbstractControllerTestCase
         );
     }
 
-    public function testDeletWithInvalidFileReturn500()
+    public function testDeleteWithInvalidFileReturn500()
     {
         $request = new Request();
         $request->setMethod(Request::METHOD_GET);

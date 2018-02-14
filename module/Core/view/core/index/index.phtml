@@ -6,18 +6,21 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+
 ?>
 <?php $this->headTitle($this->translate('Home'))?>
 <h1></h1>
 <div class="jumbotron text-center">
   <h1><?php echo $this->translate('Welcome to YAWIK!'); ?></h1>
   <p><?php echo $this->translate("we're connecting recruiters and applicants");?></p>
-  <p><?php echo $this->translate("Login to an open source applicant tracking system using your favorit social network");?></p>
-  <p>
-  <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
-  <?php foreach ($this->socialButtons() as $provider => $name): ?>
-            <a class="login-link btn-social btn-<?php echo $provider?> btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
-  <?php endforeach ?>
+  <?php if(!$auth->isLoggedIn()):?>
+      <p><?php echo $this->translate("Login to an open source applicant tracking system using your favorit social network");?></p>
+      <p>
+      <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
+      <?php foreach ($this->socialButtons() as $provider => $name): ?>
+                <a class="login-link btn-social btn-<?php echo $provider?> btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
+      <?php endforeach ?>
+  <?php endif; ?>
   </p>
 </div>
 <div class="container col-md-4">
