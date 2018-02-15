@@ -451,6 +451,8 @@ class Job extends BaseEntity implements JobInterface,
         return $this;
     }
 
+
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getContactEmail()
@@ -571,6 +573,17 @@ class Job extends BaseEntity implements JobInterface,
             }
             $this->user=null;
         }
+
+        return $this;
+    }
+
+    public function unsetOrganization($removePermissions = true)
+    {
+        if($this->organization && $removePermissions){
+            $this->getPermissions()->revoke($this->organization,Permissions::PERMISSION_ALL);
+        }
+
+        $this->organization = null;
 
         return $this;
     }

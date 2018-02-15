@@ -16,16 +16,21 @@ use Organizations\Form\Organizations;
  * Test for the organization form.
  * 
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @covers \Organizations\Form\Organizations
  * @group Organizations
  * @group Organizations.Form
  */
 class OrganizationTest extends \PHPUnit_Framework_TestCase
 {
+    protected $target;
 
-    public function setUp(){
+    public function setUp()
+    {
         $this->target = new Organizations();
         $this->target->init();
     }
+
     public function testInstanceOf()
     {
         $this->assertInstanceOf('Organizations\Form\Organizations', $this->target);
@@ -36,6 +41,6 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testNumberOfField() {
-        $this->assertSame($this->target->count(),6);
+        $this->assertSame($this->target->count(),7);
     }
 }

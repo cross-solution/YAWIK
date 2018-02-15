@@ -74,7 +74,7 @@ class OrganizationsNameFieldset extends Fieldset
             array(
             'name' => 'organizationName',
             'options' => array(
-                'label' => /* @translate */ 'Organizationname'
+                'label' => /* @translate */ 'Organization Name'
             ),
             )
         );

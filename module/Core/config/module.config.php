@@ -14,6 +14,7 @@
 namespace Core;
 
 use Core\Factory\Controller\AdminControllerFactory;
+use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
 use Zend\I18n\Translator\Resources;
 
@@ -292,7 +293,7 @@ return array(
 	    'factories' => [
 		    'Core/Index'   => LazyControllerFactory::class,
             'Core/Admin'   => AdminControllerFactory::class,
-		    'Core/File'    => LazyControllerFactory::class,
+		    'Core/File'    => FileControllerFactory::class,
             'Core/Content' => LazyControllerFactory::class,
 	    ],
     ),

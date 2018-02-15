@@ -36,12 +36,29 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
  * @todo   write test
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class Organization extends BaseEntity implements
     OrganizationInterface,
     DraftableEntityInterface,
     ResourceInterface
 {
+
+    /**
+     * Always enabled even if there are no active jobs
+     */
+    const PROFILE_ALWAYS_ENABLE     = 'always';
+
+    /**
+     * Hide if there are no jobs available
+     */
+    const PROFILE_ACTIVE_JOBS       = 'active-jobs';
+
+    /**
+     * Always disabled profile
+     */
+    const PROFILE_DISABLED          = 'disabled';
+
     /**
      * Event name of post construct event.
      *
@@ -97,6 +114,7 @@ class Organization extends BaseEntity implements
      * @var ImageSet
      */
     protected $images;
+
     /**
      * Flag indicating draft state of this job.
      *
@@ -185,6 +203,33 @@ class Organization extends BaseEntity implements
     protected $workflowSettings;
 
     /**
+     * Profile Setting
+     * @var string
+     * @ODM\Field(type="string", nullable=true)
+     */
+    protected $profileSetting;
+
+    /**
+     * @return string
+     */
+    public function getProfileSetting()
+    {
+        return $this->profileSetting;
+    }
+
+    /**
+     * @param string $profileSetting
+     *
+     * @return $this
+     */
+    public function setProfileSetting($profileSetting)
+    {
+        $this->profileSetting = $profileSetting;
+
+        return $this;
+    }
+
+    /**
      * Returns the string identifier of the Resource
      *
      * @return string
@@ -193,7 +238,6 @@ class Organization extends BaseEntity implements
     {
         return 'Entity/Organization';
     }
-
 
     /**
      * Gets the organization name
@@ -429,7 +473,6 @@ class Organization extends BaseEntity implements
         return $this->organizationName;
     }
 
-
     /**
      * Gets the Permissions of an organization
      *
@@ -593,8 +636,6 @@ class Organization extends BaseEntity implements
         return $this;
     }
 
-
-
     /**
      * Sets the Contact Data of an organization
      *
@@ -625,7 +666,6 @@ class Organization extends BaseEntity implements
 
         return $this->contact;
     }
-
 
     /**
      * Gets the default description of an organization.
@@ -731,7 +771,6 @@ class Organization extends BaseEntity implements
 
         return $employees;
     }
-
 
     public function setUser(UserInterface $user)
     {

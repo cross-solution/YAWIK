@@ -38,14 +38,6 @@ class FileController extends AbstractActionController
 	 */
 	private $coreFileEvents;
 	
-	static public function factory(ContainerInterface $container)
-	{
-		$repositories = $container->get('repositories');
-		$coreFileEvents = $container->get('Core/File/Events');
-		
-		return new static($repositories,$coreFileEvents);
-	}
-	
 	public function __construct(
 		RepositoryService $repositories,
 		EventManager $eventManager

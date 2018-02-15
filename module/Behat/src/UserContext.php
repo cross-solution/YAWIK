@@ -11,27 +11,21 @@ namespace Yawik\Behat;
 
 use Auth\Entity\User as User;
 use Auth\Entity\UserInterface;
-use Auth\Listener\Events\AuthEvent;
 use Auth\Repository\User as UserRepository;
 use Auth\Service\Register;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
-use Behat\Testwork\Hook\Scope\AfterSuiteScope;
 use Core\Entity\Permissions;
 use Doctrine\Common\Util\Inflector;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
-use Geo\Service\Photon;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Repository\Organization as OrganizationRepository;
-use Zend\Router\RouteInterface;
-use Zend\Router\RoutePluginManager;
-use Zend\Stdlib\ArrayObject;
-use Zend\View\Helper\Url;
+use Yawik\Behat\Exception\FailedExpectationException;
 
 class UserContext implements Context
 {
@@ -47,17 +41,22 @@ class UserContext implements Context
 	 */
 	static private $userRepo;
 	
-	/**
-	 * @var string
-	 */
-	static private $currentSession;
-	
 	private $socialLoginInfo = [];
+
+    /**
+     * @var DocumentManager
+     */
+	static private $dm;
 	
 	/**
 	 * @var UserInterface
 	 */
 	private $loggedInUser;
+
+    /**
+     * @var Organization
+     */
+	private $mainOrganization;
 
     /**
      * @var User
@@ -80,26 +79,34 @@ class UserContext implements Context
 		$this->socialLoginInfo = array_merge($defaultLoginInfo,$socialLoginConfig);
 	}
 
-	/**
-	 * @AfterSuite
-	 * @param AfterSuiteScope $scope
-	 */
-	static public function afterSuite(AfterSuiteScope $scope)
-	{
-		$repo = static::$userRepo;
-		foreach(static::$users as $user){
-			if($repo->findByLogin($user->getLogin())){
-				try{
-					JobContext::removeJobByUser($user);
-					$repo->remove($user,true);
-					$repo->getDocumentManager()->refresh($user);
-				}catch (\Exception $e){
-				
-				}
-			}
-		}
-	}
-	
+    /**
+     * Empty all data every each tests
+     *
+     * @AfterSuite
+     */
+	static public function tearDown()
+    {
+        $dm = static::$dm;
+
+        $documents = [
+            'Applications\Entity\Application',
+            'Cv\Entity\Cv',
+            'Jobs\Entity\Job',
+            'Organizations\Entity\Organization',
+            'Auth\Entity\User',
+            'Jobs\Entity\Category',
+            'Auth\Entity\UserImage',
+            'Organizations\Entity\OrganizationName',
+        ];
+        foreach($documents as $document){
+            $dm->createQueryBuilder($document)
+                ->remove()
+                ->getQuery()
+                ->execute()
+            ;
+        }
+    }
+
 	/**
 	 * @BeforeScenario
 	 * @param BeforeScenarioScope $scope
@@ -109,6 +116,7 @@ class UserContext implements Context
 		$this->minkContext = $scope->getEnvironment()->getContext(MinkContext::class);
 		$this->coreContext = $scope->getEnvironment()->getContext(CoreContext::class);
 		static::$userRepo = $this->getUserRepository();
+		static::$dm = $this->getUserRepository()->getDocumentManager();
 	}
 	
 	/**
@@ -136,7 +144,20 @@ class UserContext implements Context
 			$organization
 		);
 		$this->startLogin($user,'test');
+		if(!is_null($organization)){
+            $this->iHaveMainOrganization($user,$organization);
+        }
 	}
+
+    /**
+     * @Given I am logged out
+     */
+    public function iHaveLoggedOut()
+    {
+        $url = $this->minkContext->locatePath('/logout');
+        $this->minkContext->getSession()->visit($url);
+    }
+
 	
 	/**
 	 * @Given I don't have :login user
@@ -153,6 +174,8 @@ class UserContext implements Context
 	
 	/**
 	 * @Given I have a :role with the following:
+     * @Given I have an :role with the following:
+     *
 	 * @param $role
 	 * @param TableNode $fields
 	 */
@@ -160,8 +183,8 @@ class UserContext implements Context
 	{
 		$normalizedFields = [
 			'login' => 'test@login.com',
-			'fullname' => 'Test Login',
-			'role' => User::ROLE_USER,
+			'fullName' => 'Test Login',
+			'role' => $role,
 			'password' => 'test',
 			'organization' => 'Cross Solution'
 		];
@@ -170,13 +193,14 @@ class UserContext implements Context
 			$normalizedFields[$field] = $value;
 		}
 		
-		$this->currentUser = $this->thereIsAUserIdentifiedBy(
+		$this->thereIsAUserIdentifiedBy(
 			$normalizedFields['login'],
 			$normalizedFields['password'],
 			$role,
-			$normalizedFields['fullname'],
+			$normalizedFields['fullName'],
 			$normalizedFields['organization']
 		);
+		
 	}
 	
 	/**
@@ -214,7 +238,6 @@ class UserContext implements Context
 	public function thereIsAUserIdentifiedBy($email, $password,$role=User::ROLE_RECRUITER,$fullname="Test Recruiter",$organization=null)
 	{
 		$repo = $this->getUserRepository();
-
 		if(!is_object($user=$repo->findByEmail($email))){
 			$user = $this->createUser($email,$password,$role,$fullname,$organization);
 		}
@@ -223,6 +246,7 @@ class UserContext implements Context
 			$this->iHaveMainOrganization($user,$organization);
 		}
 		$this->addCreatedUser($user);
+		$repo->getDocumentManager()->refresh($user);
 		return $user;
 	}
 	
@@ -253,7 +277,6 @@ class UserContext implements Context
 		$info->setEmail($email);
 		$info->setEmailVerified(true);
 		$repo->store($user);
-
 		$repo->getDocumentManager()->refresh($user);
 		
 		$eventArgs = new LifecycleEventArgs($user, $repo->getDocumentManager());
@@ -261,7 +284,13 @@ class UserContext implements Context
 			Events::postLoad,
 			$eventArgs
 		);
-
+		/* @var \Core\EventManager\EventManager $events */
+		/* @var \Auth\Listener\Events\AuthEvent $event */
+		//@TODO: [Behat] event not working in travis
+		//$events = $this->coreContext->getEventManager();
+		//$event  = $events->getEvent(AuthEvent::EVENT_USER_REGISTERED, $this);
+		//$event->setUser($user);
+		//$events->triggerEvent($event);
 		return $user;
 	}
 	
@@ -273,21 +302,32 @@ class UserContext implements Context
 	{
 		/* @var $repoOrganization OrganizationRepository */
 		$repoOrganization = $this->coreContext->getRepositories()->get('Organizations/Organization');
-		$organization=$repoOrganization->findByName($orgName);
+		$result = $repoOrganization->findByName($orgName);
+		$organization = count($result) > 0 ? $result[0]:null;
 		if(!$organization instanceof Organization){
 			$organization = new Organization();
 			$organizationName = new OrganizationName($orgName);
 			$organization->setOrganizationName($organizationName);
-			$permissions = $organization->getPermissions();
-			$permissions->grant($user,Permissions::PERMISSION_ALL);
-		}else {
-			$organization->getPermissions()->grant($user,Permissions::PERMISSION_ALL);
 		}
-		$organization->setUser($user);
-		$repoOrganization->store($organization);
-		$repoOrganization->getDocumentManager()->refresh($organization);
+        $organization->setProfileSetting(Organization::PROFILE_ALWAYS_ENABLE);
+        $permissions = $organization->getPermissions();
+        $permissions->grant($user,Permissions::PERMISSION_ALL);
+
+        $organization->setUser($user);
+        $repoOrganization->store($organization);
+        $repoOrganization->getDocumentManager()->refresh($organization);
+
+        $this->mainOrganization = $organization;
 	}
-	
+
+    /**
+     * @return Organization
+     */
+    public function getMainOrganization()
+    {
+        return $this->mainOrganization;
+    }
+
 	/**
 	 * @When I want to log in
 	 */
@@ -409,9 +449,14 @@ class UserContext implements Context
 
     /**
      * @return User
+     * @throws FailedExpectationException
      */
 	public function getCurrentUser()
     {
+        if(!$this->currentUser instanceof User){
+            throw new FailedExpectationException('Need to login first before use this step');
+        }
         return $this->currentUser;
     }
 }
+

@@ -47,7 +47,7 @@ class OrganizationsContactFieldset extends Fieldset
             array(
                 'name' => 'street',
                 'options' => array(
-                        'label' => /* @translate */ 'street'
+                        'label' => /* @translate */ 'Street'
                 )
             )
         );
@@ -56,7 +56,7 @@ class OrganizationsContactFieldset extends Fieldset
             array(
                 'name' => 'houseNumber',
                 'options' => array(
-                        'label' => /* @translate */ 'house number'
+                        'label' => /* @translate */ 'House Number'
                 )
             )
         );
@@ -65,7 +65,7 @@ class OrganizationsContactFieldset extends Fieldset
             array(
                 'name' => 'postalcode',
                 'options' => array(
-                        'label' => /* @translate */ 'Postalcode'
+                        'label' => /* @translate */ 'Postal Code'
                 )
             )
         );

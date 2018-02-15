@@ -1,3 +1,4 @@
+@organization
 Feature: Updating my organization
     In order to post a job
     As a recruiter
@@ -7,23 +8,21 @@ Feature: Updating my organization
         Given I am logged in as a recruiter
         And I go to my organization page
 
-    @organization
     Scenario: Updating Name
         When I click edit on name form
         And I wait for the ajax response
-        And I fill in "Organizationname" with "Some Organization"
+        And I fill in "Organization Name" with "Some Organization"
         And I press "Save"
         And I wait for the ajax response
         Then I should see "Some Organization"
 
-    @organization
     Scenario: Updating Location
         When I click edit on location form
         And I wait for the ajax response
         And I fill in the following:
-            | street        | Some Street   |
-            | house number  | 12345         |
-            | Postalcode    | 54321         |
+            | Street        | Some Street   |
+            | House Number  | 12345         |
+            | Postal Code   | 54321         |
             | City          | Some City     |
             | Phone         | 123123        |
             | Fax           | 321321        |
@@ -36,11 +35,10 @@ Feature: Updating my organization
         And I should see "123123"
         And I should see "321321"
 
-    @organization @mail
     Scenario: Invite employee
         When I click edit on name form
         And I wait for the ajax response
-        And I fill in "Organizationname" with "Some Organization"
+        And I fill in "Organization Name" with "Some Organization"
         And I press "Save"
         And I wait for the ajax response
         And I click edit on employees form
@@ -54,7 +52,6 @@ Feature: Updating my organization
         And an email should be sent from "email@example.com"
         And sent email should be contain "Test Recruiter invited you"
 
-    @organization
     Scenario: Setup Workflow
         When I click edit on workflow form
         And I uncheck "accept Applications by Department Managers"
@@ -65,3 +62,15 @@ Feature: Updating my organization
         And I wait for the ajax response
         Then the "accept Applications by Department Managers" checkbox should not be checked
         And the "assign department managers to jobs" checkbox should not be checked
+
+    Scenario: Add and remove logo
+        When I want to edit my organization
+        And I attach logo from file "img/logo.jpg"
+        And I wait for 2 seconds
+        Then I should see an "img.img-polaroid" element
+        # test removing a logo
+        When I remove logo from organization
+        And I wait for 2 seconds
+        And I want to edit my organization
+        Then the "h1" element should contain "Organization"
+        And I should not see an "img.img-polaroid" element

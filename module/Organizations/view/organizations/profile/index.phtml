@@ -1,0 +1,23 @@
+<?php
+$this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
+$this->headScript()->appendFile($this->basePath('Core/js/core.pagination-container.js'));
+?>
+<h1><?php echo $this->translate('Organizations Profile')?></h1>
+
+<nav class="navbar yk-toolbar" >
+    <?php echo $this->searchForm($this->form) ?>
+</nav>
+
+<div id="organizations-list-container"
+     class="pagination-container"
+     data-uri="<?php echo $this->url('lang/organizations/profile', array(), array('q' => $this->params()->fromQuery()), true)?>"
+>
+
+    <div class="pagination-message alert alert-info">
+        <?php echo $this->translate('No organization found matching your criteria.') ?>
+    </div>
+
+    <div class="pagination-content">
+        <?php echo $this->render('organizations/profile/index.ajax.phtml')?>
+    </div>
+</div>

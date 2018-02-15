@@ -17,7 +17,7 @@ Feature: Add new organization
         And I go to create new organization page
         And I click edit on name form
         And I wait for the ajax response
-        And I fill in "Organizationname" with "Some Organization"
+        And I fill in "Organization Name" with "Some Organization"
         And I save "organization name" form
         And I wait for the ajax response
         Then I should see "Some Organization"
@@ -25,9 +25,9 @@ Feature: Add new organization
         # updating location
         When I click edit on location form
         And I fill in the following:
-            | street        | Some Street   |
-            | house number  | 12345         |
-            | Postalcode    | 54321         |
+            | Street        | Some Street   |
+            | House Number  | 12345         |
+            | Postal Code   | 54321         |
             | City          | Some City     |
             | Phone         | 123123        |
             | Fax           | 321321        |

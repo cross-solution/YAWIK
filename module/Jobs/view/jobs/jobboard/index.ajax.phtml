@@ -6,7 +6,6 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-
 $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
 ?>
 <?php
@@ -72,7 +71,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
 <table class="pagination-content table table-striped table-bordered table-hover" id="jobs-list">
     <thead>
     <tr>
-        <th><?php echo $this->translate('Title of the job')?> / <?php echo $this->translate('Companyname')?></th>
+        <th><?php echo $this->translate('Title of the job')?> / <?php echo $this->translate('Company Name')?></th>
         <th><?php echo $this->translate('Location')?> / <?php echo $this->translate('Date of receipt')?></th>
         <th><?php echo $this->translate('Apply')?></th>
     </tr>
@@ -87,11 +86,14 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
                 </div>
             <?php endif ?>
             <?=$this->jobUrl($job, [ 'target' => '_new' ]) ?>
-            <br/><?php
+            <br/>
+            <a href="<?php echo $this->url('lang/organizations/profileDetail',['id'=>$job->getOrganization()->getId()]) ?>">
+            <?php
             if (is_object($job->getOrganization()) && is_object($job->getOrganization()->getOrganizationName()) && $job->getOrganization()->getOrganizationName()->getName()) {
                 echo $job->getOrganization()->getOrganizationName()->getName();
             }
             ?>
+            </a>
         </td>
         <td>
             <div><?php echo $job->getLocation()?></div>
@@ -113,7 +115,10 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
 <?php endforeach?>
     </table>
 
-<?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobboard'));?>
+<?php
+    $paginationControlRoute = is_null($paginationControlRoute) ? 'lang/jobboard':$paginationControlRoute;
+?>
+<?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => $paginationControlRoute));?>
 
 <?php endif ?>
 <?php if ($hasFacets):?>

@@ -49,9 +49,9 @@ return [
 
     'controllers' => [
         'factories' => [
-	        'Organizations/InviteEmployee' => [\Organizations\Controller\InviteEmployeeController::class,'factory'],
+	        'Organizations/InviteEmployee' => \Organizations\Factory\Controller\InviteEmployeeControllerFactory::class,
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
-            'Organizations/Profile' => [\Organizations\Controller\ProfileController::class,'factory']
+            'Organizations/Profile' => 'Organizations\Factory\Controller\ProfileControllerFactory'
         ]
     ],
 
@@ -95,7 +95,8 @@ return [
              'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
              'Organizations/WorkflowSettings'             => 'Organizations\Form\WorkflowSettings',
              'Organizations/WorkflowSettingsFieldset'     => 'Organizations\Form\WorkflowSettingsFieldset',
-
+             'Organizations/Profile'                      => \Organizations\Form\OrganizationsProfileForm::class,
+             'Organizations/ProfileFieldset'              => \Organizations\Form\OrganizationsProfileFieldset::class
         ],
         'factories' => [
 	        'Organizations/OrganizationsNameFieldset'    => \Organizations\Factory\Form\OrganizationsNameFieldsetFactory::class,
@@ -112,28 +113,35 @@ return [
             ],
         ],
     ],
+
     'input_filters' => [
         'invokables' => [
         ],
     ],
+
     'filters' => [
         'factories' => [
-            'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory'
+            'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory',
+            \Organizations\Repository\Filter\ListJobQuery::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
         'aliases' => [
-            'PaginationQuery/Organizations/Organization' => 'Organizations/PaginationQuery'
+            'PaginationQuery/Organizations/Organization' => 'Organizations/PaginationQuery',
+            'Organizations/ListJobQuery' => \Organizations\Repository\Filter\ListJobQuery::class
         ]
     ],
+
     'validators' => [
         'factories' => [
         ],
     ],
+
     'hydrators' => [
         'factories' => [
             'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
             'Organizations/Logo' => \Organizations\Factory\Entity\Hydrator\LogoHydratorFactory::class,
         ],
     ],
+
     'mails' => [
         'factories' => [
             'Organizations/InviteEmployee' => 'Organizations\Mail\EmployeeInvitationFactory',
@@ -148,6 +156,8 @@ return [
                     'Entity/OrganizationImage',
                     'route/lang/organizations/invite',
                     'Organizations/InviteEmployee' => [ 'accept' ],
+                    'route/lang/organizations/profile',
+                    'route/lang/organizations/profileDetail',
                 ],
                 'deny' => [
                     'route/lang/organizations',
@@ -160,6 +170,8 @@ return [
                     'route/lang/organizations',
                     'Organizations/InviteEmployee',
                     'Entity/Organization' => [ 'edit' => 'Organizations/Write' ],
+                    'route/lang/organizations/profile',
+                    'route/lang/organizations/profileDetail'
                 ],
             ],
         ],
@@ -182,6 +194,10 @@ return [
                     'list' => [
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/organizations',
+                    ],
+                    'profile' => [
+                        'label' => /*@translate*/ 'Profiles',
+                        'route' => 'lang/organizations/profile',
                     ],
                     'edit' => [
                         'label' => /*@translate*/ 'Insert',
@@ -234,5 +250,11 @@ return [
             'class' => '\Organizations\Options\ImageFileCacheOptions'
         ],
         \Organizations\Options\OrganizationLogoOptions::class => [],
-    ]
+    ],
+
+    'paginator_manager' => [
+        'factories' => [
+            'Organizations/ListJob' => \Organizations\Paginator\ListJobPaginatorFactory::class
+        ]
+    ],
 ];

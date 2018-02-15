@@ -24,6 +24,29 @@ return array(
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
+                            'profileDetail' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/profile[/:id]',
+                                    'constraints' => [
+                                        'id' => '\w+',
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'detail',
+                                        'controller' => 'Organizations/Profile'
+                                    ],
+                                ],
+                            ],
+                            'profile' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/profile',
+                                    'defaults' => [
+                                        'action' => 'index',
+                                        'controller' => 'Organizations/Profile'
+                                    ],
+                                ],
+                            ],
                             'detail' => array(
                                 'type' => 'Segment',
                                 'options' => array(
@@ -102,19 +125,6 @@ return array(
                             ),
                         ),
                     ),
-                    'organization-profile' => [
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/profile/organization[/:id]',
-                            'constraints' => array(
-                                'id' => '\w+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Organizations/Profile',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ]
                 ),
             ),
         ),
