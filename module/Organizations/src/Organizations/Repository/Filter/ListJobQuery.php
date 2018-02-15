@@ -35,10 +35,9 @@ class ListJobQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $organization = $params['organization'];
         $queryBuilder
             ->field('organization')
-            ->equals($organization)
+            ->equals($params['organization_id'])
         ;
         $queryBuilder->field('status.name')->in([
             Status::ACTIVE,

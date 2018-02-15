@@ -1,3 +1,4 @@
+@organization
 Feature: Organization profile
     In order to apply a job
     As an applicant
@@ -29,7 +30,6 @@ Feature: Organization profile
             | title             | professions | industries      | employment types | status    |
             | Mentor            | IT          | IT & Internet   | Contract         | published |
 
-    @organization @profile
     Scenario: Browse Organization Profiles
         Given I want to see list organization profiles
         Then I should see "Organizations Profile"
@@ -37,7 +37,6 @@ Feature: Organization profile
         And I should not see "Profile Active Job"
         And I should not see "Profile Disabled"
 
-    @organization @profile
     Scenario: Profile only visible when active jobs available
         Given organization "Profile Active Job" have jobs:
             | title             | professions | industries      | employment types | status    |
@@ -45,7 +44,6 @@ Feature: Organization profile
         And I want to see list organization profiles
         Then I should see "Profile Active Job"
 
-    @organization @profile
     Scenario: Profile Detail Page For an Organization
         Given I go to profile page for organization "Cross Solution"
         Then I should see "Cross Solution"
@@ -57,27 +55,23 @@ Feature: Organization profile
         And I should see "Tester"
         And I should see "Senior Developer"
 
-    @organization @profile
     Scenario: Access profile with invalid id
         Given I go to "/en/organizations/profile/invalidid"
         Then I should see "Entity with id \"invalidid\" not found"
 
-    @organization @profile
     Scenario: Access disabled organization profile
         Given I go to profile page for organization "Profile Disabled"
         Then I should see "This Organization Profile is disabled"
 
-    @organization @profile
     Scenario: Access profile when there are no active jobs
         Given organization "Profile Active Job" have no job
         And I go to profile page for organization "Profile Active Jobs"
         Then I should see "This Organization Profile is disabled"
 
-    @organization @profile
     Scenario: Filter organization profile by user roles
-        Given I have user with the following:
-        | name             | Second Recruiter        |
-        | email            | recruiter@example.com   |
+        Given I have a recruiter with the following:
+        | Full Name        | Second Recruiter        |
+        | login            | recruiter@example.com   |
         | organization     | Recruiter Organization  |
         And organization "Recruiter Organization" have jobs:
         | title             | professions | industries      | employment types | status    |
@@ -95,6 +89,3 @@ Feature: Organization profile
         And I should not see "Profile Active Job"
         When I go to profile page for organization "Recruiter Organization"
         Then I should see "Job Recruiter"
-
-
-

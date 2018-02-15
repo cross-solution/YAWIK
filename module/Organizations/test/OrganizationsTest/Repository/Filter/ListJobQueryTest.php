@@ -49,14 +49,14 @@ class ListJobQueryTest extends \PHPUnit_Framework_TestCase
         $builder->expects($this->exactly(2))
             ->method('equals')
             ->withConsecutive(
-                [$organization],
+                [$organization->getId()],
                 [false]
             )
             ->will($this->returnSelf())
         ;
 
 
-        $params=['organization' =>$organization];
+        $params=['organization_id' =>$organization->getId()];
         $target->createQuery($params,$builder);
     }
 }

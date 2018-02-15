@@ -136,7 +136,7 @@ class ProfileController extends AbstractActionController
             'params' => [
                 'Organization_Jobs',[
                     'q',
-                    'organization' => $organization,
+                    'organization_id' => $organization->getId(),
                     'count' => $this->options['count'],
                     'page' => 1,
                 ],

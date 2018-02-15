@@ -150,24 +150,6 @@ class UserContext implements Context
 	}
 
     /**
-     * @Given I have user with the following:
-     *
-     *
-     */
-	public function iHaveRecruiterWithOrganization(TableNode $tableNode)
-    {
-        $rows = $tableNode->getRowsHash();
-
-        $this->thereIsAUserIdentifiedBy(
-            $rows['email'],
-            'test',
-            User::ROLE_RECRUITER,
-            $rows['name'],
-            $rows['organization']
-        );
-    }
-
-    /**
      * @Given I am logged out
      */
     public function iHaveLoggedOut()
@@ -192,6 +174,8 @@ class UserContext implements Context
 	
 	/**
 	 * @Given I have a :role with the following:
+     * @Given I have an :role with the following:
+     *
 	 * @param $role
 	 * @param TableNode $fields
 	 */
@@ -199,8 +183,8 @@ class UserContext implements Context
 	{
 		$normalizedFields = [
 			'login' => 'test@login.com',
-			'fullname' => 'Test Login',
-			'role' => User::ROLE_USER,
+			'fullName' => 'Test Login',
+			'role' => $role,
 			'password' => 'test',
 			'organization' => 'Cross Solution'
 		];
@@ -213,7 +197,7 @@ class UserContext implements Context
 			$normalizedFields['login'],
 			$normalizedFields['password'],
 			$role,
-			$normalizedFields['fullname'],
+			$normalizedFields['fullName'],
 			$normalizedFields['organization']
 		);
 		
