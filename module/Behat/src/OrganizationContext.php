@@ -182,12 +182,17 @@ class OrganizationContext implements Context
 
     /**
      * @Given I go to profile page for organization :name
+     * @Given I go to profile page for my organization
      * @param string $name
      * @throws FailedExpectationException
      */
-    public function iGoToOrganizationProfilePage($name)
+    public function iGoToOrganizationProfilePage($name=null)
     {
-        $organization = $this->findOrganizationByName($name);
+        if(is_null($name)){
+            $organization = $this->getUserContext()->getCurrentUser()->getOrganization()->getOrganization();
+        }else{
+            $organization = $this->findOrganizationByName($name);
+        }
         $url = $this->buildUrl('lang/organizations/profileDetail',[
             'id' => $organization->getId()
         ]);
@@ -230,5 +235,36 @@ class OrganizationContext implements Context
         foreach($result as $job){
             $jobRepo->remove($job,true);
         }
+    }
+
+    /**
+     * @Given I want to edit my organization
+     */
+    public function iWantToEditMyOrganization()
+    {
+        $user = $this->getUserContext()->getCurrentUser();
+        $organization = $user->getOrganization()->getOrganization();
+        $url = $this->buildUrl('lang/organizations/edit',['id' => $organization->getId()]);
+        $this->visit($url);
+    }
+
+    /**
+     * @Given I attach logo from file :file
+     * @param $file
+     */
+    public function iAttachLogoFromFile($file)
+    {
+        $elementId = 'organizationLogo-original';
+        $this->minkContext->attachFileToField($elementId,$file);
+    }
+
+    /**
+     * @Given I remove logo from organization
+     */
+    public function iRemoveLogoFromOrganization()
+    {
+        $elementId = '#organizationLogo-original-delete';
+        $element = $this->minkContext->getSession()->getPage()->find('css',$elementId);
+        $element->click();
     }
 }
