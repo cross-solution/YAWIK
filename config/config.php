@@ -16,6 +16,9 @@ $coreModules = include 'common.modules.php';
 if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     $modules = array_merge($coreModules,[
         'Install',
+        'Core',
+        'Auth',
+        'Jobs',
     ]);
 } else {
     $modules = array_merge($coreModules,[

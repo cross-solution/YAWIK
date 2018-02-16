@@ -11,66 +11,80 @@
 namespace Install\Controller\Plugin;
 
 use Auth\Entity\Filter\CredentialFilter;
-use Install\Filter\DbNameExtractor;
+use Auth\Entity\Info;
+use Auth\Entity\User;
+use Auth\Repository\User as UserRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Helper for initial user creation.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
+ *
  * @since 0.20
  */
 class UserCreator extends AbstractPlugin
 {
-    /**
-     * Database name extractor
-     *
-     * @var \Install\Filter\DbNameExtractor
-     */
-    protected $databaseNameExtractor;
 
     /**
-     *
-     *
      * @var \Auth\Entity\Filter\CredentialFilter
      */
     protected $credentialFilter;
 
-    public function __construct(DbNameExtractor $dbNameExtractor, CredentialFilter $credentialFilter)
+    /**
+     * @var DocumentManager
+     */
+    protected $documentManager;
+
+    /**
+     * UserCreator constructor.
+     *
+     * @param CredentialFilter $credentialFilter
+     * @param DocumentManager $documentManager
+     */
+    public function __construct(CredentialFilter $credentialFilter, DocumentManager $documentManager)
     {
-        $this->databaseNameExtractor = $dbNameExtractor;
         $this->credentialFilter = $credentialFilter;
+        $this->documentManager = $documentManager;
     }
 
     /**
      * Inserts a minimalistic user document into the database.
      *
-     * @param string $dbConn Database connection string
-     * @param string $username Login name
-     * @param string $password Credential
-     * @param string $email Email
+     * @param   string $username Login name
+     * @param   string $password Credential
+     * @param   string $email Email
+     * @throws  \Exception when fail store user entity
      *
      * @return bool
-     *
-     * @codeCoverageIgnore Untestable due to missing test database
      */
-    public function process($dbConn, $username, $password, $email)
+    public function process($username, $password, $email)
     {
-        $m  = @new \MongoClient($dbConn);
-        $dbName = $this->databaseNameExtractor->filter($dbConn);
+        $dm = $this->documentManager;
+
+        /* @var UserRepository $repo */
+        $repo = $dm->getRepository(User::class);
         $credential = $this->credentialFilter->filter($password);
-        $db = $m->selectDB($dbName);
-        $collection = $db->selectCollection('users');
-        $document = array(
-            'isDraft' => false,
-            'role' => 'admin',
-            'login' => $username,
-            'credential' => $credential,
-            'info' => [ 'email' => $email ]
-        );
+        $info = new Info();
+        $info->setEmail($email);
+        $user = new User();
+        $user
+            ->setIsDraft(false)
+            ->setRole('admin')
+            ->setLogin($username)
+            ->setCredential($credential)
+            ->setInfo($info)
+        ;
+        $repo->setEntityPrototype(new User());
 
-        $result = $collection->insert($document);
-
-        return isset($result['ok']) && 1 === $result['ok'];
+        $result = true;
+        try{
+            $repo->store($user);
+        }catch (\Exception $e){
+            throw $e;
+        }
+        return $result;
     }
 }

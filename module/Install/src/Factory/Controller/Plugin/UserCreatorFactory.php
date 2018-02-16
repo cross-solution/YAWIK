@@ -11,6 +11,10 @@
 namespace Install\Factory\Controller\Plugin;
 
 use Auth\Entity\Filter\CredentialFilter;
+use Doctrine\ODM\MongoDB\Configuration;
+
+use Doctrine\MongoDB\Connection;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Install\Controller\Plugin\UserCreator;
 use Install\Filter\DbNameExtractor;
 use Interop\Container\ContainerInterface;
@@ -40,24 +44,30 @@ class UserCreatorFactory implements FactoryInterface
     {
         $filters = $container->get('FilterManager');
 
-        $dbNameExctractor = $filters->get(DbNameExtractor::class);
+        $dbNameExtractor = $filters->get(DbNameExtractor::class);
         $credentialFilter = $filters->get(CredentialFilter::class);
+        $database = $dbNameExtractor->filter($options['connection']);
 
-        $plugin = new UserCreator($dbNameExctractor, $credentialFilter);
+        $config = $container->get('doctrine.documentmanager.odm_default')->getConfiguration();
+        $config->setDefaultDB($database);
+        $dm = $this->createDocumentManager($options['connection'],$config);
 
+        $plugin = new UserCreator($credentialFilter,$dm);
         return $plugin;
     }
 
     /**
-     * Creates a UserCreator plugin instance.
+     * Create a document manager
      *
-     * @param ServiceLocatorInterface $serviceLocator Controller plugin manager
-     *
-     * @return UserCreator
+     * @param $connection
+     * @param $config
+     * @return DocumentManager
+     * @codeCoverageIgnore
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createDocumentManager($connection,$config)
     {
-        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
-        return $this($serviceLocator, UserCreator::class);
+        $dbConn = new Connection($connection);
+        $dm = DocumentManager::create($dbConn,$config);
+        return $dm;
     }
 }
