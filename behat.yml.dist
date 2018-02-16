@@ -32,7 +32,6 @@ default:
                                     - "--disable-gpu"
                                     - "--window-size=2000,2000"
                                     - "--lang=en"
-                                    - "--no-sandbox"
             show_auto: false
 
     gherkin:
