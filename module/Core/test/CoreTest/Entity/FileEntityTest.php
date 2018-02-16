@@ -90,7 +90,10 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetDateUploadedWithoutSetting(){
-        $this->assertEquals($this->target->getDateUploaded(),new \DateTime());
+        $this->assertEquals(
+            $this->target->getDateUploaded()->format('Y-m-d H:i:s'),
+            (new \DateTime())->format('Y-m-d H:i:s')
+        );
     }
 
     public function testGetDateUploaded(){
