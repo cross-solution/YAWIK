@@ -1,5 +1,8 @@
 language: php
 
+addons:
+  chrome: stable
+
 services:
   - mongodb
 
@@ -54,7 +57,7 @@ before_script:
   # setup display, behat, and selenium
   - ./bin/start-selenium.sh > /dev/null 2>&1 &
   - sleep 5
-  - php -S localhost:8000 -t public > /dev/null 2>&1 &
+  - php -S localhost:8000 -t public/ index.php > /dev/null 2>&1 &
   - sleep 3
 
 
