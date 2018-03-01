@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-27 19:26+0200\n"
-"PO-Revision-Date: 2017-09-22 23:23+0000\n"
+"POT-Creation-Date: 2018-03-01 11:55+0100\n"
+"PO-Revision-Date: 2018-03-01 10:56+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Romanian (http://www.transifex.com/yawik/yawik/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: view/organizations/index/index.phtml:15
+#: src/Organizations/Auth/Dependency/ListListener.php:45
+msgid "Organizations"
+msgstr "organizaţiile"
+
+#: view/organizations/index/index.phtml:24
+#: view/organizations/profile/index.phtml:17
+msgid "No organization found matching your criteria."
+msgstr ""
+
+#: view/organizations/index/form.phtml:6
+#: view/organizations/index/index.ajax.phtml:16
+#: view/organizations/profile/index.ajax.phtml:16
+msgid "Organization"
+msgstr "Organizare"
+
+#: view/organizations/index/index.ajax.phtml:20
+#: view/organizations/profile/index.ajax.phtml:20
+#: language/_annotated_strings.php:120
+msgid "City"
+msgstr "Oraș"
+
+#: view/organizations/index/index.ajax.phtml:24
+#: view/organizations/profile/index.ajax.phtml:24
+#: language/_annotated_strings.php:111
+msgid "Street"
+msgstr "Stradă"
+
+#: view/organizations/index/index.ajax.phtml:76
+#: view/organizations/profile/index.ajax.phtml:76
+#, php-format
+msgid "Hiring organization of <strong>%s</strong>"
+msgstr ""
 
 #: view/organizations/invite-employee/accept.phtml:12
 msgid "You have accepted the invitation"
@@ -31,93 +65,20 @@ msgstr ""
 msgid "Please choose a password to be able to log in."
 msgstr "Vă rugăm să alegeți o parolă pentru a fi în măsură să vă conectați."
 
-#: view/organizations/index/index.phtml:15
-#: src/Organizations/Auth/Dependency/ListListener.php:45
-msgid "Organizations"
-msgstr "organizaţiile"
-
-#: view/organizations/index/index.phtml:24
-msgid "No organization found matching your criteria."
+#: view/organizations/profile/index.phtml:5
+msgid "Organizations Profile"
 msgstr ""
 
-#: view/organizations/index/index.ajax.phtml:16
-#: view/organizations/index/form.phtml:6
-msgid "Organization"
-msgstr "Organizare"
-
-#: view/organizations/index/index.ajax.phtml:20
-#: language/_annotated_strings.php:90
-msgid "City"
-msgstr "Oraș"
-
-#: view/organizations/index/index.ajax.phtml:24
-msgid "Street"
-msgstr "Stradă"
-
-#: view/organizations/index/index.ajax.phtml:76
-#, php-format
-msgid "Hiring organization of <strong>%s</strong>"
-msgstr ""
-
-#: view/form/invite-employee-bar.phtml:14
-msgid "Via email address"
-msgstr "Prin adresă e-mail"
-
-#: view/form/invite-employee-bar.phtml:23
-msgid "Invite"
-msgstr "A invita"
-
-#: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:3
-#: language/_annotated_strings.php:78
-msgid "Invite an employee via email address."
-msgstr "Invitați un angajat prin adresă e-mail."
-
-#: view/form/invite-employee-bar.phtml:36
-msgid "Click on this button will add the employee with the status \"pending\""
-msgstr "Dați clic pe acest buton se va adăuga angajatul cu starea \"în așteptare\""
-
-#: view/form/employee-fieldset.phtml:33
-msgid "PENDING"
-msgstr "IN ASTEPTAREA"
-
-#: view/form/employees-fieldset.phtml:24
-msgid "Users"
-msgstr "utilizatori"
-
-#: view/form/employees-fieldset.phtml:25 language/_annotated_strings.php:6
-msgid "View Jobs"
-msgstr "Vedeți locuri de muncă"
-
-#: view/form/employees-fieldset.phtml:26 language/_annotated_strings.php:9
-msgid "Edit Jobs"
-msgstr "Locuri de munca de editare"
-
-#: view/form/employees-fieldset.phtml:27 language/_annotated_strings.php:12
-msgid "Create Jobs"
-msgstr "crea locuri de muncă"
-
-#: view/form/employees-fieldset.phtml:28 language/_annotated_strings.php:15
-msgid "View Applications"
-msgstr "Vizualizați aplicațiile"
-
-#: view/form/employees-fieldset.phtml:29 language/_annotated_strings.php:18
-msgid "Edit Applications"
-msgstr "Editați aplicații"
-
-#: view/form/employees-fieldset.phtml:41
-msgid "pending"
-msgstr "in asteptarea"
-
-#: view/mail/invite-employee.phtml:28
+#: view/mail/invite-employee.phtml:29
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: view/mail/invite-employee.phtml:29
+#: view/mail/invite-employee.phtml:30
 msgid "Hello"
 msgstr ""
 
-#: view/mail/invite-employee.phtml:34
+#: view/mail/invite-employee.phtml:35
 #, php-format
 msgid "%s invited you to join the team of %s"
 msgstr ""
@@ -146,9 +107,54 @@ msgid ""
 "the request is canceled automatically after a week."
 msgstr "Dacă nu doriți să acceptați această invitație, puteți ignora acest e-mail, iar cererea se anulează automat după o săptămână."
 
-#: view/error/invite.phtml:11
-msgid "Doh! There was something going terribly wrong."
-msgstr "Doh! A fost ceva merge teribil de greșit."
+#: view/form/employees-fieldset.phtml:24
+msgid "Users"
+msgstr "utilizatori"
+
+#: view/form/employees-fieldset.phtml:25 language/_annotated_strings.php:18
+msgid "View Jobs"
+msgstr "Vedeți locuri de muncă"
+
+#: view/form/employees-fieldset.phtml:26 language/_annotated_strings.php:21
+msgid "Edit Jobs"
+msgstr "Locuri de munca de editare"
+
+#: view/form/employees-fieldset.phtml:27 language/_annotated_strings.php:24
+msgid "Create Jobs"
+msgstr "crea locuri de muncă"
+
+#: view/form/employees-fieldset.phtml:28 language/_annotated_strings.php:27
+msgid "View Applications"
+msgstr "Vizualizați aplicațiile"
+
+#: view/form/employees-fieldset.phtml:29 language/_annotated_strings.php:30
+msgid "Edit Applications"
+msgstr "Editați aplicații"
+
+#: view/form/employees-fieldset.phtml:41
+msgid "pending"
+msgstr "in asteptarea"
+
+#: view/form/invite-employee-bar.phtml:14
+msgid "Via email address"
+msgstr "Prin adresă e-mail"
+
+#: view/form/invite-employee-bar.phtml:23
+msgid "Invite"
+msgstr "A invita"
+
+#: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
+#: language/_annotated_strings.php:60
+msgid "Invite an employee via email address."
+msgstr "Invitați un angajat prin adresă e-mail."
+
+#: view/form/invite-employee-bar.phtml:36
+msgid "Click on this button will add the employee with the status \"pending\""
+msgstr "Dați clic pe acest buton se va adăuga angajatul cu starea \"în așteptare\""
+
+#: view/form/employee-fieldset.phtml:33
+msgid "PENDING"
+msgstr "IN ASTEPTAREA"
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create organizations."
@@ -161,98 +167,87 @@ msgid ""
 "organization%s first."
 msgstr ""
 
-#: src/Organizations/Controller/IndexController.php:133
-#, php-format
-msgid "Organization with id \"%s\" not found"
+#: view/error/invite.phtml:11
+msgid "Doh! There was something going terribly wrong."
+msgstr "Doh! A fost ceva merge teribil de greșit."
+
+#: language/_annotated_strings.php:3
+msgid "Overview"
+msgstr "Prezentare generală"
+
+#: language/_annotated_strings.php:6
+msgid "Profiles"
 msgstr ""
 
-#: src/Organizations/Controller/Plugin/InvitationHandler.php:233
-msgid "Email address is invalid."
-msgstr "Adresa de email este invalida."
+#: language/_annotated_strings.php:9
+msgid "Insert"
+msgstr "Introduce"
 
-#: src/Organizations/Controller/Plugin/InvitationHandler.php:246
-msgid "Sending invitation mail failed."
-msgstr "Se trimite invitația e-mail a eșuat."
+#: language/_annotated_strings.php:15
+#, php-format
+msgid "Invitation to join the team of %s"
+msgstr ""
 
-#: src/Organizations/Auth/Dependency/EmployeeListListener.php:31
-#: language/_annotated_strings.php:39
-msgid "Employees"
-msgstr "Numar de angajati"
-
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:33
 msgid "Recruiter"
 msgstr "recruiter"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:36
 msgid "Department Manager"
 msgstr "Manager de departament"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:39
 msgid "Managing Directors"
 msgstr "directori generali"
 
-#: language/_annotated_strings.php:30
-msgid "Please enter the name of the hiring organization."
-msgstr "Vă rugăm să introduceți numele organizației de angajare."
-
-#: language/_annotated_strings.php:33
-msgid "Please enter a contact for the hiring organization."
-msgstr "Vă rugăm să introduceți o persoană de contact pentru organizația de angajare."
-
-#: language/_annotated_strings.php:36
-msgid "Please enter a description for the hiring organization."
-msgstr "Vă rugăm să introduceți o descriere pentru organizarea de angajare."
-
 #: language/_annotated_strings.php:42
-msgid "Manage your employees and their permissions."
-msgstr "Gestionați angajații și permisiunile acestora."
+msgid "Organization Name"
+msgstr ""
 
 #: language/_annotated_strings.php:45
-msgid "Workflow"
-msgstr "Fluxul de lucru"
+msgid "Setting"
+msgstr ""
 
 #: language/_annotated_strings.php:48
-msgid "Define, how notifications about new applications reach your employees"
-msgstr "Să definească, modul în care notificări despre noile aplicații ajung angajații dumneavoastră"
+msgid "Always enable profile"
+msgstr ""
 
 #: language/_annotated_strings.php:51
+msgid "Enable only when active jobs available"
+msgstr ""
+
+#: language/_annotated_strings.php:54
+msgid "Disabled viewing profile"
+msgstr ""
+
+#: language/_annotated_strings.php:57
 msgid "Description"
 msgstr "Descriere"
 
-#: language/_annotated_strings.php:54
-msgid ""
-"Choose a Logo. This logo will be shown in the job opening and the "
-"application form."
-msgstr "Alege un logo. Acest logo va fi afișat în deschiderea de locuri de muncă și formularul de cerere."
-
-#: language/_annotated_strings.php:57
-msgid "Organizationname"
-msgstr "Numele Organizatiei"
-
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:63
 msgid "accept Applications by Department Managers"
 msgstr "accepta Cererile de către Departamentul de manageri"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:66
 msgid ""
 "if checked, department managers are informed about new applications first."
 msgstr "dacă este verificat, managerii de departament sunt informați cu privire la noi aplicații mai întâi."
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:69
 msgid ""
 "Department managers are notified of incoming applications and must accept "
 "this. Only then the recruiter can start his work with the application"
 msgstr "managerii de departament sunt notificate cu privire la cererile primite și trebuie să accepte acest lucru. Numai atunci recrutorul poate incepe activitatea sa cu aplicația"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:72
 msgid "assign department managers to jobs"
 msgstr "atribuiți managerii de departamente la locurile de muncă"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:75
 msgid "if checked, department managers have to be assigned to job postings."
 msgstr "dacă este verificat, managerii de departament trebuie să fie alocat pentru locurile de munca."
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:78
 msgid ""
 "if you have more them one department managers, you can assign them to a job "
 "posting. If nobody is assigned, all department managers will be informed "
@@ -260,46 +255,94 @@ msgid ""
 msgstr "dacă aveți mai multe lor unul manageri de departamente, aveți posibilitatea să le atribuie o postare de locuri de muncă. În cazul în care nimeni nu i se atribuie, toți managerii de departament vor fi informați cu privire la noile aplicații"
 
 #: language/_annotated_strings.php:81
-msgid "street"
-msgstr "stradă"
+msgid "Please enter the name of the hiring organization."
+msgstr "Vă rugăm să introduceți numele organizației de angajare."
 
 #: language/_annotated_strings.php:84
-msgid "house number"
-msgstr "numărul casei"
+msgid "Please enter a contact for the hiring organization."
+msgstr "Vă rugăm să introduceți o persoană de contact pentru organizația de angajare."
 
 #: language/_annotated_strings.php:87
-msgid "Postalcode"
-msgstr "Cod postal"
+msgid "Please enter a description for the hiring organization."
+msgstr "Vă rugăm să introduceți o descriere pentru organizarea de angajare."
+
+#: language/_annotated_strings.php:90
+#: src/Organizations/Auth/Dependency/EmployeeListListener.php:31
+msgid "Employees"
+msgstr "Numar de angajati"
 
 #: language/_annotated_strings.php:93
+msgid "Manage your employees and their permissions."
+msgstr "Gestionați angajații și permisiunile acestora."
+
+#: language/_annotated_strings.php:96
+msgid "Workflow"
+msgstr "Fluxul de lucru"
+
+#: language/_annotated_strings.php:99
+msgid "Define, how notifications about new applications reach your employees"
+msgstr "Să definească, modul în care notificări despre noile aplicații ajung angajații dumneavoastră"
+
+#: language/_annotated_strings.php:102
+msgid "Profile Setting"
+msgstr ""
+
+#: language/_annotated_strings.php:105
+msgid "Define how profile page should behave"
+msgstr ""
+
+#: language/_annotated_strings.php:108
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
+msgstr "Alege un logo. Acest logo va fi afișat în deschiderea de locuri de muncă și formularul de cerere."
+
+#: language/_annotated_strings.php:114
+msgid "House Number"
+msgstr ""
+
+#: language/_annotated_strings.php:117
+msgid "Postal Code"
+msgstr ""
+
+#: language/_annotated_strings.php:123
+msgid "Country"
+msgstr "Țară"
+
+#: language/_annotated_strings.php:126
 msgid "Phone"
 msgstr "Telefon"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:129
 msgid "Fax"
 msgstr "Fax"
 
-#: language/_annotated_strings.php:99
-msgid "Search for organizations"
+#: language/_annotated_strings.php:132
+#: src/Organizations/Controller/ProfileController.php:157
+msgid "This Organization Profile is disabled"
 msgstr ""
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:135
 msgid "The organization referenced in your request could not be found."
 msgstr "Organizația face referire la solicitarea dvs. nu a putut fi găsită."
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:138
 msgid "The access token you provided seems to have expired."
 msgstr "Token-ul de acces pe care ați furnizat pare să fi expirat."
 
-#: language/_annotated_strings.php:108
-#, php-format
-msgid "Invitation to join the team of %s"
+#: language/_annotated_strings.php:141
+msgid "Search for organizations"
 msgstr ""
 
-#: language/_annotated_strings.php:111
-msgid "Overview"
-msgstr "Prezentare generală"
+#: src/Organizations/Controller/ProfileController.php:118
+msgid "Can not access profile page without id"
+msgstr ""
 
-#: language/_annotated_strings.php:114
-msgid "Insert"
-msgstr "Introduce"
+#: src/Organizations/Controller/Plugin/InvitationHandler.php:233
+msgid "Email address is invalid."
+msgstr "Adresa de email este invalida."
+
+#: src/Organizations/Controller/IndexController.php:144
+#, php-format
+msgid "Organization with id \"%s\" not found"
+msgstr ""
