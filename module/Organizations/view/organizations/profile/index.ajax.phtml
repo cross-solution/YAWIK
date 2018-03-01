@@ -65,6 +65,11 @@ if ('-' == $sort{0}) {
 <?php foreach ($this->organizations as $organization): /* @var $organization \Organizations\Entity\Organization */?>
  <tr>
   <td>
+      <?php if ($organization->getImage() &&  $organization->getOrganizationName()): ?>
+          <div class="yk-logo-list">
+              <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($organization->getImage(true))) ?>">
+          </div>
+      <?php endif ?>
       <a href="<?php echo $this->url('lang/organizations/profileDetail', array('id' => $organization->getId())); ?>">
     <?php
         $nameEntity = $organization->getOrganizationName();

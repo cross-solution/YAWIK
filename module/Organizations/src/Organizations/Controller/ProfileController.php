@@ -100,6 +100,10 @@ class ProfileController extends AbstractActionController
                 'as' => 'form',
             ]
         ]);
+
+        $organizationImageCache = $this->imageFileCacheManager;
+        $result['organizationImageCache'] = $organizationImageCache;
+
         return new ViewModel($result);
     }
 
