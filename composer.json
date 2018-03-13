@@ -85,7 +85,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "chmod +x ./install.sh"
+            "chmod +x ./install.sh && ./install.sh"
         ]
     },
     "autoload": {
