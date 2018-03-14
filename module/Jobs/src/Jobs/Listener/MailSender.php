@@ -152,7 +152,7 @@ class MailSender implements ListenerAggregateInterface
         if ($adminMail) {
             $mail->setTo($this->options['adminEmail']);
         } else {
-            $user      = $job->getUser();
+            if (! ($user = $job->getUser()) ) { return; }
             $userInfo  = $user->getInfo();
             $userEmail = $userInfo->getEmail();
             $userName  = $userInfo->getDisplayName(/*emailIfEmpty*/ false);
