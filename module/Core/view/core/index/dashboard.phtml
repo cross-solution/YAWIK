@@ -14,17 +14,15 @@
 <h1><?php echo $this->translate('Dashboard'); ?></h1>
 
 <div class="row">
-<?php $i=0; foreach ($this->viewModel()->getCurrent()->getChildren() as $model):
+<?php foreach ($this->viewModel()->getCurrent()->getChildren() as $model):
     if (0 !== strpos($model->captureTo(), 'dashboard_')) { continue; }
-    if (2 == $i):?></div><div class="row-fluid"><?php $i=0; endif;
+
     ?>
     
         <?php echo $this->{$model->captureTo()};?>
     
-    <?php $i+=1; endforeach ?>
-    <?php if (2 > $i): for ($j=2-$i; $j>$i; $j-=1):
-    ?><div class="col-md-4"></div>
-    <?php endfor; endif ?>
+    <?php endforeach ?>
+
 </div>
 
 
