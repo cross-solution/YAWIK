@@ -1,0 +1,93 @@
+<?php
+/**
+ * YAWIK
+ * View template of the Login site
+ *
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license       MIT
+ */
+?>
+<?php if ($this->required): ?>
+    <?php $this->headTitle($this->translate('Login required')); ?>
+    <h1><?php echo $this->translate('Please authenticate yourself to proceed') ?></h1>
+<?php else: ?>
+    <?php $this->headTitle($this->translate('Login')); ?>
+    <h1><?php echo $this->translate('Login'); ?></h1>
+<?php endif; ?>
+
+<?php $this->headScript()->captureStart() ?>
+;(function($, win) {
+
+    $(function() {
+        if (win.location.hash) {
+            $('a[href="' + win.location.hash + '"]').tab('show');
+        }
+    });
+
+})(jQuery, window);
+
+<?php $this->headScript()->captureEnd() ?>
+
+<div class="col-md-6 col-md-offset-3" id="yk-login">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#login" aria-controls="login" role="tab" data-toggle="tab">
+                <?php echo $this->translate('Login'); ?>
+            </a>
+        </li>
+        <?php if ($this->registerForm): ?>
+            <li role="presentation">
+                <a href="#register" aria-controls="register" role="tab" data-toggle="tab">
+                    <?php echo  $this->translate("Register"); ?>
+                </a>
+            </li>
+        <?php endif;?>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="panel panel-tabbed tab-pane active" id="login">
+            <div class="form-content panel-body">
+                <?php echo $this->form($this->loginForm); ?>
+                <div class="row">
+                    <?php if (!isset($this->allowResetPassword) || $this->allowResetPassword == true): ?>
+                        <div class="col-md-6">
+                            <a href="<?php echo $this->url('lang/forgot-password'); ?>"
+                               title="<?php echo $this->translate('I forgot my password'); ?>" class="small">
+                                <?php echo $this->translate('I forgot my password'); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
+                    <?php echo $this->partial('core/social-buttons',[
+                            'SocialButtons' => $this->socialButtons(),
+                            'alt' => $this->translate('Login with %s'),
+                            'label' => $this->translate('Login with ...')]
+                    );?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <?php if($this->registerForm):?>
+        <div role="tabpanel" class="panel panel-tabbed tab-pane" id="register">
+            <div class="form-content panel-body">
+                <?php
+                // @todo: move the action setting to Form/Register.php
+                $this->registerForm->setAttribute('action',$this->url('lang/register'));
+                echo $this->form($this->registerForm);
+                ?>
+                <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
+                    <?php echo $this->partial('core/social-buttons',[
+                            'SocialButtons' => $this->socialButtons() ,
+                            'alt' => $this->translate('Register with %s'),
+                            'label' => $this->translate('Register with ...')
+                        ]
+                    );?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endif?>
+    </div>
+</div>
