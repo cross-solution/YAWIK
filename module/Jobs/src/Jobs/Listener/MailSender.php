@@ -106,10 +106,10 @@ class MailSender implements ListenerAggregateInterface
      */
     public function onJobAccepted(JobEvent $e)
     {
-    	$target = $e->getTarget();
+
     	
         $this->sendMail(
-            $target->getJobEntity(),
+            $e->getJobEntity(),
             'mail/job-accepted',
             /*@translate*/ 'Your job has been published'
         );
@@ -123,7 +123,7 @@ class MailSender implements ListenerAggregateInterface
     public function onJobRejected(JobEvent $e)
     {
         $this->sendMail(
-            $e->getTarget()->getJobEntity(),
+            $e->getJobEntity(),
             'mail/job-rejected',
             /*@translate*/ 'Your job has been rejected'
         );
