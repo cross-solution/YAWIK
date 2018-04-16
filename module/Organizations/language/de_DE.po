@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-01 11:55+0100\n"
-"PO-Revision-Date: 2018-03-01 11:03+0000\n"
+"PO-Revision-Date: 2018-04-16 16:04+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -204,7 +204,7 @@ msgstr "Geschäftsleitung"
 
 #: language/_annotated_strings.php:42
 msgid "Organization Name"
-msgstr "Name des Universität"
+msgstr "Firmenname"
 
 #: language/_annotated_strings.php:45
 msgid "Setting"

@@ -128,7 +128,7 @@ translate('Phone');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:101
 translate('Fax');
 
-//: ./src/Organizations/Controller/ProfileController.php:132
+//: ./src/Organizations/Controller/ProfileController.php:136
 translate('This Organization Profile is disabled');
 
 //: ./src/Organizations/Controller/InviteEmployeeController.php:92
