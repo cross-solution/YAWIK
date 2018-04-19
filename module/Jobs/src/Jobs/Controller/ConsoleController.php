@@ -91,11 +91,10 @@ class ConsoleController extends AbstractActionController
             return;
         }
         
-        foreach ($repositories->getEventManager()->getListeners('preUpdate') as $listener) {
-            $repositories->getEventManager()->removeEventListener('preUpdate', $listener);
-        }
-        
-        
+//        foreach ($repositories->getEventManager()->getListeners('preUpdate') as $listener) {
+//            $repositories->getEventManager()->removeEventListener('preUpdate', $listener);
+//        }
+//
         echo "$count jobs found, which have to expire ...\n";
         
         $progress     = new ProgressBar(
