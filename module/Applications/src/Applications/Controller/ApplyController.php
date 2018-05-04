@@ -469,8 +469,8 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $job         = $application->getJob();
 
         /** @var $settings \Applications\Entity\Settings */
-        $settings = $job->getUser()->getSettings('Applications');
-        $formSettings = $settings->getApplyFormSettings();
+        $settings = ($user = $job->getUser()) ? $user->getSettings('Applications') : null;
+        $formSettings = $settings ? $settings->getApplyFormSettings() : null;
 
         if ($formSettings && $formSettings->isActive()) {
             $container->disableElements($formSettings->getDisableElements());
