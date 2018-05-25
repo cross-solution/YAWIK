@@ -65,33 +65,38 @@
 
             $form.trigger('yk.forms.start', {data: data}); // DEPRECATED EVENT USE NEXT
             $form.trigger('start.yk.core.forms', {data: data}); //DEPRECATED EVENT USE NEXT
-            $form.trigger('yk:forms:start', {data:data});
-			$.ajax({
-				url: $form.attr('action'),
-				type: $form.attr('method'),
-				dataType: dataType,
-				data: data
-			})
-			.done(function(data, textStatus, jqXHR) {
-                // the data-object can contains following values
-                // valid = boolean ,if explicitly set to false, errors will be displayed
-				methods.clearErrors($form);
-				if ('valid' in data && !data.valid) {
-					methods.displayErrors($form, data.errors);
-				}
-//                console.debug('bubble done event for form',$form,data);
-				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR}); // DEPRECATED EVENT USE NEXT
-                $form.trigger('done.yk.core.forms', {data: data, status:textStatus, jqXHR: jqXHR}); //DEPRECATED EVENT USE NEXT
-                $form.trigger('yk:forms:success', {data: data, status:textStatus, jqXHR: jqXHR});
-                $form.trigger('ajax.ready', {'data': data});
-			})
-			.fail(function(jqXHR, textStatus, errorThrown) {
-                    console.debug(textStatus, errorThrown);
-				$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
-                $form.trigger('fail.yk.core.forms', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
-                $form.trigger('yk:forms:fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
-            })
-                .always(function() { $button.attr('disabled', false); });
+
+			var startEvent = $.Event('yk:forms:start');
+            $form.trigger(startEvent, {data:data});
+
+            if (!startEvent.preventSubmit) {
+				$.ajax({
+					url: $form.attr('action'),
+					type: $form.attr('method'),
+					dataType: dataType,
+					data: data
+				})
+				.done(function(data, textStatus, jqXHR) {
+					// the data-object can contains following values
+					// valid = boolean ,if explicitly set to false, errors will be displayed
+					methods.clearErrors($form);
+					if ('valid' in data && !data.valid) {
+						methods.displayErrors($form, data.errors);
+					}
+	//                console.debug('bubble done event for form',$form,data);
+					$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR}); // DEPRECATED EVENT USE NEXT
+					$form.trigger('done.yk.core.forms', {data: data, status:textStatus, jqXHR: jqXHR}); //DEPRECATED EVENT USE NEXT
+					$form.trigger('yk:forms:success', {data: data, status:textStatus, jqXHR: jqXHR});
+					$form.trigger('ajax.ready', {'data': data});
+				})
+				.fail(function(jqXHR, textStatus, errorThrown) {
+						console.debug(textStatus, errorThrown);
+					$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
+					$form.trigger('fail.yk.core.forms', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
+					$form.trigger('yk:forms:fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
+				})
+					.always(function() { $button.attr('disabled', false); });
+			}
 			return false;
 		},
 		

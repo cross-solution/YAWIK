@@ -79,7 +79,7 @@ class FormEditor extends FormTextarea
         $basepath = $renderer->plugin('basepath');
 
         $headscript->appendFile($basepath('js/tinymce/tinymce.min.js'));
-        $headscript->prependFile($basepath('/assets/jquery/jquery.min.js'));
+        //$headscript->prependFile($basepath('/assets/jquery/jquery.min.js'));
 
         $headscript->offsetSetScript(
             '1000_tinymce_' . $this->getTheme(),
@@ -110,7 +110,7 @@ class FormEditor extends FormTextarea
                             $(container).parents("html").addClass("yk-changed");
                             var form = $(container).parents("form");
                             //console.log("form", form, container);
-                            form.submit();
+                            ' . ($element->getOption('no-submit') ? '' : 'form.submit();').'
                             $(form).on("yk.forms.done", function(){
                                 console.log("done");
                                 //$(container).parents("html").removeClass("yk-changed");
