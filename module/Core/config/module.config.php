@@ -451,7 +451,7 @@ return array(
         'factories' => [
             "Core/XssFilter" => 'Core\Filter\XssFilterFactory',
             "Core/HtmlAbsPathFilter" => 'Core\Factory\Filter\HtmlAbsPathFilterFactory',
-            Filter\File\Entity::class => InvokableFactory::class,
+            Filter\File\Entity::class => Filter\File\EntityFactory::class,
         ],
         'aliases' => [
             'FileEntity' => Filter\File\Entity::class,

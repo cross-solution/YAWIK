@@ -26,6 +26,8 @@ class Entity extends AbstractFilter
 
     private $fileEntity;
 
+    private $repository;
+
     public function __construct($fileEntityOrOptions)
     {
         if (is_object($fileEntityOrOptions) || is_string($fileEntityOrOptions)) {
@@ -34,6 +36,28 @@ class Entity extends AbstractFilter
             $this->setOptions($fileEntityOrOptions);
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
+    /**
+     * @param mixed $repositories
+     *
+     * @return self
+     */
+    public function setRepository($repository)
+    {
+        $this->repository = $repository;
+
+        return $this;
+    }
+
+
 
     public function setFileEntity($entity)
     {
@@ -73,9 +97,15 @@ class Entity extends AbstractFilter
         $file->setType($value['type']);
         $file->setFile($value['tmp_name']);
 
-        $this->alreadyFiltered[$value['tmp_name']] = $file;
+        if ($repository = $this->getRepository()) {
+            $repository->store($file);
+        }
 
-        return $file;
+        $value['entity'] = $file;
+
+        $this->alreadyFiltered[$value['tmp_name']] = $value;
+
+        return $value;
     }
 
 
