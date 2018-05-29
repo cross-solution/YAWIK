@@ -170,6 +170,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         $model = new ViewModel();
         $this->container = array();
         $this->extract($value);
+        $this->container['job'] = $this->job;
         $model->setVariables($this->container);
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
