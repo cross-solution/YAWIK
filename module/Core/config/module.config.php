@@ -452,6 +452,7 @@ return array(
             "Core/XssFilter" => 'Core\Filter\XssFilterFactory',
             "Core/HtmlAbsPathFilter" => 'Core\Factory\Filter\HtmlAbsPathFilterFactory',
             Filter\File\Entity::class => Filter\File\EntityFactory::class,
+            Filter\File\Resize::class => Filter\File\ResizeFactory::class,
         ],
         'aliases' => [
             'FileEntity' => Filter\File\Entity::class,
