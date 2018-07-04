@@ -34,7 +34,8 @@ class Entity extends AbstractFilter
     {
         if (is_object($fileEntityOrOptions) || is_string($fileEntityOrOptions)) {
             $this->setFileEntity($fileEntityOrOptions);
-        } else {
+
+        } else if (is_array($fileEntityOrOptions)) {
             $this->setOptions($fileEntityOrOptions);
         }
     }
@@ -103,7 +104,7 @@ class Entity extends AbstractFilter
 
     public function filter($value)
     {
-        if (! is_array($value) || ! isset($value['tmp_name'])) {
+        if (! is_array($value) || ! isset($value['tmp_name']) || (isset($value['error']) && UPLOAD_ERR_NO_FILE == $value['error'])) {
             return null;
         }
 
