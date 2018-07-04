@@ -158,6 +158,12 @@ class SnapshotRepository extends DocumentRepository
 
     protected function getCopyAttributes($source, $target)
     {
+        $attributes = $this->getSnapshotAttributes();
+
+        if (!empty($attributes)) {
+            return $attributes;
+        }
+
         if ($source instanceOf SnapshotAttributesProviderInterface) {
             return $source->getSnapshotAttributes();
         }
@@ -166,7 +172,7 @@ class SnapshotRepository extends DocumentRepository
             return $target->getSnapshotAttributes();
         }
 
-        return $this->getSnapshotAttributes();
+        return [];
     }
 
     public function merge(SnapshotInterface $snapshot, $snapshotDraftStatus = false)
