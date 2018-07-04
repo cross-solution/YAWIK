@@ -122,6 +122,12 @@ class SnapshotRepository extends DocumentRepository
         $snapshot = $this->getDocumentName();
         $snapshot = new $snapshot($source);
 
+        $eventArgs = new DoctrineMongoODM\Event\EventArgs([
+            'entity' => $snapshot
+        ]);
+        $this->dm->getEventManager()
+                 ->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postCreate, $eventArgs);
+
         $this->copy($source, $snapshot);
 
         if ($persist) {
@@ -187,13 +193,22 @@ class SnapshotRepository extends DocumentRepository
 
     public function findLatest($sourceId, $isDraft = false)
     {
-        return $this->createQueryBuilder()
+        $entity = $this->createQueryBuilder()
           ->field('snapshotEntity')->equals(new \MongoId($sourceId))
           ->field('snapshotMeta.isDraft')->equals($isDraft)
           ->sort('snapshotMeta.dateCreated.date', 'desc')
           ->limit(1)
           ->getQuery()
           ->getSingleResult();
+
+        if ($entity) {
+            $this->dm->getEventManager()->dispatchEvent(
+                \Doctrine\Odm\MongoDB\Events::postLoad,
+                new \Doctrine\Odm\MongoDB\Event\LifecycleEventArgs($entity, $this->dm)
+            );
+        }
+
+        return $entity;
 
     }
 

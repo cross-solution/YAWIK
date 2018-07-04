@@ -39,6 +39,16 @@ class RepositoryService
         }
         
         $repository  = $this->dm->getRepository($name);
+
+        if (!$repository instanceOf AbstractRepository)  {
+            $eventArgs = new DoctrineMongoODM\Event\EventArgs(
+                array(
+                    'repository' => $repository,
+                )
+            );
+            $this->dm->getEventManager()->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postConstruct, $eventArgs);
+        }
+
         return $repository;
     }
     
