@@ -4,14 +4,14 @@
 # 
 # Translators:
 # blu-IT, 2015
-# blu-IT, 2015-2016
+# blu-IT, 2015-2016,2018
 # blu-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-01 11:55+0100\n"
-"PO-Revision-Date: 2018-03-01 10:56+0000\n"
+"PO-Revision-Date: 2018-06-30 22:54+0000\n"
 "Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr "Scegliere una password per poter effettuare il login."
 
 #: view/organizations/profile/index.phtml:5
 msgid "Organizations Profile"
-msgstr ""
+msgstr "Profilo delle organizzazioni"
 
 #: view/mail/invite-employee.phtml:29
 #, php-format
@@ -179,7 +179,7 @@ msgstr "Panoramica"
 
 #: language/_annotated_strings.php:6
 msgid "Profiles"
-msgstr ""
+msgstr "Profili"
 
 #: language/_annotated_strings.php:9
 msgid "Insert"
@@ -208,19 +208,19 @@ msgstr "Nome organizzazione"
 
 #: language/_annotated_strings.php:45
 msgid "Setting"
-msgstr ""
+msgstr "Impostazione"
 
 #: language/_annotated_strings.php:48
 msgid "Always enable profile"
-msgstr ""
+msgstr "Abilita sempre il profilo"
 
 #: language/_annotated_strings.php:51
 msgid "Enable only when active jobs available"
-msgstr ""
+msgstr "Abilita solo quando sono disponibili offerte di lavoro"
 
 #: language/_annotated_strings.php:54
 msgid "Disabled viewing profile"
-msgstr ""
+msgstr "Visualizzazione del profilo disabilitato"
 
 #: language/_annotated_strings.php:57
 msgid "Description"
@@ -287,11 +287,11 @@ msgstr "Definire come notifiche sulle nuove applicazioni raggiungono i dipendent
 
 #: language/_annotated_strings.php:102
 msgid "Profile Setting"
-msgstr ""
+msgstr "Impostazione del profilo"
 
 #: language/_annotated_strings.php:105
 msgid "Define how profile page should behave"
-msgstr ""
+msgstr "Definire come dovrebbe comportarsi la pagina del profilo"
 
 #: language/_annotated_strings.php:108
 msgid ""
@@ -301,11 +301,11 @@ msgstr "Scegliere un logo. Questo logo verrà mostrato nel offerta di lavoro e i
 
 #: language/_annotated_strings.php:114
 msgid "House Number"
-msgstr ""
+msgstr "Numero civico"
 
 #: language/_annotated_strings.php:117
 msgid "Postal Code"
-msgstr ""
+msgstr "Codice postale"
 
 #: language/_annotated_strings.php:123
 msgid "Country"
@@ -322,7 +322,7 @@ msgstr "Fax"
 #: language/_annotated_strings.php:132
 #: src/Organizations/Controller/ProfileController.php:157
 msgid "This Organization Profile is disabled"
-msgstr ""
+msgstr "Questo profilo dell'organizzazione è disabilitato"
 
 #: language/_annotated_strings.php:135
 msgid "The organization referenced in your request could not be found."
@@ -338,7 +338,7 @@ msgstr "Ricerca per le organizzazioni"
 
 #: src/Organizations/Controller/ProfileController.php:118
 msgid "Can not access profile page without id"
-msgstr ""
+msgstr "Impossibile accedere alla pagina del profilo senza id"
 
 #: src/Organizations/Controller/Plugin/InvitationHandler.php:233
 msgid "Email address is invalid."

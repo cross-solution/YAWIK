@@ -437,36 +437,36 @@ translate('Status successfully changed.');
 //: ./src/Jobs/Controller/ManageController.php:427
 translate('Change status failed.');
 
-//: ./src/Jobs/Controller/ManageController.php:566
+//: ./src/Jobs/Controller/ManageController.php:567
 translate('Changes were rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:575
+//: ./src/Jobs/Controller/ManageController.php:576
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:584
+//: ./src/Jobs/Controller/ManageController.php:587
 translate('Job has been rejected');
 
-//: ./src/Jobs/Controller/ManageController.php:595
+//: ./src/Jobs/Controller/ManageController.php:598
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:599
+//: ./src/Jobs/Controller/ManageController.php:603
 translate('Job has been approved');
 
-//: ./src/Jobs/Controller/ManageController.php:642
+//: ./src/Jobs/Controller/ManageController.php:646
 translate('Job was deactivated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:643
+//: ./src/Jobs/Controller/ManageController.php:647
 translate('Job has been deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:645
+//: ./src/Jobs/Controller/ManageController.php:649
 translate('Job could not be deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:658
+//: ./src/Jobs/Controller/ManageController.php:662
 translate('Job has been deleted.');
 
-//: ./src/Jobs/Controller/ManageController.php:673
+//: ./src/Jobs/Controller/ManageController.php:677
 translate('Template changed');
 
-//: ./src/Jobs/Controller/ManageController.php:675
+//: ./src/Jobs/Controller/ManageController.php:679
 translate('Template not changed');
 

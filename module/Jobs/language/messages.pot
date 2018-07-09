@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Cross Applicant Management - Jobs package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-15 09:47+0100\n"
+"POT-Creation-Date: 2018-07-09 09:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:69 language/_annotated_strings.php:150
 #: language/_annotated_strings.php:372 language/_annotated_strings.php:426
-#: view/jobs/jobboard/index.ajax.phtml:76 view/jobs/index/index.ajax.phtml:18
+#: view/jobs/jobboard/index.ajax.phtml:75 view/jobs/index/index.ajax.phtml:18
 #: view/mails/job-created.en.phtml:29 view/mails/job-created.phtml:29
 msgid "Location"
 msgstr ""
@@ -187,9 +187,9 @@ msgstr ""
 
 #: language/_annotated_strings.php:165 language/_annotated_strings.php:171
 #: language/_annotated_strings.php:183 language/_annotated_strings.php:354
-#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:75
-#: view/jobs/index/approval.ajax.phtml:19 view/jobs/index/index.ajax.phtml:19
-#: view/mails/job-created.en.phtml:33 view/mails/job-created.phtml:33
+#: view/jobs/admin/index.ajax.phtml:18 view/jobs/index/approval.ajax.phtml:19
+#: view/jobs/index/index.ajax.phtml:19 view/mails/job-created.en.phtml:33
+#: view/mails/job-created.phtml:33
 msgid "Companyname"
 msgstr ""
 
@@ -502,8 +502,8 @@ msgstr ""
 msgid "untitled"
 msgstr ""
 
-#: src/Jobs/View/Helper/ApplyUrl.php:116
-#: view/jobs/jobboard/index.ajax.phtml:77 view/jobs/index/view.phtml:18
+#: src/Jobs/View/Helper/ApplyUrl.php:116 view/jobs/jobboard/index.ajax.phtml:76
+#: view/jobs/index/view.phtml:18
 msgid "Apply"
 msgstr ""
 
@@ -734,12 +734,12 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:17 view/jobs/jobboard/index.ajax.phtml:76
+#: view/jobs/admin/index.ajax.phtml:17 view/jobs/jobboard/index.ajax.phtml:75
 #: view/jobs/index/approval.ajax.phtml:17 view/jobs/index/index.ajax.phtml:16
 msgid "Date of receipt"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:75
+#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:74
 #: view/jobs/index/approval.ajax.phtml:18 view/jobs/index/index.ajax.phtml:17
 #: view/mails/job-created.en.phtml:25 view/mails/job-created.phtml:25
 msgid "Title of the job"
@@ -772,7 +772,7 @@ msgstr ""
 msgid "Edit state"
 msgstr ""
 
-#: view/jobs/admin/index.ajax.phtml:97 view/jobs/jobboard/index.ajax.phtml:109
+#: view/jobs/admin/index.ajax.phtml:97 view/jobs/jobboard/index.ajax.phtml:115
 msgid "Edit"
 msgstr ""
 
@@ -785,16 +785,20 @@ msgstr ""
 msgid "%sSorry%s, there are not any jobs matching your search criteria."
 msgstr ""
 
-#: view/jobs/jobboard/index.ajax.phtml:42
+#: view/jobs/jobboard/index.ajax.phtml:41
 msgid "Active filters:"
 msgstr ""
 
-#: view/jobs/jobboard/index.ajax.phtml:45
+#: view/jobs/jobboard/index.ajax.phtml:44
 msgid "Remove filter"
 msgstr ""
 
-#: view/jobs/jobboard/index.ajax.phtml:48
+#: view/jobs/jobboard/index.ajax.phtml:47
 msgid "Remove all filters"
+msgstr ""
+
+#: view/jobs/jobboard/index.ajax.phtml:74
+msgid "Company Name"
 msgstr ""
 
 #: view/jobs/manage/approval.phtml:14
