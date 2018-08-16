@@ -87,6 +87,7 @@ class FormEditor extends FormTextarea
             $(document).ready(function() {
             tinyMCE.init({' . $this->additionalOptions() . ',
                  setup:  function(editor) {
+                 
                     setPlaceHolder = function(editor, show) {
                         placeHolder = $("#placeholder-" + editor.id);
                         if (placeHolder.length == 1) {
@@ -117,7 +118,8 @@ class FormEditor extends FormTextarea
                             });
                         }
                     });
-                }
+                },
+                init_instance_callback: function (instance)  { instance.save(); }
             });
             });'
         );
