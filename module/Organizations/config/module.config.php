@@ -74,6 +74,7 @@ return [
              'organizations/error/invite' => __DIR__ . '/../view/error/invite.phtml',
              'organizations/mail/invite-employee' => __DIR__ . '/../view/mail/invite-employee.phtml',
              'organizations/form/workflow-fieldset' => __DIR__ . '/../view/form/workflow-fieldset.phtml',
+            'organizations/profile/disabled' => __DIR__ . '/../view/organizations/profile/disabled.phtml',
         ],
         // Where to look for view templates not mapped above
         'template_path_stack' => [
