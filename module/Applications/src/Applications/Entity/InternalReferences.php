@@ -32,7 +32,7 @@ class InternalReferences extends AbstractEntity
         
         $this->jobs = array(
             '__id__' => $job->getId(),
-            'userId' => $job->getUser()->getId(),
+            'userId' => ($user = $job->getUser()) ? $user->getId() : null,
         );
         return $this;
     }

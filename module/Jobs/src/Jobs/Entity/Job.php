@@ -516,7 +516,7 @@ class Job extends BaseEntity implements JobInterface,
             $array=[];
             if(null != $this->locations){
                 foreach ($this->locations as $location) { /* @var \Core\Entity\LocationInterface $location */
-                    $array[]=$location->getCity();
+                    $array[]=(string) $location;
                 }
                 return implode(', ', $array);
             }

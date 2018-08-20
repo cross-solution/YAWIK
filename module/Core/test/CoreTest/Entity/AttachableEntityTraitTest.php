@@ -100,16 +100,6 @@ class AttachableEntityTraitTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers ::setAttachableEntityManager()
-     */
-    public function testSetAttachableEntityManagerWithManagerAlreadySet()
-    {
-        $this->injectManager($this->attachableEntityTrait);
-        $this->setExpectedException(\LogicException::class, 'Attachable entity manager is already set');
-        $this->injectManager($this->attachableEntityTrait);
-    }
-    
-    /**
      * @covers ::addAttachedEntity()
      * @covers ::getAttachableEntityManager()
      */

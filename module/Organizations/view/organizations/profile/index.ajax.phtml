@@ -65,7 +65,12 @@ if ('-' == $sort{0}) {
 <?php foreach ($this->organizations as $organization): /* @var $organization \Organizations\Entity\Organization */?>
  <tr>
   <td>
-      <a href="<?php echo $this->url('lang/organizations/profileDetail', array('id' => $organization->getId())); ?>">
+      <?php if ($organization->getImage() &&  $organization->getOrganizationName()): ?>
+          <div class="yk-logo-list">
+              <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($organization->getImage(true))) ?>">
+          </div>
+      <?php endif ?>
+      <a href="<?php echo $this->url('lang/organizations/profileDetail', array('id' => $organization->getId())); ?>?clear=1">
     <?php
         $nameEntity = $organization->getOrganizationName();
         echo isset($nameEntity)?$nameEntity->getName():'**** DRAFT ****';
@@ -74,7 +79,8 @@ if ('-' == $sort{0}) {
       <?php if ($organization->isHiringOrganization()): $parent = $organization->getParent(); ?>
           <br><small><?php echo sprintf(
                 $this->translate('Hiring organization of <strong>%s</strong>'),
-                '<a href="' . $this->url('lang/organizations/profileDetail', array('id' => $parent->getId())) . '">' . $parent->getOrganizationName()->getName() . '</a>'
+                '<a href="' . $this->url('lang/organizations/profileDetail',
+                                         array('id' => $parent->getId())) . '?clear=1">' . $parent->getOrganizationName()->getName() . '</a>'
           );?></small>
 
         <?php endif ?>

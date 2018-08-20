@@ -37,7 +37,7 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $userRepo = $this->getMockBuilder(User::class)->disableOriginalConstructor()->getMock();
-        $repositories = $this->createPluginManagerMock(['Users' => ['service' => $userRepo, 'count' => 1]]);
+        $repositories = $this->createPluginManagerMock(['Auth/User' => ['service' => $userRepo, 'count' => 1]]);
         $serviceLocator = $this->getMockBuilder(ContainerInterface::class)
             ->getMock();
         $serviceLocator->expects($this->exactly(3))

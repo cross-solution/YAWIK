@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-20 19:07+0100\n"
+"POT-Creation-Date: 2017-10-13 08:53+0200\n"
 "PO-Revision-Date: 2017-09-22 12:37+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/yawik/yawik/language/en/)\n"
@@ -17,51 +17,37 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/install/index/index.phtml:137
-msgid "PHP version not supported"
-msgstr "PHP version not supported"
+#: view/error/index.phtml:14
+msgid "An error occurred"
+msgstr "An error occurred"
 
-#: view/install/index/index.phtml:142
-#, php-format
-msgid ""
-"Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently "
-"provides PHP %s."
-msgstr "Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently provides PHP %s."
+#: view/error/index.phtml:21
+msgid "Additional information"
+msgstr "Additional information"
 
-#: view/install/index/index.phtml:147
-msgid ""
-"Please ask your servers' administrator to install the proper PHP version."
-msgstr "Please ask your servers' administrator to install the proper PHP version."
+#: view/error/index.phtml:24 view/error/index.phtml:48
+msgid "File"
+msgstr "File"
 
-#: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
+#: view/error/index.phtml:28 view/error/index.phtml:52
+msgid "Message"
+msgstr "Message"
+
+#: view/error/index.phtml:32 view/error/index.phtml:56
+msgid "Stack trace"
+msgstr "Stack trace"
+
+#: view/error/index.phtml:42
+msgid "Previous exceptions"
+msgstr "Previous exceptions"
+
+#: view/error/index.phtml:71
+msgid "No Exception available"
+msgstr "No Exception available"
+
+#: view/layout/layout.phtml:29 view/install/index/installation.phtml:15
 msgid "Installation"
 msgstr "Installation"
-
-#: view/install/index/installation.phtml:55
-msgid "Install"
-msgstr "Install"
-
-#: view/install/index/install.phtml:13
-#, php-format
-msgid ""
-"An administrator account with the login name \"%s\" was created "
-"successfully."
-msgstr "An administrator account with the login name \"%s\" was created successfully."
-
-#: view/install/index/install.phtml:18
-msgid "The base configuration file was successfully created."
-msgstr "The base configuration file was successfully created."
-
-#: view/install/index/install.phtml:21
-#, php-format
-msgid ""
-"The configuration file could not be created automatically. So please create "
-"a file called \"%s\" in the directory \"%s\" with the following content:"
-msgstr "The configuration file could not be created automatically. So please create a file called \"%s\" in the directory \"%s\" with the following content:"
-
-#: view/install/index/install.phtml:31
-msgid "Start using YAWIK"
-msgstr "Start using YAWIK"
 
 #: view/install/index/prerequisites.phtml:13
 msgid "Prerequisites"
@@ -113,54 +99,68 @@ msgstr "Check again"
 msgid "Checking"
 msgstr "Checking"
 
-#: view/error/index.phtml:14
-msgid "An error occurred"
-msgstr "An error occurred"
+#: view/install/index/index.phtml:137
+msgid "PHP version not supported"
+msgstr "PHP version not supported"
 
-#: view/error/index.phtml:21
-msgid "Additional information"
-msgstr "Additional information"
+#: view/install/index/index.phtml:142
+#, php-format
+msgid ""
+"Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently "
+"provides PHP %s."
+msgstr "Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently provides PHP %s."
 
-#: view/error/index.phtml:24 view/error/index.phtml:48
-msgid "File"
-msgstr "File"
+#: view/install/index/index.phtml:147
+msgid ""
+"Please ask your servers' administrator to install the proper PHP version."
+msgstr "Please ask your servers' administrator to install the proper PHP version."
 
-#: view/error/index.phtml:28 view/error/index.phtml:52
-msgid "Message"
-msgstr "Message"
+#: view/install/index/installation.phtml:60
+msgid "Install"
+msgstr "Install"
 
-#: view/error/index.phtml:32 view/error/index.phtml:56
-msgid "Stack trace"
-msgstr "Stack trace"
+#: view/install/index/install.phtml:13
+#, php-format
+msgid ""
+"An administrator account with the login name \"%s\" was created "
+"successfully."
+msgstr "An administrator account with the login name \"%s\" was created successfully."
 
-#: view/error/index.phtml:42
-msgid "Previous exceptions"
-msgstr "Previous exceptions"
+#: view/install/index/install.phtml:18
+msgid "The base configuration file was successfully created."
+msgstr "The base configuration file was successfully created."
 
-#: view/error/index.phtml:71
-msgid "No Exception available"
-msgstr "No Exception available"
+#: view/install/index/install.phtml:21
+#, php-format
+msgid ""
+"The configuration file could not be created automatically. So please create "
+"a file called \"%s\" in the directory \"%s\" with the following content:"
+msgstr "The configuration file could not be created automatically. So please create a file called \"%s\" in the directory \"%s\" with the following content:"
+
+#: view/install/index/install.phtml:31
+msgid "Start using YAWIK"
+msgstr "Start using YAWIK"
 
 #: language/_annotated_strings.php:3
-msgid "Database connection string"
-msgstr "Database connection string"
+msgid "Invalid connection string"
+msgstr "Invalid connection string"
 
 #: language/_annotated_strings.php:6
-msgid "Initial user name"
-msgstr "Initial user name"
-
-#: language/_annotated_strings.php:9
-msgid "Password"
-msgstr "Password"
-
-#: language/_annotated_strings.php:12
-msgid "Email address for system messages"
-msgstr "Email address for system messages"
-
-#: language/_annotated_strings.php:15
 msgid "Connecting the database failed: %databaseError%"
 msgstr "Connecting the database failed: %databaseError%"
 
+#: language/_annotated_strings.php:9
+msgid "Database connection string"
+msgstr "Database connection string"
+
+#: language/_annotated_strings.php:12
+msgid "Initial user name"
+msgstr "Initial user name"
+
+#: language/_annotated_strings.php:15
+msgid "Password"
+msgstr "Password"
+
 #: language/_annotated_strings.php:18
-msgid "Invalid connection string"
-msgstr "Invalid connection string"
+msgid "Email address for system messages"
+msgstr "Email address for system messages"

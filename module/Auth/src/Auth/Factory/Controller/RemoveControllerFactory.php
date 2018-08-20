@@ -27,7 +27,7 @@ class RemoveControllerFactory implements FactoryInterface
     {
         $dependencyManager = $container->get('Auth/Dependency/Manager');
         $authService = $container->get('AuthenticationService');
-        $userRepository = $container->get('repositories')->get('Users');
+        $userRepository = $container->get('repositories')->get('Auth/User');
 
         return new RemoveController($dependencyManager, $authService, $userRepository);
     }

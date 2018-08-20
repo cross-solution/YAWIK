@@ -35,10 +35,6 @@ trait AttachableEntityTrait
      */
     public function setAttachableEntityManager(AttachableEntityManager $attachableEntityManager)
     {
-        if (isset($this->attachableEntityManager)) {
-            throw new LogicException('Attachable entity manager is already set');
-        }
-        
         $this->attachableEntityManager = $attachableEntityManager->setReferences($this->attachableEntityReferences);
         
         return $this;

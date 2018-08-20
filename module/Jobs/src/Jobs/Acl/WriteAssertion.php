@@ -45,7 +45,8 @@ class WriteAssertion implements AssertionInterface
 
         /* @var $resource \Jobs\Entity\JobInterface */
         return $resource->getPermissions()->isGranted($role->getId(), Permissions::PERMISSION_CHANGE)
-               || $this->checkOrganizationPermissions($role, $resource);
+               || $this->checkOrganizationPermissions($role, $resource)
+               || (null === $resource->getUser() && \Auth\Entity\UserInterface::ROLE_ADMIN == $role->getRole());
     }
 
     /**

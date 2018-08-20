@@ -9,6 +9,8 @@
 namespace Auth\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
+use Core\Entity\AttachableEntityInterface;
+use Core\Entity\AttachableEntityTrait;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
 use Doctrine\Common\Collections\Collection;
@@ -30,8 +32,10 @@ use Settings\Repository\SettingsEntityResolver;
  *                 }, name="fulltext")
  * })
  */
-class User extends AbstractIdentifiableEntity implements UserInterface, DraftableEntityInterface
+class User extends AbstractIdentifiableEntity implements UserInterface, DraftableEntityInterface, AttachableEntityInterface
 {
+    use AttachableEntityTrait;
+
     /**
      * Users login name
      *

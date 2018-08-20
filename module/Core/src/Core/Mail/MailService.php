@@ -232,6 +232,14 @@ class MailService extends AbstractPluginManager
             $mailerHeader->setEncoding('ASCII'); // get rid of other encodings for this header!
         }
 
+        /* Allow HTMLTemplateMails to alter subject in the view script.
+         * As the Zend Transport class build subject before the getBodyText call,
+         * we have to call it here.
+         */
+        if ($mail instanceOf \Core\Mail\HTMLTemplateMessage) {
+            $mail->getBodyText();
+        }
+
         $transport->send($mail);
     }
 

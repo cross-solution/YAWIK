@@ -362,9 +362,11 @@ return [
             'jobUrl' => 'Jobs\Factory\View\Helper\JobUrlFactory',
             'Jobs/AdminEditLink' => 'Jobs\Factory\View\Helper\AdminEditLinkFactory',
             View\Helper\JsonLd::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            View\Helper\JobOrganizationName::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
         'aliases' => [
             'jsonLd' => View\Helper\JsonLd::class,
+            'jobOrganizationName' => View\Helper\JobOrganizationName::class,
         ],
 
     ],

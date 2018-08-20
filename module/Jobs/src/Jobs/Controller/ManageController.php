@@ -551,6 +551,7 @@ class ManageController extends AbstractActionController
         $jobEvent       = $this->jobEvent;
         $jobEvent->setJobEntity($jobEntity);
         $jobEvent->addPortal('XingVendorApi');
+        $jobEvent->setTarget($this);
         $jobEvents      = $this->jobEvents;
         // array with differences between the last snapshot and the actual entity
         // is remains Null if there is no snapshot
@@ -580,7 +581,9 @@ class ManageController extends AbstractActionController
             }
 
             $this->repositoryService->store($jobEntity);
-            $jobEvents->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
+            $jobEvent->setName(JobEvent::EVENT_JOB_REJECTED);
+
+            $jobEvents->trigger($jobEvent);
             $this->notification()->success(/*@translate */'Job has been rejected');
         }
 
@@ -594,7 +597,8 @@ class ManageController extends AbstractActionController
             }
             $jobEntity->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ "Job opening was activated by %s", $user->getInfo()->getDisplayName()));
             $this->repositoryService->store($jobEntity);
-            $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+            $jobEvent->setName(JobEvent::EVENT_JOB_ACCEPTED);
+            $jobEvents->trigger($jobEvent);
             //$this->entitySnapshot($jobEntity);
             $this->notification()->success(/* @translate */ 'Job has been approved');
             return $this->redirect()->toRoute('lang/admin/jobs', array('lang' => $this->params('lang')));
