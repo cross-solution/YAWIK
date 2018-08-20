@@ -29,6 +29,7 @@ Feature: Resume Management
         And I select "Mr." from "Salutation"
         And I press "Save"
         And I wait for the ajax response
+        And I wait for 2 seconds
         Then I should see "Test Resume"
         And I should see "Some Street 123456"
         And I should see "4321 Some City"

@@ -73,7 +73,9 @@ class CreateEventManagerTest extends \PHPUnit_Framework_TestCase
 
 
         if (is_Array($events)) {
-            list($eventsService, $events) = each($events);
+            $keys = array_keys($events);
+            $eventsService = $keys[0];
+            $events = $events[$eventsService];
         } else {
             $eventsService = 'Test/Events/Manager';
         }
