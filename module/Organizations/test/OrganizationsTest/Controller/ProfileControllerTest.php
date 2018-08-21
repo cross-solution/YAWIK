@@ -92,8 +92,8 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         /* @var ViewModel $result */
         $result = $target->indexAction();
-        $this->assertArrayHasKey('foo',$result->getVariables());
-        $this->assertEquals('bar',$result->getVariable('foo'));
+        $this->assertArrayHasKey('foo', $result->getVariables());
+        $this->assertEquals('bar', $result->getVariable('foo'));
     }
 
     public function testIndexThrowsExceptionOnNullID()
@@ -110,11 +110,12 @@ class ProfileControllerTest extends AbstractControllerTestCase
         $target = $this->target;
         $target->setPluginManager($pluginManager);
         $return = $target->detailAction();
-        $this->assertArrayHasKey('message',$return);
-        $this->assertArrayHasKey('exception',$return);
+        $this->assertArrayHasKey('message', $return);
+        $this->assertArrayHasKey('exception', $return);
         $this->assertRegExp(
             '/Null Organization/',
-            $return['exception']->getMessage())
+            $return['exception']->getMessage()
+        )
         ;
     }
 
@@ -131,7 +132,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         $params->expects($this->any())
             ->method('__invoke')
-            ->with('id',null)
+            ->with('id', null)
             ->willReturn('some-id')
         ;
 
@@ -142,7 +143,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
         $target->detailAction();
     }
 
-    public function testIndexThrowUnauthorizedWhenProfileDisabled()
+    public function testIndexShouldRenderDisabledProfile()
     {
         $plugins = $this->createMock(PluginManager::class);
         $params = $this->createMock(Params::class);
@@ -155,7 +156,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         $params->expects($this->any())
             ->method('__invoke')
-            ->with('id',null)
+            ->with('id', null)
             ->willReturn('some-id')
         ;
 
@@ -169,9 +170,9 @@ class ProfileControllerTest extends AbstractControllerTestCase
         ;
         $target = $this->target;
         $target->setPluginManager($plugins);
-        $this->expectException(UnauthorizedAccessException::class);
-        $this->expectExceptionMessage('This Organization Profile is disabled');
-        $target->detailAction();
+        /* @var ViewModel $result */
+        $result = $target->detailAction();
+        $this->assertEquals('organizations/profile/disabled', $result->getTemplate());
     }
 
     public function testDetailShouldReturnOrganizationWithGivenId()
@@ -187,7 +188,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         $params->expects($this->any())
             ->method('__invoke')
-            ->with('id',null)
+            ->with('id', null)
             ->willReturn('some-id')
         ;
 
@@ -204,12 +205,12 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         /* @var \Zend\View\Model\ViewModel $retVal */
         $retVal = $target->detailAction();
-        $this->assertInstanceOf(ViewModel::class,$retVal);
-        $this->assertArrayHasKey('organization',$retVal->getVariables());
-        $this->assertEquals($entity,$retVal->getVariable('organization'));
+        $this->assertInstanceOf(ViewModel::class, $retVal);
+        $this->assertArrayHasKey('organization', $retVal->getVariables());
+        $this->assertEquals($entity, $retVal->getVariable('organization'));
     }
 
-    public function testDetailThrowUnauthorizedWhenNoActiveJobs()
+    public function testDetailShouldRenderDisabledProfileWhenNoActiveJobs()
     {
         $pluginManager = $this->createMock(PluginManager::class);
         $params = $this->createMock(Params::class);
@@ -222,7 +223,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
         $params->expects($this->any())
             ->method('__invoke')
-            ->with('id',null)
+            ->with('id', null)
             ->willReturn('some-id')
         ;
 
@@ -246,12 +247,6 @@ class ProfileControllerTest extends AbstractControllerTestCase
             ->getMock()
         ;
 
-
-        $this->translator->expects($this->once())
-            ->method('translate')
-            ->with('This Organization Profile is disabled')
-            ->willReturn('translated-message')
-        ;
         $paginator = $this->createMock(Paginator::class);
         $paginator->expects($this->once())
             ->method('getTotalItemCount')
@@ -265,9 +260,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
         ;
         $target->setPluginManager($pluginManager);
 
-
-        $this->expectException(UnauthorizedAccessException::class);
-        $this->expectExceptionMessage('translated-message');
-        $target->detailAction();
+        $result = $target->detailAction();
+        $this->assertEquals('organizations/profile/disabled', $result->getTemplate());
     }
 }
