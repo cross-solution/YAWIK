@@ -25,7 +25,7 @@ Build status:
 [![Coverage Status](https://coveralls.io/repos/cross-solution/YAWIK/badge.svg?branch=develop)](https://coveralls.io/r/cross-solution/YAWIK?branch=develop)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/cross-solution/YAWIK.svg)](http://isitmaintained.com/project/cross-solution/YAWIK "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/cross-solution/YAWIK.svg)](http://isitmaintained.com/project/cross-solution/YAWIK "Percentage of issues still open")
-[![Dependency Status](https://www.versioneye.com/user/projects/54f0486b4f3108d1fa000266/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54f0486b4f3108d1fa000266)
+
 
 
 Demo
@@ -33,12 +33,6 @@ Demo
 
 http://yawik.org/demo/ (this demonstrates YAWIK as an applicant tracking system)
 http://jobs.yawik.org (YAWIK as a Jobportal with real job offers) 
-
-Who is using YAWIK?
--------------------
-
-YAWIK is used as a Jobboard by https://mygreatjobs.de/. Phoenixdesign uses
-YAWIK is used as a companies career portal by Phoenixdesign http://bewerbung.phoenixdesign.com/ and Frankwalder https://jobs.frankwalder.com/de
 
 
 Documentation
