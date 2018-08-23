@@ -12,13 +12,11 @@ namespace Core\Filter\File;
 
 use Core\Entity\FileInterface;
 use Zend\Filter\AbstractFilter;
-use Zend\Filter\Exception;
 
 /**
  * ${CARET}
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  */
 class Entity extends AbstractFilter
 {

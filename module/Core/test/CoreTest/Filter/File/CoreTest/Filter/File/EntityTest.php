@@ -6,11 +6,13 @@ use Auth\Entity\UserInterface;
 use Core\Entity\FileEntity;
 use Core\Filter\File\Entity;
 use Core\Repository\AbstractRepository;
-use Core\Repository\RepositoryInterface;
-use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Documents\CustomRepository\Repository;
 
+/**
+ * Class EntityTest
+ * @package CoreTest\Filter\File
+ * @author Anthonius Munthi <me@itstoni.com>
+ */
 class EntityTest extends \PHPUnit_Framework_TestCase
 {
     use TestSetterGetterTrait;
