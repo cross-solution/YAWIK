@@ -16,9 +16,9 @@ use Zend\Filter\Exception;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class Entity extends AbstractFilter
 {
@@ -34,8 +34,7 @@ class Entity extends AbstractFilter
     {
         if (is_object($fileEntityOrOptions) || is_string($fileEntityOrOptions)) {
             $this->setFileEntity($fileEntityOrOptions);
-
-        } else if (is_array($fileEntityOrOptions)) {
+        } elseif (is_array($fileEntityOrOptions)) {
             $this->setOptions($fileEntityOrOptions);
         }
     }
@@ -95,7 +94,7 @@ class Entity extends AbstractFilter
 
     public function getFileEntity()
     {
-        if (! $this->fileEntity instanceOf FileInterface) {
+        if (! $this->fileEntity instanceof FileInterface) {
             throw new \RuntimeException('No file entity set or it does not implement \Core\Entity\FileInterface.');
         }
 
@@ -104,7 +103,7 @@ class Entity extends AbstractFilter
 
     public function filter($value)
     {
-        if (! is_array($value) || ! isset($value['tmp_name']) || (isset($value['error']) && UPLOAD_ERR_NO_FILE == $value['error'])) {
+        if (! is_array($value) || ! isset($value['tmp_name']) || ((isset($value['error']) && UPLOAD_ERR_NO_FILE == $value['error']))) {
             return null;
         }
 
@@ -135,6 +134,4 @@ class Entity extends AbstractFilter
 
         return $value;
     }
-
-
 }
