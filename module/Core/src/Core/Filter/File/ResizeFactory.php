@@ -15,21 +15,21 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Core\Filter\File\Resize
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test  
  */
 class ResizeFactory implements FactoryInterface
 {
-    
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        if (!is_array($options)) { $options = []; }
+        if (!is_array($options)) {
+            $options = [];
+        }
 
         $imagine            = $container->get('Imagine');
         $options['imagine'] = $imagine;
         $service            = new Resize($options);
         
-        return $service;    
+        return $service;
     }
 }
