@@ -15,9 +15,8 @@ use Zend\Filter\AbstractFilter;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class Resize extends AbstractFilter
 {
@@ -79,7 +78,6 @@ class Resize extends AbstractFilter
 
         if ($this->options['width'] || $this->options['height']) {
             $size = new Box($this->options['width'] ?: $size->getWidth(), $this->options['height'] ?: $size->getHeight());
-
         } else {
             if ($this->options['max-width'] && $size->getWidth() > $this->options['max-width']) {
                 $size = $size->widen($this->options['max-width']);
@@ -105,6 +103,4 @@ class Resize extends AbstractFilter
 
         return $value;
     }
-
-
 }
