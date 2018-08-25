@@ -13,7 +13,6 @@ namespace Core\Repository;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\SnapshotAttributesProviderInterface;
 use Core\Entity\SnapshotInterface;
 use Doctrine\Common\Collections\Collection;
@@ -24,6 +23,7 @@ use Zend\Hydrator\HydratorInterface;
  * ${CARET}
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class SnapshotRepository extends DocumentRepository
 {
@@ -187,9 +187,13 @@ class SnapshotRepository extends DocumentRepository
         return $entity;
     }
 
+    /**
+     * @param SnapshotInterface $snapshot
+     * @todo implement or remove this method
+     */
     public function diff(SnapshotInterface $snapshot)
     {
-        $entity = $snapshot->getEntity();
+        $entity = $snapshot->getOriginalEntity();
         $attributes = $this->getCopyAttributes($entity, $snapshot);
     }
 
@@ -201,12 +205,12 @@ class SnapshotRepository extends DocumentRepository
           ->sort('snapshotMeta.dateCreated.date', 'desc')
           ->limit(1)
           ->getQuery()
-          ->getSingleResult();
-
+          ->getSingleResult()
+        ;
         if ($entity) {
             $this->dm->getEventManager()->dispatchEvent(
-                \Doctrine\Odm\MongoDB\Events::postLoad,
-                new \Doctrine\Odm\MongoDB\Event\LifecycleEventArgs($entity, $this->dm)
+                \Doctrine\ODM\MongoDB\Events::postLoad,
+                new \Doctrine\ODM\MongoDB\Event\LifecycleEventArgs($entity, $this->dm)
             );
         }
 
@@ -246,21 +250,32 @@ class SnapshotRepository extends DocumentRepository
         return $this;
     }
 
+    /**
+     * @param $sourceId
+     * @todo implement or remove this method
+     */
     public function removeAll($sourceId)
     {
+        throw new \LogicException("This method is not implemented yet");
     }
 
     protected function checkEntityType($entity)
     {
         if (!is_a($entity, $this->getDocumentName())) {
             throw new \InvalidArgumentException(sprintf(
-                'Entity must be of type %s but recieved %s instead',
+                'Entity must be of type %s but received %s instead',
                 $this->getDocumentName(),
                 get_class($entity)
             ));
         }
     }
 
+    /**
+     * @param $source
+     * @param array $attributes
+     * @return array
+     * @todo remove this method if not used, because extract already implemented in $this->sourceHydrator->extract
+     */
     protected function extract($source, array $attributes = [])
     {
         $hydrator = $this->getSourceHydrator();
