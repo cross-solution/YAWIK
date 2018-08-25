@@ -22,9 +22,8 @@ use Zend\Hydrator\HydratorInterface;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class SnapshotRepository extends DocumentRepository
 {
@@ -90,7 +89,7 @@ class SnapshotRepository extends DocumentRepository
     public function getSourceHydrator()
     {
         if (!$this->sourceHydrator) {
-            return $this->getHydrator();
+            $this->sourceHydrator = $this->getHydrator();
         }
 
         return $this->sourceHydrator;
@@ -118,7 +117,6 @@ class SnapshotRepository extends DocumentRepository
 
     public function create(EntityInterface $source, $persist = true)
     {
-
         $snapshot = $this->getDocumentName();
         $snapshot = new $snapshot($source);
 
@@ -164,11 +162,11 @@ class SnapshotRepository extends DocumentRepository
             return $attributes;
         }
 
-        if ($source instanceOf SnapshotAttributesProviderInterface) {
+        if ($source instanceof SnapshotAttributesProviderInterface) {
             return $source->getSnapshotAttributes();
         }
 
-        if ($target instanceOf SnapshotAttributesProviderInterface) {
+        if ($target instanceof SnapshotAttributesProviderInterface) {
             return $target->getSnapshotAttributes();
         }
 
@@ -193,8 +191,6 @@ class SnapshotRepository extends DocumentRepository
     {
         $entity = $snapshot->getEntity();
         $attributes = $this->getCopyAttributes($entity, $snapshot);
-
-
     }
 
     public function findLatest($sourceId, $isDraft = false)
@@ -215,7 +211,6 @@ class SnapshotRepository extends DocumentRepository
         }
 
         return $entity;
-
     }
 
     public function findBySourceId($sourceId, $includeDrafts = false)
@@ -253,19 +248,17 @@ class SnapshotRepository extends DocumentRepository
 
     public function removeAll($sourceId)
     {
-
     }
 
     protected function checkEntityType($entity)
     {
-        if ( !is_a($entity,  $this->getDocumentName()) ) {
+        if (!is_a($entity, $this->getDocumentName())) {
             throw new \InvalidArgumentException(sprintf(
                 'Entity must be of type %s but recieved %s instead',
                 $this->getDocumentName(),
                 get_class($entity)
             ));
         }
-
     }
 
     protected function extract($source, array $attributes = [])
@@ -284,16 +277,14 @@ class SnapshotRepository extends DocumentRepository
                 $spec = null;
             }
 
-            if ($data[$key] instanceOf EntityInterface) {
+            if ($data[$key] instanceof EntityInterface) {
                 $hydrate[$key] = clone $data[$key];
-
-            } else if ($data[$key] instanceOf Collection) {
+            } elseif ($data[$key] instanceof Collection) {
                 $collection = new ArrayCollection();
                 foreach ($data[$key] as $item) {
                     $collection->add(clone $item);
                 }
                 $hydrate[$key] = $collection;
-
             } else {
                 $hydrate[$key] = $data[$key];
             }

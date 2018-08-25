@@ -91,7 +91,7 @@ class ResizeTest extends \PHPUnit_Framework_TestCase
 
     private function setupImagine()
     {
-        $this->imageFile = __DIR__.'/fixtures/logo.jpg';
+        $this->imageFile = __DIR__ . '/fixtures/logo.jpg';
         $image = $this->getMockBuilder(ImageInterface::class)
             ->getMock()
         ;
