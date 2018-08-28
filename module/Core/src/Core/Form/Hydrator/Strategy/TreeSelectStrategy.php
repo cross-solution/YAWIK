@@ -237,7 +237,7 @@ class TreeSelectStrategy implements StrategyInterface
             }
         }
 
-        if ($this->shouldCreateLeafs()) {
+        if ($value && $this->shouldCreateLeafs()) {
             $nodeClass = get_class($leaf);
             $node = new $nodeClass($value);
             $leaf->addChild($node);
