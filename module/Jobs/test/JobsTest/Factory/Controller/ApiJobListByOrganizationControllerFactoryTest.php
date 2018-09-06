@@ -37,8 +37,8 @@ class ApiJobListByOrganizationControllerFactoryTest extends \PHPUnit_Framework_T
      */
     public function testCreateService()
     {
-        $sm = clone Bootstrap::getServiceManager();
-        $sm->setAllowOverride(true);
+        $serviceManager = clone Bootstrap::getServiceManager();
+        $serviceManager->setAllowOverride(true);
 
         $jobRepositoryMock = $this->getMockBuilder('Jobs\Repository\Job')
                                 ->disableOriginalConstructor()
@@ -57,10 +57,10 @@ class ApiJobListByOrganizationControllerFactoryTest extends \PHPUnit_Framework_T
                                 ->disableOriginalConstructor()
                                 ->getMock();
 
-        $sm->setService('repositories', $repositoriesMock);
-        $sm->setService('Jobs\Model\ApiJobDehydrator', $apiJobDehydratorMock);
+        $serviceManager->setService('repositories', $repositoriesMock);
+        $serviceManager->setService('Jobs\Model\ApiJobDehydrator', $apiJobDehydratorMock);
 
-	    $result = $this->testedObj->__invoke($sm,ApiJobListByOrganizationController::class);
+	    $result = $this->testedObj->__invoke($serviceManager,ApiJobListByOrganizationController::class);
         $this->assertInstanceOf('Jobs\Controller\ApiJobListByOrganizationController', $result);
     }
 }
