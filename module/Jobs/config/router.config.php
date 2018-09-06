@@ -55,14 +55,10 @@ $routes = [
                         'defaults' => array(
                             'controller' => 'Jobs/ApiJobListByOrganization',
                             'action' => 'index',
-                            'defaults' => array(
-                                'defaults' => array(
-                                    'organizationId' => 0
-                                ),
-                                'constraints' => array(
-                                    'organizationId' => '[a-f0-9]+',
-                                ),
-                            ),
+                            'organizationId' => 0,
+                        ),
+                        'constraints' => array(
+                            'organizationId' => '[a-f0-9]+',
                         ),
                     ),
                     'may_terminate' => true,
