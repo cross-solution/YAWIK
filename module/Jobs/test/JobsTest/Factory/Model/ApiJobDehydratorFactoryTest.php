@@ -61,7 +61,7 @@ class ApiJobDehydratorFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManagerMock->expects($this->once())->method('get')
                            ->with('ViewHelperManager')
                            ->willReturn($helpers);
-      
+
         $service = $target->__invoke($serviceManagerMock,'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Model\ApiJobDehydrator', $service);

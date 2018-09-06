@@ -59,9 +59,15 @@ class ApiJobDehydrator
     public function dehydrate(Job $job)
     {
         return array(
+            'datePublishStart' => $job->getDatePublishStart(),
             'title' => $job->getTitle(),
             'location' => $job->getLocation(),
-            'link' => $this->jobUrl->__invoke($job,['linkOnly'=> true]),
+            'link' => $this->jobUrl->__invoke(
+                $job,[
+                  'linkOnly'=> true,
+                  'absolute' => true,
+                ]
+            ),
             'organization' => array(
                 'name' => $job->getOrganization()->getOrganizationName()->getName(),
             ),
