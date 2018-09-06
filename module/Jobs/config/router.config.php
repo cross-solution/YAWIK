@@ -51,16 +51,14 @@ $routes = [
                 'completion' => array(
                     'type' => 'Segment',
                     'options' => array(
-                        'route' => '/organization/:organizationId[/:callback]',
+                        'route' => '/organization/:organizationId',
                         'defaults' => array(
                             'controller' => 'Jobs/ApiJobListByOrganization',
                             'action' => 'index',
                             'organizationId' => 0,
-                            'callback' =>false
                         ),
                         'constraints' => array(
                             'organizationId' => '[a-f0-9]+',
-                            'callback' => '[0-9a-z]+',
                         ),
                     ),
                     'may_terminate' => true,

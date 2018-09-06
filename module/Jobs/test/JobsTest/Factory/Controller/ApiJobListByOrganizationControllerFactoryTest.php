@@ -10,6 +10,7 @@
 namespace JobsTest\Factory\Controller;
 
 use Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory;
+use Zend\Mvc\Controller\ControllerManager;
 use Test\Bootstrap;
 
 /**
@@ -52,7 +53,12 @@ class ApiJobListByOrganizationControllerFactoryTest extends \PHPUnit_Framework_T
                        ->with('Jobs/Job')
                        ->willReturn($jobRepositoryMock);
 
+        $apiJobDehydratorMock = $this->getMockBuilder('Jobs\Model\ApiJobDehydrator')
+                                ->disableOriginalConstructor()
+                                ->getMock();
+
         $sm->setService('repositories', $repositoriesMock);
+        $sm->setService('Jobs\Model\ApiJobDehydrator', $apiJobDehydratorMock);
 
 	    $result = $this->testedObj->__invoke($sm,ApiJobListByOrganizationController::class);
         $this->assertInstanceOf('Jobs\Controller\ApiJobListByOrganizationController', $result);
