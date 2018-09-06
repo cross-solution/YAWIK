@@ -31,6 +31,7 @@ class ApiJobListByOrganizationController extends AbstractActionController
     public function indexAction()
     {
         $organizationId = $this->params()->fromRoute('organizationId', 0);
+        $callback = $this->params()->fromRoute('callback', false);
 
         try {
             $jobs = $this->jobRepository->findByOrganization($organizationId);
@@ -42,7 +43,7 @@ class ApiJobListByOrganizationController extends AbstractActionController
         }
         $jsonModel=new JsonModel();
         $jsonModel->setVariables($this->apiJobDehydrator->dehydrateList($jobs));
-        $jsonModel->setJsonpCallback('yawikParseJobs');
+        $jsonModel->setJsonpCallback($callback);
 
         return $jsonModel;
     }
