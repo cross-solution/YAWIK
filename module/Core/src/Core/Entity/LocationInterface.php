@@ -91,4 +91,34 @@ interface LocationInterface extends EntityInterface
      * @return mixed
      */
     public function getRegion();
+
+    /**
+     * Sets the Streetname of a location
+     *
+     * @param $street
+     * @return mixed
+     */
+    public function setStreetname($street);
+
+    /**
+     * Gets the streetname of a location
+     *
+     * @return mixed
+     */
+    public function getStreetname();
+
+    /**
+     * Sets the Streetnumber of a location
+     *
+     * @param $number
+     * @return mixed
+     */
+    public function setStreetnumber($number);
+
+    /**
+     * Gets the streetnumber of a location
+     *
+     * @return mixeed
+     */
+    public function getStreetnumber();
 }
