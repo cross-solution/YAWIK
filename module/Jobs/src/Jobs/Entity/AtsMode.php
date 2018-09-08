@@ -58,7 +58,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * One click apply profiles
      *
      * @var array
-     * @ODM\Hash
+     * @ODM\Field(type="hash")
      */
     protected $oneClickApplyProfiles = [];
 

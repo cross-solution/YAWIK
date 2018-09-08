@@ -43,7 +43,7 @@ abstract class AbstractLeafs implements LeafsInterface
      *
      * To make the attached leafs searchable via mongo queries.
      *
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      * @var array
      */
     private $values;

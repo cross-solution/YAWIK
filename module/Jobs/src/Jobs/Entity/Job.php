@@ -79,7 +79,7 @@ class Job extends BaseEntity implements JobInterface,
      * publishing company
      *
      * @var OrganizationInterface
-     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true, inversedBy="jobs")
+     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", storeAs="id", inversedBy="jobs")
      * @ODM\Index
      */
     protected $organization;
@@ -97,7 +97,7 @@ class Job extends BaseEntity implements JobInterface,
      * the owner of a Job Posting
      *
      * @var UserInterface $user
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id")
      * @ODM\Index
      */
     protected $user;
@@ -106,7 +106,7 @@ class Job extends BaseEntity implements JobInterface,
      * all applications of a certain jobad
      *
      * @var Collection
-     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job",
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", storeAs="id", mappedBy="job",
      *                    repositoryMethod="loadApplicationsForJob")
      */
     protected $applications;
@@ -191,7 +191,7 @@ class Job extends BaseEntity implements JobInterface,
      * Flag, privacy policy is accepted or not.
      *
      * @var bool
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      */
     protected $termsAccepted;
     
@@ -256,7 +256,7 @@ class Job extends BaseEntity implements JobInterface,
      *
      * @var Boolean
      *
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      */
     protected $atsEnabled;
     
@@ -281,14 +281,15 @@ class Job extends BaseEntity implements JobInterface,
      * Can contain various Portals
      *
      * @var array
-     * @ODM\Collection*/
+     * @ODM\Field(type="collection")
+     */
     protected $portals = array();
 
     /**
      * Flag indicating draft state of this job.
      *
      * @var bool
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      */
     protected $isDraft = false;
 

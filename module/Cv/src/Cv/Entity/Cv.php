@@ -34,7 +34,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
      * Owner of the CV
      *
      * @var UserInterface
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true, cascade="persist")
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id", cascade="persist")
      */
     protected $user;
     
@@ -80,7 +80,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
 
     /**
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      */
     protected $nativeLanguages=[];
 
@@ -96,7 +96,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
      * Flag indicating draft state of this cv.
      *
      * @var bool
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      */
     protected $isDraft = false;
     
@@ -113,7 +113,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
      * Multiple attachments
      *
      * @since 0.26
-     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist", "remove"})
+     * @ODM\ReferenceMany(targetDocument="Attachment", storeAs="id", cascade={"persist", "remove"})
      */
     protected $attachments;
 

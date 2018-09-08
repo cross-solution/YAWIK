@@ -26,7 +26,7 @@ trait AttachableEntityTrait
 
     /**
      * @var array
-     * @ODM\Hash
+     * @ODM\Field(type="hash")
      */
     protected $attachableEntityReferences = [];
     

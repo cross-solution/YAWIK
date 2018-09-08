@@ -95,7 +95,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      *
      * @var array
      * @deprecated
-     * @ODM\Hash
+     * @ODM\Field(type="hash")
      */
     protected $profile = array();
 
@@ -103,7 +103,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * Can contain various HybridAuth profiles.
      *
      * @var array
-     * @ODM\Hash
+     * @ODM\Field(type="hash")
      */
     protected $profiles = [];
 
@@ -123,7 +123,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * User groups.
      *
      * @var Collection
-     * @ODM\ReferenceMany(targetDocument="Group", mappedBy="owner", simple=true, cascade="all")
+     * @ODM\ReferenceMany(targetDocument="Group", mappedBy="owner", storeAs="id", cascade="all")
      */
     protected $groups;
 
@@ -151,7 +151,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * Is this entity a draft or not?
      *
      * @var bool
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      */
     protected $isDraft = false;
     

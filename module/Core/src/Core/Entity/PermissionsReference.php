@@ -26,7 +26,7 @@ class PermissionsReference
     protected $permission;
     
     /**
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      */
     protected $userIds;
     

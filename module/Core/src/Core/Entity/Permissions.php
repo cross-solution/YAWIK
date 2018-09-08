@@ -54,7 +54,7 @@ class Permissions implements PermissionsInterface
      * Ids of users, which have view access.
      *
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      * @ODM\Index
      */
     protected $view = array();
@@ -63,7 +63,7 @@ class Permissions implements PermissionsInterface
      * Ids of users, which have change access.
      *
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      * @ODM\Index
      */
     protected $change = array();
@@ -83,7 +83,7 @@ class Permissions implements PermissionsInterface
      * </pre>
      *
      * @var array
-     * @ODM\Hash
+     * @ODM\Field(type="hash")
      */
     protected $assigned = array();
     

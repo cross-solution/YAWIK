@@ -21,7 +21,7 @@ class PreferredJob extends AbstractIdentifiableEntity implements PreferredJobInt
 {
     /**
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      */
     protected $typeOfApplication = array();
 
