@@ -40,7 +40,7 @@ if ($job->isDraft()) {
     if ('new' == $this->action):
         echo $this->translate('Publish a job');
     else:
-        echo sprintf($this->translate($job->isDraft()?'Create a job':'Edit the job %s'),'<i>'.$this->title.'</i>');
+        echo sprintf($this->translate($job->isDraft()?'Create a job':'Edit job "%s"'),'<i>'.$this->title.'</i>');
     endif;
     ?>
     <small>(<?php echo $this->translate($status);?>)</small>

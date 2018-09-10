@@ -519,7 +519,12 @@ class ManageController extends AbstractActionController
             $jobEvents = $this->jobEvents;
             $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $job));
         } else if ($job->isActive()) {
+            $eventParams = [
+                'job' => $job,
+                'statusWas' => $job->getStatus()->getName(),
+            ];
             $job->getOriginalEntity()->changeStatus(Status::WAITING_FOR_APPROVAL, 'job was edited.');
+            $this->jobEvents->trigger(JobEvent::EVENT_STATUS_CHANGED, $this, $eventParams);
         }
 
         /* @var \Auth\Controller\Plugin\UserSwitcher $switcher */

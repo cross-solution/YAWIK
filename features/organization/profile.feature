@@ -61,12 +61,12 @@ Feature: Organization profile
 
     Scenario: Access disabled organization profile
         Given I go to profile page for organization "Profile Disabled"
-        Then I should see "This Organization Profile is disabled"
+        Then I should see "This profile is disabled."
 
     Scenario: Access profile when there are no active jobs
         Given organization "Profile Active Job" have no job
         And I go to profile page for organization "Profile Active Jobs"
-        Then I should see "This Organization Profile is disabled"
+        Then I should see "This profile is disabled."
 
     Scenario: Filter organization profile by user roles
         Given I have a recruiter with the following:

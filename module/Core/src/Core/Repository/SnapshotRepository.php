@@ -13,7 +13,6 @@ namespace Core\Repository;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\SnapshotAttributesProviderInterface;
 use Core\Entity\SnapshotInterface;
 use Doctrine\Common\Collections\Collection;
@@ -22,9 +21,9 @@ use Zend\Hydrator\HydratorInterface;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class SnapshotRepository extends DocumentRepository
 {
@@ -90,7 +89,7 @@ class SnapshotRepository extends DocumentRepository
     public function getSourceHydrator()
     {
         if (!$this->sourceHydrator) {
-            return $this->getHydrator();
+            $this->sourceHydrator = $this->getHydrator();
         }
 
         return $this->sourceHydrator;
@@ -118,9 +117,14 @@ class SnapshotRepository extends DocumentRepository
 
     public function create(EntityInterface $source, $persist = true)
     {
-
         $snapshot = $this->getDocumentName();
         $snapshot = new $snapshot($source);
+
+        $eventArgs = new DoctrineMongoODM\Event\EventArgs([
+            'entity' => $snapshot
+        ]);
+        $this->dm->getEventManager()
+                 ->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postCreate, $eventArgs);
 
         $this->copy($source, $snapshot);
 
@@ -152,15 +156,21 @@ class SnapshotRepository extends DocumentRepository
 
     protected function getCopyAttributes($source, $target)
     {
-        if ($source instanceOf SnapshotAttributesProviderInterface) {
+        $attributes = $this->getSnapshotAttributes();
+
+        if (!empty($attributes)) {
+            return $attributes;
+        }
+
+        if ($source instanceof SnapshotAttributesProviderInterface) {
             return $source->getSnapshotAttributes();
         }
 
-        if ($target instanceOf SnapshotAttributesProviderInterface) {
+        if ($target instanceof SnapshotAttributesProviderInterface) {
             return $target->getSnapshotAttributes();
         }
 
-        return $this->getSnapshotAttributes();
+        return [];
     }
 
     public function merge(SnapshotInterface $snapshot, $snapshotDraftStatus = false)
@@ -177,24 +187,34 @@ class SnapshotRepository extends DocumentRepository
         return $entity;
     }
 
+    /**
+     * @param SnapshotInterface $snapshot
+     * @todo implement or remove this method
+     */
     public function diff(SnapshotInterface $snapshot)
     {
-        $entity = $snapshot->getEntity();
+        $entity = $snapshot->getOriginalEntity();
         $attributes = $this->getCopyAttributes($entity, $snapshot);
-
-
     }
 
     public function findLatest($sourceId, $isDraft = false)
     {
-        return $this->createQueryBuilder()
+        $entity = $this->createQueryBuilder()
           ->field('snapshotEntity')->equals(new \MongoId($sourceId))
           ->field('snapshotMeta.isDraft')->equals($isDraft)
           ->sort('snapshotMeta.dateCreated.date', 'desc')
           ->limit(1)
           ->getQuery()
-          ->getSingleResult();
+          ->getSingleResult()
+        ;
+        if ($entity) {
+            $this->dm->getEventManager()->dispatchEvent(
+                \Doctrine\ODM\MongoDB\Events::postLoad,
+                new \Doctrine\ODM\MongoDB\Event\LifecycleEventArgs($entity, $this->dm)
+            );
+        }
 
+        return $entity;
     }
 
     public function findBySourceId($sourceId, $includeDrafts = false)
@@ -230,23 +250,32 @@ class SnapshotRepository extends DocumentRepository
         return $this;
     }
 
+    /**
+     * @param $sourceId
+     * @todo implement or remove this method
+     */
     public function removeAll($sourceId)
     {
-
+        throw new \LogicException("This method is not implemented yet");
     }
 
     protected function checkEntityType($entity)
     {
-        if ( !is_a($entity,  $this->getDocumentName()) ) {
+        if (!is_a($entity, $this->getDocumentName())) {
             throw new \InvalidArgumentException(sprintf(
-                'Entity must be of type %s but recieved %s instead',
+                'Entity must be of type %s but received %s instead',
                 $this->getDocumentName(),
                 get_class($entity)
             ));
         }
-
     }
 
+    /**
+     * @param $source
+     * @param array $attributes
+     * @return array
+     * @todo remove this method if not used, because extract already implemented in $this->sourceHydrator->extract
+     */
     protected function extract($source, array $attributes = [])
     {
         $hydrator = $this->getSourceHydrator();
@@ -263,16 +292,14 @@ class SnapshotRepository extends DocumentRepository
                 $spec = null;
             }
 
-            if ($data[$key] instanceOf EntityInterface) {
+            if ($data[$key] instanceof EntityInterface) {
                 $hydrate[$key] = clone $data[$key];
-
-            } else if ($data[$key] instanceOf Collection) {
+            } elseif ($data[$key] instanceof Collection) {
                 $collection = new ArrayCollection();
                 foreach ($data[$key] as $item) {
                     $collection->add(clone $item);
                 }
                 $hydrate[$key] = $collection;
-
             } else {
                 $hydrate[$key] = $data[$key];
             }
