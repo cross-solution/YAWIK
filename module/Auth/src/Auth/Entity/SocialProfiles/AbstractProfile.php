@@ -49,7 +49,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity implements Pro
      * Raw profile data (API result)
      *
      * @var array
-     * @ODM\Hash
+     * @ODM\Field(type="hash")
      */
     protected $data = array();
     

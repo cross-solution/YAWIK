@@ -28,7 +28,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * User this comment belongs to
      *
      * @var UserInterface
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id")
      */
     protected $user;
     

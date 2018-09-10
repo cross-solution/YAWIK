@@ -20,7 +20,7 @@ class SettingsContainer implements SettingsContainerInterface
 {
     use EntityTrait;
 
-    /** @ODM\Hash */
+    /** @ODM\Field(type="hash") */
     protected $_settings;
     
     protected $isWritable = false;

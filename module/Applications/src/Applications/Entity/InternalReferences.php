@@ -21,7 +21,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class InternalReferences extends AbstractEntity
 {
     
-    /** @ODM\Hash */
+    /** @ODM\Field(type="hash") */
     protected $jobs = array();
     
     public function setJob(JobInterface $job)

@@ -79,7 +79,7 @@ class Organization extends BaseEntity implements
      * The actual name of the organization.
      *
      * @var \Organizations\Entity\OrganizationName
-     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", storeAs="id", cascade="persist")
      */
     protected $organizationName;
 
@@ -103,7 +103,7 @@ class Organization extends BaseEntity implements
      * primary logo of an organization
      *
      * @var \Organizations\Entity\OrganizationImage
-     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", inversedBy="organization", simple=true, nullable="true", cascade={"all"})
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", inversedBy="organization", storeAs="id", nullable="true", cascade={"all"})
      */
     protected $image;
 
@@ -119,7 +119,7 @@ class Organization extends BaseEntity implements
      * Flag indicating draft state of this job.
      *
      * @var bool
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      */
     protected $isDraft = false;
 
@@ -143,7 +143,7 @@ class Organization extends BaseEntity implements
      *
      * @see   setParent()
      * @var OrganizationInterface | null
-     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", simple=true, nullable=true)
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", storeAs="id", nullable=true)
      * @since 0.18
      */
     protected $parent;
@@ -172,7 +172,7 @@ class Organization extends BaseEntity implements
      * Jobs of this organization.
      *
      * @var Collection
-     * @ODM\ReferenceMany(targetDocument="\Jobs\Entity\Job", simple=true, mappedBy="organization")
+     * @ODM\ReferenceMany(targetDocument="\Jobs\Entity\Job", storeAs="id", mappedBy="organization")
      * @since 0.18
      */
     protected $jobs;
@@ -181,7 +181,7 @@ class Organization extends BaseEntity implements
      * the owner of a Organization
      *
      * @var UserInterface $user
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id")
      * @ODM\Index
      */
     protected $user;

@@ -29,14 +29,15 @@ class AuthSession extends AbstractEntity
      * Hash of the session
      *
      * @var array
-     * @ODM\Hash*/
+     * @ODM\Field(type="hash")
+     */
     protected $session = array();
 
     /**
      * Last modification date of the session
      *
      * @var \Datetime
-     * @ODM\Date
+     * @ODM\Field(type="date")
      */
     protected $modificationDate;
 
