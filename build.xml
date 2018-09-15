@@ -188,7 +188,7 @@
 	<delete file="build/YAWIK-${version-short}/public/YawikDemoSkin" />
 	<delete file="build/YAWIK-${version-short}/public/YawikXingVendorApi" />
 	<delete file="build/YAWIK-${version-short}/public/Karriere24" />
-	<delete file="build/YAWIK-${version-short}/public/YawikDemoJobboard" />
+	<delete file="build/YAWIK-${version-short}/public/Jobboard" />
 	<delete file="build/YAWIK-${version-short}/public/Orders" />
 	<delete file="build/YAWIK-${version-short}/public/Gastro24" />
     </target>
@@ -306,6 +306,8 @@
             <include name="vendor/kriswallsmith/assetic/src/**"/>
             <include name="vendor/ezyang/htmlpurifier/library/**"/>
             <include name="vendor/mikemix/zf2htmlpurifier/src/**"/>
+            <include name="vendor/myclabs/deep-copy/src/**"/>
+            <include name="vendor/phpunit/phpunit/src/**"/>
             <include name="vendor/ircmaxell/**"/>
             <include name="vendor/mpdf/**"/>
             <include name="LICENCE"/>
