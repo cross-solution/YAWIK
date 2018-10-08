@@ -172,6 +172,7 @@ class ProfileController extends AbstractActionController
     private function disabledProfileViewModel($organization)
     {
         $model = new ViewModel([
+            'organizationImageCache' => $this->imageFileCacheManager,
             'organization' => $organization,
         ]);
         $model->setTemplate('organizations/profile/disabled');
