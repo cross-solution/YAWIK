@@ -92,8 +92,7 @@ if ($this->pageCount):
             </ul>
         </div>
         <div class="col-md-3 text-right">
-            <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
-            of <?php echo $this->totalItemCount; ?>
+            <?=sprintf($this->translate('%1$s - %2$s of %3$s'), $this->firstItemNumber, $this->lastItemNumber, $this->totalItemCount) ?>
         </div>
     </div>
 <?php endif; ?>
