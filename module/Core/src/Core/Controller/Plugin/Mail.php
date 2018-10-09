@@ -164,7 +164,7 @@ class Mail extends Message implements PluginInterface
     
     public function template($template)
     {
-        $controller =  get_class($this->controller);
+        $controller =  is_object($this->controller) ? get_class($this->controller):'null';
         
         $event = new Event();
         $eventManager = $this->eventManager;

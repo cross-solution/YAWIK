@@ -120,9 +120,10 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemove()
     {
-        list($key, $entry) = each($this->entries);
+        $keys = array_keys($this->entries);
+        $entry = $this->entries[$keys[0]];
         $count = count($this->wrappedCollection);
-        $this->identityWrapper->remove($key);
+        $this->identityWrapper->remove($keys[0]);
         $this->assertSame($count - 1, count($this->identityWrapper));
         $this->assertSame($count - 1, count($this->wrappedCollection));
         $this->assertFalse($this->identityWrapper->contains($entry));
@@ -203,7 +204,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetOverwrite()
     {
-        list($key, $existentEntry) = each($this->entries);
+        $keys = array_keys($this->entries);
+        $existentEntry = $this->entries[$keys[0]];
+        $key = $keys[0];
         $newEntry = 'new-entry';
         $count = count($this->wrappedCollection);
         $this->identityWrapper->set($key, $newEntry);
@@ -514,7 +517,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetSetOverwrite()
     {
-        list($key, $existentEntry) = each($this->entries);
+        $keys = array_keys($this->entries);
+        $key = $keys[0];
+        $existentEntry = $this->entries[$key];
         $newEntry = 'new-entry';
         $count = count($this->wrappedCollection);
         $this->identityWrapper->offsetSet($key, $newEntry);
@@ -531,7 +536,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetUnset()
     {
-        list($key, $entry) = each($this->entries);
+        $keys = array_keys($this->entries);
+        $key = $keys[0];
+        $entry = $this->entries[$key];
         $count = count($this->wrappedCollection);
         $this->identityWrapper->offsetUnset($key);
         $this->assertSame($count - 1, count($this->identityWrapper));

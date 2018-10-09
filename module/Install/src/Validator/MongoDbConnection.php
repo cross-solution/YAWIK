@@ -81,6 +81,10 @@ class MongoDbConnection extends AbstractValidator
             $this->error(self::NO_CONNECTION);
 
             return false;
+        }catch (\Exception $e){
+            $this->databaseError = $e->getMessage();
+            $this->error(self::NO_CONNECTION);
+            return false;
         }
 
         return true;

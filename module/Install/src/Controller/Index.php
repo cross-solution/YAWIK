@@ -114,8 +114,21 @@ class Index extends AbstractActionController
 
         $data = $form->getData();
 
-        $userOk = $this->plugin('Install/UserCreator')->process($data['db_conn'], $data['username'], $data['password'], $data['email']);
-        $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn'], $data['email']);
+        try{
+            $options = [
+                'connection' => $data['db_conn'],
+            ];
+            $userOk = $this->plugin('Install/UserCreator',$options)->process($data['username'], $data['password'], $data['email']);
+            $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn'], $data['email']);
+        }catch (\Exception $exception){
+            /* @TODO: provide a way to handle global error message */
+            return $this->createJsonResponse([
+                'ok'        => false,
+                'errors'    => [
+                    'global' => [$exception->getMessage()]
+                ]
+            ]);
+        }
 
         /*
          * Make sure there's no cached config files
