@@ -80,8 +80,8 @@
         "friends-of-behat/cross-container-extension": "^0.3.0",
         "friends-of-behat/service-container-extension": "^0.3.0",
         "novaway/common-contexts": "dev-master",
-        "enm1989/chromedriver": "^2.35",
-        "behat/mink-extension": "^2.3"
+        "behat/mink-extension": "^2.3",
+        "enm1989/chromedriver": "2.35"
     },
     "scripts": {
         "post-install-cmd": [

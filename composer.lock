@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4b3de507d0cb722d59d819075d79491d",
-    "content-hash": "ddbe5a7a4a62c3bf68a978e0914c70ba",
+    "hash": "00e804ec06bf4eeb80dd28cb0a99dc36",
+    "content-hash": "ca77219c7176ef41338fce8e7373bc62",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -5081,16 +5081,16 @@
         },
         {
             "name": "enm1989/chromedriver",
-            "version": "2.42",
+            "version": "2.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ENM1989/chromedriver.git",
-                "reference": "56909a7452adc4eaaf4a334f1f9da47e94492440"
+                "reference": "ffdf8710c7af2344e8fd129a225f0a06569073b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ENM1989/chromedriver/zipball/56909a7452adc4eaaf4a334f1f9da47e94492440",
-                "reference": "56909a7452adc4eaaf4a334f1f9da47e94492440",
+                "url": "https://api.github.com/repos/ENM1989/chromedriver/zipball/ffdf8710c7af2344e8fd129a225f0a06569073b1",
+                "reference": "ffdf8710c7af2344e8fd129a225f0a06569073b1",
                 "shasum": ""
             },
             "bin": [
@@ -5099,7 +5099,7 @@
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache-2.0"
+                "Apache License Version 2.0"
             ],
             "authors": [
                 {
@@ -5115,7 +5115,7 @@
                 "selenium",
                 "webdriver"
             ],
-            "time": "2018-10-06 10:53:56"
+            "time": "2018-01-11 07:51:26"
         },
         {
             "name": "friends-of-behat/context-service-extension",
