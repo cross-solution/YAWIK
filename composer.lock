@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a8a4a6837444a8266e3041c2d0f4ea9",
-    "content-hash": "00b54b432fcc05feec5e207bd9ece527",
+    "hash": "bac338034dc26877c704ea67d1063a6f",
+    "content-hash": "ce64340b3efe85acc54d9a5f1d9f10b8",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5410,6 +5410,55 @@
                 "object graph"
             ],
             "time": "2017-10-19 19:58:43"
+        },
+        {
+            "name": "novaway/common-contexts",
+            "version": "2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/novaway/BehatCommonContext.git",
+                "reference": "b5349bd6a36c0e0ca71465a5349f8d68c1d1e102"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/novaway/BehatCommonContext/zipball/b5349bd6a36c0e0ca71465a5349f8d68c1d1e102",
+                "reference": "b5349bd6a36c0e0ca71465a5349f8d68c1d1e102",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~3.0",
+                "behat/mink-extension": "~2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "behat/mink-goutte-driver": "~1.1",
+                "behat/mink-selenium2-driver": "~1.2",
+                "kherge/box": "~2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Novaway\\CommonContexts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jérémy DECOOL"
+                }
+            ],
+            "description": "Novaway Behat common contexts",
+            "keywords": [
+                "BDD",
+                "Behat",
+                "Context",
+                "select2",
+                "symfony"
+            ],
+            "time": "2017-12-20 06:07:51"
         },
         {
             "name": "phpdocumentor/reflection-common",

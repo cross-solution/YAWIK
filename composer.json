@@ -78,7 +78,8 @@
         "lakion/mink-debug-extension": "^1.2.3",
         "se/selenium-server-standalone": "^2.52",
         "enm1989/chromedriver": "^2.35",
-        "behat/mink-extension": "^2.3"
+        "behat/mink-extension": "^2.3",
+        "novaway/common-contexts": "~2.0"
     },
     "scripts": {
         "post-install-cmd": [
