@@ -121,6 +121,6 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     public function testPreUpdate()
     {
         $this->target->preUpdate();
-        $this->assertEquals($this->target->getDate(), new \DateTime());
+        $this->assertEquals($this->target->getDate()->format('dmY H:i:s'), (new \DateTime())->format('dmY H:i:s'));
     }
 }

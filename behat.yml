@@ -12,15 +12,17 @@ default:
             clean_start: true
             screenshot: true
 
+        Novaway\CommonContexts\Extension: ~
+
         Behat\MinkExtension:
-            # change this base url value to match
-            # your local development server url:
-            base_url: "http://localhost:8000"
             files_path: "%paths.base%/module/Behat/resources/fixtures/"
+            #files_path: "/tmp/yawik/module/Behat/resources/fixtures/"
+            base_url: "http://localhost:8000"
             javascript_session: chrome
             sessions:
                 chrome:
                     selenium2:
+                        wd_host: "http://172.19.0.1:4444/wd/hub"
                         browser: chrome
                         capabilities:
                             browserName: chrome
@@ -32,22 +34,29 @@ default:
                                     - "--disable-gpu"
                                     - "--window-size=2000,2000"
                                     - "--lang=en"
-                                    - "--no-sandbox"
             show_auto: false
 
     gherkin:
-        filters:
-            tags: "~@social-profile"
+      filters:
+        tags: "~@social-profile"
 
     suites:
-        user:
+        default:
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - Yawik\Behat\CoreContext
                 - Yawik\Behat\OrganizationContext
                 - Yawik\Behat\SettingsContext
                 - Yawik\Behat\Select2Context
-                - Yawik\Behat\UserContext
+                - Yawik\Behat\UserContext:
+                      parameters:
+                          social_login_info:
+                              facebook:
+                                  email:  yawik_gclyuwx_user@tfbnw.net
+                                  pass:   y4w1ktest
+                              linkedin:
+                                  session_key-login:      test.yawik@gmail.com
+                                  session_password-login: y4w1ktest
                 - Yawik\Behat\JobContext
                 - Yawik\Behat\ApplicationContext
                 - Yawik\Behat\SummaryFormContext

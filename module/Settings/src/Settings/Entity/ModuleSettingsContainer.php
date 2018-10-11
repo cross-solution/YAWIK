@@ -45,7 +45,7 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
         return $this->_module;
     }
     
-    public function enableWriteAccess()
+    public function enableWriteAccess($recursive = true, array $skipMembers = array())
     {
         return parent::enableWriteAccess(true, array('module'));
     }

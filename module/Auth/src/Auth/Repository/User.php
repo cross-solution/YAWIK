@@ -94,7 +94,7 @@ class User extends AbstractRepository
      * @see \Core\Repository\AbstractRepository::create()
      * @return UserInterface
      */
-    public function create(array $data = null)
+    public function create(array $data = null, $persist=false)
     {
         $entity = parent::create($data);
         

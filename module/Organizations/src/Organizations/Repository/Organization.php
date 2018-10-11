@@ -193,11 +193,11 @@ class Organization extends AbstractRepository
     }
 	
 	/**
-	 * @param array|null $data
-	 *
+	 * @param array|null    $data
+	 * @param bool          $persist
 	 * @return \Organizations\Entity\Organization
 	 */
-    public function create(array $data = null)
+    public function create(array $data = null, $persist=false)
     {
         $entity = parent::create($data);
         $entity->isDraft(true);

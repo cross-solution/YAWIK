@@ -1,8 +1,8 @@
-<?php 
+<?php
 /**
  * YAWIK
  * View template of the Home site
- * 
+ *
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -11,70 +11,77 @@
 <?php $this->headTitle($this->translate('Home'))?>
 <h1></h1>
 <div class="jumbotron text-center">
-  <h1><?php echo $this->translate('Welcome to YAWIK!'); ?></h1>
-  <p><?php echo $this->translate("we're connecting recruiters and applicants");?></p>
-  <?php if(!$auth->isLoggedIn()):?>
-      <p><?php echo $this->translate("Login to an open source applicant tracking system using your favorit social network");?></p>
-      <p>
-      <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
-      <?php foreach ($this->socialButtons() as $provider => $name): ?>
-                <a class="login-link btn-social btn-<?php echo $provider?> btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
-      <?php endforeach ?>
-  <?php endif; ?>
-  </p>
+    <h1><?php echo $this->translate('Welcome to YAWIK!'); ?></h1>
+    <p><?php echo $this->translate("we're connecting recruiters and applicants");?></p>
+    <?php if(!$auth->isLoggedIn()):?>
+    <p><?php echo $this->translate("Login to an open source applicant tracking system using your favorit social network");?></p>
+    <p>
+        <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
+        <?php foreach ($this->socialButtons() as $provider => $name): ?>
+            <a class="login-link btn-social btn-<?php echo $provider?> btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
+        <?php endforeach ?>
+        <?php endif; ?>
+    </p>
 </div>
 <div class="container col-md-4">
-<aside class="panel panel-info">
-  <div class="panel-heading">Features</div>
-  <div class="panel-body ">
-   <ul>
-   <li><?php echo $this->translate("responsive design (uses bootstrap3 and font awesome)")?></li>
-   <li><a href="https://www.transifex.com/projects/p/yawik/"><?php echo $this->translate("multilingual")?></a></li>
-   <li><?php echo $this->translate("ready for social recruiting")?></li>
-   <li><?php echo $this->translate("enter job ads")?></li>
-   <li><?php echo sprintf($this->translate('%sapplication forms%s.'), 
-       '<a href="https://youtu.be/peoO-RVJM_0">',
-       '</a>') ?>
-   </li>
-       <li><?php echo sprintf("%s".$this->translate('One-Click-Apply')."%s", '<a href="http://yawik.readthedocs.io/en/latest/modules/jobs/index.html#one-click-apply">','</a>') ?></li>
-       <li><?php echo $this->translate("manage applications")?></li>
-   <li><?php echo $this->translate("open and free software")?></li>
-   </ul>
-  </div>
-</aside>
+    <aside class="panel panel-info">
+        <div class="panel-heading">Features</div>
+        <div class="panel-body ">
+            <ul>
+                <li><?php echo $this->translate("responsive design (uses bootstrap3 and font awesome)")?></li>
+                <li><a href="https://www.transifex.com/projects/p/yawik/"><?php echo $this->translate("multilingual")?></a></li>
+                <li><?php echo $this->translate("ready for social recruiting")?></li>
+                <li><?php echo $this->translate("enter job ads")?></li>
+                <li><?php echo sprintf($this->translate('%sapplication forms%s.'),
+                        '<a href="https://youtu.be/peoO-RVJM_0">',
+                        '</a>') ?>
+                </li>
+                <li><?php echo sprintf("%s".$this->translate('One-Click-Apply')."%s", '<a href="http://yawik.readthedocs.io/en/latest/modules/jobs/index.html#one-click-apply">','</a>') ?></li>
+                <li><?php echo $this->translate("manage applications")?></li>
+                <li><?php echo $this->translate("open and free software")?></li>
+            </ul>
+        </div>
+    </aside>
+</div>
+<?php
+/*
+ * Disable feed reader during development
+ * Make a faster behat tests ;-)
+ */
+if(getenv('APPLICATION_ENV')!='development'):
+?>
+<div class="container col-md-4">
+    <aside class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?php echo $this->translate("Developer News")?></h3>
+        </div>
+        <div class="panel-body">
+            <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents("https://github.com/cross-solution/CrossApplicantManager/commits/master.atom"));?>
+            <ul>
+                <?php foreach($news as $item):?>
+                    <li>
+                        <a href="<?php echo $item->getLink()?>"><?php echo $item->getTitle()?></a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
+    </aside>
 </div>
 <div class="container col-md-4">
-<aside class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title"><?php echo $this->translate("Developer News")?></h3>
-  </div>
-  <div class="panel-body">
-  <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents("https://github.com/cross-solution/CrossApplicantManager/commits/master.atom"));?>
-  <ul>  
-  <?php foreach($news as $item):?>
-  <li>
-   <a href="<?php echo $item->getLink()?>"><?php echo $item->getTitle()?></a>
-  </li>
-  <?php endforeach;?>
-  </ul>
-  </div>
-</aside>
+    <aside class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?php echo $this->translate("Recruiter News")?></h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents('http://yawik.org/feed/'));?>
+                <?php foreach($news as $item):?>
+                    <li>
+                        <a href="<?php echo $item->getLink()?>"><?php echo $item->getTitle()?></a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
+    </aside>
 </div>
-<div class="container col-md-4">
-<aside class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title"><?php echo $this->translate("Recruiter News")?></h3>
-  </div>
-  <div class="panel-body">
-  <ul>
-  <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents('http://yawik.org/feed/'));?>
-  <?php foreach($news as $item):?>
-  <li>
-   <a href="<?php echo $item->getLink()?>"><?php echo $item->getTitle()?></a>
-  </li>
-  <?php endforeach;?>
-  </ul>
-  </div>
-</aside>
-</div>
-
+<?php endif ?>
