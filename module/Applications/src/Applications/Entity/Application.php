@@ -38,7 +38,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Refering job
      *
      * @var JobInterface
-     * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
+     * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", storeAs="id", inversedBy="applications")
      * @ODM\Index
      */
     protected $job;
@@ -47,7 +47,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * User, who owns the application
      *
      * @var UserInterface
-     * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", storeAs="id")
      * @ODM\Index
      */
     protected $user;
@@ -97,7 +97,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     /**
      * multiple Attachments of an application
      *
-     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist", "remove"})
+     * @ODM\ReferenceMany(targetDocument="Attachment", storeAs="id", cascade={"persist", "remove"})
      */
     protected $attachments;
     
@@ -105,7 +105,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Searchable keywords.
      *
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      */
     protected $keywords;
     
@@ -122,14 +122,14 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * application.
      *
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      */
     protected $readBy = array();
      
     /**
      * Refering subscriber (Where did the application origin from).
      *
-     * @ODM\ReferenceOne(targetDocument="Subscriber", cascade={"persist"}, simple=true)
+     * @ODM\ReferenceOne(targetDocument="Subscriber", cascade={"persist"}, storeAs="id")
      */
     protected $subscriber;
     
@@ -180,7 +180,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Flag indicating draft state of this application.
      *
      * @var bool
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      */
     protected $isDraft = false;
     

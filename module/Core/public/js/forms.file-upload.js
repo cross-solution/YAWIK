@@ -80,7 +80,7 @@
 			}
 		});
 		
-		$('.multi-file-upload').each(function() {
+		$('.multi-file-upload, .single-file-upload').each(function() {
 			var $form = $(this);
 			
 			$form.find('.fu-remove-all').click(function() {

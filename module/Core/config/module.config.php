@@ -17,6 +17,7 @@ use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
 use Zend\I18n\Translator\Resources;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -447,10 +448,15 @@ return array(
         'invokables' => array(
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
         ),
-        'factories' => array(
+        'factories' => [
             "Core/XssFilter" => 'Core\Filter\XssFilterFactory',
             "Core/HtmlAbsPathFilter" => 'Core\Factory\Filter\HtmlAbsPathFilterFactory',
-        ),
+            Filter\File\Entity::class => Filter\File\EntityFactory::class,
+            Filter\File\Resize::class => Filter\File\ResizeFactory::class,
+        ],
+        'aliases' => [
+            'FileEntity' => Filter\File\Entity::class,
+        ],
     ),
     
     'form_elements' => array(

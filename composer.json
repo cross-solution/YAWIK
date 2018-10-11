@@ -51,14 +51,14 @@
         "zendframework/zend-log": "^2.9",
         "zendframework/zend-serializer": "^2.8",
         "doctrine/doctrine-mongo-odm-module": "*",
-        "hybridauth/hybridauth": "^2.9",
+        "hybridauth/hybridauth": "^2.10",
         "mpdf/mpdf": "5.7.*",
         "tinymce/tinymce": "4.5.*",
         "mikemix/zf2htmlpurifier": "*",
         "jmikola/geojson": "*",
         "mikey179/vfsStream": "*",
         "tracy/tracy": "^2.4",
-        "imagine/imagine": "*",
+        "imagine/imagine": "^1.0",
         "zendframework/zend-progressbar": "^2.5",
         "zendframework/zend-math": "^3.0",
         "zendframework/zend-captcha": "^2.7",
@@ -80,8 +80,8 @@
         "friends-of-behat/cross-container-extension": "^0.3.0",
         "friends-of-behat/service-container-extension": "^0.3.0",
         "novaway/common-contexts": "dev-master",
-        "enm1989/chromedriver": "^2.35",
-        "behat/mink-extension": "^2.3"
+        "behat/mink-extension": "^2.3",
+        "enm1989/chromedriver": "2.35"
     },
     "scripts": {
         "post-install-cmd": [

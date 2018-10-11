@@ -15,7 +15,7 @@ if ($job instanceOf \Jobs\Entity\JobSnapshot) {
     $query = ['id' => $job->getId()];
 }
 
-$viewLink = $this->jobUrl($job, ['linkOnly' => true ]);
+$viewLink = $this->jobUrl($job, ['linkOnly' => true, 'preview' => true ]);
 
 $query['page'] = 0;
 $multipostLink = $this->url(

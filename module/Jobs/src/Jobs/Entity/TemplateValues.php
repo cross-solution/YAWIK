@@ -90,7 +90,7 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
     /**
      * free values (currently not in use)
      *
-     * @ODM\Hash
+     * @ODM\Field(type="hash")
      */
     protected $_freeValues;
 

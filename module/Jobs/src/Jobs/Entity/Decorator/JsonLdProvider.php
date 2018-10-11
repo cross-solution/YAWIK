@@ -47,7 +47,7 @@ class JsonLdProvider implements JsonLdProviderInterface
     public function toJsonLd()
     {
         $organization = $this->job->getOrganization();
-        $organizationName = $organization ? $organization->getOrganizationName()->getName() : '';
+        $organizationName = $organization ? $organization->getOrganizationName()->getName() : $this->job->getCompany();
 
         $dateStart = $this->job->getDatePublishStart();
         $dateStart = $dateStart ? $dateStart->format('Y-m-d') : null;
@@ -71,7 +71,8 @@ class JsonLdProvider implements JsonLdProviderInterface
                 // 'logo' => $this->job->getOrganization()->getImage()->getUri(),
             ],
             'jobLocation' => $this->getLocations($this->job->getLocations()),
-            'employmentType' => $this->job->getClassifications()->getEmploymentTypes()->getValues()
+            'employmentType' => $this->job->getClassifications()->getEmploymentTypes()->getValues(),
+            'validThrough' => $this->job->getDatePublishEnd()
         ];
 
         return Json::encode($array);
@@ -80,7 +81,7 @@ class JsonLdProvider implements JsonLdProviderInterface
     /**
      * Generates a location array
      *
-     * @param Collection $locations
+     * @param Collection $locations,
      *
      * @return array
      */
@@ -93,6 +94,7 @@ class JsonLdProvider implements JsonLdProviderInterface
                     '@type' => 'Place',
                     'address' => [
                         '@type' => 'PostalAddress',
+                        'streetAddress' => $location->getStreetname() .' '.$location->getStreetnumber(),
                         'postalCode' => $location->getPostalCode(),
                         'addressLocality' => $location->getCity(),
                         'addressCountry' => $location->getCountry(),

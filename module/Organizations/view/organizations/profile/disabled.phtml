@@ -1,0 +1,16 @@
+<?php
+?>
+<div class="row">
+    <div class="col-md-2">
+        <?php if($organization->getImages()->notEmpty('images')): ?>
+            <img src="<?php echo $this->basePath($this->organizationImageCache->getUri($organization->getImages()->get('thumbnail'))) ?>">
+        <?php else: ?>
+            <span class="yk-icon fa-file-image-o fa-5x"></span>
+        <?php endif;?>
+    </div>
+    <div class="col-md-10">
+        <h1><?php echo $organization->getName()?></h1>
+        <p><?=$this->translate('This profile is disabled.')?></p>
+
+    </div>
+</div>

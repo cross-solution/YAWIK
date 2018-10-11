@@ -133,7 +133,7 @@ class ProfileController extends AbstractActionController
             Organization::PROFILE_DISABLED == $organization->getProfileSetting()
             || is_null($organization->getProfileSetting())
         ){
-            throw new UnauthorizedAccessException(/*@translate*/ 'This Organization Profile is disabled');
+            return $this->disabledProfileViewModel($organization);
         }
 
         $result = $this->pagination([
@@ -158,7 +158,7 @@ class ProfileController extends AbstractActionController
             $paginator = $result['jobs'];
             $count = $paginator->getTotalItemCount();
             if(0===$count){
-                throw new UnauthorizedAccessException($this->translator->translate('This Organization Profile is disabled'));
+                return $this->disabledProfileViewModel($organization);
             }
         }
         $result['organization'] = $organization;
@@ -167,5 +167,16 @@ class ProfileController extends AbstractActionController
         /* @var \Zend\Mvc\Controller\Plugin\Url $url */
         $result['paginationControlRoute'] = 'lang/organizations/profileDetail';
         return new ViewModel($result);
+    }
+
+    private function disabledProfileViewModel($organization)
+    {
+        $model = new ViewModel([
+            'organizationImageCache' => $this->imageFileCacheManager,
+            'organization' => $organization,
+        ]);
+        $model->setTemplate('organizations/profile/disabled');
+
+        return $model;
     }
 }

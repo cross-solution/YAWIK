@@ -30,7 +30,7 @@ class Employee extends AbstractEntity implements EmployeeInterface
      * The user entity
      *
      * @var \Auth\Entity\UserInterface
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id")
      */
     protected $user;
 

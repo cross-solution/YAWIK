@@ -48,7 +48,7 @@ class Facts extends AbstractEntity implements FactsInterface
     /**
      * The drivingLicense
      *
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      * @var bool
      */
     protected $drivingLicense;

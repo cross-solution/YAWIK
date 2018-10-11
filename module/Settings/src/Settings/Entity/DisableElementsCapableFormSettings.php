@@ -34,7 +34,7 @@ class DisableElementsCapableFormSettings extends SettingsContainer
     /**
      * The array of the disabled elements.
      *
-     * @ODM\Hash(nullable = true)
+     * @ODM\Field(type="hash", nullable = true)
      * @var array
      * @see \Core\Form\DisableElementsCapableInterface::disableElements()
      */
@@ -43,7 +43,7 @@ class DisableElementsCapableFormSettings extends SettingsContainer
     /**
      * Should this form settings considered active?
      *
-     * @ODM\Boolean
+     * @ODM\Field(type="boolean")
      * @var bool
      */
     protected $isActive = false;

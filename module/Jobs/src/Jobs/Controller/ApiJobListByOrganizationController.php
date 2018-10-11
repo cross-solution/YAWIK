@@ -3,15 +3,16 @@
 namespace Jobs\Controller;
 
 use Jobs\Model\ApiJobDehydrator;
-use Jobs\Repository\Job;
+use Jobs\Repository;
 use Zend\Http\PhpEnvironment\Response;
+use Zend\InputFilter\InputFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
 class ApiJobListByOrganizationController extends AbstractActionController
 {
     /**
-     * @var Job
+     * @var Repository\Job
      */
     private $jobRepository;
 
@@ -20,17 +21,26 @@ class ApiJobListByOrganizationController extends AbstractActionController
      */
     private $apiJobDehydrator;
 
+    /**
+     * @var InputFilter
+     */
+    private $filter;
+
+
     public function __construct(
-        Job $jobRepository,
-        ApiJobDehydrator $apiJobDehydrator
+        Repository\Job $jobRepository,
+        ApiJobDehydrator $apiJobDehydrator,
+        InputFilter $filter
     ) {
         $this->jobRepository = $jobRepository;
         $this->apiJobDehydrator = $apiJobDehydrator;
+        $this->filter = $filter;
     }
 
     public function indexAction()
     {
         $organizationId = $this->params()->fromRoute('organizationId', 0);
+        $callback = $this->filter->setData($_GET)->getValue('callback');
 
         try {
             $jobs = $this->jobRepository->findByOrganization($organizationId);
@@ -42,7 +52,7 @@ class ApiJobListByOrganizationController extends AbstractActionController
         }
         $jsonModel=new JsonModel();
         $jsonModel->setVariables($this->apiJobDehydrator->dehydrateList($jobs));
-        $jsonModel->setJsonpCallback('yawikParseJobs');
+        $jsonModel->setJsonpCallback($callback);
 
         return $jsonModel;
     }

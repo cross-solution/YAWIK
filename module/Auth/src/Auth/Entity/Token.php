@@ -35,7 +35,7 @@ class Token extends AbstractIdentifiableEntity
      * Expiration date of token
      *
      * @var \Datetime
-     * @ODM\Date
+     * @ODM\Field(type="date")
      */
     protected $expirationDate;
 

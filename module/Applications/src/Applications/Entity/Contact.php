@@ -33,7 +33,7 @@ class Contact extends Info
      * redeclared here.
      *
      * @var \Core\Entity\FileInterface
-     * @ODM\ReferenceOne(targetDocument="Attachment", simple=true, nullable=true, cascade={"persist", "update", "remove"}, orphanRemoval=true)
+     * @ODM\ReferenceOne(targetDocument="Attachment", storeAs="id", nullable=true, cascade={"persist", "update", "remove"}, orphanRemoval=true)
      */
     protected $image;
     

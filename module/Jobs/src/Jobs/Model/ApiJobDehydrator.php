@@ -11,38 +11,63 @@ namespace Jobs\Model;
 
 use Jobs\Entity\Job;
 use Zend\View\Helper\Url;
+use Jobs\View\Helper\JobUrl;
 
 class ApiJobDehydrator
 {
     /**
-     * Url View Helper
+     * ViewHelper for generating an url
      *
-     * @var url URL
+     * @var Url $url
      */
     protected $url;
 
+  /**
+   * ViewHelper for generating an url to a job posting
+   *
+   * @var JobUrl $jobUrl
+   */
+    protected $jobUrl;
+
+    /**
+     * @param Url $url
+     *
+     * @return $this
+     */
     public function setUrl($url)
     {
         $this->url = $url;
         return $this;
     }
 
+   /**
+    * @param JobUrl $url
+    *
+    * @return $this
+    */
+    public function setJobUrl($url)
+    {
+        $this->jobUrl = $url;
+        return $this;
+    }
+
     /**
      * @param Job $job
+     *
      * @return array
      */
     public function dehydrate(Job $job)
     {
         return array(
+            'datePublishStart' => $job->getDatePublishStart(),
             'title' => $job->getTitle(),
             'location' => $job->getLocation(),
-            'link' => $this->url->__invoke(
-                'lang/jobs/view',
-                [],
-                [
-                    'query'=>['id' => $job->getId()],
-                    'force_canonical'=>true
-                ]),
+            'link' => $this->jobUrl->__invoke(
+                $job,[
+                  'linkOnly'=> true,
+                  'absolute' => true,
+                ]
+            ),
             'organization' => array(
                 'name' => $job->getOrganization()->getOrganizationName()->getName(),
             ),

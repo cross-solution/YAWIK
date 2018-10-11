@@ -37,7 +37,7 @@ class Point extends  GeoJsonPoint
      * Coordinates
      *
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      */
     protected $coordinates;
 }

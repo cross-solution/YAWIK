@@ -30,7 +30,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     /**
      * owner of an attachment. Typically this is the candidate who applies for a joboffer.
      *
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) */
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id") */
     protected $user;
     
     

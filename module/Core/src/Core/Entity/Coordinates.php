@@ -35,7 +35,7 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
      * This is an array which format depends on the $type being used.
      *
      * @var array
-     * @ODM\Collection
+     * @ODM\Field(type="collection")
      */
     protected $coordinates;
 

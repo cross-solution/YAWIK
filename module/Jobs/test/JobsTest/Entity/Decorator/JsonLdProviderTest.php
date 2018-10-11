@@ -55,7 +55,11 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         $organization = new Organization();
         $name = new OrganizationName('test');
         $organization->setOrganizationName($name);
-        if ($withOrganization) { $job->setOrganization($organization); }
+        if ($withOrganization) {
+            $job->setOrganization($organization);
+        }else{
+            $job->setCompany("Company Name");
+        }
         $job->setTitle('Test JsonLdProvider');
         if ($withDatePublishStart) { $job->setDatePublishStart(new \DateTime()); }
         $locations = new ArrayCollection();
@@ -94,7 +98,7 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         $array = json_decode($json, JSON_OBJECT_AS_ARRAY);
         
         $this->assertTrue(isset($array['hiringOrganization']['name']));
-        $this->assertEquals('', $array['hiringOrganization']['name']);
+        $this->assertEquals('Company Name', $array['hiringOrganization']['name']);
 
         $this->assertNull($array['datePosted']);
     }
