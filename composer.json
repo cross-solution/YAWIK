@@ -1,5 +1,5 @@
 {
-    "name": "cross-solution/yawik",
+    "name": "yawik/test",
     "type": "project",
     "description": "Web based applicant tracking system for managing jobs and applications",
     "authors": [
@@ -89,6 +89,11 @@
     "autoload": {
         "psr-4": {
             "Yawik\\Behat\\": "module/Behat/src"
+        }
+    },
+    "config": {
+        "platform": {
+            "ext-mongo": "1.6.16"
         }
     }
 }
