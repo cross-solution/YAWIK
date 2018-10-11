@@ -90,5 +90,10 @@
         "psr-4": {
             "Yawik\\Behat\\": "module/Behat/src"
         }
+    },
+    "config": {
+        "platform": {
+            "ext-mongo": "1.6.16"
+        }
     }
 }
