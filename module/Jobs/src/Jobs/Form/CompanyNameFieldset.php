@@ -13,9 +13,6 @@ namespace Jobs\Form;
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
-use Jobs\Entity\JobInterface;
-use Organizations\Entity\EmployeeInterface;
-use string;
 use Zend\Form\Fieldset;
 
 /**
@@ -28,6 +25,7 @@ class CompanyNameFieldset extends Fieldset implements HeadscriptProviderInterfac
     use ViewPartialProviderTrait;
 
     private $defaultPartial = 'jobs/form/company-name-fieldset';
+
     /**
      *
      *

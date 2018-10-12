@@ -139,7 +139,7 @@ class MailServiceOptions extends SmtpOptions
      */
     public function getPath()
     {
-        if(is_null($this->path)){
+        if(is_null($this->path) || false == $this->path){
             $this->setPath(sys_get_temp_dir().'/yawik/mails');
         }
         return $this->path;
@@ -151,7 +151,7 @@ class MailServiceOptions extends SmtpOptions
      */
     public function setPath($path)
     {
-        if(!is_dir($path)){
+        if(!is_dir($path) && false !== $path){
             mkdir($path,0777,true);
             chmod($path,0777);
         }

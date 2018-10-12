@@ -12,6 +12,8 @@ default:
             clean_start: true
             screenshot: true
 
+        Novaway\CommonContexts\Extension: ~
+
         Behat\MinkExtension:
             # change this base url value to match
             # your local development server url:
@@ -32,6 +34,7 @@ default:
                                     - "--disable-gpu"
                                     - "--window-size=2000,2000"
                                     - "--lang=en"
+                                    - "--no-sandbox"
             show_auto: false
 
     gherkin:
