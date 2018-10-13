@@ -10,7 +10,7 @@ $hasFacets = $jobs instanceof \Solr\FacetsProviderInterface;
 ?>
 <?php
 //@TODO: [ZF3] the line below caused an error in ZF3
-//$this->proxy('jobsByMailSubscriptionForm')->render($jobs)
+$this->proxy('jobsByMailSubscriptionForm')->render($jobs)
 ?>
 <?php if ($hasFacets):?>
 	<?php
