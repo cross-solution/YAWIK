@@ -12,7 +12,7 @@ use Auth\Entity\AnonymousUser;
 use Auth\Entity\Info;
 use Auth\Entity\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 

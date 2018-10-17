@@ -86,14 +86,41 @@
             "chmod +x ./install.sh && ./install.sh"
         ]
     },
-    "autoload": {
-        "psr-4": {
-            "Yawik\\Behat\\": "module/Behat/src"
-        }
-    },
     "config": {
         "platform": {
             "ext-mongo": "1.6.16"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Applications\\": "module/Applications/src",
+            "Auth\\": "module/Auth/src/Auth",
+            "Acl\\": "module/Auth/src/Acl",
+            "Core\\": "module/Core/src",
+            "Cv\\": "module/Cv/src",
+            "Geo\\": "module/Geo/src",
+            "Install\\": "module/Install/src",
+            "Jobs\\": "module/Jobs/src",
+            "Organizations\\": "module/Organizations/src",
+            "Pdf\\": "module/Pdf/src",
+            "Settings\\": "module/Settings/src",
+            "Yawik\\Behat\\": "module/Behat/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "ApplicationsTest\\": "module/Applications/test",
+            "AuthTest\\": "module/Auth/test",
+            "CoreTest\\": "module/Core/test",
+            "CoreTestUtils\\": "module/Core/test",
+            "CvTest\\": "module/Cv/test",
+            "GeoTest\\": "module/Geo/test",
+            "InstallTest\\": "module/Install/test",
+            "JobsTest\\": "module/Jobs/test",
+            "OrganizationsTest\\": "module/Organizations/test",
+            "PdfTest\\": "module/Pdf/test",
+            "SettingsTest\\": "module/Settings/test",
+            "Yawik\\Behat\\": "module/Behat/src"
         }
     }
 }

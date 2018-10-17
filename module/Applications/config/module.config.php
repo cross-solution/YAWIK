@@ -31,7 +31,7 @@ return [
                 * for multiple paths.
                 * example https://github.com/doctrine/DoctrineORMModule
                 */
-               'paths' => [ __DIR__ . '/../src/Applications/Entity']
+               'paths' => [ __DIR__ . '/../src/Entity']
             ],
         ],
         'eventmanager' => [
@@ -84,18 +84,18 @@ return [
            'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
         ]
     ],
-	
+    
     'controllers' => [
         'invokables' => [
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
         ],
-	    'factories' => [
-		    'Applications/Controller/Manage' => [ManageController::class,'factory'],
-		    'Applications\Controller\Apply' => [ApplyController::class,'factory'],
-		    'Applications/CommentController' => [CommentController::class,'factory'],
-		    'Applications/Console' => [ConsoleController::class,'factory'],
-	    ]
+        'factories' => [
+            'Applications/Controller/Manage' => [ManageController::class,'factory'],
+            'Applications\Controller\Apply' => [ApplyController::class,'factory'],
+            'Applications/CommentController' => [CommentController::class,'factory'],
+            'Applications/Console' => [ConsoleController::class,'factory'],
+        ]
     ],
     
     'acl' => [
@@ -148,7 +148,7 @@ return [
             ],
         ],
     ],
-	
+    
     'translator' => [
         'translation_file_patterns' => [
             [

@@ -9,7 +9,7 @@
 
 namespace Jobs\Factory\Service;
 
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 /**
  * Class JobsPublisherFactoryTest

@@ -11,7 +11,7 @@ namespace AuthTest\Factory\Controller;
 
 use Auth\Factory\Controller\RegisterControllerFactory;
 use Auth\Options\ModuleOptions;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class RegisterControllerFactoryTest extends \PHPUnit_Framework_TestCase

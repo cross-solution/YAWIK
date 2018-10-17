@@ -23,7 +23,7 @@ return [
                  * for multiple paths.
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
-                'paths' => [ __DIR__ . '/../src/Cv/Entity'],
+                'paths' => [ __DIR__ . '/../src/Entity'],
             ],
         ],
         'eventmanager' => [
@@ -219,10 +219,10 @@ return [
     ],
     
     'input_filters' => [
-	    'aliases' => [
-	    	'Cv/Employment' => Employment::class,
-		    'Cv/Education' => Education::class
-	    ],
+        'aliases' => [
+            'Cv/Employment' => Employment::class,
+            'Cv/Education' => Education::class
+        ],
         'invokables' => [
             'Cv/Employment' => Employment::class,
             'Cv/Education' => Education::class

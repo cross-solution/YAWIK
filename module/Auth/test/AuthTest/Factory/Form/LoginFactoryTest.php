@@ -10,7 +10,7 @@
 namespace AuthTest\Factory\Form;
 
 use Auth\Factory\Form\LoginFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 class LoginFactoryTest extends \PHPUnit_Framework_TestCase
 {

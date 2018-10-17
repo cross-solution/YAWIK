@@ -9,7 +9,7 @@
 
 namespace AuthTest\Controller;
 
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Auth\AuthenticationService;
 use Auth\Controller\PasswordController;
 use Auth\Form\UserPassword;

@@ -12,7 +12,7 @@ namespace AuthTest\Factory\Listener;
 use Auth\Factory\Listener\ExceptionStrategyFactory;
 use Auth\Listener\UnauthorizedAccessListener;
 use Auth\Listener\DeactivatedUserListener;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 class ExceptionStrategyFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,8 +31,8 @@ class ExceptionStrategyFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateService($canonicalName, $expectedInstance)
     {
-		$sm = clone Bootstrap::getServiceManager();
-		$this->assertInstanceOf($expectedInstance, $this->factory->__invoke($sm, $canonicalName));
+        $sm = clone Bootstrap::getServiceManager();
+        $this->assertInstanceOf($expectedInstance, $this->factory->__invoke($sm, $canonicalName));
     }
     
     /**
@@ -43,7 +43,7 @@ class ExceptionStrategyFactoryTest extends \PHPUnit_Framework_TestCase
     public function testStatusThrowsExceptionIfInvalidStatusPassed($canonicalName)
     {
         $sm = clone Bootstrap::getServiceManager();
-		$this->factory->__invoke($sm, $canonicalName);
+        $this->factory->__invoke($sm, $canonicalName);
     }
     
     public function canonicalNames()

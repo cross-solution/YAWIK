@@ -10,7 +10,7 @@
 namespace AuthTest\Factory\Service;
 
 use Auth\Factory\Service\GotoResetPasswordFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 class GotoResetPasswordFactoryTest extends \PHPUnit_Framework_TestCase
 {
