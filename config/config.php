@@ -1,6 +1,7 @@
 <?php
 
 use Zend\Stdlib\ArrayUtils;
+use Core\Application;
 
 /**
  * YAWIK
@@ -12,16 +13,15 @@ use Zend\Stdlib\ArrayUtils;
 
 $env = getenv('APPLICATION_ENV') ?: 'production';
 
-$coreModules = include 'common.modules.php';
 if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
-    $modules = array_merge($coreModules,[
+    $modules = [
         'Install',
         'Core',
         'Auth',
         'Jobs',
-    ]);
+    ];
 } else {
-    $modules = array_merge($coreModules,[
+    $modules =[
         'Core',
         'Auth',
         'Cv',
@@ -31,21 +31,22 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
         'Pdf',
         'Geo',
         'Organizations',
-    ]);
+    ];
 
     if (!isset($allModules)) {
         // allModules existiert nur, damit man verschiedene Konfigurationen auf dem gleichen System laufen lassen
         // kann und über Server-Variablen oder ähnlichen steuern kann
-        $allModules = False;
+        $allModules = false;
     }
     foreach (glob(__DIR__ . '/autoload/*.module.php') as $moduleFile) {
         $addModules = require $moduleFile;
         foreach ($addModules as $addModule) {
             if (strpos($addModule, '-') === 0) {
-                $remove = substr($addModule,1);
-                $modules = array_filter($modules, function ($elem) use ($remove) { return strcasecmp($elem,$remove); });
-            }
-            else {
+                $remove = substr($addModule, 1);
+                $modules = array_filter($modules, function ($elem) use ($remove) {
+                    return strcasecmp($elem, $remove);
+                });
+            } else {
                 if (!in_array($addModule, $modules)) {
                     $modules[] = $addModule;
                 }
@@ -54,6 +55,7 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     }
 }
 
+$modules = Application::generateModuleConfiguration($modules);
 $config = array(
     'environment' => $env,
 
@@ -69,7 +71,7 @@ $config = array(
         ),
     
     
-        // What configuration files should be autoloaded 
+        // What configuration files should be autoloaded
         'config_glob_paths' => array(
             sprintf('config/autoload/{,*.}{global,%s,local}.php', $env)
         ),
