@@ -18,7 +18,7 @@
         }
     ],
     "keywords": [
-        "yawik", "module"
+        "yawik", "module", "zf"
     ],
     "require": {
         "yawik/core": "^0.32@dev"
@@ -31,6 +31,9 @@
     "extra": {
         "branch-alias": {
             "dev-develop": "0.32-dev"
+        },
+        "zf": {
+            "module": "Applications"
         }
     }
 }

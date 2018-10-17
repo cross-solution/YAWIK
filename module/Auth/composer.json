@@ -18,19 +18,23 @@
         }
     ],
     "keywords": [
-        "yawik", "module"
+        "yawik", "module", "zf"
     ],
     "require": {
         "yawik/core": "^0.32@dev"
     },
     "autoload": {
-        "psr-0": {
-            "*": "src/"
+        "psr-4": {
+            "Auth\\": "src/Auth/",
+            "Acl\\": "src/Acl/"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-develop": "0.32-dev"
+        },
+        "zf": {
+            "module": "Auth"
         }
     }
 }
