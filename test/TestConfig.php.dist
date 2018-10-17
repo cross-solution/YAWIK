@@ -1,5 +1,7 @@
 <?php
-$commonModules = include __DIR__.'/../config/common.modules.php';
+
+use Core\Application;
+
 return array(
     'doctrine' => array(
         'configuration' => array(
@@ -8,7 +10,7 @@ return array(
             ),
         ),
     ),
-    'modules' => array_merge($commonModules,[
+    'modules' => Application::generateModuleConfiguration([
 	    'Install',
 	    'Core',
 	    'Auth',
@@ -26,7 +28,7 @@ return array(
         ),
 
         'config_glob_paths' => array(
-            __DIR__  .  '/../test/config/{,*.}{global,local}.php',
+            __DIR__  .  '/config/{,*.}{global,local}.php',
         ),
     )
 );
