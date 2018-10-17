@@ -28,17 +28,20 @@ class Bootstrap
     protected static $config;
     protected static $bootstrap;
 
+    /**
+     * @param array $testConfig
+     */
     public static function init($testConfig = array())
     {
         error_reporting(E_ALL | E_STRICT);
 
         if (empty($testConfig)) {
             // Load the user-defined test configuration file, if it exists; otherwise, load
-            if (is_readable(__DIR__ . '/TestConfig.php')) {
-                $testConfig = include __DIR__ . '/TestConfig.php';
-            } else {
-                $testConfig = include __DIR__ . '/TestConfig.php.dist';
+            $fileName = getcwd().'/test/TestConfig.php';
+            if (!is_readable($fileName)) {
+                $fileName = getcwd() . '/test/TestConfig.php.dist';
             }
+            $testConfig = include $fileName;
         }
 
         $zf2ModulePaths = array();
