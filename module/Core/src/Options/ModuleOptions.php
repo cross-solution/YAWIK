@@ -394,6 +394,10 @@ class ModuleOptions extends AbstractOptions
         if (is_null($this->logDir)) {
             $this->setLogDir(getcwd().DIRECTORY_SEPARATOR.'log');
         }
+        if (!is_dir($this->logDir)) {
+            mkdir($this->logDir, 0755, true);
+        }
+        $this->logDir = realpath($this->logDir);
         return $this->logDir;
     }
 

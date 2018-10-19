@@ -139,8 +139,9 @@ EOT
         $rows = [];
         $exitCode = 0;
         $copyUsed = false;
+        $publicDir = $input->getArgument('target');
         foreach ($this->assets as $name => $originDir) {
-            $targetDir = $this->publicDir.DIRECTORY_SEPARATOR.$name;
+            $targetDir = $publicDir.DIRECTORY_SEPARATOR.$name;
             $message = $name;
             try {
                 $this->filesystem->remove($targetDir);

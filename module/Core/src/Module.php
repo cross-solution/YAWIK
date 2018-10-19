@@ -81,7 +81,11 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
 
         $coreOptions = $sm->get('Core/Options');
         $tracyConfig = $sm->get('Config')['tracy'];
-        $tracyConfig['log'] = $coreOptions->getLogDir().'/tracy';
+        $logDir = $coreOptions->getLogDir().'/tracy';
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0755, true);
+        }
+        $tracyConfig['log'] = $logDir;
 
         (new TracyService())->register($tracyConfig);
         (new TracyListener())->attach($eventManager);

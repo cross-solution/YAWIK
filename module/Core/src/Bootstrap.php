@@ -77,14 +77,17 @@ class Bootstrap
         if (empty($appConfig)) {
             // Retrieve configuration
             $file = null;
-            if(is_file($test = getcwd(). '/config/config.php')){
+            if (is_file($test = getcwd().'/test/config/config.php')) {
                 $file = $test;
-            }elseif(is_file($test = __DIR__.'/../config/config.php')){
+            } elseif (is_file($test = getcwd(). '/config/config.php')) {
                 $file = $test;
-            }elseif(is_file($test = __DIR__.'/../../../../config/config.php')){
+            } elseif (is_file($test = __DIR__.'/../config/config.php')) {
                 $file = $test;
-            }else{
-                fwrite(STDERR,
+            } elseif (is_file($test = __DIR__.'/../../../../config/config.php')) {
+                $file = $test;
+            } else {
+                fwrite(
+                    STDERR,
                     'You must set up the project dependencies, run the following commands:'.PHP_EOL.
                     'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
                     'php composer.phar install'.PHP_EOL

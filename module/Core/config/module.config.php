@@ -47,7 +47,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => 'log/yawik.log',
+                         'stream' => getcwd().'/log/yawik.log',
                     ),
                  ),
             ),
@@ -58,7 +58,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => 'log/mails.log',
+                         'stream' => getcwd().'/log/mails.log',
                     ),
                  ),
             ),
@@ -75,7 +75,7 @@ return array(
         'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
         'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
         'strict' => true, // bool = cause immediate death|int = matched against error severity
-        'log' => 'log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+        'log' => getcwd().'/log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
         'email' => null, // in production mode notifies the recipient
         'email_snooze' => 900 // interval for sending email in seconds
     ],
