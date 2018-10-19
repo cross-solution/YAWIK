@@ -13,6 +13,9 @@
 /** Core */
 namespace Core;
 
+use Core\Console\Application;
+use Core\Console\ConsoleCommandProviderInterface;
+use Core\Console\InstallAssetsCommand;
 use Core\Listener\AjaxRouteListener;
 use Zend\EventManager\Event;
 use Zend\Mvc\MvcEvent;
@@ -35,7 +38,7 @@ use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
  * Bootstrap class of the Core module
  *
  */
-class Module implements ConsoleBannerProviderInterface
+class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderInterface
 {
     public function getConsoleBanner(Console $console)
     {
@@ -49,7 +52,7 @@ class Module implements ConsoleBannerProviderInterface
             $name
         );
     }
-    
+
     /**
      * Sets up services on the bootstrap event.
      *
@@ -57,6 +60,7 @@ class Module implements ConsoleBannerProviderInterface
      *     Creates the translation service and a ModuleRouteListener
      *
      * @param MvcEvent $e
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
      */
     public function onBootstrap(MvcEvent $e)
     {
@@ -74,8 +78,12 @@ class Module implements ConsoleBannerProviderInterface
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
-        
-        (new TracyService())->register($sm->get('Config')['tracy']);
+
+        $coreOptions = $sm->get('Core/Options');
+        $tracyConfig = $sm->get('Config')['tracy'];
+        $tracyConfig['log'] = $coreOptions->getLogDir().'/tracy';
+
+        (new TracyService())->register($tracyConfig);
         (new TracyListener())->attach($eventManager);
         
         if (!\Zend\Console\Console::isConsole()) {
@@ -145,5 +153,13 @@ class Module implements ConsoleBannerProviderInterface
     {
         $config = include __DIR__ . '/../config/module.config.php';
         return $config;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function registerCommands(Application $application)
+    {
+        $application->add(new InstallAssetsCommand());
     }
 }

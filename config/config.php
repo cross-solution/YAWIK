@@ -1,7 +1,7 @@
 <?php
 
 use Zend\Stdlib\ArrayUtils;
-use Core\Application;
+use Core\Bootstrap;
 
 /**
  * YAWIK
@@ -55,7 +55,7 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     }
 }
 
-$modules = Application::generateModuleConfiguration($modules);
+$modules = Bootstrap::generateModuleConfiguration($modules);
 $config = array(
     'environment' => $env,
 
@@ -96,6 +96,10 @@ $config = array(
     
     'service_manager' => array(
     ),
+    'core_options' => [
+        'publicDir' => realpath(__DIR__.'/../public')
+    ],
+
 );
 
 $envConfigFile = __DIR__ . '/config.' . $env . '.php';

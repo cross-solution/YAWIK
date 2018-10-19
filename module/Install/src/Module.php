@@ -35,6 +35,7 @@ class Module implements Feature\ConfigProviderInterface, Feature\BootstrapListen
      * @param EventInterface|\Zend\Mvc\MvcEvent $e
      *
      * @return void
+     * @throws \Exception
      */
     public function onBootstrap(EventInterface $e)
     {
@@ -44,9 +45,14 @@ class Module implements Feature\ConfigProviderInterface, Feature\BootstrapListen
 
         $services->get('Install/Listener/LanguageSetter')
                  ->attach($eventManager);
-    
+
+        /* @var \Core\Options\ModuleOptions $coreOptions */
+        $coreOptions = $services->get('Core/Options');
+        $logDir = $coreOptions->getLogDir().'/tracy';
+
         $tracyConfig = $services->get('Config')['tracy'];
-    
+        $tracyConfig['log'] = $logDir;
+
         if ($tracyConfig['enabled']) {
             (new TracyService())->register($tracyConfig);
             (new TracyListener())->attach($eventManager);

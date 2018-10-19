@@ -33,7 +33,10 @@ class ModuleOptionsFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $container->get('config');
+        $applicationConfig = $container->get('ApplicationConfig');
+        $config = $container->get('Config');
+
+        $config = array_merge($config, $applicationConfig);
 
         return new ModuleOptions(isset($config['core_options']) ? $config['core_options'] : array());
     }

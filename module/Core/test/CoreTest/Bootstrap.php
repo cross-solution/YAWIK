@@ -41,7 +41,9 @@ class Bootstrap
             if (!is_readable($fileName)) {
                 $fileName = getcwd() . '/test/TestConfig.php.dist';
             }
-            $testConfig = include $fileName;
+            if (is_file($fileName)) {
+                $testConfig = include $fileName;
+            }
         }
 
         $zf2ModulePaths = array();

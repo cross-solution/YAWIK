@@ -21,6 +21,7 @@ use Zend\Stdlib\AbstractOptions;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class ModuleOptions extends AbstractOptions
 {
@@ -105,6 +106,24 @@ class ModuleOptions extends AbstractOptions
      * @var string
      */
     protected $systemMessageEmail;
+
+    /**
+     * Cache directory location
+     * @var string
+     */
+    protected $cacheDir;
+
+    /**
+     * Public directory location
+     * @var string
+     */
+    protected $publicDir;
+
+    /**
+     * Public directory location
+     * @var string
+     */
+    protected $logDir;
 
     /**
      * @return string
@@ -321,6 +340,70 @@ class ModuleOptions extends AbstractOptions
     public function setSystemMessageEmail($systemMessageEmail)
     {
         $this->systemMessageEmail = $systemMessageEmail;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCacheDir()
+    {
+        if (is_null($this->cacheDir)) {
+            $this->setCacheDir(getcwd().DIRECTORY_SEPARATOR.'log');
+        }
+
+        return $this->cacheDir;
+    }
+
+    /**
+     * @param string $cacheDir
+     */
+    public function setCacheDir($cacheDir)
+    {
+        $this->cacheDir = $cacheDir;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicDir()
+    {
+        if (is_null($this->publicDir)) {
+            $this->setPublicDir(getcwd().DIRECTORY_SEPARATOR.'log');
+        }
+        return $this->publicDir;
+    }
+
+    /**
+     * @param string $publicDir
+     * @return ModuleOptions
+     */
+    public function setPublicDir($publicDir)
+    {
+        $this->publicDir = $publicDir;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogDir()
+    {
+        if (is_null($this->logDir)) {
+            $this->setLogDir(getcwd().DIRECTORY_SEPARATOR.'log');
+        }
+        return $this->logDir;
+    }
+
+    /**
+     * @param string $logDir
+     * @return ModuleOptions
+     */
+    public function setLogDir($logDir)
+    {
+        $this->logDir = $logDir;
 
         return $this;
     }

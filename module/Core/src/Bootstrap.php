@@ -1,13 +1,12 @@
 <?php
 
-/*
- * This file is part of the Yawik project.
+/**
+ * YAWIK
  *
- *     (c) Anthonius Munthi <me@itstoni.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * @copyright (c) 2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @license MIT
  */
+
 
 namespace Core;
 
@@ -15,11 +14,12 @@ use Zend\Mvc\Application as ZendApplication;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * Application Class
+ * Utility class
  *
  * @package Core
+ * @since 0.32
  */
-class Application
+class Bootstrap
 {
     /**
      * Get required modules for Yawik
@@ -67,11 +67,36 @@ class Application
 
     /**
      * Run application
-     * @param $appConfig
+     * @param array $appConfig
      *
+     * @param bool $run
      * @return bool|ZendApplication
      */
-    public static function run(array $appConfig = [])
+    public static function initApplication(array $appConfig = [])
+    {
+        if (empty($appConfig)) {
+            // Retrieve configuration
+            $file = null;
+            if(is_file($test = getcwd(). '/config/config.php')){
+                $file = $test;
+            }elseif(is_file($test = __DIR__.'/../config/config.php')){
+                $file = $test;
+            }elseif(is_file($test = __DIR__.'/../../../../config/config.php')){
+                $file = $test;
+            }else{
+                fwrite(STDERR,
+                    'You must set up the project dependencies, run the following commands:'.PHP_EOL.
+                    'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
+                    'php composer.phar install'.PHP_EOL
+                );
+                exit(1);
+            }
+            $appConfig = include $file;
+        }
+        return ZendApplication::init($appConfig);
+    }
+
+    public static function runApplication(array $appConfig = [])
     {
         ini_set('display_errors', true);
         ini_set('error_reporting', E_ALL | E_STRICT);
@@ -97,16 +122,6 @@ class Application
                 $_GET["q"] = $route;    // Try to emulate the behaviour of a .htaccess here.
             }
         }
-
-        if (empty($appConfig)) {
-            // Retrieve configuration
-            $appConfig = require __DIR__ . '/../config/application.config.php';
-            if (file_exists(__DIR__ . '/../config/development.config.php')) {
-                $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
-            }
-        }
-
-        // Run the application!
-        return ZendApplication::init($appConfig)->run();
+        return static::initApplication($appConfig)->run();
     }
 }

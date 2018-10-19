@@ -23,21 +23,21 @@ class Tracy
 {
     /**
      * @param array $config
+     * @throws \Exception
      */
     public function register(array $config)
     {
-    	try{
-		    // enable logging of all error types globally
-		    Debugger::enable($config['mode'], $config['log'], $config['email']);
-		    Debugger::$strictMode = $config['strict'];
-		    Debugger::$showBar = $config['bar'];
-		
-		    /** @var \Tracy\Logger $logger */
-		    $logger = Debugger::getLogger();
-		    $logger->emailSnooze = $config['email_snooze'];
-	    }catch (\Exception $e){
-    		throw $e;
-	    }
-     
+        try {
+            // enable logging of all error types globally
+            Debugger::enable($config['mode'], $config['log'], $config['email']);
+            Debugger::$strictMode = $config['strict'];
+            Debugger::$showBar = $config['bar'];
+        
+            /** @var \Tracy\Logger $logger */
+            $logger = Debugger::getLogger();
+            $logger->emailSnooze = $config['email_snooze'];
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }

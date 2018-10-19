@@ -47,7 +47,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => __DIR__ .'/../../../log/yawik.log',
+                         'stream' => 'log/yawik.log',
                     ),
                  ),
             ),
@@ -58,7 +58,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => __DIR__ .'/../../../log/mails.log',
+                         'stream' => 'log/mails.log',
                     ),
                  ),
             ),
@@ -75,7 +75,7 @@ return array(
         'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
         'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
         'strict' => true, // bool = cause immediate death|int = matched against error severity
-        'log' => __DIR__ . '/../../../log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+        'log' => 'log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
         'email' => null, // in production mode notifies the recipient
         'email_snooze' => 900 // interval for sending email in seconds
     ],
@@ -291,12 +291,12 @@ return array(
     ),
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
-	    'factories' => [
-		    'Core/Index'   => LazyControllerFactory::class,
+        'factories' => [
+            'Core/Index'   => LazyControllerFactory::class,
             'Core/Admin'   => AdminControllerFactory::class,
-		    'Core/File'    => FileControllerFactory::class,
+            'Core/File'    => FileControllerFactory::class,
             'Core/Content' => LazyControllerFactory::class,
-	    ],
+        ],
     ),
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
@@ -326,7 +326,7 @@ return array(
             'paginatorservice' => 'Core/PaginatorService',
             'paginationParams' => 'Core/PaginationParams',
             'searchform'       => 'Core/SearchForm',
-	        'notification'     => 'Notification',
+            'notification'     => 'Notification',
         )
     ),
     // Configure the view service manager
@@ -424,7 +424,7 @@ return array(
         ),
         'aliases' => [
             'snippet' => \Core\View\Helper\Snippet::class,
-	        'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
+            'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
             'proxy' => \Core\View\Helper\Proxy::class,
             'form_element' => 'formElement',
         ],
@@ -527,17 +527,17 @@ return array(
         ],
 
         'Core/Ajax/Events' => [
-	        'service' => 'Core/EventManager',
-	        'event'   => \Core\Listener\Events\AjaxEvent::class,
+            'service' => 'Core/EventManager',
+            'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
-	    
-	    'Core/File/Events' => [
-		    'service' => 'Core/EventManager',
-		    'event' => \Core\Listener\Events\FileEvent::class,
+        
+        'Core/File/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => \Core\Listener\Events\FileEvent::class,
             'listeners' => [
                 \Core\Listener\DeleteImageSetListener::class => [\Core\Listener\Events\FileEvent::EVENT_DELETE, -1000],
             ],
-	    ]
+        ]
     ],
     
 );
