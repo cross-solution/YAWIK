@@ -28,6 +28,11 @@
             "Applications\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-0": {
+            "": "test/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-develop": "0.32-dev"
