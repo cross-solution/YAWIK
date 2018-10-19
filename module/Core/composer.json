@@ -79,9 +79,7 @@
     "autoload": {
         "psr-4": {
             "Core\\": "src/"
-        }
-    },
-    "autoload-dev": {
+        },
         "psr-0": {
             "": "test/"
         }
