@@ -1,0 +1,44 @@
+{
+    "type": "yawik-module",
+    "name": "yawik/behat",
+    "description": "This package provide a Behat tests utility for yawik",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "keywords": [
+        "yawik", "module", "zf3", "behat"
+    ],
+    "require-dev": {
+        "behat/behat": "^3.2",
+        "behat/mink": "^1.7",
+        "behat/mink-browserkit-driver": "^1.3",
+        "behat/mink-selenium2-driver": "^1.3",
+        "lakion/mink-debug-extension": "^1.2.3",
+        "se/selenium-server-standalone": "^2.52",
+        "enm1989/chromedriver": "^2.35",
+        "behat/mink-extension": "^2.3",
+        "novaway/common-contexts": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yawik\\Behat\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.32-dev"
+        }
+    }
+}
