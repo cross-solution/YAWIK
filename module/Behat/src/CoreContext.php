@@ -28,6 +28,8 @@ class CoreContext extends RawMinkContext
     
     private static $jobCategoryChecked = false;
 
+    private $config;
+
     public function __construct($config=null)
     {
         if (is_null($config)) {
