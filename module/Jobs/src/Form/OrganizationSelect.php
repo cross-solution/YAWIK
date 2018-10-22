@@ -22,7 +22,7 @@ use Zend\Form\Element\Select;
  */
 class OrganizationSelect extends Select implements HeadscriptProviderInterface
 {
-    protected $scripts = ['Jobs/js/form.organization-select.js'];
+    protected $scripts = ['modules/Jobs/js/form.organization-select.js'];
 
     public function setHeadscripts(array $scripts)
     {

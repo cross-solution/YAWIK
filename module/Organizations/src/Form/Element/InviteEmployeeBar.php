@@ -28,7 +28,7 @@ class InviteEmployeeBar extends Text implements HeadscriptProviderInterface, Vie
      * @var array
      */
     protected $headscripts = array(
-        'Organizations/js/form.invite-employee.js'
+        'modules/Organizations/js/form.invite-employee.js'
     );
 
     /**

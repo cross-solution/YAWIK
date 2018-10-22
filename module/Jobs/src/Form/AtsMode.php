@@ -20,7 +20,6 @@ use Core\Form\SummaryForm;
  */
 class AtsMode extends SummaryForm
 {
-
     protected $displayMode = self::DISPLAY_SUMMARY;
 
     protected $baseFieldset = 'Jobs/AtsModeFieldset';
@@ -29,7 +28,7 @@ class AtsMode extends SummaryForm
     {
         $this->setOptions(
             array(
-            'headscript' => 'Jobs/js/form.ats-mode.js',
+            'headscript' => 'modules/Jobs/js/form.ats-mode.js',
             )
         );
 

@@ -47,7 +47,7 @@ class EmployeesFieldsetFactory implements FactoryInterface
         $hydrator->addStrategy('employees', new CollectionStrategy());
         $fieldset->setHydrator($hydrator);
 
-        $headScript->appendFile($basePath('Organizations/js/organizations.employees.js'));
+        $headScript->appendFile($basePath('modules/Organizations/js/organizations.employees.js'));
 
         return $fieldset;
     }

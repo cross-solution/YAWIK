@@ -31,7 +31,7 @@ class CompanyNameFieldset extends Fieldset implements HeadscriptProviderInterfac
      *
      * @var array
      */
-    protected $headscripts = [ 'Jobs/js/forms.manager-select.js' ];
+    protected $headscripts = [ 'modules/Jobs/js/forms.manager-select.js' ];
 
     public function setHeadscripts(array $scripts)
     {

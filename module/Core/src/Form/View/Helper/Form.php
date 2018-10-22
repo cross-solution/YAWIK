@@ -70,12 +70,12 @@ class Form extends ZendForm
         $headscript = $renderer->plugin('headscript');
         $basepath   = $renderer->plugin('basepath');
         
-        $headscript->appendFile($basepath('/Core/js/core.spinnerbutton.js'))
-                   ->appendFile($basepath('/assets/select2/js/select2.min.js'))
-                   ->appendFile($basepath('/Core/js/core.forms.js'));
+        $headscript->appendFile($basepath('modules/Core/js/core.spinnerbutton.js'))
+                   //->appendFile($basepath('/assets/select2/js/select2.min.js'))
+                   ->appendFile($basepath('modules/Core/js/core.forms.js'));
 
         /* @noinspection PhpParamsInspection */
-        $renderer->headLink()->appendStylesheet($basepath('/assets/select2/css/select2.css'));
+        //$renderer->headLink()->appendStylesheet($basepath('/assets/select2/css/select2.css'));
 
         if ($scripts = $form->getOption('headscript')) {
             if (!is_array($scripts)) {
@@ -183,7 +183,7 @@ class Form extends ZendForm
         if ($form instanceof DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
             /* @var $form DescriptionAwareFormInterface|FormInterface */
             $renderer->headscript()->appendFile(
-                    $renderer->basepath('Core/js/forms.descriptions.js')
+                    $renderer->basepath('modules/Core/js/forms.descriptions.js')
                 );
                 
             if ($desc = $form->getOption('description', '')) {

@@ -11,8 +11,8 @@
  */
 
 
-$this->headScript()->appendFile($this->basePath('Auth/js/form.socialprofiles.js'))
-                   ->appendFile($this->basePath('Core/js/core.reloadable-modal.js'));
+$this->headScript()->appendFile($this->basePath('modules/Auth/js/form.socialprofiles.js'))
+                   ->appendFile($this->basepath('modules/Core/js/core.reloadable-modal.js'));
 $description = $this->element->getOption('description');
 
 if ($description):?>

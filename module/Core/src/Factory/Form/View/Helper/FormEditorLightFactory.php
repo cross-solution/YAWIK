@@ -59,7 +59,7 @@ class FormEditorLightFactory implements FactoryInterface
     
         if (in_array($lang, [ 'de', 'fr', 'it', 'es', 'hi', 'ar', 'ru', 'zh', 'tr' ])) {
             $helper->setOption('language', $lang);
-            $helper->setOption('language_url', $basePath('/js/tinymce-lang/') . $lang . '.js');
+            $helper->setOption('language_url', $basePath('modules/Core/js/tinymce-lang/') . $lang . '.js');
         }
     
         return $helper;

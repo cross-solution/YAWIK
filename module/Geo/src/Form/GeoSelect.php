@@ -36,7 +36,7 @@ class GeoSelect extends Select implements HeadscriptProviderInterface, HydratorS
     protected $disableInArrayValidator = true;
 
     private $headscripts = [
-        'Geo/js/geoselect.js'
+        'modules/Geo/js/geoselect.js'
     ];
 
     public function setOptions($options)

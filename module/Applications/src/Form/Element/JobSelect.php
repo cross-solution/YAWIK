@@ -22,7 +22,7 @@ use Zend\Form\Element\Select;
  */
 class JobSelect extends Select implements HeadscriptProviderInterface
 {
-    private $scripts = [ 'Applications/js/form.job-select.js' ];
+    private $scripts = [ 'modules/Applications/js/form.job-select.js' ];
 
     /**
      * Sets the array of script names.

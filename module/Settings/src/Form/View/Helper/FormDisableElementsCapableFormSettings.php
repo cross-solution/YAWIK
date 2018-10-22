@@ -34,7 +34,7 @@ class FormDisableElementsCapableFormSettings extends FormInput
         $headscript = $renderer->plugin('headscript');
         $basepath   = $renderer->plugin('basepath');
 
-        $headscript->appendFile($basepath('Settings/js/forms.decfs.js'));
+        $headscript->appendFile($basepath('modules/Settings/js/forms.decfs.js'));
 
         return '<ul class="disable-elements-list" id="' . $element->getAttribute('id') . '-list"' . '>'
                . $this->renderCheckboxes($element->getCheckboxes())

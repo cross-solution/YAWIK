@@ -33,6 +33,7 @@ class Bootstrap
      */
     public static function init($testConfig = array())
     {
+        date_default_timezone_set('Europe/Berlin');
         error_reporting(E_ALL | E_STRICT);
 
         if (empty($testConfig)) {

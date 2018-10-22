@@ -370,7 +370,7 @@ class ModuleOptions extends AbstractOptions
     public function getPublicDir()
     {
         if (is_null($this->publicDir)) {
-            $this->setPublicDir(getcwd().DIRECTORY_SEPARATOR.'log');
+            $this->setPublicDir(getcwd().DIRECTORY_SEPARATOR.'public');
         }
         return $this->publicDir;
     }

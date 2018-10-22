@@ -19,7 +19,7 @@ use Core\Form\Element\FileUpload;
  */
 class FormImageUpload extends FormFileUpload
 {
-    protected $scriptFile = 'Core/js/forms.image-upload.js';
+    protected $scriptFile = 'modules/Core/js/forms.image-upload.js';
     
     protected function renderMarkup(FileUpload $element)
     {

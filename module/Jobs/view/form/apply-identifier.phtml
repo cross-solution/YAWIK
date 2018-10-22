@@ -11,7 +11,7 @@
  */
 
 
-$this->headScript()->appendFile($this->basePath('Jobs/js/form.apply-identifier.js'));
+$this->headScript()->appendFile($this->basePath('modules/Jobs/js/form.apply-identifier.js'));
 $value = $this->element->getValue();
 if (empty($value)) {
     throw new \RuntimeException('Missing application id in Element "' . $this->element->getLabel() . '"');

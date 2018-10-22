@@ -68,7 +68,7 @@ class MultipostingMultiCheckboxFactory implements FactoryInterface
         $factory = $this->getParentFactory();
         $select = $factory($container, $requestedName);
         $select->setViewPartial('jobs/form/multiposting-checkboxes');
-        $select->setHeadscripts(array('Jobs/js/form.multiposting-checkboxes.js'));
+        $select->setHeadscripts(array('modules/Jobs/js/form.multiposting-checkboxes.js'));
         return $select;
     }
 }

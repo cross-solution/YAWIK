@@ -56,7 +56,7 @@ class FormCollectionContainer extends AbstractHelper
     {
         $view = $this->getView();
         $view->headscript()
-            ->appendFile($view->basePath('Core/js/jquery.formcollection-container.js'));
+            ->appendFile($view->basepath('modules/Core/js/jquery.formcollection-container.js'));
         $translator = $this->getTranslator();
         $formContainerHelper = $view->formContainer();
         $formsMarkup = '';

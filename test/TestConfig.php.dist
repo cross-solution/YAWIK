@@ -31,7 +31,4 @@ return array(
             __DIR__  .  '/config/{,*.}{global,local}.php',
         ),
     ),
-    'core_options' => [
-        'publicDir' => sys_get_temp_dir().'/yawik/public',
-    ]
 );

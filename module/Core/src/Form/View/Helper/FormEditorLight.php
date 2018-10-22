@@ -19,5 +19,5 @@ class FormEditorLight extends FormEditor
 {
     protected $theme = 'light';
 
-    protected $languagePath="/js/tinymce-lang/";
+    protected $languagePath="modules/Core/js/tinymce-lang/";
 }

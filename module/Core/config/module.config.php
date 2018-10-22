@@ -18,6 +18,7 @@ use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
 use Zend\I18n\Translator\Resources;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\View\Helper\Asset;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -83,6 +84,17 @@ return array(
     // Routes
     'router' => array(
         'routes' => array(
+            'file' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/file/:filestore/:fileId[/:fileName]',
+                    'defaults' => array(
+                        'controller' => 'Core/File',
+                        'action' => 'index'
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'lang' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -152,17 +164,6 @@ return array(
                     ]
                 ),
             ),
-            'file' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/file/:filestore/:fileId[/:fileName]',
-                    'defaults' => array(
-                        'controller' => 'Core/File',
-                        'action' => 'index'
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
         ),
     ),
     
@@ -217,7 +218,7 @@ return array(
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/Html2Pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'Core/Navigation' => 'Core\Factory\Navigation\DefaultNavigationFactory',
-            'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
+            'modules/Core/jsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
             'Core/EntityHydrator' => 'Core\Entity\Hydrator\EntityHydratorFactory',
             'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
             'Core/DoctrineMongoODM/RepositoryEvents' => [\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber::class,'factory'],

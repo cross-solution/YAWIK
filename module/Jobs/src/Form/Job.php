@@ -62,7 +62,7 @@ class Job extends WizardContainer
                 'priority' => 100,
                 'label' => /*@translate*/ 'Basic Data',
                 'options' => [
-                	'label' => /*@translate*/ 'Basic Data'
+                    'label' => /*@translate*/ 'Basic Data'
                 ],
                 'property' => true,
                 'forms' => [
@@ -148,7 +148,7 @@ class Job extends WizardContainer
 
     public function renderPost(Renderer $renderer)
     {
-        $coreformsjs   = $renderer->basepath('/Core/js/core.forms.js');
+        $coreformsjs   = $renderer->basepath('modules/Core/js/core.forms.js');
         $javaScript = <<<JS
         $(document).ready(function() {
 

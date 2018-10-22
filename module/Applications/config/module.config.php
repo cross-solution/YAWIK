@@ -179,7 +179,7 @@ return [
 
     'view_helper_config' => [
         'headscript' => [
-            'lang/applications' => ['Core/js/jquery.barrating.min.js'],
+            'lang/applications' => ['modules/Core/js/jquery.barrating.min.js'],
         ],
     ],
     'form_elements' => [

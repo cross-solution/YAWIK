@@ -19,7 +19,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Form\Tree\ManagementForm
- * 
+ *
  * @covers \Core\Form\Tree\ManagementForm
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -40,7 +40,6 @@ class ManagementFormTest extends \PHPUnit_Framework_TestCase
     ];
 
     private $properties = [
-        [ 'headscripts', ['value' => ['testHeadScript'], 'default' => [ '/js/html.sortable.min.js', 'Core/js/forms.tree-management.js' ]] ]
+        [ 'headscripts', ['value' => ['testHeadScript'], 'default' => [ 'modules/Core/js/html.sortable.min.js', 'modules/Core/js/forms.tree-management.js' ]] ]
     ];
-    
 }

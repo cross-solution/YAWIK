@@ -13,10 +13,10 @@
 <?php
 
 
-$this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
+$this->headLink()->prependStylesheet($this->basePath($this->asset('build/yawik.css')));
 
-$this->headScript()->prependFile($this->basePath('/assets/bootstrap/js/bootstrap.min.js'));
-$this->headScript()->prependFile($this->basePath('/assets/jquery/jquery.min.js'));
+$this->configHeadScript()->prependFile($this->basepath($this->asset('build/yawik.js')));
+
 $this->headScript()->appendScript('var lang="' . $this->lang . '";'
                                       . 'var basePath="' . $this->basePath() . '";');
 

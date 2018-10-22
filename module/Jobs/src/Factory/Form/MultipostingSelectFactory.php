@@ -51,7 +51,7 @@ class MultipostingSelectFactory implements FactoryInterface
 
         // $headScript = $helpers->get('headScript');
         // $basePath  = $helpers->get('basePath');
-        // $headScript->appendFile($basePath('Jobs/js/form.multiposting-select.js'));
+        // $headScript->appendFile($basePath('modules/Jobs/js/form.multiposting-select.js'));
 
         $groups = array();
 

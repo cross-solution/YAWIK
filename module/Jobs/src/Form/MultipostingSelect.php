@@ -34,7 +34,7 @@ class MultipostingSelect extends Select implements ViewPartialProviderInterface,
      * @var array
      */
     protected $headscripts = array(
-        'Jobs/js/form.multiposting-select.js'
+        'modules/Jobs/js/form.multiposting-select.js'
     );
 
     public function setViewPartial($partial)

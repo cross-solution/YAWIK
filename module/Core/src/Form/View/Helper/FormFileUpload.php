@@ -27,7 +27,7 @@ class FormFileUpload extends FormFile
      *
      * @var string
      */
-    protected $scriptFile = 'Core/js/forms.file-upload.js';
+    protected $scriptFile = 'modules/Core/js/forms.file-upload.js';
     
     /**
      * @var string
@@ -122,7 +122,6 @@ class FormFileUpload extends FormFile
                 array("$uri?do=delete", $uri, $name, $size, '', $icon),
                 $template
             );
-
         };
 
         if ($element->isMultiple()) {
@@ -223,113 +222,112 @@ class FormFileUpload extends FormFile
      */
     public function getDropZoneClass(FileUpload $element)
     {
-        return sprintf('fu-dropzone fu-%s%s',
+        return sprintf(
+            'fu-dropzone fu-%s%s',
             $element->isMultiple() ? 'multiple' : 'single',
             $this->allowClickableDropZone ? '' : ' fu-non-clickable'
         );
     }
     
     /**
-	 * @param string $emptyNotice
-	 * @return FormFileUpload
-	 * @since 0.27
-	 */
-	public function setEmptyNotice($emptyNotice)
-	{
-		$this->emptyNotice = $emptyNotice;
-		
-		return $this;
-	}
+     * @param string $emptyNotice
+     * @return FormFileUpload
+     * @since 0.27
+     */
+    public function setEmptyNotice($emptyNotice)
+    {
+        $this->emptyNotice = $emptyNotice;
+        
+        return $this;
+    }
     
     /**
-	 * @return string
-	 * @since 0.27
-	 */
-	protected function getEmptyNotice()
-	{
-	    if (!isset($this->emptyNotice))
-	    {
-	        $this->emptyNotice = '
+     * @return string
+     * @since 0.27
+     */
+    protected function getEmptyNotice()
+    {
+        if (!isset($this->emptyNotice)) {
+            $this->emptyNotice = '
 	            <div class="pull-left">
                     <span class="yk-icon fa-files-o fa-5x"></span>
                 </div>' . $this->getDefaultNotice();
-	    }
-	    
-		return $this->emptyNotice;
-	}
+        }
+        
+        return $this->emptyNotice;
+    }
 
     /**
-	 * @param string $nonEmptyNotice
-	 * @return FormFileUpload
-	 * @since 0.27
-	 */
-	public function setNonEmptyNotice($nonEmptyNotice)
-	{
-		$this->nonEmptyNotice = $nonEmptyNotice;
-		
-		return $this;
-	}
+     * @param string $nonEmptyNotice
+     * @return FormFileUpload
+     * @since 0.27
+     */
+    public function setNonEmptyNotice($nonEmptyNotice)
+    {
+        $this->nonEmptyNotice = $nonEmptyNotice;
+        
+        return $this;
+    }
 
     /**
-	 * @return string
-	 * @since 0.27
-	 */
-	protected function getNonEmptyNotice()
-	{
-	    if (!isset($this->nonEmptyNotice))
-	    {
-	        $this->nonEmptyNotice = $this->getDefaultNotice();
-	    }
-	    
-		return $this->nonEmptyNotice;
-	}
+     * @return string
+     * @since 0.27
+     */
+    protected function getNonEmptyNotice()
+    {
+        if (!isset($this->nonEmptyNotice)) {
+            $this->nonEmptyNotice = $this->getDefaultNotice();
+        }
+        
+        return $this->nonEmptyNotice;
+    }
 
     /**
-	 * @return string
-	 * @since 0.27
-	 */
-	protected function getDefaultNotice()
-	{
-		return '<small>' . $this->getTranslator()->translate('Click here to add files or use drag and drop.') . '</small>';
-	}
-	
+     * @return string
+     * @since 0.27
+     */
+    protected function getDefaultNotice()
+    {
+        return '<small>' . $this->getTranslator()->translate('Click here to add files or use drag and drop.') . '</small>';
+    }
+    
     /**
-	 * @param boolean $allowRemove
-	 * @return FormFileUpload
-	 * @since 0.27
-	 */
-	public function setAllowRemove($allowRemove)
-	{
-		$this->allowRemove = (bool)$allowRemove;
-		
-		return $this;
-	}
-	
+     * @param boolean $allowRemove
+     * @return FormFileUpload
+     * @since 0.27
+     */
+    public function setAllowRemove($allowRemove)
+    {
+        $this->allowRemove = (bool)$allowRemove;
+        
+        return $this;
+    }
+    
     /**
-	 * @param boolean $allowClickableDropZone
-	 * @return FormFileUpload
-	 * @since 0.27
-	 */
-	public function setAllowClickableDropZone($allowClickableDropZone)
-	{
-		$this->allowClickableDropZone = (bool)$allowClickableDropZone;
-		
-		return $this;
-	}
-	
-	/**
-	 * @since 0.27
-	 */
-	protected function setupAssets()
-	{
-	    /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+     * @param boolean $allowClickableDropZone
+     * @return FormFileUpload
+     * @since 0.27
+     */
+    public function setAllowClickableDropZone($allowClickableDropZone)
+    {
+        $this->allowClickableDropZone = (bool)$allowClickableDropZone;
+        
+        return $this;
+    }
+    
+    /**
+     * @since 0.27
+     */
+    protected function setupAssets()
+    {
+        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         /* @var $basepath \Zend\View\Helper\BasePath */
         $renderer = $this->getView();
         $basepath = $renderer->plugin('basepath');
         $renderer->headscript()
-            ->appendFile($basepath('assets/blueimp-file-upload/js/vendor/jquery.ui.widget.js'))
-            ->appendFile($basepath('assets/blueimp-file-upload/js/jquery.iframe-transport.js'))
-            ->appendFile($basepath('assets/blueimp-file-upload/js/jquery.fileupload.js'))
+            //->appendFile($basepath('assets/blueimp-file-upload/js/vendor/jquery.ui.widget.js'))
+            //->appendFile($basepath('assets/blueimp-file-upload/js/jquery.iframe-transport.js'))
+            //->appendFile($basepath('assets/blueimp-file-upload/js/jquery.fileupload.js'))
             ->appendFile($basepath($this->scriptFile));
-	}
+    }
 }

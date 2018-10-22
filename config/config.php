@@ -95,11 +95,8 @@ $config = array(
     ),
     
     'service_manager' => array(
-    ),
-    'core_options' => [
-        'publicDir' => realpath(__DIR__.'/../public')
-    ],
 
+    ),
 );
 
 $envConfigFile = __DIR__ . '/config.' . $env . '.php';

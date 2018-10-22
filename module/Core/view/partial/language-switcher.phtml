@@ -15,7 +15,7 @@ $languages = $options->getSupportedLanguages();
 $lang = $this->params('lang');
 
 ?>
-<script src="<?=$this->basePath('/Core/js/core.language-switcher.js')?>"></script>
+<script src="<?=$this->basePath('modules/Core/js/core.language-switcher.js')?>"></script>
 <div id="language-switcher">
     <select data-autoinit="false" class="language-switcher form-control">
     <?php  foreach ($languages as $availableLang=>$value): ?>

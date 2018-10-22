@@ -219,7 +219,7 @@ return [
             'Jobs/Options/Provider'                       => 'Jobs\Factory\Options\ProviderOptionsFactory',
             'Jobs/Options/Channel'                        => 'Jobs\Factory\Options\ChannelOptionsFactory',
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => 'Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory',
-            'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
+            'modules/Jobs/jsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
             //'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',

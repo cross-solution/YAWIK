@@ -7,18 +7,6 @@
  * @license MIT
  */
 
-ini_set('display_errors', true);
-ini_set('error_reporting', E_ALL | E_STRICT);
-
-date_default_timezone_set('Europe/Berlin');
-
-if (!version_compare(PHP_VERSION, '5.6.0', 'ge')) {
-    echo sprintf('<p>Sorry, YAWIK requires at least PHP 5.6.0 to run, but this server currently provides PHP %s</p>', PHP_VERSION);
-    echo '<p>Please ask your servers\' administrator to install the proper PHP version.</p>';
-    exit;
-}
-
-
 // Setup autoloading
 // Composer autoloading
 if (file_exists(__DIR__.'/../vendor/autoload.php')) {

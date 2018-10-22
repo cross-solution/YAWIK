@@ -78,7 +78,7 @@ class FormEditor extends FormTextarea
         /* @var \Zend\View\Helper\BasePath  $basepath */
         $basepath = $renderer->plugin('basepath');
 
-        $headscript->appendFile($basepath('js/tinymce/tinymce.min.js'));
+        //$headscript->appendFile($basepath('assets/tinymce/tinymce.min.js'));
         //$headscript->prependFile($basepath('/assets/jquery/jquery.min.js'));
 
         $headscript->offsetSetScript(

@@ -72,6 +72,7 @@ class InstallAssetsCommand extends Command implements ContainerAwareInterface
         /* @var ModuleOptions $options */
         $options = $container->get('Core/Options');
         $this->publicDir = $options->getPublicDir();
+        $this->configure();
         return;
     }
 
@@ -139,7 +140,8 @@ EOT
         $rows = [];
         $exitCode = 0;
         $copyUsed = false;
-        $publicDir = $input->getArgument('target');
+        $publicDir = $input->getArgument('target').'/modules';
+
         foreach ($this->assets as $name => $originDir) {
             $targetDir = $publicDir.DIRECTORY_SEPARATOR.$name;
             $message = $name;

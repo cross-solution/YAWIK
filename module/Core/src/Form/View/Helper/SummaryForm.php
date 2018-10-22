@@ -64,7 +64,7 @@ class SummaryForm extends AbstractHelper
     public function render(SummaryFormInterface $form, $layout = Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         $renderer = $this->getView();
-        $renderer->headscript()->appendFile($renderer->basePath('Core/js/jquery.summary-form.js'));
+        $renderer->headscript()->appendFile($renderer->basepath('modules/Core/js/jquery.summary-form.js'));
         
         $label = $form->getLabel();
         $labelContent = $label ? '<div class="sf-headline"><h3>' . $this->getView()->translate($label) . '</h3></div>' : '';
@@ -81,7 +81,7 @@ class SummaryForm extends AbstractHelper
         
         if ($form instanceof DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
             $this->getView()->headscript()->appendFile(
-                $this->getView()->basepath('Core/js/forms.descriptions.js')
+                $this->getView()->basepath('modules/Core/js/forms.descriptions.js')
             );
         
             if ($desc = $form->getOption('description', '')) {
