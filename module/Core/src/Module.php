@@ -16,6 +16,7 @@ namespace Core;
 use Core\Console\Application;
 use Core\Console\ConsoleCommandProviderInterface;
 use Core\Console\InstallAssetsCommand;
+use Core\Console\SubsplitCommand;
 use Core\Listener\AjaxRouteListener;
 use Zend\EventManager\Event;
 use Zend\Mvc\MvcEvent;
@@ -165,5 +166,6 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
     public function registerCommands(Application $application)
     {
         $application->add(new InstallAssetsCommand());
+        $application->add(new SubsplitCommand());
     }
 }
