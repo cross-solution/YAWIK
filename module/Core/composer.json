@@ -49,7 +49,6 @@
         "doctrine/doctrine-mongo-odm-module": "^1.0.0",
         "hybridauth/hybridauth": "^2.10",
         "mpdf/mpdf": "5.7.*",
-        "tinymce/tinymce": "4.5.*",
         "mikemix/zf2htmlpurifier": "^1.0.0",
         "mikey179/vfsStream": "^1.6.0",
         "tracy/tracy": "^2.4",
