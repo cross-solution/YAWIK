@@ -27,7 +27,18 @@ class CoreContext extends RawMinkContext
     protected static $application;
     
     private static $jobCategoryChecked = false;
-    
+
+    public function __construct($config=null)
+    {
+        if (is_null($config)) {
+            $config = __DIR__.'/../../../config/config.php';
+        }
+        if (!is_readable($config)) {
+            throw new \InvalidArgumentException(sprintf('Config file "%s" is not readable.', $config));
+        }
+        $this->config = realpath($config);
+    }
+
     /**
      * @BeforeScenario
      * @param BeforeScenarioScope $scope
@@ -46,7 +57,7 @@ class CoreContext extends RawMinkContext
             static::$jobCategoryChecked = true;
         }
     }
-    
+
     /**
      * @return Application
      */
@@ -54,7 +65,7 @@ class CoreContext extends RawMinkContext
     {
         if (!is_object(static::$application)) {
             date_default_timezone_set('Europe/Berlin');
-            $configFile = realpath(__DIR__.'/../../../config/config.php');
+            $configFile = $this->config;
             $config = include($configFile);
             static::$application = Application::init($config);
         }
