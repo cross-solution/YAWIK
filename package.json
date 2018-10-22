@@ -1,14 +1,15 @@
 {
-  "name": "yawik",
+  "name": "yawik-development",
   "version": "0.32.0",
   "scripts": {
-    "prepublish": "npm run build",
+    "postinstall": "npm run build",
     "dev-server": "encore dev-server --config-name core",
     "dev": "encore dev --config-name core",
     "watch": "encore dev --watch --config-name core",
     "build": "encore production --config-name core",
     "locales": "encore production --config-name locales"
   },
+  "private": false,
   "dependencies": {
     "blueimp-file-upload": "^9.15.0",
     "bootstrap": "^3.3.7",

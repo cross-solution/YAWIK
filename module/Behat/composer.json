@@ -20,7 +20,7 @@
     "keywords": [
         "yawik", "module", "zf3", "behat"
     ],
-    "require-dev": {
+    "require": {
         "behat/behat": "^3.2",
         "behat/mink": "^1.7",
         "behat/mink-browserkit-driver": "^1.3",
