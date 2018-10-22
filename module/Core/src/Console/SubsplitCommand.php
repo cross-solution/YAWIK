@@ -49,7 +49,6 @@ class SubsplitCommand extends Command
             ->addOption('tags', null, InputOption::VALUE_OPTIONAL, 'Repository tags to include', null)
         ;
         $this->workdir = getcwd();
-        $this->buildTree();
     }
 
     protected function buildTree()
@@ -78,6 +77,7 @@ class SubsplitCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->buildTree();
         $this->output = $output;
         $workdir = $this->workdir;
         $filter = $input->getArgument('package');
