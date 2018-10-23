@@ -1,5 +1,12 @@
 language: php
 
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
 services:
   - mongodb
 
@@ -50,7 +57,7 @@ before_script:
   - ls -l public/build
 
   # setup display, behat, and selenium
-  - ./bin/start-selenium.sh > /dev/null 2>&1 &
+  - ./bin/start-selenium > /dev/null 2>&1 &
   - sleep 5
   - composer run serve --timeout=0 > /dev/null 2>&1 &
   - sleep 3
@@ -71,7 +78,7 @@ after_failure:
   - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"build/behat/*.log\""
   - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/*.log\""
   - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/tracy/*.*\""
-  - "IMGUR_CLIENT_ID=bec050c54e1bb52 ./bin/imgur-uploader.sh build/behat/*.png"
+  - "IMGUR_CLIENT_ID=bec050c54e1bb52 ./bin/imgur-uploader build/behat/*.png"
 
 after_script:
   # process coverage

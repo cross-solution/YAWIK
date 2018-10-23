@@ -2,7 +2,8 @@
 <?php $this->headTitle($this->translate('Jobs'));
       $this->headScript()
           //->appendFile($this->basePath('/assets/select2/js/select2.min.js'))
-          //->appendFile($this->basePath('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js'))
+          //->appendFile($this->basePath($this->asset('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js')))
+          ->appendFile($this->basePath($this->asset('build/bootstrap-dialog.js')))
           ->appendFile($this->basepath('modules/Core/js/core.pagination-container.js'))
           ->appendFile($this->basePath('modules/Jobs/js/index.assign-users.js'))
       ;
@@ -25,8 +26,11 @@ $this->headScript()->captureStart() ?>
         });
     });
 })(jQuery);
-<?php $this->headScript()->captureEnd();
-      $this->headLink()->appendStylesheet($this->basePath('assets/bootstrap3-dialog/css/bootstrap-dialog.min.css'))?>
+<?php
+$this->headScript()->captureEnd();
+//$this->headLink()->appendStylesheet($this->basePath('assets/bootstrap3-dialog/css/bootstrap-dialog.min.css'));
+//$this->headLink()->appendStylesheet($this->basePath($this->asset('build/bootstrap-dialog.css')));
+?>
 
 <h1><?php echo $this->translate('Jobs waiting for approval') ?></h1>
 

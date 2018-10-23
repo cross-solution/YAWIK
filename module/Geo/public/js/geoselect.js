@@ -91,13 +91,20 @@
             initialValue = [initialValue];
         }
 
-        console.debug(initialValue);
         if (initialValue.length) {
             for (var i=initialValue.length-1; i>=0; i-=1) {
                 console.debug("initVal " + i + ": "+ initialValue[i]);
                 var $option = $('<option selected>Test</option>');
                 $option.val(initialValue[i]);
-                $option.text(formatSelection({id: initialValue[i], data: JSON.parse(initialValue[i])}));
+
+                var $data = initialValue[i];
+
+                // only parse a string value
+                if(typeof data ==='string'){
+                   $data = JSON.parse($data);
+                }
+                
+                $option.text(formatSelection({id: initialValue[i], data: $data}));
                 $node.prepend($option);
             }
             $node.trigger('change');
@@ -107,7 +114,7 @@
             window.setTimeout(function() {
                 $node.val('').trigger('change');
             }, 10)
-        })
+        });
     }
 
     $.fn.geoSelect = function () {

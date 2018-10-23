@@ -38,7 +38,7 @@ class ModuleOptions extends AbstractOptions
      *
      * @var string
      */
-    protected $siteLogo = "/Core/images/logo.jpg";
+    protected $siteLogo = "modules/Core/images/logo.jpg";
 
     /**
      * Contact Data, which can be used in Mail signatures or the imprint page.

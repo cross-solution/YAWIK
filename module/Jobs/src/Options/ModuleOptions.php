@@ -44,7 +44,7 @@ class ModuleOptions extends AbstractOptions
      *
      * @var string $defaultLogo
      */
-    protected $defaultLogo="/Jobs/images/yawik-small.jpg";
+    protected $defaultLogo="modules/Jobs/images/yawik-small.jpg";
 
     /**
      * Maximum size in bytes of a company Logo. Default 200k

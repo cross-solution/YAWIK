@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ba3094d62746e20085d2f07654fa444",
+    "content-hash": "680f347cc3a1fe7a0b78bdbcb2cd22f2",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -5359,16 +5359,16 @@
         },
         {
             "name": "enm1989/chromedriver",
-            "version": "2.35",
+            "version": "2.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ENM1989/chromedriver.git",
-                "reference": "ffdf8710c7af2344e8fd129a225f0a06569073b1"
+                "reference": "56909a7452adc4eaaf4a334f1f9da47e94492440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ENM1989/chromedriver/zipball/ffdf8710c7af2344e8fd129a225f0a06569073b1",
-                "reference": "ffdf8710c7af2344e8fd129a225f0a06569073b1",
+                "url": "https://api.github.com/repos/ENM1989/chromedriver/zipball/56909a7452adc4eaaf4a334f1f9da47e94492440",
+                "reference": "56909a7452adc4eaaf4a334f1f9da47e94492440",
                 "shasum": ""
             },
             "bin": [
@@ -5377,7 +5377,7 @@
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache License Version 2.0"
+                "Apache-2.0"
             ],
             "authors": [
                 {
@@ -5393,7 +5393,7 @@
                 "selenium",
                 "webdriver"
             ],
-            "time": "2018-01-11T07:51:26+00:00"
+            "time": "2018-10-06T10:53:56+00:00"
         },
         {
             "name": "instaclick/php-webdriver",

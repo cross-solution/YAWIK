@@ -1,7 +1,6 @@
 
 
 (function($) {
-	
 	var initRadioButtonSet = function () {
         $this = $(this);
         var id = $this.attr('id').replace(/-wrapper$/, '');

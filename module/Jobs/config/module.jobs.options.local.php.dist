@@ -17,7 +17,7 @@ $options = array(
         /**
         * default Logo, if a company has no logo.
         */
-	    'default_logo' => '/Jobs/images/yawik-small.jpg',
+	    'default_logo' => 'modules/Jobs/images/yawik-small.jpg',
 
 	    /**
         * Maximum size in bytes of a company Logo

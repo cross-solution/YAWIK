@@ -1,21 +1,23 @@
-var Encore = require('@symfony/webpack-encore');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+let Encore = require('@symfony/webpack-encore');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
+
     .addEntry('yawik', './public/modules/Core/yawik.js')
+    .addEntry('bootstrap-dialog', './public/modules/Core/bootstrap-dialog.js')
+    .addPlugin(new CopyWebpackPlugin([
+        {
+            from: "./node_modules/tinymce/skins",
+            to: "skins"
+        }
+    ]))
 
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
-    .addPlugin(new CopyWebpackPlugin([
-        {
-            from: './node_modules/bootstrap3-dialog/dist',
-            to: '../assets/bootstrap3-dialog'
-        },
-    ]))
     .autoProvideVariables({
         'global.$': 'jquery',
         jQuery: 'jquery',

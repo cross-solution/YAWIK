@@ -40,5 +40,9 @@
         "branch-alias": {
             "dev-develop": "0.32-dev"
         }
-    }
+    },
+    "bin": [
+        "bin/imgur-uploader.sh",
+        "bin/start-selenium"
+    ]
 }
