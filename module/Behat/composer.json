@@ -42,7 +42,7 @@
         }
     },
     "bin": [
-        "bin/imgur-uploader.sh",
+        "bin/imgur-uploader",
         "bin/start-selenium"
     ]
 }
