@@ -1,20 +1,24 @@
 {
-    "name": "yawik/test",
+    "name": "yawik/development",
     "type": "project",
     "description": "Web based applicant tracking system for managing jobs and applications",
     "authors": [
-	{
-		"name": "Mathias Gelhausen",
-		"email": "gelhausen@cross-solution.de"
-	},
-	{
-		"name": "Carsten Bleek",
-		"email": "bleek@cross-solution.de"
-	},
-	{
-		"name": "Mathias Weitz",
-		"email": "weitz@cross-solution.de"
-	}
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Mathias Weitz",
+            "email": "weitz@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
     ],
     "support": {
         "email": "contact@yawik.org",
@@ -28,6 +32,8 @@
         "zf2", "jobboard"
     ],
     "homepage": "http://yawik.org/",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=5.6",
         "ext-mongodb": "*",
@@ -138,5 +144,10 @@
         "yawik/organizations": "self.version",
         "yawik/pdf": "self.version",
         "yawik/settings": "self.version"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.32-dev"
+        }
     }
 }
