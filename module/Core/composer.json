@@ -58,7 +58,16 @@
         "symfony/console": "^3.4",
         "symfony/finder": "^3.4",
         "symfony/filesystem": "^3.4",
-        "symfony/process": "^3.4"
+        "symfony/process": "^3.4",
+        "yawik/applications": "^0.32@dev",
+        "yawik/auth": "^0.32@dev",
+        "yawik/cv": "^0.32@dev",
+        "yawik/geo": "^0.32@dev",
+        "yawik/install": "^0.32@dev",
+        "yawik/jobs": "^0.32@dev",
+        "yawik/organizations": "~0.32@dev",
+        "yawik/pdf": "~0.32@dev",
+        "yawik/settings": "^0.32@dev"
     },
     "require-dev": {
         "cbleek/pecl-solr-hint": "dev-master",
