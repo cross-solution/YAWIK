@@ -1,7 +1,8 @@
 FROM php:7.2-fpm-alpine
 
 MAINTAINER Anthonius <me@itstoni.com>
-
+#ENV HTTP_PROXY=http://172.18.0.1:3128
+#ENV http_proxy=http://172.18.0.1:3128
 ENV UMASK 0
 
 ENV WORKDIR "/var/www/yawik"

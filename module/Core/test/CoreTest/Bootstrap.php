@@ -24,55 +24,36 @@ use Zend\Stdlib\ArrayUtils;
  */
 class Bootstrap
 {
+    /**
+     * @var ServiceManager
+     */
     protected static $serviceManager;
     protected static $config;
     protected static $bootstrap;
 
-    /**
-     * @param array $testConfig
-     */
-    public static function init($testConfig = array())
+    public static function loadConfig()
     {
-        date_default_timezone_set('Europe/Berlin');
-        error_reporting(E_ALL | E_STRICT);
-
-        if (empty($testConfig)) {
-            // Load the user-defined test configuration file, if it exists; otherwise, load
-            $fileName = getcwd().'/test/TestConfig.php';
-            if (!is_readable($fileName)) {
-                $fileName = getcwd() . '/test/TestConfig.php.dist';
-            }
-            if (is_file($fileName)) {
-                $testConfig = include $fileName;
-            }
+        $config = include getcwd().'/config/config.php';
+        if (is_file($file = __DIR__.'/config/config.test.php')) {
+            $config = ArrayUtils::merge($config, include $file);
         }
+        return $config;
+    }
 
-        $zf2ModulePaths = array();
-
-        if (isset($testConfig['module_listener_options']['module_paths'])) {
-            $modulePaths = $testConfig['module_listener_options']['module_paths'];
-            foreach ($modulePaths as $modulePath) {
-                if (($path = static::findParentPath($modulePath))) {
-                    $zf2ModulePaths[] = $path;
-                }
-            }
+    /**
+     * Initialize test bootstrap
+     */
+    public static function init()
+    {
+        static $initialized = false;
+        if (!$initialized) {
+            //date_default_timezone_set('Europe/Berlin');
+            error_reporting(E_ALL | E_STRICT);
+            $testConfig = static::loadConfig();
+            static::$config = $testConfig;
+            static::setupServiceManager();
+            $initialized = true;
         }
-
-        $zf2ModulePaths = implode(PATH_SEPARATOR, $zf2ModulePaths) . PATH_SEPARATOR;
-        $zf2ModulePaths .= getenv('ZF2_MODULES_TEST_PATHS') ?: (defined('ZF2_MODULES_TEST_PATHS') ? ZF2_MODULES_TEST_PATHS : '');
-
-        static::initAutoloader();
-
-        // use ModuleManager to load this module and it's dependencies
-        $baseConfig = array(
-            'module_listener_options' => array(
-                'module_paths' => explode(PATH_SEPARATOR, $zf2ModulePaths),
-            ),
-        );
-
-        $config = ArrayUtils::merge($baseConfig, $testConfig);
-        static::$config = $config;
-        static::setupServiceManager();
     }
 
     /**
@@ -136,3 +117,5 @@ class Bootstrap
         return $dir . '/' . $path;
     }
 }
+
+Bootstrap::init();
