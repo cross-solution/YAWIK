@@ -57,9 +57,9 @@ before_script:
   - ls -l public/build
 
   # setup display, behat, and selenium
-  - ./bin/start-selenium > /dev/null 2>&1
+  - ./bin/start-selenium > /dev/null 2>&1 &
   - sleep 5
-  - composer run serve --timeout=0 > /dev/null 2>&1
+  - composer run serve --timeout=0 > /dev/null 2>&1 &
   - sleep 3
 
 script:
