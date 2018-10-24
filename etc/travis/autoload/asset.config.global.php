@@ -1,6 +1,6 @@
 <?php
 
-$manifest = __DIR__.'/../../public/build/manifest.json';
+$manifest = __DIR__ . '/../../public/build/manifest.json';
 if (!is_file($manifest)) {
     file_put_contents($manifest, '{}', LOCK_EX);
 }

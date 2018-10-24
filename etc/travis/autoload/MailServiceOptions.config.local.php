@@ -15,7 +15,7 @@ $config = [
         'Core/MailServiceOptions' => [
             'options' => [
                 'transportClass' => 'file',
-                'path' => realpath(__DIR__.'/../../build/mails')
+                'path' => realpath(__DIR__ . '/../../build/mails')
             ],
         ],
     ]

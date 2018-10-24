@@ -47,12 +47,12 @@ before_script:
   - mkdir -p config/autoload
   - mkdir -p build/behat
   - mkdir -p build/mails
-  - cp .travis/autoload/*.* config/autoload
+  - cp ./etc/travis/autoload/*.* config/autoload
 
   # install Mongo extension
   - pecl install -f mongodb-${DRIVER_VERSION}
 
-  - phpenv config-add .travis/phpenv.ini
+  - phpenv config-add etc/travis/phpenv.ini
   - composer install $COMPOSER_FLAGS
   - ls -l public/build
 
