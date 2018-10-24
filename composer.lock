@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96e08a943c048899108cea58daa2f819",
+    "content-hash": "e530572b0cf4a2a70fcd05b4570a0a3c",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -7415,73 +7415,6 @@
             "time": "2018-01-29T19:49:41+00:00"
         },
         {
-            "name": "yawik/behat",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yawik/behat.git",
-                "reference": "54b0b6e52bc90396fc09a7528fc808ca296bc1e9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yawik/behat/zipball/54b0b6e52bc90396fc09a7528fc808ca296bc1e9",
-                "reference": "54b0b6e52bc90396fc09a7528fc808ca296bc1e9",
-                "shasum": ""
-            },
-            "require": {
-                "behat/behat": "^3.2",
-                "behat/mink": "^1.7",
-                "behat/mink-browserkit-driver": "^1.3",
-                "behat/mink-extension": "^2.3",
-                "behat/mink-selenium2-driver": "^1.3",
-                "enm1989/chromedriver": "~2.35",
-                "lakion/mink-debug-extension": "^1.2.3",
-                "novaway/common-contexts": "~2.0",
-                "se/selenium-server-standalone": "^2.52"
-            },
-            "bin": [
-                "bin/imgur-uploader",
-                "bin/start-selenium"
-            ],
-            "type": "yawik-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.32-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Yawik\\Behat\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthonius Munthi",
-                    "email": "me@itstoni.com"
-                },
-                {
-                    "name": "Mathias Gelhausen",
-                    "email": "gelhausen@cross-solution.de"
-                },
-                {
-                    "name": "Carsten Bleek",
-                    "email": "bleek@cross-solution.de"
-                }
-            ],
-            "description": "This package provide a Behat tests utility for yawik",
-            "keywords": [
-                "Behat",
-                "module",
-                "yawik",
-                "zf3"
-            ],
-            "time": "2018-10-23T07:49:53+00:00"
-        },
-        {
             "name": "zendframework/zend-component-installer",
             "version": "0.7.1",
             "source": {
@@ -7645,8 +7578,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "cbleek/pecl-solr-hint": 20,
-        "yawik/behat": 20
+        "cbleek/pecl-solr-hint": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

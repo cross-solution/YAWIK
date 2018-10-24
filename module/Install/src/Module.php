@@ -45,6 +45,6 @@ class Module implements Feature\ConfigProviderInterface, Feature\BootstrapListen
                  ->attach($eventManager);
 
         // start tracy debugging
-        $services->get('tracy')->startDebug();
+        $services->get('Tracy')->startDebug();
     }
 }

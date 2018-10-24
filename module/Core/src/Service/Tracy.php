@@ -10,6 +10,7 @@
 namespace Core\Service;
 
 use Core\Listener\TracyListener;
+use Core\Options\ModuleOptions;
 use Psr\Container\ContainerInterface;
 use Tracy\Debugger;
 use Tracy\Logger;
@@ -47,7 +48,7 @@ class Tracy
     public function __construct(EventManagerInterface $eventManager, $config)
     {
         $defaults = [
-            'log' => getcwd().'/log/tracy'
+            'log' => getcwd().'/var/log/tracy'
         ];
         $this->config = ArrayUtils::merge($defaults, $config);
         $listener = new TracyListener();
@@ -59,8 +60,18 @@ class Tracy
     {
         /* @var EventManagerInterface $eventManager */
         $eventManager = $container->get('Application')->getEventManager();
-        $config = $container->get('Config');
-        return new static($eventManager,$config['tracy']);
+        $config = $container->get('Config')['tracy'];
+
+        // we always use log dir from Core Options
+        /* @var ModuleOptions $coreOptions */
+        $coreOptions = $container->get('Core/Options');
+        $log = $coreOptions->getLogDir().'/tracy';
+        if (!is_dir($log)) {
+            mkdir($log, 0777, true);
+        }
+        $config['log'] = $log;
+
+        return new static($eventManager,$config);
     }
 
     public function startDebug()

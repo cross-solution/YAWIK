@@ -230,7 +230,7 @@ return array(
             \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
             'Imagine' => \Core\Factory\Service\ImagineFactory::class,
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
-            'tracy' => [Tracy::class,'factory']
+            'Tracy' => [Tracy::class,'factory']
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',

@@ -24,8 +24,6 @@ use Core\Listener\AjaxRenderListener;
 use Core\Listener\XmlRenderListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
-use Core\Listener\TracyListener;
-use Core\Service\Tracy as TracyService;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Core\Listener\ErrorHandlerListener;
@@ -135,7 +133,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
             -150
         );
 
-        $sm->get('tracy')->startDebug();
+        $sm->get('Tracy')->startDebug();
     }
 
     /**

@@ -19,22 +19,31 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Class Bootstrap
  *
+ * @TODO: Find a way to merge this class with Core\Bootstrap
  * @package CoreTest
  * @since 0.32
  */
 class Bootstrap
 {
+
     /**
      * @var ServiceManager
      */
     protected static $serviceManager;
+
     protected static $config;
+
     protected static $bootstrap;
 
     public static function loadConfig()
     {
-        $config = include getcwd().'/config/config.php';
-        if (is_file($file = __DIR__.'/config/config.test.php')) {
+        $configDir = getenv('APP_CONFIG_DIR');
+        if (!$configDir) {
+            $configDir = getcwd().'/config';
+        }
+
+        $config = include $configDir.'/config.php';
+        if (is_file($file = $configDir.'/config.test.php')) {
             $config = ArrayUtils::merge($config, include $file);
         }
         return $config;

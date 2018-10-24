@@ -1,5 +1,8 @@
 FROM php:7.2-fpm-alpine
 
+ENV http_proxy=http://172.17.0.1:3128
+ENV https_proxy=http://172.17.0.1:3128
+
 MAINTAINER Anthonius <me@itstoni.com>
 ENV UMASK 0
 
@@ -20,14 +23,16 @@ RUN docker-php-ext-configure intl \
     --with-xpm-dir=/usr/include/
 
 RUN docker-php-ext-install -j$(nproc) gd iconv pdo pdo_pgsql pdo_mysql curl \
-    mcrypt mbstring json xml xmlrpc zip bcmath intl opcache
+    mbstring json xml xmlrpc zip bcmath intl opcache
+
+RUN pecl channel-update pecl.php.net
 
 # Install xDebug and Redis
 RUN docker-php-source extract \
-    && pecl install mongo \
-    && docker-php-ext-enable mongo
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
 
-RUN pecl install xdebug-2.5.5 && docker-php-ext-enable xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN docker-php-source delete
 

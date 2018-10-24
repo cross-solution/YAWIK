@@ -88,8 +88,7 @@
         "se/selenium-server-standalone": "^2.52",
         "enm1989/chromedriver": "^2.35",
         "behat/mink-extension": "^2.3",
-        "novaway/common-contexts": "~2.0",
-        "yawik/behat": "0.32.x-dev"
+        "novaway/common-contexts": "~2.0"
     },
     "scripts": {
         "auto-scripts": [

@@ -10,9 +10,9 @@
 namespace Yawik\Behat;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\MinkExtension\Context\MinkContext;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Core\Repository\RepositoryService;
+use CoreTest\Bootstrap;
 use Jobs\Repository\Categories;
 use Zend\Mvc\Application;
 
@@ -42,6 +42,14 @@ class CoreContext extends RawMinkContext
     }
 
     /**
+     * @BeforeSuite
+     */
+    public static function beforeSuite()
+    {
+        putenv('APPLICATION_ENV=test');
+    }
+
+    /**
      * @BeforeScenario
      * @param BeforeScenarioScope $scope
      */
@@ -67,8 +75,7 @@ class CoreContext extends RawMinkContext
     {
         if (!is_object(static::$application)) {
             date_default_timezone_set('Europe/Berlin');
-            $configFile = $this->config;
-            $config = include($configFile);
+            $config = Bootstrap::getConfig();
             static::$application = Application::init($config);
         }
         return static::$application;
