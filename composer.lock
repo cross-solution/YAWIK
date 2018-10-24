@@ -7420,12 +7420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yawik/behat.git",
-                "reference": "b541accec8a28a49da1f8259acaff7a4f917309f"
+                "reference": "54b0b6e52bc90396fc09a7528fc808ca296bc1e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yawik/behat/zipball/b541accec8a28a49da1f8259acaff7a4f917309f",
-                "reference": "b541accec8a28a49da1f8259acaff7a4f917309f",
+                "url": "https://api.github.com/repos/yawik/behat/zipball/54b0b6e52bc90396fc09a7528fc808ca296bc1e9",
+                "reference": "54b0b6e52bc90396fc09a7528fc808ca296bc1e9",
                 "shasum": ""
             },
             "require": {
@@ -7479,124 +7479,7 @@
                 "yawik",
                 "zf3"
             ],
-            "time": "2018-10-23T04:16:45+00:00"
-        },
-        {
-            "name": "yawik/demo-skin",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yawik/DemoSkin.git",
-                "reference": "6a3bf6b7d8aae6d53dbfaba521d7df9ecc547ca5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yawik/DemoSkin/zipball/6a3bf6b7d8aae6d53dbfaba521d7df9ecc547ca5",
-                "reference": "6a3bf6b7d8aae6d53dbfaba521d7df9ecc547ca5",
-                "shasum": ""
-            },
-            "require": {
-                "yawik/core": "^0.32@dev"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7",
-                "yawik/behat": "~0.32@dev"
-            },
-            "type": "yawik-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.32-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "YawikDemoSkin\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthonius Munthi",
-                    "email": "me@itstoni.com"
-                },
-                {
-                    "name": "Mathias Gelhausen",
-                    "email": "gelhausen@cross-solution.de"
-                },
-                {
-                    "name": "Carsten Bleek",
-                    "email": "bleek@cross-solution.de"
-                }
-            ],
-            "description": "This module adds a billing address to the job posting entering wizard .",
-            "keywords": [
-                "billing",
-                "yawik"
-            ],
-            "time": "2018-10-23T13:05:51+00:00"
-        },
-        {
-            "name": "yawik/orders",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yawik/Orders.git",
-                "reference": "d4d9cb446b151020f1780ff56f61fa0efa56d9c1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yawik/Orders/zipball/d4d9cb446b151020f1780ff56f61fa0efa56d9c1",
-                "reference": "d4d9cb446b151020f1780ff56f61fa0efa56d9c1",
-                "shasum": ""
-            },
-            "require": {
-                "yawik/core": "^0.32@dev"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7",
-                "yawik/behat": "~0.32@dev"
-            },
-            "type": "yawik-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.32-dev"
-                },
-                "zf": {
-                    "module": "Orders"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Orders\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthonius Munthi",
-                    "email": "me@itstoni.com"
-                },
-                {
-                    "name": "Mathias Gelhausen",
-                    "email": "gelhausen@cross-solution.de"
-                },
-                {
-                    "name": "Carsten Bleek",
-                    "email": "bleek@cross-solution.de"
-                }
-            ],
-            "description": "This module adds a billing address to the job posting entering wizard .",
-            "keywords": [
-                "billing",
-                "yawik"
-            ],
-            "time": "2018-10-23T10:24:16+00:00"
+            "time": "2018-10-23T07:49:53+00:00"
         },
         {
             "name": "zendframework/zend-component-installer",
