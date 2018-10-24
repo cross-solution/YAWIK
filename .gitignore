@@ -31,7 +31,7 @@ build.properties
 #
 tmp
 docs
-log
+./log
 
 #
 # Exclude directories
@@ -39,7 +39,7 @@ log
 build
 components
 vendor
-cache
+./cache
 node_modules
  
 #
