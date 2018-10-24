@@ -12,8 +12,6 @@ namespace Install;
 
 use Zend\ModuleManager\Feature;
 use Zend\EventManager\EventInterface;
-use Install\Listener\TracyListener;
-use Install\Tracy as TracyService;
 
 /**
  * Module "Install" initialization.

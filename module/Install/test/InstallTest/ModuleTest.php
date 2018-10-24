@@ -10,9 +10,8 @@
 /** */
 namespace InstallTest;
 
-use Auth\AuthenticationService;
-use Core\Options\ModuleOptions;
 use Install\Module;
+use Core\Service\Tracy;
 
 /**
  * Tests for \Install\Module
@@ -78,29 +77,20 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
-        $coreOptions = new ModuleOptions([]);
+        // expects Tracy::startDebug to be called
+        $tracy = $this->getMockBuilder(Tracy::class)->disableOriginalConstructor()->getMock();
+        $tracy->expects($this->once())->method('startDebug');
+
         //$services->expects($this->once())->method('get')->with('Install/Listener/LanguageSetter')->willReturn($listener);
-        $services->expects($this->exactly(3))
+        $services->expects($this->exactly(2))
             ->method('get')
             ->withConsecutive(
                 ['Install/Listener/LanguageSetter'],
-                ['Core/Options'],
-                ['Config']
+                ['tracy']
             )
             ->will($this->onConsecutiveCalls(
                 $listener,
-                $coreOptions,
-                [
-                    'tracy' => [
-                        'enabled' => true,
-                        'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
-                        'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
-                        'strict' => true, // bool = cause immediate death|int = matched against error severity
-                        'log' => getcwd().'/log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
-                        'email' => null, // in production mode notifies the recipient
-                        'email_snooze' => 900 // interval for sending email in seconds
-                    ]
-                ]
+                $tracy
             ))
         ;
 

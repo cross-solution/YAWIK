@@ -2,6 +2,10 @@
 
 include __DIR__.'/../vendor/autoload.php';
 
+putenv("APPLICATION_ENV=test");
+
 use CoreTest\Bootstrap;
 
-Bootstrap::init(!empty($testConfig) ? $testConfig : array());
+$config = include __DIR__.'/../config/config.php';
+
+Bootstrap::init(!empty($config) ? $config : array());
