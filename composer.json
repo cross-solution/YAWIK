@@ -94,7 +94,7 @@
     "scripts": {
         "auto-scripts": [
             "bin/yawik assets:install --relative",
-            "npm run build"
+            "npm install"
         ],
         "post-install-cmd": [
             "@auto-scripts"
