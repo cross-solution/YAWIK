@@ -85,8 +85,8 @@ $config = array(
         
         'module_map_cache_key' => 'module_map',
         
-        'cache_dir' => 'cache/',
-        
+        'cache_dir' => realpath(__DIR__.'/../').'/var/cache/',
+
         // Use the $env value to determine the state of the flag
         'check_dependencies' => ($env != 'production'),
     ),

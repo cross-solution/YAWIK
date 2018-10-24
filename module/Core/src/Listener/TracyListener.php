@@ -23,7 +23,18 @@ use Tracy\Debugger;
 class TracyListener implements ListenerAggregateInterface
 {
     use ListenerAggregateTrait;
-    
+
+    /**
+     * True if debugging is started
+     * @var bool
+     */
+    private $started = false;
+
+    public function startListen()
+    {
+        $this->started = true;
+    }
+
     /**
      * {@inheritDoc}
      * @see \Zend\EventManager\ListenerAggregateInterface::attach()
@@ -39,6 +50,11 @@ class TracyListener implements ListenerAggregateInterface
      */
     public function handleError(MvcEvent $e)
     {
+        /* do not handle error if not start to listening */
+        if (!$this->started) {
+            return;
+        }
+
         if ($e->getError() == \Zend\Mvc\Application::ERROR_EXCEPTION) {
             if (Debugger::$productionMode) {
                 // log an exception in production environment (this will send email as well if email address is set)

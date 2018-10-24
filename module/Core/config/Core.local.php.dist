@@ -1,0 +1,83 @@
+<?php
+/**
+ * YAWIK
+ * 
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author    weitz@cross-solution.de
+ */
+
+ /*
+  * to modify the options, copy this file without the ".dist" suffix to the
+  * autoload directory and modify the values
+  */
+  
+$options = array(
+    /**
+     * The name of the Site used in Mails. Typically it's the name of your website
+     */
+    'siteName' => 'YAWIK',
+
+    /**
+     * Contact Data, which can be used in Mail Signatures or the imprint page.
+     */
+    'operator' => array(
+                          'companyShortName'=>'Your Company Name',
+                          'companyFullName' => 'Your Company Name Ltd. & Co KG',
+                          'companyTax' => 'Your VAT Number',
+                          'postalCode' => '4711',
+                          'city' => 'Example City',
+                          'street' => 'Example Street',
+                          'country' => 'Germany',
+                          'name' => 'Peter, Paul and Mary',
+                          'email' => 'name@example.com',
+                          'phone' => '+49-0815-4711',
+                          'fax' => '+49-0815-4712',
+                          'homepage' => 'http://www.example.com'
+                       ),
+    /**
+     * Supported languages used by the language switcher. This array defines the languages,
+     * which are available in the frontend
+     */
+    'supportedLanguages' => [
+        'de' => 'de_DE',
+        'fr' => 'fr',
+        'en' => 'en_US',
+        'es' => 'es',
+        'it' => 'it',
+//        'nl' => 'nl_BE',
+//        'ru' => 'ru',
+//        'tr' => 'tr',
+//        'hi' => 'hi_IN',
+//        'ar' => 'ar',
+//        'pt' => 'pt',
+//        'pl' => 'pl',
+//        'zh' => 'zh_CN',
+//        'sr' => 'sr',
+//        'ro' => 'ro',
+    ],
+
+    /**
+     * if true, YAWIK tries to detect the browser settings
+     */
+     'detectLanguage' => true,
+
+    /**
+     * The defaultLanguage defines the fallback Language, if no language is set.
+     */
+     'defaultLanguage' => 'de',
+
+
+    /**
+     * The default currency defines the fallback currency, if no currency is set.
+     */
+     'defaultCurrencyCode' => 'EUR',
+
+    /**
+     * default tax rate used, if no tax rate is set
+     */
+     'defaultTaxRate' => '19'
+);
+
+return array('core_options' => $options);

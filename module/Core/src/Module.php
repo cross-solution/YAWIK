@@ -18,7 +18,6 @@ use Core\Console\ConsoleCommandProviderInterface;
 use Core\Console\InstallAssetsCommand;
 use Core\Console\SubsplitCommand;
 use Core\Listener\AjaxRouteListener;
-use Zend\EventManager\Event;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
@@ -30,7 +29,6 @@ use Core\Service\Tracy as TracyService;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Core\Listener\ErrorHandlerListener;
-use Core\Repository\DoctrineMongoODM\PersistenceListener;
 use Core\Listener\NotificationAjaxHandler;
 use Core\Listener\Events\NotificationEvent;
 use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
@@ -80,17 +78,6 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
 
-        $coreOptions = $sm->get('Core/Options');
-        $tracyConfig = $sm->get('Config')['tracy'];
-        $logDir = $coreOptions->getLogDir().'/tracy';
-        if (!is_dir($logDir)) {
-            mkdir($logDir, 0755, true);
-        }
-        $tracyConfig['log'] = $logDir;
-
-        (new TracyService())->register($tracyConfig);
-        (new TracyListener())->attach($eventManager);
-        
         if (!\Zend\Console\Console::isConsole()) {
             (new ErrorHandlerListener())->attach($eventManager);
 
@@ -147,6 +134,8 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
             },
             -150
         );
+
+        $sm->get('tracy')->startDebug();
     }
 
     /**

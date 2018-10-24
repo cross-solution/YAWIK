@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "680f347cc3a1fe7a0b78bdbcb2cd22f2",
+    "content-hash": "96e08a943c048899108cea58daa2f819",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1788,6 +1788,63 @@
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
             "time": "2018-10-02T16:33:53+00:00"
+        },
+        {
+            "name": "symfony/dotenv",
+            "version": "v3.4.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dotenv.git",
+                "reference": "fcc8c8c73899e65ec528aac439c49e7929cdb87b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dotenv/zipball/fcc8c8c73899e65ec528aac439c49e7929cdb87b",
+                "reference": "fcc8c8c73899e65ec528aac439c49e7929cdb87b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "require-dev": {
+                "symfony/process": "~3.2|~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Dotenv\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Registers environment variables from a .env file",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2018-07-26T11:19:56+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -7358,6 +7415,190 @@
             "time": "2018-01-29T19:49:41+00:00"
         },
         {
+            "name": "yawik/behat",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yawik/behat.git",
+                "reference": "b541accec8a28a49da1f8259acaff7a4f917309f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yawik/behat/zipball/b541accec8a28a49da1f8259acaff7a4f917309f",
+                "reference": "b541accec8a28a49da1f8259acaff7a4f917309f",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "^3.2",
+                "behat/mink": "^1.7",
+                "behat/mink-browserkit-driver": "^1.3",
+                "behat/mink-extension": "^2.3",
+                "behat/mink-selenium2-driver": "^1.3",
+                "enm1989/chromedriver": "~2.35",
+                "lakion/mink-debug-extension": "^1.2.3",
+                "novaway/common-contexts": "~2.0",
+                "se/selenium-server-standalone": "^2.52"
+            },
+            "bin": [
+                "bin/imgur-uploader",
+                "bin/start-selenium"
+            ],
+            "type": "yawik-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.32-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yawik\\Behat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthonius Munthi",
+                    "email": "me@itstoni.com"
+                },
+                {
+                    "name": "Mathias Gelhausen",
+                    "email": "gelhausen@cross-solution.de"
+                },
+                {
+                    "name": "Carsten Bleek",
+                    "email": "bleek@cross-solution.de"
+                }
+            ],
+            "description": "This package provide a Behat tests utility for yawik",
+            "keywords": [
+                "Behat",
+                "module",
+                "yawik",
+                "zf3"
+            ],
+            "time": "2018-10-23T04:16:45+00:00"
+        },
+        {
+            "name": "yawik/demo-skin",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yawik/DemoSkin.git",
+                "reference": "6a3bf6b7d8aae6d53dbfaba521d7df9ecc547ca5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yawik/DemoSkin/zipball/6a3bf6b7d8aae6d53dbfaba521d7df9ecc547ca5",
+                "reference": "6a3bf6b7d8aae6d53dbfaba521d7df9ecc547ca5",
+                "shasum": ""
+            },
+            "require": {
+                "yawik/core": "^0.32@dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7",
+                "yawik/behat": "~0.32@dev"
+            },
+            "type": "yawik-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.32-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YawikDemoSkin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthonius Munthi",
+                    "email": "me@itstoni.com"
+                },
+                {
+                    "name": "Mathias Gelhausen",
+                    "email": "gelhausen@cross-solution.de"
+                },
+                {
+                    "name": "Carsten Bleek",
+                    "email": "bleek@cross-solution.de"
+                }
+            ],
+            "description": "This module adds a billing address to the job posting entering wizard .",
+            "keywords": [
+                "billing",
+                "yawik"
+            ],
+            "time": "2018-10-23T13:05:51+00:00"
+        },
+        {
+            "name": "yawik/orders",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yawik/Orders.git",
+                "reference": "d4d9cb446b151020f1780ff56f61fa0efa56d9c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yawik/Orders/zipball/d4d9cb446b151020f1780ff56f61fa0efa56d9c1",
+                "reference": "d4d9cb446b151020f1780ff56f61fa0efa56d9c1",
+                "shasum": ""
+            },
+            "require": {
+                "yawik/core": "^0.32@dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7",
+                "yawik/behat": "~0.32@dev"
+            },
+            "type": "yawik-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.32-dev"
+                },
+                "zf": {
+                    "module": "Orders"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orders\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthonius Munthi",
+                    "email": "me@itstoni.com"
+                },
+                {
+                    "name": "Mathias Gelhausen",
+                    "email": "gelhausen@cross-solution.de"
+                },
+                {
+                    "name": "Carsten Bleek",
+                    "email": "bleek@cross-solution.de"
+                }
+            ],
+            "description": "This module adds a billing address to the job posting entering wizard .",
+            "keywords": [
+                "billing",
+                "yawik"
+            ],
+            "time": "2018-10-23T10:24:16+00:00"
+        },
+        {
             "name": "zendframework/zend-component-installer",
             "version": "0.7.1",
             "source": {
@@ -7519,16 +7760,17 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
-        "cbleek/pecl-solr-hint": 20
+        "cbleek/pecl-solr-hint": 20,
+        "yawik/behat": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.6",
-        "ext-mongodb": "*",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-mongodb": "*"
     },
     "platform-dev": [],
     "platform-overrides": {

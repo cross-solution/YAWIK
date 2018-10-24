@@ -10,11 +10,13 @@
 /** */
 namespace Geo\Factory\Service;
 
+use Core\Options\ModuleOptions;
 use Geo\Service\Geo;
 use Geo\Service\Photon;
 use Interop\Container\ContainerInterface;
 use Zend\Cache\StorageFactory;
-use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -32,12 +34,22 @@ class ClientFactory implements FactoryInterface
         $plugin = strtolower($geoOptions->getPlugin());
         $url = $geoOptions->getGeoCoderUrl();
         $country = $geoOptions->getCountry();
+
+        /* @var ModuleOptions $coreOptions */
+        $coreOptions = $container->get('Core/Options');
+        $cacheDir = $coreOptions->getCacheDir().'/geo';
+        if (!is_dir(dirname($cacheDir))) {
+            throw new ServiceNotCreatedException(
+                sprintf('Cache directory "%s" is not writable.', $cacheDir)
+            );
+        }
+        @mkdir($cacheDir, 0755, true);
         $cache = StorageFactory::factory([
             'adapter' => [
                 'name' => 'filesystem',
                 'options' => [
                     'dirLevel' => 1,
-                    'cacheDir' => 'cache/geo',
+                    'cacheDir' => $cacheDir,
                     'namespaceSeparator' => '-',
                     'namespace' => $plugin,
                     'dirPermission' => 0755,
@@ -61,17 +73,5 @@ class ClientFactory implements FactoryInterface
         }
 
         return $client;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, 'Geo/Client');
     }
 }

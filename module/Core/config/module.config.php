@@ -16,9 +16,8 @@ namespace Core;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
+use Core\Service\Tracy;
 use Zend\I18n\Translator\Resources;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\View\Helper\Asset;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -29,7 +28,7 @@ return array(
 
     'options' => [
         'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
-        ],
+    ],
     
     'Core' => array(
         'settings' => array(
@@ -48,7 +47,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => getcwd().'/log/yawik.log',
+                         'stream' => getcwd().'/var/log/yawik.log',
                     ),
                  ),
             ),
@@ -59,7 +58,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => getcwd().'/log/mails.log',
+                         'stream' => getcwd().'/var/log/mails.log',
                     ),
                  ),
             ),
@@ -76,7 +75,7 @@ return array(
         'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
         'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
         'strict' => true, // bool = cause immediate death|int = matched against error severity
-        'log' => getcwd().'/log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+        'log' => getcwd().'/var/log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
         'email' => null, // in production mode notifies the recipient
         'email_snooze' => 900 // interval for sending email in seconds
     ],
@@ -231,6 +230,7 @@ return array(
             \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
             'Imagine' => \Core\Factory\Service\ImagineFactory::class,
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
+            'tracy' => [Tracy::class,'factory']
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',

@@ -70,6 +70,9 @@ class YawikConfigCreator extends AbstractPlugin
 
             'core_options' => array(
                 'system_message_email' => $email,
+                'public_dir' => getcwd().'/public',
+                'log_dir' => getcwd().'/var/log',
+                'cache_dir' => getcwd().'/var/cache',
             ),
         );
 
@@ -109,8 +112,9 @@ class YawikConfigCreator extends AbstractPlugin
         // Make the file end by EOL
         $content = rtrim($content, "\n") . "\n";
 
-        return $content;
+        var_export($config, true);
 
+        return $content;
     }
 
     /**

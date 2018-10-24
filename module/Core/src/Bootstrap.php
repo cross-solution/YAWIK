@@ -10,6 +10,7 @@
 
 namespace Core;
 
+use Symfony\Component\Dotenv\Dotenv;
 use Zend\Mvc\Application as ZendApplication;
 use Zend\Stdlib\ArrayUtils;
 
@@ -21,6 +22,11 @@ use Zend\Stdlib\ArrayUtils;
  */
 class Bootstrap
 {
+    public function initEnv()
+    {
+        $dotenv = new Dotenv();
+    }
+
     /**
      * Get required modules for Yawik
      *
