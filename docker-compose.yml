@@ -15,8 +15,10 @@ services:
             - UMASK=0
     php:
         container_name: yawik.php
+        environment:
+          - http_proxy=http://172.17.0.1:3128
         env_file:
-          - ./.env
+          - .env
         build:
             context: etc/docker/php
             args:
@@ -24,7 +26,7 @@ services:
         volumes:
             - ./etc/docker/php/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
             - ./:/var/www/yawik
-            - ./var/docker/logs:/var/www/yawik/var/log
+            - ./var/docker/log:/var/www/yawik/var/log
             - ./var/docker/cache:/var/www/yawik/var/cache
 
     mongo:

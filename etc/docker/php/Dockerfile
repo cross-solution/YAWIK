@@ -1,13 +1,13 @@
 FROM php:7.2-fpm-alpine
 
-ENV http_proxy=http://172.17.0.1:3128
-ENV https_proxy=http://172.17.0.1:3128
-
 MAINTAINER Anthonius <me@itstoni.com>
+
 ENV UMASK 0
 
 ENV WORKDIR "/var/www/yawik"
 ARG TIMEZONE
+
+ENV http_proxy=http://172.17.0.1:3128
 
 RUN apk upgrade --update && apk --no-cache add \
     gcc g++ make git autoconf tzdata openntpd libcurl curl-dev coreutils \

@@ -86,7 +86,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->withConsecutive(
                 ['Install/Listener/LanguageSetter'],
-                ['tracy']
+                ['Tracy']
             )
             ->will($this->onConsecutiveCalls(
                 $listener,
