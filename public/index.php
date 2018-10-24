@@ -22,9 +22,6 @@ if (file_exists(__DIR__.'/../vendor/autoload.php')) {
     exit;
 }
 
-$dotenv = new \Symfony\Component\Dotenv\Dotenv();
-$dotenv->load(__DIR__.'/../.env');
-
 chdir(dirname(__DIR__));
 $config = include __DIR__.'/../config/config.php';
 Core\Bootstrap::runApplication($config);

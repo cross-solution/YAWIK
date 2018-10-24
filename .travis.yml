@@ -57,18 +57,16 @@ before_script:
   - ls -l public/build
 
   # setup display, behat, and selenium
-  - ./bin/start-selenium > /dev/null 2>&1 &
+  - ./bin/start-selenium > /dev/null 2>&1
   - sleep 5
-  - composer run serve --timeout=0 > /dev/null 2>&1 &
+  - composer run serve --timeout=0 > /dev/null 2>&1
   - sleep 3
-  - cd $TRAVIS_BUILD_DIR
-
 
 script:
   - 'if [[ $COVERAGE = yes ]]; then
-        ./vendor/bin/phpunit -c test --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
+        ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
     else
-        ./vendor/bin/phpunit -c test --verbose;
+        ./vendor/bin/phpunit --verbose;
     fi'
   # only run behat tests when not collecting coverage
   - if [[ $COVERAGE != yes ]]; then APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction; fi
