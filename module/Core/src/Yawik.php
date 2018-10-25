@@ -12,7 +12,6 @@ namespace Core;
 
 use Symfony\Component\Dotenv\Dotenv;
 use Zend\Mvc\Application as ZendApplication;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * Utility class
