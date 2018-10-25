@@ -12,11 +12,9 @@ services:
             - php
             - mongo
         environment:
-            - UMASK=0
+            - UMASK=0000
     php:
         container_name: yawik.php
-        environment:
-          - http_proxy=http://172.17.0.1:3128
         env_file:
           - .env
         build:
@@ -28,6 +26,10 @@ services:
             - ./:/var/www/yawik
             - ./var/docker/log:/var/www/yawik/var/log
             - ./var/docker/cache:/var/www/yawik/var/cache
+        links:
+            - mongo
+        environment:
+            - UMASK=0000
 
     mongo:
         image: mongo:3.4.10

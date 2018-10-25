@@ -10,6 +10,8 @@
 /** */
 namespace Install\Validator;
 
+use MongoDB\Client;
+use MongoDB\Driver\Exception\ConnectionTimeoutException;
 use Zend\Validator\AbstractValidator;
 use Zend\Validator\Exception;
 
@@ -24,7 +26,6 @@ use Zend\Validator\Exception;
  */
 class MongoDbConnection extends AbstractValidator
 {
-
     const NO_CONNECTION = 'connectionFails';
 
     /**
@@ -75,13 +76,13 @@ class MongoDbConnection extends AbstractValidator
         // @codeCoverageIgnoreStart
         // This cannot be testes until we have a test database environment.
         try {
-            @new \MongoClient($value);
-        } catch (\MongoConnectionException $e) {
+            $connection = new Client($value);
+            $connection->listDatabases();
+        } catch (ConnectionTimeoutException $e) {
             $this->databaseError = $e->getMessage();
             $this->error(self::NO_CONNECTION);
-
             return false;
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             $this->databaseError = $e->getMessage();
             $this->error(self::NO_CONNECTION);
             return false;

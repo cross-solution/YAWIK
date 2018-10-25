@@ -397,7 +397,6 @@ class ModuleOptions extends AbstractOptions
         if (!is_dir($this->logDir)) {
             mkdir($this->logDir, 0755, true);
         }
-        $this->logDir = realpath($this->logDir);
         return $this->logDir;
     }
 

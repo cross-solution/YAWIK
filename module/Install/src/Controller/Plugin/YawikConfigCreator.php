@@ -70,9 +70,6 @@ class YawikConfigCreator extends AbstractPlugin
 
             'core_options' => array(
                 'system_message_email' => $email,
-                'public_dir' => getcwd().'/public',
-                'log_dir' => getcwd().'/var/log',
-                'cache_dir' => getcwd().'/var/cache',
             ),
         );
 
@@ -133,7 +130,9 @@ class YawikConfigCreator extends AbstractPlugin
         }
 
         $file = 'config/autoload/yawik.config.global.php';
-
-        return (bool) @file_put_contents($file, $content);
+        // need to chmod 777 to be usable by docker and local environment
+        @touch($file);
+        @chmod($file, 0777);
+        return (bool) @file_put_contents($file, $content, LOCK_EX);
     }
 }
