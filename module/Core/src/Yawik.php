@@ -25,10 +25,12 @@ class Yawik
     public static function initEnv()
     {
         $env = getcwd().'/.env';
-        if(!is_file($env)){
+        if (!is_file($env)) {
             $env = getcwd().'/.env.dist';
         }
-
+        if (!is_file($env)) {
+            return;
+        }
         $dotenv = new Dotenv();
         $dotenv->load($env);
     }
