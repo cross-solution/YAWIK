@@ -12,6 +12,7 @@ namespace Core;
 
 use Symfony\Component\Dotenv\Dotenv;
 use Zend\Mvc\Application as ZendApplication;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Utility class
@@ -21,7 +22,9 @@ use Zend\Mvc\Application as ZendApplication;
  */
 class Yawik
 {
-    public static function initEnv()
+    public static $VERSION;
+
+    public static function init()
     {
         $env = getcwd().'/.env';
         if (!is_file($env)) {
@@ -32,6 +35,10 @@ class Yawik
         }
         $dotenv = new Dotenv();
         $dotenv->load($env);
+
+        $version = getenv('TRAVIS') ? "undefined":exec('git describe');
+        $branch = getenv('TRAVIS') ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
+        static::$VERSION = $version.'['.$branch.']';
     }
 
     /**
@@ -72,7 +79,7 @@ class Yawik
      */
     public static function generateModuleConfiguration($loadModules=[])
     {
-        return array_merge(
+        return ArrayUtils::merge(
             static::getRequiredModules(),
             $loadModules
         );
@@ -87,7 +94,7 @@ class Yawik
      */
     public static function initApplication(array $appConfig = [])
     {
-        static::initEnv();
+        static::init();
         if (empty($appConfig)) {
             // Retrieve configuration
             $file = null;
@@ -143,4 +150,4 @@ class Yawik
     }
 }
 
-Yawik::initEnv();
+Yawik::init();

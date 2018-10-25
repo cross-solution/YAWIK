@@ -153,6 +153,9 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
     public function registerCommands(Application $application)
     {
         $application->add(new InstallAssetsCommand());
-        $application->add(new SubsplitCommand());
+        if (strpos(__DIR__, 'vendor') === false) {
+            // disable subsplit command when in vendor directories
+            $application->add(new SubsplitCommand());
+        }
     }
 }

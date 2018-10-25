@@ -11,6 +11,7 @@
 namespace Core\Console;
 
 use Core\Factory\ContainerAwareInterface;
+use Core\Yawik;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Finder\SplFileInfo;
@@ -34,10 +35,10 @@ class Application extends BaseApplication
      */
     public function __construct(ContainerInterface $container)
     {
-        $version = `git describe 2>/dev/null`;
-        parent::__construct('YAWIK', $version);
+        $version = Yawik::$VERSION;
         $this->container = $container;
         $this->registerCommands($container);
+        parent::__construct('YAWIK', $version);
     }
 
     private function registerCommands(ContainerInterface $container)
