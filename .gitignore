@@ -1,4 +1,5 @@
 .env
+behat.yml
 #
 # General text editors backup files
 #
