@@ -134,6 +134,8 @@ endforeach;?>
                                     echo getenv('TRAVIS') ? "undefined":exec('git describe');
                                 ?>
                                 [<?php echo getenv('TRAVIS') ? "undefined":exec('git rev-parse --abbrev-ref HEAD',$output,$retVal) ?>]
+
+                                Environment: <strong><?php echo getenv('APPLICATION_ENV') ?></strong>
                             </version>
                         </small></span>
                             <span class="pull-right"><small>Powered by <a href="http://yawik.org">YAWIK</a></small></span>

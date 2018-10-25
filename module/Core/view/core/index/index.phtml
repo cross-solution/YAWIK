@@ -48,7 +48,6 @@
  * Disable feed reader during development
  * Make a faster behat tests ;-)
  */
-if(getenv('APPLICATION_ENV')!='development'):
 ?>
 <div class="container col-md-4">
     <aside class="panel panel-info">
@@ -56,6 +55,7 @@ if(getenv('APPLICATION_ENV')!='development'):
             <h3 class="panel-title"><?php echo $this->translate("Developer News")?></h3>
         </div>
         <div class="panel-body">
+        <?php if(getenv('APPLICATION_ENV') === 'production'): ?>
             <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents("https://github.com/cross-solution/CrossApplicantManager/commits/master.atom"));?>
             <ul>
                 <?php foreach($news as $item):?>
@@ -64,6 +64,9 @@ if(getenv('APPLICATION_ENV')!='development'):
                     </li>
                 <?php endforeach;?>
             </ul>
+        <?php else: ?>
+            Info disabled during development
+        <?php endif; ?>
         </div>
     </aside>
 </div>
@@ -73,6 +76,7 @@ if(getenv('APPLICATION_ENV')!='development'):
             <h3 class="panel-title"><?php echo $this->translate("Recruiter News")?></h3>
         </div>
         <div class="panel-body">
+        <?php if(getenv('APPLICATION_ENV') === 'production'): ?>
             <ul>
                 <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents('http://yawik.org/feed/'));?>
                 <?php foreach($news as $item):?>
@@ -81,7 +85,9 @@ if(getenv('APPLICATION_ENV')!='development'):
                     </li>
                 <?php endforeach;?>
             </ul>
+        <?php else: ?>
+            <p>This panel disabled during development</p>
+        <?php endif; ?>
         </div>
     </aside>
 </div>
-<?php endif ?>
