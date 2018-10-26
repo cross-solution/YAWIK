@@ -79,6 +79,7 @@ return [
            'Applications/Listener/ApplicationStatusChangePre' => 'Applications\Factory\Listener\StatusChangeFactory',
            'Applications\Auth\Dependency\ListListener' => 'Applications\Factory\Auth\Dependency\ListListenerFactory',
             Listener\JobSelectValues::class => Factory\Listener\JobSelectValuesFactory::class,
+            Listener\LoadDependendEntities::class => InvokableFactory::class,
         ],
         'aliases' => [
            'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
@@ -289,5 +290,16 @@ return [
         'Core/Ajax/Events' => ['listeners' => [
             Listener\JobSelectValues::class => ['applications.job-select', true],
         ]],
+
+        'Core/EntityEraser/Dependencies/Events' => [
+            'listeners' => [
+                Listener\LoadDependendEntities::class => [
+                    'events' => [
+                        \Core\Service\EntityEraser\DependencyResultEvent::CHECK_DEPENDENCIES => '__invoke',
+                        \Core\Service\EntityEraser\DependencyResultEvent::DELETE             => 'onDelete',
+                    ],
+                ],
+            ],
+        ]
     ],
 ];
