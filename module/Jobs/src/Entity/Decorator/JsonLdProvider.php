@@ -50,8 +50,14 @@ class JsonLdProvider implements JsonLdProviderInterface
         $organizationName = $organization ? $organization->getOrganizationName()->getName() : $this->job->getCompany();
 
         $dateStart = $this->job->getDatePublishStart();
-        $dateStart = $dateStart ? $dateStart->format('Y-m-d') : null;
-        
+        $dateStart = $dateStart ? $dateStart->format('Y-m-d H:i:s') : null;
+        $dateEnd = $this->job->getDatePublishEnd();
+        $dateEnd = $dateEnd ? $dateEnd->format('Y-m-d H:i:s') : null;
+        if (!$dateEnd) {
+            $dateEnd = new \DateTime($dateStart);
+            $dateEnd->add(new \DateInterval("P180D"));
+            $dateEnd = $dateEnd->format('Y-m-d H:i:s');
+        }
         $array=[
             '@context'=>'http://schema.org/',
             '@type' => 'JobPosting',
@@ -72,7 +78,7 @@ class JsonLdProvider implements JsonLdProviderInterface
             ],
             'jobLocation' => $this->getLocations($this->job->getLocations()),
             'employmentType' => $this->job->getClassifications()->getEmploymentTypes()->getValues(),
-            'validThrough' => $this->job->getDatePublishEnd()
+            'validThrough' => $dateEnd
         ];
 
         return Json::encode($array);
