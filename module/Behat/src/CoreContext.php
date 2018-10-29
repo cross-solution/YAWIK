@@ -12,7 +12,6 @@ namespace Yawik\Behat;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Core\Repository\RepositoryService;
-use CoreTest\Bootstrap;
 use Jobs\Repository\Categories;
 use Zend\Mvc\Application;
 
