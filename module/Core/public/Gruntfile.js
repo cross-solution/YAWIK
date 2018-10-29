@@ -15,6 +15,12 @@ module.exports = function(grunt) {
                         src: "**",
                         dest: "public/dist/flags"
                     },
+                    {
+                        expand: true,
+                        cwd: nodeModulesPath+'/tinymce/skins',
+                        src: "**",
+                        dest: "public/dist/tinymce-skins"
+                    },
                 ]
             }
         },
@@ -35,7 +41,6 @@ module.exports = function(grunt) {
                         "./node_modules/select2/dist/css/select2.min.css",
                         "./node_modules/pnotify/dist/pnotify.css",
                         "./node_modules/pnotify/dist/pnotify.buttons.css",
-                        "./node_modules/tinymce/skins/lightgray/skin.min.css",
                         "./node_modules/bootsrap3-dialog/dist/css/bootstrap-dialog.css"
                     ]
                 },

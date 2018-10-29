@@ -21,7 +21,7 @@ $this->configHeadScript()->prependScript('var lang="' . $lang . '";'
     . 'var basePath="' . $this->basePath() . '";');
 
 $this->headLink()->prependStylesheet($this->basePath('dist/css/core.min.css'));
-$this->configHeadScript()->prependFile($this->basepath('dist/js/core.min.js'));
+$this->configHeadScript()->prependFile($this->basepath('dist/js/core.js'));
 
 /*
 @TODO: remove this comment when grunt command is implemented

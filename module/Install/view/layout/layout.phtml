@@ -13,13 +13,12 @@
 <?php
 
 
-$this->headLink()->prependStylesheet($this->basePath($this->asset('build/yawik.css')));
+$this->headLink()->prependStylesheet($this->basePath('dist/css/core.min.css'));
 
-$this->configHeadScript()->prependFile($this->basepath($this->asset('build/yawik.js')));
+$this->configHeadScript()->prependFile($this->basepath('dist/js/core.min.js'));
 
-$this->headScript()->appendScript('var lang="' . $this->lang . '";'
-                                      . 'var basePath="' . $this->basePath() . '";');
-
+$langScript = 'dist/locales/' . $lang . '.js';
+$this->configHeadScript()->appendFile($this->basePath($langScript));
 
 ?>
 <?php echo $this->doctype(); ?>

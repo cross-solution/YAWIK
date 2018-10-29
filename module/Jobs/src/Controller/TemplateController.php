@@ -186,8 +186,7 @@ class TemplateController extends AbstractActionController
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $asset = $viewHelperManager->get('asset');
-            //$headScript->prependFile($basePath('/assets/jquery/jquery.min.js'));
-            $headScript->appendFile($basePath($asset('build/yawik.js')));
+            $headScript->appendFile($basePath('dist/js/core.js'));
             $headScript->appendFile($basePath->__invoke('modules/Core/js/core.forms.js'));
             $headScript->appendScript('
                 $(document).ready(function() {

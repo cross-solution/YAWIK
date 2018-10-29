@@ -21,6 +21,8 @@ class FormEditor extends FormTextarea
      */
     protected $theme = 'modern';
 
+    private $skinUrl = '/dist/tinymce-skins/lightgray';
+
     /**
      * Default configuration of the form editor
      *
@@ -86,6 +88,7 @@ class FormEditor extends FormTextarea
             '
             $(document).ready(function() {
             tinyMCE.init({' . $this->additionalOptions() . ',
+                 skin_url: "'.$this->skinUrl.'",
                  setup:  function(editor) {
                  
                     setPlaceHolder = function(editor, show) {
