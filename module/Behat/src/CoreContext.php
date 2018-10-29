@@ -75,7 +75,7 @@ class CoreContext extends RawMinkContext
     {
         if (!is_object(static::$application)) {
             date_default_timezone_set('Europe/Berlin');
-            $config = Bootstrap::getConfig();
+            $config = include $this->config;
             static::$application = Application::init($config);
         }
         return static::$application;
