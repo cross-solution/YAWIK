@@ -1,38 +1,18 @@
 {
-  "name": "yawik-development",
-  "version": "0.32.0",
-  "scripts": {
-    "postinstall": "npm run build",
-    "dev-server": "encore dev-server --config-name core",
-    "dev": "encore dev --config-name core",
-    "watch": "encore dev --watch --config-name core",
-    "build": "encore production --config-name core",
-    "locales": "encore production --config-name locales"
-  },
-  "private": false,
-  "dependencies": {
-    "blueimp-file-upload": "^9.15.0",
-    "bootstrap": "^3.3.7",
-    "bootstrap-datepicker": "^1.6.4",
-    "bootstrap3-dialog": "^1.35.3",
-    "flag-icon-css": "^2.8.0",
-    "font-awesome": "^4.7.0",
-    "jquery": "^3.0.0",
-    "jquery-migrate": "^3.0.1",
-    "pnotify": "^3.0.0",
-    "select2": "^4.0.3",
-    "tinymce": "4.5.9",
-    "twitter-bootstrap-wizard": "^1.2.0"
-  },
-  "devDependencies": {
-    "@symfony/webpack-encore": "^0.20.1",
-    "copy-webpack-plugin": "^4.5.4",
-    "grunt": "^1.0.3",
-    "grunt-contrib-less": "^2.0.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "jit-grunt": "^0.10.0",
-    "less": "^3.8.1",
-    "less-loader": "^4.1.0",
-    "uglify-js": "^2.7.5"
-  }
+    "name": "yawik-development",
+    "version": "0.32.0",
+    "scripts": {},
+    "private": false,
+    "dependencies": {
+        "yawik-core": "./public/modules/Core"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.3",
+        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-less": "^2.0.0",
+        "grunt-contrib-uglify": "^4.0.0",
+        "grunt-contrib-watch": "^1.1.0",
+        "load-grunt-tasks": "^4.0.0"
+    }
 }

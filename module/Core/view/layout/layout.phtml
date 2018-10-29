@@ -20,9 +20,9 @@ $notifications = $this->partial('core/notifications');
 $this->configHeadScript()->prependScript('var lang="' . $lang . '";'
     . 'var basePath="' . $this->basePath() . '";');
 
-$this->headLink()->prependStylesheet($this->basePath($this->asset('build/yawik.css')));
+$this->headLink()->prependStylesheet($this->basePath('dist/core.min.css'));
 
-$this->configHeadScript()->prependFile($this->basepath($this->asset('build/yawik.js')));
+$this->configHeadScript()->prependFile($this->basepath('dist/core.min.js'));
 
 /*
 $this->configHeadScript()->prependFile($this->basepath('modules/Core/js/core.init.js'));
