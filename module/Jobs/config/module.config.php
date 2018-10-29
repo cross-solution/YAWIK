@@ -269,6 +269,16 @@ return [
             \Jobs\Listener\LoadActiveOrganizations::class => [ 'jobs.admin.activeorganizations', true],
 
         ]],
+
+        'Core/EntityEraser/Load/Events' => ['listeners' => [
+            Listener\LoadExpiredJobsToPurge::class => [
+                'events' => [
+                    Listener\LoadExpiredJobsToPurge::EVENT_NAME,
+                    \Core\Service\EntityEraser\LoadEvent::FETCH_LIST => 'onFetchList',
+                ],
+                'lazy' => true
+            ],
+        ]],
     ],
 
 

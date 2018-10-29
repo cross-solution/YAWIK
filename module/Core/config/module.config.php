@@ -165,6 +165,31 @@ return array(
             ),
         ),
     ),
+
+    'console' => [
+        'router' => [
+            'routes' => [
+                'purge' => [
+                    'options' => [
+                        'route' => 'purge [--no-check] [--options=] <entity> [<id>] ',
+                        'defaults' => [
+                            'controller' => Controller\Console\PurgeController::class,
+                            'action' => 'index',
+                        ],
+                    ],
+                ],
+                'purge-list' => [
+                    'options' => [
+                        'route' => 'purge',
+                        'defaults' => [
+                            'controller' => Controller\Console\PurgeController::class,
+                            'action' => 'list',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
     
     'acl' => array(
         'rules' => array(
@@ -230,7 +255,8 @@ return array(
             \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
             'Imagine' => \Core\Factory\Service\ImagineFactory::class,
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
-            'Tracy' => [Tracy::class,'factory']
+            'Tracy' => [Tracy::class,'factory'],
+            Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',
@@ -297,6 +323,7 @@ return array(
             'Core/Admin'   => AdminControllerFactory::class,
             'Core/File'    => FileControllerFactory::class,
             'Core/Content' => LazyControllerFactory::class,
+            Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
         ],
     ),
     // Configuration of the controller plugin service manager
@@ -311,6 +338,7 @@ return array(
             'Core/Mailer' => ['Core\Controller\Plugin\Mailer','factory'],
             'Core/CreatePaginator' => [\Core\Controller\Plugin\CreatePaginator::class,'factory'],
             'Core/PaginatorService' => [\Core\Controller\Plugin\CreatePaginatorService::class,'factory'],
+            Controller\Plugin\EntityEraser::class => Controller\Plugin\EntityEraserFactory::class,
         ),
         'invokables' => array(
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
@@ -454,11 +482,20 @@ return array(
             "Core/HtmlAbsPathFilter" => 'Core\Factory\Filter\HtmlAbsPathFilterFactory',
             Filter\File\Entity::class => Filter\File\EntityFactory::class,
             Filter\File\Resize::class => Filter\File\ResizeFactory::class,
+            Service\EntityEraser\NameFilter::class => Service\EntityEraser\NameFilterFactory::class,
         ],
         'aliases' => [
             'FileEntity' => Filter\File\Entity::class,
         ],
     ),
+
+    'filter_config' => [
+        Service\EntityEraser\NameFilter::class => [
+            'map' => [
+                'InvoiceAddressDraft' => 'Orders/InvoiceAddressDraft'
+            ],
+        ],
+    ],
     
     'form_elements' => array(
         'invokables' => array(
@@ -537,6 +574,19 @@ return array(
             'event' => \Core\Listener\Events\FileEvent::class,
             'listeners' => [
                 \Core\Listener\DeleteImageSetListener::class => [\Core\Listener\Events\FileEvent::EVENT_DELETE, -1000],
+            ],
+        ],
+
+        'Core/EntityEraser/Dependencies/Events' => [
+            'service' => Service\EntityEraser\EntityEraserEvents::class,
+            'event' => Service\EntityEraser\DependencyResultEvent::class,
+        ],
+
+        'Core/EntityEraser/Load/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => Service\EntityEraser\LoadEvent::class,
+            'listeners' => [
+                Service\EntityEraser\DefaultEntityLoaderListener::class => ['*', -1000],
             ],
         ]
     ],

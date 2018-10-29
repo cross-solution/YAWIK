@@ -18,6 +18,8 @@ use Core\Console\ConsoleCommandProviderInterface;
 use Core\Console\InstallAssetsCommand;
 use Core\Console\SubsplitCommand;
 use Core\Listener\AjaxRouteListener;
+use Zend\EventManager\Event;
+use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
@@ -35,7 +37,8 @@ use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
  * Bootstrap class of the Core module
  *
  */
-class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderInterface
+
+class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderInterface, ConsoleUsageProviderInterface
 {
     public function getConsoleBanner(Console $console)
     {
@@ -48,6 +51,18 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
             str_repeat(' ', floor(($width - strlen($name)) / 2)),
             $name
         );
+    }
+
+    public function getConsoleUsage(Console $console)
+    {
+        return [
+            'purge [--no-check] [--options=] <entity> [<id>]'  => 'Purge entities',
+            'This command will load entities to be purged, checks the dependency of each and removes all entities completely from the',
+            'database. However, called with no <entity> and options it will output a list of all available entity loaders and its options.',
+            '',
+            ['--no-check', 'Skip the dependency check and remove all entities and dependencies straight away.'],
+            ['--options=STRING', 'JSON string represents options for the specific entity loader used.'],
+        ];
     }
 
     /**
