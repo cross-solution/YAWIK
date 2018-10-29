@@ -54,7 +54,6 @@ before_script:
 
   - phpenv config-add etc/travis/phpenv.ini
   - composer install $COMPOSER_FLAGS
-  - ls -l public/build
 
   # setup display, behat, and selenium
   - ./bin/start-selenium > /dev/null 2>&1 &
