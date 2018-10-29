@@ -1,1 +1,0 @@
-import 'select2/dist/js/i18n/en';

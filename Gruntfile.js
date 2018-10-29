@@ -1,5 +1,5 @@
 
-global.nodeModulesPath = __dirname+"/node_modules";
+global.nodeModulesPath = __dirname + "/node_modules";
 
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);

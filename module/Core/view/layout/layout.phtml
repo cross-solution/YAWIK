@@ -20,18 +20,18 @@ $notifications = $this->partial('core/notifications');
 $this->configHeadScript()->prependScript('var lang="' . $lang . '";'
     . 'var basePath="' . $this->basePath() . '";');
 
-$this->headLink()->prependStylesheet($this->basePath('dist/core.min.css'));
-
-$this->configHeadScript()->prependFile($this->basepath('dist/core.min.js'));
+$this->headLink()->prependStylesheet($this->basePath('dist/css/core.min.css'));
+$this->configHeadScript()->prependFile($this->basepath('dist/js/core.min.js'));
 
 /*
+@TODO: remove this comment when grunt command is implemented
 $this->configHeadScript()->prependFile($this->basepath('modules/Core/js/core.init.js'));
 $this->configHeadScript()->prependFile($this->basePath('/assets/pnotify/pnotify.custom.min.js'), 'text/javascript');
 $this->configHeadScript()->prependFile($this->basePath('/assets/bootstrap/js/bootstrap.min.js'));
 $this->configHeadScript()->prependFile($this->basePath('/assets/jquery/jquery.min.js'));
 $this->configHeadScript()->appendFile($this->basePath('/assets/select2/js/select2.min.js'));
 */
-$langScript = 'modules/Core/locales/' . $lang . '.js';
+$langScript = 'dist/locales/' . $lang . '.js';
 $this->configHeadScript()->appendFile($this->basePath($langScript));
 
 
