@@ -188,9 +188,9 @@ return array(
                         ],
                     ],
                 ],
-                'assets:install' => [
+                'assets-install' => [
                     'options' => [
-                        'route' => 'assets:install [--symlink] [--relative] [<target>]',
+                        'route' => 'assets-install [--symlink] [--relative] [<target>]',
                         'defaults' => [
                             'controller' => AssetsInstallController::class,
                             'action' => 'index'

@@ -92,7 +92,7 @@
     },
     "scripts": {
         "auto-scripts": [
-            "bin/console assets:install --relative",
+            "bin/console assets-install --relative",
             "npm install"
         ],
         "post-install-cmd": [
