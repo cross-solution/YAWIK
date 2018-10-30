@@ -30,12 +30,10 @@ class Yawik
         if (!is_file($env)) {
             $env = getcwd().'/.env.dist';
         }
-        if (!is_file($env)) {
-            return;
+        if (is_file($env)) {
+            $dotenv = new Dotenv();
+            $dotenv->load($env);
         }
-        $dotenv = new Dotenv();
-        $dotenv->load($env);
-
         $version = getenv('TRAVIS') ? "undefined":exec('git describe');
         $branch = getenv('TRAVIS') ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
         static::$VERSION = $version.'['.$branch.']';
