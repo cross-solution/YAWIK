@@ -25,5 +25,5 @@ if (file_exists(__DIR__.'/../vendor/autoload.php')) {
 use Core\Yawik;
 
 chdir(dirname(__DIR__));
-$config = include __DIR__.'/../config/config.php';
+$config = __DIR__.'/../config/config.php';
 Yawik::runApplication($config);

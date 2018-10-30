@@ -85,14 +85,18 @@ class Yawik
 
     /**
      * Run application
-     * @param array $appConfig
+     * @param mixed|array $appConfig
      *
      * @param bool $run
      * @return bool|ZendApplication
      */
-    public static function initApplication(array $appConfig = [])
+    public static function initApplication($appConfig)
     {
         static::init();
+        if (is_file($appConfig)) {
+            $appConfig = include $appConfig;
+        }
+
         if (empty($appConfig)) {
             // Retrieve configuration
             $file = null;
@@ -118,7 +122,7 @@ class Yawik
         return ZendApplication::init($appConfig);
     }
 
-    public static function runApplication(array $appConfig = [])
+    public static function runApplication($appConfig)
     {
         ini_set('display_errors', true);
         ini_set('error_reporting', E_ALL | E_STRICT);

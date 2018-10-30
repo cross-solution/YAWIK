@@ -13,6 +13,7 @@
  */
 namespace Core;
 
+use Core\Controller\Console\AssetsInstallController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
@@ -187,6 +188,15 @@ return array(
                         ],
                     ],
                 ],
+                'assets:install' => [
+                    'options' => [
+                        'route' => 'assets:install [--symlink] [--relative] [<target>]',
+                        'defaults' => [
+                            'controller' => AssetsInstallController::class,
+                            'action' => 'index'
+                        ]
+                    ]
+                ]
             ],
         ],
     ],
@@ -324,6 +334,7 @@ return array(
             'Core/File'    => FileControllerFactory::class,
             'Core/Content' => LazyControllerFactory::class,
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
+            AssetsInstallController::class => [ AssetsInstallController::class,'factory']
         ],
     ),
     // Configuration of the controller plugin service manager
