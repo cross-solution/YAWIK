@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
+
     var targetDir = grunt.config.get('targetDir');
     var nodeModulesPath = grunt.config.get('nodeModulesPath');
-    grunt.initConfig({
+
+    grunt.config.merge({
         copy: {
             core: {
                 files: [
