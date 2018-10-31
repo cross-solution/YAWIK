@@ -38,12 +38,11 @@ use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
  *
  */
 
-class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderInterface, ConsoleUsageProviderInterface
+class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInterface
 {
     public function getConsoleBanner(Console $console)
     {
-        $version = `git describe 2>/dev/null`;
-        $name = 'YAWIK ' . trim($version);
+        $name = Yawik::$VERSION;
         $width = $console->getWidth();
         return sprintf(
             "==%1\$s==\n%2\$s%3\$s\n**%1\$s**\n",
@@ -160,17 +159,5 @@ class Module implements ConsoleBannerProviderInterface, ConsoleCommandProviderIn
     {
         $config = include __DIR__ . '/../config/module.config.php';
         return $config;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function registerCommands(Application $application)
-    {
-        $application->add(new InstallAssetsCommand());
-        if (strpos(__DIR__, 'vendor') === false) {
-            // disable subsplit command when in vendor directories
-            $application->add(new SubsplitCommand());
-        }
     }
 }

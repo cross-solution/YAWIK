@@ -14,6 +14,7 @@
 namespace Core;
 
 use Core\Controller\Console\AssetsInstallController;
+use Core\Controller\Console\SubsplitController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
@@ -196,6 +197,15 @@ return array(
                             'action' => 'index'
                         ]
                     ]
+                ],
+                'subsplit' => [
+                    'options' => [
+                        'route' => 'subsplit [--heads=] [--tags=] [--skip-update] [--dry-run] [--verbose|-v] [<module>]',
+                        'defaults' => [
+                            'controller' => SubsplitController::class,
+                            'action' => 'index'
+                        ]
+                    ]
                 ]
             ],
         ],
@@ -267,7 +277,6 @@ return array(
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
             'Tracy' => [Tracy::class,'factory'],
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
-            AssetsInstallController::class => [ AssetsInstallController::class,'factory'],
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',
@@ -335,7 +344,8 @@ return array(
             'Core/File'    => FileControllerFactory::class,
             'Core/Content' => LazyControllerFactory::class,
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
-            AssetsInstallController::class => [AssetsInstallController::class,'factory']
+            AssetsInstallController::class => [AssetsInstallController::class,'factory'],
+            SubsplitController::class => [SubsplitController::class,'factory'],
 
         ],
     ),

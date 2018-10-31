@@ -20,15 +20,6 @@ if (!class_exists('Core\Module', true)) {
     }
 }
 
-use Core\Console\Application;
 use Core\Yawik;
-use Symfony\Component\Dotenv\Dotenv;
 
-if(is_file($file =getcwd().'/.env')){
-    $env = new Dotenv();
-    $env->load($file);
-}
-$mvc = Yawik::initApplication();
-
-$app = new Application($mvc->getServiceManager());
-$app->run();
+Yawik::runApplication(getcwd().'/config/config.php');
