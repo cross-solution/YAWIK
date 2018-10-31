@@ -14,13 +14,11 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\Console\Controller\AbstractConsoleController;
-use Zend\View\Stream;
 
 /**
  * Class AssetsInstallController
@@ -64,24 +62,11 @@ class AssetsInstallController extends AbstractConsoleController
 
     public static function factory(ContainerInterface $container)
     {
-        static $stream;
-
         /* @var ModuleManager $manager */
         $manager = $container->get('ModuleManager');
 
         $modules = $manager->getLoadedModules();
-        $config = $container->get('ApplicationConfig');
-        $ob = new static($modules);
-
-        if ($config['environment'] === 'test') {
-            if (is_null($stream)) {
-                $stream = fopen('php://memory', 'w');
-            }
-            $ob->setOutput(new StreamOutput(
-                $stream
-            ));
-        }
-        return $ob;
+        return new static($modules);
     }
 
     /**
@@ -104,6 +89,9 @@ class AssetsInstallController extends AbstractConsoleController
         return $this;
     }
 
+    /**
+     * @return ConsoleOutput|OutputInterface
+     */
     public function getOutput()
     {
         return $this->output;

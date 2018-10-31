@@ -13,14 +13,19 @@ namespace CoreTest\Controller\Console;
 
 use Core\Controller\Console\AssetsInstallController;
 use CoreTest\Bootstrap;
-use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Output\StreamOutput;
-use Symfony\Component\Console\Tester\CommandTester;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 
 class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
 {
+    /**
+     * @var AssetsInstallController
+     */
+    private $controller;
+
+    /**
+     * @var StreamOutput
+     */
     private $output;
 
     public function setUp()
@@ -28,6 +33,15 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
         $this->setApplicationConfig(Bootstrap::getConfig());
         parent::setUp();
         $this->setUseConsoleRequest(true);
+
+        $output = new StreamOutput(
+            fopen('php://memory', 'w')
+        );
+        $manager = $this->getApplicationServiceLocator()->get('ControllerManager');
+        $controller = $manager->get(AssetsInstallController::class);
+        $controller->setOutput($output);
+        $this->output = $output;
+        $this->controller = $controller;
     }
 
     public function testSymlink()
@@ -79,9 +93,7 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
      */
     public function getDisplay($normalize = false)
     {
-        $sm = $this->getApplicationServiceLocator();
-        $controller = $sm->get(AssetsInstallController::class);
-        $output = $controller->getOutput();
+        $output = $this->output;
 
         rewind($output->getStream());
 
