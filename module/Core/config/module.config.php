@@ -335,6 +335,8 @@ return array(
             'Core/File'    => FileControllerFactory::class,
             'Core/Content' => LazyControllerFactory::class,
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
+            AssetsInstallController::class => [AssetsInstallController::class,'factory']
+
         ],
     ),
     // Configuration of the controller plugin service manager

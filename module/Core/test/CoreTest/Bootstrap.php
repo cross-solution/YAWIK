@@ -11,6 +11,7 @@
 
 namespace CoreTest;
 
+use Core\Yawik;
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
@@ -23,7 +24,7 @@ use Zend\Stdlib\ArrayUtils;
  * @package CoreTest
  * @since 0.32
  */
-class Bootstrap
+class Bootstrap extends Yawik
 {
 
     /**
@@ -56,6 +57,7 @@ class Bootstrap
     {
         static $initialized = false;
         if (!$initialized) {
+            parent::init();
             //date_default_timezone_set('Europe/Berlin');
             error_reporting(E_ALL | E_STRICT);
             $testConfig = static::loadConfig();
