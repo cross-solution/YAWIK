@@ -79,7 +79,7 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
         $add2 = [
                  'name' => 'd',
-                 'type' => 'Zend\Form\Element\Select',
+                 'type' => 'Core\Form\Element\Select',
                  'options' => [
                      'label' => /*@translate*/ 'Distance',
                      'value_options' => [

@@ -39,7 +39,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         $this->add(
             array(
             'name' => 'willingnessToTravel',
-            'type' => '\Zend\Form\Element\Select',
+            'type' => '\Core\Form\Element\Select',
             'options' => array(
                 'value_options' => array(
                     '' => '', // needed for jquery select2 to render the placeholder
@@ -96,7 +96,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         $this->add(
             array(
                 'name'       => 'drivingLicense',
-                'type'       => '\Zend\Form\Element\Select',
+                'type'       => '\Core\Form\Element\Select',
                 'options'    => array(
                     'value_options'   => array(
                         ''  => '', // needed for jquery select2 to render the placeholder

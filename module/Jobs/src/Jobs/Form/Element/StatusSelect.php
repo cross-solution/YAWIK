@@ -11,7 +11,7 @@
 namespace Jobs\Form\Element;
 
 use Jobs\Entity\Status;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 /**
  * ${CARET}

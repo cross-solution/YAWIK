@@ -10,7 +10,7 @@
 /** */
 namespace Applications\Factory\Form;
 
-use \Zend\Form\Element\Select;
+use \Core\Form\Element\Select;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\FactoryInterface;

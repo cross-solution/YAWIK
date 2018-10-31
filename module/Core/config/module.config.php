@@ -466,6 +466,7 @@ return array(
             'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
             'Checkbox' => 'Core\Form\Element\Checkbox',
             'infoCheckBox' => 'Core\Form\Element\InfoCheckbox',
+            'Core/Select' => 'Core\Form\Element\Select',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core/Datepicker' => 'Core\Form\Element\DatePicker',
             'Core/FileUpload' => '\Core\Form\Element\FileUpload',

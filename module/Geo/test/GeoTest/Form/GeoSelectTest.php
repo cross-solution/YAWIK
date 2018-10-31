@@ -20,7 +20,7 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Geo\Form\GeoSelect;
 use Geo\Form\GeoSelectHydratorStrategy;
 use Geo\Service\AbstractClient;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Zend\Json\Json;
 
 /**

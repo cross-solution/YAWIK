@@ -177,7 +177,7 @@ class NativeLanguageFieldsetTest extends \PHPUnit_Framework_TestCase
     {
         $add = [
                     'name'       => 'nativeLanguages',
-                    'type'       => 'Zend\Form\Element\Select',
+                    'type'       => 'Core\Form\Element\Select',
                     'options'    => [
                         'label'         => 'Language',
                         'value_options' => self::$languagesOptions

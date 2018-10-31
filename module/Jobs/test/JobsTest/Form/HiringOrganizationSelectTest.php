@@ -35,11 +35,11 @@ class HiringOrganizationSelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox Extends \Zend\Form\Element\Select and Implements \Core\Form\ViewPartialProviderInterface
+     * @testdox Extends \Core\Form\Element\Select and Implements \Core\Form\ViewPartialProviderInterface
      */
     public function testExtendsZFSelectAndImplementsViewPartialProviderInterface()
     {
-        $this->assertInstanceOf('\Zend\Form\Element\Select', $this->target);
+        $this->assertInstanceOf('\Core\Form\Element\Select', $this->target);
         $this->assertInstanceOf('\Core\Form\ViewPartialProviderInterface', $this->target);
     }
 

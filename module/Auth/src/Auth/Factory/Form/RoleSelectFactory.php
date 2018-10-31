@@ -11,7 +11,7 @@ namespace Auth\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Auth\Entity\User;
 
 /**

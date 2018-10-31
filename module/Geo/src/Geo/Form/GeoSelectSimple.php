@@ -15,7 +15,7 @@ namespace Geo\Form;
 use Core\Form\Hydrator\HydratorStrategyProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
 use Jobs\Entity\Location;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Zend\Hydrator\Strategy\ClosureStrategy;
 
 /**

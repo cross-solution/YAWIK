@@ -79,7 +79,7 @@ class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterfac
         $this->add(
             [
                 'name'       => 'status',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => [
                     'label'         => /*@translate */ 'Status',
                     'value_options' => $this->statusOptions
