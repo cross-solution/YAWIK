@@ -90,7 +90,7 @@ class Yawik
      * @param bool $run
      * @return bool|ZendApplication
      */
-    public static function initApplication($appConfig)
+    public static function initApplication($appConfig = null)
     {
         static::init();
         if (is_file($appConfig)) {
@@ -122,7 +122,7 @@ class Yawik
         return ZendApplication::init($appConfig);
     }
 
-    public static function runApplication($appConfig)
+    public static function runApplication($appConfig=null)
     {
         ini_set('display_errors', true);
         ini_set('error_reporting', E_ALL | E_STRICT);

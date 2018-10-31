@@ -22,4 +22,4 @@ if (!class_exists('Core\Module', true)) {
 
 use Core\Yawik;
 
-Yawik::runApplication(getcwd().'/config/config.php');
+Yawik::runApplication();
