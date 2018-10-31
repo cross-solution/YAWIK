@@ -3,7 +3,6 @@
 
 namespace Core\Controller\Console;
 
-
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -48,10 +47,9 @@ class SubsplitController extends AbstractConsoleController
     public function __construct()
     {
         $this->output = new ConsoleOutput();
-
     }
 
-    static public function factory(ContainerInterface $container)
+    public static function factory(ContainerInterface $container)
     {
         return new static();
     }
@@ -59,17 +57,19 @@ class SubsplitController extends AbstractConsoleController
     /**
      * @return OutputInterface
      */
-    public function getOutput(): OutputInterface
+    public function getOutput()
     {
         return $this->output;
     }
 
     /**
      * @param OutputInterface $output
+     * @return SubsplitController
      */
-    public function setOutput(OutputInterface $output): void
+    public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
+        return $this;
     }
 
     public function indexAction()
@@ -79,13 +79,13 @@ class SubsplitController extends AbstractConsoleController
         $this->buildTree();
         $workdir = $this->workdir;
         $request = $this->getRequest();
-        $this->io = $io = new SymfonyStyle(new ArrayInput([]),$this->output);
-        $filter = $request->getParam('module',null);
+        $this->io = $io = new SymfonyStyle(new ArrayInput([]), $this->output);
+        $filter = $request->getParam('module', null);
         $filter = null === $filter ? array() : explode(',', $filter);
         $skipUpdate = $request->getParam('skip-update');
-        $heads = $request->getParam('heads','develop');
-        $tags = $request->getParam('tags',null);
-        if($request->getParam('verbose') || $request->getParam('v')){
+        $heads = $request->getParam('heads', 'develop');
+        $tags = $request->getParam('tags', null);
+        if ($request->getParam('verbose') || $request->getParam('v')) {
             $this->getOutput()->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }
 
@@ -155,11 +155,11 @@ class SubsplitController extends AbstractConsoleController
 
     private function runCommand($command)
     {
-        if($this->io->getVerbosity() === OutputInterface::VERBOSITY_DEBUG){
+        if ($this->io->getVerbosity() === OutputInterface::VERBOSITY_DEBUG) {
             $command.=' --debug';
             $this->io->writeln("Executing: <info>$command</info>");
         }
-        if($this->dryRun){
+        if ($this->dryRun) {
             return;
         }
         //@codeCoverageIgnoreStart
