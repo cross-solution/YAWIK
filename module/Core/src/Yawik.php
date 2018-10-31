@@ -93,7 +93,7 @@ class Yawik
     public static function initApplication($appConfig = null)
     {
         static::init();
-        if (is_file($appConfig)) {
+        if (is_string($appConfig) && is_file($appConfig)) {
             $appConfig = include $appConfig;
         }
 
