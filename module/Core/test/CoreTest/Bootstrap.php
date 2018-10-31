@@ -19,8 +19,6 @@ use Zend\Stdlib\ArrayUtils;
 
 /**
  * Class Bootstrap
- *
- * @TODO: Find a way to merge this class with Core\Bootstrap
  * @package CoreTest
  * @since 0.32
  */
