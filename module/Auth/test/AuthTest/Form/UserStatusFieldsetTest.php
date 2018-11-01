@@ -40,7 +40,7 @@ class UserStatusFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->fieldset->has('status'));
         
         $status = $this->fieldset->get('status');
-        $this->assertInstanceOf(\Zend\Form\Element\Select::class, $status);
+        $this->assertInstanceOf(\Core\Form\Element\Select::class, $status);
 		$this->assertSame([], $status->getValueOptions());
     }
     

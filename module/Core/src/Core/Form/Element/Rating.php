@@ -11,7 +11,7 @@
 namespace Core\Form\Element;
 
 use Zend\Form\Element;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Core\Entity\RatingInterface;
 
 /**

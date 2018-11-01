@@ -11,7 +11,7 @@
 namespace Jobs\Form;
 
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 /**
  * Form select element to select hiring organizations to be associated to a job

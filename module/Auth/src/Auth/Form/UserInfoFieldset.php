@@ -127,7 +127,7 @@ class UserInfoFieldset extends Fieldset implements
         $this->add(
             array(
                 'name'       => 'gender',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => [
                     'label'         => /*@translate */ 'Salutation',
                     'value_options' => [

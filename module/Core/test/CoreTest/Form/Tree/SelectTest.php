@@ -13,7 +13,7 @@ namespace CoreTest\Form\Tree;
 use Core\Form\Hydrator\HydratorStrategyProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
 use Core\Form\Tree\Select;
-use Zend\Form\Element\Select as ZfSelect;
+use Core\Form\Element\Select as ZfSelect;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 

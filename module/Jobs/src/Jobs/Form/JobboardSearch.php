@@ -52,7 +52,7 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
         $this->add(
             array(
                 'name'       => 'd',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => array(
                     'label'         => /*@translate*/ 'Distance',
                     'value_options' => [

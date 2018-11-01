@@ -16,7 +16,7 @@ use Zend\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\Element\ViewhelperProviderInterface;
 use Zend\Form\Element\Button;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 class FormSimpleRow extends ZendFormRow
 {

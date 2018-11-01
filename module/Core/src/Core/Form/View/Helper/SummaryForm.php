@@ -266,7 +266,7 @@ class SummaryForm extends AbstractHelper
                       ? nl2br($element->getValue())
                       : $element->getValue();
 
-        if ('' != $elementValue && $element instanceof \Zend\Form\Element\Select) {
+        if ('' != $elementValue && $element instanceof \Core\Form\Element\Select) {
             if ($summaryValue = $element->getOption('summary_value')) {
                 $elementValue = is_callable($summaryValue) ? $summaryValue() : $summaryValue;
             } else {

@@ -148,6 +148,7 @@ return array(
     'Core\Form\DisableCapableInterface'                                               => __DIR__ . '/Core/Form/DisableCapableInterface.php',
     'Core\Form\DisableElementsCapableInterface'                                       => __DIR__ . '/Core/Form/DisableElementsCapableInterface.php',
     'Core\Form\Element\Checkbox'                                                      => __DIR__ . '/Core/Form/Element/Checkbox.php',
+    'Core\Form\Element\Select'                                                        => __DIR__ . '/Core/Form/Element/Select.php',
     'Core\Form\Element\DatePicker'                                                    => __DIR__ . '/Core/Form/Element/DatePicker.php',
     'Core\Form\Element\DateRange'                                                     => __DIR__ . '/Core/Form/Element/DateRange.php',
     'Core\Form\Element\Editor'                                                        => __DIR__ . '/Core/Form/Element/Editor.php',

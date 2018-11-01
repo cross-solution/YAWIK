@@ -24,14 +24,14 @@ class MultipostingSelectTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @testdox Extends \Zend\Form\Element\Select and Implements \Core\Form\HeadscriptProviderInterface, \Core\Form\ViewPartialProviderInterface
+     * @testdox Extends \Core\Form\Element\Select and Implements \Core\Form\HeadscriptProviderInterface, \Core\Form\ViewPartialProviderInterface
      * @coversNothing
      */
     public function testExtendsSelectElementAndImplementsProperInterfaces()
     {
         $target = new MultipostingSelect();
 
-        $this->assertInstanceOf('\Zend\Form\Element\Select', $target, 'Does not extend correct parent class.');
+        $this->assertInstanceOf('\Core\Form\Element\Select', $target, 'Does not extend correct parent class.');
         $this->assertInstanceOf('\Core\Form\HeadscriptProviderInterface', $target, 'Interface HeadscriptProviderInterface not implemented.');
         $this->assertInstanceOf('\Core\Form\ViewPartialProviderInterface', $target, 'Interface ViewPartialProviderInterface not implemented.');
     }

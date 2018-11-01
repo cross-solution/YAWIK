@@ -37,11 +37,11 @@ class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox Extends \Zend\Form\Element\Select and implements \Core\Form\HeadscriptProviderInterface
+     * @testdox Extends \Core\Form\Element\Select and implements \Core\Form\HeadscriptProviderInterface
      */
     public function testExtendsSelectAndImplementsHeadscriptProviderInterface()
     {
-        $this->assertInstanceOf('\Zend\Form\Element\Select', $this->target);
+        $this->assertInstanceOf('\Core\Form\Element\Select', $this->target);
         $this->assertInstanceOf('\Core\Form\HeadscriptProviderInterface', $this->target);
     }
 

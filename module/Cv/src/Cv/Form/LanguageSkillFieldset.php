@@ -18,7 +18,7 @@ class LanguageSkillFieldset extends Fieldset
         $this->add(
             array(
                 'name'       => 'language',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => array(
                     'label'         => 'Language',
                     'value_options' => NativeLanguageFieldset::$languagesOptions
@@ -34,7 +34,7 @@ class LanguageSkillFieldset extends Fieldset
         $this->add(
             array(
                 'name'       => 'levelListening',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => array(
                     'label'         => /*@translate */ 'Listening',
                     'value_options' => array(
@@ -61,7 +61,7 @@ class LanguageSkillFieldset extends Fieldset
         $this->add(
             array(
                 'name'       => 'levelReading',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => [
                     'label'         => /*@translate */ 'Reading',
                     'value_options' => [
@@ -88,7 +88,7 @@ class LanguageSkillFieldset extends Fieldset
         $this->add(
             array(
                 'name'       => 'levelSpokenInteraction',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => [
                     'label'         => /*@translate */ 'Spoken Interaction',
                     'value_options' => [
@@ -114,7 +114,7 @@ class LanguageSkillFieldset extends Fieldset
         $this->add(
             array(
                 'name'       => 'levelSpokenProduction',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => array(
                     'label'         => /*@translate */ 'Spoken Production',
                     'value_options' => array(
@@ -140,7 +140,7 @@ class LanguageSkillFieldset extends Fieldset
         $this->add(
             array(
                 'name'       => 'levelWriting',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => [
                     'label'         => /*@translate */ 'Writing',
                     'value_options' => [
