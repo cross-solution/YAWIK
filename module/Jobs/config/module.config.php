@@ -278,6 +278,10 @@ return [
                 'lazy' => true
             ],
         ]],
+
+        'Core/EntityEraser/Dependencies/Events' => ['listeners' => [
+            Listener\JobEntityDependencyListener::class => ['*', true]
+        ]],
     ],
 
 

@@ -242,4 +242,9 @@ class JobSnapshot extends Job implements SnapshotInterface, SnapshotAttributesPr
     public function setDateModified($dateModified = null)
     {
     }
+
+    public function __toString()
+    {
+        return self::class . '( ' . $this->getSnapshotId() . ' )';
+    }
 }
