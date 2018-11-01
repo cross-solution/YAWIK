@@ -11,13 +11,25 @@
 namespace Core\Service\EntityEraser;
 
 /**
- * DependecyResult ValueObject.
+ * DependencyResult ValueObject.
+ *
+ * There are three modes:
+ *
+ * MODE_LIST: The Object holds a collection of entities which are affected.
+ * MODE_COUNT: Instead of all entities in a collection, just the count of affected entities is available.
+ * MODE_DELETE: Like MODE_LIST, but the EntityEraser plugin should loop through the collection and delete each
+ *              entity. (if you just do not want to do it in the listener.)
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
 class DependencyResult 
 {
+
+    const MODE_LIST = 'list';
+    const MODE_COUNT = 'count';
+    const MODE_DELETE = 'delete';
+
     /**
      * Name of this result.
      *
@@ -47,6 +59,13 @@ class DependencyResult
     private $description;
 
     /**
+     * Mode of this result.
+     *
+     * @var string
+     */
+    private $mode;
+
+    /**
      * DependencyResult constructor.
      *
      * There are two valid options:
@@ -59,7 +78,18 @@ class DependencyResult
      */
     public function __construct($name, $entities, array $options = null)
     {
-        if (!is_array($entities) && !$entities instanceOf \Traversable) {
+
+        $this->mode =
+            isset($options['mode']) && in_array($options['mode'], [self::MODE_LIST, self::MODE_COUNT, self::MODE_DELETE])
+                ? $options['mode']
+                : self::MODE_LIST
+        ;
+
+        if (self::MODE_COUNT == $this->mode) {
+            if (!is_int($entities)) {
+                throw new \InvalidArgumentException('Expecting integer value in "count" mode.');
+            }
+        } else if (!is_array($entities) && !$entities instanceOf \Traversable) {
             throw new \InvalidArgumentException('Entities must be an array or an instance of \Traversable');
         }
 
@@ -100,4 +130,25 @@ class DependencyResult
     {
         return $this->description;
     }
+
+    public function isMode($mode)
+    {
+        return $this->mode == $mode;
+    }
+
+    public function isList()
+    {
+        return $this->isMode(self::MODE_LIST);
+    }
+
+    public function isCount()
+    {
+        return $this->isMode(self::MODE_COUNT);
+    }
+
+    public function isDelete()
+    {
+        return $this->isMode(self::MODE_DELETE);
+    }
+
 }

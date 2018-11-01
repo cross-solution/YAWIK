@@ -82,11 +82,19 @@ class PurgeController extends AbstractConsoleController
                 $dependencies = $eraser->checkDependencies($entity);
 
                 foreach ($dependencies as $dependencyList) {
-                    $console->writeLine('        ' . $dependencyList->getName() . ': ' . $dependencyList->getDescription());
-                    $dependendEntities = $dependencyList->getEntities();
-                    $totalCount += count($dependendEntities);
+                    if ($dependencyList->isCount()) {
+                        $entitiesCount = $dependencyList->getEntities();
+                        $dependendEntities = [];
+                    } else {
+                        $dependendEntities = $dependencyList->getEntities();
+                        $entitiesCount = count($dependendEntities);
+                    }
+
+                    $console->writeLine('        ' . $entitiesCount . ' ' . $dependencyList->getName() . ': ' . $dependencyList->getDescription());
+
+                    $totalCount += $entitiesCount;
                     if (!isset($counts[$dependencyList->getName()])) { $counts[$dependencyList->getName()] = 0; }
-                    $counts[$dependencyList->getName()] += count($dependendEntities);
+                    $counts[$dependencyList->getName()] += $entitiesCount;
 
                     foreach ($dependendEntities as $dependendEntity) {
                         $console->writeLine('        - ' . $this->entityToString($dependendEntity));
@@ -123,9 +131,10 @@ class PurgeController extends AbstractConsoleController
 
             $totalCount += 1;
             foreach ($dependencies as $list) {
-                $totalCount += count($list->getEntities());
+                $entitiesCount = $list->isCount() ? $list->getEntities() : count($list->getEntities());
+                $totalCount += $entitiesCount;
                 if (!isset($counts[$list->getName()])) { $counts[$list->getName()] = [0, $list->getDescription()]; }
-                $counts[$list->getName()][0] += count($list->getEntities());
+                $counts[$list->getName()][0] += $entitiesCount;
             }
         }
 
@@ -136,7 +145,6 @@ class PurgeController extends AbstractConsoleController
         foreach ($counts as $name => $count) {
             $console->writeLine('    ' . $count[0] . ' ' . $name . ' ' . $count[1]);
         }
-
     }
 
     public function listAction()

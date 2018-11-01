@@ -143,7 +143,7 @@ class RepositoryServiceTest extends PHPUnit_Framework_TestCase
             ->with('postRemoveEntity');
 
         $this->dm
-            ->expects($this->once())
+            ->expects($this->never())
             ->method('flush');
 
         $this->assertInstanceOf(
@@ -152,6 +152,39 @@ class RepositoryServiceTest extends PHPUnit_Framework_TestCase
             '::remove() method should returns $this'
         );
     }
+
+    public function testRemoveWithFlush()
+    {
+        $user = new User();
+
+        $this->dm
+            ->expects($this->once())
+            ->method('remove')
+            ->with($user);
+
+        $this->eventManager
+            ->expects($this->once())
+            ->method('hasListeners')
+            ->with('postRemoveEntity')
+            ->willReturn(true);
+
+        $this->eventManager
+            ->expects($this->once())
+            ->method('dispatchEvent')
+            ->with('postRemoveEntity');
+
+        $this->dm
+            ->expects($this->once())
+            ->method('flush');
+
+        $this->assertInstanceOf(
+            '\Core\Repository\RepositoryService',
+            $this->rs->remove($user, true),
+            '::remove() method should returns $this'
+        );
+    }
+
+
 
     public function testDetach()
     {

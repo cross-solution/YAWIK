@@ -154,10 +154,12 @@ class DependencyResultCollection implements \IteratorAggregate
             $result = [
                 'name' => $result[0],
                 'entities' => isset($result[1]) ? $result[1] : null,
-                'options' => [
-                    'description' => isset($result[2]) ? $result[2] : null,
-                    'viewScript' => isset($result[3]) ? $result[3] : null,
-                ],
+                'options' => isset($result[2]) && is_array($result[2])
+                    ? $result[2]
+                    : [
+                        'description' => isset($result[2]) ? $result[2] : null,
+                        'viewScript' => isset($result[3]) ? $result[3] : null,
+                      ],
             ];
         }
 
