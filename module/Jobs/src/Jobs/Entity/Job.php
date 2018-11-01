@@ -318,7 +318,7 @@ class Job extends BaseEntity implements JobInterface,
     /**
      *
      * @ODM\ReferenceMany(targetDocument="\Jobs\Entity\JobSnapshot", mappedBy="snapshotEntity", sort={"snapshotMeta.dateCreated"="desc"})
-     * @var JobSnapshot
+     * @var JobSnapshot[]
      */
     protected $snapshots;
 
