@@ -15,6 +15,8 @@ namespace Core;
 
 use Core\Listener\AjaxRouteListener;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Zend\ModuleManager\ModuleEvent;
+use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
@@ -64,9 +66,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
             ""
         ];
 
-        if (
-            strpos(__DIR__, 'modules') === false ||
-            strpos(__DIR__, 'vendor' === false)) {
+        if ($this->isInMainDevelopment()) {
             $info = ArrayUtils::merge($info, [
                 // subsplit command info
                 'subsplit [--heads] [--tags] [--skip-update] [--dry-run] [--verbose|v]' => 'Subsplit development repository',
@@ -177,5 +177,44 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
     {
         $config = include __DIR__ . '/../config/module.config.php';
         return $config;
+    }
+
+    /**
+     * @param ModuleManager $manager
+     */
+    public function init(ModuleManager $manager)
+    {
+        $events = $manager->getEventManager();
+        $events->attach(ModuleEvent::EVENT_MERGE_CONFIG, [$this,'onMergeConfig']);
+    }
+
+    /**
+     * Manipulate configuration
+     * @param ModuleEvent $event
+     */
+    public function onMergeConfig(ModuleEvent $event)
+    {
+        $listener = $event->getConfigListener();
+        $config = $listener->getMergedConfig(false);
+
+        // disable subsplit command if we not in main development
+        if (
+            isset($config['console'])
+            && !$this->isInMainDevelopment()
+            && isset($config['console']['router']['routes']['subsplit'])
+        ) {
+            unset($config['console']['router']['routes']['subsplit']);
+        }
+
+        $listener->setMergedConfig($config);
+    }
+
+    /**
+     * Returns true if this module in the main development mode
+     * @return bool
+     */
+    private function isInMainDevelopment()
+    {
+        return strpos(__DIR__, 'module/Core') !== false;
     }
 }
