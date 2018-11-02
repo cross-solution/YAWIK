@@ -101,7 +101,7 @@
         "post-update-command": [
             "@auto-scripts"
         ],
-        "serve": "APPLICATION_ENV=development php -S localhost:8000 -t public/"
+        "serve": "APPLICATION_ENV=development php -S localhost:8080 -t public/"
     },
     "config": {
         "platform": {
