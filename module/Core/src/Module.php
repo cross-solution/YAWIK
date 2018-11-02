@@ -31,9 +31,7 @@ use Zend\Stdlib\ArrayUtils;
 
 /**
  * Bootstrap class of the Core module
- *
  */
-
 class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInterface
 {
     public function getConsoleBanner(Console $console)
