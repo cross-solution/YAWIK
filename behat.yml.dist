@@ -17,7 +17,7 @@ default:
         Behat\MinkExtension:
             # change this base url value to match
             # your local development server url:
-            base_url: "http://localhost:8000"
+            base_url: "http://localhost:8080"
             files_path: "%paths.base%/module/Behat/resources/fixtures/"
             javascript_session: chrome
             sessions:
