@@ -1,7 +1,8 @@
 <?php
 
 use Zend\Stdlib\ArrayUtils;
-use Core\Bootstrap;
+
+use Core\Yawik;
 
 /**
  * YAWIK
@@ -55,7 +56,7 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     }
 }
 
-$modules = Bootstrap::generateModuleConfiguration($modules);
+$modules = Yawik::generateModuleConfiguration($modules);
 $config = array(
     'environment' => $env,
 
