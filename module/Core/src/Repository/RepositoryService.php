@@ -73,7 +73,7 @@ class RepositoryService
         && $events->dispatchEvent('postCommit', new EventArgs(array('document' => $entity, 'documentManager' => $this->dm)));
     }
 
-    public function remove(EntityInterface $entity)
+    public function remove(EntityInterface $entity, $flush=false)
     {
         $dm     = $this->dm;
         $events = $dm->getEventManager();
@@ -83,7 +83,9 @@ class RepositoryService
         $events->hasListeners('postRemoveEntity')
         && $events->dispatchEvent('postRemoveEntity', new LifecycleEventArgs($entity, $dm));
 
-        $dm->flush();
+        if ($flush) {
+            $dm->flush();
+        }
         
         return $this;
     }

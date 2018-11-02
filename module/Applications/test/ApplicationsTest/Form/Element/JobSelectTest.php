@@ -15,7 +15,7 @@ use Core\Form\HeadscriptProviderInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Jobs\Entity\Job;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 /**
  * Tests for \Applications\Form\Element\JobSelect

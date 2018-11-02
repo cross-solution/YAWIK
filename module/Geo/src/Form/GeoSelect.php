@@ -14,7 +14,7 @@ use Core\Form\HeadscriptProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
 use Doctrine\Common\Collections\Collection;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception\InvalidArgumentException;

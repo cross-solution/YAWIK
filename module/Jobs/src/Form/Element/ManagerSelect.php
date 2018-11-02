@@ -10,7 +10,7 @@
 /** */
 namespace Jobs\Form\Element;
 
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Zend\Form\Element;
 use Zend\Stdlib\ArrayUtils;
 

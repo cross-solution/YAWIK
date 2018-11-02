@@ -12,7 +12,7 @@ namespace Jobs\Form;
 
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 /**
  * Form select element to select channels on which job openings should be posted

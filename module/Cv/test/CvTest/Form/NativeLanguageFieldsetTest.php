@@ -22,7 +22,7 @@ use Zend\Form\Fieldset;
 
 /**
  * Tests for \Cv\Form\NativeLanguageFieldset
- * 
+ *
  * @covers \Cv\Form\NativeLanguageFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
@@ -30,7 +30,6 @@ use Zend\Form\Fieldset;
  */
 class NativeLanguageFieldsetTest extends \PHPUnit_Framework_TestCase
 {
-
     use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 
     public static $languagesOptions = [
@@ -177,7 +176,7 @@ class NativeLanguageFieldsetTest extends \PHPUnit_Framework_TestCase
     {
         $add = [
                     'name'       => 'nativeLanguages',
-                    'type'       => 'Zend\Form\Element\Select',
+                    'type'       => 'Core\Form\Element\Select',
                     'options'    => [
                         'label'         => 'Language',
                         'value_options' => self::$languagesOptions

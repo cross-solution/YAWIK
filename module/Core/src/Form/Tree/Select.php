@@ -13,7 +13,7 @@ namespace Core\Form\Tree;
 use Core\Form\Hydrator\HydratorStrategyProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
 use Traversable;
-use Zend\Form\Element\Select as ZfSelect;
+use Core\Form\Element\Select as ZfSelect;
 use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;

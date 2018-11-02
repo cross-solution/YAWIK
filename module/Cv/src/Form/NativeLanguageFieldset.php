@@ -138,7 +138,7 @@ class NativeLanguageFieldset extends Fieldset implements EmptySummaryAwareInterf
         $this->add(
             [
                 'name'       => 'nativeLanguages',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => array(
                     'label'         => 'Language',
                     'value_options' => self::$languagesOptions

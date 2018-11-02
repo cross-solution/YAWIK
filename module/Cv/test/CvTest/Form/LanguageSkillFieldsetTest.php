@@ -18,7 +18,7 @@ use Zend\Form\Fieldset;
 
 /**
  * Tests for \Cv\Form\LanguageSkillFieldset
- * 
+ *
  * @covers \Cv\Form\LanguageSkillFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
@@ -26,7 +26,6 @@ use Zend\Form\Fieldset;
  */
 class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
 {
-
     use TestInheritanceTrait;
 
     /**
@@ -55,14 +54,14 @@ class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
         $add = [
             [
                 'name' => 'language',
-                'type' => 'Zend\Form\Element\Select',
+                'type' => 'Core\Form\Element\Select',
                 'attributes' => [
                     'data-autoinit' => 'false',
                 ],
             ],
             [
                 'name' => 'levelListening',
-                'type' => 'Zend\Form\Element\Select',
+                'type' => 'Core\Form\Element\Select',
                 'attributes' => [
                     'data-allowclear'  => 'true',
                     'data-searchbox'   => -1,
@@ -70,7 +69,7 @@ class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'name' => 'levelReading',
-                'type' => 'Zend\Form\Element\Select',
+                'type' => 'Core\Form\Element\Select',
                 'attributes' => [
                     'data-allowclear'  => 'true',
                     'data-searchbox'   => -1,
@@ -79,7 +78,7 @@ class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'name'       => 'levelSpokenInteraction',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'attributes' => [
                     'data-allowclear' => 'true',
                     'data-searchbox'  => -1,
@@ -87,7 +86,7 @@ class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'name'       => 'levelSpokenProduction',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'attributes' => [
                     'data-allowclear' => 'true',
                     'data-searchbox'  => -1,
@@ -95,7 +94,7 @@ class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'name'       => 'levelWriting',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'attributes' => [
                     'data-allowclear' => 'true',
                     'data-searchbox'  => -1,
@@ -120,15 +119,13 @@ class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
         };
 
 
-        $addArgValidator = function($arg) use ($add, $callCount, $arrayContainsPairs) {
+        $addArgValidator = function ($arg) use ($add, $callCount, $arrayContainsPairs) {
             static $count = 0;
 
             /* PPHUnit calls this callback again after all invokations are made
              * I don't know why, but therefor the need to check if $count is greater that 7
              */
             return $callCount < $count + 1 || $arrayContainsPairs($add[$count++], $arg);
-
-
         };
 
         $this->target

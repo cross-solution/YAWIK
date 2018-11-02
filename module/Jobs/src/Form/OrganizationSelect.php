@@ -12,7 +12,7 @@ namespace Jobs\Form;
 
 use Core\Form\HeadscriptProviderInterface;
 use Doctrine\MongoDB\Cursor;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 /**
  * Select element to select an organization.

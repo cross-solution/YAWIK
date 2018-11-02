@@ -27,7 +27,7 @@ class LocalizationSettingsFieldset extends Fieldset
         
         $this->add(
             array(
-                'type' => 'Zend\Form\Element\Select',
+                'type' => 'Core\Form\Element\Select',
                 'name' => 'language',
                 'options' => array(
                         'label' => /* @translate */ 'choose your language',
@@ -59,7 +59,7 @@ class LocalizationSettingsFieldset extends Fieldset
         
         $this->add(
             array(
-                'type' => 'Zend\Form\Element\Select',
+                'type' => 'Core\Form\Element\Select',
                 'name' => 'timezone',
                 'options' => array(
                         'label' => /* @translate */ 'choose your timzone',

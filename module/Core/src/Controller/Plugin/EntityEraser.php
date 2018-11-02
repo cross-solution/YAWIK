@@ -154,6 +154,15 @@ class EntityEraser extends AbstractPlugin
     public function erase(EntityInterface $entity)
     {
         $dependencies = $this->triggerEvent(DependencyResultEvent::DELETE, $entity);
+
+        foreach ($dependencies as $result) {
+            if ($result->isDelete()) {
+                foreach ($result->getEntities() as $dependendEntity) {
+                    $this->repositories->remove($dependendEntity);
+                }
+            }
+        }
+
         $this->repositories->remove($entity);
 
         return $dependencies;

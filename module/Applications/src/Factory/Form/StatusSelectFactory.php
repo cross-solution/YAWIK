@@ -10,15 +10,15 @@
 /** */
 namespace Applications\Factory\Form;
 
-use \Zend\Form\Element\Select;
+use \Core\Form\Element\Select;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface; 
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the state select element.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29.2
  */

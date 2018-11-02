@@ -12,7 +12,7 @@ namespace Applications\Form\Element;
 
 use Core\Form\HeadscriptProviderInterface;
 use Jobs\Entity\JobInterface;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 /**
  * Select element for job titles
