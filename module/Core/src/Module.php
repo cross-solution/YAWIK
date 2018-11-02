@@ -13,12 +13,7 @@
 /** Core */
 namespace Core;
 
-use Core\Console\Application;
-use Core\Console\ConsoleCommandProviderInterface;
-use Core\Console\InstallAssetsCommand;
-use Core\Console\SubsplitCommand;
 use Core\Listener\AjaxRouteListener;
-use Zend\EventManager\Event;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
@@ -32,6 +27,7 @@ use Core\Listener\ErrorHandlerListener;
 use Core\Listener\NotificationAjaxHandler;
 use Core\Listener\Events\NotificationEvent;
 use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Bootstrap class of the Core module
@@ -54,14 +50,38 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 
     public function getConsoleUsage(Console $console)
     {
-        return [
+        $info = [
             'purge [--no-check] [--options=] <entity> [<id>]'  => 'Purge entities',
             'This command will load entities to be purged, checks the dependency of each and removes all entities completely from the',
             'database. However, called with no <entity> and options it will output a list of all available entity loaders and its options.',
             '',
             ['--no-check', 'Skip the dependency check and remove all entities and dependencies straight away.'],
             ['--options=STRING', 'JSON string represents options for the specific entity loader used.'],
+            "",
+            // assets-install info
+            'assets-install [--symlink] [--relative] <target>' => 'Install assets in the given target',
+            'The assets-install command will install assets in the given <target> directory. If no option given this command will copy assets into the target.',
+            ['--symlink','This option will install assets using absolute symlink directory'],
+            ['--relative','This option will install assets using relative symlink'],
+            ""
         ];
+
+        if (
+            strpos(__DIR__, 'modules') === false ||
+            strpos(__DIR__, 'vendor' === false)) {
+            $info = ArrayUtils::merge($info, [
+                // subsplit command info
+                'subsplit [--heads] [--tags] [--skip-update] [--dry-run] [--verbose|v]' => 'Subsplit development repository',
+                'The subsplit command will automatically subsplit all changes in the develop into github yawik/* repository'.PHP_EOL
+                .'This command will available only in the Yawik main development repository',
+                ['--heads','If defined then will subsplit that branch.'],
+                ['--tags','Subsplit given tags only'],
+                ['--skip-update','Directly subsplit repository without pull remote branch'],
+                ['--dry-run','Only show the list of git command that will be executed.'],
+                ['--verbose | -v', 'Show debug output.'],
+            ]);
+        }
+        return $info;
     }
 
     /**
