@@ -24,7 +24,7 @@ use Zend\Console\Request as ConsoleRequest;
 class SubsplitController extends AbstractConsoleController
 {
     // @todo Change this into git@github.com:cross-solution/yawik.git repo when make a pull request
-    const SOURCE = 'git@github.com:kilip/yawik.git';
+    const SOURCE = 'git@github.com:cross-solution/YAWIK.git';
 
     const TARGET = 'git@github.com:yawik';
 
