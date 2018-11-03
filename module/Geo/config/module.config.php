@@ -22,7 +22,7 @@ return [
                  * for multiple paths.
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
-                'paths' => [ __DIR__ . '/../src/Geo/Entity'],
+                'paths' => [ __DIR__ . '/../src/Entity'],
             ],
         ],
     ],

@@ -1,0 +1,45 @@
+{
+    "type": "yawik-module",
+    "name": "yawik/geo",
+    "description": "This package provide a Geo modules for yawik.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "keywords": [
+        "yawik", "module", "zf3"
+    ],
+    "require": {
+        "yawik/core": "^0.32@dev",
+        "jmikola/geojson": "^1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Geo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "": "test/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.32-dev"
+        },
+        "zf": {
+            "module": "Geo"
+        }
+    }
+}

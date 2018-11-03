@@ -31,8 +31,8 @@ class Prerequisites extends AbstractPlugin
      */
     protected $directories = array(
         'config/autoload' => 'exists',
-        'cache'           => 'writable|creatable',
-        'log'             => 'writable|creatable',
+        'var/cache'           => 'writable|creatable',
+        'var/log'             => 'writable|creatable',
     );
 
     /**

@@ -17,7 +17,6 @@ use Acl\Assertion\AssertionManager;
 
 class Config
 {
-    
     protected $config;
     protected $assertions;
 
@@ -65,7 +64,13 @@ class Config
         if (!isset($this->config['rules'][$roleId][$type])) {
             return array();
         }
-        if ("__ALL__" === $this->config['rules'][$roleId][$type]) {
+
+        $config = $this->config['rules'][$roleId][$type];
+        if (!is_array($config)) {
+            return [];
+        }
+
+        if ("__ALL__" === $config) {
             return array(array(
                 'resource' => null,
                 'privilege' => null,
@@ -73,7 +78,7 @@ class Config
             ));
         }
         $rules = array();
-        foreach ($this->config['rules'][$roleId][$type] as $resourceId => $spec) {
+        foreach ($config as $resourceId => $spec) {
             if (is_int($resourceId)) {
                 $rules[] = array(
                     'resource' => $spec,

@@ -14,7 +14,7 @@ use Auth\Form\RegisterInputFilter;
 use Auth\Options\CaptchaOptions;
 use Auth\Service\Exception;
 use Auth\Options\ModuleOptions;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Core\Controller\Plugin\Notification;
 use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;

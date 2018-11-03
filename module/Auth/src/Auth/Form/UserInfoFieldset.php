@@ -31,7 +31,6 @@ class UserInfoFieldset extends Fieldset implements
     EmptySummaryAwareInterface,
     InputFilterProviderInterface
 {
-
     use EmptySummaryAwareTrait;
 
     private $defaultEmptySummaryNotice = /*@translate*/ 'Click here to enter contact informations.';

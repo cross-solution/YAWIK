@@ -1,0 +1,8 @@
+log/*
+!log/.gitkeep
+
+cache/*
+!cache/.gitkeep
+
+docker/*
+!docker/.gitkeep

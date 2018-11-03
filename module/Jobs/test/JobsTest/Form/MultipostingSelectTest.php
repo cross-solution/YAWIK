@@ -14,7 +14,7 @@ use Jobs\Form\MultipostingSelect;
 
 /**
  * Tests for \Jobs\Form\MultipostingSelect
- * 
+ *
  * @covers \Jobs\Form\MultipostingSelect
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
@@ -44,7 +44,7 @@ class MultipostingSelectTest extends \PHPUnit_Framework_TestCase
         $target = new MultipostingSelect();
 
         $this->assertAttributeSame('jobs/form/multiposting-select', 'partial', $target, 'Wrong default value of attribute "partial"');
-        $this->assertAttributeSame(array('Jobs/js/form.multiposting-select.js'), 'headscripts', $target, 'Wrong default value of attribute "headscripts"');
+        $this->assertAttributeSame(array('modules/Jobs/js/form.multiposting-select.js'), 'headscripts', $target, 'Wrong default value of attribute "headscripts"');
     }
 
     public function provideSetterAndGetterTestData()

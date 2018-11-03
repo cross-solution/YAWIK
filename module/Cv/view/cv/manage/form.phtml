@@ -17,7 +17,7 @@ if ($this->auth()->getUser()->getRole() == \Auth\Entity\UserInterface::ROLE_USER
     $title = $this->translate('Create a new resume');
 }
 $this->headtitle($title);
-$this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
+$this->headscript()->appendFile($this->basepath('modules/Core/js/jquery.formcollection.js'));
 $currentStatus = $status->getName();
 $statusClasses = [
     Status::NONPUBLIC => 'danger',

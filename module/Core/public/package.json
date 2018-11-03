@@ -1,0 +1,17 @@
+{
+    "name": "yawik-core",
+    "dependencies": {
+        "blueimp-file-upload": "^9.15.0",
+        "bootstrap": "^3.3.7",
+        "bootstrap-datepicker": "^1.6.4",
+        "bootstrap3-dialog": "^1.35.3",
+        "flag-icon-css": "^2.8.0",
+        "font-awesome": "^4.7.0",
+        "jquery": "^3.0.0",
+        "jquery-migrate": "^3.0.1",
+        "pnotify": "^3.0.0",
+        "select2": "^4.0.3",
+        "tinymce": "4.5.9",
+        "twitter-bootstrap-wizard": "^1.2.0"
+    }
+}

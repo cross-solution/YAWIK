@@ -16,20 +16,20 @@ use Zend\ServiceManager\ServiceManager;
 /**
  * Class CvTest
  * @package CvTest
- * @covers Cv\Repository\Cv
+ * @covers \Cv\Repository\Cv
  */
 class CvTest extends FunctionalTestCase
 {
     /**
      * @var ServiceManager
      */
-    static protected $sm;
+    protected static $sm;
 
     /**
      * Current authenticated user
      * @var User
      */
-    static protected $user;
+    protected static $user;
 
     public function setUp()
     {

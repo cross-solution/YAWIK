@@ -1,10 +1,14 @@
 <?php //description: Renders the list of jobs. used by applicants and recruiters ?>
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
-                         ->appendFile($this->basePath('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js'))
-                         ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
-                         ->appendFile($this->basePath('/assets/select2/js/select2.min.js'))
-                         ->appendFile($this->basePath('/Jobs/js/jobs.history.js'));
+      $this->headScript()
+          //->appendFile($this->basePath('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js'))
+          //->appendFile($this->basePath('/assets/select2/js/select2.min.js'))
+          ->appendFile($this->basePath('modules/Core/js/jquery.initform.js'))
+          ->appendFile($this->basePath('dist/js/bootstrap-dialog.min.js'))
+          ->appendFile($this->basepath('modules/Core/js/core.pagination-container.js'))
+          ->appendFile($this->basePath('modules/Jobs/js/index.assign-users.js'))
+          ->appendFile($this->basePath('modules/Jobs/js/jobs.history.js'))
+      ;
 $this->headScript()->captureStart() ?>
 /* This code is generated in jobs/index/index.phtml
  *
@@ -22,8 +26,11 @@ $this->headScript()->captureStart() ?>
         fail:        '<?php echo $this->translate('Fail!') ?>'
     });
 })(jQuery);
-<?php $this->headScript()->captureEnd();
-      $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))?>
+<?php
+$this->headScript()->captureEnd();
+//$this->headLink()->appendStylesheet($this->basePath('/assets/bootstrap3-dialog/css/bootstrap-dialog.min.css'));
+//$this->headLink()->appendStylesheet($this->basePath($this->asset('build/bootstrap-dialog.css')));
+?>
 
 <h1><?php echo $this->translate('List of your jobs'); ?></h1>
 

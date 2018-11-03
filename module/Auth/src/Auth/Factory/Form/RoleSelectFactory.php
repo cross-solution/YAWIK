@@ -42,7 +42,8 @@ class RoleSelectFactory implements FactoryInterface
                        && is_array($config['acl']['public_roles'])
                        && !empty($config['acl']['public_roles'])
             ? $config['acl']['public_roles']
-            : (in_array(User::ROLE_USER, $config['acl']['roles'])
+            : (
+                in_array(User::ROLE_USER, $config['acl']['roles'])
                || array_key_exists('user', $config['acl']['roles'])
                 ? array(User::ROLE_USER)
                 : array('none')

@@ -18,7 +18,7 @@ use Cv\Form\SearchForm;
 
 /**
  * Tests for \Cv\Form\SearchForm
- * 
+ *
  * @covers \Cv\Form\SearchForm
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv

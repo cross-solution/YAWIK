@@ -9,7 +9,7 @@
 
 namespace CoreTest\Controller;
 
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
@@ -215,6 +215,4 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         }
         $this->assertFalse((bool)preg_match($pattern, $responseHeader->getFieldValue()));
     }
-    
-    
 }

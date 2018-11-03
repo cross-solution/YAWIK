@@ -13,7 +13,7 @@
 use Applications\Entity\StatusInterface as Status;
 
 $this->headTitle($this->translate('Details'));
-$this->headScript()->appendFile($this->basePath('Applications/js/applications.manage.detail.js'));
+$this->headScript()->appendFile($this->basepath('modules/Applications/js/applications.manage.detail.js'));
 $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });');
 
 /* @var Applications\Entity\Application $application */
@@ -384,7 +384,7 @@ endif;
                         </a>
 
                     <?php endforeach;
-                    $this->headScript()->appendFile($this->basePath('Core/js/core.reloadable-modal.js'))?>
+                    $this->headScript()->appendFile($this->basepath('modules/Core/js/core.reloadable-modal.js'))?>
                     <div class="modal fade modal-scrollable" id="sp-modal" data-reloadable="body" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">

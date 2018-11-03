@@ -1,0 +1,45 @@
+{
+    "type": "yawik-module",
+    "name": "yawik/auth",
+    "description": "This package provide an Auth modules for Yawik.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "keywords": [
+        "yawik", "module", "zf"
+    ],
+    "require": {
+        "yawik/core": "^0.32@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Auth\\": "src/Auth/",
+            "Acl\\": "src/Acl/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "": "test/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.32-dev"
+        },
+        "zf": {
+            "module": "Auth"
+        }
+    }
+}

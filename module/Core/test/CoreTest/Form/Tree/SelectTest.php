@@ -19,7 +19,7 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 
 /**
  * Tests for \Core\Form\Tree\Select
- * 
+ *
  * @covers \Core\Form\Tree\Select
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core

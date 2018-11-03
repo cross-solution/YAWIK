@@ -1,5 +1,12 @@
 language: php
 
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
 services:
   - mongodb
 
@@ -40,46 +47,41 @@ before_script:
   - mkdir -p config/autoload
   - mkdir -p build/behat
   - mkdir -p build/mails
-  - cp .travis/autoload/*.* config/autoload
+  - cp ./etc/travis/autoload/*.* config/autoload
 
   # install Mongo extension
-
-  - phpenv config-add .travis/phpenv.ini
   - pecl install -f mongodb-${DRIVER_VERSION}
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
-        composer require "alcaeus/mongo-php-adapter=${ADAPTER_VERSION}" --prefer-dist --no-interaction --ignore-platform-reqs;
-    fi'
-  - composer install $COMPOSER_FLAGS
-  # setup display, behat, and selenium
-  - ./bin/start-selenium.sh > /dev/null 2>&1 &
-  - sleep 5
-  - cd public
-  - php -S localhost:8000 index.php > /dev/null 2>&1 &
-  - sleep 3
-  - cd $TRAVIS_BUILD_DIR
 
+  - phpenv config-add etc/travis/phpenv.ini
+  - composer install $COMPOSER_FLAGS
+
+  # setup display, behat, and selenium
+  - ./bin/start-selenium > /dev/null 2>&1 &
+  - sleep 5
+  - composer run serve --timeout=0 > /dev/null 2>&1 &
+  - sleep 3
 
 script:
   - 'if [[ $COVERAGE = yes ]]; then
-        ./vendor/bin/phpunit -c test --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
+        ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
     else
-        ./vendor/bin/phpunit -c test --verbose;
+        ./vendor/bin/phpunit --verbose;
     fi'
   # only run behat tests when not collecting coverage
-  - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat --strict --no-interaction; fi
+  - if [[ $COVERAGE != yes ]]; then APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction; fi
 
 after_failure:
   - cd $TRAVIS_BUILD_DIR
   - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"build/behat/*.log\""
   - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/*.log\""
   - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"log/tracy/*.*\""
-  - "IMGUR_CLIENT_ID=bec050c54e1bb52 ./bin/imgur-uploader.sh build/behat/*.png"
+  - "IMGUR_CLIENT_ID=bec050c54e1bb52 ./bin/imgur-uploader build/behat/*.png"
 
 after_script:
   # process coverage
   - 'if [[ $COVERAGE = yes ]]; then
-        composer require satooshi/php-coveralls ^1.0;
-        php vendor/bin/coveralls -vvv;
+        composer require php-coveralls/php-coveralls;
+        travis-retry vendor/bin/php-coveralls -vvv;
         wget https://scrutinizer-ci.com/ocular.phar;
-        php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.serialized;
+        travis-retry ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
     fi'

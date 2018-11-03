@@ -7,7 +7,7 @@
  * @license   MIT
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-$this->headScript()->appendFile($this->basePath('Applications/js/application.form.js'));
+$this->headScript()->appendFile($this->basepath('modules/Applications/js/application.form.js'));
 $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->getJob()->getApplyId()), true);
 $isApplicationValid = $this->services('ValidatorManager.Applications/Application')->isValid($this->application);
 $job=$this->application->getJob(); /* @var Jobs\Entity\Job $job */

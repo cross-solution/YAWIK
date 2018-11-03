@@ -19,9 +19,9 @@ use Jobs\Entity\Job;
  * Listener checks the dependencies of a Job entity in the Jobs module itself.
  *
  * Which are only its snapshots at the moment.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class JobEntityDependencyListener extends AbstractDependenciesListener
 {

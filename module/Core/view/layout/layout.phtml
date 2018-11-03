@@ -17,22 +17,26 @@ $lang = $this->params('lang');
 
 $notifications = $this->partial('core/notifications');
 
-$this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
+$this->configHeadScript()->prependScript('var lang="' . $lang . '";'
+    . 'var basePath="' . $this->basePath() . '";');
 
-$this->configHeadScript()->prependFile($this->basepath('/Core/js/core.init.js'));
+$this->headLink()->prependStylesheet($this->basePath('dist/css/core.min.css'));
+$this->configHeadScript()->prependFile($this->basepath('dist/js/core.js'));
+
+/*
+@TODO: remove this comment when grunt command is implemented
+$this->configHeadScript()->prependFile($this->basepath('modules/Core/js/core.init.js'));
 $this->configHeadScript()->prependFile($this->basePath('/assets/pnotify/pnotify.custom.min.js'), 'text/javascript');
 $this->configHeadScript()->prependFile($this->basePath('/assets/bootstrap/js/bootstrap.min.js'));
 $this->configHeadScript()->prependFile($this->basePath('/assets/jquery/jquery.min.js'));
 $this->configHeadScript()->appendFile($this->basePath('/assets/select2/js/select2.min.js'));
-if ($lang!='en') {
-    $this->configHeadScript()->appendFile($this->basePath('/assets/select2/js/i18n/' . $lang . '.js'));
-}
+*/
+$langScript = 'dist/locales/' . $lang . '.js';
+$this->configHeadScript()->appendFile($this->basePath($langScript));
 
-$this->configHeadScript()->appendScript('var lang="' . $lang . '";'
-                                      . 'var basePath="' . $this->basePath() . '";');
 
-$this->headLink()->prependStylesheet($this->basePath('/assets/pnotify/pnotify.custom.min.css'));
-$this->headLink()->appendStylesheet($this->basePath('/assets/select2/css/select2.css'));
+//$this->headLink()->prependStylesheet($this->basePath('/assets/pnotify/pnotify.custom.min.css'));
+//$this->headLink()->appendStylesheet($this->basePath('/assets/select2/css/select2.css'));
 
 ?>
 <?php echo $this->doctype(); ?>
@@ -42,7 +46,7 @@ $this->headLink()->appendStylesheet($this->basePath('/assets/select2/css/select2
         <?php echo $this->headTitle($this->translate('YAWIK'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
-        
+
         <?php echo $this->configHeadScript();?>
         <?php
 
@@ -125,11 +129,8 @@ endforeach;?>
                                 <?php echo $this->translate('All rights reserved.') ?> |
                             <a href="<?php echo  $this->basePath($lang .'/content/imprint')?>"><?php echo $this->translate('Imprint') ?></a> |
                             <version>
-                                <?php
-                                    // git describe will fail on travis environment
-                                    echo getenv('TRAVIS') ? "undefined":exec('git describe');
-                                ?>
-                                [<?php echo getenv('TRAVIS') ? "undefined":exec('git rev-parse --abbrev-ref HEAD',$output,$retVal) ?>]
+                                <?php echo \Core\Yawik::$VERSION ?>
+                                Env: <strong><?php echo getenv('APPLICATION_ENV') ?></strong>
                             </version>
                         </small></span>
                             <span class="pull-right"><small>Powered by <a href="http://yawik.org">YAWIK</a></small></span>

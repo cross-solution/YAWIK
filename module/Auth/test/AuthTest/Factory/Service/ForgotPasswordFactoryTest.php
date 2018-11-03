@@ -11,7 +11,7 @@ namespace AuthTest\Factory\Service;
 
 use Auth\Factory\Service\ForgotPasswordFactory;
 use Core\EventManager\EventManager;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 class ForgotPasswordFactoryTest extends \PHPUnit_Framework_TestCase
 {

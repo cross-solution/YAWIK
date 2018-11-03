@@ -11,7 +11,7 @@ namespace JobsTest\Factory\Controller;
 
 use Jobs\Controller\IndexController;
 use Jobs\Factory\Controller\IndexControllerFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 /**
@@ -56,7 +56,7 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $sm->setService('repositories', $repositoriesMock);
 
-        $result = $this->testedObj->__invoke($sm,IndexController::class);
+        $result = $this->testedObj->__invoke($sm, IndexController::class);
 
         $this->assertInstanceOf('Jobs\Controller\IndexController', $result);
     }

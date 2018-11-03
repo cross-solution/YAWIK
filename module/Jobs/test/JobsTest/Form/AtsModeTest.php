@@ -48,6 +48,6 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
 
         $target->init();
 
-        $this->assertEquals('Jobs/js/form.ats-mode.js', $target->getOption('headscript'));
+        $this->assertEquals('modules/Jobs/js/form.ats-mode.js', $target->getOption('headscript'));
     }
 }

@@ -1,0 +1,98 @@
+{
+    "type": "yawik-module",
+    "name": "yawik/core",
+    "description": "This package provide a Core Module for yawik",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "keywords": [
+        "yawik", "module", "zf3"
+    ],
+    "require": {
+        "php": "^5.6 | ^7.0 | ^7.1 | 7.2",
+        "ext-mongodb": "*",
+        "ext-intl": "*",
+        "alcaeus/mongo-php-adapter": "^1.0.0",
+        "doctrine/doctrine-mongo-odm-module": "^1.0.0",
+        "hybridauth/hybridauth": "^2.10",
+        "imagine/imagine": "^1.0",
+        "jmikola/geojson": "^1.0",
+        "mikemix/zf2htmlpurifier": "^1.0",
+        "mikey179/vfsStream": "^1.6",
+        "mpdf/mpdf": "5.7.*",
+        "symfony/console": "^3.4",
+        "symfony/dotenv": "^3.4",
+        "symfony/filesystem": "^3.4",
+        "symfony/finder": "^3.4",
+        "symfony/process": "^3.4",
+        "tracy/tracy": "^2.4",
+        "zendframework/zend-authentication": "^2.5",
+        "zendframework/zend-cache": "^2.7",
+        "zendframework/zend-captcha": "^2.7",
+        "zendframework/zend-feed": "^2.8",
+        "zendframework/zend-form": "^2.10",
+        "zendframework/zend-i18n-resources": "^2.5",
+        "zendframework/zend-json": "^3.0",
+        "zendframework/zend-log": "^2.9",
+        "zendframework/zend-mail": "^2.7",
+        "zendframework/zend-math": "^3.0",
+        "zendframework/zend-mvc": "^3.0",
+        "zendframework/zend-mvc-console": "^1.1",
+        "zendframework/zend-mvc-i18n": "^1.0",
+        "zendframework/zend-mvc-plugins": "^1.0",
+        "zendframework/zend-navigation": "^2.8",
+        "zendframework/zend-permissions-acl": "^2.6",
+        "zendframework/zend-progressbar": "^2.5",
+        "zendframework/zend-serializer": "^2.8",
+        "zendframework/zend-servicemanager-di": "^1.1",
+        "zendframework/zend-session": "^2.7",
+        "zendframework/zend-view": "^2.9",
+        "zendframework/zendservice-recaptcha": "^3.0",
+        "yawik/applications": "^0.32@dev",
+        "yawik/auth": "^0.32@dev",
+        "yawik/cv": "^0.32@dev",
+        "yawik/geo": "^0.32@dev",
+        "yawik/install": "^0.32@dev",
+        "yawik/jobs": "^0.32@dev",
+        "yawik/organizations": "~0.32@dev",
+        "yawik/pdf": "~0.32@dev",
+        "yawik/settings": "^0.32@dev"
+    },
+    "require-dev": {
+        "cbleek/pecl-solr-hint": "dev-master",
+        "zendframework/zend-component-installer": "^0.7.0",
+        "zendframework/zend-test": "^3.1",
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "src/"
+        },
+        "psr-0": {
+            "": "test/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.32-dev"
+        },
+        "zf": {
+            "module": "Core"
+        }
+    },
+    "bin": [
+        "bin/yawik"
+    ]
+}

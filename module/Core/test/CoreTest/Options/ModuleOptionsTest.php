@@ -24,7 +24,6 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  */
 class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 {
-
     use TestSetterGetterTrait, SetupTargetTrait;
 
     /**
@@ -44,7 +43,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
         return [
             ['siteLogo', [
                 'value' => 'some-logo.jpg',
-                'default' => '/Core/images/logo.jpg'
+                'default' => 'modules/Core/images/logo.jpg'
             ]],
             ['siteName', [
                 'value' => 'MyName',

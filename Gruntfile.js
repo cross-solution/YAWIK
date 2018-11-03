@@ -1,28 +1,11 @@
+
 module.exports = function(grunt) {
-  require('jit-grunt')(grunt);
-
-  grunt.initConfig({
-    less: {
-      development: {
-        options: {
-          compress: true,
-          optimization: 2
-        },
-        files: {
-          "public/css/yawik.css": "less/yawik.less" // destination file and source file
-        }
-      }
-    },
-    watch: {
-      styles: {
-        files: ['less/**/*.less'], // which files to watch
-        tasks: ['less'],
-        options: {
-          nospawn: true
-        }
-      }
-    }
-  });
-
-  grunt.registerTask('default', ['less', 'watch']);
+    require('load-grunt-tasks')(grunt);
+    grunt.config.init({
+        nodeModulesPath: __dirname + "/node_modules",
+        targetDir: './public'
+    });
+    grunt.loadTasks('./public/modules/Core');
+    grunt.registerTask('default', ['yawik:core']);
+    grunt.registerTask('build',['yawik:core']);
 };

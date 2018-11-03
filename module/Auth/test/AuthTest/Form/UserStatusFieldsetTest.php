@@ -41,7 +41,7 @@ class UserStatusFieldsetTest extends \PHPUnit_Framework_TestCase
         
         $status = $this->fieldset->get('status');
         $this->assertInstanceOf(\Core\Form\Element\Select::class, $status);
-		$this->assertSame([], $status->getValueOptions());
+        $this->assertSame([], $status->getValueOptions());
     }
     
     /**

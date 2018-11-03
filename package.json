@@ -1,26 +1,19 @@
 {
-  "name": "YAWIK",
-  "version": "0.28.0",
-  "scripts": {
-    "prepublish": "bin/install-assets.sh"
-  },
-  "devDependencies": {
-    "blueimp-file-upload": "^9.15.0",
-    "bootstrap": "^3.3.7",
-    "bootstrap-datepicker": "^1.6.4",
-    "bootstrap3-dialog": "^1.35.3",
-    "flag-icon-css": "^2.8.0",
-    "font-awesome": "^4.7.0",
-    "grunt": "^1.0.1",
-    "grunt-contrib-less": "^1.4.1",
-    "grunt-contrib-watch": "^1.0.0",
-    "jit-grunt": "^0.10.0",
-    "jquery": "^3.0.0",
-    "jquery-migrate": "^3.0.1",
-    "less": "^2.7.2",
-    "pnotify": "^3.0.0",
-    "select2": "^4.0.3",
-    "twitter-bootstrap-wizard": "^1.2.0",
-    "uglify-js": "^2.7.5"
-  }
+    "name": "yawik-development",
+    "version": "0.32.0",
+    "scripts": {
+        "postinstall": "grunt"
+    },
+    "private": false,
+    "devDependencies": {
+        "yawik-core": "./public/modules/Core",
+        "grunt": "^1.0.3",
+        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-cssmin": "^3.0.0",
+        "grunt-contrib-less": "^2.0.0",
+        "grunt-contrib-uglify": "^4.0.0",
+        "grunt-contrib-watch": "^1.1.0",
+        "load-grunt-tasks": "^4.0.0"
+    }
 }

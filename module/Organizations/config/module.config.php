@@ -13,7 +13,7 @@ return [
                 ],
             ],
             'annotation' => [
-                'paths' => [ __DIR__ . '/../src/Organizations/Entity']
+                'paths' => [ __DIR__ . '/../src/Entity']
             ],
         ],
         'eventmanager' => [
@@ -49,7 +49,7 @@ return [
 
     'controllers' => [
         'factories' => [
-	        'Organizations/InviteEmployee' => \Organizations\Factory\Controller\InviteEmployeeControllerFactory::class,
+            'Organizations/InviteEmployee' => \Organizations\Factory\Controller\InviteEmployeeControllerFactory::class,
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
             'Organizations/Profile' => 'Organizations\Factory\Controller\ProfileControllerFactory'
         ]
@@ -100,7 +100,7 @@ return [
              'Organizations/ProfileFieldset'              => \Organizations\Form\OrganizationsProfileFieldset::class
         ],
         'factories' => [
-	        'Organizations/OrganizationsNameFieldset'    => \Organizations\Factory\Form\OrganizationsNameFieldsetFactory::class,
+            'Organizations/OrganizationsNameFieldset'    => \Organizations\Factory\Form\OrganizationsNameFieldsetFactory::class,
             'Organizations/Image'                        => \Organizations\Form\LogoImageFactory::class,
             'Organizations/EmployeesFieldset'            => 'Organizations\Factory\Form\EmployeesFieldsetFactory',
             'Organizations/EmployeeFieldset'             => 'Organizations\Factory\Form\EmployeeFieldsetFactory',

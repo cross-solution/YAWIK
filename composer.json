@@ -1,20 +1,24 @@
 {
-    "name": "yawik/test",
+    "name": "yawik/development",
     "type": "project",
     "description": "Web based applicant tracking system for managing jobs and applications",
     "authors": [
-	{
-		"name": "Mathias Gelhausen",
-		"email": "gelhausen@cross-solution.de"
-	},
-	{
-		"name": "Carsten Bleek",
-		"email": "bleek@cross-solution.de"
-	},
-	{
-		"name": "Mathias Weitz",
-		"email": "weitz@cross-solution.de"
-	}
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Mathias Weitz",
+            "email": "weitz@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
     ],
     "support": {
         "email": "contact@yawik.org",
@@ -28,43 +32,48 @@
         "zf2", "jobboard"
     ],
     "homepage": "http://yawik.org/",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=5.6",
-        "ext-mongodb": "*",
         "ext-intl": "*",
+        "ext-mongodb": "*",
+        "alcaeus/mongo-php-adapter": "^1.0.0",
+        "doctrine/doctrine-mongo-odm-module": "^1.0.0",
+        "hybridauth/hybridauth": "^2.10",
+        "imagine/imagine": "^1.0",
+        "jmikola/geojson": "^1.0",
+        "mikemix/zf2htmlpurifier": "^1.0",
+        "mikey179/vfsStream": "^1.6",
+        "mpdf/mpdf": "5.7.*",
+        "symfony/console": "^3.4",
+        "symfony/dotenv": "^3.4",
+        "symfony/filesystem": "^3.4",
+        "symfony/finder": "^3.4",
+        "symfony/process": "^3.4",
+        "tracy/tracy": "^2.4",
+        "zendframework/zend-authentication": "^2.5",
+        "zendframework/zend-cache": "^2.7",
+        "zendframework/zend-captcha": "^2.7",
+        "zendframework/zend-feed": "^2.8",
+        "zendframework/zend-form": "^2.10",
+        "zendframework/zend-i18n-resources": "^2.5",
+        "zendframework/zend-json": "^3.0",
+        "zendframework/zend-log": "^2.9",
+        "zendframework/zend-mail": "^2.7",
+        "zendframework/zend-math": "^3.0",
         "zendframework/zend-mvc": "^3.0",
         "zendframework/zend-mvc-console": "^1.1",
         "zendframework/zend-mvc-i18n": "^1.0",
         "zendframework/zend-mvc-plugins": "^1.0",
         "zendframework/zend-navigation": "^2.8",
-        "zendframework/zend-cache": "^2.7",
-        "zendframework/zend-session": "^2.7",
-        "zendframework/zend-servicemanager-di": "^1.1",
-        "zendframework/zend-authentication": "^2.5",
         "zendframework/zend-permissions-acl": "^2.6",
-        "zendframework/zend-form": "^2.10",
-        "zendframework/zend-mail": "^2.7",
-        "zendframework/zend-json": "^3.0",
-        "zendframework/zend-view": "^2.9",
-        "zendframework/zend-feed": "^2.8",
-        "zendframework/zendservice-recaptcha": "^3.0",
-        "zendframework/zend-log": "^2.9",
-        "zendframework/zend-serializer": "^2.8",
         "zendframework/zend-progressbar": "^2.5",
-        "zendframework/zend-math": "^3.0",
-        "zendframework/zend-captcha": "^2.7",
-        "zendframework/zend-i18n-resources": "^2.5",
-        "doctrine/doctrine-mongo-odm-module": "*",
-        "hybridauth/hybridauth": "^2.10",
-        "mpdf/mpdf": "5.7.*",
-        "tinymce/tinymce": "4.5.*",
-        "mikemix/zf2htmlpurifier": "*",
-        "jmikola/geojson": "*",
-        "mikey179/vfsStream": "*",
-        "tracy/tracy": "^2.4",
-        "imagine/imagine": "*",
-        "doctrine/common": "2.7.*",
-        "alcaeus/mongo-php-adapter": "^1.0.0"
+        "zendframework/zend-serializer": "^2.8",
+        "zendframework/zend-servicemanager-di": "^1.1",
+        "zendframework/zend-session": "^2.7",
+        "zendframework/zend-view": "^2.9",
+        "zendframework/zendservice-recaptcha": "^3.0"
     },
     "require-dev": {
         "cbleek/pecl-solr-hint": "dev-master",
@@ -82,18 +91,75 @@
         "novaway/common-contexts": "~2.0"
     },
     "scripts": {
+        "auto-scripts": [
+            "bin/console assets-install --relative",
+            "npm install"
+        ],
         "post-install-cmd": [
-            "chmod +x ./install.sh && ./install.sh"
-        ]
-    },
-    "autoload": {
-        "psr-4": {
-            "Yawik\\Behat\\": "module/Behat/src"
-        }
+            "@auto-scripts"
+        ],
+        "post-update-command": [
+            "@auto-scripts"
+        ],
+        "serve": "APPLICATION_ENV=development php -S localhost:8080 -t public/"
     },
     "config": {
         "platform": {
             "ext-mongo": "1.6.16"
+        },
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Applications\\": "module/Applications/src",
+            "Auth\\": "module/Auth/src/Auth",
+            "Acl\\": "module/Auth/src/Acl",
+            "Core\\": "module/Core/src",
+            "Cv\\": "module/Cv/src",
+            "Geo\\": "module/Geo/src",
+            "Install\\": "module/Install/src",
+            "Jobs\\": "module/Jobs/src",
+            "Organizations\\": "module/Organizations/src",
+            "Pdf\\": "module/Pdf/src",
+            "Settings\\": "module/Settings/src",
+            "Yawik\\Behat\\": "module/Behat/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "ApplicationsTest\\": "module/Applications/test",
+            "AuthTest\\": "module/Auth/test",
+            "CoreTest\\": "module/Core/test",
+            "CoreTestUtils\\": "module/Core/test",
+            "CvTest\\": "module/Cv/test",
+            "GeoTest\\": "module/Geo/test",
+            "InstallTest\\": "module/Install/test",
+            "JobsTest\\": "module/Jobs/test",
+            "OrganizationsTest\\": "module/Organizations/test",
+            "PdfTest\\": "module/Pdf/test",
+            "SettingsTest\\": "module/Settings/test",
+            "Yawik\\Behat\\": "module/Behat/src"
+        }
+    },
+    "replace": {
+        "yawik/applications": "self.version",
+        "yawik/auth": "self.version",
+        "yawik/core": "self.version",
+        "yawik/cv": "self.version",
+        "yawik/geo": "self.version",
+        "yawik/install": "self.version",
+        "yawik/jobs": "self.version",
+        "yawik/organizations": "self.version",
+        "yawik/pdf": "self.version",
+        "yawik/settings": "self.version"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.33-dev",
+            "dev-master": "0.32-dev"
         }
     }
 }
