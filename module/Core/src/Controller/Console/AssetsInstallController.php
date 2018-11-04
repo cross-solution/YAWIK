@@ -9,6 +9,7 @@
 
 namespace Core\Controller\Console;
 
+use Core\Asset\AssetProviderInterface;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -119,6 +120,7 @@ class AssetsInstallController extends AbstractConsoleController
         $symlink = $request->getParam('symlink');
         $relative = $request->getParam('relative');
 
+        ksort($this->assets);
         foreach ($this->assets as $name => $originDir) {
             $targetDir = $publicDir.DIRECTORY_SEPARATOR.$name;
             $message = $name;
@@ -169,11 +171,15 @@ class AssetsInstallController extends AbstractConsoleController
     {
         $r = new \ReflectionObject($module);
         $file = $r->getFileName();
-        $baseDir = substr($file, 0, strpos($file, 'src'.DIRECTORY_SEPARATOR));
-        if (!is_dir($dir = $baseDir.'public')) {
-            return;
-        }
 
+        if ($module instanceof AssetProviderInterface) {
+            $dir = $module->getPublicDir();
+        } else {
+            $baseDir = substr($file, 0, stripos($file, 'src'.DIRECTORY_SEPARATOR.'Module.php'));
+            if (empty($baseDir) || !is_dir($dir = $baseDir.'public')) {
+                return;
+            }
+        }
         $className = get_class($module);
         $moduleName = substr($className, 0, strpos($className, '\\'));
         $this->assets[$moduleName] = $dir;
