@@ -314,6 +314,7 @@ return array(
     'Core\View\Helper\InsertFile\FileEvent'                                           => __DIR__ . '/Core/View/Helper/InsertFile/FileEvent.php',
     'Core\View\Helper\LanguageSwitcher'                                               => __DIR__ . '/Core/View/Helper/LanguageSwitcher.php',
     'Core\View\Helper\Link'                                                           => __DIR__ . '/Core/View/Helper/Link.php',
+    'Core\View\Helper\ContactLink'                                                    => __DIR__ . '/Core/View/Helper/ContactLink.php',
     'Core\View\Helper\Params'                                                         => __DIR__ . '/Core/View/Helper/Params.php',
     'Core\View\Helper\Period'                                                         => __DIR__ . '/Core/View/Helper/Period.php',
     'Core\View\Helper\Proxy'                                                          => __DIR__ . '/Core/View/Helper/Proxy.php',
