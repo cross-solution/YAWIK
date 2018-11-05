@@ -18,6 +18,19 @@ return [
 		'email_snooze' => 900 // interval for sending email in seconds
 	],
 
+    'doctrine' => [
+        'driver' => [
+            'annotation' => [
+                'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
+            ],
+            'odm_default' => [
+                'drivers' => [
+                    'Auth\Entity' => 'annotation'
+                ],
+            ],
+        ],
+    ],
+
     'service_manager' => [
         'invokables' => [
             'Install/Listener/LanguageSetter' => 'Install\Listener\LanguageSetter',
