@@ -10,6 +10,7 @@
 namespace Auth;
 
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
+use Core\Asset\AssetProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Mvc\MvcEvent;
 use Auth\Listener\TokenListener;
@@ -17,7 +18,7 @@ use Auth\Listener\TokenListener;
 /**
  * Bootstrap class of the Auth module
  */
-class Module
+class Module implements AssetProviderInterface
 {
     public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
     {
@@ -98,5 +99,10 @@ class Module
 
         $socialProfilesUnconfiguredErrorListener = new SocialProfilesUnconfiguredErrorListener();
         $socialProfilesUnconfiguredErrorListener->attach($eventManager);
+    }
+
+    public function getPublicDir()
+    {
+        return realpath(__DIR__.'/../../public');
     }
 }
