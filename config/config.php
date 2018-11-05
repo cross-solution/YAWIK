@@ -19,9 +19,6 @@ $isCli = php_sapi_name() === 'cli';
 if (!$isCli && !file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     $modules = [
         'Install',
-        'Core',
-        'Auth',
-        'Jobs',
     ];
 } else {
     $modules =[
