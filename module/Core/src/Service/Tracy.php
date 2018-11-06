@@ -81,7 +81,7 @@ class Tracy
         }
         $config = $this->config;
         if (!is_dir($dir = $config['log'])) {
-            @mkdir($dir, 0755, true);
+            @mkdir($dir, 0777, true);
         }
         $this->register($this->config);
         $this->listener->startListen();

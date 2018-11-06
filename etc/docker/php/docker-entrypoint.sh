@@ -8,5 +8,5 @@ fi
 
 # start selenium server
 exec ./bin/start-selenium > /dev/null 2>&1 &
-
+umask 0000
 exec docker-php-entrypoint "$@"

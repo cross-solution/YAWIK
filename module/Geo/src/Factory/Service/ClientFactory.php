@@ -43,7 +43,7 @@ class ClientFactory implements FactoryInterface
                 sprintf('Cache directory "%s" is not writable.', $cacheDir)
             );
         }
-        @mkdir($cacheDir, 0755, true);
+        @mkdir($cacheDir, 0777, true);
         $cache = StorageFactory::factory([
             'adapter' => [
                 'name' => 'filesystem',
