@@ -14,12 +14,16 @@
 namespace Core;
 
 use Core\Controller\Console\AssetsInstallController;
+use Core\Controller\Console\ClearCacheController;
 use Core\Controller\Console\SubsplitController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
+use Core\Listener\ConfigListener;
+use Core\Service\ClearCacheService;
 use Core\Service\Tracy;
 use Zend\I18n\Translator\Resources;
+use Zend\Mvc\MvcEvent;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -39,7 +43,6 @@ return array(
             'navigation_class' => 'yk-icon yk-icon-settings'
         ),
     ),
-
 
     // Logging
     'log' => array(
@@ -206,6 +209,15 @@ return array(
                             'action' => 'index'
                         ]
                     ]
+                ],
+                'clear-cache' => [
+                    'options' => [
+                        'route' => 'cache-warmup',
+                        'defaults' => [
+                            'controller' => ClearCacheController::class,
+                            'action' => 'index',
+                        ]
+                    ]
                 ]
             ],
         ],
@@ -277,6 +289,7 @@ return array(
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
             'Tracy' => [Tracy::class,'factory'],
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
+            ClearCacheService::class => [ClearCacheService::class,'factory']
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',
@@ -346,6 +359,7 @@ return array(
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
             AssetsInstallController::class => [AssetsInstallController::class,'factory'],
             SubsplitController::class => [SubsplitController::class,'factory'],
+            ClearCacheController::class => [ClearCacheController::class,'factory'],
 
         ],
     ),
@@ -612,7 +626,7 @@ return array(
             'listeners' => [
                 Service\EntityEraser\DefaultEntityLoaderListener::class => ['*', -1000],
             ],
-        ]
+        ],
     ],
     
 );
