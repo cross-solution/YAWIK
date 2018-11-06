@@ -9,4 +9,6 @@ fi
 # start selenium server
 exec ./bin/start-selenium > /dev/null 2>&1 &
 umask 0000
+chmod 777 var/cache -Rf
+chmod 777 var/log -Rf
 exec docker-php-entrypoint "$@"
