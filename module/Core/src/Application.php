@@ -10,18 +10,26 @@
 
 namespace Core;
 
+use Core\Service\ClearCacheService;
 use Symfony\Component\Dotenv\Dotenv;
 use Zend\Config\Exception\InvalidArgumentException;
+use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\Mvc\Application as BaseApplication;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Stdlib\Glob;
 
 /**
- * Class Application
+ * Yawik Custom MVC Application
+ *
  * @package Core
+ * @author Anthonius Munthi <me@itstoni.com>
+ * @since 0.32
  */
 class Application extends BaseApplication
 {
     public static $VERSION;
+
+    public static $env = 'production';
 
     private static $configDir;
 
@@ -115,8 +123,6 @@ class Application extends BaseApplication
         ini_set('display_errors', true);
         ini_set('error_reporting', E_ALL | E_STRICT);
 
-        date_default_timezone_set('Europe/Berlin');
-
         if (php_sapi_name() == 'cli-server') {
             if (!static::setupCliServerEnv()) {
                 return false;
@@ -124,8 +130,18 @@ class Application extends BaseApplication
         }
 
         static::loadDotEnv();
+
         $configuration = static::loadConfig($configuration);
+        static::checkCache($configuration);
         return parent::init($configuration);
+    }
+
+    private static function checkCache(array $configuration)
+    {
+        $config = $configuration['module_listener_options'];
+        $options = new ListenerOptions($config);
+        $cache = new ClearCacheService($options);
+        $cache->checkCache();
     }
 
     /**
@@ -157,6 +173,7 @@ class Application extends BaseApplication
     /**
      * Setup php server
      * @return bool
+     * @codeCoverageIgnore
      */
     private static function setupCliServerEnv()
     {
@@ -176,8 +193,13 @@ class Application extends BaseApplication
     /**
      * Load environment variables from .env files
      */
-    private static function loadDotEnv()
+    public static function loadDotEnv()
     {
+        static $isLoaded=false;
+        if ($isLoaded) {
+            return;
+        }
+
         $env = getcwd().'/.env';
         if (!is_file($env)) {
             $env = getcwd().'/.env.dist';
@@ -192,6 +214,14 @@ class Application extends BaseApplication
         $version = getenv('TRAVIS') || $isVendor ? "undefined":exec('git describe');
         $branch = getenv('TRAVIS') || $isVendor ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
         static::$VERSION = $version.'['.$branch.']';
+
+
+        //@TODO: default timezone turns error when used
+        if (!is_string(getenv('TIMEZONE'))) {
+            putenv('TIMEZONE=Europe/Berlin');
+        }
+        date_default_timezone_set(getenv('TIMEZONE'));
+        $isLoaded = true;
     }
 
     /**
@@ -228,7 +258,7 @@ class Application extends BaseApplication
             $modules = array_diff($modules, ['Install']);
         }
 
-        $env = getenv('APPLICATION_ENV') ?: 'production';
+        static::$env = $env = getenv('APPLICATION_ENV') ?: 'production';
         $defaults = [
             'module_listener_options' => [
                 'module_paths' => [
@@ -245,17 +275,16 @@ class Application extends BaseApplication
                 // caching disabled during install mode
                 'config_cache_enabled' => ($env == 'production') && !$installMode,
 
-                'config_cache_key' => $env,
 
                 // Use the $env value to determine the state of the flag
-                'module_map_cache_enabled' => ($env == 'production'),
+                'module_map_cache_enabled' => ($env == 'production') && !$installMode,
 
                 'module_map_cache_key' => 'module_map',
 
                 // Use the $env value to determine the state of the flag
                 'check_dependencies' => ($env != 'production'),
 
-                'cache_dir' => getcwd().'/var/cache',
+                'cache_dir' => getcwd()."/var/cache",
             ],
         ];
 
@@ -274,7 +303,6 @@ class Application extends BaseApplication
 
         // configuration file always win
         $configuration = ArrayUtils::merge($defaults, $configuration);
-
         // environment config always win
         $configuration = ArrayUtils::merge($configuration, $envConfig);
 
