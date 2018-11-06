@@ -1,5 +1,5 @@
 {
-    "name": "yawik/development",
+    "name": "yawik/yawik",
     "type": "project",
     "description": "Web based applicant tracking system for managing jobs and applications",
     "authors": [
@@ -158,7 +158,6 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.33-dev",
             "dev-master": "0.32-dev"
         }
     }
