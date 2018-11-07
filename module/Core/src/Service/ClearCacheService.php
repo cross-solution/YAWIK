@@ -36,7 +36,7 @@ class ClearCacheService
     private $filesystem;
 
     /**
-     * CacheWarmupService constructor.
+     * Clear cache constructor.
      * @param ListenerOptions $options
      * @param Filesystem|null $filesystem
      */
@@ -50,7 +50,7 @@ class ClearCacheService
     }
 
     /**
-     * Creates new service
+     * Creates new ClearCacheService object
      * @param ContainerInterface $container
      * @return ClearCacheService
      */
@@ -63,11 +63,14 @@ class ClearCacheService
     }
 
     /**
-     * Clean all cache in directory
+     * Clear all cache files
      */
     public function clearCache()
     {
-        $cacheDir = $this->options->getCacheDir();
+        // do not clear cache when cache directory not exists
+        if (is_null($cacheDir = $this->options->getCacheDir()) || !is_dir($cacheDir)) {
+            return false;
+        }
         $finder = Finder::create()
             ->in($cacheDir)
             ->ignoreDotFiles(false)
@@ -77,19 +80,26 @@ class ClearCacheService
         ;
         $fs = $this->filesystem;
         $fs->remove($finder);
+        return true;
     }
 
+    /**
+     * This function will check cache by creating md5 sum
+     * from all file modification time in config/autoload/*.php.
+     * If checksum is invalid it will automatically call clear cache.
+     */
     public function checkCache()
     {
         $options = $this->options;
 
         $configDir = Application::getConfigDir();
-        $env = Application::$env;
+
         $cacheDir = $options->getCacheDir();
 
         if (!is_dir($cacheDir)) {
             mkdir($cacheDir, 0777, true);
         }
+
         $mtimes = [];
         $mtimes[] = filemtime($configDir.'/config.php');
 

@@ -41,24 +41,6 @@ class ClearCacheServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ClearCacheService::class, $cache);
     }
 
-    public function testClearCache()
-    {
-        $options = $this->getMockBuilder(ListenerOptions::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-        $options->expects($this->once())
-            ->method('getCacheDir')
-        ;
-        $fs = $this->createMock(Filesystem::class);
-        $fs->expects($this->once())
-            ->method('remove')
-        ;
-
-        $service = new ClearCacheService($options, $fs);
-        $service->clearCache();
-    }
-
     public function testCheckCache()
     {
         $cacheDir = sys_get_temp_dir().'/yawik/test-cache';
@@ -83,5 +65,35 @@ class ClearCacheServiceTest extends \PHPUnit_Framework_TestCase
         $cache->checkCache();
         $this->assertDirectoryExists($cacheDir);
         $this->assertFileExists($cacheDir.'/.checksum');
+    }
+
+    public function testClearCache()
+    {
+        $cacheDir = sys_get_temp_dir().'/yawik/test-cache';
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0777, true);
+        }
+        $options = $this->getMockBuilder(ListenerOptions::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $options->expects($this->exactly(3))
+            ->method('getCacheDir')
+            ->willReturnOnConsecutiveCalls(
+                null,
+                sys_get_temp_dir().'/foo',
+                $cacheDir
+            )
+        ;
+        $fs = $this->createMock(Filesystem::class);
+        $fs->expects($this->once())
+            ->method('remove')
+        ;
+
+
+        $service = new ClearCacheService($options, $fs);
+        $this->assertFalse($service->clearCache(), 'Test with null cache directory');
+        $this->assertFalse($service->clearCache(), 'Test with non existent directory');
+        $this->assertTrue($service->clearCache(), 'Test with exist cache directory');
     }
 }
