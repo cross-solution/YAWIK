@@ -212,7 +212,7 @@ return array(
                 ],
                 'clear-cache' => [
                     'options' => [
-                        'route' => 'cache-warmup',
+                        'route' => 'clear-cache',
                         'defaults' => [
                             'controller' => ClearCacheController::class,
                             'action' => 'index',
