@@ -23,15 +23,12 @@ class InstallContext implements Context
 {
     use CommonContextTrait;
 
-    static private $configFile;
+    private static $yawikGlobalConfig;
 
-    static private $yawikGlobalConfig;
-
-    static private $yawikBackupConfig;
+    private static $yawikBackupConfig;
 
     public function __construct()
     {
-        static::$configFile = getcwd() . '/config/autoload/install.module.php';
         static::$yawikGlobalConfig = getcwd() . '/config/autoload/yawik.config.global.php';
         static::$yawikBackupConfig = str_replace('yawik.config.global.php', 'yawik.backup', static::$yawikGlobalConfig);
     }
@@ -41,19 +38,12 @@ class InstallContext implements Context
      */
     public function iHaveInstallModuleActivated()
     {
-        $target = static::$configFile;
-        if(!file_exists($target)){
-            $source = __DIR__.'/../resources/install.module.php';
-            copy($source,$target);
-            chmod($target,0777);
-        }
-
         // backup existing file
         $yawikBackupConfig = static::$yawikBackupConfig;
         $yawikGlobalConfig = static::$yawikGlobalConfig;
 
-        if(is_file($yawikGlobalConfig)){
-            rename($yawikGlobalConfig,$yawikBackupConfig);
+        if (is_file($yawikGlobalConfig)) {
+            rename($yawikGlobalConfig, $yawikBackupConfig);
         }
     }
 
@@ -69,7 +59,7 @@ class InstallContext implements Context
     /**
      * @AfterSuite
      */
-    static public function tearDown()
+    public static function tearDown()
     {
         static::restoreConfig();
     }
@@ -85,23 +75,19 @@ class InstallContext implements Context
     /**
      * @BeforeSuite
      */
-    static public function setUp()
+    public static function setUp()
     {
         static::restoreConfig();
     }
 
-    static public function restoreConfig()
+    public static function restoreConfig()
     {
-        if(is_file($file = static::$configFile)){
-            unlink($file);
-        }
-
         // restore backup
         $yawikBackupConfig = static::$yawikBackupConfig;
         $yawikGlobalConfig = static::$yawikGlobalConfig;
 
-        if(is_file($yawikBackupConfig)){
-            rename($yawikBackupConfig,$yawikGlobalConfig);
+        if (is_file($yawikBackupConfig)) {
+            rename($yawikBackupConfig, $yawikGlobalConfig);
         }
     }
 
@@ -112,6 +98,6 @@ class InstallContext implements Context
     {
         $config = $this->getService('config');
         $connection = $config['doctrine']['connection']['odm_default']['connectionString'];
-        $this->minkContext->fillField('db_conn',$connection);
+        $this->minkContext->fillField('db_conn', $connection);
     }
 }
