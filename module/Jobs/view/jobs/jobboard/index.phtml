@@ -1,12 +1,10 @@
 <?php //description: Renders the list of public jobs. ?>
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
-          ->appendFile($this->basePath('Core/js/core.forms.js'))
-          ->appendFile($this->basePath('/assets/select2/js/select2.min.js'));
-      if ($this->params('lang') != 'en') {
-          $this->headScript()->appendFile($this->basePath('/assets/select2/js/i18n/' . $this->params('lang') . '.js'));
-      }
-      $this->headLink()->appendStylesheet($this->basePath('/assets/select2/css/select2.css'))
+      $this->headScript()
+          //->appendFile($this->basePath('/assets/select2/js/select2.min.js'))
+          ->appendFile($this->basepath('modules/Core/js/core.pagination-container.js'))
+          ->appendFile($this->basepath('modules/Core/js/core.forms.js'))
+      ;
 ?>
 
 <h1><?php echo $this->translate('Public Job Opportunities')?></h1>

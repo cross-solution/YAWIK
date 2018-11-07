@@ -1,19 +1,22 @@
 <?php //description: Renders the list of jobs. used by applicants and recruiters ?>
 <?php $this->headTitle($this->translate('Jobs'));
 
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
-                         ->appendFile($this->basePath('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js'))
-                         ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
-                         ->appendFile($this->basePath('Core/js/core.forms.js'))
-                         ->appendFile($this->basePath('Core/js/core.spinnerbutton.js'))
-                         ->appendFile($this->basePath('assets/select2/js/select2.min.js'))
-                         ->appendFile($this->basePath('Core/js/forms.descriptions.js'))
-                         ->appendFile($this->basePath('/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js'))
-                         ->appendFile($this->basePath('/Jobs/js/jobs.history.js'));
+      $this->headScript()
+          //->appendFile($this->basePath('/assets/bootstrap3-dialog/js/bootstrap-dialog.min.js'))
+          //->appendFile($this->basePath('/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js'))
+          //->appendFile($this->basePath('assets/select2/js/select2.min.js'))
+          ->appendFile($this->basepath('dist/js/bootstrap-dialog.min.js'))
+          ->appendFile($this->basepath('modules/Core/js/core.pagination-container.js'))
+          ->appendFile($this->basePath('modules/Jobs/js/index.assign-users.js'))
+          ->appendFile($this->basepath('modules/Core/js/core.forms.js'))
+          ->appendFile($this->basepath('modules/Core/js/core.spinnerbutton.js'))
+          ->appendFile($this->basepath('modules/Core/js/forms.descriptions.js'))
+          ->appendFile($this->basePath('modules/Jobs/js/jobs.history.js'))
+      ;
 
-if ('de' == $this->params('lang')) {
-    $this->headScript()->appendFile($this->basePath('/assets/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
-}
+//if ('de' == $this->params('lang')) {
+//    $this->headScript()->appendFile($this->basePath('/assets/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
+//}
 
 
 $this->headScript()->captureStart() ?>
@@ -154,8 +157,9 @@ $this->headScript()->captureStart() ?>
 })(jQuery, BootstrapDialog);
 
 <?php $this->headScript()->captureEnd();
-      $this->headLink()->appendStylesheet($this->basePath('/assets/bootstrap3-dialog/css/bootstrap-dialog.min.css'))
-                       ->appendStylesheet($this->basePath('/assets/select2/css/select2.css'))?>
+      //$this->headLink()->appendStylesheet($this->basePath('/assets/bootstrap3-dialog/css/bootstrap-dialog.min.css'))
+                       //->appendStylesheet($this->basePath('/assets/select2/css/select2.css'))
+?>
 
 <style type="text/css">
     .note-box {

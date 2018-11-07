@@ -15,11 +15,11 @@ use Core\Form\HeadscriptProviderInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Jobs\Entity\Job;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 
 /**
  * Tests for \Applications\Form\Element\JobSelect
- * 
+ *
  * @covers \Applications\Form\Element\JobSelect
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Applications
@@ -56,14 +56,14 @@ class JobSelectTest extends \PHPUnit_Framework_TestCase
 
         return [
             ['headscripts', [
-                'default' => ['Applications/js/form.job-select.js'],
+                'default' => ['modules/Applications/js/form.job-select.js'],
                 'value' => ['some/scripts/dummy.js']
             ]],
             ['selectedJob', [
                 'getter_method' => 'getValue',
                 'expect' => $job->getId(),
                 'value' => $job,
-                'post' => function() use ($job) {
+                'post' => function () use ($job) {
                     $this->assertEquals([0 => '', $job->getId() => $job->getTitle()], $this->target->getValueOptions());
                 }
             ]]

@@ -62,24 +62,24 @@ class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterfac
     }
 
     /**
-	 * @param array $statusOptions
-	 * @return UserStatusFieldset
-	 */
-	public function setStatusOptions(array $statusOptions)
-	{
-		$this->statusOptions = $statusOptions;
-		
-		return $this;
-	}
+     * @param array $statusOptions
+     * @return UserStatusFieldset
+     */
+    public function setStatusOptions(array $statusOptions)
+    {
+        $this->statusOptions = $statusOptions;
+        
+        return $this;
+    }
 
-	public function init()
+    public function init()
     {
         $this->setName('status');
 
         $this->add(
             [
                 'name'       => 'status',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => [
                     'label'         => /*@translate */ 'Status',
                     'value_options' => $this->statusOptions

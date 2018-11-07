@@ -76,7 +76,7 @@ return [
                     'Core/PaginatorService' => '\\Core\\Paginator\\PaginatorServiceFactory',
                     'Core/Html2Pdf' => '\\Core\\Html2Pdf\\PdfServiceFactory',
                     'Core/Navigation' => 'Core\\Factory\\Navigation\\DefaultNavigationFactory',
-                    'Core/JsonEntityHydrator' => 'Core\\Entity\\Hydrator\\JsonEntityHydratorFactory',
+                    'modules/Core/jsonEntityHydrator' => 'Core\\Entity\\Hydrator\\JsonEntityHydratorFactory',
                     'Core/EntityHydrator' => 'Core\\Entity\\Hydrator\\EntityHydratorFactory',
                     'Core/Options' => 'Core\\Factory\\ModuleOptionsFactory',
                     'Core/DoctrineMongoODM/RepositoryEvents' =>
@@ -141,7 +141,7 @@ return [
                     'Jobs/Options/Provider' => 'Jobs\\Factory\\Options\\ProviderOptionsFactory',
                     'Jobs/Options/Channel' => 'Jobs\\Factory\\Options\\ChannelOptionsFactory',
                     'Jobs\\Form\\Hydrator\\OrganizationNameHydrator' => 'Jobs\\Factory\\Form\\Hydrator\\OrganizationNameHydratorFactory',
-                    'Jobs/JsonJobsEntityHydrator' => 'Jobs\\Entity\\Hydrator\\JsonJobsEntityHydratorFactory',
+                    'modules/Jobs/jsonJobsEntityHydrator' => 'Jobs\\Entity\\Hydrator\\JsonJobsEntityHydratorFactory',
                     'Jobs/RestClient' => 'Jobs\\Factory\\Service\\JobsPublisherFactory',
                     'Jobs/Listener/MailSender' => 'Jobs\\Factory\\Listener\\MailSenderFactory',
                     'Jobs/Listener/AdminWidgetProvider' => 'Jobs\\Factory\\Listener\\AdminWidgetProviderFactory',
@@ -2090,9 +2090,9 @@ return [
                             'server' => 'localhost',
                             'port' => '27017',
                             'connectionString' => 'mongodb://172.19.0.1:27017/YAWIK_TEST',
-                            'user' => NULL,
-                            'password' => NULL,
-                            'dbname' => NULL,
+                            'user' => null,
+                            'password' => null,
+                            'dbname' => null,
                             'options' =>
                                 [
                                 ],
@@ -2113,8 +2113,8 @@ return [
                             'generate_persistent_collections' => 1,
                             'persistent_collection_dir' => 'data/DoctrineMongoODMModule/PersistentCollection',
                             'persistent_collection_namespace' => 'DoctrineMongoODMModule\\PersistentCollection',
-                            'persistent_collection_factory' => NULL,
-                            'persistent_collection_generator' => NULL,
+                            'persistent_collection_factory' => null,
+                            'persistent_collection_generator' => null,
                             'default_db' => 'YAWIK_TEST',
                             'filters' =>
                                 [
@@ -2572,7 +2572,7 @@ return [
             'bar' => false,
             'strict' => true,
             'log' => '/var/www/yawik/module/Core/config/../../../log/tracy',
-            'email' => NULL,
+            'email' => null,
             'email_snooze' => 900,
         ],
     'acl' =>
@@ -3001,7 +3001,7 @@ return [
                             'order' => 100,
                             'params' =>
                                 [
-                                    'module' => NULL,
+                                    'module' => null,
                                 ],
                         ],
                     'organizations' =>
@@ -3046,7 +3046,7 @@ return [
                 [
                     'lang/applications' =>
                         [
-                            0 => 'Core/js/jquery.barrating.min.js',
+                            0 => 'modules/Core/js/jquery.barrating.min.js',
                         ],
                 ],
         ],

@@ -14,12 +14,12 @@ use Applications\Factory\Form\StatusSelectFactory;
 use Applications\Repository\Application as ApplicationsRepository;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Factory\Form\StatusSelectFactory
- * 
+ *
  * @covers \Applications\Factory\Form\StatusSelectFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Applications
@@ -38,9 +38,9 @@ class StatusSelectFactoryTest extends \PHPUnit_Framework_TestCase
     private $target = [
         StatusSelectFactory::class,
         '@testCreateService' => [
-        	'mock' => [
-        		'__invoke' => ['@with' => 'getInvokeMockArgs','count' => 1]
-	        ]
+            'mock' => [
+                '__invoke' => ['@with' => 'getInvokeMockArgs','count' => 1]
+            ]
         ],
     ];
 
@@ -64,20 +64,20 @@ class StatusSelectFactoryTest extends \PHPUnit_Framework_TestCase
         ];
 
         $applications = $this
-	        ->getMockBuilder(ApplicationsRepository::class)
-	        ->disableOriginalConstructor()
+            ->getMockBuilder(ApplicationsRepository::class)
+            ->disableOriginalConstructor()
             ->setMethods(['getStates'])
             ->getMock()
         ;
         $applications
-	        ->expects($this->once())
-	        ->method('getStates')
-	        ->will($this->returnValue($states))
+            ->expects($this->once())
+            ->method('getStates')
+            ->will($this->returnValue($states))
         ;
 
         $repositories = $this->createPluginManagerMock(
-        	['Applications' => $applications],
-	        $this->getServiceManagerMock()
+            ['Applications' => $applications],
+            $this->getServiceManagerMock()
         );
 
         $container = $this->createServiceManagerMock(['repositories' => $repositories]);

@@ -10,7 +10,7 @@
 namespace AuthTest\Factory\Controller;
 
 use Auth\Factory\Controller\PasswordControllerFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class PasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase

@@ -10,7 +10,7 @@
 namespace AuthTest\Factory\Form;
 
 use Auth\Factory\Form\ForgotPasswordFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 class ForgotPasswordFactoryTest extends \PHPUnit_Framework_TestCase
 {

@@ -13,11 +13,13 @@
  */
 namespace Core;
 
+use Core\Controller\Console\AssetsInstallController;
+use Core\Controller\Console\SubsplitController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
+use Core\Service\Tracy;
 use Zend\I18n\Translator\Resources;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -28,7 +30,7 @@ return array(
 
     'options' => [
         'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
-        ],
+    ],
     
     'Core' => array(
         'settings' => array(
@@ -47,7 +49,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => __DIR__ .'/../../../log/yawik.log',
+                         'stream' => getcwd().'/var/log/yawik.log',
                     ),
                  ),
             ),
@@ -58,7 +60,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => __DIR__ .'/../../../log/mails.log',
+                         'stream' => getcwd().'/var/log/mails.log',
                     ),
                  ),
             ),
@@ -75,7 +77,7 @@ return array(
         'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
         'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
         'strict' => true, // bool = cause immediate death|int = matched against error severity
-        'log' => __DIR__ . '/../../../log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
+        'log' => getcwd().'/var/log/tracy', // path to log directory (this directory keeps error.log, snoozing mailsent file & html exception trace files)
         'email' => null, // in production mode notifies the recipient
         'email_snooze' => 900 // interval for sending email in seconds
     ],
@@ -83,6 +85,17 @@ return array(
     // Routes
     'router' => array(
         'routes' => array(
+            'file' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/file/:filestore/:fileId[/:fileName]',
+                    'defaults' => array(
+                        'controller' => 'Core/File',
+                        'action' => 'index'
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'lang' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -152,17 +165,6 @@ return array(
                     ]
                 ),
             ),
-            'file' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/file/:filestore/:fileId[/:fileName]',
-                    'defaults' => array(
-                        'controller' => 'Core/File',
-                        'action' => 'index'
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
         ),
     ),
 
@@ -187,6 +189,24 @@ return array(
                         ],
                     ],
                 ],
+                'assets-install' => [
+                    'options' => [
+                        'route' => 'assets-install [--symlink] [--relative] [<target>]',
+                        'defaults' => [
+                            'controller' => AssetsInstallController::class,
+                            'action' => 'index'
+                        ]
+                    ]
+                ],
+                'subsplit' => [
+                    'options' => [
+                        'route' => 'subsplit [--heads=] [--tags=] [--skip-update] [--dry-run] [--verbose|-v] [<module>]',
+                        'defaults' => [
+                            'controller' => SubsplitController::class,
+                            'action' => 'index'
+                        ]
+                    ]
+                ]
             ],
         ],
     ],
@@ -242,7 +262,7 @@ return array(
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/Html2Pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'Core/Navigation' => 'Core\Factory\Navigation\DefaultNavigationFactory',
-            'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
+            'modules/Core/jsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
             'Core/EntityHydrator' => 'Core\Entity\Hydrator\EntityHydratorFactory',
             'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
             'Core/DoctrineMongoODM/RepositoryEvents' => [\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber::class,'factory'],
@@ -255,6 +275,7 @@ return array(
             \Core\Listener\DeleteImageSetListener::class => \Core\Factory\Listener\DeleteImageSetListenerFactory::class,
             'Imagine' => \Core\Factory\Service\ImagineFactory::class,
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
+            'Tracy' => [Tracy::class,'factory'],
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
         ),
         'abstract_factories' => array(
@@ -317,13 +338,16 @@ return array(
     ),
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
-	    'factories' => [
-		    'Core/Index'   => LazyControllerFactory::class,
+        'factories' => [
+            'Core/Index'   => LazyControllerFactory::class,
             'Core/Admin'   => AdminControllerFactory::class,
-		    'Core/File'    => FileControllerFactory::class,
+            'Core/File'    => FileControllerFactory::class,
             'Core/Content' => LazyControllerFactory::class,
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
-	    ],
+            AssetsInstallController::class => [AssetsInstallController::class,'factory'],
+            SubsplitController::class => [SubsplitController::class,'factory'],
+
+        ],
     ),
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
@@ -354,7 +378,7 @@ return array(
             'paginatorservice' => 'Core/PaginatorService',
             'paginationParams' => 'Core/PaginationParams',
             'searchform'       => 'Core/SearchForm',
-	        'notification'     => 'Notification',
+            'notification'     => 'Notification',
         )
     ),
     // Configure the view service manager
@@ -453,7 +477,7 @@ return array(
         ),
         'aliases' => [
             'snippet' => \Core\View\Helper\Snippet::class,
-	        'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
+            'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
             'proxy' => \Core\View\Helper\Proxy::class,
             'form_element' => 'formElement',
         ],
@@ -504,6 +528,7 @@ return array(
             'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
             'Checkbox' => 'Core\Form\Element\Checkbox',
             'infoCheckBox' => 'Core\Form\Element\InfoCheckbox',
+            'Core/Select' => 'Core\Form\Element\Select',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core/Datepicker' => 'Core\Form\Element\DatePicker',
             'Core/FileUpload' => '\Core\Form\Element\FileUpload',
@@ -565,17 +590,17 @@ return array(
         ],
 
         'Core/Ajax/Events' => [
-	        'service' => 'Core/EventManager',
-	        'event'   => \Core\Listener\Events\AjaxEvent::class,
+            'service' => 'Core/EventManager',
+            'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
-	    
-	    'Core/File/Events' => [
-		    'service' => 'Core/EventManager',
-		    'event' => \Core\Listener\Events\FileEvent::class,
+        
+        'Core/File/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => \Core\Listener\Events\FileEvent::class,
             'listeners' => [
                 \Core\Listener\DeleteImageSetListener::class => [\Core\Listener\Events\FileEvent::EVENT_DELETE, -1000],
             ],
-	    ],
+        ],
 
         'Core/EntityEraser/Dependencies/Events' => [
             'service' => Service\EntityEraser\EntityEraserEvents::class,

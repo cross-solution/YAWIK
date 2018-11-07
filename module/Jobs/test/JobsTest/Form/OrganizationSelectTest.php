@@ -17,10 +17,10 @@ use Organizations\Entity\OrganizationName;
 
 /**
  * Tests for \Jobs\Form\OrganizationSelect
- * 
+ *
  * @covers \Jobs\Form\OrganizationSelect
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
 class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,11 +37,11 @@ class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox Extends \Zend\Form\Element\Select and implements \Core\Form\HeadscriptProviderInterface
+     * @testdox Extends \Core\Form\Element\Select and implements \Core\Form\HeadscriptProviderInterface
      */
     public function testExtendsSelectAndImplementsHeadscriptProviderInterface()
     {
-        $this->assertInstanceOf('\Zend\Form\Element\Select', $this->target);
+        $this->assertInstanceOf('\Core\Form\Element\Select', $this->target);
         $this->assertInstanceOf('\Core\Form\HeadscriptProviderInterface', $this->target);
     }
 
@@ -51,7 +51,7 @@ class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAndGetHeadscripts()
     {
-        $this->assertEquals([ 'Jobs/js/form.organization-select.js' ], $this->target->getHeadscripts());
+        $this->assertEquals([ 'modules/Jobs/js/form.organization-select.js' ], $this->target->getHeadscripts());
         $this->assertSame($this->target, $this->target->setHeadscripts([ 'script1' ]), 'Fluent interface broken on "setHeadscripts"');
         $this->assertEquals([ 'script1' ], $this->target->getHeadscripts());
     }

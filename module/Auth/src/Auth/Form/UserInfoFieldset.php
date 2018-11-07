@@ -31,7 +31,6 @@ class UserInfoFieldset extends Fieldset implements
     EmptySummaryAwareInterface,
     InputFilterProviderInterface
 {
-
     use EmptySummaryAwareTrait;
 
     private $defaultEmptySummaryNotice = /*@translate*/ 'Click here to enter contact informations.';
@@ -127,7 +126,7 @@ class UserInfoFieldset extends Fieldset implements
         $this->add(
             array(
                 'name'       => 'gender',
-                'type'       => 'Zend\Form\Element\Select',
+                'type'       => 'Core\Form\Element\Select',
                 'options'    => [
                     'label'         => /*@translate */ 'Salutation',
                     'value_options' => [

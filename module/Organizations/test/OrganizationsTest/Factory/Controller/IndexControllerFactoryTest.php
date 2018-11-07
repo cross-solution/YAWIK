@@ -10,7 +10,7 @@
 namespace OrganizationsTest\Factory\Controller;
 
 use Organizations\Factory\Controller\IndexControllerFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
@@ -31,24 +31,24 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $sm->setAllowOverride(true);
 
         $organizationRepositoryMock = $this
-	        ->getMockBuilder('Organizations\Repository\Organization')
+            ->getMockBuilder('Organizations\Repository\Organization')
             ->disableOriginalConstructor()
             ->getMock();
 
         $repositoriesMock = $this
-	        ->getMockBuilder('Core\Repository\RepositoryService')
+            ->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()
             ->getMock();
 
         $repositoriesMock
-	        ->expects($this->once())
+            ->expects($this->once())
             ->method('get')
             ->with('Organizations/Organization')
             ->willReturn($organizationRepositoryMock);
 
         $sm->setService('repositories', $repositoriesMock);
 
-        $result = $this->testedObj->__invoke($sm,'irrelevant');
+        $result = $this->testedObj->__invoke($sm, 'irrelevant');
 
         $this->assertInstanceOf('Organizations\Controller\IndexController', $result);
     }

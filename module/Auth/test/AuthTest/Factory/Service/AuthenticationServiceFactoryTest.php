@@ -10,7 +10,7 @@
 namespace AuthTest\Factory\Service;
 
 use Auth\Factory\Service\AuthenticationServiceFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 /**
  * Class AuthenticationServiceFactoryTest

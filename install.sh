@@ -79,6 +79,8 @@ fi;
 
 
 echo "Installing Assets"
+bin/yawik assets:install --relative
 npm install
+#bin/install-assets.sh
 
           

@@ -14,7 +14,7 @@ use Jobs\Form\MultipostingSelect;
 
 /**
  * Tests for \Jobs\Form\MultipostingSelect
- * 
+ *
  * @covers \Jobs\Form\MultipostingSelect
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
@@ -24,14 +24,14 @@ class MultipostingSelectTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @testdox Extends \Zend\Form\Element\Select and Implements \Core\Form\HeadscriptProviderInterface, \Core\Form\ViewPartialProviderInterface
+     * @testdox Extends \Core\Form\Element\Select and Implements \Core\Form\HeadscriptProviderInterface, \Core\Form\ViewPartialProviderInterface
      * @coversNothing
      */
     public function testExtendsSelectElementAndImplementsProperInterfaces()
     {
         $target = new MultipostingSelect();
 
-        $this->assertInstanceOf('\Zend\Form\Element\Select', $target, 'Does not extend correct parent class.');
+        $this->assertInstanceOf('\Core\Form\Element\Select', $target, 'Does not extend correct parent class.');
         $this->assertInstanceOf('\Core\Form\HeadscriptProviderInterface', $target, 'Interface HeadscriptProviderInterface not implemented.');
         $this->assertInstanceOf('\Core\Form\ViewPartialProviderInterface', $target, 'Interface ViewPartialProviderInterface not implemented.');
     }
@@ -44,7 +44,7 @@ class MultipostingSelectTest extends \PHPUnit_Framework_TestCase
         $target = new MultipostingSelect();
 
         $this->assertAttributeSame('jobs/form/multiposting-select', 'partial', $target, 'Wrong default value of attribute "partial"');
-        $this->assertAttributeSame(array('Jobs/js/form.multiposting-select.js'), 'headscripts', $target, 'Wrong default value of attribute "headscripts"');
+        $this->assertAttributeSame(array('modules/Jobs/js/form.multiposting-select.js'), 'headscripts', $target, 'Wrong default value of attribute "headscripts"');
     }
 
     public function provideSetterAndGetterTestData()

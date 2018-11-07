@@ -12,7 +12,7 @@ namespace JobsTest\Factory\Controller;
 use Jobs\Controller\TemplateController;
 use Jobs\Factory\Controller\TemplateControllerFactory;
 use Jobs\Options\ModuleOptions;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 /**
@@ -54,16 +54,16 @@ class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with('Jobs/Job')
             ->willReturn($jobRepositoryMock);
-	
-	    $sm->setService('repositories', $repositoriesMock);
+    
+        $sm->setService('repositories', $repositoriesMock);
         //@TODO: [ZF3] don't know why we can't set config in ZF3, we have to use mock
-	    $sm->setService('config', array('core_options' => array('system_message_email' => 'test@test.de')));
-	    $jobOptionsMock = $this->getMockBuilder(ModuleOptions::class)
-		    ->disableOriginalConstructor()
-		    ->getMock()
-	    ;
-	    $sm->setService('Jobs/Options',$jobOptionsMock);
-	    $result = $this->testedObj->__invoke($sm,TemplateController::class);
+        $sm->setService('config', array('core_options' => array('system_message_email' => 'test@test.de')));
+        $jobOptionsMock = $this->getMockBuilder(ModuleOptions::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $sm->setService('Jobs/Options', $jobOptionsMock);
+        $result = $this->testedObj->__invoke($sm, TemplateController::class);
         $this->assertInstanceOf('Jobs\Controller\TemplateController', $result);
     }
 }

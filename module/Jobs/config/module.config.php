@@ -1,5 +1,6 @@
 <?php
 namespace Jobs;
+
 use Jobs\Controller\AdminCategoriesController;
 use Jobs\Controller\AdminController;
 use Jobs\Controller\ConsoleController;
@@ -21,7 +22,7 @@ return [
                  * for multiple paths.
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
-                'paths' => [ __DIR__ . '/../src/Jobs/Entity'],
+                'paths' => [ __DIR__ . '/../src/Entity'],
             ],
         ],
         'eventmanager' => [
@@ -218,7 +219,7 @@ return [
             'Jobs/Options/Provider'                       => 'Jobs\Factory\Options\ProviderOptionsFactory',
             'Jobs/Options/Channel'                        => 'Jobs\Factory\Options\ChannelOptionsFactory',
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => 'Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory',
-            'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
+            'modules/Jobs/jsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
             //'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
@@ -278,6 +279,10 @@ return [
                 'lazy' => true
             ],
         ]],
+
+        'Core/EntityEraser/Dependencies/Events' => ['listeners' => [
+            Listener\JobEntityDependencyListener::class => ['*', true]
+        ]],
     ],
 
 
@@ -288,9 +293,9 @@ return [
         ],
         'factories' => [
             'Jobs/Import' => [ Controller\ImportController::class, 'factory'],
-        	'Jobs/Console' => [ConsoleController::class,'factory'],
-	        'Jobs/AdminCategories' => [AdminCategoriesController::class,'factory'],
-	        'Jobs/Admin'      => [AdminController::class,'factory'],
+            'Jobs/Console' => [ConsoleController::class,'factory'],
+            'Jobs/AdminCategories' => [AdminCategoriesController::class,'factory'],
+            'Jobs/Admin'      => [AdminController::class,'factory'],
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
             'Jobs/Index' => 'Jobs\Factory\Controller\IndexControllerFactory',
             'Jobs/Approval' => 'Jobs\Factory\Controller\ApprovalControllerFactory',
@@ -444,15 +449,15 @@ return [
         'invokables' => [
             'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
             //'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
-	        JobLocationEdit::class => JobLocationEdit::class,
+            JobLocationEdit::class => JobLocationEdit::class,
             'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
         ],
         'factories' => [
             'Jobs/AtsMode'                      => 'Jobs\Factory\Form\InputFilter\AtsModeFactory',
         ],
-	    'aliases' => [
-	    	'Jobs/Location/Edit' => JobLocationEdit::class
-	    ]
+        'aliases' => [
+            'Jobs/Location/Edit' => JobLocationEdit::class
+        ]
     ],
 
     'filters' => [

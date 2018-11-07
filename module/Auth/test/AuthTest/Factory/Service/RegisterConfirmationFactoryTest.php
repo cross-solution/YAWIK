@@ -10,7 +10,7 @@
 namespace AuthTest\Factory\Service;
 
 use Auth\Factory\Service\RegisterConfirmationFactory;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 
 class RegisterConfirmationFactoryTest extends \PHPUnit_Framework_TestCase
 {

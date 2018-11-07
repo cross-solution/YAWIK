@@ -26,11 +26,11 @@ return array(
 //                'driver'             => 'odm_default',
 //
 //                'generate_proxies'   => true,
-                  'proxy_dir'          => 'cache/DoctrineMongoODMModule/Proxy',
+                  'proxy_dir'          => getcwd().'/var/cache/DoctrineMongoODMModule/Proxy',
 //                'proxy_namespace'    => 'DoctrineMongoODMModule\Proxy',
 //
 //                'generate_hydrators' => true,
-                  'hydrator_dir'       => 'cache/DoctrineMongoODMModule/Hydrator',
+                  'hydrator_dir'       => getcwd().'/var/cache/DoctrineMongoODMModule/Hydrator',
 //                'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
 //
 //                'default_db'         => '',

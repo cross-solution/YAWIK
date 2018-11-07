@@ -20,12 +20,12 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Geo\Form\GeoSelect;
 use Geo\Form\GeoSelectHydratorStrategy;
 use Geo\Service\AbstractClient;
-use Zend\Form\Element\Select;
+use Core\Form\Element\Select;
 use Zend\Json\Json;
 
 /**
  * Tests for \Geo\Form\GeoSelect
- * 
+ *
  * @covers \Geo\Form\GeoSelect
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Geo
@@ -58,7 +58,7 @@ class GeoSelectTest extends \PHPUnit_Framework_TestCase
 
     private $attributes = [
         'disableInArrayValidator' => true,
-        'headscripts' => [ 'Geo/js/geoselect.js' ],
+        'headscripts' => [ 'modules/Geo/js/geoselect.js' ],
     ];
 
     public function propertiesProvider()
@@ -66,14 +66,18 @@ class GeoSelectTest extends \PHPUnit_Framework_TestCase
         return [
             ['value', [
                 'value' => 'value',
-                'post'  => function() { $this->assertEquals('value', $this->target->getAttribute('data-val')); },
+                'post'  => function () {
+                    $this->assertEquals('value', $this->target->getAttribute('data-val'));
+                },
             ]],
             ['value', [
                 'value' => ['one', 'two'],
-                'post' => function() { $this->assertEquals(Json::encode(['one', 'two']), $this->target->getAttribute('data-val')); },
+                'post' => function () {
+                    $this->assertEquals(Json::encode(['one', 'two']), $this->target->getAttribute('data-val'));
+                },
             ]],
             ['headscripts', [
-                'default' => ['Geo/js/geoselect.js'],
+                'default' => ['modules/Geo/js/geoselect.js'],
                 'value'   => ['Some/other/script.js'],
             ]],
         ];

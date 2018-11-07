@@ -5,11 +5,10 @@ namespace CoreTest\Controller;
 use Auth\Entity\AnonymousUser;
 use Auth\Entity\User;
 use AuthTest\Entity\Provider\UserEntityProvider;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
-
 
 /**
  * Class AbstractFunctionalControllerTestCase

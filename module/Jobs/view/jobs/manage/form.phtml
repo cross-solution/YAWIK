@@ -19,9 +19,8 @@ $defaultCurrencyCode = $options->defaultCurrencyCode;
 $defaultTaxRate = $options->defaultTaxRate;
 
 $channels = $this->services('Jobs/Options/Provider');
-
-$this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
-$this->headscript()->appendFile($this->basepath('Core/js/jquery.summary-form.js'));
+$this->headscript()->appendFile($this->basepath('modules/Core/js/core.forms.js'));
+$this->headscript()->appendFile($this->basepath('modules/Core/js/jquery.summary-form.js'));
 
 
 $total=0;

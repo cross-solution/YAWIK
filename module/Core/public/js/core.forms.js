@@ -5,7 +5,7 @@
  *
  *
  */
-;(function($) {
+(function($) {
 	
 	var methods = {
 			

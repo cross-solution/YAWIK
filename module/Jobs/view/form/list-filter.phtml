@@ -9,7 +9,7 @@
 /**
  * {{rtd: Renders the search formular for jobs used by recruiters}}
  */
-$this->headScript()->appendFile($this->basePath('Jobs/js/index.list-filter-form.js'));
+$this->headScript()->appendFile($this->basePath('modules/Jobs/js/index.list-filter-form.js'));
 $translate = $this->plugin('translate');
 
 /* @var \Geo\Options\ModuleOptions $options */
@@ -129,7 +129,7 @@ if ($params->has('by')) {
         $status = $params->get('status');
     }
 
-    if ($status instanceof \Zend\Form\Element\Select) {
+    if ($status instanceof \Core\Form\Element\Select) {
         echo $this->formSelect(
             $status->setAttributes(
                 [
@@ -154,7 +154,7 @@ if ($params->has('by')) {
 
     if ($params->has('status')) {
         $status = $params->get('status');
-        if ($status instanceof \Zend\Form\Element\Select) {
+        if ($status instanceof \Core\Form\Element\Select) {
 
         } else {
             $createRadioGroup($status, 'status');

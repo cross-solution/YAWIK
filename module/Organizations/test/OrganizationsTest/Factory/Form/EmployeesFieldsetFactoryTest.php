@@ -14,7 +14,7 @@ use Organizations\Factory\Form\EmployeesFieldsetFactory;
 
 /**
  * Test the factory of an EmployeesFieldset.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Factory
@@ -45,13 +45,13 @@ class EmployeesFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $headscript = $this->getMockBuilder('\Zend\View\Helper\HeadScript')->disableOriginalConstructor()->getMock();
         $headscript->expects($this->once())
                    ->method('__call')
-                   ->with('appendFile', array('Organizations/js/organizations.employees.js'))
+                   ->with('appendFile', array('modules/Organizations/js/organizations.employees.js'))
                    ->willReturn(null);
 
         $basepath   = $this->getMockBuilder('\Zend\View\Helper\BasePath')->disableOriginalConstructor()->getMock();
         $basepath->expects($this->once())
                  ->method('__invoke')
-                 ->with('Organizations/js/organizations.employees.js')
+                 ->with('modules/Organizations/js/organizations.employees.js')
                  ->will($this->returnArgument(0));
 
         $helpers = $this->getMockBuilder('\Zend\View\HelperPluginManager')->disableOriginalConstructor()->getMock();
@@ -71,7 +71,7 @@ class EmployeesFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
                  ->with('ViewHelperManager')
                  ->willReturn($helpers);
 
-        $fieldset = $target->__invoke($services,'irrelevant');
+        $fieldset = $target->__invoke($services, 'irrelevant');
 
         $this->assertInstanceOf('\Organizations\Form\EmployeesFieldset', $fieldset);
 
@@ -80,7 +80,4 @@ class EmployeesFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($hydrator->hasStrategy('employees'));
         $this->assertInstanceOf('\Core\Form\Hydrator\Strategy\CollectionStrategy', $hydrator->getStrategy('employees'));
     }
-
-
-    
 }

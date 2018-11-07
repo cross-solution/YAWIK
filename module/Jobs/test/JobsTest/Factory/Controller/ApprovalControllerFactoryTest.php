@@ -12,7 +12,7 @@ namespace JobsTest\Factory\Controller;
 use Jobs\Controller\ApprovalController;
 use Jobs\Factory\Controller\ApprovalControllerFactory;
 use Jobs\Form\OrganizationSelect;
-use Test\Bootstrap;
+use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 /**
@@ -68,7 +68,7 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $controllerManager = new ControllerManager($sm);
 
-        $result = $this->testedObj->__invoke($sm,ApprovalController::class);
+        $result = $this->testedObj->__invoke($sm, ApprovalController::class);
 
         $this->assertInstanceOf('Jobs\Controller\ApprovalController', $result);
     }

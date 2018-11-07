@@ -29,10 +29,10 @@ endif;
 
 $this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
 
-$this->headScript()->appendFile($this->basePath('/Core/js/core.js'))
-                   ->appendFile($this->basePath('/Core/js/multiCheckbox.js'));
-$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'));
-$this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
+$this->headScript()->appendFile($this->basePath('modules/Core/js/core.js'))
+                   ->appendFile($this->basePath('modules/Core/js/multiCheckbox.js'));
+$this->headScript()->appendFile($this->basepath('modules/Core/js/core.pagination-container.js'));
+$this->headScript()->appendFile($this->basepath('modules/Applications/js/applications.index.js'));
 
 
 ?>

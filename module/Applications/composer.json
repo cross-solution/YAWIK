@@ -1,0 +1,44 @@
+{
+    "type": "yawik-module",
+    "name": "yawik/applications",
+    "description": "This package provide an Applications modules for yawik.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "keywords": [
+        "yawik", "module", "zf"
+    ],
+    "require": {
+        "yawik/core": "^0.32@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Applications\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "": "test/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.32-dev"
+        },
+        "zf": {
+            "module": "Applications"
+        }
+    }
+}
