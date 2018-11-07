@@ -36,9 +36,6 @@
     "extra": {
         "branch-alias": {
             "dev-develop": "0.32-dev"
-        },
-        "zf": {
-            "module": "Install"
         }
     }
 }

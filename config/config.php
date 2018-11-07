@@ -14,12 +14,11 @@ use Core\Yawik;
 
 $env = getenv('APPLICATION_ENV') ?: 'production';
 
-if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
+// we will skip install mode when we are in bin/console mode
+$isCli = php_sapi_name() === 'cli';
+if (!$isCli && !file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     $modules = [
         'Install',
-        'Core',
-        'Auth',
-        'Jobs',
     ];
 } else {
     $modules =[

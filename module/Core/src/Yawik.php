@@ -34,8 +34,9 @@ class Yawik
             $dotenv = new Dotenv();
             $dotenv->load($env);
         }
-        $version = getenv('TRAVIS') ? "undefined":exec('git describe');
-        $branch = getenv('TRAVIS') ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
+        $isVendor = strpos(__FILE__, 'modules')!==false || strpos(__FILE__, 'vendor') !== false;
+        $version = getenv('TRAVIS') || $isVendor ? "undefined":exec('git describe');
+        $branch = getenv('TRAVIS') || $isVendor ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
         static::$VERSION = $version.'['.$branch.']';
     }
 
