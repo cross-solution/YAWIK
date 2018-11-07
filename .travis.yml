@@ -52,8 +52,11 @@ before_script:
   # install Mongo extension
   - pecl install -f mongodb-${DRIVER_VERSION}
   - phpenv config-add etc/travis/phpenv.ini
-  - composer install $COMPOSER_FLAGS
+  - composer install ${COMPOSER_FLAGS}
+
+  # TODO: remove this line when composer auto-scripts automatically executed
   - composer run auto-scripts
+
   # setup display, behat, and selenium
   - ./bin/start-selenium > /dev/null 2>&1 &
   - sleep 5
