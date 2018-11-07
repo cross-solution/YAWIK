@@ -97,4 +97,6 @@ if ('-' == $sort{0}) {
 <?php endforeach?>
 </table>
 
-<?php echo $this->paginationControl($this->organizations, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/organizations'));?>
+<?php echo $this->paginationControl($this->organizations, 'Sliding', 'pagination-control',
+                                    ['lang' => $this->params('lang'), 'route' => 'lang/organizations/profile']
+);?>
