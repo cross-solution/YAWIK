@@ -188,6 +188,7 @@ class Application extends BaseApplication
         } else {                    // Fallback to index.php
             $_GET["q"] = $route;    // Try to emulate the behaviour of a .htaccess here.
         }
+        return true;
     }
 
     /**
