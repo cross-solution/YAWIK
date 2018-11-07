@@ -10,8 +10,10 @@
 /** */
 namespace Install\Controller;
 
+use Core\Service\ClearCacheService;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Zend\Json\Json;
+use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ResponseInterface;
@@ -26,14 +28,23 @@ use Zend\View\Model\ViewModel;
  */
 class Index extends AbstractActionController
 {
-	protected $installForm;
-	
-	public function __construct(FormElementManager $formElementManager)
-	{
-		$this->installForm = $formElementManager->get('Install/Installation');
-	}
-	
-	/**
+    protected $installForm;
+
+    /**
+     * @var ClearCacheService
+     */
+    private $cacheService;
+
+    public function __construct(FormElementManager $formElementManager)
+    {
+        $this->installForm = $formElementManager->get('Install/Installation');
+
+        $config = $formElementManager->getServiceLocator()->get('ApplicationConfig');
+        $options = new ListenerOptions($config['module_listener_options']);
+        $this->cacheService = new ClearCacheService($options);
+    }
+    
+    /**
      * Hook for custom preDispatch event.
      *
      * @param MvcEvent $event
@@ -63,19 +74,21 @@ class Index extends AbstractActionController
     public function indexAction()
     {
         // Clear the user identity, if any. (#370)
-        if (PHP_SESSION_ACTIVE !== session_status()) { session_start(); }
+        if (PHP_SESSION_ACTIVE !== session_status()) {
+            session_start();
+        }
         session_destroy();
 
         $form    = $this->installForm;
         $prereqs = $this->plugin('Install/Prerequisites')->check();
-	
-	    return $this->createViewModel(
-		    array(
-			    'prerequisites' => $prereqs,
-			    'form'          => $form,
-			    'lang'          => $this->params('lang'),
-		    )
-	    );
+    
+        return $this->createViewModel(
+            array(
+                'prerequisites' => $prereqs,
+                'form'          => $form,
+                'lang'          => $this->params('lang'),
+            )
+        );
     }
 
     /**
@@ -104,23 +117,23 @@ class Index extends AbstractActionController
         $form->setData($_POST);
 
         if (!$form->isValid()) {
-	        return $this->createJsonResponse(
-		        array(
-			        'ok'     => false,
-			        'errors' => $form->getMessages(),
-		        )
-	        );
+            return $this->createJsonResponse(
+                array(
+                    'ok'     => false,
+                    'errors' => $form->getMessages(),
+                )
+            );
         }
 
         $data = $form->getData();
 
-        try{
+        try {
             $options = [
                 'connection' => $data['db_conn'],
             ];
-            $userOk = $this->plugin('Install/UserCreator',$options)->process($data['username'], $data['password'], $data['email']);
+            $userOk = $this->plugin('Install/UserCreator', $options)->process($data['username'], $data['password'], $data['email']);
             $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn'], $data['email']);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             /* @TODO: provide a way to handle global error message */
             return $this->createJsonResponse([
                 'ok'        => false,
@@ -133,11 +146,7 @@ class Index extends AbstractActionController
         /*
          * Make sure there's no cached config files
          */
-        $classmapCacheFile = 'cache/module-classmap-cache.module_map.php';
-        file_exists($classmapCacheFile) && @unlink($classmapCacheFile);
-
-        $configCacheFile   = 'cache/module-config-cache.production.php';
-        file_exists($configCacheFile) && @unlink($configCacheFile);
+        $this->cacheService->clearCache();
 
         $model = $this->createViewModel(array('ok' => $ok), true);
         $model->setTemplate('install/index/install.ajax.phtml');
@@ -150,10 +159,10 @@ class Index extends AbstractActionController
      */
     protected function attachDefaultListeners()
     {
-	    parent::attachDefaultListeners();
-	
-	    $events = $this->getEventManager();
-	    $events->attach( MvcEvent::EVENT_DISPATCH, array( $this, 'preDispatch' ), 100 );
+        parent::attachDefaultListeners();
+    
+        $events = $this->getEventManager();
+        $events->attach(MvcEvent::EVENT_DISPATCH, array( $this, 'preDispatch' ), 100);
     }
 
     /**

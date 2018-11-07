@@ -51,9 +51,11 @@ before_script:
 
   # install Mongo extension
   - pecl install -f mongodb-${DRIVER_VERSION}
-
   - phpenv config-add etc/travis/phpenv.ini
-  - composer install $COMPOSER_FLAGS
+  - composer install ${COMPOSER_FLAGS}
+
+  # TODO: remove this line when composer auto-scripts automatically executed
+  - composer run auto-scripts
 
   # setup display, behat, and selenium
   - ./bin/start-selenium > /dev/null 2>&1 &
@@ -80,7 +82,7 @@ after_failure:
 after_script:
   # process coverage
   - 'if [[ $COVERAGE = yes ]]; then
-        composer require php-coveralls/php-coveralls;
+        composer require php-coveralls/php-coveralls --no-scripts;
         travis-retry vendor/bin/php-coveralls -vvv;
         wget https://scrutinizer-ci.com/ocular.phar;
         travis-retry ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;

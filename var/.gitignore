@@ -4,5 +4,4 @@ log/*
 cache/*
 !cache/.gitkeep
 
-docker/*
-!docker/.gitkeep
+mongodb

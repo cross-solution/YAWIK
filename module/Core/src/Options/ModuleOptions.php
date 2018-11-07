@@ -350,7 +350,7 @@ class ModuleOptions extends AbstractOptions
     public function getCacheDir()
     {
         if (is_null($this->cacheDir)) {
-            $this->setCacheDir(getcwd().'/var/log');
+            $this->setCacheDir(getcwd().'/var/cache');
         }
 
         return $this->cacheDir;
@@ -395,7 +395,7 @@ class ModuleOptions extends AbstractOptions
             $this->setLogDir(getcwd().'/var/log');
         }
         if (!is_dir($this->logDir)) {
-            mkdir($this->logDir, 0755, true);
+            mkdir($this->logDir, 0777, true);
         }
         return $this->logDir;
     }

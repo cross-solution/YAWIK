@@ -152,7 +152,7 @@ class Manager
             $oldUmask = umask(0);
             
             ErrorHandler::start();
-            $created = mkdir($dir, 0775);
+            $created = mkdir($dir, 0777);
             $error = ErrorHandler::stop();
             
             if (!$created) {

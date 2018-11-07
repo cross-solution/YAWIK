@@ -7,6 +7,7 @@
  * @license MIT
  */
 
+umask(0000);
 // Setup autoloading
 // Composer autoloading
 if (file_exists(__DIR__.'/../vendor/autoload.php')) {
@@ -22,8 +23,8 @@ if (file_exists(__DIR__.'/../vendor/autoload.php')) {
     exit;
 }
 
-use Core\Yawik;
+use Core\Application;
 
 chdir(dirname(__DIR__));
 $config = __DIR__.'/../config/config.php';
-Yawik::runApplication($config);
+Application::init(include $config)->run();

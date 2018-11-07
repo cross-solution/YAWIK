@@ -19,6 +19,7 @@ use Zend\Stdlib\ArrayUtils;
  *
  * @package Core
  * @since 0.32
+ * @deprecated Replaced by Core\Application
  */
 class Yawik
 {
@@ -120,6 +121,10 @@ class Yawik
             }
             $appConfig = include $file;
         }
+        $cacheDir = $appConfig['module_listener_options']['cache_dir'];
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0777, true);
+        }
         return ZendApplication::init($appConfig);
     }
 
@@ -149,6 +154,7 @@ class Yawik
                 $_GET["q"] = $route;    // Try to emulate the behaviour of a .htaccess here.
             }
         }
+
         return static::initApplication($appConfig)->run();
     }
 }

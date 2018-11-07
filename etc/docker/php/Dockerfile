@@ -40,9 +40,7 @@ RUN rm /etc/localtime && \
     "date"
 RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | \
-    php -- --install-dir=/usr/local/bin --filename=composer
+RUN apk add openjdk8-jre
 
 # Cleanup
 RUN rm -rf /var/cache/apk/* \
