@@ -231,8 +231,9 @@ class Application extends BaseApplication
      */
     public static function loadConfig($configuration = [])
     {
+        $configDir = static::getConfigDir();
         if (empty($configuration)) {
-            $configFile = static::getConfigDir().'/config.php';
+            $configFile = $configDir.'/config.php';
             if (!is_file($configFile)) {
                 throw new InvalidArgumentException(sprintf(
                     'Can not load config file "%s". Please be sure that this file exists and readable',
@@ -242,7 +243,7 @@ class Application extends BaseApplication
             $configuration = include $configFile;
         }
 
-        $configDir = static::getConfigDir();
+
         $isCli = php_sapi_name() === 'cli';
 
         // load modules

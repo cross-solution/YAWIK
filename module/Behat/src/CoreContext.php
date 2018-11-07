@@ -13,7 +13,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Core\Repository\RepositoryService;
 use Jobs\Repository\Categories;
-use Zend\Mvc\Application;
+use Core\Application;
 
 /**
  * Class FeatureContext
@@ -73,9 +73,7 @@ class CoreContext extends RawMinkContext
     public function getApplication()
     {
         if (!is_object(static::$application)) {
-            date_default_timezone_set('Europe/Berlin');
-            $config = include $this->config;
-            static::$application = Application::init($config);
+            static::$application = Application::init();
         }
         return static::$application;
     }
