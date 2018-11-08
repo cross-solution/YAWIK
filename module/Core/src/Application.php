@@ -123,12 +123,6 @@ class Application extends BaseApplication
         ini_set('display_errors', true);
         ini_set('error_reporting', E_ALL | E_STRICT);
 
-        if (php_sapi_name() == 'cli-server') {
-            if (!static::setupCliServerEnv()) {
-                return false;
-            }
-        }
-
         static::loadDotEnv();
 
         $configuration = static::loadConfig($configuration);
@@ -175,7 +169,7 @@ class Application extends BaseApplication
      * @return bool
      * @codeCoverageIgnore
      */
-    private static function setupCliServerEnv()
+    public static function setupCliServerEnv()
     {
         $parseUrl = parse_url(substr($_SERVER["REQUEST_URI"], 1));
         $route = isset($parseUrl['path']) ? $parseUrl['path']:null;
@@ -201,13 +195,10 @@ class Application extends BaseApplication
             return;
         }
 
-        $env = getcwd().'/.env';
-        if (!is_file($env)) {
-            $env = getcwd().'/.env.dist';
-        }
-        if (is_file($env)) {
-            $dotenv = new Dotenv();
-            $dotenv->load($env);
+        $dotenv = new Dotenv();
+        $dotenv->load(getcwd().'/.env.dist');
+        if (!is_file($file = getcwd().'/.env')) {
+            $dotenv->load($file);
         }
 
         //@TODO: should move this version loading to somewhere else
@@ -275,11 +266,11 @@ class Application extends BaseApplication
 
                 // Use the $env value to determine the state of the flag
                 // caching disabled during install mode
-                'config_cache_enabled' => ($env == 'production') && !$installMode,
+                'config_cache_enabled' => ($env == 'production'),
 
 
                 // Use the $env value to determine the state of the flag
-                'module_map_cache_enabled' => ($env == 'production') && !$installMode,
+                'module_map_cache_enabled' => ($env == 'production'),
 
                 'module_map_cache_key' => 'module_map',
 
@@ -311,6 +302,31 @@ class Application extends BaseApplication
         // force override modules to load only install module in installation mode
         $modules = static::generateModuleConfiguration($modules);
         $configuration['modules'] = $modules;
+
+        // force disabled cache when in install mode
+        if ($installMode) {
+            $configuration['module_listener_options']['config_cache_enabled'] = false;
+            $configuration['module_listener_options']['module_map_cache_enabled'] = false;
+        }
+
+        // setup docker environment
+        if (getenv('DOCKER_ENV')=='yes') {
+            $configuration = ArrayUtils::merge($configuration, static::getDockerEnv($configuration));
+        }
         return $configuration;
+    }
+
+    private static function getDockerEnv($configuration)
+    {
+        $cacheDir = $configuration['module_listener_options']['cache_dir'].'/docker';
+        $configDir = static::getConfigDir();
+        return [
+            'module_listener_options' => [
+                'cache_dir' => $cacheDir,
+                'config_glob_paths' => [
+                    $configDir.'/autoload/*.docker.php',
+                ]
+            ]
+        ];
     }
 }
