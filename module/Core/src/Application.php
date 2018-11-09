@@ -94,10 +94,13 @@ class Application extends BaseApplication
      */
     public static function generateModuleConfiguration($loadModules=[])
     {
-        $modules = array_merge(
+        $modules = ArrayUtils::merge(
             static::getRequiredModules(),
-            $loadModules,
-            static::scanAdditionalModule()
+            $loadModules
+        );
+        $modules = ArrayUtils::merge(
+            $modules,
+            self::scanAdditionalModule()
         );
         return $modules;
     }
@@ -148,6 +151,9 @@ class Application extends BaseApplication
 
         static::loadDotEnv();
 
+        if (isset($configuration['config_dir'])) {
+            static::$configDir = $configuration['config_dir'];
+        }
         $configuration = static::loadConfig($configuration);
         static::checkCache($configuration);
         return parent::init($configuration);
@@ -223,7 +229,9 @@ class Application extends BaseApplication
         }
 
         $dotenv = new Dotenv();
-        $dotenv->load(getcwd().'/.env.dist');
+        if (is_file(getcwd().'/.env.dist')) {
+            $dotenv->load(getcwd().'/.env.dist');
+        }
         if (is_file($file = getcwd().'/.env')) {
             $dotenv->load($file);
         }
@@ -263,8 +271,9 @@ class Application extends BaseApplication
 
         $yawikConfig = $configDir.'/autoload/yawik.config.global.php';
         $installMode = false;
-        if (!$isCli && !file_exists($yawikConfig)) {
-            $modules = ['Install'];
+        $moduleEnv = getenv('MODULE_DEV') === 'yes';
+        if (!$isCli && !file_exists($yawikConfig) && !$moduleEnv) {
+            $modules = static::generateModuleConfiguration(['Install']);
             $installMode = true;
         } elseif (in_array('Install', $modules)) {
             $modules = array_diff($modules, ['Install']);
@@ -318,8 +327,6 @@ class Application extends BaseApplication
         // environment config always win
         $configuration = ArrayUtils::merge($configuration, $envConfig);
 
-        // force override modules to load only install module in installation mode
-        $modules = static::generateModuleConfiguration($modules);
         $configuration['modules'] = $modules;
 
         // force disabled cache when in install mode
