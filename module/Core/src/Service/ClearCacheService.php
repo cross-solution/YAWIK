@@ -63,24 +63,38 @@ class ClearCacheService
     }
 
     /**
-     * Clear all cache files
+     * Clear all cache files in cache directory.
+     * Only cleans cache file in path/to/yawik/var/cache/*.php.
+     * Files in sub cache directory will not be removed
+     *
+     * @throws \Exception when cache directory is null
+     * @throws \Exception when cache directory is not exists or not writable
      */
     public function clearCache()
     {
         // do not clear cache when cache directory not exists
-        if (is_null($cacheDir = $this->options->getCacheDir()) || !is_dir($cacheDir)) {
-            return false;
+        $cacheDir = $this->options->getCacheDir();
+        if (is_null($cacheDir)) {
+            throw new \Exception(sprintf(
+                'Cache directory is not configured properly.'
+            ));
+        }
+        if (!is_dir($cacheDir) || !is_writable($cacheDir)) {
+            throw new \Exception(
+                sprintf(
+                    'Can not clear cache in "%s". Please be sure that directory exists and writable.',
+                    $cacheDir
+                )
+            );
         }
         $finder = Finder::create()
             ->in($cacheDir)
             ->ignoreDotFiles(false)
             ->name('*.php')
             ->name('.checksum')
-            ->files()
+            ->depth(0)
         ;
-        $fs = $this->filesystem;
-        $fs->remove($finder);
-        return true;
+        $this->filesystem->remove($finder);
     }
 
     /**

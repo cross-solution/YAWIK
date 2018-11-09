@@ -26,6 +26,24 @@ use Zend\Stdlib\ArrayUtils;
  */
 class ClearCacheServiceTest extends \PHPUnit_Framework_TestCase
 {
+    private static $testCacheDir;
+
+    public static function setUpBeforeClass()
+    {
+        $cacheDir = sys_get_temp_dir().'/yawik/test-cache';
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0777, true);
+        }
+        touch($cacheDir.'/.checksum', 0777);
+        static::$testCacheDir = $cacheDir;
+    }
+
+
+    public function setUp()
+    {
+        static::setUpBeforeClass();
+    }
+
     public function testFactory()
     {
         $config = [
@@ -67,33 +85,69 @@ class ClearCacheServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertFileExists($cacheDir.'/.checksum');
     }
 
-    public function testClearCache()
+    /**
+     * @param string        $cacheDir
+     * @param string|bool   $expectThrow
+     * @param string        $message
+     * @throws \Exception
+     * @dataProvider    getTestClearCache
+     */
+    public function testClearCache($cacheDir, $expectThrow=false, $message='Test Cache Directory')
     {
-        $cacheDir = sys_get_temp_dir().'/yawik/test-cache';
-        if (!is_dir($cacheDir)) {
-            mkdir($cacheDir, 0777, true);
-        }
         $options = $this->getMockBuilder(ListenerOptions::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $options->expects($this->exactly(3))
+        $options->expects($this->any())
             ->method('getCacheDir')
-            ->willReturnOnConsecutiveCalls(
-                null,
-                sys_get_temp_dir().'/foo',
-                $cacheDir
-            )
-        ;
-        $fs = $this->createMock(Filesystem::class);
-        $fs->expects($this->once())
-            ->method('remove')
+            ->willReturn($cacheDir)
         ;
 
+        if ($expectThrow) {
+            $this->expectException(\Exception::class);
+        }
+        $service = new ClearCacheService($options, new Filesystem());
+        $service->clearCache();
+        $this->assertFileNotExists($cacheDir.'/.checksum', $message);
+    }
 
+    public function getTestClearCache()
+    {
+        $cacheDir = sys_get_temp_dir().'/yawik/test-cache';
+        return [
+            [null,true,'Test with null cache directory'],
+            [sys_get_temp_dir().'/foo',true,'Test with non existent directory'],
+            [$cacheDir,false,'Test with valid cache directory']
+        ];
+    }
+
+    /**
+     * Clear cache depth only allowed to first level,
+     * not into sub directory
+     */
+    public function testClearCacheDepth()
+    {
+        $cacheDir = static::$testCacheDir;
+        @mkdir($cacheDir.'/foo', 0777, true);
+        @mkdir($cacheDir.'/hello', 0777, true);
+        touch($cacheDir.'/foo/bar.php', 0777, true);
+        touch($cacheDir.'/hello/world.php', 0777, true);
+        touch($cacheDir.'/.checksum', 0777, true);
+
+        $options = $this->getMockBuilder(ListenerOptions::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $options->expects($this->once())
+            ->method('getCacheDir')
+            ->willReturn($cacheDir)
+        ;
+        $fs = new Filesystem();
+        clearstatcache();
         $service = new ClearCacheService($options, $fs);
-        $this->assertFalse($service->clearCache(), 'Test with null cache directory');
-        $this->assertFalse($service->clearCache(), 'Test with non existent directory');
-        $this->assertTrue($service->clearCache(), 'Test with exist cache directory');
+        $this->assertTrue(true, $service->clearCache());
+        $this->assertFileNotExists($cacheDir.'/.checksum');
+        $this->assertFileExists($cacheDir.'/hello/world.php');
+        $this->assertFileExists($cacheDir.'/foo/bar.php');
     }
 }
