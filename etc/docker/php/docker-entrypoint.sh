@@ -18,6 +18,7 @@ if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
 fi
 
+./bin/start-selenium > /dev/null 2>&1 &
 ./bin/console clear-cache
 umask 0000
 chmod 777 var/cache -Rf
