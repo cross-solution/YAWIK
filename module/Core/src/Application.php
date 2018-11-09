@@ -16,7 +16,6 @@ use Zend\Config\Exception\InvalidArgumentException;
 use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\Mvc\Application as BaseApplication;
 use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\Glob;
 
 /**
  * Yawik Custom MVC Application
@@ -27,11 +26,35 @@ use Zend\Stdlib\Glob;
  */
 class Application extends BaseApplication
 {
-    public static $VERSION;
+    const VERSION = '0.32-dev';
 
-    public static $env = 'production';
+    /**
+     * Current yawik revision
+     * @var string
+     */
+    public static $revision;
 
+    /**
+     * Current yawik environment
+     * @var string
+     */
+    public static $env;
+
+    /**
+     * Current yawik config directory
+     * @var string
+     */
     private static $configDir;
+
+    public static function getCompleteVersion()
+    {
+        //@TODO: provide better way to handle git versioning
+        //$isVendor = strpos(__FILE__, 'modules')!==false || strpos(__FILE__, 'vendor') !== false;
+        //$version = getenv('TRAVIS') || $isVendor ? "undefined":exec('git describe');
+        //$branch = getenv('TRAVIS') || $isVendor ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
+        //static::$revision = $version.'['.$branch.']';
+        return static::VERSION;
+    }
 
     /**
      * Get required modules for Yawik
@@ -71,11 +94,11 @@ class Application extends BaseApplication
      */
     public static function generateModuleConfiguration($loadModules=[])
     {
-        $modules = ArrayUtils::merge(
+        $modules = array_merge(
             static::getRequiredModules(),
+            $loadModules,
             static::scanAdditionalModule()
         );
-        $modules = ArrayUtils::merge($modules, $loadModules);
         return $modules;
     }
 
@@ -123,12 +146,6 @@ class Application extends BaseApplication
         ini_set('display_errors', true);
         ini_set('error_reporting', E_ALL | E_STRICT);
 
-        if (php_sapi_name() == 'cli-server') {
-            if (!static::setupCliServerEnv()) {
-                return false;
-            }
-        }
-
         static::loadDotEnv();
 
         $configuration = static::loadConfig($configuration);
@@ -136,6 +153,10 @@ class Application extends BaseApplication
         return parent::init($configuration);
     }
 
+    /**
+     * Check current cache status
+     * @param array $configuration
+     */
     private static function checkCache(array $configuration)
     {
         $config = $configuration['module_listener_options'];
@@ -175,7 +196,7 @@ class Application extends BaseApplication
      * @return bool
      * @codeCoverageIgnore
      */
-    private static function setupCliServerEnv()
+    public static function setupCliServerEnv()
     {
         $parseUrl = parse_url(substr($_SERVER["REQUEST_URI"], 1));
         $route = isset($parseUrl['path']) ? $parseUrl['path']:null;
@@ -201,23 +222,12 @@ class Application extends BaseApplication
             return;
         }
 
-        $env = getcwd().'/.env';
-        if (!is_file($env)) {
-            $env = getcwd().'/.env.dist';
-        }
-        if (is_file($env)) {
-            $dotenv = new Dotenv();
-            $dotenv->load($env);
+        $dotenv = new Dotenv();
+        $dotenv->load(getcwd().'/.env.dist');
+        if (is_file($file = getcwd().'/.env')) {
+            $dotenv->load($file);
         }
 
-        //@TODO: should move this version loading to somewhere else
-        $isVendor = strpos(__FILE__, 'modules')!==false || strpos(__FILE__, 'vendor') !== false;
-        $version = getenv('TRAVIS') || $isVendor ? "undefined":exec('git describe');
-        $branch = getenv('TRAVIS') || $isVendor ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
-        static::$VERSION = $version.'['.$branch.']';
-
-
-        //@TODO: default timezone turns error when used
         if (!is_string(getenv('TIMEZONE'))) {
             putenv('TIMEZONE=Europe/Berlin');
         }
@@ -275,11 +285,11 @@ class Application extends BaseApplication
 
                 // Use the $env value to determine the state of the flag
                 // caching disabled during install mode
-                'config_cache_enabled' => ($env == 'production') && !$installMode,
+                'config_cache_enabled' => ($env == 'production'),
 
 
                 // Use the $env value to determine the state of the flag
-                'module_map_cache_enabled' => ($env == 'production') && !$installMode,
+                'module_map_cache_enabled' => ($env == 'production'),
 
                 'module_map_cache_key' => 'module_map',
 
@@ -311,6 +321,36 @@ class Application extends BaseApplication
         // force override modules to load only install module in installation mode
         $modules = static::generateModuleConfiguration($modules);
         $configuration['modules'] = $modules;
+
+        // force disabled cache when in install mode
+        if ($installMode) {
+            $configuration['module_listener_options']['config_cache_enabled'] = false;
+            $configuration['module_listener_options']['module_map_cache_enabled'] = false;
+        }
+
+        // setup docker environment
+        if (getenv('DOCKER_ENV')=='yes') {
+            $configuration = ArrayUtils::merge($configuration, static::getDockerEnv($configuration));
+        }
         return $configuration;
+    }
+
+    /**
+     * Override configuration in docker environment
+     * @param $configuration
+     * @return array
+     */
+    private static function getDockerEnv($configuration)
+    {
+        $cacheDir = $configuration['module_listener_options']['cache_dir'].'/docker';
+        $configDir = static::getConfigDir();
+        return [
+            'module_listener_options' => [
+                'cache_dir' => $cacheDir,
+                'config_glob_paths' => [
+                    $configDir.'/autoload/*.docker.php',
+                ]
+            ]
+        ];
     }
 }

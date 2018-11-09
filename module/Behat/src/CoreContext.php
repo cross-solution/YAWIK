@@ -31,6 +31,7 @@ class CoreContext extends RawMinkContext
 
     public function __construct($config=null)
     {
+        umask(0000);
         if (is_null($config)) {
             $config = __DIR__.'/../../../config/config.php';
         }

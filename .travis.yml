@@ -83,7 +83,7 @@ after_script:
   # process coverage
   - 'if [[ $COVERAGE = yes ]]; then
         composer require php-coveralls/php-coveralls --no-scripts;
-        travis-retry vendor/bin/php-coveralls -vvv;
+        travis_retry vendor/bin/php-coveralls -vvv;
         wget https://scrutinizer-ci.com/ocular.phar;
-        travis-retry ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
+        travis_retry ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
     fi'

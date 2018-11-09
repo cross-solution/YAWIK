@@ -40,7 +40,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 
     public function getConsoleBanner(Console $console)
     {
-        $name = Yawik::$VERSION;
+        $name = Application::getCompleteVersion();
         $width = $console->getWidth();
         return sprintf(
             "==%1\$s==\n%2\$s%3\$s\n**%1\$s**\n",
