@@ -67,38 +67,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         static::restore();
     }
 
-    public function testGetConfigThrowsOnInvalidEnvDir()
-    {
-        putenv('APP_CONFIG_DIR='.'bar');
-        $this->expectException(\InvalidArgumentException::class);
-        TestApplication::getConfigDir();
-    }
-
-    public function testGetConfigUsingEnv()
-    {
-        putenv('APP_CONFIG_DIR='.__DIR__);
-        $this->assertEquals(__DIR__, TestApplication::getConfigDir());
-    }
-
-    public function testGetConfigOnEmptyEnv()
-    {
-        putenv('APP_CONFIG_DIR');
-        $this->assertEquals(static::$configDir, TestApplication::getConfigDir());
-
-        chdir(sys_get_temp_dir());
-        $this->expectException(\InvalidArgumentException::class);
-        TestApplication::emptyConfigDir();
-        TestApplication::getConfigDir();
-    }
-
-    public function testLoadConfigThrowsWhenConfigFileNotExists()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        putenv('APP_CONFIG_DIR');
-        chdir(sys_get_temp_dir());
-        TestApplication::loadConfig();
-    }
-
     public function testLoadConfig()
     {
         $config = TestApplication::loadConfig();
