@@ -129,7 +129,7 @@ endforeach;?>
                                 <?php echo $this->translate('All rights reserved.') ?> |
                             <a href="<?php echo  $this->basePath($lang .'/content/imprint')?>"><?php echo $this->translate('Imprint') ?></a> |
                             <version>
-                                <?php echo \Core\Yawik::$VERSION ?>
+                                <?php echo \Core\Application::getCompleteVersion() ?>
                                 Env: <strong><?php echo getenv('APPLICATION_ENV') ?></strong>
                             </version>
                         </small></span>

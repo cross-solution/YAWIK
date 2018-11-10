@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+umask(0000);
+
 if (is_file($autoload = getcwd() . '/vendor/autoload.php')) {
     require $autoload;
 }
@@ -20,6 +22,6 @@ if (!class_exists('Core\Module', true)) {
     }
 }
 
-use Core\Yawik;
+use Core\Application;
 
-Yawik::runApplication();
+Application::init()->run();

@@ -92,7 +92,8 @@
     },
     "scripts": {
         "auto-scripts": [
-            "bin/console assets-install --relative",
+            "./bin/console clear-cache",
+            "./bin/console assets-install --relative",
             "npm install"
         ],
         "post-install-cmd": [

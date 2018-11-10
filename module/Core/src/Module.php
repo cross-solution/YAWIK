@@ -36,9 +36,11 @@ use Zend\Stdlib\ArrayUtils;
  */
 class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInterface
 {
+    const VERSION = '0.32-dev';
+
     public function getConsoleBanner(Console $console)
     {
-        $name = Yawik::$VERSION;
+        $name = Application::getCompleteVersion();
         $width = $console->getWidth();
         return sprintf(
             "==%1\$s==\n%2\$s%3\$s\n**%1\$s**\n",

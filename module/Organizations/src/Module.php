@@ -11,12 +11,14 @@ namespace Organizations;
 
 use Core\ModuleManager\ModuleConfigLoader;
 use Zend\EventManager\EventInterface;
+use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 
 /**
  * Bootstrap class of the organizations module
  */
-class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
+class Module implements BootstrapListenerInterface, DependencyIndicatorInterface
 {
     /**
      * Loads module specific configuration.
@@ -25,7 +27,7 @@ class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
      */
     public function getConfig()
     {
-         return ModuleConfigLoader::load(__DIR__ . '/../config');
+        return ModuleConfigLoader::load(__DIR__ . '/../config');
     }
 
 
@@ -50,5 +52,13 @@ class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
                 }
             });
         }
+    }
+
+    public function getModuleDependencies()
+    {
+        return [
+            'Core',
+            'Auth',
+        ];
     }
 }
