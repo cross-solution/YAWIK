@@ -16,7 +16,7 @@ use Zend\Config\Exception\InvalidArgumentException;
 use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\Mvc\Application as BaseApplication;
 use Zend\Stdlib\ArrayUtils;
-use PackageVersions\Versions;
+use SebastianBergmann\Version;
 
 /**
  * Yawik Custom MVC Application
@@ -50,18 +50,6 @@ class Application extends BaseApplication
      * @var string
      */
     private static $configDir;
-
-    /**
-     * Get composer installed package versions
-     * This method is a shortcut from PackageVersions\Versions::getVersions
-     *
-     * @param string $package
-     * @return string
-     */
-    public static function getPackageVersions($package)
-    {
-        return Versions::getVersion($package);
-    }
 
     /**
      * @return string
@@ -372,12 +360,25 @@ class Application extends BaseApplication
     private static function generateVersion()
     {
         if (is_null(static::$revision)) {
-            $info = Versions::getVersion('yawik/core');
-            $exp = explode("@", $info);
-            $version = $exp[0];
-            $revision = substr($exp[1], 0, 7);
-            static::$version = $version;
-            static::$revision = $revision;
+            $dirs = [
+                // in vendors or modules directory
+                __DIR__.'/../.git',
+
+                // in development mode
+                __DIR__.'/../../../.git',
+            ];
+            foreach ($dirs as $dir) {
+                if (is_dir($dir)) {
+                    $path = dirname(realpath($dir));
+                    break;
+                }
+            }
+            $info = new Version(Module::VERSION, $path);
+
+            //$exp = explode("@", $info);
+            $version = $info->getVersion();
+            static::$version = substr($version, 0, strlen($version)-10);
+            static::$revision = substr($version, 10);
         }
     }
 }
