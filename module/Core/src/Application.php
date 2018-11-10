@@ -98,10 +98,6 @@ class Application extends BaseApplication
             static::getRequiredModules(),
             $loadModules
         );
-        $modules = ArrayUtils::merge(
-            $modules,
-            self::scanAdditionalModule()
-        );
         return $modules;
     }
 
@@ -113,24 +109,29 @@ class Application extends BaseApplication
     public static function getConfigDir()
     {
         if (is_null(static::$configDir)) {
-            $dir = '';
-            if (is_string($test = getenv('APP_CONFIG_DIR'))) {
-                if (!is_dir($test)) {
-                    throw new InvalidArgumentException('Directory in environment variable APP_CONFIG_DIR is not exists.');
+            $configDir = '';
+            $dirs = [
+                // path/to/module/test/sandbox/config directories
+                __DIR__.'/../../../../*/sandbox/config',
+
+                // path/to/yawik-standard/config
+                __DIR__.'/../../../config',
+            ];
+            foreach ($dirs as $dir) {
+                foreach (glob($dir) as $testDir) {
+                    $configDir = $testDir;
+                    break;
                 }
-                $dir = realpath($test);
-            } elseif (is_dir($test = getcwd().'/test/sandbox/config')) {
-                // module development
-                $dir = $test;
-            } elseif (is_dir($test = getcwd().'/config')) {
-                $dir = $test;
+                if (is_dir($configDir)) {
+                    break;
+                }
             }
 
-            if (!is_dir($dir)) {
+            if (!is_dir($configDir)) {
                 throw new InvalidArgumentException('Can not determine which config directory to be used.');
             }
 
-            static::$configDir = $dir;
+            static::$configDir = $configDir;
         }
         return static::$configDir;
     }
@@ -169,32 +170,6 @@ class Application extends BaseApplication
         $options = new ListenerOptions($config);
         $cache = new ClearCacheService($options);
         $cache->checkCache();
-    }
-
-    /**
-     * Scan additional module in config/autoload/*.module.php files
-     * return array Module lists
-     */
-    private static function scanAdditionalModule()
-    {
-        $modules = [];
-        $configDir = static::getConfigDir();
-        foreach (glob($configDir. '/autoload/*.module.php') as $moduleFile) {
-            $addModules = require $moduleFile;
-            foreach ($addModules as $addModule) {
-                if (strpos($addModule, '-') === 0) {
-                    $remove = substr($addModule, 1);
-                    $modules = array_filter($modules, function ($elem) use ($remove) {
-                        return strcasecmp($elem, $remove);
-                    });
-                } else {
-                    if (!in_array($addModule, $modules)) {
-                        $modules[] = $addModule;
-                    }
-                }
-            }
-        }
-        return $modules;
     }
 
     /**
@@ -271,8 +246,7 @@ class Application extends BaseApplication
 
         $yawikConfig = $configDir.'/autoload/yawik.config.global.php';
         $installMode = false;
-        $moduleEnv = getenv('MODULE_DEV') === 'yes';
-        if (!$isCli && !file_exists($yawikConfig) && !$moduleEnv) {
+        if (!$isCli && !file_exists($yawikConfig)) {
             $modules = static::generateModuleConfiguration(['Install']);
             $installMode = true;
         } elseif (in_array('Install', $modules)) {
