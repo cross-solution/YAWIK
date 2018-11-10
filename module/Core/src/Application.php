@@ -16,6 +16,7 @@ use Zend\Config\Exception\InvalidArgumentException;
 use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\Mvc\Application as BaseApplication;
 use Zend\Stdlib\ArrayUtils;
+use PackageVersions\Versions;
 
 /**
  * Yawik Custom MVC Application
@@ -26,13 +27,17 @@ use Zend\Stdlib\ArrayUtils;
  */
 class Application extends BaseApplication
 {
-    const VERSION = '0.32-dev';
-
     /**
      * Current yawik revision
      * @var string
      */
     public static $revision;
+
+    /**
+     * A short version of package
+     * @var string
+     */
+    public static $version;
 
     /**
      * Current yawik environment
@@ -46,14 +51,24 @@ class Application extends BaseApplication
      */
     private static $configDir;
 
+    /**
+     * Get composer installed package versions
+     * This method is a shortcut from PackageVersions\Versions::getVersions
+     *
+     * @param string $package
+     * @return string
+     */
+    public static function getPackageVersions($package)
+    {
+        return Versions::getVersion($package);
+    }
+
+    /**
+     * @return string
+     */
     public static function getCompleteVersion()
     {
-        //@TODO: provide better way to handle git versioning
-        //$isVendor = strpos(__FILE__, 'modules')!==false || strpos(__FILE__, 'vendor') !== false;
-        //$version = getenv('TRAVIS') || $isVendor ? "undefined":exec('git describe');
-        //$branch = getenv('TRAVIS') || $isVendor ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
-        //static::$revision = $version.'['.$branch.']';
-        return static::VERSION;
+        return sprintf('%s@%s', static::$version, static::$revision);
     }
 
     /**
@@ -155,6 +170,7 @@ class Application extends BaseApplication
         if (isset($configuration['config_dir'])) {
             static::$configDir = $configuration['config_dir'];
         }
+        static::generateVersion();
         $configuration = static::loadConfig($configuration);
         static::checkCache($configuration);
         return parent::init($configuration);
@@ -318,20 +334,50 @@ class Application extends BaseApplication
 
     /**
      * Override configuration in docker environment
+     * This will fix filesystem writing during behat tests
      * @param $configuration
      * @return array
      */
     private static function getDockerEnv($configuration)
     {
+        // add doctrine hydrator
         $cacheDir = $configuration['module_listener_options']['cache_dir'].'/docker';
         $configDir = static::getConfigDir();
+        $hydratorDir = $cacheDir.'/Doctrine/Hydrator';
+        $proxyDir = $cacheDir.'/Doctrine/Proxy';
+        if (!is_dir($hydratorDir)) {
+            mkdir($hydratorDir, 0777, true);
+        }
+        if (!is_dir($proxyDir)) {
+            mkdir($proxyDir, 0777, true);
+        }
         return [
             'module_listener_options' => [
                 'cache_dir' => $cacheDir,
                 'config_glob_paths' => [
                     $configDir.'/autoload/*.docker.php',
                 ]
+            ],
+            'doctrine' => [
+                'configuration' => [
+                    'odm_default' => [
+                        'hydrator_dir' => $hydratorDir,
+                        'proxy_dir' => $proxyDir,
+                    ]
+                ]
             ]
         ];
+    }
+
+    private static function generateVersion()
+    {
+        if (is_null(static::$revision)) {
+            $info = Versions::getVersion('yawik/core');
+            $exp = explode("@", $info);
+            $version = $exp[0];
+            $revision = substr($exp[1], 0, 7);
+            static::$version = $version;
+            static::$revision = $revision;
+        }
     }
 }
