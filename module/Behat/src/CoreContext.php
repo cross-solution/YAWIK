@@ -35,6 +35,7 @@ class CoreContext extends RawMinkContext
         if (is_null($config)) {
             $config = __DIR__.'/../../../config/config.php';
         }
+        
         if (!is_readable($config)) {
             throw new \InvalidArgumentException(sprintf('Config file "%s" is not readable.', $config));
         }
