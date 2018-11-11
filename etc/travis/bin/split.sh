@@ -17,5 +17,5 @@ exec ${YAWIK} \
     --verbose \
     --ansi \
     --heads= ${BRANCH} \
-    --source=https://${GITHUB_TOKEN}@github.com/kilip/yawik.git \
+    --source=https://${GITHUB_TOKEN}@github.com/cross-solution/YAWIK.git \
     --target=https://${GITHUB_TOKEN}@github.com/yawik

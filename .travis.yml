@@ -16,24 +16,32 @@ cache:
       - "$HOME/.npm"
 
 matrix:
+  fast_finish: true
+  allow_failures:
+  - php: 7.2
+    env: INTEGRATION=yes
+  - php: 7.3
   include:
     - php: 5.6
     - php: 7.1
     - php: 7.2
+    - php: 7.3
+    - php: 7.2
       env: COVERAGE=yes
     - php: 7.2
-      env: SUBSPLIT=yes
+      env: INTEGRATION=yes
+      if: repo = kilip/YAWIK
       deploy:
         provider: script
-        script: bash etc/travis/bin/split.sh
+        script: bash etc/travis/bin/split.sh && bash etc/travis/bin/integration.sh
         skip_cleanup: true
         on:
-          all_branches: true
+          branch: $TRAVIS_BRANCH =~ ^master|develop$
 
 before_install:
   - node --version
   # remove xdebug when not collecting code coverage
-  - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini; fi;
+  - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini || echo "xdebug not available"; fi;
   - pecl channel-update pecl.php.net
 
 before_script:
@@ -47,7 +55,7 @@ before_script:
   - cp ./etc/travis/autoload/*.* config/autoload
 
   # install Mongo extension
-  - pecl install -f mongodb
+  - php --ri mongodb || pecl install -f mongodb
   - phpenv config-add etc/travis/phpenv.ini
   - composer install --prefer-dist --no-interaction
 
@@ -58,7 +66,6 @@ before_script:
   - ./bin/start-selenium > /dev/null 2>&1 &
   - sleep 5
   - composer run serve --timeout=0 > /dev/null 2>&1 &
-  - sleep 3
 
 script:
   - 'if [[ $COVERAGE = yes ]]; then
@@ -66,8 +73,7 @@ script:
     else
         ./vendor/bin/phpunit --verbose;
     fi'
-  # only run behat tests when not collecting coverage
-  - if [[ $COVERAGE != yes ]]; then APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction; fi
+  - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat --strict --no-interaction; fi;
 
 after_failure:
   - cd $TRAVIS_BUILD_DIR
