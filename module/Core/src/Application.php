@@ -367,12 +367,16 @@ class Application extends BaseApplication
                 // in development mode
                 __DIR__.'/../../../.git',
             ];
+
+            $path = realpath(dirname(__DIR__));
+
             foreach ($dirs as $dir) {
                 if (is_dir($dir)) {
                     $path = dirname(realpath($dir));
                     break;
                 }
             }
+            
             $info = new Version(Module::VERSION, $path);
 
             //$exp = explode("@", $info);
