@@ -11,6 +11,9 @@ namespace Core\Service;
 
 use Core\Application;
 use Interop\Container\ContainerInterface;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Zend\ModuleManager\Listener\ListenerOptions;
@@ -36,6 +39,11 @@ class ClearCacheService
     private $filesystem;
 
     /**
+     * @var SymfonyStyle
+     */
+    private $io;
+
+    /**
      * Clear cache constructor.
      * @param ListenerOptions $options
      * @param Filesystem|null $filesystem
@@ -47,6 +55,9 @@ class ClearCacheService
         }
         $this->options = $options;
         $this->filesystem = $filesystem;
+        if (php_sapi_name() === 'cli') {
+            $this->io = new SymfonyStyle(new StringInput(''), new ConsoleOutput());
+        }
     }
 
     /**
@@ -94,7 +105,12 @@ class ClearCacheService
             ->name('.checksum')
             ->depth(0)
         ;
-        $this->filesystem->remove($finder);
+        try {
+            $this->filesystem->remove($finder);
+        } catch (\Exception $e) {
+            // just log the error
+            $this->log('<error>'.$e->getMessage().'</error>');
+        }
     }
 
     /**
@@ -129,10 +145,22 @@ class ClearCacheService
         if (!file_exists($checksumFile)) {
             touch($checksumFile);
         }
-        $cacheSum = file_get_contents($checksumFile);
-        if ($cacheSum != $checksum) {
-            $this->clearCache();
-            file_put_contents($checksumFile, $checksum, LOCK_EX);
+        if (is_readable($checksumFile)) {
+            $cacheSum = file_get_contents($checksumFile);
+            if ($cacheSum != $checksum) {
+                $this->clearCache();
+                file_put_contents($checksumFile, $checksum, LOCK_EX);
+            }
+        } else {
+            $this->log("Can\'t process cache .checksum file is not readable.");
+        }
+    }
+
+    private function log($message)
+    {
+        $io = $this->io;
+        if ($io instanceof SymfonyStyle) {
+            $io->writeln($message);
         }
     }
 }

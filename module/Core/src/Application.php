@@ -16,6 +16,7 @@ use Zend\Config\Exception\InvalidArgumentException;
 use Zend\ModuleManager\Listener\ListenerOptions;
 use Zend\Mvc\Application as BaseApplication;
 use Zend\Stdlib\ArrayUtils;
+use SebastianBergmann\Version;
 
 /**
  * Yawik Custom MVC Application
@@ -26,13 +27,17 @@ use Zend\Stdlib\ArrayUtils;
  */
 class Application extends BaseApplication
 {
-    const VERSION = '0.32-dev';
-
     /**
      * Current yawik revision
      * @var string
      */
     public static $revision;
+
+    /**
+     * A short version of package
+     * @var string
+     */
+    public static $version;
 
     /**
      * Current yawik environment
@@ -46,14 +51,12 @@ class Application extends BaseApplication
      */
     private static $configDir;
 
+    /**
+     * @return string
+     */
     public static function getCompleteVersion()
     {
-        //@TODO: provide better way to handle git versioning
-        //$isVendor = strpos(__FILE__, 'modules')!==false || strpos(__FILE__, 'vendor') !== false;
-        //$version = getenv('TRAVIS') || $isVendor ? "undefined":exec('git describe');
-        //$branch = getenv('TRAVIS') || $isVendor ? "undefined":exec('git rev-parse --abbrev-ref HEAD', $output, $retVal);
-        //static::$revision = $version.'['.$branch.']';
-        return static::VERSION;
+        return sprintf('%s@%s', static::$version, static::$revision);
     }
 
     /**
@@ -94,10 +97,9 @@ class Application extends BaseApplication
      */
     public static function generateModuleConfiguration($loadModules=[])
     {
-        $modules = array_merge(
+        $modules = ArrayUtils::merge(
             static::getRequiredModules(),
-            $loadModules,
-            static::scanAdditionalModule()
+            $loadModules
         );
         return $modules;
     }
@@ -110,24 +112,29 @@ class Application extends BaseApplication
     public static function getConfigDir()
     {
         if (is_null(static::$configDir)) {
-            $dir = '';
-            if (is_string($test = getenv('APP_CONFIG_DIR'))) {
-                if (!is_dir($test)) {
-                    throw new InvalidArgumentException('Directory in environment variable APP_CONFIG_DIR is not exists.');
+            $configDir = '';
+            $dirs = [
+                // path/to/module/test/sandbox/config directories
+                __DIR__.'/../../../../*/sandbox/config',
+
+                // path/to/yawik-standard/config
+                __DIR__.'/../../../config',
+            ];
+            foreach ($dirs as $dir) {
+                foreach (glob($dir) as $testDir) {
+                    $configDir = $testDir;
+                    break;
                 }
-                $dir = realpath($test);
-            } elseif (is_dir($test = getcwd().'/test/sandbox/config')) {
-                // module development
-                $dir = $test;
-            } elseif (is_dir($test = getcwd().'/config')) {
-                $dir = $test;
+                if (is_dir($configDir)) {
+                    break;
+                }
             }
 
-            if (!is_dir($dir)) {
+            if (!is_dir($configDir)) {
                 throw new InvalidArgumentException('Can not determine which config directory to be used.');
             }
 
-            static::$configDir = $dir;
+            static::$configDir = $configDir;
         }
         return static::$configDir;
     }
@@ -148,6 +155,10 @@ class Application extends BaseApplication
 
         static::loadDotEnv();
 
+        if (isset($configuration['config_dir'])) {
+            static::$configDir = $configuration['config_dir'];
+        }
+        static::generateVersion();
         $configuration = static::loadConfig($configuration);
         static::checkCache($configuration);
         return parent::init($configuration);
@@ -163,32 +174,6 @@ class Application extends BaseApplication
         $options = new ListenerOptions($config);
         $cache = new ClearCacheService($options);
         $cache->checkCache();
-    }
-
-    /**
-     * Scan additional module in config/autoload/*.module.php files
-     * return array Module lists
-     */
-    private static function scanAdditionalModule()
-    {
-        $modules = [];
-        $configDir = static::getConfigDir();
-        foreach (glob($configDir. '/autoload/*.module.php') as $moduleFile) {
-            $addModules = require $moduleFile;
-            foreach ($addModules as $addModule) {
-                if (strpos($addModule, '-') === 0) {
-                    $remove = substr($addModule, 1);
-                    $modules = array_filter($modules, function ($elem) use ($remove) {
-                        return strcasecmp($elem, $remove);
-                    });
-                } else {
-                    if (!in_array($addModule, $modules)) {
-                        $modules[] = $addModule;
-                    }
-                }
-            }
-        }
-        return $modules;
     }
 
     /**
@@ -223,7 +208,9 @@ class Application extends BaseApplication
         }
 
         $dotenv = new Dotenv();
-        $dotenv->load(getcwd().'/.env.dist');
+        if (is_file(getcwd().'/.env.dist')) {
+            $dotenv->load(getcwd().'/.env.dist');
+        }
         if (is_file($file = getcwd().'/.env')) {
             $dotenv->load($file);
         }
@@ -264,7 +251,7 @@ class Application extends BaseApplication
         $yawikConfig = $configDir.'/autoload/yawik.config.global.php';
         $installMode = false;
         if (!$isCli && !file_exists($yawikConfig)) {
-            $modules = ['Install'];
+            $modules = static::generateModuleConfiguration(['Install']);
             $installMode = true;
         } elseif (in_array('Install', $modules)) {
             $modules = array_diff($modules, ['Install']);
@@ -318,8 +305,6 @@ class Application extends BaseApplication
         // environment config always win
         $configuration = ArrayUtils::merge($configuration, $envConfig);
 
-        // force override modules to load only install module in installation mode
-        $modules = static::generateModuleConfiguration($modules);
         $configuration['modules'] = $modules;
 
         // force disabled cache when in install mode
@@ -337,20 +322,66 @@ class Application extends BaseApplication
 
     /**
      * Override configuration in docker environment
+     * This will fix filesystem writing during behat tests
      * @param $configuration
      * @return array
      */
     private static function getDockerEnv($configuration)
     {
+        // add doctrine hydrator
         $cacheDir = $configuration['module_listener_options']['cache_dir'].'/docker';
         $configDir = static::getConfigDir();
+        $hydratorDir = $cacheDir.'/Doctrine/Hydrator';
+        $proxyDir = $cacheDir.'/Doctrine/Proxy';
+        if (!is_dir($hydratorDir)) {
+            mkdir($hydratorDir, 0777, true);
+        }
+        if (!is_dir($proxyDir)) {
+            mkdir($proxyDir, 0777, true);
+        }
         return [
             'module_listener_options' => [
                 'cache_dir' => $cacheDir,
                 'config_glob_paths' => [
                     $configDir.'/autoload/*.docker.php',
                 ]
+            ],
+            'doctrine' => [
+                'configuration' => [
+                    'odm_default' => [
+                        'hydrator_dir' => $hydratorDir,
+                        'proxy_dir' => $proxyDir,
+                    ]
+                ]
             ]
         ];
+    }
+
+    private static function generateVersion()
+    {
+        if (is_null(static::$revision)) {
+            $dirs = [
+                // in vendors or modules directory
+                __DIR__.'/../.git',
+
+                // in development mode
+                __DIR__.'/../../../.git',
+            ];
+
+            $path = realpath(dirname(__DIR__));
+
+            foreach ($dirs as $dir) {
+                if (is_dir($dir)) {
+                    $path = dirname(realpath($dir));
+                    break;
+                }
+            }
+            $info = new Version(Module::VERSION, $path);
+
+            //$exp = explode("@", $info);
+            $version = $info->getVersion();
+            static::$version = substr($version, 0, strlen($version)-10);
+            static::$revision = substr($version, 10);
+        }
     }
 }
