@@ -30,7 +30,7 @@ matrix:
       env: COVERAGE=yes
     - php: 7.2
       env: INTEGRATION=yes
-      if: repo = kilip/YAWIK
+      if: repo = cross-solution/YAWIK AND branch =~ /(master|develop)/
       deploy:
         provider: script
         script: bash etc/travis/bin/split.sh && bash etc/travis/bin/integration.sh
