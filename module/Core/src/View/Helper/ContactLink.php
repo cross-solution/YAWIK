@@ -50,10 +50,10 @@ class ContactLink extends AbstractHelper
                        : $email;
             
             $attributesStr = $attributes
-                       ? $this->createAttributesString($attributes)
+                       ? (' ' . $this->createAttributesString($attributes))
                        : '';
             
-            return sprintf('<a %s href="mailto:%s">%s</a>', $attributesStr, $email, $label);
+            return sprintf('<a%s href="mailto:%s">%s</a>', $attributesStr, $email, $label);
         } else {
             return $displayName
                        ? $displayName
