@@ -376,7 +376,7 @@ class Application extends BaseApplication
                     break;
                 }
             }
-            
+
             $info = new Version(Module::VERSION, $path);
 
             //$exp = explode("@", $info);
