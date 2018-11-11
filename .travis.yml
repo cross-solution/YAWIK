@@ -15,28 +15,33 @@ cache:
       - "$HOME/.composer/cache"
       - "$HOME/.npm"
 
-env:
-  global:
-    - DRIVER_VERSION="stable"
-    - ADAPTER_VERSION="^1.0.0"
-    - APPLICATION_ENV=development
-    - TRAVIS_NODE_VERSION="8"
-    - COMPOSER_FLAGS="--prefer-dist --no-interaction"
-
 matrix:
   fast_finish: true
+  allow_failures:
+  - php: 7.2
+    env: INTEGRATION=yes
+  - php: 7.3
   include:
-    - php: '5.6'
+    - php: 5.6
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+    - php: 7.2
       env: COVERAGE=yes
-    - php: '5.6'
-    - php: '7.0'
-    - php: '7.1'
-    - php: '7.2'
+    - php: 7.2
+      env: INTEGRATION=yes
+      if: repo = cross-solution/YAWIK AND branch in (master|develop) AND type NOT IN (pull_request)
+      deploy:
+        provider: script
+        script: bash etc/travis/bin/split.sh && bash etc/travis/bin/integration.sh
+        skip_cleanup: true
+        on:
+          branch: $TRAVIS_BRANCH =~ ^master|develop$
 
 before_install:
   - node --version
   # remove xdebug when not collecting code coverage
-  - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini; fi;
+  - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini || echo "xdebug not available"; fi;
   - pecl channel-update pecl.php.net
 
 before_script:
@@ -50,9 +55,9 @@ before_script:
   - cp ./etc/travis/autoload/*.* config/autoload
 
   # install Mongo extension
-  - pecl install -f mongodb-${DRIVER_VERSION}
+  - php --ri mongodb || pecl install -f mongodb
   - phpenv config-add etc/travis/phpenv.ini
-  - composer install ${COMPOSER_FLAGS}
+  - composer install --prefer-dist --no-interaction
 
   # TODO: remove this line when composer auto-scripts automatically executed
   - composer run auto-scripts
@@ -61,7 +66,6 @@ before_script:
   - ./bin/start-selenium > /dev/null 2>&1 &
   - sleep 5
   - composer run serve --timeout=0 > /dev/null 2>&1 &
-  - sleep 3
 
 script:
   - 'if [[ $COVERAGE = yes ]]; then
@@ -69,8 +73,7 @@ script:
     else
         ./vendor/bin/phpunit --verbose;
     fi'
-  # only run behat tests when not collecting coverage
-  - if [[ $COVERAGE != yes ]]; then APPLICATION_ENV=development ./vendor/bin/behat --strict --no-interaction; fi
+  - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat --strict --no-interaction; fi;
 
 after_failure:
   - cd $TRAVIS_BUILD_DIR

@@ -29,18 +29,6 @@ class CoreContext extends RawMinkContext
 
     private $config;
 
-    public function __construct($config=null)
-    {
-        umask(0000);
-        if (is_null($config)) {
-            $config = __DIR__.'/../../../config/config.php';
-        }
-        if (!is_readable($config)) {
-            throw new \InvalidArgumentException(sprintf('Config file "%s" is not readable.', $config));
-        }
-        $this->config = realpath($config);
-    }
-
     /**
      * @BeforeSuite
      */
