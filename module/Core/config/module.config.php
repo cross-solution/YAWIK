@@ -203,7 +203,7 @@ return array(
                 ],
                 'subsplit' => [
                     'options' => [
-                        'route' => 'subsplit [--heads=] [--tags=] [--skip-update] [--dry-run] [--verbose|-v] [<module>]',
+                        'route' => 'subsplit [--source=] [--target=] [--ansi] [--heads=] [--tags=] [--skip-update] [--dry-run] [--verbose|-v] [<module>]',
                         'defaults' => [
                             'controller' => SubsplitController::class,
                             'action' => 'index'

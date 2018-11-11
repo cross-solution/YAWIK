@@ -34,6 +34,11 @@ class SubsplitController extends AbstractConsoleController
     private $dryRun = false;
 
     /**
+     * @var string
+     */
+    private $subsplitCommand;
+
+    /**
      * @var OutputInterface
      */
     private $output;
@@ -73,29 +78,37 @@ class SubsplitController extends AbstractConsoleController
 
     public function indexAction()
     {
-        $this->workdir = getcwd();
-        /* @var ConsoleRequest $request */
-        $this->buildTree();
-        $workdir = $this->workdir;
+        $workdir = $this->workdir = getcwd();
         $request = $this->getRequest();
-        $this->io = $io = new SymfonyStyle(new ArrayInput([]), $this->output);
         $filter = $request->getParam('module', null);
         $filter = null === $filter ? array() : explode(',', $filter);
         $skipUpdate = $request->getParam('skip-update');
         $heads = $request->getParam('heads', 'develop');
         $tags = $request->getParam('tags', null);
+        $source = $request->getParam('source', static::SOURCE);
+        $target = $request->getParam('target', static::TARGET);
+        $ansi = $request->getParam('ansi', false);
+
+        $this->io = $io = new SymfonyStyle(new ArrayInput([]), $this->output);
+        if ($ansi) {
+            $io->setDecorated(true);
+        }
+
+        $this->subsplitCommand = realpath(__DIR__.'/../../../bin/subsplit.sh');
         if ($request->getParam('verbose') || $request->getParam('v')) {
             $this->getOutput()->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }
 
+        /* @var ConsoleRequest $request */
+        $this->buildTree($target);
 
         $this->dryRun = $request->getParam('dry-run');
         $tree = $this->tree;
 
         if (!is_dir($dir = $workdir.'/.subsplit')) {
-            $this->runCommand('git subsplit init '.static::SOURCE);
+            $this->runCommand($this->subsplitCommand.' init '.$source);
         } elseif (!$skipUpdate) {
-            $this->runCommand('git subsplit update '.static::SOURCE);
+            $this->runCommand($this->subsplitCommand.' update '.$source);
         }
 
         foreach ($tree as $name => $config) {
@@ -108,7 +121,7 @@ class SubsplitController extends AbstractConsoleController
         }
     }
 
-    private function buildTree()
+    private function buildTree($target)
     {
         $dir = getcwd().'/module';
         if (!is_dir($dir)) {
@@ -125,7 +138,7 @@ class SubsplitController extends AbstractConsoleController
             $moduleName = $directory->getRelativePathname();
             $tree[$moduleName] = [
                 'path' => 'module/'.$moduleName,
-                'repo' => static::TARGET.'/'.Inflector::tableize($moduleName).'.git'
+                'repo' => $target.'/'.Inflector::tableize($moduleName).'.git'
             ];
         }
         ksort($tree);
@@ -135,8 +148,7 @@ class SubsplitController extends AbstractConsoleController
     private function publish($path, $repo, $heads = 'master', $tag = null)
     {
         $command = array(
-            'git',
-            'subsplit',
+            $this->subsplitCommand,
             'publish',
             '--heads='.$heads,
         );
