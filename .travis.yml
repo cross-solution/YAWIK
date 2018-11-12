@@ -30,13 +30,13 @@ matrix:
       env: COVERAGE=yes
     - php: 7.2
       env: INTEGRATION=yes
-      if: repo = cross-solution/YAWIK AND branch in (master|develop) AND type NOT IN (pull_request)
+      if: repo=cross-solution/YAWIK AND branch=~ /(master|develop)/ AND type NOT IN (pull_request)
       deploy:
         provider: script
         script: bash etc/travis/bin/split.sh && bash etc/travis/bin/integration.sh
         skip_cleanup: true
         on:
-          branch: $TRAVIS_BRANCH =~ ^master|develop$
+          branch: $TRAVIS_BRANCH IN (master|develop)
 
 before_install:
   - node --version
