@@ -53,6 +53,7 @@
         "symfony/finder": "^3.4",
         "symfony/process": "^3.4",
         "tracy/tracy": "^2.4",
+        "yawik/composer-plugin": "^0.32.0@dev",
         "zendframework/zend-authentication": "^2.5",
         "zendframework/zend-cache": "^2.7",
         "zendframework/zend-captcha": "^2.7",

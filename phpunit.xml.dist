@@ -2,11 +2,11 @@
 <phpunit
         bootstrap="./vendor/autoload.php"
         colors="true"
-        convertWarningToExceptions="true"
         ignoreDeprecatedCodeUnitsFromCodeCoverage="true"
 >
     <php>
         <env name="APPLICATION_ENV" value="test"/>
+        <ini name="error_reporting" value="E_ALL"/>
     </php>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
