@@ -15,11 +15,14 @@ cache:
       - "$HOME/.composer/cache"
       - "$HOME/.npm"
 
+# hello world
 matrix:
   fast_finish: true
   allow_failures:
   - php: 7.2
     env: INTEGRATION=yes
+  - php: 7.2
+    env: COVERAGE=yes
   - php: 7.3
   include:
     - php: 5.6
@@ -31,12 +34,6 @@ matrix:
     - php: 7.2
       env: INTEGRATION=yes
       if: repo=cross-solution/YAWIK AND branch=~ /(master|develop)/ AND type NOT IN (pull_request)
-      deploy:
-        provider: script
-        script: bash etc/travis/bin/split.sh && bash etc/travis/bin/integration.sh
-        skip_cleanup: true
-        on:
-          branch: $TRAVIS_BRANCH IN (master|develop)
 
 before_install:
   - node --version
@@ -74,6 +71,11 @@ script:
         ./vendor/bin/phpunit --verbose;
     fi'
   - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat --strict --no-interaction; fi;
+  # run integration job
+  - 'if [[ $INTEGRATION = yes ]]; then
+        etc/travis/bin/split.sh;
+        etc/travis/bin/integration.sh;
+    fi'
 
 after_failure:
   - cd $TRAVIS_BUILD_DIR

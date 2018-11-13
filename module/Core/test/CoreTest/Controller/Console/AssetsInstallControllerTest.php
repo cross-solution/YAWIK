@@ -11,7 +11,9 @@ namespace CoreTest\Controller\Console;
 
 use Core\Controller\Console\AssetsInstallController;
 use CoreTest\Bootstrap;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
+use Yawik\Composer\AssetsInstaller;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 
 class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
@@ -29,78 +31,56 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
     public function setUp()
     {
         $this->setApplicationConfig(Bootstrap::getConfig());
-        parent::setUp();
         $this->setUseConsoleRequest(true);
-
         $output = new StreamOutput(
             fopen('php://memory', 'w')
         );
         $manager = $this->getApplicationServiceLocator()->get('ControllerManager');
         $controller = $manager->get(AssetsInstallController::class);
         $controller->setOutput($output);
-        $this->output = $output;
-        $this->controller = $controller;
+        $controller->setInput(new StringInput('some input'));
+
+
+        $this->output       = $output;
+        $this->controller   = $controller;
     }
 
-    public function testSymlink()
-    {
-        $target = sys_get_temp_dir().'/yawik/assets-install';
-
-        $this->dispatch('assets-install --symlink '.$target);
-
-        $display = $this->getDisplay(true);
-
-        $this->assertRegExp('/absolute symlink/', $display);
-        $this->assertDirectoryExists($target.'/Core');
-        $this->assertDirectoryExists($target.'/Applications');
-    }
-
-    public function testRelative()
-    {
-        $target = sys_get_temp_dir().'/yawik/assets-install';
-
-        $this->dispatch('assets-install --relative '.$target);
-
-        $display = $this->getDisplay(true);
-
-        $this->assertRegExp('/relative symlink/', $display);
-        $this->assertRegExp('/All assets were successfully installed/', $display);
-        $this->assertDirectoryExists($target.'/Core');
-        $this->assertDirectoryExists($target.'/Applications');
-    }
-
-    public function testCopy()
-    {
-        $target = sys_get_temp_dir().'/yawik/assets-install';
-
-        $this->dispatch('assets-install '.$target);
-
-        $display = $this->getDisplay(true);
-
-        $this->assertRegExp('/Some assets were installed via copy/', $display);
-        $this->assertDirectoryExists($target.'/Core');
-        $this->assertDirectoryExists($target.'/Applications');
-    }
 
     /**
-     * Gets the display returned by the last execution of the command.
-     *
-     * @param bool $normalize Whether to normalize end of lines to \n or not
-     *
-     * @return string The display
+     * @param   string  $option
+     * @param string $expectedMethod
+     * @dataProvider getTestInstallMethod
+     * @throws \Exception
      */
-    public function getDisplay($normalize = false)
+    public function testInstallMethod($option, $expectedMethod)
     {
-        $output = $this->output;
+        $controller     = $this->controller;
+        $installer      = $this->getMockBuilder(AssetsInstaller::class)
+            ->setMethods(['install','setOutput','setInput'])
+            ->getMock()
+        ;
+        $installer->expects($this->once())
+            ->method('install')
+            ->with($this->isType('array'), $expectedMethod)
+        ;
+        $installer->expects($this->once())
+            ->method('setInput')
+        ;
+        $installer->expects($this->once())
+            ->method('setOutput')
+        ;
 
-        rewind($output->getStream());
+        $controller->setInstaller($installer);
 
-        $display = stream_get_contents($output->getStream());
+        $this->dispatch("assets-install ${option}");
+    }
 
-        if ($normalize) {
-            $display = str_replace(PHP_EOL, "\n", $display);
-        }
-
-        return $display;
+    public function getTestInstallMethod()
+    {
+        return [
+            ['--copy',      AssetsInstaller::METHOD_COPY],
+            ['--relative',  AssetsInstaller::METHOD_RELATIVE_SYMLINK],
+            ['--symlink',   AssetsInstaller::METHOD_ABSOLUTE_SYMLINK],
+        ];
     }
 }
