@@ -53,7 +53,7 @@
         "symfony/finder": "^3.4",
         "symfony/process": "^3.4",
         "tracy/tracy": "^2.4",
-        "yawik/composer-plugin": "^0.32.0@dev",
+        "yawik/composer-plugin": ">=0.32@dev",
         "zendframework/zend-authentication": "^2.5",
         "zendframework/zend-cache": "^2.7",
         "zendframework/zend-captcha": "^2.7",
@@ -95,7 +95,6 @@
     "scripts": {
         "auto-scripts": [
             "./bin/console clear-cache",
-            "./bin/console assets-install --relative",
             "npm install"
         ],
         "post-install-cmd": [
