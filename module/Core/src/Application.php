@@ -122,7 +122,7 @@ class Application extends BaseApplication
             ];
             foreach ($dirs as $dir) {
                 foreach (glob($dir) as $testDir) {
-                    $configDir = $testDir;
+                    $configDir = realpath($testDir);
                     break;
                 }
                 if (is_dir($configDir)) {
@@ -144,11 +144,13 @@ class Application extends BaseApplication
      */
     public static function init($configuration = [])
     {
+        // @codeCoverageIgnoreStart
         if (!version_compare(PHP_VERSION, '5.6.0', 'ge')) {
             echo sprintf('<p>Sorry, YAWIK requires at least PHP 5.6.0 to run, but this server currently provides PHP %s</p>', PHP_VERSION);
             echo '<p>Please ask your servers\' administrator to install the proper PHP version.</p>';
             exit;
         }
+        // @codeCoverageIgnoreEnd
 
         ini_set('display_errors', true);
         ini_set('error_reporting', E_ALL | E_STRICT);
@@ -202,11 +204,6 @@ class Application extends BaseApplication
      */
     public static function loadDotEnv()
     {
-        static $isLoaded=false;
-        if ($isLoaded) {
-            return;
-        }
-
         $dotenv = new Dotenv();
         if (is_file(getcwd().'/.env.dist')) {
             $dotenv->load(getcwd().'/.env.dist');
@@ -215,11 +212,10 @@ class Application extends BaseApplication
             $dotenv->load($file);
         }
 
-        if (!is_string(getenv('TIMEZONE'))) {
+        if (false === getenv('TIMEZONE')) {
             putenv('TIMEZONE=Europe/Berlin');
         }
         date_default_timezone_set(getenv('TIMEZONE'));
-        $isLoaded = true;
     }
 
     /**
@@ -232,12 +228,14 @@ class Application extends BaseApplication
         $configDir = static::getConfigDir();
         if (empty($configuration)) {
             $configFile = $configDir.'/config.php';
+            // @codeCoverageIgnoreStart
             if (!is_file($configFile)) {
                 throw new InvalidArgumentException(sprintf(
                     'Can not load config file "%s". Please be sure that this file exists and readable',
                     $configFile
                 ));
             }
+            // @codeCoverageIgnoreEnd
             $configuration = include $configFile;
         }
 
