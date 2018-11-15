@@ -65,6 +65,9 @@ class AtsMode extends InputFilter
                             ),
                         ),
                     ),
+                    'filters'  => array(
+                        array('name' => 'StripTags'),
+                    ),
                     )
                 );
                 break;
