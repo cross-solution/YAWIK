@@ -45,7 +45,8 @@ class ImageFileCacheOptions extends AbstractOptions
      */
     public function __construct($options = null)
     {
-        $this->filePath = __DIR__ . '/../../../../../public' . $this->uriPath;
+        // We are relative to the application dir (see public/index.php)
+        $this->filePath = 'public' . $this->uriPath;
         
         parent::__construct($options);
     }
