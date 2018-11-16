@@ -94,6 +94,9 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
                                         'allowRelative' => false
                                     ]
                                 ]
+                            ],
+                            'filters'  => [
+                                ['name' => 'StripTags'],
                             ]
                         ]
                     ],

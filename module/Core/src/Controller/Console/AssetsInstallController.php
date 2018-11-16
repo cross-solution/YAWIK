@@ -91,14 +91,6 @@ class AssetsInstallController extends AbstractConsoleController
         return $this;
     }
 
-    /**
-     * @return ConsoleOutput|OutputInterface
-     */
-    public function getOutput()
-    {
-        return $this->output;
-    }
-
     public function setInstaller(AssetsInstaller $installer)
     {
         $this->installer = $installer;
@@ -113,11 +105,6 @@ class AssetsInstallController extends AbstractConsoleController
         $relative       = $request->getParam('relative');
         $installer      = $this->installer;
 
-        // load module assets
-        foreach ($modules as $module) {
-            $this->processModule($module);
-        }
-
         // setup expected method
         if ($relative) {
             $expectedMethod = AssetsInstaller::METHOD_RELATIVE_SYMLINK;
@@ -129,23 +116,5 @@ class AssetsInstallController extends AbstractConsoleController
         $installer->setInput($this->input);
         $installer->setOutput($this->output);
         $installer->install($this->assets, $expectedMethod);
-    }
-
-    private function processModule($module)
-    {
-        $r = new \ReflectionObject($module);
-        $file = $r->getFileName();
-
-        if ($module instanceof AssetProviderInterface) {
-            $dir = $module->getPublicDir();
-        } else {
-            $baseDir = substr($file, 0, stripos($file, 'src'.DIRECTORY_SEPARATOR.'Module.php'));
-            if (empty($baseDir) || !is_dir($dir = $baseDir.'public')) {
-                return;
-            }
-        }
-        $className = get_class($module);
-        $moduleName = substr($className, 0, strpos($className, '\\'));
-        $this->assets[$moduleName] = $dir;
     }
 }

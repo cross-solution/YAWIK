@@ -16,6 +16,14 @@ use Symfony\Component\Console\Output\StreamOutput;
 use Yawik\Composer\AssetsInstaller;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 
+/**
+ * Class AssetsInstallControllerTest
+ *
+ * @package CoreTest\Controller\Console
+ * @author  Anthonius Munthi <https://itstoni.com>
+ * @since   0.32.0
+ * @covers  \Core\Controller\Console\AssetsInstallController
+ */
 class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
 {
     /**
@@ -39,7 +47,6 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
         $controller = $manager->get(AssetsInstallController::class);
         $controller->setOutput($output);
         $controller->setInput(new StringInput('some input'));
-
 
         $this->output       = $output;
         $this->controller   = $controller;
@@ -72,7 +79,7 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
 
         $controller->setInstaller($installer);
 
-        $this->dispatch("assets-install ${option}");
+        $this->dispatch("assets-install ".$option);
     }
 
     public function getTestInstallMethod()

@@ -10,6 +10,7 @@
 namespace CoreTest;
 
 use Core\Application;
+use org\bovigo\vfs\vfsStream;
 use Zend\Mvc\Application as ZendApplication;
 
 class TestApplication extends Application
@@ -25,7 +26,7 @@ class TestApplication extends Application
 /**
  * Class ApplicationTest
  *
- * @author  Anthonius Munthi <me@itstoni.com>
+ * @author  Anthonius Munthi <https://itstoni.com>
  * @since   0.32
  * @covers  \Core\Application
  * @package CoreTest
@@ -79,5 +80,55 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $app = TestApplication::init();
         $this->assertInstanceOf(ZendApplication::class, $app);
+    }
+
+    public function testLoadDotEnv()
+    {
+        $tempDir    = sys_get_temp_dir().'/yawik/application-tests';
+        $tempFile   = $tempDir.'/.env';
+        $tempFileDist   = $tempDir.'/.env.dist';
+
+        if (!is_dir($tempDir)) {
+            mkdir($tempDir, 0777, true);
+        }
+
+        // .env contents
+        $contents = <<<EOC
+FOO="BAR"
+OVERRIDE="OVERRIDED"
+EOC;
+
+        // .env.dist contents
+        $contentsDist = <<<EOC
+HELLO="WORLD"
+OVERRIDE="NOT OVERRIDED"
+EOC;
+        @unlink($tempFile);
+        @unlink($tempFileDist);
+
+        $this->assertFalse(getenv('FOO'));
+        // let the test begin ;-)
+        chdir($tempDir); // setup dir first
+
+        file_put_contents($tempFileDist, $contentsDist, LOCK_EX);
+        TestApplication::loadDotEnv();
+        $this->assertEquals('WORLD', getenv('HELLO'));
+        $this->assertEquals('NOT OVERRIDED', getenv('OVERRIDE'));
+        $this->assertEquals('Europe/Berlin', getenv('TIMEZONE'));
+
+
+        file_put_contents($tempFile, $contents, LOCK_EX);
+        TestApplication::loadDotEnv();
+        $this->assertEquals('WORLD', getenv('HELLO'));
+        $this->assertEquals("BAR", getenv('FOO'));
+        $this->assertEquals("OVERRIDED", getenv("OVERRIDE"));
+    }
+
+    public function testLoadConfigThrowsWhenConfigFileNotFound()
+    {
+        chdir($tmpDir = sys_get_temp_dir());
+        $this->assertEquals($tmpDir, getcwd());
+        TestApplication::emptyConfigDir();
+        TestApplication::loadConfig();
     }
 }
