@@ -57,7 +57,6 @@
         "zendframework/zend-authentication": "^2.5",
         "zendframework/zend-cache": "^2.7",
         "zendframework/zend-captcha": "^2.7",
-        "zendframework/zend-component-installer": "^1.1 | ^2.0",
         "zendframework/zend-feed": "^2.8",
         "zendframework/zend-form": "^2.10",
         "zendframework/zend-i18n-resources": "^2.5",
@@ -90,7 +89,8 @@
         "se/selenium-server-standalone": "^2.52",
         "enm1989/chromedriver": "^2.35",
         "behat/mink-extension": "^2.3",
-        "novaway/common-contexts": "~2.0"
+        "novaway/common-contexts": "~2.0",
+        "zendframework/zend-component-installer": "^1.1 | ^2.0"
     },
     "scripts": {
         "auto-scripts": [
