@@ -22,7 +22,7 @@ use Zend\Stdlib\AbstractOptions;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @author Anthonius Munthi <me@itstoni.com>
+ * @author Anthonius Munthi <https://itstoni.com>
  */
 class ModuleOptions extends AbstractOptions
 {
@@ -362,6 +362,9 @@ class ModuleOptions extends AbstractOptions
      */
     public function setCacheDir($cacheDir)
     {
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0777, true);
+        }
         $this->cacheDir = $cacheDir;
     }
 
@@ -395,9 +398,6 @@ class ModuleOptions extends AbstractOptions
         if (is_null($this->logDir)) {
             $this->setLogDir(getcwd().'/var/log');
         }
-        if (!is_dir($this->logDir)) {
-            mkdir($this->logDir, 0777, true);
-        }
         return $this->logDir;
     }
 
@@ -407,6 +407,9 @@ class ModuleOptions extends AbstractOptions
      */
     public function setLogDir($logDir)
     {
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0777, true);
+        }
         $this->logDir = $logDir;
 
         return $this;
