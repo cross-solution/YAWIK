@@ -10,6 +10,7 @@
 
 namespace Core\Options;
 
+use Core\Application;
 use Core\Options\Exception\MissingOptionException;
 use Zend\Stdlib\AbstractOptions;
 
@@ -409,5 +410,10 @@ class ModuleOptions extends AbstractOptions
         $this->logDir = $logDir;
 
         return $this;
+    }
+
+    public function getConfigDir()
+    {
+        return Application::getConfigDir();
     }
 }
