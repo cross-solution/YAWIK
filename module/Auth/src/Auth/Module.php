@@ -9,9 +9,11 @@
 
 namespace Auth;
 
+use Acl\Listener\CheckPermissionsListener;
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
-use Core\Asset\AssetProviderInterface;
+use Yawik\Composer\AssetProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
+use Zend\Loader\Exception\InvalidArgumentException;
 use Zend\Mvc\MvcEvent;
 use Auth\Listener\TokenListener;
 
@@ -47,17 +49,32 @@ class Module implements AssetProviderInterface
      */
     public function getAutoloaderConfig()
     {
+        $addProvidersDir = null;
+        $directories = [
+            __DIR__.'/../../../../hybridauth/hybridauth/additional-providers',
+            __DIR__.'/../../../../vendor/hybridauth/hybridauth/additional-providers',
+        ];
+
+        foreach ($directories as $directory) {
+            if (is_dir($directory)) {
+                $addProvidersDir = $directory;
+                break;
+            }
+        }
+
+        if (is_null($addProvidersDir)) {
+            throw new InvalidArgumentException('HybridAuth additional providers directories is not found.');
+        }
+
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
                 // This is an hack due to bad design of Hybridauth
                 // This ensures the class from "addtional-providers" is loaded.
                 array(
-                    'Hybrid_Providers_XING'
-                    => __DIR__ . '/../../vendor/hybridauth/hybridauth/additional-providers/hybridauth-xing/Providers/XING.php',
+                    'Hybrid_Providers_XING' => $addProvidersDir . '/hybridauth-xing/Providers/XING.php',
                 ),
                 array(
-                    'Hybrid_Providers_Github'
-                    => __DIR__ . '/../../vendor/hybridauth/hybridauth/additional-providers/hybridauth-github/Providers/GitHub.php',
+                    'Hybrid_Providers_Github' => $addProvidersDir. '/hybridauth-github/Providers/GitHub.php',
                 ),
             ),
         );

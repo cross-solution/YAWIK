@@ -10,6 +10,8 @@
 namespace Organizations;
 
 use Core\ModuleManager\ModuleConfigLoader;
+use Core\Options\ModuleOptions as CoreOptions;
+use Yawik\Composer\RequireDirectoryPermissionInterface;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Mvc\MvcEvent;
@@ -18,8 +20,19 @@ use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 /**
  * Bootstrap class of the organizations module
  */
-class Module implements BootstrapListenerInterface, DependencyIndicatorInterface
+class Module implements BootstrapListenerInterface, DependencyIndicatorInterface, RequireDirectoryPermissionInterface
 {
+    /**
+     * @param CoreOptions $options
+     * @return array
+     */
+    public function getRequiredDirectoryLists(CoreOptions $options)
+    {
+        return [
+            $options->getPublicDir().'/static/Organizations/Image'
+        ];
+    }
+
     /**
      * Loads module specific configuration.
      *

@@ -14,6 +14,9 @@
 namespace Core;
 
 use Core\Listener\AjaxRouteListener;
+use Core\Options\ModuleOptions;
+use Yawik\Composer\RequireDirectoryPermissionInterface;
+use Yawik\Composer\RequireFilePermissionInterface;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\ModuleManager\ModuleEvent;
 use Zend\ModuleManager\ModuleManager;
@@ -34,9 +37,40 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Bootstrap class of the Core module
  */
-class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInterface
+class Module implements
+    ConsoleBannerProviderInterface,
+    ConsoleUsageProviderInterface,
+    RequireFilePermissionInterface,
+    RequireDirectoryPermissionInterface
 {
     const VERSION = '0.32-dev';
+
+    /**
+     * @param ModuleOptions $options
+     * @inheritdoc
+     * @return array
+     */
+    public function getRequiredFileLists(ModuleOptions $options)
+    {
+        return [
+            $options->getLogDir().'/yawik.log'
+        ];
+    }
+
+    /**
+     * @param ModuleOptions $options
+     * @return array
+     */
+    public function getRequiredDirectoryLists(ModuleOptions $options)
+    {
+        return [
+            $options->getConfigDir().'/autoload',
+            $options->getCacheDir(),
+            $options->getLogDir(),
+            $options->getLogDir().'/tracy'
+        ];
+    }
+
 
     public function getConsoleBanner(Console $console)
     {

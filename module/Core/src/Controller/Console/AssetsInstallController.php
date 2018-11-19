@@ -9,7 +9,6 @@
 
 namespace Core\Controller\Console;
 
-use Core\Asset\AssetProviderInterface;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,8 +33,10 @@ class AssetsInstallController extends AbstractConsoleController
      */
     private $filesystem;
 
-    private $assets = [];
-
+    /**
+     * An array list of injected modules
+     * @var array
+     */
     private $modules = [];
 
     /**
@@ -51,8 +52,12 @@ class AssetsInstallController extends AbstractConsoleController
     /**
      * @var AssetsInstaller
      */
-    private $installer;
+    protected $installer;
 
+    /**
+     * AssetsInstallController constructor.
+     * @param array $modules List of installed modules
+     */
     public function __construct(array $modules = [])
     {
         $this->modules      = $modules;
@@ -62,12 +67,17 @@ class AssetsInstallController extends AbstractConsoleController
         $this->installer    = new AssetsInstaller();
     }
 
+    /**
+     * Creates new object
+     * @param   ContainerInterface $container
+     * @return AssetsInstallController
+     */
     public static function factory(ContainerInterface $container)
     {
         /* @var ModuleManager $manager */
         $manager = $container->get('ModuleManager');
-
         $modules = $manager->getLoadedModules();
+
         return new static($modules);
     }
 
@@ -78,6 +88,7 @@ class AssetsInstallController extends AbstractConsoleController
     public function setInput($input)
     {
         $this->input = $input;
+
         return $this;
     }
 
@@ -88,6 +99,7 @@ class AssetsInstallController extends AbstractConsoleController
     public function setOutput($output)
     {
         $this->output = $output;
+
         return $this;
     }
 
@@ -104,6 +116,7 @@ class AssetsInstallController extends AbstractConsoleController
         $symlink        = $request->getParam('symlink');
         $relative       = $request->getParam('relative');
         $installer      = $this->installer;
+        $assets         = $installer->getModulesAsset($modules);
 
         // setup expected method
         if ($relative) {
@@ -113,8 +126,9 @@ class AssetsInstallController extends AbstractConsoleController
         } else {
             $expectedMethod = AssetsInstaller::METHOD_COPY;
         }
+
         $installer->setInput($this->input);
         $installer->setOutput($this->output);
-        $installer->install($this->assets, $expectedMethod);
+        $installer->install($assets, $expectedMethod);
     }
 }

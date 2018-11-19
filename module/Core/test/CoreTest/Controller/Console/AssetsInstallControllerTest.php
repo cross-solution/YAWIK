@@ -38,6 +38,7 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
 
     public function setUp()
     {
+        /* @var AssetsInstallController $controller */
         $this->setApplicationConfig(Bootstrap::getConfig());
         $this->setUseConsoleRequest(true);
         $output = new StreamOutput(
