@@ -9,8 +9,9 @@
 
 namespace Auth;
 
+use Acl\Listener\CheckPermissionsListener;
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
-use Core\Asset\AssetProviderInterface;
+use Yawik\Composer\AssetProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Mvc\MvcEvent;
 use Auth\Listener\TokenListener;
