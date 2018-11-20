@@ -14,6 +14,8 @@
 namespace Core;
 
 use Core\Listener\AjaxRouteListener;
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\Options\ModuleOptions;
 use Yawik\Composer\RequireDirectoryPermissionInterface;
 use Yawik\Composer\RequireFilePermissionInterface;
@@ -41,10 +43,13 @@ class Module implements
     ConsoleBannerProviderInterface,
     ConsoleUsageProviderInterface,
     RequireFilePermissionInterface,
-    RequireDirectoryPermissionInterface
+    RequireDirectoryPermissionInterface,
+    VersionProviderInterface
 {
-    const VERSION = '0.32-dev';
+    use VersionProviderTrait;
 
+    const VERSION = '0.32-dev';
+   
     /**
      * @param ModuleOptions $options
      * @inheritdoc
