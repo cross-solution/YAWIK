@@ -289,7 +289,8 @@ return array(
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
             'Tracy' => [Tracy::class,'factory'],
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
-            ClearCacheService::class => [ClearCacheService::class,'factory']
+            ClearCacheService::class => [ClearCacheService::class,'factory'],
+            Listener\ModuleVersionAdminWidgetProvider::class => Listener\ModuleVersionAdminWidgetProviderFactory::class,
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',
@@ -592,6 +593,9 @@ return array(
         'Core/AdminController/Events' => [
             'service' => 'Core/EventManager',
             'event' => '\Core\Controller\AdminControllerEvent',
+            'listeners' => [
+                Listener\ModuleVersionAdminWidgetProvider::class => Controller\AdminControllerEvent::EVENT_DASHBOARD,
+            ],
         ],
 
         'Core/CreatePaginator/Events' => [

@@ -42,7 +42,7 @@ class AdminController extends AbstractActionController
          * @var AdminControllerEvent $event */
         $events = $this->adminControllerEvents;
         $event  = $events->getEvent(AdminControllerEvent::EVENT_DASHBOARD, $this);
-        $events->trigger($event, $this);
+        $events->triggerEvent($event);
 
         $model = new ViewModel();
         $widgets = [];

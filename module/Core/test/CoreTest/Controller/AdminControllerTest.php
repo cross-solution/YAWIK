@@ -43,7 +43,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
 	    $events = $this->getMockBuilder(EventManager::class)
-	                   ->setMethods(['getEvent', 'trigger'])
+	                   ->setMethods(['getEvent', 'triggerEvent'])
 	                   ->getMock();
 	    $this->target = new AdminController($events);
     }
@@ -51,7 +51,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
     public function testIndexAction()
     {
         $events = $this->getMockBuilder(EventManager::class)
-            ->setMethods(['getEvent', 'trigger'])
+            ->setMethods(['getEvent', 'triggerEvent'])
             ->getMock();
 	    $target = new AdminController($events);
 	    $event = new AdminControllerEvent(AdminControllerEvent::EVENT_DASHBOARD, $target);
@@ -60,7 +60,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
             ->with(AdminControllerEvent::EVENT_DASHBOARD, $this->identicalTo($target))
             ->willReturn($event);
 
-        $events->expects($this->once())->method('trigger')->with($this->identicalTo($event));
+        $events->expects($this->once())->method('triggerEvent')->with($this->identicalTo($event));
 
 
         //$services = $this->getServiceManagerMock([
