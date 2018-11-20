@@ -836,7 +836,7 @@ class Job extends BaseEntity implements
      *
      * @return self
      */
-    public function setSalary($salary)
+    public function setSalary(Salary $salary)
     {
         $this->salary = $salary;
 

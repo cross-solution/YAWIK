@@ -57,12 +57,45 @@ class Salary extends AbstractEntity
     protected $unit;
 
     /**
-     * @param string $currency
+     * Creates a new instance.
      *
+     * @param float [$value] Amount value.
+     * @param string [$currency] Currency code.
+     * @param string [$unit] Salary time interval unit.
+     *
+     * @uses setValue()
+     * @uses setCurrency()
+     * @uses setUnit()
+     * @throws \InvalidArgumentException if invalid values are passed.
+     */
+    public function __construct($value = null, $currency = null, $unit = null)
+    {
+        if (!is_null($value)) {
+            $this->setValue($value);
+        }
+
+        if (!is_null($currency)) {
+            $this->setCurrency($currency);
+        }
+
+        if (!is_null($unit)) {
+            $this->setUnit($unit);
+        }
+    }
+
+    /**
+     * @param string $currency
+     * @throws \InvalidArgumentException
      * @return $this
      */
     public function setCurrency($currency)
     {
+        $validCurrencyCodes = self::getValidCurrencyCodes();
+
+        if (!in_array($currency, $validCurrencyCodes)) {
+            throw new \InvalidArgumentException('Unknown value for currency code.');
+        }
+
         $this->currency = $currency;
 
         return $this;
@@ -141,6 +174,16 @@ class Salary extends AbstractEntity
             self::UNIT_MONTH,
             self::UNIT_YEAR,
         );
+    }
+
+    /**
+     * Gets valid currency codes.
+     *
+     * @return array
+     */
+    public static function getValidCurrencyCodes()
+    {
+        return array_keys(self::getValidCurrencies());
     }
 
     /**

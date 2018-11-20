@@ -11,7 +11,7 @@ namespace Jobs\Form;
 
 use Jobs\Entity\Salary as SalaryEntity;
 use Core\Form\ViewPartialProviderInterface;
-use Core\Form\ViewPartialProviderTrait;
+use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator\InArray as InArrayValidator;
@@ -24,9 +24,38 @@ use Zend\Validator\Regex as RegexValidator;
  */
 class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface
 {
-    use ViewPartialProviderTrait;
+    /**
+     * View partial name
+     *
+     * @var string
+     */
+    protected $partial = 'jobs/form/salary-fieldset';
 
-    private $defaultPartial = 'jobs/form/salary-fieldset';
+    public function setViewPartial($partial)
+    {
+        $this->partial = $partial;
+
+        return $this;
+    }
+
+    public function getViewPartial()
+    {
+        return $this->partial;
+    }
+
+    public function getHydrator()
+    {
+        if (!$this->hydrator) {
+            $hydrator = new EntityHydrator();
+            $this->setHydrator($hydrator);
+        }
+        return $this->hydrator;
+    }
+
+    public function allowObjectBinding($object)
+    {
+        return $object instanceof SalaryEntity || parent::allowObjectBinding($object);
+    }
 
     public function init()
     {
@@ -40,7 +69,7 @@ class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, I
                 'options' => array(
                     'label' => /*@translate*/ 'Salary',
                     'description' => /*@translate*/ 'Please enter the job salary amount',
-                )
+                ),
             )
         );
 
@@ -52,7 +81,7 @@ class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, I
                     'label' => /*@translate*/ 'Currency',
                     'description' => /*@translate*/ 'Please enter the job salary currency',
                     'value_options' => array_map(function($val) {
-                        return $val['name'];
+                        return $val['code'];
                     }, SalaryEntity::getValidCurrencies()),
                 )
             )
@@ -73,12 +102,10 @@ class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, I
                         SalaryEntity::UNIT_YEAR => /*@translate*/ 'Year',
 
                     ),
+                    'attributes' => array(
+                        'value' => SalaryEntity::UNIT_MONTH,
+                    ),
                 ),
-                'attributes' => array(
-                    'data-searchbox' => 'false',
-                    'data-width' => '100%',
-                    'value' => 'email',
-                )
             )
         );
     }
@@ -100,7 +127,7 @@ class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, I
                 'filters' => array(),
                 'validators' => array(
                     new InArrayValidator(array(
-                        'haystack' => array_keys(SalaryEntity::getValidCurrencies()),
+                        'haystack' => SalaryEntity::getValidCurrencyCodes(),
                         'strict' => true
                     )),
                 ),
