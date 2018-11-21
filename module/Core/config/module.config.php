@@ -15,15 +15,12 @@ namespace Core;
 
 use Core\Controller\Console\AssetsInstallController;
 use Core\Controller\Console\ClearCacheController;
-use Core\Controller\Console\SubsplitController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
-use Core\Listener\ConfigListener;
 use Core\Service\ClearCacheService;
 use Core\Service\Tracy;
 use Zend\I18n\Translator\Resources;
-use Zend\Mvc\MvcEvent;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -197,15 +194,6 @@ return array(
                         'route' => 'assets-install [--symlink] [--relative] [--copy]',
                         'defaults' => [
                             'controller' => AssetsInstallController::class,
-                            'action' => 'index'
-                        ]
-                    ]
-                ],
-                'subsplit' => [
-                    'options' => [
-                        'route' => 'subsplit [--source=] [--target=] [--ansi] [--heads=] [--tags=] [--skip-update] [--dry-run] [--verbose|-v] [<module>]',
-                        'defaults' => [
-                            'controller' => SubsplitController::class,
                             'action' => 'index'
                         ]
                     ]
