@@ -346,7 +346,6 @@ return array(
             'Core/Content' => LazyControllerFactory::class,
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
             AssetsInstallController::class => [AssetsInstallController::class,'factory'],
-            SubsplitController::class => [SubsplitController::class,'factory'],
             ClearCacheController::class => [ClearCacheController::class,'factory'],
 
         ],
