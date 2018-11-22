@@ -1176,7 +1176,7 @@ class Salary extends AbstractEntity
                 "name_plural"  => /*@translate*/ "Ugandan shillings"
             ),
             "UYU" => array(
-                "symbol" => "$U",
+                "symbol" => "\$U",
                 "name"  => /*@translate*/ "Uruguayan Peso",
                 "symbol_native" => "$",
                 "decimal_digits" => 2,

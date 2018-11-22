@@ -15,6 +15,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator\InArray as InArrayValidator;
+use Zend\Validator\GreaterThan as GreaterThan;
 use Zend\Validator\Regex as RegexValidator;
 
 /**
@@ -60,7 +61,7 @@ class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, I
     public function init()
     {
         $this->setAttribute('id', 'jobsalary-fieldset');
-        $this->setName('jobSalary');
+        $this->setName('salary');
 
         $this->add(
             array(
@@ -119,6 +120,10 @@ class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, I
                     array('name' => 'Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
+                    new GreaterThan(array(
+                        'min' => 0,
+                        'inclusive' => true
+                    )),
                     new RegexValidator('/^\$?[0-9]+(,[0-9]{3})*(.[0-9]{2})?$/'),
                 ),
             ),

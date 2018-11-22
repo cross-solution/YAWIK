@@ -511,8 +511,6 @@ class ManageController extends AbstractActionController
             // sets ATS-Mode on intern
             $job->getAtsMode();
 
-            $job->getSalary();
-
             /*
             * make the job opening persist and fire the EVENT_JOB_CREATED
             */

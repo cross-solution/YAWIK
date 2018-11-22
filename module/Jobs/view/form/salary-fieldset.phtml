@@ -20,6 +20,12 @@ if ($this->renderSummary):
                 <small><?php echo $salary->getCurrency() ?>/<?php echo $this->translate(ucfirst(strtolower($salary->getUnit()))) ?></small>
             </div>
         </div>
+    <?php else: ?>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <?php echo $this->translate('Salary rate is no set yet.') ?>
+            </div>
+        </div>
     <?php endif;
 else:
     echo $this->formCollection($this->element);
