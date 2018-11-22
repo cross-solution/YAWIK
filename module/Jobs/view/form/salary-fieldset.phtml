@@ -9,7 +9,7 @@
 
 
 if ($this->renderSummary):
-    $salary = $this->element->getObject()->getSalary();
+    $salary = $this->element->getObject();
     if ($salary && !is_null($salary->getValue())): ?>
         <div class="row">
             <div class="col-md-3 yk-label">
