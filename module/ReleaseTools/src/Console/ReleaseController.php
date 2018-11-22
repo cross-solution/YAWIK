@@ -72,8 +72,8 @@ class ReleaseController extends AbstractConsoleController
         $defMsg         = "Release {$tag} version";
         $message        = $request->getParam('message', $defMsg);
         $this->dryRun   = $request->getParam('dry-run', false);
-
         $currentBranch = `git branch | grep \* | cut -d ' ' -f2`;
+        $targetBranch   = $request->getParam('branch', 'master');
 
         $output->section("Releasing Yawik into {$tag} version.");
 
@@ -81,10 +81,11 @@ class ReleaseController extends AbstractConsoleController
             return false;
         }
         try {
-            $this->createMainDevelopmentTag($tag, $message);
-            $this->createSubsplitTag($tag, $message);
+            $this->createMainDevelopmentTag($targetBranch, $tag, $message);
+            $this->createSubsplitTag($targetBranch, $tag, $message);
             $output->newLine(2);
             $output->writeln("Releasing process completed.\n<info>Welcome to <fg=yellow;options=bold>{$tag}</> version!</>");
+            $this->bumpModuleVersion($targetBranch, $tag);
         } catch (\Exception $e) {
             $output->error($e->getMessage());
         }
@@ -93,7 +94,7 @@ class ReleaseController extends AbstractConsoleController
         $this->execute("git checkout {$currentBranch}");
     }
 
-    public function createMainDevelopmentTag($tag, $message)
+    public function createMainDevelopmentTag($targetBranch, $tag, $message)
     {
         $config         = $this->config;
         $mainRemoteName = $config['main_remote_name'];
@@ -101,12 +102,13 @@ class ReleaseController extends AbstractConsoleController
 
         $output->newLine(1);
         $output->writeln("<info>Releasing <comment>{$tag}</comment> to ~> <comment>cross-solution/YAWIK</comment> repo</info>");
-        $this->execute('git checkout master');
+        $this->execute("git checkout {$targetBranch}");
+        $this->execute("git pull {$mainRemoteName} {$targetBranch}");
         $this->execute("git tag -s {$tag} -m \"{$message}\"");
         $this->execute("git push {$mainRemoteName} {$tag}");
     }
 
-    private function createSubsplitTag($tag, $message)
+    private function createSubsplitTag($targetBranch, $tag, $message)
     {
         $config         = $this->config;
         $output         = $this->output;
@@ -131,8 +133,9 @@ class ReleaseController extends AbstractConsoleController
                 $remoteUrl  = "git@github.com:yawik/{$repo}.git";
                 $output->newLine(2);
                 $output->writeln("<info>Releasing <comment>{$tag}</comment> to ~> {$remoteUrl}</info>");
+                $output->writeln("<info>Working Directory: </info> <comment>{$repoDir}</comment>");
                 $this->execute("git clone {$remoteUrl} .", $repoDir);
-                $this->execute("git checkout master");
+                $this->execute("git checkout {$targetBranch}");
                 $this->execute("git tag -s ${tag} -m \"{$message}\"");
                 $this->execute("git push origin {$tag}");
             } catch (\Exception $exception) {
@@ -158,6 +161,37 @@ EOC;
             return false;
         }
         return true;
+    }
+
+    private function bumpModuleVersion($targetBranch, $tag)
+    {
+        $file       = realpath(__DIR__.'/../../../Core/src/Module.php');
+        $contents   = file_get_contents($file);
+        $pattern    = "/\s+const\s+VERSION\s+=\s+\'(.+)\'/i";
+        $matches    = array();
+        $output     = $this->output;
+
+        // creating dev tags version
+        $tag        = str_replace('v', '', $tag);
+        $exp        = explode('.', $tag);
+        $major      = $exp[0];
+        $minor      = $exp[1]+1;
+        $devVersion = sprintf('%s.%s-dev', $major, $minor);
+
+        $output->section('Bump Core\Module::VERSION');
+        preg_match($pattern, $contents, $matches);
+        if (isset($matches[1])) {
+            if (!$this->dryRun) {
+                $contents = str_replace($matches[1], $devVersion, $contents);
+                file_put_contents($file, $contents, LOCK_EX);
+            }
+            $output->writeln(
+                "Version changed to: <comment>{$devVersion}</comment>\n"
+                ."Please <info>git commit</info> and git push this change to <comment>cross-solution/YAWIK</comment>"
+            );
+        } else {
+            $output->note("Can not change version automatically.\nYou have to do this manually!");
+        }
     }
 
     public function execute($command, $cwd = null)

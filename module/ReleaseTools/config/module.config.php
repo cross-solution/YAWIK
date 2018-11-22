@@ -38,7 +38,7 @@ return [
                 ],
                 'release' => [
                     'options' => [
-                        'route' => 'release [--dry-run] [--message=] <tag>',
+                        'route' => 'release [--dry-run] [--message=] [--branch=] <tag>',
                         'defaults' => [
                             'controller' => 'release.console.release',
                             'action' => 'index'
