@@ -145,7 +145,7 @@
             "PdfTest\\": "module/Pdf/test",
             "SettingsTest\\": "module/Settings/test",
             "Yawik\\Behat\\": "module/Behat/src",
-            "ReleaseTools": "module/ReleaseTools/src"
+            "ReleaseTools\\": "module/ReleaseTools/src"
         }
     },
     "replace": {
