@@ -8,9 +8,9 @@
  */
 
 
-namespace CoreTest\Controller\Console;
+namespace ReleaseToolsTest\Console;
 
-use Core\Controller\Console\SubsplitController;
+use ReleaseTools\Console\SubsplitController;
 use CoreTest\Bootstrap;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
