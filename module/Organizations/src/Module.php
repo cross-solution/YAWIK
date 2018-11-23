@@ -29,7 +29,8 @@ class Module implements BootstrapListenerInterface, DependencyIndicatorInterface
     public function getRequiredDirectoryLists(CoreOptions $options)
     {
         return [
-            $options->getPublicDir().'/static/Organizations/Image'
+            $options->getPublicDir().'/static/Organizations',
+            $options->getPublicDir().'/static/Organizations/Image',
         ];
     }
 
