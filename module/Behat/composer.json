@@ -1,5 +1,5 @@
 {
-    "type": "yawik-module",
+    "type": "library",
     "name": "yawik/behat",
     "description": "This package provide a Behat tests utility for yawik",
     "license": "MIT",
