@@ -85,13 +85,13 @@ class ReleaseController extends AbstractConsoleController
             $this->createSubsplitTag($targetBranch, $tag, $message);
             $output->newLine(2);
             $output->writeln("Releasing process completed.\n<info>Welcome to <fg=yellow;options=bold>{$tag}</> version!</>");
-            $this->bumpModuleVersion($targetBranch, $tag);
+            //$this->bumpModuleVersion($targetBranch, $tag);
         } catch (\Exception $e) {
             $output->error($e->getMessage());
         }
 
         $output->newLine();
-        $this->execute("git checkout {$currentBranch}");
+        $this->execute("git checkout {$currentBranch}", getcwd());
     }
 
     public function createMainDevelopmentTag($targetBranch, $tag, $message)
@@ -99,13 +99,14 @@ class ReleaseController extends AbstractConsoleController
         $config         = $this->config;
         $mainRemoteName = $config['main_remote_name'];
         $output         = $this->output;
+        $cwd            = getcwd();
 
         $output->newLine(1);
         $output->writeln("<info>Releasing <comment>{$tag}</comment> to ~> <comment>cross-solution/YAWIK</comment> repo</info>");
-        $this->execute("git checkout {$targetBranch}");
-        $this->execute("git pull {$mainRemoteName} {$targetBranch}");
-        $this->execute("git tag -s {$tag} -m \"{$message}\"");
-        $this->execute("git push {$mainRemoteName} {$tag}");
+        $this->execute("git checkout {$targetBranch}", $cwd);
+        $this->execute("git pull {$mainRemoteName} {$targetBranch}", $cwd);
+        $this->execute("git tag -s {$tag} -m \"{$message}\"", $cwd);
+        $this->execute("git push {$mainRemoteName} {$tag}", $cwd);
     }
 
     private function createSubsplitTag($targetBranch, $tag, $message)
@@ -135,9 +136,12 @@ class ReleaseController extends AbstractConsoleController
                 $output->writeln("<info>Releasing <comment>{$tag}</comment> to ~> {$remoteUrl}</info>");
                 $output->writeln("<info>Working Directory: </info> <comment>{$repoDir}</comment>");
                 $this->execute("git clone {$remoteUrl} .", $repoDir);
-                $this->execute("git checkout {$targetBranch}");
-                $this->execute("git tag -s ${tag} -m \"{$message}\"");
-                $this->execute("git push origin {$tag}");
+                $this->execute("git pull origin {$targetBranch}", $repoDir);
+                $this->execute("git tag -d ${tag}", $repoDir);
+                $this->execute("git push origin :{$tag}", $repoDir);
+                $this->execute("git checkout {$targetBranch}", $repoDir);
+                $this->execute("git tag -s ${tag} -m \"{$message}\"", $repoDir);
+                $this->execute("git push origin {$tag}", $repoDir);
             } catch (\Exception $exception) {
                 $output->writeln('<error>'.$exception->getMessage().'</error>');
             }
@@ -196,6 +200,10 @@ EOC;
 
     public function execute($command, $cwd = null)
     {
+        if (is_null($cwd)) {
+            throw new \Exception('You have to define current directory to working with');
+        }
+
         $output     = $this->output;
 
         if (!is_dir($cwd)) {

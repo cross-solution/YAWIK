@@ -109,7 +109,7 @@ class SubsplitController extends AbstractConsoleController
             $io->setDecorated(true);
         }
 
-        $this->subsplitCommand = realpath(__DIR__.'/../../../bin/subsplit.sh');
+        $this->subsplitCommand = realpath(__DIR__.'/../../bin/subsplit.sh');
         if ($request->getParam('verbose') || $request->getParam('v')) {
             $this->getOutput()->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }
