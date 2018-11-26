@@ -43,7 +43,7 @@ class Module implements
     RequireFilePermissionInterface,
     RequireDirectoryPermissionInterface
 {
-    const VERSION = '0.32-dev';
+    const VERSION = '0.32.0';
 
     /**
      * @param ModuleOptions $options

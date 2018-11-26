@@ -21,7 +21,7 @@
         "yawik", "module", "zf3"
     ],
     "require": {
-        "yawik/core": ">=0.32@dev",
+        "yawik/core": "^0.32",
         "jmikola/geojson": "^1.0.0"
     },
     "autoload": {
@@ -36,8 +36,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.33-dev",
-            "dev-master": "0.32-dev"
+            "dev-develop": "0.33-dev"
         },
         "zf": {
             "module": "Geo"
