@@ -114,6 +114,15 @@ class ReleaseController extends AbstractConsoleController
         $config         = $this->config;
         $output         = $this->output;
         $cwd            = $config['subsplit_clone_dir'];
+
+        $output->newLine(2);
+        $output->writeln("<info>Prepare package releases...</info>");
+
+        if (!is_dir($cwd) && 0 !== $this->execute("mkdir -p {$cwd}", getcwd())) {
+            $output->writeln('<error>Temporary directory could not be created.</error>');
+            return;
+        }
+
         $subsplit = [
             'applications',
             'auth',
@@ -135,6 +144,10 @@ class ReleaseController extends AbstractConsoleController
                 $output->newLine(2);
                 $output->writeln("<info>Releasing <comment>{$tag}</comment> to ~> {$remoteUrl}</info>");
                 $output->writeln("<info>Working Directory: </info> <comment>{$repoDir}</comment>");
+                if (!is_dir($repoDir) && 0 !== $this->execute("mkdir {$repoDir}", getcwd())) {
+                    throw new \Exception('Working directory could not be created.');
+                }
+
                 $this->execute("git clone {$remoteUrl} .", $repoDir);
                 $this->execute("git pull origin {$targetBranch}", $repoDir);
                 $this->execute("git tag -d ${tag}", $repoDir);
@@ -145,6 +158,12 @@ class ReleaseController extends AbstractConsoleController
             } catch (\Exception $exception) {
                 $output->writeln('<error>'.$exception->getMessage().'</error>');
             }
+        }
+
+        $output->newLine(2);
+        $output->writeln("<info>Cleanup</info>");
+        if (is_dir($cwd)) {
+            $this->execute("rm -rf {$cwd}", getcwd());
         }
     }
 

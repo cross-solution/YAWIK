@@ -10,6 +10,8 @@
 use ReleaseTools\Console\SubsplitController;
 use ReleaseTools\Console\ReleaseController;
 
+// Temporary directory to tag the subsplit repos.
+// Please note: Only the topmost directory will be removed after the release operations.
 $tempDir = sys_get_temp_dir().'/yawik/build';
 
 return [
