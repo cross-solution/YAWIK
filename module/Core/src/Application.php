@@ -374,12 +374,12 @@ class Application extends BaseApplication
                     break;
                 }
             }
-            $info = new Version(Module::VERSION, $path);
 
-            //$exp = explode("@", $info);
-            $version = $info->getVersion();
-            static::$version = substr($version, 0, strlen($version)-10);
-            static::$revision = substr($version, 10);
+            $info = new Version(Module::VERSION, $path);
+            $exp  = explode("-g", $info->getVersion(), 2);
+
+            static::$version  = $exp[0];
+            static::$revision = isset($exp[1]) ? $exp[1] : '';
         }
     }
 }
