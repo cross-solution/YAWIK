@@ -162,7 +162,6 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-release-0.32.0": "0.32-dev",
             "dev-develop": "0.33-dev"
         }
     }

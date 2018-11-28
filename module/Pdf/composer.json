@@ -21,7 +21,7 @@
         "yawik", "module", "zf3"
     ],
     "require": {
-        "yawik/core": "^0.32",
+        "yawik/core": ">=0.33@dev",
         "mpdf/mpdf": "5.7.*"
     },
     "autoload": {

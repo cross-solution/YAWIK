@@ -21,7 +21,7 @@
         "yawik", "module", "zf"
     ],
     "require": {
-        "yawik/core": "^0.32"
+        "yawik/core": ">=0.33@dev"
     },
     "autoload": {
         "psr-4": {
