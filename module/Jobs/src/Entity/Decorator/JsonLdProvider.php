@@ -63,6 +63,7 @@ class JsonLdProvider implements JsonLdProviderInterface
             '@type' => 'JobPosting',
             'title' => $this->job->getTitle(),
             'description' => $this->getDescription($this->job->getTemplateValues()),
+            'rate' => $this->getRate(),
             'datePosted' => $dateStart,
             'identifier' => [
                 '@type' => 'PropertyValue',
@@ -135,5 +136,19 @@ class JsonLdProvider implements JsonLdProviderInterface
             $values->getBenefits()
         );
         return $description;
+    }
+
+    /**
+     * Generates a rate from salary entity
+     *
+     * @return string
+     */
+    private function getRate()
+    {
+        $salary = $this->job->getSalary();
+
+        return ($salary && !is_null($salary->getValue())) ?
+            ($salary->getValue() . ' ' . $salary->getCurrency() . '/' . $salary->getUnit()) :
+            /*@translate*/ 'Undefined';
     }
 }

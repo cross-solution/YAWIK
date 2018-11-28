@@ -1,0 +1,32 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ */
+
+
+if ($this->renderSummary):
+    $salary = $this->element->getObject();
+    if ($salary && !is_null($salary->getValue())): ?>
+        <div class="row">
+            <div class="col-md-3 yk-label">
+                <label><?php echo $this->translate($this->element->getLabel())?></label>
+            </div>
+            <div class="col-md-9">
+                <strong><?php echo $salary->getValue() ?></strong>
+                <small><?php echo $salary->getCurrency() ?>/<?php echo $this->translate(ucfirst(strtolower($salary->getUnit()))) ?></small>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <?php echo $this->translate('Salary rate is no set yet.') ?>
+            </div>
+        </div>
+    <?php endif;
+else:
+    echo $this->formCollection($this->element);
+endif;

@@ -144,7 +144,8 @@
             "OrganizationsTest\\": "module/Organizations/test",
             "PdfTest\\": "module/Pdf/test",
             "SettingsTest\\": "module/Settings/test",
-            "Yawik\\Behat\\": "module/Behat/src"
+            "Yawik\\Behat\\": "module/Behat/src",
+            "ReleaseTools\\": "module/ReleaseTools/src"
         }
     },
     "replace": {
@@ -161,7 +162,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.32-dev"
+            "dev-release-0.32.0": "0.32-dev",
+            "dev-develop": "0.33-dev"
         }
     }
 }

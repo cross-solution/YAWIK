@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Controller\Console;
+namespace ReleaseTools\Console;
 
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -53,6 +53,21 @@ class SubsplitController extends AbstractConsoleController
         $this->output = new ConsoleOutput();
     }
 
+    public static function getConsoleUsage()
+    {
+        return [
+            // subsplit command info
+            'subsplit [--heads] [--tags] [--skip-update] [--dry-run] [--verbose|v]' => 'Subsplit development repository',
+            'The subsplit command will automatically subsplit all changes in the develop into github yawik/* repository'.PHP_EOL
+            .'This command will available only in the Yawik main development repository',
+            ['--heads','If defined then will subsplit that branch.'],
+            ['--tags','Subsplit given tags only'],
+            ['--skip-update','Directly subsplit repository without pull remote branch'],
+            ['--dry-run','Only show the list of git command that will be executed.'],
+            ['--verbose | -v', 'Show debug output.'],
+        ];
+    }
+
     public static function factory(ContainerInterface $container)
     {
         return new static();
@@ -94,7 +109,7 @@ class SubsplitController extends AbstractConsoleController
             $io->setDecorated(true);
         }
 
-        $this->subsplitCommand = realpath(__DIR__.'/../../../bin/subsplit.sh');
+        $this->subsplitCommand = realpath(__DIR__.'/../../bin/subsplit.sh');
         if ($request->getParam('verbose') || $request->getParam('v')) {
             $this->getOutput()->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }

@@ -43,7 +43,7 @@ class Module implements
     RequireFilePermissionInterface,
     RequireDirectoryPermissionInterface
 {
-    const VERSION = '0.32-dev';
+    const VERSION = '0.32.0';
 
     /**
      * @param ModuleOptions $options
@@ -86,7 +86,7 @@ class Module implements
 
     public function getConsoleUsage(Console $console)
     {
-        $info = [
+        return [
             'purge [--no-check] [--options=] <entity> [<id>]'  => 'Purge entities',
             'This command will load entities to be purged, checks the dependency of each and removes all entities completely from the',
             'database. However, called with no <entity> and options it will output a list of all available entity loaders and its options.',
@@ -101,21 +101,6 @@ class Module implements
             ['--relative','This option will install assets using relative symlink'],
             ""
         ];
-
-        if ($this->isInMainDevelopment()) {
-            $info = ArrayUtils::merge($info, [
-                // subsplit command info
-                'subsplit [--heads] [--tags] [--skip-update] [--dry-run] [--verbose|v]' => 'Subsplit development repository',
-                'The subsplit command will automatically subsplit all changes in the develop into github yawik/* repository'.PHP_EOL
-                .'This command will available only in the Yawik main development repository',
-                ['--heads','If defined then will subsplit that branch.'],
-                ['--tags','Subsplit given tags only'],
-                ['--skip-update','Directly subsplit repository without pull remote branch'],
-                ['--dry-run','Only show the list of git command that will be executed.'],
-                ['--verbose | -v', 'Show debug output.'],
-            ]);
-        }
-        return $info;
     }
 
     /**

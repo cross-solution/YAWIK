@@ -55,16 +55,7 @@
         "zendframework/zend-servicemanager-di": "^1.1",
         "zendframework/zend-session": "^2.7",
         "zendframework/zend-view": "^2.9",
-        "zendframework/zendservice-recaptcha": "^3.0",
-        "yawik/auth": ">=0.32@dev",
-        "yawik/cv": ">=0.32@dev",
-        "yawik/applications": ">=0.32@dev",
-        "yawik/jobs": ">=0.32@dev",
-        "yawik/settings": ">=0.32@dev",
-        "yawik/pdf": ">=0.32@dev",
-        "yawik/geo": ">=0.32@dev",
-        "yawik/organizations": ">=0.32@dev",
-        "yawik/install": ">=0.32@dev"
+        "zendframework/zendservice-recaptcha": "^3.0"
     },
     "require-dev": {
         "cbleek/pecl-solr-hint": "dev-master",
@@ -82,7 +73,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.32-dev"
+            "dev-develop": "0.33-dev"
         },
         "zf": {
             "module": "Core"
