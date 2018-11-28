@@ -85,6 +85,15 @@ class Job extends WizardContainer
                             'display_mode' => 'summary'
                         )
                     ),
+                    'salaryForm' => array(
+                        'type' => 'Jobs/Salary',
+                        'property' => 'salary',
+                        'options' => array(
+                            'enable_descriptions' => true,
+                            'description' => /*@translate*/ 'Please choose a salary of your job opening.',
+                            'display_mode' => 'summary'
+                        )
+                    ),
                     'classifications' => [
                         'type' => 'Jobs/Classifications',
                         'options' => [

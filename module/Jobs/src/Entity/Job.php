@@ -46,7 +46,7 @@ class Job extends BaseEntity implements
 
 
     private $cloneProperties = [
-        'classifications', 'atsMode',
+        'classifications', 'atsMode', 'salary',
     ];
 
     /**
@@ -259,7 +259,15 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="boolean")
      */
     protected $atsEnabled;
-    
+
+    /**
+     * The Salary entity.
+     *
+     * @var Salary
+     * @ODM\EmbedOne(targetDocument="\Jobs\Entity\Salary")
+     */
+    protected $salary;
+
     /**
      * Permissions
      *
@@ -822,6 +830,31 @@ class Job extends BaseEntity implements
         $this->atsEnabled = $atsEnabled;
         return $this;
     }
+
+    /**
+     * @param \Jobs\Entity\Salary $salary
+     *
+     * @return self
+     */
+    public function setSalary(Salary $salary)
+    {
+        $this->salary = $salary;
+
+        return $this;
+    }
+
+    /**
+     * @return \Jobs\Entity\Salary
+     */
+    public function getSalary()
+    {
+        if (!$this->salary) {
+            $this->setSalary(new Salary());
+        }
+
+        return $this->salary;
+    }
+
     /**
      * returns an uri to the organization logo.
      *
