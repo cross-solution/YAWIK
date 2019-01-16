@@ -107,7 +107,7 @@ class ApplyUrl extends AbstractHelper
 
         if ($options['linkOnly']) {
             $result=$url;
-            if ($options['absolute']) {
+            if ($options['absolute'] && !preg_match('~^https?://~', $url)) {
                 $result = $serverUrlHelper($url);
             }
         } else {
