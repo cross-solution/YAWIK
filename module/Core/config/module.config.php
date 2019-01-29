@@ -29,6 +29,26 @@ return array(
 
     'doctrine' => $doctrineConfig,
 
+    'slm_queue' => [
+        'worker_strategies' => [
+            'default' => [
+                \SlmQueue\Strategy\LogJobStrategy::class,
+                Queue\Strategy\IdleSleepStrategy::class => ['duration' => 1],
+                Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/Queue']
+            ],
+        ],
+            'strategy_manager' => [
+            'factories' => [
+                Queue\Strategy\LogStrategy::class => Queue\Strategy\LogStrategyFactory::class,
+            ],
+        ],
+        'queue_manager' => [
+            'factories' => [
+                'default' => Queue\MongoQueueFactory::class,
+            ],
+        ],
+    ],
+
     'options' => [
         'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
     ],
@@ -62,7 +82,29 @@ return array(
                     'options' => array(
                          'stream' => getcwd().'/var/log/mails.log',
                     ),
+
                  ),
+            ),
+        ),
+        'Log/Core/Queue' => array(
+            'writers' => array(
+                array(
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                        'stream' => getcwd().'/var/log/queue.log',
+                        'formatter'  => [
+                            'name' => 'simple',
+                            'options' => [
+                                'format' => '%timestamp% (%pid%) %priorityName%: %message% %extra%',
+                                'dateTimeFormat' => 'd.m.Y H:i:s',
+                            ],
+                        ],
+                    ),
+                ),
+            ),
+            'processors' => array(
+                array('name' => Log\Processor\ProcessId::class),
             ),
         ),
     ),
@@ -70,6 +112,9 @@ return array(
     'log_processors' => [
         'invokables' => [
             'Core/UniqueId' => 'Core\Log\Processor\UniqueId',
+        ],
+        'factories' => [
+            Log\Processor\ProcessId::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
     
@@ -206,6 +251,24 @@ return array(
                             'action' => 'index',
                         ]
                     ]
+                ],
+                'mongo-queue-list' => [
+                    'options' => [
+                        'route' => 'queue mongo --list <queue> [--limit=]',
+                        'defaults' => [
+                            'controller' => Queue\Controller\MongoQueueListController::class,
+                            'action' => 'list',
+                        ],
+                    ],
+                ],
+                'mongo-queue' => [
+                    'options' => [
+                        'route' => 'queue mongo <queue>',
+                        'defaults' => [
+                            'controller' => Queue\Controller\MongoQueueController::class,
+                            'action' => 'process',
+                        ]
+                    ]
                 ]
             ],
         ],
@@ -277,7 +340,8 @@ return array(
             'Core/Listener/Notification' => [\Core\Listener\NotificationListener::class,'factory'],
             'Tracy' => [Tracy::class,'factory'],
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
-            ClearCacheService::class => [ClearCacheService::class,'factory']
+            ClearCacheService::class => [ClearCacheService::class,'factory'],
+            Queue\Worker\MongoWorker::class => \SlmQueue\Factory\WorkerFactory::class,
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',
@@ -347,6 +411,8 @@ return array(
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
             AssetsInstallController::class => [AssetsInstallController::class,'factory'],
             ClearCacheController::class => [ClearCacheController::class,'factory'],
+            Queue\Controller\MongoQueueController::class => Queue\Controller\MongoQueueControllerFactory::class,
+            Queue\Controller\MongoQueueListController::class => Queue\Controller\MongoQueueListControllerFactory::class,
 
         ],
     ),
