@@ -26,14 +26,25 @@ class MongoQueueFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var \Doctrine\ODM\MongoDB\DocumentManager $dm */
+        $config = $container->get('config');
+        $config = $config['slm_queue']['queues'][$requestedName] ?? [];
         $dm = $container->get('Core/DocumentManager');
-        $client = $dm->getConnection()->getMongoClient();
-        if (7 == PHP_MAJOR_VERSION) {
-            $client = $client->getClient();
+
+        if (isset($config['dns'])) {
+            $client = new \MongoDB\Client($config['dns']);
+        } else {
+            $client = $dm->getConnection()->getMongoClient()->getClient();
         }
-        $db = $dm->getConfiguration()->getDefaultDB();
-        $name = 'core.queue';
-        $collection = $client->selectCollection($db, $name);
+
+        if (!isset($config['db'])) {
+            $config['db'] = $dm->getConfiguration()->getDefaultDB();
+        }
+
+        if (!isset($config['collection'])) {
+            $config['collection'] = 'core.queue';
+        }
+
+        $collection = $client->selectCollection($config['db'], $config['collection']);
         $jobPlugins = $container->get(JobPluginManager::class);
 
         $service = new MongoQueue($collection, $requestedName, $jobPlugins);

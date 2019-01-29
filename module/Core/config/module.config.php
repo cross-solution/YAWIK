@@ -32,12 +32,11 @@ return array(
     'slm_queue' => [
         'worker_strategies' => [
             'default' => [
-                \SlmQueue\Strategy\LogJobStrategy::class,
                 Queue\Strategy\IdleSleepStrategy::class => ['duration' => 1],
                 Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/Queue']
             ],
         ],
-            'strategy_manager' => [
+        'strategy_manager' => [
             'factories' => [
                 Queue\Strategy\LogStrategy::class => Queue\Strategy\LogStrategyFactory::class,
             ],
