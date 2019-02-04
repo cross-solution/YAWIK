@@ -33,7 +33,11 @@ return array(
         'worker_strategies' => [
             'default' => [
                 Queue\Strategy\IdleSleepStrategy::class => ['duration' => 1],
-                Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/Queue']
+            ],
+            'queues' => [
+                'default' => [
+                    Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/Queue'],
+                ],
             ],
         ],
         'strategy_manager' => [
