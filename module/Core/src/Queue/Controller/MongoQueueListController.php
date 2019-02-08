@@ -15,20 +15,34 @@ use SlmQueue\Queue\QueuePluginManager;
 use Zend\Mvc\Console\Controller\AbstractConsoleController;
 
 /**
- * ${CARET}
+ * Console controller for list queue jobs.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class MongoQueueListController extends AbstractConsoleController
 {
+    /**
+     * The queue plugin manager
+     *
+     * @var QueuePluginManager
+     */
     private $queuePluginManager;
 
+    /**
+     * MongoQueueListController constructor.
+     *
+     * @param QueuePluginManager $queuePluginManager
+     */
     public function __construct(QueuePluginManager $queuePluginManager)
     {
         $this->queuePluginManager = $queuePluginManager;
     }
 
+    /**
+     * List jobs from a queue
+     *
+     * @return string
+     */
     public function listAction()
     {
         $queue   = $this->params()->fromRoute('queue');
@@ -69,6 +83,8 @@ class MongoQueueListController extends AbstractConsoleController
             $console->writeLine();
             $console->writeLine();
         }
+
+        return '';
     }
 
 }

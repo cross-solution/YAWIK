@@ -13,16 +13,14 @@ namespace Core\Log\Processor;
 use Zend\Log\Processor\ProcessorInterface;
 
 /**
- * ${CARET}
+ * Adds the process id to the event array in the key 'pid'.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  */
 class ProcessId implements ProcessorInterface
 {
-
     /**
-     * Processes a log message before it is given to the writers
+     * Adds process id to the event array.
      *
      * @param  array $event
      *

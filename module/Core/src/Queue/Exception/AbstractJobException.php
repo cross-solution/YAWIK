@@ -11,26 +11,34 @@
 namespace Core\Queue\Exception;
 
 /**
- * ${CARET}
+ * Base JobException class.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
-abstract class AbstractJobException extends \RuntimeException
+abstract class AbstractJobException extends \RuntimeException implements JobExceptionInterface
 {
+    /**
+     * Options for the queue.
+     *
+     * @var array
+     */
     protected $options = [];
 
-    public function __construct($message, array $options = [])
+    /**
+     * AbstractJobException constructor.
+     *
+     * @param string|null $message
+     * @param array       $options Options for the queue
+     */
+    public function __construct($message = null, array $options = [])
     {
         parent::__construct($message);
 
         $this->setOptions($options);
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions() : array
     {
         return array_merge(
             [
@@ -42,16 +50,9 @@ abstract class AbstractJobException extends \RuntimeException
 
     }
 
-    /**
-     * @param array $options
-     *
-     * @return self
-     */
-    public function setOptions($options)
+    public function setOptions($options) : void
     {
         $this->options = $options;
-
-        return $this;
     }
 
 

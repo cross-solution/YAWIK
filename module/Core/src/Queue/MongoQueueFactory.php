@@ -18,7 +18,6 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * Factory for \Core\Queue\MongoQueue
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test  
  */
 class MongoQueueFactory implements FactoryInterface
 {
@@ -30,11 +29,13 @@ class MongoQueueFactory implements FactoryInterface
         $config = $config['slm_queue']['queues'][$requestedName] ?? [];
         $dm = $container->get('Core/DocumentManager');
 
+        // @codeCoverageIgnoreStart
         if (isset($config['dns'])) {
             $client = new \MongoDB\Client($config['dns']);
         } else {
             $client = $dm->getConnection()->getMongoClient()->getClient();
         }
+        // @codeCoverageIgnoreEnd
 
         if (!isset($config['db'])) {
             $config['db'] = $dm->getConfiguration()->getDefaultDB();

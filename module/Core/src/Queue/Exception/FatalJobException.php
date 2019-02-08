@@ -11,10 +11,9 @@
 namespace Core\Queue\Exception;
 
 /**
- * ${CARET}
+ * Exception thrown if a job encounters an unrecoverable error.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class FatalJobException extends AbstractJobException
 {

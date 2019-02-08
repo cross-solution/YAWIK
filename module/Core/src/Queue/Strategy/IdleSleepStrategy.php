@@ -14,7 +14,6 @@ use Core\Queue\MongoQueue;
 use SlmQueue\Strategy\AbstractStrategy;
 use SlmQueue\Worker\Event\AbstractWorkerEvent;
 use SlmQueue\Worker\Event\ProcessIdleEvent;
-use SlmQueue\Worker\Result\ExitWorkerLoopResult;
 use Zend\EventManager\EventManagerInterface;
 
 /**
@@ -26,7 +25,7 @@ use Zend\EventManager\EventManagerInterface;
 class IdleSleepStrategy extends AbstractStrategy
 {
 
-    public $duration;
+    public $duration = 1;
 
     public function attach(EventManagerInterface $events, $priority = 1)
     {

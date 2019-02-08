@@ -19,13 +19,20 @@ use SlmQueue\Worker\AbstractWorker;
 use SlmQueue\Worker\Event\ProcessJobEvent;
 
 /**
- * ${CARET}
- * 
+ * Queue worker for the mongo queue.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class MongoWorker extends AbstractWorker
 {
+    /**
+     * Process job handler.
+     *
+     * @param JobInterface   $job
+     * @param QueueInterface $queue
+     *
+     * @return int|void
+     */
     public function processJob(JobInterface $job, QueueInterface $queue)
     {
         if (!$queue instanceof MongoQueue) {
@@ -33,7 +40,7 @@ class MongoWorker extends AbstractWorker
         }
 
         try {
-            $job->execute($queue);
+            $job->execute();
             $queue->delete($job);
 
             return ProcessJobEvent::JOB_STATUS_SUCCESS;

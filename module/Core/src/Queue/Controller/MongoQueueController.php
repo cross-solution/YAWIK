@@ -10,14 +10,12 @@
 /** */
 namespace Core\Queue\Controller;
 
-use Core\Queue\MongoQueue;
 use SlmQueue\Controller\AbstractWorkerController;
 
 /**
- * ${CARET}
+ * Console Controller for mongo queues
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class MongoQueueController extends AbstractWorkerController
 {

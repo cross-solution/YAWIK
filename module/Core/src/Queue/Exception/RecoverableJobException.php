@@ -11,10 +11,10 @@
 namespace Core\Queue\Exception;
 
 /**
- * ${CARET}
+ * Exception thrown if a job encounters a recoverable error and wants
+ * to be reinserted in the queue.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class RecoverableJobException extends AbstractJobException
 {
