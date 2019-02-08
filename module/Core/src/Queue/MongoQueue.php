@@ -15,18 +15,28 @@ use SlmQueue\Job\JobPluginManager;
 use SlmQueue\Queue\AbstractQueue;
 
 /**
- * ${CARET}
+ * SlmQueue implementation for a queue backed by MongoDB
+ *
+ * Heavily inspired by https://github.com/juriansluiman/SlmQueueDoctrine
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class MongoQueue extends AbstractQueue
 {
 
+    /**#@+
+     * Job status
+     * @var int
+     */
     const STATUS_PENDING = 1;
     const STATUS_RUNNING = 2;
     const STATUS_FAILED  = 3;
+    /**#@-*/
 
+    /**
+     * Default priority
+     * @var int
+     */
     const DEFAULT_PRIORITY = 1024;
 
     /**
@@ -44,8 +54,7 @@ class MongoQueue extends AbstractQueue
     /**
      * Constructor
      *
-     * @param Connection       $connection
-     * @param string           $tableName
+     * @param \MongoDB\Collection $collection
      * @param string           $name
      * @param JobPluginManager $jobPluginManager
      */
@@ -61,12 +70,15 @@ class MongoQueue extends AbstractQueue
 
 
     /**
+     * Push a job to the queue.
+     *
      * Valid options are:
      *      - priority: the lower the priority is, the sooner the job get popped from the queue (default to 1024)
      *
-     * {@inheritDoc}
+     * Note : see {@link parseOptionsToDateTime()} for schedule and delay options
      *
-     * Note : see DoctrineQueue::parseOptionsToDateTime for schedule and delay options
+     * @param JobInterface $job
+     * @param array $options
      */
     public function push(JobInterface $job, array $options = [])
     {
@@ -77,6 +89,67 @@ class MongoQueue extends AbstractQueue
         $job->setId((string) $result->getInsertedId());
     }
 
+    /**
+     * Push a lazy loading job in the queue.
+     *
+     * Lazy job allows to load the actual job only when executed.
+     *
+     * You can specify the job to load in two ways:
+     * - as string:
+     *      The actual job will be pulled from the job manager or instantiated from a valid class name.
+     *
+     * - as array:
+     *      If you need to pass options to the job, you can specify the
+     *      job as an array:
+     *      [ string:name, array:options ]
+     *      The actual job will be pulled from the job manager using the 'build' command,
+     *      passing the options along OR if no service for the job is defined, but a valid
+     *      class name is given, this class will be instantiated and the options are passed
+     *      as constructor arguments,
+     *
+     * @see push()
+     * @see LazyJob
+     *
+     * @param string|array $service
+     * @param mixed|null  $payload
+     * @param array $options
+     */
+    public function pushLazy($service, $payload = null, array $options = [])
+    {
+        $manager = $this->getJobPluginManager();
+        $serviceOptions = [];
+
+        if (is_array($service)) {
+            $serviceOptions = $service['options'] ?? $service[1] ?? [];
+            $service = $service['name'] ?? $service[0] ?? null;
+        }
+
+        if (!$manager->has($service) && !class_exists($service)) {
+            throw new \UnexpectedValueException(sprintf(
+                'Service name "%s" is not a known job service or existent class',
+                $service
+            ));
+        }
+
+        $lazyOptions = [
+            'name' => $service,
+            'options' => $serviceOptions,
+            'content' => $payload,
+        ];
+
+        $job = $this->getJobPluginManager()->build('lazy', $lazyOptions);
+
+        $this->push($job, $options);
+    }
+
+    /**
+     * Create a mongo document.
+     *
+     * @param JobInterface $job
+     * @param array        $options
+     *
+     * @return array
+     */
     private function createEnvelope(JobInterface $job, array $options = [])
     {
         $scheduled = $this->parseOptionsToDateTime($options);
@@ -99,6 +172,13 @@ class MongoQueue extends AbstractQueue
         return $envelope;
     }
 
+    /**
+     * Reinsert the job in the queue.
+     *
+     * @see push()
+     * @param JobInterface $job
+     * @param array        $options
+     */
     public function retry(JobInterface $job, array $options = [])
     {
         $tried = $job->getMetadata('mongoqueue.tries', 0) + 1;
@@ -119,7 +199,12 @@ class MongoQueue extends AbstractQueue
     }
 
     /**
-     * {@inheritDoc}
+     * Pop a job from the queue.
+     *
+     * The status will be set to self::STATUS_RUNNING.
+     *
+     * @param array $options unused
+     * @return null|JobInterface
      */
     public function pop(array $options = [])
     {
@@ -156,6 +241,13 @@ class MongoQueue extends AbstractQueue
         return $this->unserializeJob($envelope['data'], ['__id__' => $envelope['_id']]);
     }
 
+    /**
+     * Fetch a list of jobs
+     *
+     * @param array $options
+     *
+     * @return array
+     */
     public function listing(array $options = [])
     {
         $filter = [ 'queue' => $this->getName() ];
@@ -163,7 +255,7 @@ class MongoQueue extends AbstractQueue
             $filter['status'] = $options['status'];
         }
 
-        $opt = [ 'sort' => [ 'priority' => 1, 'scheduled' => 1] ];
+        $opt = [ 'sort' => [ 'scheduled' => 1, 'priority' => 1] ];
         if (isset($options['limit'])) {
             $opt['limit'] = $options['limit'];
         }
@@ -180,9 +272,12 @@ class MongoQueue extends AbstractQueue
     }
 
     /**
-     * {@inheritDoc}
+     * Delete a job from the queue
      *
-     * Note: When $deletedLifetime === 0 the job will be deleted immediately
+     * @param JobInterface $job
+     * @param array        $options unused
+     *
+     * @return bool
      */
     public function delete(JobInterface $job, array $options = [])
     {
@@ -192,9 +287,11 @@ class MongoQueue extends AbstractQueue
     }
 
     /**
-     * {@inheritDoc}
+     * Mark a job as permanent failed.
      *
-     * Note: When $buriedLifetime === 0 the job will be deleted immediately
+     * The status will be set to self::STATUS_FAILED
+     * @param JobInterface $job
+     * @param array        $options unused
      */
     public function fail(JobInterface $job, array $options = [])
     {
@@ -231,6 +328,7 @@ class MongoQueue extends AbstractQueue
      * @see http://en.wikipedia.org/wiki/Iso8601#Durations
      * @see http://www.php.net/manual/en/datetime.formats.relative.php
      *
+     * @codeCoverageIgnore
      * @param $options array
      * @return \DateTime
      */
@@ -288,6 +386,13 @@ class MongoQueue extends AbstractQueue
         return $scheduled;
     }
 
+    /**
+     * Converst a \DateTime object to its UTCDateTime representation.
+     *
+     * @param \DateTime $date
+     *
+     * @return \MongoDB\BSON\UTCDateTime
+     */
     protected function dateTimeToUTCDateTime(\DateTime $date)
     {
         return new \MongoDB\BSON\UTCDateTime($date->getTimestamp() * 1000);

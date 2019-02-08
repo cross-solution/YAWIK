@@ -50,6 +50,14 @@ return array(
                 'default' => Queue\MongoQueueFactory::class,
             ],
         ],
+        'job_manager' => [
+            'aliases' => [
+                'lazy' => Queue\LazyJob::class,
+            ],
+            'factories' => [
+                Queue\LazyJob::class => Queue\LazyJobFactory::class,
+            ]
+        ]
     ],
 
     'options' => [
