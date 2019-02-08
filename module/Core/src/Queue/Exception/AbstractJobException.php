@@ -50,7 +50,7 @@ abstract class AbstractJobException extends \RuntimeException implements JobExce
 
     }
 
-    public function setOptions($options) : void
+    public function setOptions(array $options) : void
     {
         $this->options = $options;
     }
