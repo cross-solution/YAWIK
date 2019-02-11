@@ -133,6 +133,17 @@ trait SetupTargetTrait
         $testNameSetKey = $testNameKey . '|' . $testSet;
         $testSpec = isset($spec[$testNameKey]) ? $spec[$testNameKey] : (isset($spec[$testNameSetKey]) ? $spec[$testNameSetKey] : null);
 
+        if (null === $testSpec) {
+            foreach (array_keys($spec) as $testSpecPattern) {
+                if (false === strpos($testSpecPattern, '*')) { continue; }
+
+                if (preg_match('~^' . str_replace('*', '.*', substr($testSpecPattern, 1)) . '~', $testName)) {
+                    $testSpec = $spec[$testSpecPattern];
+                    break;
+                }
+            }
+        }
+
         if (!is_array($spec) || false === $testSpec) {
             $this->target = null;
             return;
