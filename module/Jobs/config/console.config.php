@@ -31,6 +31,15 @@ return [
                         ],
                     ],
                 ],
+                'jobs-push-find-external-images-job' => [
+                    'options' => [
+                        'route' => 'jobs push-find-external-images-job',
+                        'defaults' => [
+                            'controller' => 'Jobs/Console',
+                            'action' => 'pushFetchExternalImagesJob'
+                        ],
+                    ]
+                ]
             ]
         ]
     ]

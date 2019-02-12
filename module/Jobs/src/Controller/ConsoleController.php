@@ -11,9 +11,11 @@
 /** ConsoleController of Jobs */
 namespace Jobs\Controller;
 
+use Core\Queue\LazyJob;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\StatusInterface;
+use Jobs\Queue\FindJobsWithExternalImageJob;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ProgressBar\ProgressBar;
 use Core\Console\ProgressBar as CoreProgressBar;
@@ -205,5 +207,12 @@ class ConsoleController extends AbstractActionController
             );
         }
         return count($jobs) . ' Jobs.';
+    }
+
+    public function pushFetchExternalImagesJobAction()
+    {
+        $this->queue('default')->pushJob(FindJobsWithExternalImageJob::create());
+
+        return 'Job pushed to queue.';
     }
 }

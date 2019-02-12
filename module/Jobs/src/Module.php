@@ -13,12 +13,22 @@ use Zend\Mvc\MvcEvent;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
+use Yawik\Composer\RequireDirectoryPermissionInterface;
+use Core\Options\ModuleOptions as CoreOptions;
 
 /**
  * Bootstrap class of the Core module
  */
-class Module implements ConsoleUsageProviderInterface
+class Module implements ConsoleUsageProviderInterface, RequireDirectoryPermissionInterface
 {
+
+    public function getRequiredDirectoryLists(CoreOptions $options)
+    {
+        return [
+            $options->getPublicDir().'/static/Jobs',
+            $options->getPublicDir().'/static/Jobs/logos',
+        ];
+    }
 
     public function getConsoleUsage(Console $console)
     {

@@ -34,6 +34,16 @@ return [
         ],
     ],
 
+    'slm_queue' => [
+
+        'job_manager' => [
+            'factories' => [
+                Queue\FindJobsWithExternalImageJob::class => Queue\FindJobsWithExternalImageJobFactory::class,
+                Queue\FetchExternalImageJob::class => Queue\FetchExternalImageJobFactory::class,
+            ]
+        ],
+    ],
+
     'options' => [
         'Jobs/JobboardSearchOptions' => [ 'class' => '\Jobs\Options\JobboardSearchOptions' ],
         'Jobs/BaseFieldsetOptions' => [ 'class' => '\Jobs\Options\BaseFieldsetOptions' ],
