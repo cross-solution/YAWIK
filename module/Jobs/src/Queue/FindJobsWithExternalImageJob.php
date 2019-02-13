@@ -50,7 +50,6 @@ class FindJobsWithExternalImageJob extends MongoJob implements QueueAwareInterfa
 
     public function execute()
     {
-        return $this->recoverable('Test recoverable', '+12 days');
         if (!$this->repository) {
             return $this->failure('Cannot execute without repository.');
         }
@@ -85,6 +84,8 @@ class FindJobsWithExternalImageJob extends MongoJob implements QueueAwareInterfa
         $delay = 0 >= ($cursor->count() - $invalidJobs) ? '+2 hours' : '+5 minutes';
         $queue->push(self::create(), ['delay' => $delay]);
         $logger->info('Reinserted to fetch more jobs with delay: ' . $delay);
+
+        return $this->success();
     }
 
 }
