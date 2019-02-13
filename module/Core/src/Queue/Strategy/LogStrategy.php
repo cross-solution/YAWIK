@@ -48,7 +48,7 @@ class LogStrategy extends AbstractStrategy
      */
     private $tmpl = [
         'queue' => '%s queue: %s',
-        'job'   => '{ %s } [ %s ] %s%s',
+        'job'   => '{ %s } [ %s ] %s',
     ];
 
     /**
@@ -161,10 +161,12 @@ class LogStrategy extends AbstractStrategy
      */
     public function attach(EventManagerInterface $events, $priority = 1) : void
     {
-        $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_BOOTSTRAP, [$this, 'logBootstrap']);
-        $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_FINISH, [$this, 'logFinish']);
+        $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_BOOTSTRAP, [$this, 'logBootstrap'], 1000);
+        $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_FINISH, [$this, 'logFinish'], 1000);
         $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_PROCESS_JOB, [$this, 'logJobStart'], 1000);
         $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_PROCESS_JOB, [$this, 'logJobEnd'], -1000);
+        $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_PROCESS_IDLE, [$this, 'injectLoggerInEvent'], 1000);
+        $this->listeners[] = $events->attach(AbstractWorkerEvent::EVENT_PROCESS_STATE, [$this, 'injectLoggerInEvent'], 1000);
     }
 
     /**
@@ -179,6 +181,9 @@ class LogStrategy extends AbstractStrategy
             'Start',
             $event->getQueue()->getName()
         ));
+
+        $this->injectLoggerInObject($event->getWorker());
+        $this->injectLoggerInEvent($event);
     }
 
     /**
@@ -193,6 +198,8 @@ class LogStrategy extends AbstractStrategy
             'Stop',
             $event->getQueue()->getName()
         ));
+
+        $this->injectLoggerInEvent($event);
     }
 
     /**
@@ -216,9 +223,8 @@ class LogStrategy extends AbstractStrategy
             ''
         ));
 
-        if ($job instanceOf LoggerAwareInterface && $this->injectLogger()) {
-            $job->setLogger($logger);
-        }
+        $this->injectLoggerInObject($job);
+        $this->injectLoggerInEvent($event);
     }
 
     /**
@@ -242,34 +248,43 @@ class LogStrategy extends AbstractStrategy
                     $this->tmpl['job'],
                     $queue,
                     'SUCCESS',
-                    $this->formatJob($job),
-                    ''
+                    $this->formatJob($job)
                 ));
                 break;
 
             case ProcessJobEvent::JOB_STATUS_FAILURE_RECOVERABLE:
-                $reason = $job->getMetadata('log.reason');
                 $logger->warn(sprintf(
                     $this->tmpl['job'],
                     $queue,
                     'RECOVERABLE',
-                    $this->formatJob($job),
-                    ": $reason"
+                    $this->formatJob($job)
                 ));
 
                 break;
 
             case ProcessJobEvent::JOB_STATUS_FAILURE:
-                $reason = $job->getMetadata('log.reason');
                 $logger->err(sprintf(
                     $this->tmpl['job'],
                     $queue,
                     'FAILURE',
-                    $this->formatJob($job),
-                    ": $reason"
+                    $this->formatJob($job)
                 ));
 
                 break;
+        }
+    }
+
+    public function injectLoggerInEvent(AbstractWorkerEvent $event)
+    {
+        if ($this->injectLogger()) {
+            $event->setParam('logger', $this->getLogger());
+        }
+    }
+
+    private function injectLoggerInObject(object $object) : void
+    {
+        if ($this->injectLogger() && $object instanceOf LoggerAwareInterface) {
+            $object->setLogger($this->getLogger());
         }
     }
 

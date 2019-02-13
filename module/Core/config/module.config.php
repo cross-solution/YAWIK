@@ -33,6 +33,7 @@ return array(
         'worker_strategies' => [
             'default' => [
                 Queue\Strategy\IdleSleepStrategy::class => ['duration' => 1],
+                Queue\Strategy\JobResultStrategy::class,
             ],
             'queues' => [
                 'default' => [

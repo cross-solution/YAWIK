@@ -337,50 +337,11 @@ class MongoQueue extends AbstractQueue
         $time      = microtime(true);
         $micro     = sprintf("%06d", ($time - floor($time)) * 1000000);
         $this->now = new \DateTime(date('Y-m-d H:i:s.' . $micro, $time), new \DateTimeZone(date_default_timezone_get()));
-        $scheduled = clone ($this->now);
-
-        if (isset($options['scheduled'])) {
-            switch (true) {
-                case is_numeric($options['scheduled']):
-                    $scheduled = new \DateTime(
-                        sprintf("@%d", (int) $options['scheduled']),
-                        new \DateTimeZone(date_default_timezone_get())
-                    );
-                    break;
-                case is_string($options['scheduled']):
-                    $scheduled = new \DateTime($options['scheduled'], new \DateTimeZone(date_default_timezone_get()));
-                    break;
-                case $options['scheduled'] instanceof \DateTime:
-                    $scheduled = $options['scheduled'];
-                    break;
-            }
-        }
+        $scheduled = isset($options['scheduled']) ? Utils::createDateTime($options['scheduled']) : clone ($this->now);
 
         if (isset($options['delay'])) {
-            switch (true) {
-                case is_numeric($options['delay']):
-                    $delay = new \DateInterval(sprintf("PT%dS", abs((int) $options['delay'])));
-                    $delay->invert = ($options['delay'] < 0) ? 1 : 0;
-                    break;
-                case is_string($options['delay']):
-                    try {
-                        // first try ISO 8601 duration specification
-                        $delay = new \DateInterval($options['delay']);
-                    } catch (\Exception $e) {
-                        // then try normal date parser
-                        $delay = \DateInterval::createFromDateString($options['delay']);
-                    }
-                    break;
-                case $options['delay'] instanceof \DateInterval:
-                    $delay = $options['delay'];
-                    break;
-                default:
-                    $delay = null;
-            }
-
-            if ($delay instanceof \DateInterval) {
-                $scheduled->add($delay);
-            }
+            $delay = Utils::createDateInterval($options['delay']);
+            $scheduled->add($delay);
         }
 
         return $scheduled;
