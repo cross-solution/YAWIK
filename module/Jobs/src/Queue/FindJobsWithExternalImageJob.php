@@ -38,11 +38,6 @@ class FindJobsWithExternalImageJob extends MongoJob implements QueueAwareInterfa
      */
     private $repository;
 
-    public static function create()
-    {
-        return new self();
-    }
-
     public function __construct(Job $repository = null)
     {
         $this->repository = $repository;

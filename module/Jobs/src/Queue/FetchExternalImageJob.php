@@ -29,12 +29,13 @@ class FetchExternalImageJob extends MongoJob implements LoggerAwareInterface
 
     private $repository;
 
-    public static function create(JobEntityInterface $jobEntity)
+    protected static function filterPayload($payload)
     {
-        $job = new self();
-        $job->setContent(['jobId' => $jobEntity->getId()]);
+        if ($payload instanceOf JobEntityInterface) {
+            return ['jobId' => $payload->getId()];
+        }
 
-        return $job;
+        return parent::filterPayload($payload);
     }
 
     public function __construct(Job $repository = null)
