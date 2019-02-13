@@ -59,26 +59,45 @@ class JobResult
 
     public static function success(?string $reason = null, ?array $extra = null) : self
     {
-        return (new static(ProcessJobEvent::JOB_STATUS_SUCCESS))
-            ->withReason($reason)
-            ->withExtra($extra)
-        ;
+        return static::create(
+            ProcessJobEvent::JOB_STATUS_SUCCESS,
+            [
+                'reason' => $reason,
+                'extra'  => $extra,
+            ]
+        );
     }
 
     public static function failure(string $reason, ?array $extra = null) : self
     {
-        return (new static(ProcessJobEvent::JOB_STATUS_FAILURE))
-            ->withReason($reason)
-            ->withExtra($extra)
-        ;
+        return static::create(
+            ProcessJobEvent::JOB_STATUS_FAILURE,
+            [
+                'reason' => $reason,
+                'extra'  => $extra,
+            ]
+        );
     }
 
     public static function recoverable(string $reason, array $options = []) : self
     {
-        $result = (new static(ProcessJobEvent::JOB_STATUS_FAILURE_RECOVERABLE))
-            ->withReason($reason);
+        return static::create(
+            ProcessJobEvent::JOB_STATUS_FAILURE_RECOVERABLE,
+            [ 'reason' => $reason ] + $options
+        );
+    }
+
+    public static function create(int $code, $options)
+    {
+        $result = new static($code);
+
+        if (is_string($options)) {
+            $options = ['reason' => $options];
+        }
 
         foreach ($options as $key => $value) {
+            if (!$value) { continue; }
+
             $callback = [$result, "with$key"];
             if (is_callable($callback)) {
                 $callback($value);
