@@ -23,6 +23,24 @@ abstract class MongoJob extends AbstractJob implements ResultProviderInterface
 {
     protected $result;
 
+    public static function create($payload = null)
+    {
+        $class = new \ReflectionClass(static::class);
+        $instance = $class->newInstanceWithoutConstructor();
+
+        if ($payload) {
+            $payload = static::filterPayload($payload);
+            $instance->setContent($payload);
+        }
+
+        return $instance;
+    }
+
+    protected static function filterPayload($payload)
+    {
+        return $payload;
+    }
+
     public function setResult(JobResult $result) : void
     {
         $this->result = $result;
