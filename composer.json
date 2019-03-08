@@ -85,7 +85,7 @@
         "cbleek/pecl-solr-hint": "dev-master",
         "enm1989/chromedriver": "^2.35",
         "lakion/mink-debug-extension": "^1.2.3",
-        "mikey179/vfsStream": "^1.6",
+        "mikey179/vfsstream": "^1.6",
         "novaway/common-contexts": "~2.0",
         "phpunit/phpunit": "^5.7",
         "se/selenium-server-standalone": "^2.52",
