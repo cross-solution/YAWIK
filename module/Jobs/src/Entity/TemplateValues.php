@@ -23,9 +23,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *                    "qualifications"="text",
  *                    "benefits"="text",
  *                    "title"="text"},
- *              name="fulltext")
+ *              name="fulltext",
+ *              options={"language_override":"lang_index"})
  * })
  * @since 0.29 Adds html field.
+ * @since 0.33 Add option 'language_override' to index definition.
  */
 class TemplateValues extends AbstractEntity implements TemplateValuesInterface
 {
