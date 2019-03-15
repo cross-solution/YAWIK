@@ -281,7 +281,7 @@ class LogStrategy extends AbstractStrategy
         }
     }
 
-    private function injectLoggerInObject(object $object) : void
+    private function injectLoggerInObject($object) : void
     {
         if ($this->injectLogger() && $object instanceOf LoggerAwareInterface) {
             $object->setLogger($this->getLogger());
