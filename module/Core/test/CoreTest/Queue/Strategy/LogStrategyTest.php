@@ -52,7 +52,7 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
     private $attributes = [
         'tmpl' => [
             'queue' => '%s queue: %s',
-            'job'   => '{ %s } [ %s ] %s%s',
+            'job'   => '{ %s } [ %s ] %s',
         ],
         'injectLogger' => true
     ];
@@ -139,12 +139,12 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->prophesize(EventManagerInterface::class);
         $events
-            ->attach(AbstractWorkerEvent::EVENT_BOOTSTRAP, [$this->target, 'logBootstrap'])
+            ->attach(AbstractWorkerEvent::EVENT_BOOTSTRAP, [$this->target, 'logBootstrap'], 1000)
             ->willReturn('handle')
             ->shouldBeCalled()
         ;
         $events
-            ->attach(AbstractWorkerEvent::EVENT_FINISH, [$this->target, 'logFinish'])
+            ->attach(AbstractWorkerEvent::EVENT_FINISH, [$this->target, 'logFinish'], 1000)
             ->willReturn('handle')
             ->shouldBeCalled()
         ;
@@ -158,11 +158,21 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
             ->willReturn('handle')
             ->shouldBeCalled()
         ;
+        $events
+            ->attach(AbstractWorkerEvent::EVENT_PROCESS_IDLE, [$this->target, 'injectLoggerInEvent'], 1000)
+            ->willReturn('handle')
+            ->shouldBeCalled()
+        ;
+        $events
+            ->attach(AbstractWorkerEvent::EVENT_PROCESS_STATE, [$this->target, 'injectLoggerInEvent'], 1000)
+            ->wilLReturn('handle')
+            ->shouldBeCalled()
+        ;
         /* @var EventManagerInterface $eventsMock */
         $eventsMock = $events->reveal();
 
         $this->target->attach($eventsMock);
-        static::assertAttributeEquals(['handle', 'handle', 'handle', 'handle'], 'listeners', $this->target);
+        static::assertAttributeEquals(['handle', 'handle', 'handle', 'handle', 'handle', 'handle'], 'listeners', $this->target);
     }
 
     public function testLogsQueueEvents()
@@ -171,21 +181,26 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
         $queue->getName()->willReturn('queue');
         $queueMock = $queue->reveal();
 
-        $bootstrapEvent = $this->prophesize(BootstrapEvent::class);
-        $bootstrapEvent->getQueue()->willReturn($queueMock);
-        /* @var BootstrapEvent $bootstrapEventMock */
-        $bootstrapEventMock = $bootstrapEvent->reveal();
-
-        $finishEvent = $this->prophesize(FinishEvent::class);
-        $finishEvent->getQueue()->wilLReturn($queueMock);
-        /* @var FinishEvent $finishEventMock */
-        $finishEventMock = $finishEvent->reveal();
-
         $logger = $this->prophesize(LoggerInterface::class);
         $logger->info('Start queue: queue')->shouldBeCalled();
         $logger->info('Stop queue: queue')->shouldBeCalled();
         /* @var LoggerInterface $loggerMock */
         $loggerMock = $logger->reveal();
+
+        $workerMock = new \stdClass;
+        $bootstrapEvent = $this->prophesize(BootstrapEvent::class);
+        $bootstrapEvent->getQueue()->willReturn($queueMock);
+        $bootstrapEvent->getWorker()->willReturn($workerMock);
+        $bootstrapEvent->setParam('logger', $loggerMock)->willReturn(null);
+        /* @var BootstrapEvent $bootstrapEventMock */
+        $bootstrapEventMock = $bootstrapEvent->reveal();
+
+        $finishEvent = $this->prophesize(FinishEvent::class);
+        $finishEvent->getQueue()->wilLReturn($queueMock);
+        $finishEvent->setParam('logger', $loggerMock)->willReturn(null);
+        /* @var FinishEvent $finishEventMock */
+        $finishEventMock = $finishEvent->reveal();
+
 
         $this->target->setLogger($loggerMock);
         $this->target->logBootstrap($bootstrapEventMock);
@@ -218,6 +233,7 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
         $event = $this->prophesize(ProcessJobEvent::class);
         $event->getQueue()->willReturn($queueMock);
         $event->getJob()->willReturn($job);
+        $event->setParam('logger', $loggerMock)->willReturn(null);
         /* @var ProcessJobEvent $eventMock */
         $eventMock = $event->reveal();
 
@@ -245,6 +261,7 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
         $event = $this->prophesize(ProcessJobEvent::class);
         $event->getQueue()->willReturn($queueMock);
         $event->getJob()->willReturn($awareJob->reveal());
+        $event->setParam('logger', $loggerMock)->willReturn(null);
         /* @var ProcessJobEvent $eventMock */
         $eventMock = $event->reveal();
 
@@ -279,19 +296,16 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
 
         $job = $this->prophesize(AbstractJob::class);
         $job->getId()->willReturn('jobId');
-        $job->getMetadata('log.reason')->willReturn('log-reason');
 
         if ('info' !== $method) {
             $logger->$method(Argument::allOf(
                 Argument::containingString($expectContains),
-                Argument::containingString('jobId'),
-                Argument::containingString('log-reason')
+                Argument::containingString('jobId')
             ))->shouldBeCalled();
         } else {
             $logger->$method(Argument::allOf(
                 Argument::containingString($expectContains),
-                Argument::containingString('jobId'),
-                Argument::not(Argument::containingString('log-reason'))
+                Argument::containingString('jobId')
             ))->shouldBeCalled();
         }
         /* @var LoggerInterface $loggerMock */

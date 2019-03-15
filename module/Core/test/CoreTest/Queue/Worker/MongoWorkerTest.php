@@ -78,7 +78,6 @@ class MongoWorkerTest extends \PHPUnit_Framework_TestCase
 
         /* @var MongoQueue $queueMock */
         $queue = $this->prophesize(MongoQueue::class);
-        $queue->delete($jobMock)->shouldBeCalled();
         $queueMock = $queue->reveal();
 
         $result = $this->target->processJob($jobMock, $queueMock);
@@ -97,22 +96,10 @@ class MongoWorkerTest extends \PHPUnit_Framework_TestCase
 
         /* @var MongoQueue $queueMock */
         $queue = $this->prophesize(MongoQueue::class);
-        $queue
-            ->retry(
-                $jobMock,
-                Argument::allOf(
-                    Argument::type('array'),
-                    Argument::withEntry('message', 'test recoverable'),
-                    Argument::withEntry('delay', $options['delay']),
-                    Argument::withKey('trace')
-                )
-            )
-            ->shouldBeCalled();
-
         $queueMock = $queue->reveal();
 
         $result = $this->target->processJob($jobMock, $queueMock);
-        static::assertEquals(ProcessJobEvent::JOB_STATUS_FAILURE_RECOVERABLE, $result);
+        static::assertEquals(ProcessJobEvent::JOB_STATUS_FAILURE, $result);
     }
 
     public function testDoesFailJobIfEncounteredFatalFailure()
@@ -126,18 +113,6 @@ class MongoWorkerTest extends \PHPUnit_Framework_TestCase
 
         /* @var MongoQueue $queueMock */
         $queue = $this->prophesize(MongoQueue::class);
-        $queue
-            ->fail(
-                $jobMock,
-                Argument::allOf(
-                    Argument::type('array'),
-                    Argument::withEntry('message', 'test fatal'),
-                    Argument::withEntry('delay', $options['delay']),
-                    Argument::withKey('trace')
-                )
-            )
-            ->shouldBeCalled();
-
         $queueMock = $queue->reveal();
 
         $result = $this->target->processJob($jobMock, $queueMock);
