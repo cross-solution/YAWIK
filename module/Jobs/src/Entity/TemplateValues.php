@@ -90,6 +90,22 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
     protected $html='';
 
     /**
+     * Introduction text for the job template
+     *
+     * @ODM\Field(type="string")
+     * @var string
+     */
+    protected $introduction = '';
+
+    /**
+     * Boilerplate (outro) text for the job template
+     *
+     * @ODM\Field(type="string")
+     * @var string
+     */
+    protected $boilerplate = '';
+
+    /**
      * free values (currently not in use)
      *
      * @ODM\Field(type="hash")
@@ -248,6 +264,46 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
     public function getHtml()
     {
         return $this->html;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntroduction(): string
+    {
+        return $this->introduction;
+    }
+
+    /**
+     * @param string $introduction
+     *
+     * @return self
+     */
+    public function setIntroduction($introduction)
+    {
+        $this->introduction = $introduction;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBoilerplate(): string
+    {
+        return $this->boilerplate;
+    }
+
+    /**
+     * @param string $boilerplate
+     *
+     * @return self
+     */
+    public function setBoilerplate($boilerplate)
+    {
+        $this->boilerplate = $boilerplate;
+
+        return $this;
     }
 
 
