@@ -115,7 +115,7 @@ class Application extends BaseApplication
             $configDir = '';
             $dirs = [
                 // path/to/module/test/sandbox/config directories
-                __DIR__.'/../../../*/sandbox/config',
+                __DIR__.'/../../../../*/sandbox/config',
 
                 // path/to/yawik-standard/config
                 __DIR__.'/../../../config',
