@@ -2,6 +2,8 @@
 # (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
 
 default:
+    translation:
+        locale: en
     formatters:
         progress:
             verbose: true
@@ -18,7 +20,7 @@ default:
             # change this base url value to match
             # your local development server url:
             base_url: "http://localhost:8081"
-            files_path: "%paths.base%/modules/Behat/resources/fixtures/"
+            files_path: "%paths.base%/vendor/yawik/behat/resources/fixtures/"
             javascript_session: chrome
             sessions:
                 chrome:
