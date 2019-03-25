@@ -43,7 +43,7 @@ class Module implements
     RequireFilePermissionInterface,
     RequireDirectoryPermissionInterface
 {
-    const VERSION = '0.33.4';
+    const VERSION = '0.33.5';
 
     /**
      * @param ModuleOptions $options
@@ -122,7 +122,7 @@ class Module implements
                 '\Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate'
             );
         }
-        
+
         $sm = $e->getApplication()->getServiceManager();
         $translator = $sm->get('translator'); // initialize translator!
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
@@ -138,7 +138,7 @@ class Module implements
                 $sm->get('Core/Options')
             );
             $languageRouteListener->attach($eventManager);
-        
+
             $ajaxRenderListener = new AjaxRenderListener();
             $ajaxRenderListener->attach($eventManager);
 
@@ -147,10 +147,10 @@ class Module implements
 
             $xmlRenderListener = new XmlRenderListener();
             $xmlRenderListener->attach($eventManager);
-        
+
             $enforceJsonResponseListener = new EnforceJsonResponseListener();
             $enforceJsonResponseListener->attach($eventManager);
-        
+
             $stringListener = new StringListener();
             $stringListener->attach($eventManager);
         }
@@ -160,14 +160,14 @@ class Module implements
         $notificationAjaxHandler = new NotificationAjaxHandler();
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($notificationAjaxHandler, 'injectView'), -20);
         $notificationListener->attach(NotificationEvent::EVENT_NOTIFICATION_HTML, array($notificationAjaxHandler, 'render'), -20);
-        
+
 
         $eventManager->attach(
             MvcEvent::EVENT_DISPATCH_ERROR,
             function ($event) {
                 if ($event instanceof MvcEvent) {
                     $application = $event->getApplication();
-                    
+
                     if ($application::ERROR_EXCEPTION == $event->getError()) {
                         $ex = $event->getParam('exception');
                         if (404 == $ex->getCode()) {
