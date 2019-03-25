@@ -31,7 +31,7 @@ class JsonLdProvider implements JsonLdProviderInterface
     /**
      * the decorated job entity.
      *
-     * @var \Jobs\Entity\JobInterface
+     * @var \Jobs\Entity\JobInterface|\Jobs\Entity\Job
      */
     private $job;
 
@@ -63,7 +63,6 @@ class JsonLdProvider implements JsonLdProviderInterface
             '@type' => 'JobPosting',
             'title' => $this->job->getTitle(),
             'description' => $this->getDescription($this->job->getTemplateValues()),
-            'rate' => $this->getRate(),
             'datePosted' => $dateStart,
             'identifier' => [
                 '@type' => 'PropertyValue',
@@ -81,6 +80,8 @@ class JsonLdProvider implements JsonLdProviderInterface
             'employmentType' => $this->job->getClassifications()->getEmploymentTypes()->getValues(),
             'validThrough' => $dateEnd
         ];
+
+        $array += $this->generateSalary();
 
         return Json::encode($array);
     }
@@ -138,17 +139,24 @@ class JsonLdProvider implements JsonLdProviderInterface
         return $description;
     }
 
-    /**
-     * Generates a rate from salary entity
-     *
-     * @return string
-     */
-    private function getRate()
+    private function generateSalary()
     {
         $salary = $this->job->getSalary();
 
-        return ($salary && !is_null($salary->getValue())) ?
-            ($salary->getValue() . ' ' . $salary->getCurrency() . '/' . $salary->getUnit()) :
-            /*@translate*/ 'Undefined';
+        if (!$salary || null === $salary->getValue()) {
+            return [];
+        }
+
+        return [
+            'baseSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => $salary->getCurrency(),
+                'value' => [
+                    '@type' => 'QuantitiveValue',
+                    'value' => $salary->getValue(),
+                    'unitText' => $salary->getUnit()
+                ],
+            ],
+        ];
     }
 }
