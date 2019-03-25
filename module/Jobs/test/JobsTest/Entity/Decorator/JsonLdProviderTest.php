@@ -16,6 +16,7 @@ use Jobs\Entity\Decorator\JsonLdProvider;
 use Jobs\Entity\Job;
 use Jobs\Entity\JsonLdProviderInterface;
 use Jobs\Entity\Location;
+use Jobs\Entity\Salary;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 
@@ -43,13 +44,16 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         '@testInheritance' => ['as_reflection' => true],
         '@testConstructSetsJob' => false,
         '@testGeneratesJsonLdWithoutOrganizationAndDate' => [
-            'args' => 'getJobWoOrgAndDate'
+            'args' => 'getJobWoOrgAndDate',
         ],
+        '@testGeneratesJsonLdWithSalary' => [
+            'args' => 'getJobWithSalary',
+        ]
     ];
 
     private $inheritance = [ JsonLdProviderInterface::class ];
 
-    private function getJob($withOrganization=true, $withDatePublishStart=true)
+    private function getJob($withOrganization=true, $withDatePublishStart=true, $withSalary=false)
     {
         $job = new Job();
         $organization = new Organization();
@@ -67,12 +71,21 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         $locations->add($location);
         $job->setLocations($locations);
 
+        if ($withSalary) {
+            $job->getSalary()->setValue(1000)->setCurrency('EUR')->setUnit(Salary::UNIT_DAY);
+        }
+
         return [$job];
     }
 
     private function getJobWoOrgAndDate()
     {
         return $this->getJob(false, false);
+    }
+
+    private function getJobWithSalary()
+    {
+        return $this->getJob(false, false, true);
     }
 
     public function testConstructSetsJob()
@@ -101,5 +114,35 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Company Name', $array['hiringOrganization']['name']);
 
         $this->assertNull($array['datePosted']);
+    }
+
+    public function testGeneratesJsonLdWithoutSalary()
+    {
+        $json = $this->target->toJsonLd();
+
+        $array = json_decode($json, JSON_OBJECT_AS_ARRAY);
+
+        $this->assertArrayNotHasKey('baseSalary', $array);
+    }
+
+    public function testGeneratesJsonLdWithSalary()
+    {
+        $json = $this->target->toJsonLd();
+
+        $array = json_decode($json, JSON_OBJECT_AS_ARRAY);
+
+        $this->assertArrayHasKey('baseSalary', $array);
+
+        $expect = [
+            '@type' => 'MonetaryAmount',
+            'currency' => 'EUR',
+            'value' => [
+                '@type' => 'QuantitiveValue',
+                'value' => 1000,
+                'unitText' => Salary::UNIT_DAY,
+            ],
+        ];
+
+        $this->assertEquals($expect, $array['baseSalary']);
     }
 }
