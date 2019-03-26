@@ -16,22 +16,39 @@
 <fieldset id="<?php echo $element->hasAttribute('id') ? $element->getAttribute('id') : 'user-info'?>">
     <div class="fieldset-content">
 
-                <?php echo $this->formRow($element->get('gender'), null, null, $layout); ?>
-                <?php echo $this->formRowCombined(
-                    array(4 => $element->get('firstName'), 5 => $element->get('lastName')), null, null, $layout
-                );?>
-                <?php echo $this->formRowCombined(
+                <?php if ($element->has('gender')): echo $this->formRow($element->get('gender'), null, null, $layout); endif?>
+                <?php if ($element->has('firstName') && $element->has('lastName')):
+                     echo $this->formRowCombined(
+                         array(4 => $element->get('firstName'), 5 => $element->get('lastName')), null, null, $layout
+                     );
+                     elseif ($element->has('firstName')):
+                         echo $this->formRow($element->get('firstName'), null, null, $layout);
+                     elseif ($element->has('lastName')):
+                         echo $this->formRow($element->get('lastName'), null, null, $layout);
+                     endif;?>
+                <?php if ($element->has('street') && $element->has('houseNumber')):
+                    echo $this->formRowCombined(
                 		array(7 => $element->get('street'), 2 => $element->get('houseNumber')), null, null, $layout
-                ); ?>
-                <?php echo $this->formRowCombined(
+                );
+                        elseif ($element->has('street')):
+                            echo $this->formRow($element->get('street'), null, null, $layout);
+                        elseif ($element->has('houseNumber')):
+                            echo $this->formRow($element->get('lastName'), null, null, $layout);
+                        endif;
+                            ?>
+                <?php if ($element->has('postalCode') && $element->has('city')):
+                    echo $this->formRowCombined(
                     array(2 => $element->get('postalCode'), 7 => $element->get('city')), null, null, $layout
-                );?>
-                <?php echo $this->formRow($element->get('country'), null, null, $layout); ?>
-                <?php echo $this->formRow($element->get('phone'), null, null, $layout);
-                      echo $this->formRow($element->get('email'), null, null, $layout);?>
-       
+                );
+                        elseif ($element->has('postalCode')):
+                            echo $this->formRow($element->get('postalCode'), null, null, $layout);
+                        elseif ($element->has('city')):
+                            echo $this->formRow($element->get('city'), null, null, $layout);
+                        endif;?>
+                <?php if ($element->has('country')): echo $this->formRow($element->get('country'), null, null, $layout); endif;?>
+                <?php if ($element->has('phone')): echo $this->formRow($element->get('phone'), null, null, $layout); endif;
+                      if ($element->has('email')): echo $this->formRow($element->get('email'), null, null, $layout); endif; ?>
+
     </div>
-    
+
 </fieldset>
-
-
