@@ -16,7 +16,12 @@ alpha
 but
 
 YAWIK is currently used by ~10 small companies for managing ~100 applications 
-a day.
+a day. The following Jobboards are using YAWIK:
+
+* https://www.gastrojob24.ch
+* https://www.stellenmarkt.com
+
+you want to be listet here? Send a PR.
 
 Build status: 
 
