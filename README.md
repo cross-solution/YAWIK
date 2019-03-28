@@ -11,12 +11,11 @@ connecting recruiters and applicants.
 Current state
 -------------
 
-alpha
+[alpha](https://de.wikipedia.org/wiki/Entwicklungsstadium_(Software)#Alpha-Version)
 
 but
 
-YAWIK is currently used by ~10 small companies for managing ~100 applications 
-a day. The following Jobboards are using YAWIK:
+The following Jobboards are using YAWIK:
 
 * https://www.gastrojob24.ch
 * https://www.stellenmarkt.com
