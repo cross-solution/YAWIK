@@ -45,10 +45,9 @@ class ApiJobListByOrganizationController extends AbstractActionController
         $callback = $this->filter->setData($_GET)->getValue('callback');
 
         $status = $this->filter->getValue('status');
-        var_dump($status);
         if (true === $status) { $status = null; }
         elseif (!$status) { $status = StatusInterface::ACTIVE; }
-        var_dump($status);
+
         try {
             $jobs = $this->jobRepository->findByOrganization($organizationId, $status);
         } catch (\Exception $e) {

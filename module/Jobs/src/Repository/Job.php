@@ -122,15 +122,10 @@ class Job extends AbstractRepository
             'organization' => new \MongoId($organizationId),
         ]);
 
-        var_dump($status);
         if ($status) {
             $criteria['status.name'] = $status;
         }
-        var_dump($criteria);
-
-        $return = $this->findBy($criteria);
-        var_dump(count($return));
-        return $return;
+        return $this->findBy($criteria);
     }
 
     /**
