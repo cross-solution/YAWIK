@@ -34,10 +34,6 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN docker-php-source delete
 
-# Add timezone
-RUN rm /etc/localtime && \
-    ln -s /usr/share/zoneinfo/UTC /etc/localtime && \
-    "date"
 RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini
 
 RUN apk add openjdk8-jre
