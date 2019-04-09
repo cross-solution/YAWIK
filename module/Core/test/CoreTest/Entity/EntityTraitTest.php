@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\EntityInterface;
 use Core\Entity\EntityTrait;
 
@@ -21,9 +23,8 @@ use Core\Entity\EntityTrait;
  * @group  Core.Entity
  * @covers \Core\Entity\EntityTrait
  */
-class EntityTraitTest extends \PHPUnit_Framework_TestCase
+class EntityTraitTest extends TestCase
 {
-
     protected static $fileResource;
     protected $target;
 
@@ -34,7 +35,8 @@ class EntityTraitTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new TraitEntity();
     }
 
@@ -125,7 +127,6 @@ class EntityTraitTest extends \PHPUnit_Framework_TestCase
                   EntityInterface::PROPERTY_STRICT];
 
         foreach ($modes  as $mode) {
-
             $actual = $target->hasProperty('testProperty', $mode);
             $expect = array_shift($expects);
             $assert = 'assert' . ($expect ? 'true' : 'false');
@@ -135,8 +136,8 @@ class EntityTraitTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class TraitEntity implements EntityInterface {
-
+class TraitEntity implements EntityInterface
+{
     use EntityTrait;
 
     protected $attribute;
@@ -172,7 +173,6 @@ class TraitEntity implements EntityInterface {
 
 class HasPropertyTestTraitEntity implements EntityInterface
 {
-
     use EntityTrait;
 
     protected $testProperty;
@@ -180,18 +180,21 @@ class HasPropertyTestTraitEntity implements EntityInterface
 
 class HasPropertyAndGetterTestTraitEntity extends HasPropertyTestTraitEntity
 {
-
-    public function getTestProperty() {}
+    public function getTestProperty()
+    {
+    }
 }
 
 class HasPropertyAndSetterTestTraitEntity extends HasPropertyTestTraitEntity
 {
-
-    public function setTestProperty() {}
+    public function setTestProperty()
+    {
+    }
 }
 
 class HasPropertyAndGetterAndSetterTestTraitEntity extends HasPropertyAndGetterTestTraitEntity
 {
-
-    public function setTestProperty() {}
+    public function setTestProperty()
+    {
+    }
 }

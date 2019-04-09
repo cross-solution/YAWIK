@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Form\Element\InviteEmployeeBar;
 
 /**
@@ -21,7 +23,7 @@ use Organizations\Form\Element\InviteEmployeeBar;
  * @group Organizations.Form
  * @group Organizations.Form.Element
  */
-class InviteEmployeeBarTest extends \PHPUnit_Framework_TestCase
+class InviteEmployeeBarTest extends TestCase
 {
 
     /**

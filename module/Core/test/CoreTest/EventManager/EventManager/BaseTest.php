@@ -10,17 +10,19 @@
 /** */
 namespace CoreTest\EventManager\EventManager;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\EventManager\EventManager
- * 
+ *
  * @covers \Core\EventManager\EventManager
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.EventManager
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -83,4 +85,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class MockEvent extends \Zend\EventManager\Event {}
+class MockEvent extends \Zend\EventManager\Event
+{
+}

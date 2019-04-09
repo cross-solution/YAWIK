@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Status;
 use Applications\Entity\StatusInterface;
 
@@ -22,7 +24,7 @@ use Applications\Entity\StatusInterface;
  * @group  Applications
  * @group  Applications.Entity
  */
-class StatusTest extends \PHPUnit_Framework_TestCase
+class StatusTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -31,7 +33,7 @@ class StatusTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Status();
     }

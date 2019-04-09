@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryForm;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,13 +19,13 @@ use Cv\Form\NativeLanguageForm;
 
 /**
  * Tests for \Cv\Form\NativeLanguage
- * 
+ *
  * @covers \Cv\Form\NativeLanguage
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Form
  */
-class NativeLanguageFormTest extends \PHPUnit_Framework_TestCase
+class NativeLanguageFormTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 
@@ -34,5 +36,4 @@ class NativeLanguageFormTest extends \PHPUnit_Framework_TestCase
     private $attributes = [
         'baseFieldset' => 'Cv/NativeLanguageFieldset'
     ];
-    
 }

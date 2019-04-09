@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Listener\LanguageRouteListener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Zend\EventManager\EventManager;
@@ -30,7 +32,7 @@ use Core\I18n\Locale as LocaleService;
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener
  */
-class OnRouteCallbackTest extends \PHPUnit_Framework_TestCase
+class OnRouteCallbackTest extends TestCase
 {
     use SetupTargetTrait;
 
@@ -132,5 +134,3 @@ class OnRouteCallbackTest extends \PHPUnit_Framework_TestCase
         return [$this->localeService, new ModuleOptions()];
     }
 }
-
-

@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Paginator;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Paginator\JobSelectPaginator;
 use Core\Paginator\Adapter\DoctrineMongoCursor;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -20,12 +22,12 @@ use Zend\Paginator\Paginator;
 
 /**
  * Tests for \Applications\Paginator\JobSelectPaginator
- * 
+ *
  * @covers \Applications\Paginator\JobSelectPaginator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class JobSelectPaginatorTest extends \PHPUnit_Framework_TestCase
+class JobSelectPaginatorTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -59,8 +61,8 @@ class JobSelectPaginatorTest extends \PHPUnit_Framework_TestCase
         $qb = $this->getMockBuilder(Builder::class)->disableOriginalConstructor()->setMethods(['field', 'equals', 'getQuery'])->getMock();
         $qb->expects($this->once())->method('field')->with('title')->will($this->returnSelf());
         $qb->expects($this->once())->method('equals')->with(
-            $this->callback(function($value) use ($q) {
-                return $value instanceOf \MongoRegex && (String) $value == '/' . $q . '/i';
+            $this->callback(function ($value) use ($q) {
+                return $value instanceof \MongoRegex && (String) $value == '/' . $q . '/i';
             })
         );
         $cursor = $this->getMockBuilder(\Doctrine\ODM\MongoDB\Cursor::class)->disableOriginalConstructor()->getMock();

@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Entity\EmployeePermissions;
 use Organizations\Entity\EmployeePermissionsInterface;
 
@@ -21,7 +23,7 @@ use Organizations\Entity\EmployeePermissionsInterface;
  * @group Organizations
  * @group Organizations.Entity
  */
-class EmployeePermissionsTest extends \PHPUnit_Framework_TestCase
+class EmployeePermissionsTest extends TestCase
 {
 
     /**
@@ -99,7 +101,6 @@ class EmployeePermissionsTest extends \PHPUnit_Framework_TestCase
 
         $target->revokeAll();
         $this->assertEquals($target->getPermissions(), EmployeePermissions::NONE);
-
     }
 
     /**
@@ -115,6 +116,4 @@ class EmployeePermissionsTest extends \PHPUnit_Framework_TestCase
             array(EmployeePermissionsInterface::APPLICATIONS_CHANGE | EmployeePermissionsInterface::JOBS_VIEW)
         );
     }
-
-
 }

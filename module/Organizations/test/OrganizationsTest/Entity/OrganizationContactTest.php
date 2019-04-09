@@ -10,18 +10,19 @@
 /** */
 namespace OrganizationsTest\Entity;
 
-use Organizations\Entity\OrganizationContact;
+use PHPUnit\Framework\TestCase;
 
+use Organizations\Entity\OrganizationContact;
 
 /**
  * Test the template entity.
  *
- * @covers Organizations\Entity\OrganizationContact
+ * @covers \Organizations\Entity\OrganizationContact
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity
  */
-class OrganizationContactTest extends \PHPUnit_Framework_TestCase
+class OrganizationContactTest extends TestCase
 {
 
     /**
@@ -31,7 +32,7 @@ class OrganizationContactTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new OrganizationContact();
     }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\Constraint\ExtendsOrImplements;
 
 /**
@@ -51,11 +53,10 @@ trait AssertInheritanceTrait
      */
     public static function extendsOrImplements($parentsAndInterfaces)
     {
-
         if (!is_array($parentsAndInterfaces)) {
             throw \PHPUnit_Util_InvalidArgumentHelper::factory(
-                                                     1,
-                                                     'array or ArrayAccess'
+                1,
+                'array or ArrayAccess'
             );
         }
 

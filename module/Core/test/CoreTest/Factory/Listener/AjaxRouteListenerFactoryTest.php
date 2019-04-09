@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Factory\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\Listener\AjaxRouteListenerFactory;
 use Core\Listener\AjaxRouteListener;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
@@ -19,14 +21,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Listener\AjaxRouteListenerFactory
- * 
+ *
  * @covers \Core\Factory\Listener\AjaxRouteListenerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Factory
  * @group Core.Factory.Listener
  */
-class AjaxRouteListenerFactoryTest extends \PHPUnit_Framework_TestCase
+class AjaxRouteListenerFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -67,6 +69,4 @@ class AjaxRouteListenerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(AjaxRouteListener::class, $listener);
         $this->assertAttributeSame($events, 'ajaxEventManager', $listener);
     }
-
-
 }

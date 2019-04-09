@@ -10,6 +10,8 @@
 /** */
 namespace InstallTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Install\Controller\Plugin\YawikConfigCreator;
 use Install\Filter\DbNameExtractor;
 
@@ -23,7 +25,7 @@ use Install\Filter\DbNameExtractor;
  * @group Install.Controller.Plugin
  * @since 0.20
  */
-class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
+class YawikConfigCreatorTest extends TestCase
 {
     /**
      * Class under test
@@ -32,13 +34,15 @@ class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $extractor = new DbNameExtractor('YAWIK.test');
 
         $this->target = new YawikConfigCreator($extractor);
 
-        if (0 === strpos($this->getName(false), 'testExtends')) return;
+        if (0 === strpos($this->getName(false), 'testExtends')) {
+            return;
+        }
 
         chdir(__DIR__);
     }
@@ -55,7 +59,7 @@ class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("'default_db' => 'TestDbName'", $result);
         $this->assertContains("'connectionString' => 'mongodb://server/TestDbName'", $result);
         $this->assertContains("'core_options'", $result);
-        $this->assertContains("'system_message_email' => 'test@email'", $result );
+        $this->assertContains("'system_message_email' => 'test@email'", $result);
 
         $result = $this->target->process('mongodb://server', 'test@email');
 
@@ -88,6 +92,5 @@ class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
         if (!$content) {
             $this->fail('No file was created!');
         }
-
     }
 }

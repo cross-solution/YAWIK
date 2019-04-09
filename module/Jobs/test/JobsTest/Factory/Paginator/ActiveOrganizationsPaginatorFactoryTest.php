@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Paginator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Paginator\Adapter\DoctrineMongoCursor;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -21,14 +23,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory
- * 
+ *
  * @covers \Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Factory
  * @group Jobs.Factory.Paginator
  */
-class ActiveOrganizationsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
+class ActiveOrganizationsPaginatorFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -43,7 +45,7 @@ class ActiveOrganizationsPaginatorFactoryTest extends \PHPUnit_Framework_TestCas
     ];
 
     private $inheritance = [ FactoryInterface::class ];
-	
+    
     public function testServiceCreation()
     {
         $request = new Request();

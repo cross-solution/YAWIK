@@ -10,20 +10,22 @@
 /** */
 namespace CoreTest\Form\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
 use Zend\Hydrator\Strategy\BooleanStrategy;
 use Zend\Hydrator\Strategy\DefaultStrategy;
 
 /**
  * Tests for \Core\Form\Hydrator\HydratorStrategyProviderTrait
- * 
+ *
  * @covers \Core\Form\Hydrator\HydratorStrategyProviderTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Form
  * @group Core.Form.Hydrator
  */
-class HydratorStrategyProviderTraitTest extends \PHPUnit_Framework_TestCase
+class HydratorStrategyProviderTraitTest extends TestCase
 {
 
     /**
@@ -33,7 +35,7 @@ class HydratorStrategyProviderTraitTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new HydratorStrategyProvider();
     }
@@ -62,7 +64,6 @@ class HydratorStrategyProviderTraitTest extends \PHPUnit_Framework_TestCase
 class HydratorStrategyProvider
 {
     use HydratorStrategyProviderTrait;
-
 }
 
 class HydratorStrategyProviderWithGetDefaultStrategy

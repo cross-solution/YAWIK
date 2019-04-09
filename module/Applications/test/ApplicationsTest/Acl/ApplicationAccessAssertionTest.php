@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Acl;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Acl\ApplicationAccessAssertion;
 use Applications\Entity\Application;
 use Auth\Entity\User;
@@ -29,7 +31,7 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  * @group Applications
  * @group Applications.Acl
  */
-class ApplicationAccessAssertionTest extends \PHPUnit_Framework_TestCase
+class ApplicationAccessAssertionTest extends TestCase
 {
 
     /**
@@ -46,7 +48,7 @@ class ApplicationAccessAssertionTest extends \PHPUnit_Framework_TestCase
      */
     private $acl;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new ApplicationAccessAssertion();
         $this->acl    = new Acl();

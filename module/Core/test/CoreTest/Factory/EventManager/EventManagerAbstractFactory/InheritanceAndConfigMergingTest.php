@@ -10,13 +10,15 @@
 /** */
 namespace CoreTest\Factory\EventManager\EventManagerAbstractFactory;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\EventManager\EventManagerAbstractFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Factory\EventManager\EventManagerAbstractFactory
- * 
+ *
  * @covers \Core\Factory\EventManager\EventManagerAbstractFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -24,7 +26,7 @@ use Zend\ServiceManager\ServiceManager;
  * @group Core.Factory.EventManager
  * @group Core.Factory.EventManager.EventManagerAbstractFactory
  */
-class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
+class InheritanceAndConfigMergingTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -44,16 +46,18 @@ class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
     {
         $services = new ServiceManager();
         $this->assertTrue(
-             $this->target->canCreate(
-                $services,'Any.string/Value/Events'
+            $this->target->canCreate(
+                 $services,
+                 'Any.string/Value/Events'
              ),
-             'Checking correct name failed.'
+            'Checking correct name failed.'
         );
         $this->assertFalse(
-             $this->target->canCreate(
-                $services,'Any.string.not.ending/in/Events.but has it in the middle!'
+            $this->target->canCreate(
+                 $services,
+                 'Any.string.not.ending/in/Events.but has it in the middle!'
              ),
-             'Checking invalid name failed.'
+            'Checking invalid name failed.'
         );
     }
 
@@ -108,7 +112,7 @@ class InheritanceAndConfigMergingTest extends \PHPUnit_Framework_TestCase
 
         $target->expects($this->once())->method('createEventManager')->with($services, $expected);
 
-        $target($services,$reqName);
+        $target($services, $reqName);
     }
 
     public function testCanCreateServiceWithName()

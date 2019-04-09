@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\MetaDataProviderInterface;
 use Core\Form\Hydrator\MetaDataHydrator;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,14 +19,14 @@ use Zend\Hydrator\HydratorInterface;
 
 /**
  * Tests for \Core\Form\Hydrator\MetaDataHydrator
- * 
+ *
  * @covers \Core\Form\Hydrator\MetaDataHydrator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Form
  * @group Core.Form.Hydrator
  */
-class MetaDataHydratorTest extends \PHPUnit_Framework_TestCase
+class MetaDataHydratorTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -42,7 +44,6 @@ class MetaDataHydratorTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
 
         $this->assertEquals([], $this->target->extract($object));
-
     }
 
     public function testExtractionOfMetaDataProvider()

@@ -9,12 +9,14 @@
 
 namespace AuthTest\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Token;
 use Auth\Service\GotoResetPassword;
 use AuthTest\Entity\Provider\UserEntityProvider;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class GotoResetPasswordTest extends \PHPUnit_Framework_TestCase
+class GotoResetPasswordTest extends TestCase
 {
     /**
      * @var GotoResetPassword
@@ -36,7 +38,7 @@ class GotoResetPasswordTest extends \PHPUnit_Framework_TestCase
      */
     private $userRepositoryMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->repositoryServiceMock = $this->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()
@@ -75,7 +77,7 @@ class GotoResetPasswordTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn(null);
 
-        $this->setExpectedException('Auth\Service\Exception\UserNotFoundException');
+        $this->expectException('Auth\Service\Exception\UserNotFoundException');
 
         $this->testedObject->proceed($userId, $tokenHash);
     }
@@ -103,7 +105,7 @@ class GotoResetPasswordTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn($user);
 
-        $this->setExpectedException('Auth\Service\Exception\TokenExpirationDateExpiredException');
+        $this->expectException('Auth\Service\Exception\TokenExpirationDateExpiredException');
 
         $this->testedObject->proceed($userId, $tokenHash);
     }

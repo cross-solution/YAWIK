@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Console;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Console\AssetsInstallController;
 use CoreTest\Bootstrap;
 use Symfony\Component\Console\Input\StringInput;
@@ -36,7 +38,7 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
      */
     private $output;
 
-    public function setUp()
+    protected function setUp()
     {
         /* @var AssetsInstallController $controller */
         $this->setApplicationConfig(Bootstrap::getConfig());

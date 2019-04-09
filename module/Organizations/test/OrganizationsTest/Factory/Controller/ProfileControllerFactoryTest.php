@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Interop\Container\ContainerInterface;
 use Jobs\Options\JobboardSearchOptions;
 use Organizations\Controller\ProfileController;
@@ -26,7 +28,7 @@ use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
  * @covers \Organizations\Factory\Controller\ProfileControllerFactory
  * @package OrganizationsTest\Factory\Controller
  */
-class ProfileControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class ProfileControllerFactoryTest extends TestCase
 {
     public function testInvokation()
     {
@@ -55,7 +57,7 @@ class ProfileControllerFactoryTest extends \PHPUnit_Framework_TestCase
         ;
 
         $factory = new ProfileControllerFactory();
-        $controller = $factory($container,'some-name');
-        $this->assertInstanceOf(ProfileController::class,$controller);
+        $controller = $factory($container, 'some-name');
+        $this->assertInstanceOf(ProfileController::class, $controller);
     }
 }

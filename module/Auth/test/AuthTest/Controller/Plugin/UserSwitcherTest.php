@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Controller\Plugin\Acl;
 use Auth\AuthenticationService;
 use Auth\Controller\Plugin\UserSwitcher;
@@ -24,14 +26,14 @@ use Zend\Session\Container;
 
 /**
  * Tests for \Auth\Controller\Plugin\UserSwitcher
- * 
+ *
  * @covers \Auth\Controller\Plugin\UserSwitcher
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Auth
  * @group Auth.Controller
  * @group Auth.Controller.Plugin
  */
-class UserSwitcherTest extends \PHPUnit_Framework_TestCase
+class UserSwitcherTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -66,8 +68,12 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
 
     public function propertiesProvider()
     {
-        $createSession = function() { $_SESSION[UserSwitcher::SESSION_NAMESPACE]['params'] = ['param' => 'value']; };
-        $clearSession = function() { $_SESSION = []; };
+        $createSession = function () {
+            $_SESSION[UserSwitcher::SESSION_NAMESPACE]['params'] = ['param' => 'value'];
+        };
+        $clearSession = function () {
+            $_SESSION = [];
+        };
         return [
             ['sessionParams', [
                 'pre' => $createSession,
@@ -178,7 +184,6 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($ref, $this->target->clear());
         }
         $this->assertEquals($oldSession, $_SESSION);
-
     }
 
     public function testSwitchUserReturnsEarlyWhenSwitchedUserIsSet()
@@ -205,13 +210,13 @@ class UserSwitcherTest extends \PHPUnit_Framework_TestCase
         $_SESSION = $oldSession;
         $this->assertTrue($this->target->switchUser('switchedUser'));
         $this->assertEquals(
-             [
+            [
                  'isSwitchedUser' => true,
                  'originalUser' => 'originalUser',
                  'params' => [], 'ref' => '/some/ref',
                  'session' => serialize($oldSession)
              ],
-             $_SESSION[UserSwitcher::SESSION_NAMESPACE]->getArrayCopy()
+            $_SESSION[UserSwitcher::SESSION_NAMESPACE]->getArrayCopy()
         );
         $_SESSION = [];
     }

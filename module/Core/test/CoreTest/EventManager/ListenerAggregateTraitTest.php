@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\EventManager;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\EventManager\ListenerAggregateTrait;
 use Zend\EventManager\EventManager;
 
 /**
  * Tests for \Core\EventManager\ListenerAggregateTrait
- * 
+ *
  * @covers \Core\EventManager\ListenerAggregateTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.EventManager
  */
-class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
+class ListenerAggregateTraitTest extends TestCase
 {
 
     /**
@@ -86,7 +88,6 @@ class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
 
             2 > $i ? $target->attach($events) : $target->attachEvents($events, $eventsSpec);
         }
-
     }
 
 
@@ -103,7 +104,8 @@ class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidEventsSpecThrowsException($spec)
     {
-        $this->setExpectedException('\UnexpectedValueException', 'event name');
+        $this->expectException('\UnexpectedValueException');
+        $this->expectExceptionMessage('event name');
 
         $target = new Latt_EventsProperty();
         $target->events = $spec;
@@ -119,9 +121,13 @@ class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
  */
 abstract class BaseTestLatt
 {
-	public function testProp(){}
-	
-	public function testProp2(){}
+    public function testProp()
+    {
+    }
+    
+    public function testProp2()
+    {
+    }
 }
 
 class Latt_Simple extends BaseTestLatt
@@ -135,7 +141,6 @@ class Latt_Simple extends BaseTestLatt
         $this->providerCalled = true;
         return [];
     }
-
 }
 
 class Latt_EventsProperty extends BaseTestLatt
@@ -156,4 +161,3 @@ class Latt_EventsProvider extends BaseTestLatt
         return $this->testEventsSpec;
     }
 }
-

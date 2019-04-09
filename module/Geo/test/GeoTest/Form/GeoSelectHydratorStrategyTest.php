@@ -10,6 +10,8 @@
 /** */
 namespace GeoTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractLocation;
 use Core\Entity\LocationInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -21,13 +23,13 @@ use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Tests for \Geo\Form\GeoSelectHydratorStrategy
- * 
+ *
  * @covers \Geo\Form\GeoSelectHydratorStrategy
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Geo
  * @group Geo.Form
  */
-class GeoSelectHydratorStrategyTest extends \PHPUnit_Framework_TestCase
+class GeoSelectHydratorStrategyTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -55,7 +57,9 @@ class GeoSelectHydratorStrategyTest extends \PHPUnit_Framework_TestCase
     public function propertiesProvider()
     {
         $location = new Gshst_Location();
-        $assertInstance = function() { $this->assertInstanceOf(Gshst_Location::class, $this->target->getLocationEntity()); };
+        $assertInstance = function () {
+            $this->assertInstanceOf(Gshst_Location::class, $this->target->getLocationEntity());
+        };
         return [
             ['locationEntityPrototype', [
                 'value' => Gshst_Location::class,
@@ -139,4 +143,5 @@ class GeoSelectHydratorStrategyTest extends \PHPUnit_Framework_TestCase
 }
 
 class Gshst_Location extends AbstractLocation implements LocationInterface
-{ }
+{
+}

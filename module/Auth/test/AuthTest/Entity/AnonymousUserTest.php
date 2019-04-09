@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\AnonymousUser;
 
 /**
@@ -22,7 +24,7 @@ use Auth\Entity\AnonymousUser;
  * @group  User
  * @group  User.Entity
  */
-class AnonymousUserTest extends \PHPUnit_Framework_TestCase
+class AnonymousUserTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -31,7 +33,7 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new AnonymousUser();
     }
@@ -48,7 +50,7 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to set the login name of the user
-     * @covers Auth\Entity\AnonymousUser::getRole
+     * @covers \Auth\Entity\AnonymousUser::getRole
      */
     public function testGetRole()
     {
@@ -57,7 +59,7 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to set the login name of the user
-     * @covers Auth\Entity\AnonymousUser::setCredential
+     * @covers \Auth\Entity\AnonymousUser::setCredential
      */
     public function testSetCredential()
     {
@@ -68,7 +70,7 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to set the login name of the user
-     * @covers Auth\Entity\AnonymousUser::setSecret
+     * @covers \Auth\Entity\AnonymousUser::setSecret
      */
     public function testSetSecret()
     {
@@ -78,8 +80,8 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Auth\Entity\AnonymousUser::getToken
-     * @covers Auth\Entity\AnonymousUser::getId
+     * @covers \Auth\Entity\AnonymousUser::getToken
+     * @covers \Auth\Entity\AnonymousUser::getId
      */
     public function testGetId()
     {
@@ -91,7 +93,7 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Auth\Entity\AnonymousUser::preventPersistence
+     * @covers \Auth\Entity\AnonymousUser::preventPersistence
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Anonymous users may not be persisted.
      */

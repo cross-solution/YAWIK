@@ -10,18 +10,20 @@
 /** */
 namespace OrganizationsTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Organizations\Form\Element\Employee;
 
 /**
  * Tests for Employee element.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Form
  * @group Organizations.Form.Element
  */
-class EmployeePermissionsTest extends \PHPUnit_Framework_TestCase
+class EmployeePermissionsTest extends TestCase
 {
 
     /**

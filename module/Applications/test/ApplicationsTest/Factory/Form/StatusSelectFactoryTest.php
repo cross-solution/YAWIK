@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Factory\Form\StatusSelectFactory;
 use Applications\Repository\Application as ApplicationsRepository;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
@@ -26,7 +28,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Applications.Factory
  * @group Applications.Factory.Form
  */
-class StatusSelectFactoryTest extends \PHPUnit_Framework_TestCase
+class StatusSelectFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 

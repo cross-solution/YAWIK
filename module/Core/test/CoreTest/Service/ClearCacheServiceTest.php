@@ -9,6 +9,8 @@
 
 namespace CoreTest\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Application;
 use Core\Service\ClearCacheService;
 use CoreTest\Bootstrap;
@@ -24,7 +26,7 @@ use Zend\Stdlib\ArrayUtils;
  * @since       0.32
  * @package     CoreTest\Service
  */
-class ClearCacheServiceTest extends \PHPUnit_Framework_TestCase
+class ClearCacheServiceTest extends TestCase
 {
     private static $testCacheDir;
 
@@ -39,7 +41,7 @@ class ClearCacheServiceTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function setUp()
+    protected function setUp()
     {
         static::setUpBeforeClass();
     }
@@ -145,7 +147,7 @@ class ClearCacheServiceTest extends \PHPUnit_Framework_TestCase
         $fs = new Filesystem();
         clearstatcache();
         $service = new ClearCacheService($options, $fs);
-        $this->assertTrue(true, $service->clearCache());
+        $this->assertTrue($service->clearCache());
         $this->assertFileNotExists($cacheDir.'/.checksum');
         $this->assertFileExists($cacheDir.'/hello/world.php');
         $this->assertFileExists($cacheDir.'/foo/bar.php');

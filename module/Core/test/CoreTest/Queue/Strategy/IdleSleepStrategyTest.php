@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Queue\Strategy;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\MongoQueue;
 use Core\Queue\Strategy\IdleSleepStrategy;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -21,12 +23,12 @@ use Zend\EventManager\EventManagerInterface;
 
 /**
  * Tests for \Core\Queue\Strategy\IdleSleepStrategy
- * 
+ *
  * @covers \Core\Queue\Strategy\IdleSleepStrategy
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class IdleSleepStrategyTest extends \PHPUnit_Framework_TestCase
+class IdleSleepStrategyTest extends TestCase
 {
     use TestInheritanceTrait;
 

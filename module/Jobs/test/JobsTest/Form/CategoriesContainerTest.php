@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryForm;
 use Core\Form\WizardContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,13 +19,13 @@ use Jobs\Form\CategoriesContainer;
 
 /**
  * Tests for \Jobs\Form\CategoriesContainer
- * 
+ *
  * @covers \Jobs\Form\CategoriesContainer
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Form
  */
-class CategoriesContainerTest extends \PHPUnit_Framework_TestCase
+class CategoriesContainerTest extends TestCase
 {
     use TestInheritanceTrait;
 

@@ -10,6 +10,8 @@
  */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AttachableEntityTrait;
 use Core\Entity\AttachableEntityInterface;
 use Core\Entity\AttachableEntityManager;
@@ -18,7 +20,7 @@ use Core\Entity\IdentifiableEntityInterface;
 /**
  * @coversDefaultClass \Core\Entity\AttachableEntityTrait
  */
-class AttachableEntityTraitTest extends \PHPUnit_Framework_TestCase
+class AttachableEntityTraitTest extends TestCase
 {
     
     /**
@@ -27,7 +29,7 @@ class AttachableEntityTraitTest extends \PHPUnit_Framework_TestCase
     protected $attachableEntityTrait;
     
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {

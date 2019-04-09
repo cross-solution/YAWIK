@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractStatusEntity;
 use Core\Entity\StatusAwareEntityInterface;
 use Core\Entity\StatusAwareEntityTrait;
@@ -18,20 +20,19 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for Core\Entity\StatusAwareEntityTrait
- * 
- * @covers Core\Entity\StatusAwareEntityTrait
+ *
+ * @covers \Core\Entity\StatusAwareEntityTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class StatusAwareEntityTraitTest extends \PHPUnit_Framework_TestCase
+class StatusAwareEntityTraitTest extends TestCase
 {
     use TestSetterGetterTrait;
 
     private $target;
 
-    public function propertiesProvider() {
-
-
+    public function propertiesProvider()
+    {
         return [
 
             [ 'status', [
@@ -42,9 +43,13 @@ class StatusAwareEntityTraitTest extends \PHPUnit_Framework_TestCase
             [ 'status', [
                 'target' => new ProvideEntityStatusAwareEntity(),
                 'default' => true,
-                'default_assert' => function ($g, $return) { $this->assertEquals(new Status(Status::STATE_ONE), $return); },
+                'default_assert' => function ($g, $return) {
+                    $this->assertEquals(new Status(Status::STATE_ONE), $return);
+                },
                 'value' => Status::STATE_TWO,
-                'getter_assert' => function($g, $return, $v) { $this->assertEquals(new Status(Status::STATE_TWO), $return); },
+                'getter_assert' => function ($g, $return, $v) {
+                    $this->assertEquals(new Status(Status::STATE_TWO), $return);
+                },
             ]],
 
             [ 'status', [
@@ -88,4 +93,3 @@ class Status extends AbstractStatusEntity implements StatusInterface
 
     protected $default = self::STATE_ONE;
 }
-

@@ -10,18 +10,19 @@
 /** */
 namespace OrganizationsTest\Entity;
 
-use Organizations\Entity\Template;
+use PHPUnit\Framework\TestCase;
 
+use Organizations\Entity\Template;
 
 /**
  * Test the template entity.
  *
- * @covers Organizations\Entity\Template
+ * @covers \Organizations\Entity\Template
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity
  */
-class TemplateTest extends \PHPUnit_Framework_TestCase
+class TemplateTest extends TestCase
 {
 
     /**
@@ -31,7 +32,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Template();
     }

@@ -10,22 +10,23 @@
 /** */
 namespace OrganizationsTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Organizations\Controller\Plugin\InvitationHandler;
 use Zend\Validator\EmailAddress;
 
 /**
  * Tests for \Organizations\Controller\Plugin\InvitationHandler
- * 
+ *
  * @covers \Organizations\Controller\Plugin\InvitationHandler
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Controller
  * @group Organizations.Controller.Plugin
  */
-class InvitationHandlerTest extends \PHPUnit_Framework_TestCase
+class InvitationHandlerTest extends TestCase
 {
-
     private $target;
     private $emailValidatorMock;
     private $translatorMock;
@@ -33,7 +34,7 @@ class InvitationHandlerTest extends \PHPUnit_Framework_TestCase
     private $userTokenGeneratorMock;
     private $mailerPluginMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $name = $this->getName(false);
         $this->target = new InvitationHandler();
@@ -142,7 +143,7 @@ class InvitationHandlerTest extends \PHPUnit_Framework_TestCase
             'message' => $message,
         );
 
-        foreach (array($email, null, '', 0, array()) as $testEmail)  {
+        foreach (array($email, null, '', 0, array()) as $testEmail) {
             $result = $this->target->process($testEmail);
 
             $this->assertEquals($expected, $result);
@@ -211,8 +212,6 @@ class InvitationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($result, $expected);
         $this->assertTrue($user->isDraft(), 'User is not in draft mode!');
-
-
     }
 
     public function testReturnsErrorResultIfMailSendingFailed()

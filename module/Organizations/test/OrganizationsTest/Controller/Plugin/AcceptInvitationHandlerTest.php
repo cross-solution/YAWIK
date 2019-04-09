@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Exception\MissingDependencyException;
 use Organizations\Controller\Plugin\AcceptInvitationHandler;
@@ -18,16 +20,15 @@ use Organizations\Entity\Organization;
 
 /**
  * Tests for \Organizations\Controller\Plugin\AcceptInvitationHandler
- * 
+ *
  * @covers \Organizations\Controller\Plugin\AcceptInvitationHandler
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Controller
  * @group Organizations.Controller.Plugin
  */
-class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
+class AcceptInvitationHandlerTest extends TestCase
 {
-
     private $target;
     private $authMock;
     private $organizationRepositoryMock;
@@ -35,7 +36,7 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
     private $userMock;
     private $organizationMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $name = $this->getName(false);
 
@@ -110,7 +111,6 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
         $storageMock = $this->getMockForAbstractClass('\Zend\Authentication\Storage\StorageInterface');
         $storageMock->expects($this->once())->method('write')->with($this->userMock->getId());
         $this->authMock->expects($this->once())->method('getStorage')->willReturn($storageMock);
-
     }
 
     public function testSetterAndGetter()
@@ -122,7 +122,6 @@ class AcceptInvitationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->organizationRepositoryMock, $this->target->getOrganizationRepository());
         $this->assertSame($this->userRepositoryMock, $this->target->getUserRepository());
         $this->assertSame($this->authMock, $this->target->getAuthenticationService());
-
     }
 
     public function testGetterThrowException()

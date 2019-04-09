@@ -10,6 +10,10 @@
 /** */
 namespace CoreTestUtils\Constraint;
 
+use PHPUnit\Framework\Constraint\Constraint;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\ExpectationFailedException;
+
 /**
  * Constraint to assert the existence and default values of attributes.
  *
@@ -17,7 +21,7 @@ namespace CoreTestUtils\Constraint;
  * @since  0.26
  * @since 0.29 Allow passing in a \ReflectionClass instance.
  */
-class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
+class DefaultAttributesValues extends Constraint
 {
     /**
      * The default attributes.
@@ -46,7 +50,7 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
         parent::__construct();
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->defaultAttributes);
     }
@@ -57,17 +61,16 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
      * Returns true, if and only if the object defines ALL attributes and they have the expected value
      *
      * @param object $other
-     *
      * @return bool
-     *
+     * @throws \ReflectionException
      * @since 0,29 Allow passing in a Reflection class instance.
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
         $this->result = [];
         $success      = true;
 
-        $reflection = $other instanceOf \ReflectionClass ? $other : new \ReflectionClass($other);
+        $reflection = $other instanceof \ReflectionClass ? $other : new \ReflectionClass($other);
         $properties = $reflection->getDefaultProperties();
 
         foreach ($this->defaultAttributes as $prop => $value) {
@@ -78,9 +81,9 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
 
             if (array_key_exists($prop, $properties)) {
                 try {
-                    \PHPUnit_Framework_Assert::assertSame($value, $properties[$prop]);
+                    Assert::assertSame($value, $properties[$prop]);
                     $this->result[$prop] = true;
-                } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
+                } catch (ExpectationFailedException $e) {
                     $message = $e->toString();
 
                     if ($comparisonFailure = $e->getComparisonFailure()) {
@@ -105,12 +108,12 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
         return $success;
     }
 
-    protected function failureDescription($other)
+    protected function failureDescription($other): string
     {
-        return ($other instanceOf \ReflectionClass ? $other->getName() : get_class($other)) . ' ' . $this->toString();
+        return ($other instanceof \ReflectionClass ? $other->getName() : get_class($other)) . ' ' . $this->toString();
     }
 
-    protected function additionalFailureDescription($other)
+    protected function additionalFailureDescription($other): string
     {
         $info = '';
 
@@ -118,17 +121,15 @@ class DefaultAttributesValues extends \PHPUnit_Framework_Constraint
             if (true === $msg) {
                 $info .= "\n + $prop";
             } else {
-                $info .= sprintf("\n - %-25s: %s",  $prop, $msg);
+                $info .= sprintf("\n - %-25s: %s", $prop, $msg);
             }
         }
 
         return $info;
     }
 
-    public function toString()
+    public function toString(): string
     {
         return 'has expected default attributes and its values.';
     }
-
-
 }

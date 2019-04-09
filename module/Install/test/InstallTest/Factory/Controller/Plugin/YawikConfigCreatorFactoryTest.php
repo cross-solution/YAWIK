@@ -10,13 +10,15 @@
 /** */
 namespace InstallTest\Factory\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Install\Factory\Controller\Plugin\YawikConfigCreatorFactory;
 use Install\Filter\DbNameExtractor;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Install\Factory\Controller\Plugin\YawikConfigCreatorFactory
- * 
+ *
  * @covers \Install\Factory\Controller\Plugin\YawikConfigCreatorFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Install
@@ -24,7 +26,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Install.Factory.Controller
  * @group Install.Factory.Controller.Plugin
  */
-class YawikConfigCreatorFactoryTest extends \PHPUnit_Framework_TestCase
+class YawikConfigCreatorFactoryTest extends TestCase
 {
 
     /**
@@ -47,7 +49,7 @@ class YawikConfigCreatorFactoryTest extends \PHPUnit_Framework_TestCase
         $services->expects($this->once())->method('get')->with('FilterManager')->willReturn($filters);
 
         $target = new YawikConfigCreatorFactory();
-        $plugin = $target($services,'irrelevant');
+        $plugin = $target($services, 'irrelevant');
 
         $this->assertInstanceOf('\Install\Controller\Plugin\YawikConfigCreator', $plugin);
     }

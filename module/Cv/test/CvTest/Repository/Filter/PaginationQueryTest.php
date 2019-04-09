@@ -8,6 +8,8 @@
 
 namespace CvTest\Repository\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Auth\Entity\User;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -20,13 +22,13 @@ use Geo\Entity\Geometry\Point;
 /**
  * Class PaginationQueryTest
  *
- * @covers  Cv\Repository\Filter\PaginationQuery
+ * @covers \Cv\Repository\Filter\PaginationQuery
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Repository
  * @group Cv.Repository.Filter
  */
-class PaginationQueryTest extends \PHPUnit_Framework_TestCase
+class PaginationQueryTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -94,7 +96,6 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
             $exprExpects['getQuery'][] = [ 'return' => 'exprQuery' ];
             $qbExpects['field'][] = [ 'with' => [null]];
             $qbExpects['equals'][] = [ 'with' => ['exprQuery']];
-
         }
 
         if ('location' == $mode || true === $mode) {
@@ -113,7 +114,7 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
 
 
 
-        $configureMock = function($mock, $expects) {
+        $configureMock = function ($mock, $expects) {
             foreach ($expects as $method => $spec) {
                 $count = count($spec);
                 $with = [];
@@ -135,7 +136,6 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $configureMock($qb, $qbExpects);
         $configureMock($expr, $exprExpects);
         return $qb;
-
     }
 
     public function provideCreateQueryTestData()
@@ -162,5 +162,4 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $qb = $this->getQueryBuilderMock($mode, $params);
         $this->target->createQuery($params, $qb);
     }
-
 }

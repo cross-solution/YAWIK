@@ -8,6 +8,7 @@
 
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
 
 trait SimpleSetterAndGetterTrait
 {

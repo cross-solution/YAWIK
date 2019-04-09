@@ -10,17 +10,19 @@
 /** */
 namespace CoreTest\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Exception\MissingDependencyException;
 
 /**
  * Tests for \Core\Exception\MissingDependencyException
- * 
+ *
  * @covers \Core\Exception\MissingDependencyException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Exception
  */
-class MissingDependencyExceptionTest extends \PHPUnit_Framework_TestCase
+class MissingDependencyExceptionTest extends TestCase
 {
     /**
      * @testdox Extends \RuntimeException
@@ -54,8 +56,11 @@ class MissingDependencyExceptionTest extends \PHPUnit_Framework_TestCase
     {
         $target = new MissingDependencyException($dependency, $object, $previous);
 
-        $expectedMessage = sprintf('Missing dependency "%s" in "%s"',
-                                   $dependency, is_object($object) ? get_class($object) : $object);
+        $expectedMessage = sprintf(
+            'Missing dependency "%s" in "%s"',
+            $dependency,
+            is_object($object) ? get_class($object) : $object
+        );
 
         $this->assertEquals($expectedMessage, $target->getMessage());
     }

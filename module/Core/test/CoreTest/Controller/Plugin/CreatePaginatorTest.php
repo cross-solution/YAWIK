@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\CreatePaginator;
 use Core\Listener\Events\CreatePaginatorEvent;
 use Interop\Container\ContainerInterface;
@@ -29,7 +31,7 @@ use Zend\Stdlib\Parameters;
  * @group Core.Controller
  * @group Core.Controller.Plugin
  */
-class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
+class CreatePaginatorTest extends TestCase
 {
 
     /**
@@ -69,15 +71,18 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testPaginatorCreation($paginatorName, $params, $defaultParams, $usePostParams, $expect)
     {
-        if ($defaultParams) { $options = array_merge($params, $defaultParams); }
-        else                { $options = $params; }
+        if ($defaultParams) {
+            $options = array_merge($params, $defaultParams);
+        } else {
+            $options = $params;
+        }
         $request = new Request();
         if ($usePostParams) {
             $request->setPost(new Parameters($params));
         } else {
             $request->setQuery(new Parameters($params));
         }
-		
+        
         
         $paginator = $this->getMockBuilder('\Zend\Paginator\Paginator')->disableOriginalConstructor()->getMock();
         $paginator->expects($this->once())->method('setCurrentPageNumber')->with($expect['page'])->will($this->returnSelf());
@@ -92,20 +97,20 @@ class CreatePaginatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-	    $container = $this->getMockBuilder(ContainerInterface::class)
-	                      ->getMock();
-	    $container->expects($this->once())
-		    ->method('get')
-		    ->with('ServiceManager')
-		    ->willReturn($sm)
-		;
-		    
+        $container = $this->getMockBuilder(ContainerInterface::class)
+                          ->getMock();
+        $container->expects($this->once())
+            ->method('get')
+            ->with('ServiceManager')
+            ->willReturn($sm)
+        ;
+            
         $em = $this->getMockBuilder(EventManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['getEvent','triggerEvent'])
             ->getMock()
         ;
-	    
+        
         $sm->expects($this->exactly(2))
             ->method('get')
             ->withConsecutive(

@@ -10,20 +10,22 @@
 /** */
 namespace CoreTest\Entity\Status;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Status\AbstractSortableStatus;
 use Core\Entity\Status\AbstractStatus;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Entity\Status\AbstractSortableStatus
- * 
+ *
  * @covers \Core\Entity\Status\AbstractSortableStatus
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  * @group Core.Entity.Status
  */
-class AbstractSortableStatusTest extends \PHPUnit_Framework_TestCase
+class AbstractSortableStatusTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -81,8 +83,6 @@ class Asst_ConcreteSortableStatus extends AbstractSortableStatus
         self::STATE_TWO => 2,
         self::STATE_ONE => 1,
     ];
-
-
 }
 
 class Asst_InvalidSortableStatus extends AbstractSortableStatus

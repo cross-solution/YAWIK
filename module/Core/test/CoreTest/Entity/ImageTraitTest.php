@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\ImageTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Entity\ImageTrait
- * 
+ *
  * @covers \Core\Entity\ImageTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class ImageTraitTest extends \PHPUnit_Framework_TestCase
+class ImageTraitTest extends TestCase
 {
     use SetupTargetTrait, TestSetterGetterTrait;
 
@@ -33,6 +35,7 @@ class ImageTraitTest extends \PHPUnit_Framework_TestCase
     ];
 }
 
-class Itt_ImageTrait {
+class Itt_ImageTrait
+{
     use ImageTrait;
 }

@@ -9,13 +9,15 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\Mailer;
 use Core\Mail\Message;
 use Zend\Mail\Transport\InMemory as InMemoryTransport;
 use Core\Mail\MailService;
 use Interop\Container\ContainerInterface;
 
-class MailerTest extends \PHPUnit_Framework_TestCase
+class MailerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -27,7 +29,7 @@ class MailerTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $container = $this->createMock(ContainerInterface::class);
         $this->mailService = $this->getMockBuilder(MailService::class)
@@ -101,7 +103,7 @@ class MailerTest extends \PHPUnit_Framework_TestCase
         $mail = new Message();
 
         // test return to Mailer when $mail is null
-        $this->assertSame($target,$target());
+        $this->assertSame($target, $target());
 
         // test invokation send directly
         // if $mail instance of Message class
@@ -110,22 +112,21 @@ class MailerTest extends \PHPUnit_Framework_TestCase
             ->with($mail)
             ->willReturn('returned value')
         ;
-        $this->assertEquals('returned value',$target($mail));
+        $this->assertEquals('returned value', $target($mail));
 
         // convert plugin into message
         $mailService->expects($this->exactly(2))
             ->method('get')
-            ->with('some plugin',array())
+            ->with('some plugin', array())
             ->willReturn($mail)
         ;
         $this->assertEquals(
             $mail,
-            $target('some plugin',array())
+            $target('some plugin', array())
         );
         $this->assertEquals(
             'returned value',
-            $target('some plugin',true,true)
+            $target('some plugin', true, true)
         );
-
     }
 }

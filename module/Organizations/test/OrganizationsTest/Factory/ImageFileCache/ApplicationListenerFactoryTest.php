@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Factory\ImageFileCache;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Factory\ImageFileCache\ApplicationListenerFactory;
 use Organizations\ImageFileCache\ApplicationListener;
@@ -18,7 +20,7 @@ use Organizations\Repository\OrganizationImage as ImageRepository;
 /**
  * @coversDefaultClass \Organizations\Factory\ImageFileCache\ApplicationListenerFactory
  */
-class ApplicationListenerFactoryTest extends \PHPUnit_Framework_TestCase
+class ApplicationListenerFactoryTest extends TestCase
 {
 
     /**
@@ -51,7 +53,7 @@ class ApplicationListenerFactoryTest extends \PHPUnit_Framework_TestCase
             ]));
         
         $factory = new ApplicationListenerFactory();
-        $listener = $factory->__invoke($serviceLocator,'irrelevant');
+        $listener = $factory->__invoke($serviceLocator, 'irrelevant');
         $this->assertInstanceOf(ApplicationListener::class, $listener);
     }
 }

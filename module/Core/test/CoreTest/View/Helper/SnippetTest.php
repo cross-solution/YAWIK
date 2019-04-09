@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\EventManager\EventManager;
 use Core\View\Helper\Snippet;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -21,13 +23,13 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Tests for \Core\View\Helper\Snippet
- * 
+ *
  * @covers \Core\View\Helper\Snippet
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
- *  
+ *
  */
-class SnippetTest extends \PHPUnit_Framework_TestCase
+class SnippetTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -56,7 +58,7 @@ class SnippetTest extends \PHPUnit_Framework_TestCase
             $config = [
                 'test' => 'test content',
             ];
-        } else if ('testReturnsContent' == $testName) {
+        } elseif ('testReturnsContent' == $testName) {
             $config = [
                 'test' => [
                     'test content',
@@ -97,7 +99,7 @@ class SnippetTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsEmptyString()
     {
-    	$event = $this->args['event'];
+        $event = $this->args['event'];
         $event->setName('nothingToDo');
         $event->setTarget($this->target);
 
@@ -162,6 +164,4 @@ class SnippetTest extends \PHPUnit_Framework_TestCase
 
         $this->target->__invoke('test');
     }
-
-
 }

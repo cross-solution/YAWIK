@@ -9,6 +9,8 @@
 
 namespace Geo\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Geo\Options\ModuleOptions;
@@ -18,10 +20,10 @@ use Geo\Options\ModuleOptions;
  *
  * @author  Carsten Bleek <bleek@cross-solution.de>
  * @since   0.29
- * @covers  Geo\Options\ModuleOptions
+ * @covers \Geo\Options\ModuleOptions
  * @package Geo\Options
  */
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
     use TestSetterGetterTrait, SetupTargetTrait;
 

@@ -9,19 +9,23 @@
 
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryForm;
 use Core\Form\SummaryFormInterface;
+
 /**
 * @covers \Core\Form\SummaryForm
 */
-class SummaryTest extends \PHPUnit_Framework_TestCase
+class SummaryTest extends TestCase
 {
     /**
      * @var  $target SummaryForm
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new SummaryForm();
     }
 
@@ -33,15 +37,16 @@ class SummaryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerRenderMode
-     * @covers Core\Form\SummaryForm::setRenderMode
-     * @covers Core\Form\SummaryForm::getRenderMode
+     * @covers \Core\Form\SummaryForm::setRenderMode
+     * @covers \Core\Form\SummaryForm::getRenderMode
      *
      * @param string $input     render mode
      * @param string $expected  render mode
      */
-    public function testSetGetRenderModer($input,$expected) {
-       $this->target->setRenderMode($input);
-       $this->assertSame($this->target->getRenderMode(),$expected);
+    public function testSetGetRenderModer($input, $expected)
+    {
+        $this->target->setRenderMode($input);
+        $this->assertSame($this->target->getRenderMode(), $expected);
     }
 
     public function providerRenderMode()
@@ -55,15 +60,16 @@ class SummaryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDisplayMode
-     * @covers Core\Form\SummaryForm::setDisplayMode
-     * @covers Core\Form\SummaryForm::getDisplayMode
+     * @covers \Core\Form\SummaryForm::setDisplayMode
+     * @covers \Core\Form\SummaryForm::getDisplayMode
      *
      * @param string $input     display mode
      * @param string $expected  display mode
      */
-    public function testSetGetDisplayModer($input,$expected) {
+    public function testSetGetDisplayModer($input, $expected)
+    {
         $this->target->setDisplayMode($input);
-        $this->assertSame($this->target->getDisplayMode(),$expected);
+        $this->assertSame($this->target->getDisplayMode(), $expected);
     }
 
     public function providerDisplayMode()
@@ -74,19 +80,21 @@ class SummaryTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testIsValid(){
-       /* @todo */
+    public function testIsValid()
+    {
+        /* @todo */
     }
 
     /**
      * @dataProvider providerDisplayMode
-     * @covers Core\Form\SummaryForm::setOptions
+     * @covers \Core\Form\SummaryForm::setOptions
      *
      * @param string $input     display mode
      * @param string $expected  display mode
      */
-    public function testSetOptions($input, $expected) {
+    public function testSetOptions($input, $expected)
+    {
         $this->target->setOptions(['display_mode' => $input ]);
-        $this->assertSame($this->target->getDisplayMode(),$expected);
+        $this->assertSame($this->target->getDisplayMode(), $expected);
     }
 }

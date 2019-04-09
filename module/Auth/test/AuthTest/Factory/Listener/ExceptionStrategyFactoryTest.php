@@ -9,19 +9,21 @@
 
 namespace AuthTest\Factory\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\Listener\ExceptionStrategyFactory;
 use Auth\Listener\UnauthorizedAccessListener;
 use Auth\Listener\DeactivatedUserListener;
 use CoreTest\Bootstrap;
 
-class ExceptionStrategyFactoryTest extends \PHPUnit_Framework_TestCase
+class ExceptionStrategyFactoryTest extends TestCase
 {
     /**
      * @var ExceptionStrategyFactory
      */
     private $factory;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->factory = new ExceptionStrategyFactory();
     }

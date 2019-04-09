@@ -2,6 +2,8 @@
 
 namespace JobsTest\Factory;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\ServiceManager;
 use Jobs\Factory\ModuleOptionsFactory;
 use Jobs\Options\ModuleOptions;
@@ -11,7 +13,7 @@ use Jobs\Options\ModuleOptions;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsFactoryTest extends TestCase
 {
     /**
      * test, if configuration overwrites default values
@@ -39,7 +41,7 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new ModuleOptionsFactory;
         $defaultOption = new ModuleOptions(array());
 
-        $object = $factory->__invoke($serviceManager,'irrelevant');
+        $object = $factory->__invoke($serviceManager, 'irrelevant');
 
         $this->assertInstanceOf('Jobs\Options\ModuleOptions', $object);
 

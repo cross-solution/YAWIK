@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Tests the target for default attribute values.
  *
@@ -44,7 +46,8 @@ trait TestDefaultAttributesTrait
         if (!property_exists($this, 'target') || !is_object($this->target)) {
             throw new \PHPUnit_Framework_Exception(
                 self::class . ': ' . static::class
-                . ' must define the property $target and its value must be an object.');
+                . ' must define the property $target and its value must be an object.'
+            );
         }
 
 
@@ -64,11 +67,10 @@ trait TestDefaultAttributesTrait
         if (!property_exists($this, 'attributes')) {
             throw new \PHPUnit_Framework_Exception(
                 self::class . ': ' . static::class
-                . ' must define the property $attributes with an array of attribute => value pairs.');
+                . ' must define the property $attributes with an array of attribute => value pairs.'
+            );
         }
 
         return $this->attributes;
-
     }
-    
 }

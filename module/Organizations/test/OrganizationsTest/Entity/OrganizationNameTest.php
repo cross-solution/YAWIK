@@ -10,18 +10,19 @@
 /** */
 namespace OrganizationsTest\Entity;
 
-use Organizations\Entity\OrganizationName;
+use PHPUnit\Framework\TestCase;
 
+use Organizations\Entity\OrganizationName;
 
 /**
  * Test the template entity.
  *
- * @covers Organizations\Entity\OrganizationName
+ * @covers \Organizations\Entity\OrganizationName
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity
  */
-class OrganizationNameTest extends \PHPUnit_Framework_TestCase
+class OrganizationNameTest extends TestCase
 {
 
     /**
@@ -31,7 +32,7 @@ class OrganizationNameTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new OrganizationName();
     }
@@ -113,5 +114,4 @@ class OrganizationNameTest extends \PHPUnit_Framework_TestCase
         $target->refCounterDec();
         $this->assertAttributeSame(-1, 'ranking', $target);
     }
-
 }

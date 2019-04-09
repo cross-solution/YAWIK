@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Options\FieldsetCustomizationOptions;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -17,14 +19,14 @@ use Zend\Stdlib\AbstractOptions;
 
 /**
  * Tests for \Core\Options\FieldsetCustomizationOptions
- * 
+ *
  * @covers \Core\Options\FieldsetCustomizationOptions
  * @coversDefaultClass \Core\Options\FieldsetCustomizationOptions
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Options
  */
-class FieldsetCustomizationOptionsTest extends \PHPUnit_Framework_TestCase
+class FieldsetCustomizationOptionsTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

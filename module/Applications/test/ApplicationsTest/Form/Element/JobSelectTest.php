@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Form\Element\JobSelect;
 use Core\Form\HeadscriptProviderInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -26,7 +28,7 @@ use Core\Form\Element\Select;
  * @group Applications.Form
  * @group Applications.Form.Element
  */
-class JobSelectTest extends \PHPUnit_Framework_TestCase
+class JobSelectTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

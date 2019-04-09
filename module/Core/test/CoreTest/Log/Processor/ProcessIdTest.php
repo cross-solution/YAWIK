@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\Log\Processor;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Log\Processor\ProcessId;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Log\Processor\ProcessorInterface;
 
 /**
  * Tests for \Core\Log\Processor\ProcessId
- * 
+ *
  * @covers \Core\Log\Processor\ProcessId
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class ProcessIdTest extends \PHPUnit_Framework_TestCase
+class ProcessIdTest extends TestCase
 {
     use TestInheritanceTrait;
 

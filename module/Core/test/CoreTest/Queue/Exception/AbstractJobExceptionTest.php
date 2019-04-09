@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\Queue\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\Exception\AbstractJobException;
 use Core\Queue\Exception\JobExceptionInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Queue\Exception\AbstractJobException
- * 
+ *
  * @covers \Core\Queue\Exception\AbstractJobException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class AbstractJobExceptionTest extends \PHPUnit_Framework_TestCase
+class AbstractJobExceptionTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -51,7 +53,9 @@ class AbstractJobExceptionTest extends \PHPUnit_Framework_TestCase
     public function testConstruction($message, $options)
     {
         $args = [$message];
-        if (null !== $options) { $args[] = $options; }
+        if (null !== $options) {
+            $args[] = $options;
+        }
         $target = new ConcreteAbstractJobException(...$args);
 
         $additionalOptions = [
@@ -66,4 +70,5 @@ class AbstractJobExceptionTest extends \PHPUnit_Framework_TestCase
 }
 
 class ConcreteAbstractJobException extends AbstractJobException
-{ }
+{
+}

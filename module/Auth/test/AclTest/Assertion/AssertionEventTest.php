@@ -10,6 +10,8 @@
 /** */
 namespace AclTest\Assertion;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Assertion\AssertionEvent;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Resource\GenericResource;
@@ -17,10 +19,10 @@ use Zend\Permissions\Acl\Role\GenericRole;
 
 /**
  * test the AssertionEvent
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class AssertionEventTest extends \PHPUnit_Framework_TestCase
+class AssertionEventTest extends TestCase
 {
     public function testImplementsInterface()
     {

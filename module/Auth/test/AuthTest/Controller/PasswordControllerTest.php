@@ -9,6 +9,8 @@
 
 namespace AuthTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTest\Bootstrap;
 use Auth\AuthenticationService;
 use Auth\Controller\PasswordController;
@@ -38,7 +40,7 @@ class PasswordControllerTest extends AbstractControllerTestCase
      */
     private $repositoriesMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->init('password');
 

@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Language;
@@ -24,7 +26,7 @@ use Zend\Form\Fieldset;
  * @group Cv
  * @group Cv.Form
  */
-class LanguageSkillFieldsetTest extends \PHPUnit_Framework_TestCase
+class LanguageSkillFieldsetTest extends TestCase
 {
     use TestInheritanceTrait;
 

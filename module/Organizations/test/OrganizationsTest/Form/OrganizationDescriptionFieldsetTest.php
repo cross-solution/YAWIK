@@ -10,18 +10,20 @@
 /** */
 namespace OrganizationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Form\OrganizationsDescriptionFieldset;
 
 /**
  * Test for the organization description form.
- * 
+ *
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @covers \Organizations\Form\OrganizationsDescriptionFieldset
  * @group Organizations
  * @group Organizations.Form
  */
-class OrganizationDescriptionFieldsetTest extends \PHPUnit_Framework_TestCase
+class OrganizationDescriptionFieldsetTest extends TestCase
 {
 
     /*
@@ -29,7 +31,8 @@ class OrganizationDescriptionFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new OrganizationsDescriptionFieldset();
         $this->target->init();
     }
@@ -39,18 +42,19 @@ class OrganizationDescriptionFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Form\Fieldset', $this->target);
     }
 
-    public function testNameFormFields(){
-        $this->assertSame($this->target->getName(),"organization-description");
+    public function testNameFormFields()
+    {
+        $this->assertSame($this->target->getName(), "organization-description");
         $this->assertTrue($this->target->has('description'));
     }
 
-    public function testGetInputFilterSpec(){
-        $this->assertSame($this->target->getInputFilterSpecification(),[]);
+    public function testGetInputFilterSpec()
+    {
+        $this->assertSame($this->target->getInputFilterSpecification(), []);
     }
 
-    public function testGetHydrator(){
+    public function testGetHydrator()
+    {
         $this->assertEquals($this->target->getHydrator(), new EntityHydrator());
     }
-
-
 }

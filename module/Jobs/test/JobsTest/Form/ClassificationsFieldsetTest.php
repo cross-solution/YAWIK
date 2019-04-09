@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Tree\Select;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -23,13 +25,13 @@ use Zend\ServiceManager\AbstractPluginManager;
 
 /**
  * Tests for \Jobs\Form\ClassificationsFieldset
- * 
+ *
  * @covers \Jobs\Form\ClassificationsFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Form
  */
-class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
+class ClassificationsFieldsetTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -52,16 +54,16 @@ class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
         $strategy = new DefaultStrategy();
         $select->setHydratorStrategy($strategy);
         $formElements = $this
-	        ->getMockBuilder(FormElementManagerV3Polyfill::class)
-	        ->disableOriginalConstructor()
-	        ->setMethods(['get'])
-	        ->getMock()
+            ->getMockBuilder(FormElementManagerV3Polyfill::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['get'])
+            ->getMock()
         ;
         $formElements
-	        ->expects($this->exactly(3))
-	        ->method('get')
-	        ->withConsecutive(
-                    [
+            ->expects($this->exactly(3))
+            ->method('get')
+            ->withConsecutive(
+                [
                         'Core/Tree/Select',
                         [
                             'tree' => [
@@ -80,7 +82,7 @@ class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
                             ],
                         ]
                     ],
-                    [
+                [
                         'Core/Tree/Select',
                         [
                             'tree' => [
@@ -99,7 +101,7 @@ class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
                             ],
                         ]
                     ],
-                    [
+                [
                         'Core/Tree/Select',
                         [
                             'tree' => [
@@ -118,7 +120,7 @@ class ClassificationsFieldsetTest extends \PHPUnit_Framework_TestCase
                         ]
                     ]
             )
-	        ->willReturn($select)
+            ->willReturn($select)
         ;
         $this->target->expects($this->exactly(3))->method('add')->with($select);
 

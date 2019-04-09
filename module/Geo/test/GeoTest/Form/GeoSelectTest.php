@@ -10,6 +10,8 @@
 /** */
 namespace GeoTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
@@ -31,7 +33,7 @@ use Zend\Json\Json;
  * @group Geo
  * @group Geo.Form
  */
-class GeoSelectTest extends \PHPUnit_Framework_TestCase
+class GeoSelectTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait, TestSetterGetterTrait;
 

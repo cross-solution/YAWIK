@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Options\ModuleOptions;
@@ -17,13 +19,13 @@ use Zend\Stdlib\AbstractOptions;
 
 /**
  * Tests for \Cv\Options\ModuleOptions
- * 
+ *
  * @covers \Cv\Options\ModuleOptions
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Options
  */
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

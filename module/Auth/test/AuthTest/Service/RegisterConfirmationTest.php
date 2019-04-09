@@ -9,11 +9,13 @@
 
 namespace AuthTest\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Service\RegisterConfirmation;
 use AuthTest\Entity\Provider\UserEntityProvider;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class RegisterConfirmationTest extends \PHPUnit_Framework_TestCase
+class RegisterConfirmationTest extends TestCase
 {
     /**
      * @var RegisterConfirmation
@@ -30,7 +32,7 @@ class RegisterConfirmationTest extends \PHPUnit_Framework_TestCase
      */
     private $authenticationServiceMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
             ->disableOriginalConstructor()
@@ -54,7 +56,7 @@ class RegisterConfirmationTest extends \PHPUnit_Framework_TestCase
             ->with($userId)
             ->willReturn(null);
 
-        $this->setExpectedException('Auth\Service\Exception\UserNotFoundException');
+        $this->expectException('Auth\Service\Exception\UserNotFoundException');
 
         $this->testedObject->proceed($userId);
     }

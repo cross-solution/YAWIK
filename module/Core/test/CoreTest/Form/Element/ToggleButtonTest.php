@@ -10,6 +10,8 @@
 
 namespace CoreTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Element\ToggleButton;
 
 /**
@@ -17,14 +19,16 @@ use Core\Form\Element\ToggleButton;
  * @backupGlobals disabled
  * @covers \Core\Form\Element\ToggleButton
  */
-class ToggleButtonTest extends \PHPUnit_Framework_TestCase {
+class ToggleButtonTest extends TestCase
+{
 
     /**
      * @var ToggleButton
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new ToggleButton();
     }
 
@@ -32,7 +36,7 @@ class ToggleButtonTest extends \PHPUnit_Framework_TestCase {
     {
         $this->assertInstanceOf('Core\Form\Element\ToggleButton', $this->target);
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
-        $this->assertAttributeSame('toggleButton','viewHelper',$this->target);
+        $this->assertAttributeSame('toggleButton', 'viewHelper', $this->target);
     }
 
     public function testSetGetViewHelper()

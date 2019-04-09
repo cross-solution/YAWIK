@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\AuthenticationService;
 use Auth\Entity\User;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
@@ -22,14 +24,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Listener\DeleteJobFactory
- * 
+ *
  * @covers \Jobs\Factory\Listener\DeleteJobFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Factory
  * @group Jobs.Factory.Listener
  */
-class DeleteJobFactoryTest extends \PHPUnit_Framework_TestCase
+class DeleteJobFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -50,7 +52,7 @@ class DeleteJobFactoryTest extends \PHPUnit_Framework_TestCase
         $acl = new Acl();
         $user = new User();
         $auth = $this
-	        ->getMockBuilder(AuthenticationService::class)
+            ->getMockBuilder(AuthenticationService::class)
             ->disableOriginalConstructor()
             ->setMethods(['getUser'])
             ->getMock()

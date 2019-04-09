@@ -10,18 +10,19 @@
 /** */
 namespace InstallTest\Filter;
 
-use Install\Filter\DbNameExtractor;
+use PHPUnit\Framework\TestCase;
 
+use Install\Filter\DbNameExtractor;
 
 /**
  * Tests for \Install\Filter\DbNameExtractor
- * 
+ *
  * @covers \Install\Filter\DbNameExtractor
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Install
  * @group Install.Filter
  */
-class DbNameExtractorTest extends \PHPUnit_Framework_TestCase
+class DbNameExtractorTest extends TestCase
 {
     /**
      * @testdox Extends \Zend\Filter\AbstractFilter
@@ -87,5 +88,4 @@ class DbNameExtractorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('YAWIK', $actual);
     }
-    
 }

@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Repository\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Repository\Filter\PaginationQuery;
 use Applications\Repository\Filter\PaginationQueryFactory;
 use Auth\AuthenticationService;
@@ -19,12 +21,12 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Repository\Filter\PaginationQueryFactory
- * 
+ *
  * @covers  \Applications\Repository\Filter\PaginationQueryFactory
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author  Anthonius Munthi <me@itstoni.com>
  */
-class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
+class PaginationQueryFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -52,5 +54,4 @@ class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(PaginationQuery::class, $filter);
     }
-    
 }

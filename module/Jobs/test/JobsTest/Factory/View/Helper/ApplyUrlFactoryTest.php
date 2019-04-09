@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\Params;
 use Zend\I18n\View\Helper\Translate;
 use Zend\Mvc\MvcEvent;
@@ -28,7 +30,7 @@ use Jobs\Factory\View\Helper\ApplyUrlFactory;
  * @group Jobs.Factory.View
  * @group Jobs.Factory.View.Helper
  */
-class ApplyUrlFactoryTest extends \PHPUnit_Framework_TestCase
+class ApplyUrlFactoryTest extends TestCase
 {
 
     /**
@@ -58,19 +60,22 @@ class ApplyUrlFactoryTest extends \PHPUnit_Framework_TestCase
         $helpers->expects($this->exactly(4))
                 ->method('get')
                 ->withConsecutive(
-                    array('url'), array('translate'), array('params'), array('serverUrl')
+                    array('url'),
+                    array('translate'),
+                    array('params'),
+                    array('serverUrl')
                 )
                 ->will($this->onConsecutiveCalls($urlHelper, $translateHelper, $paramsHelper, $serverUrl));
-		
+        
         $sm = $this->getMockBuilder(ServiceManager::class)
-	        ->disableOriginalConstructor()
-	        ->getMock();
-	    $sm->expects($this->once())
-		    ->method('get')
-		    ->with('ViewHelperManager')
-		    ->willReturn($helpers);
-	    
-        $service = $target->__invoke($sm,'irrelevant');
+            ->disableOriginalConstructor()
+            ->getMock();
+        $sm->expects($this->once())
+            ->method('get')
+            ->with('ViewHelperManager')
+            ->willReturn($helpers);
+        
+        $service = $target->__invoke($sm, 'irrelevant');
 
         $this->assertInstanceOf('\Jobs\View\Helper\ApplyUrl', $service);
         $this->assertAttributeSame($urlHelper, 'urlHelper', $service);

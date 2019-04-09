@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -20,16 +22,15 @@ use Zend\Form\Fieldset;
 
 /**
  * Tests for \Cv\Form\PreferredJobFieldset
- * 
+ *
  * @covers \Cv\Form\PreferredJobFieldset
  * @coversDefaultClass \Cv\Form\PreferredJobFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Form
  */
-class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
+class PreferredJobFieldsetTest extends TestCase
 {
-
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 
     /**
@@ -150,7 +151,7 @@ class PreferredJobFieldsetTest extends \PHPUnit_Framework_TestCase
         ];
 
         $callCount = count($add);
-        $addArgValidator = function($arg) use ($add, $callCount) {
+        $addArgValidator = function ($arg) use ($add, $callCount) {
             static $count = 0;
 
             /* PPHUnit calls this callback again after all invokations are made

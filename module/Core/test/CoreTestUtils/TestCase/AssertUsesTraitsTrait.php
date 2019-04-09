@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\Constraint\UsesTraits;
 
 /**
@@ -47,8 +49,8 @@ trait AssertUsesTraitsTrait
     {
         if (!is_array($traits)) {
             throw \PHPUnit_Util_InvalidArgumentHelper::factory(
-                                                     1,
-                                                     'array or ArrayAccess'
+                1,
+                'array or ArrayAccess'
             );
         }
 

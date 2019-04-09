@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Controller\InviteEmployeeController;
 use Organizations\Controller\Plugin\AcceptInvitationHandler;
 use Organizations\Entity\Organization;
@@ -19,13 +21,13 @@ use Organizations\Repository\Organization as OrganizationRepository;
 
 /**
  * Tests for \Organizations\Controller\InviteEmployeeController
- * 
+ *
  * @covers \Organizations\Controller\InviteEmployeeController
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Controller
  */
-class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
+class InviteEmployeeControllerTest extends TestCase
 {
     /**
      * @var InviteEmployeeController
@@ -47,7 +49,7 @@ class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
      */
     private $pluginsMockMap;
 
-    public function setup()
+    protected function setUp()
     {
         $this->orgRepo = $this->createMock(OrganizationRepository::class);
         $this->target = new InviteEmployeeController($this->orgRepo);
@@ -59,14 +61,14 @@ class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
 
 
         $plugins = $this
-	        ->getMockBuilder('\Zend\Mvc\Controller\PluginManager')
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->getMockBuilder('\Zend\Mvc\Controller\PluginManager')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         $plugins
-	        ->expects($this->any())
-	        ->method('get')
-	        ->will($this->returnCallback(array($this, 'retrievePluginMock')))
+            ->expects($this->any())
+            ->method('get')
+            ->will($this->returnCallback(array($this, 'retrievePluginMock')))
         ;
 
         $this->target->setPluginManager($plugins);
@@ -76,14 +78,14 @@ class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
                        ->getMock()
         ;
         $params
-	        ->expects($this->any())
-	        ->method('__invoke')
-	        ->will($this->returnSelf())
+            ->expects($this->any())
+            ->method('__invoke')
+            ->will($this->returnSelf())
         ;
         $params
-	        ->expects($this->any())
-	        ->method('fromQuery')
-	        ->will($this->returnCallback(array($this, 'retrieveQueryParam')))
+            ->expects($this->any())
+            ->method('fromQuery')
+            ->will($this->returnCallback(array($this, 'retrieveQueryParam')))
         ;
 
         $this->pluginsMockMap['params'] = $params;
@@ -203,8 +205,6 @@ class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\View\Model\ViewModel', $model);
 
         $this->assertEquals(array('organization' => 'testOrg'), $model->getVariables());
-
-
     }
 
     public function testAcceptActionReturnsSetPasswordViewModelOnRespHandlerResult()
@@ -218,7 +218,6 @@ class InviteEmployeeControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\View\Model\ViewModel', $model);
 
         $this->assertEquals(array('organization' => 'testOrg', 'form' => 'testForm'), $model->getVariables());
-
     }
 
     public function provideAcceptActionReturnsErrorModelTestData()

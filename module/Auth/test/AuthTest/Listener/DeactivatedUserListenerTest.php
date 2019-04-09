@@ -9,6 +9,8 @@
   
 namespace AuthTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\Mvc\MvcEvent;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManager;
@@ -25,7 +27,7 @@ use Auth\Listener\DeactivatedUserListener as Listener;
  * @author fedys
  * @covers \Auth\Listener\DeactivatedUserListener
  */
-class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
+class DeactivatedUserListenerTest extends TestCase
 {
     /**
      * @var Listener
@@ -62,7 +64,7 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
      */
     protected $routeMatch;
     
-    public function setUp()
+    protected function setUp()
     {
         $this->listener = new Listener();
         $this->user = $this->getMockBuilder(User::class)
@@ -81,10 +83,8 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $this->serviceManager->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(function ($name)
-            {
-                switch ($name)
-                {
+            ->will($this->returnCallback(function ($name) {
+                switch ($name) {
                     case 'AuthenticationService':
                         return $this->auth;
                     break;
@@ -126,9 +126,9 @@ class DeactivatedUserListenerTest extends \PHPUnit_Framework_TestCase
         $eventManager->expects($this->exactly(3))
             ->method('attach')
             ->withConsecutive(
-                 [$this->equalTo(MvcEvent::EVENT_DISPATCH_ERROR), $this->identicalTo([$this->listener, 'prepareExceptionViewModel'], $this->identicalTo(null))],
-                 [$this->equalTo(MvcEvent::EVENT_RENDER_ERROR), $this->identicalTo([$this->listener, 'prepareExceptionViewModel'], $this->identicalTo(null))],
-                 [$this->equalTo(MvcEvent::EVENT_ROUTE), $this->identicalTo([$this->listener, 'checkDeactivatedUser'], $this->identicalTo(null))]
+                [$this->equalTo(MvcEvent::EVENT_DISPATCH_ERROR), $this->identicalTo([$this->listener, 'prepareExceptionViewModel'], $this->identicalTo(null))],
+                [$this->equalTo(MvcEvent::EVENT_RENDER_ERROR), $this->identicalTo([$this->listener, 'prepareExceptionViewModel'], $this->identicalTo(null))],
+                [$this->equalTo(MvcEvent::EVENT_ROUTE), $this->identicalTo([$this->listener, 'checkDeactivatedUser'], $this->identicalTo(null))]
              );
         
         $this->listener->attach($eventManager);

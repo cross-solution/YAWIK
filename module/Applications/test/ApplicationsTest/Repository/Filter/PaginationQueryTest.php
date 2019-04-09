@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Repository\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Repository\Filter\PaginationQuery;
 use Auth\AuthenticationService;
 use Auth\Entity\User;
@@ -21,12 +23,12 @@ use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Applications\Repository\Filter\PaginationQuery
- * 
+ *
  * @covers \Applications\Repository\Filter\PaginationQuery
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class PaginationQueryTest extends \PHPUnit_Framework_TestCase
+class PaginationQueryTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 
@@ -118,13 +120,23 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $qb1->expects($this->exactly(2))->method('sort')->with(['dateCreated.date' => -1])->will($this->returnSelf());
 
         $qb2->expects($this->exactly(6))->method('field')->withConsecutive(
-            [ 'job'], [ 'readBy'], ['keywords'], ['permissions.view'], ['isDraft'], ['status.name']
+            [ 'job'],
+            [ 'readBy'],
+            ['keywords'],
+            ['permissions.view'],
+            ['isDraft'],
+            ['status.name']
         )->will($this->returnSelf());
         $qb2->expects($this->exactly(4))->method('equals')->withConsecutive(
-            [$params3['job']], ['PqtUser'], [false], [$params3['status']]
+            [$params3['job']],
+            ['PqtUser'],
+            [false],
+            [$params3['status']]
         )->will($this->returnSelf());
         $qb2->expects($this->once())->method('notEqual')->with('PqtUser');
-        $qb2->expects($this->once())->method('all')->with($this->callback(function($arg) { return is_array($arg) && $arg[0] instanceOf \MongoRegex; }));
+        $qb2->expects($this->once())->method('all')->with($this->callback(function ($arg) {
+            return is_array($arg) && $arg[0] instanceof \MongoRegex;
+        }));
         $qb2->expects($this->once())->method('sort')->with(['testSort' => 1]);
         $qbResult1 = $this->target->createQuery($params1, $qb1);
         $qbResult2 = $this->target->createQuery($params2, $qb1);
@@ -136,10 +148,10 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class PqtQbMock {
-
-
-    public function __call($method, $args) {
+class PqtQbMock
+{
+    public function __call($method, $args)
+    {
         $this->callstack[] = [ $method, $args ];
 
         return $this;

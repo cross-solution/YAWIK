@@ -9,19 +9,21 @@
 
 namespace ApplicationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Form\ContactContainer;
 
 /**
 * @covers \Applications\Form\ContactContainer
 */
-class ContactTest extends \PHPUnit_Framework_TestCase
+class ContactTest extends TestCase
 {
     /**
      * @var $target ContactContainer
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new ContactContainer();
         $this->target->init();

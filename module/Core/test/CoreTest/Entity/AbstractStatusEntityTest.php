@@ -10,21 +10,23 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractStatusEntity;
 
 /**
  * Tests for Core\Entity\AbstractStatusEntity
- * 
- * @covers Core\Entity\AbstractStatusEntity
+ *
+ * @covers \Core\Entity\AbstractStatusEntity
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class AbstractStatusEntityTest extends \PHPUnit_Framework_TestCase
+class AbstractStatusEntityTest extends TestCase
 {
-
     public function testConstructionThrowsExceptionIfInvalidStateIsPassed()
     {
-        $this->setExpectedException('\InvalidArgumentException', 'Unknown status name');
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage('Unknown status name');
         new StatusEntity('invalid');
     }
 

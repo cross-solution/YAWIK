@@ -9,12 +9,14 @@
  */
 namespace JobsTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\View\Helper\ApplyButtons as Helper;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Model\ViewModel;
 use Zend\View\Helper\ViewModel as ViewModelHelper;
 
-class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
+class ApplyButtonsTest extends TestCase
 {
 
     /**
@@ -32,7 +34,7 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
      */
     private $viewModel;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->viewModel = new ViewModel();
         $this->viewModel->setTemplate('test/template');
@@ -61,18 +63,19 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
     public function testInvalidDataReturnsEmptyString($data)
     {
         $helper = $this->helper;
-		$this->assertSame('', $helper($data));
+        $this->assertSame('', $helper($data));
     }
     
     public function testDefaults()
     {
         $this->view->expects($this->once())
             ->method('partial')
-            ->with(dirname($this->viewModel->getTemplate()) . '/' . $this->helper->getPartial(),
-                    $this->callback(function(array $variables)
-                    {
-                        return $variables['default'] && $variables['oneClick'] === [];
-                    }));
+            ->with(
+                dirname($this->viewModel->getTemplate()) . '/' . $this->helper->getPartial(),
+                $this->callback(function (array $variables) {
+                    return $variables['default'] && $variables['oneClick'] === [];
+                })
+            );
         
         $helper = $this->helper;
         $helper($this->validData());
@@ -100,11 +103,12 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
         
         $this->view->expects($this->once())
             ->method('partial')
-            ->with($this->anything(),
-                    $this->callback(function(array $variables)
-                    {
-                        return $variables['default'] === null;
-                    }));
+            ->with(
+                $this->anything(),
+                $this->callback(function (array $variables) {
+                    return $variables['default'] === null;
+                })
+            );
         
         $helper = $this->helper;
         $helper($this->validData(), $options);
@@ -118,11 +122,12 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
         
         $this->view->expects($this->once())
             ->method('partial')
-            ->with($this->anything(),
-                    $this->callback(function(array $variables) use ($options)
-                    {
-                        return $variables['default']['label'] === $options['defaultLabel'];
-                    }));
+            ->with(
+                $this->anything(),
+                $this->callback(function (array $variables) use ($options) {
+                    return $variables['default']['label'] === $options['defaultLabel'];
+                })
+            );
         
         $helper = $this->helper;
         $helper($this->validData(), $options);
@@ -138,22 +143,21 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
         
         $this->view->expects($this->once())
             ->method('partial')
-            ->with($this->anything(),
-                    $this->callback(function(array $variables) use ($options)
-                    {
-                        foreach ($variables['oneClick'] as $button)
-                        {
-                            if ($button['label'] !== sprintf($options['oneClickLabel'], $button['network']))
-                            {
-                                return false;
-                            }
+            ->with(
+                $this->anything(),
+                $this->callback(function (array $variables) use ($options) {
+                    foreach ($variables['oneClick'] as $button) {
+                        if ($button['label'] !== sprintf($options['oneClickLabel'], $button['network'])) {
+                            return false;
                         }
+                    }
                         
-                        return true;
-                    }));
+                    return true;
+                })
+            );
         
         $helper = $this->helper;
-		$helper($data, $options);
+        $helper($data, $options);
     }
     
     public function testSendImmediatelyOption()
@@ -166,14 +170,15 @@ class ApplyButtonsTest extends \PHPUnit_Framework_TestCase
         
         $this->view->expects($this->exactly(count($data['oneClickProfiles'])))
             ->method('url')
-            ->with('lang/apply-one-click',
-                    $this->callback(function(array $variables) use ($options)
-                    {
-                        return $variables['immediately'] === $options['sendImmediately'];
-                    }));
+            ->with(
+                'lang/apply-one-click',
+                $this->callback(function (array $variables) use ($options) {
+                    return $variables['immediately'] === $options['sendImmediately'];
+                })
+            );
         
         $helper = $this->helper;
-		$helper($data, $options);
+        $helper($data, $options);
     }
     
     public function invalidDataThrowsExceptionData()

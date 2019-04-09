@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\Listener\LoadActiveOrganizationsFactory;
@@ -19,16 +21,15 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Listener\LoadActiveOrganizationsFactory
- * 
+ *
  * @covers \Jobs\Factory\Listener\LoadActiveOrganizationsFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Factory
  * @group Jobs.Factory.Listener
  */
-class LoadActiveOrganizationsFactoryTest extends \PHPUnit_Framework_TestCase
+class LoadActiveOrganizationsFactoryTest extends TestCase
 {
-
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
     /**
@@ -42,7 +43,7 @@ class LoadActiveOrganizationsFactoryTest extends \PHPUnit_Framework_TestCase
     ];
 
     private $inheritance = [ FactoryInterface::class ];
-	
+    
 
     public function testServiceCreation()
     {

@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\MultipostingSelect;
 
 /**
@@ -20,7 +22,7 @@ use Jobs\Form\MultipostingSelect;
  * @group Jobs
  * @group Jobs.Form
  */
-class MultipostingSelectTest extends \PHPUnit_Framework_TestCase
+class MultipostingSelectTest extends TestCase
 {
 
     /**

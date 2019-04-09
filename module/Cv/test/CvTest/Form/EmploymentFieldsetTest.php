@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
@@ -24,15 +26,14 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Tests for \Cv\Form\EmploymentFieldset
- * 
+ *
  * @covers \Cv\Form\EmploymentFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Form
  */
-class EmploymentFieldsetTest extends \PHPUnit_Framework_TestCase
+class EmploymentFieldsetTest extends TestCase
 {
-
     use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 
     /**
@@ -108,7 +109,7 @@ class EmploymentFieldsetTest extends \PHPUnit_Framework_TestCase
              ],
         ];
 
-        $addArgValidator = function($arg) use ($add) {
+        $addArgValidator = function ($arg) use ($add) {
             static $count = 0;
 
             /* PPHUnit calls this callback again after all invokations are made
@@ -152,7 +153,6 @@ class EmploymentFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPopulateValues($data, $expectGet)
     {
-
         if ($expectGet) {
             $element = $this
                 ->getMockBuilder(Element::class)
@@ -179,5 +179,4 @@ class EmploymentFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $this->target->populateValues($data);
     }
-
 }

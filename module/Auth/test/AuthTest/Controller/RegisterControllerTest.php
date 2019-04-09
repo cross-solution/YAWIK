@@ -9,6 +9,8 @@
 
 namespace AuthTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Controller\RegisterController;
 use Auth\Form\RegisterInputFilter;
 use Auth\Options\CaptchaOptions;
@@ -41,7 +43,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
      */
     private $paramsMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->init('register');
 

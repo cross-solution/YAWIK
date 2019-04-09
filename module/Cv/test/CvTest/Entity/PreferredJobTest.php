@@ -3,6 +3,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Core\Entity\AbstractIdentifiableEntity;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -19,7 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @group Cv
  * @group Cv.Entity
  */
-class PreferredJobTest extends \PHPUnit_Framework_TestCase
+class PreferredJobTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

@@ -10,13 +10,15 @@
 /** */
 namespace CoreTest\Controller\Plugin\PaginationBuilder;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\PaginationBuilder;
 use Zend\Http\Request;
 use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\PaginationBuilder::getResult()
- * 
+ *
  * @covers \Core\Controller\Plugin\PaginationBuilder
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -24,7 +26,7 @@ use Zend\Stdlib\Parameters;
  * @group Core.Controller.Plugin
  * @group Core.Controller.Plugin.PaginationBuilder
  */
-class GetResultTest extends \PHPUnit_Framework_TestCase
+class GetResultTest extends TestCase
 {
     /**
      *
@@ -35,7 +37,7 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
 
     protected $pluginMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new PaginationBuilder();
 
@@ -50,7 +52,7 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
 
         $controller->expects($this->any())->method('getRequest')->willReturn($this->request);
         $controller->expects($this->any())->method('plugin')->will($this->returnValueMap(
-                                                                       [
+            [
                                                                            ['paginator', null, $pluginMock],
                                                                            ['paginationParams', null, $pluginMock],
                                                                            ['searchform', null, $pluginMock],
@@ -58,7 +60,6 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
                                                                    ));
 
         $this->target->setController($controller);
-
     }
 
     public function testSettingAliasesViaArguments()
@@ -82,11 +83,9 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
 
         $expects = ['namespace', 'elements', 'pager'];
 
-
         foreach ($this->pluginMock->callstack as $args) {
             $expect = array_shift($expects);
             $this->assertEquals($expect, $args[0]);
-
         }
     }
 
@@ -117,12 +116,14 @@ class GetResultTest extends \PHPUnit_Framework_TestCase
         $actual = $query->toArray();
 
         $this->assertAttributeEquals(
-             new Parameters([
+            new Parameters([
                  'a' => 'test', 'b' => ['test1', 'test2'],
                  'c' => ['test1', 'test2'],
                  'd' => ['test1' => 1, 'test2' => 1]
              ]),
-             'parameters', $this->target);
+            'parameters',
+            $this->target
+        );
     }
 }
 

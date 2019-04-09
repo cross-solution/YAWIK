@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractIdentifiableEntity;
 
 /**
@@ -21,27 +23,30 @@ use Core\Entity\AbstractIdentifiableEntity;
  * @covers \Core\Entity\AbstractIdentifiableEntity
  * @covers \Core\Entity\IdentifiableEntityTrait
  */
-class AbstractIdentifiableEntityTest extends \PHPUnit_Framework_TestCase
+class AbstractIdentifiableEntityTest extends TestCase
 {
-
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new ConcreteIdentifiableEntity();
     }
 
-    public function testSetGetIdByAttribute(){
+    public function testSetGetIdByAttribute()
+    {
         $input = "myValue";
         $this->target->setId($input);
-        $this->assertSame($this->target->getId(),$input);
+        $this->assertSame($this->target->getId(), $input);
     }
 
-    public function testSetGetIdByMethod(){
+    public function testSetGetIdByMethod()
+    {
         $input = "myValue";
         $this->target->setId($input);
-        $this->assertSame($this->target->getId(),$input);
+        $this->assertSame($this->target->getId(), $input);
     }
 }
 
-class ConcreteIdentifiableEntity extends AbstractIdentifiableEntity {
+class ConcreteIdentifiableEntity extends AbstractIdentifiableEntity
+{
 }
