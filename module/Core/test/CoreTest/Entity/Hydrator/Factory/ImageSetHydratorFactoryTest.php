@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity\Hydrator\Factory;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\Factory\ImageSetHydratorFactory;
 use Core\Entity\Hydrator\ImageSetHydrator;
 use Core\Options\ImageSetOptions;
@@ -21,7 +23,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Entity\Hydrator\Factory\ImageSetHydratorFactory
- * 
+ *
  * @covers \Core\Entity\Hydrator\Factory\ImageSetHydratorFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -29,19 +31,19 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Core.Entity.Hydrator
  * @group Core.Entity.Hydrator.Factory
  */
-class ImageSetHydratorFactoryTest extends \PHPUnit_Framework_TestCase
+class ImageSetHydratorFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
     private $target = [
         ImageSetHydratorFactory::class,
         '@testCreateService' => [
-        	'mock' => [
-        		'__invoke' => [
-        			'@with' => 'getInvocationArgs',
-			        'count' => 1
-		        ]
-	        ]
+            'mock' => [
+                '__invoke' => [
+                    '@with' => 'getInvocationArgs',
+                    'count' => 1
+                ]
+            ]
         ],
     ];
 
@@ -57,9 +59,9 @@ class ImageSetHydratorFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-    	$container = $this->getServiceManagerMock();
-    	$pluginManager = $this->getPluginManagerMock();
-        $this->target->createService($container,$pluginManager);
+        $container = $this->getServiceManagerMock();
+        $pluginManager = $this->getPluginManagerMock();
+        $this->target->createService($container, $pluginManager);
     }
 
     public function testInvokation()
@@ -68,14 +70,13 @@ class ImageSetHydratorFactoryTest extends \PHPUnit_Framework_TestCase
         $options = new ImageSetOptions();
 
         $container = $this->getServiceManagerMock();
-        $container->setService('Imagine',$imagine);
-        $container->setService(ImageSetOptions::class,$options);
+        $container->setService('Imagine', $imagine);
+        $container->setService(ImageSetOptions::class, $options);
 
         $hydrator = $this->target->__invoke($container, 'irrelevant');
 
         $this->assertInstanceOf(ImageSetHydrator::class, $hydrator);
         $this->assertAttributeSame($imagine, 'imagine', $hydrator);
         $this->assertAttributeSame($options, 'options', $hydrator);
-
     }
 }

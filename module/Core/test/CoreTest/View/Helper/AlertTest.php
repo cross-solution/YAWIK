@@ -8,9 +8,11 @@
 
 namespace CoreTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\Alert as Helper;
 
-class AlertTest extends \PHPUnit_Framework_TestCase
+class AlertTest extends TestCase
 {
 
     /**
@@ -18,7 +20,7 @@ class AlertTest extends \PHPUnit_Framework_TestCase
      */
     private $helper;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->helper = new Helper();
     }

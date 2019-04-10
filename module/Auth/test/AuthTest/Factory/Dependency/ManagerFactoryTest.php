@@ -9,6 +9,8 @@
 
 namespace AuthTest\Factory\Dependency;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Factory\Dependency\ManagerFactory;
 use Auth\Dependency\Manager;
@@ -18,7 +20,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 /**
  * @coversDefaultClass \Auth\Factory\Dependency\ManagerFactory
  */
-class ManagerFactoryTest extends \PHPUnit_Framework_TestCase
+class ManagerFactoryTest extends TestCase
 {
 
     /**

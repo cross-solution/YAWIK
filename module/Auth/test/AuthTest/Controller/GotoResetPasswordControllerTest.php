@@ -9,6 +9,8 @@
 
 namespace AuthTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Controller\GotoResetPasswordController;
 use Auth\Service\Exception;
 use CoreTest\Bootstrap;
@@ -26,7 +28,7 @@ class GotoResetPasswordControllerTest extends AbstractControllerTestCase
      */
     private $serviceMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->init('goto-reset-password');
 

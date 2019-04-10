@@ -9,19 +9,22 @@
 
 namespace CoreTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Element\InfoCheckbox;
 
 /**
 * @covers \Core\Form\Element\InfoCheckbox
 */
-class InfoCheckboxTest extends \PHPUnit_Framework_TestCase
+class InfoCheckboxTest extends TestCase
 {
     /**
      * @var InfoCheckbox
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new InfoCheckbox();
     }
 
@@ -29,6 +32,6 @@ class InfoCheckboxTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Core\Form\Element\InfoCheckbox', $this->target);
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
-        $this->assertAttributeSame('formInfoCheckBox',  'helper', $this->target);
+        $this->assertAttributeSame('formInfoCheckBox', 'helper', $this->target);
     }
 }

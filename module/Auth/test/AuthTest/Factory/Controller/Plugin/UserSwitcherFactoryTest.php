@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\Factory\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Controller\Plugin\Acl;
 use Auth\AuthenticationService;
 use Auth\Factory\Controller\Plugin\UserSwitcherFactory;
@@ -19,7 +21,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Auth\Factory\Controller\Plugin\USerSwitcherFactory
- * 
+ *
  * @covers \Auth\Factory\Controller\Plugin\USerSwitcherFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Auth
@@ -27,7 +29,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Auth.Factory.Controller
  * @group Auth.Factory.Controller.Plugin
  */
-class UserSwitcherFactoryTest extends \PHPUnit_Framework_TestCase
+class UserSwitcherFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -50,9 +52,9 @@ class UserSwitcherFactoryTest extends \PHPUnit_Framework_TestCase
         $container = $this->getServiceManagerMock();
         $plugins   = $this->getPluginManagerMock($container);
         $this->target
-	        ->expects($this->once())
-	        ->method('__invoke')
-	        ->with($container, 'Auth/User/Switcher')
+            ->expects($this->once())
+            ->method('__invoke')
+            ->with($container, 'Auth/User/Switcher')
         ;
 
         $this->target->createService($container);
@@ -63,7 +65,7 @@ class UserSwitcherFactoryTest extends \PHPUnit_Framework_TestCase
         $auth = $this->getMockBuilder(AuthenticationService::class)->disableOriginalConstructor()->getMock();
         $acl = $this->getMockBuilder(Acl::class)->disableOriginalConstructor()->getMock();
         $sm = $this->createServiceManagerMock();
-        $controllerPlugins = $this->getPluginManagerMock(['Acl' => ['service' => $acl, 'count_get' => 1]],$sm);
+        $controllerPlugins = $this->getPluginManagerMock(['Acl' => ['service' => $acl, 'count_get' => 1]], $sm);
         $container = $this->getServiceManagerMock([
                 'AuthenticationService' => ['service' => $auth, 'count_get' => 1],
                 'ControllerPluginManager' => ['service' => $controllerPlugins, 'count_get' => 1]

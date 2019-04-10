@@ -9,6 +9,8 @@
 
 namespace JobsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory;
 use Zend\Mvc\Controller\ControllerManager;
 use CoreTest\Bootstrap;
@@ -17,7 +19,7 @@ use CoreTest\Bootstrap;
  * Class TApiJobListByOrganizationControllerFactoryTest
  * @package JobsTest\Factory\Controller
  */
-class ApiJobListByOrganizationControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class ApiJobListByOrganizationControllerFactoryTest extends TestCase
 {
     /**
      * @var ApiJobListByOrganizationControllerFactory
@@ -27,7 +29,7 @@ class ApiJobListByOrganizationControllerFactoryTest extends \PHPUnit_Framework_T
     /**
      *
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new ApiJobListByOrganizationControllerFactory();
     }

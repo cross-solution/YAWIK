@@ -2,7 +2,7 @@
 $commonModules = include_once __DIR__.'/../../../config/common.modules.php';
 
 return array(
-    'modules' => array_merge($commonModules,array(
+    'modules' => array_merge($commonModules, array(
         'Core',
         'Auth',
         'Jobs',

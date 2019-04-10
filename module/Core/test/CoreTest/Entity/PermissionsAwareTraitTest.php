@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsAwareInterface;
 use Core\Entity\PermissionsAwareTrait;
@@ -18,12 +20,12 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Entity\PermissionsAwareTrait
- * 
+ *
  * @covers \Core\Entity\PermissionsAwareTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class PermissionsAwareTraitTest extends \PHPUnit_Framework_TestCase
+class PermissionsAwareTraitTest extends TestCase
 {
     use SetupTargetTrait, TestSetterGetterTrait;
 
@@ -52,7 +54,9 @@ class PermissionsAwareTraitTest extends \PHPUnit_Framework_TestCase
                 'default' => new Permissions(PermissionsAwareEntityWithSetupPermissions::TYPE),
                 'value' => false,
                 'ignore_setter' => true, 'ignore_getter' => true,
-                'post' => function() { $this->assertTrue($this->target->setupPermissionsCalled); },
+                'post' => function () {
+                    $this->assertTrue($this->target->setupPermissionsCalled);
+                },
             ]]
         ];
     }

@@ -10,13 +10,15 @@
 /** */
 namespace CoreTest\Entity\Status;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Status\AbstractStatus;
 use Core\Entity\Status\StatusAwareEntityTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 
 /**
  * Tests for \Core\Entity\Status\StatusAwareEntityTrait
- * 
+ *
  * @covers \Core\Entity\Status\StatusAwareEntityTrait
  * @coversDefaultClass \Core\Entity\Status\StatusAwareEntityTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -24,7 +26,7 @@ use CoreTestUtils\TestCase\SetupTargetTrait;
  * @group Core.Entity
  * @group Core.Entity.Status
  */
-class StatusAwareEntityTraitTest extends \PHPUnit_Framework_TestCase
+class StatusAwareEntityTraitTest extends TestCase
 {
     use SetupTargetTrait;
 

@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Repository\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\AuthenticationService;
 use Auth\Entity\User;
 use Auth\Entity\UserInterface;
@@ -29,7 +31,7 @@ use Zend\Stdlib\Parameters;
  * @package OrganizationsTest\Repository\Filter
  * @covers \Organizations\Repository\Filter\PaginationQuery
  */
-class PaginationQueryTest extends \PHPUnit_Framework_TestCase
+class PaginationQueryTest extends TestCase
 {
     /**
      * @var PaginationQuery
@@ -51,12 +53,11 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
      */
     protected $user;
 
-    public function setUp()
+    protected function setUp()
     {
-
         $this->jobRepository = $this->createMock(JobRepository::class);
         $this->authService = $this->createMock(AuthenticationService::class);
-        $this->target = new PaginationQuery($this->jobRepository,$this->authService);
+        $this->target = new PaginationQuery($this->jobRepository, $this->authService);
     }
 
     public function testCreateQuery()
@@ -95,7 +96,7 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $params = [
             'q' => 'some text'
         ];
-        $target->createQuery($params,$builder);
+        $target->createQuery($params, $builder);
     }
 
     public function testCreateQueryForProfile()
@@ -175,6 +176,6 @@ class PaginationQueryTest extends \PHPUnit_Framework_TestCase
         $params = new Parameters([
             'type' => 'profile'
         ]);
-        $target->createQuery($params,$builder);
+        $target->createQuery($params, $builder);
     }
 }

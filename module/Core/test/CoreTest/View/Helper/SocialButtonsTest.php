@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\SocialButtons;
 use Auth\Options\ModuleOptions;
 
@@ -23,12 +25,12 @@ use Auth\Options\ModuleOptions;
  * @group Core.View.Helper
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
-class SocialButtonsTest extends \PHPUnit_Framework_TestCase
+class SocialButtonsTest extends TestCase
 {
     public function testExtendsZfAbstractHelper()
     {
         $options = new ModuleOptions;
-        $target = new SocialButtons($options,[]);
+        $target = new SocialButtons($options, []);
         $this->assertInstanceOf('\Zend\View\Helper\AbstractHelper', $target);
     }
 }

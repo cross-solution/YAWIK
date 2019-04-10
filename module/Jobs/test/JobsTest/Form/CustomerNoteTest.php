@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryForm;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,12 +19,12 @@ use Jobs\Form\CustomerNote;
 
 /**
  * Tests for \Jobs\Form\CustomerNote
- * 
+ *
  * @covers \Jobs\Form\CustomerNote
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class CustomerNoteTest extends \PHPUnit_Framework_TestCase
+class CustomerNoteTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 

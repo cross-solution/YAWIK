@@ -10,20 +10,22 @@
 /** */
 namespace CvTest\Form\InputFilter;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Form\InputFilter\Education;
 use Zend\InputFilter\InputFilter;
 
 /**
  * Tests for \Cv\Form\InputFilter\Education
- * 
+ *
  * @covers \Cv\Form\InputFilter\Education
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Form
  * @group Cv.Form.InputFilter
  */
-class EducationTest extends \PHPUnit_Framework_TestCase
+class EducationTest extends TestCase
 {
     use TestInheritanceTrait;
 

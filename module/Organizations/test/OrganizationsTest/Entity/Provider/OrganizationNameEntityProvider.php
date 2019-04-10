@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Entity\Provider;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Entity\OrganizationName;
 
 class OrganizationNameEntityProvider
@@ -37,5 +39,4 @@ class OrganizationNameEntityProvider
 
         return $entity;
     }
-
 }

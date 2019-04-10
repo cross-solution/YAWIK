@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Hydrator\MetaDataHydrator;
 use Core\Form\MetaDataFieldset;
@@ -19,13 +21,13 @@ use Zend\Form\Fieldset;
 
 /**
  * Tests for \Core\Form\MetaDataFieldset
- * 
+ *
  * @covers \Core\Form\MetaDataFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Form
  */
-class MetaDataFieldsetTest extends \PHPUnit_Framework_TestCase
+class MetaDataFieldsetTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

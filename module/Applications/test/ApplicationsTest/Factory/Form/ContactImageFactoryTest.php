@@ -9,6 +9,8 @@
 
 namespace ApplicationTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Factory\Form\ContactImageFactory;
 
 /**
@@ -19,7 +21,7 @@ use Applications\Factory\Form\ContactImageFactory;
  * @group Applications.Factory
  * @group Applications.Factory.Form
  */
-class ContactImageFactoryTest extends \PHPUnit_Framework_TestCase
+class ContactImageFactoryTest extends TestCase
 {
 
     /**

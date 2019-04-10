@@ -8,6 +8,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\FileEntity;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -16,10 +18,10 @@ use Cv\Entity\ContactImage;
 
 /**
  * Class ContactImageTest
- * @covers  Cv\Entity\ContactImage
+ * @covers \Cv\Entity\ContactImage
  * @package CvTest\Entity
  */
-class ContactImageTest extends \PHPUnit_Framework_TestCase
+class ContactImageTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -34,7 +36,9 @@ class ContactImageTest extends \PHPUnit_Framework_TestCase
         return [
             [ 'contact', '@' . Contact::class ],
             [ 'uri', [
-                'pre' => function() { $this->target->setId('some-id')->setName('some-name'); },
+                'pre' => function () {
+                    $this->target->setId('some-id')->setName('some-name');
+                },
                 'ignore_setter' => true,
                 'value' => '/file/Cv.ContactImage/some-id/' . urlencode('some-name'),
             ]],

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -10,11 +10,12 @@
 
 namespace CoreTest\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Filter\HtmlAbsPathFilter;
 
-
-class HtmlAbsPathFilterTest extends \PHPUnit_Framework_TestCase {
-
+class HtmlAbsPathFilterTest extends TestCase
+{
     protected $htmlTests = array(
         array(
             'original' =>
@@ -82,14 +83,12 @@ array(
     {
         $filter = new HtmlAbsPathFilter();
         foreach ($this->htmlTests as $test) {
-
             $filter->setUri('http://aaa.bbb.cc/ddd/');
             $f = $filter->filter($test['original']);
-            preg_match_all ( '/(?:href|src)\s*=\s*"([^"]*)"/', $f, $matches);
+            preg_match_all('/(?:href|src)\s*=\s*"([^"]*)"/', $f, $matches);
             foreach ($matches[1] as $uri) {
                 $this->assertRegExp("/^https?:\/\//", $uri);
-
             }
         }
     }
-} 
+}

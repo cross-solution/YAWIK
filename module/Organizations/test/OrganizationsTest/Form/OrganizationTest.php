@@ -10,22 +10,24 @@
 /** */
 namespace OrganizationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Form\Organizations;
 
 /**
  * Test for the organization form.
- * 
+ *
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
  * @covers \Organizations\Form\Organizations
  * @group Organizations
  * @group Organizations.Form
  */
-class OrganizationTest extends \PHPUnit_Framework_TestCase
+class OrganizationTest extends TestCase
 {
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new Organizations();
         $this->target->init();
@@ -36,11 +38,13 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Organizations\Form\Organizations', $this->target);
     }
 
-    public function testName(){
-        $this->assertSame($this->target->getName(),'organization-form');
+    public function testName()
+    {
+        $this->assertSame($this->target->getName(), 'organization-form');
     }
 
-    public function testNumberOfField() {
-        $this->assertSame($this->target->count(),7);
+    public function testNumberOfField()
+    {
+        $this->assertSame($this->target->count(), 7);
     }
 }

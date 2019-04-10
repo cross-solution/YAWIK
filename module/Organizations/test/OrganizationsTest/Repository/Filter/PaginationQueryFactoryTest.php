@@ -9,12 +9,13 @@
 
 namespace OrganizationsTest\Repository\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\AuthenticationService;
 use Interop\Container\ContainerInterface;
 use Organizations\Repository\Filter\PaginationQuery;
 use Organizations\Repository\Filter\PaginationQueryFactory;
 use Jobs\Repository\Job as JobRepository;
-
 
 /**
  * Class PaginationQueryFactoryTest
@@ -24,7 +25,7 @@ use Jobs\Repository\Job as JobRepository;
  * @covers  \Organizations\Repository\Filter\PaginationQueryFactory
  * @package OrganizationsTest\Repository\Filter
  */
-class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
+class PaginationQueryFactoryTest extends TestCase
 {
     public function testInvokation()
     {
@@ -41,10 +42,10 @@ class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
             ])
         ;
 
-        $factory = new PaginationQueryFactory($auth,$jobRepository);
+        $factory = new PaginationQueryFactory($auth, $jobRepository);
         $this->assertInstanceOf(
             PaginationQuery::class,
-            $factory($container,'some-name')
+            $factory($container, 'some-name')
         );
     }
 }

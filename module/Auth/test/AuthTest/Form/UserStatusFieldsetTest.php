@@ -9,18 +9,20 @@
 
 namespace AuthTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Form\UserStatusFieldset;
 use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 
-class UserStatusFieldsetTest extends \PHPUnit_Framework_TestCase
+class UserStatusFieldsetTest extends TestCase
 {
     /**
      * @var UserStatusFieldset
      */
     private $fieldset;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->fieldset = new UserStatusFieldset();
     }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Queue;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\MongoQueue;
 use Core\Queue\MongoQueueFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -20,12 +22,12 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Queue\MongoQueueFactory
- * 
+ *
  * @covers \Core\Queue\MongoQueueFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class MongoQueueFactoryTest extends \PHPUnit_Framework_TestCase
+class MongoQueueFactoryTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -52,24 +54,30 @@ class MongoQueueFactoryTest extends \PHPUnit_Framework_TestCase
 
         $dm = $this->prophesize(DocumentManager::class);
 
-        $dm->getConnection()->willReturn(new class($mongoClient->reveal())
-        {
+        $dm->getConnection()->willReturn(new class($mongoClient->reveal()) {
             public $client;
             public function __construct($client)
             {
                 $this->client = $client;
             }
-            public function getMongoClient() { return $this->client;}
+            public function getMongoClient()
+            {
+                return $this->client;
+            }
         })->shouldBeCalled();
 
-        $dm->getConfiguration()->willReturn(new class { public function getDefaultDB() { return 'testdb'; }})->shouldBeCalled();
+        $dm->getConfiguration()->willReturn(new class {
+            public function getDefaultDB()
+            {
+                return 'testdb';
+            }
+        })->shouldBeCalled();
         $container->get('Core/DocumentManager')->willReturn($dm->reveal())->shouldBeCalled();
 
         /** @noinspection PhpParamsInspection */
         $queue = $this->target->__invoke($container->reveal(), 'irrelevant');
 
         $this->assertInstanceOf(MongoQueue::class, $queue);
-
     }
 
     public function testCreateServiceWithOptions()
@@ -91,14 +99,16 @@ class MongoQueueFactoryTest extends \PHPUnit_Framework_TestCase
 
         $dm = $this->prophesize(DocumentManager::class);
 
-        $dm->getConnection()->willReturn(new class($mongoClient->reveal())
-        {
+        $dm->getConnection()->willReturn(new class($mongoClient->reveal()) {
             public $client;
             public function __construct($client)
             {
                 $this->client = $client;
             }
-            public function getMongoClient() { return $this->client;}
+            public function getMongoClient()
+            {
+                return $this->client;
+            }
         })->shouldBeCalled();
 
         $dm->getConfiguration()->shouldNotBeCalled();

@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Attributes;
 
 /**
@@ -20,14 +22,14 @@ use Applications\Entity\Attributes;
  * @group Applications
  * @group Applications.Entity
  */
-class AttributesTest extends \PHPUnit_Framework_TestCase
+class AttributesTest extends TestCase
 {
     /**
      * @var \Applications\Entity\Attributes
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new Attributes();
     }
@@ -43,8 +45,8 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerBooleanValues
      * @testdox test the privacy policy flag
-     * @covers Applications\Entity\Attributes::getAcceptedPrivacyPolicy
-     * @covers Applications\Entity\Attributes::setAcceptedPrivacyPolicy
+     * @covers \Applications\Entity\Attributes::getAcceptedPrivacyPolicy
+     * @covers \Applications\Entity\Attributes::setAcceptedPrivacyPolicy
      */
     public function testSetGetPrivacyPolicy($input, $expected)
     {
@@ -55,8 +57,8 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerBooleanValues
      * @testdox test the send carbon copy flag
-     * @covers Applications\Entity\Attributes::getSendCarbonCopy
-     * @covers Applications\Entity\Attributes::setSendCarbonCopy
+     * @covers \Applications\Entity\Attributes::getSendCarbonCopy
+     * @covers \Applications\Entity\Attributes::setSendCarbonCopy
      */
     public function testSetGetSendCarbonCopy($input, $expected)
     {

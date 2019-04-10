@@ -9,18 +9,20 @@
 
 namespace AuthTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Form\UserStatusContainer;
 use Core\Form\Container;
 use Core\Form\ViewPartialProviderInterface;
 
-class UserStatusContainerTest extends \PHPUnit_Framework_TestCase
+class UserStatusContainerTest extends TestCase
 {
     /**
      * @var UserStatusContainer
      */
     private $container;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->container = new UserStatusContainer();
     }

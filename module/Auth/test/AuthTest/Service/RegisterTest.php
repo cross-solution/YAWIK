@@ -9,6 +9,8 @@
 
 namespace AuthTest\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Auth\Service\ForgotPassword;
 use Auth\Service\Register;
@@ -16,7 +18,7 @@ use Core\Options\ModuleOptions;
 use AuthTest\Entity\Provider\UserEntityProvider;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class RegisterTest extends \PHPUnit_Framework_TestCase
+class RegisterTest extends TestCase
 {
     /**
      * @var ForgotPassword
@@ -61,7 +63,7 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
             ->disableOriginalConstructor()
@@ -99,7 +101,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->method('isValid')
             ->willReturn(false);
 
-        $this->setExpectedException('LogicException', 'Form is not valid');
+        $this->expectException('LogicException');
+        $this->expectExceptionMessage('Form is not valid');
 
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
@@ -135,13 +138,15 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->with($email)
             ->willReturn($user);
 
-        $this->setExpectedException('Auth\Service\Exception\UserAlreadyExistsException', 'User already exists');
+        $this->expectException('Auth\Service\Exception\UserAlreadyExistsException');
+        $this->expectExceptionMessage('User already exists');
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
 
         //$this->assertEmpty($this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock));
     }
 
-    public function proceedDataProvider() {
+    public function proceedDataProvider()
+    {
         return [
             ['user'],
             ['recruiter'],
@@ -181,6 +186,7 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $user->setLogin($email)->setRole(User::ROLE_RECRUITER);
 
+
         $this->userRepositoryMock->expects($this->once())
             ->method('create')
             ->with(array('login' => $email, 'role' => $role))
@@ -188,10 +194,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepositoryMock->expects($this->once())
             ->method('store')
-            ->with($this->callback(function ($user) use ($self) {
-                $self->assertInstanceOf('Auth\Entity\User', $user);
-
-                return $user;
+            ->with($this->callback(function ($user) {
+                return $user instanceof User ? true:false;
             }));
 
         $this->urlPluginMock->expects($this->once())

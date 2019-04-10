@@ -10,19 +10,21 @@
 /** */
 namespace CoreTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\AdminControllerEvent;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\View\Model\ViewModel;
 
 /**
  * Tests for \Core\Controller\AdminControllerEvent
- * 
+ *
  * @covers \Core\Controller\AdminControllerEvent
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Controller
  */
-class AdminControllerEventTest extends \PHPUnit_Framework_TestCase
+class AdminControllerEventTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -84,7 +86,8 @@ class AdminControllerEventTest extends \PHPUnit_Framework_TestCase
 
     public function testAddViewVariablesThroesExceptionIfNoNameIsSpecified()
     {
-        $this->setExpectedException('\DomainException', 'Key "name" must be');
+        $this->expectException('\DomainException');
+        $this->expectExceptionMessage('Key "name" must be');
         $this->target->addViewVariables(['no' => 'name']);
     }
 
@@ -126,6 +129,4 @@ class AdminControllerEventTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($vars, $model->getVariables());
         $this->assertEquals($priority, $array[$name]['priority']);
     }
-
-
 }

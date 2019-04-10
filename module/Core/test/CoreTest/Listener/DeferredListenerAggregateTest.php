@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Listener\DeferredListenerAggregate;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -24,9 +26,8 @@ use Zend\ServiceManager\ServiceManager;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *
  */
-class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
+class DeferredListenerAggregateTest extends TestCase
 {
-
     use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
@@ -126,30 +127,35 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testAttachesAndDetachesToAndFromAnEventManager()
     {
-    	$testListener = new DLATListenerMock();
+        $testListener = new DLATListenerMock();
         $this->target->setListener('test01', 'service01');
         $this->target->setListener('test02', 'service02', 10);
-		
+        
         //In ZF3 EventManager detach should be a callable or it will throws an error
         $callback = [$testListener,'callback'];
         $events = $this->getMockBuilder(EventManager::class)
             ->setMethods(['attach', 'detach'])
             ->getMock();
         $events->expects($this->exactly(2))
-			->method('attach')
+            ->method('attach')
             ->withConsecutive(
-            	[ $this->equalTo('test01'), $this->anything(), $this->equalTo(0) ],
-				[ $this->equalTo('test02'), $this->anything(), $this->equalTo(10) ]
+                [ $this->equalTo('test01'), $this->anything(), $this->equalTo(0) ],
+                [ $this->equalTo('test02'), $this->anything(), $this->equalTo(10) ]
             )
-            ->will($this->onConsecutiveCalls(
-            	[$testListener,'callback'], [$testListener,'callback'])
+            ->will(
+                $this->onConsecutiveCalls(
+                [$testListener,'callback'],
+                [$testListener,'callback']
+            )
             );
 
         $events
-	        ->expects($this->exactly(2))
-	        ->method('detach')
+            ->expects($this->exactly(2))
+            ->method('detach')
             ->withConsecutive(
-            	[$callback], [$callback] )
+                [$callback],
+                [$callback]
+            )
             ->will($this->onConsecutiveCalls([true, false]))
         ;
 
@@ -162,7 +168,8 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfMethodDoesNotStartWithDo()
     {
-        $this->setExpectedException('\BadMethodCallException', 'Unknown method "unknownMethod"');
+        $this->expectException('\BadMethodCallException');
+        $this->expectExceptionMessage('Unknown method "unknownMethod"');
         $this->target->unknownMethod();
     }
 
@@ -171,7 +178,8 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallThrowsExceptionIfNoSpecificationIsFound()
     {
-        $this->setExpectedException('\UnexpectedValueException', 'No deferred listener spec');
+        $this->expectException('\UnexpectedValueException');
+        $this->expectExceptionMessage('No deferred listener spec');
         $this->target->doInexistantListener();
     }
 
@@ -202,7 +210,8 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
     {
         if (null === $listener) {
             if (!class_exists($service, true)) {
-                $this->setExpectedException('\UnexpectedValueException', 'Cannot create deferred listener "' . $service );
+                $this->expectException('\UnexpectedValueException');
+                $this->expectExceptionMessage('Cannot create deferred listener "' . $service);
             }
             $this->services->expects($this->once())->method('has')->with($service)->willReturn(false);
             $this->services->expects($this->never())->method('get');
@@ -211,8 +220,9 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
             $this->services->expects($this->once())->method('get')->with($service)->willReturn($listener);
         }
 
-        if ($listener instanceOf DLATNonInvokableListenerMock) {
-            $this->setExpectedException('\UnexpectedValueException', 'Deferred listener');
+        if ($listener instanceof DLATNonInvokableListenerMock) {
+            $this->expectException('\UnexpectedValueException');
+            $this->expectExceptionMessage('Deferred listener');
         }
 
         $events = new EventManager();
@@ -236,7 +246,6 @@ class DeferredListenerAggregateTest extends \PHPUnit_Framework_TestCase
                 $this->assertTrue($listener->invoked);
                 break;
         }
-
     }
 
     public function testFactoryMethodReturnsInstance()
@@ -269,5 +278,4 @@ class DLATListenerMock
 
 class DLATNonInvokableListenerMock
 {
-
 }

@@ -9,6 +9,8 @@
 
 namespace JobsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Controller\IndexController;
 use Jobs\Factory\Controller\IndexControllerFactory;
 use CoreTest\Bootstrap;
@@ -18,7 +20,7 @@ use Zend\Mvc\Controller\ControllerManager;
  * Class IndexControllerFactoryTest
  * @package JobsTest\Factory\Controller
  */
-class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class IndexControllerFactoryTest extends TestCase
 {
     /**
      * @var IndexControllerFactory
@@ -28,7 +30,7 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new IndexControllerFactory();
     }

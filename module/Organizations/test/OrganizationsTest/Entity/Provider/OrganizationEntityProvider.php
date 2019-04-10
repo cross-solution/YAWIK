@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Entity\Provider;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Entity\Organization;
 
 class OrganizationEntityProvider

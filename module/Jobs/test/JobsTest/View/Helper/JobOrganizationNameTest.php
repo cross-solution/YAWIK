@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Job;
 use Jobs\View\Helper\JobOrganizationName;
@@ -19,12 +21,12 @@ use Zend\View\Helper\AbstractHelper;
 
 /**
  * Tests for \Jobs\View\Helper\JobOrganizationName
- * 
+ *
  * @covers \Jobs\View\Helper\JobOrganizationName
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class JobOrganizationNameTest extends \PHPUnit_Framework_TestCase
+class JobOrganizationNameTest extends TestCase
 {
     use TestInheritanceTrait;
 

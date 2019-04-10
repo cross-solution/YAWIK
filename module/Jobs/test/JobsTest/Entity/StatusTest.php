@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\Status;
 use Jobs\Entity\StatusInterface;
 
@@ -23,7 +25,7 @@ use Jobs\Entity\StatusInterface;
  * @group  Jobs
  * @group  Jobs.Entity
  */
-class StatusTest extends \PHPUnit_Framework_TestCase
+class StatusTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -32,7 +34,7 @@ class StatusTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Status();
     }
@@ -64,8 +66,8 @@ class StatusTest extends \PHPUnit_Framework_TestCase
      * @testdox      Can be constructed in all possible states
      * @dataProvider provideCreatingInstancesTestData
      * @covers ::__construct
-     * @covers Jobs\Entity\Status::getName
-     * @covers Jobs\Entity\Status::getOrder
+     * @covers \Jobs\Entity\Status::getName
+     * @covers \Jobs\Entity\Status::getOrder
      *
      * @param string $status           the status to set
      * @param string $expectedName     the expected name for the status
@@ -90,7 +92,8 @@ class StatusTest extends \PHPUnit_Framework_TestCase
         $target = new Status('highly invalid status name');
     }
 
-    public function testGetStates(){
+    public function testGetStates()
+    {
         $expected = [
             Status::CREATED,
             Status::WAITING_FOR_APPROVAL,
@@ -100,10 +103,11 @@ class StatusTest extends \PHPUnit_Framework_TestCase
             Status::INACTIVE,
             Status::EXPIRED
         ];
-        $this->assertEquals($expected,$this->target->getStates());
+        $this->assertEquals($expected, $this->target->getStates());
     }
 
-    public function testToString(){
+    public function testToString()
+    {
         $state = new Status(StatusInterface::INACTIVE);
         $this->assertEquals(StatusInterface::INACTIVE, (string) $state);
     }

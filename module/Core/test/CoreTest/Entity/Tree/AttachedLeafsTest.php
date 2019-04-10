@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity\Tree\AttachedLeafsTest;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\IdentifiableEntityTrait;
 use Core\Entity\Tree\AbstractLeafs;
@@ -19,14 +21,14 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 
 /**
  * Tests for \Core\Entity\Tree\AttachedLeafs
- * 
+ *
  * @covers \Core\Entity\Tree\AttachedLeafs
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  * @group Core.Entity.Tree
  */
-class AttachedLeafsTest extends \PHPUnit_Framework_TestCase
+class AttachedLeafsTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait;
 

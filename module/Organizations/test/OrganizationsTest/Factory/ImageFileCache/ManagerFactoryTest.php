@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Factory\ImageFileCache;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Factory\ImageFileCache\ManagerFactory;
 use Organizations\ImageFileCache\Manager;
@@ -17,7 +19,7 @@ use Organizations\Options\ImageFileCacheOptions;
 /**
  * @coversDefaultClass \Organizations\Factory\ImageFileCache\ManagerFactory
  */
-class ManagerFactoryTest extends \PHPUnit_Framework_TestCase
+class ManagerFactoryTest extends TestCase
 {
 
     /**
@@ -34,7 +36,7 @@ class ManagerFactoryTest extends \PHPUnit_Framework_TestCase
             ]));
         
         $factory = new ManagerFactory();
-        $listener = $factory->__invoke($serviceLocator,'irrelevant');
+        $listener = $factory->__invoke($serviceLocator, 'irrelevant');
         $this->assertInstanceOf(Manager::class, $listener);
     }
 }

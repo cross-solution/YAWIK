@@ -10,18 +10,20 @@
 /** */
 namespace AuthTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 
 /**
  * Tests for \Auth\Listener\SocialProfilesUnconfiguredErrorListener
- * 
+ *
  * @covers \Auth\Listener\SocialProfilesUnconfiguredErrorListener
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class SocialProfilesUnconfiguredErrorListenerTest extends \PHPUnit_Framework_TestCase
+class SocialProfilesUnconfiguredErrorListenerTest extends TestCase
 {
 
     /**

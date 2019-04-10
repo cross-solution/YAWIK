@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Listener\Events\AjaxEvent;
 use CoreTestUtils\TestCase\SetupTargetTrait;
@@ -22,13 +24,13 @@ use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Jobs\Listener\DeleteJob
- * 
+ *
  * @covers \Jobs\Listener\DeleteJob
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Listener
  */
-class DeleteJobTest extends \PHPUnit_Framework_TestCase
+class DeleteJobTest extends TestCase
 {
     use SetupTargetTrait;
 
@@ -85,7 +87,9 @@ class DeleteJobTest extends \PHPUnit_Framework_TestCase
         $request = new Request();
         $query = new Parameters();
 
-        if ($id) { $query->set('id', $id); }
+        if ($id) {
+            $query->set('id', $id);
+        }
 
         $request->setQuery($query);
         $event->setRequest($request);

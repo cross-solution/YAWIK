@@ -8,6 +8,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Auth\Entity\Info;
 use Auth\Entity\InfoInterface;
@@ -17,11 +19,11 @@ use Cv\Entity\Contact;
 /**
  * Class ContactTest
  *
- * @covers  Cv\Entity\Contact
+ * @covers \Cv\Entity\Contact
  * @group Cv
  * @group Cv.Entity
  */
-class ContactTest extends \PHPUnit_Framework_TestCase
+class ContactTest extends TestCase
 {
     use TestInheritanceTrait;
 

@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Factory\Paginator;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Applications\Factory\Paginator\JobSelectPaginatorFactory;
 use Applications\Paginator\JobSelectPaginator;
@@ -20,14 +22,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Factory\Paginator\JobSelectPaginatorFactory
- * 
+ *
  * @covers \Applications\Factory\Paginator\JobSelectPaginatorFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Applications
  * @group Applications.Factory
  * @group Applications.Factory.Paginator
  */
-class JobSelectValuesFactoryTest extends \PHPUnit_Framework_TestCase
+class JobSelectValuesFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -39,9 +41,9 @@ class JobSelectValuesFactoryTest extends \PHPUnit_Framework_TestCase
     private $target = [
         JobSelectPaginatorFactory::class,
         '@testCreateService' => [
-        	'mock' => [
-        		'__invoke' => ['@with' => 'getInvokeArgs', 'count' => 1]
-	        ]
+            'mock' => [
+                '__invoke' => ['@with' => 'getInvokeArgs', 'count' => 1]
+            ]
         ],
     ];
 
@@ -60,15 +62,15 @@ class JobSelectValuesFactoryTest extends \PHPUnit_Framework_TestCase
     public function testServiceCreation()
     {
         $repository = $this
-	        ->getMockBuilder(Job::class)
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->getMockBuilder(Job::class)
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         $repositories = $this
-	        ->createPluginManagerMock(
-	        	['Jobs' => $repository],
-		        $this->getServiceManagerMock()
-	        )
+            ->createPluginManagerMock(
+                ['Jobs' => $repository],
+                $this->getServiceManagerMock()
+            )
         ;
         $container = $this->createServiceManagerMock(['repositories' => $repositories]);
 
@@ -77,6 +79,4 @@ class JobSelectValuesFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(JobSelectPaginator::class, $paginator);
         $this->assertAttributeSame($repository, 'repository', $paginator);
     }
-
-
 }

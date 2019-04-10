@@ -9,18 +9,20 @@
 
 namespace AuthTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\Form\UserStatusFieldsetFactory;
 use Auth\Form\UserStatusFieldset;
 use CoreTest\Bootstrap;
 
-class UserStatusFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
+class UserStatusFieldsetFactoryTest extends TestCase
 {
     /**
      * @var UserStatusFieldsetFactory
      */
     private $factory;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->factory = new UserStatusFieldsetFactory();
     }

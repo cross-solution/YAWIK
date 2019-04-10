@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Queue\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\Controller\MongoQueueListController;
 use Core\Queue\MongoQueue;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -22,12 +24,12 @@ use Zend\Mvc\Controller\Plugin\Params;
 
 /**
  * Tests for \Core\Queue\Controller\MongoQueueListController
- * 
+ *
  * @covers \Core\Queue\Controller\MongoQueueListController
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class MongoQueueListControllerTest extends \PHPUnit_Framework_TestCase
+class MongoQueueListControllerTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -84,7 +86,6 @@ class MongoQueueListControllerTest extends \PHPUnit_Framework_TestCase
         $out = $this->target->listAction();
 
         $this->assertEquals('Unsupported queue type.', $out);
-
     }
 
     public function testEmptyQueueResponse()
@@ -130,7 +131,6 @@ class MongoQueueListControllerTest extends \PHPUnit_Framework_TestCase
             {
                 // TODO: Implement execute() method.
             }
-
         });
         $date = new \DateTime();
         $date->setTimezone(new \DateTimeZone('UTC'));

@@ -9,20 +9,23 @@
 
 namespace CoreTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Element\Phone;
 use Zend\Validator\Regex as RegexValidator;
 
 /**
 * @covers \Core\Form\Element\Phone
 */
-class PhoneTest extends \PHPUnit_Framework_TestCase
+class PhoneTest extends TestCase
 {
     /**
      * @var Phone
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new Phone();
     }
 
@@ -36,13 +39,14 @@ class PhoneTest extends \PHPUnit_Framework_TestCase
     {
         $input = new RegexValidator('/^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{1,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/');
         $this->target->setValidator($input);
-        $this->assertSame($this->target->getValidator(),$input);
+        $this->assertSame($this->target->getValidator(), $input);
     }
 
     public function testGetInputSpecification()
     {
         $inputSpecification = $this->target->getInputSpecification();
-        $this->assertSame($inputSpecification,
+        $this->assertSame(
+            $inputSpecification,
             ['name' => $this->target->getName(),
             'required' => true,
             'filters' => array(
@@ -50,6 +54,7 @@ class PhoneTest extends \PHPUnit_Framework_TestCase
             ),
             'validators' => array(
                 $this->target->getValidator(),
-            )]);
+            )]
+        );
     }
 }

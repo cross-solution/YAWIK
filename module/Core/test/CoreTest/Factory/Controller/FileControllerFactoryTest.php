@@ -9,6 +9,8 @@
 
 namespace CoreTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\FileController;
 use Core\EventManager\EventManager;
 use Core\Factory\Controller\FileControllerFactory;
@@ -22,7 +24,7 @@ use Interop\Container\ContainerInterface;
  * @package CoreTest\Factory\Controller
  * @since 0.30
  */
-class FileControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class FileControllerFactoryTest extends TestCase
 {
     public function testInvoke()
     {
@@ -41,7 +43,7 @@ class FileControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new FileControllerFactory();
         $this->assertInstanceOf(
             FileController::class,
-            $factory($container,'some-name')
+            $factory($container, 'some-name')
         );
     }
 }

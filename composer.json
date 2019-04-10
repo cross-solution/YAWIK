@@ -23,13 +23,17 @@
     "support": {
         "email": "contact@yawik.org",
         "docs": "http://yawik.readthedocs.org/en/latest/",
-	    "forum": "https://groups.google.com/forum/#!forum/yawik",
-	    "issues": "https://github.com/cross-solution/YAWIK/issues"
+        "forum": "https://groups.google.com/forum/#!forum/yawik",
+        "issues": "https://github.com/cross-solution/YAWIK/issues"
     },
     "license": "MIT",
     "keywords": [
-        "human resource", "human relation", "applicant", "ATS",
-        "zf2", "jobboard"
+        "human resource",
+        "human relation",
+        "applicant",
+        "ATS",
+        "zf2",
+        "jobboard"
     ],
     "homepage": "http://yawik.org/",
     "minimum-stability": "dev",
@@ -87,7 +91,7 @@
         "lakion/mink-debug-extension": "^1.2.3",
         "mikey179/vfsstream": "^1.6",
         "novaway/common-contexts": "~2.0",
-        "phpunit/phpunit": "^5.7",
+        "phpunit/phpunit": "^7.5.8 || ^8.1.2",
         "se/selenium-server-standalone": "^2.52",
         "zendframework/zend-component-installer": "^1.1 | ^2.0",
         "zendframework/zend-test": "^3.1"

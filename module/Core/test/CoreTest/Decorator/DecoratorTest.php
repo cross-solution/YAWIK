@@ -10,19 +10,20 @@
 /** */
 namespace CoreTest\Decorator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Decorator\Decorator;
 
 /**
  * Tests for \Core\Decorator\Decorator
- * 
+ *
  * @covers \Core\Decorator\Decorator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Decorator
  */
-class DecoratorTest extends \PHPUnit_Framework_TestCase
+class DecoratorTest extends TestCase
 {
-
     public function testConstruction()
     {
         $object = new \stdClass();

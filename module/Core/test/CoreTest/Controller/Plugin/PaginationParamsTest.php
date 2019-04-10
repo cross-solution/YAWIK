@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Repository\PaginationList;
 use Core\Controller\AbstractCoreController;
 use Core\Controller\Plugin\PaginationParams;
@@ -24,7 +26,7 @@ use Zend\Stdlib\Parameters;
  * @covers \Core\Controller\Plugin\PaginationParams
  * @since 0.30.1
  */
-class PaginationParamsTest extends \PHPUnit_Framework_TestCase
+class PaginationParamsTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -41,7 +43,7 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->request = $this->createMock(Request::class);
         $this->controller = $this->createMock(AbstractCoreController::class);
@@ -68,7 +70,7 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
         // setup getParams call
         $mock->expects($this->once())
             ->method('getParams')
-            ->with('some/namespace',['page'=>1],null)
+            ->with('some/namespace', ['page'=>1], null)
             ->willReturn('getParams called')
         ;
 
@@ -95,12 +97,12 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             'getList called',
-            $mock('some/namespace',[$this,'methodToTest']),
+            $mock('some/namespace', [$this,'methodToTest']),
             '__invoke() should call ::getList when defaults is callable'
         );
         $this->assertEquals(
             'getList called',
-            $mock('some/namespace',$repository),
+            $mock('some/namespace', $repository),
             '__invoke() should call ::getList when $defaults is a Repository'
         );
     }
@@ -114,7 +116,7 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
     {
         $mock = new PaginationParams();
         $params = ['key' => 'value'];
-        $mock->setParams('namespace',['key'=>'value']);
+        $mock->setParams('namespace', ['key'=>'value']);
         $container = new Container('namespace');
         $this->assertEquals(
             $params,
@@ -132,11 +134,11 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
             ->method('getQuery')
             ->willReturn($params)
         ;
-        $params->set('clear',true);
-        $output = $mock->getParams('namespace',[]);
+        $params->set('clear', true);
+        $output = $mock->getParams('namespace', []);
         $this->assertNull($output->get('clear'));
         // unset clear value to be used for next test
-        $params->set('clear',false);
+        $params->set('clear', false);
 
 
         $session = new Container('namespace');
@@ -148,8 +150,8 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
             1 => 'session',
             2 => 'undefined'
         ];
-        $params->set('existing','existing value');
-        $output = $mock->getParams('namespace',$defaults,$params);
+        $params->set('existing', 'existing value');
+        $output = $mock->getParams('namespace', $defaults, $params);
         $this->assertEquals(
             'value',
             $output->get('key'),
@@ -178,7 +180,7 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
         $mock = $this->target;
 
         $callback = [$this,'methodToTest'];
-        $output = $mock->getList('namespace',$callback);
+        $output = $mock->getList('namespace', $callback);
         $this->assertEquals(
             'methodToTest called',
             $output,
@@ -188,7 +190,7 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
         $session->list = 'some value';
         $this->assertEquals(
             'some value',
-            $mock->getList('namespace',$callback)
+            $mock->getList('namespace', $callback)
         );
     }
 
@@ -203,7 +205,7 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
 
         $mock->expects($this->once())
             ->method('getList')
-            ->with('namespace','callback')
+            ->with('namespace', 'callback')
             ->willReturn($list)
         ;
 
@@ -221,7 +223,7 @@ class PaginationParamsTest extends \PHPUnit_Framework_TestCase
         ;
         $this->assertEquals(
             ['previous','next'],
-            $mock->getNeighbours('namespace','callback','id')
+            $mock->getNeighbours('namespace', 'callback', 'id')
         );
     }
 }

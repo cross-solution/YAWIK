@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Image;
 use Core\Entity\ImageSetInterface;
 use Core\Options\ImageSetOptions;
@@ -19,12 +21,12 @@ use Zend\Stdlib\AbstractOptions;
 
 /**
  * Tests for \Core\Options\ImageSetOptions
- * 
+ *
  * @covers \Core\Options\ImageSetOptions
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class ImageSetOptionsTest extends \PHPUnit_Framework_TestCase
+class ImageSetOptionsTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -38,6 +40,4 @@ class ImageSetOptionsTest extends \PHPUnit_Framework_TestCase
         ['images', ['default'=>[ImageSetInterface::THUMBNAIL => [100,100]], 'value' => ['a' => [1,1]]]],
         ['entity', ['ignore_setter' => true, 'value@' => Image::class]],
     ];
-
-
 }

@@ -9,6 +9,8 @@
 
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Timeline;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -21,7 +23,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @since 0.30.1
  * @covers \Core\Entity\Timeline
  */
-class TimelineTest extends \PHPUnit_Framework_TestCase
+class TimelineTest extends TestCase
 {
     use TestSetterGetterTrait, SetupTargetTrait;
 
@@ -35,7 +37,7 @@ class TimelineTest extends \PHPUnit_Framework_TestCase
             ['date',[
                 'value' => new \DateTime(),
                 'default' => new \DateTime(),
-                'default_assert' => function($v,$return){
+                'default_assert' => function ($v, $return) {
                     $date = new \DateTime();
                     $this->assertEquals(
                         $date->getTimestamp(),

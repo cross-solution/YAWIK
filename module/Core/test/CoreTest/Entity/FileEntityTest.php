@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Entity\FileEntity;
 use Core\Entity\Permissions;
@@ -23,7 +25,7 @@ use Core\Entity\Permissions;
  * @group  Core.Entity
  * @covers \Core\Entity\FileEntity
  */
-class FileEntityTest extends \PHPUnit_Framework_TestCase
+class FileEntityTest extends TestCase
 {
 
     /**
@@ -31,7 +33,8 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new FileEntity();
     }
 
@@ -42,24 +45,27 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Core\Entity\AbstractIdentifiableEntity', $this->target);
     }
 
-    public function testGetResourceId(){
-        $this->assertSame($this->target->getResourceId(),'Entity/File');
+    public function testGetResourceId()
+    {
+        $this->assertSame($this->target->getResourceId(), 'Entity/File');
     }
 
-    public function testSetGetName(){
+    public function testSetGetName()
+    {
         $name="test.jpg";
         $this->target->setName($name);
-        $this->assertSame($this->target->getName(),$name);
+        $this->assertSame($this->target->getName(), $name);
     }
 
-    public function testSetGetUser(){
+    public function testSetGetUser()
+    {
         $user = new User();
         $this->target->setUser($user);
-        $this->assertSame($this->target->getUser(),$user);
+        $this->assertSame($this->target->getUser(), $user);
     }
 
     /**
-     * @covers Core\Entity\FileEntity::getPrettySize
+     * @covers \Core\Entity\FileEntity::getPrettySize
      * @dataProvider provideSize
      */
     public function testGetPrettySize($size, $unit)
@@ -74,7 +80,8 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertStringEndsWith($unit, $target->getPrettySize($size));
     }
 
-    public function provideSize(){
+    public function provideSize()
+    {
         return [
             [10, '10'],
             [10000, 'kB'],
@@ -83,42 +90,48 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testSetGetMimeType(){
+    public function testSetGetMimeType()
+    {
         $mime = "image/gif";
         $this->target->setType($mime);
-        $this->assertSame($this->target->getType(),$mime);
+        $this->assertSame($this->target->getType(), $mime);
     }
 
-    public function testGetDateUploadedWithoutSetting(){
+    public function testGetDateUploadedWithoutSetting()
+    {
         $this->assertEquals(
             $this->target->getDateUploaded()->format('Y-m-d H:i:s'),
             (new \DateTime())->format('Y-m-d H:i:s')
         );
     }
 
-    public function testGetDateUploaded(){
+    public function testGetDateUploaded()
+    {
         $input= new \DateTime("2016-01-02");
         $this->target->setDateUploaded($input);
-        $this->assertEquals($this->target->getDateUploaded(),$input);
+        $this->assertEquals($this->target->getDateUploaded(), $input);
     }
 
-    public function testSetGetFile(){
+    public function testSetGetFile()
+    {
         $file = "test";
         $this->target->setFile($file);
-        $this->assertSame($this->target->getFile(),$file);
+        $this->assertSame($this->target->getFile(), $file);
     }
 
     /**
      * @dataProvider providePermissions
      * @param $permissions
      */
-    public function testGetPermissions($input){
+    public function testGetPermissions($input)
+    {
         $permissions = new Permissions($input);
         $this->target->setPermissions($permissions);
-        $this->assertEquals($this->target->getPermissions(),$permissions);
+        $this->assertEquals($this->target->getPermissions(), $permissions);
     }
 
-    public function providePermissions(){
+    public function providePermissions()
+    {
         return [
             [Permissions::PERMISSION_ALL],
             [Permissions::PERMISSION_CHANGE],
@@ -128,7 +141,7 @@ class FileEntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Entity\FileEntity::getUri
+     * @covers \Core\Entity\FileEntity::getUri
      */
     public function testGetUri()
     {

@@ -9,18 +9,20 @@
 
 namespace OrganizationsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Factory\Controller\IndexControllerFactory;
 use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class IndexControllerFactoryTest extends TestCase
 {
     /**
      * @var IndexControllerFactory
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new IndexControllerFactory();
     }

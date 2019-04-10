@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Tree;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\SummaryForm;
 use Core\Form\Tree\ManagementForm;
@@ -26,7 +28,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @group Core.Form
  * @group Core.Form.Tree
  */
-class ManagementFormTest extends \PHPUnit_Framework_TestCase
+class ManagementFormTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait, TestSetterGetterTrait;
 

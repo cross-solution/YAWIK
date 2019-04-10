@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Form\UserImageFactory;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,14 +19,14 @@ use Cv\Factory\Form\CvContactImageFactory;
 
 /**
  * Tests for \Cv\Factory\Form\CvContactImageFactory
- * 
+ *
  * @covers \Cv\Factory\Form\CvContactImageFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Factory
  * @group Cv.Factory.Form
  */
-class CvContactImageFactoryTest extends \PHPUnit_Framework_TestCase
+class CvContactImageFactoryTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 

@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Acl;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Acl\WriteAssertion;
@@ -32,14 +34,14 @@ use Organizations\Entity\OrganizationName;
  * @group Jobs
  * @group Jobs.Acl
  */
-class WriteAssertionTest extends \PHPUnit_Framework_TestCase
+class WriteAssertionTest extends TestCase
 {
     /**
      * @var WriteAssertion
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new WriteAssertion();
     }
@@ -65,22 +67,18 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
 
         $privileges = array('new', 'test', 'edit');
 
-        foreach(array($role, $user) as $testObj)
-        {
+        foreach (array($role, $user) as $testObj) {
             // non user is always false?
-            foreach($privileges as $p)
-            {
+            foreach ($privileges as $p) {
                 $this->assertFalse((bool)$target->assert($acl, $testObj, null, $p));
             }
 
             // user and wrong privilege is false?
-            foreach($privileges as $p)
-            {
+            foreach ($privileges as $p) {
                 // Casting null to false is safe here, 'edit' for pair user-privilege tested after
                 $this->assertFalse((bool)$target->assert($acl, $testObj, $job, $p));
             }
         }
-
     }
 
     public function testOrganisationPermissions()
@@ -117,29 +115,28 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
         //$user->setOrganization($organization);
 
         /** Organization without user **/
-        $this->assertFalse( $assertion->checkOrganizationPermissions( $user, $job ) );
+        $this->assertFalse($assertion->checkOrganizationPermissions($user, $job));
     }
 
     /**
      * @dataProvider assertParametersWithoutOrganization
      */
-    public function testAssertWithoutOrganisation($input, $expected){
+    public function testAssertWithoutOrganisation($input, $expected)
+    {
+        $method="assert".($expected?"True":"False");
 
-            $method="assert".($expected?"True":"False");
-
-            $this->$method(
+        $this->$method(
                 $this->target->assert(
                     $input[0], // acl
                     $input[1], // role
                     $input[2], // resource
                     $input[3]  // privilege
-                ));
-
-
+                )
+            );
     }
 
-    public function assertParametersWithoutOrganization(){
-
+    public function assertParametersWithoutOrganization()
+    {
         $userId = 1234;
         $user = new User();
         $user->setId($userId);
@@ -169,8 +166,8 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testAssertUserIsOrganizationAdmin(){
-
+    public function testAssertUserIsOrganizationAdmin()
+    {
         $userId = 1234;
         $user = new User();
         $user->setId($userId);
@@ -195,11 +192,12 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
                 $user,     // role
                 $jobMock,  // resource
                 'edit'     // privilege
-            ));
+            )
+        );
     }
 
-    public function testAssertUserIsOwnerOfTheParentOrganization(){
-
+    public function testAssertUserIsOwnerOfTheParentOrganization()
+    {
         $userId = 1234;
         $user = new User();
         $user->setId($userId);
@@ -228,11 +226,12 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
                 $user,     // role
                 $jobMock,  // resource
                 'edit'     // privilege
-            ));
+            )
+        );
     }
 
-    public function testUserIsEmployeeWithJobsChangePermissions(){
-
+    public function testUserIsEmployeeWithJobsChangePermissions()
+    {
         $userId = 1234;
         $user = new User();
         $user->setId($userId);
@@ -268,13 +267,15 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
                 $user,     // role
                 $jobMock,  // resource
                 'edit'     // privilege
-            ));
+            )
+        );
     }
 }
 
 class CreateWriteAssertionMock extends WriteAssertion
 {
-    public function assert(Acl $acl,
+    public function assert(
+        Acl $acl,
         RoleInterface $role = null,
         ResourceInterface $resource = null,
         $privilege = null

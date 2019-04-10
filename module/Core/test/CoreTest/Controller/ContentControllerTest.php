@@ -10,6 +10,8 @@
 
 namespace CoreTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\ContentController;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -25,7 +27,7 @@ use Zend\Mvc\Controller\PluginManager;
  * @author Anthonius Munthi <me@itstoni.com>
  * @since 0.30
  */
-class ContentControllerTest extends \PHPUnit_Framework_TestCase
+class ContentControllerTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -33,7 +35,7 @@ class ContentControllerTest extends \PHPUnit_Framework_TestCase
 
     protected $inheritance = [AbstractActionController::class];
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new ContentController();
     }
@@ -65,7 +67,7 @@ class ContentControllerTest extends \PHPUnit_Framework_TestCase
 
         $request->expects($this->exactly(2))
             ->method('isXmlHttpRequest')
-            ->willReturnOnConsecutiveCalls(false,true)
+            ->willReturnOnConsecutiveCalls(false, true)
         ;
 
         $params->expects($this->exactly(2))
@@ -77,13 +79,15 @@ class ContentControllerTest extends \PHPUnit_Framework_TestCase
 
         $viewModel = $target->indexAction();
         $this->assertEquals(
-            'content/some_view',$viewModel->getTemplate()
+            'content/some_view',
+            $viewModel->getTemplate()
         );
         $this->assertFalse($viewModel->terminate());
 
         $viewModel = $target->indexAction();
         $this->assertEquals(
-            'content/some_view',$viewModel->getTemplate()
+            'content/some_view',
+            $viewModel->getTemplate()
         );
         $this->assertTrue($viewModel->terminate());
     }
@@ -115,7 +119,7 @@ class ContentControllerTest extends \PHPUnit_Framework_TestCase
 
         $request->expects($this->exactly(2))
             ->method('isXmlHttpRequest')
-            ->willReturnOnConsecutiveCalls(false,true)
+            ->willReturnOnConsecutiveCalls(false, true)
         ;
 
         $params->expects($this->exactly(2))
@@ -127,15 +131,16 @@ class ContentControllerTest extends \PHPUnit_Framework_TestCase
 
         $viewModel = $target->modalAction();
         $this->assertEquals(
-            'some_view',$viewModel->getTemplate()
+            'some_view',
+            $viewModel->getTemplate()
         );
         $this->assertFalse($viewModel->terminate());
 
         $viewModel = $target->modalAction();
         $this->assertEquals(
-            'some_view',$viewModel->getTemplate()
+            'some_view',
+            $viewModel->getTemplate()
         );
         $this->assertTrue($viewModel->terminate());
     }
-
 }

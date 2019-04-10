@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Token;
 
 /**
@@ -22,7 +24,7 @@ use Auth\Entity\Token;
  * @group  Auth
  * @group  Auth.Entity
  */
-class TokenTest extends \PHPUnit_Framework_TestCase
+class TokenTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -31,15 +33,15 @@ class TokenTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Token();
     }
 
     /**
      * @testdox Allows to use String or DateTime
-     * @covers Auth\Entity\Token::getHash
-     * @covers Auth\Entity\Token::setHash
+     * @covers \Auth\Entity\Token::getHash
+     * @covers \Auth\Entity\Token::setHash
      */
     public function testGetSetHash()
     {
@@ -50,8 +52,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to use String or DateTime
-     * @covers Auth\Entity\Token::getExpirationDate
-     * @covers Auth\Entity\Token::setExpirationDate
+     * @covers \Auth\Entity\Token::getExpirationDate
+     * @covers \Auth\Entity\Token::setExpirationDate
      */
     public function testGetSetExpirationDate()
     {

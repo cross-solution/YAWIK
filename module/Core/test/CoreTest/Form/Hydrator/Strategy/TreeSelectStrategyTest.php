@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Hydrator\Strategy;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\Tree\AbstractLeafs;
 use Core\Entity\Tree\AttachedLeafs;
@@ -21,7 +23,7 @@ use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Tests for \Core\Form\Hydrator\Strategy\TreeSelectStrategy
- * 
+ *
  * @covers \Core\Form\Hydrator\Strategy\TreeSelectStrategy
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -29,7 +31,7 @@ use Zend\Hydrator\Strategy\StrategyInterface;
  * @group Core.Form.Hydrator
  * @group Core.Form.Hydrator.Strategy
  */
-class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
+class TreeSelectStrategyTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -49,7 +51,9 @@ class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
             ['treeRoot', new Node()],
             ['allowSelectMultipleItems', ['default' => false, 'value' => true, 'getter_method' => '*']],
             ['allowSelectMultipleItems', ['value' => false, 'getter_method' => '*']],
-            ['allowSelectMultipleItems', ['value' => function() { return true; }, 'getter_method' => '*', 'expect' => true]],
+            ['allowSelectMultipleItems', ['value' => function () {
+                return true;
+            }, 'getter_method' => '*', 'expect' => true]],
 
         ];
     }
@@ -133,7 +137,6 @@ class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydrate($data, $count)
     {
-
         $attachedLeafs = new ConcreteAbstractLeafs();
         $this->target->setAttachedLeafs($attachedLeafs);
         $this->target->setAllowSelectMultipleItems(is_array($data));
@@ -146,5 +149,4 @@ class TreeSelectStrategyTest extends \PHPUnit_Framework_TestCase
 
 class ConcreteAbstractLeafs extends AbstractLeafs
 {
-
 }

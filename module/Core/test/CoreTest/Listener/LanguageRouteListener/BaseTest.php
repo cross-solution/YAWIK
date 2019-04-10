@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Listener\LanguageRouteListener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Options\ModuleOptions;
 use Zend\EventManager\EventManager;
 use Core\Listener\LanguageRouteListener;
@@ -29,7 +31,7 @@ use Zend\Mvc\MvcEvent;
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -37,9 +39,9 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     private $inheritance = [ ListenerAggregateInterface::class ];
 
-    public function setUp()
+    protected function setUp()
     {
-        $this->target = new LanguageRouteListener(new LocaleService(['xx' => 'xx_XX']),new ModuleOptions());
+        $this->target = new LanguageRouteListener(new LocaleService(['xx' => 'xx_XX']), new ModuleOptions());
     }
     
     public function testAttachsToExpectedEvents()
@@ -71,8 +73,8 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testDetach()
     {
-    	$callableListener = [new CallableListenerMock(),'doSomething'];
-    	
+        $callableListener = [new CallableListenerMock(),'doSomething'];
+        
         $events = $this
             ->getMockBuilder(EventManager::class)
             ->disableOriginalConstructor()
@@ -80,11 +82,11 @@ class BaseTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $events
-	        ->expects($this->any())
-	        ->method('attach')
-	        ->will(
-	        	$this->onConsecutiveCalls($callableListener, $callableListener)
-	        )
+            ->expects($this->any())
+            ->method('attach')
+            ->will(
+                $this->onConsecutiveCalls($callableListener, $callableListener)
+            )
         ;
 
         $events
@@ -103,5 +105,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
 class CallableListenerMock
 {
-	public function doSomething(){}
+    public function doSomething()
+    {
+    }
 }

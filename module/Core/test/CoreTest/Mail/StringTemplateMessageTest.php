@@ -10,6 +10,8 @@
 
 namespace CoreTest\Mail;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Mail\StringTemplateMessage;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -25,7 +27,7 @@ use Zend\Stdlib\ArrayUtils;
  * @covers \Core\Mail\StringTemplateMessage
  * @since 0.30.1
  */
-class StringTemplateMessageTest extends \PHPUnit_Framework_TestCase
+class StringTemplateMessageTest extends TestCase
 {
     use TestSetterGetterTrait, SetupTargetTrait;
 
@@ -40,9 +42,9 @@ class StringTemplateMessageTest extends \PHPUnit_Framework_TestCase
     {
         $target = new StringTemplateMessage();
         $headers = $target->getHeaders()->toString();
-        $this->assertContains('Content-Type: text/plain;',$headers);
-        $this->assertContains('charset="UTF-8"',$headers);
-        $this->assertEquals('UTF-8',$target->getEncoding());
+        $this->assertContains('Content-Type: text/plain;', $headers);
+        $this->assertContains('charset="UTF-8"', $headers);
+        $this->assertEquals('UTF-8', $target->getEncoding());
     }
 
     public function testVariables()
@@ -50,9 +52,9 @@ class StringTemplateMessageTest extends \PHPUnit_Framework_TestCase
         $variables = ['some'=>'value'];
         $target = new StringTemplateMessage();
         $this->assertTrue(is_array($target->getVariables()));
-        $target->setVariable('foo','bar');
+        $target->setVariable('foo', 'bar');
         $target->setVariables($variables);
-        $this->assertEquals($variables,$target->getVariables());
+        $this->assertEquals($variables, $target->getVariables());
     }
 
     public function someCallback()
@@ -139,8 +141,8 @@ EOC;
             $target->getBodyText()
         );
 
-        $target->setVariable('name','Foo Bar');
-        $target->setVariable('app','Yawik');
+        $target->setVariable('name', 'Foo Bar');
+        $target->setVariable('app', 'Yawik');
         $this->assertEquals(
             "Hello World Foo Bar!".
             "\nWelcome to Yawik!".
@@ -153,15 +155,16 @@ EOC;
             trim($target->getSubject())
         );
 
-        $target->setCallback('callback',function(){
+        $target->setCallback('callback', function () {
             return 'Hello From Callback!';
         });
-        $target->setCallback('object','getSubject');
+        $target->setCallback('object', 'getSubject');
         $content = $target->getBodyText();
 
-        $this->assertContains('Hello From Callback!',$content);
+        $this->assertContains('Hello From Callback!', $content);
         $this->assertContains(
-            'Translated Subject Callback',$content
+            'Translated Subject Callback',
+            $content
         );
     }
 }

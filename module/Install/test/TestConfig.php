@@ -3,6 +3,8 @@ $commonModules = include_once __DIR__.'/../../../config/common.modules.php';
 
 return array(
     // This should be an array of module namespaces used in the application.
+
+use PHPUnit\Framework\TestCase;
     'modules' => array_merge($commonModules,array(
         'Install',
     )),
@@ -12,6 +14,8 @@ return array(
         // This should be an array of paths in which modules reside.
         // If a string key is provided, the listener will consider that a module
         // namespace, the value of that key the specific path to that module's
+
+use PHPUnit\Framework\TestCase;
         // Module class.
         'module_paths' => array(
             './module',

@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\AbstractCoreController;
 use Core\Controller\Plugin\FileSender;
 use Core\Entity\FileEntity;
@@ -25,7 +27,7 @@ use Zend\Http\PhpEnvironment\Response;
  * @covers \Core\Controller\Plugin\FileSender
  * @since 0.30.1
  */
-class FileSenderTest extends \PHPUnit_Framework_TestCase
+class FileSenderTest extends TestCase
 {
     public function testFactory()
     {
@@ -37,7 +39,7 @@ class FileSenderTest extends \PHPUnit_Framework_TestCase
             ->willReturn($repositories)
         ;
         $ob = FileSender::factory($container);
-        $this->assertInstanceOf(FileSender::class,$ob);
+        $this->assertInstanceOf(FileSender::class, $ob);
     }
 
     public function testSendFile()
@@ -61,15 +63,15 @@ class FileSenderTest extends \PHPUnit_Framework_TestCase
         ;
         $repo->expects($this->any())
             ->method('find')
-            ->willReturn(null,$file)
+            ->willReturn(null, $file)
         ;
 
         $sender = new FileSender($repositories);
         $sender->setController($controller);
 
         // fist test: response will be 404 if file is not found
-        $sender('someRepository',$fileId);
-        $this->assertEquals(404,$response->getStatusCode());
+        $sender('someRepository', $fileId);
+        $this->assertEquals(404, $response->getStatusCode());
 
         // second test: will handle send file properly
         $file->expects($this->any())
@@ -79,16 +81,16 @@ class FileSenderTest extends \PHPUnit_Framework_TestCase
                 ['size','size']
             ])
         ;
-        $resource = fopen(__FILE__,'r');
+        $resource = fopen(__FILE__, 'r');
         $file->expects($this->once())
             ->method('getResource')
             ->willReturn($resource)
         ;
         ob_start();
-        $sender('someRepository',$fileId);
+        $sender('someRepository', $fileId);
         $output = ob_get_contents();
         ob_end_clean();
 
-        $this->assertStringEqualsFile(__FILE__,$output);
+        $this->assertStringEqualsFile(__FILE__, $output);
     }
 }

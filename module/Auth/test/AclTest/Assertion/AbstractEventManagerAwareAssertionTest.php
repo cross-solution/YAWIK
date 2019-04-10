@@ -10,6 +10,8 @@
 /** */
 namespace AclTest\Assertion;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Assertion\AbstractEventManagerAwareAssertion;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\ResponseCollection;
@@ -27,9 +29,8 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  * @group Acl
  * @group Acl.Assertion
  */
-class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
+class AbstractEventManagerAwareAssertionTest extends TestCase
 {
-
     public function testImplementsInterfaces()
     {
         $target = new TargetMock();
@@ -155,15 +156,15 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
         $self = $this;
 
         $events->expects($this->once())->method('triggerUntil')
-               ->will($this->returnCallback(function ($callback,$eventName,$event) use ($acl, $role, $resource, $privilege, $self) {
-               	    $self->assertTrue(is_callable($callback));
-	                $self->assertEquals('assert',$eventName);
-                    $self->assertSame($acl, $event->getAcl());
-                    $self->assertSame($role, $event->getRole());
-                    $self->assertSame($resource, $event->getResource());
-                    $self->assertSame($privilege, $event->getPrivilege());
+               ->will($this->returnCallback(function ($callback, $eventName, $event) use ($acl, $role, $resource, $privilege, $self) {
+                   $self->assertTrue(is_callable($callback));
+                   $self->assertEquals('assert', $eventName);
+                   $self->assertSame($acl, $event->getAcl());
+                   $self->assertSame($role, $event->getRole());
+                   $self->assertSame($resource, $event->getResource());
+                   $self->assertSame($privilege, $event->getPrivilege());
 
-                    return new ResponseCollection();
+                   return new ResponseCollection();
                }));
 
         $target->setEventManager($events);

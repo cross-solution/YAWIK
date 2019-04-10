@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Application;
 use Applications\Entity\Attachment;
 use Applications\Entity\Attributes;
@@ -37,7 +39,7 @@ use Jobs\Entity\Job;
  * @group  Applications
  * @group  Applications.Entity
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
     /**
      * git dThe "Class under Test"
@@ -46,7 +48,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Application();
     }
@@ -64,10 +66,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Entity\Application::getJob
-     * @covers Applications\Entity\Application::setJob
+     * @covers \Applications\Entity\Application::getJob
+     * @covers \Applications\Entity\Application::setJob
      */
-    public function testSetGetJob(){
+    public function testSetGetJob()
+    {
         $user = new User();
         $user->setId(123);
         $job = new Job();
@@ -77,10 +80,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Entity\Application::getContact
-     * @covers Applications\Entity\Application::setContact
+     * @covers \Applications\Entity\Application::getContact
+     * @covers \Applications\Entity\Application::setContact
      */
-    public function testSetGetContactWithContact(){
+    public function testSetGetContactWithContact()
+    {
         $contact = new Contact();
         $contact->setEmail('test@test.de')
             ->setLastName('bar')
@@ -94,20 +98,23 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($contact, $this->target->getContact());
     }
 
-    public function testSetGetContactWithoutContact(){
+    public function testSetGetContactWithoutContact()
+    {
         $this->assertEquals(null, $this->target->getContact());
     }
 
-    public function testSetGetContactWithoutContact2(){
+    public function testSetGetContactWithoutContact2()
+    {
         $this->target->setContact(new Info());
         $this->assertEquals(new Contact(), $this->target->getContact());
     }
 
     /**
-     * @covers Applications\Entity\Application::getFacts
-     * @covers Applications\Entity\Application::setFacts
+     * @covers \Applications\Entity\Application::getFacts
+     * @covers \Applications\Entity\Application::setFacts
      */
-    public function testSetGetFacts(){
+    public function testSetGetFacts()
+    {
         $facts = new Facts();
         $facts->setDrivingLicense(true)
             ->setEarliestStartingDate(new \DateTime())
@@ -118,15 +125,17 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($facts, $this->target->getFacts());
     }
 
-    public function testGetFactsWithoutFacts(){
+    public function testGetFactsWithoutFacts()
+    {
         $this->assertEquals(new Facts(), $this->target->getFacts());
     }
 
     /**
-     * @covers Applications\Entity\Application::getCv
-     * @covers Applications\Entity\Application::setCv
+     * @covers \Applications\Entity\Application::getCv
+     * @covers \Applications\Entity\Application::setCv
      */
-    public function testSetGetCv(){
+    public function testSetGetCv()
+    {
         $cv = new Cv();
         $education= new Education();
         $education->setDescription('test');
@@ -139,15 +148,17 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($cv, $this->target->getCv());
     }
 
-    public function testGetCvWithouCv(){
+    public function testGetCvWithouCv()
+    {
         $this->assertEquals(new Cv(), $this->target->getCv());
     }
 
     /**
-     * @covers Applications\Entity\Application::getAttachments
-     * @covers Applications\Entity\Application::setAttachments
+     * @covers \Applications\Entity\Application::getAttachments
+     * @covers \Applications\Entity\Application::setAttachments
      */
-    public function testSetGetAttachments(){
+    public function testSetGetAttachments()
+    {
         $attachment = new Attachment();
         $attachment->setName('foo');
 
@@ -159,16 +170,18 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($attachments, $this->target->getAttachments());
     }
 
-    public function testGetAttachmentsWithoutAttachments(){
+    public function testGetAttachmentsWithoutAttachments()
+    {
         $this->assertEquals(new ArrayCollection(), $this->target->getAttachments());
     }
 
 
     /**
-     * @covers Applications\Entity\Application::setReadBy
-     * @covers Applications\Entity\Application::getReadBy
+     * @covers \Applications\Entity\Application::setReadBy
+     * @covers \Applications\Entity\Application::getReadBy
      */
-    public function testSetGetReadBy(){
+    public function testSetGetReadBy()
+    {
         $readBy = [
             new \MongoId(),
             new \MongoId()
@@ -179,9 +192,10 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Entity\Application::isReadBy
+     * @covers \Applications\Entity\Application::isReadBy
      */
-    public function testIsReadByWithUser() {
+    public function testIsReadByWithUser()
+    {
         $user = new User();
         $user->setId(123);
         $readBy = [
@@ -193,9 +207,10 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Entity\Application::isReadBy
+     * @covers \Applications\Entity\Application::isReadBy
      */
-    public function testIsUnReadByWithUser() {
+    public function testIsUnReadByWithUser()
+    {
         $user = new User();
         $user->setId(123);
         $readBy = [
@@ -207,23 +222,24 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Applications\Entity\Application::addReadBy
+     * @covers \Applications\Entity\Application::addReadBy
      */
-    public function testAddReadByWithUser() {
+    public function testAddReadByWithUser()
+    {
         $user = new User();
         $user->setId(123);
         $this->target->addReadBy($user);
         $this->assertEquals(false, $this->target->isUnReadBy($user));
         $this->assertEquals(true, $this->target->isReadBy($user));
-
     }
 
 
     /**
-     * @covers Applications\Entity\Application::getComments
-     * @covers Applications\Entity\Application::setComments
+     * @covers \Applications\Entity\Application::getComments
+     * @covers \Applications\Entity\Application::setComments
      */
-    public function testSetGetComments(){
+    public function testSetGetComments()
+    {
         $comment = new Comment();
         $comment->setMessage('test foo bar')
             ->setDateCreated(new \DateTime())
@@ -236,16 +252,18 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($comments, $this->target->getComments());
     }
 
-    public function testGetCommentsWithoutComments(){
+    public function testGetCommentsWithoutComments()
+    {
         $this->assertEquals(new ArrayCollection(), $this->target->getComments());
     }
 
     /**
-     * @covers Applications\Entity\Application::getHistory
-     * @covers Applications\Entity\Application::setHistory
+     * @covers \Applications\Entity\Application::getHistory
+     * @covers \Applications\Entity\Application::setHistory
      */
-    public function testSetGetHistory(){
-        $history = new History(Status::INCOMING,'MESSAGE');
+    public function testSetGetHistory()
+    {
+        $history = new History(Status::INCOMING, 'MESSAGE');
 
         $array = new ArrayCollection();
         $array->add($history);
@@ -254,15 +272,17 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($array, $this->target->getHistory());
     }
 
-    public function testGetEmptyHistory(){
+    public function testGetEmptyHistory()
+    {
         $this->assertEquals(new ArrayCollection(), $this->target->getHistory());
     }
 
     /**
-     * @covers Applications\Entity\Application::getAttributes
-     * @covers Applications\Entity\Application::setAttributes
+     * @covers \Applications\Entity\Application::getAttributes
+     * @covers \Applications\Entity\Application::setAttributes
      */
-    public function testSetGetAttributes(){
+    public function testSetGetAttributes()
+    {
         $attributes = new Attributes();
         $attributes->setSendCarbonCopy(true)
             ->setAcceptedPrivacyPolicy(true);
@@ -272,15 +292,16 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($attributes, $this->target->getAttributes());
     }
 
-    public function testGetAttributesWithoutAttributes(){
+    public function testGetAttributesWithoutAttributes()
+    {
         $this->assertEquals(new Attributes(), $this->target->getAttributes());
     }
 
 
     /**
      * @testdox Allows setting a the cover letter
-     * @covers Applications\Entity\Application::getSummary
-     * @covers Applications\Entity\Application::setSummary
+     * @covers \Applications\Entity\Application::getSummary
+     * @covers \Applications\Entity\Application::setSummary
      */
     public function testSetGetSummary()
     {
@@ -291,9 +312,9 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @testdox Allows setting searchable keywords
-     * @covers Applications\Entity\Application::getKeywords
-     * @covers Applications\Entity\Application::setKeywords
-     * @covers Applications\Entity\Application::clearKeywords
+     * @covers \Applications\Entity\Application::getKeywords
+     * @covers \Applications\Entity\Application::setKeywords
+     * @covers \Applications\Entity\Application::clearKeywords
      */
     public function testSetGetKeywords()
     {
@@ -307,8 +328,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @testdox Allows setting a the cover letter
-     * @covers Applications\Entity\Application::isDraft
-     * @covers Applications\Entity\Application::setIsDraft
+     * @covers \Applications\Entity\Application::isDraft
+     * @covers \Applications\Entity\Application::setIsDraft
      * @dataProvider provideSetGetDraft
      */
     public function testSetGetIsDraft($input, $expected)

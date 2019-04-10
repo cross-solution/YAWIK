@@ -9,19 +9,21 @@
 
 namespace AuthTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\Controller\RegisterControllerFactory;
 use Auth\Options\ModuleOptions;
 use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class RegisterControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class RegisterControllerFactoryTest extends TestCase
 {
     /**
      * @var RegisterControllerFactory
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new RegisterControllerFactory();
     }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Container;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -22,7 +24,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @group Core
  * @group Core.Form
  */
-class WizardContainerTest extends \PHPUnit_Framework_TestCase
+class WizardContainerTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

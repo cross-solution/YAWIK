@@ -8,6 +8,8 @@
  */
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Container;
 use Core\Form\CollectionContainer;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -15,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection as Collection;
 use Core\Form\Form as CoreForm;
 use stdClass;
 
-class CollectionContainerTest extends \PHPUnit_Framework_TestCase
+class CollectionContainerTest extends TestCase
 {
 
     /**
@@ -38,7 +40,7 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
      */
     protected $formElementManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->newEntry = $this->getMockBuilder(stdClass::class)
             ->setMethods(['getId'])
@@ -72,7 +74,8 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMethodsThrowRuntimeExceptionWithEntity($method, array $parameters = [])
     {
-        $this->setExpectedException(\RuntimeException::class, 'Entity must be set');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Entity must be set');
         call_user_func_array([$this->collectionContainer, $method], $parameters);
     }
     
@@ -98,8 +101,8 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->collectionContainer->setEntity($collection);
         $iterator = $this->collectionContainer->getIterator();
-		$this->assertInstanceOf(\Iterator::class, $iterator);
-		$this->assertSame(count($collection), count($iterator));
+        $this->assertInstanceOf(\Iterator::class, $iterator);
+        $this->assertSame(count($collection), count($iterator));
     }
     
     /**
@@ -119,7 +122,8 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
         
         $this->collectionContainer->setFormElementManager($formElementManager);
         
-        $this->setExpectedException(\RuntimeException::class, '$form must be instance of');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('$form must be instance of');
         call_user_func_array([$this->collectionContainer, $method], $parameters);
     }
     
@@ -149,10 +153,10 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
         $this->collectionContainer->setEntity($collection);
         $entry = $collection->first();
         $key = $collection->indexOf($entry);
-		$form = $this->collectionContainer->getForm($key);
-		$this->assertInstanceOf(CoreForm::class, $form);
-		$this->assertSame($entry, $form->getObject());
-		$this->assertContains($key, $form->getAttribute('action'));
+        $form = $this->collectionContainer->getForm($key);
+        $this->assertInstanceOf(CoreForm::class, $form);
+        $this->assertSame($entry, $form->getObject());
+        $this->assertContains($key, $form->getAttribute('action'));
     }
     
     /**
@@ -162,9 +166,9 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->collectionContainer->setEntity($collection);
         $form = $this->collectionContainer->getForm(CollectionContainer::NEW_ENTRY);
-		$this->assertInstanceOf(CoreForm::class, $form);
-		$this->assertSame($this->newEntry, $form->getObject());
-		$this->assertContains(CollectionContainer::NEW_ENTRY, $form->getAttribute('action'));
+        $this->assertInstanceOf(CoreForm::class, $form);
+        $this->assertSame($this->newEntry, $form->getObject());
+        $this->assertContains(CollectionContainer::NEW_ENTRY, $form->getAttribute('action'));
     }
     
     /**
@@ -185,9 +189,9 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
         $entry = $collection->first();
         $count = count($collection);
         $result = $this->collectionContainer->executeAction('remove', ['key' => $collection->indexOf($entry)]);
-		$this->assertArrayHasKey('success', $result);
-		$this->assertTrue($result['success']);
-		$this->assertSame($count - 1, count($collection));
+        $this->assertArrayHasKey('success', $result);
+        $this->assertTrue($result['success']);
+        $this->assertSame($count - 1, count($collection));
     }
     
     /**
@@ -198,23 +202,23 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
         $this->collectionContainer->setEntity($collection);
         $count = count($collection);
         $result = $this->collectionContainer->executeAction('remove', ['key' => 'non-existent']);
-		$this->assertArrayHasKey('success', $result);
-		$this->assertFalse($result['success']);
-		$this->assertSame($count, count($collection));
+        $this->assertArrayHasKey('success', $result);
+        $this->assertFalse($result['success']);
+        $this->assertSame($count, count($collection));
     }
     
     public function testGetViewHelper()
     {
-		$result = $this->collectionContainer->getViewHelper();
-		$this->assertTrue(is_string($result));
-		$this->assertNotEmpty($result);
+        $result = $this->collectionContainer->getViewHelper();
+        $this->assertTrue(is_string($result));
+        $this->assertNotEmpty($result);
     }
     
     public function testSetViewHelper()
     {
         $expected = 'viewHelper';
-		$this->assertSame($this->collectionContainer, $this->collectionContainer->setViewHelper($expected));
-		$this->assertSame($expected, $this->collectionContainer->getViewHelper());
+        $this->assertSame($this->collectionContainer, $this->collectionContainer->setViewHelper($expected));
+        $this->assertSame($expected, $this->collectionContainer->getViewHelper());
     }
     
     /**
@@ -248,4 +252,3 @@ class CollectionContainerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 }
-

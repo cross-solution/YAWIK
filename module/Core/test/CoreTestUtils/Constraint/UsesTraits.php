@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\Constraint;
 
+use PHPUnit\Framework\Constraint\Constraint;
+
 /**
  * Constraint to assert that a class uses specific traits.
  *
@@ -17,7 +19,7 @@ namespace CoreTestUtils\Constraint;
  * @since  0.26
  * @since  0.29 matches() accepts instances of \ReflectionClass.
  */
-class UsesTraits extends \PHPUnit_Framework_Constraint
+class UsesTraits extends Constraint
 {
     /**
      * The traits that must be used.
@@ -44,7 +46,7 @@ class UsesTraits extends \PHPUnit_Framework_Constraint
         parent::__construct();
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->expectedTraits);
     }
@@ -61,9 +63,9 @@ class UsesTraits extends \PHPUnit_Framework_Constraint
      *
      * @since 0.29 accepts instances of \ReflectionClass.
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
-        $traits  = $other instanceOf \ReflectionClass ? $other->getTraitNames() : class_uses($other);
+        $traits  = $other instanceof \ReflectionClass ? $other->getTraitNames() : class_uses($other);
         $success = true;
 
         foreach ($this->expectedTraits as $expectedTrait) {
@@ -75,13 +77,13 @@ class UsesTraits extends \PHPUnit_Framework_Constraint
         return $success;
     }
 
-    protected function failureDescription($other)
+    protected function failureDescription($other): string
     {
-        $name = $other instanceOf \ReflectionClass ? $other->getName() : (is_string($other) ? $other : get_class($other));
+        $name = $other instanceof \ReflectionClass ? $other->getName() : (is_string($other) ? $other : get_class($other));
         return $name . ' ' . $this->toString();
     }
 
-    protected function additionalFailureDescription($other)
+    protected function additionalFailureDescription($other): string
     {
         $traits = '';
 
@@ -92,7 +94,7 @@ class UsesTraits extends \PHPUnit_Framework_Constraint
         return $traits;
     }
 
-    public function toString()
+    public function toString(): string
     {
         return 'uses required traits';
     }

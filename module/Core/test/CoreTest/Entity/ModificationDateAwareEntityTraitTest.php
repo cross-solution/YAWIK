@@ -10,6 +10,8 @@
  */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\ModificationDateAwareEntityTrait;
 use DateTime;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -17,7 +19,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 /**
  * @coversDefaultClass \Core\Entity\ModificationDateAwareEntityTrait
  */
-class ModificationDateAwareEntityTraitTest extends \PHPUnit_Framework_TestCase
+class ModificationDateAwareEntityTraitTest extends TestCase
 {
     
     /**
@@ -26,7 +28,7 @@ class ModificationDateAwareEntityTraitTest extends \PHPUnit_Framework_TestCase
     protected $modificationDateAwareEntityTrait;
     
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {

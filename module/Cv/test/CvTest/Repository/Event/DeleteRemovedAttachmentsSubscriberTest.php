@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Repository\Event;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\EntityInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -23,16 +25,15 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 
 /**
  * Tests for \Cv\Repository\Event\DeleteRemovedAttachmentsSubscriber
- * 
+ *
  * @covers \Cv\Repository\Event\DeleteRemovedAttachmentsSubscriber
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Repository
  * @group Cv.Repository.Event
  */
-class DeleteRemovedAttachmentsSubscriberTest extends \PHPUnit_Framework_TestCase
+class DeleteRemovedAttachmentsSubscriberTest extends TestCase
 {
-
     use TestInheritanceTrait, TestSetterGetterTrait;
 
     private $target = DeleteRemovedAttachmentsSubscriber::class;
@@ -107,6 +108,4 @@ class DeleteRemovedAttachmentsSubscriberTest extends \PHPUnit_Framework_TestCase
 
         $this->target->postRemoveEntity($args);
     }
-
-    
 }

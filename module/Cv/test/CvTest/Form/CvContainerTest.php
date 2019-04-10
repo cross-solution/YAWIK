@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Form\Container;
 use Core\Form\ViewPartialProviderInterface;
@@ -27,9 +29,8 @@ use Cv\Form\CvContainer;
  * @group  Cv
  * @group  Cv.Form
  */
-class CvContainerTest extends \PHPUnit_Framework_TestCase
+class CvContainerTest extends TestCase
 {
-
     use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 
     /**

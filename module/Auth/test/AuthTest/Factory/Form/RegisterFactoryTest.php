@@ -9,18 +9,20 @@
 
 namespace AuthTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\Form\RegisterFactory;
 use Auth\Form\Register;
 use CoreTest\Bootstrap;
 
-class RegisterFactoryTest extends \PHPUnit_Framework_TestCase
+class RegisterFactoryTest extends TestCase
 {
     /**
      * @var RegisterFactory
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new RegisterFactory();
     }

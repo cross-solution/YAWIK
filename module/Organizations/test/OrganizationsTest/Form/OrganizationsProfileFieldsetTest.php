@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\Organization;
 use Organizations\Form\OrganizationsProfileFieldset;
@@ -21,14 +23,14 @@ use Organizations\Form\OrganizationsProfileFieldset;
  * @covers  \Organizations\Form\OrganizationsProfileFieldset
  * @package OrganizationsTest\Form
  */
-class OrganizationsProfileFieldsetTest extends \PHPUnit_Framework_TestCase
+class OrganizationsProfileFieldsetTest extends TestCase
 {
     /**
      * @var OrganizationsProfileFieldset
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new OrganizationsProfileFieldset();
         $this->target->init();
@@ -36,7 +38,7 @@ class OrganizationsProfileFieldsetTest extends \PHPUnit_Framework_TestCase
 
     public function testNameFormFields()
     {
-        $this->assertEquals('profile-setting',$this->target->getName());
+        $this->assertEquals('profile-setting', $this->target->getName());
         $this->assertTrue($this->target->has('profileSetting'));
     }
 
@@ -50,7 +52,8 @@ class OrganizationsProfileFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->target->allowObjectBinding(new Organization()));
     }
 
-    public function testGetHydrator(){
+    public function testGetHydrator()
+    {
         $this->assertEquals($this->target->getHydrator(), new EntityHydrator());
     }
 }

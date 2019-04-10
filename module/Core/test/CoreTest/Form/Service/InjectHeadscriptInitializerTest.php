@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Service\InjectHeadscriptInitializer;
 use Zend\ServiceManager\Initializer\InitializerInterface;
 
@@ -24,7 +26,7 @@ use Zend\ServiceManager\Initializer\InitializerInterface;
  * @group Core.Form
  * @group Core.Form.Service
  */
-class InjectHeadscriptInitializerTest extends \PHPUnit_Framework_TestCase
+class InjectHeadscriptInitializerTest extends TestCase
 {
 
     /**
@@ -41,7 +43,7 @@ class InjectHeadscriptInitializerTest extends \PHPUnit_Framework_TestCase
      */
     protected $formElementManagerMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new InjectHeadscriptInitializer();
 
@@ -110,8 +112,8 @@ class InjectHeadscriptInitializerTest extends \PHPUnit_Framework_TestCase
 
         $headscript->expects($this->exactly(2))
                    ->method('__call')->withConsecutive(
-                   array('appendFile', array($scripts[0])),
-                   array('appendFile', array($scripts[1]))
+                       array('appendFile', array($scripts[0])),
+                       array('appendFile', array($scripts[1]))
             );
 
         $helpers = $this->getMockBuilder('\Zend\View\HelperPluginManager')
@@ -133,6 +135,4 @@ class InjectHeadscriptInitializerTest extends \PHPUnit_Framework_TestCase
 
         $this->target->initialize($instance, $services);
     }
-
-
 }

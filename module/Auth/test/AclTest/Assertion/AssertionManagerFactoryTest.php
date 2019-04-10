@@ -10,17 +10,18 @@
 /** */
 namespace AclTest\Assertion;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Assertion\AssertionManager;
 use Acl\Assertion\AssertionManagerFactory;
 
 /**
  * Test the AssertionManagerFactory.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class AssertionManagerFactoryTest extends \PHPUnit_Framework_TestCase
+class AssertionManagerFactoryTest extends TestCase
 {
-
     public function testImplementsInterface()
     {
         $target = new AssertionManagerFactory();
@@ -38,7 +39,7 @@ class AssertionManagerFactoryTest extends \PHPUnit_Framework_TestCase
                  ->willReturn(array());
 
         $target = new AssertionManagerFactory();
-        $manager = $target->__invoke($services,AssertionManager::class);
+        $manager = $target->__invoke($services, AssertionManager::class);
 
         $this->assertInstanceOf('\Acl\Assertion\AssertionManager', $manager);
         //$this->assertFalse($manager->shareByDefault(), 'The managers\' shareByDefault value must be set to FALSE by the factory.');
@@ -61,7 +62,7 @@ class AssertionManagerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $target = new AssertionManagerFactory();
 
-        $manager = $target->__invoke($services,AssertionManager::class);
+        $manager = $target->__invoke($services, AssertionManager::class);
 
         $this->assertTrue($testResult === $manager->has($testName), 'Expected managers\' has method to return ' . ($testResult ? 'TRUE' : 'FALSE') . ' on ' .$testName);
     }

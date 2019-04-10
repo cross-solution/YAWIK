@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\EmptySummaryAwareInterface;
 use Core\Form\EmptySummaryAwareTrait;
@@ -28,7 +30,7 @@ use Zend\Form\Fieldset;
  * @group Cv
  * @group Cv.Form
  */
-class NativeLanguageFieldsetTest extends \PHPUnit_Framework_TestCase
+class NativeLanguageFieldsetTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 

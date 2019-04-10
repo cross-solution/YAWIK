@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Listener\LanguageRouteListener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\AuthenticationService;
 use Auth\Entity\UserInterface;
 use Core\Listener\LanguageRouteListener;
@@ -36,7 +38,7 @@ use Core\I18n\Locale as LocaleService;
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener
  */
-class HelperMethodsTest extends \PHPUnit_Framework_TestCase
+class HelperMethodsTest extends TestCase
 {
     use ServiceManagerMockTrait;
 
@@ -77,7 +79,6 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
 
         $target = new LrlMock(new LocaleService(['xx' => 'xx_XX']));
         $target->setLocale($event, 'xx');
-
     }
 
     private function getEventMock($hasIdentity, $lang = null, $hasHeaders = true)
@@ -134,7 +135,6 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
         }
         
         return $event;
-
     }
 
     public function testDetectLanguageWithLoggedInUserAndLanguageSet()
@@ -145,8 +145,6 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
         $actual = $target->detectLanguage($event);
 
         $this->assertSame('uu', $actual);
-
-
     }
 
     public function testDetectLanguageWithLoggedInUserAndNoLanguageSet()
@@ -176,14 +174,13 @@ class HelperMethodsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('yy', $target->detectLanguage($event));
     }
-
 }
 
 class LrlMock extends LanguageRouteListener
 {
     public function __construct(LocaleService $localeService, ModuleOptions $moduleOptions = null)
     {
-        if(is_null($moduleOptions)){
+        if (is_null($moduleOptions)) {
             $moduleOptions = new ModuleOptions();
         }
         parent::__construct($localeService, $moduleOptions);
@@ -207,5 +204,3 @@ class LrlMock extends LanguageRouteListener
         return parent::detectLanguage($e);
     }
 }
-
-

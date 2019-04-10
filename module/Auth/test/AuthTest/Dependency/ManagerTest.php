@@ -9,6 +9,8 @@
 
 namespace AuthTest\Dependency;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Dependency\Manager;
 use Zend\EventManager\EventManagerInterface as Events;
 use Auth\Entity\UserInterface as User;
@@ -19,7 +21,7 @@ use Auth\Dependency\ListInterface;
 /**
  * @coversDefaultClass \Auth\Dependency\Manager
  */
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends TestCase
 {
     /**
      * @var Manager
@@ -37,7 +39,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     private $documentManager;
     
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * @see PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -92,7 +94,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             $triggerStub->will($this->throwException(new \Exception));
             $expects = false;
             $flushStub = $this->documentManager->expects($this->never())->method('flush');
-        } else if ('onFlush' == $throwException) {
+        } elseif ('onFlush' == $throwException) {
             $this->documentManager->expects($this->once())->method('flush')->will($this->throwException(new \Exception));
             $expects = false;
         } else {

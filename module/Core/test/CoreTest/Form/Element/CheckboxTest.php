@@ -10,19 +10,23 @@
 
 namespace CoreTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Element\Checkbox;
 
 /**
  * @covers \Core\Form\Element\Checkbox
  */
-class CheckboxTest extends \PHPUnit_Framework_TestCase {
+class CheckboxTest extends TestCase
+{
 
     /**
      * @var Checkbox
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new Checkbox();
     }
 
@@ -30,7 +34,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase {
     {
         $this->assertInstanceOf('Core\Form\Element\Checkbox', $this->target);
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
-        $this->assertAttributeSame('formCheckBox','helper',$this->target);
+        $this->assertAttributeSame('formCheckBox', 'helper', $this->target);
     }
 
     public function testSetGetViewHelper()

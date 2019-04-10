@@ -9,6 +9,8 @@
 /** */
 namespace OrganizationsTest\Acl\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Assertion\AssertionEvent;
 use Auth\Entity\User;
 use Core\Entity\Collection\ArrayCollection;
@@ -20,13 +22,13 @@ use Organizations\Entity\OrganizationReference;
 
 /**
  * Tests the CheckJobCreatePermissionListener
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Acl
  * @group Organizations.Acl.Listener
  */
-class CheckJobCreatePermissionListenerTest extends \PHPUnit_Framework_TestCase
+class CheckJobCreatePermissionListenerTest extends TestCase
 {
     /**
      * Does the listener attachs itself to the shared event manager?
@@ -70,7 +72,6 @@ class CheckJobCreatePermissionListenerTest extends \PHPUnit_Framework_TestCase
         $e->setRole('noUserInterface');
 
         $this->assertFalse($target->checkCreatePermission($e));
-
     }
 
     /**
@@ -174,7 +175,5 @@ class CheckJobCreatePermissionListenerTest extends \PHPUnit_Framework_TestCase
         $e->setRole($role);
 
         return $e;
-
     }
-
-} 
+}

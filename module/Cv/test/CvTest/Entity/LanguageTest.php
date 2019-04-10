@@ -8,6 +8,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractIdentifiableEntity;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -24,11 +26,11 @@ class LanguageTestEnglish
 
 /**
  * Class LanguageTest
- * @covers  Cv\Entity\Language
+ * @covers \Cv\Entity\Language
  * @group Cv
  * @group Cv.Entity
  */
-class LanguageTest extends \PHPUnit_Framework_TestCase
+class LanguageTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

@@ -8,12 +8,13 @@
 
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractLocation;
 use GeoJson\Geometry\Point;
 
 class ConcreteLocation extends AbstractLocation
 {
-
 }
 
 /**
@@ -21,7 +22,7 @@ class ConcreteLocation extends AbstractLocation
  *
  * @package CoreTest\Entity
  */
-class AbstractLocationTest extends \PHPUnit_Framework_TestCase
+class AbstractLocationTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -30,7 +31,7 @@ class AbstractLocationTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new ConcreteLocation();
     }

@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Listener\Events\AjaxEvent;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Jobs\Listener\LoadActiveOrganizations;
@@ -21,13 +23,13 @@ use Zend\Paginator\Paginator;
 
 /**
  * Tests for \Jobs\Listener\LoadActiveOrganizations
- * 
+ *
  * @covers \Jobs\Listener\LoadActiveOrganizations
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Listener
  */
-class LoadActiveOrganizationsTest extends \PHPUnit_Framework_TestCase
+class LoadActiveOrganizationsTest extends TestCase
 {
     use SetupTargetTrait;
 
