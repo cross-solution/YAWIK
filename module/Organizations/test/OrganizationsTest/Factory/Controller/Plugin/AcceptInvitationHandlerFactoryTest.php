@@ -10,12 +10,14 @@
 /** */
 namespace OrganizationsTest\Factory\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\AuthenticationService;
 use Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory;
 
 /**
  * Tests for \Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory
- * 
+ *
  * @covers \Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
@@ -25,7 +27,7 @@ use Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory;
  * @group Organizations.Factory.Controller
  * @group Organizations.Factory.Controller.Plugin
  */
-class AcceptInvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
+class AcceptInvitationHandlerFactoryTest extends TestCase
 {
 
     /**
@@ -59,10 +61,10 @@ class AcceptInvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
         $services->expects($this->exactly(2))
                  ->method('get')
                  ->will($this->returnValueMap(
-		            array(
-		                array('repositories',$repositories),
-		                array('AuthenticationService', $auth)
-		            )
+                     array(
+                        array('repositories',$repositories),
+                        array('AuthenticationService', $auth)
+                    )
                  ))
         ;
 
@@ -71,12 +73,11 @@ class AcceptInvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
          * Test start here
          */
 
-        $plugin = $target->__invoke($services,'irrelevant');
-	    
+        $plugin = $target->__invoke($services, 'irrelevant');
+        
         $this->assertInstanceOf('\Organizations\Controller\Plugin\AcceptInvitationHandler', $plugin);
         $this->assertSame($userRep, $plugin->getUserRepository());
         $this->assertSame($orgRep, $plugin->getOrganizationRepository());
         $this->assertSame($auth, $plugin->getAuthenticationService());
     }
-
 }

@@ -8,14 +8,15 @@
 
 namespace CoreTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\Mvc\MvcEvent;
 use Core\View\Helper\Params as Helper;
 use Zend\Router\Http\RouteMatch;
 use Zend\Http\PhpEnvironment\Request;
 
-class ParamsTest extends \PHPUnit_Framework_TestCase
+class ParamsTest extends TestCase
 {
-    
     public function getHelper(MvcEvent $e=null)
     {
         if (null == $e) {
@@ -70,7 +71,6 @@ class ParamsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($_FILES['testFile1'], $helper->fromFiles('testFile1'), 'testFile1 differs!');
         $this->assertEquals($_FILES, $helper->fromFiles(), 'Whole file array differs!');
         $this->assertEquals('default', $helper->fromFiles('not_there', 'default'), 'default value differs!');
-        
     }
     
     public function testFromHeaderMethod()
@@ -157,5 +157,4 @@ class ParamsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($params, $helper->fromRoute());
         $this->assertEquals('default', $helper->fromRoute('not_there', 'default'));
     }
-    
 }

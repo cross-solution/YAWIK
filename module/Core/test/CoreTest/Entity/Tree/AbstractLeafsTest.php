@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity\Tree;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityTrait;
 use Core\Entity\Tree\AbstractLeafs;
@@ -21,14 +23,14 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 
 /**
  * Tests for \Core\Entity\Tree\AbstractLeafs
- * 
+ *
  * @covers \Core\Entity\Tree\AbstractLeafs
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  * @group Core.Entity.Tree
  */
-class AbstractLeafsTest extends \PHPUnit_Framework_TestCase
+class AbstractLeafsTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
 
@@ -53,7 +55,6 @@ class AbstractLeafsTest extends \PHPUnit_Framework_TestCase
 
     public function propertiesProvider()
     {
-
         return [
             [ 'items', ['default' => new ArrayCollection(), 'value' => new \Doctrine\Common\Collections\ArrayCollection()]],
         ];
@@ -98,4 +99,5 @@ class AbstractLeafsTest extends \PHPUnit_Framework_TestCase
 }
 
 class ConcreteAbstractLeafs extends AbstractLeafs
-{ }
+{
+}

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
 use CoreTestUtils\Mock\ServiceManager\PluginManagerMock;
 use CoreTestUtils\Mock\ServiceManager\ServiceManagerMock;
@@ -47,7 +49,7 @@ trait ServiceManagerMockTrait
      */
     private $__ServiceManagerMockTrait__mocks = [];
 
-    public function tearDown()
+    protected function tearDown()
     {
         foreach ($this->__ServiceManagerMockTrait__mocks as $mock) {
             $mock->verifyCallCount();
@@ -105,10 +107,10 @@ trait ServiceManagerMockTrait
      */
     public function createPluginManagerMock($services = [], $parent = null, $count = 1)
     {
-    	if(is_null($parent)){
-    		$parent = $this->getServiceManagerMock();
-	    }
-    	$arrConfig = array();
+        if (is_null($parent)) {
+            $parent = $this->getServiceManagerMock();
+        }
+        $arrConfig = array();
         if (is_array($services)) {
             $config = new ServiceManagerMockConfig(['mocks' => $services]);
         } else {
@@ -116,14 +118,14 @@ trait ServiceManagerMockTrait
             $count = is_int($parent) ? $parent : $count;
             $parent = $services;
         }
-	    
+        
         $pluginManagerMock = new PluginManagerMock($parent);
-        if($config instanceof ServiceManagerMockConfig){
-	        $config->configureServiceManager($pluginManagerMock);
+        if ($config instanceof ServiceManagerMockConfig) {
+            $config->configureServiceManager($pluginManagerMock);
         }
 
         //@TODO: [ZF3] Check if removing the lines below is safe
-	    //if (null !== $parent) {
+        //if (null !== $parent) {
         //    $pluginManagerMock->setServiceLocator($parent, $count);
         //}
 

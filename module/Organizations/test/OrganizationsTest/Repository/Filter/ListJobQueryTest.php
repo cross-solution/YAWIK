@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Repository\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\Status;
@@ -23,7 +25,7 @@ use Organizations\Repository\Filter\ListJobQuery;
  * @covers \Organizations\Repository\Filter\ListJobQuery
  * @since 0.30
  */
-class ListJobQueryTest extends \PHPUnit_Framework_TestCase
+class ListJobQueryTest extends TestCase
 {
     public function testCreateQuery()
     {
@@ -57,6 +59,6 @@ class ListJobQueryTest extends \PHPUnit_Framework_TestCase
 
 
         $params=['organization_id' =>$organization->getId()];
-        $target->createQuery($params,$builder);
+        $target->createQuery($params, $builder);
     }
 }

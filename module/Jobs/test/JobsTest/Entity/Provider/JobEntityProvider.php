@@ -9,6 +9,8 @@
 
 namespace JobsTest\Entity\Provider;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\Job;
 use OrganizationsTest\Entity\Provider\OrganizationEntityProvider;
 

@@ -8,6 +8,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\Employment;
@@ -16,11 +18,11 @@ use Cv\Entity\Employment;
  * Class EmploymentTest
  *
  *
- * @covers  Cv\Entity\Employment
+ * @covers \Cv\Entity\Employment
  * @group Cv
  * @group Cv.Entity
  */
-class EmploymentTest extends \PHPUnit_Framework_TestCase
+class EmploymentTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

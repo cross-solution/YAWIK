@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Info;
 use Applications\Entity\Contact;
 
@@ -22,7 +24,7 @@ use Applications\Entity\Contact;
  * @group  Applications
  * @group  Applications.Entity
  */
-class ContactTest extends \PHPUnit_Framework_TestCase
+class ContactTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -31,7 +33,7 @@ class ContactTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $info = new Info();
         $this->target = new Contact($info);

@@ -9,6 +9,8 @@
 
 namespace SolrTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Jobs\Options\JobboardSearchOptions;
@@ -18,10 +20,10 @@ use Jobs\Options\JobboardSearchOptions;
  *
  * @author  Carsten Bleek <bleek@cross-solution.de>
  * @since   0.27
- * @covers  Jobs\Options\JobboardSearchOptions
+ * @covers \Jobs\Options\JobboardSearchOptions
  * @package JobsTest\Options
  */
-class JobboardSearchOptionsTest extends \PHPUnit_Framework_TestCase
+class JobboardSearchOptionsTest extends TestCase
 {
     use TestSetterGetterTrait, SetupTargetTrait;
 

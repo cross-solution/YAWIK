@@ -10,6 +10,8 @@
 /** */
 namespace InstallTest;
 
+use PHPUnit\Framework\TestCase;
+
 use Install\Module;
 use Core\Service\Tracy;
 
@@ -20,7 +22,7 @@ use Core\Service\Tracy;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Install
  */
-class ModuleTest extends \PHPUnit_Framework_TestCase
+class ModuleTest extends TestCase
 {
 
     /**
@@ -44,7 +46,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->moduleDir = realpath(__DIR__ . '/../../');
         $this->target    = new Module();

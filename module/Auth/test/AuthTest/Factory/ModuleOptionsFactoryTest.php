@@ -2,11 +2,13 @@
 
 namespace AuthTest\Factory;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\ServiceManager;
 use Auth\Factory\ModuleOptionsFactory;
 use Auth\Options\ModuleOptions;
 
-class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsFactoryTest extends TestCase
 {
     /**
      * test, if configuration overwrites default values

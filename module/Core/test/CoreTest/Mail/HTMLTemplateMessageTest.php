@@ -2,6 +2,8 @@
 
 namespace CoreTest\Mail;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Mail\HTMLTemplateMessage;
 use Core\Mail\MailService as CoreMailService;
 use Zend\Mvc\Application;
@@ -13,7 +15,6 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Resolver\ResolverInterface;
 use Zend\View\View;
 
-
 /**
  * Class HTMLTemplateMessageTest
  *
@@ -21,7 +22,7 @@ use Zend\View\View;
  * @ticket      222
  * @covers      \Core\Mail\HTMLTemplateMessage
  */
-class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
+class HTMLTemplateMessageTest extends TestCase
 {
     /**
      * Class Under Test
@@ -46,7 +47,7 @@ class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
     protected $view;
 
 
-    public function setUp()
+    protected function setUp()
     {
         /* @var ServiceLocatorInterface $serviceManager */
         $serviceManager = $this->getMockForAbstractClass(ServiceLocatorInterface::class);
@@ -113,8 +114,6 @@ class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
             '::setVariable() should set variable'
         );
         $this->assertEquals('world', $target->hello, '::setVariable() should set variable');
-
-
     }
 
     public function testGetVariable()
@@ -148,9 +147,7 @@ class HTMLTemplateMessageTest extends \PHPUnit_Framework_TestCase
             '::setVariables() should overwrite any value if passed overwrite value is true'
         );
 
-        $this->setExpectedException(
-            \InvalidArgumentException::class
-        );
+        $this->expectException(\InvalidArgumentException::class);
         $target->setVariables($target);
     }
 

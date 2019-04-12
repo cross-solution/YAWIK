@@ -10,9 +10,11 @@
 /** */
 namespace CoreTestUtils;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Utility class to instantiates objects.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.26
  */
@@ -29,7 +31,8 @@ final class InstanceCreator
      * Static class only.
      */
     private function __construct()
-    {}
+    {
+    }
 
     /**
      * Loops over an array and instantiates objects where a "instance"-syntax is detected.
@@ -93,5 +96,4 @@ final class InstanceCreator
 
         return $instance;
     }
-    
 }

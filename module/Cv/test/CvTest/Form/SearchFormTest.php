@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\ViewPartialProviderInterface;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -24,7 +26,7 @@ use Cv\Form\SearchForm;
  * @group Cv
  * @group Cv.Test
  */
-class SearchFormTest extends \PHPUnit_Framework_TestCase
+class SearchFormTest extends TestCase
 {
     use TestInheritanceTrait;
 

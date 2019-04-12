@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Auth\Entity\User;
 use Core\Entity\Collection\ArrayCollection;
@@ -28,7 +30,6 @@ use Organizations\Entity\OrganizationName;
 use Organizations\Entity\Template;
 use Organizations\Entity\WorkflowSettings;
 
-
 /**
  * Test the organization entity.
  *
@@ -38,7 +39,7 @@ use Organizations\Entity\WorkflowSettings;
  * @group Organizations
  * @group Organizations.Entity
  */
-class OrganizationTest extends \PHPUnit_Framework_TestCase
+class OrganizationTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -176,8 +177,8 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
         $organization->setEmployees($employees);
 
         $organization->getEmployee($user);
-        $this->assertEquals($employee,$organization->getEmployee($user));
-        $this->assertEquals($employee,$organization->getEmployee($user->getId()));
+        $this->assertEquals($employee, $organization->getEmployee($user));
+        $this->assertEquals($employee, $organization->getEmployee($user->getId()));
         $this->assertNull($organization->getEmployee('foobar'));
         $this->assertEquals(
             [$employee],
@@ -186,7 +187,7 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
                 ->toArray()
         );
 
-        $this->assertEquals(1,$organization->getEmployees()->count());
+        $this->assertEquals(1, $organization->getEmployees()->count());
         $organization->setParent($parent);
         $this->assertEquals(
             0,
@@ -199,12 +200,12 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     {
         $image = new OrganizationImage();
         $images = new ImageSet();
-        $images->set(ImageSet::ORIGINAL,$image);
+        $images->set(ImageSet::ORIGINAL, $image);
 
         $organization = new Organization();
         $organization->setImages($images);
         $organization->removeImages();
-        $this->assertNotEquals($images,$organization->getImages());
+        $this->assertNotEquals($images, $organization->getImages());
         $this->assertNull($organization->getImages()->get(ImageSet::ORIGINAL));
     }
 
@@ -281,7 +282,6 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
             ],
             $organization->getPermissionsUserIds('Application')
         );
-
     }
 
     public function testUpdatePermissions()
@@ -299,7 +299,7 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
         $permissions = $this->createMock(Permissions::class);
         $permissions->expects($this->once())
             ->method('grant')
-            ->with($user,PermissionsInterface::PERMISSION_CHANGE,false)
+            ->with($user, PermissionsInterface::PERMISSION_CHANGE, false)
         ;
 
         $organization = new Organization();
@@ -309,7 +309,7 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     }
 
 //
-//    public function setup()
+//    protected function setUp()
 //    {
 //        $this->target = new Organization();
 //        $owner = new User();

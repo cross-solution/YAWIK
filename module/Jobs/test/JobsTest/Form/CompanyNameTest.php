@@ -10,19 +10,21 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\Job;
 use Jobs\Form\CompanyName;
 use Organizations\Entity\Organization;
 
 /**
  * Tests for \Jobs\Form\CompanyName
- * 
+ *
  * @covers \Jobs\Form\CompanyName
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Form
  */
-class CompanyNameTest extends \PHPUnit_Framework_TestCase
+class CompanyNameTest extends TestCase
 {
 
     /**
@@ -137,6 +139,7 @@ class CompanyNameTest extends \PHPUnit_Framework_TestCase
                 $hydrator->expects($this->once())->method('hydrate')->with(array('companyId' => key($orgValues)), $object);
 
                 // fall through intentinally
+                // no break
             case 'more':
                 $fs->expects($this->once())->method('get')->with('companyId')->willReturn($select);
                 if (!isset($orgValues)) {

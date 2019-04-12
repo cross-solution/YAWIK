@@ -9,12 +9,14 @@
 
 namespace AuthTest\Dependency;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Dependency\ListItem;
 
 /**
  * @coversDefaultClass \Auth\Dependency\ListItem
  */
-class ListItemTest extends \PHPUnit_Framework_TestCase
+class ListItemTest extends TestCase
 {
 
     /**

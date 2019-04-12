@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -31,7 +33,7 @@ use Organizations\Entity\WorkflowSettings;
  * @group Organizations
  * @group Organizations.Entity
  */
-class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
+class OrganizationReferenceTest extends TestCase
 {
 
     /**
@@ -55,7 +57,6 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
     public function testLoadingOrganizationAndInterfaceImplementation()
     {
         foreach (array('owner', 'employee', 'none') as $type) {
-
             $organization = new Organization();
 
             $repository = $this->getMockBuilder('\Organizations\Repository\Organization')
@@ -138,7 +139,9 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
         $target = new OrganizationReference('1234', $rep);
 
         if (!is_array($func)) {
-            $func = array($func); $args = array($args); $expected = array($expected);
+            $func = array($func);
+            $args = array($args);
+            $expected = array($expected);
         }
 
         for ($i=0, $c=count($func); $i<$c; $i+=1) {
@@ -146,7 +149,9 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
             $a = $args[$i];
             $e = $expected[$i];
 
-            if ('__self__' === $e) { $e = $target; }
+            if ('__self__' === $e) {
+                $e = $target;
+            }
 
             $actual = call_user_func_array(array($target, $f), $a);
 

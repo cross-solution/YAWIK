@@ -9,14 +9,15 @@
 
 namespace AuthTest\Factory\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\View\Helper\AuthFactory;
 use Auth\View\Helper\Auth;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 
-class AuthFactoryTest extends \PHPUnit_Framework_TestCase
+class AuthFactoryTest extends TestCase
 {
-    
     public function testFactoryReturnsProperConfiguredInstanceOfAuthViewHelperAuth()
     {
         $f = new AuthFactory();
@@ -26,7 +27,7 @@ class AuthFactoryTest extends \PHPUnit_Framework_TestCase
         
         $hm = new HelperPluginManager($sm);
         
-        $helper = $f->__invoke($sm,Auth::class);
+        $helper = $f->__invoke($sm, Auth::class);
         
         $this->assertInstanceOf('\Auth\View\Helper\Auth', $helper);
         $this->assertSame($auth, $helper->getService());

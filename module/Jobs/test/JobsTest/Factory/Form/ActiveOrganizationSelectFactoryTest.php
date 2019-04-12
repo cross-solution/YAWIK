@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\Form\ActiveOrganizationSelectFactory;
@@ -22,14 +24,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Form\ActiveOrganizationSelect
- * 
+ *
  * @covers \Jobs\Factory\Form\ActiveOrganizationSelectFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Factory
  * @group Jobs.Factory.Form
  */
-class ActiveOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
+class ActiveOrganizationSelectFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -51,7 +53,7 @@ class ActiveOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $container = $this->getServiceManagerMock();
         $formElements = $this->getPluginManagerMock($container);
 
-        $this->target->__invoke($container,OrganizationSelect::class);
+        $this->target->__invoke($container, OrganizationSelect::class);
     }
 
     public function testServiceCreationWithoutPreSelectedOrganization()
@@ -82,16 +84,16 @@ class ActiveOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
                 'number' => '123',
             ]);
             $repository = $this
-	            ->getMockBuilder(Organization::class)
-	            ->disableOriginalConstructor()
+                ->getMockBuilder(Organization::class)
+                ->disableOriginalConstructor()
                 ->setMethods(['find'])
                 ->getMock()
             ;
             $repository
-	            ->expects($this->once())
-	            ->method('find')
-	            ->with('orgId')
-	            ->willReturn($org)
+                ->expects($this->once())
+                ->method('find')
+                ->with('orgId')
+                ->willReturn($org)
             ;
             $repositories = $this->createPluginManagerMock(['Organizations' => $repository]);
             $services['repositories'] = $repositories;
@@ -107,7 +109,6 @@ class ActiveOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         } else {
             $this->assertEquals(2, count($select->getValueOptions()));
         }
-
     }
 }
 

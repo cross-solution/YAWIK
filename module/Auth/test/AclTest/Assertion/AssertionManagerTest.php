@@ -10,6 +10,8 @@
 /** */
 namespace AclTest\Assertion;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Assertion\AssertionManager;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
@@ -23,7 +25,7 @@ use Zend\ServiceManager\ServiceManager;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test
  */
-class AssertionManagerTest extends \PHPUnit_Framework_TestCase
+class AssertionManagerTest extends TestCase
 {
 
     /**
@@ -32,7 +34,7 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
     protected $serviceManager;
     
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * @see PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -68,35 +70,35 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
     public function testInjectEventManagerInitializerCallbackGetsEventManagerFromServicesIfNotSetInAssertion()
     {
         $assertion = $this
-	        ->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock')
+            ->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock')
         ;
         $services = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         $parentServices = $this
-	        ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         $events = new EventManager();
-	    $target = new AssertionManager($parentServices);
+        $target = new AssertionManager($parentServices);
         $assertion
-	        ->expects($this->once())
-	        ->method('getEventManager')
-	        ->willReturn(null)
+            ->expects($this->once())
+            ->method('getEventManager')
+            ->willReturn(null)
         ;
         $assertion
-	        ->expects($this->once())
-	        ->method('setEventManager')
-	        ->with($events)
+            ->expects($this->once())
+            ->method('setEventManager')
+            ->with($events)
         ;
 
         $parentServices
-	        ->expects($this->once())
-	        ->method('get')
-	        ->with('EventManager')
-	        ->willReturn($events)
+            ->expects($this->once())
+            ->method('get')
+            ->with('EventManager')
+            ->willReturn($events)
         ;
         /*
          * Wanted to use:
@@ -115,8 +117,8 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
         $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock');
         $services = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         
         $parentServices = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
@@ -126,15 +128,15 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
         //$services->setServiceLocator($parentServices);
 
         $parentServices
-	        ->expects($this->never())
-	        ->method('get')
-	        //->with('SharedEventManager')
-	        //->willReturn($sharedEvents)
+            ->expects($this->never())
+            ->method('get')
+            //->with('SharedEventManager')
+            //->willReturn($sharedEvents)
         ;
         $assertion
-	        ->expects($this->once())
-	        ->method('getEventManager')
-	        ->willReturn($events)
+            ->expects($this->once())
+            ->method('getEventManager')
+            ->willReturn($events)
         ;
 
         $this->assertNull($target->injectEventManager($assertion, $services));

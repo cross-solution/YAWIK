@@ -10,17 +10,19 @@
 
 namespace JobsTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Options\ChannelOptions;
 use Jobs\Options\ProviderOptions;
 
-class ProviderOptionsTest extends \PHPUnit_Framework_TestCase
+class ProviderOptionsTest extends TestCase
 {
     /**
      * @var ProviderOptions $options
      */
     protected $options;
 
-    public function setUp()
+    protected function setUp()
     {
         $options       = new ProviderOptions;
         $this->options = $options;
@@ -33,7 +35,7 @@ class ProviderOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ProviderOptions::getIterator
+     * @covers \Jobs\Options\ProviderOptions::getIterator
      */
     public function testGetIterator()
     {
@@ -42,8 +44,8 @@ class ProviderOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ProviderOptions::addChannel
-     * @covers Jobs\Options\ProviderOptions::getChannel
+     * @covers \Jobs\Options\ProviderOptions::addChannel
+     * @covers \Jobs\Options\ProviderOptions::getChannel
      */
     public function testAddGetChannel()
     {
@@ -55,7 +57,7 @@ class ProviderOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ProviderOptions::getChannels
+     * @covers \Jobs\Options\ProviderOptions::getChannels
      */
     public function testGetChannels()
     {
@@ -65,4 +67,3 @@ class ProviderOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['test'=>$channel], $this->options->getChannels());
     }
 }
-

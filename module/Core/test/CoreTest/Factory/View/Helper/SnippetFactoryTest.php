@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Factory\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\EventManager\EventManager;
 use Core\Factory\View\Helper\SnippetFactory;
 use Core\View\Helper\Snippet;
@@ -20,7 +22,7 @@ use Zend\View\Helper\Partial;
 
 /**
  * Tests for \Core\Factory\View\Helper\SnippetFactory
- * 
+ *
  * @covers \Core\Factory\View\Helper\SnippetFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -28,7 +30,7 @@ use Zend\View\Helper\Partial;
  * @group Core.Factory.View
  * @group Core.Factory.View.Helper
  */
-class SnippetFactoryTest extends \PHPUnit_Framework_TestCase
+class SnippetFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -51,9 +53,9 @@ class SnippetFactoryTest extends \PHPUnit_Framework_TestCase
         $plugins = $this->createPluginManagerMock($container, 1);
 
         $this->target
-	        ->expects($this->once())
-	        ->method('__invoke')
-	        ->with($container, Snippet::class)
+            ->expects($this->once())
+            ->method('__invoke')
+            ->with($container, Snippet::class)
         ;
 
         $this->target->createService($container);
@@ -63,17 +65,17 @@ class SnippetFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $events = new EventManager();
         $partialHelper = new Partial();
-	    $config = ['test' => 'works'];
-	    
-	    $container = $this->createServiceManagerMock([
-		    'Config' => ['service' => ['view_helper_config' => ['snippets' => $config]], 'count_get' => 1, 'direct' => true],
-		    'Core/ViewSnippets/Events' => ['service' => $events, 'count_get' => 1],
-		    //'ViewHelperManager' => ['service' => $helpers, 'count_get' => 1],
-	    ]);
+        $config = ['test' => 'works'];
+        
+        $container = $this->createServiceManagerMock([
+            'Config' => ['service' => ['view_helper_config' => ['snippets' => $config]], 'count_get' => 1, 'direct' => true],
+            'Core/ViewSnippets/Events' => ['service' => $events, 'count_get' => 1],
+            //'ViewHelperManager' => ['service' => $helpers, 'count_get' => 1],
+        ]);
         $helpers = $this->createPluginManagerMock([
                 'partial' => ['service' => $partialHelper, 'count_get' => 1],
-            ],$container);
-        $container->setService('ViewHelperManager',$helpers);
+            ], $container);
+        $container->setService('ViewHelperManager', $helpers);
 
         $instance = $this->target->__invoke($container, Snippet::class);
 
@@ -82,5 +84,4 @@ class SnippetFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($events, 'events', $instance);
         $this->assertAttributeSame($config, 'config', $instance);
     }
-
 }

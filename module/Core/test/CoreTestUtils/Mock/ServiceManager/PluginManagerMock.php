@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\Mock\ServiceManager;
 
+use PHPUnit\Framework\TestCase;
+
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception;
@@ -52,7 +54,7 @@ class PluginManagerMock extends AbstractPluginManager
     //public function setServiceLocatorDeprecated(ContainerInterface $container, $count = 1)
     //{
     //    $this->setExpectedCallCount('getServiceLocator', $count);
-	//
+    //
     //    return parent::setServiceLocator($container);
     //}
 
@@ -92,7 +94,7 @@ class PluginManagerMock extends AbstractPluginManager
         if (is_int($key)) {
             $count = $key;
             $key = 'none';
-        } else if (is_int($options)) {
+        } elseif (is_int($options)) {
             $count = $options;
             $options = null;
         }
@@ -125,10 +127,10 @@ class PluginManagerMock extends AbstractPluginManager
             $count = $key;
             $key   = '*';
             $options = '*';
-        } else if (is_int($options)) {
+        } elseif (is_int($options)) {
             $count = $options;
             $options = '*';
-        } else if (is_array($options)) {
+        } elseif (is_array($options)) {
             $options = $this->getOptionsHash($options);
         }
 
@@ -167,9 +169,14 @@ class PluginManagerMock extends AbstractPluginManager
 
                     if ($actual != $count) {
                         throw new \PHPUnit_Framework_AssertionFailedError(
-                            sprintf('%s::%s(%s) was expected to be called %d times%s, but was actually called %d times.',
-                                    get_class($this), $methodName, '*' == $name ? '' : $name, $count,
-                                    null === $options ? '' : ' with options hash ' . $optHash, $actual
+                            sprintf(
+                                '%s::%s(%s) was expected to be called %d times%s, but was actually called %d times.',
+                                get_class($this),
+                                $methodName,
+                                '*' == $name ? '' : $name,
+                                $count,
+                                null === $options ? '' : ' with options hash ' . $optHash,
+                                $actual
                             )
                         );
                     }

@@ -10,6 +10,8 @@
 
 namespace CoreTest\Filter\File;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Filter\File\Resize;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Imagine\Gd\Imagine;
@@ -23,7 +25,7 @@ use Imagine\Image\ImagineInterface;
  * @package CoreTest\Filter\File
  * @author Anthonius Munthi <me@itstoni.com>
  */
-class ResizeTest extends \PHPUnit_Framework_TestCase
+class ResizeTest extends TestCase
 {
     use TestSetterGetterTrait;
 
@@ -47,7 +49,7 @@ class ResizeTest extends \PHPUnit_Framework_TestCase
      */
     private $imageFile;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new Resize([]);
     }

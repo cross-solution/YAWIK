@@ -9,19 +9,21 @@
 
 namespace AuthTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Auth\Form\RegisterInputFilter;
 use Zend\Filter\FilterChain;
 use Zend\Validator\ValidatorChain;
 
-class RegisterInputFilterTest extends \PHPUnit_Framework_TestCase
+class RegisterInputFilterTest extends TestCase
 {
     /**
      * @var RegisterInputFilter
      */
     private $testedObject;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObject = new RegisterInputFilter();
     }

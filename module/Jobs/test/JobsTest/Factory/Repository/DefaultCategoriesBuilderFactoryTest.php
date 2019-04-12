@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Repository;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Category;
@@ -19,14 +21,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Repository\DefaultCategoriesBuilderFactory
- * 
+ *
  * @covers \Jobs\Factory\Repository\DefaultCategoriesBuilderFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Factory
  * @group Jobs.Factory.Repository
  */
-class DefaultCategoriesBuilderFactoryTest extends \PHPUnit_Framework_TestCase
+class DefaultCategoriesBuilderFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -74,17 +76,18 @@ class DefaultCategoriesBuilderFactoryTest extends \PHPUnit_Framework_TestCase
         vfsStream::setup('/');
         vfsStream::create($isJobs ? ['module' => ['Jobs' => []]] : ['module' => []]);
         $expectModulePath = $isJobs ? vfsStream::url('./module/Jobs/config/') : '.';
-        $config['module_paths'] = array_map(function($i) { return vfsStream::url($i); }, $config['module_paths']);
+        $config['module_paths'] = array_map(function ($i) {
+            return vfsStream::url($i);
+        }, $config['module_paths']);
 
         $appConfig['module_listener_options'] = $config;
         $sm = $this->getServiceManagerMock();
         $sm->setService('ApplicationConfig', $appConfig);
 
-        $builder = $this->target->__invoke($sm,'irrelevant');
+        $builder = $this->target->__invoke($sm, 'irrelevant');
 
         $this->assertAttributeSame($expectModulePath, 'moduleConfigPath', $builder);
         $this->assertAttributeSame($expectGlobalPaths, 'globalConfigPaths', $builder);
         $this->assertAttributeInstanceOf(Category::class, 'categoryPrototype', $builder);
     }
-    
 }

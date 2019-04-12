@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity\Tree;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityTrait;
 use Core\Entity\IdentifiableEntityTrait;
@@ -21,14 +23,14 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 
 /**
  * Tests for \Core\Entity\Tree\Node
- * 
+ *
  * @covers \Core\Entity\Tree\Node
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  * @group Core.Entity.Tree
  */
-class NodeTest extends \PHPUnit_Framework_TestCase
+class NodeTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
 
@@ -54,10 +56,18 @@ class NodeTest extends \PHPUnit_Framework_TestCase
             ['name', 'testName'],
             ['value', ['value' => '', 'setter_exception' => ['\InvalidArgumentException', 'Value must not be empty']]],
             ['value', 'testValue'],
-            ['value', ['pre' => function() { $this->target->setName('test Name'); }, 'value' => '', 'expect' => 'test_name']],
-            ['value', ['pre' => function() { $this->target->setName('test-Name'); }, 'value' => '', 'expect' => 'test_name']],
-            ['value', ['pre' => function() { $this->target->setName('testName'); }, 'value' => '', 'expect' => 'testname']],
-            ['value', ['pre' => function() { $this->target->setName('test Name'); }, 'ignore_setter' => true, 'value' => 'test_name']],
+            ['value', ['pre' => function () {
+                $this->target->setName('test Name');
+            }, 'value' => '', 'expect' => 'test_name']],
+            ['value', ['pre' => function () {
+                $this->target->setName('test-Name');
+            }, 'value' => '', 'expect' => 'test_name']],
+            ['value', ['pre' => function () {
+                $this->target->setName('testName');
+            }, 'value' => '', 'expect' => 'testname']],
+            ['value', ['pre' => function () {
+                $this->target->setName('test Name');
+            }, 'ignore_setter' => true, 'value' => 'test_name']],
             ['priority', 12],
             ['children', ['default' => new ArrayCollection(), 'value' => new ArrayCollection()]],
             ['children', ['value' => new ArrayCollection([new Node('test')]), 'getter_method' => 'has*', 'expect' => true]],

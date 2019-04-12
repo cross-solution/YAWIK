@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Repository\Event;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Repository\DoctrineMongoODM\Event\AbstractUpdateFilesPermissionsSubscriber;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Contact;
@@ -20,14 +22,14 @@ use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 
 /**
  * Tests for \Cv\Repository\Event\UpdateFilesPermissionsSubscriber
- * 
+ *
  * @covers \Cv\Repository\Event\UpdateFilesPermissionsSubscriber
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Repository
  * @group Cv.Repository.Event
  */
-class UpdateFilesPermissionsSubscriberTest extends \PHPUnit_Framework_TestCase
+class UpdateFilesPermissionsSubscriberTest extends TestCase
 {
     use TestInheritanceTrait;
 

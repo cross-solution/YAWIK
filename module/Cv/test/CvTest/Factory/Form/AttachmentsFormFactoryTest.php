@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Element\FileUpload;
 use Core\Form\FileUploadFactory;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
@@ -21,14 +23,14 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Cv\Factory\Form\AttachmentsFormFactory
- * 
+ *
  * @covers \Cv\Factory\Form\AttachmentsFormFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Factory
  * @group Cv.Factory.Form
  */
-class AttachmentsFormFactoryTest extends \PHPUnit_Framework_TestCase
+class AttachmentsFormFactoryTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 
@@ -50,7 +52,8 @@ class AttachmentsFormFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testThrowsExceptionIfInvalidOptionsAreProvided()
     {
-        $this->setExpectedException('\InvalidArgumentException', '$options must be instance of');
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage('$options must be instance of');
 
         $options = $this->getMockBuilder('\Zend\Stdlib\AbstractOptions')->getMockForAbstractClass();
         $this->target->__options__ = $options;
@@ -121,9 +124,7 @@ class AttachmentsFormFactoryTest extends \PHPUnit_Framework_TestCase
         $this->target->__form__    = $form;
 
         $this->target->createService(new ServiceManager());
-
     }
-
 }
 
 class AttachmentsFormFactoryMock extends AttachmentsFormFactory

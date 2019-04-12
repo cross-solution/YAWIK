@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\AtsMode;
 
 /**
@@ -22,7 +24,7 @@ use Jobs\Entity\AtsMode;
  * @group  Jobs
  * @group  Jobs.Entity
  */
-class AtsModeTest extends \PHPUnit_Framework_TestCase
+class AtsModeTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -31,7 +33,7 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new AtsMode();
     }

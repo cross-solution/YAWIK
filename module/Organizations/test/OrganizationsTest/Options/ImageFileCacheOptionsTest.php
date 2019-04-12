@@ -9,12 +9,14 @@
 
 namespace OrganizationsTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Options\ImageFileCacheOptions;
 
 /**
  * @coversDefaultClass \Organizations\Options\ImageFileCacheOptions
  */
-class ImageFileCacheOptionsTest extends \PHPUnit_Framework_TestCase
+class ImageFileCacheOptionsTest extends TestCase
 {
 
     /**
@@ -23,7 +25,7 @@ class ImageFileCacheOptionsTest extends \PHPUnit_Framework_TestCase
     protected $options;
     
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -52,7 +54,7 @@ class ImageFileCacheOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $defaultFilePath = $this->options->getFilePath();
         $this->assertNotEmpty($defaultFilePath);
-        $this->assertInternalType('string', $defaultFilePath);
+        $this->assertIsString($defaultFilePath);
         
         $value = '/somePath';
         $this->assertSame($this->options, $this->options->setFilePath($value));
@@ -67,7 +69,7 @@ class ImageFileCacheOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $defaultUriPath = $this->options->getUriPath();
         $this->assertNotEmpty($defaultUriPath);
-        $this->assertInternalType('string', $defaultUriPath);
+        $this->assertIsString($defaultUriPath);
         
         $value = '/someUri';
         $this->assertSame($this->options, $this->options->setUriPath($value));

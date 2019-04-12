@@ -9,6 +9,8 @@
 
 namespace AuthTest\Factory\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\Adapter\HybridAuthAdapterFactory;
 
 /**
@@ -16,14 +18,14 @@ use Auth\Factory\Adapter\HybridAuthAdapterFactory;
  * @package AuthTest\Factory\Service
  * @covers \Auth\Factory\Adapter\HybridAuthAdapterFactory
  */
-class HybridAuthAdapterFactoryTest extends \PHPUnit_Framework_TestCase
+class HybridAuthAdapterFactoryTest extends TestCase
 {
     /**
      * @var HybridAuthAdapterFactory
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new HybridAuthAdapterFactory();
     }
@@ -71,7 +73,7 @@ class HybridAuthAdapterFactoryTest extends \PHPUnit_Framework_TestCase
                     array('ControllerPluginManager', $contollerPluginsMock)
                 )
             ));
-	    
+        
         $result = $this->testedObj->createService($sm);
         $this->assertInstanceOf('Auth\Adapter\HybridAuth', $result);
     }

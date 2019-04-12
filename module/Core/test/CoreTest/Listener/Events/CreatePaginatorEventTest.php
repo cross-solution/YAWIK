@@ -9,6 +9,8 @@
 
 namespace CoreTest\Listener\Events;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Listener\Events\CreatePaginatorEvent;
 use Core\Paginator\PaginatorService;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -19,10 +21,10 @@ use Zend\Paginator\Paginator;
  * Class CreatePaginatorEventTest
  *
  * @author  Anthonius Munthi <me@itstoni.com>
- * @covers  Core\Listener\Events\CreatePaginatorEvent
+ * @covers \Core\Listener\Events\CreatePaginatorEvent
  * @package CoreTest\Listener\Events
  */
-class CreatePaginatorEventTest extends \PHPUnit_Framework_TestCase
+class CreatePaginatorEventTest extends TestCase
 {
     use TestSetterGetterTrait,SetupTargetTrait;
 
@@ -72,9 +74,9 @@ class CreatePaginatorEventTest extends \PHPUnit_Framework_TestCase
         $target = $this->target;
         $target->setParams($params);
 
-        $this->assertEquals($params['paginatorName'],$target->getPaginatorName());
-        $this->assertEquals($params['paginatorParams'],$target->getPaginatorParams());
-        $this->assertEquals($params['paginators'],$target->getPaginators());
+        $this->assertEquals($params['paginatorName'], $target->getPaginatorName());
+        $this->assertEquals($params['paginatorParams'], $target->getPaginatorParams());
+        $this->assertEquals($params['paginators'], $target->getPaginators());
         $this->assertEquals(
             ['foo' => 'bar'],
             $target->getParams(),

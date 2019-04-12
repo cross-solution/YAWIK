@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Paginator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Repository\RepositoryService;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Interop\Container\ContainerInterface;
@@ -25,7 +27,7 @@ use Zend\Paginator\Paginator;
  * @package OrganizationsTest\Paginator
  * @since 0.30
  */
-class ListJobPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
+class ListJobPaginatorFactoryTest extends TestCase
 {
     public function testInvokation()
     {
@@ -60,8 +62,8 @@ class ListJobPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
         ;
 
         $target = new ListJobPaginatorFactory();
-        $service = $target($container,'some-name',array());
+        $service = $target($container, 'some-name', array());
 
-        $this->assertInstanceOf(Paginator::class,$service);
+        $this->assertInstanceOf(Paginator::class, $service);
     }
 }

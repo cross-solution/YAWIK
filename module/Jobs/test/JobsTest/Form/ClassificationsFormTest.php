@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryForm;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,13 +19,13 @@ use Jobs\Form\ClassificationsForm;
 
 /**
  * Tests for Jobs\Form\ClassificationsForm
- * 
- * @covers Jobs\Form\ClassificationsForm
+ *
+ * @covers \Jobs\Form\ClassificationsForm
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Form
  */
-class ClassificationsFormTest extends \PHPUnit_Framework_TestCase
+class ClassificationsFormTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 

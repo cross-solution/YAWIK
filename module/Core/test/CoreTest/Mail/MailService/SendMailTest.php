@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Mail\MailService;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Mail\MailService;
 use Core\Mail\Message;
 use Zend\Mail\AddressList;
@@ -24,7 +26,7 @@ use Zend\ServiceManager\ServiceManager;
  * @group Core.Mail
  * @group Core.Mail.MailService
  */
-class SendMailTest extends \PHPUnit_Framework_TestCase
+class SendMailTest extends TestCase
 {
     /**
      * Class under Test
@@ -35,10 +37,10 @@ class SendMailTest extends \PHPUnit_Framework_TestCase
 
     public $expectedMail;
 
-    public function setup()
+    protected function setUp()
     {
         $test = $this;
-        $sendCallback = function($value) use ($test) {
+        $sendCallback = function ($value) use ($test) {
             return $value === $test->expectedMail;
         };
         $transport = $this->getMockForAbstractClass('\Zend\Mail\Transport\TransportInterface');

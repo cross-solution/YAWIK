@@ -10,19 +10,21 @@
 /** */
 namespace CoreTest\Entity\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Entity\Exception\ImmutableEntityException
- * 
+ *
  * @covers \Core\Entity\Exception\ImmutableEntityException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  * @group Core.Entity.Exception
  */
-class ImmutableEntityExceptionTest extends \PHPUnit_Framework_TestCase
+class ImmutableEntityExceptionTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

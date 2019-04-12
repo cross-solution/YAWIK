@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Info;
 use Auth\Entity\Token;
 use Auth\Entity\User;
@@ -24,7 +26,7 @@ use Auth\Entity\User;
  * @group  User
  * @group  User.Entity
  */
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -33,7 +35,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new User();
     }
@@ -50,8 +52,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to set the login name of the user
-     * @covers Auth\Entity\User::getLogin
-     * @covers Auth\Entity\User::setLogin
+     * @covers \Auth\Entity\User::getLogin
+     * @covers \Auth\Entity\User::setLogin
      */
     public function testSetGetLogin()
     {
@@ -71,8 +73,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows to set the role name of a user
-     * @covers Auth\Entity\User::getRole
-     * @covers Auth\Entity\User::setRole
+     * @covers \Auth\Entity\User::getRole
+     * @covers \Auth\Entity\User::setRole
      * @dataProvider provideRoleTestData
      */
     public function testSetGetRole($role, $expectedRole)
@@ -89,8 +91,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows to set the role name of a user
-     * @covers Auth\Entity\User::getInfo
-     * @covers Auth\Entity\User::setInfo
+     * @covers \Auth\Entity\User::getInfo
+     * @covers \Auth\Entity\User::setInfo
      * @dataProvider provideInfoTestData
      */
     public function testSetGetInfo($info, $expectedInfo)
@@ -101,8 +103,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to mark a user as draft
-     * @covers Auth\Entity\User::isDraft
-     * @covers Auth\Entity\User::setIsDraft
+     * @covers \Auth\Entity\User::isDraft
+     * @covers \Auth\Entity\User::setIsDraft
      */
     public function testSetIsDraft()
     {
@@ -162,8 +164,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to set a Token of a user
-     * @covers Auth\Entity\User::getTokens
-     * @covers Auth\Entity\User::setTokens
+     * @covers \Auth\Entity\User::getTokens
+     * @covers \Auth\Entity\User::setTokens
      * @dataProvider provideTokenTestData
      *
      */

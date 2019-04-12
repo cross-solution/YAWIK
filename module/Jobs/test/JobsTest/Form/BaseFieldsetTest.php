@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Location;
 use Jobs\Form\BaseFieldset;
@@ -17,13 +19,13 @@ use Zend\Form\Fieldset;
 
 /**
  * Tests for \Jobs\Form\BaseFieldset
- * 
+ *
  * @covers \Jobs\Form\BaseFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Form
  */
-class BaseFieldsetTest extends \PHPUnit_Framework_TestCase
+class BaseFieldsetTest extends TestCase
 {
     use TestInheritanceTrait;
 

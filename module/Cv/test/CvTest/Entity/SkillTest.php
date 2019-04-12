@@ -8,6 +8,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -17,11 +19,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class SkillTest
  *
- * @covers  Cv\Entity\Skill
+ * @covers \Cv\Entity\Skill
  * @group Cv
  * @group Cv.Entity
  */
-class SkillTest extends \PHPUnit_Framework_TestCase
+class SkillTest extends TestCase
 {
     #use \CoreTestUtils\TestCase\SimpleSetterAndGetterTrait, InitValueTrait;
     use TestInheritanceTrait, TestSetterGetterTrait;

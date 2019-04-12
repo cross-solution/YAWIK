@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\MetaDataFieldset;
 use Core\Form\ViewPartialProviderInterface;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
@@ -18,18 +20,16 @@ use Jobs\Form\CustomerNoteFieldset;
 
 /**
  * Tests for \Jobs\Form\CustomerNoteFieldset
- * 
+ *
  * @covers \Jobs\Form\CustomerNoteFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class CustomerNoteFieldsetTest extends \PHPUnit_Framework_TestCase
+class CustomerNoteFieldsetTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 
     /**
-     *
-     *
      * @var array|CustomerNoteFieldset|\PHPUnit_Framework_MockObject_MockObject
      */
     private $target = [
@@ -49,6 +49,4 @@ class CustomerNoteFieldsetTest extends \PHPUnit_Framework_TestCase
     {
         $this->target->init();
     }
-
-
 }

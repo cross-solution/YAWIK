@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Info;
 use Auth\Entity\UserImage;
 
@@ -23,7 +25,7 @@ use Auth\Entity\UserImage;
  * @group  Jobs
  * @group  Jobs.Entity
  */
-class InfoTest extends \PHPUnit_Framework_TestCase
+class InfoTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -32,7 +34,7 @@ class InfoTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Info();
     }
@@ -49,8 +51,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the day of birth of the user
-     * @covers Auth\Entity\Info::getBirthDay
-     * @covers Auth\Entity\Info::setBirthDay
+     * @covers \Auth\Entity\Info::getBirthDay
+     * @covers \Auth\Entity\Info::setBirthDay
      */
     public function testSetGetBirthDay()
     {
@@ -61,8 +63,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the Month of birth of the user
-     * @covers Auth\Entity\Info::getBirthMonth
-     * @covers Auth\Entity\Info::setBirthMonth
+     * @covers \Auth\Entity\Info::getBirthMonth
+     * @covers \Auth\Entity\Info::setBirthMonth
      */
     public function testSetGetBirthMonth()
     {
@@ -73,8 +75,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the year of birth of the user
-     * @covers Auth\Entity\Info::getBirthYear
-     * @covers Auth\Entity\Info::setBirthYear
+     * @covers \Auth\Entity\Info::getBirthYear
+     * @covers \Auth\Entity\Info::setBirthYear
      */
     public function testSetGetBirthYear()
     {
@@ -85,8 +87,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the street of the user
-     * @covers Auth\Entity\Info::getStreet
-     * @covers Auth\Entity\Info::setStreet
+     * @covers \Auth\Entity\Info::getStreet
+     * @covers \Auth\Entity\Info::setStreet
      */
     public function testSetGetStreet()
     {
@@ -97,8 +99,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the year of birth of the user
-     * @covers Auth\Entity\Info::getEmail
-     * @covers Auth\Entity\Info::setEmail
+     * @covers \Auth\Entity\Info::getEmail
+     * @covers \Auth\Entity\Info::setEmail
      */
     public function testSetGetEmail()
     {
@@ -109,8 +111,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the year of birth of the user
-     * @covers Auth\Entity\Info::getImage
-     * @covers Auth\Entity\Info::setImage
+     * @covers \Auth\Entity\Info::getImage
+     * @covers \Auth\Entity\Info::setImage
      */
     public function testSetGetImage()
     {
@@ -126,8 +128,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting a phone number of the user
-     * @covers Auth\Entity\Info::getPhone
-     * @covers Auth\Entity\Info::setPhone
+     * @covers \Auth\Entity\Info::getPhone
+     * @covers \Auth\Entity\Info::setPhone
      */
     public function testSetGetPhone()
     {
@@ -138,8 +140,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to set the gender of the user
-     * @covers Auth\Entity\Info::getGender
-     * @covers Auth\Entity\Info::setGender
+     * @covers \Auth\Entity\Info::getGender
+     * @covers \Auth\Entity\Info::setGender
      */
     public function testSetGetGender()
     {
@@ -150,8 +152,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users firstName
-     * @covers Auth\Entity\Info::getFirstName
-     * @covers Auth\Entity\Info::setFirstName
+     * @covers \Auth\Entity\Info::getFirstName
+     * @covers \Auth\Entity\Info::setFirstName
      */
     public function testSetGetFirstName()
     {
@@ -163,8 +165,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users postalcode
-     * @covers Auth\Entity\Info::getPostalCode
-     * @covers Auth\Entity\Info::setPostalCode
+     * @covers \Auth\Entity\Info::getPostalCode
+     * @covers \Auth\Entity\Info::setPostalCode
      */
     public function testSetGetPostalCode()
     {
@@ -175,8 +177,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users city
-     * @covers Auth\Entity\Info::getCity
-     * @covers Auth\Entity\Info::setCity
+     * @covers \Auth\Entity\Info::getCity
+     * @covers \Auth\Entity\Info::setCity
      */
     public function testSetGetCity()
     {
@@ -187,8 +189,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users city
-     * @covers Auth\Entity\Info::isEmailVerified
-     * @covers Auth\Entity\Info::setEmailVerified
+     * @covers \Auth\Entity\Info::isEmailVerified
+     * @covers \Auth\Entity\Info::setEmailVerified
      */
     public function testSetGetEmailVerified()
     {
@@ -202,8 +204,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users city
-     * @covers Auth\Entity\Info::getHouseNumber
-     * @covers Auth\Entity\Info::setHouseNumber
+     * @covers \Auth\Entity\Info::getHouseNumber
+     * @covers \Auth\Entity\Info::setHouseNumber
      */
     public function testSetGetHouseNumber()
     {
@@ -215,8 +217,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users country
-     * @covers Auth\Entity\Info::getCountry
-     * @covers Auth\Entity\Info::setCountry
+     * @covers \Auth\Entity\Info::getCountry
+     * @covers \Auth\Entity\Info::setCountry
      */
     public function testSetGetCountry()
     {
@@ -228,8 +230,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users city
-     * @covers Auth\Entity\Info::getLastName
-     * @covers Auth\Entity\Info::setLastName
+     * @covers \Auth\Entity\Info::getLastName
+     * @covers \Auth\Entity\Info::setLastName
      */
     public function testSetGetLastName()
     {
@@ -251,8 +253,8 @@ class InfoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the users city
-     * @covers Auth\Entity\Info::getLastName
-     * @covers Auth\Entity\Info::setLastName
+     * @covers \Auth\Entity\Info::getLastName
+     * @covers \Auth\Entity\Info::setLastName
      * @dataProvider provideGetDisplayNameTestData
      */
     public function testGetDisplayName($firstname, $lastname, $email, $result)

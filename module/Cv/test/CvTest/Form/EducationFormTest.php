@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryForm;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,13 +19,13 @@ use Cv\Form\EducationForm;
 
 /**
  * Tests for \Cv\Form\EducationForm
- * 
+ *
  * @covers \Cv\Form\EducationForm
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Form
  */
-class EducationFormTest extends \PHPUnit_Framework_TestCase
+class EducationFormTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 

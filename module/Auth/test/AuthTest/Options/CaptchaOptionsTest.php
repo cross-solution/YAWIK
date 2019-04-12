@@ -10,25 +10,27 @@
 
 namespace Auth\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Options\CaptchaOptions as Options;
 use Zend\Form\View\Helper\Captcha\ReCaptcha;
 
 /**
  * Test the template entity.
  *
- * @covers Auth\Options\ModuleOptions
+ * @covers \Auth\Options\ModuleOptions
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Auth
  * @group Auth.Options
  */
-class CaptchaOptionsTest extends \PHPUnit_Framework_TestCase
+class CaptchaOptionsTest extends TestCase
 {
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    protected function setUp()
     {
         $options = new Options;
         $this->options = $options;
@@ -40,8 +42,8 @@ class CaptchaOptionsTest extends \PHPUnit_Framework_TestCase
      * @param string $setter Setter method name
      * @param string $getter getter method name
      * @param mixed $value Value to set and test the getter method with.
-     * @covers Auth\Options\CaptchaOptions::getMode
-     * @covers Auth\Options\CaptchaOptions::setMode
+     * @covers \Auth\Options\CaptchaOptions::getMode
+     * @covers \Auth\Options\CaptchaOptions::setMode
      *
      * @dataProvider provideSetterTestValues
      */
@@ -79,8 +81,8 @@ class CaptchaOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Auth\Options\CaptchaOptions::getImage
-     * @covers Auth\Options\CaptchaOptions::setImage
+     * @covers \Auth\Options\CaptchaOptions::getImage
+     * @covers \Auth\Options\CaptchaOptions::setImage
      */
     public function testSetGetImage()
     {
@@ -99,8 +101,8 @@ class CaptchaOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Auth\Options\CaptchaOptions::getReCaptcha
-     * @covers Auth\Options\CaptchaOptions::setReCaptcha
+     * @covers \Auth\Options\CaptchaOptions::getReCaptcha
+     * @covers \Auth\Options\CaptchaOptions::setReCaptcha
      */
     public function testSetGetReCaptcha()
     {

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\Mock\ServiceManager;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\Config as ZfConfig;
 use Zend\ServiceManager\ServiceManager;
 
@@ -21,16 +23,17 @@ use Zend\ServiceManager\ServiceManager;
  */
 class Config extends ZfConfig
 {
-	public function __construct( array $config = [] ) {
-		parent::__construct( $config );
-		$this->config = array_merge($this->config,$config);
-	}
-	
-	public function configureServiceManager(ServiceManager $serviceManager)
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        $this->config = array_merge($this->config, $config);
+    }
+    
+    public function configureServiceManager(ServiceManager $serviceManager)
     {
         /* @var ServiceManagerMock $serviceManager */
         parent::configureServiceManager($serviceManager);
-		
+        
         foreach ($this->getMocks() as $name => $spec) {
             if (is_array($spec) && array_key_exists('service', $spec)) {
                 if (isset($spec['count_get'])) {
@@ -49,10 +52,8 @@ class Config extends ZfConfig
 
             if (is_object($spec)) {
                 $serviceManager->setService($name, $spec);
-
-            } else if (is_string($spec)) {
+            } elseif (is_string($spec)) {
                 $serviceManager->setInvokableClass($name, $spec);
-
             } else {
                 $factory = new CreateInstanceFactory($spec[0], isset($spec[1]) ? $spec[1] : []);
                 $serviceManager->setFactory($name, $factory);

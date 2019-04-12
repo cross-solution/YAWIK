@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\Queue\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\Exception\AbstractJobException;
 use Core\Queue\Exception\FatalJobException;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Queue\Exception\FatalJobException
- * 
+ *
  * @covers \Core\Queue\Exception\FatalJobException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class FatalJobExceptionTest extends \PHPUnit_Framework_TestCase
+class FatalJobExceptionTest extends TestCase
 {
     use TestInheritanceTrait;
 

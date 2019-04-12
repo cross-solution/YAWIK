@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Queue\Worker;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\Exception\FatalJobException;
 use Core\Queue\Exception\RecoverableJobException;
 use Core\Queue\MongoQueue;
@@ -24,12 +26,12 @@ use Zend\EventManager\EventManagerInterface;
 
 /**
  * Tests for \Core\Queue\Worker\MongoWorker
- * 
+ *
  * @covers \Core\Queue\Worker\MongoWorker
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class MongoWorkerTest extends \PHPUnit_Framework_TestCase
+class MongoWorkerTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -71,7 +73,7 @@ class MongoWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testDoesDeleteJobIfProcessedSuccessfully()
     {
-         /* @var AbstractJob $jobMock */
+        /* @var AbstractJob $jobMock */
         $job = $this->prophesize(AbstractJob::class);
         $job->execute()->willReturn(ProcessJobEvent::JOB_STATUS_SUCCESS);
         $jobMock = $job->reveal();
@@ -89,7 +91,7 @@ class MongoWorkerTest extends \PHPUnit_Framework_TestCase
     {
         $options = ['delay' => 10];
 
-         /* @var AbstractJob $jobMock */
+        /* @var AbstractJob $jobMock */
         $job = $this->prophesize(AbstractJob::class);
         $job->execute()->willThrow(new RecoverableJobException('test recoverable', $options));
         $jobMock = $job->reveal();
@@ -118,5 +120,4 @@ class MongoWorkerTest extends \PHPUnit_Framework_TestCase
         $result = $this->target->processJob($jobMock, $queueMock);
         static::assertEquals(ProcessJobEvent::JOB_STATUS_FAILURE, $result);
     }
-
 }

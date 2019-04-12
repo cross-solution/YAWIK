@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Language;
@@ -19,7 +21,7 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Cv\Factory\Form\LanguageSkillCollectionFactory
- * 
+ *
  * @covers \Cv\Factory\Form\LanguageSkillCollectionFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
@@ -28,7 +30,7 @@ use Zend\ServiceManager\ServiceManager;
  * @group Cv.Factory
  * @group Cv.Factory.Form
  */
-class LanguageSkillCollectionFactoryTest extends \PHPUnit_Framework_TestCase
+class LanguageSkillCollectionFactoryTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -38,12 +40,11 @@ class LanguageSkillCollectionFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokation()
     {
-        $container = $this->target->__invoke(new ServiceManager(),'irrelevant');
+        $container = $this->target->__invoke(new ServiceManager(), 'irrelevant');
 
         $this->assertInstanceOf(CollectionContainer::class, $container);
         $this->assertAttributeEquals('Cv/LanguageSkillForm', 'formService', $container);
         $this->assertAttributeInstanceOf(Language::class, 'newEntry', $container);
         $this->assertEquals('Additional Language Skills', $container->getLabel());
     }
-    
 }

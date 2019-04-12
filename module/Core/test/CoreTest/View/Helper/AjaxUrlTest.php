@@ -10,20 +10,22 @@
 /** */
 namespace CoreTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\AjaxUrl;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\View\Helper\AbstractHelper;
 
 /**
  * Tests for \Core\View\Helper\AjaxUrl
- * 
+ *
  * @covers \Core\View\Helper\AjaxUrl
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.View
  * @group Core.View.Helper
  */
-class AjaxUrlTest extends \PHPUnit_Framework_TestCase
+class AjaxUrlTest extends TestCase
 {
     const BASEPATH = '/this/is/the/base/path/';
 
@@ -48,7 +50,7 @@ class AjaxUrlTest extends \PHPUnit_Framework_TestCase
         $basepath = '/test/path/no/slash';
         $target   = new AjaxUrl($basepath);
 
-        $this->assertAttributeSame($basepath . '/' , 'basePath', $target);
+        $this->assertAttributeSame($basepath . '/', 'basePath', $target);
 
         $basepath = '/test/path/slash/';
         $target   = new AjaxUrl($basepath);
@@ -86,6 +88,4 @@ class AjaxUrlTest extends \PHPUnit_Framework_TestCase
 
         $this->target->__invoke(['no' => 'ajax-key']);
     }
-
-
 }

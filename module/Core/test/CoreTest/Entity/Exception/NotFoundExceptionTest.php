@@ -9,12 +9,14 @@
 
 namespace CoreTest\Entity\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Exception\NotFoundException;
 
 /**
  * @coversDefaultClass \Core\Entity\Exception\NotFoundException
  */
-class NotFoundExceptionTest extends \PHPUnit_Framework_TestCase
+class NotFoundExceptionTest extends TestCase
 {
 
     /**

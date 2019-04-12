@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Event;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Container;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -17,16 +19,15 @@ use Zend\Form\Form;
 
 /**
  * Tests for \Core\Form\Event\FormEvent
- * 
+ *
  * @covers \Core\Form\Event\FormEvent
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Form
  * @group Core.Form.Event
  */
-class FormEventTest extends \PHPUnit_Framework_TestCase
+class FormEventTest extends TestCase
 {
-
     use TestInheritanceTrait, TestSetterGetterTrait;
 
     /**
@@ -37,7 +38,7 @@ class FormEventTest extends \PHPUnit_Framework_TestCase
 
     protected $inheritance = [ '\Zend\EventManager\Event' ];
 
-    public function  propertiesProvider()
+    public function propertiesProvider()
     {
         $form = new Form();
         $container = new Container();

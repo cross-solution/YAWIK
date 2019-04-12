@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\Form\AbstractCustomizableFieldsetFactory;
 use Core\Form\CustomizableFieldsetInterface;
 use Core\Options\FieldsetCustomizationOptions;
@@ -20,14 +22,14 @@ use Zend\ServiceManager\MutableCreationOptionsInterface;
 
 /**
  * Tests for \Core\Factory\Form\AbstractCustomizableFieldsetFactory
- * 
+ *
  * @covers \Core\Factory\Form\AbstractCustomizableFieldsetFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Factory
  * @group Core.Factory.Form
  */
-class AbstractCustomizableFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
+class AbstractCustomizableFieldsetFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -73,9 +75,6 @@ class AbstractCustomizableFieldsetFactoryTest extends \PHPUnit_Framework_TestCas
         $this->target->createService($plugins);
 
         $this->assertAttributeEquals(null, 'options', $this->target);
-
-
-
     }
 
     public function testInvokationThrowsExceptionIfClassNameIsNotSpecified()
@@ -108,7 +107,7 @@ class AbstractCustomizableFieldsetFactoryTest extends \PHPUnit_Framework_TestCas
     {
         $options = new FieldsetCustomizationOptions();
         $container = $this->getServiceManagerMock(['testOptions' => ['service' => $options, 'count_get' => 1]]);
-	    
+        
         $instance = $this->target->__invoke($container, '');
 
         $this->assertSame($options, $instance->getCustomizationOptions());
@@ -117,7 +116,6 @@ class AbstractCustomizableFieldsetFactoryTest extends \PHPUnit_Framework_TestCas
 
 class ConcreteAbstractCustomizableFieldsetFactory extends AbstractCustomizableFieldsetFactory
 {
-
 }
 
 class ConcreteAbstractCustomizableFieldsetFactoryWithClassName extends AbstractCustomizableFieldsetFactory

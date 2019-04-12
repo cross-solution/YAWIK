@@ -10,6 +10,8 @@
 /** */
 namespace InstallTest\Factory\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Filter\CredentialFilter;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ODM\MongoDB\Configuration;
@@ -20,7 +22,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Install\Factory\Controller\Plugin\UserCreatorFactory
- * 
+ *
  * @covers \Install\Factory\Controller\Plugin\UserCreatorFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Install
@@ -28,7 +30,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Install.Factory.Controller
  * @group Install.Factory.Controller.Plugin
  */
-class UserCreatorFactoryTest extends \PHPUnit_Framework_TestCase
+class UserCreatorFactoryTest extends TestCase
 {
 
     /**
@@ -65,10 +67,12 @@ class UserCreatorFactoryTest extends \PHPUnit_Framework_TestCase
             ->expects($this->exactly(2))
             ->method('get')
             ->withConsecutive(
-                ['FilterManager'],['doctrine.documentmanager.odm_default']
+                ['FilterManager'],
+                ['doctrine.documentmanager.odm_default']
             )
             ->will($this->onConsecutiveCalls(
-                $filters,$dm
+                $filters,
+                $dm
             ))
         ;
 
@@ -86,7 +90,7 @@ class UserCreatorFactoryTest extends \PHPUnit_Framework_TestCase
         ;
 
         /* @var \Install\Factory\Controller\Plugin\UserCreatorFactory $target */
-        $plugin = $target($services,'some-name',['connection' => 'some-connection']);
+        $plugin = $target($services, 'some-name', ['connection' => 'some-connection']);
 
         $this->assertInstanceOf('\Install\Controller\Plugin\UserCreator', $plugin);
     }

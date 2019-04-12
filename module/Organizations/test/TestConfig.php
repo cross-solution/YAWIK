@@ -1,12 +1,12 @@
 <?php
 $modules = array_merge(
-	include_once __DIR__.'/../../../config/common.modules.php',
-	[
-		'Core',
-		'Auth',
-		'Jobs',
-		'Organizations'
-	]
+    include_once __DIR__.'/../../../config/common.modules.php',
+    [
+        'Core',
+        'Auth',
+        'Jobs',
+        'Organizations'
+    ]
 );
 return array(
     'modules' => $modules,

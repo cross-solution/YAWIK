@@ -10,12 +10,14 @@
 /** */
 namespace CoreTest\View\Helper\Proxy;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\Proxy\HelperProxy;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 
 /**
  * Tests for \Core\View\Helper\Proxy\HelperProxy
- * 
+ *
  * @covers \Core\View\Helper\Proxy\HelperProxy
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -23,7 +25,7 @@ use CoreTestUtils\TestCase\SetupTargetTrait;
  * @group Core.View.Helper
  * @group Core.View.Helper.Proxy
  */
-class HelperProxyTest extends \PHPUnit_Framework_TestCase
+class HelperProxyTest extends TestCase
 {
     use SetupTargetTrait;
 
@@ -96,7 +98,7 @@ class HelperProxyTest extends \PHPUnit_Framework_TestCase
 
         if ('__self__' == $expect) {
             $this->assertSame($actual, $this->target);
-        } else if ('__iterator__' == $expect) {
+        } elseif ('__iterator__' == $expect) {
             $this->assertInstanceOf(\ArrayIterator::class, $actual);
         } else {
             $this->assertEquals($actual, $expect);
@@ -165,9 +167,6 @@ class HelperProxyTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($target, $target->consecutive($chain));
         $this->assertEquals($expect, $helper->stack);
     }
-
-
-    
 }
 
 class Hp_DummyHelper
@@ -184,7 +183,8 @@ class HpConsecutiveHelper
 {
     public $stack = [];
 
-    public function __call($method, $args) {
+    public function __call($method, $args)
+    {
         $this->stack[$method] = $args;
         return;
     }

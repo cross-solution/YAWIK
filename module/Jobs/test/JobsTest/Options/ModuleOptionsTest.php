@@ -10,24 +10,26 @@
 
 namespace JobsTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Options\ModuleOptions as Options;
 
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    protected function setUp()
     {
         $options = new Options;
         $this->options = $options;
     }
 
     /**
-     * @covers Jobs\Options\ModuleOptions::getMultipostingApprovalMail
-     * @covers Jobs\Options\ModuleOptions::setMultipostingApprovalMail
+     * @covers \Jobs\Options\ModuleOptions::getMultipostingApprovalMail
+     * @covers \Jobs\Options\ModuleOptions::setMultipostingApprovalMail
      */
     public function testSetGetMultipostingApprovalMail()
     {
@@ -38,8 +40,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ModuleOptions::getDefaultLogo
-     * @covers Jobs\Options\ModuleOptions::setDefaultLogo
+     * @covers \Jobs\Options\ModuleOptions::getDefaultLogo
+     * @covers \Jobs\Options\ModuleOptions::setDefaultLogo
      */
     public function testSetGetDefaultLogo()
     {
@@ -50,8 +52,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ModuleOptions::getMultipostingTargetUri
-     * @covers Jobs\Options\ModuleOptions::setMultipostingTargetUri
+     * @covers \Jobs\Options\ModuleOptions::getMultipostingTargetUri
+     * @covers \Jobs\Options\ModuleOptions::setMultipostingTargetUri
      */
     public function testSetGetMultipostingTargetUri()
     {
@@ -61,8 +63,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ModuleOptions::getCompanyLogoMaxSize
-     * @covers Jobs\Options\ModuleOptions::setCompanyLogoMaxSize
+     * @covers \Jobs\Options\ModuleOptions::getCompanyLogoMaxSize
+     * @covers \Jobs\Options\ModuleOptions::setCompanyLogoMaxSize
      */
     public function testSetGetCompanyLogoMaxSize()
     {
@@ -73,8 +75,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ModuleOptions::getCompanyLogoMimeType
-     * @covers Jobs\Options\ModuleOptions::setCompanyLogoMimeType
+     * @covers \Jobs\Options\ModuleOptions::getCompanyLogoMimeType
+     * @covers \Jobs\Options\ModuleOptions::setCompanyLogoMimeType
      */
     public function testSetGetCompanyLogoMimeType()
     {

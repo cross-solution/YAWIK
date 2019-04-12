@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Repository;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Repository\AbstractRepository;
 use Core\Repository\DoctrineMongoODM;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -26,13 +28,13 @@ use org\bovigo\vfs\vfsStream;
 
 /**
  * Tests for \Jobs\Repository\Categories
- * 
+ *
  * @covers \Jobs\Repository\Categories
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Repository
  */
-class CategoriesTest extends \PHPUnit_Framework_TestCase
+class CategoriesTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -95,7 +97,6 @@ class CategoriesTest extends \PHPUnit_Framework_TestCase
         $meta->name = 'idonotcare';
 
         return [$dm, $uow, $meta];
-
     }
 
     public function testFindByCreatesDefaultCategory()
@@ -125,7 +126,6 @@ class CategoriesTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateDefaultCategory($value)
     {
-
         $expect = is_array($value) ? $value['value'] : $value;
 
         $builder = $this->getMockBuilder(DefaultCategoriesBuilder::class)
@@ -143,4 +143,3 @@ class CategoriesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('success', $result);
     }
 }
-

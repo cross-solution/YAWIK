@@ -10,9 +10,11 @@
 /** */
 namespace AuthTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Listener\TokenListener;
+use PHPUnit\Framework\TestResult;
 use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\CallbackHandler;
 
 /**
  * Test for TokenListener
@@ -23,11 +25,11 @@ use Zend\Stdlib\CallbackHandler;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class TokenListenerTest extends \PHPUnit_Framework_TestCase
+class TokenListenerTest extends TestCase
 {
     # http://matthewturland.com/2010/08/19/process-isolation-in-phpunit/
     # added, because these tests are failing on travis
-    public function run(\PHPUnit_Framework_TestResult $result = null)
+    public function run(TestResult $result = null): TestResult
     {
         $this->setPreserveGlobalState(false);
         return parent::run($result);
@@ -57,7 +59,7 @@ class TokenListenerTest extends \PHPUnit_Framework_TestCase
 
         $events->expects($this->once())
                ->method('detach')
-               ->with($expCallback,'Zend\Mvc\Application')
+               ->with($expCallback, 'Zend\Mvc\Application')
                ->willReturn(true);
 
 

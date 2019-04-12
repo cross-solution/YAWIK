@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Factory\Form\EmployeesFieldsetFactory;
 
 /**
@@ -20,7 +22,7 @@ use Organizations\Factory\Form\EmployeesFieldsetFactory;
  * @group Organizations.Factory
  * @group Organizations.Factory.Form
  */
-class EmployeesFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
+class EmployeesFieldsetFactoryTest extends TestCase
 {
 
     /**

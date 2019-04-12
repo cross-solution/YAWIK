@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Hydrator\Strategy\CollectionStrategy;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Skill;
@@ -17,13 +19,13 @@ use Cv\Form\SkillFieldset;
 
 /**
  * Tests for \Cv\Form\SkillFieldset
- * 
+ *
  * @covers \Cv\Form\SkillFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Form
  */
-class SkillFieldsetTest extends \PHPUnit_Framework_TestCase
+class SkillFieldsetTest extends TestCase
 {
     use TestInheritanceTrait;
 

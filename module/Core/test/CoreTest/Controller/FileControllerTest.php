@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Controller\Plugin\Acl;
 use Core\Controller\FileController;
 use Core\EventManager\EventManager;
@@ -59,7 +61,7 @@ class FileControllerTest extends AbstractControllerTestCase
      */
     private $events;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->init('file');
         $this->repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
@@ -120,7 +122,7 @@ class FileControllerTest extends AbstractControllerTestCase
         ;
 
         $response = $this->controller->dispatch($request);
-        $this->assertInstanceOf(Response::class,$response);
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertResponseStatusCode(Response::STATUS_CODE_404);
     }
 
@@ -137,7 +139,7 @@ class FileControllerTest extends AbstractControllerTestCase
         ;
 
         $response = $this->controller->dispatch($request);
-        $this->assertInstanceOf(Response::class,$response);
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertResponseStatusCode(Response::STATUS_CODE_404);
         $this->assertEquals(
             $this->event->getParam('exception'),
@@ -174,7 +176,7 @@ class FileControllerTest extends AbstractControllerTestCase
         ;
 
 
-        $resource = fopen(__FILE__,'r');
+        $resource = fopen(__FILE__, 'r');
         $file->expects($this->once())
             ->method('getResource')
             ->willReturn($resource)
@@ -186,7 +188,7 @@ class FileControllerTest extends AbstractControllerTestCase
         ob_end_clean();
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertStringEqualsFile(__FILE__,$output);
+        $this->assertStringEqualsFile(__FILE__, $output);
         $this->assertEquals(
             'type',
             $this->getResponseHeader('Content-Type')->getFieldValue()
@@ -203,7 +205,7 @@ class FileControllerTest extends AbstractControllerTestCase
         $request->setMethod(Request::METHOD_GET);
         $headers = $request->getHeaders();
         $headers
-            ->addHeaderLine('X_REQUESTED_WITH','XMLHttpRequest')
+            ->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest')
         ;
 
         $repo = $this->createMock(ObjectRepository::class);
@@ -221,7 +223,7 @@ class FileControllerTest extends AbstractControllerTestCase
         ;
 
         $output = $this->controller->dispatch($request);
-        $this->assertInstanceOf(JsonModel::class,$output);
+        $this->assertInstanceOf(JsonModel::class, $output);
         $this->assertEquals(
             '{"result":false,"message":"File not found."}',
             $output->serialize()
@@ -233,7 +235,7 @@ class FileControllerTest extends AbstractControllerTestCase
         $request = new Request();
         $headers = $request->getHeaders();
         $headers
-            ->addHeaderLine('X_REQUESTED_WITH','XMLHttpRequest')
+            ->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest')
         ;
 
         $repo = $this->createMock(ObjectRepository::class);
@@ -273,8 +275,7 @@ class FileControllerTest extends AbstractControllerTestCase
 
         /* @var \Zend\View\Model\JsonModel $output */
         $output = $this->controller->dispatch($request);
-        $this->assertInstanceOf(JsonModel::class,$output);
-        $this->assertEquals('{"result":true}',$output->serialize());
+        $this->assertInstanceOf(JsonModel::class, $output);
+        $this->assertEquals('{"result":true}', $output->serialize());
     }
-
 }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\FileEntity;
 use Core\Entity\Image;
 use Core\Entity\ImageInterface;
@@ -19,12 +21,12 @@ use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 
 /**
  * Tests for \Core\Entity\Image
- * 
+ *
  * @covers \Core\Entity\Image
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class ImageTest extends \PHPUnit_Framework_TestCase
+class ImageTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait;
 

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Tree;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Hydrator\TreeHydrator;
 use Core\Form\Tree\ManagementFieldset;
 use Core\Form\ViewPartialProviderInterface;
@@ -22,14 +24,14 @@ use Zend\Form\Fieldset;
 
 /**
  * Tests for \Core\Form\Tree\ManagementFieldset
- * 
+ *
  * @covers \Core\Form\Tree\ManagementFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Form
  * @group Core.Form.Tree
  */
-class ManagementFieldsetTest extends \PHPUnit_Framework_TestCase
+class ManagementFieldsetTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 

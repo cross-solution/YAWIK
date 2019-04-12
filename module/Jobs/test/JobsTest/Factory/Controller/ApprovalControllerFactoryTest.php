@@ -9,6 +9,8 @@
 
 namespace JobsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Controller\ApprovalController;
 use Jobs\Factory\Controller\ApprovalControllerFactory;
 use Jobs\Form\OrganizationSelect;
@@ -20,7 +22,7 @@ use Zend\Mvc\Controller\ControllerManager;
  * @package JobsTest\Factory\Controller
  * @covers \Jobs\Factory\Controller\ApprovalControllerFactory
  */
-class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class ApprovalControllerFactoryTest extends TestCase
 {
     /**
      * @var ApprovalControllerFactory
@@ -31,7 +33,7 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new ApprovalControllerFactory();
     }

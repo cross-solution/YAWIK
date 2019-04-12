@@ -8,15 +8,17 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Cv\Entity\ComputerSkill;
 use CoreTestUtils\TestCase\SimpleSetterAndGetterTrait;
 
 /**
  * Class ComputerSkillTest
- * @covers Cv\Entity\ComputerSkill
+ * @covers \Cv\Entity\ComputerSkill
  * @package CvTest\Entity
  */
-class ComputerSkillTest extends \PHPUnit_Framework_TestCase
+class ComputerSkillTest extends TestCase
 {
     use SimpleSetterAndGetterTrait;
 

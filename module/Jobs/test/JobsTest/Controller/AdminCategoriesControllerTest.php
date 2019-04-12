@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Tree\ManagementForm;
 use Core\Form\View\Helper\SummaryForm;
 use Core\Repository\AbstractRepository;
@@ -26,12 +28,12 @@ use Zend\View\Model\JsonModel;
 
 /**
  * Tests for Jobs\Controller\AdminCategoriesController
- * 
- * @covers Jobs\Controller\AdminCategoriesController
+ *
+ * @covers \Jobs\Controller\AdminCategoriesController
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
+class AdminCategoriesControllerTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -52,7 +54,7 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
                 [$this->isInstanceOf(Category::class), 'employmentTypes'],
                 [$this->isInstanceOf(Category::class), 'industries']
             );
-		
+        
         $sm = $this->getServiceManagerMock();
         if ($postRequest) {
             $subForm = $this->getMockBuilder(ManagementForm::class)->disableOriginalConstructor()
@@ -70,11 +72,11 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
                 ->setMethods(['__invoke'])->getMock();
             $helper->expects($this->once())->method('__invoke')->with($subForm);
 
-            $viewHelpers = $this->createPluginManagerMock(['summaryForm' => $helper],$sm);
+            $viewHelpers = $this->createPluginManagerMock(['summaryForm' => $helper], $sm);
         } else {
-            $viewHelpers = $this->createPluginManagerMock([],$sm);
+            $viewHelpers = $this->createPluginManagerMock([], $sm);
         }
-        $forms = $this->createPluginManagerMock(['Jobs/AdminCategories' => $form],$sm);
+        $forms = $this->createPluginManagerMock(['Jobs/AdminCategories' => $form], $sm);
 
         $repository = $this->getMockBuilder(AbstractRepository::class)
             ->disableOriginalConstructor()
@@ -91,16 +93,16 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
                     [['value' => 'employmentTypes']],
                     [['value' => 'industries']]
                 )->will($this->onConsecutiveCalls(
-                                     $professions,
-                                     $industries,
-                                     $types
+                    $professions,
+                    $industries,
+                    $types
                                  ));
         } else {
             $repository->expects($this->exactly(3))->method('findOneBy')
                        ->withConsecutive(
-                       [['value' => 'professions']],
-                       [['value' => 'employmentTypes']],
-                       [['value' => 'industries']]
+                           [['value' => 'professions']],
+                           [['value' => 'employmentTypes']],
+                           [['value' => 'industries']]
                 )->willReturn(null);
         }
 
@@ -113,10 +115,9 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
         if (!$rootExists) {
             $repositories->expects($this->exactly(3))->method('store')
                 ->with($this->isInstanceOf(Category::class));
-        } else if ($postRequest) {
+        } elseif ($postRequest) {
             $repositories->expects($this->exactly(1))->method('store')
                          ->with($this->isInstanceOf(Category::class));
-
         }
 
 
@@ -136,12 +137,11 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
     {
         $services = $this->getConfiguredServiceManager();
         $this->target->initContainer($services);
-	    
+        
         $model = $this->target->indexAction();
 
         $this->assertSame($services->get('forms')->get('Jobs/AdminCategories'), $model->getVariable('form'));
         $this->assertEquals('jobs/admin/categories', $model->getTemplate());
-
     }
 
     public function testNonPostRequestWithNonExistantRoots()
@@ -151,7 +151,6 @@ class AdminCategoriesControllerTest extends \PHPUnit_Framework_TestCase
         $model = $this->target->indexAction();
         $this->assertSame($services->get('forms')->get('Jobs/AdminCategories'), $model->getVariable('form'));
         $this->assertEquals('jobs/admin/categories', $model->getTemplate());
-
     }
 
     public function testPostRequest()

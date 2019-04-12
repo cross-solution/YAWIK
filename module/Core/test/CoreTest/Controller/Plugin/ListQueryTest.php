@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\ListQuery;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Doctrine\MongoDB\Query\Query;
@@ -21,7 +23,7 @@ use Interop\Container\ContainerInterface;
  * @covers \Core\Controller\Plugin\ListQuery
  * @since 0.30.1
  */
-class ListQueryTest extends \PHPUnit_Framework_TestCase
+class ListQueryTest extends TestCase
 {
     use TestSetterGetterTrait;
 
@@ -31,7 +33,7 @@ class ListQueryTest extends \PHPUnit_Framework_TestCase
 
     protected $containerMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);
         $this->target = new ListQuery($this->containerMock);
@@ -41,7 +43,7 @@ class ListQueryTest extends \PHPUnit_Framework_TestCase
     {
         $container = $this->createMock(ContainerInterface::class);
         $ob = ListQuery::factory($container);
-        $this->assertInstanceOf(ListQuery::class,$ob);
+        $this->assertInstanceOf(ListQuery::class, $ob);
     }
 
     public function propertiesProvider()

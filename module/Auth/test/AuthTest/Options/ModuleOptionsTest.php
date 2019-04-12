@@ -10,32 +10,34 @@
 
 namespace Auth\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Options\ModuleOptions as Options;
 
 /**
  * Test the template entity.
  *
- * @covers Auth\Options\ModuleOptions
+ * @covers \Auth\Options\ModuleOptions
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Auth
  * @group Auth.Options
  */
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    protected function setUp()
     {
         $options = new Options;
         $this->options = $options;
     }
 
     /**
-     * @covers Auth\Options\ModuleOptions::getRole
-     * @covers Auth\Options\ModuleOptions::setRole
+     * @covers \Auth\Options\ModuleOptions::getRole
+     * @covers \Auth\Options\ModuleOptions::setRole
      */
     public function testSetGetRole()
     {
@@ -45,8 +47,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Auth\Options\ModuleOptions::getFromName
-     * @covers Auth\Options\ModuleOptions::setFromName
+     * @covers \Auth\Options\ModuleOptions::getFromName
+     * @covers \Auth\Options\ModuleOptions::setFromName
      */
     public function testSetGetFromName()
     {
@@ -110,8 +112,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Auth\Options\ModuleOptions::getEnableLogins
-     * @covers Auth\Options\ModuleOptions::setEnableLogins
+     * @covers \Auth\Options\ModuleOptions::getEnableLogins
+     * @covers \Auth\Options\ModuleOptions::setEnableLogins
      */
     public function testSetGetEnableLogins()
     {

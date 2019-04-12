@@ -9,17 +9,19 @@
 
 namespace AuthTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Form\ForgotPassword;
 use Zend\Form\Fieldset;
 
-class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
+class ForgotPasswordTest extends TestCase
 {
     /**
      * @var ForgotPassword
      */
     private $testedObject;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObject = new ForgotPassword();
     }

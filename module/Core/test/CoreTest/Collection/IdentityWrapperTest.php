@@ -8,11 +8,13 @@
  */
 namespace CoreTest\Collection;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Collection\IdentityWrapper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
+class IdentityWrapperTest extends TestCase
 {
 
     /**
@@ -30,10 +32,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
      */
     protected $entries;
     
-    public function setUp()
+    protected function setUp()
     {
-        $getEntryMock = function ($id)
-        {
+        $getEntryMock = function ($id) {
             $entry = $this->getMockBuilder(\stdClass::class)
                 ->setMethods(['getId'])
                 ->getMock();
@@ -76,7 +77,7 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
     {
         $entry = 'value';
         $count = count($this->wrappedCollection);
-		$this->identityWrapper->add($entry);
+        $this->identityWrapper->add($entry);
         $this->assertSame($count + 1, count($this->identityWrapper));
         $this->assertSame($count + 1, count($this->wrappedCollection));
         $this->assertTrue($this->identityWrapper->contains($entry));
@@ -181,7 +182,7 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
     public function testGetValues()
     {
         $expected = array_values($this->entries);
-		$this->assertSame($expected, $this->identityWrapper->getValues());
+        $this->assertSame($expected, $this->identityWrapper->getValues());
         $this->assertSame($expected, $this->wrappedCollection->getValues());
     }
 
@@ -234,8 +235,8 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
     public function testFirst()
     {
         $expected = reset($this->entries);
-		$this->assertSame($expected, $this->identityWrapper->first());
-		$this->assertSame($expected, $this->wrappedCollection->first());
+        $this->assertSame($expected, $this->identityWrapper->first());
+        $this->assertSame($expected, $this->wrappedCollection->first());
     }
 
     /**
@@ -244,8 +245,8 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
     public function testLast()
     {
         $expected = end($this->entries);
-		$this->assertSame($expected, $this->identityWrapper->last());
-		$this->assertSame($expected, $this->wrappedCollection->last());
+        $this->assertSame($expected, $this->identityWrapper->last());
+        $this->assertSame($expected, $this->wrappedCollection->last());
     }
 
     /**
@@ -324,9 +325,9 @@ class IdentityWrapperTest extends \PHPUnit_Framework_TestCase
             return $value === $searchValue;
         };
         $filtered = $this->identityWrapper->filter($filter);
-		$this->assertInstanceOf(IdentityWrapper::class, $filtered);
-		$this->assertNotSame($this->identityWrapper, $filtered);
-		$this->assertSame(array_filter($this->entries, $filter), $filtered->toArray());
+        $this->assertInstanceOf(IdentityWrapper::class, $filtered);
+        $this->assertNotSame($this->identityWrapper, $filtered);
+        $this->assertSame(array_filter($this->entries, $filter), $filtered->toArray());
     }
 
     /**

@@ -8,6 +8,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -20,7 +22,7 @@ use Cv\Entity\Education;
  * @group Cv
  * @group Cv.Entity
  */
-class EducationTest extends \PHPUnit_Framework_TestCase
+class EducationTest extends TestCase
 {
     use SetupTargetTrait, TestSetterGetterTrait;
 

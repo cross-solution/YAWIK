@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\Mock\ServiceManager;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\ServiceManager;
 
@@ -35,7 +37,7 @@ class ServiceManagerMock extends ServiceManager
     public function get($name, $usePeeringServiceManagers = true)
     {
         $this->incrementCallCount('get', $name);
-	
+    
         return parent::get($name, $usePeeringServiceManagers);
     }
 
@@ -106,8 +108,13 @@ class ServiceManagerMock extends ServiceManager
 
                 if ($actual != $count) {
                     throw new \PHPUnit_Framework_AssertionFailedError(
-                        sprintf('%s::%s(%s) was expected to be called %d times, but was actually called %d times.',
-                                get_class($this), $methodName, '*' == $name ? '' : $name, $count, $actual
+                        sprintf(
+                            '%s::%s(%s) was expected to be called %d times, but was actually called %d times.',
+                            get_class($this),
+                            $methodName,
+                            '*' == $name ? '' : $name,
+                            $count,
+                            $actual
                         )
                     );
                 }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\Constraint;
 
+use PHPUnit\Framework\Constraint\Constraint;
+
 /**
  * Constraint to assert the extending or implementing of specific classes and interfaces.
  *
@@ -17,7 +19,7 @@ namespace CoreTestUtils\Constraint;
  * @since  0.26
  * @since  0.29 matches() allow passing in a \ReflectionClass object instance.
  */
-class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
+class ExtendsOrImplements extends Constraint
 {
     /**
      * The FQCN of the classes and interfaces which the tested object
@@ -45,7 +47,7 @@ class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
         parent::__construct();
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->parentsAndInterfaces);
     }
@@ -62,14 +64,14 @@ class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
      *
      * @since 0.29 $other can be an instance of \ReflectionClass.
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
         $this->result = [];
         $success      = true;
-        $isReflection = $other instanceOf \ReflectionClass;
+        $isReflection = $other instanceof \ReflectionClass;
 
         foreach ($this->parentsAndInterfaces as $fqcn) {
-            $check               = $isReflection ? $other->isSubclassOf($fqcn) : $other instanceOf $fqcn;
+            $check               = $isReflection ? $other->isSubclassOf($fqcn) : $other instanceof $fqcn;
             $this->result[$fqcn] = $check;
             $success             = $success && $check;
         }
@@ -77,12 +79,12 @@ class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
         return $success;
     }
 
-    protected function failureDescription($other)
+    protected function failureDescription($other): string
     {
-        return ($other instanceOf \ReflectionClass ? $other->getName() : get_class($other)) . ' ' . $this->toString();
+        return ($other instanceof \ReflectionClass ? $other->getName() : get_class($other)) . ' ' . $this->toString();
     }
 
-    protected function additionalFailureDescription($other)
+    protected function additionalFailureDescription($other): string
     {
         $info = '';
 
@@ -93,10 +95,8 @@ class ExtendsOrImplements extends \PHPUnit_Framework_Constraint
         return $info;
     }
 
-    public function toString()
+    public function toString(): string
     {
         return 'extends or implements required classes and interfaces';
     }
-
-
 }

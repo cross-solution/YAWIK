@@ -10,6 +10,8 @@
 /** */
 namespace InstallTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Filter\CredentialFilter;
 use Auth\Entity\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -19,14 +21,14 @@ use Auth\Repository\User as UserRepository;
 
 /**
  * Tests for \Install\Controller\Plugin\UserCreator
- * 
+ *
  * @covers \Install\Controller\Plugin\UserCreator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Install
  * @group Install.Controller
  * @group Install.Controller.Plugin
  */
-class UserCreatorTest extends \PHPUnit_Framework_TestCase
+class UserCreatorTest extends TestCase
 {
 
     /**
@@ -46,12 +48,12 @@ class UserCreatorTest extends \PHPUnit_Framework_TestCase
      */
     private $documentManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $credentialFilter = $this->createMock(CredentialFilter::class);
         $dm = $this->createMock(DocumentManager::class);
 
-        $this->target = new UserCreator($credentialFilter,$dm);
+        $this->target = new UserCreator($credentialFilter, $dm);
         $this->credentialFilter= $credentialFilter;
         $this->documentManager = $dm;
     }
@@ -84,7 +86,7 @@ class UserCreatorTest extends \PHPUnit_Framework_TestCase
         ;
 
         $target = $this->target;
-        $target->process('foo','password','foo@bar.com');
+        $target->process('foo', 'password', 'foo@bar.com');
 
         $repository->expects($this->any())
             ->method('store')
@@ -93,6 +95,6 @@ class UserCreatorTest extends \PHPUnit_Framework_TestCase
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('some-exception');
-        $target->process('foo','password','foo@bar.com');
+        $target->process('foo', 'password', 'foo@bar.com');
     }
 }

@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Comment;
 use Applications\Entity\Rating;
 use Auth\Entity\User;
@@ -23,7 +25,7 @@ use Auth\Entity\User;
  * @group  Applications
  * @group  Applications.Entity
  */
-class CommentTest extends \PHPUnit_Framework_TestCase
+class CommentTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -32,7 +34,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Comment();
     }
@@ -91,12 +93,12 @@ class CommentTest extends \PHPUnit_Framework_TestCase
     public function testPreUpdate()
     {
         $this->target->preUpdate();
-        $this->assertInstanceOf("\DateTime",$this->target->getDateModified());
+        $this->assertInstanceOf("\DateTime", $this->target->getDateModified());
     }
 
     public function testPrePersist()
     {
         $this->target->prePersist();
-        $this->assertInstanceOf("\DateTime",$this->target->getDateCreated());
+        $this->assertInstanceOf("\DateTime", $this->target->getDateCreated());
     }
 }

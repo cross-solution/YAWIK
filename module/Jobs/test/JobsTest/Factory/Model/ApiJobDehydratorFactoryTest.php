@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Model;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Factory\Model\ApiJobDehydratorFactory;
 use Zend\View\Helper\Url;
 
@@ -22,7 +24,7 @@ use Zend\View\Helper\Url;
  * @group Jobs.Factory
  * @group Jobs.Factory.Model
  */
-class ApiJobDehydratorFactoryTest extends \PHPUnit_Framework_TestCase
+class ApiJobDehydratorFactoryTest extends TestCase
 {
 
     /**
@@ -62,7 +64,7 @@ class ApiJobDehydratorFactoryTest extends \PHPUnit_Framework_TestCase
                            ->with('ViewHelperManager')
                            ->willReturn($helpers);
 
-        $service = $target->__invoke($serviceManagerMock,'irrelevant');
+        $service = $target->__invoke($serviceManagerMock, 'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Model\ApiJobDehydrator', $service);
         $this->assertAttributeSame($urlHelper, 'url', $service);

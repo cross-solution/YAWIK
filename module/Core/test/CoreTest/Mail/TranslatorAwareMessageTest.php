@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Mail;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Mail\TranslatorAwareMessage;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -19,13 +21,13 @@ use Zend\Mail\Message;
 
 /**
  * Tests for \Core\Mail\TranslatorAwareMessage
- * 
+ *
  * @covers \Core\Mail\TranslatorAwareMessage
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Mail
  */
-class TranslatorAwareMessageTest extends \PHPUnit_Framework_TestCase
+class TranslatorAwareMessageTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -40,7 +42,9 @@ class TranslatorAwareMessageTest extends \PHPUnit_Framework_TestCase
 
     public function propertiesProvider()
     {
-        $setTranslator = function() { $this->target->setTranslator(new Translator()); };
+        $setTranslator = function () {
+            $this->target->setTranslator(new Translator());
+        };
 
         return [
             'translator' => ['translator', new Translator()],
@@ -123,7 +127,4 @@ class TranslatorAwareMessageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('string with placeholder', $this->target->getSubject());
     }
-
-
-    
 }

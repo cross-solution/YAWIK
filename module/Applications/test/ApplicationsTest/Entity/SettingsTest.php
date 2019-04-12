@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Settings;
 use Applications\Entity\SettingsInterface;
 use Settings\Entity\ModuleSettingsContainer;
@@ -23,7 +25,7 @@ use Settings\Entity\ModuleSettingsContainer;
  * @group  Applications
  * @group  Applications.Entity
  */
-class SettingsTest extends \PHPUnit_Framework_TestCase
+class SettingsTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -32,7 +34,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Settings();
     }
@@ -52,7 +54,8 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
      * @covers \Applications\Entity\Settings::setMailAccess
      * @covers \Applications\Entity\Settings::getMailAccess
      */
-    public function testSetGetMailAccess($input,$expected){
+    public function testSetGetMailAccess($input, $expected)
+    {
         $this->target->setMailAccess($input);
         $this->assertEquals($this->target->getMailAccess(), $expected);
     }
@@ -67,6 +70,4 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
             ["1", true],
         ];
     }
-
-
 }

@@ -9,6 +9,8 @@
 
 namespace ApplicationsTest\Auth\Dependency;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Auth\Dependency\ListListener;
 use Applications\Repository\Application as Repository;
 use Zend\I18n\Translator\TranslatorInterface as Translator;
@@ -21,7 +23,7 @@ use Jobs\Entity\JobInterface;
 /**
  * @coversDefaultClass \Applications\Auth\Dependency\ListListener
  */
-class ListListenerTest extends \PHPUnit_Framework_TestCase
+class ListListenerTest extends TestCase
 {
 
     /**
@@ -35,7 +37,7 @@ class ListListenerTest extends \PHPUnit_Framework_TestCase
     private $repository;
 
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * @see PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -71,8 +73,7 @@ class ListListenerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $translator->expects($this->once())
             ->method('translate')
-            ->with($this->callback(function($string)
-            {
+            ->with($this->callback(function ($string) {
                 return is_string($string);
             }))
             ->willReturn($expected);
@@ -145,9 +146,9 @@ class ListListenerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($userId), $this->equalTo($limit))
             ->willReturn($cursor);
         
-        $actual = $this->listListener->getItems($user, $view , $limit);
+        $actual = $this->listListener->getItems($user, $view, $limit);
         
-        $this->assertInternalType('array', $actual);
+        $this->assertIsArray($actual);
         $this->assertCount(1, $actual);
         $this->assertContainsOnlyInstancesOf(\Auth\Dependency\ListItem::class, $actual);
     }

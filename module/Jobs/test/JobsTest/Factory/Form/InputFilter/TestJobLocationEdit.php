@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form\InputFilter;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\InputFilter\JobLocationEdit;
 
 /**
@@ -22,13 +24,13 @@ use Jobs\Form\InputFilter\JobLocationEdit;
  * @group  Jobs.Form
  */
 
-class TestJobLocationEdit extends \PHPUnit_Framework_TestCase
+class TestJobLocationEdit extends TestCase
 {
 
     /* @var JobLocationEdit */
     private $inputFilter;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->inputFilter = new JobLocationEdit();
         $this->inputFilter->init();
@@ -55,6 +57,6 @@ class TestJobLocationEdit extends \PHPUnit_Framework_TestCase
         $expected="title (m/w)";
         $output = $this->inputFilter->getInputs();
         $filter = $output['title']->getFilterChain();
-        $this->assertEquals($expected,  $filter->filter(' <b>title</b> (m/w)'));
+        $this->assertEquals($expected, $filter->filter(' <b>title</b> (m/w)'));
     }
 }

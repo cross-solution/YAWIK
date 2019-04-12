@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Factory\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\View\Helper\AjaxUrlFactory;
 use Core\View\Helper\AjaxUrl;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
@@ -19,7 +21,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\View\Helper\AjaxUrlFactory
- * 
+ *
  * @covers \Core\Factory\View\Helper\AjaxUrlFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -27,7 +29,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Core.Factory.View
  * @group Core.Factory.View.Helper
  */
-class AjaxUrlFactoryTest extends \PHPUnit_Framework_TestCase
+class AjaxUrlFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -67,5 +69,4 @@ class AjaxUrlFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(AjaxUrl::class, $helper);
         $this->assertAttributeSame($basepath, 'basePath', $helper);
     }
-
 }

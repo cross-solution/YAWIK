@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Factory\Form\JobSelectFactory;
 use Applications\Form\Element\JobSelect;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
@@ -21,23 +23,23 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Factory\Form\JobSelectFactory
- * 
+ *
  * @covers \Applications\Factory\Form\JobSelectFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Applications
  * @group Applications.Factory
  * @group Applications.Factory.Form
  */
-class JobSelectFactoryTest extends \PHPUnit_Framework_TestCase
+class JobSelectFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
     private $target = [
         JobSelectFactory::class,
         '@testCreateService' => [
-        	'mock' => [
-        		'__invoke' => ['@with' => 'getServiceManagerMock', 'count' => 1]
-	        ]
+            'mock' => [
+                '__invoke' => ['@with' => 'getServiceManagerMock', 'count' => 1]
+            ]
         ],
     ];
 
@@ -77,7 +79,7 @@ class JobSelectFactoryTest extends \PHPUnit_Framework_TestCase
                 ->setMethods(['find'])->getMock();
             $repository->expects($this->once())->method('find')->with($jobId)->will($this->returnValue($job));
 
-            $repositories = $this->createPluginManagerMock(['Jobs' => $repository],$this->getServiceManagerMock());
+            $repositories = $this->createPluginManagerMock(['Jobs' => $repository], $this->getServiceManagerMock());
             $services['repositories'] = ['service' => $repositories, 'count' => 1];
         } else {
             $services['repositories'] = ['service' => null, 'count' => 0];

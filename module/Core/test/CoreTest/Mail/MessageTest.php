@@ -9,6 +9,8 @@
 
 namespace CoreTest\Mail;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\InfoInterface;
 use Auth\Entity\UserInterface;
 use Zend\Mail\Message as ZendMessage;
@@ -23,7 +25,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
  * @covers \Core\Mail\Message
  * @since 0.30.1
  */
-class MessageTest extends \PHPUnit_Framework_TestCase
+class MessageTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -62,7 +64,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         // test with null $emailOrAddressOrList
         $target->setFrom(null);
-        $this->assertEquals(0,$target->getFrom()->count());
+        $this->assertEquals(0, $target->getFrom()->count());
 
         // updateAddressList should handle an array with email => display name format
         $target = new Message();
@@ -129,5 +131,4 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $target->getFrom()->get('from@email.com')->getName()
         );
     }
-
 }

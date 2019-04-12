@@ -10,19 +10,20 @@
 /** */
 namespace OrganizationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
-
 
 /**
  * Test the organization entity.
  *
- * @covers Organizations\Entity\OrganizationImage
+ * @covers \Organizations\Entity\OrganizationImage
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity
  */
-class OrganizationImageTest extends \PHPUnit_Framework_TestCase
+class OrganizationImageTest extends TestCase
 {
 
     /**
@@ -32,7 +33,7 @@ class OrganizationImageTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new OrganizationImage();
         $this->target->setId('12345');
@@ -49,7 +50,7 @@ class OrganizationImageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetResourceId()
     {
-       $this->assertSame($this->target->getResourceId(), 'Entity/OrganizationImage');
+        $this->assertSame($this->target->getResourceId(), 'Entity/OrganizationImage');
     }
 
     public function testGetUriWithAndWithoutFilename()
@@ -61,11 +62,10 @@ class OrganizationImageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target->getUri(), '/file/Organizations.OrganizationImage/'.$this->target->getId());
     }
 
-    public function testSetGetOrganization(){
+    public function testSetGetOrganization()
+    {
         $organization = new Organization();
         $this->target->setOrganization($organization);
         $this->assertSame($this->target->getOrganization(), $organization);
     }
-
-
 }

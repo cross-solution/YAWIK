@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Repository\DoctrineMongoODM\Event;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\FileEntity;
 use Core\Entity\Permissions;
@@ -34,7 +36,7 @@ use Doctrine\ODM\MongoDB\UnitOfWork;
  * @group Core.Repository.DoctrineMongoODM
  * @group Core.Repository.DoctrineMongoODM.Event
  */
-class AbstractUpdateFilesPermissionsSubscriberTest extends \PHPUnit_Framework_TestCase
+class AbstractUpdateFilesPermissionsSubscriberTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -51,8 +53,8 @@ class AbstractUpdateFilesPermissionsSubscriberTest extends \PHPUnit_Framework_Te
         ],
     ];
 
-    private /** @noinspection PhpUnusedPrivateFieldInspection */
-        $inheritance = [ EventSubscriber::class ];
+    /** @noinspection PhpUnusedPrivateFieldInspection */
+    private $inheritance = [ EventSubscriber::class ];
 
 
     private function getTarget()
@@ -166,6 +168,12 @@ class Ufps_TargetDocument implements PermissionsAwareInterface
     public $singleFile;
     public $fileCollection;
 
-    public function getSingleFile() { return $this->singleFile; }
-    public function getFileCollection() { return $this->fileCollection; }
+    public function getSingleFile()
+    {
+        return $this->singleFile;
+    }
+    public function getFileCollection()
+    {
+        return $this->fileCollection;
+    }
 }

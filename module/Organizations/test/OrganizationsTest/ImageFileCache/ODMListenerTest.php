@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\ImageFileCache;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\ImageFileCache\ODMListener;
 use Organizations\ImageFileCache\Manager;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
@@ -21,7 +23,7 @@ use stdClass;
 /**
  * @coversDefaultClass \Organizations\ImageFileCache\ODMListener
  */
-class ODMListenerTest extends \PHPUnit_Framework_TestCase
+class ODMListenerTest extends TestCase
 {
 
     /**
@@ -35,7 +37,7 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
     protected $manager;
     
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -49,8 +51,6 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @param bool $enabled
      * @param array $expected
-     * @covers ::__construct
-     * @covers ::getSubscribedEvents
      * @dataProvider dataGetSubscribedEvents
      */
     public function testGetSubscribedEvents($enabled, array $expected)
@@ -73,9 +73,6 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
         ];
     }
     
-    /**
-     * @covers ::preUpdate
-     */
     public function testPreUpdateWithNonOrganizationEntity()
     {
         $event = $this->getMockBuilder(PreUpdateEventArgs::class)
@@ -93,9 +90,6 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEmpty('delete', $this->listener);
     }
     
-    /**
-     * @covers ::preUpdate
-     */
     public function testPreUpdateWithNonUnchangedImage()
     {
         $event = $this->getMockBuilder(PreUpdateEventArgs::class)
@@ -118,9 +112,6 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEmpty('delete', $this->listener);
     }
     
-    /**
-     * @covers ::preUpdate
-     */
     public function testPreUpdateWithChangedInvalidImage()
     {
         $event = $this->getMockBuilder(PreUpdateEventArgs::class)
@@ -143,10 +134,7 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener->preUpdate($event);
         $this->assertAttributeEmpty('delete', $this->listener);
     }
-    
-    /**
-     * @covers ::preUpdate
-     */
+
     public function testPreUpdateWithValidImage()
     {
         $event = $this->getMockBuilder(PreUpdateEventArgs::class)
@@ -173,10 +161,7 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
         
         return [$this->listener, $this->manager, $ImageEntity];
     }
-    
-    /**
-     * @covers ::postFlush
-     */
+
     public function testPostFlushWithoutImage()
     {
         $event = $this->getMockBuilder(PostFlushEventArgs::class)
@@ -191,21 +176,20 @@ class ODMListenerTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @param array $parameters
-     * @covers ::postFlush
      * @depends testPreUpdateWithValidImage
      */
-    public function testPostFlushWitImage(array $parameters)
+    public function testPostFlushWithImage(array $parameters)
     {
-        list ($listener, $manager, $ImageEntity) = $parameters;
-        
+        list($listener, $manager, $ImageEntity) = $parameters;
+
         $event = $this->getMockBuilder(PostFlushEventArgs::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $manager->expects($this->once())
             ->method('delete')
             ->with($this->identicalTo($ImageEntity));
-        
+
         $listener->postFlush($event);
     }
 }

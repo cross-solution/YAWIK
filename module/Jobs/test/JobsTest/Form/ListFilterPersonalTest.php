@@ -9,13 +9,15 @@
 
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\ListFilterPersonalFieldset;
 use Jobs\Entity\Status;
 
 /**
 * @covers \Jobs\Form\ListFilterPersonalFieldset
 */
-class ListFilterPersonalTest extends \PHPUnit_Framework_TestCase
+class ListFilterPersonalTest extends TestCase
 {
     public function testConstructor()
     {

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Queue\Strategy;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\MongoQueue;
 use Core\Queue\Strategy\LogStrategy;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
@@ -28,12 +30,12 @@ use Zend\Log\LoggerInterface;
 
 /**
  * Tests for \Core\Queue\Strategy\LogStrategy
- * 
+ *
  * @covers \Core\Queue\Strategy\LogStrategy
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class LogStrategyTest extends \PHPUnit_Framework_TestCase
+class LogStrategyTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 
@@ -111,7 +113,7 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $logger = $this->target->getLogger();
 
-        static::assertTrue((new \ReflectionClass($logger))->isAnonymous(),'getLogger did not return an anonymous NullLogger.');
+        static::assertTrue((new \ReflectionClass($logger))->isAnonymous(), 'getLogger did not return an anonymous NullLogger.');
         static::assertInstanceOf(LoggerInterface::class, $logger);
     }
 
@@ -213,17 +215,21 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
         $queue->getName()->willReturn('queue');
         $queueMock = $queue->reveal();
 
-        $job = new class extends AbstractJob
-        {
-            public function getId() { return 'jobId'; }
-            public function execute() {}
+        $job = new class extends AbstractJob {
+            public function getId()
+            {
+                return 'jobId';
+            }
+            public function execute()
+            {
+            }
         };
 
         $logger = $this->prophesize(LoggerInterface::class);
         $logger
             ->info(Argument::allOf(
-                    Argument::containingString('START'),
-                    Argument::containingString($job->getId())
+                Argument::containingString('START'),
+                Argument::containingString($job->getId())
             ))
             ->shouldBeCalled()
         ;
@@ -239,7 +245,6 @@ class LogStrategyTest extends \PHPUnit_Framework_TestCase
 
         $this->target->setLogger($loggerMock);
         $this->target->logJobStart($eventMock);
-
     }
 
     public function testLogJobStartInjectsLoggerIntoJob()

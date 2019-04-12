@@ -10,6 +10,8 @@
 /** */
 namespace InstallTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Install\Controller\Plugin\Prerequisites;
 use org\bovigo\vfs\vfsStream;
 
@@ -22,7 +24,7 @@ use org\bovigo\vfs\vfsStream;
  * @group Install.Controller
  * @group Install.Controller.Plugin
  */
-class PrerequisitesTest extends \PHPUnit_Framework_TestCase
+class PrerequisitesTest extends TestCase
 {
     public function testExtendsAbstractPlugin()
     {

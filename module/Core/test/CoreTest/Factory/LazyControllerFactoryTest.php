@@ -9,6 +9,8 @@
 
 namespace CoreTest\Factory;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\ContentController;
 use Core\Controller\FileController;
 use Core\Controller\IndexController;
@@ -28,14 +30,14 @@ use Zend\ServiceManager\Exception\ServiceNotCreatedException;
  * @covers \Core\Factory\Controller\LazyControllerFactory
  * @package CoreTest\Factory
  */
-class LazyControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class LazyControllerFactoryTest extends TestCase
 {
     use ServiceManagerMockTrait;
 
     /**
      * @dataProvider invokeTestProvider
      */
-    public function testInvoke($requestedName,$expectedClass)
+    public function testInvoke($requestedName, $expectedClass)
     {
         $moduleManager = $this->createMock(ModuleManagerInterface::class);
         $config = [];
@@ -64,7 +66,7 @@ class LazyControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new LazyControllerFactory();
         $this->assertInstanceOf(
             $expectedClass,
-            $factory($container,$requestedName)
+            $factory($container, $requestedName)
         );
     }
 
@@ -84,7 +86,7 @@ class LazyControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessageRegExp('/Can\'t find correct controller class for/');
         $factory = new LazyControllerFactory();
-        $factory($container,'Core/Foo');
+        $factory($container, 'Core/Foo');
     }
 
     public function testThrowsWhenCanNotCreateConstructorArgument()
@@ -94,14 +96,14 @@ class LazyControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessageRegExp('/Can\'t create constructor argument/m');
         $factory = new LazyControllerFactory();
-        $factory($container,'Core/Index');
+        $factory($container, 'Core/Index');
     }
 
     public function testCanCreate()
     {
         $container = $this->createMock(ContainerInterface::class);
         $factory = new LazyControllerFactory();
-        $this->assertFalse($factory->canCreate($container,'Foo\\Bar'));
-        $this->assertTrue($factory->canCreate($container,'Foo\\Controller\\Bar'));
+        $this->assertFalse($factory->canCreate($container, 'Foo\\Bar'));
+        $this->assertTrue($factory->canCreate($container, 'Foo\\Controller\\Bar'));
     }
 }

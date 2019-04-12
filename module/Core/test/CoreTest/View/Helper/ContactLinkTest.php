@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\ContactLink as Helper;
 use Zend\View\Renderer\PhpRenderer as Renderer;
 use Auth\Entity\Info;
@@ -23,7 +25,7 @@ use Auth\Entity\Info;
  * @group Core.View
  * @group Core.View.Helper
  */
-class ContactLinkTest extends \PHPUnit_Framework_TestCase
+class ContactLinkTest extends TestCase
 {
     public function testExtendsZfAbstractHelper()
     {

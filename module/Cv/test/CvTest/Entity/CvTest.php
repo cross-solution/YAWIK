@@ -10,6 +10,8 @@
 
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Auth\Entity\Info;
 use Auth\Entity\User;
@@ -31,7 +33,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package CvTest\Entity
  * @covers \Cv\Entity\Cv
  */
-class CvTest extends \PHPUnit_Framework_TestCase
+class CvTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -39,11 +41,12 @@ class CvTest extends \PHPUnit_Framework_TestCase
 
     private $inheritance = [ AbstractIdentifiableEntity::class, CvInterface::class, DraftableEntityInterface::class ];
 
-    public function propertiesProvider() {
+    public function propertiesProvider()
+    {
         $coll = new ArrayCollection();
         $prefJob = new PreferredJob();
         $defaultOptions = [ 'default' => $coll, 'value' => $coll ];
-        $indexedByOptions = function($prop) use ($coll) {
+        $indexedByOptions = function ($prop) use ($coll) {
             return [ $prop, [ 'value' => $coll, 'getter_method' => 'get*IndexedById', 'expect' => '@' . IdentityWrapper::class]];
         };
         $permissions = $this
@@ -83,16 +86,26 @@ class CvTest extends \PHPUnit_Framework_TestCase
             [ 'status', ['value' => new Status(), 'default' => new Status() ]],
             [ 'status', ['value' => Status::NONPUBLIC, 'expect' => '@' . Status::class]],
             [ 'status', ['value' => Status::PUBLIC_TO_ALL, 'ignore_getter' => true,
-                         'pre' => function() use ($permissions2) { $this->target->setPermissions($permissions2); }]
+                         'pre' => function () use ($permissions2) {
+                             $this->target->setPermissions($permissions2);
+                         }]
             ],
             [ 'status', ['value' => Status::NONPUBLIC, 'ignore_getter' => true,
-                         'pre' => function() use ($permissions2) { $this->target->setPermissions($permissions2); },
-                         'post' => function() use ($permissions2) { $permissions2->__phpunit_verify(); }]
+                         'pre' => function () use ($permissions2) {
+                             $this->target->setPermissions($permissions2);
+                         },
+                         'post' => function () use ($permissions2) {
+                             $permissions2->__phpunit_verify();
+                         }]
             ],
             [ 'attachments', $defaultOptions],
             [ 'user', ['value' => new User(), 'ignore_getter' => true,
-                        'pre' => function() use ($permissions) { $this->target->setUser(new User())->setPermissions($permissions); },
-                        'post' => function() use ($permissions) { $permissions->__phpunit_verify(); }
+                        'pre' => function () use ($permissions) {
+                            $this->target->setUser(new User())->setPermissions($permissions);
+                        },
+                        'post' => function () use ($permissions) {
+                            $permissions->__phpunit_verify();
+                        }
             ]],
 
             [ 'resourceId', ['value' => 'Entity/Cv', 'ignore_setter' => true ]],

@@ -9,18 +9,20 @@
 
 namespace AuthTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\Controller\ForgotPasswordControllerFactory;
 use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class ForgotPasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class ForgotPasswordControllerFactoryTest extends TestCase
 {
     /**
      * @var ForgotPasswordControllerFactory
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new ForgotPasswordControllerFactory();
     }
