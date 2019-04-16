@@ -10,19 +10,20 @@
 /** */
 namespace InstallTest\Validator;
 
+use PHPUnit\Framework\TestCase;
+
 use Install\Validator\MongoDbConnectionString;
 
 /**
  * Tests for \Install\Validator\MongoDbConnectionString
- * 
+ *
  * @covers \Install\Validator\MongoDbConnectionString
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Install
  * @group Install.Validator
  */
-class MongoDbConnectionStringTest extends \PHPUnit_Framework_TestCase
+class MongoDbConnectionStringTest extends TestCase
 {
-
     public function testExtendsAbstractValidator()
     {
         $this->assertInstanceOf('\Zend\Validator\AbstractValidator', new MongoDbConnectionString());
@@ -37,7 +38,8 @@ class MongoDbConnectionStringTest extends \PHPUnit_Framework_TestCase
             array(
                 $target::INVALID => 'Invalid connection string',
             ),
-            'messageTemplates', $target
+            'messageTemplates',
+            $target
         );
     }
 
@@ -91,6 +93,4 @@ class MongoDbConnectionStringTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($target->isValid($connStr), 'Failed with: "' . $connStr . '"');
     }
-
-
 }

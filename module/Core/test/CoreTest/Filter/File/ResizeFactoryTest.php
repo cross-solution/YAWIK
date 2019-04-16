@@ -10,6 +10,8 @@
 
 namespace CoreTest\Filter\File;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Filter\File\ResizeFactory;
 use Core\Filter\File\Resize;
 use Imagine\Image\ImagineInterface;
@@ -21,7 +23,7 @@ use Interop\Container\ContainerInterface;
  * @package CoreTest\Filter\File
  * @author Anthonius Munthi <me@itstoni.com>
  */
-class ResizeFactoryTest extends \PHPUnit_Framework_TestCase
+class ResizeFactoryTest extends TestCase
 {
     public function testInvokation()
     {

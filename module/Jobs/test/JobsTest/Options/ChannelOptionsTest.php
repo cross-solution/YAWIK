@@ -10,24 +10,26 @@
 
 namespace JobsTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Options\ChannelOptions as Options;
 
-class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
+class ChannelOptionsTest extends TestCase
 {
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    protected function setUp()
     {
         $options = new Options;
         $this->options = $options;
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getLabel
-     * @covers Jobs\Options\ChannelOptions::setLabel
+     * @covers \Jobs\Options\ChannelOptions::getLabel
+     * @covers \Jobs\Options\ChannelOptions::setLabel
      */
     public function testSetGetLabel()
     {
@@ -38,8 +40,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getKey
-     * @covers Jobs\Options\ChannelOptions::setKey
+     * @covers \Jobs\Options\ChannelOptions::getKey
+     * @covers \Jobs\Options\ChannelOptions::setKey
      */
     public function testSetGetKey()
     {
@@ -50,8 +52,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getPrice
-     * @covers Jobs\Options\ChannelOptions::setPrice
+     * @covers \Jobs\Options\ChannelOptions::getPrice
+     * @covers \Jobs\Options\ChannelOptions::setPrice
      */
     public function testSetGetPrice()
     {
@@ -62,8 +64,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getPrices
-     * @covers Jobs\Options\ChannelOptions::setPrices
+     * @covers \Jobs\Options\ChannelOptions::getPrices
+     * @covers \Jobs\Options\ChannelOptions::setPrices
      */
     public function testSetGetPrices()
     {
@@ -78,8 +80,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getTax
-     * @covers Jobs\Options\ChannelOptions::setTax
+     * @covers \Jobs\Options\ChannelOptions::getTax
+     * @covers \Jobs\Options\ChannelOptions::setTax
      */
     public function testSetGetTax()
     {
@@ -90,8 +92,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getCurrency
-     * @covers Jobs\Options\ChannelOptions::setCurrency
+     * @covers \Jobs\Options\ChannelOptions::getCurrency
+     * @covers \Jobs\Options\ChannelOptions::setCurrency
      */
     public function testSetGetCurrency()
     {
@@ -102,8 +104,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getPublishDuration
-     * @covers Jobs\Options\ChannelOptions::setPublishDuration
+     * @covers \Jobs\Options\ChannelOptions::getPublishDuration
+     * @covers \Jobs\Options\ChannelOptions::setPublishDuration
      */
     public function testSetGetPublishDuration()
     {
@@ -114,8 +116,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getExternalKey
-     * @covers Jobs\Options\ChannelOptions::setExternalKey
+     * @covers \Jobs\Options\ChannelOptions::getExternalKey
+     * @covers \Jobs\Options\ChannelOptions::setExternalKey
      */
     public function testSetGetExternalKey()
     {
@@ -126,8 +128,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getCategory
-     * @covers Jobs\Options\ChannelOptions::setCategory
+     * @covers \Jobs\Options\ChannelOptions::getCategory
+     * @covers \Jobs\Options\ChannelOptions::setCategory
      */
     public function testSetGetCategory()
     {
@@ -138,8 +140,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getHeadline
-     * @covers Jobs\Options\ChannelOptions::setHeadline
+     * @covers \Jobs\Options\ChannelOptions::getHeadline
+     * @covers \Jobs\Options\ChannelOptions::setHeadline
      */
     public function testSetGetHeadline()
     {
@@ -150,8 +152,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getDescription
-     * @covers Jobs\Options\ChannelOptions::setDescription
+     * @covers \Jobs\Options\ChannelOptions::getDescription
+     * @covers \Jobs\Options\ChannelOptions::setDescription
      */
     public function testSetGetDescription()
     {
@@ -162,8 +164,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getLinkText
-     * @covers Jobs\Options\ChannelOptions::setLinkText
+     * @covers \Jobs\Options\ChannelOptions::getLinkText
+     * @covers \Jobs\Options\ChannelOptions::setLinkText
      */
     public function testSetGetLinkText()
     {
@@ -174,8 +176,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getRoute
-     * @covers Jobs\Options\ChannelOptions::setRoute
+     * @covers \Jobs\Options\ChannelOptions::getRoute
+     * @covers \Jobs\Options\ChannelOptions::setRoute
      */
     public function testSetGetRoute()
     {
@@ -186,8 +188,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getParams
-     * @covers Jobs\Options\ChannelOptions::setParams
+     * @covers \Jobs\Options\ChannelOptions::getParams
+     * @covers \Jobs\Options\ChannelOptions::setParams
      */
     public function testSetGetParams()
     {
@@ -200,8 +202,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ChannelOptions::getLogo
-     * @covers Jobs\Options\ChannelOptions::setLogo
+     * @covers \Jobs\Options\ChannelOptions::getLogo
+     * @covers \Jobs\Options\ChannelOptions::setLogo
      */
     public function testSetGetLogo()
     {

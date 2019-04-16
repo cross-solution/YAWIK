@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Attachment;
 
 /**
@@ -20,7 +22,7 @@ use Applications\Entity\Attachment;
  * @group Applications
  * @group Applications.Entity
  */
-class AttachmentTest extends \PHPUnit_Framework_TestCase
+class AttachmentTest extends TestCase
 {
     /**
      * @var \Applications\Entity\Attachment
@@ -32,7 +34,7 @@ class AttachmentTest extends \PHPUnit_Framework_TestCase
      */
     private $uriSpec = '/file/Applications.Attachment/test/%s';
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new Attachment();
         $this->target->setId('test');

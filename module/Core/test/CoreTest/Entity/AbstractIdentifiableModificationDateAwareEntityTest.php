@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Application;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -22,11 +24,11 @@ use Core\Entity\Hydrator\EntityHydrator;
  * @group  Core.Entity
  * @covers \Core\Entity\AbstractIdentifiableModificationDateAwareEntity
  */
-class AbstractIdentifiableModificationAwareEntityTest extends \PHPUnit_Framework_TestCase
+class AbstractIdentifiableModificationAwareEntityTest extends TestCase
 {
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new ConcreteIdentifiableModificationDateAwareEntity();
     }

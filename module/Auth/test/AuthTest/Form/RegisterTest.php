@@ -9,6 +9,8 @@
 
 namespace AuthTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Form\Register;
 use Auth\Options\CaptchaOptions;
 use Zend\Form\Fieldset;
@@ -16,14 +18,14 @@ use Zend\Form\Fieldset;
 /**
 * @covers \Auth\Form\Register
 */
-class RegisterTest extends \PHPUnit_Framework_TestCase
+class RegisterTest extends TestCase
 {
     /**
      * @var Register
      */
     private $testedObject;
 
-    public function setUp()
+    protected function setUp()
     {
         $options = new CaptchaOptions();
         $this->testedObject = new Register(null, $options);
@@ -88,9 +90,9 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
     
     public function testWithImageField()
     {
-	    if (! function_exists("imageftbbox")) {
-		    return $this->markTestSkipped('This test requires GD FT fonts support');
-	    }
+        if (! function_exists("imageftbbox")) {
+            return $this->markTestSkipped('This test requires GD FT fonts support');
+        }
         $options = new CaptchaOptions();
         $options->setMode("image");
         $testedObject = new Register(null, $options);

@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\Entity\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Entity\Exception\OutOfBoundsException
- * 
+ *
  * @covers \Core\Entity\Exception\OutOfBoundsException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  * @group Core.Entity.Exception
  */
-class OutOfBoundsExceptionTest extends \PHPUnit_Framework_TestCase
+class OutOfBoundsExceptionTest extends TestCase
 {
     use TestInheritanceTrait;
 

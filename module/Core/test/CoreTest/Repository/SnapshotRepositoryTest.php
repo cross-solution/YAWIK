@@ -10,6 +10,8 @@
 
 namespace CoreTest\Repository;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -30,7 +32,7 @@ use Jobs\Entity\Job;
 use Jobs\Entity\JobSnapshot;
 use Zend\Hydrator\HydratorInterface;
 
-class SnapshotRepositoryTest extends \PHPUnit_Framework_TestCase
+class SnapshotRepositoryTest extends TestCase
 {
     use TestSetterGetterTrait;
 

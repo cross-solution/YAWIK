@@ -10,18 +10,20 @@
 /** */
 namespace OrganizationsTest\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Organizations\Exception\ExceptionInterface;
 use Organizations\Exception\MissingParentOrganizationException;
 
 /**
  * Tests for \Organizations\Exception\MissingParentOrganizationException
- * 
+ *
  * @covers \Organizations\Exception\MissingParentOrganizationException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class MissingParentOrganizationExceptionTest extends \PHPUnit_Framework_TestCase
+class MissingParentOrganizationExceptionTest extends TestCase
 {
     use TestInheritanceTrait;
 

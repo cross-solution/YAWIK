@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryForm;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -18,13 +20,13 @@ use Cv\Form\PreferredJobForm;
 
 /**
  * Tests for \Cv\Form\PreferredJobForm
- * 
+ *
  * @covers \Cv\Form\PreferredJobForm
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Form
  */
-class PreferredJobFormTest extends \PHPUnit_Framework_TestCase
+class PreferredJobFormTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 

@@ -2,6 +2,8 @@
 
 namespace AuthTest\Entity\Provider;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Info;
 use Auth\Entity\User;
 use Organizations\Entity\OrganizationReference;

@@ -10,20 +10,22 @@
 /** */
 namespace CoreTest\Entity\Status;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Status\AbstractStatus;
 use Core\Entity\Status\StatusInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Entity\Status\AbstractStatus
- * 
+ *
  * @covers \Core\Entity\Status\AbstractStatus
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  * @group Core.Entity.Status
  */
-class AbstractStatusTest extends \PHPUnit_Framework_TestCase
+class AbstractStatusTest extends TestCase
 {
     use TestInheritanceTrait;
 

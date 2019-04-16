@@ -10,6 +10,7 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\Exception as PHPUnitException;
 use CoreTestUtils\InstanceCreator;
 
 /**
@@ -183,7 +184,7 @@ trait TestSetterGetterTrait
     {
         $errTmpl = __METHOD__ . ': ' . get_class($this);
         if (!property_exists($this, 'target') || (!is_object($this->target) && !isset($spec['target']))) {
-            throw new \PHPUnit_Framework_Exception($errTmpl
+            throw new PHPUnitException($errTmpl
                                                    . ' must define the property "target" and the value must be an object.');
         }
 
@@ -193,16 +194,16 @@ trait TestSetterGetterTrait
 
         if (isset($spec['@value'])) {
             $spec['value'] = InstanceCreator::fromSpec($spec['@value'], InstanceCreator::FORCE_INSTANTIATION);
-        } else if (isset($spec['value']) && is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
+        } elseif (isset($spec['value']) && is_string($spec['value']) && 0 === strpos($spec['value'], '@')) {
             $spec['value'] = InstanceCreator::newClass($spec['value']);
-        } else if (isset($spec['value@'])) {
+        } elseif (isset($spec['value@'])) {
             $spec['value'] = '@' . $spec['value@'];
         }
 
         /* Value could be 'null', so we need to use array_key_exists here. */
         if (!array_key_exists('value', $spec)) {
             if (!array_key_exists('default', $spec) && !array_key_exists('@default', $spec) && !array_key_exists('default@', $spec)) {
-                throw new \PHPUnit_Framework_Exception($errTmpl . ': Specification must contain the key "value" or "default".');
+                throw new PHPUnitException($errTmpl . ': Specification must contain the key "value" or "default".');
             }
 
             $spec['value'] = null;
@@ -218,8 +219,7 @@ trait TestSetterGetterTrait
 
         if (isset($spec['@default'])) {
             $spec['default'] = InstanceCreator::fromSpec($spec['@default'], InstanceCreator::FORCE_INSTANTIATION);
-
-        } else if (isset($spec['default@'])) {
+        } elseif (isset($spec['default@'])) {
             $spec['default'] = '@' . $spec['default@'];
         }
 
@@ -233,8 +233,11 @@ trait TestSetterGetterTrait
         $setterArgs = isset($spec['setter_args']) ? $spec['setter_args'] : false;
 
         if (isset($spec['setter_exception'])) {
-            $this->_setterGetter_assertSetterGetterException($setterMethod, $spec['setter_exception'], $spec['value'],
-                                                             $setterArgs
+            $this->_setterGetter_assertSetterGetterException(
+                $setterMethod,
+                $spec['setter_exception'],
+                $spec['value'],
+                $setterArgs
             );
 
             return;
@@ -249,16 +252,23 @@ trait TestSetterGetterTrait
 
         if (!isset($spec['ignore_setter']) || !$spec['ignore_setter']) {
             $assert = isset($spec['setter_assert']) ? $spec['setter_assert'] : null;
-            $this->_setterGetter_assertSetterValue($setterMethod, $spec['value'], $setterArgs, $assert,
-                                                   array_key_exists('setter_value', $spec)
+            $this->_setterGetter_assertSetterValue(
+                $setterMethod,
+                $spec['value'],
+                $setterArgs,
+                $assert,
+                array_key_exists('setter_value', $spec)
                                                        ? $spec['setter_value']
                                                        : '__FLUENT_INTERFACE__'
             );
         }
 
         if (isset($spec['getter_exception'])) {
-            $this->_setterGetter_assertSetterGetterException($getterMethod, $spec['getter_exception'], '__GETTER_EXCEPTION__',
-                                                             $getterArgs
+            $this->_setterGetter_assertSetterGetterException(
+                $getterMethod,
+                $spec['getter_exception'],
+                '__GETTER_EXCEPTION__',
+                $getterArgs
             );
 
             return;
@@ -267,11 +277,13 @@ trait TestSetterGetterTrait
         if (isset($spec['expect_property'])) {
             $assert = isset($spec['property_assert']) ? $spec['property_assert'] : null;
             $this->_setterGetter_assertPropertyValue($name, $spec['expect_property'], $assert);
-
-        } else if (!isset($spec['ignore_getter']) || !$spec['ignore_getter']) {
+        } elseif (!isset($spec['ignore_getter']) || !$spec['ignore_getter']) {
             $assert = isset($spec['getter_assert']) ? $spec['getter_assert'] : null;
-            $this->_setterGetter_assertGetterValue($getterMethod, array_key_exists('expect', $spec) ? $spec['expect'] : $spec['value'],
-                                                   $getterArgs, $assert
+            $this->_setterGetter_assertGetterValue(
+                $getterMethod,
+                array_key_exists('expect', $spec) ? $spec['expect'] : $spec['value'],
+                $getterArgs,
+                $assert
             );
         }
 
@@ -295,7 +307,11 @@ trait TestSetterGetterTrait
             $message = null;
         }
 
-        $this->setExpectedException($exception, $message);
+        $this->expectException($exception);
+
+        if (!is_null($message)) {
+            $this->expectExceptionMessage($message);
+        }
 
         if ('__GETTER_EXCEPTION__' != $value) {
             if (false === $args) {
@@ -321,13 +337,17 @@ trait TestSetterGetterTrait
     {
         $err    = sprintf(
             '%s: %s: %s for %s::%s is not as expected',
-            __TRAIT__, get_class($this), $isDefaultValue ? 'Default value' : 'Value', get_class($this->target), $getter
+            __TRAIT__,
+            get_class($this),
+            $isDefaultValue ? 'Default value' : 'Value',
+            get_class($this->target),
+            $getter
         );
 
         $returned = $this->_setterGetter_callTargetMethod($getter, $args);
 
         if ($assert) {
-            if ($assert instanceOf \Closure) {
+            if ($assert instanceof \Closure) {
                 /** @noinspection PhpUndefinedMethodInspection */
                 $cb = $assert->bindTo($this, $this);
                 $cb($getter, $returned, $value);
@@ -356,7 +376,6 @@ trait TestSetterGetterTrait
             case "object":
                 if ($isDefaultValue) {
                     $this->assertInstanceOf(get_class($value), $returned, $err);
-
                 } else {
                     $this->assertSame($value, $returned, $err);
                 }
@@ -375,7 +394,6 @@ trait TestSetterGetterTrait
      */
     private function _setterGetter_assertSetterValue($setter, $value, $args, $assert, $expect = null)
     {
-
         if ('__FLUENT_INTERFACE__' === $expect) {
             $expect = $this->target;
         }
@@ -393,7 +411,7 @@ trait TestSetterGetterTrait
         $returned = $this->_setterGetter_callTargetMethod($setter, $args);
 
         if ($assert) {
-            if ($assert instanceOf \Closure) {
+            if ($assert instanceof \Closure) {
                 /** @noinspection PhpUndefinedMethodInspection */
                 $cb = $assert->bindTo($this, $this);
                 $cb($setter, $returned, $expect);
@@ -480,7 +498,6 @@ trait TestSetterGetterTrait
             if (is_array($cb)) {
                 $method = $cb[0];
                 $args   = isset($cb[1]) ? $cb[1] : false;
-
             } else {
                 $method = $cb;
             }
@@ -494,16 +511,14 @@ trait TestSetterGetterTrait
             $cb = $method;
         }
 
-        if ($cb instanceOf \Closure) {
+        if ($cb instanceof \Closure) {
             /** @noinspection PhpUndefinedMethodInspection */
             $cb = $cb->bindTo($this, $this);
         }
 
         if (false === $args) {
             $args = [ $spec ];
-
         } else {
-
             $args = array_map(
                 function ($item) use ($spec) {
                     if ('###' == $item) {
@@ -542,8 +557,9 @@ trait TestSetterGetterTrait
 
         if (!is_callable($callback)) {
             throw new \InvalidArgumentException(sprintf(
-                                                    'Method %s is not callable on %s. ',
-                                                    $method, get_class($this->target)
+                'Method %s is not callable on %s. ',
+                $method,
+                get_class($this->target)
                                                 ));
         }
 

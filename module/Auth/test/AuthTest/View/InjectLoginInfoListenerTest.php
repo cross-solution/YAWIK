@@ -9,12 +9,13 @@
 
 namespace AuthTest\View;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\View\InjectLoginInfoListener as Listener;
 use Zend\View\Model\ViewModel;
 
-class InjectLoginInfoListenerTest extends \PHPUnit_Framework_TestCase
+class InjectLoginInfoListenerTest extends TestCase
 {
-
     public function testListenerAttachsViewModelWithProperConfiguration()
     {
         $listener = new Listener();

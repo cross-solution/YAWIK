@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Repository\Event;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
@@ -18,13 +20,13 @@ use Organizations\Entity\Organization;
 
 /**
  * test for the InjectOrganizationReferenceListener
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Repository
  * @group Organizations.Repository.Event
  */
-class InjectOrganizationReferenceListenerTest extends \PHPUnit_Framework_TestCase
+class InjectOrganizationReferenceListenerTest extends TestCase
 {
 
     /**
@@ -64,8 +66,6 @@ class InjectOrganizationReferenceListenerTest extends \PHPUnit_Framework_TestCas
 
         $result = $target->postLoad($args);
         $this->assertNull($result);
-
-
     }
 
     /**
@@ -93,7 +93,5 @@ class InjectOrganizationReferenceListenerTest extends \PHPUnit_Framework_TestCas
         $this->assertInstanceOf('\Organizations\Entity\OrganizationReference', $ref);
         $this->assertAttributeSame($rep, '_repository', $ref);
         $this->assertAttributeEquals($doc->getId(), '_userId', $ref);
-
-
     }
 }

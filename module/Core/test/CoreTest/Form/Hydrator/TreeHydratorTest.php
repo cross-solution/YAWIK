@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Hydrator\TreeHydrator;
 use Core\Entity\Tree\Node;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -17,12 +19,12 @@ use Zend\Hydrator\HydratorInterface;
 
 /**
  * Tests for \Core\Form\Hydrator\TreeHydrator
- * 
+ *
  * @covers \Core\Form\Hydrator\TreeHydrator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class TreeHydratorTest extends \PHPUnit_Framework_TestCase
+class TreeHydratorTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -47,11 +49,15 @@ class TreeHydratorTest extends \PHPUnit_Framework_TestCase
 
         if ('all' == $mode || 'no-ids' == $mode) {
             $child2 = new Node();
-            if ('all' == $mode) { $child2->setId('child-two-id'); }
+            if ('all' == $mode) {
+                $child2->setId('child-two-id');
+            }
             $child2->setName('ChildTwo')->setValue('child-two')->setPriority(2);
 
             $grandchild1 = new Node();
-            if ('all' == $mode) { $grandchild1->setId('grand-child-one-id'); }
+            if ('all' == $mode) {
+                $grandchild1->setId('grand-child-one-id');
+            }
             $grandchild1->setName('GrandChildOne')->setValue('grand-child-one')->setPriority(1);
 
             $child2->addChild($grandchild1);
@@ -127,7 +133,5 @@ class TreeHydratorTest extends \PHPUnit_Framework_TestCase
         $data['items'][2]['do'] = 'remove';
 
         $this->assertEquals($expected, $this->target->hydrate($data, $object));
-
     }
-
 }

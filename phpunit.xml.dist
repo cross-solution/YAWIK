@@ -3,6 +3,7 @@
         bootstrap="./vendor/autoload.php"
         colors="true"
         ignoreDeprecatedCodeUnitsFromCodeCoverage="true"
+        beStrictAboutTestsThatDoNotTestAnything="true"
 >
     <php>
         <env name="APPLICATION_ENV" value="test"/>

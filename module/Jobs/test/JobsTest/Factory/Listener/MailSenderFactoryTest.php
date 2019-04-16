@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Factory\Listener\MailSenderFactory;
 
 /**
@@ -21,7 +23,7 @@ use Jobs\Factory\Listener\MailSenderFactory;
  * @group Jobs.Factory
  * @group Jobs.Factory.Listener
  */
-class MailSenderFactoryTest extends \PHPUnit_Framework_TestCase
+class MailSenderFactoryTest extends TestCase
 {
 
     /**
@@ -49,9 +51,9 @@ class MailSenderFactoryTest extends \PHPUnit_Framework_TestCase
         $services->expects($this->exactly(3))
                  ->method('get')
                  ->withConsecutive(
-                    array('Core/MailService'),
-                    array('Jobs/Options'),
-                    array('Core/Options')
+                     array('Core/MailService'),
+                     array('Jobs/Options'),
+                     array('Core/Options')
                  )
                  ->will($this->onConsecutiveCalls($mailService, $jobsOptions, $coreOptions));
 
@@ -61,7 +63,7 @@ class MailSenderFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $target = new MailSenderFactory();
-        $listener = $target->__invoke($services,'irrelevant');
+        $listener = $target->__invoke($services, 'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Listener\MailSender', $listener);
         $this->assertAttributeSame($mailService, 'mailer', $listener);

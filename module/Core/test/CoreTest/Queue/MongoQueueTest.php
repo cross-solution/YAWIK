@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Queue;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\MongoQueue;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use SlmQueue\Job\AbstractJob;
@@ -18,12 +20,12 @@ use SlmQueue\Queue\AbstractQueue;
 
 /**
  * Tests for \Core\Queue\MongoQueue
- * 
+ *
  * @covers \Core\Queue\MongoQueue
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class MongoQueueTest extends \PHPUnit_Framework_TestCase
+class MongoQueueTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -74,17 +76,18 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
 
     private function setupArgs()
     {
-        $this->testJobClass = get_class(new class extends AbstractJob
-        {
-
+        $this->testJobClass = get_class(new class extends AbstractJob {
             public function __construct($id = null, $content = null)
             {
-                if ($id) { $this->setId($id); }
-                if ($content) { $this->setContent($content); }
+                if ($id) {
+                    $this->setId($id);
+                }
+                if ($content) {
+                    $this->setContent($content);
+                }
             }
             public function execute()
             {
-
             }
         });
 
@@ -124,15 +127,14 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['getInsertedId'])->getMock();
         $resultMock->expects($this->once())->method('getInsertedId')->willReturn('ID');
         $this->mongoCollectionMock->expects($this->once())->method('insertOne')
-            ->with($this->callback(function($value) {
-
+            ->with($this->callback(function ($value) {
                 return isset($value['queue']) && $value['queue'] == $this->queueName
                     && isset($value['status']) && $value['status'] == MongoQueue::STATUS_PENDING
                     && !isset($value['tried'])
                     && !isset($value['message']) && !isset($value['trace'])
                     && isset($value['created']) && isset($value['scheduled'])
                     && $value['created'] == $value['scheduled']
-                    && $value['created'] instanceOf \MongoDB\BSON\UTCDateTime
+                    && $value['created'] instanceof \MongoDB\BSON\UTCDateTime
                     && isset($value['priority']) && $value['priority'] == MongoQueue::DEFAULT_PRIORITY
                 ;
             }))
@@ -141,7 +143,6 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
         $this->target->push($job);
 
         $this->assertEquals('ID', $job->getId());
-
     }
 
     public function testPushJobToQueueWithOptions()
@@ -155,15 +156,14 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
                            ->setMethods(['getInsertedId'])->getMock();
         $resultMock->expects($this->once())->method('getInsertedId')->willReturn('ID');
         $this->mongoCollectionMock->expects($this->once())->method('insertOne')
-                                  ->with($this->callback(function($value) use ($options) {
-
+                                  ->with($this->callback(function ($value) use ($options) {
                                       return isset($value['queue']) && $value['queue'] == $this->queueName
                                              && isset($value['status']) && $value['status'] == MongoQueue::STATUS_PENDING
                                              && !isset($value['tried'])
                                              && !isset($value['message']) && !isset($value['trace'])
                                              && isset($value['created']) && isset($value['scheduled'])
-                                             && $value['scheduled'] instanceOf \MongoDB\BSON\UTCDateTime
-                                             && $value['created'] instanceOf \MongoDB\BSON\UTCDateTime
+                                             && $value['scheduled'] instanceof \MongoDB\BSON\UTCDateTime
+                                             && $value['created'] instanceof \MongoDB\BSON\UTCDateTime
                                              && (int) ((string) $value['scheduled']) - (int) ((string)$value['created']) == $options['delay'] * 1000
                                              && isset($value['priority']) && $value['priority'] == $options['priority']
                                           ;
@@ -186,14 +186,18 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
         $this->mongoCollectionMock->expects($this->once())->method('findOneAndUpdate')
                                   ->with(
                                       $this->equalTo(['_id' => new \MongoDB\BSON\ObjectID($job->getId())]),
-                                      $this->callback(function($value) {
-                                          if (!array_key_exists('$set', $value)) { return false;}
-                                          $value = $value['$set'];
-                                        return isset($value['tried']) && $value['tried'] == 10
+                                      $this->callback(
+                                          function ($value) {
+                                              if (!array_key_exists('$set', $value)) {
+                                                  return false;
+                                              }
+                                              $value = $value['$set'];
+                                              return isset($value['tried']) && $value['tried'] == 10
                                                 && !array_key_exists('created', $value)
                                         ;
-                                      }
-                                  ))
+                                          }
+                                  )
+                                  )
                                   ->willReturn(null);
 
         $this->target->retry($job);
@@ -212,29 +216,31 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
         $this->jobManagerMock->expects($this->once())->method('get')->with(get_class($job))->willReturn(new $this->testJobClass());
         $this->mongoCollectionMock->expects($this->once())->method('findOneAndUpdate')
                                   ->with(
-                                      $this->callback(function($value) {
+                                      $this->callback(function ($value) {
                                           return
                                                     isset($value['queue']) && $value['queue'] == $this->queueName
                                                     && isset($value['status']) && $value['status'] == MongoQueue::STATUS_PENDING
-                                                    && isset($value['scheduled']['$lte']) && $value['scheduled']['$lte'] instanceOf \MongoDB\BSON\UTCDateTime
+                                                    && isset($value['scheduled']['$lte']) && $value['scheduled']['$lte'] instanceof \MongoDB\BSON\UTCDateTime
                                               ;
                                       }),
-
-                                      $this->callback(function($value) {
-                                          if (!array_key_exists('$set', $value)) { return false;}
-                                          $value = $value['$set'];
-                                          return isset($value['status']) && $value['status'] == MongoQueue::STATUS_RUNNING
+                                      $this->callback(
+                                          function ($value) {
+                                              if (!array_key_exists('$set', $value)) {
+                                                  return false;
+                                              }
+                                              $value = $value['$set'];
+                                              return isset($value['status']) && $value['status'] == MongoQueue::STATUS_RUNNING
                                                  && array_key_exists('executed', $value)
                                               ;
-                                      }
+                                          }
                                       ),
-
-                                      $this->callback(function($value) {
+                                      $this->callback(function ($value) {
                                           return
                                             isset($value['sort']) && $value['sort'] == ['priority' => 1, 'scheduled' => 1]
                                               && isset($value['returnDocument'])&&$value['returnDocument'] = \MongoDB\Operation\FindOneAndUpdate::RETURN_DOCUMENT_AFTER
                                               ;
-                                      }))
+                                      })
+                                  )
                                   ->willReturn($envelope);
 
         $actualJob = $this->target->pop();
@@ -250,7 +256,6 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
         $actualJob = $this->target->pop();
 
         $this->assertNull($actualJob);
-
     }
 
     public function testListingJobs()
@@ -276,14 +281,23 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         $this->jobManagerMock->expects($this->exactly(2))->method('get')
-            ->with($this->testJobClass)->will($this->returnCallback(function () { return new $this->testJobClass(); }));
+            ->with($this->testJobClass)->will($this->returnCallback(function () {
+                return new $this->testJobClass();
+            }));
 
         $cursor = new class($envelopes) {
             private $envelopes;
             public $called = 0;
 
-            public function __construct($envelopes) { $this->envelopes = $envelopes; }
-            public function toArray() { $this->called++; return $this->envelopes; }
+            public function __construct($envelopes)
+            {
+                $this->envelopes = $envelopes;
+            }
+            public function toArray()
+            {
+                $this->called++;
+                return $this->envelopes;
+            }
         };
 
         $this->mongoCollectionMock->expects($this->once())->method('find')
@@ -300,7 +314,6 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($job1, $jobs[0]['job'], 'Job1 is not the same');
         $this->assertArrayHasKey('job', $jobs[1]);
         $this->assertEquals($job2, $jobs[1]['job'], 'Job2 is not the same.');
-
     }
 
     public function testListingJobsWithOptions()
@@ -315,7 +328,10 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
 
         $this->jobManagerMock->expects($this->never())->method('get');
         $cursor = new class() {
-            public function toArray() { return []; }
+            public function toArray()
+            {
+                return [];
+            }
         };
 
         $this->mongoCollectionMock->expects($this->once())->method('find')
@@ -323,8 +339,6 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
                                   ->willReturn($cursor);
 
         $this->target->listing($options);
-
-
     }
 
     public function testFailJob()
@@ -336,16 +350,20 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
         $this->mongoCollectionMock->expects($this->once())->method('findOneAndUpdate')
                                   ->with(
                                       $this->equalTo(['_id' => new \MongoDB\BSON\ObjectID($job->getId())]),
-                                      $this->callback(function($value) use ($options) {
-                                          if (!array_key_exists('$set', $value)) { return false;}
-                                          $value = $value['$set'];
-                                          return isset($value['status']) && $value['status'] == MongoQueue::STATUS_FAILED
+                                      $this->callback(
+                                          function ($value) use ($options) {
+                                              if (!array_key_exists('$set', $value)) {
+                                                  return false;
+                                              }
+                                              $value = $value['$set'];
+                                              return isset($value['status']) && $value['status'] == MongoQueue::STATUS_FAILED
                                                  && !array_key_exists('created', $value)
                                                 && !array_key_exists('scheduled', $value)
                                               && isset($value['message']) && $value['message'] == $options['message']
                                               ;
-                                      }
-                                      ))
+                                          }
+                                      )
+                                  )
                                   ->willReturn(null);
 
         $this->target->fail($job, $options);
@@ -414,4 +432,3 @@ class MongoQueueTest extends \PHPUnit_Framework_TestCase
         $this->target->pushLazy(['lazyName', $serviceOptions], $payload, $options);
     }
 }
-

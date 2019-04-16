@@ -9,6 +9,8 @@
 
 namespace AuthTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Controller\ForgotPasswordController;
 use Auth\Form\ForgotPasswordInputFilter;
 use Auth\Service\Exception;
@@ -37,7 +39,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
      */
     private $serviceManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->init('forgot-password');
 

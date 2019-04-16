@@ -10,19 +10,23 @@
 
 namespace CoreTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Element\SpinnerSubmit;
 
 /**
  * @covers \Core\Form\Element\SpinnerSubmit
  */
-class SpinnerSubmitTest extends \PHPUnit_Framework_TestCase {
+class SpinnerSubmitTest extends TestCase
+{
 
     /**
      * @var SpinnerSubmit
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new SpinnerSubmit();
     }
 
@@ -30,7 +34,7 @@ class SpinnerSubmitTest extends \PHPUnit_Framework_TestCase {
     {
         $this->assertInstanceOf('Core\Form\Element\SpinnerSubmit', $this->target);
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
-        $this->assertAttributeSame('spinnerButton','viewHelper',$this->target);
+        $this->assertAttributeSame('spinnerButton', 'viewHelper', $this->target);
     }
 
     public function testSetGetViewHelper()

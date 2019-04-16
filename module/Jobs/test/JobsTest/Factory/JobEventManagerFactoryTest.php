@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Factory\JobEventManagerFactory;
 use Zend\EventManager\EventManager;
 
@@ -22,7 +24,7 @@ use Zend\EventManager\EventManager;
  * @group Jobs
  * @group Jobs.Factory
  */
-class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
+class JobEventManagerFactoryTest extends TestCase
 {
 
     /**
@@ -52,7 +54,7 @@ class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $services->expects($this->once())->method('get')->with('EventManager')->willReturn($eventManager);
 
-        $events = $target->__invoke($services,'irrelevant');
+        $events = $target->__invoke($services, 'irrelevant');
 
         $this->assertSame($eventManager, $events);
         $this->assertAttributeInstanceOf($expectedEventClass, 'eventPrototype', $events);

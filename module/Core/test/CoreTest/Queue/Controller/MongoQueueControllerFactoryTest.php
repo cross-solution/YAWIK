@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Queue\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\Controller\MongoQueueController;
 use Core\Queue\Controller\MongoQueueControllerFactory;
 use Core\Queue\Worker\MongoWorker;
@@ -21,12 +23,12 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Queue\Controller\MongoQueueControllerFactory
- * 
+ *
  * @covers \Core\Queue\Controller\MongoQueueControllerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class MongoQueueControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class MongoQueueControllerFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 

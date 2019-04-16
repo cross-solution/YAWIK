@@ -9,12 +9,14 @@
 
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\ListFilterLocationFieldset;
 
 /**
 * @covers \Jobs\Form\ListFilter
 */
-class ListFilterLocationTest extends \PHPUnit_Framework_TestCase
+class ListFilterLocationTest extends TestCase
 {
     public function testConstructor()
     {

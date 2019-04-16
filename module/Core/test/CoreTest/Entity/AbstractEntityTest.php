@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AbstractEntity;
 
 /**
@@ -20,25 +22,27 @@ use Core\Entity\AbstractEntity;
  * @group  Core.Entity
  * @covers \Core\Entity\AbstractEntity
  */
-class AbstractEntityTest extends \PHPUnit_Framework_TestCase
+class AbstractEntityTest extends TestCase
 {
-
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new ConcreteEntity();
     }
 
-    public function testSettingValidAttributes(){
+    public function testSettingValidAttributes()
+    {
         $input = "myValue";
         $this->target->setValidAttribute($input);
-        $this->assertSame($this->target->getValidAttribute(),$input);
+        $this->assertSame($this->target->getValidAttribute(), $input);
     }
 
-    public function testGettingValidAttributes(){
+    public function testGettingValidAttributes()
+    {
         $input = "myValue";
         $this->target->setValidAttribute($input);
-        $this->assertSame($this->target->getValidAttribute(),$input);
+        $this->assertSame($this->target->getValidAttribute(), $input);
     }
 
     /**
@@ -56,20 +60,22 @@ class AbstractEntityTest extends \PHPUnit_Framework_TestCase
     public function testGettingInvalidAttributes()
     {
         $input = "myValue";
-        $this->assertSame(@$this->target->invalidAttribute,$input);
+        $this->assertSame(@$this->target->invalidAttribute, $input);
     }
 }
 
-class ConcreteEntity extends AbstractEntity {
-
+class ConcreteEntity extends AbstractEntity
+{
     protected $validAttribute;
 
-    public function setValidAttribute($validAttribute){
+    public function setValidAttribute($validAttribute)
+    {
         $this->validAttribute=$validAttribute;
         return $this;
     }
 
-    public function getValidAttribute(){
+    public function getValidAttribute()
+    {
         return $this->validAttribute;
     }
 }

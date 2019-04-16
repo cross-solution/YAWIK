@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Entity\Decorator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Collection\ArrayCollection;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Decorator\JsonLdProvider;
@@ -22,14 +24,14 @@ use Organizations\Entity\OrganizationName;
 
 /**
  * Tests for \Jobs\Entity\Decorator\JsonLdProvider
- * 
+ *
  * @covers \Jobs\Entity\Decorator\JsonLdProvider
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Entity
  * @group Jobs.Entity.Decorator
  */
-class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
+class JsonLdProviderTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -61,11 +63,13 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
         $organization->setOrganizationName($name);
         if ($withOrganization) {
             $job->setOrganization($organization);
-        }else{
+        } else {
             $job->setCompany("Company Name");
         }
         $job->setTitle('Test JsonLdProvider');
-        if ($withDatePublishStart) { $job->setDatePublishStart(new \DateTime()); }
+        if ($withDatePublishStart) {
+            $job->setDatePublishStart(new \DateTime());
+        }
         $locations = new ArrayCollection();
         $location = new Location();
         $locations->add($location);
@@ -98,7 +102,6 @@ class JsonLdProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneratesJsonLd()
     {
-
         $json = $this->target->toJsonLd();
 
         $this->assertContains('"title":"Test JsonLdProvider"', $json);

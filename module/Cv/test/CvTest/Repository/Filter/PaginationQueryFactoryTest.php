@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Repository\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\AuthenticationService;
 use Auth\Entity\User;
 use Core\Paginator\PaginatorService;
@@ -20,7 +22,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Cv\Repository\Filter\PaginationQueryFactory
- * 
+ *
  * @covers \Cv\Repository\Filter\PaginationQueryFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
@@ -29,7 +31,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Cv.Repository
  * @group Cv.Repository.Filter
  */
-class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
+class PaginationQueryFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -78,9 +80,8 @@ class PaginationQueryFactoryTest extends \PHPUnit_Framework_TestCase
 
         $paginators = $this->createPluginManagerMock([], $services);
 
-        $filter = $this->target->__invoke($services,'irrelevant');
+        $filter = $this->target->__invoke($services, 'irrelevant');
 
         $this->assertAttributeSame($user, 'user', $filter);
     }
-    
 }

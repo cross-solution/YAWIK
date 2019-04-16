@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\Factory;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\OptionsAbstractFactory;
 use Zend\Stdlib\AbstractOptions;
 
 /**
  * Tests for \Core\Factory\OptionsAbstractFactory
- * 
+ *
  * @covers \Core\Factory\OptionsAbstractFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Factory
  */
-class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
+class OptionsAbstractFactoryTest extends TestCase
 {
     /**
      * @testdox Implements \Zend\ServiceManager\AbstractFactoryInterface
@@ -104,13 +106,13 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
      * @param $requestedName
      * @param $expected
      */
-    public function testCanCreate($optionsConfig,$requestedName,$expected)
+    public function testCanCreate($optionsConfig, $requestedName, $expected)
     {
         $target = new OptionsAbstractFactory();
         $services = $this->getServiceLocatorMock($optionsConfig);
 
         $method = "assert".($expected ? 'True' : 'False');
-        $this->$method($target->canCreate($services,$requestedName));
+        $this->$method($target->canCreate($services, $requestedName));
     }
 
     /**
@@ -128,7 +130,6 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 
         $target->canCreateServiceWithName($services, '', '');
         $target->createServiceWithName($services, 'testoption', 'TestOption');
-
     }
 
     /**
@@ -149,7 +150,6 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 
         $target->canCreateServiceWithName($services, '', '');
         $target->createServiceWithName($services, 'testoption', 'TestOption');
-
     }
 
     /**
@@ -196,8 +196,6 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
         $options = $target->createServiceWithName($services, 'irrelevant', SimpleOptionsMock::class);
 
         $this->assertEquals('two', $options->getOne());
-
-
     }
 
     /**
@@ -244,7 +242,6 @@ class OptionsAbstractFactoryTest extends \PHPUnit_Framework_TestCase
 
         return $services;
     }
-    
 }
 
 class SimpleOptionsMock extends AbstractOptions
@@ -291,7 +288,6 @@ class SimpleOptionsMock extends AbstractOptions
     {
         return $this->two;
     }
-
 }
 
 class NestedOptionsMock extends AbstractOptions
@@ -380,6 +376,4 @@ class NestedOptionsMock extends AbstractOptions
     {
         return $this->array;
     }
-
-
 }

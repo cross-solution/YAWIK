@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Entity\EmployeeInterface;
 use Organizations\Form\EmployeeFieldset;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
@@ -22,7 +24,7 @@ use Organizations\Entity\EmployeePermissionsInterface as Perms;
  * @group Organizations
  * @group Organizatios.Form
  */
-class EmployeeFieldsetTest extends \PHPUnit_Framework_TestCase
+class EmployeeFieldsetTest extends TestCase
 {
 
     /**
@@ -104,10 +106,10 @@ class EmployeeFieldsetTest extends \PHPUnit_Framework_TestCase
         $target->expects($this->exactly(4))
                ->method('add')
                ->withConsecutive(
-                    array($expectAdd1),
-                    array($expectAdd2),
-                    array($expectAdd3),
-                    array($expectAdd4)
+                   array($expectAdd1),
+                   array($expectAdd2),
+                   array($expectAdd3),
+                   array($expectAdd4)
 
 
                );

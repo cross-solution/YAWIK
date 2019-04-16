@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\History;
 use Jobs\Entity\Status;
 
@@ -23,7 +25,7 @@ use Jobs\Entity\Status;
  * @group  Jobs
  * @group  Jobs.Entity
  */
-class HistoryTest extends \PHPUnit_Framework_TestCase
+class HistoryTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -32,7 +34,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new History(Status::CREATED);
     }
@@ -91,8 +93,8 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     
     
     /**
-    * @covers Jobs\Entity\History::setDate
-    * @covers Jobs\Entity\History::getDate
+    * @covers \Jobs\Entity\History::setDate
+    * @covers \Jobs\Entity\History::getDate
     */
     public function testSetGetDate()
     {
@@ -103,8 +105,8 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-    * @covers Jobs\Entity\History::setMessage
-    * @covers Jobs\Entity\History::getMessage
+    * @covers \Jobs\Entity\History::setMessage
+    * @covers \Jobs\Entity\History::getMessage
     */
     public function testSetGetMessage()
     {
@@ -115,8 +117,8 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-    * @covers Jobs\Entity\History::setStatus
-    * @covers Jobs\Entity\History::getStatus
+    * @covers \Jobs\Entity\History::setStatus
+    * @covers \Jobs\Entity\History::getStatus
     */
     public function testSetGetStatus()
     {

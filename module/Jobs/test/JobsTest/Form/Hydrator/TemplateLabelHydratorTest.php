@@ -9,17 +9,19 @@
 
 namespace JobsTest\Form\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\Hydrator\TemplateLabelHydrator;
 use JobsTest\Entity\Provider\JobEntityProvider;
 
-class TemplateLabelHydratorTest extends \PHPUnit_Framework_TestCase
+class TemplateLabelHydratorTest extends TestCase
 {
     /**
      * @var TemplateLabelHydrator
      */
     private $testedObject;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObject = new TemplateLabelHydrator();
     }

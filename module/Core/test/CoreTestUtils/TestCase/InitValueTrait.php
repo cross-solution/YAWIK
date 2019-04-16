@@ -8,6 +8,8 @@
 
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class InitValueTrait
  *
@@ -23,7 +25,7 @@ trait InitValueTrait
      */
     public function testInitValue($object, $propName, $expectedValue)
     {
-        /* @var $this \PHPUnit_Framework_TestCase */
+        /* @var $this \PHPUnit\Framework\TestCase */
 
         $getter = 'get' . $propName;
         if (is_object($expectedValue)) {

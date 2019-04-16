@@ -10,19 +10,20 @@
 /** */
 namespace CoreTest\Repository;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Repository\DraftableEntityAwareInterface;
 use Core\Repository\DraftableEntityAwareTrait;
 
 /**
  * Tests for \Core\Repository\DraftableEntityAwareTrait
- * 
+ *
  * @covers \Core\Repository\DraftableEntityAwareTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class DraftableEntityAwareTraitTest extends \PHPUnit_Framework_TestCase
+class DraftableEntityAwareTraitTest extends TestCase
 {
-
     public function provideFindMethodsTestData()
     {
         return [
@@ -65,7 +66,6 @@ class DraftableEntityAwareTraitTest extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayHasKey($called, $target->calledMethods);
         $this->assertEquals($expect, $target->calledMethods[$called]);
-
     }
 
     public function testQueryBuilderCreation()

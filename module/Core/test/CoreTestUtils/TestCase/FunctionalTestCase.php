@@ -8,6 +8,8 @@
 
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\AnonymousUser;
 use Auth\Entity\Info;
 use Auth\Entity\User;
@@ -35,7 +37,7 @@ class FunctionalTestCase extends AbstractHttpControllerTestCase
      */
     protected $serviceLocator;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->serviceLocator = null;
         $this->setApplicationConfig(

@@ -10,18 +10,20 @@
 /** */
 namespace CoreTest\Queue\Exception;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Queue\Exception\AbstractJobException;
 use Core\Queue\Exception\RecoverableJobException;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Queue\Exception\RecoverableJobException
- * 
+ *
  * @covers \Core\Queue\Exception\RecoverableJobException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class RecoverableJobExceptionTest extends \PHPUnit_Framework_TestCase
+class RecoverableJobExceptionTest extends TestCase
 {
     use TestInheritanceTrait;
 

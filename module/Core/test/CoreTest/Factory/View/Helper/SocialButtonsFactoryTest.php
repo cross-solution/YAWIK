@@ -10,6 +10,8 @@
 
 namespace Core\Factory\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Options\ModuleOptions;
 use Core\Factory\View\Helper\SocialButtonsFactory;
 use Zend\ServiceManager\FactoryInterface;
@@ -20,9 +22,9 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
  * Class SocialButtonsFactoryTest
  *
  * @package Core\Factory\View\Helper
- * @covers Core\Factory\View\Helper\SocialButtonsFactory
+ * @covers \Core\Factory\View\Helper\SocialButtonsFactory
  */
-class SocialButtonsFactoryTest extends \PHPUnit_Framework_TestCase
+class SocialButtonsFactoryTest extends TestCase
 {
     use ServiceManagerMockTrait;
 
@@ -45,15 +47,14 @@ class SocialButtonsFactoryTest extends \PHPUnit_Framework_TestCase
         $config = ['testwert'];
 
         $HauptServiceLocator =  $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
-        $HauptServiceLocator->expects($this->exactly(2))->method('get')->withConsecutive(['Auth/Options'],['Config'])->will($this->onConsecutiveCalls($options, $config));
+        $HauptServiceLocator->expects($this->exactly(2))->method('get')->withConsecutive(['Auth/Options'], ['Config'])->will($this->onConsecutiveCalls($options, $config));
 
         $target = new SocialButtonsFactory();
 
-        $helper = $target($HauptServiceLocator,'irrelevant');
+        $helper = $target($HauptServiceLocator, 'irrelevant');
 
-        $this->assertInstanceOf("Core\View\Helper\SocialButtons",$helper);
-        $this->assertAttributeSame($options,'options',$helper);
-        $this->assertAttributeEquals($config,'config',$helper);
-
+        $this->assertInstanceOf("Core\View\Helper\SocialButtons", $helper);
+        $this->assertAttributeSame($options, 'options', $helper);
+        $this->assertAttributeEquals($config, 'config', $helper);
     }
 }

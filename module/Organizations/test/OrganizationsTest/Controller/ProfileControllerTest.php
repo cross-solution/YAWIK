@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Exception\UnauthorizedAccessException;
 use Core\Controller\Plugin\PaginationBuilder;
 use Core\Entity\Exception\NotFoundException;
@@ -56,7 +58,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
     private $imageFileCacheManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $translator = $this->createMock(TranslatorInterface::class);
         $repository = $this->createMock(OrganizationRepository::class);

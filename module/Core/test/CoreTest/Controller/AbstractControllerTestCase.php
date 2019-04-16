@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTest\Bootstrap;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -17,9 +19,9 @@ use Zend\Router\Http\RouteMatch;
 use Zend\Router\SimpleRouteStack;
 use Zend\Router\Http\HttpRouterFactory as RouterFactory;
 //use Zend\Router\RouterFactory;
-use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit\Framework\ExpectationFailedException;
 
-abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractControllerTestCase extends TestCase
 {
     /**
      * @var RouteMatch
@@ -86,7 +88,7 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (false === $responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 'Failed asserting response is a redirect'
             );
         }
@@ -100,7 +102,7 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (false !== $responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 sprintf(
                     'Failed asserting response is NOT a redirect, actual redirection is "%s"',
                     $responseHeader->getFieldValue()
@@ -115,18 +117,18 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      *
      * @param string $url
      *
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     protected function assertRedirectTo($url)
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 'Failed asserting response is a redirect'
             );
         }
         if ($url != $responseHeader->getFieldValue()) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 sprintf(
                     'Failed asserting response redirects to "%s", actual redirection is "%s"',
                     $url,
@@ -142,18 +144,18 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      *
      * @param string $url
      *
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     protected function assertNotRedirectTo($url)
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 'Failed asserting response is a redirect'
             );
         }
         if ($url == $responseHeader->getFieldValue()) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 sprintf(
                     'Failed asserting response redirects to "%s"',
                     $url
@@ -168,18 +170,18 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      *
      * @param string $pattern
      *
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     protected function assertRedirectRegex($pattern)
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 'Failed asserting response is a redirect'
             );
         }
         if (!preg_match($pattern, $responseHeader->getFieldValue())) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 sprintf(
                     'Failed asserting response redirects to URL MATCHING "%s", actual redirection is "%s"',
                     $pattern,
@@ -195,18 +197,18 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      *
      * @param string $pattern
      *
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     protected function assertNotRedirectRegex($pattern)
     {
         $responseHeader = $this->getResponseHeader('Location');
         if (!$responseHeader) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 'Failed asserting response is a redirect'
             );
         }
         if (preg_match($pattern, $responseHeader->getFieldValue())) {
-            throw new PHPUnit_Framework_ExpectationFailedException(
+            throw new ExpectationFailedException(
                 sprintf(
                     'Failed asserting response DOES NOT redirect to URL MATCHING "%s"',
                     $pattern

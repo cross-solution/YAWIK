@@ -10,6 +10,9 @@
 /** */
 namespace CoreTest\Listener\LanguageRouteListener;
 
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
+
 use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Core\Listener\LanguageRouteListener;
@@ -30,7 +33,7 @@ use Core\I18n\Locale as LocaleService;
  * @group Core.Listener
  * @group Core.Listener.LanguageRouteListener
  */
-class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
+class OnDispatchErrorCallbackTest extends TestCase
 {
     use SetupTargetTrait;
 
@@ -46,21 +49,21 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
     private $moduleOptions;
 
     public function testHandleConsoleRequests()
-   {
-       $event = $this
+    {
+        $event = $this
            ->getMockBuilder(MvcEvent::class)
            ->disableOriginalConstructor()
            ->setMethods(['getRequest', 'getError'])
            ->getMock()
        ;
 
-       $request = new \Zend\Console\Request();
+        $request = new \Zend\Console\Request();
 
-       $event->expects($this->once())->method('getRequest')->willReturn($request);
-       $event->expects($this->never())->method('getError');
+        $event->expects($this->once())->method('getRequest')->willReturn($request);
+        $event->expects($this->never())->method('getError');
 
-       $this->assertNull($this->target->onDispatchError($event));
-   }
+        $this->assertNull($this->target->onDispatchError($event));
+    }
 
     public function testHandleNonRouteMatchErrors()
     {
@@ -107,7 +110,6 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
         $request->setRequestUri($baseUrl.$requestUri);
 
         return $event;
-
     }
 
     public function testHandleLanguageUriWithSupportedLanguage()
@@ -144,8 +146,8 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('match')
             ->with($this->callback(
-                function($v) {
-                    \PHPUnit_Framework_Assert::assertEquals('/base/uri/xx/see/no/lang', (string) $v->getUri());
+                function ($v) {
+                    Assert::assertEquals('/base/uri/xx/see/no/lang', (string) $v->getUri());
                     return true;
                 }
               ))
@@ -153,13 +155,13 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
         ;
 
         $this->target
-	        ->expects($this->once())
-	        ->method('redirect')
-	        ->with($response, '/base/uri/xx/see/no/lang')
+            ->expects($this->once())
+            ->method('redirect')
+            ->with($response, '/base/uri/xx/see/no/lang')
         ;
         $this->target
-	        ->expects($this->never())
-	        ->method('setLocale')
+            ->expects($this->never())
+            ->method('setLocale')
         ;
 
         $this->target->onDispatchError($event);
@@ -176,10 +178,10 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('match')
             ->with($this->callback(
-                        function($v) {
-                            \PHPUnit_Framework_Assert::assertEquals('/base/uri/xx/non/mappable/route', (string) $v->getUri());
-                            return true;
-                        }
+                function ($v) {
+                    Assert::assertEquals('/base/uri/xx/non/mappable/route', (string) $v->getUri());
+                    return true;
+                }
                 ))
             ->willReturn($routeMatch);
 
@@ -187,7 +189,6 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
         $this->target->expects($this->once())->method('setLocale')->with($event, 'xx');
 
         $this->target->onDispatchError($event);
-
     }
 
     public function testHandleWhenDetectLanguageDisabled()
@@ -206,8 +207,8 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('match')
             ->with($this->callback(
-                function($v) {
-                    \PHPUnit_Framework_Assert::assertEquals('/base/uri/default/see/no/lang', (string) $v->getUri());
+                function ($v) {
+                    Assert::assertEquals('/base/uri/default/see/no/lang', (string) $v->getUri());
                     return true;
                 }
             ))
@@ -221,7 +222,7 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
 
         $target->expects($this->once())
             ->method('redirect')
-            ->with($response,'/base/uri/default/see/no/lang')
+            ->with($response, '/base/uri/default/see/no/lang')
         ;
 
         $target->onDispatchError($event);
@@ -232,8 +233,4 @@ class OnDispatchErrorCallbackTest extends \PHPUnit_Framework_TestCase
         $this->moduleOptions = new ModuleOptions();
         return [new LocaleService([]),$this->moduleOptions];
     }
-
-
 }
-
-

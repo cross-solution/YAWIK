@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Skill;
@@ -20,7 +22,7 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Cv\Factory\Form\SkillCollectionFactory
- * 
+ *
  * @covers \Cv\Factory\Form\SkillCollectionFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
@@ -29,7 +31,7 @@ use Zend\ServiceManager\ServiceManager;
  * @group Cv.Factory
  * @group Cv.Factory.Form
  */
-class SkillCollectionFactoryTest extends \PHPUnit_Framework_TestCase
+class SkillCollectionFactoryTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -39,12 +41,11 @@ class SkillCollectionFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokation()
     {
-        $container = $this->target->__invoke(new ServiceManager(),'irrelevant');
+        $container = $this->target->__invoke(new ServiceManager(), 'irrelevant');
 
         $this->assertInstanceOf(CollectionContainer::class, $container);
         $this->assertAttributeEquals('CvSkillForm', 'formService', $container);
         $this->assertAttributeInstanceOf(Skill::class, 'newEntry', $container);
         $this->assertEquals('Skills', $container->getLabel());
     }
-    
 }

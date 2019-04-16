@@ -10,20 +10,22 @@
 /** */
 namespace JobsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Factory\Form\MultipostingSelectFactory;
 use Jobs\Options\ChannelOptions;
 use Jobs\Options\ProviderOptions;
 
 /**
  * Tests for \Jobs\Factory\Form\MultipostingSelectFactory
- * 
+ *
  * @covers \Jobs\Factory\Form\MultipostingSelectFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Factory
  * @group Jobs.Factory.Form
  */
-class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
+class MultipostingSelectFactoryTest extends TestCase
 {
 
     /**
@@ -66,35 +68,35 @@ class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $currencyFormat->expects($this->any())->method('__invoke')->will($this->returnArgument(0));
 
         $helpers = $this
-	        ->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
-	        ->disableOriginalConstructor()
-	        ->setMethods(array('get'))
-			->getMockForAbstractClass()
+            ->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+            ->disableOriginalConstructor()
+            ->setMethods(array('get'))
+            ->getMockForAbstractClass()
         ;
 
         $helpers
-	        ->expects($this->once())
-	        ->method('get')
-	        ->with('currencyFormat')
-	        ->willReturn($currencyFormat)
+            ->expects($this->once())
+            ->method('get')
+            ->with('currencyFormat')
+            ->willReturn($currencyFormat)
         ;
 
         $router = $this
-	        ->getMockBuilder('\Zend\Mvc\Router\SimpleRouteStack')
-	        ->disableOriginalConstructor()
-	        ->setMethods(['assemble'])
-	        ->getMock()
+            ->getMockBuilder('\Zend\Mvc\Router\SimpleRouteStack')
+            ->disableOriginalConstructor()
+            ->setMethods(['assemble'])
+            ->getMock()
         ;
         $router
-	        ->expects($this->any())
-	        ->method('assemble')
-	        ->willReturn('/test/uri')
+            ->expects($this->any())
+            ->method('assemble')
+            ->willReturn('/test/uri')
         ;
 
         $services = $this
-	        ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
         $servicesMap = array(
@@ -110,7 +112,7 @@ class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
 
         $target = new MultipostingSelectFactory();
 
-        $select = $target->__invoke($services,'irrelevant');
+        $select = $target->__invoke($services, 'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Form\MultipostingSelect', $select);
         $this->assertEquals('false', $select->getAttribute('data-autoinit'));

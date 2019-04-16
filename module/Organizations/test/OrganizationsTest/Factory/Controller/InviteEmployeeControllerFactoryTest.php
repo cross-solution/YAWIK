@@ -10,6 +10,8 @@
 
 namespace OrganizationsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\InviteEmployeeController;
 use Organizations\Factory\Controller\InviteEmployeeControllerFactory;
@@ -23,7 +25,7 @@ use Organizations\Repository\Organization as OrganizationRepository;
  * @package OrganizationsTest\Factory\Controller
  * @since 0.30
  */
-class InviteEmployeeControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class InviteEmployeeControllerFactoryTest extends TestCase
 {
     public function testInvokation()
     {
@@ -40,7 +42,7 @@ class InviteEmployeeControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             InviteEmployeeController::class,
-            $factory($container,'some-name')
+            $factory($container, 'some-name')
         );
     }
 }

@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Listener\Events\AjaxEvent;
 use CoreTestUtils\TestCase\SetupTargetTrait;
@@ -23,13 +25,13 @@ use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Jobs\Listener\GetOrganizationManagers
- * 
+ *
  * @covers \Jobs\Listener\GetOrganizationManagers
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Listener
  */
-class GetOrganizationManagersTest extends \PHPUnit_Framework_TestCase
+class GetOrganizationManagersTest extends TestCase
 {
     use SetupTargetTrait;
 
@@ -85,13 +87,16 @@ class GetOrganizationManagersTest extends \PHPUnit_Framework_TestCase
      *
      * @param bool|Organization|\PHPUnit_Framework_MockObject_MockObject $org
      */
-    private function configureRepository($org = false) {
+    private function configureRepository($org = false)
+    {
         $this->repository->expects($this->once())->method('find')->with('orgid')->willReturn($org ? $org : null);
     }
 
     private function createOrganization(array $spec)
     {
-        $flag = function($key) use ($spec) { return isset($spec[$key]) && $spec[$key]; };
+        $flag = function ($key) use ($spec) {
+            return isset($spec[$key]) && $spec[$key];
+        };
         $org = $this
             ->getMockBuilder(Organization::class)
             ->setMethods(['isHiringOrganization', 'getParent', 'getWorkflowSettings', 'getEmployeesByRole'])
@@ -141,7 +146,6 @@ class GetOrganizationManagersTest extends \PHPUnit_Framework_TestCase
         $instance = new GetOrganizationManagers($repo);
 
         $this->assertAttributeSame($repo, 'repository', $instance);
-
     }
 
     public function testListenerReturnsMissingOrganizationIdError()
@@ -199,7 +203,7 @@ class GetOrganizationManagersTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->__invoke($event);
 
-        $this->assertTrue(is_array($actual),'Listener did not return an array!');
+        $this->assertTrue(is_array($actual), 'Listener did not return an array!');
         $this->assertArrayHasKey('status', $actual);
         $this->assertEquals('disabled', $actual['status']);
     }

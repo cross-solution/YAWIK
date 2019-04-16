@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\Constraint\DefaultAttributesValues;
 
 /**
@@ -51,11 +53,10 @@ trait AssertDefaultAttributesValuesTrait
      */
     public static function defaultAttributesValues($defaultAttributes)
     {
-
         if (!is_array($defaultAttributes)) {
             throw \PHPUnit_Util_InvalidArgumentHelper::factory(
-                                                     1,
-                                                     'array or ArrayAccess'
+                1,
+                'array or ArrayAccess'
             );
         }
 

@@ -10,17 +10,19 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\TemplateValues;
 
 /**
  * Test the template values of a job entity.
  *
- * @covers Jobs\Entity\TemplateValues
+ * @covers \Jobs\Entity\TemplateValues
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Jobs
  * @group Jobs.Entity
  */
-class TemplateValuesTest extends \PHPUnit_Framework_TestCase
+class TemplateValuesTest extends TestCase
 {
 
     /**
@@ -30,7 +32,7 @@ class TemplateValuesTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new TemplateValues();
     }

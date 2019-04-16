@@ -10,12 +10,14 @@
 
 namespace CoreTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\AdminController;
 use Core\EventManager\EventManager;
 use Core\Factory\Controller\AdminControllerFactory;
 use Interop\Container\ContainerInterface;
 
-class AdminControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class AdminControllerFactoryTest extends TestCase
 {
     public function testInvoke()
     {
@@ -30,7 +32,7 @@ class AdminControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new AdminControllerFactory();
         $this->assertInstanceOf(
             AdminController::class,
-            $factory($container,'Core/Admin')
+            $factory($container, 'Core/Admin')
         );
     }
 }

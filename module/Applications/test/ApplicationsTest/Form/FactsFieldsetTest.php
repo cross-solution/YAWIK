@@ -9,6 +9,8 @@
 
 namespace ApplicationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Form\FactsFieldset;
 use Core\Form\Element\DatePicker;
 use Zend\Form\Factory;
@@ -16,14 +18,14 @@ use Zend\Form\Factory;
 /**
 * @covers \Applications\Form\FactsFieldset
 */
-class FactsFieldsetTest extends \PHPUnit_Framework_TestCase
+class FactsFieldsetTest extends TestCase
 {
     /**
      * @var $target FactsFieldset
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new FactsFieldset();
 

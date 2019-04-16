@@ -9,6 +9,8 @@
 
 namespace CoreTest;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Application;
 use org\bovigo\vfs\vfsStream;
 use Zend\Mvc\Application as ZendApplication;
@@ -31,7 +33,7 @@ class TestApplication extends Application
  * @covers  \Core\Application
  * @package CoreTest
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
     private static $env;
 
@@ -58,12 +60,12 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         chdir(static::$cwd);
     }
 
-    public function setUp()
+    protected function setUp()
     {
         TestApplication::emptyConfigDir();
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         static::restore();
     }

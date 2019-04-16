@@ -9,21 +9,23 @@
 
 namespace CoreTest\Form\Element;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Element\FileUpload;
 use Core\Form\Form;
-
 
 /**
 * @covers \Core\Form\Element\FileUpload
 */
-class FrmTest extends \PHPUnit_Framework_TestCase
+class FrmTest extends TestCase
 {
     /**
      * @var FileUpload
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new FileUpload();
     }
 
@@ -31,11 +33,12 @@ class FrmTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Core\Form\Element\FileUpload', $this->target);
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
-        $this->assertAttributeSame('formFileUpload',  'helper', $this->target);
-        $this->assertAttributeSame(false,  'isMultiple', $this->target);
+        $this->assertAttributeSame('formFileUpload', 'helper', $this->target);
+        $this->assertAttributeSame(false, 'isMultiple', $this->target);
     }
 
-    public function testSetMaxSize() {
+    public function testSetMaxSize()
+    {
         $input = 100000;
         $this->target->setMaxSize($input);
         $this->assertAttributeSame(
@@ -49,7 +52,8 @@ class FrmTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target->getMaxSize(), $input);
     }
 
-    public function testSetGetAllowedMimetypesWithArray() {
+    public function testSetGetAllowedMimetypesWithArray()
+    {
         $input = ["image/png", "image/jpg"];
         $expected = 'image/png,image/jpg';
         $this->target->setAllowedTypes($input);
@@ -64,7 +68,8 @@ class FrmTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target->getAllowedTypes(), $expected);
     }
 
-    public function testSetGetAllowedMimetypesWithString() {
+    public function testSetGetAllowedMimetypesWithString()
+    {
         $input = "image/png";
         $this->target->setAllowedTypes($input);
         $this->assertAttributeSame(
@@ -82,7 +87,8 @@ class FrmTest extends \PHPUnit_Framework_TestCase
      * @covers \Core\Form\Element\FileUpload::setMaxFileCount
      * @covers \Core\Form\Element\FileUpload::getMaxFileCount
      */
-    public function testSetGetMaxFileCount() {
+    public function testSetGetMaxFileCount()
+    {
         $input = "10";
         $this->target->setMaxFileCount($input);
         $this->assertAttributeSame(
@@ -93,14 +99,15 @@ class FrmTest extends \PHPUnit_Framework_TestCase
             'attributes',
             $this->target
         );
-        $this->assertEquals($this->target->getMaxFileCount(),(int) $input);
+        $this->assertEquals($this->target->getMaxFileCount(), (int) $input);
     }
 
     /**
      * @covers \Core\Form\Element\FileUpload::setIsMultiple
      * @covers \Core\Form\Element\FileUpload::isMultiple
      */
-    public function testSetGetIsMultiple() {
+    public function testSetGetIsMultiple()
+    {
         $input = 1;
         $this->target->setIsMultiple($input);
         $this->assertAttributeSame(
@@ -121,7 +128,7 @@ class FrmTest extends \PHPUnit_Framework_TestCase
             'attributes',
             $this->target
         );
-        $this->assertEquals($this->target->isMultiple(),true);
+        $this->assertEquals($this->target->isMultiple(), true);
         $input = false;
         $this->target->setIsMultiple($input);
         $this->assertAttributeSame(
@@ -131,7 +138,7 @@ class FrmTest extends \PHPUnit_Framework_TestCase
             'attributes',
             $this->target
         );
-        $this->assertEquals($this->target->isMultiple(),false);
+        $this->assertEquals($this->target->isMultiple(), false);
     }
 
     public function testPrepareElement()
@@ -152,13 +159,15 @@ class FrmTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testSetGetViewHelper(){
+    public function testSetGetViewHelper()
+    {
         $viewHelper = "test";
         $this->target->setViewHelper($viewHelper);
-        $this->assertEquals($this->target->getViewHelper(),$viewHelper);
+        $this->assertEquals($this->target->getViewHelper(), $viewHelper);
     }
 
-    public function testInputSpecification(){
+    public function testInputSpecification()
+    {
         /* @todo */
     }
 }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Factory\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\Listener\DeleteImageSetListenerFactory;
 use Core\Listener\DeleteImageSetListener;
 use Core\Repository\RepositoryService;
@@ -19,7 +21,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Listener\DeleteImageSetListenerFactory
- * 
+ *
  * @covers \Core\Factory\Listener\DeleteImageSetListenerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
@@ -28,7 +30,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @group Core.Factory
  * @group Core.Factory.Listener
  */
-class DeleteImageSetListenerFactoryTest extends \PHPUnit_Framework_TestCase
+class DeleteImageSetListenerFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -57,7 +59,7 @@ class DeleteImageSetListenerFactoryTest extends \PHPUnit_Framework_TestCase
         ];
 
         $container = $this->getServiceManagerMock();
-        $container->setService('repositories',$repositories);
+        $container->setService('repositories', $repositories);
         $container->setService('Config', $config);
 
         $listener = $this->target->__invoke($container, 'irrelevant');
@@ -81,6 +83,4 @@ class DeleteImageSetListenerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($repositories, 'repositories', $listener);
         $this->assertAttributeEquals([], 'config', $listener);
     }
-
-
 }

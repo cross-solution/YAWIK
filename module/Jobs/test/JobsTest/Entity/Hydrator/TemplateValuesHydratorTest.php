@@ -10,19 +10,21 @@
 /** */
 namespace JobsTest\Entity\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\Hydrator\TemplateValuesHydrator;
 use Jobs\Entity\TemplateValues;
 
 /**
  * Tests for \Jobs\Entity\Hydrator\TemplateValuesHydrator
- * 
+ *
  * @covers \Jobs\Entity\Hydrator\TemplateValuesHydrator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.Entity
  * @group Jobs.Entity.Hydrator
  */
-class TemplateValuesHydratorTest extends \PHPUnit_Framework_TestCase
+class TemplateValuesHydratorTest extends TestCase
 {
 
     /**

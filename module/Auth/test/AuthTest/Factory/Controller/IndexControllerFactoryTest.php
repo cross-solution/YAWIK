@@ -9,6 +9,8 @@
 
 namespace AuthTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Adapter\ExternalApplication;
 use Auth\Adapter\HybridAuth as HybridAuthAdapter;
 
@@ -19,14 +21,14 @@ use CoreTest\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\MvcEvent;
 
-class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class IndexControllerFactoryTest extends TestCase
 {
     /**
      * @var IndexControllerFactory
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new IndexControllerFactory();
     }

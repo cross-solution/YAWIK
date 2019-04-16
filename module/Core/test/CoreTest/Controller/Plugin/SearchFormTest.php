@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\SearchForm;
 use CoreTestUtils\TestCase\AssertInheritanceTrait;
 use Interop\Container\ContainerInterface;
@@ -22,17 +24,17 @@ use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\SearchForm
- * 
+ *
  * @covers \Core\Controller\Plugin\SearchForm
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Controller
  * @group Core.Controller.Plugin
  */
-class SearchFormTest extends \PHPUnit_Framework_TestCase
+class SearchFormTest extends TestCase
 {
-	use TestInheritanceTrait;
-	
+    use TestInheritanceTrait;
+    
     protected $formElementManagerMock;
 
     protected $target = [
@@ -72,7 +74,6 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
     private function setControllerMock($params = [])
     {
-
         $request = $this->getMockBuilder('\Zend\Http\Request')->disableOriginalConstructor()->setMethods(['getQuery'])->getMock();
         $request->expects($this->once())->method('getQuery')->willReturn(is_array($params) ? new Parameters($params) : $params);
 
@@ -83,7 +84,6 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
 
         $this->target->setController($controller);
         return $controller;
-
     }
 
     public function testGetFetchesFormFromFormElementManager()
@@ -116,7 +116,6 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->get($formName, $formOpt);
 
         $this->assertSame($form, $actual);
-
     }
 
     public function testGetJustSetSearchParamsOnFormObject()
@@ -144,7 +143,5 @@ class SearchFormTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->get($form);
 
         $this->assertSame($form, $actual);
-
     }
-    
 }

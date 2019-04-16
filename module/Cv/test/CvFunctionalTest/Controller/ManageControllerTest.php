@@ -7,6 +7,8 @@
  */
 namespace CvFunctionalTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Repository\RepositoryService;
 use CoreTestUtils\TestCase\FunctionalTestCase;
 use Cv\Entity\Cv;
@@ -34,7 +36,7 @@ class ManageControllerTest extends FunctionalTestCase
         ]
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         if (!is_object($this->activeUser)) {
@@ -103,6 +105,5 @@ class ManageControllerTest extends FunctionalTestCase
         $this->assertResponseStatusCode(200);
         $this->assertContains('list of all resumes', $result);
         $this->assertContains('SO23 9AX Winchester , Saint Georges Street', $result);
-
     }
 }

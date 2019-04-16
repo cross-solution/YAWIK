@@ -10,6 +10,8 @@
  */
 namespace CoreTest\Repository\DoctrineMongoODM\Event;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Doctrine\ODM\MongoDB\Events;
@@ -24,7 +26,7 @@ use Core\Entity\EntityInterface;
 /**
  * @coversDefaultClass \Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber
  */
-class RepositoryEventsSubscriberTest extends \PHPUnit_Framework_TestCase
+class RepositoryEventsSubscriberTest extends TestCase
 {
     /**
      * @var RepositoryEventsSubscriber
@@ -37,7 +39,7 @@ class RepositoryEventsSubscriberTest extends \PHPUnit_Framework_TestCase
     protected $services;
     
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {

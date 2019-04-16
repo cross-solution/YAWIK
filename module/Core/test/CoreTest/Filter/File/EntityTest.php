@@ -2,6 +2,8 @@
 
 namespace CoreTest\Filter\File;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\UserInterface;
 use Core\Entity\FileEntity;
 use Core\Filter\File\Entity;
@@ -13,7 +15,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @package CoreTest\Filter\File
  * @author Anthonius Munthi <me@itstoni.com>
  */
-class EntityTest extends \PHPUnit_Framework_TestCase
+class EntityTest extends TestCase
 {
     use TestSetterGetterTrait;
 
@@ -22,7 +24,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new Entity([]);
     }

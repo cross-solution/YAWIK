@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\ImageFileCache;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\ImageFileCache\ApplicationListener;
 use Organizations\ImageFileCache\Manager;
 use Organizations\Repository\OrganizationImage as ImageRepository;
@@ -23,7 +25,7 @@ use Zend\Http\Headers;
 /**
  * @coversDefaultClass \Organizations\ImageFileCache\ApplicationListener
  */
-class ApplicationListenerTest extends \PHPUnit_Framework_TestCase
+class ApplicationListenerTest extends TestCase
 {
 
     /**
@@ -52,7 +54,7 @@ class ApplicationListenerTest extends \PHPUnit_Framework_TestCase
     protected $request;
     
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {

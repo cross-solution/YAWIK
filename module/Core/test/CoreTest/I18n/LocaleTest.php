@@ -8,11 +8,13 @@
  */
 namespace CoreTest\I18n;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\I18n\Locale as LocaleService;
 use Zend\Http\Request;
 use Auth\Entity\UserInterface as User;
 
-class LocaleTest extends \PHPUnit_Framework_TestCase
+class LocaleTest extends TestCase
 {
 
     /**
@@ -32,13 +34,12 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
     protected $localeService;
     
     /**
-	 * @see PHPUnit_Framework_TestCase::setUp()
-	 */
-	protected function setUp()
-	{
-		$this->localeService = new LocaleService($this->languages);
-		
-	}
+     * @see PHPUnit\Framework\TestCase::setUp()
+     */
+    protected function setUp()
+    {
+        $this->localeService = new LocaleService($this->languages);
+    }
 
     public function testGetDefaultLanguage()
     {
@@ -49,8 +50,7 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
 
     public function testIsLanguageSupported()
     {
-        foreach (array_keys($this->languages) as $language)
-        {
+        foreach (array_keys($this->languages) as $language) {
             $this->assertTrue($this->localeService->isLanguageSupported($language));
         }
         
@@ -59,12 +59,12 @@ class LocaleTest extends \PHPUnit_Framework_TestCase
 
     public function testGetLocaleByLanguage()
     {
-        foreach ($this->languages as $language => $locale)
-        {
+        foreach ($this->languages as $language => $locale) {
             $this->assertSame($locale, $this->localeService->getLocaleByLanguage($language));
         }
         
-        $this->setExpectedException(\InvalidArgumentException::class, 'Unsupported language');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported language');
         $this->localeService->getLocaleByLanguage('nonExistent');
     }
     

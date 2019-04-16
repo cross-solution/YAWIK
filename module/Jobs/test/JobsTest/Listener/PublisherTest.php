@@ -10,6 +10,8 @@
 
 namespace JobsTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Listener\Publisher;
 
 /**
@@ -22,7 +24,7 @@ use Jobs\Listener\Publisher;
  *
  * @package JobsTest\Listener
  */
-class PublisherTest  extends \PHPUnit_Framework_TestCase
+class PublisherTest extends TestCase
 {
     /**
      * @var Publisher
@@ -102,7 +104,7 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
             ->disableOriginalConstructor()
@@ -309,7 +311,8 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
                            array(
                                'referenceUpdate' => $referenceUpdate,
                                'applyIdUpdate' => $applyIdUpdate
-                           ))));
+                           )
+                       )));
     }
 
 

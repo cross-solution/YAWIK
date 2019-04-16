@@ -107,9 +107,11 @@ class ClearCacheService
         ;
         try {
             $this->filesystem->remove($finder);
+            return true;
         } catch (\Exception $e) {
             // just log the error
             $this->log('<error>'.$e->getMessage().'</error>');
+            return false;
         }
     }
 

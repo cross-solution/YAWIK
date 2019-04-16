@@ -9,17 +9,19 @@
 
 namespace AuthTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Form\UserStatus;
 use Core\Form\SummaryForm;
 
-class UserStatusTest extends \PHPUnit_Framework_TestCase
+class UserStatusTest extends TestCase
 {
     /**
      * @var UserStatus
      */
     private $form;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->form = new UserStatus();
     }

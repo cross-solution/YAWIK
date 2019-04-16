@@ -9,19 +9,22 @@
 
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\SummaryFormButtonsFieldset;
 
 /**
 * @covers \Core\Form\SummaryFormButtonsFieldset
 */
-class SummaryFormButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
+class SummaryFormButtonsFieldsetTest extends TestCase
 {
     /**
      * @var SummaryFormButtonsFieldset
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new SummaryFormButtonsFieldset();
     }
 
@@ -46,13 +49,13 @@ class SummaryFormButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAttribute()
     {
-        $this->target->setAttribute('id',123);
+        $this->target->setAttribute('id', 123);
         $this->assertSame($this->target->getFormId(), "123");
     }
 
     public function testSetAttributeSomeAttribute()
     {
-        $this->target->setAttribute('foo','bar');
+        $this->target->setAttribute('foo', 'bar');
         $this->assertSame($this->target->getFormId(), false);
     }
 }

@@ -9,18 +9,20 @@
 
 namespace AuthTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Form\ForgotPasswordInputFilter;
 use Zend\Filter\FilterChain;
 use Zend\Validator\ValidatorChain;
 
-class ForgotPasswordInputFilterTest extends \PHPUnit_Framework_TestCase
+class ForgotPasswordInputFilterTest extends TestCase
 {
     /**
      * @var ForgotPasswordInputFilter
      */
     private $testedObject;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObject = new ForgotPasswordInputFilter();
     }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\EntityInterface;
 use Core\Entity\EntityTrait;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -19,7 +21,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Entity\Hydrator\MappingEntityHydrator
- * 
+ *
  * @covers \Core\Entity\Hydrator\MappingEntityHydrator
  * @coversDefaultClass \Core\Entity\Hydrator\MappingEntityHydrator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -27,7 +29,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @group Core.Entity
  * @group Core.Entity.Hydrator
  */
-class MappingEntityHydratorTest extends \PHPUnit_Framework_TestCase
+class MappingEntityHydratorTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -97,7 +99,6 @@ class MappingEntityHydratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('one', $entity->one);
     }
-
 }
 
 class Meht_Entity implements EntityInterface

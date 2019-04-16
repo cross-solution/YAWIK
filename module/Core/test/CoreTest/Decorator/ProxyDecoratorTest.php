@@ -10,20 +10,21 @@
 /** */
 namespace CoreTest\Decorator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Decorator\ProxyDecorator;
 
 /**
  * Tests for \Core\Decorator\ProxyDecorator
- * 
+ *
  * @covers \Core\Decorator\ProxyDecorator
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Decorator
  */
-class ProxyDecoratorTest extends \PHPUnit_Framework_TestCase
+class ProxyDecoratorTest extends TestCase
 {
-
-    public function setup()
+    protected function setUp()
     {
         $this->object = new ObjectMock();
         $this->target = new ProxyDecoratorMock($this->object);
@@ -54,7 +55,6 @@ class ProxyDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target, $returnSelf);
         $this->assertEquals('someValue', $returnValue);
     }
-
 }
 
 class ProxyDecoratorMock extends ProxyDecorator

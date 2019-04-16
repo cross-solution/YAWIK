@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\FileEntity;
 use Core\Entity\Image;
 use Core\Entity\ImageSet;
@@ -20,14 +22,13 @@ use Core\Repository\RepositoryService;
 
 /**
  * Tests for \Core\Listener\DeleteImageSetListener
- * 
+ *
  * @covers \Core\Listener\DeleteImageSetListener
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class DeleteImageSetListenerTest extends \PHPUnit_Framework_TestCase
+class DeleteImageSetListenerTest extends TestCase
 {
-
     private function getTarget($config)
     {
         $this->repositories = $this->getMockBuilder(RepositoryService::class)->disableOriginalConstructor()

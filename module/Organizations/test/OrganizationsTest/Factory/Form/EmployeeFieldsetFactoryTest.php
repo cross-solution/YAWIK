@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Factory\Form\EmployeeFieldsetFactory;
 
 /**
@@ -21,7 +23,7 @@ use Organizations\Factory\Form\EmployeeFieldsetFactory;
  * @group Organizations.Factory
  * @group Organizations.Factory.Form
  */
-class EmployeeFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
+class EmployeeFieldsetFactoryTest extends TestCase
 {
 
     /**
@@ -52,8 +54,8 @@ class EmployeeFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->once())
                  ->method('get')->with('repositories')->willReturn($repos);
-	    
-        $fieldset = $target->__invoke($services,'irrelevant');
+        
+        $fieldset = $target->__invoke($services, 'irrelevant');
 
         $this->assertInstanceOf('\Organizations\Form\EmployeeFieldset', $fieldset);
 

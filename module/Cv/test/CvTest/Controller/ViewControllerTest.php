@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Acl\Controller\Plugin\Acl;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
@@ -30,7 +32,7 @@ use Zend\Http\PhpEnvironment\Response;
  * @group Cv
  * @group Cv.Controller
  */
-class ViewControllerTest extends \PHPUnit_Framework_TestCase
+class ViewControllerTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -131,5 +133,4 @@ class ViewControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $actual);
     }
-    
 }

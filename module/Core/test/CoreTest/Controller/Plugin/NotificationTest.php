@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\Notification;
 use Core\Listener\Events\NotificationEvent;
 use Core\Listener\NotificationListener;
@@ -25,7 +27,7 @@ use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
  * @since 0.30.1
  * @covers \Core\Controller\Plugin\Notification
  */
-class NotificationTest extends \PHPUnit_Framework_TestCase
+class NotificationTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -42,7 +44,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $manager = $this->createMock(SharedEventManagerInterface::class);
         $this->notificationListener = $this->createMock(NotificationListener::class);
@@ -66,7 +68,6 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
 
     public function testInvoke()
     {
-
         $mock = $this->getMockBuilder(Notification::class)
             ->disableOriginalConstructor()
             ->setMethods(['addMessage'])
@@ -75,7 +76,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
 
         $mock->expects($this->once())
             ->method('addMessage')
-            ->with('some message',Notification::NAMESPACE_SUCCESS)
+            ->with('some message', Notification::NAMESPACE_SUCCESS)
             ->willReturn($mock)
         ;
 
@@ -87,7 +88,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertSame(
             $mock,
-            $mock('some message',Notification::NAMESPACE_SUCCESS)
+            $mock('some message', Notification::NAMESPACE_SUCCESS)
         );
     }
 
@@ -105,7 +106,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         ;
         $listener->expects($this->exactly(2))
             ->method('trigger')
-            ->with(NotificationEvent::EVENT_NOTIFICATION_ADD,$this->isInstanceOf(NotificationEvent::class))
+            ->with(NotificationEvent::EVENT_NOTIFICATION_ADD, $this->isInstanceOf(NotificationEvent::class))
         ;
 
         $target->setTranslator($translator);
@@ -122,7 +123,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
      * @param string $message
      * @dataProvider getTestCreateNamespacedMessages
      */
-    public function testCreateNamespacedMessages($method,$message)
+    public function testCreateNamespacedMessages($method, $message)
     {
         $mock = $this->getMockBuilder(Notification::class)
             ->disableOriginalConstructor()
@@ -139,7 +140,7 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
         $callback = array($mock,$method);
         $this->assertSame(
             $mock,
-            call_user_func($callback,$message)
+            call_user_func($callback, $message)
         );
     }
 
@@ -222,6 +223,6 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
             ->willReturn($flash)
         ;
 
-        $target->renderMessage('some message',Notification::NAMESPACE_INFO);
+        $target->renderMessage('some message', Notification::NAMESPACE_INFO);
     }
 }

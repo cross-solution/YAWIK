@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Form\ApplicationsFilter;
 use Applications\Form\Element\JobSelect;
 use Core\Form\SearchForm;
@@ -18,13 +20,13 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Applications\Form\ApplicationsFilter
- * 
+ *
  * @covers \Applications\Form\ApplicationsFilter
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Applications
  * @group Applications.Form
  */
-class ApplicationsFilterTest extends \PHPUnit_Framework_TestCase
+class ApplicationsFilterTest extends TestCase
 {
     use TestInheritanceTrait, TestDefaultAttributesTrait;
 
@@ -98,7 +100,10 @@ class ApplicationsFilterTest extends \PHPUnit_Framework_TestCase
         /** @noinspection PhpUndefinedMethodInspection */
         $this->target->expects($this->exactly(4))->method('add')
             ->withConsecutive(
-                [$this->anything()], [$add1], [$add2], [$add3]
+                [$this->anything()],
+                [$add1],
+                [$add2],
+                [$add3]
             );
 
         $this->target->init();

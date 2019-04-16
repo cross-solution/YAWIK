@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Factory\Form\Tree;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Tree\Node;
 use Core\Factory\Form\Tree\SelectFactory;
 use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
@@ -23,7 +25,7 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Factory\Form\Tree\SelectFactory
- * 
+ *
  * @covers \Core\Factory\Form\Tree\SelectFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
@@ -33,7 +35,7 @@ use Zend\ServiceManager\ServiceManager;
  * @group Core.Factory.Form
  * @group Core.Factory.Form.Tree
  */
-class SelectFactoryTest extends \PHPUnit_Framework_TestCase
+class SelectFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -71,8 +73,8 @@ class SelectFactoryTest extends \PHPUnit_Framework_TestCase
         $this->target->setCreationOptions($options);
 
         $this->target
-	        ->expects($this->once())
-	        ->method('__invoke')
+            ->expects($this->once())
+            ->method('__invoke')
             ->with($services, SelectFactory::class, $options)
             ->willReturn(true)
         ;
@@ -125,7 +127,9 @@ class SelectFactoryTest extends \PHPUnit_Framework_TestCase
 
     private function getServiceContainer($criteria, $root=null)
     {
-        if (null === $root) { $root = new Node('Test'); }
+        if (null === $root) {
+            $root = new Node('Test');
+        }
         $repository = $this
             ->getMockBuilder(\Doctrine\ODM\MongoDB\DocumentRepository::class)
             ->disableOriginalConstructor()
@@ -231,5 +235,4 @@ class SelectFactoryTest extends \PHPUnit_Framework_TestCase
         $select->setAttribute('multiple', 'multiple');
         $this->assertTrue($select->getHydratorStrategy()->allowSelectMultipleItems());
     }
-
 }

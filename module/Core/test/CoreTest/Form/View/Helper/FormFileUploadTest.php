@@ -9,6 +9,8 @@
 
 namespace CoreTest\Form\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\View\Helper\FormFileUpload as FileUploadHelper;
 use Core\Form\Element\FileUpload as FileUploadElement;
 use Core\Entity\FileInterface as FileEntity;
@@ -19,7 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @coversDefaultClass Core\Form\View\Helper\FormFileUpload
  */
-class FormFileUploadTest extends \PHPUnit_Framework_TestCase
+class FormFileUploadTest extends TestCase
 {
 
     /**
@@ -28,7 +30,7 @@ class FormFileUploadTest extends \PHPUnit_Framework_TestCase
     protected $fileUploadHelper;
     
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * @see PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -75,7 +77,7 @@ class FormFileUploadTest extends \PHPUnit_Framework_TestCase
             ->willReturn($entity);
         
         $result = $this->fileUploadHelper->renderFileList($element);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
         
         return $element;
     }
@@ -100,7 +102,7 @@ class FormFileUploadTest extends \PHPUnit_Framework_TestCase
         $element->setIsMultiple(true);
         
         $result = $this->fileUploadHelper->renderFileList($element);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
     }
     
     /**
@@ -121,7 +123,7 @@ class FormFileUploadTest extends \PHPUnit_Framework_TestCase
         $element = new FileUploadElement('elementName');
         
         $result = $this->fileUploadHelper->renderFileElement($element);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
         $this->assertStringStartsWith('<input', $result);
         $this->assertContains('type="file"', $result);
         $this->assertContains('name="' . $element->getName() . '"', $result);
@@ -134,7 +136,7 @@ class FormFileUploadTest extends \PHPUnit_Framework_TestCase
     {
         $element = new FileUploadElement();
         $result = $this->fileUploadHelper->getDropZoneClass($element);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
         $this->assertContains('single', $result);
         $this->assertNotContains('multiple', $result);
         $this->assertNotContains('fu-non-clickable', $result);
@@ -228,13 +230,13 @@ class FormFileUploadTest extends \PHPUnit_Framework_TestCase
             ->willReturn($fileElementOutput);
         
         $result = $fileUploadHelper->render($element);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
         $this->assertContains($markupOutput, $result);
         $this->assertContains($fileElementOutput, $result);
         $this->assertNotContains($fileElementPlaceholder, $result);
         
         $result = $this->fileUploadHelper->render($element);
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
         $this->assertNotContains($fileElementPlaceholder, $result);
     }
 }

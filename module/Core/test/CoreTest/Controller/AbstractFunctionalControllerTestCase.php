@@ -2,6 +2,8 @@
 
 namespace CoreTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\AnonymousUser;
 use Auth\Entity\User;
 use AuthTest\Entity\Provider\UserEntityProvider;
@@ -29,7 +31,7 @@ abstract class AbstractFunctionalControllerTestCase extends AbstractHttpControll
      */
     private $documentManagerMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->serviceLocator = null;
         $this->setApplicationConfig(
