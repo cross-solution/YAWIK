@@ -41,9 +41,11 @@
                     $input.change();
 
                 } else if (tag == 'select') {
-                    var selected = -1;
-                    if (true === $input.data('clearOnSelect')) {
+                    var selected = -1, defaultIndex;
+                    if (true === $input.data('clearOnReset')) {
                         $input.html('');
+                    } else if (defaultIndex = $input.data('defaultIndex')) {
+                        selected = defaultIndex;
                     } else {
                         $input.find('option[selected]').each(function () {
                             selected = $(this).prop('index');
@@ -200,4 +202,4 @@
 
     })
 })(jQuery, window);
- 
+
