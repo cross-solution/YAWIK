@@ -87,7 +87,7 @@ class JsonLdProvider implements JsonLdProviderInterface
     /**
      * try to get the logo of an organization. Fallback: logoRef of job posting
      */
-    private function getLogo($job) {
+    private function getLogo() {
         $organization = $this->job->getOrganization();
         $organizationLogo = $organization ? $organization->getImage()->getUri() : $this->job->getLogoRef();
         return $organizationLogo;
