@@ -148,10 +148,12 @@ class ForgotPasswordTest extends TestCase
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
 
+    /**
+    * @todo fix or delete
+    */
+    /*
     public function testProceed()
     {
-        // @TODO: fix this
-        /*
         $identity = uniqid('identity');
         $user = UserEntityProvider::createEntityWithRandomData();
         $tokenHash = uniqid('tokenHash');
@@ -194,8 +196,8 @@ class ForgotPasswordTest extends TestCase
                 ),
                 true
             );
-        */
-        //$this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
-        return true;
+        
+        $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
+    */
 }

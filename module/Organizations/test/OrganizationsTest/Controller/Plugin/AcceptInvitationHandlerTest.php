@@ -130,6 +130,7 @@ class AcceptInvitationHandlerTest extends TestCase
             try {
                 $this->target->$method();
             } catch (MissingDependencyException $e) {
+                self::assertTrue(true);
                 continue;
             }
 

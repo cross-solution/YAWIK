@@ -34,11 +34,14 @@ class SummaryFormButtonsFieldsetTest extends TestCase
         $this->assertInstanceOf('Core\Form\ButtonsFieldset', $this->target);
     }
 
+    /**
+    * @todo
+    */
+    /*
     public function testInit()
     {
-        /* @todo
-         */
     }
+    */
 
     public function testSetGetFormId()
     {

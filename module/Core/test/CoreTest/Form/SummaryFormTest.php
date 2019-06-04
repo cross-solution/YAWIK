@@ -80,10 +80,14 @@ class SummaryTest extends TestCase
         ];
     }
 
+    /**
+    * @todo
+    */
+    /*
     public function testIsValid()
     {
-        /* @todo */
     }
+    */
 
     /**
      * @dataProvider providerDisplayMode
