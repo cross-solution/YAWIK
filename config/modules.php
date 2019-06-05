@@ -16,6 +16,7 @@ return [
     'Jobs',
     'Settings',
     'Pdf',
+    'Geo',
     'Organizations',
     'ReleaseTools'
 ];
