@@ -151,11 +151,19 @@ class SubsplitController extends AbstractConsoleController
         /* @var \Symfony\Component\Finder\SplFileInfo $directory */
         foreach ($finder->directories() as $directory) {
             $moduleName = $directory->getRelativePathname();
+            if('ReleaseTools' === $moduleName){
+                continue;
+            }
             $tree[$moduleName] = [
                 'path' => 'module/'.$moduleName,
                 'repo' => $target.'/'.Inflector::tableize($moduleName).'.git'
             ];
         }
+
+        $tree['CoreTestUtils'] = [
+            'path' => 'module/Core/test/CoreTestUtils',
+            'repo' => $target.'/core-test-utils.git'
+        ];
         ksort($tree);
         $this->tree = $tree;
     }

@@ -62,6 +62,7 @@
         "zendframework/zend-cache": "^2.7",
         "zendframework/zend-captcha": "^2.7",
         "zendframework/zend-feed": "^2.8",
+
         "zendframework/zend-form": "^2.10",
         "zendframework/zend-i18n-resources": "^2.5",
         "zendframework/zend-json": "^3.0",

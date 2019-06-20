@@ -1,0 +1,27 @@
+{
+    "name": "yawik/core-test-utils",
+    "description": "Yawik Core Test Utils",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.33-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "CoreTestUtils\\": ""
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^7.5.8 | ^8.1.2"
+    }
+}

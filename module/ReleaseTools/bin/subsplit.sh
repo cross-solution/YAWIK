@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
 #
 # git-subsplit.sh: Automate and simplify the process of managing one-way
 # read-only subtree splits.
