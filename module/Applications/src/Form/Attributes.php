@@ -30,7 +30,7 @@ class Attributes extends Form
 
         $this->add(
             array(
-            'type' => 'checkbox',
+            'type' => 'infoCheckBox',
             'name' => 'sendCarbonCopy',
             'options' => array(
                 'headline' => /*@translate*/ 'Carbon Copy',
