@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "623bd3c7c225a946750837ff85bd94f9",
+    "content-hash": "bcf816e2d02fb32d30dc4eedb9a20747",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1162,6 +1162,53 @@
             "time": "2018-06-14T14:45:07+00:00"
         },
         {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d85d39da4576a6934b72480be6978fb10c860021",
+                "reference": "d85d39da4576a6934b72480be6978fb10c860021",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2018-02-23T01:58:20+00:00"
+        },
+        {
             "name": "facebook/graph-sdk",
             "version": "5.7.0",
             "source": {
@@ -2252,7 +2299,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -4437,6 +4484,17 @@
         {
             "name": "zendframework/zend-mvc-plugins",
             "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-mvc-plugins.git",
+                "reference": "b00cda46b0a95cbd32ea0743d6d7dc3fd2263f1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-mvc-plugins/zipball/b00cda46b0a95cbd32ea0743d6d7dc3fd2263f1b",
+                "reference": "b00cda46b0a95cbd32ea0743d6d7dc3fd2263f1b",
+                "shasum": ""
+            },
             "require": {
                 "php": "^5.6 || ^7.0",
                 "zendframework/zend-mvc-plugin-fileprg": "^1.0",
