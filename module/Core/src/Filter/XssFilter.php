@@ -12,7 +12,7 @@ namespace Core\Filter;
 
 use Zend\Filter\FilterInterface;
 use Zend\Filter\Exception;
-use zf2htmlpurifier\Filter\HTMLPurifierFilter;
+use Core\Bridge\HtmlPurifier\HTMLPurifierFilter;
 
 /**
  * Xss Filter
@@ -32,16 +32,6 @@ class XssFilter implements FilterInterface
      * @param HTMLPurifierFilter $purifier
      */
     public function __construct($purifier)
-    {
-        $this->setHtmlPurifier($purifier);
-    }
-
-    /**
-     * Sets the html purifier
-     *
-     * @param HTMLPurifierFilter $purifier
-     */
-    public function setHtmlPurifier($purifier)
     {
         $this->htmlPurifier = $purifier;
     }

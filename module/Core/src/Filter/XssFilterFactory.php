@@ -10,9 +10,10 @@
 /** XssFilterFactory.php */
 namespace Core\Filter;
 
+use Core\Options\ModuleOptions;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use zf2htmlpurifier\Filter;
+use Core\Bridge\HtmlPurifier\HTMLPurifierFilter;
 
 /**
  * Factory for the XssFilter
@@ -31,9 +32,17 @@ class XssFilterFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $htmlPurifier = new Filter\HTMLPurifierFilter();
-        $htmlPurifier->setConfig(array("Cache.SerializerPath" => "cache/HtmlPurifier"));
-        
+        /* @var \Core\Options\ModuleOptions $options */
+        $options = $container->get(ModuleOptions::class);
+        $cacheDir = $options->getCacheDir();
+
+        if(!is_dir($cacheDir)){
+            mkdir($cacheDir,0777, true);
+        }
+
+        $htmlPurifier = new HTMLPurifierFilter();
+        $htmlPurifier->setConfig(array("Cache.SerializerPath" => $cacheDir));
+
         $filter = new XssFilter($htmlPurifier);
         
         return $filter;
