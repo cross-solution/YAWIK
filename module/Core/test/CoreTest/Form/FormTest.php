@@ -40,11 +40,19 @@ class FormTest extends TestCase
         $this->assertInstanceOf('Zend\Form\Form', $this->target);
     }
 
+    /**
+    * @todo
+    */
+    /*
     public function testAdd()
     {
-        /*@todo*/
     }
+    */
 
+    /**
+     * @covers \Core\Form\Form::isDescriptionsEnabled
+     * @covers \Core\Form\Form::setIsDescriptionsEnabled
+     */
     public function testSetGetIsDescriptionEnabled()
     {
         $input = true;
@@ -55,6 +63,9 @@ class FormTest extends TestCase
         $this->assertEquals($this->target->isDescriptionsEnabled(), $input);
     }
 
+    /**
+     * @covers \Core\Form\Form::setDescription
+     */
     public function testSetDescription()
     {
         $input = "this is my description";
@@ -71,6 +82,10 @@ class FormTest extends TestCase
                                     'description_params' => ['p1','p2']], 'options', $this->target);
     }
 
+    /**
+     * @covers \Core\Form\Form::setIsDisableCapable
+     * @covers \Core\Form\Form::isDisableCapable
+     */
     public function testSetGetIsDisableCapable()
     {
         $input = true;
@@ -91,10 +106,13 @@ class FormTest extends TestCase
         $this->assertEquals($this->target->isDisableElementsCapable(), $input);
     }
 
+    /**
+    * @todo
+    */
+    /*
     public function testDisableElement()
-    {
-        /* @todo */
-    }
+    {    }
+    */
 
     /**
      * @covers \Core\Form\Form::setOptions

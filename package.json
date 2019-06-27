@@ -1,6 +1,6 @@
 {
     "name": "yawik-development",
-    "version": "0.32.0",
+    "version": "0.33.7",
     "scripts": {
         "postinstall": "grunt"
     },

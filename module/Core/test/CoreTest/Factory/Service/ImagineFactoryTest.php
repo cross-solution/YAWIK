@@ -84,6 +84,7 @@ class ImagineFactoryTest extends TestCase
             return true;
         } catch (\Imagine\Exception\RuntimeException $e) {
             if (false !== strpos($e->getMessage(), 'not installed')) {
+                self::assertTrue(true);
                 return true;
             }
         }

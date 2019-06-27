@@ -57,7 +57,7 @@ class Job extends AbstractRepository
         $qb->hydrate(false)
            ->select('applyId')
            ->field('applyId')->equals($applyId);
-           
+
         $result = $qb->getQuery()->execute();
         $count = $result->count();
         return (bool) $count;
@@ -116,12 +116,15 @@ class Job extends AbstractRepository
      * @param int $organizationId
      * @return \Jobs\Entity\Job[]
      */
-    public function findByOrganization($organizationId)
+    public function findByOrganization($organizationId, $status = null)
     {
         $criteria = $this->getIsDeletedCriteria([
             'organization' => new \MongoId($organizationId),
         ]);
 
+        if ($status) {
+            $criteria['status.name'] = $status;
+        }
         return $this->findBy($criteria);
     }
 
@@ -171,7 +174,7 @@ class Job extends AbstractRepository
 
         return $r;
     }
-    
+
     /**
      * Get jobs for given user ID
      *
@@ -185,11 +188,11 @@ class Job extends AbstractRepository
         $qb = $this->createQueryBuilder()
             ->field('user')->equals($userId)
             ->sort(['dateCreated.date' => -1]);
-        
+
         if (isset($limit)) {
             $qb->limit($limit);
         }
-    
+
         return $qb->getQuery()->execute();
     }
 

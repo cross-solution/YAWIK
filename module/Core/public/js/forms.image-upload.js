@@ -1,6 +1,6 @@
 
 ;(function ($) {
-	
+
 	$(function() {
 		$(document).on("drop dragover", function(e) { e.preventDefault(); e.stopPropagation(); });
 		$('.single-file-upload .iu-dropzone').click(function(e) {
@@ -12,10 +12,12 @@
 				return false;
 			}
 		});
-		
+
 		$('.single-file-upload').each(function() {
 			var $form = $(this);
 			var $dropzone = $form.find('.iu-dropzone');
+
+			if (0 == $dropzone.length) { return; }
 			
 			$form.find('.iu-delete-button').click(function(e) {
 				$.get($form.find('img').attr('src') + '?do=delete')
@@ -32,22 +34,22 @@
 			} else {
 				$form.find('.iu-empty-notice').hide();
 			}
-			
+
 			$form.find('.iu-errors, .iu-errors li').hide();
-			
+
 			$form.fileupload({
 				dataType: 'json',
 				dropZone: $dropzone,
-				
+
 				add: function(e, data)
 				{
 					$form.find('.iu-errors, .iu-errors li').hide();
 					$form.find('.iu-empty-notice').hide();
 					$form.find('.iu-progress').show();
-					
+
 					var options = $dropzone.find('input[type="file"]').data();
 					var hasErrors  = false;
-					
+
 					if (options.maxsize && options.maxsize < data.files[0].size) {
 						hasErrors = true;
 						$form.find('.iu-error-size').show();
@@ -55,20 +57,20 @@
 					if (options.allowedtypes) {
 						var types = options.allowedtypes.split(',');
 						var found = false;
-						
+
 						for (var i = 0; i < types.length; i++) {
 							if (0 === data.files[0].type.indexOf(types[i])) {
 								found = true;
 								break;
 							}
 						}
-						
+
 						if (!found) {
 							hasErrors = true;
 							$form.find('.iu-error-type').show();
 						}
 					}
-					
+
 					if (hasErrors) {
 						$form.find('.iu-errors').show();
 						$form.find('.iu-progress').hide();
@@ -76,19 +78,19 @@
 						$form.find('.iu-empty-notice').show();
 						return;
 					}
-					
+
 					data.submit();
 				},
-				
+
 				progress: function(e, data)
 				{
 					var $form = $(data.form);
-					
+
 					$form.find('.iu-progress-percent').text(
 						parseInt(data.loaded / data.total * 100, 10)
 					);
 				},
-				
+
 				done: function(e, data)
 				{
 					$form = $(data.form);
@@ -125,8 +127,8 @@
 					$form.find('.iu-progress').hide().find('.iu-progress-percent').text("0");
 					$form.find('.iu-delete-button').show();
 				},
-				
-				fail: function(e, data) 
+
+				fail: function(e, data)
 				{
 					console.debug(e, data);
                     console.debug(data.files[0].error);
@@ -134,5 +136,5 @@
 			});
 		});
 	});
-	
+
 })(jQuery);

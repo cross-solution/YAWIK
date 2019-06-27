@@ -65,6 +65,7 @@ class JobboardSearch extends SearchForm implements CustomizableFieldsetInterface
                 ),
                 'attributes' => [
                     'value'            => '10', // default distance
+                    'data-default-index' => '1',
                     'data-searchbox'   => -1,  // hide the search box
                     'data-allowclear'  => 'false', // allow to clear a selected value
                     'data-placeholder' => /*@translate*/ 'Distance',

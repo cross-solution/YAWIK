@@ -2,6 +2,8 @@
 
 namespace Jobs\Controller;
 
+use Jobs\Entity\StatusInterface;
+
 use Jobs\Model\ApiJobDehydrator;
 use Jobs\Repository;
 use Zend\Http\PhpEnvironment\Response;
@@ -42,8 +44,12 @@ class ApiJobListByOrganizationController extends AbstractActionController
         $organizationId = $this->params()->fromRoute('organizationId', 0);
         $callback = $this->filter->setData($_GET)->getValue('callback');
 
+        $status = $this->filter->getValue('status');
+        if (true === $status) { $status = null; }
+        elseif (!$status) { $status = StatusInterface::ACTIVE; }
+
         try {
-            $jobs = $this->jobRepository->findByOrganization($organizationId);
+            $jobs = $this->jobRepository->findByOrganization($organizationId, $status);
         } catch (\Exception $e) {
             /** @var Response $response */
             $response = $this->getResponse();

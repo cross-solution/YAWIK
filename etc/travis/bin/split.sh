@@ -8,7 +8,7 @@ fi;
 YAWIK="${PWD}/bin/console subsplit"
 BRANCH=${TRAVIS_BRANCH}
 
-if [ ${BRANCH} != "master" ] || [ ${BRANCH} != "develop" ]; then
+if [ ${BRANCH} != "master" ] && [ ${BRANCH} != "develop" ]; then
     # fallback to develop
     BRANCH="develop"
 fi;

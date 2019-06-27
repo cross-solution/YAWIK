@@ -10,8 +10,10 @@
 namespace Auth\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Form\CustomizableFieldsetTrait;
 use Core\Form\EmptySummaryAwareInterface;
 use Core\Form\EmptySummaryAwareTrait;
+use Core\Form\CustomizableFieldsetInterface;
 use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -29,12 +31,14 @@ use Zend\Validator\File;
 class UserInfoFieldset extends Fieldset implements
     ViewPartialProviderInterface,
     EmptySummaryAwareInterface,
-    InputFilterProviderInterface
+    InputFilterProviderInterface,
+    CustomizableFieldsetInterface
 {
     use EmptySummaryAwareTrait;
+    use CustomizableFieldsetTrait;
 
     private $defaultEmptySummaryNotice = /*@translate*/ 'Click here to enter contact informations.';
-    
+
     /**
      * View script for rendering
      *
@@ -204,7 +208,7 @@ class UserInfoFieldset extends Fieldset implements
      *
      * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
-    public function getInputFilterSpecification()
+    public function getDefaultInputFilterSpecification()
     {
         return array(
             'firstName' => array(
