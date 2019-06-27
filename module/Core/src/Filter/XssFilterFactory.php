@@ -32,19 +32,9 @@ class XssFilterFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var \Core\Options\ModuleOptions $options */
-        $options = $container->get(ModuleOptions::class);
-        $cacheDir = $options->getCacheDir();
-
-        if(!is_dir($cacheDir)){
-            mkdir($cacheDir,0777, true);
-        }
-
-        $htmlPurifier = new HTMLPurifierFilter();
-        $htmlPurifier->setConfig(array("Cache.SerializerPath" => $cacheDir));
-
+        /* @var \HTMLPurifier $htmlPurifier */
+        $htmlPurifier = $container->get('Core/HtmlPurifier');
         $filter = new XssFilter($htmlPurifier);
-        
         return $filter;
     }
 }

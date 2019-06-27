@@ -12,7 +12,8 @@ namespace Core\Filter;
 
 use Zend\Filter\FilterInterface;
 use Zend\Filter\Exception;
-use Core\Bridge\HtmlPurifier\HTMLPurifierFilter;
+use HTMLPurifier;
+
 
 /**
  * Xss Filter
@@ -22,14 +23,14 @@ use Core\Bridge\HtmlPurifier\HTMLPurifierFilter;
 class XssFilter implements FilterInterface
 {
     /**
-     * @var HTMLPurifierFilter
+     * @var HTMLPurifier
      */
     protected $htmlPurifier;
 
     /**
      * Construct the html purifier filter
      *
-     * @param HTMLPurifierFilter $purifier
+     * @param HTMLPurifier $purifier
      */
     public function __construct($purifier)
     {
@@ -39,7 +40,7 @@ class XssFilter implements FilterInterface
     /**
      * Gets the html purifier
      *
-     * @return HTMLPurifierFilter
+     * @return HTMLPurifier
      */
     public function getHtmlPurifier()
     {
@@ -56,6 +57,6 @@ class XssFilter implements FilterInterface
     public function filter($value)
     {
         $htmlPurifier = $this->getHtmlPurifier();
-        return $htmlPurifier->filter($value);
+        return $htmlPurifier->purify($value);
     }
 }

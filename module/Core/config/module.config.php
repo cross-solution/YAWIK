@@ -18,6 +18,7 @@ use Core\Controller\Console\ClearCacheController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
+use Core\Factory\Service\HtmlPurifierFactory;
 use Core\Service\ClearCacheService;
 use Core\Service\Tracy;
 use Zend\I18n\Translator\Resources;
@@ -354,6 +355,7 @@ return array(
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
             ClearCacheService::class => [ClearCacheService::class,'factory'],
             Queue\Worker\MongoWorker::class => \SlmQueue\Factory\WorkerFactory::class,
+            'Core/HtmlPurifier' => \Core\Factory\Service\HtmlPurifierFactory::class
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',
