@@ -44,6 +44,7 @@
         "ext-mongodb": "*",
         "alcaeus/mongo-php-adapter": "^1.0.0",
         "doctrine/doctrine-mongo-odm-module": "^1.0.0",
+        "ezyang/htmlpurifier": "^4.10",
         "hybridauth/hybridauth": "^2.10",
         "imagine/imagine": "^1.0",
         "jmikola/geojson": "^1.0",
@@ -57,7 +58,7 @@
         "symfony/process": "^3.4 | ^4.1",
         "tracy/tracy": "^2.4",
         "yawik/composer-plugin": ">=0.32@dev",
-        "yawik/geo": "^0.33.9",
+        "yawik/geo": "^1.0.0",
         "zendframework/zend-authentication": "^2.5",
         "zendframework/zend-cache": "^2.7",
         "zendframework/zend-captcha": "^2.7",
@@ -128,7 +129,6 @@
             "Acl\\": "module/Auth/src/Acl",
             "Core\\": "module/Core/src",
             "Cv\\": "module/Cv/src",
-            "Geo\\": "module/Geo/src",
             "Install\\": "module/Install/src",
             "Jobs\\": "module/Jobs/src",
             "Organizations\\": "module/Organizations/src",
@@ -144,7 +144,6 @@
             "CoreTest\\": "module/Core/test",
             "CoreTestUtils\\": "module/Core/test",
             "CvTest\\": "module/Cv/test",
-            "GeoTest\\": "module/Geo/test",
             "InstallTest\\": "module/Install/test",
             "JobsTest\\": "module/Jobs/test",
             "OrganizationsTest\\": "module/Organizations/test",
@@ -155,15 +154,15 @@
         }
     },
     "replace": {
-        "yawik/applications": "self.version",
-        "yawik/auth": "self.version",
-        "yawik/core": "self.version",
-        "yawik/cv": "self.version",
-        "yawik/install": "self.version",
-        "yawik/jobs": "self.version",
-        "yawik/organizations": "self.version",
-        "yawik/pdf": "self.version",
-        "yawik/settings": "self.version"
+        "yawik/applications": "0.33",
+        "yawik/auth": "0.33",
+        "yawik/core": "0.33",
+        "yawik/cv": "0.33",
+        "yawik/install": "0.33",
+        "yawik/jobs": "0.33",
+        "yawik/organizations": "0.33",
+        "yawik/pdf": "0.33",
+        "yawik/settings": "0.33"
     },
     "extra": {
         "branch-alias": {
