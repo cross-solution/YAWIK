@@ -37,6 +37,7 @@ cache:
     phpenv config-add etc/travis/phpenv.ini
   - &install-composer-dependencies |
     composer install --no-interaction
+    npm install
   - &setup-selenium |
     ./bin/start-selenium > /dev/null 2>&1 &
     sleep 5
