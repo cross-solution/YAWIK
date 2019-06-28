@@ -93,7 +93,7 @@
         "lakion/mink-debug-extension": "^1.2.3",
         "mikey179/vfsstream": "^1.6",
         "novaway/common-contexts": "~2.0",
-        "phpunit/phpunit": "^7.5.8 || ^8.1.2",
+        "phpunit/phpunit": "^7.5.8",
         "se/selenium-server-standalone": "^2.52",
         "zendframework/zend-component-installer": "^1.1 | ^2.0",
         "zendframework/zend-test": "^3.1"
