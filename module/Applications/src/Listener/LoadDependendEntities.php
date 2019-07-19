@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2018 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Applications\Listener;
 
@@ -21,13 +21,6 @@ use Jobs\Entity\Job;
  */
 class LoadDependendEntities
 {
-    private $repository;
-
-    public function __construct($repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function __invoke(DependencyResultEvent $event)
     {
         $entity = $event->getEntity();
