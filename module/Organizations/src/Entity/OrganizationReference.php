@@ -6,12 +6,13 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Organizations\Entity;
 
 use Auth\Entity\UserInterface;
 use Core\Entity\EntityInterface;
+use Core\Entity\MetaDataProviderTrait;
 use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\Collection;
 use Organizations\Repository\Organization as OrganizationRepository;
@@ -30,6 +31,8 @@ class OrganizationReference implements
     OrganizationInterface,
     OrganizationReferenceInterface
 {
+    use MetaDataProviderTrait;
+
     /*
      * Note: We start property names with an underscore to prevent
      * name collisions with the OrganizationInterface.

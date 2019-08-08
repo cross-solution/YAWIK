@@ -15,6 +15,7 @@ use Core\Entity\DraftableEntityInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\ImageSet;
+use Core\Entity\MetaDataProviderTrait;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\Collection;
@@ -43,6 +44,7 @@ class Organization extends BaseEntity implements
     DraftableEntityInterface,
     ResourceInterface
 {
+    use MetaDataProviderTrait;
 
     /**
      * Always enabled even if there are no active jobs
