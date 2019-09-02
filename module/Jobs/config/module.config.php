@@ -4,6 +4,8 @@ namespace Jobs;
 use Jobs\Controller\AdminCategoriesController;
 use Jobs\Controller\AdminController;
 use Jobs\Controller\ConsoleController;
+use Jobs\Controller\Plugin\ProcessJsonRequest;
+use Jobs\Controller\Plugin\ProcessJsonRequestFactory;
 use Jobs\Form\InputFilter\JobLocationEdit;
 use Jobs\Listener\Publisher;
 
@@ -319,6 +321,10 @@ return [
     'controller_plugins' => [
         'factories' => [
             'initializeJob' => 'Jobs\Factory\Controller\Plugin\InitializeJobFactory',
+            ProcessJsonRequest::class => ProcessJsonRequestFactory::class
+        ],
+        'aliases' => [
+            'processJsonRequest' => ProcessJsonRequest::class,
         ],
     ],
 
