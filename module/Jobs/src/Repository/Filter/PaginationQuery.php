@@ -83,6 +83,10 @@ class PaginationQuery extends AbstractPaginationQuery
             $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
+        if (isset($params['o']) && !empty($params['o'])) {
+            $queryBuilder->field('organization')->equals(new \MongoId($params['o']));
+//            $queryBuilder->field('metaData.companyName')->equals(new \MongoRegex('/' . $params['o'] . '/i'));
+        }
 
         if (isset($params['l'])) {
             $coords = $params['l']->getCoordinates()->getCoordinates();
@@ -120,14 +124,14 @@ class PaginationQuery extends AbstractPaginationQuery
              */
             $queryBuilder->field('status.name')->in([Status::ACTIVE, Status::WAITING_FOR_APPROVAL]);
         }
-        
+
         if (isset($params['publishedSince'])) {
             $publishedSince = $params['publishedSince'];
-            
+
             if (!$publishedSince instanceof DateTime) {
                 $publishedSince = new DateTime($publishedSince);
             }
-            
+
             $queryBuilder->field('datePublishStart.date')->gte($publishedSince);
         }
 
