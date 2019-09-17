@@ -74,7 +74,7 @@ class ProcessJsonRequest extends AbstractPlugin
                 'organizationLogo' => $this->extractOrganizationLogo($job),
                 'location' => $job->getLocation(),
                 'locations' => $this->extractLocations($job),
-                'apply' => ($this->serverUrl)(($this->applyUrl)($job, ['linkOnly' => true])),
+                'apply' => ($this->applyUrl)($job, ['linkOnly' => true, 'absolute' => true]),
             ];
 
 
