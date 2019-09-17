@@ -9,18 +9,20 @@
 
 namespace Cv;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Zend\Mvc\MvcEvent;
-use Auth\View\InjectLoginInfoListener;
-use Auth\Listener\TokenListener;
 
 /**
  * Bootstrap class of the Core module
  *
  */
-class Module
+class Module implements VersionProviderInterface
 {
+    use VersionProviderTrait;
 
-    
+    const VERSION = \Core\Module::VERSION;
+
     /**
      * Loads module specific configuration.
      *
@@ -30,7 +32,7 @@ class Module
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-    
+
     public function onBootstrap(MvcEvent $e)
     {
     }

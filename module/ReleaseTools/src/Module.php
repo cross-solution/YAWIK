@@ -9,6 +9,8 @@
 
 namespace ReleaseTools;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use ReleaseTools\Console\ReleaseController;
 use ReleaseTools\Console\SubsplitController;
 use Zend\Console\Adapter\AdapterInterface;
@@ -21,8 +23,13 @@ use Zend\Stdlib\ArrayUtils;
  */
 class Module implements
     ConfigProviderInterface,
-    ConsoleUsageProviderInterface
+    ConsoleUsageProviderInterface,
+    VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = \Core\Module::VERSION;
+
     public function getConfig()
     {
         return include __DIR__.'/../config/module.config.php';

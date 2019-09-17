@@ -9,6 +9,8 @@
 
 namespace Organizations;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\ModuleManager\ModuleConfigLoader;
 use Core\Options\ModuleOptions as CoreOptions;
 use Yawik\Composer\RequireDirectoryPermissionInterface;
@@ -20,8 +22,15 @@ use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 /**
  * Bootstrap class of the organizations module
  */
-class Module implements BootstrapListenerInterface, DependencyIndicatorInterface, RequireDirectoryPermissionInterface
+class Module implements
+    BootstrapListenerInterface,
+    DependencyIndicatorInterface,
+    RequireDirectoryPermissionInterface,
+    VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = \Core\Module::VERSION;
     /**
      * @param CoreOptions $options
      * @return array
@@ -59,7 +68,7 @@ class Module implements BootstrapListenerInterface, DependencyIndicatorInterface
                 $serviceManager = $event->getApplication()
                     ->getServiceManager();
                 $options = $serviceManager->get('Organizations/ImageFileCacheOptions');
-                
+
                 if ($options->getEnabled()) {
                     $serviceManager->get('Organizations\ImageFileCache\ApplicationListener')
                         ->onDispatchError($event);

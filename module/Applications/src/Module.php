@@ -25,7 +25,7 @@ class Module implements
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.32-dev';
+    const VERSION = \Core\Module::VERSION;
 
     /**
      * Displays console options
@@ -49,7 +49,7 @@ class Module implements
                                    . "- isDraft   Boolean   "),
         );
     }
-    
+
     /**
      * Loads module specific configuration.
      *

@@ -16,12 +16,18 @@ use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Loader\Exception\InvalidArgumentException;
 use Zend\Mvc\MvcEvent;
 use Auth\Listener\TokenListener;
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 
 /**
  * Bootstrap class of the Auth module
  */
-class Module implements AssetProviderInterface
+class Module implements AssetProviderInterface, VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = \Core\Module::VERSION;
+
     public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
     {
         if (\Zend\Console\Console::isConsole()) {
@@ -87,7 +93,7 @@ class Module implements AssetProviderInterface
         }
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
-            
+
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function (MvcEvent $e) use ($services) {
