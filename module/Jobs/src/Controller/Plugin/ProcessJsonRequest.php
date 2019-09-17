@@ -9,7 +9,7 @@
 
 namespace Jobs\Controller\Plugin;
 
-use Jobs\Entity\Job;
+use Jobs\Entity\JobInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
@@ -97,7 +97,7 @@ class ProcessJsonRequest extends AbstractPlugin
         return null;
     }
 
-    private function extractOrganization(Job $job)
+    private function extractOrganization(JobInterface $job)
     {
         if ($org = $job->getOrganization()) {
             return $org->getOrganizationName()->getName();
@@ -106,7 +106,7 @@ class ProcessJsonRequest extends AbstractPlugin
         return $job->getCompany() ?? null;
     }
 
-    private function extractOrganizationLogo(Job $job)
+    private function extractOrganizationLogo(JobInterface $job)
     {
         if (($org = $job->getOrganization()) && $org->getImage()) {
             return ($this->serverUrl)(
