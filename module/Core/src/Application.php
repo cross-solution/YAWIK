@@ -376,10 +376,10 @@ class Application extends BaseApplication
             }
             $info = new Version(Module::VERSION, $path);
 
-            //$exp = explode("@", $info);
-            $version = $info->getVersion();
-            static::$version = substr($version, 0, strlen($version)-10);
-            static::$revision = substr($version, 10);
+            $exp = explode("-g", $info->getVersion(), 2);
+            //$version = $info->getVersion();
+            static::$version = $exp[0]; //substr($version, 0, strlen($version)-10);
+            static::$revision = isset($exp[1]) ? $exp[1] : ''; //substr($version, 10);
         }
     }
 }

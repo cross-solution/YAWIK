@@ -9,6 +9,8 @@
 
 namespace Applications;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -17,8 +19,14 @@ use Core\ModuleManager\ModuleConfigLoader;
 /**
  * Bootstrap class of the applications module
  */
-class Module implements ConsoleUsageProviderInterface
+class Module implements
+    ConsoleUsageProviderInterface,
+    VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = '0.32-dev';
+
     /**
      * Displays console options
      *

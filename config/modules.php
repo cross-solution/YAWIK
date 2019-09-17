@@ -18,4 +18,5 @@ return [
     'Pdf',
     'Geo',
     'Organizations',
+    'Orders',
 ];
