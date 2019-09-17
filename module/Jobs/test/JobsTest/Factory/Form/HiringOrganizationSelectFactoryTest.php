@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Entity\Collection\ArrayCollection;
 use Interop\Container\ContainerInterface;
@@ -28,7 +30,7 @@ use Zend\Form\FormElementManager;
  * @group Jobs.Factory
  * @group Jobs.Factory.Form
  */
-class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
+class HiringOrganizationSelectFactoryTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -50,13 +52,13 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
      * @var FormElementManager
      */
     private $formElements;
-	
-	/**
-	 * @var ContainerInterface
-	 */
+    
+    /**
+     * @var ContainerInterface
+     */
     private $services;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new HiringOrganizationSelectFactory();
 
@@ -91,7 +93,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
                  ->method('get')
                  ->with('AuthenticationService')
                  ->willReturn($auth);
-	    
+        
         $this->services = $services;
     }
 
@@ -112,7 +114,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $org = $this->user->getOrganization();
         $org->expects($this->once())->method('hasAssociation')->willReturn(false);
 
-        $select = $this->target->__invoke($this->services,'irrelevant');
+        $select = $this->target->__invoke($this->services, 'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Form\HiringOrganizationSelect', $select);
     }
@@ -125,7 +127,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $org = $this->user->getOrganization();
         $org->expects($this->once())->method('hasAssociation')->willReturn(false);
 
-        $select = $this->target->__invoke($this->services,'irrelevant');
+        $select = $this->target->__invoke($this->services, 'irrelevant');
 
         $this->assertEquals(array(), $select->getValueOptions());
     }
@@ -142,11 +144,11 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $orgs = new ArrayCollection();
 
         $org0 = $this->generateOrganizationEntity(
-                    'testOrg0',
-                    'testOrg0.name',
-                    'org0.testCity',
-                    'org0.testStreet',
-                    'org0.1234'
+            'testOrg0',
+            'testOrg0.name',
+            'org0.testCity',
+            'org0.testStreet',
+            'org0.1234'
         );
 
         $org1 = $this->generateOrganizationEntity('testOrg1', 'testOrg1.name', 'org1.city', 'org1.street', 'org1.number');
@@ -161,7 +163,7 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
             'testOrg1' => 'testOrg1.name|org1.city|org1.street|org1.number|'
         );
 
-        $select = $this->target->__invoke($this->services,'irrelevant');
+        $select = $this->target->__invoke($this->services, 'irrelevant');
 
         $actual = $select->getValueOptions();
 

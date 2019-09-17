@@ -8,6 +8,8 @@
  */
 
 namespace CoreTest\Mail;
+
+use PHPUnit\Framework\TestCase;
 use Core\Mail\FileTransport;
 use Zend\Mail\Exception\RuntimeException;
 use Zend\Mail\Message;
@@ -21,7 +23,7 @@ use Zend\Mail\Transport\FileOptions;
  * @package CoreTest\Mail
  * @since 0.30.1
  */
-class FileTransportTest extends \PHPUnit_Framework_TestCase
+class FileTransportTest extends TestCase
 {
     public function testSendThrowException()
     {
@@ -54,8 +56,8 @@ class FileTransportTest extends \PHPUnit_Framework_TestCase
     public function testSend()
     {
         $testPath = sys_get_temp_dir().'/yawik/mails';
-        if(!is_dir($testPath)){
-            mkdir($testPath,0777,true);
+        if (!is_dir($testPath)) {
+            mkdir($testPath, 0777, true);
         }
 
         $message = $this->createMock(Message::class);

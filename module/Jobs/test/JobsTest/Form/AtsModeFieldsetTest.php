@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\AtsMode;
 use Jobs\Form\AtsModeFieldset;
 
@@ -21,7 +23,7 @@ use Jobs\Form\AtsModeFieldset;
  * @group Jobs
  * @group Jobs.Form
  */
-class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
+class AtsModeFieldsetTest extends TestCase
 {
 
     /**
@@ -151,7 +153,11 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $target->expects($this->exactly(5))->method('add')
                ->withConsecutive(
-                    array($addSelect), array($addUri), array($addEmail), array($addOneClickApply), array($addOneClickApplyProfiles)
+                   array($addSelect),
+                   array($addUri),
+                   array($addEmail),
+                   array($addOneClickApply),
+                   array($addOneClickApplyProfiles)
                 );
 
         $target->init();

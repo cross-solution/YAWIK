@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\Publisher;
 use GeoJson\GeoJson;
 
@@ -23,7 +25,7 @@ use GeoJson\GeoJson;
  * @group  Jobs
  * @group  Jobs.Entity
  */
-class PublisherTest extends \PHPUnit_Framework_TestCase
+class PublisherTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -32,7 +34,7 @@ class PublisherTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Publisher();
     }

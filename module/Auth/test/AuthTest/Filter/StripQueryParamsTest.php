@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Filter\StripQueryParams;
 
 /**
@@ -20,7 +22,7 @@ use Auth\Filter\StripQueryParams;
  * @group  Auth
  * @group  Auth.Filter
  */
-class StripQueryParamsTest extends \PHPUnit_Framework_TestCase
+class StripQueryParamsTest extends TestCase
 {
 
     /**
@@ -33,7 +35,7 @@ class StripQueryParamsTest extends \PHPUnit_Framework_TestCase
     /**
      * Setups shared fixture
      */
-    public function setup()
+    protected function setUp()
     {
         $this->filter = new StripQueryParams();
     }
@@ -56,8 +58,11 @@ class StripQueryParamsTest extends \PHPUnit_Framework_TestCase
      */
     public function testProvidesFluentInterface()
     {
-        $this->assertSame($this->filter, $this->filter->setStripParams(array()),
-                          'Fluent interface broken in method SetStripParams');
+        $this->assertSame(
+            $this->filter,
+            $this->filter->setStripParams(array()),
+            'Fluent interface broken in method SetStripParams'
+        );
     }
 
     /**

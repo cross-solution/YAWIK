@@ -10,19 +10,21 @@
 /** */
 namespace CoreTest\Factory\Navigation;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\Navigation\DefaultNavigationFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\Router\RouteMatch;
 
 /**
  * Tests for \Core\Factory\Navigation\DefaultNavigationFactory
- * 
+ *
  * @covers \Core\Factory\Navigation\DefaultNavigationFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
- *  
+ *
  */
-class DefaultNavigationFactoryTest extends \PHPUnit_Framework_TestCase
+class DefaultNavigationFactoryTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -88,7 +90,5 @@ class DefaultNavigationFactoryTest extends \PHPUnit_Framework_TestCase
         $actual = $m->invoke($this->target, $pages, null);
 
         $this->assertEquals($expect, $actual);
-
     }
 }
-

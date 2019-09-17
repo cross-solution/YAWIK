@@ -8,6 +8,8 @@
 
 namespace CvTest\Repository;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use CoreTestUtils\TestCase\FunctionalTestCase;
 use Cv\Entity\Cv;
@@ -31,7 +33,7 @@ class CvTest extends FunctionalTestCase
      */
     protected static $user;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -46,7 +48,7 @@ class CvTest extends FunctionalTestCase
         }
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         parent::tearDown();
         $this->removeCvData();

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Factory\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\Service\ImagineFactory;
 use Core\Options\ImagineOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
@@ -18,14 +20,14 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Service\ImagineFactory
- * 
+ *
  * @covers \Core\Factory\Service\ImagineFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Factory
  * @group Core.Factory.Service
  */
-class ImagineFactoryTest extends \PHPUnit_Framework_TestCase
+class ImagineFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -45,7 +47,7 @@ class ImagineFactoryTest extends \PHPUnit_Framework_TestCase
     {
         return [$this->getServiceManagerMock(), 'Imagine'];
     }
-	
+    
     public function invokationTestDataProvider()
     {
         return [
@@ -80,14 +82,13 @@ class ImagineFactoryTest extends \PHPUnit_Framework_TestCase
             $imagine = $this->target->__invoke($container, 'irrelevant');
             $this->assertInstanceOf($expect, $imagine);
             return true;
-
         } catch (\Imagine\Exception\RuntimeException $e) {
             if (false !== strpos($e->getMessage(), 'not installed')) {
+                self::assertTrue(true);
                 return true;
             }
         }
 
         $this->fail('Imagine instance creation for ' .$lib . ' failed.');
     }
-
 }

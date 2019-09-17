@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Factory\Auth\Dependency;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Factory\Auth\Dependency\ListListenerFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Auth\Dependency\ListListener;
@@ -17,7 +19,7 @@ use Organizations\Repository\Organization as Repository;
 /**
  * @coversDefaultClass \Organizations\Factory\Auth\Dependency\ListListenerFactory
  */
-class ListListenerFactoryTest extends \PHPUnit_Framework_TestCase
+class ListListenerFactoryTest extends TestCase
 {
 
     /**
@@ -44,6 +46,6 @@ class ListListenerFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($repositories);
         
         $listListenerFactory = new ListListenerFactory();
-        $this->assertInstanceOf(ListListener::class, $listListenerFactory->__invoke($serviceLocator,'irrelevant'));
+        $this->assertInstanceOf(ListListener::class, $listListenerFactory->__invoke($serviceLocator, 'irrelevant'));
     }
 }

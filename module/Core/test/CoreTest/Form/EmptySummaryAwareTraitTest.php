@@ -8,6 +8,8 @@
  */
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\EmptySummaryAwareTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -18,7 +20,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.26
  */
-class EmptySummaryAwareTraitTest extends \PHPUnit_Framework_TestCase
+class EmptySummaryAwareTraitTest extends TestCase
 {
     use SetupTargetTrait, TestSetterGetterTrait;
 
@@ -32,13 +34,17 @@ class EmptySummaryAwareTraitTest extends \PHPUnit_Framework_TestCase
         return  [
             [ 'summaryEmpty', [
                 'ignore_setter' => true,
-                'pre' => function() { $this->target->add(['name' => 'test', 'type' => 'text', 'attributes' => ['value'=>'test']]); },
+                'pre' => function () {
+                    $this->target->add(['name' => 'test', 'type' => 'text', 'attributes' => ['value'=>'test']]);
+                },
                 'value' => false,
                 'getter_method' => 'is*'
             ]],
             [ 'summaryEmpty', [
                 'ignore_setter' => true,
-                'pre' => function() { $this->target->add(['name' => 'test', 'type' => 'text']); },
+                'pre' => function () {
+                    $this->target->add(['name' => 'test', 'type' => 'text']);
+                },
                 'value' => true,
                 'getter_method' => 'is*',
             ]],
@@ -53,17 +59,14 @@ class EmptySummaryAwareTraitTest extends \PHPUnit_Framework_TestCase
 
         ];
     }
-
 }
 
 class EmptySummaryAwareTraitMock extends \Zend\Form\Fieldset
 {
-    
     use EmptySummaryAwareTrait;
 }
 class EmptySummaryAwareTraitWithDefaultNoticeMock extends \Zend\Form\Fieldset
 {
-
     private $defaultEmptySummaryNotice = 'defaultNotice';
     use EmptySummaryAwareTrait;
 }

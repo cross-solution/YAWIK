@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\Proxy;
 use Core\View\Helper\Proxy\NoopHelper;
 use Core\View\Helper\Proxy\NoopIterator;
@@ -22,14 +24,14 @@ use Zend\View\Renderer\RendererInterface;
 
 /**
  * Tests for \Core\View\Helper\Proxy
- * 
+ *
  * @covers \Core\View\Helper\Proxy
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.View
  * @group Core.View.Helper
  */
-class ProxyTest extends \PHPUnit_Framework_TestCase
+class ProxyTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -60,21 +62,21 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
     private function injectHelperManager($services = [])
     {
-    	$sm = $this->createServiceManagerMock();
-        $manager = $this->createPluginManagerMock($services,$sm);
+        $sm = $this->createServiceManagerMock();
+        $manager = $this->createPluginManagerMock($services, $sm);
 
         $renderer = $this->getMockBuilder(PhpRenderer::class)
-			->disableOriginalConstructor()
+            ->disableOriginalConstructor()
             ->setMethods(['getHelperPluginManager'])
             ->getMock()
         ;
 
         $renderer
-	        ->expects($this->any())
-	        ->method('getHelperPluginManager')
-	        ->will($this->returnValue($manager))
+            ->expects($this->any())
+            ->method('getHelperPluginManager')
+            ->will($this->returnValue($manager))
         ;
-	    
+        
         $this->target->setView($renderer);
         $this->helperManager = $manager;
     }
@@ -153,7 +155,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $options = ['option' => 'value'];
         $this->injectHelperManager(['helper' => PtHelperDummy::class]);
         $this->helperManager
-	        ->setExpectedCallCount('get', 'helper', $options, 1)
+            ->setExpectedCallCount('get', 'helper', $options, 1)
         ;
 
         $this->target->plugin('helper', $options);
@@ -163,11 +165,8 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
     {
         $this->target->exists('helper');
     }
-
 }
 
 class PtHelperDummy
 {
-
 }
-

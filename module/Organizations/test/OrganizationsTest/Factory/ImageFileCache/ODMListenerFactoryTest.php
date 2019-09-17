@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\Factory\ImageFileCache;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Factory\ImageFileCache\ODMListenerFactory;
 use Organizations\ImageFileCache\ODMListener;
@@ -17,7 +19,7 @@ use Organizations\ImageFileCache\Manager;
 /**
  * @coversDefaultClass \Organizations\Factory\ImageFileCache\ODMListenerFactory
  */
-class ODMListenerFactoryTest extends \PHPUnit_Framework_TestCase
+class ODMListenerFactoryTest extends TestCase
 {
 
     /**
@@ -38,7 +40,7 @@ class ODMListenerFactoryTest extends \PHPUnit_Framework_TestCase
             ]));
         
         $factory = new ODMListenerFactory();
-        $listener = $factory->__invoke($serviceLocator,'irrelevant');
+        $listener = $factory->__invoke($serviceLocator, 'irrelevant');
         $this->assertInstanceOf(ODMListener::class, $listener);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace CoreTest\Filter\File;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Filter\File\Entity;
 use Core\Filter\File\EntityFactory;
 use Core\Repository\RepositoryService;
@@ -12,7 +14,7 @@ use Interop\Container\ContainerInterface;
  * @package CoreTest\Filter\File
  * @author Anthonius Munthi <me@itstoni.com>
  */
-class EntityFactoryTest extends \PHPUnit_Framework_TestCase
+class EntityFactoryTest extends TestCase
 {
     public function testInvokation()
     {

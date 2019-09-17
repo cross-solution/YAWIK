@@ -3,6 +3,7 @@
         bootstrap="./vendor/autoload.php"
         colors="true"
         ignoreDeprecatedCodeUnitsFromCodeCoverage="true"
+        beStrictAboutTestsThatDoNotTestAnything="true"
 >
     <php>
         <env name="APPLICATION_ENV" value="test"/>
@@ -13,6 +14,7 @@
             <directory suffix=".php">./module/*/src</directory>
             <exclude>
                 <directory>./module/Behat</directory>
+                <directory>./module/ReleaseTools</directory>
             </exclude>
         </whitelist>
     </filter>

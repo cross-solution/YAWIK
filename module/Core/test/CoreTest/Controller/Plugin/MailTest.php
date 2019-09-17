@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\Mail;
 use Interop\Container\ContainerInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -37,7 +39,6 @@ class MailControllerTest implements DispatchableInterface
     {
         return $this->dispatched;
     }
-
 }
 
 /**
@@ -46,7 +47,7 @@ class MailControllerTest implements DispatchableInterface
  * @package CoreTest\Controller\Plugin
  * @covers \Core\Controller\Plugin\Mail
  */
-class MailTest extends \PHPUnit_Framework_TestCase
+class MailTest extends TestCase
 {
     /**
      * @var Mail
@@ -78,7 +79,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
      */
     private $controller;
 
-    public function setUp()
+    protected function setUp()
     {
         $container = $this->createMock(ContainerInterface::class);
         $this->mailLog = $this->createMock(LoggerInterface::class);
@@ -136,10 +137,10 @@ class MailTest extends \PHPUnit_Framework_TestCase
         $target($params);
         $target->template('null-template');
 
-        $this->assertInstanceOf(Sendmail::class,$target->getTransport());
-        $this->assertSame($this->controller,$target->getController());
-        $this->assertContains('Hello World!',$target->getBody());
-        $this->assertNotContains($params['this'],$target->getBody());
+        $this->assertInstanceOf(Sendmail::class, $target->getTransport());
+        $this->assertSame($this->controller, $target->getController());
+        $this->assertContains('Hello World!', $target->getBody());
+        $this->assertNotContains($params['this'], $target->getBody());
     }
 
     public function testTemplateThrowExceptionWhenTemplateFileError()
@@ -175,18 +176,18 @@ class MailTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getTestInformationCompleteException
      */
-    public function testInformationCompleteException($remove,$message)
+    public function testInformationCompleteException($remove, $message)
     {
         $srcFile = __DIR__.'/fixtures/mail-template.phtml';
         $tplFile = sys_get_temp_dir().'/yawik/mail-template.phtml';
 
         $contents = file_get_contents($srcFile);
         $pattern = "/^.*".preg_quote($remove).".*$/m";
-        $contents = preg_replace($pattern,'',$contents);
-        if(!is_dir($dir = dirname($tplFile))){
-            mkdir($dir,0777,true);
+        $contents = preg_replace($pattern, '', $contents);
+        if (!is_dir($dir = dirname($tplFile))) {
+            mkdir($dir, 0777, true);
         }
-        file_put_contents($tplFile,$contents,LOCK_EX);
+        file_put_contents($tplFile, $contents, LOCK_EX);
 
         $resolver = $this->createMock(ResolverInterface::class);
         $resolver->expects($this->any())
@@ -245,7 +246,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
             'Hello' => 'World'
         ]);
         $target->setTransport($transport);
-        $target->getHeaders()->addHeaderLine('to','to@example.com');
+        $target->getHeaders()->addHeaderLine('to', 'to@example.com');
         $target->template('template');
         $this->assertTrue($target->send());
         $this->assertContains(

@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form\InputFilter;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Entity\AtsModeInterface;
 use Jobs\Form\InputFilter\AtsMode;
 
@@ -22,7 +24,7 @@ use Jobs\Form\InputFilter\AtsMode;
  * @group Jobs.Form
  * @group Jobs.Form.InputFilter
  */
-class AtsModeTest extends \PHPUnit_Framework_TestCase
+class AtsModeTest extends TestCase
 {
 
     /**

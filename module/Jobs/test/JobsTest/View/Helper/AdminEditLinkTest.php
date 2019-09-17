@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Job;
 use Jobs\View\Helper\AdminEditLink;
@@ -18,14 +20,14 @@ use Zend\View\Helper\Url;
 
 /**
  * Tests for \Jobs\View\Helper\AdminEditLink
- * 
+ *
  * @covers \Jobs\View\Helper\AdminEditLink
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.View
  * @group Jobs.View.Helper
  */
-class AdminEditLinkTest extends \PHPUnit_Framework_TestCase
+class AdminEditLinkTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -44,8 +46,12 @@ class AdminEditLinkTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['__invoke'])->getMock();
 
         $helper->expects($this->once())->method('__invoke')
-            ->with('lang/jobs/manage', ['action' => 'edit'],
-                    ['query' => ['id' => 'jobId', 'admin' => 1]], true)
+            ->with(
+                'lang/jobs/manage',
+                ['action' => 'edit'],
+                ['query' => ['id' => 'jobId', 'admin' => 1]],
+                true
+            )
             ->willReturn('job/edit/link?id=jobId&admin=1');
 
         return [
@@ -75,5 +81,4 @@ class AdminEditLinkTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expect, $this->target->__invoke($job));
     }
-
 }

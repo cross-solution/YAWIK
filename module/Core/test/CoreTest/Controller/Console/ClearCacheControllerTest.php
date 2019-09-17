@@ -10,6 +10,8 @@
 
 namespace CoreTest\Controller\Console;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Console\ClearCacheController;
 use Core\Service\ClearCacheService;
 use Interop\Container\ContainerInterface;
@@ -22,7 +24,7 @@ use Zend\Console\Adapter\AdapterInterface;
  * @since 0.32.0
  * @package CoreTest\Controller\Console
  */
-class ClearCacheControllerTest extends \PHPUnit_Framework_TestCase
+class ClearCacheControllerTest extends TestCase
 {
     public function testFactory()
     {

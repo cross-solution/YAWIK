@@ -23,9 +23,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *                    "qualifications"="text",
  *                    "benefits"="text",
  *                    "title"="text"},
- *              name="fulltext")
+ *              name="fulltext",
+ *              options={"language_override":"lang_index"})
  * })
  * @since 0.29 Adds html field.
+ * @since 0.33 Add option 'language_override' to index definition.
  */
 class TemplateValues extends AbstractEntity implements TemplateValuesInterface
 {
@@ -86,6 +88,22 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * @since 0.29
      */
     protected $html='';
+
+    /**
+     * Introduction text for the job template
+     *
+     * @ODM\Field(type="string")
+     * @var string
+     */
+    protected $introduction = '';
+
+    /**
+     * Boilerplate (outro) text for the job template
+     *
+     * @ODM\Field(type="string")
+     * @var string
+     */
+    protected $boilerplate = '';
 
     /**
      * free values (currently not in use)
@@ -246,6 +264,46 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
     public function getHtml()
     {
         return $this->html;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntroduction(): string
+    {
+        return $this->introduction;
+    }
+
+    /**
+     * @param string $introduction
+     *
+     * @return self
+     */
+    public function setIntroduction($introduction)
+    {
+        $this->introduction = $introduction;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBoilerplate(): string
+    {
+        return $this->boilerplate;
+    }
+
+    /**
+     * @param string $boilerplate
+     *
+     * @return self
+     */
+    public function setBoilerplate($boilerplate)
+    {
+        $this->boilerplate = $boilerplate;
+
+        return $this;
     }
 
 

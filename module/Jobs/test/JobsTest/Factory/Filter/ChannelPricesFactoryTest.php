@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Filter;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Factory\Filter\ChannelPricesFactory;
 use Jobs\Options\ChannelOptions;
 use Jobs\Options\ProviderOptions;
@@ -23,7 +25,7 @@ use Jobs\Options\ProviderOptions;
  * @group  Jobs.Factory
  * @group  Jobs.Factory.Filter
  */
-class ChannelPricesFactoryTest extends \PHPUnit_Framework_TestCase
+class ChannelPricesFactoryTest extends TestCase
 {
     /**
      * @testdox Implements \Zend\ServiceManager\FactoryInterface
@@ -46,15 +48,15 @@ class ChannelPricesFactoryTest extends \PHPUnit_Framework_TestCase
 
 
         $serviceManagerMock
-	        ->expects($this->once())
-	        ->method('get')
-	        ->with('Jobs/Options/Provider')
-	        ->willReturn($provider)
+            ->expects($this->once())
+            ->method('get')
+            ->with('Jobs/Options/Provider')
+            ->willReturn($provider)
         ;
         
         $target = new ChannelPricesFactory();
 
-        $service = $target->__invoke($serviceManagerMock,'irrelevant');
+        $service = $target->__invoke($serviceManagerMock, 'irrelevant');
 
         $this->assertInstanceOf('\Jobs\Filter\ChannelPrices', $service);
     }

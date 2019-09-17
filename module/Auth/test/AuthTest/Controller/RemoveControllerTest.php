@@ -9,6 +9,8 @@
 
 namespace AuthTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Controller\RemoveController;
 use Auth\Dependency\Manager as Dependencies;
 use Auth\AuthenticationService;
@@ -24,7 +26,7 @@ use Zend\Http\PhpEnvironment\Response;
  *
  * @coversDefaultClass \Auth\Controller\RemoveController
  */
-class RemoveControllerTest extends \PHPUnit_Framework_TestCase
+class RemoveControllerTest extends TestCase
 {
     
     /**
@@ -50,7 +52,7 @@ class RemoveControllerTest extends \PHPUnit_Framework_TestCase
     protected $userRepository;
 
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * @see PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -88,13 +90,13 @@ class RemoveControllerTest extends \PHPUnit_Framework_TestCase
             ->willReturn($user);
         
         $result = $this->controller->indexAction();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('lists', $result);
         $this->assertSame($lists, $result['lists']);
         $this->assertArrayHasKey('user', $result);
         $this->assertSame($user, $result['user']);
         $this->assertArrayHasKey('limit', $result);
-        $this->assertInternalType('int', $result['limit']);
+        $this->assertIsInt($result['limit']);
         $this->assertGreaterThan(0, $result['limit']);
         $this->assertArrayHasKey('error', $result);
         $this->assertFalse($result['error']);
@@ -125,7 +127,7 @@ class RemoveControllerTest extends \PHPUnit_Framework_TestCase
         
         $pluginManager = $this->controller->getPluginManager();
         $pluginManager->setService('redirect', $redirect);
-		$pluginManager->setService('params', $params);
+        $pluginManager->setService('params', $params);
         
         $user = $this->getMockBuilder(User::class)
             ->getMock();
@@ -186,13 +188,13 @@ class RemoveControllerTest extends \PHPUnit_Framework_TestCase
         $this->userRepository->expects($this->never())->method('remove')->with($user);
         
         $result = $this->controller->indexAction();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('lists', $result);
         $this->assertSame($lists, $result['lists']);
         $this->assertArrayHasKey('user', $result);
         $this->assertSame($user, $result['user']);
         $this->assertArrayHasKey('limit', $result);
-        $this->assertInternalType('int', $result['limit']);
+        $this->assertIsInt($result['limit']);
         $this->assertGreaterThan(0, $result['limit']);
         $this->assertArrayHasKey('error', $result);
         $this->assertTrue($result['error']);

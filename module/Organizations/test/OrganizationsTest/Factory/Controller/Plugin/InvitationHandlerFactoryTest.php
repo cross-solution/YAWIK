@@ -10,12 +10,14 @@
 /** */
 namespace OrganizationsTest\Factory\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Factory\Controller\Plugin\InvitationHandlerFactory;
 use Zend\Mvc\Controller\PluginManager;
 
 /**
  * Tests for \Organizations\Factory\Controller\Plugin\InvitationHandlerFactory
- * 
+ *
  * @covers \Organizations\Factory\Controller\Plugin\InvitationHandlerFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
@@ -25,7 +27,7 @@ use Zend\Mvc\Controller\PluginManager;
  * @group Organizations.Factory.Controller
  * @group Organizations.Factory.Controller.Plugin
  */
-class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
+class InvitationHandlerFactoryTest extends TestCase
 {
 
     /**
@@ -52,22 +54,22 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
         $repositories->expects($this->once())->method('get')->with('Auth/User')->willReturn($userRepository);
 
         $translator = new \Zend\I18n\Translator\Translator();
-	
-	    $mailer = $this->getMockBuilder('\Core\Controller\Plugin\Mailer')
-	                   ->disableOriginalConstructor()
-	                   ->getMock()
-	    ;
-	    
+    
+        $mailer = $this->getMockBuilder('\Core\Controller\Plugin\Mailer')
+                       ->disableOriginalConstructor()
+                       ->getMock()
+        ;
+        
         $pluginManager = $this->getMockBuilder(PluginManager::class)
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         
         $pluginManager->expects($this->once())
-	        ->method('get')
-	        ->with('Core/Mailer')
-	        ->willReturn($mailer)
-	    ;
+            ->method('get')
+            ->with('Core/Mailer')
+            ->willReturn($mailer)
+        ;
 
         $emailValidator = new \Zend\Validator\EmailAddress();
 
@@ -82,13 +84,13 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
                      array('translator', $translator),
                      array('repositories', $repositories),
                      array('Auth/UserTokenGenerator', $tokenGenerator),
-	                 array('ControllerPluginManager',$pluginManager),
+                     array('ControllerPluginManager',$pluginManager),
                  )));
 
         /*
          * test start here
          */
-        $plugin = $target->__invoke($services,'irrelevant');
+        $plugin = $target->__invoke($services, 'irrelevant');
 
         $this->assertInstanceOf('\Organizations\Controller\Plugin\InvitationHandler', $plugin);
         $this->assertSame($tokenGenerator, $plugin->getUserTokenGenerator());
@@ -96,6 +98,5 @@ class InvitationHandlerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($translator, $plugin->getTranslator());
         $this->assertSame($mailer, $plugin->getMailerPlugin());
         $this->assertSame($emailValidator, $plugin->getEmailValidator());
-
     }
 }

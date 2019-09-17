@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Listener\JobSelectValues;
 use Applications\Paginator\JobSelectPaginator;
 use Core\Listener\Events\AjaxEvent;
@@ -18,18 +20,18 @@ use Zend\Http\PhpEnvironment\Request;
 
 /**
  * Tests for \Applications\Listener\JobSelectValues
- * 
+ *
  * @covers \Applications\Listener\JobSelectValues
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Applications
  * @group Applications.Listener
  */
-class JobSelectValuesTest extends \PHPUnit_Framework_TestCase
+class JobSelectValuesTest extends TestCase
 {
     private $target;
     private $paginator;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->paginator = $this->getMockBuilder(JobSelectPaginator::class)->disableOriginalConstructor()->getMock();
         $this->target    = new JobSelectValues($this->paginator);

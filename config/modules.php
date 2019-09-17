@@ -18,5 +18,5 @@ return [
     'Pdf',
     'Geo',
     'Organizations',
-    'Orders',
+    'ReleaseTools'
 ];

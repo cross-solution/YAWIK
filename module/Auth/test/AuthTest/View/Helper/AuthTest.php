@@ -10,6 +10,8 @@
 /** */
 namespace AuthTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Auth\View\Helper\Auth as AuthHelper;
 
@@ -23,9 +25,8 @@ use Auth\View\Helper\Auth as AuthHelper;
  * @group Auth.View.Helper
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class AuthTest extends \PHPUnit_Framework_TestCase
+class AuthTest extends TestCase
 {
-
     public function testExtendsZfAbstractHelper()
     {
         $target = new AuthHelper();

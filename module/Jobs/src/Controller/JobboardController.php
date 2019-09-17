@@ -19,6 +19,7 @@ use Zend\Session\Container as Session;
 use Jobs\Repository;
 use Zend\View\Model\ViewModel;
 use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
+use Zend\View\Model\JsonModel;
 
 /**
  * @method \Auth\Controller\Plugin\Auth auth()
@@ -39,9 +40,9 @@ class JobboardController extends AbstractActionController
     private $options = [
         'count' => 10
     ];
-    
+
     private $defaultListener;
-    
+
     private $imageFileCacheManager;
 
     /**
@@ -110,6 +111,22 @@ class JobboardController extends AbstractActionController
 
         $result['organizationImageCache'] = $organizationImageCache;
 
+        $isJson = $this->params()->fromQuery('json', false);
+
+        if ($isJson) {
+            return $this->getJsonView($result);
+        }
+
         return new ViewModel($result);
+    }
+
+    private function getJsonView($result)
+    {
+        $response = $this->getResponse();
+        $response->getHeaders()->addHeaderLine('Access-Control-Allow-Origin', '*');
+
+        $result = $this->processJsonRequest($result);
+
+        return new JsonModel($result);
     }
 }

@@ -21,7 +21,7 @@
         "yawik", "module", "zf"
     ],
     "require": {
-        "yawik/core": "^0.32@dev"
+        "yawik/core": ">=0.33@dev"
     },
     "autoload": {
         "psr-4": {
@@ -35,7 +35,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.32-dev"
+            "dev-develop": "0.33-dev"
         },
         "zf": {
             "module": "Applications"

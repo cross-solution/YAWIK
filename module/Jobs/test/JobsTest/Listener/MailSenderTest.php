@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Mail\HTMLTemplateMessage;
 use Jobs\Entity\Job;
@@ -24,7 +26,7 @@ use Jobs\Listener\MailSender;
  * @group Jobs
  * @group Jobs.Listener
  */
-class MailSenderTest extends \PHPUnit_Framework_TestCase
+class MailSenderTest extends TestCase
 {
     /**
      * Class under Test
@@ -39,7 +41,9 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
 
     private $jobEvent;
 
-    public function setUp()
+    private $mailMock;
+
+    protected function setUp()
     {
         switch ($this->getName(false)) {
             case 'testImplementsListenerAggregateInterface':
@@ -59,7 +63,8 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
                 $this->mailServiceMock = $this->getMockBuilder('\Core\Mail\MailService')->disableOriginalConstructor()->getMock();
                 $this->mailServiceMock->expects($this->atLeastOnce())
                                       ->method('send')
-                                      ->with($this->callback(array($this, 'popMailMock')));
+                                      ->with($this->isInstanceOf(HTMLTemplateMessage::class))
+                ;
                 $this->mailServiceMock->expects($this->any())
                                       ->method('get')->with('htmltemplate')
                                       ->will($this->returnCallback(array($this, 'pushMailMock')));
@@ -105,22 +110,24 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
                        ->getMock();
 
         $callback1 = [new MailSenderListenerMock(),'listen1'];
-	    $callback2 = [new MailSenderListenerMock(),'listen2'];
-	    $callback3 = [new MailSenderListenerMock(),'listen3'];
+        $callback2 = [new MailSenderListenerMock(),'listen2'];
+        $callback3 = [new MailSenderListenerMock(),'listen3'];
         $events->expects($this->exactly(3))
                ->method('attach')
                ->withConsecutive(
-                    array(JobEvent::EVENT_JOB_CREATED, array($this->target, 'onJobCreated')),
-                    array(JobEvent::EVENT_JOB_ACCEPTED, array($this->target, 'onJobAccepted')),
-                    array(JobEvent::EVENT_JOB_REJECTED, array($this->target, 'onJobRejected'))
+                   array(JobEvent::EVENT_JOB_CREATED, array($this->target, 'onJobCreated')),
+                   array(JobEvent::EVENT_JOB_ACCEPTED, array($this->target, 'onJobAccepted')),
+                   array(JobEvent::EVENT_JOB_REJECTED, array($this->target, 'onJobRejected'))
                )
-               ->will($this->onConsecutiveCalls($callback1,$callback2,$callback3))
+               ->will($this->onConsecutiveCalls($callback1, $callback2, $callback3))
         ;
 
         $events->expects($this->exactly(3))
                ->method('detach')
                ->withConsecutive(
-                    array($callback1), array($callback2), array($callback3)
+                   array($callback1),
+                   array($callback2),
+                   array($callback3)
                )->willReturn(true);
 
         $this->target->attach($events);
@@ -136,8 +143,11 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
         $info = $job->getUser()->getInfo();
         $this->addExpectedMailValues('mail/job-created', 'A new job opening was created', 'test@admin', $job, 'Test');
         $this->addExpectedMailValues(
-            'mail/job-pending', 'Your Job have been wrapped up for approval',
-            array($info->getEmail(), $info->getDisplayName(false)), $job, 'Test'
+            'mail/job-pending',
+            'Your Job have been wrapped up for approval',
+            array($info->getEmail(), $info->getDisplayName(false)),
+            $job,
+            'Test'
         );
 
         $this->target->onJobCreated($this->jobEvent);
@@ -196,7 +206,13 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
 
 class MailSenderListenerMock
 {
-	public function listen1(){}
-	public function listen2(){}
-	public function listen3(){}
+    public function listen1()
+    {
+    }
+    public function listen2()
+    {
+    }
+    public function listen3()
+    {
+    }
 }

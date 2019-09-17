@@ -11,6 +11,8 @@
 
 namespace CoreTest;
 
+use PHPUnit\Framework\TestCase;
+
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 use Core\Application;

@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Organizations\Entity\Employee;
 use Organizations\Entity\EmployeePermissions;
@@ -22,7 +24,7 @@ use Organizations\Entity\EmployeePermissions;
  * @group Organizations
  * @group Organizations.Entity
  */
-class EmployeeTest extends \PHPUnit_Framework_TestCase
+class EmployeeTest extends TestCase
 {
 
     /**
@@ -32,7 +34,7 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         if ('testCreateInstancesViaConstructor' == $this->getName(false)) {
             return;
@@ -51,7 +53,7 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
 
     public function provideConstructorPermissions()
     {
-        $user = $this->getMock('\Auth\Entity\User');
+        $user = $this->getMockBuilder('\Auth\Entity\User')->getMock();
         return array(
             array(null, null),
             array(null, EmployeePermissions::APPLICATIONS_VIEW),
@@ -79,9 +81,9 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
             $this->assertSame($user, $target->getUser());
 
 
-            if ($permissions instanceOf EmployeePermissions) {
+            if ($permissions instanceof EmployeePermissions) {
                 $this->assertSame($permissions, $target->getPermissions());
-            } else if (is_int($permissions)) {
+            } elseif (is_int($permissions)) {
                 $this->assertEquals($permissions, $target->getPermissions()->getPermissions());
             } else {
                 $this->assertAttributeEmpty('permissions', $target);
@@ -127,7 +129,6 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
         $perm   = $target->getPermissions();
 
         $this->assertInstanceOf('\Organizations\Entity\EmployeePermissionsInterface', $perm);
-
     }
 
     /**
@@ -143,7 +144,6 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResults[2], $this->target->isRejected(), 'isRejected fails!');
         $this->assertEquals($expectedResults[3], $this->target->isUnassigned(), 'isUnassigned fails!');
         $this->assertEquals($expectedResults[4], $this->target->isUnassigned(true), 'isUnassigned strict mode fails!');
-
     }
 
     /**
@@ -194,5 +194,4 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
             array(Employee::ROLE_RECRUITER),
         );
     }
-
 }

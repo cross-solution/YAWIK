@@ -14,10 +14,10 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 
-class RepositoryServiceTest extends PHPUnit_Framework_TestCase
+class RepositoryServiceTest extends TestCase
 {
     use ServiceManagerMockTrait;
 
@@ -36,7 +36,7 @@ class RepositoryServiceTest extends PHPUnit_Framework_TestCase
      */
     protected $eventManager;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->dm = $this
             ->getMockBuilder(DocumentManager::class)

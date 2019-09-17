@@ -9,15 +9,18 @@
 
 namespace Auth\Factory\Form;
 
+use Auth\Options\UserInfoFieldsetOptions;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Factory\Form\AbstractCustomizableFieldsetFactory;
 use Auth\Entity\UserImage;
 use Auth\Form\UserInfoFieldset;
 
-class UserInfoFieldsetFactory implements FactoryInterface
+class UserInfoFieldsetFactory extends AbstractCustomizableFieldsetFactory implements FactoryInterface
 {
+    const OPTIONS_NAME = UserInfoFieldsetOptions::class;
     /**
      * Create an UserInfoFieldset.
      *
@@ -27,7 +30,7 @@ class UserInfoFieldsetFactory implements FactoryInterface
      *
      * @return UserInfoFieldset
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    protected function createFormInstance(ContainerInterface $container, $requestedName, array $options = null)
     {
         $user = $container->get('AuthenticationService')->getUser();
         $fieldset     = new UserInfoFieldset();

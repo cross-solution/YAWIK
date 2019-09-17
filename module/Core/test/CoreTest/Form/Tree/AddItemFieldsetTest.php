@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form\Tree;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\Tree\AddItemFieldset;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
@@ -21,14 +23,14 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Tests for \Core\Form\Tree\AddItemFieldset
- * 
+ *
  * @covers \Core\Form\Tree\AddItemFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Form
  * @group Core.Form.Tree
  */
-class AddItemFieldsetTest extends \PHPUnit_Framework_TestCase
+class AddItemFieldsetTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 
@@ -55,12 +57,12 @@ class AddItemFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $mock->expects($this->exactly(6))->method('add')
              ->withConsecutive(
-                [['name' => 'id', 'type' => 'Hidden']],
-                [['name' => 'current', 'type' => 'Hidden']],
-                [['name' => 'do', 'type' => 'Hidden']],
-                [['name' => 'name', 'type' => 'Text', 'options' => ['label' => 'Name'], 'attributes' => ['required' => 'required']]],
-                [['name' => 'value', 'type' => 'Text', 'options' => ['label' => 'Value']]],
-                [['name' => 'priority', 'type' => 'Text']]
+                 [['name' => 'id', 'type' => 'Hidden']],
+                 [['name' => 'current', 'type' => 'Hidden']],
+                 [['name' => 'do', 'type' => 'Hidden']],
+                 [['name' => 'name', 'type' => 'Text', 'options' => ['label' => 'Name'], 'attributes' => ['required' => 'required']]],
+                 [['name' => 'value', 'type' => 'Text', 'options' => ['label' => 'Value']]],
+                 [['name' => 'priority', 'type' => 'Text']]
              );
 
         return $mock;
@@ -90,5 +92,4 @@ class AddItemFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $this->target->getInputFilterSpecification());
     }
-    
 }

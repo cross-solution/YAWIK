@@ -9,6 +9,8 @@
 
 namespace CoreTest\Mail;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Options\ModuleOptions as AuthOptions;
 use Core\Mail\FileTransport;
 use Core\Mail\MailService;
@@ -28,7 +30,7 @@ use Zend\ServiceManager\Exception\ServiceNotCreatedException;
  * @covers \Core\Mail\MailServiceFactory
  * @since 0.30.1
  */
-class MailServiceFactoryTest extends \PHPUnit_Framework_TestCase
+class MailServiceFactoryTest extends TestCase
 {
     public function testInvokation()
     {
@@ -44,7 +46,8 @@ class MailServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         $container->expects($this->any())
             ->method('get')
-            ->willReturnMap([
+            ->willReturnMap(
+                [
                     ['Config',[]],
                     ['Auth/Options',$authOptions],
                     ['Core/MailServiceOptions',$mailOptions]
@@ -58,12 +61,12 @@ class MailServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         /* @var \Core\Mail\MailService $service */
         /* @var \Zend\ServiceManager\Factory\FactoryInterface $target */
-        $service = $target($container,'some-name');
+        $service = $target($container, 'some-name');
         $this->assertInstanceOf(
             MailService::class,
             $service
         );
-        $this->assertSame($transport,$service->getTransport());
+        $this->assertSame($transport, $service->getTransport());
     }
 
     public function testGetTransport()
@@ -72,19 +75,18 @@ class MailServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new MailServiceFactory();
 
         $options->setTransportClass('smtp');
-        $this->assertInstanceOf(Smtp::class,$factory->getTransport($options));
+        $this->assertInstanceOf(Smtp::class, $factory->getTransport($options));
 
         $options->setTransportClass('file');
-        $this->assertInstanceOf(FileTransport::class,$factory->getTransport($options));
+        $this->assertInstanceOf(FileTransport::class, $factory->getTransport($options));
 
         $options->setTransportClass('sendmail');
-        $this->assertInstanceOf(Sendmail::class,$factory->getTransport($options));
+        $this->assertInstanceOf(Sendmail::class, $factory->getTransport($options));
 
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessageRegExp('/\"foo\" is not a valid/');
 
         $options->setTransportClass('foo');
-        $this->assertInstanceOf(Sendmail::class,$factory->getTransport($options));
-
+        $this->assertInstanceOf(Sendmail::class, $factory->getTransport($options));
     }
 }

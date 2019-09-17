@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\CompanyNameFieldset;
 
 /**
@@ -20,7 +22,7 @@ use Jobs\Form\CompanyNameFieldset;
  * @group Jobs
  * @group Jobs.Form
  */
-class CompanyNameFieldsetTest extends \PHPUnit_Framework_TestCase
+class CompanyNameFieldsetTest extends TestCase
 {
     /**
      * Class under Test
@@ -29,7 +31,7 @@ class CompanyNameFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = $this->getMockBuilder('\Jobs\Form\CompanyNameFieldset')
                              ->disableOriginalConstructor()
@@ -93,8 +95,8 @@ class CompanyNameFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->target->expects($this->exactly(2))
                      ->method('add')
                      ->withConsecutive(
-                        [$addParam1],
-                        [$addParam2]
+                         [$addParam1],
+                         [$addParam2]
                     );
 
         $this->target->init();

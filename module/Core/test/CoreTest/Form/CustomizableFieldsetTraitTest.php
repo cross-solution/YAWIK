@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\CustomizableFieldsetInterface;
 use Core\Form\CustomizableFieldsetTrait;
 use Core\Options\FieldsetCustomizationOptions;
@@ -19,13 +21,13 @@ use Zend\Form\Fieldset;
 
 /**
  * Tests for \Core\Form\CustomizableFieldsetTrait
- * 
+ *
  * @covers \Core\Form\CustomizableFieldsetTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Form
  */
-class CustomizableFieldsetTraitTest extends \PHPUnit_Framework_TestCase
+class CustomizableFieldsetTraitTest extends TestCase
 {
     use SetupTargetTrait, TestSetterGetterTrait;
 
@@ -53,18 +55,17 @@ class CustomizableFieldsetTraitTest extends \PHPUnit_Framework_TestCase
         $this->target->add(12);
 
         $this->assertEquals(12, $this->target->popAddCalledWithArgs()[0]);
-
     }
 
     public function testCallAddWithoutNameCallsParentAdd()
     {
         $this->target->getCustomizationOptions();
-        $spec = ['test' => 'noName']; $flags = ['still' => 'noName'];
+        $spec = ['test' => 'noName'];
+        $flags = ['still' => 'noName'];
 
         $this->target->add($spec, $flags);
 
         $this->assertEquals([[0 => $spec, 1 => $flags]], $this->target->addCalledWithArgs);
-
     }
 
     public function testAddPrefersSpecName()
@@ -126,8 +127,9 @@ class CustomizableFieldsetTraitTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->getInputFilterSpecification();
 
         $this->assertEquals(
-                ['test' => ['required' => true]]
-            , $actual);
+            ['test' => ['required' => true]],
+            $actual
+        );
     }
 
     public function testMergesInputFilterSpecificationsWithDefault()
@@ -143,11 +145,11 @@ class CustomizableFieldsetTraitTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->getInputFilterSpecification();
 
         $this->assertEquals(
-             ['test' => ['required' => true],
-              'test2' => ['filters' => []]]
-                 , $actual);
+            ['test' => ['required' => true],
+              'test2' => ['filters' => []]],
+            $actual
+        );
     }
-
 }
 
 class CustomizableFieldsetMock extends CustomizableFieldsetParentMock implements CustomizableFieldsetInterface

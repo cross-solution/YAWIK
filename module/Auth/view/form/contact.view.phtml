@@ -10,21 +10,28 @@
 /**
  * {{rtd: renders the contact information within the application form and the personal profile.}}
  */
- $info = $element->getObject(); /* @var \Auth\Entity\Info $info*/
+/** @var \Auth\Entity\Info $info */
+ $info = $element->getObject();
 ?>
     <div class="row">
         <div class="col-md-6">
-            <?php echo $this->translate($this->salutation($info->getGender()))?><br>
-            <strong><?php echo $info->getDisplayName()?></strong><br><br>
+            <?php if ($element->has('gender')): echo $this->translate($this->salutation($info->getGender())); endif;?><br>
+            <strong><?php if ($element->has('firstName') && $element->has('lastName')):
+                echo $info->getDisplayName();
+                elseif ($element->has('firstName')): echo $info->getFirstName();
+                elseif ($element->has('lastName')): echo $info->getLastName();
+            endif; ?>
+                 </strong><br><br>
             <adress>
-                <?php echo $info->getStreet()?> <?php echo $info->getHouseNumber()?><br>
-                <?php echo $info->getPostalCode()?> <?php echo $info->getCity()?><br>
-                <?php echo $info->getCountry()?>
+                <?= $element->has('street') ? $info->getStreet() : '' ?>
+                <?= $element->has('houseNumber') ? $info->getHouseNumber() : '' ?><br>
+                <?= $element->has('postalCode') ? $info->getPostalCode() : '' ?>
+                <?= $element->has('city') ? $info->getCity() : '' ?><br>
+                <?= $element->has('country') ? $info->getCountry() : '' ?>
             </adress>
         </div>
         <div class="col-md-6">
-            <i class="yk-icon yk-icon-phone"></i> <?php echo $info->getPhone()?><br>
-            <i class="yk-icon yk-icon-envelope"></i> <?php echo $info->getEmail()?><br>
+            <?php if ($element->has('phone')): ?><i class="yk-icon yk-icon-phone"></i> <?php echo $info->getPhone()?><br><?php endif ?>
+            <?php if ($element->has('email')): ?><i class="yk-icon yk-icon-envelope"></i> <?php echo $info->getEmail()?><br><?php endif ?>
         </div>
     </div>
-

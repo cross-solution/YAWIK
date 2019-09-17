@@ -9,19 +9,22 @@
 
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\DefaultButtonsFieldset;
 
 /**
 * @covers \Core\Form\DefaultButtonsFieldset
 */
-class DefaultButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
+class DefaultButtonsFieldsetTest extends TestCase
 {
     /**
      * @var  $target DefaultButtonsFieldset
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new DefaultButtonsFieldset();
     }
 
@@ -31,8 +34,12 @@ class DefaultButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Core\Form\ButtonsFieldset', $this->target);
     }
 
-
-    public function testInit(){
-        /*@todo*/
+    /**
+    * @todo
+    */
+    /*
+    public function testInit()
+    {
     }
+    */
 }

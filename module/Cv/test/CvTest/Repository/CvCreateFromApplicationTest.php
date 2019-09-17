@@ -8,6 +8,8 @@
 
 namespace CvTest\Repository;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Applications\Entity\Application;
 use Applications\Entity\Contact as ApplicationContact;
@@ -23,7 +25,7 @@ use Jobs\Entity\Job;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.26
  */
-class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
+class CvCreateFromApplicationTest extends TestCase
 {
     /**
      * @var Cv
@@ -40,7 +42,7 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
      */
     protected $user;
     
-    public function setUp()
+    protected function setUp()
     {
         $this->cv = $this->getMockBuilder(Cv::class)
             ->disableOriginalConstructor()
@@ -121,8 +123,7 @@ class CvCreateFromApplicationTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array_keys($applicationAttachment1Data))
             ->getMock();
         
-        foreach ($applicationAttachment1Data as $method => $return)
-        {
+        foreach ($applicationAttachment1Data as $method => $return) {
             $applicationAttachment1->expects($this->once())
                 ->method($method)
                 ->willReturn($return);

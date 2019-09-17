@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\AtsMode;
 
 /**
@@ -20,7 +22,7 @@ use Jobs\Form\AtsMode;
  * @group Jobs
  * @group Jobs.Form
  */
-class AtsModeTest extends \PHPUnit_Framework_TestCase
+class AtsModeTest extends TestCase
 {
 
     /**

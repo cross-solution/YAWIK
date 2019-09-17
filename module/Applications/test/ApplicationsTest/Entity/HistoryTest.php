@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\History;
 use Applications\Entity\Status;
 
@@ -22,7 +24,7 @@ use Applications\Entity\Status;
  * @group  Applications
  * @group  Applications.Entity
  */
-class HistoryTest extends \PHPUnit_Framework_TestCase
+class HistoryTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -31,7 +33,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $status = new Status();
         $this->target = new History($status, 'message');

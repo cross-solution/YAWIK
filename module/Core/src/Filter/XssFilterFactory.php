@@ -10,9 +10,10 @@
 /** XssFilterFactory.php */
 namespace Core\Filter;
 
+use Core\Options\ModuleOptions;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use zf2htmlpurifier\Filter;
+use Core\Bridge\HtmlPurifier\HTMLPurifierFilter;
 
 /**
  * Factory for the XssFilter
@@ -31,11 +32,9 @@ class XssFilterFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $htmlPurifier = new Filter\HTMLPurifierFilter();
-        $htmlPurifier->setConfig(array("Cache.SerializerPath" => "cache/HtmlPurifier"));
-        
+        /* @var \HTMLPurifier $htmlPurifier */
+        $htmlPurifier = $container->get('Core/HtmlPurifier');
         $filter = new XssFilter($htmlPurifier);
-        
         return $filter;
     }
 }

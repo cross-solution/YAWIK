@@ -10,18 +10,20 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Status\AbstractStatus;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\JobSnapshotStatus;
 
 /**
  * Tests for \Jobs\Entity\JobSnapshotStatus
- * 
+ *
  * @covers \Jobs\Entity\JobSnapshotStatus
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class JobSnapshotStatusTest extends \PHPUnit_Framework_TestCase
+class JobSnapshotStatusTest extends TestCase
 {
     use TestInheritanceTrait;
 

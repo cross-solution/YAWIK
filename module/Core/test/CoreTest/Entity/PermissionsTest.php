@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
@@ -22,7 +24,7 @@ use Core\Entity\PermissionsInterface;
  * @group  Core.Entity
  * @covers \Core\Entity\Permissions
  */
-class PermissionsTest extends \PHPUnit_Framework_TestCase
+class PermissionsTest extends TestCase
 {
 
     /*
@@ -171,7 +173,6 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
                      PermissionsInterface::PERMISSION_NONE   => array(false, false, false, true),
                  ) as $perm => $expected
         ) {
-
             $target->grant($resource, $perm);
             $this->assertEquals($expected[0], $target->isGranted($resource, PermissionsInterface::PERMISSION_VIEW));
             $this->assertEquals($expected[1], $target->isGranted($resource, PermissionsInterface::PERMISSION_CHANGE));
@@ -211,7 +212,6 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertEquals($expect, $target->isGranted($user, PermissionsInterface::PERMISSION_VIEW));
-
     }
 
     /**
@@ -245,7 +245,6 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($target->isGranted($user, PermissionsInterface::PERMISSION_VIEW));
         $this->assertFalse($target->isGranted($user, PermissionsInterface::PERMISSION_CHANGE));
-
     }
 
     /**
@@ -274,8 +273,10 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
 
         $target->grant($resource, PermissionsInterface::PERMISSION_VIEW, false);
 
-        $this->assertFalse($target->isGranted($user1, PermissionsInterface::PERMISSION_VIEW),
-                           'Disable build of permissions test failed!');
+        $this->assertFalse(
+            $target->isGranted($user1, PermissionsInterface::PERMISSION_VIEW),
+            'Disable build of permissions test failed!'
+        );
     }
 
     /**
@@ -288,7 +289,8 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
     {
         $target = new Permissions();
 
-        $this->setExpectedException('\InvalidArgumentException', 'Invalid permission.');
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid permission.');
 
         $target->grant('test', 'invalidPermission');
     }
@@ -310,7 +312,10 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
         $resource->expects($this->exactly(4))
                  ->method('getPermissionsUserIds')
                  ->will($this->onConsecutiveCalls(
-                             $userIds1, $userIds2, array(), null
+                     $userIds1,
+                     $userIds2,
+                     array(),
+                     null
                         ));
 
 
@@ -385,7 +390,7 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
         if (PermissionsInterface::PERMISSION_NONE == $perm) {
             $target->expects($this->never())->method('isAssigned');
             $target->expects($this->never())->method('grant');
-        } else if (!$shouldBeAssigned) {
+        } elseif (!$shouldBeAssigned) {
             $target->expects($this->once())->method('isAssigned')->with($resource)->willReturn(false);
             $target->expects($this->never())->method('grant');
         } else {
@@ -401,7 +406,6 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
         /* Test start here */
 
         $this->assertSame($target, $target->revoke($resource, $perm, $build));
-
     }
 
     /*
@@ -511,7 +515,6 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInherit()
     {
-
         $resource = $this->getMockBuilder('\Core\Entity\PermissionsResourceInterface')
                          ->getMockForAbstractClass();
 
@@ -532,8 +535,6 @@ class PermissionsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($target2->isGranted('userTarget1', Permissions::PERMISSION_ALL));
         $this->assertTrue($target2->isGranted('test', Permissions::PERMISSION_VIEW));
-
-
     }
 
     /*

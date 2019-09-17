@@ -31,7 +31,7 @@ class JsonLdProvider implements JsonLdProviderInterface
     /**
      * the decorated job entity.
      *
-     * @var \Jobs\Entity\JobInterface
+     * @var \Jobs\Entity\JobInterface|\Jobs\Entity\Job
      */
     private $job;
 
@@ -72,16 +72,26 @@ class JsonLdProvider implements JsonLdProviderInterface
             'hiringOrganization' => [
                 '@type' => 'Organization',
                 'name' => $organizationName,
-                // @TODO add the link to the Logo of the company
-                // https://developers.google.com/search/docs/data-types/logo
-                // 'logo' => $this->job->getOrganization()->getImage()->getUri(),
+                'logo' => $this->getLogo()
             ],
             'jobLocation' => $this->getLocations($this->job->getLocations()),
             'employmentType' => $this->job->getClassifications()->getEmploymentTypes()->getValues(),
             'validThrough' => $dateEnd
         ];
 
+        $array += $this->generateSalary();
+
         return Json::encode($array);
+    }
+
+    /**
+     * try to get the logo of an organization. Fallback: logoRef of job posting
+     */
+    private function getLogo() {
+        $organization = $this->job->getOrganization();
+
+        $organizationLogo = ($organization && $organization->getImage())? $organization->getImage()->getUri() : $this->job->getLogoRef();
+        return $organizationLogo;
     }
 
     /**
@@ -122,18 +132,46 @@ class JsonLdProvider implements JsonLdProviderInterface
      */
     private function getDescription(TemplateValuesInterface $values)
     {
-        $description=sprintf(
-            "<p>%s</p>".
-            "<h1>%s</h1>".
-            "<h3>Requirements</h3><p>%s</p>".
-            "<h3>Qualifications</h3><p>%s</p>".
-            "<h3>Benefits</h3><p>%s</p>",
-            $values->getDescription(),
-            $values->getTitle(),
-            $values->getRequirements(),
-            $values->getQualifications(),
-            $values->getBenefits()
-        );
+        $html = $values->getHtml();
+
+        if ($html) {
+            $description=sprintf("%s", $values->getHtml() );
+        } else {
+            $description=sprintf(
+                "<p>%s</p>".
+                "<h1>%s</h1>".
+                "<h3>Requirements</h3><p>%s</p>".
+                "<h3>Qualifications</h3><p>%s</p>".
+                "<h3>Benefits</h3><p>%s</p>",
+                $values->getDescription(),
+                $values->getTitle(),
+                $values->getRequirements(),
+                $values->getQualifications(),
+                $values->getBenefits()
+            );    
+        }
+
         return $description;
+    }
+
+    private function generateSalary()
+    {
+        $salary = $this->job->getSalary();
+
+        if (!$salary || null === $salary->getValue()) {
+            return [];
+        }
+
+        return [
+            'baseSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => $salary->getCurrency(),
+                'value' => [
+                    '@type' => 'QuantitiveValue',
+                    'value' => $salary->getValue(),
+                    'unitText' => $salary->getUnit()
+                ],
+            ],
+        ];
     }
 }

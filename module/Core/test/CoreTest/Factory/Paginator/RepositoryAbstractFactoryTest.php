@@ -10,23 +10,25 @@
 /** */
 namespace CoreTest\Factory\Paginator;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\Paginator\RepositoryAbstractFactory;
 use Zend\ServiceManager\AbstractPluginManager;
 
 /**
  * Tests for \Core\Factory\Paginator\RepositoryAbstractFactory
- * 
+ *
  * @covers \Core\Factory\Paginator\RepositoryAbstractFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Factory
  * @group Core.Factory.Paginator
  */
-class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
+class RepositoryAbstractFactoryTest extends TestCase
 {
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new RepositoryAbstractFactory();
     }
@@ -60,8 +62,8 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCanCreateService($serviceName, $expected)
     {
         $sm = $this->getMockBuilder(AbstractPluginManager::class)
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         $method = "assert" . ($expected ? 'True' : 'False');
 
@@ -122,13 +124,12 @@ class RepositoryAbstractFactoryTest extends \PHPUnit_Framework_TestCase
                                        ->will($this->onConsecutiveCalls($repositories, $filters));
 
         $target = $this->target;
-        $paginator = $target($sm,$serviceName, $options);
+        $paginator = $target($sm, $serviceName, $options);
 
         $this->assertInstanceOf('\Zend\Paginator\Paginator', $paginator, 'No Paginator returned.');
         $adapter = $paginator->getAdapter();
 
         $this->assertInstanceOf('\Core\Paginator\Adapter\DoctrineMongoCursor', $adapter, 'Adapter is not correct class instance.');
         $this->assertAttributeSame($cursor, 'cursor', $adapter, 'Adapter has gotten the wrong cursor.');
-
     }
 }

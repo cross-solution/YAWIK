@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\Plugin\Config;
 use Core\Controller\Plugin\ConfigFactory;
 use Interop\Container\ContainerInterface;
@@ -19,7 +21,7 @@ use Interop\Container\ContainerInterface;
  * @covers \Core\Controller\Plugin\ConfigFactory
  * @package CoreTest\Controller\Plugin
  */
-class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
+class ConfigFactoryTest extends TestCase
 {
     public function testInvoke()
     {
@@ -30,8 +32,8 @@ class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn([])
         ;
         $factory = new ConfigFactory();
-        $service = $factory($container,'some');
+        $service = $factory($container, 'some');
 
-        $this->assertInstanceOf(Config::class,$service);
+        $this->assertInstanceOf(Config::class, $service);
     }
 }

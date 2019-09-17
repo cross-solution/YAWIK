@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity\Validator;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Application;
 use Applications\Entity\ApplicationInterface;
 use Applications\Entity\Contact;
@@ -23,7 +25,7 @@ use Applications\Entity\Contact;
  * @group  Applications.Entity
  * @group  Applications.Entity.Validator
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends TestCase
 {
     /**
      * @var \Applications\Entity\Validator\Application
@@ -31,7 +33,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     private $target;
 
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new \Applications\Entity\Validator\Application();
     }
@@ -93,9 +95,11 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
      * @param bool                 $expectedResult
      * @param null|string          $expectedErrorKey
      */
-    public function testIsValidReturnsOnlyTrueIfEmailAndPrivacyPolicyIsSet($value, $expectedResult,
-                                                                           $expectedErrorKey = null)
-    {
+    public function testIsValidReturnsOnlyTrueIfEmailAndPrivacyPolicyIsSet(
+        $value,
+        $expectedResult,
+        $expectedErrorKey = null
+    ) {
         $expectedErrors = array();
         if (null !== $expectedErrorKey) {
             $expectedErrorKey = explode(',', $expectedErrorKey);

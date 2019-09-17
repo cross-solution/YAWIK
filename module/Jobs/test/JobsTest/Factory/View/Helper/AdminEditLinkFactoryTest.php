@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\View\Helper\AdminEditLinkFactory;
@@ -19,7 +21,7 @@ use Zend\Stdlib\Parameters;
 
 /**
  * Tests for \Jobs\Factory\View\Helper\AdminEditLinkFactory
- * 
+ *
  * @covers \Jobs\Factory\View\Helper\AdminEditLinkFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
@@ -27,7 +29,7 @@ use Zend\Stdlib\Parameters;
  * @group Jobs.Factory.View
  * @group Jobs.Factory.View.Helper
  */
-class AdminEditLinkFactoryTest extends \PHPUnit_Framework_TestCase
+class AdminEditLinkFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -57,8 +59,8 @@ class AdminEditLinkFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $urlHelper
-	        ->expects($this->once())
-	        ->method('__invoke')
+            ->expects($this->once())
+            ->method('__invoke')
             ->with(null, [], ['query' => $query->toArray()], true)
             ->willReturn('returnUrl')
         ;

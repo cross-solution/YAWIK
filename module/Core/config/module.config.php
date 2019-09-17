@@ -15,15 +15,13 @@ namespace Core;
 
 use Core\Controller\Console\AssetsInstallController;
 use Core\Controller\Console\ClearCacheController;
-use Core\Controller\Console\SubsplitController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
-use Core\Listener\ConfigListener;
+use Core\Factory\Service\HtmlPurifierFactory;
 use Core\Service\ClearCacheService;
 use Core\Service\Tracy;
 use Zend\I18n\Translator\Resources;
-use Zend\Mvc\MvcEvent;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -32,10 +30,42 @@ return array(
 
     'doctrine' => $doctrineConfig,
 
+    'slm_queue' => [
+        'worker_strategies' => [
+            'default' => [
+                Queue\Strategy\IdleSleepStrategy::class => ['duration' => 1],
+                Queue\Strategy\JobResultStrategy::class,
+            ],
+            'queues' => [
+                'default' => [
+                    Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/Queue'],
+                ],
+            ],
+        ],
+        'strategy_manager' => [
+            'factories' => [
+                Queue\Strategy\LogStrategy::class => Queue\Strategy\LogStrategyFactory::class,
+            ],
+        ],
+        'queue_manager' => [
+            'factories' => [
+                'default' => Queue\MongoQueueFactory::class,
+            ],
+        ],
+        'job_manager' => [
+            'aliases' => [
+                'lazy' => Queue\LazyJob::class,
+            ],
+            'factories' => [
+                Queue\LazyJob::class => Queue\LazyJobFactory::class,
+            ]
+        ]
+    ],
+
     'options' => [
         'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
     ],
-    
+
     'Core' => array(
         'settings' => array(
             'entity' => '\\Core\\Entity\\SettingsContainer',
@@ -65,7 +95,29 @@ return array(
                     'options' => array(
                          'stream' => getcwd().'/var/log/mails.log',
                     ),
+
                  ),
+            ),
+        ),
+        'Log/Core/Queue' => array(
+            'writers' => array(
+                array(
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                        'stream' => getcwd().'/var/log/queue.log',
+                        'formatter'  => [
+                            'name' => 'simple',
+                            'options' => [
+                                'format' => '%timestamp% (%pid%) %priorityName%: %message% %extra%',
+                                'dateTimeFormat' => 'd.m.Y H:i:s',
+                            ],
+                        ],
+                    ),
+                ),
+            ),
+            'processors' => array(
+                array('name' => Log\Processor\ProcessId::class),
             ),
         ),
     ),
@@ -74,8 +126,11 @@ return array(
         'invokables' => [
             'Core/UniqueId' => 'Core\Log\Processor\UniqueId',
         ],
+        'factories' => [
+            Log\Processor\ProcessId::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+        ],
     ],
-    
+
     'tracy' => [
         'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
         'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
@@ -201,15 +256,6 @@ return array(
                         ]
                     ]
                 ],
-                'subsplit' => [
-                    'options' => [
-                        'route' => 'subsplit [--source=] [--target=] [--ansi] [--heads=] [--tags=] [--skip-update] [--dry-run] [--verbose|-v] [<module>]',
-                        'defaults' => [
-                            'controller' => SubsplitController::class,
-                            'action' => 'index'
-                        ]
-                    ]
-                ],
                 'clear-cache' => [
                     'options' => [
                         'route' => 'clear-cache',
@@ -218,11 +264,29 @@ return array(
                             'action' => 'index',
                         ]
                     ]
+                ],
+                'mongo-queue-list' => [
+                    'options' => [
+                        'route' => 'queue mongo --list <queue> [--limit=]',
+                        'defaults' => [
+                            'controller' => Queue\Controller\MongoQueueListController::class,
+                            'action' => 'list',
+                        ],
+                    ],
+                ],
+                'mongo-queue' => [
+                    'options' => [
+                        'route' => 'queue mongo <queue>',
+                        'defaults' => [
+                            'controller' => Queue\Controller\MongoQueueController::class,
+                            'action' => 'process',
+                        ]
+                    ]
                 ]
             ],
         ],
     ],
-    
+
     'acl' => array(
         'rules' => array(
             'guest' => array(
@@ -257,7 +321,7 @@ return array(
             ],
         ),
     ),
-    
+
     // Setup the service manager
     'service_manager' => array(
         'invokables' => array(
@@ -291,6 +355,8 @@ return array(
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
             ClearCacheService::class => [ClearCacheService::class,'factory'],
             Listener\ModuleVersionAdminWidgetProvider::class => Listener\ModuleVersionAdminWidgetProviderFactory::class,
+            Queue\Worker\MongoWorker::class => \SlmQueue\Factory\WorkerFactory::class,
+            'Core/HtmlPurifier' => \Core\Factory\Service\HtmlPurifierFactory::class
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',
@@ -359,8 +425,9 @@ return array(
             'Core/Content' => LazyControllerFactory::class,
             Controller\Console\PurgeController::class => Controller\Console\PurgeControllerFactory::class,
             AssetsInstallController::class => [AssetsInstallController::class,'factory'],
-            SubsplitController::class => [SubsplitController::class,'factory'],
             ClearCacheController::class => [ClearCacheController::class,'factory'],
+            Queue\Controller\MongoQueueController::class => Queue\Controller\MongoQueueControllerFactory::class,
+            Queue\Controller\MongoQueueListController::class => Queue\Controller\MongoQueueListControllerFactory::class,
 
         ],
     ),
@@ -454,11 +521,11 @@ return array(
             'formFileUpload' => 'Core\Form\View\Helper\FormFileUpload',
             'formImageUpload' => 'Core\Form\View\Helper\FormImageUpload',
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
-            
+
             /* @TODO: [ZF3] make this setting to be camel cased */
             'formCheckBox' => 'Core\Form\View\Helper\FormCheckbox',
             'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
-            
+
             'formDatePicker' => 'Core\Form\View\Helper\FormDatePicker',
             'formInfoCheckBox' => 'Core\Form\View\Helper\FormInfoCheckbox',
             'formSelect' => 'Core\Form\View\Helper\FormSelect',
@@ -497,7 +564,7 @@ return array(
             'form_element' => 'formElement',
         ],
     ),
-    
+
     'view_helper_config' => array(
         'flashmessenger' => array(
             'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
@@ -511,7 +578,7 @@ return array(
                 ]
         ]
     ),
-    
+
     'filters' => array(
         'invokables' => array(
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
@@ -535,7 +602,7 @@ return array(
             ],
         ],
     ],
-    
+
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
@@ -581,7 +648,7 @@ return array(
             '\Core\Factory\Paginator\RepositoryAbstractFactory',
         ],
     ],
-    
+
     'mails_config' => array(
         'from' => array(
             'email' => 'no-reply@host.tld',
@@ -611,7 +678,7 @@ return array(
             'service' => 'Core/EventManager',
             'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
-        
+
         'Core/File/Events' => [
             'service' => 'Core/EventManager',
             'event' => \Core\Listener\Events\FileEvent::class,
@@ -633,5 +700,5 @@ return array(
             ],
         ],
     ],
-    
+
 );

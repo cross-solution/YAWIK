@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Core\Entity\AbstractIdentifiableHydratorAwareEntity;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -22,25 +24,29 @@ use Core\Entity\Hydrator\EntityHydrator;
  * @group  Core.Entity
  * @covers \Core\Entity\AbstractIdentifiableHydratorAwareEntity
  */
-class AbstactIdentifiableHydratorAwareEntityTest extends \PHPUnit_Framework_TestCase
+class AbstactIdentifiableHydratorAwareEntityTest extends TestCase
 {
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new ConcreteIdentifiableHydratorAwareEntity();
     }
 
-    public function testSetGetHydrator(){
+    public function testSetGetHydrator()
+    {
         $input = new EntityHydrator();
         $this->target->setHydrator($input);
-        $this->assertSame($this->target->getHydrator(),$input);
+        $this->assertSame($this->target->getHydrator(), $input);
     }
 
-    public function testSetGetIdByMethod(){
+    public function testSetGetIdByMethod()
+    {
         $input = new EntityHydrator();
-        $this->assertEquals($this->target->getHydrator(),$input);
+        $this->assertEquals($this->target->getHydrator(), $input);
     }
 }
 
-class ConcreteIdentifiableHydratorAwareEntity extends AbstractIdentifiableHydratorAwareEntity {
+class ConcreteIdentifiableHydratorAwareEntity extends AbstractIdentifiableHydratorAwareEntity
+{
 }

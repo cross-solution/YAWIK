@@ -10,6 +10,8 @@
  */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\AttachableEntityManager;
 use Core\Repository\RepositoryService;
 use Core\Repository\AbstractRepository as Repository;
@@ -18,7 +20,7 @@ use Core\Entity\IdentifiableEntityInterface;
 /**
  * @coversDefaultClass \Core\Entity\AttachableEntityManager
  */
-class AttachableEntityManagerTest extends \PHPUnit_Framework_TestCase
+class AttachableEntityManagerTest extends TestCase
 {
     
     /**
@@ -37,7 +39,7 @@ class AttachableEntityManagerTest extends \PHPUnit_Framework_TestCase
     protected $references;
 
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -236,7 +238,6 @@ class AttachableEntityManagerTest extends \PHPUnit_Framework_TestCase
             ->with($entity, $expectKey);
 
         $this->attachableEntityManager->createAttachedEntity($entityClass, $values, $key);
-
     }
 
     /**

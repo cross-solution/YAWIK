@@ -9,6 +9,8 @@
 
 namespace AuthTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Repository\User;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Interop\Container\ContainerInterface;
@@ -20,7 +22,7 @@ use Auth\AuthenticationService;
 /**
  * @coversDefaultClass \Auth\Factory\Controller\RemoveControllerFactory
  */
-class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class RemoveControllerFactoryTest extends TestCase
 {
     use ServiceManagerMockTrait;
 
@@ -49,6 +51,6 @@ class RemoveControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ]));
         
         $controllerFactory = new RemoveControllerFactory();
-        $this->assertInstanceOf(RemoveController::class, $controllerFactory($serviceLocator,'irrelevant'));
+        $this->assertInstanceOf(RemoveController::class, $controllerFactory($serviceLocator, 'irrelevant'));
     }
 }

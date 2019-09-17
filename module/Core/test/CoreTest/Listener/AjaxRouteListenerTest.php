@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\EventManager\ListenerAggregateTrait;
 use Core\Listener\AjaxRouteListener;
 use Core\Listener\Events\AjaxEvent;
@@ -24,13 +26,13 @@ use Zend\Mvc\MvcEvent;
 
 /**
  * Tests for \Core\Listener\AjaxRouteListener
- * 
+ *
  * @covers \Core\Listener\AjaxRouteListener
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Listener
  */
-class AjaxRouteListenerTest extends \PHPUnit_Framework_TestCase
+class AjaxRouteListenerTest extends TestCase
 {
     use SetupTargetTrait, TestUsesTraitsTrait, TestDefaultAttributesTrait;
 
@@ -116,8 +118,6 @@ class AjaxRouteListenerTest extends \PHPUnit_Framework_TestCase
         $response = $this->target->onRoute($event);
 
         $this->assertEquals('{"test":"success"}', $response->getContent());
-
-
     }
 
     private function getMvcEvent()
@@ -131,8 +131,5 @@ class AjaxRouteListenerTest extends \PHPUnit_Framework_TestCase
         $event->setRequest($request)->setResponse($response);
 
         return $event;
-
     }
-
-
 }

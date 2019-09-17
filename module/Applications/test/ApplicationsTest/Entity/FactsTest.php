@@ -10,6 +10,8 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Facts;
 
 /**
@@ -21,7 +23,7 @@ use Applications\Entity\Facts;
  * @group  Applications
  * @group  Applications.Entity
  */
-class FactsTest extends \PHPUnit_Framework_TestCase
+class FactsTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -30,7 +32,7 @@ class FactsTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Facts();
     }

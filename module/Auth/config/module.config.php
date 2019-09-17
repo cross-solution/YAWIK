@@ -25,8 +25,9 @@ return [
         'Auth/CaptchaOptions' => [
             'class' => '\Auth\Options\CaptchaOptions',
         ],
+        Options\UserInfoFieldsetOptions::class => [],
     ],
-    
+
     'doctrine' => [
         'driver' => [
             'odm_default' => [
@@ -103,7 +104,7 @@ return [
             'Auth\Controller\Remove' => 'Auth\Factory\Controller\RemoveControllerFactory'
         ]
     ],
-    
+
     'controller_plugins' => [
         'factories' => [
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
@@ -196,12 +197,12 @@ return [
             'admin' => 'recruiter',
             'employee_recruiter' => 'recruiter',
         ],
-        
+
         'public_roles' => [
             /*@translate*/ 'user',
             /*@translate*/ 'recruiter',
         ],
-        
+
         'rules' => [
             'guest' => [
                 'allow' => [
@@ -258,7 +259,7 @@ return [
             ],
         ],
     ],
-    
+
     // Configure the view service manager
     'view_manager' => [
         'template_map' => [
@@ -283,12 +284,12 @@ return [
             'auth/mail/user-confirmed' => __DIR__ . '/../view/mail/user-confirmed.phtml',
             'auth/mail/user-confirmed.de' => __DIR__ . '/../view/mail/user-confirmed.de.phtml',
         ],
-    
+
         'template_path_stack' => [
             'Auth' => __DIR__ . '/../view',
         ],
     ],
-    
+
     'filters' => [
         'invokables' => [
             'Auth/StripQueryParams' => '\Auth\Filter\StripQueryParams',
@@ -296,13 +297,13 @@ return [
             'PaginationQuery/Auth/User'   => 'Auth\Repository\Filter\PaginationSearchUsers',
         ],
     ],
-    
+
     'validators' => [
         'factories' => [
             'Auth/Form/UniqueGroupName' => 'Auth\Form\Validator\UniqueGroupNameFactory',
         ],
     ],
-    
+
     'view_helpers' => [
         'invokables' => [
             'buildReferer' => '\Auth\View\Helper\BuildReferer',
@@ -313,7 +314,7 @@ return [
             'acl'  => '\Acl\Factory\View\Helper\AclFactory',
          ],
     ],
-    
+
     'form_elements' => [
         'invokables' => [
             'Auth/Login' => 'Auth\Form\Login',

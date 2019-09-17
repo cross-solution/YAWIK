@@ -1,13 +1,13 @@
 {
     "name": "yawik-development",
-    "version": "0.32.0",
+    "version": "0.33.7",
     "scripts": {
         "postinstall": "grunt"
     },
     "private": false,
     "devDependencies": {
         "yawik-core": "./public/modules/Core",
-        "grunt": "^1.0.3",
+        "grunt": "^1.0.4",
         "grunt-contrib-concat": "^1.0.1",
         "grunt-contrib-copy": "^1.0.0",
         "grunt-contrib-cssmin": "^3.0.0",

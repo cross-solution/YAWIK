@@ -10,6 +10,8 @@
 /** */
 namespace InstallTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Install\Form\Installation;
 use Install\Validator\MongoDbConnection;
 use Install\Validator\MongoDbConnectionString;
@@ -22,9 +24,8 @@ use Install\Validator\MongoDbConnectionString;
  * @group Install
  * @group Install.Form
  */
-class InstallationTest extends \PHPUnit_Framework_TestCase
+class InstallationTest extends TestCase
 {
-
     public function testExtendsZendForm()
     {
         $this->assertInstanceOf('\Zend\Form\FormInterface', new Installation());
@@ -75,14 +76,15 @@ class InstallationTest extends \PHPUnit_Framework_TestCase
         $target->expects($this->exactly(4))
                ->method('add')
                ->withConsecutive(
-                           array($add1),
-                           array($add2),
-                           array($add3),
-                           array($add4)
+                   array($add1),
+                   array($add2),
+                   array($add3),
+                   array($add4)
                )->will($this->returnSelf());
 
         $target->expects($this->once())->method('setName')->with('installation');
-        $target->expects($this->once())->method('setAttributes')->with(array(
+        $target->expects($this->once())->method('setAttributes')->with(
+            array(
                                                                            'method' => 'post',
                                                                        )
         );

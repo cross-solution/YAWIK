@@ -11,19 +11,21 @@
 
 namespace ApplicationsTest\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Options\ModuleOptions as Options;
 
 /**
  * @coversDefaultClass Applications\Options\ModuleOptions
  */
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    protected function setUp()
     {
         $options = new Options;
         $this->options = $options;

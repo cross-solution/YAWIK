@@ -145,8 +145,8 @@ class Application extends BaseApplication
     public static function init($configuration = [])
     {
         // @codeCoverageIgnoreStart
-        if (!version_compare(PHP_VERSION, '5.6.0', 'ge')) {
-            echo sprintf('<p>Sorry, YAWIK requires at least PHP 5.6.0 to run, but this server currently provides PHP %s</p>', PHP_VERSION);
+        if (!version_compare(PHP_VERSION, '7.1.0', 'ge')) {
+            echo sprintf('<p>Sorry, YAWIK requires at least PHP 7.1.0 to run, but this server currently provides PHP %s</p>', PHP_VERSION);
             echo '<p>Please ask your servers\' administrator to install the proper PHP version.</p>';
             exit;
         }
@@ -374,12 +374,12 @@ class Application extends BaseApplication
                     break;
                 }
             }
-            $info = new Version(Module::VERSION, $path);
 
-            $exp = explode("-g", $info->getVersion(), 2);
-            //$version = $info->getVersion();
-            static::$version = $exp[0]; //substr($version, 0, strlen($version)-10);
-            static::$revision = isset($exp[1]) ? $exp[1] : ''; //substr($version, 10);
+            $info = new Version(Module::VERSION, $path);
+            $exp  = explode("-g", $info->getVersion(), 2);
+
+            static::$version  = $exp[0];
+            static::$revision = isset($exp[1]) ? $exp[1] : '';
         }
     }
 }

@@ -9,11 +9,13 @@
 
 namespace AuthTest\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Service\ForgotPassword;
 use AuthTest\Entity\Provider\UserEntityProvider;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
+class ForgotPasswordTest extends TestCase
 {
     /**
      * @var ForgotPassword
@@ -58,7 +60,7 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
     /**
      * @var MockObject
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
             ->disableOriginalConstructor()
@@ -91,7 +93,8 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
             ->method('isValid')
             ->willReturn(false);
 
-        $this->setExpectedException('LogicException', 'Form is not valid');
+        $this->expectException('LogicException');
+        $this->expectExceptionMessage('Form is not valid');
 
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
@@ -114,7 +117,8 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
             ->with($identity)
             ->willReturn(null);
 
-        $this->setExpectedException('Auth\Service\Exception\UserNotFoundException', 'User is not found');
+        $this->expectException('Auth\Service\Exception\UserNotFoundException');
+        $this->expectExceptionMessage('User is not found');
 
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
@@ -138,15 +142,18 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
             ->with($identity)
             ->willReturn($user);
 
-        $this->setExpectedException('Auth\Service\Exception\UserDoesNotHaveAnEmailException', 'User does not have an email');
+        $this->expectException('Auth\Service\Exception\UserDoesNotHaveAnEmailException');
+        $this->expectExceptionMessage('User does not have an email');
 
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
 
+    /**
+    * @todo fix or delete
+    */
+    /*
     public function testProceed()
     {
-        // @TODO: fix this
-        /*
         $identity = uniqid('identity');
         $user = UserEntityProvider::createEntityWithRandomData();
         $tokenHash = uniqid('tokenHash');
@@ -189,8 +196,8 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
                 ),
                 true
             );
-        */
-        //$this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
-        return true;
+        
+        $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
+    */
 }

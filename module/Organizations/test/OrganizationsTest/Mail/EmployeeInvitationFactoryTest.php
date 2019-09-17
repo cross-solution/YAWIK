@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Mail;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Core\Mail\HTMLTemplateMessage;
 use Organizations\Entity\Organization;
@@ -28,7 +30,7 @@ use Zend\Router\RouteStackInterface;
  * @group Organizations
  * @group Organizations.Mail
  */
-class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
+class EmployeeInvitationFactoryTest extends TestCase
 {
 
     /**
@@ -48,7 +50,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetCreationOptionsThrowsExceptionIfUserIsMissing()
     {
-        $options = Array();
+        $options = array();
         $target = new EmployeeInvitationFactory();
 
         $target->setCreationOptions($options);
@@ -58,7 +60,7 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $user = $this->getMockForAbstractClass('\Auth\Entity\UserInterface');
 
-        $makeArray = function($options) use ($user) {
+        $makeArray = function ($options) use ($user) {
             $options['user'] = $user;
             return array($options, array_merge(array('user' => $user, 'token' => false, 'template' => 'organizations/mail/invite-employee'), $options));
         };
@@ -91,7 +93,6 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokation()
     {
-        
         $user = new User();
         $user->setId('testUser');
         $user->setEmail('test@user');
@@ -136,8 +137,9 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
         $router = $this->getMockForAbstractClass(RouteStackInterface::class);
         $router->expects($this->once())
                ->method('assemble')
-               ->with(array('action' => 'accept'),
-                      array('name' => 'lang/organizations/invite',
+               ->with(
+                   array('action' => 'accept'),
+                   array('name' => 'lang/organizations/invite',
                             'query' => array('token' => $options['token'], 'organization' => $ownerOrg->getId()))
                )
                ->willReturn('testUrl');
@@ -149,32 +151,32 @@ class EmployeeInvitationFactoryTest extends \PHPUnit_Framework_TestCase
         $services->expects($this->exactly(3))
                  ->method('get')
                  ->withConsecutive(
-                        array('AuthenticationService'),
-                        array('Router'),
-                        ['Core/MailService']
+                     array('AuthenticationService'),
+                     array('Router'),
+                     ['Core/MailService']
                  )->will($this->onConsecutiveCalls($authService, $router, $mailService));
 
         $mailMock = new HTMLTemplateMessage(new \Zend\ServiceManager\ServiceManager());
         $translator = $this->getMockBuilder('\Zend\I18n\Translator\Translator')->disableOriginalConstructor()->getMock();
         $translator
-	        ->expects($this->any())
-	        ->method('translate')
-	        ->will($this->returnArgument(0));
+            ->expects($this->any())
+            ->method('translate')
+            ->will($this->returnArgument(0));
         $mailMock->setTranslator($translator);
         $mailService
-	        ->expects($this->once())
-	        ->method('get')
-	        ->with('htmltemplate')
-	        ->willReturn($mailMock);
+            ->expects($this->once())
+            ->method('get')
+            ->with('htmltemplate')
+            ->willReturn($mailMock);
 
 
         $target = new EmployeeInvitationFactory();
-        $mail = $target->__invoke($services,'irrelevant',$options);
+        $mail = $target->__invoke($services, 'irrelevant', $options);
 
 
         $vars = $mail->getVariables()->getArrayCopy();
 
-        $expected = Array(
+        $expected = array(
             'inviter' => 'Test Owner',
             'organization' => 'TestOwnerOrg',
             'token' => $options['token'],

@@ -10,6 +10,8 @@
 
 namespace Core\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Application;
 use Core\Options\ModuleOptions as Options;
 use CoreTestUtils\TestCase\SetupTargetTrait;
@@ -24,7 +26,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @group Core
  * @group Core.Options
  */
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
     use TestSetterGetterTrait, SetupTargetTrait;
 
@@ -103,18 +105,16 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSiteNameThrowsExceptionIfNotSet()
     {
-        $this->setExpectedException(
-             '\Core\Options\Exception\MissingOptionException',
-             'Missing value for option "siteName"'
-        );
+        $this->expectException('\Core\Options\Exception\MissingOptionException');
+        $this->expectExceptionMessage('Missing value for option "siteName"');
 
         $this->target->setSiteName('');
         $this->target->getSiteName();
     }
 
     /**
-     * @covers Core\Options\ModuleOptions::getSupportedLanguages
-     * @covers Core\Options\ModuleOptions::setSupportedLanguages
+     * @covers \Core\Options\ModuleOptions::getSupportedLanguages
+     * @covers \Core\Options\ModuleOptions::setSupportedLanguages
      */
     public function testSetGetSupportedLanguages()
     {
@@ -129,8 +129,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Options\ModuleOptions::isDetectLanguage
-     * @covers Core\Options\ModuleOptions::setDetectLanguage
+     * @covers \Core\Options\ModuleOptions::isDetectLanguage
+     * @covers \Core\Options\ModuleOptions::setDetectLanguage
      */
     public function testSetGetDetectLanguage()
     {
@@ -152,7 +152,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testThrowsExceptionIfSystemMessageEmailIsNotSet()
     {
-        $this->setExpectedException('\Core\Options\Exception\MissingOptionException', 'Missing value for option "systemMessageEmail"');
+        $this->expectException('\Core\Options\Exception\MissingOptionException');
+        $this->expectExceptionMessage('Missing value for option "systemMessageEmail"');
 
         $this->target->getSystemMessageEmail();
     }

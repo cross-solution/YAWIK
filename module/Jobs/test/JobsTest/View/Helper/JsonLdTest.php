@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Jobs\Entity\Job;
@@ -20,14 +22,14 @@ use Zend\View\Helper\AbstractHelper;
 
 /**
  * Tests for \Jobs\View\Helper\JsonLd
- * 
+ *
  * @covers \Jobs\View\Helper\JsonLd
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Jobs
  * @group Jobs.View
  * @group Jobs.View.Helper
  */
-class JsonLdTest extends \PHPUnit_Framework_TestCase
+class JsonLdTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

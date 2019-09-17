@@ -9,6 +9,8 @@
 
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Application;
 use Auth\Entity\User;
 use Core\Form\Container;
@@ -20,14 +22,15 @@ use Zend\View\Renderer\PhpRenderer;
 /**
 * @covers \Core\Form\Container
 */
-class ContainerTest extends \PHPUnit_Framework_TestCase
+class ContainerTest extends TestCase
 {
     /**
      * @var Container
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new Container();
     }
 
@@ -40,33 +43,36 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(\Core\Form\FormParentInterface::class, $this->target);
     }
 
-    public function testSetFormElementManager(){
+    public function testSetFormElementManager()
+    {
         $input = new ServiceManager();
-        $this->assertSame($this->target,$this->target->setFormElementManager($input));
+        $this->assertSame($this->target, $this->target->setFormElementManager($input));
     }
 
     /**
      * @dataProvider provideBool
      * @param $input
      */
-    public function testSetGetIsDisableCapable($input){
+    public function testSetGetIsDisableCapable($input)
+    {
         $this->target->setIsDisableCapable($input);
-        $this->assertSame($this->target->isDisableCapable(),$input);
-        $this->assertSame($this->target->getOption('is_disable_capable'),$input);
-
+        $this->assertSame($this->target->isDisableCapable(), $input);
+        $this->assertSame($this->target->getOption('is_disable_capable'), $input);
     }
 
     /**
      * @dataProvider provideBool
      * @param $input
      */
-    public function testSetGetIsDisableElementCapable($input){
+    public function testSetGetIsDisableElementCapable($input)
+    {
         $this->target->setIsDisableElementsCapable($input);
-        $this->assertSame($this->target->isDisableElementsCapable(),$input);
-        $this->assertSame($this->target->getOption('is_disable_elements_capable'),$input);
+        $this->assertSame($this->target->isDisableElementsCapable(), $input);
+        $this->assertSame($this->target->getOption('is_disable_elements_capable'), $input);
     }
 
-    public function provideBool (){
+    public function provideBool()
+    {
         return [
             [true, true],
             [false, false],
@@ -74,14 +80,15 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Form\Container::setParent()
-     * @covers Core\Form\Container::getParent()
+     * @covers \Core\Form\Container::setParent()
+     * @covers \Core\Form\Container::getParent()
      */
-    public function testSetGetParent(){
+    public function testSetGetParent()
+    {
         $input = "improve this";
         $this->target->setParent($input);
-        $this->assertSame($this->target->getParent(),$input);
-        $this->assertSame($this->target->hasParent(),true);
+        $this->assertSame($this->target->getParent(), $input);
+        $this->assertSame($this->target->hasParent(), true);
     }
 
 
@@ -98,17 +105,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      * @param $enabled
      * @dataProvider provideSetFormData
      */
-    public function testSetForm($key,$spec,$enabled, $expected){
+    public function testSetForm($key, $spec, $enabled, $expected)
+    {
         /* @var $target Container */
         $target = $this->getMockBuilder('\Core\Form\Container')
             ->disableOriginalConstructor()
             ->setMethods(array('setParent'))
             ->getMock();
-        $target->setForm($key,$spec,$enabled);
+        $target->setForm($key, $spec, $enabled);
         if ($expected) {
-            $this->assertAttributeContains($key,'activeForms',$target);
-        }else{
-            $this->assertAttributeNotContains($key,'activeForms',$target);
+            $this->assertAttributeContains($key, 'activeForms', $target);
+        } else {
+            $this->assertAttributeNotContains($key, 'activeForms', $target);
         }
         $this->assertAttributeSame(
             [$key => [
@@ -116,20 +124,23 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
                 'name' => $key,
                 'entity' => '*',
                 ]
-            ]
-            , 'forms'
-            , $target);
+            ],
+            'forms',
+            $target
+        );
     }
 
 
-    public function provideSetFormData() {
+    public function provideSetFormData()
+    {
         return [
             ['fieldname','input',true,true ],
             ['fieldname', 'foobar', false, false ],
         ];
     }
 
-    public function testSetFormWithArray(){
+    public function testSetFormWithArray()
+    {
         $key1 = "key1";
         $key2 = "key2";
         $spec = [
@@ -144,10 +155,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(array('setParent'))
             ->getMock();
-        $target->setForm($key1,$spec,true);
+        $target->setForm($key1, $spec, true);
 
         $this->assertAttributeSame(
-
             [$key1 => [
                 $key2 => [
                     'type' => 'text',
@@ -156,21 +166,23 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
                 'name' => $key1,
                 'entity' => '*',
             ]
-            ]
-            , 'forms'
-            , $target);
+            ],
+            'forms',
+            $target
+        );
     }
 
     /**
      * @dataProvider provideEntities
      */
-    public function testSetGetEntity($input, $key, $expected )
+    public function testSetGetEntity($input, $key, $expected)
     {
         $this->target->setEntity($input, $key, $expected);
         $this->assertEquals($expected, $this->target->getEntity($key));
     }
 
-    public function provideEntities() {
+    public function provideEntities()
+    {
         $e = [
             'application' => new Application(),
             'job' => new Job(),

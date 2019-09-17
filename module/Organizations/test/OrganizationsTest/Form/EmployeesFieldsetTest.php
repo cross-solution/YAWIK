@@ -10,16 +10,18 @@
 /** */
 namespace OrganizationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Organizations\Form\EmployeesFieldset;
 
 /**
  * Test for EmployeesFieldset
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizatios.Form
  */
-class EmployeesFieldsetTest extends \PHPUnit_Framework_TestCase
+class EmployeesFieldsetTest extends TestCase
 {
 
     /**
@@ -88,8 +90,8 @@ class EmployeesFieldsetTest extends \PHPUnit_Framework_TestCase
         $target->expects($this->exactly(2))
                ->method('add')
                ->withConsecutive(
-                    array($expectAdd1),
-                    array($expectAdd2)
+                   array($expectAdd1),
+                   array($expectAdd2)
                );
 
         $target->init();

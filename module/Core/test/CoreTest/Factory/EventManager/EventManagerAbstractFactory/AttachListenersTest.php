@@ -10,10 +10,11 @@
 /** */
 namespace CoreTest\Factory\EventManager\EventManagerAbstractFactory;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Factory\EventManager\EventManagerAbstractFactory;
 use Core\Listener\DeferredListenerAggregate;
 use Zend\ServiceManager\ServiceManager;
-
 
 /**
  * Tests for \Core\Factory\EventManager\EventManagerAbstractFactory::attachListeners
@@ -28,7 +29,7 @@ use Zend\ServiceManager\ServiceManager;
  * @group Core.Factory.EventManager
  * @group Core.Factory.EventManager.EventManagerAbstractFactory
  */
-class AttachListenersTest extends \PHPUnit_Framework_TestCase
+class AttachListenersTest extends TestCase
 {
 
     /**
@@ -42,7 +43,7 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
 
     protected $lazyAggregateMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = $this->getMockBuilder('\Core\Factory\EventManager\EventManagerAbstractFactory')
                              ->setMethods([ 'createEventManager', 'getConfig' ])
@@ -55,7 +56,6 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
 
         $this->target->expects($this->once())->method('createEventManager')->willReturn($events);
         $this->events = $events;
-
     }
 
     protected function setTargetListenerConfig($config)
@@ -96,8 +96,8 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
         }
 
         $services->expects($this->atLeast(count($hasMap)))
-	        ->method('has')
-	        ->will($this->returnValueMap($hasMap))
+            ->method('has')
+            ->will($this->returnValueMap($hasMap))
         ;
 
         $services->expects($this->exactly(count($getMap)))
@@ -128,9 +128,9 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
 
     //public function testLazyListenersAreAttachedToDeferredListenerAggregate()
     //{
-        //$this->setTargetListenerConfig(['TestListener' => ['test-event', true]]);
-        //$services = $this->getServiceManagerMock([], true);
-        //$this->target->createServiceWithName($services, 'irrlelevant', 'irrelevant');
+    //$this->setTargetListenerConfig(['TestListener' => ['test-event', true]]);
+    //$services = $this->getServiceManagerMock([], true);
+    //$this->target->createServiceWithName($services, 'irrlelevant', 'irrelevant');
     //}
 
     public function testPullsListenersFromServiceManager()
@@ -143,10 +143,10 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
     public function testCreatesListenersInstances()
     {
         $this->setTargetListenerConfig(
-        	['\CoreTest\Factory\EventManager\EventManagerAbstractFactory\AttachListenerTestListenerMock' => ['test-event','doSomething',1]]
+            ['\CoreTest\Factory\EventManager\EventManagerAbstractFactory\AttachListenerTestListenerMock' => ['test-event','doSomething',1]]
         );
         $services = $this->getServiceManagerMock([
-        	'\CoreTest\Factory\EventManager\EventManagerAbstractFactory\AttachListenerTestListenerMock' => false
+            '\CoreTest\Factory\EventManager\EventManagerAbstractFactory\AttachListenerTestListenerMock' => false
         ]);
 
         $this->target->createServiceWithName($services, 'irrelevant', 'irrelevant');
@@ -157,41 +157,42 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
         $this->setTargetListenerConfig(['NonExistantClass' => 'event']);
         $services = $this->getServiceManagerMock(['NonExistantClass' => false]);
 
-        $this->setExpectedException('\UnexpectedValueException', 'Cannot create listener');
+        $this->expectException('\UnexpectedValueException');
+        $this->expectExceptionMessage('Cannot create listener');
 
         $this->target->createServiceWithName($services, 'irr', 'relevant');
     }
-	
-	public function testCallsAttachOnListenerAggregates()
-	{
-		$aggregateMock = $this->getMockBuilder('\Zend\EventManager\ListenerAggregateInterface')
-		                      ->getMockForAbstractClass();
-		$aggregateMock->expects($this->exactly(2))->method('attach')->withConsecutive([ $this->events, 1], [$this->events, -100]);
-		
-		$this->setTargetListenerConfig(['TestAggregate', 'TestAggregate2' => -100]);
-		$services = $this->getServiceManagerMock(['TestAggregate' => $aggregateMock, 'TestAggregate2' => $aggregateMock]);
-		
-		$this->target->createServiceWithName($services, 'no', 'no');
-	}
+    
+    public function testCallsAttachOnListenerAggregates()
+    {
+        $aggregateMock = $this->getMockBuilder('\Zend\EventManager\ListenerAggregateInterface')
+                              ->getMockForAbstractClass();
+        $aggregateMock->expects($this->exactly(2))->method('attach')->withConsecutive([ $this->events, 1], [$this->events, -100]);
+        
+        $this->setTargetListenerConfig(['TestAggregate', 'TestAggregate2' => -100]);
+        $services = $this->getServiceManagerMock(['TestAggregate' => $aggregateMock, 'TestAggregate2' => $aggregateMock]);
+        
+        $this->target->createServiceWithName($services, 'no', 'no');
+    }
 
     public function testAttachsListenerToEventManager()
     {
         $listenerMock = new AttachListenerTestListenerMock();
         $this->setTargetListenerConfig([
-        	'TestListener1' => ['test-event1','doSomething',1],
-	        'TestListener2' => ['test-event2','doSomething',2]
+            'TestListener1' => ['test-event1','doSomething',1],
+            'TestListener2' => ['test-event2','doSomething',2]
         ]);
         $services = $this->getServiceManagerMock([
-        	'TestListener1' => $listenerMock,
-	        'TestListener2' => $listenerMock
+            'TestListener1' => $listenerMock,
+            'TestListener2' => $listenerMock
         ]);
         $this->events
-	        ->expects($this->exactly(2))
-	        ->method('attach')
-	        ->withConsecutive(
-	        	['test-event1', [$listenerMock,'doSomething'], 1 ],
-		        ['test-event2', [$listenerMock, 'doSomething'], 2 ]
-	        )
+            ->expects($this->exactly(2))
+            ->method('attach')
+            ->withConsecutive(
+                ['test-event1', [$listenerMock,'doSomething'], 1 ],
+                ['test-event2', [$listenerMock, 'doSomething'], 2 ]
+            )
         ;
 
         $this->target->createServiceWithName($services, '', '');
@@ -244,33 +245,33 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
 
         $lazyAggregateMock = $this->getLazyAggregateMock();
         $lazyAggregateMock->expects($this->once())
-			->method('setListeners')
+            ->method('setListeners')
             ->with($expectedLazyListeners)
             ->willReturnSelf()
         ;
 
         $this->setTargetListenerConfig($listeners);
         $services = $this->getServiceManagerMock($servicesCfg, true);
-		$expectedCallback = [$listenerMock,'doSomething'];
+        $expectedCallback = [$listenerMock,'doSomething'];
         $this->events->expects($this->exactly(16))
-			->method('attach')
-			->withConsecutive(
-            [ $expectSingleEvent, $expectedCallback, 1 ],
-            [ $expectSingleEvent, $expectedCallback, 1 ],
-            [ 'event1', $expectedCallback, 1],
-            [ 'event2', $expectedCallback, 1],
-            [ $expectSingleEvent, $expectedCallback, 1],
-            [ 'event1', $expectedCallback, 1],
-            [ 'event2', $expectedCallback, 1],
-            [ $expectSingleEvent, $expectedCallback, $priority],
-            [ 'event1', $expectedCallback, $priority],
-	        [ 'event2', $expectedCallback, $priority],
-            [ $expectSingleEvent, $expectedCallback, $priority ],
-	        [ 'event1', $expectedCallback, $priority ],
-            [ 'event2', $expectedCallback, $priority ],
-            [ $expectSingleEvent, [$listenerMock,$additionalMethod], 1],
-            [ 'event1', $expectedCallback, $additionalPriority ],
-            [ 'event2', $expectedCallback, $additionalPriority ]
+            ->method('attach')
+            ->withConsecutive(
+                [ $expectSingleEvent, $expectedCallback, 1 ],
+                [ $expectSingleEvent, $expectedCallback, 1 ],
+                [ 'event1', $expectedCallback, 1],
+                [ 'event2', $expectedCallback, 1],
+                [ $expectSingleEvent, $expectedCallback, 1],
+                [ 'event1', $expectedCallback, 1],
+                [ 'event2', $expectedCallback, 1],
+                [ $expectSingleEvent, $expectedCallback, $priority],
+                [ 'event1', $expectedCallback, $priority],
+                [ 'event2', $expectedCallback, $priority],
+                [ $expectSingleEvent, $expectedCallback, $priority ],
+                [ 'event1', $expectedCallback, $priority ],
+                [ 'event2', $expectedCallback, $priority ],
+                [ $expectSingleEvent, [$listenerMock,$additionalMethod], 1],
+                [ 'event1', $expectedCallback, $additionalPriority ],
+                [ 'event2', $expectedCallback, $additionalPriority ]
         );
 
         $this->target->createServiceWithName($services, '', '');
@@ -306,64 +307,70 @@ class AttachListenersTest extends \PHPUnit_Framework_TestCase
             'Test16' => [ 'events' => $singleEvent, 'lazy' => true],
             'Test17' => [ 'events' => $multiEvent, 'method' => 'multiMethod' ],
         ];
-	
-	    $servicesCfg = array_fill_keys([
-		    'Test01', 'Test02', 'Test03', 'Test04', 'Test05', 'Test06', 'Test07',
-		    'Test08', 'Test09', 'Test10', 'Test11', 'Test12', 'Test13', 'Test14',
-		    'Test15', 'Test17',
-	    ], $listenerMock);
+    
+        $servicesCfg = array_fill_keys([
+            'Test01', 'Test02', 'Test03', 'Test04', 'Test05', 'Test06', 'Test07',
+            'Test08', 'Test09', 'Test10', 'Test11', 'Test12', 'Test13', 'Test14',
+            'Test15', 'Test17',
+        ], $listenerMock);
         $expectedLazyListeners = [
             [ 'service' => 'Test16', 'event' => $singleEvent[0], 'method' => null, 'priority' => 1 ],
         ];
 
         $lazyAggregateMock = $this->getLazyAggregateMock();
         $lazyAggregateMock
-	        ->expects($this->once())
-	        ->method('setListeners')
-	        ->with($expectedLazyListeners)
-	        ->willReturnSelf()
+            ->expects($this->once())
+            ->method('setListeners')
+            ->with($expectedLazyListeners)
+            ->willReturnSelf()
         ;
 
         $this->setTargetListenerConfig($listeners);
         $services = $this->getServiceManagerMock($servicesCfg, true);
-		
+        
         $callback1 = [$listenerMock,'doSomething'];
-	    $callback2 = [$listenerMock,'doSomethingElse'];
+        $callback2 = [$listenerMock,'doSomethingElse'];
         $this->events
-	        ->expects($this->exactly(20))
-	        ->method('attach')
-	        ->withConsecutive(
-		        [ $singleEvent[0], $callback1, 1 ],
-		        [ 'prioEvent', $callback1, 10 ],
-		        [ 'methodEvent', $callback1, 1],
-		        [ $singleEvent[0], $callback1, 12],
-		        [ 'prioEvent', $callback1, 10],
-		        [ 'methodEvent', $callback1, 12],
-		        [ $singleEvent[0], $callback1, 1],
-		        [ 'prioEvent' , $callback1, 10],
-		        [ 'methodEvent', $callback1, 1],
-		        [ $singleEvent[0], $callback1, 12],
-		        [ 'prioEvent', $callback2, 10],
-		        [ 'methodEvent', $callback1, 12],
-		        [ 'single', $callback1, 1 ],
+            ->expects($this->exactly(20))
+            ->method('attach')
+            ->withConsecutive(
+                [ $singleEvent[0], $callback1, 1 ],
+                [ 'prioEvent', $callback1, 10 ],
+                [ 'methodEvent', $callback1, 1],
+                [ $singleEvent[0], $callback1, 12],
+                [ 'prioEvent', $callback1, 10],
+                [ 'methodEvent', $callback1, 12],
+                [ $singleEvent[0], $callback1, 1],
+                [ 'prioEvent' , $callback1, 10],
+                [ 'methodEvent', $callback1, 1],
+                [ $singleEvent[0], $callback1, 12],
+                [ 'prioEvent', $callback2, 10],
+                [ 'methodEvent', $callback1, 12],
+                [ 'single', $callback1, 1 ],
                 [ 'method' , $callback1, 1],
-		        [ 'priority', $callback1, 10],
-		        //[ [ 'method' ], $callback1, 1],
-		        [ 'verbose', $callback1, 20],
-		        [ 'verbose', $callback1, 30],
-		        [ 'verbose', $callback2, 25],
+                [ 'priority', $callback1, 10],
+                //[ [ 'method' ], $callback1, 1],
+                [ 'verbose', $callback1, 20],
+                [ 'verbose', $callback1, 30],
+                [ 'verbose', $callback2, 25],
                 [ 'multi1', [$listenerMock,'multiMethod'], 1],
                 [ 'multi2', [$listenerMock,'multiMethod'], 1]
             )
         ;
 
         $this->target->createServiceWithName($services, '', '');
-
     }
 }
 
-class AttachListenerTestListenerMock {
-	public function doSomething(){}
-	public function doSomethingElse(){}
-	public function multiMethod(){}
+class AttachListenerTestListenerMock
+{
+    public function doSomething()
+    {
+    }
+    public function doSomethingElse()
+    {
+    }
+    public function multiMethod()
+    {
+    }
 }

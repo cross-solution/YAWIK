@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\EntityInterface;
 use Core\Entity\EntityTrait;
 use Core\Entity\Tree\EmbeddedLeafs;
@@ -20,13 +22,13 @@ use Jobs\Entity\Classifications;
 
 /**
  * Tests for \Jobs\Entity\Classifications
- * 
+ *
  * @covers \Jobs\Entity\Classifications
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @grozp Jobs
  * @group Jobs.Entity
  */
-class ClassificationsTest extends \PHPUnit_Framework_TestCase
+class ClassificationsTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
 

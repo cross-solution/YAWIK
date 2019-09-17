@@ -9,13 +9,14 @@
 
 namespace JobsTest\Factory\Form\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory;
 use Jobs\Form\Hydrator\Strategy\JobManagerStrategy;
 use Jobs\Form\Hydrator\Strategy\OrganizationNameStrategy;
 
-
-class OrganizationNameHydratorSLFactoryTest extends \PHPUnit_Framework_TestCase
+class OrganizationNameHydratorSLFactoryTest extends TestCase
 {
     use ServiceManagerMockTrait;
 
@@ -24,14 +25,13 @@ class OrganizationNameHydratorSLFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new OrganizationNameHydratorFactory();
     }
 
     public function testCreateService()
     {
-
         $organizationRepositoryMock = $this->getMockBuilder('Organizations\Repository\Organization')
             ->disableOriginalConstructor()
             ->getMock();

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\Image;
 use Core\Entity\ImageSet;
 use Core\Entity\ImageSetInterface;
@@ -19,14 +21,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tests for \Core\Entity\ImageSet
- * 
+ *
  * @covers \Core\Entity\ImageSet
  * @coversDefaultClass \Core\Entity\ImageSet
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Entity
  */
-class ImageSetTest extends \PHPUnit_Framework_TestCase
+class ImageSetTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -101,7 +103,6 @@ class ImageSetTest extends \PHPUnit_Framework_TestCase
 
         $this->target->setImagesCollection($images);
         $this->target->clear();
-
     }
 
     public function testSetImagesWithoutPermissions()
@@ -159,9 +160,6 @@ class ImageSetTest extends \PHPUnit_Framework_TestCase
         $this->target->setImages(['key' => $image]);
 
         $this->assertSame($image, $this->target->get('key'));
-
-
-
     }
 
     /**
@@ -195,7 +193,6 @@ class ImageSetTest extends \PHPUnit_Framework_TestCase
         $this->target->setImagesCollection($images);
 
         $this->assertSame($this->target, $this->target->set('key', $image), 'Fluent interface broken');
-
     }
 
     /**

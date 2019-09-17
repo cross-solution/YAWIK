@@ -10,11 +10,13 @@
 /** */
 namespace CoreTest\Controller\Plugin\PaginationBuilder;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 
 /**
  * Tests for \Core\Controller\Plugin\PaginationBuilder
- * 
+ *
  * @covers \Core\Controller\Plugin\PaginationBuilder
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
@@ -22,7 +24,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
  * @group Core.Controller.Plugin
  * @group Core.Controller.Plugin.PaginationBuilder
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -149,7 +151,5 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->target->__invoke($stack, false);
-
     }
-
 }

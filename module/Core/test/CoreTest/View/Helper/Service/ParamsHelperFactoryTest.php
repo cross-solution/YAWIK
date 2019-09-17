@@ -8,14 +8,15 @@
 
 namespace CoreTest\View\Helper\Service;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\View\Helper\Service\ParamsHelperFactory as Factory;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\MvcEvent;
 use Zend\View\HelperPluginManager;
 
-class ParamsHelperFactoryTest extends \PHPUnit_Framework_TestCase
+class ParamsHelperFactoryTest extends TestCase
 {
-    
     public function testFactoryReturnsInstanceOfParamsHelper()
     {
         $factory = new Factory();
@@ -40,6 +41,4 @@ class ParamsHelperFactoryTest extends \PHPUnit_Framework_TestCase
         $helper = $factory->createService($sm);
         $this->assertInstanceOf('\Core\View\Helper\Params', $helper);
     }
-    
-    
 }

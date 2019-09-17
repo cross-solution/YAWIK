@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Acl\Assertion;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use \Organizations\Acl\Assertion\WriteAssertion;
@@ -21,12 +23,12 @@ use Zend\Permissions\Acl\Role\GenericRole;
 
 /**
  * Tests for \Organizations\Acl\Assertion\WriteAssertion
- * 
+ *
  * @covers \Organizations\Acl\Assertion\WriteAssertion
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class WriteAssertionTest extends \PHPUnit_Framework_TestCase
+class WriteAssertionTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -73,7 +75,6 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
 
         if ($expect) {
             $this->assertTrue($result);
-
         } else {
             $this->assertFalse($result);
         }

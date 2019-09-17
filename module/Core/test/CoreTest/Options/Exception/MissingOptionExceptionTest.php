@@ -10,20 +10,22 @@
 /** */
 namespace CoreTest\OptionsException;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Options\Exception\MissingOptionException;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Options\Exception\MissingOptionException
- * 
+ *
  * @covers \Core\Options\Exception\MissingOptionException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
  * @group Core.Options
  * @group Core.Options.Exception
  */
-class MissingDependencyExceptionTest extends \PHPUnit_Framework_TestCase
+class MissingDependencyExceptionTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
@@ -38,7 +40,8 @@ class MissingDependencyExceptionTest extends \PHPUnit_Framework_TestCase
         '\RuntimeException',
     ];
 
-    public function propertiesProvider() {
+    public function propertiesProvider()
+    {
         $ex = new \Exception();
         $target = new MissingOptionException('testOptionKey', 'TestTarget', $ex);
         $target2 = new MissingOptionException('-', new \stdClass());

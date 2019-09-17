@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\InstanceCreator;
 use Zend\Stdlib\ArrayUtils;
 
@@ -91,14 +93,14 @@ use Zend\Stdlib\ArrayUtils;
  * @method any()
  * @method returnSelf()
  * @method returnValue()
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25 /refactored in 0.26
  * @since 0.29 added 'as_reflection' option.
  */
 trait SetupTargetTrait
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->setupTargetInstance();
     }
@@ -133,6 +135,19 @@ trait SetupTargetTrait
         $testNameSetKey = $testNameKey . '|' . $testSet;
         $testSpec = isset($spec[$testNameKey]) ? $spec[$testNameKey] : (isset($spec[$testNameSetKey]) ? $spec[$testNameSetKey] : null);
 
+        if (null === $testSpec) {
+            foreach (array_keys($spec) as $testSpecPattern) {
+                if (false === strpos($testSpecPattern, '*')) {
+                    continue;
+                }
+
+                if (preg_match('~^' . str_replace('*', '.*', substr($testSpecPattern, 1)) . '~', $testName)) {
+                    $testSpec = $spec[$testSpecPattern];
+                    break;
+                }
+            }
+        }
+
         if (!is_array($spec) || false === $testSpec) {
             $this->target = null;
             return;
@@ -142,7 +157,7 @@ trait SetupTargetTrait
             if (is_string($testSpec)) {
                 if (isset($spec[$testSpec])) {
                     $testSpec = $spec[$testSpec];
-                } else if (class_exists($testSpec)) {
+                } elseif (class_exists($testSpec)) {
                     $testSpec = [ $testSpec ];
                 } else {
                     $this->target = $this->{$testSpec}();
@@ -209,7 +224,6 @@ trait SetupTargetTrait
         if (isset($spec['post']) && is_string($spec['post'])) {
             $this->{$spec['post']}();
         }
-
     }
 
     /**
@@ -235,11 +249,8 @@ trait SetupTargetTrait
 
         if (is_string($spec)) {
             $mock = $this->$spec();
-
         } else {
-
-
-            $call = function($spec) {
+            $call = function ($spec) {
                 $cb   = [$this, $spec[0]];
                 $args = isset($spec[1]) ? (array) $spec[1] : [];
 
@@ -258,8 +269,7 @@ trait SetupTargetTrait
 
                     if (is_string($methodSpec)) {
                         $methodSpec = $this->$methodSpec();
-
-                    } else if (is_int($methodSpec)) {
+                    } elseif (is_int($methodSpec)) {
                         $methodSpec = ['count' => $methodSpec];
                     }
 
@@ -271,7 +281,8 @@ trait SetupTargetTrait
                                      : (isset($methodSpec['with']) ? $methodSpec['with'] : null),
                         'return'  => isset($methodSpec['@return'])
                                      ? $call((array) $methodSpec['@return'])
-                                     : (isset($methodSpec['return'])
+                                     : (
+                                         isset($methodSpec['return'])
                                         ? ('__self__' === $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
                                         : null
                                        ),

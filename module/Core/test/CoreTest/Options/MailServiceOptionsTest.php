@@ -10,6 +10,8 @@
 
 namespace Core\Options;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Options\MailServiceOptions as Options;
 
 /**
@@ -20,22 +22,22 @@ use Core\Options\MailServiceOptions as Options;
  * @group Core
  * @group Core.Options
  */
-class MailServiceOptionsTest extends \PHPUnit_Framework_TestCase
+class MailServiceOptionsTest extends TestCase
 {
     /**
      * @var Options $options
      */
     protected $options;
 
-    public function setUp()
+    protected function setUp()
     {
         $options = new Options;
         $this->options = $options;
     }
 
     /**
-     * @covers Core\Options\MailServiceOptions::getUsername
-     * @covers Core\Options\MailServiceOptions::setUsername
+     * @covers \Core\Options\MailServiceOptions::getUsername
+     * @covers \Core\Options\MailServiceOptions::setUsername
      */
     public function testSetGetUsername()
     {
@@ -44,8 +46,8 @@ class MailServiceOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Options\MailServiceOptions::getPassword
-     * @covers Core\Options\MailServiceOptions::setPassword
+     * @covers \Core\Options\MailServiceOptions::getPassword
+     * @covers \Core\Options\MailServiceOptions::setPassword
      */
     public function testSetGetPassword()
     {
@@ -54,8 +56,8 @@ class MailServiceOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Options\MailServiceOptions::getSsl
-     * @covers Core\Options\MailServiceOptions::setSsl
+     * @covers \Core\Options\MailServiceOptions::getSsl
+     * @covers \Core\Options\MailServiceOptions::setSsl
      */
     public function testSetGetSsl()
     {
@@ -64,8 +66,8 @@ class MailServiceOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Core\Options\MailServiceOptions::getTransportClass
-     * @covers Core\Options\MailServiceOptions::setTransportClass
+     * @covers \Core\Options\MailServiceOptions::getTransportClass
+     * @covers \Core\Options\MailServiceOptions::setTransportClass
      *
      * We use "sendmail" as default, because authentication has to be enabled when
      * using "smtp".

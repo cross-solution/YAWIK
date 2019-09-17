@@ -9,10 +9,10 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\IndexController;
 use Core\Controller\Plugin\Config;
-use Core\Listener\DefaultListener;
-use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\ModuleManagerInterface;
 
 /**
@@ -23,11 +23,11 @@ use Zend\ModuleManager\ModuleManagerInterface;
  * @covers \Core\Controller\Plugin\Config
  * @since 0.30
  */
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends TestCase
 {
     private $config;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->config = [
             'Disabled' => [
@@ -57,7 +57,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = include __DIR__.'/fixtures/config-dump.php';
         $moduleManager = $this->createMock(ModuleManagerInterface::class);
-        return new IndexController($moduleManager,$config);
+        return new IndexController($moduleManager, $config);
     }
 
     /**
@@ -65,13 +65,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      * @param string $module
      * @dataProvider getTestInvoke
      */
-    public function testInvoke($config,$key=null,$module=null,$expected)
+    public function testInvoke($config, $key=null, $module=null, $expected=null)
     {
         $plugin = new Config($config);
         $plugin->setController($this->getController());
-        $value = $plugin($key,$module);
+        $value = $plugin($key, $module);
         $this
-            ->assertEquals($expected,$value)
+            ->assertEquals($expected, $value)
         ;
     }
 
@@ -102,7 +102,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $plugin->setController($this->getController());
 
         $this
-            ->assertEquals($config['Core']['settings'],$plugin->settings)
+            ->assertEquals($config['Core']['settings'], $plugin->settings)
         ;
     }
 }

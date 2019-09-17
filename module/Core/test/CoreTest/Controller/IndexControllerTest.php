@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Controller\Plugin\Auth;
 use Zend\Http\Response;
 use Zend\ModuleManager\ModuleManager;
@@ -44,7 +46,7 @@ class IndexControllerTest extends AbstractControllerTestCase
     /**
      * @return IndexController
      */
-    public function setupTarget($auth=null,$layout=null,$forward=null,$config=null)
+    public function setupTarget($auth=null, $layout=null, $forward=null, $config=null)
     {
         $auth->expects($this->any())
             ->method('__invoke')
@@ -100,7 +102,7 @@ class IndexControllerTest extends AbstractControllerTestCase
             ->with('startpage')
             ->willReturn($viewModel)
         ;
-        $this->setupTarget($auth,$layout);
+        $this->setupTarget($auth, $layout);
         $request = new Request();
         $this->controller->dispatch($request);
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
@@ -137,7 +139,7 @@ class IndexControllerTest extends AbstractControllerTestCase
         $config = $this->createMock(Config::class);
         $config->expects($this->any())
             ->method('__invoke')
-            ->with('dashboard',[0])
+            ->with('dashboard', [0])
             ->willReturn($modules)
         ;
 
@@ -152,11 +154,11 @@ class IndexControllerTest extends AbstractControllerTestCase
                 'Jobs/Index',
                 ['action' => 'dashboard','type'=>'recent']
             )
-            ->willReturnOnConsecutiveCalls(null,$viewModel)
+            ->willReturnOnConsecutiveCalls(null, $viewModel)
         ;
 
-        $this->init('Core\Controller\Index','dashboard');
-        $this->setupTarget($auth,null,$forward,$config);
+        $this->init('Core\Controller\Index', 'dashboard');
+        $this->setupTarget($auth, null, $forward, $config);
         $this->moduleManager->expects($this->any())
             ->method('getLoadedModules')
             ->willReturn(['test'])
@@ -176,7 +178,7 @@ class IndexControllerTest extends AbstractControllerTestCase
 
         $response->expects($this->any())
             ->method('getStatusCode')
-            ->willReturnOnConsecutiveCalls(400,200)
+            ->willReturnOnConsecutiveCalls(400, 200)
         ;
 
         // first widget response: inform when error loading widget

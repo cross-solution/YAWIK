@@ -10,9 +10,6 @@ BUILD_DIR=./build/standard
 composer create-project -sdev yawik/standard ${BUILD_DIR} --no-interaction
 cd ${BUILD_DIR}
 
-# @TODO: remove this when composer auto-scripts run automatically
-composer run post-install-cmd
-
 # tests setup
 EXIT=0
 mkdir -p build/behat

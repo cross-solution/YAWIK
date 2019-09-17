@@ -1,7 +1,7 @@
 /.env
 /behat.yml
 /.env.test
-/composer.lock
+/package-lock.json
 
 #
 # General text editors backup files

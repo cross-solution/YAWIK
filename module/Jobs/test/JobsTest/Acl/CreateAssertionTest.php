@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Acl;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\User;
 use Jobs\Acl\CreateAssertion;
 use Zend\Permissions\Acl\Acl;
@@ -25,7 +27,7 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  * @group Jobs
  * @group Jobs.Acl
  */
-class CreateAssertionTest extends \PHPUnit_Framework_TestCase
+class CreateAssertionTest extends TestCase
 {
 
     /**
@@ -74,10 +76,11 @@ class CreateAssertionTest extends \PHPUnit_Framework_TestCase
 
 class CreateAssertionMock extends CreateAssertion
 {
-    public function assert(Acl $acl,
-                           RoleInterface $role = null,
-                           ResourceInterface $resource = null,
-                           $privilege = null
+    public function assert(
+        Acl $acl,
+        RoleInterface $role = null,
+        ResourceInterface $resource = null,
+        $privilege = null
     ) {
         return parent::preAssert($acl, $role, $resource, $privilege);
     }

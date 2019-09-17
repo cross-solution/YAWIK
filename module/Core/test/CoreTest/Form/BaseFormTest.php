@@ -9,19 +9,22 @@
 
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\BaseForm;
 
 /**
 * @covers \Core\Form\BaseForm
 */
-class BaseFormTest extends \PHPUnit_Framework_TestCase
+class BaseFormTest extends TestCase
 {
     /**
      * @var BaseFrom $target
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = $this->getMockBuilder('Core\Form\BaseForm')
                              ->disableOriginalConstructor()
                              ->setMethods(array('AddButtonsFieldset', 'AddBaseFieldset', 'add'))
@@ -38,14 +41,20 @@ class BaseFormTest extends \PHPUnit_Framework_TestCase
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage For the Form Core\Form\BaseForm there is no Basefieldset
      */
-    public function testInitWithoutBaseForm(){
+    public function testInitWithoutBaseForm()
+    {
         $target = new BaseForm;
         $target->init();
 
         $this->assertEquals($target, null);
     }
-
-    public function testAddBaseFieldsetWithoutBaseFieldsetSet(){
-        /*@todo*/
+    
+    /**
+    * @todo
+    */
+    /*
+    public function testAddBaseFieldsetWithoutBaseFieldsetSet()
+    {
     }
+    */
 }

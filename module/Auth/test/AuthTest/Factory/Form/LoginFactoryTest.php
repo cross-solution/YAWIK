@@ -9,17 +9,19 @@
 
 namespace AuthTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Factory\Form\LoginFactory;
 use CoreTest\Bootstrap;
 
-class LoginFactoryTest extends \PHPUnit_Framework_TestCase
+class LoginFactoryTest extends TestCase
 {
     /**
      * @var LoginFactory
      */
     private $testedObj;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new LoginFactory();
     }

@@ -23,28 +23,34 @@
     "support": {
         "email": "contact@yawik.org",
         "docs": "http://yawik.readthedocs.org/en/latest/",
-	    "forum": "https://groups.google.com/forum/#!forum/yawik",
-	    "issues": "https://github.com/cross-solution/YAWIK/issues"
+        "forum": "https://groups.google.com/forum/#!forum/yawik",
+        "issues": "https://github.com/cross-solution/YAWIK/issues"
     },
     "license": "MIT",
     "keywords": [
-        "human resource", "human relation", "applicant", "ATS",
-        "zf2", "jobboard"
+        "human resource",
+        "human relation",
+        "applicant",
+        "ATS",
+        "zf2",
+        "jobboard"
     ],
     "homepage": "http://yawik.org/",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "ext-intl": "*",
         "ext-mongodb": "*",
         "alcaeus/mongo-php-adapter": "^1.0.0",
         "doctrine/doctrine-mongo-odm-module": "^1.0.0",
+        "ezyang/htmlpurifier": "^4.10",
         "hybridauth/hybridauth": "^2.10",
         "imagine/imagine": "^1.0",
         "jmikola/geojson": "^1.0",
         "mpdf/mpdf": "5.7.*",
         "sebastian/version": "^2.0",
+        "slm/queue": "^1.0",
         "symfony/console": "^3.4 | ^4.1",
         "symfony/dotenv": "^3.4 | ^4.1",
         "symfony/filesystem": "^3.4 | ^4.1",
@@ -52,6 +58,7 @@
         "symfony/process": "^3.4 | ^4.1",
         "tracy/tracy": "^2.4",
         "yawik/composer-plugin": ">=0.32@dev",
+        "yawik/geo": "^1.0.0",
         "zendframework/zend-authentication": "^2.5",
         "zendframework/zend-cache": "^2.7",
         "zendframework/zend-captcha": "^2.7",
@@ -84,9 +91,9 @@
         "cbleek/pecl-solr-hint": "dev-master",
         "enm1989/chromedriver": "^2.35",
         "lakion/mink-debug-extension": "^1.2.3",
-        "mikey179/vfsStream": "^1.6",
+        "mikey179/vfsstream": "^1.6",
         "novaway/common-contexts": "~2.0",
-        "phpunit/phpunit": "^5.7",
+        "phpunit/phpunit": "^7.5.8 || ^8.1.2",
         "se/selenium-server-standalone": "^2.52",
         "zendframework/zend-component-installer": "^1.1 | ^2.0",
         "zendframework/zend-test": "^3.1"
@@ -122,7 +129,6 @@
             "Acl\\": "module/Auth/src/Acl",
             "Core\\": "module/Core/src",
             "Cv\\": "module/Cv/src",
-            "Geo\\": "module/Geo/src",
             "Install\\": "module/Install/src",
             "Jobs\\": "module/Jobs/src",
             "Organizations\\": "module/Organizations/src",
@@ -138,13 +144,13 @@
             "CoreTest\\": "module/Core/test",
             "CoreTestUtils\\": "module/Core/test",
             "CvTest\\": "module/Cv/test",
-            "GeoTest\\": "module/Geo/test",
             "InstallTest\\": "module/Install/test",
             "JobsTest\\": "module/Jobs/test",
             "OrganizationsTest\\": "module/Organizations/test",
             "PdfTest\\": "module/Pdf/test",
             "SettingsTest\\": "module/Settings/test",
-            "Yawik\\Behat\\": "module/Behat/src"
+            "Yawik\\Behat\\": "module/Behat/src",
+            "ReleaseTools\\": "module/ReleaseTools/src"
         }
     },
     "replace": {
@@ -152,7 +158,6 @@
         "yawik/auth": "self.version",
         "yawik/core": "self.version",
         "yawik/cv": "self.version",
-        "yawik/geo": "self.version",
         "yawik/install": "self.version",
         "yawik/jobs": "self.version",
         "yawik/organizations": "self.version",
@@ -161,7 +166,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.32-dev"
+            "dev-develop": "0.33-dev"
         }
     }
 }

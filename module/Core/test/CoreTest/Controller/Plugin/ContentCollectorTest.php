@@ -9,6 +9,8 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Controller\AbstractCoreController;
 use Core\Controller\Plugin\ContentCollector;
 use Core\EventManager\EventManager;
@@ -21,7 +23,7 @@ use Zend\View\Model\ViewModel;
  * @covers \Core\Controller\Plugin\ContentCollector
  * @package CoreTest\Controller\Plugin
  */
-class ContentCollectorTest extends \PHPUnit_Framework_TestCase
+class ContentCollectorTest extends TestCase
 {
     public function testTriggerThrowException()
     {
@@ -45,7 +47,7 @@ class ContentCollectorTest extends \PHPUnit_Framework_TestCase
         $viewModel = new ViewModel();
         $events->expects($this->any())
             ->method('trigger')
-            ->with($event,'some_target')
+            ->with($event, 'some_target')
             ->willReturn([
                 'test_template',$viewModel
             ])
@@ -58,9 +60,9 @@ class ContentCollectorTest extends \PHPUnit_Framework_TestCase
         $target->captureTo('some_path');
 
         /* @var \Zend\View\Model\ViewModel[] $childs */
-        $output = $target->trigger($event,'some_target');
+        $output = $target->trigger($event, 'some_target');
         $childs = $output->getChildren();
-        $this->assertInstanceOf(ViewModel::class,$output);
+        $this->assertInstanceOf(ViewModel::class, $output);
         $this->assertEquals(
             'test_template',
             $childs[0]->getTemplate()

@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Controller\ViewController;
@@ -25,7 +27,7 @@ use Zend\I18n\Translator\TranslatorInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  */
-class ViewControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class ViewControllerFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -50,7 +52,7 @@ class ViewControllerFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateServiceProxiesToInvokeAndPassServiceManager($reqName)
     {
         $services = $this->getServiceManagerMock();
-        $this->target->__invoke($services,$reqName);
+        $this->target->__invoke($services, $reqName);
 
         $this->assertEquals($reqName ?: ViewController::class, $this->target->reqName);
     }
@@ -58,19 +60,20 @@ class ViewControllerFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvokeCreatesController()
     {
         $repository = $this
-	        ->getMockBuilder('\Cv\Repository\Cv')
-	        ->disableOriginalConstructor()
-	        ->getMock()
+            ->getMockBuilder('\Cv\Repository\Cv')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
         $repositories = $this
-	        ->createPluginManagerMock([
-	        	'Cv/Cv' => [ 'service' => $repository, 'count_get' => 1 ]
-	        ]
-	        )
+            ->createPluginManagerMock(
+                [
+                'Cv/Cv' => [ 'service' => $repository, 'count_get' => 1 ]
+            ]
+            )
         ;
         $translator = $this
-	        ->getMockBuilder(TranslatorInterface::class)
-	        ->getMock()
+            ->getMockBuilder(TranslatorInterface::class)
+            ->getMock()
         ;
 
         $services = $this->createServiceManagerMock([

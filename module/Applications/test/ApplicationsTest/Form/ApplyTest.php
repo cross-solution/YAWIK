@@ -9,19 +9,21 @@
 
 namespace ApplicationsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Form\Apply;
 
 /**
 * @covers \Applications\Form\Apply
 */
-class ApplyTest extends \PHPUnit_Framework_TestCase
+class ApplyTest extends TestCase
 {
     /**
      * @var $target Apply
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new Apply();
         $this->target->init();

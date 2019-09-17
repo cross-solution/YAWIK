@@ -9,6 +9,8 @@
 
 namespace JobsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Controller\TemplateController;
 use Jobs\Factory\Controller\TemplateControllerFactory;
 use Jobs\Options\ModuleOptions;
@@ -19,7 +21,7 @@ use Zend\Mvc\Controller\ControllerManager;
  * Class TemplateControllerFactoryTest
  * @package JobsTest\Factory\Controller
  */
-class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class TemplateControllerFactoryTest extends TestCase
 {
     /**
      * @var TemplateControllerFactory
@@ -29,7 +31,7 @@ class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new TemplateControllerFactory();
     }

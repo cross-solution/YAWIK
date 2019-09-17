@@ -9,19 +9,22 @@
 
 namespace CoreTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\ListFilterButtonsFieldset;
 
 /**
 * @covers \Core\Form\ListFilterButtonsFieldset
 */
-class ListFilterButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
+class ListFilterButtonsFieldsetTest extends TestCase
 {
     /**
      * @var ListFilterButtonsFieldset
      */
     protected $target;
 
-    public function setUp(){
+    protected function setUp()
+    {
         $this->target = new ListFilterButtonsFieldset();
     }
 
@@ -34,9 +37,9 @@ class ListFilterButtonsFieldsetTest extends \PHPUnit_Framework_TestCase
     public function testInit()
     {
         $this->target->init();
-        $this->assertSame($this->target->getViewPartial(),'form/core/buttons');
-        $this->assertSame($this->target->getName(),'buttons');
-        $this->assertSame($this->target->count(),2);
-        $this->assertSame($this->target->isDisableCapable(),false);
+        $this->assertSame($this->target->getViewPartial(), 'form/core/buttons');
+        $this->assertSame($this->target->getName(), 'buttons');
+        $this->assertSame($this->target->count(), 2);
+        $this->assertSame($this->target->isDisableCapable(), false);
     }
 }

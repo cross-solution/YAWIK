@@ -48,8 +48,8 @@ class Module implements
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.32.0';
-   
+    const VERSION = '0.33.17';
+
     /**
      * @param ModuleOptions $options
      * @inheritdoc
@@ -91,7 +91,7 @@ class Module implements
 
     public function getConsoleUsage(Console $console)
     {
-        $info = [
+        return [
             'purge [--no-check] [--options=] <entity> [<id>]'  => 'Purge entities',
             'This command will load entities to be purged, checks the dependency of each and removes all entities completely from the',
             'database. However, called with no <entity> and options it will output a list of all available entity loaders and its options.',
@@ -106,21 +106,6 @@ class Module implements
             ['--relative','This option will install assets using relative symlink'],
             ""
         ];
-
-        if ($this->isInMainDevelopment()) {
-            $info = ArrayUtils::merge($info, [
-                // subsplit command info
-                'subsplit [--heads] [--tags] [--skip-update] [--dry-run] [--verbose|v]' => 'Subsplit development repository',
-                'The subsplit command will automatically subsplit all changes in the develop into github yawik/* repository'.PHP_EOL
-                .'This command will available only in the Yawik main development repository',
-                ['--heads','If defined then will subsplit that branch.'],
-                ['--tags','Subsplit given tags only'],
-                ['--skip-update','Directly subsplit repository without pull remote branch'],
-                ['--dry-run','Only show the list of git command that will be executed.'],
-                ['--verbose | -v', 'Show debug output.'],
-            ]);
-        }
-        return $info;
     }
 
     /**
@@ -142,7 +127,7 @@ class Module implements
                 '\Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate'
             );
         }
-        
+
         $sm = $e->getApplication()->getServiceManager();
         $translator = $sm->get('translator'); // initialize translator!
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
@@ -158,7 +143,7 @@ class Module implements
                 $sm->get('Core/Options')
             );
             $languageRouteListener->attach($eventManager);
-        
+
             $ajaxRenderListener = new AjaxRenderListener();
             $ajaxRenderListener->attach($eventManager);
 
@@ -167,10 +152,10 @@ class Module implements
 
             $xmlRenderListener = new XmlRenderListener();
             $xmlRenderListener->attach($eventManager);
-        
+
             $enforceJsonResponseListener = new EnforceJsonResponseListener();
             $enforceJsonResponseListener->attach($eventManager);
-        
+
             $stringListener = new StringListener();
             $stringListener->attach($eventManager);
         }
@@ -180,14 +165,14 @@ class Module implements
         $notificationAjaxHandler = new NotificationAjaxHandler();
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($notificationAjaxHandler, 'injectView'), -20);
         $notificationListener->attach(NotificationEvent::EVENT_NOTIFICATION_HTML, array($notificationAjaxHandler, 'render'), -20);
-        
+
 
         $eventManager->attach(
             MvcEvent::EVENT_DISPATCH_ERROR,
             function ($event) {
                 if ($event instanceof MvcEvent) {
                     $application = $event->getApplication();
-                    
+
                     if ($application::ERROR_EXCEPTION == $event->getError()) {
                         $ex = $event->getParam('exception');
                         if (404 == $ex->getCode()) {

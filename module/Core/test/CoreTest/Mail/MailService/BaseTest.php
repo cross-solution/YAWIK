@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Mail\MailService;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Mail\HTMLTemplateMessage;
 use Core\Mail\MailService;
 use Core\Mail\MailServiceConfig;
@@ -27,7 +29,7 @@ use Zend\ServiceManager\ServiceManager;
  * @group Core.Mail
  * @group Core.Mail.MailService
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
     
     /**
@@ -36,7 +38,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     protected $serviceManager;
 
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * @see PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
@@ -91,13 +93,13 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         
 
         $services
-	        ->expects($this->once())
-	        ->method('get')
-	        ->with('translator')
-	        ->willReturn($translator)
+            ->expects($this->once())
+            ->method('get')
+            ->with('translator')
+            ->willReturn($translator)
         ;
 
-        $target = new MailService($services,$config->toArray());
+        $target = new MailService($services, $config->toArray());
         //$target->setServiceLocator($services);
 
         $mail = $target->get('testTranslatorMessage');
@@ -122,7 +124,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($target->validate($message));
         $target->validate($noMessage);
-
     }
 
     /**
@@ -201,7 +202,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals($expected, 'overrideRecipient', $target);
     }
-
 }
 
 class MessageWithInitMethod extends Message

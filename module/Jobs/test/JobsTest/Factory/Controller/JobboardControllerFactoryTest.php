@@ -9,6 +9,8 @@
 
 namespace JobsTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Controller\JobboardController;
 use Jobs\Factory\Controller\JobboardControllerFactory;
 use CoreTest\Bootstrap;
@@ -18,7 +20,7 @@ use Zend\Mvc\Controller\ControllerManager;
  * Class JobboardControllerFactoryTest
  * @package JobsTest\Factory\Controller
  */
-class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class JobboardControllerFactoryTest extends TestCase
 {
     /**
      * @var JobboardControllerFactory
@@ -28,7 +30,7 @@ class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->testedObj = new JobboardControllerFactory();
     }

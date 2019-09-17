@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\FileEntity;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -17,14 +19,13 @@ use Cv\Entity\Attachment;
 
 /**
  * Tests for \Cv\Entity\Attachment
- * 
+ *
  * @covers \Cv\Entity\Attachment
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class AttachmentTest extends \PHPUnit_Framework_TestCase
+class AttachmentTest extends TestCase
 {
-
     use TestInheritanceTrait, TestSetterGetterTrait;
 
     private $target = [

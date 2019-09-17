@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\OrganizationSelect;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationContact;
@@ -22,7 +24,7 @@ use Organizations\Entity\OrganizationName;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *
  */
-class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
+class OrganizationSelectTest extends TestCase
 {
     /**
      *
@@ -31,7 +33,7 @@ class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new OrganizationSelect();
     }

@@ -10,6 +10,8 @@
 /** */
 namespace CoreTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Entity\MetaDataProviderInterface;
 use Core\Entity\MetaDataProviderTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
@@ -17,12 +19,12 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
 
 /**
  * Tests for \Core\Entity\MetaDataProviderTrait
- * 
+ *
  * @covers \Core\Entity\MetaDataProviderTrait
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
-class MetaDataProviderTraitTest extends \PHPUnit_Framework_TestCase
+class MetaDataProviderTraitTest extends TestCase
 {
     use SetupTargetTrait, TestSetterGetterTrait;
 

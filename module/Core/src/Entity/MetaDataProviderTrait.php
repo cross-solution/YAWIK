@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Entity;
 
@@ -38,6 +38,19 @@ trait MetaDataProviderTrait
 
         return $this;
     }
+
+    /**
+     * Unset the metadata with a specific key
+     *
+     * @param string|int $key
+     *
+     * @since 0.33.15
+     */
+    public function unsetMetaData($key): void
+    {
+        unset($this->metaData[$key]);
+    }
+
     /**
      * Get meta data.
      *

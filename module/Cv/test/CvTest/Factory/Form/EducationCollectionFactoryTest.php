@@ -10,6 +10,8 @@
 /** */
 namespace CvTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Education;
@@ -20,14 +22,14 @@ use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Cv\Factory\Form\EducationCollectionFactory
- * 
+ *
  * @covers \Cv\Factory\Form\EducationCollectionFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Cv
  * @group Cv.Factory
  * @group Cv.Factory.Form
  */
-class EducationCollectionFactoryTest extends \PHPUnit_Framework_TestCase
+class EducationCollectionFactoryTest extends TestCase
 {
     use TestInheritanceTrait;
 
@@ -37,13 +39,12 @@ class EducationCollectionFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokation()
     {
-    	$sm = new ServiceManager();
-        $container = $this->target->__invoke($sm,'irrelevant');
+        $sm = new ServiceManager();
+        $container = $this->target->__invoke($sm, 'irrelevant');
 
         $this->assertInstanceOf(CollectionContainer::class, $container);
         $this->assertAttributeEquals('CvEducationForm', 'formService', $container);
         $this->assertAttributeInstanceOf(Education::class, 'newEntry', $container);
         $this->assertEquals('Education history', $container->getLabel());
     }
-    
 }

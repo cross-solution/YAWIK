@@ -1,0 +1,79 @@
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2019 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+
+/**
+ * we've replaced glyphicons with font-awesome. therefore bootstrap/bootstrap.less from 
+ * the bootstrap dist was copied to the local bootstrap.less. 
+ * include "glyphicons.less" was replaces by "font-awesome/font-awesome.less"
+ **/
+
+/* YAWIK Colors */
+@yk-color-orange: #FAA427;
+@yk-color-blue: #5498D7;
+@yk-color-confirmed: @brand-success;
+@yk-color-rejected: @brand-danger;
+@yk-color-incoming: @brand-info;
+@yk-color-invited: @brand-warning;
+@yk-color-background-fieldset: #fdfdfd;
+@yk-color-background-sidebar-active: #f5f5f5;
+@yk-color-error-border: #953B39;
+
+@table-bg-header: #efefef;
+@table-border-color: #aaa;
+
+@panel-default-border: #ddd;
+
+@yk-btn-primary-bg:            @btn-primary-bg;
+@yk-btn-primary-border:        @btn-primary-border;
+@yk-btn-primary-color:         @btn-primary-color;
+@yk-btn-primary-hover-bg:      darken(@brand-primary, 5%);
+@yk-btn-primary-hover-border:  darken(@btn-primary-border, 5%);
+@yk-btn-primary-hover-color:   @btn-primary-color;
+@yk-btn-border-radius-base:    @btn-border-radius-base;
+
+@yk-tab-border-radius-base:    @btn-border-radius-base;
+@yk-tab-bg:                    @brand-info;
+@yk-tab-active-bg:             @brand-primary;
+@yk-tab-hover-bg:              @brand-primary;
+@yk-tab-color:                 @yk-btn-primary-color;
+@yk-tab-active-color:          @link-hover-color;
+@yk-tab-hover-color:           @yk-btn-primary-color;
+
+@btn-select2-bg: @btn-default-bg;
+@btn-select2-border: @btn-default-border;
+
+@import "bootstrap.less";
+
+@import "include/buttons.less";
+@import "include/icons.less";
+@import "include/panel.less";
+@import "include/rating.less";
+@import "include/forms.less";
+@import "include/bootstrap-social.less";
+@import "include/select2-bootstrap.less";
+@import "bootstrap-datepicker/less/datepicker3.less";
+
+@flag-icon-css-path: '../flags';
+@flag-icon-rect-path: '/4x3';
+@flag-icon-square-path: '/1x1';
+
+@import "flag-icon-css/less/flag-icon-base.less";
+@import "flag-icon-css/less/flag-icon-list.less";
+
+@yawik-css-prefix:                  yk;
+
+// Links
+// -------------------------
+@link-color:                        @brand-primary;
+@link-hover-color:                  @yk-color-orange;
+
+
+// YAWIK Variables
+@colorError:                        #B94A48;
+@colorErrorShadow:                  #D59392;
+@backgroundFieldset:                @yk-color-background-fieldset;

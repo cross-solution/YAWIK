@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Form\HiringOrganizationSelect;
 
 /**
@@ -20,7 +22,7 @@ use Jobs\Form\HiringOrganizationSelect;
  * @group Jobs
  * @group Jobs.Form
  */
-class HiringOrganizationSelectTest extends \PHPUnit_Framework_TestCase
+class HiringOrganizationSelectTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -29,7 +31,7 @@ class HiringOrganizationSelectTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->target = new HiringOrganizationSelect();
     }

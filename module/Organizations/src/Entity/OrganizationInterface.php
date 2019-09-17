@@ -18,6 +18,7 @@ use Core\Entity\ImageSet;
 use Core\Entity\ModificationDateAwareEntityInterface;
 use Doctrine\Common\Collections\Collection;
 use Zend\Hydrator\HydratorAwareInterface;
+use Core\Entity\MetaDataProviderInterface;
 
 /**
  * Interface OrganizationInterface
@@ -29,7 +30,8 @@ interface OrganizationInterface extends
     ModificationDateAwareEntityInterface,
     PermissionsAwareInterface,
     PermissionsResourceInterface,
-    HydratorAwareInterface
+    HydratorAwareInterface,
+    MetaDataProviderInterface
 {
 
 
@@ -131,7 +133,7 @@ interface OrganizationInterface extends
      * @return OrganizationName
      */
     public function getOrganizationName();
-   
+
     /**
      * @return string
      */

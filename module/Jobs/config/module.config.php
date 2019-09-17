@@ -4,6 +4,8 @@ namespace Jobs;
 use Jobs\Controller\AdminCategoriesController;
 use Jobs\Controller\AdminController;
 use Jobs\Controller\ConsoleController;
+use Jobs\Controller\Plugin\ProcessJsonRequest;
+use Jobs\Controller\Plugin\ProcessJsonRequestFactory;
 use Jobs\Form\InputFilter\JobLocationEdit;
 use Jobs\Listener\Publisher;
 
@@ -31,6 +33,16 @@ return [
                     '\Jobs\Repository\Event\UpdatePermissionsSubscriber',
                 ],
             ],
+        ],
+    ],
+
+    'slm_queue' => [
+
+        'job_manager' => [
+            'factories' => [
+                Queue\FindJobsWithExternalImageJob::class => Queue\FindJobsWithExternalImageJobFactory::class,
+                Queue\FetchExternalImageJob::class => Queue\FetchExternalImageJobFactory::class,
+            ]
         ],
     ],
 
@@ -309,6 +321,10 @@ return [
     'controller_plugins' => [
         'factories' => [
             'initializeJob' => 'Jobs\Factory\Controller\Plugin\InitializeJobFactory',
+            ProcessJsonRequest::class => ProcessJsonRequestFactory::class
+        ],
+        'aliases' => [
+            'processJsonRequest' => ProcessJsonRequest::class,
         ],
     ],
 
@@ -335,6 +351,7 @@ return [
             'jobs/form/multiposting-checkboxes' => __DIR__ . '/../view/form/multiposting-checkboxes.phtml',
             'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
             'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
+            'jobs/form/salary-fieldset' => __DIR__ . '/../view/form/salary-fieldset.phtml',
             'jobs/form/company-name-fieldset' => __DIR__ . '/../view/form/company-name-fieldset.phtml',
             'jobs/form/preview' => __DIR__ . '/../view/form/preview.phtml',
             'jobs/form/customer-note' => __DIR__ . '/../view/form/customer-note.phtml',
@@ -417,6 +434,8 @@ return [
             'Jobs/MultipostButtonFieldset'      => 'Jobs\Form\MultipostButtonFieldset',
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
+            'Jobs/Salary'                       => 'Jobs\Form\Salary',
+            'Jobs/SalaryFieldset'               => 'Jobs\Form\SalaryFieldset',
             'Jobs/AdminSearch'                  => 'Jobs\Form\AdminSearchFormElementsFieldset',
             'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
             'Jobs/ListFilterLocation'           => 'Jobs\Form\ListFilterLocation',

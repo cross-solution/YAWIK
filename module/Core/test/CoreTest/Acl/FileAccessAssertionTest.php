@@ -9,6 +9,8 @@
 
 namespace CoreTest\Acl;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Auth\Entity\UserInterface;
 use Core\Acl\FileAccessAssertion;
@@ -24,18 +26,17 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  * @since 0.30.3
  * @author Anthonius Munthi <me@itstoni.com>
  */
-class FileAccessAssertionTest extends \PHPUnit_Framework_TestCase
+class FileAccessAssertionTest extends TestCase
 {
     /**
      * @var FileAccessAssertion
      */
     protected $target;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $this->target = new FileAccessAssertion();
-
     }
 
     /**
@@ -57,17 +58,17 @@ class FileAccessAssertionTest extends \PHPUnit_Framework_TestCase
         $failMessage = 'Assert should return false when role is not a user or resource is not file';
 
         $this->assertFalse(
-            $target->assert($acl,$roleInterface,$resourceInterface),
+            $target->assert($acl, $roleInterface, $resourceInterface),
             $failMessage
         );
 
         $this->assertFalse(
-            $target->assert($acl,$userRole,$resourceInterface),
+            $target->assert($acl, $userRole, $resourceInterface),
             $failMessage
         );
 
         $this->assertFalse(
-            $this->target->assert($acl,$roleInterface,$file),
+            $this->target->assert($acl, $roleInterface, $file),
             $failMessage
         );
     }
@@ -89,11 +90,11 @@ class FileAccessAssertionTest extends \PHPUnit_Framework_TestCase
 
         $permissions->expects($this->once())
             ->method('isGranted')
-            ->with($role,PermissionsInterface::PERMISSION_VIEW)
+            ->with($role, PermissionsInterface::PERMISSION_VIEW)
             ->willReturn(true)
         ;
         $this->assertTrue(
-            $target->assert($acl,$role,$file,PermissionsInterface::PERMISSION_VIEW)
+            $target->assert($acl, $role, $file, PermissionsInterface::PERMISSION_VIEW)
         );
     }
 }

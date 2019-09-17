@@ -9,6 +9,8 @@
 
 namespace AuthTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Auth\Entity\Status;
 use Jobs\Entity\StatusInterface;
 use Zend\I18n\Translator\TranslatorInterface as Translator;
@@ -21,7 +23,7 @@ use Zend\I18n\Translator\TranslatorInterface as Translator;
  *
  * @author fedys
  */
-class StatusTest extends \PHPUnit_Framework_TestCase
+class StatusTest extends TestCase
 {
     /**
      * The "Class under Test"
@@ -30,7 +32,7 @@ class StatusTest extends \PHPUnit_Framework_TestCase
      */
     private $target;
 
-    public function setup()
+    protected function setUp()
     {
         $this->target = new Status();
     }
@@ -49,8 +51,8 @@ class StatusTest extends \PHPUnit_Framework_TestCase
      * @testdox      Can be constructed in all possible states
      * @dataProvider provideCreatingInstancesTestData
      * @covers ::__construct
-     * @covers Auth\Entity\Status::getName
-     * @covers Auth\Entity\Status::getOrder
+     * @covers \Auth\Entity\Status::getName
+     * @covers \Auth\Entity\Status::getOrder
      *
      * @param string $status           the status to set
      * @param string $expectedName     the expected name for the status

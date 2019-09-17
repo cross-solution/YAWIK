@@ -6,9 +6,11 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Controller;
+
+use PHPUnit\Framework\TestCase;
 
 use Core\Controller\AdminController;
 use Core\Controller\AdminControllerEvent;
@@ -17,17 +19,16 @@ use Core\EventManager\EventManager;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Interop\Container\ContainerInterface;
 
-
 /**
  * Tests for \Core\Controller\AdminController
- * 
+ *
  * @covers \Core\Controller\AdminController
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
  * @group Core
  * @group Core.Controller
  */
-class AdminControllerTest extends \PHPUnit_Framework_TestCase
+class AdminControllerTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
@@ -40,7 +41,7 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
 
     protected $inheritance = [ 'Zend\Mvc\Controller\AbstractActionController' ];
 
-    public function setUp()
+    protected function setUp()
     {
 	    $events = $this->getMockBuilder(EventManager::class)
 	                   ->setMethods(['getEvent', 'triggerEvent'])
@@ -53,9 +54,9 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
         $events = $this->getMockBuilder(EventManager::class)
             ->setMethods(['getEvent', 'triggerEvent'])
             ->getMock();
-	    $target = new AdminController($events);
-	    $event = new AdminControllerEvent(AdminControllerEvent::EVENT_DASHBOARD, $target);
-	    $event->addViewVariables('test', ['testVar' => 'value']);
+        $target = new AdminController($events);
+        $event = new AdminControllerEvent(AdminControllerEvent::EVENT_DASHBOARD, $target);
+        $event->addViewVariables('test', ['testVar' => 'value']);
         $events->expects($this->once())->method('getEvent')
             ->with(AdminControllerEvent::EVENT_DASHBOARD, $this->identicalTo($target))
             ->willReturn($event);
@@ -68,12 +69,12 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
         //                                                 'service' => $events,
         //                                                 'count_get' => 1,
         //                                             ]
-		//
+        //
         //                                          ]);
 
         /* @var \Zend\View\Model\ViewModel $child
          * @var \Zend\View\Model\ViewModel $viewModel */
-        
+
         $viewModel = $target->indexAction();
 
         $this->assertInstanceOf('\Zend\View\Model\ViewModel', $viewModel);

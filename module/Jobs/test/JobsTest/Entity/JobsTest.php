@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Entity;
 
+use PHPUnit\Framework\TestCase;
+
 use Applications\Entity\Application;
 use Auth\Entity\Info;
 use Auth\Entity\User;
@@ -43,7 +45,7 @@ use Organizations\Entity\OrganizationName;
  * @group  Jobs
  * @group  Jobs.Entity
  */
-class JobsTest extends \PHPUnit_Framework_TestCase
+class JobsTest extends TestCase
 {
     use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
 
@@ -78,8 +80,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the job title
-     * @covers Jobs\Entity\Job::getTitle
-     * @covers Jobs\Entity\Job::setTitle
+     * @covers \Jobs\Entity\Job::getTitle
+     * @covers \Jobs\Entity\Job::setTitle
      */
     public function testSetGetTitle()
     {
@@ -90,8 +92,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the job language
-     * @covers Jobs\Entity\Job::getLanguage
-     * @covers Jobs\Entity\Job::setLanguage
+     * @covers \Jobs\Entity\Job::getLanguage
+     * @covers \Jobs\Entity\Job::setLanguage
      */
     public function testSetGetLanguage()
     {
@@ -102,8 +104,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the job location
-     * @covers Jobs\Entity\Job::getLocation
-     * @covers Jobs\Entity\Job::setLocation
+     * @covers \Jobs\Entity\Job::getLocation
+     * @covers \Jobs\Entity\Job::setLocation
      */
     public function testSetGetLocation()
     {
@@ -114,8 +116,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting multi job locations
-     * @covers Jobs\Entity\Job::getLocations
-     * @covers Jobs\Entity\Job::setLocations
+     * @covers \Jobs\Entity\Job::getLocations
+     * @covers \Jobs\Entity\Job::setLocations
      */
     public function testSetGetLocations()
     {
@@ -129,8 +131,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting/getting multi job applications
-     * @covers Jobs\Entity\Job::getApplications
-     * @covers Jobs\Entity\Job::setApplications
+     * @covers \Jobs\Entity\Job::getApplications
+     * @covers \Jobs\Entity\Job::setApplications
      */
     public function testSetGetApplications()
     {
@@ -145,8 +147,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting multi job locations
-     * @covers Jobs\Entity\Job::getLocations
-     * @covers Jobs\Entity\Job::setLocations
+     * @covers \Jobs\Entity\Job::getLocations
+     * @covers \Jobs\Entity\Job::setLocations
      */
     public function testGetLocationsWithoutSetting()
     {
@@ -157,8 +159,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the job link
-     * @covers Jobs\Entity\Job::getLink
-     * @covers Jobs\Entity\Job::setLink
+     * @covers \Jobs\Entity\Job::getLink
+     * @covers \Jobs\Entity\Job::setLink
      */
     public function testSetGetLink()
     {
@@ -169,8 +171,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the job link
-     * @covers Jobs\Entity\Job::getPortals
-     * @covers Jobs\Entity\Job::setPortals
+     * @covers \Jobs\Entity\Job::getPortals
+     * @covers \Jobs\Entity\Job::setPortals
      */
     public function testSetGetPortals()
     {
@@ -181,8 +183,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting of a logo reference
-     * @covers Jobs\Entity\Job::getLogoRef
-     * @covers Jobs\Entity\Job::setLogoRef
+     * @covers \Jobs\Entity\Job::getLogoRef
+     * @covers \Jobs\Entity\Job::setLogoRef
      */
     public function testSetGetLogoRef()
     {
@@ -193,8 +195,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the application link of a job posting
-     * @covers Jobs\Entity\Job::getUriApply
-     * @covers Jobs\Entity\Job::setUriApply
+     * @covers \Jobs\Entity\Job::getUriApply
+     * @covers \Jobs\Entity\Job::setUriApply
      */
     public function testSetGetUriApply()
     {
@@ -205,8 +207,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows to set the publisher URI of a job posting
-     * @covers Jobs\Entity\Job::getUriPublisher
-     * @covers Jobs\Entity\Job::setUriPublisher
+     * @covers \Jobs\Entity\Job::getUriPublisher
+     * @covers \Jobs\Entity\Job::setUriPublisher
      */
     public function testSetGetUriPublisher()
     {
@@ -217,8 +219,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the start date of a job posting
-     * @covers Jobs\Entity\Job::getDatePublishStart
-     * @covers Jobs\Entity\Job::setDatePublishStart
+     * @covers \Jobs\Entity\Job::getDatePublishStart
+     * @covers \Jobs\Entity\Job::setDatePublishStart
      * @dataProvider provideDates
      */
     public function testSetGetDatePublishStart($input, $expected)
@@ -229,8 +231,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting of the end date of a job posting
-     * @covers Jobs\Entity\Job::getDatePublishEnd
-     * @covers Jobs\Entity\Job::setDatePublishEnd
+     * @covers \Jobs\Entity\Job::getDatePublishEnd
+     * @covers \Jobs\Entity\Job::setDatePublishEnd
      * @dataProvider provideDates
      */
     public function testSetPublishEnd($input, $expected)
@@ -261,8 +263,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getStatus
-     * @covers Jobs\Entity\Job::setStatus
+     * @covers \Jobs\Entity\Job::getStatus
+     * @covers \Jobs\Entity\Job::setStatus
      * @dataProvider provideSetGetStatusTestData
      */
     public function testSetGetStatus($status, $expectedStatus)
@@ -273,8 +275,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the reference of a job posting
-     * @covers Jobs\Entity\Job::getReference
-     * @covers Jobs\Entity\Job::setReference
+     * @covers \Jobs\Entity\Job::getReference
+     * @covers \Jobs\Entity\Job::setReference
      */
     public function testSetGetReference()
     {
@@ -292,8 +294,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getAtsEnabled
-     * @covers Jobs\Entity\Job::setAtsEnabled
+     * @covers \Jobs\Entity\Job::getAtsEnabled
+     * @covers \Jobs\Entity\Job::setAtsEnabled
      * @dataProvider provideSetGetAtsEnabledTestData
      */
     public function testSetGetAtsEnabled($status, $expectedStatus)
@@ -311,8 +313,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::isDraft
-     * @covers Jobs\Entity\Job::setIsDraft
+     * @covers \Jobs\Entity\Job::isDraft
+     * @covers \Jobs\Entity\Job::setIsDraft
      * @dataProvider provideSetGetDraftTestData
      */
     public function testSetGetDraft($status, $expectedStatus)
@@ -330,8 +332,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getTemplate
-     * @covers Jobs\Entity\Job::setTemplate
+     * @covers \Jobs\Entity\Job::getTemplate
+     * @covers \Jobs\Entity\Job::setTemplate
      * @dataProvider provideSetGetTemplateTestData
      */
     public function testSetGetTemplate($template, $expectedTemplate)
@@ -351,8 +353,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getTemplate
-     * @covers Jobs\Entity\Job::setTemplate
+     * @covers \Jobs\Entity\Job::getTemplate
+     * @covers \Jobs\Entity\Job::setTemplate
      * @dataProvider provideIsActiveTestData
      */
     public function testIsActive($isDraft, $status, $expected)
@@ -373,8 +375,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getAtsMode
-     * @covers Jobs\Entity\Job::setAtsMode
+     * @covers \Jobs\Entity\Job::getAtsMode
+     * @covers \Jobs\Entity\Job::setAtsMode
      * @dataProvider provideAtsModes
      */
     public function testSetGetAtsMode($input)
@@ -387,7 +389,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getAtsMode
+     * @covers \Jobs\Entity\Job::getAtsMode
      */
     public function testAtsModeWithoutSetting()
     {
@@ -405,8 +407,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getTermsAccepted
-     * @covers Jobs\Entity\Job::setTermsAccepted
+     * @covers \Jobs\Entity\Job::getTermsAccepted
+     * @covers \Jobs\Entity\Job::setTermsAccepted
      * @dataProvider provideTermsAccepted
      */
     public function testSetTermsAccepted($input, $expected)
@@ -426,8 +428,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::getHistory
-     * @covers Jobs\Entity\Job::setHistory
+     * @covers \Jobs\Entity\Job::getHistory
+     * @covers \Jobs\Entity\Job::setHistory
      * @dataProvider provideHistory
      */
     public function testSetHistory($input, $expected)
@@ -451,7 +453,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the status of a job posting
-     * @covers Jobs\Entity\Job::changeStatus
+     * @covers \Jobs\Entity\Job::changeStatus
      * @dataProvider provideStatus
      */
     public function testChangeStatus($input, $expected)
@@ -465,8 +467,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the name of a company without organization
-     * @covers Jobs\Entity\Job::setCompany
-     * @covers Jobs\Entity\Job::getCompany
+     * @covers \Jobs\Entity\Job::setCompany
+     * @covers \Jobs\Entity\Job::getCompany
      */
     public function testSetGetCompanyWithoutOrganization()
     {
@@ -491,8 +493,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the name of a company without organization
-     * @covers Jobs\Entity\Job::setApplyId
-     * @covers Jobs\Entity\Job::getApplyId
+     * @covers \Jobs\Entity\Job::setApplyId
+     * @covers \Jobs\Entity\Job::getApplyId
      */
     public function testSetGetApllyId()
     {
@@ -503,8 +505,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Allows setting the name of a company without organization
-     * @covers Jobs\Entity\Job::setApplyId
-     * @covers Jobs\Entity\Job::getApplyId
+     * @covers \Jobs\Entity\Job::setApplyId
+     * @covers \Jobs\Entity\Job::getApplyId
      */
     public function testGetDefaultForApplyId()
     {

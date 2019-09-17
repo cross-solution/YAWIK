@@ -10,6 +10,8 @@
 /** */
 namespace JobsTest\Factory\Form;
 
+use PHPUnit\Framework\TestCase;
+
 use Jobs\Factory\Form\MultipostingMultiCheckboxFactory;
 
 /**
@@ -21,7 +23,7 @@ use Jobs\Factory\Form\MultipostingMultiCheckboxFactory;
  * @group Jobs.Factory
  * @group Jobs.Factory.Form
  */
-class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
+class MultipostingMultiCheckboxFactoryTest extends TestCase
 {
     /**
      * @testdox Implements \Zend\ServiceManager\FactoryInterface
