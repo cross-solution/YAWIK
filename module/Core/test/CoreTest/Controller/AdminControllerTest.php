@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Controller;
 
@@ -43,16 +43,16 @@ class AdminControllerTest extends TestCase
 
     protected function setUp()
     {
-        $events = $this->getMockBuilder(EventManager::class)
-                       ->setMethods(['getEvent', 'trigger'])
-                       ->getMock();
-        $this->target = new AdminController($events);
+	    $events = $this->getMockBuilder(EventManager::class)
+	                   ->setMethods(['getEvent', 'triggerEvent'])
+	                   ->getMock();
+	    $this->target = new AdminController($events);
     }
 
     public function testIndexAction()
     {
         $events = $this->getMockBuilder(EventManager::class)
-            ->setMethods(['getEvent', 'trigger'])
+            ->setMethods(['getEvent', 'triggerEvent'])
             ->getMock();
         $target = new AdminController($events);
         $event = new AdminControllerEvent(AdminControllerEvent::EVENT_DASHBOARD, $target);
@@ -61,7 +61,7 @@ class AdminControllerTest extends TestCase
             ->with(AdminControllerEvent::EVENT_DASHBOARD, $this->identicalTo($target))
             ->willReturn($event);
 
-        $events->expects($this->once())->method('trigger')->with($this->identicalTo($event));
+        $events->expects($this->once())->method('triggerEvent')->with($this->identicalTo($event));
 
 
         //$services = $this->getServiceManagerMock([
@@ -74,7 +74,7 @@ class AdminControllerTest extends TestCase
 
         /* @var \Zend\View\Model\ViewModel $child
          * @var \Zend\View\Model\ViewModel $viewModel */
-        
+
         $viewModel = $target->indexAction();
 
         $this->assertInstanceOf('\Zend\View\Model\ViewModel', $viewModel);

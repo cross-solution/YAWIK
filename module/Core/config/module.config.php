@@ -65,7 +65,7 @@ return array(
     'options' => [
         'Core/MailServiceOptions' => [ 'class' => '\Core\Options\MailServiceOptions' ],
     ],
-    
+
     'Core' => array(
         'settings' => array(
             'entity' => '\\Core\\Entity\\SettingsContainer',
@@ -130,7 +130,7 @@ return array(
             Log\Processor\ProcessId::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
-    
+
     'tracy' => [
         'mode' => true, // true = production|false = development|null = autodetect|IP address(es) csv/array
         'bar' => false, // bool = enabled|Toggle nette diagnostics bar.
@@ -286,7 +286,7 @@ return array(
             ],
         ],
     ],
-    
+
     'acl' => array(
         'rules' => array(
             'guest' => array(
@@ -321,7 +321,7 @@ return array(
             ],
         ),
     ),
-    
+
     // Setup the service manager
     'service_manager' => array(
         'invokables' => array(
@@ -354,6 +354,7 @@ return array(
             'Tracy' => [Tracy::class,'factory'],
             Service\EntityEraser\DefaultEntityLoaderListener::class => Service\EntityEraser\DefaultEntityLoaderListenerFactory::class,
             ClearCacheService::class => [ClearCacheService::class,'factory'],
+            Listener\ModuleVersionAdminWidgetProvider::class => Listener\ModuleVersionAdminWidgetProviderFactory::class,
             Queue\Worker\MongoWorker::class => \SlmQueue\Factory\WorkerFactory::class,
             'Core/HtmlPurifier' => \Core\Factory\Service\HtmlPurifierFactory::class
         ),
@@ -520,11 +521,11 @@ return array(
             'formFileUpload' => 'Core\Form\View\Helper\FormFileUpload',
             'formImageUpload' => 'Core\Form\View\Helper\FormImageUpload',
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
-            
+
             /* @TODO: [ZF3] make this setting to be camel cased */
             'formCheckBox' => 'Core\Form\View\Helper\FormCheckbox',
             'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
-            
+
             'formDatePicker' => 'Core\Form\View\Helper\FormDatePicker',
             'formInfoCheckBox' => 'Core\Form\View\Helper\FormInfoCheckbox',
             'formSelect' => 'Core\Form\View\Helper\FormSelect',
@@ -552,6 +553,7 @@ return array(
             'InsertFile' => [View\Helper\InsertFile::class, 'factory'],
             \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
             \Core\View\Helper\Proxy::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \Core\View\Helper\ModuleVersion::class => \Core\View\Helper\ModuleVersionFactory::class,
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
@@ -561,9 +563,10 @@ return array(
             'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
             'proxy' => \Core\View\Helper\Proxy::class,
             'form_element' => 'formElement',
+            'moduleVersion' => \Core\View\Helper\ModuleVersion::class,
         ],
     ),
-    
+
     'view_helper_config' => array(
         'flashmessenger' => array(
             'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
@@ -577,7 +580,7 @@ return array(
                 ]
         ]
     ),
-    
+
     'filters' => array(
         'invokables' => array(
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
@@ -601,7 +604,7 @@ return array(
             ],
         ],
     ],
-    
+
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
@@ -647,7 +650,7 @@ return array(
             '\Core\Factory\Paginator\RepositoryAbstractFactory',
         ],
     ],
-    
+
     'mails_config' => array(
         'from' => array(
             'email' => 'no-reply@host.tld',
@@ -659,6 +662,9 @@ return array(
         'Core/AdminController/Events' => [
             'service' => 'Core/EventManager',
             'event' => '\Core\Controller\AdminControllerEvent',
+            'listeners' => [
+                Listener\ModuleVersionAdminWidgetProvider::class => Controller\AdminControllerEvent::EVENT_DASHBOARD,
+            ],
         ],
 
         'Core/CreatePaginator/Events' => [
@@ -674,7 +680,7 @@ return array(
             'service' => 'Core/EventManager',
             'event'   => \Core\Listener\Events\AjaxEvent::class,
         ],
-        
+
         'Core/File/Events' => [
             'service' => 'Core/EventManager',
             'event' => \Core\Listener\Events\FileEvent::class,
@@ -696,5 +702,5 @@ return array(
             ],
         ],
     ],
-    
+
 );

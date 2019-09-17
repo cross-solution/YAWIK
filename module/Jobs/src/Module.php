@@ -9,6 +9,8 @@
 
 namespace Jobs;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Zend\Mvc\MvcEvent;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
@@ -19,8 +21,14 @@ use Core\Options\ModuleOptions as CoreOptions;
 /**
  * Bootstrap class of the Core module
  */
-class Module implements ConsoleUsageProviderInterface, RequireDirectoryPermissionInterface
+class Module implements
+    ConsoleUsageProviderInterface,
+    RequireDirectoryPermissionInterface,
+    VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = \Core\Module::VERSION;
 
     public function getRequiredDirectoryLists(CoreOptions $options)
     {

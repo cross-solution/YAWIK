@@ -10,6 +10,8 @@
 /** Core */
 namespace Settings;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Zend\Mvc\MvcEvent;
 use Settings\Listener\InjectSubNavigationListener;
 
@@ -17,8 +19,12 @@ use Settings\Listener\InjectSubNavigationListener;
  * Bootstrap class of the Settings module
  *
  */
-class Module
+class Module implements VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = \Core\Module::VERSION;
+
     /**
      * Sets up services on the bootstrap event.
      *

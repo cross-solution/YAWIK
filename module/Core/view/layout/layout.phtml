@@ -1,8 +1,8 @@
-<?php 
+<?php
 /**
  * YAWIK
  * Layout template file
- * 
+ *
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -75,7 +75,7 @@ $this->configHeadScript()->appendFile($this->basePath($langScript));
                     <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/' . $lang )?>">Y</a>
                </div>
                   <nav id="main-navigation" class="navbar-collapse collapse navbar-collapse" role="navigation">
-                     <?php 
+                     <?php
                         echo $this->navigation('Core/Navigation')
                                   ->setAcl($this->services('Acl'))
                                   ->setRole($this->auth('role'))
@@ -92,8 +92,8 @@ $this->configHeadScript()->appendFile($this->basePath($langScript));
 <nav id="sidebar">
     <?=$this->languageSwitcher()?>
 <p><a href="https://www.transifex.com/projects/p/yawik/">
-<?php echo $this->translate('Help to translate YAWIK');?></a></p>  
-<div id="sub-nav">               
+<?php echo $this->translate('Help to translate YAWIK');?></a></p>
+<div id="sub-nav">
 <?php
     echo $this->navigation()->menu()
               ->setOnlyActiveBranch(true)
@@ -113,7 +113,7 @@ endforeach;?>
 </nav>
 <!-- /SIDEBAR -->
                     </div>
-                    
+
 <main id="content" class="col-md-10">
 <?php echo $notifications?>
 <?php echo $this->content; ?>
@@ -129,7 +129,7 @@ endforeach;?>
                                 <?php echo $this->translate('All rights reserved.') ?> |
                             <a href="<?php echo  $this->basePath($lang .'/content/imprint')?>"><?php echo $this->translate('Imprint') ?></a> |
                             <version>
-                                <?php echo \Core\Application::getCompleteVersion() ?>
+                                <?php echo $this->moduleVersion() ?>
                                 Env: <strong><?php echo getenv('APPLICATION_ENV') ?></strong>
                             </version>
                         </small></span>

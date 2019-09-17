@@ -19,26 +19,31 @@ use Zend\EventManager\EventManagerInterface;
 use Core\Html2Pdf\PdfInterface;
 use Core\View\Helper\InsertFile\FileEvent;
 use Core\Entity\FileEntity;
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\ModuleManager\ModuleConfigLoader;
 
 /**
  * Make HTML to PDF
  *
  */
-class Module implements PdfInterface, ResolverInterface
+class Module implements PdfInterface, ResolverInterface, VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = \Core\Module::VERSION;
     const RENDER_FULL = 0;
     const RENDER_WITHOUT_PDF = 1;
     const RENDER_WITHOUT_ATTACHMENTS = 2;
-    
+
     protected $serviceManager;
-    
+
     protected $viewResolverAttached = false;
-    
+
     protected $appendPDF = array();
     protected $appendImage = array();
-    
-    
+
+
     /**
     * Loads module specific configuration.
     *
@@ -48,14 +53,14 @@ class Module implements PdfInterface, ResolverInterface
     {
         return ModuleConfigLoader::load(__DIR__ . '/../config');
     }
-    
+
     public static function factory(ServiceManager $serviceManager)
     {
         $module = new static();
         $module->serviceManager = $serviceManager;
         return $module;
     }
-    
+
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getApplication()->getEventManager();
@@ -67,7 +72,7 @@ class Module implements PdfInterface, ResolverInterface
             }
         );
     }
-    
+
     /**
      * hook into the rendering for transformation of HTML to PDF
      * @param \Zend\EventManager\EventManagerInterface $events
@@ -77,7 +82,7 @@ class Module implements PdfInterface, ResolverInterface
         $events->attach(ViewEvent::EVENT_RENDERER_POST, array($this, 'cleanLayout'), 1);
         $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'attachPDFtransformer'), 10);
     }
-    
+
     /**
      * hook into the MVC
      * in here you could still decide, if you want to hook into the Rendering
@@ -87,7 +92,7 @@ class Module implements PdfInterface, ResolverInterface
     {
         $events->attach(MvcEvent::EVENT_RENDER, array($this, 'initializeViewHelper'), 100);
     }
-    
+
     /**
      * hook into the Rendering of files
      * the manager to hook in is the viewhelper 'insertfiles'
@@ -104,7 +109,7 @@ class Module implements PdfInterface, ResolverInterface
             $insertFile->attach(FileEvent::INSERTFILE, array($this, 'collectFiles'));
         }
     }
-    
+
     /**
      * proxy, in case that you just got a name and have to find the associated file-entity
      * maybe this is redundant and can be deprecated
@@ -128,7 +133,7 @@ class Module implements PdfInterface, ResolverInterface
         // if it is not a string i do presume it is already a file-Object
         return $lastFileName;
     }
-    
+
     /**
      * here the inserted File is rendered,
      * there is a lot which still can be done like outsorcing the HTML to a template,
@@ -181,7 +186,7 @@ class Module implements PdfInterface, ResolverInterface
         }
         return null;
     }
-    
+
     /**
      * remove unwanted or layout related data
      *
@@ -214,7 +219,7 @@ class Module implements PdfInterface, ResolverInterface
             // ...
         }
     }
-    
+
     /**
      * Attach an own ViewResolver
      */
@@ -226,7 +231,7 @@ class Module implements PdfInterface, ResolverInterface
             $resolver->attach($this, 100);
         }
     }
-    
+
     /**
      * Transform the HTML to PDF,
      * this is a post-rendering-process
@@ -237,11 +242,11 @@ class Module implements PdfInterface, ResolverInterface
      */
     public function attachPDFtransformer(ViewEvent $e)
     {
-        
+
         //$renderer = $e->getRenderer();
         $result   = $e->getResult();
         $response = $e->getResponse();
-        
+
         // the handles are for temporary files
         error_reporting(0);
         foreach (array(self::RENDER_FULL, self::RENDER_WITHOUT_PDF, self::RENDER_WITHOUT_ATTACHMENTS ) as $render) {
@@ -305,7 +310,7 @@ class Module implements PdfInterface, ResolverInterface
         }
         error_reporting(E_ALL);
     }
-    
+
     /**
      * Look for a template with the Suffix ".pdf.phtml"
      *

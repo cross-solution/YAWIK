@@ -1,0 +1,43 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2018 Cross Solution <http://cross-solution.de>
+ */
+
+?>
+
+<div class="panel panel-default">
+
+    <div class="panel-body text-center">
+        Environment: <strong><?=getenv('APPLICATION_ENV')?></strong>
+    </div>
+   <table class="table table-striped">
+        <tbody>
+        <?php foreach ($this->modules as $name => $object):
+            if ($object instanceOf \Core\ModuleManager\Feature\VersionProviderInterface) {
+                $pkgName = $object->getName();
+                $version = $object->getVersion();
+                $pkgUrl  = $object->getUrl();
+            } else {
+                $version = method_exists($object, 'getVersion') ? $object->getVersion() : false;
+                $pkgName = method_exists($object, 'getName') ? $object->getName() : false;
+                $pkgUrl  = method_exists($object, 'getUrl') ? $object->getUrl() : false;
+            }
+            if ($pkgUrl) {
+                $pkgName = $this->link($pkgUrl, $pkgName);
+            }
+        ?>
+            <tr>
+                <td>
+                    <strong><?=$name?></strong><?= $pkgName ? ' ( ' . $pkgName . ' ) ' : ''?>
+                    <?php if ($version): ?><br><span class="small"><?=$version?></span><?php endif?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+
+</div>
