@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2018 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\ModuleManager\Feature;
 
@@ -37,34 +37,31 @@ namespace Core\ModuleManager\Feature;
  */
 trait VersionProviderTrait
 {
-    public function getName()
+    private $vptComposerData;
+
+    public function getName(): string
     {
         if (defined('static::NAME')) {
             return static::NAME;
         }
 
-        $reflClass = new \ReflectionClass($this);
-        $composerFile = dirname(dirname($reflClass->getFilename())) . '/composer.json';
-
-        if (file_exists($composerFile)) {
-            $composerJson = file_get_contents($composerFile);
-            $composerData = \Zend\Json\Json::decode($composerJson);
-            if (isset($composerData->name)) {
-                return $composerData->name;
-            }
-        }
-
-        return $reflClass->getNamespaceName();
+        return $this->vptGetComposerData('name') ?? (new \ReflectionClass($this))->getNamespaceName();
     }
 
-    public function getVersion()
+    public function getVersion(): string
     {
         $version = defined('static::VERSION') ? static::VERSION : 'n/a';
 
         if ('production' != getenv('APPLICATION_ENV')) {
+            $path = dirname((new\ReflectionObject($this))->getFilename());
+
+            if (strpos($path, 'vendor/') !== false) {
+                return $version;
+            }
+
             $command = sprintf(
                 'cd %1$s && git describe %2$s && git rev-parse --abbrev-ref HEAD %2$s',
-                dirname((new\ReflectionObject($this))->getFilename()),
+                $path,
                 '2>/dev/null'
             );
 
@@ -80,5 +77,58 @@ trait VersionProviderTrait
         }
 
         return $version;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->vptGetComposerData('homepage') ?? $this->vptGetComposerData('support.source');
+    }
+
+    private function vptParseComposerData()
+    {
+        if ($this->vptComposerData !== null) {
+            return;
+        }
+
+        $reflClass = new \ReflectionClass($this);
+        $psr4ComposerFile = dirname($reflClass->getFilename(), 2) . '/composer.json';
+        $psr0ComposerFile = dirname($psr4ComposerFile, 2) . '/composer.json';
+
+        $composerFile =
+            file_exists($psr4ComposerFile)
+            ? $psr4ComposerFile
+            : (
+                file_exists($psr0ComposerFile) ? $psr0ComposerFile : null
+            )
+        ;
+
+        if ($composerFile === null) {
+            $this->vptComposerData = [];
+            return;
+        }
+
+        $composerJson = file_get_contents($composerFile);
+        $composerJson = \Zend\Json\Json::decode($composerJson, \Zend\Json\Json::TYPE_ARRAY);
+
+        $this->vptComposerData = $composerJson;
+    }
+
+    private function vptGetComposerData(string $key, $default = null)
+    {
+        $this->vptParseComposerData();
+
+        if (strpos($key, '.') !== false) {
+            $keys = explode('.', $key);
+            $data = $this->vptComposerData;
+            foreach ($keys as $k) {
+                if (!isset($data[$k])) {
+                    return $default;
+                }
+                $data = $data[$k];
+            }
+            return $data;
+        }
+
+        return $this->vptComposerData[$key] ?? $default;
     }
 }

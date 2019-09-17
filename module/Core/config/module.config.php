@@ -553,6 +553,7 @@ return array(
             'InsertFile' => [View\Helper\InsertFile::class, 'factory'],
             \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
             \Core\View\Helper\Proxy::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \Core\View\Helper\ModuleVersion::class => \Core\View\Helper\ModuleVersionFactory::class,
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
@@ -562,6 +563,7 @@ return array(
             'ajaxUrl' => \Core\View\Helper\AjaxUrl::class,
             'proxy' => \Core\View\Helper\Proxy::class,
             'form_element' => 'formElement',
+            'moduleVersion' => \Core\View\Helper\ModuleVersion::class,
         ],
     ),
 

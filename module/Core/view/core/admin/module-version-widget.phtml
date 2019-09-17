@@ -20,9 +20,14 @@
             if ($object instanceOf \Core\ModuleManager\Feature\VersionProviderInterface) {
                 $pkgName = $object->getName();
                 $version = $object->getVersion();
+                $pkgUrl  = $object->getUrl();
             } else {
                 $version = method_exists($object, 'getVersion') ? $object->getVersion() : false;
                 $pkgName = method_exists($object, 'getName') ? $object->getName() : false;
+                $pkgUrl  = method_exists($object, 'getUrl') ? $object->getUrl() : false;
+            }
+            if ($pkgUrl) {
+                $pkgName = $this->link($pkgUrl, $pkgName);
             }
         ?>
             <tr>
