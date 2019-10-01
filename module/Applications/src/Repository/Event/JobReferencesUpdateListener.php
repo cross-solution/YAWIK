@@ -28,7 +28,7 @@ class JobReferencesUpdateListener implements EventSubscriber
     {
         return array(Events::preUpdate);
     }
-    
+
     /**
      * updates references
      *
@@ -42,12 +42,17 @@ class JobReferencesUpdateListener implements EventSubscriber
         }
         $dm = $eventArgs->getDocumentManager();
         $changeset = $dm->getUnitOfWork()->getDocumentChangeset($document);
-        
-        if (!isset($changeset['user'])) {
+
+
+        /* Somehow it could be that a changeset is produced, where the user
+         * is not actually changed - we check for it here */
+        if (!isset($changeset['user']) || $changeset['user'][0] === $changeset['user'][1]) {
             return;
         }
-        
-        $userId = $document->getUser()->getId();
+
+        /* User could have gotten unset! */
+        $user = $document->getUser();
+        $userId = $user ? $user->getId() : null;
 
         $dm->createQueryBuilder('Applications\Entity\Application')
             ->update()->multiple(true)
