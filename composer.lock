@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34855ab50ff47c9abef061abe79668ca",
+    "content-hash": "7a84e39cbae32b5fc578fab0eaa13a2f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -8430,7 +8430,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "yawik/composer-plugin": 20,
         "cbleek/pecl-solr-hint": 20
     },
     "prefer-stable": true,
