@@ -1,11 +1,11 @@
 language: php
 
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+#addons:
+#  apt:
+#    sources:
+#      - google-chrome
+#    packages:
+#      - google-chrome-stable
 
 services:
   - mongodb
@@ -25,7 +25,6 @@ matrix:
     env: COVERAGE=yes
   - php: 7.3
   include:
-    - php: 7.1
     - php: 7.2
     - php: 7.3
     - php: 7.2
