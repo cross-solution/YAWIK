@@ -58,7 +58,7 @@ class HiringOrganizationSelectFactoryTest extends TestCase
      */
     private $services;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new HiringOrganizationSelectFactory();
 

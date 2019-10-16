@@ -34,7 +34,7 @@ class InvitationHandlerTest extends TestCase
     private $userTokenGeneratorMock;
     private $mailerPluginMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $name = $this->getName(false);
         $this->target = new InvitationHandler();

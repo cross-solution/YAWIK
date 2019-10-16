@@ -33,7 +33,7 @@ class OrganizationImageTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new OrganizationImage();
         $this->target->setId('12345');

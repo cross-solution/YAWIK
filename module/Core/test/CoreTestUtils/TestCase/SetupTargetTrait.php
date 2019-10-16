@@ -100,7 +100,7 @@ use Zend\Stdlib\ArrayUtils;
  */
 trait SetupTargetTrait
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setupTargetInstance();
     }

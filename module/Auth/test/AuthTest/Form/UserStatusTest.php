@@ -21,7 +21,7 @@ class UserStatusTest extends TestCase
      */
     private $form;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->form = new UserStatus();
     }

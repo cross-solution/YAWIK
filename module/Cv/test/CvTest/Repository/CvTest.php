@@ -33,7 +33,7 @@ class CvTest extends FunctionalTestCase
      */
     protected static $user;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -48,7 +48,7 @@ class CvTest extends FunctionalTestCase
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->removeCvData();

@@ -49,7 +49,7 @@ class InviteEmployeeControllerTest extends TestCase
      */
     private $pluginsMockMap;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->orgRepo = $this->createMock(OrganizationRepository::class);
         $this->target = new InviteEmployeeController($this->orgRepo);

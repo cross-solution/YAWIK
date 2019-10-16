@@ -64,7 +64,7 @@ class DeactivatedUserListenerTest extends TestCase
      */
     protected $routeMatch;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->listener = new Listener();
         $this->user = $this->getMockBuilder(User::class)

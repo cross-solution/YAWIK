@@ -34,7 +34,7 @@ class ApplyButtonsTest extends TestCase
      */
     private $viewModel;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->viewModel = new ViewModel();
         $this->viewModel->setTemplate('test/template');

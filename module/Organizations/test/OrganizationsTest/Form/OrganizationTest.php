@@ -27,7 +27,7 @@ class OrganizationTest extends TestCase
 {
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Organizations();
         $this->target->init();

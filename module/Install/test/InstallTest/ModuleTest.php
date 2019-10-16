@@ -46,7 +46,7 @@ class ModuleTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->moduleDir = realpath(__DIR__ . '/../../');
         $this->target    = new Module();

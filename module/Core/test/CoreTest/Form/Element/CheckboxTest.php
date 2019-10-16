@@ -25,7 +25,7 @@ class CheckboxTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Checkbox();
     }

@@ -43,7 +43,7 @@ class InjectHeadscriptInitializerTest extends TestCase
      */
     protected $formElementManagerMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new InjectHeadscriptInitializer();
 

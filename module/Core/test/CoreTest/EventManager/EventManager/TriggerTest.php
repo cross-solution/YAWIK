@@ -32,7 +32,7 @@ class TriggerTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new TriggerTestEventManagerMock();
     }

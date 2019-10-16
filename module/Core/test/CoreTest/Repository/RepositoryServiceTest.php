@@ -36,7 +36,7 @@ class RepositoryServiceTest extends TestCase
      */
     protected $eventManager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dm = $this
             ->getMockBuilder(DocumentManager::class)

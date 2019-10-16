@@ -22,7 +22,7 @@ class UserStatusFieldsetTest extends TestCase
      */
     private $fieldset;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->fieldset = new UserStatusFieldset();
     }

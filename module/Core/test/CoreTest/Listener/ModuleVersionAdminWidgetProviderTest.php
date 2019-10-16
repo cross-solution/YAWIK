@@ -14,6 +14,7 @@ use Core\Controller\AdminControllerEvent;
 use Core\Listener\ModuleVersionAdminWidgetProvider;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Zend\ModuleManager\ModuleManager;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for \Core\Listener\ModuleVersionAdminWidgetProvider
@@ -22,7 +23,7 @@ use Zend\ModuleManager\ModuleManager;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *  
  */
-class ModuleVersionAdminWidgetProviderTest extends \PHPUnit_Framework_TestCase
+class ModuleVersionAdminWidgetProviderTest extends TestCase
 {
     use SetupTargetTrait;
 

@@ -20,7 +20,7 @@ class AlertTest extends TestCase
      */
     private $helper;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->helper = new Helper();
     }

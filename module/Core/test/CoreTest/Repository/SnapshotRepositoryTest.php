@@ -51,7 +51,7 @@ class SnapshotRepositoryTest extends TestCase
      */
     private $uow;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dm = $this->getMockBuilder(DocumentManager::class)
             ->disableOriginalConstructor()

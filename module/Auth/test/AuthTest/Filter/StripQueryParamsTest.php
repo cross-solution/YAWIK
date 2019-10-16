@@ -35,7 +35,7 @@ class StripQueryParamsTest extends TestCase
     /**
      * Setups shared fixture
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->filter = new StripQueryParams();
     }

@@ -33,7 +33,7 @@ class HistoryTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $status = new Status();
         $this->target = new History($status, 'message');

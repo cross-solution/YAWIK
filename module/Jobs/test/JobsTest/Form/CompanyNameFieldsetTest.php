@@ -31,7 +31,7 @@ class CompanyNameFieldsetTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = $this->getMockBuilder('\Jobs\Form\CompanyNameFieldset')
                              ->disableOriginalConstructor()

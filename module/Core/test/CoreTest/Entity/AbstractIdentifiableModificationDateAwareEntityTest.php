@@ -28,7 +28,7 @@ class AbstractIdentifiableModificationAwareEntityTest extends TestCase
 {
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new ConcreteIdentifiableModificationDateAwareEntity();
     }

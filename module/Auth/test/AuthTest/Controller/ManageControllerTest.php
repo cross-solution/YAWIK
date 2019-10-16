@@ -28,7 +28,7 @@ class ManageControllerTest extends AbstractFunctionalControllerTestCase
     
     private $hybridAuthAdapter;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         

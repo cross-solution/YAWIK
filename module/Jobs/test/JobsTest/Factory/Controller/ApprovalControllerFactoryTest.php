@@ -33,7 +33,7 @@ class ApprovalControllerFactoryTest extends TestCase
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->testedObj = new ApprovalControllerFactory();
     }

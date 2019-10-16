@@ -41,14 +41,14 @@ class ApplicationTest extends TestCase
 
     private static $cwd;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         static::$env = getenv('APPLICATION_ENV');
         static::$configDir = Application::getConfigDir();
         static::$cwd = getcwd();
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         static::restore();
     }
@@ -60,12 +60,12 @@ class ApplicationTest extends TestCase
         chdir(static::$cwd);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         TestApplication::emptyConfigDir();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         static::restore();
     }

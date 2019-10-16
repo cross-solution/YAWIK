@@ -58,7 +58,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
 
     private $imageFileCacheManager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $translator = $this->createMock(TranslatorInterface::class);
         $repository = $this->createMock(OrganizationRepository::class);

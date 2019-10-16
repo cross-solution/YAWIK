@@ -29,13 +29,13 @@ class EntityTraitTest extends TestCase
     protected $target;
 
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         fclose(self::$fileResource);
     }
 
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new TraitEntity();
     }

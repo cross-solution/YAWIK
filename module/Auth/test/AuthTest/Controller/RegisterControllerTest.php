@@ -43,7 +43,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
      */
     private $paramsMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->init('register');
 

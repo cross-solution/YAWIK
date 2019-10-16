@@ -29,7 +29,7 @@ class MailerTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = $this->createMock(ContainerInterface::class);
         $this->mailService = $this->getMockBuilder(MailService::class)

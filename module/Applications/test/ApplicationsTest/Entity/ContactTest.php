@@ -33,7 +33,7 @@ class ContactTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $info = new Info();
         $this->target = new Contact($info);

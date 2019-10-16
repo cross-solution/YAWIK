@@ -60,7 +60,7 @@ class ForgotPasswordTest extends TestCase
     /**
      * @var MockObject
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
             ->disableOriginalConstructor()

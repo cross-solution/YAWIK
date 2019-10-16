@@ -47,7 +47,7 @@ class HTMLTemplateMessageTest extends TestCase
     protected $view;
 
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /* @var ServiceLocatorInterface $serviceManager */
         $serviceManager = $this->getMockForAbstractClass(ServiceLocatorInterface::class);

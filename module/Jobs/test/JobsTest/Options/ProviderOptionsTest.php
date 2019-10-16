@@ -22,7 +22,7 @@ class ProviderOptionsTest extends TestCase
      */
     protected $options;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $options       = new ProviderOptions;
         $this->options = $options;

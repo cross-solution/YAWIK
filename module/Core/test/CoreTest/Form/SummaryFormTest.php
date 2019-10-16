@@ -24,7 +24,7 @@ class SummaryTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new SummaryForm();
     }

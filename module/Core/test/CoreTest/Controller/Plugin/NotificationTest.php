@@ -44,7 +44,7 @@ class NotificationTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $manager = $this->createMock(SharedEventManagerInterface::class);
         $this->notificationListener = $this->createMock(NotificationListener::class);

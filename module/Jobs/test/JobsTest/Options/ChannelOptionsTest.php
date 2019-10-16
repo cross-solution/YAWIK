@@ -21,7 +21,7 @@ class ChannelOptionsTest extends TestCase
      */
     protected $options;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $options = new Options;
         $this->options = $options;

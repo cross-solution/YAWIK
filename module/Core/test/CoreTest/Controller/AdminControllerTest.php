@@ -41,7 +41,7 @@ class AdminControllerTest extends TestCase
 
     protected $inheritance = [ 'Zend\Mvc\Controller\AbstractActionController' ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
 	    $events = $this->getMockBuilder(EventManager::class)
 	                   ->setMethods(['getEvent', 'triggerEvent'])

@@ -33,7 +33,7 @@ class ListQueryTest extends TestCase
 
     protected $containerMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);
         $this->target = new ListQuery($this->containerMock);

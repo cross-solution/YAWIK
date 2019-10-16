@@ -28,7 +28,7 @@ class GotoResetPasswordControllerTest extends AbstractControllerTestCase
      */
     private $serviceMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->init('goto-reset-password');
 

@@ -40,7 +40,7 @@ class CollectionContainerTest extends TestCase
      */
     protected $formElementManager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->newEntry = $this->getMockBuilder(stdClass::class)
             ->setMethods(['getId'])

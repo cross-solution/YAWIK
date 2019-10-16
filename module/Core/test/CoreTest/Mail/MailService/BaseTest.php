@@ -40,7 +40,7 @@ class BaseTest extends TestCase
     /**
      * @see PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serviceManager = new ServiceManager();
     }

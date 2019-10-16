@@ -43,7 +43,7 @@ class MailSenderTest extends TestCase
 
     private $mailMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         switch ($this->getName(false)) {
             case 'testImplementsListenerAggregateInterface':

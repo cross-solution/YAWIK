@@ -43,7 +43,7 @@ class PaginationParamsTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
         $this->controller = $this->createMock(AbstractCoreController::class);

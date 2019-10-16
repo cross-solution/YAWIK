@@ -38,7 +38,7 @@ class AssetsInstallControllerTest extends AbstractConsoleControllerTestCase
      */
     private $output;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         /* @var AssetsInstallController $controller */
         $this->setApplicationConfig(Bootstrap::getConfig());

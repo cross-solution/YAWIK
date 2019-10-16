@@ -48,7 +48,7 @@ class ApplicationAccessAssertionTest extends TestCase
      */
     private $acl;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new ApplicationAccessAssertion();
         $this->acl    = new Acl();

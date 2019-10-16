@@ -23,7 +23,7 @@ class RegisterInputFilterTest extends TestCase
      */
     private $testedObject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->testedObject = new RegisterInputFilter();
     }

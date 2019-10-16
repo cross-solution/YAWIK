@@ -37,7 +37,7 @@ class FunctionalTestCase extends AbstractHttpControllerTestCase
      */
     protected $serviceLocator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serviceLocator = null;
         $this->setApplicationConfig(

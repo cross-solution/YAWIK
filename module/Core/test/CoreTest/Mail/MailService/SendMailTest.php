@@ -37,7 +37,7 @@ class SendMailTest extends TestCase
 
     public $expectedMail;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $test = $this;
         $sendCallback = function ($value) use ($test) {

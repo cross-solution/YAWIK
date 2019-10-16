@@ -24,7 +24,7 @@ class FormTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $fs = new Fieldset('test', ['type'=>"text"]);
         $fs->setAttribute('class', 'myclass1 myclass2');

@@ -49,7 +49,7 @@ class ResizeTest extends TestCase
      */
     private $imageFile;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Resize([]);
     }

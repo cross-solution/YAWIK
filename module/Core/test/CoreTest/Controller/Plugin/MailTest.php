@@ -79,7 +79,7 @@ class MailTest extends TestCase
      */
     private $controller;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = $this->createMock(ContainerInterface::class);
         $this->mailLog = $this->createMock(LoggerInterface::class);

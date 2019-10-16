@@ -37,7 +37,7 @@ class ManagerTest extends TestCase
     /**
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->options = new Options();
         $this->manager = new Manager($this->options);

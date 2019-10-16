@@ -49,7 +49,7 @@ trait ServiceManagerMockTrait
      */
     private $__ServiceManagerMockTrait__mocks = [];
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         foreach ($this->__ServiceManagerMockTrait__mocks as $mock) {
             $mock->verifyCallCount();

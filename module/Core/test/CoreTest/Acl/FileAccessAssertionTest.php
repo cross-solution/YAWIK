@@ -33,7 +33,7 @@ class FileAccessAssertionTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->target = new FileAccessAssertion();

@@ -31,7 +31,7 @@ abstract class AbstractFunctionalControllerTestCase extends AbstractHttpControll
      */
     private $documentManagerMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serviceLocator = null;
         $this->setApplicationConfig(
@@ -42,7 +42,7 @@ abstract class AbstractFunctionalControllerTestCase extends AbstractHttpControll
         $this->prepareDocumentManagerMock();
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
         Bootstrap::setupServiceManager();

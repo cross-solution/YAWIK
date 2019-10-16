@@ -30,7 +30,7 @@ class IndexControllerFactoryTest extends TestCase
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->testedObj = new IndexControllerFactory();
     }

@@ -35,7 +35,7 @@ class ContentControllerTest extends TestCase
 
     protected $inheritance = [AbstractActionController::class];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new ContentController();
     }

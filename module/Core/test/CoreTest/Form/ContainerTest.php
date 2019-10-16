@@ -29,7 +29,7 @@ class ContainerTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Container();
     }

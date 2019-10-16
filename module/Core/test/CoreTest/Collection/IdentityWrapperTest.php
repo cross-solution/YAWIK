@@ -32,7 +32,7 @@ class IdentityWrapperTest extends TestCase
      */
     protected $entries;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         $getEntryMock = function ($id) {
             $entry = $this->getMockBuilder(\stdClass::class)

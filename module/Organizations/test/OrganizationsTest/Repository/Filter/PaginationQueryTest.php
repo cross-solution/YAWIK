@@ -53,7 +53,7 @@ class PaginationQueryTest extends TestCase
      */
     protected $user;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->jobRepository = $this->createMock(JobRepository::class);
         $this->authService = $this->createMock(AuthenticationService::class);

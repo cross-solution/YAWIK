@@ -29,7 +29,7 @@ class JobsPublisherFactoryTest extends TestCase
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->testedObj = new JobsPublisherFactory();
         $this->mockJobsOptions = $this->getMockBuilder('Jobs\Options\ModuleOptions')

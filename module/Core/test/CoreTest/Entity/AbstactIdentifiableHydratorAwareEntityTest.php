@@ -28,7 +28,7 @@ class AbstactIdentifiableHydratorAwareEntityTest extends TestCase
 {
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new ConcreteIdentifiableHydratorAwareEntity();
     }

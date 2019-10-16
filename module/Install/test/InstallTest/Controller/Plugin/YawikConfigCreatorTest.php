@@ -34,7 +34,7 @@ class YawikConfigCreatorTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $extractor = new DbNameExtractor('YAWIK.test');
 

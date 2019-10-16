@@ -39,7 +39,7 @@ class ListListenerTest extends TestCase
     /**
      * @see PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->getMockBuilder(Repository::class)
             ->disableOriginalConstructor()

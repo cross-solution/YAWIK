@@ -30,7 +30,7 @@ class ClearCacheServiceTest extends TestCase
 {
     private static $testCacheDir;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $cacheDir = sys_get_temp_dir().'/yawik/test-cache';
         if (!is_dir($cacheDir)) {
@@ -41,7 +41,7 @@ class ClearCacheServiceTest extends TestCase
     }
 
 
-    protected function setUp()
+    protected function setUp(): void
     {
         static::setUpBeforeClass();
     }

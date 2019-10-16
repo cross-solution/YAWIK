@@ -39,7 +39,7 @@ class ODMListenerTest extends TestCase
     /**
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()

@@ -23,7 +23,7 @@ class InfoCheckboxTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new InfoCheckbox();
     }

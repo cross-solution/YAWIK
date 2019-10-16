@@ -24,7 +24,7 @@ use Core\Decorator\ProxyDecorator;
  */
 class ProxyDecoratorTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new ObjectMock();
         $this->target = new ProxyDecoratorMock($this->object);

@@ -42,7 +42,7 @@ class CvCreateFromApplicationTest extends TestCase
      */
     protected $user;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cv = $this->getMockBuilder(Cv::class)
             ->disableOriginalConstructor()

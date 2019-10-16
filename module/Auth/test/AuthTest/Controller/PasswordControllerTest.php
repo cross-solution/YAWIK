@@ -40,7 +40,7 @@ class PasswordControllerTest extends AbstractControllerTestCase
      */
     private $repositoriesMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->init('password');
 

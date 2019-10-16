@@ -23,7 +23,7 @@ class ExceptionStrategyFactoryTest extends TestCase
      */
     private $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->factory = new ExceptionStrategyFactory();
     }

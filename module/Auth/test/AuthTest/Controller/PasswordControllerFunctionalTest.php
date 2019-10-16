@@ -21,7 +21,7 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
      */
     private $repositoriesMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $logDir = __DIR__ . '/../../../../../log/';
         $errorLogFile = $logDir . 'error.log';
@@ -57,7 +57,7 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
     /**
      * This is needed. Otherwise the test fill fail with an Auth\Exception\UnauthorizedAccessException
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 

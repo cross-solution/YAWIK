@@ -32,7 +32,7 @@ class OrganizationContactFieldsetTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new OrganizationsContactFieldset();
         $this->target->init();

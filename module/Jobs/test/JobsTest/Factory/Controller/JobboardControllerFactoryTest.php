@@ -30,7 +30,7 @@ class JobboardControllerFactoryTest extends TestCase
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->testedObj = new JobboardControllerFactory();
     }

@@ -48,7 +48,7 @@ class UserCreatorTest extends TestCase
      */
     private $documentManager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $credentialFilter = $this->createMock(CredentialFilter::class);
         $dm = $this->createMock(DocumentManager::class);

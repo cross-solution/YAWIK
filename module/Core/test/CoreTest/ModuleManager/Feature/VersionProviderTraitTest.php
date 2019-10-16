@@ -11,6 +11,7 @@
 namespace CoreTest\ModuleManager\Feature {
 
 use Core\ModuleManager\Feature\VersionProviderTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for \Core\ModuleManager\Feature\VersionProviderTrait
@@ -20,7 +21,7 @@ use Core\ModuleManager\Feature\VersionProviderTrait;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *  
  */
-class VersionProviderTraitTest extends \PHPUnit_Framework_TestCase
+class VersionProviderTraitTest extends TestCase
 {
     public function testTraitUsesConstants()
     {

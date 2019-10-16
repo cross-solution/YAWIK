@@ -31,7 +31,7 @@ class OrganizationDescriptionFieldsetTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new OrganizationsDescriptionFieldset();
         $this->target->init();

@@ -32,7 +32,7 @@ class FormFileUploadTest extends TestCase
     /**
      * @see PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $view = new View();
         $view->plugin('basepath')->setBasePath('');

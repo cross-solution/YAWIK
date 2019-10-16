@@ -38,7 +38,7 @@ class GotoResetPasswordTest extends TestCase
      */
     private $userRepositoryMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repositoryServiceMock = $this->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()

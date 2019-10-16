@@ -63,7 +63,7 @@ class RegisterTest extends TestCase
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
             ->disableOriginalConstructor()

@@ -33,7 +33,7 @@ class StatusTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Status();
     }

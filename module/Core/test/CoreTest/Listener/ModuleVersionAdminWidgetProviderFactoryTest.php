@@ -16,6 +16,7 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Zend\ModuleManager\ModuleManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for \Core\Listener\ModuleVersionAdminWidgetProviderFactory
@@ -24,7 +25,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *  
  */
-class ModuleVersionAdminWidgetProviderFactoryTest extends \PHPUnit_Framework_TestCase
+class ModuleVersionAdminWidgetProviderFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 

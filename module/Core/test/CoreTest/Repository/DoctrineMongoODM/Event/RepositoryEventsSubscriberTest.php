@@ -41,7 +41,7 @@ class RepositoryEventsSubscriberTest extends TestCase
     /**
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $repositories = $this->getMockBuilder(RepositoryService::class)
             ->disableOriginalConstructor()

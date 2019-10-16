@@ -34,7 +34,7 @@ class AttachmentTest extends TestCase
      */
     private $uriSpec = '/file/Applications.Attachment/test/%s';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Attachment();
         $this->target->setId('test');

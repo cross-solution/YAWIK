@@ -34,7 +34,7 @@ class EmployeeTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if ('testCreateInstancesViaConstructor' == $this->getName(false)) {
             return;

@@ -61,7 +61,7 @@ class FileControllerTest extends AbstractControllerTestCase
      */
     private $events;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->init('file');
         $this->repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')

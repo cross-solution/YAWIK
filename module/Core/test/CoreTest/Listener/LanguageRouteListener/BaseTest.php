@@ -39,7 +39,7 @@ class BaseTest extends TestCase
 
     private $inheritance = [ ListenerAggregateInterface::class ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new LanguageRouteListener(new LocaleService(['xx' => 'xx_XX']), new ModuleOptions());
     }

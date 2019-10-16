@@ -36,7 +36,7 @@ class AcceptInvitationHandlerTest extends TestCase
     private $userMock;
     private $organizationMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $name = $this->getName(false);
 

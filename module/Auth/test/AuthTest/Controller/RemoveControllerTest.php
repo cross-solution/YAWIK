@@ -54,7 +54,7 @@ class RemoveControllerTest extends TestCase
     /**
      * @see PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dependencies = $this->getMockBuilder(Dependencies::class)
             ->disableOriginalConstructor()

@@ -39,7 +39,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
      */
     private $serviceManager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->init('forgot-password');
 

@@ -32,7 +32,7 @@ class OrganizationContactTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new OrganizationContact();
     }

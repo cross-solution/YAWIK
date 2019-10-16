@@ -25,7 +25,7 @@ class RegisterTest extends TestCase
      */
     private $testedObject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $options = new CaptchaOptions();
         $this->testedObject = new Register(null, $options);

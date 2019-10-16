@@ -23,7 +23,7 @@ class BaseFormTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = $this->getMockBuilder('Core\Form\BaseForm')
                              ->disableOriginalConstructor()

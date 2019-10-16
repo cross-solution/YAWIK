@@ -37,7 +37,7 @@ class GetResultTest extends TestCase
 
     protected $pluginMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new PaginationBuilder();
 

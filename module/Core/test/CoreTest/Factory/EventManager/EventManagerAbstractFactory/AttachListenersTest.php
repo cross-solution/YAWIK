@@ -43,7 +43,7 @@ class AttachListenersTest extends TestCase
 
     protected $lazyAggregateMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = $this->getMockBuilder('\Core\Factory\EventManager\EventManagerAbstractFactory')
                              ->setMethods([ 'createEventManager', 'getConfig' ])

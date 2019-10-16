@@ -38,7 +38,7 @@ class CreateEventManagerTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = $this->getMockBuilder('\Core\Factory\EventManager\EventManagerAbstractFactory')
                              ->setMethods([ 'attachListeners', 'getConfig' ])

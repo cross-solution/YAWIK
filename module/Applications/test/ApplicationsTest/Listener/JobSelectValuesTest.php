@@ -31,7 +31,7 @@ class JobSelectValuesTest extends TestCase
     private $target;
     private $paginator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->paginator = $this->getMockBuilder(JobSelectPaginator::class)->disableOriginalConstructor()->getMock();
         $this->target    = new JobSelectValues($this->paginator);

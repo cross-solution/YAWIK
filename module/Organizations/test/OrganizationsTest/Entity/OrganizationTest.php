@@ -309,7 +309,7 @@ class OrganizationTest extends TestCase
     }
 
 //
-//    protected function setUp()
+//    protected function setUp(): void
 //    {
 //        $this->target = new Organization();
 //        $owner = new User();

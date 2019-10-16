@@ -25,7 +25,7 @@ class HybridAuthAdapterFactoryTest extends TestCase
      */
     private $testedObj;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->testedObj = new HybridAuthAdapterFactory();
     }

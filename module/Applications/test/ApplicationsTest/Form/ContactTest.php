@@ -23,7 +23,7 @@ class ContactTest extends TestCase
      */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new ContactContainer();
         $this->target->init();

@@ -42,7 +42,7 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->init('register-confirmation');
 

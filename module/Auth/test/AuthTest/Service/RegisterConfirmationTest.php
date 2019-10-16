@@ -32,7 +32,7 @@ class RegisterConfirmationTest extends TestCase
      */
     private $authenticationServiceMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
             ->disableOriginalConstructor()

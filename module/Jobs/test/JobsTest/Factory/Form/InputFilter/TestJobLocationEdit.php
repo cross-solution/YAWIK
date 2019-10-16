@@ -30,7 +30,7 @@ class TestJobLocationEdit extends TestCase
     /* @var JobLocationEdit */
     private $inputFilter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->inputFilter = new JobLocationEdit();
         $this->inputFilter->init();
