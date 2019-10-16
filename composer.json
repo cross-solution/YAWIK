@@ -93,7 +93,7 @@
         "lakion/mink-debug-extension": "^1.2.3",
         "mikey179/vfsstream": "^1.6",
         "novaway/common-contexts": "~2.0",
-        "phpunit/phpunit": "^7.5.8 || ^8.1.2",
+        "phpunit/phpunit": "^7.5.8",
         "se/selenium-server-standalone": "^2.52",
         "zendframework/zend-component-installer": "^1.1 | ^2.0",
         "zendframework/zend-test": "^3.1"
@@ -154,15 +154,15 @@
         }
     },
     "replace": {
-        "yawik/applications": "self.version",
-        "yawik/auth": "self.version",
-        "yawik/core": "self.version",
-        "yawik/cv": "self.version",
-        "yawik/install": "self.version",
-        "yawik/jobs": "self.version",
-        "yawik/organizations": "self.version",
-        "yawik/pdf": "self.version",
-        "yawik/settings": "self.version"
+        "yawik/applications": "0.33",
+        "yawik/auth": "0.33",
+        "yawik/core": "0.33",
+        "yawik/cv": "0.33",
+        "yawik/install": "0.33",
+        "yawik/jobs": "0.33",
+        "yawik/organizations": "0.33",
+        "yawik/pdf": "0.33",
+        "yawik/settings": "0.33"
     },
     "extra": {
         "branch-alias": {
