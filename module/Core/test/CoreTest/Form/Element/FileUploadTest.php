@@ -17,7 +17,7 @@ use Core\Form\Form;
 /**
 * @covers \Core\Form\Element\FileUpload
 */
-class FrmTest extends TestCase
+class FileUploadTest extends TestCase
 {
     /**
      * @var FileUpload
@@ -166,7 +166,7 @@ class FrmTest extends TestCase
         $this->assertEquals($this->target->getViewHelper(), $viewHelper);
     }
 
-    public function testInputSpecification()
+    public function xtestInputSpecification()
     {
         /* @todo */
     }
