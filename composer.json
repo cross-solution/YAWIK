@@ -44,7 +44,7 @@
         "ext-mongodb": "*",
         "alcaeus/mongo-php-adapter": "^1.0.0",
         "doctrine/doctrine-mongo-odm-module": "^1.0.0",
-        "ezyang/htmlpurifier": "^4.10",
+        "ezyang/htmlpurifier": "^4.12",
         "hybridauth/hybridauth": "^2.10",
         "imagine/imagine": "^1.0",
         "jmikola/geojson": "^1.0",

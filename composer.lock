@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04dd9f0e10f98bbb7749ca32c5c11303",
+    "content-hash": "58f6e8a1ee09ae9c256cc17b3132209a",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -101,6 +101,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
@@ -1174,16 +1175,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.11.0",
+            "version": "v4.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7"
+                "reference": "a617e55bc62a87eec73bd456d146d134ad716f03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7",
-                "reference": "83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/a617e55bc62a87eec73bd456d146d134ad716f03",
+                "reference": "a617e55bc62a87eec73bd456d146d134ad716f03",
                 "shasum": ""
             },
             "require": {
@@ -1217,7 +1218,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2019-07-14T18:58:38+00:00"
+            "time": "2019-10-28T03:44:26+00:00"
         },
         {
             "name": "facebook/graph-sdk",
@@ -4545,12 +4546,6 @@
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-mvc-plugins.git",
                 "reference": "b00cda46b0a95cbd32ea0743d6d7dc3fd2263f1b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-mvc-plugins/zipball/b00cda46b0a95cbd32ea0743d6d7dc3fd2263f1b",
-                "reference": "b00cda46b0a95cbd32ea0743d6d7dc3fd2263f1b",
-                "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0",
