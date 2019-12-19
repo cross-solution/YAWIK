@@ -1,3 +1,10 @@
+NOTE:
+  Yawik is currently PHP based. We have realized that we can reach our goal faster without PHP. 
+  we'll see how it is with nodejs. We concentrate on the input of [job postings](https://cross-solution.de/jobpost), 
+  [job search](https://cross-solution.de/jobs), creating a [CV](https://cross-solution.de/cv) and 
+  [applying by form](https://cross-solution.de/cv).
+  If you like the idea Open Source for human resources, [support us](https://github.com/sponsors/cbleek)
+
 YAWIK
 =====
 
