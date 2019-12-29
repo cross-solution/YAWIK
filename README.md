@@ -58,8 +58,8 @@ Forum
 https://forum.yawik.org
 
 
-Contribute!
------------
+:muscle: Contribute!
+--------------------
 
 * [Fork and clone](https://help.github.com/articles/fork-a-repo).
 * Run the command `./install.sh``, which downloads composer and runs `php composer.phar install` to install the dependencies. 
