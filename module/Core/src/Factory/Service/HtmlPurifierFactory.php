@@ -28,7 +28,7 @@ class HtmlPurifierFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): HTMLPurifier
     {
         /* @var \Core\Options\ModuleOptions $options */
-        $options = $container->get(ModuleOptions::class);
+        $options = $container->get('Core/Options');
         $cacheDir = $options->getCacheDir();
 
         if(!is_dir($cacheDir)){
