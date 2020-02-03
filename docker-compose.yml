@@ -24,8 +24,6 @@ services:
                 TIMEZONE: ${TIMEZONE}
         volumes:
             - ./:/var/www/yawik
-        links:
-            - mongo
         environment:
             - UMASK=0000
 

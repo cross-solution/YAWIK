@@ -27,7 +27,7 @@ class HtmlPurifierFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
         $container->expects($this->once())
             ->method('get')
-            ->with(ModuleOptions::class)
+            ->with('Core/Options')
             ->willReturn($options);
 
         $purifier = (new HtmlPurifierFactory())($container,'some-name');
