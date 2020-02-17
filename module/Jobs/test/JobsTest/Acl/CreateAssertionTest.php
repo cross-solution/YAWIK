@@ -14,10 +14,10 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Entity\User;
 use Jobs\Acl\CreateAssertion;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 /**
  * Test of Jobs\Acl\CreateAssertion

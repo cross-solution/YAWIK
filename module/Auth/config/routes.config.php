@@ -13,7 +13,7 @@ return [
             'lang' => [
                 'child_routes' => [
                     'auth' => [
-                        'type' => 'Zend\Router\Http\Literal',
+                        'type' => 'Laminas\Router\Http\Literal',
                         'options' => [
                             'route' => '/login',
                             'defaults' => [

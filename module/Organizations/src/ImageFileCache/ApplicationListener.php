@@ -8,11 +8,11 @@
  */
 namespace Organizations\ImageFileCache;
 
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Application;
-use Zend\Http\Response;
-use Zend\Http\Headers;
-use Zend\Http\Response\Stream;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Application;
+use Laminas\Http\Response;
+use Laminas\Http\Headers;
+use Laminas\Http\Response\Stream;
 use Organizations\Repository\OrganizationImage as Repository;
 
 /**

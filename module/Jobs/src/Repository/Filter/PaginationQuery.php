@@ -11,9 +11,9 @@ namespace Jobs\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Jobs\Entity\Status;
 use Auth\Entity\User;
-use Zend\Authentication\AuthenticationService;
-use Zend\Permissions\Acl\Acl;
-use Zend\Stdlib\Parameters;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Stdlib\Parameters;
 use Auth\Entity\UserInterface;
 use DateTime;
 

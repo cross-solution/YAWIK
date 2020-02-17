@@ -9,10 +9,10 @@
 
 namespace Core\Listener;
 
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\ListenerAggregateTrait;
-use Zend\Mvc\MvcEvent;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\ListenerAggregateTrait;
+use Laminas\Mvc\MvcEvent;
+use Laminas\EventManager\EventManagerInterface;
 use Tracy\Debugger;
 
 /**
@@ -37,7 +37,7 @@ class TracyListener implements ListenerAggregateInterface
 
     /**
      * {@inheritDoc}
-     * @see \Zend\EventManager\ListenerAggregateInterface::attach()
+     * @see \Laminas\EventManager\ListenerAggregateInterface::attach()
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
@@ -55,7 +55,7 @@ class TracyListener implements ListenerAggregateInterface
             return;
         }
 
-        if ($e->getError() == \Zend\Mvc\Application::ERROR_EXCEPTION) {
+        if ($e->getError() == \Laminas\Mvc\Application::ERROR_EXCEPTION) {
             if (Debugger::$productionMode) {
                 // log an exception in production environment (this will send email as well if email address is set)
                 Debugger::log($e->getParam('exception'), Debugger::ERROR);

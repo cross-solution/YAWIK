@@ -12,9 +12,9 @@ namespace OrganizationsTest\Auth\Dependency;
 use PHPUnit\Framework\TestCase;
 
 use Organizations\Auth\Dependency\EmployeeListListener as ListListener;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer as View;
 use Organizations\Entity\OrganizationReferenceInterface;
 use Organizations\Entity\OrganizationInterface;
 use Doctrine\Common\Collections\ArrayCollection;

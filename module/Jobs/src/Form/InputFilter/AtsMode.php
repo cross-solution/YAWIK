@@ -11,8 +11,8 @@
 namespace Jobs\Form\InputFilter;
 
 use Jobs\Entity\AtsModeInterface;
-use Zend\InputFilter\Exception;
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\Exception;
+use Laminas\InputFilter\InputFilter;
 
 /**
  * InputFilter for the ATS settings.

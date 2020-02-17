@@ -14,7 +14,7 @@ use Core\Controller\AdminController;
 use Core\Controller\AdminControllerEvent;
 use Core\EventManager\EventManager;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Creates new AdminController

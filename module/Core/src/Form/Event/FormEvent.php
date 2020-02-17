@@ -11,9 +11,9 @@
 namespace Core\Form\Event;
 
 use Core\Form\Container;
-use Zend\EventManager\Event;
-use Zend\EventManager\Exception;
-use Zend\Form\FormInterface;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\Exception;
+use Laminas\Form\FormInterface;
 
 /**
  * An event class to handle all kinds of form events.
@@ -82,7 +82,7 @@ class FormEvent extends Event
     public function setForm($form)
     {
         if (!$form instanceof FormInterface && !$form instanceof Container) {
-            throw new \InvalidArgumentException('Form must either implement \Zend\Form\FormInterface or extend from \Core\Form\Container');
+            throw new \InvalidArgumentException('Form must either implement \Laminas\Form\FormInterface or extend from \Core\Form\Container');
         }
 
         $this->form = $form;

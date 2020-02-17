@@ -14,10 +14,10 @@ use Auth\Service\Exception\UserDoesNotHaveAnEmailException;
 use Auth\Service\Exception\UserNotFoundException;
 use Auth\Options\ModuleOptions;
 use Core\Controller\Plugin;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\Mvc\Controller\Plugin\Url;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Mvc\Controller\Plugin\Url;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\EventManagerInterface;
 use Auth\Filter\LoginFilter;
 use Auth\Listener\Events\AuthEvent;
 

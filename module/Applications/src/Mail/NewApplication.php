@@ -16,7 +16,7 @@ use Core\Exception\MissingDependencyException;
 use Jobs\Entity\JobInterface;
 use Core\Mail\StringTemplateMessage;
 use Organizations\Entity\EmployeeInterface;
-use Zend\Mvc\Router\RouteStackInterface;
+use Laminas\Mvc\Router\RouteStackInterface;
 
 /**
  * Sends Information about a new Application to the recruiter

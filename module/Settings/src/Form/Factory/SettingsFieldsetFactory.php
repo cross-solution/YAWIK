@@ -12,7 +12,7 @@ namespace Settings\Form\Factory;
 
 use Interop\Container\ContainerInterface;
 use Settings\Form\SettingsFieldset;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Settings\Form\SettingsFieldset

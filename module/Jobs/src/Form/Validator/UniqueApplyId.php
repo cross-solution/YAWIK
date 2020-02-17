@@ -10,7 +10,7 @@
 /** UniqueApplyId.php */
 namespace Jobs\Form\Validator;
 
-use Zend\Validator\AbstractValidator;
+use Laminas\Validator\AbstractValidator;
 use Jobs\Repository\Job as JobRepository;
 
 class UniqueApplyId extends AbstractValidator

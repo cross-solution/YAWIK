@@ -2,11 +2,11 @@
 
 namespace Jobs\Form;
 
-use Zend\Form\Fieldset;
-use Zend\Validator\StringLength as StringLengthValidator;
-use Zend\Validator\EmailAddress as EmailAddressValidator;
-use Zend\Validator\ValidatorInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Fieldset;
+use Laminas\Validator\StringLength as StringLengthValidator;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
+use Laminas\Validator\ValidatorInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Core\Repository\Hydrator;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
@@ -39,7 +39,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
         return [
             'company' => [
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
+                    ['name' => 'Laminas\Filter\StringTrim'],
                 ],
                 'validators' => [
                     new StringLengthValidator(1),
@@ -47,7 +47,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ],
             'title' => [
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
+                    ['name' => 'Laminas\Filter\StringTrim'],
                 ],
                 'validators' => [
                     new StringLengthValidator(5),
@@ -55,7 +55,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ],
             'link' => [
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
+                    ['name' => 'Laminas\Filter\StringTrim'],
                 ],
                 'validators' => [
                     new StringLengthValidator(5),
@@ -63,14 +63,14 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ],
             'contactEmail' => [
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
+                    ['name' => 'Laminas\Filter\StringTrim'],
                 ],
                 'allow_empty' => true
             ],
             'datePublishStart' => [],
             'reference' => [
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
+                    ['name' => 'Laminas\Filter\StringTrim'],
                 ],
                 'allow_empty' => true
             ],
@@ -80,7 +80,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ],
             'logoRef' => [
                 'filters' => [
-                    ['name' => 'Zend\Filter\StringTrim'],
+                    ['name' => 'Laminas\Filter\StringTrim'],
                 ],
                 'allow_empty' => true
             ],
@@ -108,63 +108,63 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'applyId',
             ]
         );
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'company',
             ]
         );
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'title',
             ]
         );
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'link',
             ]
         );
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'location',
             ]
         );
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'contactEmail',
             ]
         );
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'datePublishStart',
             ]
         );
 
         $this->add(
             [
-                'type' => 'Zend\Form\Element\Text',
+                'type' => 'Laminas\Form\Element\Text',
                 'name' => 'reference',
             ]
         );
 
         $this->add(
             [
-                'type'  => 'Zend\Form\Element\Text',
+                'type'  => 'Laminas\Form\Element\Text',
                 'name'  => 'logoRef',
             ]
         );

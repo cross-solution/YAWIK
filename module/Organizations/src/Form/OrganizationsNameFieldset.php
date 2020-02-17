@@ -12,10 +12,10 @@ namespace Organizations\Form;
 
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\Hydrator\Strategy\OrganizationNameStrategy;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
 
 /**
  * Class OrganizationsFieldset
@@ -90,7 +90,7 @@ class OrganizationsNameFieldset extends Fieldset
 
     /**
      * @param object $object
-     * @return $this|Fieldset|\Zend\Form\FieldsetInterface
+     * @return $this|Fieldset|\Laminas\Form\FieldsetInterface
      */
     public function setObject($object)
     {

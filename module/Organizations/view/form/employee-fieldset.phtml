@@ -13,7 +13,7 @@
 
     /* @var \Organizations\Form\Element\Employee  $employee */
     $employee = $this->element->get('user');
-    /* @var \Zend\Form\Element\Hidden $pending */
+    /* @var \Laminas\Form\Element\Hidden $pending */
     $pending = $this->element->get('status');
     $user = $employee->getUser();
     if (!$user) {

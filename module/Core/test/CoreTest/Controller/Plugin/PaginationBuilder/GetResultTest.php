@@ -13,8 +13,8 @@ namespace CoreTest\Controller\Plugin\PaginationBuilder;
 use PHPUnit\Framework\TestCase;
 
 use Core\Controller\Plugin\PaginationBuilder;
-use Zend\Http\Request;
-use Zend\Stdlib\Parameters;
+use Laminas\Http\Request;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\PaginationBuilder::getResult()
@@ -31,7 +31,7 @@ class GetResultTest extends TestCase
     /**
      *
      *
-     * @var \Zend\Http\Request
+     * @var \Laminas\Http\Request
      */
     protected $request;
 
@@ -46,7 +46,7 @@ class GetResultTest extends TestCase
         $pluginMock = new PluginMock();
         $this->pluginMock = $pluginMock;
 
-        $controller = $this->getMockBuilder('\Zend\Mvc\Controller\AbstractController')
+        $controller = $this->getMockBuilder('\Laminas\Mvc\Controller\AbstractController')
                            ->setMethods(['getRequest', 'plugin'])
                            ->getMockForAbstractClass();
 

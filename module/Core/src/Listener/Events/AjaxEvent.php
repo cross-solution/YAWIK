@@ -10,9 +10,9 @@
 /** */
 namespace Core\Listener\Events;
 
-use Zend\EventManager\Event;
-use Zend\Http\Request;
-use Zend\Http\Response;
+use Laminas\EventManager\Event;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
 
 /**
  * Ajax route event

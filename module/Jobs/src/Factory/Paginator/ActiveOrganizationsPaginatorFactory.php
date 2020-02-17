@@ -12,10 +12,10 @@ namespace Jobs\Factory\Paginator;
 
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Paginator\Paginator;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Paginator\Paginator;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory creates a paginator to paginate all active organizations.
@@ -28,7 +28,7 @@ class ActiveOrganizationsPaginatorFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var RepositoryService $repositories
-         * @var \Zend\Http\PhpEnvironment\Request $request */
+         * @var \Laminas\Http\PhpEnvironment\Request $request */
         $repositories   = $container->get('repositories');
         $repository     = $repositories->get('Jobs');
         $request        = $container->get('Request');

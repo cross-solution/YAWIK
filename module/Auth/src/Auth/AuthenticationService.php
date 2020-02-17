@@ -8,8 +8,8 @@
  */
 namespace Auth;
 
-use Zend\Authentication\AuthenticationService as ZendAuthService;
-use Zend\Authentication\Adapter\AdapterInterface;
+use Laminas\Authentication\AuthenticationService as ZendAuthService;
+use Laminas\Authentication\Adapter\AdapterInterface;
 use Core\Repository\RepositoryInterface;
 use Auth\Entity\AnonymousUser;
 
@@ -76,7 +76,7 @@ class AuthenticationService extends ZendAuthService
 
     /**
      * @param AdapterInterface $adapter
-     * @return \Zend\Authentication\Result
+     * @return \Laminas\Authentication\Result
      */
     public function authenticate(AdapterInterface $adapter = null)
     {

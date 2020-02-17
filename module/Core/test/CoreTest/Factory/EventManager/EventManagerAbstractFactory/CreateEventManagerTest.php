@@ -13,10 +13,10 @@ namespace CoreTest\Factory\EventManager\EventManagerAbstractFactory;
 use PHPUnit\Framework\TestCase;
 
 use Core\Factory\EventManager\EventManagerAbstractFactory;
-use Zend\EventManager\Event;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\SharedEventManager;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\SharedEventManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Factory\EventManager\EventManagerAbstractFactory::createEventManager
@@ -57,7 +57,7 @@ class CreateEventManagerTest extends TestCase
             $config['identifiers'] = [ 'Test/Events/Manager' ];
         }
         if (!isset($config['event'])) {
-            $config['event'] = '\Zend\EventManager\Event';
+            $config['event'] = '\Laminas\EventManager\Event';
         }
         $this->target
             ->expects($this->once())
@@ -68,7 +68,7 @@ class CreateEventManagerTest extends TestCase
 
     protected function getServiceManagerMock($events, $args = [])
     {
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 
@@ -121,12 +121,12 @@ class CreateEventManagerTest extends TestCase
 
     public function testInstatiatesEventManagerFromClassName()
     {
-        $this->setTargetConfig([ 'service' => '\Zend\EventManager\EventManager', 'configure' => false, 'listeners' => []]);
+        $this->setTargetConfig([ 'service' => '\Laminas\EventManager\EventManager', 'configure' => false, 'listeners' => []]);
 
         $services = new ServiceManager();
         $events = $this->target->createServiceWithName($services, 'irrelevant', 'irrelevant');
 
-        $this->assertInstanceOf('\Zend\EventManager\EventManager', $events);
+        $this->assertInstanceOf('\Laminas\EventManager\EventManager', $events);
     }
 
     public function testThrowsExceptionIfNoEventManagerCanBeCreated()
@@ -161,7 +161,7 @@ class CreateEventManagerTest extends TestCase
 
     public function testSetsEventPrototypeOnEventProviderEventManagers()
     {
-        $event = new \Zend\EventManager\Event();
+        $event = new \Laminas\EventManager\Event();
         $events = $this->getMockBuilder('\Core\EventManager\EventManager')->disableOriginalConstructor()
                         ->setMethods(['setIdentifiers', 'setEventPrototype'])->getMock();
         $events
@@ -177,8 +177,8 @@ class CreateEventManagerTest extends TestCase
 
     public function testSetsEventClassOnNonEventProviderEventManagers()
     {
-        $event = new \Zend\EventManager\Event();
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+        $event = new \Laminas\EventManager\Event();
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')
                        ->disableOriginalConstructor()
                        ->setMethods(['setIdentifiers', 'setEventPrototype'])
                        ->getMock()
@@ -190,14 +190,14 @@ class CreateEventManagerTest extends TestCase
         ;
 
         $services = $this->getServiceManagerMock(['EventManager' => $events]);
-        $this->setTargetConfig(['configure' => true, 'service' => 'EventManager', 'event' => '\Zend\EventManager\Event']);
+        $this->setTargetConfig(['configure' => true, 'service' => 'EventManager', 'event' => '\Laminas\EventManager\Event']);
         $this->target->createServiceWithName($services, 'irrelevant', 'Test/Events');
     }
 
     public function testSetsSharedEventManager()
     {
         $sharedEvents = new SharedEventManager();
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')->disableOriginalConstructor()
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')->disableOriginalConstructor()
                         ->setMethods(['setIdentifiers', 'setEventClass', 'setSharedManager'])->getMock();
         $events->expects($this->once())->method('setSharedManager')->with($sharedEvents);
 

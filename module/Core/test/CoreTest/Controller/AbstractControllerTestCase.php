@@ -12,13 +12,13 @@ namespace CoreTest\Controller;
 use PHPUnit\Framework\TestCase;
 
 use CoreTest\Bootstrap;
-use Zend\Http\Response;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
-use Zend\Router\Http\RouteMatch;
-use Zend\Router\SimpleRouteStack;
-use Zend\Router\Http\HttpRouterFactory as RouterFactory;
-//use Zend\Router\RouterFactory;
+use Laminas\Http\Response;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Router\Http\RouteMatch;
+use Laminas\Router\SimpleRouteStack;
+use Laminas\Router\Http\HttpRouterFactory as RouterFactory;
+//use Laminas\Router\RouterFactory;
 use PHPUnit\Framework\ExpectationFailedException;
 
 abstract class AbstractControllerTestCase extends TestCase
@@ -70,7 +70,7 @@ abstract class AbstractControllerTestCase extends TestCase
      *
      * @param string $header
      *
-     * @return \Zend\Http\Header\HeaderInterface|false
+     * @return \Laminas\Http\Header\HeaderInterface|false
      */
     protected function getResponseHeader($header)
     {

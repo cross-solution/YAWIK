@@ -11,7 +11,7 @@ namespace Core\View\Helper;
 
 use Core\ModuleManager\Feature\VersionProviderInterface;
 use OutOfBoundsException;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * TODO: description

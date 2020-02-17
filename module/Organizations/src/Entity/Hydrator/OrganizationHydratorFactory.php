@@ -11,7 +11,7 @@
 namespace Organizations\Entity\Hydrator;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Organizations\Entity\Hydrator\Strategy\HttploadStrategy;
 use Organizations\Entity\Hydrator\Strategy\OrganizationNameStrategy;
 

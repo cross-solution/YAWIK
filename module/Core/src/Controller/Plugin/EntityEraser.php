@@ -15,7 +15,7 @@ use Core\EventManager\EventManager;
 use Core\Repository\RepositoryService;
 use Core\Service\EntityEraser\DependencyResultEvent;
 use Core\Service\EntityEraser\EntityEraserEvents;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Plugin to load entities, check their dependencies and delete these entities with all their dependencies.

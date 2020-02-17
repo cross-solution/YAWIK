@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 use Core\Listener\Events\AjaxEvent;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\EventManager\Event;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\EventManager\Event;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  * Tests for \Core\Listener\Events\AjaxEvent

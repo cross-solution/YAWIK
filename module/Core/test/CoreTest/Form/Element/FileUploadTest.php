@@ -32,7 +32,7 @@ class FileUploadTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\Element\FileUpload', $this->target);
-        $this->assertInstanceOf('Zend\Form\Element', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Element', $this->target);
         $this->assertAttributeSame('formFileUpload', 'helper', $this->target);
         $this->assertAttributeSame(false, 'isMultiple', $this->target);
     }

@@ -53,7 +53,7 @@ class HybridAuthAdapterFactoryTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         
-        $contollerPluginsMock = $this->getMockBuilder('Zend\Mvc\Controller\PluginManager')
+        $contollerPluginsMock = $this->getMockBuilder('Laminas\Mvc\Controller\PluginManager')
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -62,7 +62,7 @@ class HybridAuthAdapterFactoryTest extends TestCase
             ->with('Auth/SocialProfiles')
             ->willReturn($socialProfilesPluginMock);
 
-        $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $sm = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
         $sm->expects($this->exactly(3))
             ->method('get')

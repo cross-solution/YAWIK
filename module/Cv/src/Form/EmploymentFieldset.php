@@ -3,10 +3,10 @@
 namespace Cv\Form;
 
 use Cv\Form\InputFilter\Employment;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Cv\Entity\Employment as EmploymentEntity;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
 
@@ -67,7 +67,7 @@ class EmploymentFieldset extends Fieldset implements InputFilterProviderInterfac
         $this->add(
             array(
                 'name' => 'description',
-                'type' => 'Zend\Form\Element\Textarea',
+                'type' => 'Laminas\Form\Element\Textarea',
                 'options' => array(
                         'label' => /*@translate */ 'Description',
                 ),
@@ -79,7 +79,7 @@ class EmploymentFieldset extends Fieldset implements InputFilterProviderInterfac
     }
     
     /**
-     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     * @see \Laminas\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
     public function getInputFilterSpecification()
     {
@@ -90,7 +90,7 @@ class EmploymentFieldset extends Fieldset implements InputFilterProviderInterfac
     }
     
     /**
-     * @see \Zend\Form\Form::setData()
+     * @see \Laminas\Form\Form::setData()
      */
     public function populateValues($data)
     {

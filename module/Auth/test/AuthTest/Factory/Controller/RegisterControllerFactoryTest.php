@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Auth\Factory\Controller\RegisterControllerFactory;
 use Auth\Options\ModuleOptions;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 class RegisterControllerFactoryTest extends TestCase
 {
@@ -37,7 +37,7 @@ class RegisterControllerFactoryTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')->getMock();
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')->getMock();
         
         $options = new ModuleOptions();
 

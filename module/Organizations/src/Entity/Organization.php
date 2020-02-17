@@ -20,8 +20,8 @@ use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\Hydrator\HydratorInterface;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Hydrator\HydratorInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * The organization.

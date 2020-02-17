@@ -11,7 +11,7 @@
 namespace Core\Form;
 
 use Core\Options\FieldsetCustomizationOptions;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * ${CARET}

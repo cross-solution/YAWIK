@@ -10,8 +10,8 @@
 /** */
 namespace Core\Form\Hydrator;
 
-use Zend\Hydrator\Strategy\DefaultStrategy;
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\DefaultStrategy;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Implementation of the {@link HydratorStrategyProviderInterface}.

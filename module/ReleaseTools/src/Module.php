@@ -13,10 +13,10 @@ use Core\ModuleManager\Feature\VersionProviderInterface;
 use Core\ModuleManager\Feature\VersionProviderTrait;
 use ReleaseTools\Console\ReleaseController;
 use ReleaseTools\Console\SubsplitController;
-use Zend\Console\Adapter\AdapterInterface;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Console\Adapter\AdapterInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Class Module

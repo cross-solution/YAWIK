@@ -12,9 +12,9 @@ namespace Auth\Controller;
 use Auth\AuthenticationService;
 use Auth\Form\UserPassword;
 use Core\Repository\RepositoryService;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 
 class PasswordController extends AbstractActionController
 {

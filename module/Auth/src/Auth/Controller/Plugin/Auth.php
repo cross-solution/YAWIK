@@ -3,10 +3,10 @@
 namespace Auth\Controller\Plugin;
 
 use Auth\Entity\User;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Auth\AuthenticationService as AuthenticationService;
-use Zend\Mvc\Controller\PluginManager as ControllerManager;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mvc\Controller\PluginManager as ControllerManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * @method \Auth\Entity\UserInterface getUser()

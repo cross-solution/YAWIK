@@ -10,11 +10,11 @@
 
 namespace Jobs\Listener;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\EventManagerInterface;
 use Jobs\Listener\Events\JobEvent;
-use Zend\EventManager\SharedEventManagerInterface;
+use Laminas\EventManager\SharedEventManagerInterface;
 use Jobs\Listener\Response\JobResponse;
 
 /**

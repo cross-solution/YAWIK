@@ -16,8 +16,8 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\Listener\LoadActiveOrganizationsFactory;
 use Jobs\Listener\LoadActiveOrganizations;
-use Zend\Paginator\Paginator;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Paginator\Paginator;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Listener\LoadActiveOrganizationsFactory
@@ -47,7 +47,7 @@ class LoadActiveOrganizationsFactoryTest extends TestCase
 
     public function testServiceCreation()
     {
-        $paginator = new Paginator(new \Zend\Paginator\Adapter\NullFill());
+        $paginator = new Paginator(new \Laminas\Paginator\Adapter\NullFill());
         $paginators = $this->getPluginManagerMock([
                 'Jobs\Paginator\ActiveOrganizations' => $paginator,
             ]);

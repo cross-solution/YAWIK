@@ -14,7 +14,7 @@ use Auth\Entity\User;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
 use Core\Repository\RepositoryInterface;
-use Zend\View\Helper\Url;
+use Laminas\View\Helper\Url;
 
 trait CommonContextTrait
 {

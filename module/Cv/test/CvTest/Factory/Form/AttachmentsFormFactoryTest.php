@@ -18,8 +18,8 @@ use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Factory\Form\AttachmentsFormFactory;
 use Cv\Options\ModuleOptions;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Cv\Factory\Form\AttachmentsFormFactory
@@ -55,7 +55,7 @@ class AttachmentsFormFactoryTest extends TestCase
         $this->expectException('\InvalidArgumentException');
         $this->expectExceptionMessage('$options must be instance of');
 
-        $options = $this->getMockBuilder('\Zend\Stdlib\AbstractOptions')->getMockForAbstractClass();
+        $options = $this->getMockBuilder('\Laminas\Stdlib\AbstractOptions')->getMockForAbstractClass();
         $this->target->__options__ = $options;
 
         $this->target->createService(new ServiceManager());

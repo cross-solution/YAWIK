@@ -10,7 +10,7 @@
 namespace Jobs\Controller\Plugin;
 
 use Jobs\Entity\JobInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * TODO: description
@@ -45,7 +45,7 @@ class ProcessJsonRequest extends AbstractPlugin
 
     public function __invoke(array $data): array
     {
-        /** @var \Zend\Paginator\Paginator $paginator */
+        /** @var \Laminas\Paginator\Paginator $paginator */
         $paginator = $data['jobs'];
 
         $result = [

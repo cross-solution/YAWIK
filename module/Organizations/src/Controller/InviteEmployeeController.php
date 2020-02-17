@@ -11,9 +11,9 @@
 namespace Organizations\Controller;
 
 use Organizations\Controller\Plugin\AcceptInvitationHandler;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 use Organizations\Repository\Organization as OrganizationRepository;
 
 /**
@@ -62,7 +62,7 @@ class InviteEmployeeController extends AbstractActionController
      */
     public function acceptAction()
     {
-        /* @var $request \Zend\Http\PhpEnvironment\Request */
+        /* @var $request \Laminas\Http\PhpEnvironment\Request */
         $request = $this->getRequest();
 
         if ($request->isPost()) {
@@ -169,7 +169,7 @@ class InviteEmployeeController extends AbstractActionController
      */
     protected function createErrorViewModel($message)
     {
-        /* @var $response \Zend\Http\Response */
+        /* @var $response \Laminas\Http\Response */
         $response = $this->getResponse();
         $response->setStatusCode(500);
 

@@ -11,7 +11,7 @@
 namespace Auth\Listener;
 
 use Auth\AuthenticationService;
-use Zend\Mvc\Service\ControllerPluginManagerFactory;
+use Laminas\Mvc\Service\ControllerPluginManagerFactory;
 use Auth\Listener\Events\AuthEvent;
 use Auth\Options\ModuleOptions;
 use Core\Options\ModuleOptions as CoreOptions;

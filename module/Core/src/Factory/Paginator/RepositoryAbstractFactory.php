@@ -12,9 +12,9 @@ namespace Core\Factory\Paginator;
 
 use Core\Paginator\PaginatorService;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
-//use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+//use Laminas\ServiceManager\MutableCreationOptionsInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Abstract factory to create paginators from an entity repository.
@@ -61,13 +61,13 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
      * @param   ContainerInterface  $container
      * @param   string              $requestedName
      * @param   array|null          $options
-     * @return  \Zend\Paginator\Paginator
+     * @return  \Laminas\Paginator\Paginator
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /**
          * @var $repositories \Core\Repository\RepositoryService
-         * @var $filter       \Zend\Filter\FilterInterface
+         * @var $filter       \Laminas\Filter\FilterInterface
          * @var $container PaginatorService
          */
         $repositories = $container->get('repositories');
@@ -85,7 +85,7 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
 
         $cursor    = $queryBuilder->getQuery()->execute();
         $adapter   = new \Core\Paginator\Adapter\DoctrineMongoCursor($cursor);
-        $paginator = new \Zend\Paginator\Paginator($adapter);
+        $paginator = new \Laminas\Paginator\Paginator($adapter);
 
         return $paginator;
     }

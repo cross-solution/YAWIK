@@ -11,7 +11,7 @@ namespace Core\Entity;
 
 use GeoJson\GeoJson;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\Json\Json;
+use Laminas\Json\Json;
 
 abstract class AbstractLocation extends AbstractEntity implements LocationInterface
 {

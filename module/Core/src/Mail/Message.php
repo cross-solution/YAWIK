@@ -12,10 +12,10 @@ namespace Core\Mail;
 
 use Auth\Entity\UserInterface;
 use Traversable;
-use Zend\Mail\Address;
-use Zend\Mail\AddressList;
-use Zend\Mail\Exception;
-use Zend\Mail\Message as ZfMessage;
+use Laminas\Mail\Address;
+use Laminas\Mail\AddressList;
+use Laminas\Mail\Exception;
+use Laminas\Mail\Message as ZfMessage;
 
 class Message extends ZfMessage
 {

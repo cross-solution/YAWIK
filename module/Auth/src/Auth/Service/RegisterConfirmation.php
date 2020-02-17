@@ -13,8 +13,8 @@ use Auth\Listener\Events\AuthEvent;
 use Auth\Repository;
 use Auth\Service\Exception;
 use Core\EventManager\EventManager;
-use Zend\Authentication\AuthenticationService;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\EventManager\EventManagerInterface;
 
 class RegisterConfirmation
 {
@@ -42,7 +42,7 @@ class RegisterConfirmation
     }
 
     /**
-     * @param \Zend\EventManager\EventManagerInterface $events
+     * @param \Laminas\EventManager\EventManagerInterface $events
      *
      * @return self
      */
@@ -54,7 +54,7 @@ class RegisterConfirmation
     }
 
     /**
-     * @return \Zend\EventManager\EventManagerInterface
+     * @return \Laminas\EventManager\EventManagerInterface
      */
     public function getEventManager()
     {

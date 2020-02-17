@@ -10,9 +10,9 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormLabel;
-use Zend\Form\ElementInterface;
-use Zend\Form\Exception;
+use Laminas\Form\View\Helper\FormLabel;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception;
 
 class RequiredMarkInFormLabel extends FormLabel
 {

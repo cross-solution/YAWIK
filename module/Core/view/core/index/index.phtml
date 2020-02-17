@@ -56,7 +56,7 @@
         </div>
         <div class="panel-body">
         <?php if(getenv('APPLICATION_ENV') === 'production'): ?>
-            <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents("https://github.com/cross-solution/CrossApplicantManager/commits/master.atom"));?>
+            <?php $news = \Laminas\Feed\Reader\Reader::importString(file_get_contents("https://github.com/cross-solution/CrossApplicantManager/commits/master.atom"));?>
             <ul>
                 <?php foreach($news as $item):?>
                     <li>
@@ -78,7 +78,7 @@
         <div class="panel-body">
         <?php if(getenv('APPLICATION_ENV') === 'production'): ?>
             <ul>
-                <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents('http://yawik.org/feed/'));?>
+                <?php $news = \Laminas\Feed\Reader\Reader::importString(file_get_contents('http://yawik.org/feed/'));?>
                 <?php foreach($news as $item):?>
                     <li>
                         <a href="<?php echo $item->getLink()?>"><?php echo $item->getTitle()?></a>

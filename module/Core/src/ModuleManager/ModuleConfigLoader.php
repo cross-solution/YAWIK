@@ -10,8 +10,8 @@
 /** */
 namespace Core\ModuleManager;
 
-use Zend\Stdlib\Glob;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Stdlib\Glob;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Simple module configuration file loader and merger.

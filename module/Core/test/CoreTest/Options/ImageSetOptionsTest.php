@@ -17,7 +17,7 @@ use Core\Entity\ImageSetInterface;
 use Core\Options\ImageSetOptions;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Tests for \Core\Options\ImageSetOptions

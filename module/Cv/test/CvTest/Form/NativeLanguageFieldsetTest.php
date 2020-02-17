@@ -20,7 +20,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Cv\Entity\NativeLanguage;
 use Cv\Form\NativeLanguageFieldset;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Tests for \Cv\Form\NativeLanguageFieldset

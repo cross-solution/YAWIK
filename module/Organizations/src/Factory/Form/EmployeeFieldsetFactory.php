@@ -12,8 +12,8 @@ namespace Organizations\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Entity\EmployeePermissions;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\Hydrator\Strategy\ClosureStrategy;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\Hydrator\Strategy\ClosureStrategy;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 use Organizations\Form\EmployeeFieldset;
 
@@ -40,7 +40,7 @@ class EmployeeFieldsetFactory implements FactoryInterface
     {
         $fieldset = new EmployeeFieldset();
 
-        $hydrator = new \Zend\Hydrator\ClassMethods(false); //new EntityHydrator();
+        $hydrator = new \Laminas\Hydrator\ClassMethods(false); //new EntityHydrator();
         $repositories = $container->get('repositories');
         $users        = $repositories->get('Auth/User'); /* @var $users \Auth\Repository\User */
 

@@ -11,7 +11,7 @@ namespace Core\Controller;
 
 use Auth\Controller\Plugin\Auth;
 use Core\Controller\Plugin\Notification;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 /**
  * Class AbstractCoreController

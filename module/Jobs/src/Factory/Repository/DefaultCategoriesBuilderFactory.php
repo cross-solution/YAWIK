@@ -13,8 +13,8 @@ namespace Jobs\Factory\Repository;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\Category;
 use Jobs\Repository\DefaultCategoriesBuilder;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the DefaultCategoriesBuilder.

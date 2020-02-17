@@ -32,7 +32,7 @@ class EmployeesFieldsetFactoryTest extends TestCase
     {
         $target = new EmployeesFieldsetFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -44,19 +44,19 @@ class EmployeesFieldsetFactoryTest extends TestCase
     {
         $target = new EmployeesFieldsetFactory();
 
-        $headscript = $this->getMockBuilder('\Zend\View\Helper\HeadScript')->disableOriginalConstructor()->getMock();
+        $headscript = $this->getMockBuilder('\Laminas\View\Helper\HeadScript')->disableOriginalConstructor()->getMock();
         $headscript->expects($this->once())
                    ->method('__call')
                    ->with('appendFile', array('modules/Organizations/js/organizations.employees.js'))
                    ->willReturn(null);
 
-        $basepath   = $this->getMockBuilder('\Zend\View\Helper\BasePath')->disableOriginalConstructor()->getMock();
+        $basepath   = $this->getMockBuilder('\Laminas\View\Helper\BasePath')->disableOriginalConstructor()->getMock();
         $basepath->expects($this->once())
                  ->method('__invoke')
                  ->with('modules/Organizations/js/organizations.employees.js')
                  ->will($this->returnArgument(0));
 
-        $helpers = $this->getMockBuilder('\Zend\View\HelperPluginManager')->disableOriginalConstructor()->getMock();
+        $helpers = $this->getMockBuilder('\Laminas\View\HelperPluginManager')->disableOriginalConstructor()->getMock();
         $helpers->expects($this->exactly(2))
                 ->method('get')
                 ->withConsecutive(
@@ -65,7 +65,7 @@ class EmployeesFieldsetFactoryTest extends TestCase
                 )
                 ->will($this->onConsecutiveCalls($headscript, $basepath));
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()
                          ->getMock();
 
         $services->expects($this->once())

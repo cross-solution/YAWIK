@@ -13,8 +13,8 @@ namespace CoreTest;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
 use Core\Application;
 
 /**

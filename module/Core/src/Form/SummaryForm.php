@@ -91,7 +91,7 @@ class SummaryForm extends BaseForm implements SummaryFormInterface
      *
      * Sets render mode to {@link RENDER_SUMMARY}, if validation succeeded.
      *
-     * @see \Zend\Form\Form::isValid()
+     * @see \Laminas\Form\Form::isValid()
      */
     public function isValid()
     {

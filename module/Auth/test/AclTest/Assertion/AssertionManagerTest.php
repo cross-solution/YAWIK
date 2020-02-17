@@ -13,11 +13,11 @@ namespace AclTest\Assertion;
 use PHPUnit\Framework\TestCase;
 
 use Acl\Assertion\AssertionManager;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\SharedEventManager;
-use Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\SharedEventManager;
+use Laminas\Permissions\Acl\Assertion\AssertionInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests the AssertionManager
@@ -45,7 +45,7 @@ class AssertionManagerTest extends TestCase
     {
         $target = new AssertionManager($this->serviceManager);
 
-        $this->assertInstanceOf('\Zend\ServiceManager\AbstractPluginManager', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\AbstractPluginManager', $target);
     }
 
     public function testConstructorAddsInitializer()
@@ -58,8 +58,8 @@ class AssertionManagerTest extends TestCase
     public function testInjectEventManagerInitializerCallbackDoesNothingIfAssertionNotEventManagerAware()
     {
         $target = new AssertionManager($this->serviceManager);
-        $assertion = $this->getMockForAbstractClass('\Zend\Permissions\Acl\Assertion\AssertionInterface');
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceLocatorInterface')
+        $assertion = $this->getMockForAbstractClass('\Laminas\Permissions\Acl\Assertion\AssertionInterface');
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceLocatorInterface')
             ->setMethods(['get', 'has', 'build'])
             ->getMock();
         $services->expects($this->never())->method('get');
@@ -72,12 +72,12 @@ class AssertionManagerTest extends TestCase
         $assertion = $this
             ->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock')
         ;
-        $services = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\AbstractPluginManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;
         $parentServices = $this
-            ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+            ->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -116,12 +116,12 @@ class AssertionManagerTest extends TestCase
     {
         $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock');
-        $services = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\AbstractPluginManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;
         
-        $parentServices = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $parentServices = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $events = new EventManager();
         $sharedEvents = new SharedEventManager();
 
@@ -151,7 +151,7 @@ class AssertionManagerTest extends TestCase
     public function testValidateThrowsExceptionIfPluginIsInvalid()
     {
         $target = new AssertionManager($this->serviceManager);
-        $assertion = $this->getMockForAbstractClass('\Zend\Permissions\Acl\Assertion\AssertionInterface');
+        $assertion = $this->getMockForAbstractClass('\Laminas\Permissions\Acl\Assertion\AssertionInterface');
 
         $this->assertNull($target->validate($assertion));
         $target->validate(new \stdClass());

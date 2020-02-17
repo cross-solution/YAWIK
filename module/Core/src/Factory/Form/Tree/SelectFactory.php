@@ -14,9 +14,9 @@ use Core\Entity\Tree\NodeInterface;
 use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
 use Core\Form\Tree\Select;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-//use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+//use Laminas\ServiceManager\MutableCreationOptionsInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for a tree select form element.
@@ -128,7 +128,7 @@ class SelectFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
+        /* @var \Laminas\ServiceManager\AbstractPluginManager $serviceLocator */
         $select = $this($serviceLocator, self::class, $this->options);
         $this->options = [];
 

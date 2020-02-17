@@ -11,13 +11,13 @@
 namespace Install\Controller;
 
 use Core\Service\ClearCacheService;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\Json\Json;
-use Zend\ModuleManager\Listener\ListenerOptions;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\ResponseInterface;
-use Zend\View\Model\ViewModel;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Json\Json;
+use Laminas\ModuleManager\Listener\ListenerOptions;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Install module main controller.
@@ -191,7 +191,7 @@ class Index extends AbstractActionController
      *
      * @param array $variables
      *
-     * @return \Zend\Stdlib\ResponseInterface
+     * @return \Laminas\Stdlib\ResponseInterface
      */
     protected function createJsonResponse(array $variables)
     {

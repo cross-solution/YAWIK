@@ -10,7 +10,7 @@
 namespace Auth\Form;
 
 use Core\Form\Form;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 class Login extends Form
 {

@@ -10,7 +10,7 @@
 /** UniqueGroupName.php */
 namespace Auth\Form\Validator;
 
-use Zend\Validator\AbstractValidator;
+use Laminas\Validator\AbstractValidator;
 use Auth\Entity\UserInterface;
 
 /**
@@ -101,7 +101,7 @@ class UniqueGroupName extends AbstractValidator
      *
      * @param string $value
      * @return bool
-     * @see \Zend\Validator\ValidatorInterface::isValid()
+     * @see \Laminas\Validator\ValidatorInterface::isValid()
      */
     public function isValid($value)
     {

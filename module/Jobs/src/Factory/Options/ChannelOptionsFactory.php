@@ -12,7 +12,7 @@ namespace Jobs\Factory\Options;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Options\ChannelOptions;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ChannelOptionsFactory implements FactoryInterface
 {

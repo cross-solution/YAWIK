@@ -11,7 +11,7 @@
 namespace Auth\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Class OAuth

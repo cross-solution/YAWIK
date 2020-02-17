@@ -13,9 +13,9 @@ namespace CoreTestUtils\Mock\ServiceManager;
 use PHPUnit\Framework\TestCase;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Mock of a plugin manager.

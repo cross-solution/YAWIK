@@ -13,11 +13,11 @@ namespace Core\Form\View\Helper;
 use Core\Form\Element\ViewHelperProviderInterface;
 use Core\Form\TextSearchFormFieldset;
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\Element\Hidden;
-use Zend\Form\ElementPrepareAwareInterface;
-use Zend\Form\FieldsetInterface;
-use Zend\Form\FormInterface;
-use Zend\Form\View\Helper\Form;
+use Laminas\Form\Element\Hidden;
+use Laminas\Form\ElementPrepareAwareInterface;
+use Laminas\Form\FieldsetInterface;
+use Laminas\Form\FormInterface;
+use Laminas\Form\View\Helper\Form;
 
 /**
  * ${CARET}

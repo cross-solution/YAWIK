@@ -108,7 +108,7 @@ trait VersionProviderTrait
         }
 
         $composerJson = file_get_contents($composerFile);
-        $composerJson = \Zend\Json\Json::decode($composerJson, \Zend\Json\Json::TYPE_ARRAY);
+        $composerJson = \Laminas\Json\Json::decode($composerJson, \Laminas\Json\Json::TYPE_ARRAY);
 
         $this->vptComposerData = $composerJson;
     }

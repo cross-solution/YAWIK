@@ -13,7 +13,7 @@ namespace Jobs\View\Helper;
 use Jobs\Entity\Decorator\JsonLdProvider;
 use Jobs\Entity\JobInterface;
 use Jobs\Entity\JsonLdProviderInterface;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * Print the JSON-LD representation of a job.

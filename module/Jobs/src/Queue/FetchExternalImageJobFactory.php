@@ -11,7 +11,7 @@
 namespace Jobs\Queue;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Jobs\Queue\FetchExternalImageJob

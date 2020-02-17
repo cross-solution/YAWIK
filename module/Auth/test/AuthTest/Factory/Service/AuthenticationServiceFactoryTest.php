@@ -47,7 +47,7 @@ class AuthenticationServiceFactoryTest extends TestCase
             ->with('Auth/User')
             ->willReturn($userRepositoryMock);
 
-        $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $sm = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $sm->expects($this->once())
             ->method('get')->with('repositories')->willReturn($repositoriesMock);
 

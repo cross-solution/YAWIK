@@ -4,7 +4,7 @@ namespace JobsTest\Factory;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 use Jobs\Factory\ModuleOptionsFactory;
 use Jobs\Options\ModuleOptions;
 
@@ -23,7 +23,7 @@ class ModuleOptionsFactoryTest extends TestCase
      */
     public function testFactory($config)
     {
-        $serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $serviceManager = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                                ->disableOriginalConstructor()->getMock();
 
 

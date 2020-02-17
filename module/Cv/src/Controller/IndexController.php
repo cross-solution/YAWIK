@@ -11,9 +11,9 @@
 namespace Cv\Controller;
 
 use Cv\Form\SearchForm;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Session\Container as Session;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\Session\Container as Session;
 
 /**
  *

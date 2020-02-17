@@ -13,7 +13,7 @@ namespace CoreTest\Repository\DoctrineMongoODM\Event;
 use PHPUnit\Framework\TestCase;
 
 use Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Core\Entity\AttachableEntityInterface;

@@ -12,7 +12,7 @@ namespace Organizations\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\ProfileController;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Create new ProfileController object

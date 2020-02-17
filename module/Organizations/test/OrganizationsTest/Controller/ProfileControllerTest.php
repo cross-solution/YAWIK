@@ -18,12 +18,12 @@ use CoreTest\Controller\AbstractControllerTestCase;
 use Jobs\Repository\Job as JobRepository;
 use Organizations\Controller\ProfileController;
 use Organizations\Entity\Organization;
-use Zend\I18n\Translator\TranslatorInterface;
+use Laminas\I18n\Translator\TranslatorInterface;
 use Organizations\Repository\Organization as OrganizationRepository;
-use Zend\Mvc\Controller\Plugin\Params;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\Paginator\Paginator;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\Plugin\Params;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\Paginator\Paginator;
+use Laminas\View\Model\ViewModel;
 use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
 
 /**
@@ -205,7 +205,7 @@ class ProfileControllerTest extends AbstractControllerTestCase
         $target = $this->target;
         $target->setPluginManager($pluginManager);
 
-        /* @var \Zend\View\Model\ViewModel $retVal */
+        /* @var \Laminas\View\Model\ViewModel $retVal */
         $retVal = $target->detailAction();
         $this->assertInstanceOf(ViewModel::class, $retVal);
         $this->assertArrayHasKey('organization', $retVal->getVariables());

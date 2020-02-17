@@ -10,7 +10,7 @@
 /** */
 namespace Core\Log\Processor;
 
-use Zend\Log\Processor\RequestId;
+use Laminas\Log\Processor\RequestId;
 
 /**
  * ${CARET}

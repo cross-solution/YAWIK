@@ -11,7 +11,7 @@ namespace Organizations\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\Organization;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Class OrganizationsProfileFieldset
@@ -25,7 +25,7 @@ class OrganizationsProfileFieldset extends Fieldset
     /**
      * Gets the Hydrator
      *
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {

@@ -13,7 +13,7 @@ namespace JobsTest\Factory\Model;
 use PHPUnit\Framework\TestCase;
 
 use Jobs\Factory\Model\ApiJobDehydratorFactory;
-use Zend\View\Helper\Url;
+use Laminas\View\Helper\Url;
 
 /**
  * Tests for ApplyUrl view helper factory
@@ -28,11 +28,11 @@ class ApiJobDehydratorFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new ApiJobDehydratorFactory());
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', new ApiJobDehydratorFactory());
     }
 
     /**
@@ -44,7 +44,7 @@ class ApiJobDehydratorFactoryTest extends TestCase
 
         $urlHelper = new Url();
 
-        $helpers = $this->getMockBuilder('\Zend\View\HelperPluginManager')
+        $helpers = $this->getMockBuilder('\Laminas\View\HelperPluginManager')
                         ->disableOriginalConstructor()
                         ->getMock();
 
@@ -56,7 +56,7 @@ class ApiJobDehydratorFactoryTest extends TestCase
                 ->with('jobUrl')
                 ->willReturn($urlHelper);
 
-        $serviceManagerMock = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $serviceManagerMock = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                                    ->disableOriginalConstructor()
                                    ->getMock();
 

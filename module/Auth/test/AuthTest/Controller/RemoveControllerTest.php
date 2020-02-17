@@ -16,9 +16,9 @@ use Auth\Dependency\Manager as Dependencies;
 use Auth\AuthenticationService;
 use Auth\Entity\User;
 use Auth\Entity\Status;
-use Zend\Mvc\Controller\Plugin\Params;
-use Zend\Mvc\Controller\Plugin\Redirect;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Controller\Plugin\Params;
+use Laminas\Mvc\Controller\Plugin\Redirect;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  *

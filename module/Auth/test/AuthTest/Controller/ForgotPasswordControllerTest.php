@@ -17,10 +17,10 @@ use Auth\Service\Exception;
 use CoreTest\Bootstrap;
 use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\Mvc\MvcEvent;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Stdlib\Parameters;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Stdlib\Parameters;
 
 class ForgotPasswordControllerTest extends AbstractControllerTestCase
 {
@@ -35,7 +35,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
     private $serviceMock;
     
     /**
-     * @var \Zend\ServiceManager\ServiceManager
+     * @var \Laminas\ServiceManager\ServiceManager
      */
     private $serviceManager;
 
@@ -50,13 +50,13 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')
             ->getMock();
 
         $this->controller = new ForgotPasswordController($this->formMock, $this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);
 
-        /** @var \Zend\Mvc\Controller\PluginManager $controllerPluginManager */
+        /** @var \Laminas\Mvc\Controller\PluginManager $controllerPluginManager */
         $this->serviceManager = clone Bootstrap::getServiceManager();
         $controllerPluginManager = $this->serviceManager->get('ControllerPluginManager');
         //$this->controller->setServiceLocator($this->servicemanager);

@@ -10,9 +10,9 @@
 /** MailManagerConfig.php */
 namespace Core\Mail;
 
-use Zend\Config\Config;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mail\AddressList;
+use Laminas\Config\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Mail\AddressList;
 
 class MailServiceConfig extends Config
 {
@@ -20,7 +20,7 @@ class MailServiceConfig extends Config
     {
         return isset($this->config['transport'])
             ? $this->config['transport']
-            : new \Zend\Mail\Transport\Sendmail();
+            : new \Laminas\Mail\Transport\Sendmail();
     }
     
     public function getFrom()

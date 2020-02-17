@@ -18,11 +18,11 @@ use Core\Entity\PermissionsInterface;
 use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\Status;
 use Jobs\Repository;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\Stdlib\AbstractOptions;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
+use Laminas\Stdlib\AbstractOptions;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  * Handles rendering the job in formular and in preview mode
@@ -94,7 +94,7 @@ class TemplateController extends AbstractActionController
         /* @var \Auth\Entity\User $user */
         $user = $this->auth()->getUser();
 
-        /* @var \Zend\View\Model\ViewModel $model */
+        /* @var \Laminas\View\Model\ViewModel $model */
         $model = $this->viewModelTemplateFilter->getModel($job);
 
         if (
@@ -137,7 +137,7 @@ class TemplateController extends AbstractActionController
         $job = $this->initializeJob()->get($this->params(), true, true); /* @var \Jobs\Entity\Job $job */
         $this->acl($job, 'edit');
 
-        /** @var \Zend\Http\Request $request */
+        /** @var \Laminas\Http\Request $request */
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
         $viewHelperManager    = $this->viewHelper;

@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Controller\AdminControllerEvent;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Tests for \Core\Controller\AdminControllerEvent
@@ -30,12 +30,12 @@ class AdminControllerEventTest extends TestCase
 
     protected $target = '\Core\Controller\AdminControllerEvent';
 
-    protected $inheritance = [ '\Zend\EventManager\Event' ];
+    protected $inheritance = [ '\Laminas\EventManager\Event' ];
 
     public function testCreatesModelPriorityListUponCreation()
     {
         $target = new AdminControllerEvent();
-        $this->assertAttributeInstanceOf('\Zend\Stdlib\PriorityList', 'models', $target);
+        $this->assertAttributeInstanceOf('\Laminas\Stdlib\PriorityList', 'models', $target);
     }
 
     public function testAddViewModelInsertsIntoList()
@@ -44,11 +44,11 @@ class AdminControllerEventTest extends TestCase
         $this->assertSame($this->target, $this->target->addViewModel('test', $model), 'Fluent interface broken.');
         $this->target->addViewModel('test2', $model, 10);
 
-        /* @var \Zend\Stdlib\PriorityList $list */
+        /* @var \Laminas\Stdlib\PriorityList $list */
         $list = $this->target->getViewModels();
-        $this->assertInstanceOf('\Zend\Stdlib\PriorityList', $list);
+        $this->assertInstanceOf('\Laminas\Stdlib\PriorityList', $list);
 
-        $array = $list->toArray(\Zend\Stdlib\PriorityList::EXTR_BOTH);
+        $array = $list->toArray(\Laminas\Stdlib\PriorityList::EXTR_BOTH);
 
         $this->assertArrayHasKey('test', $array);
         $test = $array['test'];
@@ -119,12 +119,12 @@ class AdminControllerEventTest extends TestCase
     protected function assertListEntry($name, $template, $vars, $priority)
     {
         $list = $this->target->getViewModels();
-        $array = $list->toArray(\Zend\Stdlib\PriorityList::EXTR_BOTH);
+        $array = $list->toArray(\Laminas\Stdlib\PriorityList::EXTR_BOTH);
 
         $this->assertArrayHasKey($name, $array);
 
         $model = $array[$name]['data'];
-        $this->assertInstanceOf('\Zend\View\Model\ViewModel', $model);
+        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $model);
         $this->assertEquals($template, $model->getTemplate());
         $this->assertEquals($vars, $model->getVariables());
         $this->assertEquals($priority, $array[$name]['priority']);

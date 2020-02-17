@@ -9,11 +9,11 @@
 namespace Core\Listener;
 
 use Core\Options\ModuleOptions;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Application;
-use Zend\Router\Http\RouteMatch;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Application;
+use Laminas\Router\Http\RouteMatch;
 use Locale;
 use Core\I18n\Locale as LocaleService;
 
@@ -30,7 +30,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
 {
 
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
 
@@ -116,7 +116,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
 
     public function onDispatchError(MvcEvent $e)
     {
-        if ($e->getRequest() instanceof \Zend\Console\Request
+        if ($e->getRequest() instanceof \Laminas\Console\Request
             || Application::ERROR_ROUTER_NO_MATCH != $e->getError()
         ) {
             return;

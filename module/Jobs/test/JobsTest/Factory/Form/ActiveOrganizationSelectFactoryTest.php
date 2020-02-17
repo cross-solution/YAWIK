@@ -19,8 +19,8 @@ use Jobs\Form\OrganizationSelect;
 use Organizations\Repository\Organization;
 use Organizations\Entity\OrganizationContact;
 use Organizations\Entity\OrganizationName;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Form\ActiveOrganizationSelect

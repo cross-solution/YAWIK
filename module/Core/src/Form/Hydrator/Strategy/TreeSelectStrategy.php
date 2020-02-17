@@ -15,7 +15,7 @@ use Core\Entity\Tree\EmbeddedLeafs;
 use Core\Entity\Tree\NodeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Hydrator strategy for TreeSelect form element.

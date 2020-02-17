@@ -12,7 +12,7 @@ namespace Core\Options;
 
 use Core\Entity\Image;
 use Core\Entity\ImageSetInterface;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Options for configuring ImageSetHydrator instances.

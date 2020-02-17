@@ -61,7 +61,7 @@ class ApplicationTest extends TestCase
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
         $this->assertInstanceOf('\Applications\Entity\ApplicationInterface', $this->target);
-        $this->assertInstanceOf('\Zend\Permissions\Acl\Resource\ResourceInterface', $this->target);
+        $this->assertInstanceOf('\Laminas\Permissions\Acl\Resource\ResourceInterface', $this->target);
         $this->assertInstanceOf('\Core\Entity\DraftableEntityInterface', $this->target);
     }
 

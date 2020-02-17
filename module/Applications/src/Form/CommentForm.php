@@ -18,7 +18,7 @@ class CommentForm extends Form
     /**
      * Gets the hydrator
      *
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {

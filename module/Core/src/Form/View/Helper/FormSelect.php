@@ -10,8 +10,8 @@
 /**  */
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormSelect as ZfFormSelect;
-use Zend\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormSelect as ZfFormSelect;
+use Laminas\Form\ElementInterface;
 
 /**
  *

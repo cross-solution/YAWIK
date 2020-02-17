@@ -26,19 +26,19 @@ use Jobs\Factory\Form\MultipostingMultiCheckboxFactory;
 class MultipostingMultiCheckboxFactoryTest extends TestCase
 {
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
         $target = new MultipostingMultiCheckboxFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     public function testAllowsSettingAndGettingOfParentFactory()
     {
         $target = new MultipostingMultiCheckboxFactory();
-        $factory = $this->getMockForAbstractClass('\Zend\ServiceManager\FactoryInterface');
+        $factory = $this->getMockForAbstractClass('\Laminas\ServiceManager\FactoryInterface');
 
         $this->assertInstanceOf('\Jobs\Factory\Form\MultipostingSelectFactory', $target->getParentFactory(), 'Wrong default parent factory ');
         $this->assertSame($target, $target->setParentFactory($factory), 'Fluent interface broken');
@@ -57,7 +57,7 @@ class MultipostingMultiCheckboxFactoryTest extends TestCase
         $select->expects($this->once())
                ->method('setHeadscripts')->with(array('modules/Jobs/js/form.multiposting-checkboxes.js'));
 
-        $factory = $this->getMockBuilder('\Zend\ServiceManager\FactoryInterface')
+        $factory = $this->getMockBuilder('\Laminas\ServiceManager\FactoryInterface')
                         ->setMethods(array('__invoke'))
                         ->getMockForAbstractClass()
         ;
@@ -68,7 +68,7 @@ class MultipostingMultiCheckboxFactoryTest extends TestCase
         ;
 
 
-        $sm = $this->getMockForAbstractClass('\Zend\ServiceManager\ServiceLocatorInterface');
+        $sm = $this->getMockForAbstractClass('\Laminas\ServiceManager\ServiceLocatorInterface');
 
         $target = new MultipostingMultiCheckboxFactory();
         $target->setParentFactory($factory);

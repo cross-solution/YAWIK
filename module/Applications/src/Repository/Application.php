@@ -18,7 +18,7 @@ use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
 use Doctrine\ODM\MongoDB as ODM;
 use Interop\Container\ContainerInterface;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Stdlib\ArrayUtils;
 use Auth\Entity\UserInterface;
 
 /**

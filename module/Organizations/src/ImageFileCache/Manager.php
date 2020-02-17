@@ -10,7 +10,7 @@ namespace Organizations\ImageFileCache;
 
 use Organizations\Entity\OrganizationImage;
 use Organizations\Options\ImageFileCacheOptions as Options;
-use Zend\Stdlib\ErrorHandler;
+use Laminas\Stdlib\ErrorHandler;
 use InvalidArgumentException;
 use RuntimeException;
 

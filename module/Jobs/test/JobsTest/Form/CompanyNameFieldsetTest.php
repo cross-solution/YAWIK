@@ -40,11 +40,11 @@ class CompanyNameFieldsetTest extends TestCase
     }
 
     /**
-     * @testdox Extends \Zend\Form\Fieldset
+     * @testdox Extends \Laminas\Form\Fieldset
      */
     public function testExtendsFieldset()
     {
-        $this->assertInstanceOf('\Zend\Form\Fieldset', $this->target);
+        $this->assertInstanceOf('\Laminas\Form\Fieldset', $this->target);
     }
 
     /**

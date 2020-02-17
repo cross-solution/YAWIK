@@ -16,13 +16,13 @@ use Applications\Repository\Application as ApplicationRepository;
 use Core\Repository\RepositoryService;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Interop\Container\ContainerInterface;
-use Zend\Filter\FilterPluginManager;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Filter\FilterPluginManager;
+use Laminas\Mvc\Controller\AbstractActionController;
 use Core\Console\ProgressBar;
-use Zend\View\Model\ViewModel;
-use \Zend\Text\Table\Table;
-use \Zend\Text\Table\Row;
-use \Zend\Text\Table\Column;
+use Laminas\View\Model\ViewModel;
+use \Laminas\Text\Table\Table;
+use \Laminas\Text\Table\Row;
+use \Laminas\Text\Table\Column;
 
 /**
  * Handles cli actions for applications
@@ -244,7 +244,7 @@ class ConsoleController extends AbstractActionController
     {
         echo "Loading applications... ";
 
-        $filter       = \Zend\Json\Json::decode($this->params('filter', '{}'), \Zend\Json\Json::TYPE_ARRAY);
+        $filter       = \Laminas\Json\Json::decode($this->params('filter', '{}'), \Laminas\Json\Json::TYPE_ARRAY);
         $filter['$or'] = array(
             array('attachments' => array('$exists' => 1)),
             array('contact.image' => array('$exists' => 1)),

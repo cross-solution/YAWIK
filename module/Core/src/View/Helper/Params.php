@@ -10,8 +10,8 @@
 /** Core view helpers */
 namespace Core\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
-use Zend\Mvc\MvcEvent;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\Mvc\MvcEvent;
 
 /**
  * This helper exposes request params to view scripts.
@@ -104,7 +104,7 @@ class Params extends AbstractHelper
      *
      * @param  string $header Header name to retrieve, or null to get all.
      * @param  mixed $default Default value to use when the requested header is missing.
-     * @return null|\Zend\Http\Header\HeaderInterface
+     * @return null|\Laminas\Http\Header\HeaderInterface
      */
     public function fromHeader($header = null, $default = null)
     {

@@ -9,8 +9,8 @@
 namespace Core\Form\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Initializer\InitializerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Initializer\InitializerInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Core\Form\Container as FormContainer;
 
 /**
@@ -30,7 +30,7 @@ class Initializer implements InitializerInterface
     
     
     /**
-     * @see \Zend\ServiceManager\InitializerInterface::initialize()
+     * @see \Laminas\ServiceManager\InitializerInterface::initialize()
      */
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)
     {

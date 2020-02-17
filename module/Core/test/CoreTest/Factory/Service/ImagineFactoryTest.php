@@ -16,7 +16,7 @@ use Core\Factory\Service\ImagineFactory;
 use Core\Options\ImagineOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Service\ImagineFactory

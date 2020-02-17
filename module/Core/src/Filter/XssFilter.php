@@ -10,8 +10,8 @@
 /** XssFilter.php */
 namespace Core\Filter;
 
-use Zend\Filter\FilterInterface;
-use Zend\Filter\Exception;
+use Laminas\Filter\FilterInterface;
+use Laminas\Filter\Exception;
 use HTMLPurifier;
 
 

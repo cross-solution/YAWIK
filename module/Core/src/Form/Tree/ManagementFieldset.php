@@ -14,12 +14,12 @@ use Core\Form\Element\ViewHelperProviderInterface;
 use Core\Form\Hydrator\TreeHydrator;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
-use Zend\Form\Exception;
-use Zend\Form\Fieldset;
-use Zend\Form\FieldsetInterface;
-use Zend\Hydrator;
-use Zend\Hydrator\HydratorAwareInterface;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Form\Exception;
+use Laminas\Form\Fieldset;
+use Laminas\Form\FieldsetInterface;
+use Laminas\Hydrator;
+use Laminas\Hydrator\HydratorAwareInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * Fieldset for managing tree items.

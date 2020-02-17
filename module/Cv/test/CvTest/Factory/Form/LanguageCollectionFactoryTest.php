@@ -16,8 +16,8 @@ use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Language;
 use Cv\Factory\Form\LanguageSkillCollectionFactory;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Cv\Factory\Form\LanguageSkillCollectionFactory

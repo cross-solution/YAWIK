@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Application;
 use org\bovigo\vfs\vfsStream;
-use Zend\Mvc\Application as ZendApplication;
+use Laminas\Mvc\Application as ZendApplication;
 
 class TestApplication extends Application
 {

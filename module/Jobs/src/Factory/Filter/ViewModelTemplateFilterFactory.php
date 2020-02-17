@@ -12,9 +12,9 @@ namespace Jobs\Factory\Filter;
 
 use Interop\Container\ContainerInterface;
 use Jobs\View\Helper\JsonLd;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\Form\Element;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\Form\Element;
 use Jobs\Filter\ViewModelTemplateFilterForm;
 use Jobs\Filter\ViewModelTemplateFilterJob;
 use Core\Entity\EntityInterface;
@@ -44,7 +44,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
     
     /**
      * @param $element
-     * @return \Zend\View\Model\ViewModel
+     * @return \Laminas\View\Model\ViewModel
      * @throws \InvalidArgumentException
      * @TODO: [ZF3] renamed this method into getModel because conflict with FactoryInterface::__invoke() method
      */

@@ -15,7 +15,7 @@ use Core\Listener\Events\CreatePaginatorEvent;
 use Core\Paginator\PaginatorService;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use CoreTestUtils\TestCase\SetupTargetTrait;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 
 /**
  * Class CreatePaginatorEventTest

@@ -11,7 +11,7 @@
 namespace Core\Filter\File;
 
 use Core\Entity\FileInterface;
-use Zend\Filter\AbstractFilter;
+use Laminas\Filter\AbstractFilter;
 
 /**
  * ${CARET}

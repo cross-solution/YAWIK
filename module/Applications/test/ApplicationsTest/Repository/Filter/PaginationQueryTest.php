@@ -19,7 +19,7 @@ use Core\Repository\Filter\AbstractPaginationQuery;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Doctrine\MongoDB\Query\Builder;
-use Zend\Stdlib\Parameters;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Tests for \Applications\Repository\Filter\PaginationQuery

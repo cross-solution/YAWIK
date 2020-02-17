@@ -5,9 +5,9 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormCheckbox;
-use Zend\Form\ElementInterface;
-use Zend\Form\Exception;
+use Laminas\Form\View\Helper\FormCheckbox;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception;
 
 class ToggleButton extends FormCheckbox
 {

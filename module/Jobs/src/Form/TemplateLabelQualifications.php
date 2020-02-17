@@ -11,7 +11,7 @@
 namespace Jobs\Form;
 
 use Core\Form\Form;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Jobs\Form\Hydrator\TemplateLabelHydrator;
 
 /**

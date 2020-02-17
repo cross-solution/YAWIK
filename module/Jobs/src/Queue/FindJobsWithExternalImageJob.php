@@ -18,8 +18,8 @@ use SlmQueue\Job\AbstractJob;
 use SlmQueue\Queue\QueueAwareInterface;
 use SlmQueue\Queue\QueueAwareTrait;
 use SlmQueue\Queue\QueueInterface;
-use Zend\Log\LoggerAwareInterface;
-use Zend\Log\LoggerInterface;
+use Laminas\Log\LoggerAwareInterface;
+use Laminas\Log\LoggerInterface;
 
 /**
  * ${CARET}

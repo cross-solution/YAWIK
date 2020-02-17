@@ -11,7 +11,7 @@
 namespace Core\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\View\Helper\SocialButtons;
 
 class SocialButtonsFactory implements FactoryInterface {
@@ -27,7 +27,7 @@ class SocialButtonsFactory implements FactoryInterface {
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $serviceLocator \Zend\View\HelperPluginManager */
+        /* @var $serviceLocator \Laminas\View\HelperPluginManager */
         $options = $container->get('Auth/Options');
         $config = $container->get('Config');
         $helper = new SocialButtons($options,$config);

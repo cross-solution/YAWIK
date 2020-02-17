@@ -10,7 +10,7 @@
 
 namespace Jobs\Form;
 
-use Zend\Form\Element;
+use Laminas\Form\Element;
 use Core\Form\Element\ViewHelperProviderInterface;
 
 /**
@@ -32,7 +32,7 @@ class CompanyNameElement extends Element implements ViewHelperProviderInterface
     protected $helper = 'formText';
 
     /**
-     * @param string|\Zend\View\Helper\HelperInterface $helper
+     * @param string|\Laminas\View\Helper\HelperInterface $helper
      * @return $this|ViewHelperProviderInterface
      */
     public function setViewHelper($helper)
@@ -42,7 +42,7 @@ class CompanyNameElement extends Element implements ViewHelperProviderInterface
     }
 
     /**
-     * @return string|\Zend\View\Helper\HelperInterface
+     * @return string|\Laminas\View\Helper\HelperInterface
      */
     public function getViewHelper()
     {

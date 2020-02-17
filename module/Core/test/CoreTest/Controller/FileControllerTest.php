@@ -18,13 +18,13 @@ use Core\Repository\RepositoryService;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Interop\Container\ContainerInterface;
 use Organizations\Entity\OrganizationImage;
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\ResponseCollection;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\Mvc\Controller\Plugin\Params;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\View\Model\JsonModel;
+use Laminas\EventManager\EventInterface;
+use Laminas\EventManager\ResponseCollection;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\Mvc\Controller\Plugin\Params;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\View\Model\JsonModel;
 
 /**
  * Class FileControllerTest
@@ -273,7 +273,7 @@ class FileControllerTest extends AbstractControllerTestCase
             ->with($file)
         ;
 
-        /* @var \Zend\View\Model\JsonModel $output */
+        /* @var \Laminas\View\Model\JsonModel $output */
         $output = $this->controller->dispatch($request);
         $this->assertInstanceOf(JsonModel::class, $output);
         $this->assertEquals('{"result":true}', $output->serialize());

@@ -2,14 +2,14 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormCollection as ZendFormCollection;
-use Zend\Form\ElementInterface;
-use Zend\Form\Element\Collection as CollectionElement;
-use Zend\Form\FieldsetInterface;
+use Laminas\Form\View\Helper\FormCollection as LaminasFormCollection;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Element\Collection as CollectionElement;
+use Laminas\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
 
-class FormCollection extends ZendFormCollection
+class FormCollection extends LaminasFormCollection
 {
     protected $layout;
     protected $isWithinCollection = false;
@@ -43,14 +43,14 @@ class FormCollection extends ZendFormCollection
      */
     public function render(ElementInterface $element, $useViewPartial = false)
     {
-        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+        /* @var $renderer \Laminas\View\Renderer\PhpRenderer */
         $renderer = $this->getView();
         if (!method_exists($renderer, 'plugin')) {
             // Bail early if renderer is not pluggable
             return '';
         }
 
-        /* @var $elementHelper \Zend\Form\View\Helper\FormRow */
+        /* @var $elementHelper \Laminas\Form\View\Helper\FormRow */
         $markup           = '';
         $templateMarkup   = '';
         $escapeHtmlHelper = $this->getEscapeHtmlHelper();
@@ -89,7 +89,7 @@ class FormCollection extends ZendFormCollection
          *
          */
         if ($element instanceof ViewPartialProviderInterface && ($this->isWithinCollection || $useViewPartial)) {
-            /* @var $partial \Zend\View\Helper\Partial */
+            /* @var $partial \Laminas\View\Helper\Partial */
             $partial = $renderer->plugin('partial');
             return $partial(
                 $element->getViewPartial(),
@@ -112,7 +112,7 @@ class FormCollection extends ZendFormCollection
                     $elementOrFieldsetId = "$formId-$elementOrFieldsetId";
                 }
                 $elementOrFieldset->setAttribute('id', $elementOrFieldsetId);
-                /* @var $partial \Zend\View\Helper\Partial */
+                /* @var $partial \Laminas\View\Helper\Partial */
                 $partial = $renderer->plugin('partial');
                 $markup .= $partial(
                     $elementOrFieldset->getViewPartial(),
@@ -135,7 +135,7 @@ class FormCollection extends ZendFormCollection
             } elseif (false !== $elementOrFieldset->getOption('use_formrow_helper')) {
                 $markup .= $elementHelper($elementOrFieldset, null, null, $this->layout);
             } else {
-                /* @var $formElement \Zend\Form\View\Helper\FormElement */
+                /* @var $formElement \Laminas\Form\View\Helper\FormElement */
                 $formElement = $renderer->plugin('formelement');
                 $formElement->render($elementOrFieldset);
             }

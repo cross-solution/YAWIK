@@ -15,10 +15,10 @@ use Interop\Container\ContainerInterface;
 use Jobs\Entity\Category;
 use Jobs\Listener\Events\JobEvent;
 use Jobs\Repository\Categories;
-use Zend\Form\FormInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Laminas\Form\FormInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Handles the management of the job categories.

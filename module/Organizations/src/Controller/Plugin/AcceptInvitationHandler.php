@@ -15,7 +15,7 @@ use Organizations\Repository\Organization as OrganizationRepository;
 use Auth\Repository\User as UserRepository;
 use Core\Exception\MissingDependencyException;
 use Organizations\Entity\EmployeeInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * ${CARET}

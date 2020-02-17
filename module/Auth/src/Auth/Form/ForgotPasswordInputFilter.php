@@ -9,8 +9,8 @@
 
 namespace Auth\Form;
 
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\Factory as InputFactory;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\Factory as InputFactory;
 
 class ForgotPasswordInputFilter extends InputFilter
 {

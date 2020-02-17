@@ -6,7 +6,7 @@
 namespace Settings\Repository\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Settings\Repository\Settings;
 
 class SettingsFactory implements FactoryInterface

@@ -103,7 +103,7 @@ $this->configHeadScript()->appendFile($this->basePath($langScript));
               ->setUlClass('nav nav-pills nav-stacked');
 ?>
 <?php foreach ($this->layout()->getChildren() as $child):
-    /** @var $child \Zend\View\Model\ModelInterface */
+    /** @var $child \Laminas\View\Model\ModelInterface */
     if (0 === strpos($child->captureTo(), "sidebar_")):
         echo $this->{$child->captureTo()};
     endif;

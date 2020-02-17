@@ -14,7 +14,7 @@ use Applications\Controller\CommentController;
 use Applications\Controller\ConsoleController;
 use Applications\Controller\ManageController;
 use Applications\Mail\Forward;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'doctrine' => [

@@ -15,9 +15,9 @@ use Auth\Service\GotoResetPassword;
 use Core\Controller\Plugin;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class GotoResetPasswordFactory implements FactoryInterface
 {

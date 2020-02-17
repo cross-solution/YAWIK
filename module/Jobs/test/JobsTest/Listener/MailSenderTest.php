@@ -90,11 +90,11 @@ class MailSenderTest extends TestCase
     }
 
     /**
-     * @testdox Implements \Zend\EventManager\ListenerAggregateInterface
+     * @testdox Implements \Laminas\EventManager\ListenerAggregateInterface
      */
     public function testImplementsListenerAggregateInterface()
     {
-        $this->assertInstanceOf('\Zend\EventManager\ListenerAggregateInterface', $this->target);
+        $this->assertInstanceOf('\Laminas\EventManager\ListenerAggregateInterface', $this->target);
     }
 
     public function testRequiresMailServiceAndOptionsInConstructorAndSetsInternalProperties()
@@ -105,7 +105,7 @@ class MailSenderTest extends TestCase
 
     public function testAttachsToAndDetachsFromJobEvents()
     {
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')
                        ->disableOriginalConstructor()
                        ->getMock();
 

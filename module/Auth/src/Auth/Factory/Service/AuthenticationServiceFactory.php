@@ -10,8 +10,8 @@
 namespace Auth\Factory\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Auth\AuthenticationService;
 
 /**
@@ -47,7 +47,7 @@ class AuthenticationServiceFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\Adapter\HybridAuth
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

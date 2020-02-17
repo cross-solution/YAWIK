@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Form\Hydrator\TreeHydrator;
 use Core\Entity\Tree\Node;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * Tests for \Core\Form\Hydrator\TreeHydrator

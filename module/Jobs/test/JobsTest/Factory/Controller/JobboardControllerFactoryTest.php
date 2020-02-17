@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Jobs\Controller\JobboardController;
 use Jobs\Factory\Controller\JobboardControllerFactory;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 /**
  * Class JobboardControllerFactoryTest

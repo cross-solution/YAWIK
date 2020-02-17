@@ -11,7 +11,7 @@
 namespace Organizations\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\Repository\RepositoryService;
 use Organizations\Controller\Plugin\GetOrganizationHandler;
 

@@ -14,7 +14,7 @@ use Auth\Entity\AnonymousUser;
 use Auth\Entity\UserInterface;
 use Core\Mail\StringTemplateMessage;
 use Applications\Entity\ApplicationInterface;
-use Zend\Mvc\Router\RouteStackInterface;
+use Laminas\Mvc\Router\RouteStackInterface;
 
 /**
  * Sends an confirmation Mail to the applicant.
@@ -186,7 +186,7 @@ class Confirmation extends StringTemplateMessage
     /**
      * @param string $subject
      * @param bool $translate
-     * @return \Zend\Mail\Message
+     * @return \Laminas\Mail\Message
      */
     public function setSubject($subject, $translate = true)
     {

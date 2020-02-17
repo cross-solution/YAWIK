@@ -10,7 +10,7 @@
 /** StripQueryParams.php */
 namespace Auth\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 
 class StripQueryParams implements FilterInterface
 {

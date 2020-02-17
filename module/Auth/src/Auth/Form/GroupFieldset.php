@@ -10,8 +10,8 @@
 /** GroupFieldset.php */
 namespace Auth\Form;
 
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**
@@ -23,7 +23,7 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
 {
     /**
      * Initialises the fieldset
-     * @see \Zend\Form\Element::init()
+     * @see \Laminas\Form\Element::init()
      */
     public function init()
     {
@@ -60,7 +60,7 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
     
     /**
      * {@inheritDoc}
-     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     * @see \Laminas\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
     public function getInputFilterSpecification()
     {

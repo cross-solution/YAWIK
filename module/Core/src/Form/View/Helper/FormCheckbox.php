@@ -10,8 +10,8 @@
 /**  */
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormCheckbox as ZfFormCheckbox;
-use Zend\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormCheckbox as ZfFormCheckbox;
+use Laminas\Form\ElementInterface;
 
 /**
  *

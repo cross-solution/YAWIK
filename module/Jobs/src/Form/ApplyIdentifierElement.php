@@ -10,7 +10,7 @@
 /** ApplyIdentifierElement.php */
 namespace Jobs\Form;
 
-use Zend\Form\Element\Text;
+use Laminas\Form\Element\Text;
 use Core\Form\ViewPartialProviderInterface;
 
 class ApplyIdentifierElement extends Text implements ViewPartialProviderInterface

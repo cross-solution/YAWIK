@@ -6,12 +6,12 @@
 namespace Core\Form\View\Helper;
 
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\View\Helper\FormElement as ZendFormElement;
-use Zend\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormElement as LaminasFormElement;
+use Laminas\Form\ElementInterface;
 use Core\Form\Element\ViewHelperProviderInterface as CoreElementInterface;
-use Zend\View\Helper\HelperInterface;
+use Laminas\View\Helper\HelperInterface;
 
-class FormElement extends ZendFormElement
+class FormElement extends LaminasFormElement
 {
 
     /**

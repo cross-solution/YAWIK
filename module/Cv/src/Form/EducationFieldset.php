@@ -3,10 +3,10 @@
 namespace Cv\Form;
 
 use Cv\Form\InputFilter\Education;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Cv\Entity\Education as EducationEntity;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
 
@@ -108,7 +108,7 @@ class EducationFieldset extends Fieldset implements InputFilterProviderInterface
         $this->add(
             array(
                 'name' => 'description',
-                'type' => 'Zend\Form\Element\Textarea',
+                'type' => 'Laminas\Form\Element\Textarea',
                 'options' => array(
                         'label' => /*@translate */ 'Description',
                 ),
@@ -122,7 +122,7 @@ class EducationFieldset extends Fieldset implements InputFilterProviderInterface
 
     /**
      *
-     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     * @see \Laminas\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
     public function getInputFilterSpecification()
     {
@@ -133,7 +133,7 @@ class EducationFieldset extends Fieldset implements InputFilterProviderInterface
 
     /**
      *
-     * @see \Zend\Form\Form::setData()
+     * @see \Laminas\Form\Form::setData()
      */
     public function populateValues($data)
     {

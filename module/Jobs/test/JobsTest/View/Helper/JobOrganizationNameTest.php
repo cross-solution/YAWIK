@@ -17,7 +17,7 @@ use Jobs\Entity\Job;
 use Jobs\View\Helper\JobOrganizationName;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * Tests for \Jobs\View\Helper\JobOrganizationName

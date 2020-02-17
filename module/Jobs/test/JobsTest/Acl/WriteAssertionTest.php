@@ -17,10 +17,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Acl\WriteAssertion;
 use Core\Entity\Permissions;
 use Organizations\Entity\EmployeePermissionsInterface;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 use Jobs\Entity;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
@@ -51,7 +51,7 @@ class WriteAssertionTest extends TestCase
      */
     public function testExtendsBaseClass()
     {
-        $this->assertInstanceOf('Zend\Permissions\Acl\Assertion\AssertionInterface', $this->target);
+        $this->assertInstanceOf('Laminas\Permissions\Acl\Assertion\AssertionInterface', $this->target);
     }
 
     public function _testPreAssertConditions()

@@ -39,7 +39,7 @@ class AdminControllerTest extends TestCase
      */
     protected $target = '\Core\Controller\AdminController';
 
-    protected $inheritance = [ 'Zend\Mvc\Controller\AbstractActionController' ];
+    protected $inheritance = [ 'Laminas\Mvc\Controller\AbstractActionController' ];
 
     protected function setUp(): void
     {
@@ -72,12 +72,12 @@ class AdminControllerTest extends TestCase
         //
         //                                          ]);
 
-        /* @var \Zend\View\Model\ViewModel $child
-         * @var \Zend\View\Model\ViewModel $viewModel */
+        /* @var \Laminas\View\Model\ViewModel $child
+         * @var \Laminas\View\Model\ViewModel $viewModel */
 
         $viewModel = $target->indexAction();
 
-        $this->assertInstanceOf('\Zend\View\Model\ViewModel', $viewModel);
+        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $viewModel);
         $children = $viewModel->getChildren();
         $child = $children[0];
         $this->assertEquals('test', $child->captureTo());

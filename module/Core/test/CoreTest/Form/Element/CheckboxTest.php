@@ -33,7 +33,7 @@ class CheckboxTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\Element\Checkbox', $this->target);
-        $this->assertInstanceOf('Zend\Form\Element', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Element', $this->target);
         $this->assertAttributeSame('formCheckBox', 'helper', $this->target);
     }
 

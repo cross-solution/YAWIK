@@ -10,9 +10,9 @@
 /** ActionController of Core */
 namespace Core\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Http\PhpEnvironment\Request;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\Http\PhpEnvironment\Request;
 
 /**
  * The Content Controller contains actions for handling static content.

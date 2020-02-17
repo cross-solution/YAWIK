@@ -12,7 +12,7 @@ namespace Organizations\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\Plugin\InvitationHandler;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for an InvitationHandler.
@@ -28,7 +28,7 @@ class InvitationHandlerFactory implements FactoryInterface
     {
         // @TODO: [ZF3] Check if InvitationHandlerFactory still working properly
         
-        /* @var $container \Zend\Mvc\Controller\PluginManager */
+        /* @var $container \Laminas\Mvc\Controller\PluginManager */
         $validator  = $container->get('ValidatorManager')->get('EmailAddress');
         $mailer     = $container->get('ControllerPluginManager')->get('Core/Mailer');
         $translator = $container->get('translator');

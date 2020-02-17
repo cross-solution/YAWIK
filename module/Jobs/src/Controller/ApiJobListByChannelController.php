@@ -10,9 +10,9 @@
 /** Export controller */
 namespace Jobs\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Paginator\Paginator;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Paginator\Paginator;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Export jobs as XML feed
@@ -25,7 +25,7 @@ class ApiJobListByChannelController extends AbstractActionController
     /**
      * List Jobs
      *
-     * @return \Zend\Http\Response|ViewModel
+     * @return \Laminas\Http\Response|ViewModel
      */
     public function listAction()
     {

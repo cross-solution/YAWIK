@@ -47,7 +47,7 @@ class StripQueryParamsTest extends TestCase
      */
     public function testImplementsZfFilterInterface()
     {
-        $this->assertInstanceOf('\Zend\Filter\FilterInterface', $this->filter);
+        $this->assertInstanceOf('\Laminas\Filter\FilterInterface', $this->filter);
     }
 
 

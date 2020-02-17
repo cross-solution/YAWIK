@@ -14,8 +14,8 @@ use Core\Listener\ModuleVersionAdminWidgetProvider;
 use Core\Listener\ModuleVersionAdminWidgetProviderFactory;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ModuleManager\ModuleManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
-use Zend\Form\FormInterface;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\Form\FormInterface;
 
 class FormPartial extends AbstractHelper
 {

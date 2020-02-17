@@ -18,8 +18,8 @@ use Auth\Factory\Controller\IndexControllerFactory;
 use Core\Repository\RepositoryService;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\MvcEvent;
 
 class IndexControllerFactoryTest extends TestCase
 {
@@ -45,7 +45,7 @@ class IndexControllerFactoryTest extends TestCase
         $formMock = $this->getMockBuilder('Auth\Form\Login')
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')
             ->getMock();
         
         $dmMock = $this

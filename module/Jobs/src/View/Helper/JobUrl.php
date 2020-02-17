@@ -12,7 +12,7 @@
 namespace Jobs\View\Helper;
 
 use Jobs\Entity\JobSnapshot;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use Jobs\Entity\JobInterface as Job;
 
 /**

@@ -11,7 +11,7 @@
 namespace Auth\Form\Validator;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for UniqueGroupName validator.

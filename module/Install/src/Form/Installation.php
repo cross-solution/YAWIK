@@ -12,8 +12,8 @@ namespace Install\Form;
 
 use Install\Validator\MongoDbConnection;
 use Install\Validator\MongoDbConnectionString;
-use Zend\Form\Form;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Form;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Installation form

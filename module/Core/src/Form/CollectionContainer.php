@@ -12,7 +12,7 @@ namespace Core\Form;
 use Core\Form\Element\ViewHelperProviderInterface;
 use Doctrine\Common\Collections\Collection;
 use Core\Form\Form as CoreForm;
-use Zend\EventManager\EventInterface as Event;
+use Laminas\EventManager\EventInterface as Event;
 use ArrayIterator;
 
 /**

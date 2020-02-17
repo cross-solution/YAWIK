@@ -12,16 +12,16 @@ namespace Core\Form;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\Hydrator\HydratorPluginManager;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Hydrator\HydratorPluginManager;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Factory for creating file upload formular elements.
@@ -81,7 +81,7 @@ class FileUploadFactory implements FactoryInterface
     
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $formElementManager \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
+        /* @var $formElementManager \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
         $formElementManager = $container->get('FormElementManager');
         $options=null;
         if ($this->options) {

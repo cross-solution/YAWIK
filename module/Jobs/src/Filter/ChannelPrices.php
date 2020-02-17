@@ -26,8 +26,8 @@ namespace Jobs\Filter;
 
 use Jobs\Options\ChannelOptions;
 use Jobs\Options\ProviderOptions;
-use Zend\Filter\Exception;
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\Exception;
+use Laminas\Filter\FilterInterface;
 
 /**
  * ${CARET}

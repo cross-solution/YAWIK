@@ -11,7 +11,7 @@
 namespace Auth\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Auth\Form\SocialProfilesFieldset;
 
 /**
@@ -43,7 +43,7 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $router         \Zend\Mvc\Router\RouteStackInterface */
+        /* @var $router         \Laminas\Mvc\Router\RouteStackInterface */
 
         $router = $container->get('Router');
         $config = $container->get('Config');

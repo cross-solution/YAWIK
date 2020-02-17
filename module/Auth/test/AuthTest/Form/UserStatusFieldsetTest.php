@@ -12,7 +12,7 @@ namespace AuthTest\Form;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Form\UserStatusFieldset;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 
 class UserStatusFieldsetTest extends TestCase

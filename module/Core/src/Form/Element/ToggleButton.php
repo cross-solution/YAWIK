@@ -1,7 +1,7 @@
 <?php
 namespace Core\Form\Element;
 
-use Zend\Form\Element\Checkbox as ZendCheckbox;
+use Laminas\Form\Element\Checkbox as ZendCheckbox;
 
 /**
  *

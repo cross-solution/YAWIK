@@ -16,7 +16,7 @@ use Jobs\Options\JobboardSearchOptions;
 use Organizations\Controller\ProfileController;
 use Organizations\Factory\Controller\ProfileControllerFactory;
 use Jobs\Repository\Job as JobRepository;
-use Zend\I18n\Translator\TranslatorInterface;
+use Laminas\I18n\Translator\TranslatorInterface;
 use Organizations\Repository\Organization as OrganizationRepository;
 use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
 

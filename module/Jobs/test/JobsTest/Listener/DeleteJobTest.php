@@ -18,9 +18,9 @@ use CoreTestUtils\TestCase\SetupTargetTrait;
 use Jobs\Listener\DeleteJob;
 use Jobs\Repository\Job;
 use Jobs\Entity\Job as JobEntity;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Permissions\Acl\Acl;
-use Zend\Stdlib\Parameters;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Tests for \Jobs\Listener\DeleteJob

@@ -13,15 +13,15 @@ namespace Organizations\Controller;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Form\SummaryForm;
 use Organizations\Exception\MissingParentOrganizationException;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
-use Zend\I18n\Translator\TranslatorInterface;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\I18n\Translator\TranslatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
 use Organizations\Repository;
 use Organizations\Form;
-use Zend\Mvc\I18n\Translator;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\Http\PhpEnvironment\Response;
 use Core\Entity\Exception\NotFoundException;
 
 /**
@@ -124,7 +124,7 @@ class IndexController extends AbstractActionController
      */
     public function editAction()
     {
-        /* @var $request \Zend\Http\Request */
+        /* @var $request \Laminas\Http\Request */
         $translator      = $this->translator;
         $return          = null;
         $request         = $this->getRequest();
@@ -148,7 +148,7 @@ class IndexController extends AbstractActionController
         $container       = $this->getFormular($org);
 
         if (isset($formIdentifier) && $request->isPost()) {
-            /* @var $form \Zend\Form\FormInterface */
+            /* @var $form \Laminas\Form\FormInterface */
             $postData = $this->params()->fromPost();
             $filesData = $this->params()->fromFiles();
             /* due to issues in ZF2 we need to clear the employees collection in the entity,

@@ -12,7 +12,7 @@ namespace CoreTest\Form;
 use PHPUnit\Framework\TestCase;
 
 use Core\Form\Form;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
 * @covers \Core\Form\Form
@@ -37,7 +37,7 @@ class FormTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\Form', $this->target);
-        $this->assertInstanceOf('Zend\Form\Form', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Form', $this->target);
     }
 
     /**

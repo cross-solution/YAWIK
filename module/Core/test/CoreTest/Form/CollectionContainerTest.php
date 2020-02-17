@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Form\Container;
 use Core\Form\CollectionContainer;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Doctrine\Common\Collections\ArrayCollection as Collection;
 use Core\Form\Form as CoreForm;
 use stdClass;
@@ -56,7 +56,7 @@ class CollectionContainerTest extends TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf(\Zend\Form\Element::class, $this->collectionContainer);
+        $this->assertInstanceOf(\Laminas\Form\Element::class, $this->collectionContainer);
         $this->assertInstanceOf(Container::class, $this->collectionContainer);
     }
 

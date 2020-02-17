@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Repository\RepositoryService;
 use CoreTestUtils\TestCase\FunctionalTestCase;
 use Cv\Entity\Cv;
-use Zend\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Request;
 
 /**
  * Class ManageControllerTest

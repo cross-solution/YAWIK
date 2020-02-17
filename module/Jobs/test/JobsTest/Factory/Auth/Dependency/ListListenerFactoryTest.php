@@ -12,7 +12,7 @@ namespace JobsTest\Factory\Auth\Dependency;
 use PHPUnit\Framework\TestCase;
 
 use Jobs\Factory\Auth\Dependency\ListListenerFactory;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Jobs\Auth\Dependency\ListListener;
 use Jobs\Repository\Job as Repository;
 

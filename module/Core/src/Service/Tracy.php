@@ -16,11 +16,11 @@ use Tracy\Debugger;
 use Tracy\Logger;
 use Tracy\Helpers;
 use Tracy\Dumper;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Mail\Message;
-use Zend\Mail\Transport;
-use Zend\Mime;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Mail\Message;
+use Laminas\Mail\Transport;
+use Laminas\Mime;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>

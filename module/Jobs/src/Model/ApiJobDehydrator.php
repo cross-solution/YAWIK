@@ -10,7 +10,7 @@
 namespace Jobs\Model;
 
 use Jobs\Entity\Job;
-use Zend\View\Helper\Url;
+use Laminas\View\Helper\Url;
 use Jobs\View\Helper\JobUrl;
 
 class ApiJobDehydrator

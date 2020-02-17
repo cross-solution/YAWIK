@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Form\InputFilter\Employment;
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 /**
  * Tests for \Cv\Form\InputFilter\Employment

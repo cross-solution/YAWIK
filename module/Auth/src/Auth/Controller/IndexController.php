@@ -18,12 +18,12 @@ use Auth\Options\ModuleOptions;
 use Auth\Form\Login;
 use Auth\Form\Register;
 use Core\Repository\RepositoryService;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Log\LoggerInterface;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\Stdlib\Parameters;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Log\LoggerInterface;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
+use Laminas\Stdlib\Parameters;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  *
@@ -109,7 +109,7 @@ class IndexController extends AbstractActionController
     /**
      * Login with username and password
      *
-     * @return \Zend\Http\Response|ViewModel
+     * @return \Laminas\Http\Response|ViewModel
      */
     public function indexAction()
     {
@@ -123,7 +123,7 @@ class IndexController extends AbstractActionController
         /* @var $registerForm Register */
         $registerForm = $this->forms[self::REGISTER];
 
-        /* @var $request \Zend\Http\Request */
+        /* @var $request \Laminas\Http\Request */
         $request   = $this->getRequest();
 
         if ($request->isPost()) {
@@ -360,7 +360,7 @@ class IndexController extends AbstractActionController
                 try {
                     $this->mailer($mail);
                     $this->logger->info('Mail first-login sent to ' . $userName);
-                } catch (\Zend\Mail\Transport\Exception\ExceptionInterface $e) {
+                } catch (\Laminas\Mail\Transport\Exception\ExceptionInterface $e) {
                     $this->logger->warn('No Mail was sent');
                     $this->logger->debug($e);
                 }

@@ -17,14 +17,14 @@ use Auth\Entity\UserInterface;
 use Core\Listener\LanguageRouteListener;
 use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\I18n\Translator\Translator;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
-use Zend\Router\Http\RouteMatch;
-use Zend\Router\SimpleRouteStack;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\I18n\Translator\Translator;
+use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Router\Http\RouteMatch;
+use Laminas\Router\SimpleRouteStack;
+use Laminas\ServiceManager\ServiceManager;
 use Core\I18n\Locale as LocaleService;
 
 /**

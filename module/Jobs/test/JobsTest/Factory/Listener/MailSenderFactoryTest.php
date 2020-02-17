@@ -27,11 +27,11 @@ class MailSenderFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new MailSenderFactory());
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', new MailSenderFactory());
     }
 
     public function testCreatesAMailSenderListenerWithAllDependencies()
@@ -44,7 +44,7 @@ class MailSenderFactoryTest extends TestCase
             'siteName' => 'YAWIK Test'
         ));
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 

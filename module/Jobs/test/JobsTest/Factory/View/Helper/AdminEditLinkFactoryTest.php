@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\View\Helper\AdminEditLinkFactory;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\Stdlib\Parameters;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Tests for \Jobs\Factory\View\Helper\AdminEditLinkFactory
@@ -53,7 +53,7 @@ class AdminEditLinkFactoryTest extends TestCase
         $query = new Parameters(['test' => 1]);
         $request->setQuery($query);
 
-        $urlHelper = $this->getMockBuilder('\Zend\View\Helper\Url')
+        $urlHelper = $this->getMockBuilder('\Laminas\View\Helper\Url')
             ->disableOriginalConstructor()
             ->setMethods(['__invoke'])
             ->getMock();

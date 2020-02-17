@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Listener\TokenListener;
 use PHPUnit\Framework\TestResult;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 
 /**
  * Test for TokenListener
@@ -38,17 +38,17 @@ class TokenListenerTest extends TestCase
     public function testWorksAsSharedListenerAggregate()
     {
         $target = new TokenListener();
-        $expId = 'Zend\Mvc\Application';
+        $expId = 'Laminas\Mvc\Application';
         $expEvent = MvcEvent::EVENT_BOOTSTRAP;
         $expCallback = array($target, 'onBootstrap');
         $expPriority = 1000;
 
 
-        $callback = $this->getMockBuilder('\Zend\Stdlib\CallbackHandler')
+        $callback = $this->getMockBuilder('\Laminas\Stdlib\CallbackHandler')
                          ->disableOriginalConstructor()
                          ->getMock();
 
-        $events = $this->getMockBuilder('\Zend\EventManager\SharedEventManagerInterface')
+        $events = $this->getMockBuilder('\Laminas\EventManager\SharedEventManagerInterface')
                        ->setMethods(array('attach'))
                        ->getMockForAbstractClass();
 
@@ -59,7 +59,7 @@ class TokenListenerTest extends TestCase
 
         $events->expects($this->once())
                ->method('detach')
-               ->with($expCallback, 'Zend\Mvc\Application')
+               ->with($expCallback, 'Laminas\Mvc\Application')
                ->willReturn(true);
 
 
@@ -104,19 +104,19 @@ class TokenListenerTest extends TestCase
 
         $target->onBootstrap($event);
 
-        $session = new \Zend\Session\Container('Auth');
+        $session = new \Laminas\Session\Container('Auth');
         $this->assertEquals($token, $session->token);
     }
 
     private function getMvcEventMock($type, $params)
     {
-        $request = new \Zend\Http\Request();
-        $params  = new \Zend\Stdlib\Parameters($params);
+        $request = new \Laminas\Http\Request();
+        $params  = new \Laminas\Stdlib\Parameters($params);
         $method  = 'post' == $type ? 'setPost' : 'setQuery';
 
         $request->$method($params);
 
-        $event = new \Zend\Mvc\MvcEvent();
+        $event = new \Laminas\Mvc\MvcEvent();
         $event->setRequest($request);
 
         return $event;

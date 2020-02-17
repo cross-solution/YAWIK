@@ -10,8 +10,8 @@
 /** Applications controller */
 namespace Applications\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Applications\Entity\StatusInterface as Status;
 
 /**
@@ -38,7 +38,7 @@ class MultimanageController extends AbstractActionController
      * some Action on a set of applications,
      * as there are invite, decline, postpone, confirm
      *
-     * @return \Zend\View\Model\JsonModel
+     * @return \Laminas\View\Model\JsonModel
      */
     public function multimodalAction()
     {
@@ -53,7 +53,7 @@ class MultimanageController extends AbstractActionController
     /**
      *
      * @TODO consolidate with Manage::status - a lot of shared code
-     * @return \Zend\View\Model\JsonModel
+     * @return \Laminas\View\Model\JsonModel
      */
     public function rejectApplicationAction()
     {
@@ -101,7 +101,7 @@ class MultimanageController extends AbstractActionController
 
     /**
      *
-     * @return \Zend\View\Model\JsonModel
+     * @return \Laminas\View\Model\JsonModel
      */
     public function rejectApprovalAction()
     {

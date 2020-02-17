@@ -58,7 +58,7 @@ class SocialProfiles extends BaseForm
      */
     public function isValid()
     {
-        return $this->useDefaultValidation ? \Zend\Form\Form::isValid() : parent::isValid();
+        return $this->useDefaultValidation ? \Laminas\Form\Form::isValid() : parent::isValid();
     }
     
 	/**

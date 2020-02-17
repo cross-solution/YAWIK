@@ -27,13 +27,13 @@ class InviteEmployeeBarTest extends TestCase
 {
 
     /**
-     * @testdox Extends \Zend\Form\Element\Text and implements \Core\Form\HeadscriptProviderInterface, \Core\Form\ViewPartialProviderInterface
+     * @testdox Extends \Laminas\Form\Element\Text and implements \Core\Form\HeadscriptProviderInterface, \Core\Form\ViewPartialProviderInterface
      */
     public function testExtendsTextElement()
     {
         $target = new InviteEmployeeBar();
 
-        $this->assertInstanceOf('\Zend\Form\Element\Text', $target);
+        $this->assertInstanceOf('\Laminas\Form\Element\Text', $target);
         $this->assertInstanceOf('\Core\Form\HeadscriptProviderInterface', $target);
         $this->assertInstanceOf('\Core\Form\ViewPartialProviderInterface', $target);
     }

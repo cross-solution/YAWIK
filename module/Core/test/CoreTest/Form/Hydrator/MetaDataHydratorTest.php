@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Entity\MetaDataProviderInterface;
 use Core\Form\Hydrator\MetaDataHydrator;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * Tests for \Core\Form\Hydrator\MetaDataHydrator

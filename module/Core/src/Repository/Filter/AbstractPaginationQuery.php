@@ -10,7 +10,7 @@
 /** AbstractPaginationQuery.php */
 namespace Core\Repository\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 
 /**
  * Class AbstractPaginationQuery

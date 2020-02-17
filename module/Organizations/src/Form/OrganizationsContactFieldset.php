@@ -10,7 +10,7 @@
 
 namespace Organizations\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\OrganizationContact;
 
@@ -24,7 +24,7 @@ class OrganizationsContactFieldset extends Fieldset
     /**
      * Gets the Hydrator
      *
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {

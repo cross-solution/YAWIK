@@ -12,11 +12,11 @@ namespace Applications\Controller;
 
 use Core\Factory\ContainerAwareInterface;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
-use Zend\Http\PhpEnvironment\Request as HttpRequest;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Http\PhpEnvironment\Request as HttpRequest;
 use Applications\Entity\Comment;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Controls comment handling on applications
@@ -50,7 +50,7 @@ class CommentController extends AbstractActionController implements ContainerAwa
     /**
      * Processes formular data
      *
-     * @return \Zend\View\Model\ViewModel
+     * @return \Laminas\View\Model\ViewModel
      */
     public function formAction()
     {

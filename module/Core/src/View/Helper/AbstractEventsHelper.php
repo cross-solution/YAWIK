@@ -2,9 +2,9 @@
 
 namespace Core\View\Helper;
 
-use Zend\View\Helper\HelperInterface;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\EventManager\EventManager;
+use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\EventManager\EventManager;
 
 abstract class AbstractEventsHelper extends EventManager implements HelperInterface
 {

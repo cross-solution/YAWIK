@@ -11,7 +11,7 @@
 namespace Core\Form;
 
 use Core\Form\Hydrator\MetaDataHydrator;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Fieldset for Entity Meta Data.

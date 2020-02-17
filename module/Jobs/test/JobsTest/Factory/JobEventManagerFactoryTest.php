@@ -13,7 +13,7 @@ namespace JobsTest\Factory;
 use PHPUnit\Framework\TestCase;
 
 use Jobs\Factory\JobEventManagerFactory;
-use Zend\EventManager\EventManager;
+use Laminas\EventManager\EventManager;
 
 /**
  * Tests for JobEventManagerFactory
@@ -28,11 +28,11 @@ class JobEventManagerFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new JobEventManagerFactory());
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', new JobEventManagerFactory());
     }
 
     public function testProvidesDefaultIdentifiers()
@@ -48,7 +48,7 @@ class JobEventManagerFactoryTest extends TestCase
         $expectedEventClass = '\Jobs\Listener\Events\JobEvent';
         $expectedIdentifiers = array('Jobs', 'Jobs/Events');
         $eventManager = new EventManager();
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 

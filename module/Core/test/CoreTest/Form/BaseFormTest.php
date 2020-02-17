@@ -34,7 +34,7 @@ class BaseFormTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\BaseForm', $this->target);
-        $this->assertInstanceOf('Zend\Form\Form', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Form', $this->target);
     }
 
     /**

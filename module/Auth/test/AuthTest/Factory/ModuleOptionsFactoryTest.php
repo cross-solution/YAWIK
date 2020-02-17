@@ -4,7 +4,7 @@ namespace AuthTest\Factory;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 use Auth\Factory\ModuleOptionsFactory;
 use Auth\Options\ModuleOptions;
 

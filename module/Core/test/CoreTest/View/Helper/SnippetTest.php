@@ -15,11 +15,11 @@ use PHPUnit\Framework\TestCase;
 use Core\EventManager\EventManager;
 use Core\View\Helper\Snippet;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\EventManager\Event;
-use Zend\EventManager\ResponseCollection;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Helper\Partial;
-use Zend\View\Model\ViewModel;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\ResponseCollection;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Helper\Partial;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Tests for \Core\View\Helper\Snippet

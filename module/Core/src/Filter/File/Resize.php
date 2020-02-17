@@ -11,7 +11,7 @@
 namespace Core\Filter\File;
 
 use Imagine\Image\Box;
-use Zend\Filter\AbstractFilter;
+use Laminas\Filter\AbstractFilter;
 
 /**
  * ${CARET}

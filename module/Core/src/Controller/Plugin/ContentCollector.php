@@ -9,9 +9,9 @@
 
 namespace Core\Controller\Plugin;
 
-use Zend\EventManager\EventInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\View\Model\ViewModel;
+use Laminas\EventManager\EventInterface;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Class ContentCollector

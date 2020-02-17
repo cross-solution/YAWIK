@@ -16,11 +16,11 @@ use PHPUnit\Framework\TestCase;
 use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use Core\Listener\LanguageRouteListener;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
-use Zend\Router\Http\RouteMatch;
-use Zend\Router\RouteStackInterface;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Router\Http\RouteMatch;
+use Laminas\Router\RouteStackInterface;
 use Core\I18n\Locale as LocaleService;
 
 /**
@@ -57,7 +57,7 @@ class OnDispatchErrorCallbackTest extends TestCase
            ->getMock()
        ;
 
-        $request = new \Zend\Console\Request();
+        $request = new \Laminas\Console\Request();
 
         $event->expects($this->once())->method('getRequest')->willReturn($request);
         $event->expects($this->never())->method('getError');
@@ -74,7 +74,7 @@ class OnDispatchErrorCallbackTest extends TestCase
             ->getMock()
         ;
 
-        $request = new \Zend\Http\PhpEnvironment\Request();
+        $request = new \Laminas\Http\PhpEnvironment\Request();
 
         $event->expects($this->once())->method('getRequest')->wilLReturn($request);
         $event->expects($this->once())->method('getError')->willReturn('MUSTHANDLETHISERROR');
@@ -98,7 +98,7 @@ class OnDispatchErrorCallbackTest extends TestCase
             ->getMockForAbstractClass()
         ;
 
-        $request = new \Zend\Http\PhpEnvironment\Request();
+        $request = new \Laminas\Http\PhpEnvironment\Request();
 
         $event->expects($this->atLeastOnce())->method('getRequest')->wilLReturn($request);
         $event->expects($this->once())->method('getError')->willReturn(Application::ERROR_ROUTER_NO_MATCH);

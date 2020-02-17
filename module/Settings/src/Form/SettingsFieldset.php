@@ -2,11 +2,11 @@
 
 namespace Settings\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Settings\Entity\SettingsContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 
 class SettingsFieldset extends Fieldset
 {

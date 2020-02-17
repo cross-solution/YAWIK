@@ -18,10 +18,10 @@ use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
 use CoreTest\Form\Hydrator\Strategy\TreeSelectStrategyTest;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
-use Zend\ServiceManager\Factory\FactoryInterface;
-//use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+//use Laminas\ServiceManager\MutableCreationOptionsInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Factory\Form\Tree\SelectFactory

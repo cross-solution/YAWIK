@@ -10,7 +10,7 @@
 /** */
 namespace Core\Log\Processor;
 
-use Zend\Log\Processor\ProcessorInterface;
+use Laminas\Log\Processor\ProcessorInterface;
 
 /**
  * Adds the process id to the event array in the key 'pid'.

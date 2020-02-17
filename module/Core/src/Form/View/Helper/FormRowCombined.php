@@ -2,9 +2,9 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormRow as ZendFormRow;
-use Zend\Form\View\Helper\AbstractHelper;
-use Zend\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormRow as LaminasFormRow;
+use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\Form\ElementInterface;
 
 class FormRowCombined extends AbstractHelper
 {
@@ -22,7 +22,7 @@ class FormRowCombined extends AbstractHelper
      *
      * @param ElementInterface $elements
      * @return string
-     * @throws \Zend\Form\Exception\DomainException
+     * @throws \Laminas\Form\Exception\DomainException
      */
     public function render(array $elements)
     {

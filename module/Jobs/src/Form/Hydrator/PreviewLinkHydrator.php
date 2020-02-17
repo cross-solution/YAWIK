@@ -11,7 +11,7 @@
 namespace Jobs\Form\Hydrator;
 
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class PreviewLinkHydrator extends EntityHydrator
 {
@@ -36,7 +36,7 @@ class PreviewLinkHydrator extends EntityHydrator
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\Hydrator\HydratorInterface::extract()
+     * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
     public function extract($object)
     {

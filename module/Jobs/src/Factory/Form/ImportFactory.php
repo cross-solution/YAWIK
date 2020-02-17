@@ -11,7 +11,7 @@
 namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Jobs\Form\Import;
 
 class ImportFactory implements FactoryInterface

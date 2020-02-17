@@ -10,7 +10,7 @@
 namespace Core\Form\View\Helper;
 
 use Core\Form\CollectionContainer;
-use Zend\Form\View\Helper\AbstractHelper;
+use Laminas\Form\View\Helper\AbstractHelper;
 
 /**
  * Helper for rendering form collection containers
@@ -65,7 +65,7 @@ class FormCollectionContainer extends AbstractHelper
             %s
         </div>';
         
-        foreach ($container as $form) /* @var $form \Zend\Form\Form */
+        foreach ($container as $form) /* @var $form \Laminas\Form\Form */
         {
             $formsMarkup .= sprintf($formTemplateWrapper, $formContainerHelper->renderElement($form, $layout, $parameter));
         }

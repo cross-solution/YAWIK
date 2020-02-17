@@ -11,7 +11,7 @@
 namespace Core\Form\View\Helper;
 
 use Core\Form\Tree\ManagementFieldset;
-use Zend\Form\View\Helper\AbstractHelper;
+use Laminas\Form\View\Helper\AbstractHelper;
 
 /**
  * ${CARET}

@@ -11,9 +11,9 @@ namespace CoreTest\View\Helper\Service;
 use PHPUnit\Framework\TestCase;
 
 use Core\View\Helper\Service\ParamsHelperFactory as Factory;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\MvcEvent;
-use Zend\View\HelperPluginManager;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\HelperPluginManager;
 
 class ParamsHelperFactoryTest extends TestCase
 {
@@ -24,7 +24,7 @@ class ParamsHelperFactoryTest extends TestCase
         
         $event = new MvcEvent();
         
-        $application = $this->getMockBuilder('\Zend\Mvc\Application')
+        $application = $this->getMockBuilder('\Laminas\Mvc\Application')
             ->disableOriginalConstructor()
             ->setMethods(array('getMvcEvent'))
             ->getMock();

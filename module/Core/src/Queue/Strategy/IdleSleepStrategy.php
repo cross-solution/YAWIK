@@ -14,7 +14,7 @@ use Core\Queue\MongoQueue;
 use SlmQueue\Strategy\AbstractStrategy;
 use SlmQueue\Worker\Event\AbstractWorkerEvent;
 use SlmQueue\Worker\Event\ProcessIdleEvent;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\EventManager\EventManagerInterface;
 
 /**
  * ${CARET}

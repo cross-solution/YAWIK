@@ -8,9 +8,9 @@
 
 namespace Auth\View;
 
-use Zend\Mvc\MvcEvent;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 
 class InjectLoginInfoListener
 {

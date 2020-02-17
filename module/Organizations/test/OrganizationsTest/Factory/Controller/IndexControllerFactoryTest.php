@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Organizations\Factory\Controller\IndexControllerFactory;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 class IndexControllerFactoryTest extends TestCase
 {

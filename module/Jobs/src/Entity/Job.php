@@ -22,7 +22,7 @@ use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\SnapshotGeneratorProviderInterface;
-use Zend\I18n\Validator\DateTime;
+use Laminas\I18n\Validator\DateTime;
 
 /**
  * The job model

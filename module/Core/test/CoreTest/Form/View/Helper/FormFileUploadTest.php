@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Core\Form\View\Helper\FormFileUpload as FileUploadHelper;
 use Core\Form\Element\FileUpload as FileUploadElement;
 use Core\Entity\FileInterface as FileEntity;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -54,7 +54,7 @@ class FormFileUploadTest extends TestCase
      */
     public function testRenderThrowsInvalidArgumentException()
     {
-        $element = $this->getMockBuilder(\Zend\Form\ElementInterface::class)
+        $element = $this->getMockBuilder(\Laminas\Form\ElementInterface::class)
             ->getMock();
         
         $this->fileUploadHelper->render($element);

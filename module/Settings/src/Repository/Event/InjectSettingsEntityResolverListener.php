@@ -13,7 +13,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Auth\Entity\UserInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class InjectSettingsEntityResolverListener implements EventSubscriber
 {

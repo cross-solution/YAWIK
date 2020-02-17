@@ -12,10 +12,10 @@ namespace Core\Factory;
 
 use Interop\Container\ContainerInterface;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Core\Options\ModuleOptions;
-use Zend\View\Helper\Asset;
+use Laminas\View\Helper\Asset;
 
 /**
  * Class ModuleOptionsFactory
@@ -43,7 +43,7 @@ class ModuleOptionsFactory implements FactoryInterface
         /* @TODO: make asset helper file to be configurable */
         $file = $options->getPublicDir().'/build/manifest.json';
         if (is_file($file)) {
-            /* @var \Zend\View\Helper\Asset $assetHelper */
+            /* @var \Laminas\View\Helper\Asset $assetHelper */
             $map = json_decode(file_get_contents($file), true);
             $assetHelper = $container->get('ViewHelperManager')->get('asset');
             $assetHelper->setResourceMap($map);

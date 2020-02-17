@@ -12,7 +12,7 @@ namespace Auth\Service;
 use Auth\Entity\Token;
 use Auth\Entity\UserInterface;
 use Core\Repository\RepositoryService;
-use Zend\Math\Rand;
+use Laminas\Math\Rand;
 
 class UserUniqueTokenGenerator
 {

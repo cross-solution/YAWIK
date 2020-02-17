@@ -21,7 +21,7 @@ use Core\Factory\Controller\LazyControllerFactory;
 use Core\Factory\Service\HtmlPurifierFactory;
 use Core\Service\ClearCacheService;
 use Core\Service\Tracy;
-use Zend\I18n\Translator\Resources;
+use Laminas\I18n\Translator\Resources;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -127,7 +127,7 @@ return array(
             'Core/UniqueId' => 'Core\Log\Processor\UniqueId',
         ],
         'factories' => [
-            Log\Processor\ProcessId::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            Log\Processor\ProcessId::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
 
@@ -314,7 +314,7 @@ return array(
         ),
         'assertions' => array(
             'factories' => array(
-                \Core\Acl\FileAccessAssertion::class => \Zend\ServiceManager\Factory\InvokableFactory::class
+                \Core\Acl\FileAccessAssertion::class => \Laminas\ServiceManager\Factory\InvokableFactory::class
             ),
             'aliases' =>  [
                 'Core/FileAccess' => \Core\Acl\FileAccessAssertion::class,
@@ -552,7 +552,7 @@ return array(
             'services' => [\Core\View\Helper\Services::class, 'factory'],
             'InsertFile' => [View\Helper\InsertFile::class, 'factory'],
             \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
-            \Core\View\Helper\Proxy::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \Core\View\Helper\Proxy::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
             \Core\View\Helper\ModuleVersion::class => \Core\View\Helper\ModuleVersionFactory::class,
         ),
         'initializers' => array(
@@ -622,7 +622,7 @@ return array(
             'Core/Rating' => 'Core\Form\Element\Rating',
             'Core/PermissionsFieldset' => 'Core\Form\PermissionsFieldset',
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
-            'Location' => 'Zend\Form\Element\Text',
+            'Location' => 'Laminas\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
             'ToggleButton' => 'Core\Form\Element\ToggleButton',
             'TextEditor' => 'Core\Form\Element\Editor',

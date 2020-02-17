@@ -13,7 +13,7 @@ namespace Jobs\Form;
 use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
 use Jobs\Entity\JobInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Defines the form for entering the hiring organization name

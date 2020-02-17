@@ -14,7 +14,7 @@ use ReleaseTools\Console\SubsplitController;
 use CoreTest\Bootstrap;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
-use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
+use Laminas\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 
 class SubsplitControllerTest extends AbstractConsoleControllerTestCase
 {

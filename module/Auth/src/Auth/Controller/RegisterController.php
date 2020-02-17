@@ -14,8 +14,8 @@ use Auth\Service;
 use Auth\Options\ModuleOptions;
 use Auth\Service\Exception;
 use Core\Controller\AbstractCoreController;
-use Zend\Log\LoggerInterface;
-use Zend\View\Model\ViewModel;
+use Laminas\Log\LoggerInterface;
+use Laminas\View\Model\ViewModel;
 
 class RegisterController extends AbstractCoreController
 {
@@ -59,7 +59,7 @@ class RegisterController extends AbstractCoreController
             return $this->redirect()->toRoute('lang');
         }
 
-        /** @var \Zend\Http\Request $request */
+        /** @var \Laminas\Http\Request $request */
         $request = $this->getRequest();
         $viewModel = new ViewModel();
 
@@ -87,7 +87,7 @@ class RegisterController extends AbstractCoreController
                     );
                 }
             } else {
-                /* @var $register \Zend\Form\Fieldset */
+                /* @var $register \Laminas\Form\Fieldset */
                 $register = $this->form->get('register');
                 $register->get('role')->setValue($this->params('role'));
             }

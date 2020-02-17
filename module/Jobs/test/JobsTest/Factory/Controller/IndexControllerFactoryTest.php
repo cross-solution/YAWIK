@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Jobs\Controller\IndexController;
 use Jobs\Factory\Controller\IndexControllerFactory;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 /**
  * Class IndexControllerFactoryTest

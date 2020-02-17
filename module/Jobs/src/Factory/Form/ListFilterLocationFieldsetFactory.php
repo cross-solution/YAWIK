@@ -12,7 +12,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\ListFilterLocationFieldset;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the ListFilterLocation (Job Title and Location)

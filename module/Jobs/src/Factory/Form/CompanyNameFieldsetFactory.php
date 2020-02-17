@@ -4,7 +4,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\CompanyNameFieldset;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class CompanyNameFieldsetFactory implements FactoryInterface
 {

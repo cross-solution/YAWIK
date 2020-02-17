@@ -12,8 +12,8 @@ namespace Core\Listener\Events;
 
 use ArrayAccess;
 use Core\Entity\FileEntity;
-use Zend\EventManager\Event;
-use Zend\EventManager\Exception;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\Exception;
 
 /**
  * File event.

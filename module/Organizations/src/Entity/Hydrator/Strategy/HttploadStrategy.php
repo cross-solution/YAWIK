@@ -10,8 +10,8 @@
 /** HttploadStrategy.php */
 namespace Organizations\Entity\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
-use Zend\Http\Client as HttpClient;
+use Laminas\Hydrator\Strategy\StrategyInterface;
+use Laminas\Http\Client as HttpClient;
 use Doctrine\MongoDB\GridFSFile;
 use Organizations\Entity\OrganizationImage as OrganizationImageEntity;
 

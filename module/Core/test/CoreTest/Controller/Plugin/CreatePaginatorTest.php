@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 use Core\Controller\Plugin\CreatePaginator;
 use Core\Listener\Events\CreatePaginatorEvent;
 use Interop\Container\ContainerInterface;
-use Zend\EventManager\EventManager;
-use Zend\Http\Request;
-use Zend\Stdlib\Parameters;
+use Laminas\EventManager\EventManager;
+use Laminas\Http\Request;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\CreatePaginator
@@ -35,17 +35,17 @@ class CreatePaginatorTest extends TestCase
 {
 
     /**
-     * @testdox Extends \Zend\Mvc\Controller\Plugin\AbstractPlugin
+     * @testdox Extends \Laminas\Mvc\Controller\Plugin\AbstractPlugin
      */
     public function testExtendsAbstractControllerPlugin()
     {
-        $serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $serviceManager = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
             ->disableOriginalConstructor()
             ->getMock();
         
         $target = new CreatePaginator($serviceManager, new Request());
 
-        $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', $target);
+        $this->assertInstanceOf('\Laminas\Mvc\Controller\Plugin\AbstractPlugin', $target);
     }
 
     public function providePaginatorCreationData()
@@ -84,7 +84,7 @@ class CreatePaginatorTest extends TestCase
         }
         
         
-        $paginator = $this->getMockBuilder('\Zend\Paginator\Paginator')->disableOriginalConstructor()->getMock();
+        $paginator = $this->getMockBuilder('\Laminas\Paginator\Paginator')->disableOriginalConstructor()->getMock();
         $paginator->expects($this->once())->method('setCurrentPageNumber')->with($expect['page'])->will($this->returnSelf());
         $paginator->expects($this->once())->method('setItemCountPerPage')->with($expect['count'])->will($this->returnSelf());
         $paginator->expects($this->once())->method('setPageRange')->with($expect['range'])->will($this->returnSelf());
@@ -92,7 +92,7 @@ class CreatePaginatorTest extends TestCase
         $paginators = $this->getMockBuilder('\Core\Paginator\PaginatorService')->disableOriginalConstructor()->getMock();
         $paginators->expects($this->once())->method('get')->with($paginatorName, $options)->willReturn($paginator);
 
-        $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $sm = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $event = $this->getMockBuilder(CreatePaginatorEvent::class)
             ->disableOriginalConstructor()
             ->getMock()
@@ -147,7 +147,7 @@ class CreatePaginatorTest extends TestCase
      */
     public function testPassingInvalidDefaultParamsThrowsException()
     {
-        $serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $serviceManager = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
             ->disableOriginalConstructor()
             ->getMock();
         $target = new CreatePaginator($serviceManager, new Request());

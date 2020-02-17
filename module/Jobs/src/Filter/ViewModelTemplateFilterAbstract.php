@@ -13,8 +13,8 @@ namespace Jobs\Filter;
 
 use Jobs\Entity\Job;
 use Jobs\View\Helper\JsonLd;
-use Zend\Filter\FilterInterface;
-use Zend\View\Model\ViewModel;
+use Laminas\Filter\FilterInterface;
+use Laminas\View\Model\ViewModel;
 
 /**
  * assembles a ViewModel for job templates.
@@ -44,7 +44,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
      * creating absolute links like the apply-link
      * absolute links are needed on the server of the provider
      *
-     * @var $urlPlugin \Zend\Mvc\Controller\Plugin\Url
+     * @var $urlPlugin \Laminas\Mvc\Controller\Plugin\Url
      */
     protected $urlPlugin;
 
@@ -55,7 +55,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     protected $basePathHelper;
 
     /**
-     * @var $serverUrlHelper \Zend\View\Helper\ServerUrl
+     * @var $serverUrlHelper \Laminas\View\Helper\ServerUrl
      */
     protected $serverUrlHelper;
 
@@ -110,7 +110,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
-     * @param $basePathHelper \Zend\View\Helper\Basepath
+     * @param $basePathHelper \Laminas\View\Helper\Basepath
      */
     public function setBasePathHelper($basePathHelper)
     {

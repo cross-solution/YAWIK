@@ -18,7 +18,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Doctrine\MongoDB\Aggregation\Builder;
 use Doctrine\MongoDB\Query\Query;
 use Jobs\Repository\Job;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 
 /**
  * Tests for \Applications\Paginator\JobSelectPaginator

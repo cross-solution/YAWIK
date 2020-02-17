@@ -10,7 +10,7 @@
 /** Core view helper */
 namespace Core\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * View helper to render Twitter Bootsrtap alert messages.

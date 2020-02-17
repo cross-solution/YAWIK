@@ -10,7 +10,7 @@
 /** Rating.php */
 namespace Core\Form\Element;
 
-use Zend\Form\Element;
+use Laminas\Form\Element;
 use Core\Form\Element\Select;
 use Core\Entity\RatingInterface;
 

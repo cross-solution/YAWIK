@@ -14,9 +14,9 @@ use Core\Console\ProgressBar;
 use Core\Controller\Plugin\EntityEraser;
 use Core\Entity\EntityInterface;
 use Core\Service\EntityEraser\LoadEvent;
-use Zend\Console\ColorInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Mvc\Console\Controller\AbstractConsoleController;
+use Laminas\Console\ColorInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 
 /**
  * Purge console action controller
@@ -57,7 +57,7 @@ class PurgeController extends AbstractConsoleController
 
         $console  = $this->getConsole();
         $eraser   = $this->plugin(EntityEraser::class);
-        $options  = \Zend\Json\Json::decode($this->params('options', '{}'), \Zend\Json\Json::TYPE_ARRAY);
+        $options  = \Laminas\Json\Json::decode($this->params('options', '{}'), \Laminas\Json\Json::TYPE_ARRAY);
         $eraser->setOptions($options);
         $entities = $eraser->loadEntities($this->params('entity'), $this->params('id'));
 
@@ -111,7 +111,7 @@ class PurgeController extends AbstractConsoleController
             }
 
             $console->writeLine('');
-            $confirmed = \Zend\Console\Prompt\Confirm::prompt('Proceed? [y/n] ');
+            $confirmed = \Laminas\Console\Prompt\Confirm::prompt('Proceed? [y/n] ');
 
             if (!$confirmed) {
                 $console->writeLine('Aborted.');

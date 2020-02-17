@@ -17,7 +17,7 @@ use Core\Entity\PermissionsAwareInterface;
 use Core\Entity\ImageSet;
 use Core\Entity\ModificationDateAwareEntityInterface;
 use Doctrine\Common\Collections\Collection;
-use Zend\Hydrator\HydratorAwareInterface;
+use Laminas\Hydrator\HydratorAwareInterface;
 use Core\Entity\MetaDataProviderInterface;
 
 /**

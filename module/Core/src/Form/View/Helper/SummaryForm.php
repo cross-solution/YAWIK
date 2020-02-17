@@ -11,11 +11,11 @@
 namespace Core\Form\View\Helper;
 
 use Core\Form\SummaryFormInterface;
-use Zend\Form\Element\Hidden;
-use Zend\Form\FormInterface;
-use Zend\Form\View\Helper\AbstractHelper;
-use Zend\Form\ElementInterface;
-use Zend\Form\FieldsetInterface;
+use Laminas\Form\Element\Hidden;
+use Laminas\Form\FormInterface;
+use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\DescriptionAwareFormInterface;
 use Core\Form\EmptySummaryAwareInterface;
@@ -132,7 +132,7 @@ class SummaryForm extends AbstractHelper
     public function renderForm(SummaryFormInterface $form, $layout = Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         /* @var $form SummaryFormInterface|\Core\Form\SummaryForm */
-        $renderer     = $this->getView();           /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+        $renderer     = $this->getView();           /* @var $renderer \Laminas\View\Renderer\PhpRenderer */
         $formHelper   = $renderer->plugin('form');  /* @var $formHelper \Core\Form\View\Helper\Form */
         $fieldset     = $form->getBaseFieldset();
         $resetPartial = false;
@@ -232,7 +232,7 @@ class SummaryForm extends AbstractHelper
         }
 
         if ($element instanceof ViewPartialProviderInterface) {
-            $renderer    = $this->getView();                 /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+            $renderer    = $this->getView();                 /* @var $renderer \Laminas\View\Renderer\PhpRenderer */
             $origPartial = $element->getViewPartial();
             $partial     = "$origPartial.view";
             $partialParams  = array(
@@ -259,7 +259,7 @@ class SummaryForm extends AbstractHelper
             return $markup;
         }
     
-        $elementValue = $element instanceof \Zend\Form\Element\Textarea
+        $elementValue = $element instanceof \Laminas\Form\Element\Textarea
                       ? nl2br($element->getValue())
                       : $element->getValue();
 
@@ -294,7 +294,7 @@ class SummaryForm extends AbstractHelper
             }
         }
 
-        if ('' != $elementValue && $element instanceof \Zend\Form\Element\File) {
+        if ('' != $elementValue && $element instanceof \Laminas\Form\Element\File) {
             return '';
         }
                       

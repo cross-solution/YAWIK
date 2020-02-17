@@ -17,7 +17,7 @@ use Core\Entity\SearchableEntityInterface;
 use Doctrine\Common\Annotations\SimpleAnnotationReader;
 use Core\Repository\Filter\PropertyToKeywords;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 
 class GenerateSearchKeywordsListener implements EventSubscriber
 {

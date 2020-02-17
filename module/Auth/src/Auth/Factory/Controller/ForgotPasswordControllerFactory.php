@@ -13,10 +13,10 @@ use Auth\Controller\ForgotPasswordController;
 use Auth\Form;
 use Auth\Service;
 use Interop\Container\ContainerInterface;
-use Zend\Log\LoggerInterface;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Log\LoggerInterface;
+use Laminas\Mvc\Controller\ControllerManager;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class ForgotPasswordControllerFactory implements FactoryInterface
 {

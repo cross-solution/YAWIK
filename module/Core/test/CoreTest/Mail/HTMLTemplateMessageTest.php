@@ -6,14 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Mail\HTMLTemplateMessage;
 use Core\Mail\MailService as CoreMailService;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
-use Zend\Router\Http\RouteMatch;
-use Zend\Mvc\View\Http\ViewManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Model\ViewModel;
-use Zend\View\Resolver\ResolverInterface;
-use Zend\View\View;
+use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Router\Http\RouteMatch;
+use Laminas\Mvc\View\Http\ViewManager;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Resolver\ResolverInterface;
+use Laminas\View\View;
 
 /**
  * Class HTMLTemplateMessageTest

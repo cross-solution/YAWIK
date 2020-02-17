@@ -12,10 +12,10 @@ namespace Applications\Repository\Filter;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use \Zend\ServiceManager\Factory\FactoryInterface;
-use \Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use \Laminas\ServiceManager\Factory\FactoryInterface;
+use \Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the PaginationQuery
@@ -36,7 +36,7 @@ class PaginationQueryFactory implements FactoryInterface
     /**
      * Creates pagination Service
      *
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      *
      * @param ContainerInterface $container
      * @return PaginationQuery|mixed

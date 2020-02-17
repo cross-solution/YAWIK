@@ -11,7 +11,7 @@
 namespace Applications\Form;
 
 use Core\Form\DisableElementsCapableInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Form\EmptySummaryAwareInterface;
 
 /**
@@ -126,7 +126,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
      */
     public function isSummaryEmpty()
     {
-        foreach ($this as $element) { /* @var $element \Zend\Form\ElementInterface */
+        foreach ($this as $element) { /* @var $element \Laminas\Form\ElementInterface */
             if ('' != $element->getValue()) {
                 return false;
             }

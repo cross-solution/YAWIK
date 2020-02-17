@@ -17,7 +17,7 @@ use Core\Queue\Controller\MongoQueueListControllerFactory;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use SlmQueue\Queue\QueuePluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Queue\Controller\MongoQueueListControllerFactory

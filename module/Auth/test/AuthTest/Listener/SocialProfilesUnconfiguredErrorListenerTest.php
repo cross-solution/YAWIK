@@ -13,8 +13,8 @@ namespace AuthTest\Listener;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
 
 /**
  * Tests for \Auth\Listener\SocialProfilesUnconfiguredErrorListener
@@ -27,20 +27,20 @@ class SocialProfilesUnconfiguredErrorListenerTest extends TestCase
 {
 
     /**
-     * @testdox Extends \Zend\EventManager\AbstractListenerAggregate
+     * @testdox Extends \Laminas\EventManager\AbstractListenerAggregate
      */
     public function testExtendsAbstractListenerAggregate()
     {
         $target = new SocialProfilesUnconfiguredErrorListener();
 
-        $this->assertInstanceOf('Zend\EventManager\AbstractListenerAggregate', $target);
+        $this->assertInstanceOf('Laminas\EventManager\AbstractListenerAggregate', $target);
     }
 
     public function testAttachsToDispatchErrorEvent()
     {
         $target = new SocialProfilesUnconfiguredErrorListener();
 
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')->disableOriginalConstructor()->getMock();
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')->disableOriginalConstructor()->getMock();
         $events->expects($this->once())
                ->method('attach')->with(MvcEvent::EVENT_DISPATCH_ERROR, [ $target, 'onDispatchError' ])
                ->willReturn('worked');
@@ -77,14 +77,14 @@ class SocialProfilesUnconfiguredErrorListenerTest extends TestCase
 
         $exception = new \Exception($useValidException ? 'Your application id and secret' : 'This exception must not match');
 
-        $event = $this->getMockBuilder('\Zend\Mvc\MvcEvent')->disableOriginalConstructor()->getMock();
+        $event = $this->getMockBuilder('\Laminas\Mvc\MvcEvent')->disableOriginalConstructor()->getMock();
 
         $event->expects($this->once())
               ->method('getParam')->with('exception')
               ->willReturn($exception);
 
         if ($useValidModel) {
-            $model = $this->getMockBuilder('\Zend\View\Model\ViewModel')->disableOriginalConstructor()->getMock();
+            $model = $this->getMockBuilder('\Laminas\View\Model\ViewModel')->disableOriginalConstructor()->getMock();
             if ($shouldModelChange) {
                 $model->expects($this->once())->method('setTemplate')->with('auth/error/social-profiles-unconfigured');
             } else {

@@ -8,7 +8,7 @@
  */
 namespace Cv\Form\InputFilter;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 /**
  *
@@ -20,7 +20,7 @@ class Employment extends InputFilter
 
     /**
      *
-     * @see \Zend\InputFilter\BaseInputFilter::setData()
+     * @see \Laminas\InputFilter\BaseInputFilter::setData()
      */
     public function setData($data)
     {

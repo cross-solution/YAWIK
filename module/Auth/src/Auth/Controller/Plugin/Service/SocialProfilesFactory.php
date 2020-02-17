@@ -11,7 +11,7 @@
 namespace Auth\Controller\Plugin\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Auth\Controller\Plugin\SocialProfiles;
 
 class SocialProfilesFactory implements FactoryInterface

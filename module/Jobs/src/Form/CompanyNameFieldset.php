@@ -13,7 +13,7 @@ namespace Jobs\Form;
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Defines the formular fields used in the formular for entering the hiring organization name

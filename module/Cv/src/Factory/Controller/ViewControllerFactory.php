@@ -12,7 +12,7 @@ namespace Cv\Factory\Controller;
 
 use Cv\Controller\ViewController;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 ;
 

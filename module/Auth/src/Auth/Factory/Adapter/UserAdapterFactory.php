@@ -10,8 +10,8 @@
 namespace Auth\Factory\Adapter;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Auth\Adapter\User;
 
 /**
@@ -59,7 +59,7 @@ class UserAdapterFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\Adapter\User
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

@@ -17,10 +17,10 @@ use Core\Mail\MailService;
 use Core\Mail\MailServiceFactory;
 use Core\Options\MailServiceOptions;
 use Interop\Container\ContainerInterface;
-use Zend\Mail\Transport\Sendmail;
-use Zend\Mail\Transport\Smtp;
-use Zend\Mail\Transport\TransportInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\Mail\Transport\Sendmail;
+use Laminas\Mail\Transport\Smtp;
+use Laminas\Mail\Transport\TransportInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 
 /**
  * Class MailServiceFactoryTest
@@ -60,7 +60,7 @@ class MailServiceFactoryTest extends TestCase
             ->willReturn($transport);
 
         /* @var \Core\Mail\MailService $service */
-        /* @var \Zend\ServiceManager\Factory\FactoryInterface $target */
+        /* @var \Laminas\ServiceManager\Factory\FactoryInterface $target */
         $service = $target($container, 'some-name');
         $this->assertInstanceOf(
             MailService::class,

@@ -12,9 +12,9 @@ namespace Auth\Factory\Controller;
 
 use Auth\Form\UserStatusFieldset;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Log\LoggerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Log\LoggerInterface;
 use Auth\Controller\IndexController;
 use Auth\Form\Register;
 

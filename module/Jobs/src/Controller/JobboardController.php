@@ -14,12 +14,12 @@ use Core\Form\SearchForm;
 use Core\Listener\DefaultListener;
 use Jobs\Form\ListFilter;
 use Jobs\Listener\Events\JobEvent;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Session\Container as Session;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Session\Container as Session;
 use Jobs\Repository;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
-use Zend\View\Model\JsonModel;
+use Laminas\View\Model\JsonModel;
 
 /**
  * @method \Auth\Controller\Plugin\Auth auth()

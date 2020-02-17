@@ -13,7 +13,7 @@ use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * Defines CV Model

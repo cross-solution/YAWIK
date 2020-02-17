@@ -39,12 +39,12 @@ class ApplicationTest extends TestCase
     }
 
     /**
-     * @testdox Extends \Zend\Validator\AbstractValidator
+     * @testdox Extends \Laminas\Validator\AbstractValidator
      * @coversNothing
      */
     public function testExtendsAbstractValidator()
     {
-        $this->assertInstanceOf('\Zend\Validator\AbstractValidator', $this->target);
+        $this->assertInstanceOf('\Laminas\Validator\AbstractValidator', $this->target);
     }
 
     /**

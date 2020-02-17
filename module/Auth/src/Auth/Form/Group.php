@@ -11,7 +11,7 @@
 namespace Auth\Form;
 
 use Core\Form\Form;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**
@@ -24,7 +24,7 @@ class Group extends Form
     
     /**
      * Initialises the form.
-     * @see \Zend\Form\Element::init()
+     * @see \Laminas\Form\Element::init()
      */
     public function init()
     {

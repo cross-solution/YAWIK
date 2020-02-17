@@ -10,8 +10,8 @@
 /** */
 namespace Core\EventManager;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateTrait as ZfListenerAggregateTrait;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateTrait as ZfListenerAggregateTrait;
 
 /**
  * Extension of the ZF ListenerAggregateTrait.

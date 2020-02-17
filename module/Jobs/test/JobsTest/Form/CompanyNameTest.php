@@ -28,14 +28,14 @@ class CompanyNameTest extends TestCase
 {
 
     /**
-     * @testdox Extends \Core\Form\SummaryForm and implements \Zend\InputFilter\InputFilterProviderInterface
+     * @testdox Extends \Core\Form\SummaryForm and implements \Laminas\InputFilter\InputFilterProviderInterface
      */
     public function testExtendsSummaryFormAndImplementsInputFilterProviderInterface()
     {
         $target = new CompanyName();
 
         $this->assertInstanceOf('\Core\Form\SummaryForm', $target, 'Wrong parent class!');
-        $this->assertInstanceOf('\Zend\InputFilter\InputFilterProviderInterface', $target, 'Missing interface implementation.');
+        $this->assertInstanceOf('\Laminas\InputFilter\InputFilterProviderInterface', $target, 'Missing interface implementation.');
     }
 
     /**

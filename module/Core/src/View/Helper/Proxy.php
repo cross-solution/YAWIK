@@ -11,9 +11,9 @@
 namespace Core\View\Helper;
 
 use Core\View\Helper\Proxy\HelperProxy;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * View helper to safely use module specific view helpers in other modules.
@@ -147,7 +147,7 @@ class Proxy extends AbstractHelper
             return true === $options ? false : new HelperProxy(false);
         }
 
-        /* @var \Zend\View\HelperPluginManager $manager */
+        /* @var \Laminas\View\HelperPluginManager $manager */
         $manager   = $renderer->getHelperPluginManager();
         $hasPlugin = $manager->has($plugin);
 

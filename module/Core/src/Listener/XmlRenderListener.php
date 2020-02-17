@@ -3,13 +3,13 @@
 
 namespace Core\Listener;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\SharedEventManager;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Model\JsonModel;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\SharedEventManager;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Model\JsonModel;
 
 /**
  *
@@ -23,12 +23,12 @@ class XmlRenderListener implements ListenerAggregateInterface
 
     
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
     
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $sharedListeners = array();
 
@@ -47,7 +47,7 @@ class XmlRenderListener implements ListenerAggregateInterface
          * run before injectViewModelListener
          */
         $this->sharedListeners[] = $events->getSharedManager()->attach(
-            'Zend\Stdlib\DispatchableInterface',
+            'Laminas\Stdlib\DispatchableInterface',
             MvcEvent::EVENT_DISPATCH,
             $callback,
             -96

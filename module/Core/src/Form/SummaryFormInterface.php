@@ -10,7 +10,7 @@
 /** Core forms */
 namespace Core\Form;
 
-use Zend\Form\FormInterface;
+use Laminas\Form\FormInterface;
 
 /**
  * SummaryForm interface.

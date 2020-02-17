@@ -3,12 +3,12 @@
 
 namespace Auth\Listener;
 
-use Zend\Mvc\View\Http\ExceptionStrategy;
-use Zend\EventManager\EventManagerInterface;
-use Zend\View\Model\ViewModel;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\View\Http\ExceptionStrategy;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\View\Model\ViewModel;
+use Laminas\Mvc\MvcEvent;
 use Auth\Exception\UserDeactivatedException;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  * Class DeactivatedUserListener
@@ -64,7 +64,7 @@ class DeactivatedUserListener extends ExceptionStrategy
     }
 
     /**
-     * @see \Zend\Mvc\View\Http\ExceptionStrategy::prepareExceptionViewModel()
+     * @see \Laminas\Mvc\View\Http\ExceptionStrategy::prepareExceptionViewModel()
      */
     public function prepareExceptionViewModel(MvcEvent $event)
     {

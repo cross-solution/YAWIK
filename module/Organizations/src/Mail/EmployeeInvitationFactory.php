@@ -13,7 +13,7 @@ namespace Organizations\Mail;
 use Auth\Entity\UserInterface;
 use Interop\Container\ContainerInterface;
 use Organizations\ImageFileCache\ODMListener;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * This Factory creates and configures the HTMLTemplateMail send to an invited person.

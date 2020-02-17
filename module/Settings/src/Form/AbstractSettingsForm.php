@@ -13,11 +13,11 @@ namespace Settings\Form;
 use Core\Form\Form;
 use Interop\Container\ContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Form\FormInterface;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Form\FormInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
-use Zend\View\HelperPluginManager;
+use Laminas\View\HelperPluginManager;
 
 class AbstractSettingsForm extends Form
 {

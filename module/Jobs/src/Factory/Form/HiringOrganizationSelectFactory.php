@@ -12,7 +12,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\HiringOrganizationSelect;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the HiringOrganization select box
@@ -37,7 +37,7 @@ class HiringOrganizationSelectFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $headscript     \Zend\View\Helper\HeadScript
+        /* @var $headscript     \Laminas\View\Helper\HeadScript
          * @var $user           \Auth\Entity\User
          * @var $organization   \Organizations\Entity\OrganizationInterface | \Organizations\Entity\OrganizationReferenceInterface
          */

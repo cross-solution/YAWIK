@@ -106,7 +106,7 @@ class PublisherTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $this->serviceManager = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -114,7 +114,7 @@ class PublisherTest extends TestCase
 
         $staticClassPrefix = '\\' . __CLASS__ . '::';
 
-        $this->log = $this->getMockBuilder('\Zend\Log\Logger')
+        $this->log = $this->getMockBuilder('\Laminas\Log\Logger')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -122,7 +122,7 @@ class PublisherTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->renderer = $this->getMockBuilder('\Zend\View\Renderer\PhpRenderer')
+        $this->renderer = $this->getMockBuilder('\Laminas\View\Renderer\PhpRenderer')
                 ->disableOriginalConstructor()
                 ->getMock();
 
@@ -130,7 +130,7 @@ class PublisherTest extends TestCase
                 ->method('render')
                 ->will($this->returnValue('<html />'));
 
-        $this->viewPhpRendererStrategy = $this->getMockBuilder('\Zend\View\Strategy\PhpRendererStrategy')
+        $this->viewPhpRendererStrategy = $this->getMockBuilder('\Laminas\View\Strategy\PhpRendererStrategy')
                           ->disableOriginalConstructor()
                           ->getMock();
 
@@ -138,7 +138,7 @@ class PublisherTest extends TestCase
                           ->method('getRenderer')
                           ->will($this->returnValue($this->renderer));
 
-        $this->response = $this->getMockBuilder('\Zend\Http\Response')
+        $this->response = $this->getMockBuilder('\Laminas\Http\Response')
                                               ->disableOriginalConstructor()
                                               ->getMock();
 
@@ -176,7 +176,7 @@ class PublisherTest extends TestCase
                               ->method('filter')
                               ->will($this->returnCallback($staticClassPrefix . 'absPathFilter'));
 
-        $this->filterManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $this->filterManager = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                                      ->disableOriginalConstructor()
                                      ->getMock();
 
@@ -227,7 +227,7 @@ class PublisherTest extends TestCase
                        ->with('channels')
                        ->willReturn(array('bbb value' => $this->providerChannel));
 
-        $this->viewModel = $this->getMockBuilder('\Zend\View\Model\ViewModel')
+        $this->viewModel = $this->getMockBuilder('\Laminas\View\Model\ViewModel')
                                 ->disableOriginalConstructor()
                                 ->getMock();
 

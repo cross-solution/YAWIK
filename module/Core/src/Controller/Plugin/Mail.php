@@ -3,19 +3,19 @@
 namespace Core\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Log\LoggerInterface;
-use Zend\Mail\Transport\TransportInterface;
-use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\Mvc\Controller\Plugin\PluginInterface;
-use Zend\Stdlib\DispatchableInterface as Dispatchable;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\Sendmail;
-use Zend\Mail\AddressList;
-use Zend\EventManager\Event;
-use Zend\Stdlib\Parameters;
-use Zend\Stdlib\ArrayUtils;
-use Zend\View\Resolver\ResolverInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Log\LoggerInterface;
+use Laminas\Mail\Transport\TransportInterface;
+use Laminas\ModuleManager\ModuleManagerInterface;
+use Laminas\Mvc\Controller\Plugin\PluginInterface;
+use Laminas\Stdlib\DispatchableInterface as Dispatchable;
+use Laminas\Mail\Message;
+use Laminas\Mail\Transport\Sendmail;
+use Laminas\Mail\AddressList;
+use Laminas\EventManager\Event;
+use Laminas\Stdlib\Parameters;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Resolver\ResolverInterface;
 
 class Mail extends Message implements PluginInterface
 {

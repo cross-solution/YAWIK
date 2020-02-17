@@ -10,15 +10,15 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\Form as ZendForm;
-use Zend\Form\FormInterface;
-use Zend\Form\FieldsetInterface;
+use Laminas\Form\View\Helper\Form as LaminasForm;
+use Laminas\Form\FormInterface;
+use Laminas\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ExplicitParameterProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
 use Core\Form\DescriptionAwareFormInterface;
 
-class FormSimple extends ZendForm
+class FormSimple extends LaminasForm
 {
     public function __invoke(FormInterface $form = null, $parameter = array())
     {

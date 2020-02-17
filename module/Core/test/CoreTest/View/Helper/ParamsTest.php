@@ -10,10 +10,10 @@ namespace CoreTest\View\Helper;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 use Core\View\Helper\Params as Helper;
-use Zend\Router\Http\RouteMatch;
-use Zend\Http\PhpEnvironment\Request;
+use Laminas\Router\Http\RouteMatch;
+use Laminas\Http\PhpEnvironment\Request;
 
 class ParamsTest extends TestCase
 {
@@ -79,7 +79,7 @@ class ParamsTest extends TestCase
                  . "X-Test-Header-2: Header2Value\r\n";
         
         $r = new Request();
-        $r->setHeaders(\Zend\Http\Headers::fromString($headers));
+        $r->setHeaders(\Laminas\Http\Headers::fromString($headers));
         
         $e = new MvcEvent();
         $e->setRequest($r);
@@ -87,7 +87,7 @@ class ParamsTest extends TestCase
         $helper = new Helper($e);
         
         $header = $helper->fromHeader('X-Test-Header-1');
-        $this->assertInstanceOf('\Zend\Http\Header\GenericHeader', $header);
+        $this->assertInstanceOf('\Laminas\Http\Header\GenericHeader', $header);
         $this->assertEquals('Header1Value', $header->getFieldValue());
         
         $expect = array(
