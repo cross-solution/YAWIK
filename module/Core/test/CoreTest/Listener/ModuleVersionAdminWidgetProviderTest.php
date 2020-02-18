@@ -13,7 +13,7 @@ namespace CoreTest\Listener;
 use Core\Controller\AdminControllerEvent;
 use Core\Listener\ModuleVersionAdminWidgetProvider;
 use CoreTestUtils\TestCase\SetupTargetTrait;
-use Zend\ModuleManager\ModuleManager;
+use Laminas\ModuleManager\ModuleManager;
 use PHPUnit\Framework\TestCase;
 
 /**

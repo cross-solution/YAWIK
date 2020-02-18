@@ -13,10 +13,10 @@ namespace Core\Listener;
 use Core\EventManager\EventManager;
 use Core\EventManager\ListenerAggregateTrait;
 use Core\Listener\Events\AjaxEvent;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Json\Json;
-use Zend\Mvc\MvcEvent;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\Json\Json;
+use Laminas\Mvc\MvcEvent;
 
 /**
  * On Route listener which triggers ajax events.
@@ -66,12 +66,12 @@ class AjaxRouteListener implements ListenerAggregateInterface
      *
      * @param MvcEvent $event
      *
-     * @return null|\Zend\Http\PhpEnvironment\Response
+     * @return null|\Laminas\Http\PhpEnvironment\Response
      * @throws \UnexpectedValueException
      */
     public function onRoute(MvcEvent $event)
     {
-        /* @var \Zend\Http\PhpEnvironment\Request $request */
+        /* @var \Laminas\Http\PhpEnvironment\Request $request */
         $request = $event->getRequest();
         $ajax = $request->getQuery()->get('ajax');
 
@@ -80,7 +80,7 @@ class AjaxRouteListener implements ListenerAggregateInterface
             return;
         }
 
-        /* @var \Zend\Http\PhpEnvironment\Response $response */
+        /* @var \Laminas\Http\PhpEnvironment\Response $response */
         /* @var AjaxEvent $ajaxEvent */
         $response = $event->getResponse();
         

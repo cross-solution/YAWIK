@@ -53,7 +53,7 @@ class UserInfoContainer extends Container implements ViewPartialProviderInterfac
     /**
      * Initializes the container.
      *
-     * @see \Zend\Form\Element::init()
+     * @see \Laminas\Form\Element::init()
      */
     public function init()
     {

@@ -13,12 +13,12 @@ namespace Core\Factory\EventManager;
 use Core\EventManager\EventProviderInterface;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Creates event manager instances.
@@ -158,7 +158,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
      * @param string                  $name
      * @param string                  $requestedName
      *
-     * @return \Zend\EventManager\EventManagerInterface
+     * @return \Laminas\EventManager\EventManagerInterface
      * @throws \UnexpectedValueException
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
@@ -183,7 +183,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
             'service' => 'EventManager',
             'configure' => true,
             'identifiers' => [ $name ],
-            'event' => '\Zend\EventManager\Event',
+            'event' => '\Laminas\EventManager\Event',
             'listeners' => [],
         ];
 
@@ -213,12 +213,12 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
      * @param ServiceLocatorInterface $services
      * @param array $config
      *
-     * @return \Zend\EventManager\EventManagerInterface
+     * @return \Laminas\EventManager\EventManagerInterface
      * @throws \UnexpectedValueException if neither a service exists, nor could a class be found.
      */
     protected function createEventManager($services, $config)
     {
-        /* @var \Zend\EventManager\EventManagerInterface|\Core\EventManager\EventProviderInterface $events */
+        /* @var \Laminas\EventManager\EventManagerInterface|\Core\EventManager\EventProviderInterface $events */
 
         if ($services->has($config['service'])) {
             $events = $services->get($config['service']);
@@ -239,12 +239,12 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
 
         $events->setIdentifiers($config['identifiers']);
     
-        /* @var \Zend\EventManager\EventInterface $event */
+        /* @var \Laminas\EventManager\EventInterface $event */
         $event = $services->has($config['event']) ? $services->get($config['event']) : new $config['event']();
         $events->setEventPrototype($event);
 
         if ('EventManager' != $config['service'] && method_exists($events, 'setSharedManager') && $services->has('SharedEventManager')) {
-            /* @var \Zend\EventManager\SharedEventManagerInterface $sharedEvents */
+            /* @var \Laminas\EventManager\SharedEventManagerInterface $sharedEvents */
             $sharedEvents = $services->get('SharedEventManager');
             $events->setSharedManager($sharedEvents);
         }
@@ -256,7 +256,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
      * Attaches listeners provided in the config to the event manager instance.
      *
      * @param ServiceLocatorInterface $services
-     * @param \Zend\EventManager\EventManagerInterface $eventManager
+     * @param \Laminas\EventManager\EventManagerInterface $eventManager
      * @param array $listeners
      *
      * @throws \UnexpectedValueException if a listener name cannot be fetched as service or be instantiated.

@@ -2,7 +2,7 @@
 
 namespace Cv\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Cv\Entity\NativeLanguage as NativeLanguageEntity;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\EmptySummaryAwareInterface;

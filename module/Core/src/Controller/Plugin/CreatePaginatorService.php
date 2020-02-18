@@ -11,11 +11,11 @@
 namespace Core\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Paginator\Paginator as ZendPaginator;
-use Zend\Paginator\Adapter\AdapterInterface;
-use Zend\Mvc\Controller\PluginManager as ControllerManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Paginator\Paginator as LaminasPaginator;
+use Laminas\Paginator\Adapter\AdapterInterface;
+use Laminas\Mvc\Controller\PluginManager as ControllerManager;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * returns a paginator,
@@ -61,7 +61,7 @@ class CreatePaginatorService extends AbstractPlugin
 
         $paginatorManager = $this->serviceManager->get('Core/PaginatorService');
         $paginator = $paginatorManager->get($paginatorName);
-        if (!isset($paginator) || !$paginator instanceof ZendPaginator) {
+        if (!isset($paginator) || !$paginator instanceof LaminasPaginator) {
             throw new \RuntimeException('Could not create paginator ' . $paginatorName);
         }
         $adapter = $paginator->getAdapter();

@@ -12,8 +12,8 @@ namespace Jobs\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Controller\AssignUserController;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * ${CARET}

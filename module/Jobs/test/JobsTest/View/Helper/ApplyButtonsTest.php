@@ -12,9 +12,9 @@ namespace JobsTest\View\Helper;
 use PHPUnit\Framework\TestCase;
 
 use Jobs\View\Helper\ApplyButtons as Helper;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Model\ViewModel;
-use Zend\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Helper\ViewModel as ViewModelHelper;
 
 class ApplyButtonsTest extends TestCase
 {

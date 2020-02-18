@@ -17,9 +17,9 @@ use CoreTest\Bootstrap;
 use Core\Controller\Plugin\Notification;
 use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\Controller\PluginManager;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Controller\PluginManager;
 
 /**
  * Class RegisterConfirmationControllerTest
@@ -50,7 +50,7 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')->getMockForAbstractClass();
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')->getMockForAbstractClass();
 
         $this->controller = new RegisterConfirmationController($this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);

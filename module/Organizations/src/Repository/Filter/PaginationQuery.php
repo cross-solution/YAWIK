@@ -14,7 +14,7 @@ use Core\Repository\Filter\AbstractPaginationQuery;
 use Jobs\Entity\StatusInterface;
 use Organizations\Entity\Organization;
 use Jobs\Repository\Job as JobRepository;
-use Zend\Stdlib\Parameters;
+use Laminas\Stdlib\Parameters;
 
 /**
  * maps query parameters to entity attributes

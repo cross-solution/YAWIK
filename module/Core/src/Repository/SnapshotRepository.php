@@ -17,7 +17,7 @@ use Core\Entity\SnapshotAttributesProviderInterface;
 use Core\Entity\SnapshotInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\DocumentRepository;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * ${CARET}
@@ -49,7 +49,7 @@ class SnapshotRepository extends DocumentRepository
     protected $snapshotAttributes = [];
 
     /**
-     * @param \Zend\Hydrator\HydratorInterface $hydrator
+     * @param \Laminas\Hydrator\HydratorInterface $hydrator
      *
      * @return self
      */
@@ -61,7 +61,7 @@ class SnapshotRepository extends DocumentRepository
     }
 
     /**
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {
@@ -72,7 +72,7 @@ class SnapshotRepository extends DocumentRepository
     }
 
     /**
-     * @param \Zend\Hydrator\HydratorInterface $sourceHydrator
+     * @param \Laminas\Hydrator\HydratorInterface $sourceHydrator
      *
      * @return self
      */
@@ -84,7 +84,7 @@ class SnapshotRepository extends DocumentRepository
     }
 
     /**
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getSourceHydrator()
     {

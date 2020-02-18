@@ -19,8 +19,8 @@ use Core\Factory\Controller\LazyControllerFactory;
 use Core\Repository\RepositoryService;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Interop\Container\ContainerInterface;
-use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ModuleManager\ModuleManagerInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 
 /**
  * Class LazyControllerFactoryTest

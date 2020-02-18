@@ -11,9 +11,9 @@
 namespace Jobs\Form;
 
 use Core\Form\Form;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
-use Zend\Json\Expr;
+use Laminas\Json\Expr;
 
 /**
  * Defines the formular field html of a job opening.

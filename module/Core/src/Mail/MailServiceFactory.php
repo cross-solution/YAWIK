@@ -12,11 +12,11 @@ namespace Core\Mail;
 
 use Core\Options\MailServiceOptions;
 use Interop\Container\ContainerInterface;
-use Zend\Mail\Transport\FileOptions;
-use Zend\Mail\Transport\Sendmail;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\Mail\Transport\Smtp;
+use Laminas\Mail\Transport\FileOptions;
+use Laminas\Mail\Transport\Sendmail;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\Mail\Transport\Smtp;
 
 /**
  * Class MailServiceFactory

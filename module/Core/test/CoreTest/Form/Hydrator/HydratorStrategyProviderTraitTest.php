@@ -13,8 +13,8 @@ namespace CoreTest\Form\Hydrator;
 use PHPUnit\Framework\TestCase;
 
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
-use Zend\Hydrator\Strategy\BooleanStrategy;
-use Zend\Hydrator\Strategy\DefaultStrategy;
+use Laminas\Hydrator\Strategy\BooleanStrategy;
+use Laminas\Hydrator\Strategy\DefaultStrategy;
 
 /**
  * Tests for \Core\Form\Hydrator\HydratorStrategyProviderTrait
@@ -42,7 +42,7 @@ class HydratorStrategyProviderTraitTest extends TestCase
 
     public function testSetAndGetHydratorStrategy()
     {
-        $strategy = new \Zend\Hydrator\Strategy\BooleanStrategy('true', 'false');
+        $strategy = new \Laminas\Hydrator\Strategy\BooleanStrategy('true', 'false');
         $this->target->setHydratorStrategy($strategy);
 
         $this->assertSame($strategy, $this->target->getHydratorStrategy());

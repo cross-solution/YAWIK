@@ -10,10 +10,10 @@
 /** */
 namespace Acl\Assertion;
 
-use Zend\EventManager\Event;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\EventManager\Event;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 /**
  * This event is passed around from instances of EventManager aware assertions.
@@ -63,7 +63,7 @@ class AssertionEvent extends Event
     /**
      * Sets the acl instance.
      *
-     * @param \Zend\Permissions\Acl\Acl $acl
+     * @param \Laminas\Permissions\Acl\Acl $acl
      *
      * @return self
      */
@@ -77,7 +77,7 @@ class AssertionEvent extends Event
     /**
      * Gets the acl instance.
      *
-     * @return \Zend\Permissions\Acl\Acl
+     * @return \Laminas\Permissions\Acl\Acl
      */
     public function getAcl()
     {
@@ -111,7 +111,7 @@ class AssertionEvent extends Event
     /**
      * Sets the resource.
      *
-     * @param \Zend\Permissions\Acl\Resource\ResourceInterface $resource
+     * @param \Laminas\Permissions\Acl\Resource\ResourceInterface $resource
      *
      * @return self
      */
@@ -125,7 +125,7 @@ class AssertionEvent extends Event
     /**
      * Gets the resource.
      *
-     * @return \Zend\Permissions\Acl\Resource\ResourceInterface
+     * @return \Laminas\Permissions\Acl\Resource\ResourceInterface
      */
     public function getResource()
     {
@@ -135,7 +135,7 @@ class AssertionEvent extends Event
     /**
      * Sets the role.
      *
-     * @param \Zend\Permissions\Acl\Role\RoleInterface $role
+     * @param \Laminas\Permissions\Acl\Role\RoleInterface $role
      *
      * @return self
      */
@@ -149,7 +149,7 @@ class AssertionEvent extends Event
     /**
      * Gets the role.
      *
-     * @return \Zend\Permissions\Acl\Role\RoleInterface
+     * @return \Laminas\Permissions\Acl\Role\RoleInterface
      */
     public function getRole()
     {

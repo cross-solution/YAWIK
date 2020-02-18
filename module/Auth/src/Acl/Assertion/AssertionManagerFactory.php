@@ -10,8 +10,8 @@
 namespace Acl\Assertion;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\Config;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Config;
 
 /**
  * Factory for creating the AssertionManager.

@@ -13,7 +13,7 @@
 /** FileEntity.php */
 namespace Core\Entity;
 
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Auth\Entity\UserInterface;
 
 /**

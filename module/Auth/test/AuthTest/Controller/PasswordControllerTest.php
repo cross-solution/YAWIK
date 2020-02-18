@@ -19,9 +19,9 @@ use AuthTest\Entity\Provider\UserEntityProvider;
 use Core\Repository\RepositoryService;
 use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Stdlib\Parameters;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Stdlib\Parameters;
 
 class PasswordControllerTest extends AbstractControllerTestCase
 {

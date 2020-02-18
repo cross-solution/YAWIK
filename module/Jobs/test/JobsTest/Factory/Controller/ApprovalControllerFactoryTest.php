@@ -15,7 +15,7 @@ use Jobs\Controller\ApprovalController;
 use Jobs\Factory\Controller\ApprovalControllerFactory;
 use Jobs\Form\OrganizationSelect;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 /**
  * Class ApprovalControllerFactoryTest

@@ -12,11 +12,11 @@
  */
 namespace Jobs\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Session\Container as Session;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Session\Container as Session;
 use Jobs\Repository;
 use Jobs\Form\ListFilter;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Handles the job listing for recruiters.
@@ -79,7 +79,7 @@ class ApprovalController extends AbstractActionController
      */
     public function listOpenJobsAction()
     {
-        /* @var $request \Zend\Http\Request */
+        /* @var $request \Laminas\Http\Request */
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');

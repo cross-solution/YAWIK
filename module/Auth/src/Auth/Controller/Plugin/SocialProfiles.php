@@ -10,9 +10,9 @@
 /** SocialProfiles.php */
 namespace Auth\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Auth\Controller\Plugin\SocialProfiles\AbstractAdapter;
-use Zend\Stdlib\RequestInterface;
+use Laminas\Stdlib\RequestInterface;
 
 class SocialProfiles extends AbstractPlugin
 {

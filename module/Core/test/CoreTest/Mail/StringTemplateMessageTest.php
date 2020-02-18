@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 use Core\Mail\StringTemplateMessage;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\I18n\Translator\TranslatorInterface;
-use Zend\Mail\AddressList;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\I18n\Translator\TranslatorInterface;
+use Laminas\Mail\AddressList;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Class StringTemplateMessageTest

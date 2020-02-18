@@ -17,7 +17,7 @@ use Core\Form\CustomizableFieldsetTrait;
 use Core\Options\FieldsetCustomizationOptions;
 use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Tests for \Core\Form\CustomizableFieldsetTrait

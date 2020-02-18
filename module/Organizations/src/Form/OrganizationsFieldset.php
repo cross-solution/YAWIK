@@ -10,7 +10,7 @@
 
 namespace Organizations\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Class OrganizationsFieldset
@@ -37,7 +37,7 @@ class OrganizationsFieldset extends Fieldset
 
     /**
      * @param object $object
-     * @return $this|Fieldset|\Zend\Form\FieldsetInterface
+     * @return $this|Fieldset|\Laminas\Form\FieldsetInterface
      */
     public function setObject($object)
     {

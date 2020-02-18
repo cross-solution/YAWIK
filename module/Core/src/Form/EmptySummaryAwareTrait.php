@@ -28,7 +28,7 @@ trait EmptySummaryAwareTrait
      */
     public function isSummaryEmpty()
     {
-        foreach ($this as $element) { /* @var $element \Zend\Form\ElementInterface */
+        foreach ($this as $element) { /* @var $element \Laminas\Form\ElementInterface */
             if ($element->getValue()) {
                 return false;
             }

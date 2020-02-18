@@ -10,7 +10,7 @@
 /** Core forms */
 namespace Core\Form;
 
-use Zend\Form\ElementInterface;
+use Laminas\Form\ElementInterface;
 
 /**
  * Enables form elements to provide a view partial when being rendered.

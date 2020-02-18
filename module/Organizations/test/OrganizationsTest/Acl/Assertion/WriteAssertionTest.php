@@ -16,10 +16,10 @@ use Auth\Entity\User;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use \Organizations\Acl\Assertion\WriteAssertion;
 use Organizations\Entity\Organization;
-use Zend\Permissions\Acl\Acl;
-use \Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\Permissions\Acl\Resource\GenericResource;
-use Zend\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Acl;
+use \Laminas\Permissions\Acl\Assertion\AssertionInterface;
+use Laminas\Permissions\Acl\Resource\GenericResource;
+use Laminas\Permissions\Acl\Role\GenericRole;
 
 /**
  * Tests for \Organizations\Acl\Assertion\WriteAssertion

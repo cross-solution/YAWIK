@@ -9,13 +9,13 @@
 
 namespace Pdf;
 
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 use SplFileInfo;
-use Zend\View\Resolver\ResolverInterface;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\Mvc\MvcEvent;
-use Zend\View\ViewEvent;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\View\Resolver\ResolverInterface;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\ViewEvent;
+use Laminas\EventManager\EventManagerInterface;
 use Core\Html2Pdf\PdfInterface;
 use Core\View\Helper\InsertFile\FileEvent;
 use Core\Entity\FileEntity;
@@ -75,7 +75,7 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
 
     /**
      * hook into the rendering for transformation of HTML to PDF
-     * @param \Zend\EventManager\EventManagerInterface $events
+     * @param \Laminas\EventManager\EventManagerInterface $events
      */
     public function attach(EventManagerInterface $events)
     {
@@ -86,7 +86,7 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
     /**
      * hook into the MVC
      * in here you could still decide, if you want to hook into the Rendering
-     * @param \Zend\EventManager\EventManagerInterface $events
+     * @param \Laminas\EventManager\EventManagerInterface $events
      */
     public function attachMvc(EventManagerInterface $events)
     {
@@ -97,7 +97,7 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
      * hook into the Rendering of files
      * the manager to hook in is the viewhelper 'insertfiles'
      *
-     * @param \Zend\Mvc\MvcEvent $e
+     * @param \Laminas\Mvc\MvcEvent $e
      */
     public function initializeViewHelper(MvcEvent $e)
     {
@@ -167,7 +167,7 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
     /**
      * give a summary of all inserted Files,
      * this is for having access to those files in the post-process
-     * @param \Core\View\Helper\InsertFile\FileEvent|\Zend\View\ViewEvent $e
+     * @param \Core\View\Helper\InsertFile\FileEvent|\Laminas\View\ViewEvent $e
      * @return NULL
      */
     public function collectFiles(FileEvent $e)
@@ -195,7 +195,7 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
      *
      * if you get the data you want, you switch to the specific template by adding the conforming resolver
      *
-     * @param \Zend\View\ViewEvent $e
+     * @param \Laminas\View\ViewEvent $e
      */
     public function cleanLayout(ViewEvent $e)
     {
@@ -238,7 +238,7 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
      *
      * put in here everything related to the transforming-process like options
      *
-     * @param \Zend\View\ViewEvent $e
+     * @param \Laminas\View\ViewEvent $e
      */
     public function attachPDFtransformer(ViewEvent $e)
     {
@@ -315,7 +315,7 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
      * Look for a template with the Suffix ".pdf.phtml"
      *
      * @param string $name
-     * @param \Zend\View\Renderer\RendererInterface $renderer
+     * @param \Laminas\View\Renderer\RendererInterface $renderer
      * @return string|boolean
      */
     public function resolve($name, Renderer $renderer = null)

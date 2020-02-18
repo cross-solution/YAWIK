@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Factory\Controller\ForgotPasswordControllerFactory;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 class ForgotPasswordControllerFactoryTest extends TestCase
 {
@@ -36,7 +36,7 @@ class ForgotPasswordControllerFactoryTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')
             ->getMock();
 
         $sm->setService('Auth\Service\ForgotPassword', $forgotPasswordMock);

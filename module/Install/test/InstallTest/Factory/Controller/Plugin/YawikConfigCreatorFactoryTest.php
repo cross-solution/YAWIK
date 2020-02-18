@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Install\Factory\Controller\Plugin\YawikConfigCreatorFactory;
 use Install\Filter\DbNameExtractor;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Install\Factory\Controller\Plugin\YawikConfigCreatorFactory
@@ -30,7 +30,7 @@ class YawikConfigCreatorFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
@@ -39,13 +39,13 @@ class YawikConfigCreatorFactoryTest extends TestCase
 
     public function testCreatesAnUserCreatorPluginInstance()
     {
-        $filters = $this->getMockBuilder('\Zend\Filter\FilterPluginManager')->disableOriginalConstructor()->getMock();
+        $filters = $this->getMockBuilder('\Laminas\Filter\FilterPluginManager')->disableOriginalConstructor()->getMock();
         $filters->expects($this->once())
                 ->method('get')
                 ->with('Install/DbNameExtractor')
                 ->willReturn(new DbNameExtractor());
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->once())->method('get')->with('FilterManager')->willReturn($filters);
 
         $target = new YawikConfigCreatorFactory();

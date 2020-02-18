@@ -9,7 +9,7 @@
 namespace Auth\Controller;
 
 use Auth\Repository\User;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 use Auth\Dependency\Manager as Dependencies;
 use Auth\AuthenticationService;
 

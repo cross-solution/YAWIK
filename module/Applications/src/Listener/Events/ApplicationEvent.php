@@ -12,8 +12,8 @@ namespace  Applications\Listener\Events;
 
 use Applications\Entity\Application;
 use Auth\Entity\User;
-use Zend\EventManager\Event;
-use Zend\EventManager\Exception;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\Exception;
 
 /**
  * The Application event.

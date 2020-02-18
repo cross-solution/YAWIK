@@ -12,8 +12,8 @@ namespace Install\Validator;
 
 use MongoDB\Client;
 use MongoDB\Driver\Exception\ConnectionTimeoutException;
-use Zend\Validator\AbstractValidator;
-use Zend\Validator\Exception;
+use Laminas\Validator\AbstractValidator;
+use Laminas\Validator\Exception;
 
 /**
  * Validates a mongo db connection.

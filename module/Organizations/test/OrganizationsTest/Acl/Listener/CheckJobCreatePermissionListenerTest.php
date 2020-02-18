@@ -39,7 +39,7 @@ class CheckJobCreatePermissionListenerTest extends TestCase
     {
         $target = new CheckJobCreatePermissionListener();
 
-        $events = $this->getMockBuilder('\Zend\EventManager\SharedEventManager')
+        $events = $this->getMockBuilder('\Laminas\EventManager\SharedEventManager')
                        ->disableOriginalConstructor()
                        ->getMock();
 
@@ -58,7 +58,7 @@ class CheckJobCreatePermissionListenerTest extends TestCase
     {
         $target = new CheckJobCreatePermissionListener();
 
-        $this->assertNull($target->detachShared(new \Zend\EventManager\SharedEventManager()));
+        $this->assertNull($target->detachShared(new \Laminas\EventManager\SharedEventManager()));
     }
 
     /**

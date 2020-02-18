@@ -36,8 +36,8 @@ return [
             'Install/Listener/LanguageSetter' => 'Install\Listener\LanguageSetter',
         ],
 	    'factories' => [
-		    'mvctranslator' => \Zend\Mvc\I18n\TranslatorFactory::class,
-		    'FilterManager' => \Zend\Filter\FilterPluginManagerFactory::class,
+		    'mvctranslator' => \Laminas\Mvc\I18n\TranslatorFactory::class,
+		    'FilterManager' => \Laminas\Filter\FilterPluginManagerFactory::class,
             'Tracy' => [\Core\Service\Tracy::class,'factory'],
             'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
         ],

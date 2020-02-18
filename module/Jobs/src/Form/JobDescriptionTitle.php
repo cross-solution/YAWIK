@@ -12,7 +12,7 @@ namespace Jobs\Form;
 
 use Core\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 

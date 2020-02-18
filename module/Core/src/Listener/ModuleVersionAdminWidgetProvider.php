@@ -12,7 +12,7 @@ namespace Core\Listener;
 
 use Core\Controller\AdminControllerEvent;
 use Core\ModuleManager\Feature\VersionProviderInterface;
-use Zend\ModuleManager\ModuleManager;
+use Laminas\ModuleManager\ModuleManager;
 
 /**
  * ${CARET}

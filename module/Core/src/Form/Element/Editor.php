@@ -10,7 +10,7 @@
 
 namespace Core\Form\Element;
 
-use Zend\Form\Element\Textarea;
+use Laminas\Form\Element\Textarea;
 use Core\Service\OptionValueInterface;
 
 class Editor extends Textarea implements ViewHelperProviderInterface

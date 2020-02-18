@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Jobs\Entity\JobInterface;
 use Jobs\Entity\JsonLdProviderInterface;
 use Jobs\Entity\TemplateValuesInterface;
-use Zend\Json\Json;
+use Laminas\Json\Json;
 
 /**
  * Decorates a job with implementing a toJsonLd method.

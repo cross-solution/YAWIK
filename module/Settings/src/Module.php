@@ -12,7 +12,7 @@ namespace Settings;
 
 use Core\ModuleManager\Feature\VersionProviderInterface;
 use Core\ModuleManager\Feature\VersionProviderTrait;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 use Settings\Listener\InjectSubNavigationListener;
 
 /**

@@ -11,11 +11,11 @@
 namespace Core\Listener;
 
 use Interop\Container\ContainerInterface;
-use Zend\EventManager\SharedEventManagerInterface;
+use Laminas\EventManager\SharedEventManagerInterface;
 use Core\Listener\Events\NotificationEvent;
-use Zend\Mvc\MvcEvent;
-use Zend\EventManager\EventManager;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\MvcEvent;
+use Laminas\EventManager\EventManager;
+use Laminas\View\Model\JsonModel;
 
 /**
  *
@@ -43,11 +43,11 @@ class NotificationListener extends EventManager
     public function attachShared(SharedEventManagerInterface $events)
     {
         $events->attach('*', NotificationEvent::EVENT_NOTIFICATION_ADD, array($this,'add'), 1);
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderJSON'), -240);
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderHTML'), -250);
+        $events->attach('Laminas\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderJSON'), -240);
+        $events->attach('Laminas\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderHTML'), -250);
         // Sometimes the Dispatch-Event is not reached, for instance with a route-direct
         // but also for Events, that are happening after the Dispatch
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_FINISH, array($this,'renderHTML'), -250);
+        $events->attach('Laminas\Mvc\Application', MvcEvent::EVENT_FINISH, array($this,'renderHTML'), -250);
         return $this;
     }
 

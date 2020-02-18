@@ -16,12 +16,12 @@ use Acl\Controller\Plugin\Acl;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Controller\ViewController;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 use Cv\Repository\Cv as CvRepository;
-use Zend\Mvc\Controller\Plugin\Params;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\I18n\Translator\TranslatorInterface;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Controller\Plugin\Params;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\I18n\Translator\TranslatorInterface;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  * Tests for \Cv\Controller\ViewController

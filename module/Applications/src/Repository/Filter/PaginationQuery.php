@@ -10,7 +10,7 @@ namespace Applications\Repository\Filter;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Doctrine\MongoDB\Query\Builder;
-use Zend\Stdlib\Parameters;
+use Laminas\Stdlib\Parameters;
 
 /**
  * maps query parameters to entity attributes

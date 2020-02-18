@@ -18,11 +18,11 @@ use Auth\Controller\Plugin\UserSwitcher;
 use Auth\Entity\User;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\Authentication\Storage\StorageInterface;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Session\Container;
+use Laminas\Authentication\Storage\StorageInterface;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Session\Container;
 
 /**
  * Tests for \Auth\Controller\Plugin\UserSwitcher

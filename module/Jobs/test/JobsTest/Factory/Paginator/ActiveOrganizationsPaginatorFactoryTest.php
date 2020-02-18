@@ -18,8 +18,8 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Doctrine\ODM\MongoDB\Cursor;
 use Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory;
 use Jobs\Repository\Job;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory

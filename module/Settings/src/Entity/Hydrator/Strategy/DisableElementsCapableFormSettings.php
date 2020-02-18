@@ -10,7 +10,7 @@
 /** */
 namespace Settings\Entity\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Strategy to hydrate / extract disable elements configuration to / from an settings container.
@@ -30,7 +30,7 @@ class DisableElementsCapableFormSettings implements StrategyInterface
     {
         /*
          * We needed to serialize the value array in the form
-         * (due to {@link \Zend\Form\Form:prepareBindValues()}),
+         * (due to {@link \Laminas\Form\Form:prepareBindValues()}),
          * so we must unserialize it here to hydrate the container with
          * an array.
          */

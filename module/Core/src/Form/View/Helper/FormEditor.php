@@ -10,9 +10,9 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\ElementInterface;
-use Zend\Form\View\Helper\FormTextarea;
-use Zend\Json\Json;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormTextarea;
+use Laminas\Json\Json;
 
 class FormEditor extends FormTextarea
 {
@@ -73,11 +73,11 @@ class FormEditor extends FormTextarea
         if ($editorOptions = $element->getOption('editor')) {
             $this->setOptions($editorOptions);
         }
-        /* @var \Zend\View\Renderer\PhpRenderer $renderer */
+        /* @var \Laminas\View\Renderer\PhpRenderer $renderer */
         $renderer = $this->getView();
-        /* @var \Zend\View\Helper\HeadScript  $headscript */
+        /* @var \Laminas\View\Helper\HeadScript  $headscript */
         $headscript = $renderer->plugin('headscript');
-        /* @var \Zend\View\Helper\BasePath  $basepath */
+        /* @var \Laminas\View\Helper\BasePath  $basepath */
         $basepath = $renderer->plugin('basepath');
 
         //$headscript->appendFile($basepath('assets/tinymce/tinymce.min.js'));

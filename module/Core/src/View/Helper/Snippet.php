@@ -11,13 +11,13 @@
 namespace Core\View\Helper;
 
 use Core\EventManager\EventManager;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Stdlib\ArrayUtils;
-use Zend\View\Exception;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Helper\Partial;
-use Zend\View\Model\ModelInterface;
-use Zend\View\Model\ViewModel;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Exception;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Helper\Partial;
+use Laminas\View\Model\ModelInterface;
+use Laminas\View\Model\ViewModel;
 
 /**
  * ${CARET}
@@ -45,7 +45,7 @@ class Snippet extends AbstractHelper
     /**
      *
      *
-     * @var \Zend\View\Helper\Partial
+     * @var \Laminas\View\Helper\Partial
      */
     private $partials;
 

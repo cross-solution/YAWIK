@@ -21,10 +21,10 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Controller\AdminCategoriesController;
 use Jobs\Entity\Category;
 use Jobs\Form\CategoriesContainer;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\Controller\Plugin\Params;
-use Zend\View\Model\JsonModel;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\Plugin\Params;
+use Laminas\View\Model\JsonModel;
 
 /**
  * Tests for Jobs\Controller\AdminCategoriesController

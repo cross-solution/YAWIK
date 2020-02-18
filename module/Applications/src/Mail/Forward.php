@@ -15,8 +15,8 @@ use Applications\Entity\Application;
 use Core\Factory\ContainerAwareInterface;
 use Core\Mail\TranslatorAwareMessage;
 use Interop\Container\ContainerInterface;
-use Zend\Mime;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mime;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
 * Sends an e-mail containing an applications

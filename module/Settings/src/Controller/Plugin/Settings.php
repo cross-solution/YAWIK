@@ -10,7 +10,7 @@
 /** Settings.php */
 namespace Settings\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Auth\Entity\UserInterface;
 
 class Settings extends AbstractPlugin

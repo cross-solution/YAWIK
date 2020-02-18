@@ -11,7 +11,7 @@
 namespace Core\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use Zend\View\ViewEvent;
+use Laminas\View\ViewEvent;
 use Core\View\Helper\InsertFile\FileEvent;
 
 class InsertFile extends AbstractEventsHelper

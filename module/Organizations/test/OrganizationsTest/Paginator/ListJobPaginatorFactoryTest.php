@@ -17,8 +17,8 @@ use Interop\Container\ContainerInterface;
 use Organizations\Paginator\ListJobPaginatorFactory;
 use Organizations\Repository\Filter\ListJobQuery;
 use Organizations\Repository\Organization;
-use Zend\Filter\FilterPluginManager;
-use Zend\Paginator\Paginator;
+use Laminas\Filter\FilterPluginManager;
+use Laminas\Paginator\Paginator;
 
 /**
  * Class ListJobPaginatorFactoryTest

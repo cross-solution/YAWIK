@@ -10,11 +10,11 @@
 /** CheckRouteListener.php */
 namespace Acl\Listener;
 
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Mvc\MvcEvent;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Mvc\MvcEvent;
 use Auth\Exception\UnauthorizedAccessException;
-use Zend\Permissions\Acl\AclInterface;
+use Laminas\Permissions\Acl\AclInterface;
 use Auth\Entity\UserInterface;
 
 class CheckPermissionsListener implements ListenerAggregateInterface
@@ -25,7 +25,7 @@ class CheckPermissionsListener implements ListenerAggregateInterface
     protected $exceptionMap = array();
 
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
     

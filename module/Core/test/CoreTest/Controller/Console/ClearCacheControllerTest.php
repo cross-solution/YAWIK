@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Controller\Console\ClearCacheController;
 use Core\Service\ClearCacheService;
 use Interop\Container\ContainerInterface;
-use Zend\Console\Adapter\AdapterInterface;
+use Laminas\Console\Adapter\AdapterInterface;
 
 /**
  * Class CacheWarmupControllerTest

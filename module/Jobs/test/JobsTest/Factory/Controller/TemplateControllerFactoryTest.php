@@ -15,7 +15,7 @@ use Jobs\Controller\TemplateController;
 use Jobs\Factory\Controller\TemplateControllerFactory;
 use Jobs\Options\ModuleOptions;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 /**
  * Class TemplateControllerFactoryTest

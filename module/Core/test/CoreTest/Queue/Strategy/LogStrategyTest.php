@@ -23,10 +23,10 @@ use SlmQueue\Worker\Event\AbstractWorkerEvent;
 use SlmQueue\Worker\Event\BootstrapEvent;
 use SlmQueue\Worker\Event\FinishEvent;
 use SlmQueue\Worker\Event\ProcessJobEvent;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Log\Logger;
-use Zend\Log\LoggerAwareInterface;
-use Zend\Log\LoggerInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Log\Logger;
+use Laminas\Log\LoggerAwareInterface;
+use Laminas\Log\LoggerInterface;
 
 /**
  * Tests for \Core\Queue\Strategy\LogStrategy

@@ -10,7 +10,7 @@
 /** Auth controller */
 namespace Auth\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 // @codeCoverageIgnoreStart
 

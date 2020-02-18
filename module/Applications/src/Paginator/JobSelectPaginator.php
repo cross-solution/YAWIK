@@ -11,7 +11,7 @@
 namespace Applications\Paginator;
 
 use Core\Paginator\Adapter\DoctrineMongoCursor;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 
 /**
  * Paginator for Job title select element.

@@ -15,9 +15,9 @@ use Core\Listener\Events\FileEvent;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Organizations\Entity\OrganizationImage;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
+use Laminas\Mvc\MvcEvent;
 use Core\Entity\PermissionsInterface;
 
 /**
@@ -91,11 +91,11 @@ class FileController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\Http\PhpEnvironment\Response
+     * @return \Laminas\Http\PhpEnvironment\Response
      */
     public function indexAction()
     {
-        /* @var \Zend\Http\PhpEnvironment\Response $response */
+        /* @var \Laminas\Http\PhpEnvironment\Response $response */
         $response = $this->getResponse();
         /* @var \Core\Entity\FileEntity $file */
         $file     = $this->getFile();

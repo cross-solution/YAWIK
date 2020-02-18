@@ -12,8 +12,8 @@ namespace Applications\Factory\Form;
 
 use Applications\Form\Element\JobSelect;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for a job select element
@@ -25,7 +25,7 @@ class JobSelectFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var \Zend\Http\PhpEnvironment\Request $request */
+        /* @var \Laminas\Http\PhpEnvironment\Request $request */
         $request = $container->get('Request');
         $query   = $request->getQuery();
         $jobId   = $query->get('job');
@@ -44,7 +44,7 @@ class JobSelectFactory implements FactoryInterface
     
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
+        /* @var \Laminas\ServiceManager\AbstractPluginManager $serviceLocator */
         return $this($serviceLocator, JobSelect::class);
     }
 }

@@ -12,7 +12,7 @@ namespace Organizations\Form;
 
 use Core\Form\ViewPartialProviderInterface;
 use Organizations\Entity\EmployeeInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 
 /**

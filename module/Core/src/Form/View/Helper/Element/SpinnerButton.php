@@ -5,9 +5,9 @@
 
 namespace Core\Form\View\Helper\Element;
 
-use Zend\Form\View\Helper\FormButton;
-use Zend\Form\ElementInterface;
-use Zend\Form\Exception;
+use Laminas\Form\View\Helper\FormButton;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception;
 
 class SpinnerButton extends FormButton
 {

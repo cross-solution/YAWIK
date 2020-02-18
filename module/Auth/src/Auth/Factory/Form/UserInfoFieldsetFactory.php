@@ -11,7 +11,7 @@ namespace Auth\Factory\Form;
 
 use Auth\Options\UserInfoFieldsetOptions;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Factory\Form\AbstractCustomizableFieldsetFactory;

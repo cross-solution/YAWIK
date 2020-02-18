@@ -4,7 +4,7 @@ namespace Core\Repository;
 
 use Core\Entity\EntityInterface;
 use Doctrine\ODM\MongoDB as ODM;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 abstract class AbstractRepository extends ODM\DocumentRepository implements RepositoryInterface
 {

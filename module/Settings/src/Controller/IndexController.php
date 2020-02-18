@@ -15,12 +15,12 @@
 namespace Settings\Controller;
 
 use Interop\Container\ContainerInterface;
-use Zend\I18n\Translator\TranslatorInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
-use Zend\EventManager\Event;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\I18n\Translator\TranslatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
+use Laminas\EventManager\Event;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 
 /**
  * Main Action Controller for Settings module

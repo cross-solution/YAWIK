@@ -12,10 +12,10 @@ namespace Core\Controller;
 
 use Core\Listener\DefaultListener;
 use Interop\Container\ContainerInterface;
-use Zend\ModuleManager\ModuleManager;
-use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\ModuleManager\ModuleManagerInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Main Action Controller for the application.

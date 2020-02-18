@@ -9,7 +9,7 @@
 
 namespace Core\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use Auth\Options\ModuleOptions;
 
 class SocialButtons extends AbstractHelper

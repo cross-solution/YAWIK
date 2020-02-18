@@ -9,7 +9,7 @@
 
 namespace Auth\Form;
 
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 use Core\Form\Form;
 use Core\Form\FileUploadFactory;
 

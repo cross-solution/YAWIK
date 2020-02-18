@@ -12,7 +12,7 @@ namespace Core\Queue\Controller;
 
 use Core\Queue\MongoQueue;
 use SlmQueue\Queue\QueuePluginManager;
-use Zend\Mvc\Console\Controller\AbstractConsoleController;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 
 /**
  * Console controller for list queue jobs.

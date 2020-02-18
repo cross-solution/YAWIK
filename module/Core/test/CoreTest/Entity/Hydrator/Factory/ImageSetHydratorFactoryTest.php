@@ -19,7 +19,7 @@ use Core\Options\ImagineOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Imagine\Image\ImagineInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Entity\Hydrator\Factory\ImageSetHydratorFactory

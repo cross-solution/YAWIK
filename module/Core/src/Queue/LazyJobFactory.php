@@ -12,7 +12,7 @@ namespace Core\Queue;
 
 use Interop\Container\ContainerInterface;
 use SlmQueue\Job\JobPluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Core\Queue\LazyJob

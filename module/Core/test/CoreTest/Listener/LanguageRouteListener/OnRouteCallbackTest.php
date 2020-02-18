@@ -14,12 +14,12 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Options\ModuleOptions;
 use CoreTestUtils\TestCase\SetupTargetTrait;
-use Zend\EventManager\EventManager;
+use Laminas\EventManager\EventManager;
 use Core\Listener\LanguageRouteListener;
-use Zend\EventManager\ResponseCollection;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
+use Laminas\EventManager\ResponseCollection;
+use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Router\RouteMatch;
 use Core\I18n\Locale as LocaleService;
 
 /**

@@ -3,10 +3,10 @@
 namespace Auth\Adapter;
 
 use Interop\Container\ContainerInterface;
-use Zend\Authentication\Adapter\AbstractAdapter;
-use Zend\Authentication\Result;
+use Laminas\Authentication\Adapter\AbstractAdapter;
+use Laminas\Authentication\Result;
 use Auth\Entity\Filter\CredentialFilter;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * This class allows an external application to authenticate via a pre-shared application key and to

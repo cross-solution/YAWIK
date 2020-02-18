@@ -10,8 +10,8 @@
 /** */
 namespace Auth\View\Helper;
 
-use Zend\Authentication\AuthenticationService;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\View\Helper\AbstractHelper;
 use Auth\Entity\User;
 
 /**
@@ -56,7 +56,7 @@ class Auth extends AbstractHelper
     /**
      * Gets the authentication service
      *
-     * @return \Zend\Authentication\AuthenticationService
+     * @return \Laminas\Authentication\AuthenticationService
      */
     public function getService()
     {
@@ -109,7 +109,7 @@ class Auth extends AbstractHelper
     /**
      * Checks if an user is authenticated.
      *
-     * Proxies to \Zend\AuthenticationService\AuthenticationService::hasIdentity()
+     * Proxies to \Laminas\AuthenticationService\AuthenticationService::hasIdentity()
      *
      * @return bool
      * @use getService()

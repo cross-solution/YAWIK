@@ -10,10 +10,10 @@
 /** UsersCollection.php */
 namespace Auth\Form;
 
-use Zend\Form\Element\Collection;
+use Laminas\Form\Element\Collection;
 use Core\Form\ViewPartialProviderInterface;
 use Auth\Repository\User as UserRepository;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Collection to manage the users assigned to an user group.
@@ -81,7 +81,7 @@ class GroupUsersCollection extends Collection implements
     
     /**
      * Initialises the collection.
-     * @see \Zend\Form\Element::init()
+     * @see \Laminas\Form\Element::init()
      */
     public function init()
     {
@@ -105,7 +105,7 @@ class GroupUsersCollection extends Collection implements
     
     /**
      * {@inheritDoc}
-     * @see \Zend\Form\Element\Collection::extract()
+     * @see \Laminas\Form\Element\Collection::extract()
      */
     public function extract()
     {
@@ -118,7 +118,7 @@ class GroupUsersCollection extends Collection implements
     
     /**
      * {@inheritDoc}
-     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     * @see \Laminas\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
     public function getInputFilterSpecification()
     {

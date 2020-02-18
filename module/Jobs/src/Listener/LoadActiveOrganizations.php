@@ -23,7 +23,7 @@ class LoadActiveOrganizations
     /**
      * The paginator.
      *
-     * @var \Zend\Paginator\Paginator
+     * @var \Laminas\Paginator\Paginator
      */
     private $paginator;
 

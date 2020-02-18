@@ -12,7 +12,7 @@ namespace Core\Form\Tree;
 
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\SummaryForm;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Form for tree management
@@ -43,7 +43,7 @@ class ManagementForm extends SummaryForm implements HeadscriptProviderInterface
      * @var array
      */
     protected $attributes = [
-        'method' => 'POST', /* keep default value from \Zend\Form\Form */
+        'method' => 'POST', /* keep default value from \Laminas\Form\Form */
         'class' => 'yk-tree-management-form',
     ];
 

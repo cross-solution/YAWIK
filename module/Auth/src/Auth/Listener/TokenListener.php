@@ -10,9 +10,9 @@
 /** */
 namespace Auth\Listener;
 
-use Zend\EventManager\SharedEventManagerInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\Session\Container as Session;
+use Laminas\EventManager\SharedEventManagerInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Session\Container as Session;
 
 /**
  * This listener checks for query or post parameters "token" and "auth".
@@ -27,7 +27,7 @@ class TokenListener
     /**
      * Callback Handler.
      *
-     * @var \Zend\Stdlib\CallbackHandler
+     * @var \Laminas\Stdlib\CallbackHandler
      */
     protected $listener;
 
@@ -40,8 +40,8 @@ class TokenListener
      */
     public function attachShared(SharedEventManagerInterface $events, $priority = 1000)
     {
-        /* @var $events \Zend\EventManager\SharedEventManager */
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), $priority);
+        /* @var $events \Laminas\EventManager\SharedEventManager */
+        $events->attach('Laminas\Mvc\Application', MvcEvent::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), $priority);
         $this->listener = [$this,'onBootstrap'];
     }
 
@@ -53,7 +53,7 @@ class TokenListener
      */
     public function detachShared(SharedEventManagerInterface $events)
     {
-        if ($events->detach($this->listener,'Zend\Mvc\Application')) {
+        if ($events->detach($this->listener,'Laminas\Mvc\Application')) {
             $this->listener = null;
         }
         return $this;
@@ -61,7 +61,7 @@ class TokenListener
 
     public function onBootstrap(MvcEvent $e)
     {
-        /* @var $request \Zend\Http\Request */
+        /* @var $request \Laminas\Http\Request */
         $request = $e->getRequest();
         
         /*

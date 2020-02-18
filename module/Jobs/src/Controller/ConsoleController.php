@@ -16,10 +16,10 @@ use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\StatusInterface;
 use Jobs\Queue\FindJobsWithExternalImageJob;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ProgressBar\ProgressBar;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\ProgressBar\ProgressBar;
 use Core\Console\ProgressBar as CoreProgressBar;
-use Zend\ProgressBar\Adapter\Console as ConsoleAdapter;
+use Laminas\ProgressBar\Adapter\Console as ConsoleAdapter;
 use Auth\Entity\UserInterface;
 
 class ConsoleController extends AbstractActionController

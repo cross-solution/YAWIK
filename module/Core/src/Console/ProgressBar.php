@@ -10,8 +10,8 @@
 /** ProgressBar.php */
 namespace Core\Console;
 
-use Zend\ProgressBar\ProgressBar as ZfProgressBar;
-use Zend\ProgressBar\Adapter\Console;
+use Laminas\ProgressBar\ProgressBar as ZfProgressBar;
+use Laminas\ProgressBar\Adapter\Console;
 
 class ProgressBar extends ZfProgressBar
 {

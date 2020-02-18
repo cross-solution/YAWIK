@@ -12,7 +12,7 @@ namespace Core\Factory\Service;
 
 use Core\Options\ImagineOptions;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for Imagine service.

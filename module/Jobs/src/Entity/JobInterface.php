@@ -17,7 +17,7 @@ use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
 use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * Interface for a Job Posting

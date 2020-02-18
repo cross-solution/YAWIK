@@ -10,8 +10,8 @@
 /** Rating.php */
 namespace Core\Form\Element;
 
-use Zend\Form\Element;
-use Zend\Form\Element\Date;
+use Laminas\Form\Element;
+use Laminas\Form\Element\Date;
 use Core\Entity\RatingInterface;
 
 /**
@@ -28,7 +28,7 @@ class DatePicker extends Date implements ViewHelperProviderInterface
     protected $helper = 'formDatePicker';
 
     /**
-     * @param string|\Zend\View\Helper\HelperInterface $helper
+     * @param string|\Laminas\View\Helper\HelperInterface $helper
      * @return $this|ViewHelperProviderInterface
      */
     public function setViewHelper($helper)
@@ -38,7 +38,7 @@ class DatePicker extends Date implements ViewHelperProviderInterface
     }
 
     /**
-     * @return string|\Zend\View\Helper\HelperInterface
+     * @return string|\Laminas\View\Helper\HelperInterface
      */
     public function getViewHelper()
     {

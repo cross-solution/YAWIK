@@ -10,8 +10,8 @@
 /**  */
 namespace Core\Form\View\Helper;
 
-use Zend\Form\ElementInterface;
-use Zend\Form\View\Helper\FormText;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormText;
 
 /**
  * View Helper for generating the markup used by bootstrap-datepicker4 elements
@@ -35,11 +35,11 @@ class FormDatePicker extends FormText
 
     public function render(ElementInterface $element = null)
     {
-        /* @var \Zend\View\Renderer\PhpRenderer $view */
+        /* @var \Laminas\View\Renderer\PhpRenderer $view */
         $view = $this->getView();
-        /* @var \Zend\View\Helper\HeadScript $headScript */
+        /* @var \Laminas\View\Helper\HeadScript $headScript */
         $headScript = $view->plugin('headscript');
-        /* @var \Zend\View\Helper\BasePath $basePath */
+        /* @var \Laminas\View\Helper\BasePath $basePath */
 
         $basePath = $view->plugin('basePath');
         $params   = $view->plugin('params'); /* @var \Core\View\Helper\Params $params */

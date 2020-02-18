@@ -26,9 +26,9 @@ use Install\Validator\MongoDbConnectionString;
  */
 class InstallationTest extends TestCase
 {
-    public function testExtendsZendForm()
+    public function testExtendsLaminasForm()
     {
-        $this->assertInstanceOf('\Zend\Form\FormInterface', new Installation());
+        $this->assertInstanceOf('\Laminas\Form\FormInterface', new Installation());
     }
 
     public function testInit()

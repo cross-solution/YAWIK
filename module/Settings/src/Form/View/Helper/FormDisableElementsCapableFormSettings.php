@@ -11,8 +11,8 @@
 namespace Settings\Form\View\Helper;
 
 use Settings\Form\Element\DisableElementsCapableFormSettings;
-use Zend\Form\ElementInterface;
-use Zend\Form\View\Helper\FormInput;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormInput;
 
 /**
  * Renders a disable form elements toggle checkboxes element.
@@ -27,9 +27,9 @@ class FormDisableElementsCapableFormSettings extends FormInput
     public function render(ElementInterface $element)
     {
         /* @var $element DisableElementsCapableFormSettings
-         * @var $renderer   \Zend\View\Renderer\PhpRenderer
-         * @var $headscript \Zend\View\Helper\HeadScript
-         * @var $basepath   \Zend\View\Helper\BasePath */
+         * @var $renderer   \Laminas\View\Renderer\PhpRenderer
+         * @var $headscript \Laminas\View\Helper\HeadScript
+         * @var $basepath   \Laminas\View\Helper\BasePath */
         $renderer   = $this->getView();
         $headscript = $renderer->plugin('headscript');
         $basepath   = $renderer->plugin('basepath');
@@ -78,7 +78,7 @@ class FormDisableElementsCapableFormSettings extends FormInput
      */
     protected function renderCheckbox($box, $class = null)
     {
-        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+        /* @var $renderer \Laminas\View\Renderer\PhpRenderer */
         $renderer = $this->getView();
         if (null !== $class) {
             $box->setAttribute('class', $box->getAttribute('class') . ' ' . $class);

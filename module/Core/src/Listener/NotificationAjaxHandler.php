@@ -11,9 +11,9 @@
 namespace Core\Listener;
 
 use Core\Listener\Events\NotificationEvent;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 
 class NotificationAjaxHandler
 {

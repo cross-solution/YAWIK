@@ -12,14 +12,14 @@ namespace Core\Mail;
 
 use Core\Factory\ContainerAwareInterface;
 use Interop\Container\ContainerInterface;
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\Mail\Address;
-use Zend\Mail\AddressList;
-use Zend\Mail\Message as MailMessage;
-use Zend\Mail\Transport\TransportInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\Mail\Address;
+use Laminas\Mail\AddressList;
+use Laminas\Mail\Message as MailMessage;
+use Laminas\Mail\Transport\TransportInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\ConfigInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Mail Plugin Manager
@@ -73,7 +73,7 @@ class MailService extends AbstractPluginManager
     protected $shareByDefault = false;
 
     protected $invokableClasses = array(
-        'simple'         => '\Zend\Mail\Message',
+        'simple'         => '\Laminas\Mail\Message',
         'stringtemplate' => '\Core\Mail\StringTemplateMessage',
     );
 
@@ -139,7 +139,7 @@ class MailService extends AbstractPluginManager
         if (!$plugin instanceof MailMessage) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'Expected instance of \Zend\Mail\Message but received %s',
+                    'Expected instance of \Laminas\Mail\Message but received %s',
                     get_class($plugin)
                 )
             );
@@ -227,7 +227,7 @@ class MailService extends AbstractPluginManager
         }
 
         if (!$headers->has('X-Mailer')) {
-            $mailerHeader = new \Zend\Mail\Header\GenericHeader('X-Mailer', $this->getMailer());
+            $mailerHeader = new \Laminas\Mail\Header\GenericHeader('X-Mailer', $this->getMailer());
             $headers->addHeader($mailerHeader);
             $mailerHeader->setEncoding('ASCII'); // get rid of other encodings for this header!
         }

@@ -16,10 +16,10 @@ use Jobs\Entity\Location;
 use Jobs\Entity\TemplateValues;
 use Organizations\Entity\Employee;
 use Psr\Container\ContainerInterface;
-use Zend\Json\Json;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Model\JsonModel;
+use Laminas\Json\Json;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Model\JsonModel;
 use Core\Entity\PermissionsInterface;
 use Jobs\Listener\Events\JobEvent;
 use Jobs\Listener\Response\JobResponse;
@@ -53,7 +53,7 @@ class ImportController extends AbstractActionController
     {
         $services = $this->serviceLocator;
 
-        /* @var \Zend\Http\PhpEnvironment\Request $request */
+        /* @var \Laminas\Http\PhpEnvironment\Request $request */
         $request = $this->getRequest();
 
         $params          = $this->params();
@@ -183,7 +183,7 @@ class ImportController extends AbstractActionController
                         }
 
                         if (!empty($params->locations)) {
-                            $locations = \Zend\Json\Json::decode($params->locations, \Zend\Json\Json::TYPE_ARRAY);
+                            $locations = \Laminas\Json\Json::decode($params->locations, \Laminas\Json\Json::TYPE_ARRAY);
                             $jobLocations = $entity->getLocations();
                             $jobLocations->clear();
                             foreach ($locations as $locData) {
@@ -232,7 +232,7 @@ class ImportController extends AbstractActionController
                             $jobEvent->setParam('extraData', $extra);
 
                             if ($createdJob || true) {
-                                /* @var $jobEvents \Zend\EventManager\EventManager */
+                                /* @var $jobEvents \Laminas\EventManager\EventManager */
                                 $jobEvents = $services->get('Jobs/Events');
                                 $jobEvent->setName(JobEvent::EVENT_JOB_ACCEPTED);
                                 $jobEvent->setTarget($this);

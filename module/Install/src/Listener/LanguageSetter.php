@@ -10,10 +10,10 @@
 /** */
 namespace Install\Listener;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\CallbackHandler;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\CallbackHandler;
 
 /**
  * Detects user language based on query parameter and/or browser settings.
@@ -58,7 +58,7 @@ class LanguageSetter implements ListenerAggregateInterface
      */
     public function onRoute(MvcEvent $e)
     {
-        /* @var $request \Zend\Http\PhpEnvironment\Request */
+        /* @var $request \Laminas\Http\PhpEnvironment\Request */
         $request = $e->getRequest();
 
         /* Detect language */
@@ -67,7 +67,7 @@ class LanguageSetter implements ListenerAggregateInterface
         if (!$lang) {
             $headers = $request->getHeaders();
             if ($headers->has('Accept-Language')) {
-                /* @var $acceptLangs \Zend\Http\Header\AcceptLanguage */
+                /* @var $acceptLangs \Laminas\Http\Header\AcceptLanguage */
                 $acceptLangs = $headers->get('Accept-Language');
                 $locales = $acceptLangs->getPrioritized();
                 $locale  = $locales[0];
@@ -100,7 +100,7 @@ class LanguageSetter implements ListenerAggregateInterface
             $routeMatch->setParam('lang', $lang);
         }
 
-        /* @var $router \Zend\Mvc\Router\SimpleRouteStack */
+        /* @var $router \Laminas\Mvc\Router\SimpleRouteStack */
         $router = $e->getRouter();
         $router->setDefaultParam('lang', $lang);
     }

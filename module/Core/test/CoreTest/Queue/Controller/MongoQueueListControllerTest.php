@@ -17,10 +17,10 @@ use Core\Queue\MongoQueue;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use SlmQueue\Job\AbstractJob;
 use SlmQueue\Queue\QueuePluginManager;
-use Zend\Console\Adapter\AdapterInterface;
-use Zend\Console\Console;
-use Zend\Mvc\Console\Controller\AbstractConsoleController;
-use Zend\Mvc\Controller\Plugin\Params;
+use Laminas\Console\Adapter\AdapterInterface;
+use Laminas\Console\Console;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
+use Laminas\Mvc\Controller\Plugin\Params;
 
 /**
  * Tests for \Core\Queue\Controller\MongoQueueListController

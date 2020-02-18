@@ -4,7 +4,7 @@ namespace ApplicationsTest\Factory;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 use Applications\Factory\ModuleOptionsFactory;
 use Applications\Options\ModuleOptions;
 

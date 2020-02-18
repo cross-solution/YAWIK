@@ -84,7 +84,7 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
      *
      * @param string $key
      * @param mixed  $value
-     * @return \Zend\Form\Element|\Zend\Form\ElementInterface
+     * @return \Laminas\Form\Element|\Laminas\Form\ElementInterface
      */
     public function setAttribute($key, $value)
     {

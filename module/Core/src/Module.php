@@ -19,22 +19,22 @@ use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\Options\ModuleOptions;
 use Yawik\Composer\RequireDirectoryPermissionInterface;
 use Yawik\Composer\RequireFilePermissionInterface;
-use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
-use Zend\ModuleManager\ModuleEvent;
-use Zend\ModuleManager\ModuleManager;
-use Zend\Mvc\MvcEvent;
+use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Laminas\ModuleManager\ModuleEvent;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\Mvc\MvcEvent;
 use Core\Listener\LanguageRouteListener;
 use Core\Listener\AjaxRenderListener;
 use Core\Listener\XmlRenderListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
-use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
-use Zend\Console\Adapter\AdapterInterface as Console;
+use Laminas\ModuleManager\Feature\ConsoleBannerProviderInterface;
+use Laminas\Console\Adapter\AdapterInterface as Console;
 use Core\Listener\ErrorHandlerListener;
 use Core\Listener\NotificationAjaxHandler;
 use Core\Listener\Events\NotificationEvent;
 use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Bootstrap class of the Core module
@@ -48,7 +48,7 @@ class Module implements
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.33.22';
+    const VERSION = '0.34.0';
 
     /**
      * @param ModuleOptions $options
@@ -130,11 +130,11 @@ class Module implements
 
         $sm = $e->getApplication()->getServiceManager();
         $translator = $sm->get('translator'); // initialize translator!
-        \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
+        \Laminas\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
 
-        if (!\Zend\Console\Console::isConsole()) {
+        if (!\Laminas\Console\Console::isConsole()) {
             (new ErrorHandlerListener())->attach($eventManager);
 
             /* @var \Core\Options\ModuleOptions $options */

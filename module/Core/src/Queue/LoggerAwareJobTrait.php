@@ -12,7 +12,7 @@ declare(strict_types=1);
 /** */
 namespace Core\Queue;
 
-use Zend\Log\LoggerInterface;
+use Laminas\Log\LoggerInterface;
 
 /**
  * Trait implementing LoggerAwareInterface.

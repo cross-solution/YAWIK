@@ -10,10 +10,10 @@
 /** FileAccessAssertion.php */
 namespace Core\Acl;
 
-use Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Assertion\AssertionInterface;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 use Core\Entity\FileInterface;
 use Auth\Entity\UserInterface;
 use Core\Entity\PermissionsInterface;
@@ -26,7 +26,7 @@ use Core\Entity\PermissionsInterface;
 class FileAccessAssertion implements AssertionInterface
 {
     /* (non-PHPdoc)
-     * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
+     * @see \Laminas\Permissions\Acl\Assertion\AssertionInterface::assert()
      */
     public function assert(
         Acl $acl,

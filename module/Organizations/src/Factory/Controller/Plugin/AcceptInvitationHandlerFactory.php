@@ -12,7 +12,7 @@ namespace Organizations\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\Plugin\AcceptInvitationHandler;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for an InvitationHandler.

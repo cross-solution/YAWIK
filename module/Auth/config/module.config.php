@@ -51,7 +51,7 @@ return [
 
     'service_manager' => [
         'invokables' => [
-            'SessionManager' => '\Zend\Session\SessionManager',
+            'SessionManager' => '\Laminas\Session\SessionManager',
             'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
             'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
             'Auth\Form\LoginInputFilter' => 'Auth\Form\LoginInputFilter',

@@ -11,12 +11,12 @@
 namespace Acl\Assertion;
 
 use Interop\Container\ContainerInterface;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\Permissions\Acl\Assertion\AssertionInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Plugin manager for assertions.
@@ -68,11 +68,11 @@ class AssertionManager extends AbstractPluginManager
 	    $container = $this->container;
         $events = $assertion->getEventManager();
         if (!$events instanceof EventManagerInterface) {
-            $events = $container->get('EventManager'); /* @var $events \Zend\EventManager\EventManagerInterface */
+            $events = $container->get('EventManager'); /* @var $events \Laminas\EventManager\EventManagerInterface */
             $assertion->setEventManager($events);
         } else {
         	//@TODO: [ZF3] setSharedManager method now is removed
-            //$sharedEvents = $container->get('SharedEventManager'); /* @var $sharedEvents \Zend\EventManager\SharedEventManagerInterface */
+            //$sharedEvents = $container->get('SharedEventManager'); /* @var $sharedEvents \Laminas\EventManager\SharedEventManagerInterface */
             //$events->setSharedManager($sharedEvents);
         }
     }

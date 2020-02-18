@@ -11,8 +11,8 @@
 namespace Jobs\Form\Element;
 
 use Core\Form\Element\Select;
-use Zend\Form\Element;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Form\Element;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * ${CARET}

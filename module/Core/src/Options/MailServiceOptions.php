@@ -10,8 +10,8 @@
 /** */
 namespace Core\Options;
 
-use Zend\Mail\Transport\FileOptions;
-use Zend\Mail\Transport\SmtpOptions;
+use Laminas\Mail\Transport\FileOptions;
+use Laminas\Mail\Transport\SmtpOptions;
 
 /**
  * ${CARET}
@@ -28,7 +28,7 @@ class MailServiceOptions extends SmtpOptions
     protected $name = 'localhost';
 
     /**
-     * Fully-qualified classname or short name resolvable via Zend\Mail\Protocol\SmtpLoader.
+     * Fully-qualified classname or short name resolvable via Laminas\Mail\Protocol\SmtpLoader.
      * Typically, this will be one of “smtp”, “plain”, “login”, or “crammd5”, and defaults to “smtp”.
      *
      * @var string $connectionClass

@@ -13,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Entity\User;
 use Auth\Form\RegisterInputFilter;
-use Zend\Filter\FilterChain;
-use Zend\Validator\ValidatorChain;
+use Laminas\Filter\FilterChain;
+use Laminas\Validator\ValidatorChain;
 
 class RegisterInputFilterTest extends TestCase
 {
@@ -30,7 +30,7 @@ class RegisterInputFilterTest extends TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Zend\InputFilter\InputFilter', $this->testedObject);
+        $this->assertInstanceOf('Laminas\InputFilter\InputFilter', $this->testedObject);
     }
 
     public function testParametersOfRegisterFieldsetNameElement()
@@ -43,16 +43,16 @@ class RegisterInputFilterTest extends TestCase
         /** @var FilterChain $filterChain */
         $filterChain = $input->getFilterChain();
         $filters = $filterChain->getFilters()->toArray();
-        $this->assertInstanceOf('Zend\Filter\StripTags', $filters[0]);
-        $this->assertInstanceOf('Zend\Filter\StringTrim', $filters[1]);
+        $this->assertInstanceOf('Laminas\Filter\StripTags', $filters[0]);
+        $this->assertInstanceOf('Laminas\Filter\StringTrim', $filters[1]);
 
         /** @var ValidatorChain $validatorChain */
         $validatorChain = $input->getValidatorChain();
         $validators = $validatorChain->getValidators();
 
-        /** @var \Zend\Validator\StringLength $firstValidator */
+        /** @var \Laminas\Validator\StringLength $firstValidator */
         $firstValidator = $validators[0]['instance'];
-        $this->assertInstanceOf('Zend\Validator\StringLength', $firstValidator);
+        $this->assertInstanceOf('Laminas\Validator\StringLength', $firstValidator);
         $this->assertEquals($firstValidator->getMin(), 3);
         $this->assertEquals($firstValidator->getMax(), 255);
         $this->assertEquals($firstValidator->getOption('encoding'), 'UTF-8');
@@ -95,16 +95,16 @@ class RegisterInputFilterTest extends TestCase
         /** @var FilterChain $filterChain */
         $filterChain = $input->getFilterChain();
         $filters = $filterChain->getFilters()->toArray();
-        $this->assertInstanceOf('Zend\Filter\StripTags', $filters[0]);
-        $this->assertInstanceOf('Zend\Filter\StringTrim', $filters[1]);
+        $this->assertInstanceOf('Laminas\Filter\StripTags', $filters[0]);
+        $this->assertInstanceOf('Laminas\Filter\StringTrim', $filters[1]);
 
         /** @var ValidatorChain $validatorChain */
         $validatorChain = $input->getValidatorChain();
         $validators = $validatorChain->getValidators();
 
-        /** @var \Zend\Validator\EmailAddress $firstValidator */
+        /** @var \Laminas\Validator\EmailAddress $firstValidator */
         $firstValidator = $validators[0]['instance'];
-        $this->assertInstanceOf('Zend\Validator\EmailAddress', $firstValidator);
+        $this->assertInstanceOf('Laminas\Validator\EmailAddress', $firstValidator);
     }
 
     public function testParametersOfRegisterFieldsetRoleElement()
@@ -117,16 +117,16 @@ class RegisterInputFilterTest extends TestCase
         /** @var FilterChain $filterChain */
         $filterChain = $input->getFilterChain();
         $filters = $filterChain->getFilters()->toArray();
-        $this->assertInstanceOf('Zend\Filter\StripTags', $filters[0]);
-        $this->assertInstanceOf('Zend\Filter\StringTrim', $filters[1]);
+        $this->assertInstanceOf('Laminas\Filter\StripTags', $filters[0]);
+        $this->assertInstanceOf('Laminas\Filter\StringTrim', $filters[1]);
 
         /** @var ValidatorChain $validatorChain */
         $validatorChain = $input->getValidatorChain();
         $validators = $validatorChain->getValidators();
 
-        /** @var \Zend\Validator\InArray $firstValidator */
+        /** @var \Laminas\Validator\InArray $firstValidator */
         $firstValidator = $validators[0]['instance'];
-        $this->assertInstanceOf('Zend\Validator\InArray', $firstValidator);
+        $this->assertInstanceOf('Laminas\Validator\InArray', $firstValidator);
         $this->assertSame(array(User::ROLE_RECRUITER, User::ROLE_USER), $firstValidator->getHaystack());
     }
 }

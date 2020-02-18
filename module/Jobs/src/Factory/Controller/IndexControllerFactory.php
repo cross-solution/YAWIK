@@ -13,9 +13,9 @@ use Interop\Container\ContainerInterface;
 use Jobs\Controller\IndexController;
 use Jobs\Form\ListFilter;
 use Jobs\Repository;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\ControllerManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class IndexControllerFactory implements FactoryInterface
 {

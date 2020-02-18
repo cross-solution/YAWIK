@@ -9,12 +9,12 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormRow as ZendFormRow;
-use Zend\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormRow as LaminasFormRow;
+use Laminas\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\Element\Button;
+use Laminas\Form\Element\Button;
 
-class FormRow extends ZendFormRow
+class FormRow extends LaminasFormRow
 {
     protected $layout;
     protected $shouldWrap = true;
@@ -37,7 +37,7 @@ class FormRow extends ZendFormRow
      *
      * @param ElementInterface $element
      * @return string
-     * @throws \Zend\Form\Exception\DomainException
+     * @throws \Laminas\Form\Exception\DomainException
      */
     public function render(ElementInterface $element, $ignoreViewPartial = false)
     {
@@ -121,8 +121,8 @@ class FormRow extends ZendFormRow
             );
         }
         
-        if (!$element instanceof \Zend\Form\Element\Hidden
-            && !$element instanceof \Zend\Form\Element\Button
+        if (!$element instanceof \Laminas\Form\Element\Hidden
+            && !$element instanceof \Laminas\Form\Element\Button
             && $this->layout != Form::LAYOUT_BARE
         ) {
             $elementString .= sprintf(
@@ -134,7 +134,7 @@ class FormRow extends ZendFormRow
         
         // moved label here so we can change it in the ElementViewHelper
         $label           = $element->getLabel();
-        if (isset($label) && '' !== $label && !$element instanceof \Zend\Form\Element\Button) {
+        if (isset($label) && '' !== $label && !$element instanceof \Laminas\Form\Element\Button) {
             // Translate the label
             if (null !== ($translator = $this->getTranslator())) {
                 $label = $translator->translate(
@@ -194,8 +194,8 @@ class FormRow extends ZendFormRow
             }
         } else {
             if ($this->shouldWrap
-                && !$element instanceof \Zend\Form\Element\Hidden
-                && !$element instanceof \Zend\Form\Element\Button
+                && !$element instanceof \Laminas\Form\Element\Hidden
+                && !$element instanceof \Laminas\Form\Element\Button
                 && $this->layout != Form::LAYOUT_BARE
                 ) {
                 $elementString = sprintf(
@@ -206,8 +206,8 @@ class FormRow extends ZendFormRow
             $markup = $elementString;
         }
         if ($this->shouldWrap
-            && !$element instanceof \Zend\Form\Element\Hidden
-            && !$element instanceof \Zend\Form\Element\Button
+            && !$element instanceof \Laminas\Form\Element\Hidden
+            && !$element instanceof \Laminas\Form\Element\Button
             && $this->layout != Form::LAYOUT_BARE
             ) {
             $markup = sprintf('<div class="controls controls-row ' . $form_row_class . '">%s</div>', $markup);

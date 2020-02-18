@@ -10,7 +10,7 @@
 /** */
 namespace Settings\Form\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 
 /**
  * Filter to convert element value to config value.
@@ -22,7 +22,7 @@ class DisableElementsCapableFormSettings implements FilterInterface
     /**
      * Filters the data array format from the form element to the config array format.
      *
-     * @internal Serializes the config array due to code in \Zend\Form\Form::prepareBindData
+     * @internal Serializes the config array due to code in \Laminas\Form\Form::prepareBindData
      *
      * @param  array $value
      *

@@ -11,8 +11,8 @@
 namespace Jobs\Form;
 
 use Jobs\Entity\Status;
-use Zend\Form\Fieldset;
-use Zend\Form\FormInterface;
+use Laminas\Form\Fieldset;
+use Laminas\Form\FormInterface;
 
 /**
  * Defines the formular fields of the job opening search formular

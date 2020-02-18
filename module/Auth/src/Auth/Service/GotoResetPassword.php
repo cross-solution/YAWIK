@@ -16,7 +16,7 @@ use Auth\Service\Exception\TokenExpirationDateExpiredException;
 use Auth\Service\Exception\UserNotFoundException;
 use Core\Controller\Plugin;
 use Core\Repository\RepositoryService;
-use Zend\Authentication\AuthenticationService;
+use Laminas\Authentication\AuthenticationService;
 
 class GotoResetPassword
 {

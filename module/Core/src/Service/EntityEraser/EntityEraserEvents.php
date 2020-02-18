@@ -11,8 +11,8 @@
 namespace Core\Service\EntityEraser;
 
 use Core\EventManager\EventManager as CoreEventManager;
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\SharedEventManagerInterface;
+use Laminas\EventManager\EventInterface;
+use Laminas\EventManager\SharedEventManagerInterface;
 
 /**
  * EventManager for Dependency events.
@@ -49,7 +49,7 @@ class EntityEraserEvents extends CoreEventManager
      * @param EventInterface $event
      * @param callable|null  $callback
      *
-     * @return \Zend\EventManager\ResponseCollection
+     * @return \Laminas\EventManager\ResponseCollection
      * @throws \InvalidArgumentException if the event is not an instance of DependencyResultEvent
      */
     protected function triggerListeners(EventInterface $event, callable $callback = null)

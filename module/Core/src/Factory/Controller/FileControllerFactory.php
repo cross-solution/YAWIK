@@ -10,7 +10,7 @@
 namespace Core\Factory\Controller;
 use Core\Controller\FileController;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Creates new FileController object

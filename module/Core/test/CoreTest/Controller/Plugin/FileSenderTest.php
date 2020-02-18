@@ -17,7 +17,7 @@ use Core\Entity\FileEntity;
 use Core\Repository\RepositoryService;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Interop\Container\ContainerInterface;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  * Class FileSenderTest

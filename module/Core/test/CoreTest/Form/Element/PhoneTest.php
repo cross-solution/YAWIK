@@ -12,7 +12,7 @@ namespace CoreTest\Form\Element;
 use PHPUnit\Framework\TestCase;
 
 use Core\Form\Element\Phone;
-use Zend\Validator\Regex as RegexValidator;
+use Laminas\Validator\Regex as RegexValidator;
 
 /**
 * @covers \Core\Form\Element\Phone
@@ -32,7 +32,7 @@ class PhoneTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\Element\Phone', $this->target);
-        $this->assertInstanceOf('Zend\Form\Element', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Element', $this->target);
     }
 
     public function testSetGetValidator()
@@ -50,7 +50,7 @@ class PhoneTest extends TestCase
             ['name' => $this->target->getName(),
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim'),
+                array('name' => 'Laminas\Filter\StringTrim'),
             ),
             'validators' => array(
                 $this->target->getValidator(),

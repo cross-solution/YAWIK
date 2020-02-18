@@ -10,7 +10,7 @@
 /** TextTemplateMessage.php */
 namespace Core\Mail;
 
-use Zend\Mail\Header;
+use Laminas\Mail\Header;
 
 /**
  * Class StringTemplateMessage
@@ -86,7 +86,7 @@ class StringTemplateMessage extends TranslatorAwareMessage
                     )
                 );
             }
-            $variables = \Zend\Stdlib\ArrayUtils::iteratorToArray($variables);
+            $variables = \Laminas\Stdlib\ArrayUtils::iteratorToArray($variables);
         }
         
         $this->variables = array_merge($this->variables, $variables);

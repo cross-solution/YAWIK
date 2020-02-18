@@ -13,12 +13,12 @@ namespace Jobs\Factory\View\Helper;
 use Core\View\Helper\Params;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Jobs\View\Helper\JobUrl;
-use Zend\View\Helper\ServerUrl;
-use Zend\View\Helper\Url;
+use Laminas\View\Helper\ServerUrl;
+use Laminas\View\Helper\Url;
 
 /**
  * Factory for JobUrl view helper

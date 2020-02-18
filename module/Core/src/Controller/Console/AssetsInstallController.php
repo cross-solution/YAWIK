@@ -16,8 +16,8 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Yawik\Composer\AssetsInstaller;
-use Zend\ModuleManager\ModuleManager;
-use Zend\Mvc\Console\Controller\AbstractConsoleController;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 
 /**
  * Class AssetsInstallController
@@ -110,7 +110,7 @@ class AssetsInstallController extends AbstractConsoleController
 
     public function indexAction()
     {
-        /* @var \Zend\Console\Request $request */
+        /* @var \Laminas\Console\Request $request */
         $modules        = $this->modules;
         $request        = $this->getRequest();
         $symlink        = $request->getParam('symlink');

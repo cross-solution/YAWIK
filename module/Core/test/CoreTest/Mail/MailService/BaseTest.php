@@ -15,10 +15,10 @@ use PHPUnit\Framework\TestCase;
 use Core\Mail\HTMLTemplateMessage;
 use Core\Mail\MailService;
 use Core\Mail\MailServiceConfig;
-use Zend\Mail\Address;
-use Zend\Mail\AddressList;
-use Zend\Mail\Message;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mail\Address;
+use Laminas\Mail\AddressList;
+use Laminas\Mail\Message;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests base behaviour of MailService manager
@@ -46,12 +46,12 @@ class BaseTest extends TestCase
     }
     
     /**
-     * @testdox Extends \Zend\ServiceManager\AbstractPluginmanager
+     * @testdox Extends \Laminas\ServiceManager\AbstractPluginmanager
      * @coversNothing
      */
     public function testExtendsAbstractPluginManager()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\AbstractPluginManager', new MailService($this->serviceManager));
+        $this->assertInstanceOf('\Laminas\ServiceManager\AbstractPluginManager', new MailService($this->serviceManager));
     }
 
     /**
@@ -62,7 +62,7 @@ class BaseTest extends TestCase
     {
         $target = new MailService($this->serviceManager);
         $defaultInvokables = array(
-            'simple' => '\Zend\Mail\Message',
+            'simple' => '\Laminas\Mail\Message',
             'stringtemplate' => '\Core\Mail\StringTemplateMessage',
         );
         $factories = array(
@@ -83,11 +83,11 @@ class BaseTest extends TestCase
             )
         ));
 
-        $translator = $this->getMockBuilder('\Zend\I18n\Translator\Translator')
+        $translator = $this->getMockBuilder('\Laminas\I18n\Translator\Translator')
                            ->disableOriginalConstructor()
                            ->getMock();
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
         
@@ -114,7 +114,7 @@ class BaseTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Expected instance of \Zend\Mail\Message
+     * @expectedExceptionMessage Expected instance of \Laminas\Mail\Message
      */
     public function testValidatesMailPlugins()
     {
@@ -127,12 +127,12 @@ class BaseTest extends TestCase
     }
 
     /**
-     * @testdox Allows setting and getting a \Zend\Mail\Transport\TransportInterface
+     * @testdox Allows setting and getting a \Laminas\Mail\Transport\TransportInterface
      */
     public function testSetAndGetTransport()
     {
         $target = new MailService($this->serviceManager);
-        $transport = $this->getMockForAbstractClass('\Zend\Mail\Transport\TransportInterface');
+        $transport = $this->getMockForAbstractClass('\Laminas\Mail\Transport\TransportInterface');
 
         $target->setTransport($transport);
 

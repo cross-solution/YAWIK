@@ -18,9 +18,9 @@ use Applications\Options\ModuleOptions;
 use Organizations\Entity\Employee;
 use Organizations\Entity\EmployeeInterface;
 use Organizations\Entity\WorkflowSettings;
-use Zend\Mail\AddressList;
-use Zend\Mvc\I18n\Translator;
-use Zend\Session\Container;
+use Laminas\Mail\AddressList;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\Session\Container;
 
 /**
  * Status Change Listener is called by the event \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_STATUS_CHANGE

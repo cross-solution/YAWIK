@@ -27,15 +27,15 @@ class AtsModeFieldsetTest extends TestCase
 {
 
     /**
-     * @testdox Extends \Zend\Form\Fieldset and implements \Core\Form\ViewPartialProviderInterface and \Zend\InputFilter\InputFilterProviderInterface
+     * @testdox Extends \Laminas\Form\Fieldset and implements \Core\Form\ViewPartialProviderInterface and \Laminas\InputFilter\InputFilterProviderInterface
      */
     public function testExtendsFieldsetAndImplementsRequiredInterfaces()
     {
         $target = new AtsModeFieldset();
 
-        $this->assertInstanceOf('\Zend\Form\Fieldset', $target);
+        $this->assertInstanceOf('\Laminas\Form\Fieldset', $target);
         $this->assertInstanceOf('\Core\Form\ViewPartialProviderInterface', $target);
-        $this->assertInstanceOf('\Zend\InputFilter\InputFilterProviderInterface', $target);
+        $this->assertInstanceOf('\Laminas\InputFilter\InputFilterProviderInterface', $target);
     }
 
     public function testProvidesADefaultViewPartialName()

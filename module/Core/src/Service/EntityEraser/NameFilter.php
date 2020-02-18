@@ -10,7 +10,7 @@
 /** */
 namespace Core\Service\EntityEraser;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 
 /**
  * Filter to map route parameters to repository names.

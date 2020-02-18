@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Log\Processor\ProcessId;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Log\Processor\ProcessorInterface;
+use Laminas\Log\Processor\ProcessorInterface;
 
 /**
  * Tests for \Core\Log\Processor\ProcessId

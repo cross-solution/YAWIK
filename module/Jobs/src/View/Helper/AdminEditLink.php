@@ -11,8 +11,8 @@
 namespace Jobs\View\Helper;
 
 use Jobs\Entity\JobInterface;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * ${CARET}
@@ -32,14 +32,14 @@ class AdminEditLink extends AbstractHelper
     /**
      * Url view helper
      *
-     * @var \Zend\View\Helper\Url
+     * @var \Laminas\View\Helper\Url
      */
     private $urlHelper;
 
     /**
      * Creates an instance.
      *
-     * @param \Zend\View\Helper\Url $urlHelper
+     * @param \Laminas\View\Helper\Url $urlHelper
      * @param string $returnUrl
      */
     public function __construct($urlHelper, $returnUrl)

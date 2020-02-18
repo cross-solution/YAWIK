@@ -10,7 +10,7 @@
 /** PermissionsFieldset.php */
 namespace Core\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Auth\Entity\UserInterface;
 
 class PermissionsFieldset extends Fieldset implements ViewPartialProviderInterface

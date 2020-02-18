@@ -12,7 +12,7 @@ namespace OrganizationsTest\Factory\Auth\Dependency;
 use PHPUnit\Framework\TestCase;
 
 use Organizations\Factory\Auth\Dependency\ListListenerFactory;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Organizations\Auth\Dependency\ListListener;
 use Organizations\Repository\Organization as Repository;
 

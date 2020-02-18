@@ -14,9 +14,9 @@ use Core\Form\Hydrator\HydratorStrategyProviderInterface;
 use Core\Form\Hydrator\HydratorStrategyProviderTrait;
 use Traversable;
 use Core\Form\Element\Select as ZfSelect;
-use Zend\Form\Element;
-use Zend\Form\ElementInterface;
-use Zend\Form\Exception;
+use Laminas\Form\Element;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception;
 
 /**
  * Select element for tree values.

@@ -12,7 +12,7 @@ namespace Core\Controller\Plugin;
 
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Class FileSender

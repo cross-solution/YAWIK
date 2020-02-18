@@ -11,9 +11,9 @@
 namespace Cv\Controller;
 
 use Cv\Repository\Cv as CvRepository;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 
 /**
  * ${CARET}

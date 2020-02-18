@@ -13,9 +13,9 @@ namespace Core\Entity\Hydrator\Factory;
 use Core\Entity\Hydrator\ImageSetHydrator;
 use Core\Options\ImageSetOptions;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for \Core\Entity\Hydrator\ImageSetHydrator

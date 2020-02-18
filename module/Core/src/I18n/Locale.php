@@ -9,8 +9,8 @@
 
 namespace Core\I18n;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Http\Request;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Http\Request;
 use Auth\Entity\UserInterface as User;
 
 class Locale

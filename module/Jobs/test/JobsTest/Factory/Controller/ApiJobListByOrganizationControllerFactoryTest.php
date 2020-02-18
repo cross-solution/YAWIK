@@ -12,7 +12,7 @@ namespace JobsTest\Factory\Controller;
 use PHPUnit\Framework\TestCase;
 
 use Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 use CoreTest\Bootstrap;
 
 /**

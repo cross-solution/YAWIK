@@ -13,7 +13,7 @@ namespace Jobs\Listener;
 use Auth\Entity\UserInterface;
 use Core\Listener\Events\AjaxEvent;
 use Jobs\Repository\Job;
-use Zend\Permissions\Acl\AclInterface;
+use Laminas\Permissions\Acl\AclInterface;
 
 /**
  * Ajax event listener for deleting jobs.
@@ -40,7 +40,7 @@ class DeleteJob
     /**
      * ACL service
      *
-     * @var \Zend\Permissions\Acl\AclInterface
+     * @var \Laminas\Permissions\Acl\AclInterface
      */
     private $acl;
 

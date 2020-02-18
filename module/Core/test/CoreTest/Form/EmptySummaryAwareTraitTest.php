@@ -61,11 +61,11 @@ class EmptySummaryAwareTraitTest extends TestCase
     }
 }
 
-class EmptySummaryAwareTraitMock extends \Zend\Form\Fieldset
+class EmptySummaryAwareTraitMock extends \Laminas\Form\Fieldset
 {
     use EmptySummaryAwareTrait;
 }
-class EmptySummaryAwareTraitWithDefaultNoticeMock extends \Zend\Form\Fieldset
+class EmptySummaryAwareTraitWithDefaultNoticeMock extends \Laminas\Form\Fieldset
 {
     private $defaultEmptySummaryNotice = 'defaultNotice';
     use EmptySummaryAwareTrait;

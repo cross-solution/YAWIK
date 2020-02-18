@@ -10,7 +10,7 @@
 /** JsonSearchResult.php */
 namespace Auth\Entity\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 use Auth\Entity\User;
 
 /**
@@ -24,7 +24,7 @@ class UserToSearchResult implements FilterInterface
      * Filters an user to a search result array.
      *
      * @return array
-     * @see \Zend\Filter\FilterInterface::filter()
+     * @see \Laminas\Filter\FilterInterface::filter()
      */
     public function filter($value)
     {

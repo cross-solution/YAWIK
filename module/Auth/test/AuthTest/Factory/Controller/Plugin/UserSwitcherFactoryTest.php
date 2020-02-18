@@ -17,7 +17,7 @@ use Auth\AuthenticationService;
 use Auth\Factory\Controller\Plugin\UserSwitcherFactory;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Auth\Factory\Controller\Plugin\USerSwitcherFactory

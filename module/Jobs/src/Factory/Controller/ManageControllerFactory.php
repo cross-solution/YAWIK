@@ -12,7 +12,7 @@ namespace Jobs\Factory\Controller;
 use Interop\Container\ContainerInterface;
 use Jobs\Controller\ManageController;
 use Core\Repository\RepositoryService;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ManageControllerFactory implements FactoryInterface
 {

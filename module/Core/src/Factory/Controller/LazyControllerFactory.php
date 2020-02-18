@@ -12,12 +12,12 @@ namespace Core\Factory\Controller;
 use Core\EventManager\EventManager;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\Mvc\I18n\Translator;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
-use Zend\Validator\ValidatorPluginManager;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\ModuleManager\ModuleManagerInterface;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\Validator\ValidatorPluginManager;
 
 /**
  * Install module main controller.

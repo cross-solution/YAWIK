@@ -35,7 +35,7 @@ class EmployeeFieldsetTest extends TestCase
     {
         $target = new EmployeeFieldset();
 
-        $this->assertInstanceOf('\Zend\Form\Fieldset', $target);
+        $this->assertInstanceOf('\Laminas\Form\Fieldset', $target);
         $this->assertInstanceOf('\Core\Form\ViewPartialProviderInterface', $target);
     }
 

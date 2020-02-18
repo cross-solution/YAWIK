@@ -2,7 +2,7 @@
 
 namespace Core\Mail;
 
-use Zend\Mail\Message;
+use Laminas\Mail\Message;
 
 class Mail extends Message
 {

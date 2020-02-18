@@ -10,7 +10,7 @@
 /** */
 namespace Core\Form;
 
-use Zend\Form\Element;
+use Laminas\Form\Element;
 
 /**
  * A wizard style form container.
@@ -100,7 +100,7 @@ class WizardContainer extends Container implements HeadscriptProviderInterface, 
      * @param string $key
      * @param bool   $asInstance if false, the specification array is returned.
      *
-     * @return Container|null|\Zend\Form\FormInterface|array
+     * @return Container|null|\Laminas\Form\FormInterface|array
      * @throws \UnexpectedValueException
      */
     public function getForm($key, $asInstance = true)

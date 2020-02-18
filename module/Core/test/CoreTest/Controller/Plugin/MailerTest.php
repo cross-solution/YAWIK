@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Controller\Plugin\Mailer;
 use Core\Mail\Message;
-use Zend\Mail\Transport\InMemory as InMemoryTransport;
+use Laminas\Mail\Transport\InMemory as InMemoryTransport;
 use Core\Mail\MailService;
 use Interop\Container\ContainerInterface;
 

@@ -11,10 +11,10 @@
 namespace Core\Controller\Plugin;
 
 use Core\Listener\NotificationListener;
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\I18n\Translator\TranslatorAwareTrait;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\I18n\Translator\TranslatorAwareTrait;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Core\Listener\Events\NotificationEvent;
 use Core\Log\Notification\NotificationEntity;
 use Core\Log\Notification\NotificationEntityInterface;

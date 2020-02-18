@@ -35,7 +35,7 @@ class ToggleButtonTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\Element\ToggleButton', $this->target);
-        $this->assertInstanceOf('Zend\Form\Element', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Element', $this->target);
         $this->assertAttributeSame('toggleButton', 'viewHelper', $this->target);
     }
 

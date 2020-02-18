@@ -13,9 +13,9 @@ namespace AclTest\Assertion;
 use PHPUnit\Framework\TestCase;
 
 use Acl\Assertion\AssertionEvent;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\GenericResource;
-use Zend\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\GenericResource;
+use Laminas\Permissions\Acl\Role\GenericRole;
 
 /**
  * test the AssertionEvent
@@ -28,8 +28,8 @@ class AssertionEventTest extends TestCase
     {
         $target = new AssertionEvent();
 
-        $this->assertInstanceOf('\Zend\EventManager\EventInterface', $target);
-        $this->assertInstanceOf('\Zend\EventManager\Event', $target);
+        $this->assertInstanceOf('\Laminas\EventManager\EventInterface', $target);
+        $this->assertInstanceOf('\Laminas\EventManager\Event', $target);
     }
 
     /**

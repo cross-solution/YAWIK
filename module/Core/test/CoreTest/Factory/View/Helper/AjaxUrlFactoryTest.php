@@ -16,8 +16,8 @@ use Core\Factory\View\Helper\AjaxUrlFactory;
 use Core\View\Helper\AjaxUrl;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\View\Helper\AjaxUrlFactory

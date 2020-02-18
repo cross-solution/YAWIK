@@ -11,11 +11,11 @@ namespace Auth\Form;
 
 use Auth\Form\Hydrator\UserPasswordFieldsetHydrator;
 use Auth\Entity\User;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Validator\Identical;
-use Zend\Validator\NotEmpty;
-use Zend\Validator\StringLength;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
+use Laminas\Validator\Identical;
+use Laminas\Validator\NotEmpty;
+use Laminas\Validator\StringLength;
 
 class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterface
 {
@@ -36,7 +36,7 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
 
         $this->add(
             array(
-            'type' => 'Zend\Form\Element\Password',
+            'type' => 'Laminas\Form\Element\Password',
             'name' => 'password',
             'options' => array(
                 'label' => /* @translate */ 'Password'
@@ -46,7 +46,7 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
 
         $this->add(
             array(
-            'type' => 'Zend\Form\Element\Password',
+            'type' => 'Laminas\Form\Element\Password',
             'name' => 'password2',
             'options' => array(
                 'label' => /* @translate */ 'Retype password'
@@ -62,7 +62,7 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
 
     /**
      * (non-PHPdoc)
-     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     * @see \Laminas\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
     public function getInputFilterSpecification()
     {
@@ -70,8 +70,8 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
             'password' => array(
                 'required' => true,
                 'filters' => array(
-                    array('name' => '\Zend\Filter\StringTrim'),
-                    array('name' => '\Zend\Filter\StripTags'),
+                    array('name' => '\Laminas\Filter\StringTrim'),
+                    array('name' => '\Laminas\Filter\StripTags'),
                 ),
                 'validators' => array(
                     new NotEmpty(),
@@ -81,7 +81,7 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
             'password2' => array(
                 'required' => true,
                 'filters' => array(
-                    array('name' => '\Zend\Filter\StringTrim'),
+                    array('name' => '\Laminas\Filter\StringTrim'),
                 ),
                 'validators' => array(
                     new NotEmpty(),

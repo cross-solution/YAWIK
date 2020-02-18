@@ -25,11 +25,11 @@ use Install\Filter\DbNameExtractor;
 class DbNameExtractorTest extends TestCase
 {
     /**
-     * @testdox Extends \Zend\Filter\AbstractFilter
+     * @testdox Extends \Laminas\Filter\AbstractFilter
      */
     public function testExtendsAbstractFilter()
     {
-        $this->assertInstanceOf('\Zend\Filter\AbstractFilter', new DbNameExtractor());
+        $this->assertInstanceOf('\Laminas\Filter\AbstractFilter', new DbNameExtractor());
     }
 
     public function testDefinesDefaultDatabaseNameAsProperty()

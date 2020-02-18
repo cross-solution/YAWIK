@@ -47,7 +47,7 @@ class BaseTest extends TestCase
         ],
     ];
 
-    protected $inheritance = [ '\Zend\Mvc\Controller\Plugin\AbstractPlugin' ];
+    protected $inheritance = [ '\Laminas\Mvc\Controller\Plugin\AbstractPlugin' ];
 
     public function testInvokationWithoutArgumentsReturnsSelf()
     {

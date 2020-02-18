@@ -14,9 +14,9 @@ use Applications\Form\ApplicationsFilter;
 use Applications\Listener\Events\ApplicationEvent;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Applications\Entity\StatusInterface as Status;
 use Applications\Entity\Application;
 
@@ -94,9 +94,9 @@ class ManageController extends AbstractActionController
     
     /**
      * (non-PHPdoc)
-     * @see \Zend\Mvc\Controller\AbstractActionController::onDispatch()
+     * @see \Laminas\Mvc\Controller\AbstractActionController::onDispatch()
      */
-    public function onDispatch(\Zend\Mvc\MvcEvent $e)
+    public function onDispatch(\Laminas\Mvc\MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
         $action     = $this->params()->fromQuery('action');
@@ -221,7 +221,7 @@ class ManageController extends AbstractActionController
                         ->get('Applications/Attachments');
                     $attachmentsForm->bind($application->getAttachments());
                     
-                    /* @var $request \Zend\Http\PhpEnvironment\Request */
+                    /* @var $request \Laminas\Http\PhpEnvironment\Request */
                     $request = $this->getRequest();
                     
                     if ($request->isPost() && $attachmentsForm->get('return')->getValue() === $request->getPost('return')) {
@@ -261,7 +261,7 @@ class ManageController extends AbstractActionController
      * Refreshes the rating of an application
      *
      * @throws \DomainException
-     * @return \Zend\View\Model\ViewModel
+     * @return \Laminas\View\Model\ViewModel
      */
     public function refreshRatingAction()
     {
@@ -300,7 +300,7 @@ class ManageController extends AbstractActionController
         ) {
             $profileClass = '\\Auth\\Entity\\SocialProfiles\\' . $network;
             $profile      = new $profileClass();
-            $profile->setData(\Zend\Json\Json::decode($data, \Zend\Json\Json::TYPE_ARRAY));
+            $profile->setData(\Laminas\Json\Json::decode($data, \Laminas\Json\Json::TYPE_ARRAY));
         } else {
             throw new \RuntimeException(
                 'Missing arguments. Either provide "spId" as Get or "network" and "data" as Post.'
@@ -405,7 +405,7 @@ class ManageController extends AbstractActionController
      * Forwards an application via Email
      *
      * @throws \InvalidArgumentException
-     * @return \Zend\View\Model\JsonModel
+     * @return \Laminas\View\Model\JsonModel
      */
     public function forwardAction()
     {
@@ -451,7 +451,7 @@ class ManageController extends AbstractActionController
     /**
      * Deletes an application
      *
-     * @return array|\Zend\Http\Response
+     * @return array|\Laminas\Http\Response
      */
     public function deleteAction()
     {
@@ -481,7 +481,7 @@ class ManageController extends AbstractActionController
     /**
      * Move an application to talent pool
      *
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      * @since 0.26
      */
     public function moveAction()

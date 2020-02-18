@@ -13,7 +13,7 @@ namespace CoreTest\EventManager;
 use PHPUnit\Framework\TestCase;
 
 use Core\EventManager\ListenerAggregateTrait;
-use Zend\EventManager\EventManager;
+use Laminas\EventManager\EventManager;
 
 /**
  * Tests for \Core\EventManager\ListenerAggregateTrait
@@ -35,7 +35,7 @@ class ListenerAggregateTraitTest extends TestCase
         $traits = $reflection->getTraitNames();
 
         $this->assertTrue($reflection->isTrait());
-        $this->assertEquals(['Zend\EventManager\ListenerAggregateTrait'], $traits);
+        $this->assertEquals(['Laminas\EventManager\ListenerAggregateTrait'], $traits);
     }
 
     public function testAttachProxiesToAttachEvents()
@@ -76,7 +76,7 @@ class ListenerAggregateTraitTest extends TestCase
                 $target->testEventsSpec = $eventsSpec;
             }
 
-            $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+            $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')
                 ->setMethods(['attach'])
                 ->getMock();
             $events->expects($this->exactly(2))->method('attach')

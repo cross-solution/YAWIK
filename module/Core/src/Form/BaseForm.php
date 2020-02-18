@@ -29,7 +29,7 @@ class BaseForm extends Form
 
     /**
      * {@inheritDoc}
-     * @see \Zend\Form\Element::init()
+     * @see \Laminas\Form\Element::init()
      * @uses addBaseFieldset()
      * @uses addButtonsFieldset()
      */

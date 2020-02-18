@@ -7,7 +7,7 @@ use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
 use Cv\Entity\Location;
 use Cv\Entity\PreferredJob;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\EmptySummaryAwareInterface;
 use Core\Form\EmptySummaryAwareTrait;

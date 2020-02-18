@@ -30,7 +30,7 @@ use Doctrine\ODM\MongoDB\Query\Query;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use Jobs\Entity\Job;
 use Jobs\Entity\JobSnapshot;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 class SnapshotRepositoryTest extends TestCase
 {

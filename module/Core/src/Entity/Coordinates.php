@@ -11,7 +11,7 @@
 namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\Json\Json;
+use Laminas\Json\Json;
 
 /**
  * Coordinate of a job position

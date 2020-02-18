@@ -32,7 +32,7 @@ class JobDescriptionHydrator extends EntityHydrator
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\Hydrator\HydratorInterface::extract()
+     * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
     public function extract($object)
     {

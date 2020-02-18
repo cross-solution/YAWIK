@@ -13,7 +13,7 @@ namespace Jobs\Factory\Repository\Filter;
 use Auth\AuthenticationService;
 use Interop\Container\ContainerInterface;
 use Jobs\Repository\Filter\PaginationAdminQuery;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class PaginationAdminQueryFactory implements FactoryInterface
 {

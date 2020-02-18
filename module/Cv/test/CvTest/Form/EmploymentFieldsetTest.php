@@ -20,9 +20,9 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Cv\Entity\Employment;
 use Cv\Form\EmploymentFieldset;
-use Zend\Form\Element;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Element;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Tests for \Cv\Form\EmploymentFieldset
@@ -99,7 +99,7 @@ class EmploymentFieldsetTest extends TestCase
              ],
              [
                  'name' => 'description',
-                 'type' => 'Zend\Form\Element\Textarea',
+                 'type' => 'Laminas\Form\Element\Textarea',
                  'options' => [
                      'label' => 'Description',
                  ],

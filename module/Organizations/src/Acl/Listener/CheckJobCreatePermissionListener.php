@@ -13,7 +13,7 @@ namespace Organizations\Acl\Listener;
 use Acl\Assertion\AssertionEvent;
 use Auth\Entity\UserInterface;
 use Organizations\Entity\EmployeePermissionsInterface;
-use Zend\EventManager\SharedEventManagerInterface;
+use Laminas\EventManager\SharedEventManagerInterface;
 
 /**
  * Checks if an user may create jobs according to the organization permissions.

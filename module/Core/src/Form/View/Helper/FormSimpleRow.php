@@ -11,14 +11,14 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormRow as ZendFormRow;
-use Zend\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormRow as LaminasFormRow;
+use Laminas\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\Element\ViewhelperProviderInterface;
-use Zend\Form\Element\Button;
+use Laminas\Form\Element\Button;
 use Core\Form\Element\Select;
 
-class FormSimpleRow extends ZendFormRow
+class FormSimpleRow extends LaminasFormRow
 {
     protected $renderStrategies;
 

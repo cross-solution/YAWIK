@@ -11,7 +11,7 @@
 namespace Core\Form\Hydrator;
 
 use Core\Entity\MetaDataProviderInterface;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * Hydrator for entity meta data.

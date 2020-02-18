@@ -24,7 +24,7 @@ use Jobs\Entity\Location;
 use Jobs\Entity\StatusInterface;
 use Jobs\Repository\Categories as CategoriesRepo;
 use Jobs\Repository\Job as JobRepository;
-use Zend\Json\Json;
+use Laminas\Json\Json;
 
 /**
  * Class JobContext

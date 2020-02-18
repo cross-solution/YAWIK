@@ -12,10 +12,10 @@
 namespace Jobs\Controller\Plugin;
 
 use Jobs\Entity\StatusInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Core\Repository\RepositoryService;
 use Auth\AuthenticationService;
-use Zend\Mvc\Controller\Plugin\Params;
+use Laminas\Mvc\Controller\Plugin\Params;
 use Acl\Controller\Plugin\Acl;
 use Core\Entity\Exception\NotFoundException;
 

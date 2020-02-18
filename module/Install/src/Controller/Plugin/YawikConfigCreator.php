@@ -11,7 +11,7 @@
 namespace Install\Controller\Plugin;
 
 use Install\Filter\DbNameExtractor;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Creates configuration file.

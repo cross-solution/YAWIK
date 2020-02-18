@@ -11,11 +11,11 @@
 namespace Settings\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Settings\Form\Element\DisableElementsCapableFormSettings;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
 use Settings\Entity\Hydrator\Strategy\DisableElementsCapableFormSettings as DisableElementsStrategy;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Fieldset for toggling form elements of DisableCapable forms.

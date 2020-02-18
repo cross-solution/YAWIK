@@ -10,7 +10,7 @@
 /**  */
 namespace Core\Form\Element;
 
-use Zend\Form\Element\Checkbox as ZfCheckbox;
+use Laminas\Form\Element\Checkbox as ZfCheckbox;
 
 /**
  *
@@ -25,7 +25,7 @@ class Checkbox extends ZfCheckbox implements ViewHelperProviderInterface
     protected $helper = 'formCheckBox';
 
     /**
-     * @param string|\Zend\View\Helper\HelperInterface $helper
+     * @param string|\Laminas\View\Helper\HelperInterface $helper
      * @return $this|ViewHelperProviderInterface
      */
     public function setViewHelper($helper)
@@ -35,7 +35,7 @@ class Checkbox extends ZfCheckbox implements ViewHelperProviderInterface
     }
 
     /**
-     * @return string|\Zend\View\Helper\HelperInterface
+     * @return string|\Laminas\View\Helper\HelperInterface
      */
     public function getViewHelper()
     {

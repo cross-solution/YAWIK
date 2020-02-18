@@ -10,7 +10,7 @@
 /** Auth form hydrators */
 namespace Auth\Form\Hydrator;
 
-use Zend\Hydrator\AbstractHydrator;
+use Laminas\Hydrator\AbstractHydrator;
 
 /**
  * Hydrator for social profiles collections.
@@ -48,7 +48,7 @@ class SocialProfilesHydrator extends AbstractHydrator
      *
      * @param array $data
      * @param Collection $object
-     * @see \Zend\Hydrator\HydratorInterface::hydrate()
+     * @see \Laminas\Hydrator\HydratorInterface::hydrate()
      * @return \Auth\Entity\SocialProfiles\ProfileInterface
      */
     public function hydrate(array $data, $object)
@@ -72,7 +72,7 @@ class SocialProfilesHydrator extends AbstractHydrator
             }
             
             if (is_string($value)) {
-                $value = \Zend\Json\Json::decode($value, \Zend\Json\Json::TYPE_ARRAY);
+                $value = \Laminas\Json\Json::decode($value, \Laminas\Json\Json::TYPE_ARRAY);
             }
 
             /* If there is already a profile of this type, we do not need to
@@ -100,7 +100,7 @@ class SocialProfilesHydrator extends AbstractHydrator
      *
      * @param Collection $object
      * @return array profile data in the format [profile name] => [profile data].
-     * @see \Zend\Hydrator\HydratorInterface::extract()
+     * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
     public function extract($object)
     {

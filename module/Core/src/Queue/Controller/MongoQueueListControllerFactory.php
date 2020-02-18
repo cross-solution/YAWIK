@@ -12,7 +12,7 @@ namespace Core\Queue\Controller;
 
 use Interop\Container\ContainerInterface;
 use SlmQueue\Queue\QueuePluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Core\Queue\Controller\MongoQueueListController

@@ -16,7 +16,7 @@ use Core\Entity\MetaDataProviderTrait;
 use Core\Entity\PermissionsInterface;
 use Doctrine\Common\Collections\Collection;
 use Organizations\Repository\Organization as OrganizationRepository;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * Manages reference to an organization.

@@ -10,7 +10,7 @@
 /** SocialProfilesButton.php */
 namespace Auth\Form\Element;
 
-use Zend\Form\Element\Button;
+use Laminas\Form\Element\Button;
 use Core\Form\ViewPartialProviderInterface;
 
 class SocialProfilesButton extends Button implements ViewPartialProviderInterface
@@ -66,7 +66,7 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
     public function setValue($value)
     {
         return parent::setValue(
-            \Zend\Json\Json::encode($value)
+            \Laminas\Json\Json::encode($value)
         );
     }
     
@@ -74,7 +74,7 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
     {
         $value = parent::getValue();
         if (!$raw) {
-            $value = \Zend\Json\Json::decode($value);
+            $value = \Laminas\Json\Json::decode($value);
         }
         return $value;
     }

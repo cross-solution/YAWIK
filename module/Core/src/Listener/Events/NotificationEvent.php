@@ -10,7 +10,7 @@
 
 namespace Core\Listener\Events;
 
-use Zend\EventManager\Event;
+use Laminas\EventManager\Event;
 
 /**
  * has two purposes

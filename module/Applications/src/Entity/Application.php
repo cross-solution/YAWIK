@@ -5,7 +5,7 @@
 namespace Applications\Entity;
 
 use Core\Entity\EntityInterface;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Jobs\Entity\JobInterface;
@@ -217,7 +217,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     
     /**
      * {@inheritDoc}
-     * @see \Zend\Permissions\Acl\Resource\ResourceInterface::getResourceId()
+     * @see \Laminas\Permissions\Acl\Resource\ResourceInterface::getResourceId()
      */
     public function getResourceId()
     {

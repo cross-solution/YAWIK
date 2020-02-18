@@ -10,7 +10,7 @@
 namespace Core\Html2Pdf;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class PdfServiceFactory implements FactoryInterface
 {

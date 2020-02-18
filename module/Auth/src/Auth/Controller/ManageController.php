@@ -16,10 +16,10 @@ use Auth\Form\SocialProfiles;
 use Auth\Form\UserProfileContainer;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\I18n\Translator;
-use Zend\View\HelperPluginManager;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
 
 /**
@@ -184,7 +184,7 @@ class ManageController extends AbstractActionController
                             } else {
                                 $profile = [
                                     'auth' => (array)$authProfile,
-                                    'data' => \Zend\Json\Json::decode($dataProfiles[$network])
+                                    'data' => \Laminas\Json\Json::decode($dataProfiles[$network])
                                 ];
                                 $user->addProfile($network, $profile);
                             }
@@ -195,7 +195,7 @@ class ManageController extends AbstractActionController
                 // keep data in sync & properly decoded
                 $formSocialProfiles->setData(['social_profiles' => array_map(function ($array)
                 {
-                    return \Zend\Json\Json::decode($array) ?: '';
+                    return \Laminas\Json\Json::decode($array) ?: '';
                 }, $dataProfiles)]);
             }
         }

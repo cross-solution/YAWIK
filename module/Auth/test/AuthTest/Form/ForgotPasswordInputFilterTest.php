@@ -12,8 +12,8 @@ namespace AuthTest\Form;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Form\ForgotPasswordInputFilter;
-use Zend\Filter\FilterChain;
-use Zend\Validator\ValidatorChain;
+use Laminas\Filter\FilterChain;
+use Laminas\Validator\ValidatorChain;
 
 class ForgotPasswordInputFilterTest extends TestCase
 {
@@ -29,7 +29,7 @@ class ForgotPasswordInputFilterTest extends TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('Zend\InputFilter\InputFilter', $this->testedObject);
+        $this->assertInstanceOf('Laminas\InputFilter\InputFilter', $this->testedObject);
     }
 
     public function testParametersOfIdentityElement()
@@ -40,16 +40,16 @@ class ForgotPasswordInputFilterTest extends TestCase
         /** @var FilterChain $filterChain */
         $filterChain = $input->getFilterChain();
         $filters = $filterChain->getFilters()->toArray();
-        $this->assertInstanceOf('Zend\Filter\StripTags', $filters[0]);
-        $this->assertInstanceOf('Zend\Filter\StringTrim', $filters[1]);
+        $this->assertInstanceOf('Laminas\Filter\StripTags', $filters[0]);
+        $this->assertInstanceOf('Laminas\Filter\StringTrim', $filters[1]);
 
         /** @var ValidatorChain $validatorChain */
         $validatorChain = $input->getValidatorChain();
         $validators = $validatorChain->getValidators();
 
-        /** @var \Zend\Validator\StringLength $firstValidator */
+        /** @var \Laminas\Validator\StringLength $firstValidator */
         $firstValidator = $validators[0]['instance'];
-        $this->assertInstanceOf('Zend\Validator\StringLength', $firstValidator);
+        $this->assertInstanceOf('Laminas\Validator\StringLength', $firstValidator);
         $this->assertEquals($firstValidator->getMin(), 3);
         $this->assertEquals($firstValidator->getMax(), 255);
         $this->assertEquals($firstValidator->getOption('encoding'), 'UTF-8');

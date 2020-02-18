@@ -18,10 +18,10 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Jobs\Entity\Category;
 use Jobs\Form\ClassificationsFieldset;
-use Zend\Form\Fieldset;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
-use Zend\Hydrator\Strategy\DefaultStrategy;
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\Form\Fieldset;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Hydrator\Strategy\DefaultStrategy;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * Tests for \Jobs\Form\ClassificationsFieldset

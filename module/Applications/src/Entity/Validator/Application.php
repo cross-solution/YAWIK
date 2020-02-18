@@ -11,7 +11,7 @@
 namespace Applications\Entity\Validator;
 
 use Applications\Entity\ApplicationInterface;
-use Zend\Validator\AbstractValidator;
+use Laminas\Validator\AbstractValidator;
 
 /**
  * Validates if an application is complete.

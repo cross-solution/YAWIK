@@ -17,9 +17,9 @@ use CoreTest\Bootstrap;
 use Core\Controller\Plugin\Notification;
 use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\Controller\PluginManager;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Controller\PluginManager;
 
 class GotoResetPasswordControllerTest extends AbstractControllerTestCase
 {
@@ -36,7 +36,7 @@ class GotoResetPasswordControllerTest extends AbstractControllerTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')
             ->getMock();
 
         $this->controller = new GotoResetPasswordController($this->serviceMock, $loggerMock);

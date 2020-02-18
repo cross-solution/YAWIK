@@ -10,9 +10,9 @@
 /** */
 namespace Core\Controller;
 
-use Zend\EventManager\Event;
-use Zend\Stdlib\PriorityList;
-use Zend\View\Model\ViewModel;
+use Laminas\EventManager\Event;
+use Laminas\Stdlib\PriorityList;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Admin Controller Event
@@ -32,7 +32,7 @@ class AdminControllerEvent extends Event
     /**
      * List of dashboard widget view models.
      *
-     * @var \Zend\Stdlib\PriorityList
+     * @var \Laminas\Stdlib\PriorityList
      */
     protected $models;
 

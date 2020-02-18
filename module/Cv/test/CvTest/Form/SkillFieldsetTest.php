@@ -44,7 +44,7 @@ class SkillFieldsetTest extends TestCase
         ],
     ];
 
-    private $inheritance = ['Zend\Form\Fieldset'];
+    private $inheritance = ['Laminas\Form\Fieldset'];
 
     public function testGetHydratorAttachsStrategyToCreatedInstance()
     {

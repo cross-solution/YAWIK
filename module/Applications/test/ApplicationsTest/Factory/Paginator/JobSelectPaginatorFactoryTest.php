@@ -18,7 +18,7 @@ use Applications\Paginator\JobSelectPaginator;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Repository\Job;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Factory\Paginator\JobSelectPaginatorFactory

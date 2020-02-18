@@ -11,9 +11,9 @@ namespace Auth\Factory\Form;
 use Auth\Form\Login;
 use Auth\Form\LoginInputFilter;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Form\FormElementManager;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Form\FormElementManager;
 
 class LoginFactory implements FactoryInterface
 {

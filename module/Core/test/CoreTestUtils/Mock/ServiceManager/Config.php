@@ -12,8 +12,8 @@ namespace CoreTestUtils\Mock\ServiceManager;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\ServiceManager\Config as ZfConfig;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Config as ZfConfig;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Configures a ServiceManagerMock

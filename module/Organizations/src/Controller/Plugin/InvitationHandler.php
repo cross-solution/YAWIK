@@ -14,9 +14,9 @@ use Auth\Repository\User as UserRepository;
 use Auth\Service\UserUniqueTokenGenerator;
 use Core\Controller\Plugin\Mailer;
 use Core\Exception\MissingDependencyException;
-use Zend\I18n\Translator\Translator;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Validator\EmailAddress;
+use Laminas\I18n\Translator\Translator;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Validator\EmailAddress;
 
 /**
  * Handles invitation of users / employees.
@@ -68,13 +68,13 @@ class InvitationHandler extends AbstractPlugin
     /**
      * Gets the translator
      *
-     * @return \Zend\I18n\Translator\Translator
+     * @return \Laminas\I18n\Translator\Translator
      * @throws MissingDependencyException
      */
     public function getTranslator()
     {
         if (!$this->translator) {
-            throw new MissingDependencyException('\Zend\I18n\Translator\Translator', $this);
+            throw new MissingDependencyException('\Laminas\I18n\Translator\Translator', $this);
         }
 
         return $this->translator;
@@ -83,7 +83,7 @@ class InvitationHandler extends AbstractPlugin
     /**
      * Sets the translator
      *
-     * @param \Zend\I18n\Translator\Translator $translator
+     * @param \Laminas\I18n\Translator\Translator $translator
      *
      * @return self
      */
@@ -97,7 +97,7 @@ class InvitationHandler extends AbstractPlugin
     /**
      * Gets the email validator.
      *
-     * @return \Zend\Validator\EmailAddress
+     * @return \Laminas\Validator\EmailAddress
      * @throws MissingDependencyException
      */
     public function getEmailValidator()
@@ -112,7 +112,7 @@ class InvitationHandler extends AbstractPlugin
     /**
      * Sets the email validator.
      *
-     * @param \Zend\Validator\EmailAddress $emailValidator
+     * @param \Laminas\Validator\EmailAddress $emailValidator
      *
      * @return self
      */

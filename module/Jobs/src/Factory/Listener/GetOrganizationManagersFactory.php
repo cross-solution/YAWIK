@@ -12,7 +12,7 @@ namespace Jobs\Factory\Listener;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Listener\GetOrganizationManagers;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * ${CARET}

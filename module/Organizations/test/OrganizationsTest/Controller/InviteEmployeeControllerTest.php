@@ -16,7 +16,7 @@ use Organizations\Controller\InviteEmployeeController;
 use Organizations\Controller\Plugin\AcceptInvitationHandler;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 use Organizations\Repository\Organization as OrganizationRepository;
 
 /**
@@ -61,7 +61,7 @@ class InviteEmployeeControllerTest extends TestCase
 
 
         $plugins = $this
-            ->getMockBuilder('\Zend\Mvc\Controller\PluginManager')
+            ->getMockBuilder('\Laminas\Mvc\Controller\PluginManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -73,7 +73,7 @@ class InviteEmployeeControllerTest extends TestCase
 
         $this->target->setPluginManager($plugins);
 
-        $params = $this->getMockBuilder('\Zend\Mvc\Controller\Plugin\Params')
+        $params = $this->getMockBuilder('\Laminas\Mvc\Controller\Plugin\Params')
                        ->disableOriginalConstructor()
                        ->getMock()
         ;
@@ -102,11 +102,11 @@ class InviteEmployeeControllerTest extends TestCase
     }
 
     /**
-     * @testdox Extends \Zend\Mvc\Controller\AbstractActionController
+     * @testdox Extends \Laminas\Mvc\Controller\AbstractActionController
      */
     public function testExtendsAbstractActionController()
     {
-        $this->assertInstanceOf('\Zend\Mvc\Controller\AbstractActionController', $this->target);
+        $this->assertInstanceOf('\Laminas\Mvc\Controller\AbstractActionController', $this->target);
     }
 
     public function testInviteActionReturnsJsonModel()
@@ -123,7 +123,7 @@ class InviteEmployeeControllerTest extends TestCase
 
         $model = $this->target->inviteAction();
 
-        $this->assertInstanceOf('\Zend\View\Model\JsonModel', $model);
+        $this->assertInstanceOf('\Laminas\View\Model\JsonModel', $model);
         $this->assertEquals($result, $model->getVariables());
     }
 
@@ -146,7 +146,7 @@ class InviteEmployeeControllerTest extends TestCase
     {
         $model = new ViewModel($result);
 
-        $forward = $this->getMockBuilder('\Zend\Mvc\Controller\Plugin\Forward')->disableOriginalConstructor()->getMock();
+        $forward = $this->getMockBuilder('\Laminas\Mvc\Controller\Plugin\Forward')->disableOriginalConstructor()->getMock();
         $forward->expects($this->once())->method('dispatch')->with('Auth\Controller\Password', array('action' => 'index'))
                 ->willReturn($model);
 
@@ -177,7 +177,7 @@ class InviteEmployeeControllerTest extends TestCase
 
         $model = $this->target->acceptAction();
 
-        $this->assertInstanceOf('\Zend\View\Model\ViewModel', $model);
+        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $model);
         $variables = $model->getVariables();
 
         $this->assertEquals($expected, $variables);
@@ -202,7 +202,7 @@ class InviteEmployeeControllerTest extends TestCase
 
         $model = $this->target->acceptAction();
 
-        $this->assertInstanceOf('\Zend\View\Model\ViewModel', $model);
+        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $model);
 
         $this->assertEquals(array('organization' => 'testOrg'), $model->getVariables());
     }
@@ -215,7 +215,7 @@ class InviteEmployeeControllerTest extends TestCase
 
         $model = $this->target->acceptAction();
 
-        $this->assertInstanceOf('\Zend\View\Model\ViewModel', $model);
+        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $model);
 
         $this->assertEquals(array('organization' => 'testOrg', 'form' => 'testForm'), $model->getVariables());
     }
@@ -241,7 +241,7 @@ class InviteEmployeeControllerTest extends TestCase
 
         $model = $this->target->acceptAction();
 
-        $this->assertInstanceOf('\Zend\View\Model\ViewModel', $model);
+        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $model);
         $this->assertEquals(500, $this->target->getResponse()->getStatusCode());
         $this->assertEquals('organizations/error/invite', $model->getTemplate());
         $this->assertEquals($expectedMessage, $model->getVariable('message'));

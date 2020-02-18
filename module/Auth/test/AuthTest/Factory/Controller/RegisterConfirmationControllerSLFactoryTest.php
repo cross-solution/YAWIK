@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Factory\Controller\RegisterConfirmationControllerFactory;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 class RegisterConfirmationControllerSLFactoryTest extends TestCase
 {
@@ -36,7 +36,7 @@ class RegisterConfirmationControllerSLFactoryTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')
             ->getMock();
 
         $sm->setService('Auth\Service\RegisterConfirmation', $registerConfirmationServiceMock);

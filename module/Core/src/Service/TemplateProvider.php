@@ -10,9 +10,9 @@
 
 namespace Core\Service;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Model\ViewModel;
-use Zend\Form\ElementInterface;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Model\ViewModel;
+use Laminas\Form\ElementInterface;
 
 /**
  * provides a Value that can expand to an Template,

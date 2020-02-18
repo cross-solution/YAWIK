@@ -16,7 +16,7 @@ use Applications\Listener\JobSelectValues;
 use Applications\Paginator\JobSelectPaginator;
 use Core\Listener\Events\AjaxEvent;
 use Jobs\Entity\Job;
-use Zend\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Request;
 
 /**
  * Tests for \Applications\Listener\JobSelectValues

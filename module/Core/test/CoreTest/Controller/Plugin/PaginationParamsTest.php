@@ -15,9 +15,9 @@ use Applications\Repository\PaginationList;
 use Core\Controller\AbstractCoreController;
 use Core\Controller\Plugin\PaginationParams;
 use Core\Repository\RepositoryInterface;
-use Zend\Http\Request;
-use Zend\Session\Container;
-use Zend\Stdlib\Parameters;
+use Laminas\Http\Request;
+use Laminas\Session\Container;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Class PaginationParamsTest

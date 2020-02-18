@@ -13,8 +13,8 @@ use Interop\Container\ContainerInterface;
 use Jobs\Controller\ApiJobListByOrganizationController;
 use Jobs\Entity\StatusInterface;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\InputFilter\InputFilter;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\InputFilter\InputFilter;
 
 class ApiJobListByOrganizationControllerFactory implements FactoryInterface
 {

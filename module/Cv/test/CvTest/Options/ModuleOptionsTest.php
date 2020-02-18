@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Options\ModuleOptions;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Tests for \Cv\Options\ModuleOptions

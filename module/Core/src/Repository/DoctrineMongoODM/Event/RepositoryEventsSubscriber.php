@@ -10,7 +10,7 @@
 namespace Core\Repository\DoctrineMongoODM\Event;
 
 use Doctrine\Common\EventSubscriber;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\RepositoryInterface;
 use Core\Entity\AttachableEntityInterface;
 use Core\Entity\AttachableEntityManager;

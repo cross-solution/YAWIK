@@ -12,10 +12,10 @@ namespace AuthTest\Dependency;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Dependency\Manager;
-use Zend\EventManager\EventManagerInterface as Events;
+use Laminas\EventManager\EventManagerInterface as Events;
 use Auth\Entity\UserInterface as User;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Zend\EventManager\EventManager;
+use Laminas\EventManager\EventManager;
 use Auth\Dependency\ListInterface;
 
 /**

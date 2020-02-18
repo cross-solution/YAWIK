@@ -13,15 +13,15 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Controller\Plugin\Mail;
 use Interop\Container\ContainerInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Log\LoggerInterface;
-use Zend\Mail\Transport\Sendmail;
-use Zend\ModuleManager\ModuleManagerInterface;
-use Zend\Stdlib\DispatchableInterface;
-use Zend\Stdlib\RequestInterface;
-use Zend\Stdlib\ResponseInterface;
-use Zend\View\Resolver\ResolverInterface;
-use Zend\Mail\Transport\InMemory as InMemoryTransport;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Log\LoggerInterface;
+use Laminas\Mail\Transport\Sendmail;
+use Laminas\ModuleManager\ModuleManagerInterface;
+use Laminas\Stdlib\DispatchableInterface;
+use Laminas\Stdlib\RequestInterface;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Resolver\ResolverInterface;
+use Laminas\Mail\Transport\InMemory as InMemoryTransport;
 
 class MailControllerTest implements DispatchableInterface
 {

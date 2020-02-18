@@ -31,7 +31,7 @@ class AuthTest extends TestCase
     {
         $target = new AuthHelper();
 
-        $this->assertInstanceOf('\Zend\View\Helper\AbstractHelper', $target);
+        $this->assertInstanceOf('\Laminas\View\Helper\AbstractHelper', $target);
     }
 
     /*

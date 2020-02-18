@@ -13,7 +13,7 @@ use Auth\Form;
 use Auth\Service;
 use Auth\Service\Exception;
 use Core\Controller\AbstractCoreController;
-use Zend\Log\LoggerInterface;
+use Laminas\Log\LoggerInterface;
 
 class ForgotPasswordController extends AbstractCoreController
 {
@@ -49,7 +49,7 @@ class ForgotPasswordController extends AbstractCoreController
 
     public function indexAction()
     {
-        /** @var \Zend\Http\Request $request */
+        /** @var \Laminas\Http\Request $request */
         $request = $this->getRequest();
         try {
             if ($request->isPost()) {

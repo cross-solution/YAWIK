@@ -16,7 +16,7 @@ use Core\Entity\Image;
 use Core\Listener\Events\FileEvent;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\EventManager\Event;
+use Laminas\EventManager\Event;
 
 /**
  * Tests for \Core\Listener\Events\FileEvent

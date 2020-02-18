@@ -11,7 +11,7 @@ namespace CoreTest\I18n;
 use PHPUnit\Framework\TestCase;
 
 use Core\I18n\Locale as LocaleService;
-use Zend\Http\Request;
+use Laminas\Http\Request;
 use Auth\Entity\UserInterface as User;
 
 class LocaleTest extends TestCase

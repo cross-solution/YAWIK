@@ -3,11 +3,11 @@
 
 namespace Auth\Listener;
 
-use Zend\Mvc\View\Http\ExceptionStrategy;
-use Zend\View\Model\ViewModel;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\View\Http\ExceptionStrategy;
+use Laminas\View\Model\ViewModel;
+use Laminas\Mvc\MvcEvent;
 use Auth\Exception\UnauthorizedAccessException;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Http\PhpEnvironment\Response;
 use Auth\Exception\UnauthorizedImageAccessException;
 
 class UnauthorizedAccessListener extends ExceptionStrategy

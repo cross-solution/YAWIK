@@ -12,7 +12,7 @@ namespace Auth\Entity;
 use Core\Entity\AbstractEntity;
 use Jobs\Entity\StatusInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 
 /**
  * User status entity

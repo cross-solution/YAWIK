@@ -14,8 +14,8 @@
 namespace Auth\Adapter;
 
 use Hybrid_Auth;
-use Zend\Authentication\Result;
-use Zend\Authentication\Adapter\AdapterInterface;
+use Laminas\Authentication\Result;
+use Laminas\Authentication\Adapter\AdapterInterface;
 use Doctrine\MongoDB\GridFSFile;
 use Auth\Entity\UserImage;
 use Auth\Controller\Plugin\SocialProfiles as SocialProfilePlugin;
@@ -23,7 +23,7 @@ use Auth\Controller\Plugin\SocialProfiles as SocialProfilePlugin;
 /**
  * This class allows to authenticate with HybridAuth
  *
- * HybridAuth adapter for \Zend\Authentication
+ * HybridAuth adapter for \Laminas\Authentication
  *
  * Class HybridAuth
  * @package Auth\Adapter
@@ -84,7 +84,7 @@ class HybridAuth implements AdapterInterface
      * {@inheritdoc}
      *
      *
-     * @see \Zend\Authentication\Adapter\AdapterInterface::authenticate()
+     * @see \Laminas\Authentication\Adapter\AdapterInterface::authenticate()
      */
     public function authenticate()
     {
@@ -155,7 +155,7 @@ class HybridAuth implements AdapterInterface
             if ($forceSave || (!$userInfo->getImage() && $userProfile->photoURL)) {
                 // get user image
                 if ('' != $userProfile->photoURL) {
-                    $client = new \Zend\Http\Client($userProfile->photoURL, array('sslverifypeer' => false));
+                    $client = new \Laminas\Http\Client($userProfile->photoURL, array('sslverifypeer' => false));
                     $response = $client->send();
                     $file = new GridFSFile();
                     $file->setBytes($response->getBody());

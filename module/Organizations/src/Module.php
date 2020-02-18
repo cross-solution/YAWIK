@@ -14,10 +14,10 @@ use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\ModuleManager\ModuleConfigLoader;
 use Core\Options\ModuleOptions as CoreOptions;
 use Yawik\Composer\RequireDirectoryPermissionInterface;
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
+use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\DependencyIndicatorInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
 
 /**
  * Bootstrap class of the organizations module
@@ -63,7 +63,7 @@ class Module implements
         $createJobListener = new \Organizations\Acl\Listener\CheckJobCreatePermissionListener();
         $createJobListener->attachShared($sharedManager);
 
-        if ($e->getRequest() instanceof \Zend\Http\Request) {
+        if ($e->getRequest() instanceof \Laminas\Http\Request) {
             $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function (MvcEvent $event) {
                 $serviceManager = $event->getApplication()
                     ->getServiceManager();

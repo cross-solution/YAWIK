@@ -11,10 +11,10 @@
 namespace Auth\Controller;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Controller for group management.
@@ -139,7 +139,7 @@ class ManageGroupsController extends AbstractActionController
      * Expected query parameters:
      * - 'name' string Name of the group (if mode == 'edit')
      *
-     * @return Zend\Stdlib\ResponseInterface|array
+     * @return Laminas\Stdlib\ResponseInterface|array
      */
     public function formAction()
     {
@@ -201,7 +201,7 @@ class ManageGroupsController extends AbstractActionController
     /**
      * Helper action for userselect form element.
      *
-     * @return \Zend\View\Model\JsonModel
+     * @return \Laminas\View\Model\JsonModel
      */
     public function searchUsersAction()
     {

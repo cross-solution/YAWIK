@@ -10,8 +10,8 @@
 /** */
 namespace Install\Validator;
 
-use Zend\Validator\AbstractValidator;
-use Zend\Validator\Exception;
+use Laminas\Validator\AbstractValidator;
+use Laminas\Validator\Exception;
 
 /**
  * Validates a mongo db connection string.

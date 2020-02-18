@@ -2,7 +2,7 @@
 
 namespace Cv\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Cv\Entity\Skill as SkillEntity;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Hydrator\Strategy\CollectionStrategy;

@@ -2,7 +2,7 @@
 
 namespace Auth\Entity\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 
 class CredentialFilter implements FilterInterface
 {

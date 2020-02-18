@@ -13,7 +13,7 @@ namespace CoreTest\Factory;
 use PHPUnit\Framework\TestCase;
 
 use Core\Factory\OptionsAbstractFactory;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Tests for \Core\Factory\OptionsAbstractFactory
@@ -26,13 +26,13 @@ use Zend\Stdlib\AbstractOptions;
 class OptionsAbstractFactoryTest extends TestCase
 {
     /**
-     * @testdox Implements \Zend\ServiceManager\AbstractFactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\AbstractFactoryInterface
      */
     public function testImplementsAbstractFactoryInterface()
     {
         $target = new OptionsAbstractFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\AbstractFactoryInterface', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\AbstractFactoryInterface', $target);
     }
 
     /**
@@ -236,7 +236,7 @@ class OptionsAbstractFactoryTest extends TestCase
     protected function getServiceLocatorMock($optionsConfig = [])
     {
         $optionsConfig = [ 'options' => $optionsConfig ];
-        $services = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this->getMockBuilder('Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
         $services->expects($this->once())->method('get')->with('config')->willReturn($optionsConfig);
 

@@ -9,7 +9,7 @@
 
 namespace Core\Html2Pdf;
 
-use Zend\EventManager\EventManagerInterface;
+use Laminas\EventManager\EventManagerInterface;
 
 interface PdfInterface
 {

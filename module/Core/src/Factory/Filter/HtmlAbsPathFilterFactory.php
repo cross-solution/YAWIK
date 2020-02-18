@@ -11,8 +11,8 @@
 namespace Core\Factory\Filter;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Core\Filter\HtmlAbsPathFilter;
 
 class HtmlAbsPathFilterFactory implements FactoryInterface
@@ -28,7 +28,7 @@ class HtmlAbsPathFilterFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
+        /* @var \Laminas\ServiceManager\AbstractPluginManager $serviceLocator */
         $request = $container->get('request');
         $uri = $request->getUri();
         $filter = new HtmlAbsPathFilter();

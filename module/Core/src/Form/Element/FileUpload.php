@@ -11,13 +11,13 @@
 namespace Core\Form\Element;
 
 use Doctrine\Common\Collections\Collection;
-use Zend\Form\Element\File;
-use Zend\InputFilter\InputProviderInterface;
-use Zend\Validator\Callback;
-use Zend\Validator\File\MimeType;
-use Zend\Validator\File\Size;
-use Zend\View\Helper\HelperInterface;
-use Zend\Form\FormInterface;
+use Laminas\Form\Element\File;
+use Laminas\InputFilter\InputProviderInterface;
+use Laminas\Validator\Callback;
+use Laminas\Validator\File\MimeType;
+use Laminas\Validator\File\Size;
+use Laminas\View\Helper\HelperInterface;
+use Laminas\Form\FormInterface;
 
 /**
  * File upload formular element.
@@ -52,7 +52,7 @@ class FileUpload extends File implements
     public function setViewHelper($helper)
     {
         if (is_object($helper) && !$helper instanceof HelperInterface) {
-            throw new \InvalidArgumentException('Expects helper to be either a service name or an instance of "Zend\View\Helper\HelperInterface"');
+            throw new \InvalidArgumentException('Expects helper to be either a service name or an instance of "Laminas\View\Helper\HelperInterface"');
         }
 
         $this->helper = $helper;
@@ -71,7 +71,7 @@ class FileUpload extends File implements
      * {@link fileCountValidationCallback()} and
      * {@link getFileEntity()}
      *
-     * @param \Zend\Form\FormInterface $form
+     * @param \Laminas\Form\FormInterface $form
      *
      * @return self
      */

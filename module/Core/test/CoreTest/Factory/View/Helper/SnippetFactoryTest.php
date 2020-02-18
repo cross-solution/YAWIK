@@ -17,8 +17,8 @@ use Core\Factory\View\Helper\SnippetFactory;
 use Core\View\Helper\Snippet;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\View\Helper\Partial;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\View\Helper\Partial;
 
 /**
  * Tests for \Core\Factory\View\Helper\SnippetFactory

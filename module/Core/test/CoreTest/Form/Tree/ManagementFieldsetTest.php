@@ -20,7 +20,7 @@ use CoreTest\Form\Hydrator\TreeHydratorTest;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestUsesTraitsTrait;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Tests for \Core\Form\Tree\ManagementFieldset

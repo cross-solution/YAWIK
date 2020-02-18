@@ -11,12 +11,12 @@
 namespace Core\Mail;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mail\Header;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Model\ViewModel;
-use Zend\Stdlib\Response;
-use Zend\View\Variables as ViewVariables;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Mail\Header;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Model\ViewModel;
+use Laminas\Stdlib\Response;
+use Laminas\View\Variables as ViewVariables;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Class HTMLTemplateMessage.
@@ -232,11 +232,11 @@ class HTMLTemplateMessage extends TranslatorAwareMessage
                 throw new \InvalidArgumentException('mail body shall come from Template.');
             }
 
-            /* @var \Zend\Mvc\View\Http\ViewManager $viewManager */
+            /* @var \Laminas\Mvc\View\Http\ViewManager $viewManager */
             $viewManager  = $this->serviceManager->get('ViewManager');
             $resolver = $this->serviceManager->get('ViewResolver');
 
-            /* @var \Zend\Mvc\MvcEvent $event */
+            /* @var \Laminas\Mvc\MvcEvent $event */
             $event = $this->serviceManager->get('Application')->getMvcEvent();
             $lang = $forceLanguage ?: $event->getRouteMatch()->getParam('lang');
 

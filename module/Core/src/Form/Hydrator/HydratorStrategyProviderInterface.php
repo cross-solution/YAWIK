@@ -10,7 +10,7 @@
 /** */
 namespace Core\Form\Hydrator;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Elements implementing this interface provide a hydrator strategy for the containing form.

@@ -13,7 +13,7 @@ namespace Auth\Options;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Options\CaptchaOptions as Options;
-use Zend\Form\View\Helper\Captcha\ReCaptcha;
+use Laminas\Form\View\Helper\Captcha\ReCaptcha;
 
 /**
  * Test the template entity.

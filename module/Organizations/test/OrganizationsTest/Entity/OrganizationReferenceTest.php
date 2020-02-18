@@ -184,7 +184,7 @@ class OrganizationReferenceTest extends TestCase
 
         return [
             ['setHydrator', [$hydrator], '__self__'],
-            ['getHydrator', [], '\Zend\Hydrator\HydratorInterface', 'instance'],
+            ['getHydrator', [], '\Laminas\Hydrator\HydratorInterface', 'instance'],
             [['setId', 'getId'], [['4321'], []], ['__self__', '4321']],
             [['setContact', 'getContact'], [[$contact], []], ['__self__', $contact]],
             [['setDateCreated', 'getDateCreated'], [[$date], []], ['__self__', $date]],

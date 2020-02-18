@@ -10,9 +10,9 @@
 /** PropertyToKeywords.php */
 namespace Core\Repository\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 use Core\Entity\SearchableEntityInterface;
-use Zend\Stdlib\StringUtils;
+use Laminas\Stdlib\StringUtils;
 
 class PropertyToKeywords implements FilterInterface
 {

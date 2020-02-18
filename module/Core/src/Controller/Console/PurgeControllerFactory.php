@@ -11,7 +11,7 @@
 namespace Core\Controller\Console;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Core\Controller\Console\PurgeController
@@ -23,7 +23,7 @@ class PurgeControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var \Zend\Router\RouteMatch $routeMatch */
+        /* @var \Laminas\Router\RouteMatch $routeMatch */
         $controller = new PurgeController();
         $application = $container->get('Application');
         $routeMatch  = $application->getMvcEvent()->getRouteMatch();

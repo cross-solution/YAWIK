@@ -10,8 +10,8 @@
 namespace Auth\Factory\Listener;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating exception strategies
@@ -62,7 +62,7 @@ class ExceptionStrategyFactory implements FactoryInterface
     }
 
     /**
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator, $canonicalName = null)
     {

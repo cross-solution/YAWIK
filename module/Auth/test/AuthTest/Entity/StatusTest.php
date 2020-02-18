@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Entity\Status;
 use Jobs\Entity\StatusInterface;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 
 /**
  * Tests for Status

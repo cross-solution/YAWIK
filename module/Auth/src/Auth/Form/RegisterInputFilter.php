@@ -10,8 +10,8 @@
 namespace Auth\Form;
 
 use Auth\Entity\User;
-use Zend\InputFilter\Factory;
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\Factory;
+use Laminas\InputFilter\InputFilter;
 
 class RegisterInputFilter extends InputFilter
 {

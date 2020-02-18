@@ -10,9 +10,9 @@
 /** Core forms view helpers */
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\Form as ZendForm;
-use Zend\Form\FormInterface;
-use Zend\Form\FieldsetInterface;
+use Laminas\Form\View\Helper\Form as LaminasForm;
+use Laminas\Form\FormInterface;
+use Laminas\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ExplicitParameterProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
@@ -23,7 +23,7 @@ use Core\Form\DescriptionAwareFormInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Form extends ZendForm
+class Form extends LaminasForm
 {
     /**#@+
      * Layout constants.
@@ -63,9 +63,9 @@ class Form extends ZendForm
      */
     public function renderBare(FormInterface $form, $layout = self::LAYOUT_HORIZONTAL, $parameter = array())
     {
-        /* @var $renderer \Zend\View\Renderer\PhpRenderer
-         * @var $headscript \Zend\View\Helper\HeadScript
-         * @var $basepath \Zend\View\Helper\BasePath */
+        /* @var $renderer \Laminas\View\Renderer\PhpRenderer
+         * @var $headscript \Laminas\View\Helper\HeadScript
+         * @var $basepath \Laminas\View\Helper\BasePath */
         $renderer   = $this->getView();
         $headscript = $renderer->plugin('headscript');
         $basepath   = $renderer->plugin('basepath');
@@ -114,7 +114,7 @@ class Form extends ZendForm
             return $renderer->partial($form->getViewPartial(), array_merge(['element' => $form], $parameter));
         }
 
-        /* @var $element \Zend\Form\ElementInterface */
+        /* @var $element \Laminas\Form\ElementInterface */
         foreach ($form as $element) {
             $parameterPartial = $parameter;
             $elementId = $element->getAttribute('id');
@@ -171,12 +171,12 @@ class Form extends ZendForm
      * @param string $layout
      * @param array $parameter
      * @uses renderBare()
-     * @see \Zend\Form\View\Helper\Form::render()
+     * @see \Laminas\Form\View\Helper\Form::render()
      * @return string
      */
     public function render(FormInterface $form, $layout = self::LAYOUT_HORIZONTAL, $parameter = array())
     {
-        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+        /* @var $renderer \Laminas\View\Renderer\PhpRenderer */
         $formContent = $this->renderBare($form, $layout, $parameter);
         $renderer    = $this->getView();
         

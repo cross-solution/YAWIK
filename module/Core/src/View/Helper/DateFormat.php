@@ -10,14 +10,14 @@
 /** Core view helpers */
 namespace Core\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
-use Zend\I18n\View\Helper\DateFormat as ZfDateFormat;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\I18n\View\Helper\DateFormat as ZfDateFormat;
 use IntlDateFormatter;
 
 /**
  * Helper to format DateTime objects to localized strings.
  *
- * This is an enhancement of \Zend\I18n\View\Helper\DateFormat.
+ * This is an enhancement of \Laminas\I18n\View\Helper\DateFormat.
  *
  * <code>
  *      // see ZF2 docs for date format types.
@@ -51,7 +51,7 @@ class DateFormat extends ZfDateFormat
      * Sets <b>$timeType</b> to same format as <b>$dateType</b> if not given.
      * Proxies to parent method for rendering.
      *
-     * @see \Zend\I18n\View\Helper\DateFormat::__invoke()
+     * @see \Laminas\I18n\View\Helper\DateFormat::__invoke()
      *
      * @param \DateTime $data|string
      * @param string $dateType

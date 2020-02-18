@@ -12,8 +12,8 @@
  */
 namespace Organizations\Filter;
 
-use Zend\Filter\Exception;
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\Exception;
+use Laminas\Filter\FilterInterface;
 use Jobs\Entity\Job;
 
 /**

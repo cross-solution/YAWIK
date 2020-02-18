@@ -11,7 +11,7 @@
 namespace Jobs\Factory\Service;
 
 use Core\Factory\Service\RestClientFactory;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class JobsPublisherFactory

@@ -19,7 +19,7 @@ use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
 use Core\Entity\Tree\Node;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Tests for \Core\Form\Hydrator\Strategy\TreeSelectStrategy

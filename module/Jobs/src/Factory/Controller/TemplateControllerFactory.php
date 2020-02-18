@@ -12,7 +12,7 @@ namespace Jobs\Factory\Controller;
 use Interop\Container\ContainerInterface;
 use Jobs\Controller\TemplateController;
 use Jobs\Repository;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class TemplateControllerFactory implements FactoryInterface
 {

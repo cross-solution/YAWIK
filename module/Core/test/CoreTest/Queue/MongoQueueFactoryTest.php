@@ -17,8 +17,8 @@ use Core\Queue\MongoQueueFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use SlmQueue\Job\JobPluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Queue\MongoQueueFactory

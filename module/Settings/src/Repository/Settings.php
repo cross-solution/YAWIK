@@ -3,8 +3,8 @@
 namespace Settings\Repository;
 
 use Doctrine\ODM\MongoDB\LockMode;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Mvc\MvcEvent;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\MvcEvent;
 use Settings\Entity\Settings as SettingsEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\EntityResolverStrategyInterface;

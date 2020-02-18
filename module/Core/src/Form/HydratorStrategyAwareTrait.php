@@ -11,8 +11,8 @@
 namespace Core\Form;
 
 use Core\Form\Hydrator\HydratorStrategyProviderInterface;
-use Zend\Hydrator\HydratorInterface;
-use Zend\Hydrator\StrategyEnabledInterface;
+use Laminas\Hydrator\HydratorInterface;
+use Laminas\Hydrator\StrategyEnabledInterface;
 
 /**
  * ${CARET}

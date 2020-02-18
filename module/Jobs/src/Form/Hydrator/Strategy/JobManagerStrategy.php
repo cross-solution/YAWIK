@@ -10,7 +10,7 @@
 /** */
 namespace Jobs\Form\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 
 /**
  * ${CARET}

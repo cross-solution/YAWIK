@@ -17,7 +17,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Category;
 use Jobs\Factory\Repository\DefaultCategoriesBuilderFactory;
 use org\bovigo\vfs\vfsStream;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Repository\DefaultCategoriesBuilderFactory

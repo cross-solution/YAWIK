@@ -108,7 +108,7 @@ class AcceptInvitationHandlerTest extends TestCase
                                          ->with($this->userMock->getId())
                                          ->willReturn(array($sameOrganization, $assignedEmpOrganization, $unassignedEmpOrganization));
 
-        $storageMock = $this->getMockForAbstractClass('\Zend\Authentication\Storage\StorageInterface');
+        $storageMock = $this->getMockForAbstractClass('\Laminas\Authentication\Storage\StorageInterface');
         $storageMock->expects($this->once())->method('write')->with($this->userMock->getId());
         $this->authMock->expects($this->once())->method('getStorage')->willReturn($storageMock);
     }

@@ -17,7 +17,7 @@ use Core\Form\Hydrator\MetaDataHydrator;
 use Core\Form\MetaDataFieldset;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Tests for \Core\Form\MetaDataFieldset

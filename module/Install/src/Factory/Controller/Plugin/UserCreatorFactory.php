@@ -18,10 +18,10 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Install\Controller\Plugin\UserCreator;
 use Install\Filter\DbNameExtractor;
 use Interop\Container\ContainerInterface;
-use Zend\Filter\FilterPluginManager;
-use Zend\InputFilter\InputFilterPluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Filter\FilterPluginManager;
+use Laminas\InputFilter\InputFilterPluginManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for an UserCreator plugin instance

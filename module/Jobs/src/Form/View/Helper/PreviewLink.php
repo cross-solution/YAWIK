@@ -11,9 +11,9 @@
 
 namespace Jobs\Form\View\Helper;
 
-use Zend\Form\View\Helper\AbstractHelper;
-use Zend\Form\ElementInterface;
-use Zend\Form\Exception;
+use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception;
 
 /**
  * Render a form <input> element from the provided $element

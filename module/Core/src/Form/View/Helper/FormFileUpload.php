@@ -10,8 +10,8 @@
 /**  */
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormFile;
-use Zend\Form\ElementInterface;
+use Laminas\Form\View\Helper\FormFile;
+use Laminas\Form\ElementInterface;
 use Core\Form\Element\FileUpload;
 
 /**
@@ -99,8 +99,8 @@ class FormFileUpload extends FormFile
         </ul>
    </div>
 </li>';
-        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
-        /* @var $basepath \Zend\View\Helper\BasePath */
+        /* @var $renderer \Laminas\View\Renderer\PhpRenderer */
+        /* @var $basepath \Laminas\View\Helper\BasePath */
         $renderer          = $this->getView();
         $basepath          = $renderer->plugin('basepath');
         $createFileDisplay = function ($file) use ($template, $basepath) {
@@ -320,8 +320,8 @@ class FormFileUpload extends FormFile
      */
     protected function setupAssets()
     {
-        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
-        /* @var $basepath \Zend\View\Helper\BasePath */
+        /* @var $renderer \Laminas\View\Renderer\PhpRenderer */
+        /* @var $basepath \Laminas\View\Helper\BasePath */
         $renderer = $this->getView();
         $basepath = $renderer->plugin('basepath');
         $renderer->headscript()

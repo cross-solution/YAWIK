@@ -13,7 +13,7 @@ namespace OrganizationsTest\Factory\Controller\Plugin;
 use PHPUnit\Framework\TestCase;
 
 use Organizations\Factory\Controller\Plugin\InvitationHandlerFactory;
-use Zend\Mvc\Controller\PluginManager;
+use Laminas\Mvc\Controller\PluginManager;
 
 /**
  * Tests for \Organizations\Factory\Controller\Plugin\InvitationHandlerFactory
@@ -31,11 +31,11 @@ class InvitationHandlerFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new InvitationHandlerFactory());
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', new InvitationHandlerFactory());
     }
 
     /**
@@ -53,7 +53,7 @@ class InvitationHandlerFactoryTest extends TestCase
         $repositories = $this->getMockBuilder('\Core\Repository\RepositoryService')->disableOriginalConstructor()->getMock();
         $repositories->expects($this->once())->method('get')->with('Auth/User')->willReturn($userRepository);
 
-        $translator = new \Zend\I18n\Translator\Translator();
+        $translator = new \Laminas\I18n\Translator\Translator();
     
         $mailer = $this->getMockBuilder('\Core\Controller\Plugin\Mailer')
                        ->disableOriginalConstructor()
@@ -71,12 +71,12 @@ class InvitationHandlerFactoryTest extends TestCase
             ->willReturn($mailer)
         ;
 
-        $emailValidator = new \Zend\Validator\EmailAddress();
+        $emailValidator = new \Laminas\Validator\EmailAddress();
 
-        $validators = $this->getMockBuilder('\Zend\Validator\ValidatorPluginManager')->disableOriginalConstructor()->getMock();
+        $validators = $this->getMockBuilder('\Laminas\Validator\ValidatorPluginManager')->disableOriginalConstructor()->getMock();
         $validators->expects($this->once())->method('get')->with('EmailAddress')->willReturn($emailValidator);
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->exactly(5))
                  ->method('get')
                  ->will($this->returnValueMap(array(

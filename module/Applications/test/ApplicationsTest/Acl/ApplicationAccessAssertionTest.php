@@ -16,11 +16,11 @@ use Applications\Acl\ApplicationAccessAssertion;
 use Applications\Entity\Application;
 use Auth\Entity\User;
 use Core\Entity\PermissionsInterface;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\GenericResource;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\GenericResource;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 /**
  * Tests the ApplicationAccessAssertion
@@ -58,7 +58,7 @@ class ApplicationAccessAssertionTest extends TestCase
      */
     public function testImplementsAssertionInterface()
     {
-        $this->assertInstanceOf('\Zend\Permissions\Acl\Assertion\AssertionInterface', $this->target);
+        $this->assertInstanceOf('\Laminas\Permissions\Acl\Assertion\AssertionInterface', $this->target);
     }
 
     public function provideAssertTestData()

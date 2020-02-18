@@ -9,7 +9,7 @@
 
 namespace Core\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Class LocalizationSettingsFieldset

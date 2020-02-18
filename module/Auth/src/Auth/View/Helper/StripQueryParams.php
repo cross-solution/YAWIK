@@ -10,7 +10,7 @@
 /** Auth view helper */
 namespace Auth\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use Auth\Filter\StripQueryParams as StripQueryParamsFilter;
 
 /**

@@ -11,8 +11,8 @@
 namespace Acl\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Acl\View\Helper\Acl;
 
 /**

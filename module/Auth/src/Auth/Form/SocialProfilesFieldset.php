@@ -11,11 +11,11 @@
 namespace Auth\Form;
 
 use Core\Form\DisableElementsCapableInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 use Auth\Form\Hydrator\SocialProfilesHydrator;
 use Doctrine\Common\Collections\Collection;
-use Zend\Form\FieldsetInterface;
+use Laminas\Form\FieldsetInterface;
 
 class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInterface, DisableElementsCapableInterface
 {

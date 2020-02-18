@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Location;
 use Jobs\Form\BaseFieldset;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Tests for \Jobs\Form\BaseFieldset

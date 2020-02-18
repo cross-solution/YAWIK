@@ -33,7 +33,7 @@ interface ViewHelperProviderInterface
     /**
      * Gets the view helper instance or service name.
      *
-     * @return \Zend\View\Helper\HelperInterface|string
+     * @return \Laminas\View\Helper\HelperInterface|string
      */
     public function getViewHelper();
 }

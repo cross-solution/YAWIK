@@ -10,7 +10,7 @@
 /** */
 namespace Core\View\Helper\Proxy;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * Proxies to a view helper which may or may not exists.

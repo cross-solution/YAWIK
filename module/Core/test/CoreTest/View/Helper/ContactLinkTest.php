@@ -13,7 +13,7 @@ namespace CoreTest\View\Helper;
 use PHPUnit\Framework\TestCase;
 
 use Core\View\Helper\ContactLink as Helper;
-use Zend\View\Renderer\PhpRenderer as Renderer;
+use Laminas\View\Renderer\PhpRenderer as Renderer;
 use Auth\Entity\Info;
 
 /**
@@ -31,7 +31,7 @@ class ContactLinkTest extends TestCase
     {
         $helper = new Helper;
         
-        $this->assertInstanceOf('\Zend\View\Helper\AbstractHelper', $helper);
+        $this->assertInstanceOf('\Laminas\View\Helper\AbstractHelper', $helper);
     }
     
     public function testRenderedResult()

@@ -12,7 +12,7 @@ namespace Organizations\Form\Element;
 
 use Auth\Entity\UserInterface;
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\Element;
+use Laminas\Form\Element;
 
 /**
  * An employee form element.

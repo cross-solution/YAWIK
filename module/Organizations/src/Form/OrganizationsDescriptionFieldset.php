@@ -9,7 +9,7 @@
 
 namespace Organizations\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**

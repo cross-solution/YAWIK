@@ -13,12 +13,12 @@ namespace Core\Controller\Plugin;
 use Core\EventManager\EventManager;
 use Core\Listener\Events\CreatePaginatorEvent;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Mvc\Controller\PluginManager as ControllerManager;
-use Zend\Paginator\Paginator;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\Parameters;
-use Zend\Http\Request as HttpRequest;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\PluginManager as ControllerManager;
+use Laminas\Paginator\Paginator;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Stdlib\Parameters;
+use Laminas\Http\Request as HttpRequest;
 
 /**
  * Creates a paginator from the paginator service.
@@ -69,7 +69,7 @@ class CreatePaginator extends AbstractPlugin
      * @param array  $defaultParams
      * @param Parameters|bool   $params false: Use query parameters; true: use post parameters
      *
-     * @return \Zend\Paginator\Paginator
+     * @return \Laminas\Paginator\Paginator
      * @throws \InvalidArgumentException
      */
     public function __invoke($paginatorName, $defaultParams = array(), $params = false)
@@ -103,7 +103,7 @@ class CreatePaginator extends AbstractPlugin
 
         /* try to create $paginator from event listener */
         /* @var \Core\EventManager\EventManager $events */
-        /* @var \Zend\Paginator\Paginator $paginator */
+        /* @var \Laminas\Paginator\Paginator $paginator */
         /* @var CreatePaginatorEvent $event */
         $events = $this->serviceManager->get('Core/CreatePaginator/Events');
 

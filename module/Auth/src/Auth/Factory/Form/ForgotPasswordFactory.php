@@ -11,8 +11,8 @@ namespace Auth\Factory\Form;
 use Auth\Form\ForgotPassword;
 use Auth\Form\ForgotPasswordInputFilter;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class ForgotPasswordFactory implements FactoryInterface
 {

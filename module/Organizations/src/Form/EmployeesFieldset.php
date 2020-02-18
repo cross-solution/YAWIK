@@ -13,7 +13,7 @@ namespace Organizations\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Hydrator\Strategy\CollectionStrategy;
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * The employees fieldset used for managing employees.

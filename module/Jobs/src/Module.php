@@ -11,9 +11,9 @@ namespace Jobs;
 
 use Core\ModuleManager\Feature\VersionProviderInterface;
 use Core\ModuleManager\Feature\VersionProviderTrait;
-use Zend\Mvc\MvcEvent;
-use Zend\Console\Adapter\AdapterInterface as Console;
-use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Console\Adapter\AdapterInterface as Console;
+use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
 use Yawik\Composer\RequireDirectoryPermissionInterface;
 use Core\Options\ModuleOptions as CoreOptions;

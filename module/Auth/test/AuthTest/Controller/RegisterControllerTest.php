@@ -20,11 +20,11 @@ use CoreTest\Bootstrap;
 use Core\Controller\Plugin\Notification;
 use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\Stdlib\Parameters;
-use Zend\View\Model\ViewModel;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\Stdlib\Parameters;
+use Laminas\View\Model\ViewModel;
 
 class RegisterControllerTest extends AbstractControllerTestCase
 {
@@ -58,10 +58,10 @@ class RegisterControllerTest extends AbstractControllerTestCase
                                   ->getMock();
 
 
-        $this->paramsMock = $this->getMockBuilder('Zend\Mvc\Controller\Plugin\Params')
+        $this->paramsMock = $this->getMockBuilder('Laminas\Mvc\Controller\Plugin\Params')
             ->getMock();
 
-        $loggerMock = $this->getMockBuilder('Zend\Log\LoggerInterface')
+        $loggerMock = $this->getMockBuilder('Laminas\Log\LoggerInterface')
             ->getMock();
 
         $options = new ModuleOptions();
@@ -77,8 +77,8 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
     public function testIndexAction_WithGetRequest()
     {
-        $register = $this->getMockBuilder('Zend\Form\Fieldset')->getMock();
-        $role = $this->getMockBuilder('Zend\Form\Element\Hidden')->getMock();
+        $register = $this->getMockBuilder('Laminas\Form\Fieldset')->getMock();
+        $role = $this->getMockBuilder('Laminas\Form\Element\Hidden')->getMock();
 
         $this->formMock->expects($this->once())->method('get')->with('register')->willReturn($register);
 
