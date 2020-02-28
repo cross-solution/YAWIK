@@ -70,6 +70,7 @@ matrix:
     env: COVERAGE=yes
   include:
     - php: '7.2'
+    - php: '7.4'
     - php: '7.3'
       env: COVERAGE=yes
       after_script: *upload-coverage

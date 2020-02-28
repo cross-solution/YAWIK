@@ -62,7 +62,7 @@ abstract class AbstractPaginationQuery implements FilterInterface
      */
     protected function filterSort($sort)
     {
-        if ('-' == $sort{0}) {
+        if ('-' == $sort[0]) {
             $sortProp = substr($sort, 1);
             $sortDir  = -1;
         } else {

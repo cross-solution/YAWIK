@@ -33,7 +33,7 @@ class Config extends ZfConfig
     {
         /* @var ServiceManagerMock $serviceManager */
         parent::configureServiceManager($serviceManager);
-        
+
         foreach ($this->getMocks() as $name => $spec) {
             if (is_array($spec) && array_key_exists('service', $spec)) {
                 if (isset($spec['count_get'])) {

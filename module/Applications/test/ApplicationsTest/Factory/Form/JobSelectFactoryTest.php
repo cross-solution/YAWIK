@@ -82,7 +82,7 @@ class JobSelectFactoryTest extends TestCase
             $repositories = $this->createPluginManagerMock(['Jobs' => $repository], $this->getServiceManagerMock());
             $services['repositories'] = ['service' => $repositories, 'count' => 1];
         } else {
-            $services['repositories'] = ['service' => null, 'count' => 0];
+            $services['repositories'] = ['service' => new \stdClass, 'count' => 0];
         }
         $container = $this->createServiceManagerMock($services);
         $select = $this->target->__invoke($container, 'irrelevant');

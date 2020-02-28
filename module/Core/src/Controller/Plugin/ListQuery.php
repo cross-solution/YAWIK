@@ -201,7 +201,7 @@ class ListQuery extends AbstractPlugin
             $sort = is_numeric($key) ? $val : $key;
         }
         foreach (explode(',', $sort) as $s) {
-            if ("-" == $s{0}) {
+            if ("-" == $s[0]) {
                 $dbQuery->sort(substr($s, 1), false);
             } else {
                 $dbQuery->sort($s);
