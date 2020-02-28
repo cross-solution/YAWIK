@@ -10,8 +10,8 @@
 /** */
 namespace Core\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Stdlib\Parameters;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Collects pagination related configuration and passes it to the appropriate
@@ -179,8 +179,8 @@ class PaginationBuilder extends AbstractPlugin
             $formAlias = isset($this->stack['form']['as']) ? $this->stack['form']['as'] : 'searchform';
         }
 
-        /* @var \Zend\Mvc\Controller\AbstractController $controller
-         * @var \Zend\Http\Request $request */
+        /* @var \Laminas\Mvc\Controller\AbstractController $controller
+         * @var \Laminas\Http\Request $request */
         $result = [];
         $controller = $this->getController();
         $request = $controller->getRequest();
@@ -215,7 +215,7 @@ class PaginationBuilder extends AbstractPlugin
      */
     protected function callPlugin($name, $args)
     {
-        /* @var \Zend\Mvc\Controller\AbstractController $controller */
+        /* @var \Laminas\Mvc\Controller\AbstractController $controller */
         $controller = $this->getController();
         $plugin = $controller->plugin($name);
 

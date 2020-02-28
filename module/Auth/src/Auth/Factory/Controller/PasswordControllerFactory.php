@@ -14,9 +14,9 @@ use Auth\Controller\PasswordController;
 use Auth\Form;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\ControllerManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class PasswordControllerFactory implements FactoryInterface
 {

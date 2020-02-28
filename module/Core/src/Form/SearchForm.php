@@ -11,11 +11,11 @@
 namespace Core\Form;
 
 use Traversable;
-use Zend\Form\Exception;
-use Zend\Form\Form as ZfForm;
-use Zend\Json\Json;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\PriorityList;
+use Laminas\Form\Exception;
+use Laminas\Form\Form as ZfForm;
+use Laminas\Json\Json;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\Stdlib\PriorityList;
 
 /**
  * ${CARET}
@@ -36,7 +36,7 @@ class SearchForm extends ZfForm
     /**
      *
      *
-     * @var \Zend\Stdlib\PriorityList
+     * @var \Laminas\Stdlib\PriorityList
      */
     protected $buttonsIterator;
 

@@ -10,7 +10,7 @@
 /** Core entity hydrator strategies */
 namespace Core\Entity\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 use Core\Entity\FileInterface;
 
 /**
@@ -63,7 +63,7 @@ class FileCopyStrategy implements StrategyInterface
      *
      * @param FileInterface|null $value
      * @return array|null
-     * @see \Zend\Hydrator\Strategy\StrategyInterface::extract()
+     * @see \Laminas\Hydrator\Strategy\StrategyInterface::extract()
      */
     public function extract($value)
     {
@@ -112,7 +112,7 @@ class FileCopyStrategy implements StrategyInterface
      *
      * @param array|null $value
      * @return FileInterface
-     * @see \Zend\Hydrator\Strategy\StrategyInterface::hydrate()
+     * @see \Laminas\Hydrator\Strategy\StrategyInterface::hydrate()
      */
     public function hydrate($value)
     {

@@ -10,17 +10,17 @@
 /**  */
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\Form as ZendForm;
-use Zend\Form\FieldsetInterface;
-use Zend\Form\FormInterface;
-use Zend\Form\Element\Text;
+use Laminas\Form\View\Helper\Form as LaminasForm;
+use Laminas\Form\FieldsetInterface;
+use Laminas\Form\FormInterface;
+use Laminas\Form\Element\Text;
 
 /**
  * Helper to render a summary form container.
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  */
-class FilterForm extends ZendForm
+class FilterForm extends LaminasForm
 {
     public function render(FormInterface $form)
     {

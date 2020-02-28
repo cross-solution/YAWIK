@@ -10,13 +10,13 @@
 /** Acl.php */
 namespace Acl\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Permissions\Acl\AclInterface;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Permissions\Acl\AclInterface;
 use Auth\Entity\UserInterface;
 use Auth\Exception\UnauthorizedAccessException;
 use Core\Entity\FileInterface;
 use Auth\Exception\UnauthorizedImageAccessException;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 /**
  * Class Acl
@@ -86,7 +86,7 @@ class Acl extends AbstractPlugin
      * In that case, the third parameter is used to determine, wether only the
      * direct parent role should be checked or not.
      *
-     * @param string|\Zend\Permissions\Acl\Role\RoleInterface $role Matching role.
+     * @param string|\Laminas\Permissions\Acl\Role\RoleInterface $role Matching role.
      * @param bool $inherit
      * @param bool $onlyParents
      * @return bool
@@ -112,7 +112,7 @@ class Acl extends AbstractPlugin
             return $isRole;
         }
 
-        $acl = $this->getAcl(); /* @var $acl \Zend\Permissions\Acl\Acl */
+        $acl = $this->getAcl(); /* @var $acl \Laminas\Permissions\Acl\Acl */
 
         return method_exists($acl, 'inheritsRole') && $acl->inheritsRole($userRole, $role, $onlyParents);
     }

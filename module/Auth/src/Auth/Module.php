@@ -13,8 +13,8 @@ use Acl\Listener\CheckPermissionsListener;
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
 use Yawik\Composer\AssetProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
-use Zend\Loader\Exception\InvalidArgumentException;
-use Zend\Mvc\MvcEvent;
+use Laminas\Loader\Exception\InvalidArgumentException;
+use Laminas\Mvc\MvcEvent;
 use Auth\Listener\TokenListener;
 use Core\ModuleManager\Feature\VersionProviderInterface;
 use Core\ModuleManager\Feature\VersionProviderTrait;
@@ -28,9 +28,9 @@ class Module implements AssetProviderInterface, VersionProviderInterface
 
     const VERSION = \Core\Module::VERSION;
 
-    public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
+    public function init(\Laminas\ModuleManager\ModuleManagerInterface $moduleManager)
     {
-        if (\Zend\Console\Console::isConsole()) {
+        if (\Laminas\Console\Console::isConsole()) {
             return;
         }
 
@@ -73,7 +73,7 @@ class Module implements AssetProviderInterface, VersionProviderInterface
         }
 
         return array(
-            'Zend\Loader\ClassMapAutoloader' => array(
+            'Laminas\Loader\ClassMapAutoloader' => array(
                 // This is an hack due to bad design of Hybridauth
                 // This ensures the class from "addtional-providers" is loaded.
                 array(
@@ -88,7 +88,7 @@ class Module implements AssetProviderInterface, VersionProviderInterface
 
     public function onBootstrap(MvcEvent $e)
     {
-        if (\Zend\Console\Console::isConsole()) {
+        if (\Laminas\Console\Console::isConsole()) {
             return;
         }
         $eventManager = $e->getApplication()->getEventManager();

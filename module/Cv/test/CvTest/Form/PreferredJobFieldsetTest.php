@@ -18,7 +18,7 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Location;
 use Cv\Entity\PreferredJob;
 use Cv\Form\PreferredJobFieldset;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Tests for \Cv\Form\PreferredJobFieldset

@@ -9,7 +9,7 @@
 
 namespace Jobs\Form\InputFilter;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 class CompanyName extends InputFilter
 {

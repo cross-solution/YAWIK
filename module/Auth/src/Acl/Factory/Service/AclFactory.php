@@ -4,9 +4,9 @@ namespace Acl\Factory\Service;
 
 use Acl\Config;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Permissions\Acl\Acl;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Permissions\Acl\Acl;
 //use Acl\Service\Acl;
 
 /**
@@ -50,7 +50,7 @@ class AclFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\Adapter\ExternalApplication
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

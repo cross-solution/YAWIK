@@ -20,7 +20,7 @@ $(function() {
 	window.opener.$(window.opener.document).trigger('fetch_complete.socialprofiles');
 });
 </script>
-<textarea style="display:none"><?php echo $profile ? \Zend\Json\Json::encode($profile->getData()) : '' ?></textarea>
+<textarea style="display:none"><?php echo $profile ? \Laminas\Json\Json::encode($profile->getData()) : '' ?></textarea>
 </body>
 
 </html>

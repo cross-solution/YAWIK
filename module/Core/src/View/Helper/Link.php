@@ -10,7 +10,7 @@
 /** Core view helpers */
 namespace Core\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * This helper generates HTML link markup from a URI or email address.

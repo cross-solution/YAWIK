@@ -12,7 +12,7 @@ namespace Applications\Factory\Mail;
 
 use Applications\Mail\Confirmation;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Applications\Mail\Confirmation

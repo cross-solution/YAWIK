@@ -12,10 +12,10 @@ namespace Core\Paginator;
 
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-//use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Paginator\Paginator;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+//use Laminas\ServiceManager\MutableCreationOptionsInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Paginator\Paginator;
 
 /**
  * Class PaginatorFactoryAbstract

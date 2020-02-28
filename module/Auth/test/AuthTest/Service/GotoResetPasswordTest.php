@@ -44,7 +44,7 @@ class GotoResetPasswordTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->authenticationServiceMock = $this->getMockBuilder('Zend\Authentication\AuthenticationService')
+        $this->authenticationServiceMock = $this->getMockBuilder('Laminas\Authentication\AuthenticationService')
             ->setMethods(array('getStorage', 'write'))
             ->disableOriginalConstructor()
             ->getMock();

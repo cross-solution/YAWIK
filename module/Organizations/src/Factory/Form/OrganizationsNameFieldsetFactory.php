@@ -11,7 +11,7 @@ namespace Organizations\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Form\OrganizationsNameFieldset;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Class OrganizationsNameFieldsetFactory

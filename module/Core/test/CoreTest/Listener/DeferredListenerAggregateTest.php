@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 use Core\Listener\DeferredListenerAggregate;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\EventManager\EventManager;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\EventManager\EventManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Listener\DeferredListenerAggregate
@@ -41,7 +41,7 @@ class DeferredListenerAggregateTest extends TestCase
         '@testFactoryMethodReturnsInstance' => false
     ];
 
-    protected $inheritance = [ '\Zend\EventManager\ListenerAggregateInterface' ];
+    protected $inheritance = [ '\Laminas\EventManager\ListenerAggregateInterface' ];
     
     protected $services;
 
@@ -239,7 +239,7 @@ class DeferredListenerAggregateTest extends TestCase
 
             case 'method':
                 $this->assertTrue($listener->callbackCalled);
-                $this->assertInstanceOf('\Zend\EventManager\EventInterface', $listener->callbackEvent);
+                $this->assertInstanceOf('\Laminas\EventManager\EventInterface', $listener->callbackEvent);
                 break;
 
             case 'invoke':

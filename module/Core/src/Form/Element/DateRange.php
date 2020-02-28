@@ -5,11 +5,11 @@
 
 namespace Core\Form\Element;
 
-use Zend\Form\Element;
-use Zend\Form\Element\Date;
-use Zend\Form\Element\Checkbox;
-use Zend\Form\ElementPrepareAwareInterface;
-use Zend\Form\FormInterface;
+use Laminas\Form\Element;
+use Laminas\Form\Element\Date;
+use Laminas\Form\Element\Checkbox;
+use Laminas\Form\ElementPrepareAwareInterface;
+use Laminas\Form\FormInterface;
 
 class DateRange extends Element implements ElementPrepareAwareInterface
 {

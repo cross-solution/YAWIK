@@ -12,7 +12,7 @@ namespace AuthTest\Form;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Form\ForgotPassword;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 class ForgotPasswordTest extends TestCase
 {
@@ -39,13 +39,13 @@ class ForgotPasswordTest extends TestCase
     public function testIdentityElement()
     {
         $identityInput = $this->testedObject->get('identity');
-        $this->assertInstanceOf('Zend\Form\Element\Text', $identityInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Text', $identityInput);
     }
 
     public function testCsrfElement()
     {
         $csrfInput = $this->testedObject->get('csrf');
-        $this->assertInstanceOf('Zend\Form\Element\Csrf', $csrfInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Csrf', $csrfInput);
     }
 
     public function testSubmitElement()
@@ -54,6 +54,6 @@ class ForgotPasswordTest extends TestCase
         $buttons = $this->testedObject->get('buttons');
         $buttonInput = $buttons->get('button');
 
-        $this->assertInstanceOf('Zend\Form\Element\Submit', $buttonInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Submit', $buttonInput);
     }
 }

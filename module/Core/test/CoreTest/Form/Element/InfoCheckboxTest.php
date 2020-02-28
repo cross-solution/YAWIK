@@ -31,7 +31,7 @@ class InfoCheckboxTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\Element\InfoCheckbox', $this->target);
-        $this->assertInstanceOf('Zend\Form\Element', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Element', $this->target);
         $this->assertAttributeSame('formInfoCheckBox', 'helper', $this->target);
     }
 }

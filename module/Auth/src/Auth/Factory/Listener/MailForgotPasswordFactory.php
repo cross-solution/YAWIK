@@ -11,8 +11,8 @@ namespace Auth\Factory\Listener;
 
 use Auth\Listener\MailForgotPassword;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating the Auth view helper.
@@ -45,7 +45,7 @@ class MailForgotPasswordFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\View\Helper\Auth
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

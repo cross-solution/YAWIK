@@ -31,6 +31,6 @@ class SocialButtonsTest extends TestCase
     {
         $options = new ModuleOptions;
         $target = new SocialButtons($options, []);
-        $this->assertInstanceOf('\Zend\View\Helper\AbstractHelper', $target);
+        $this->assertInstanceOf('\Laminas\View\Helper\AbstractHelper', $target);
     }
 }

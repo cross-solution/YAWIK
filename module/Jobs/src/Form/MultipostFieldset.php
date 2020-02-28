@@ -11,7 +11,7 @@
 namespace Jobs\Form;
 
 use Core\Entity\DraftableEntityInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**

@@ -4,7 +4,7 @@ namespace Jobs\Form;
 
 use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Defines the base formular of a job opening.

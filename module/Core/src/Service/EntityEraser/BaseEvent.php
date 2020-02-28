@@ -10,7 +10,7 @@
 /** */
 namespace Core\Service\EntityEraser;
 
-use Zend\EventManager\Event;
+use Laminas\EventManager\Event;
 
 /**
  * Base event for EntityEraser.

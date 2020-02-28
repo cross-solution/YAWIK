@@ -10,8 +10,8 @@
 
 namespace Core\Form\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class TemplateProviderStrategy implements StrategyInterface
 {

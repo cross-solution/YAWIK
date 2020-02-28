@@ -12,7 +12,7 @@ namespace Jobs\Factory\Model;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Model\ApiJobDehydrator;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for ApiJobDehydrator

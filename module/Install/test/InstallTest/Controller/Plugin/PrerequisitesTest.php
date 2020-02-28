@@ -28,7 +28,7 @@ class PrerequisitesTest extends TestCase
 {
     public function testExtendsAbstractPlugin()
     {
-        $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', new Prerequisites());
+        $this->assertInstanceOf('\Laminas\Mvc\Controller\Plugin\AbstractPlugin', new Prerequisites());
     }
 
     public function testDefaultValues()

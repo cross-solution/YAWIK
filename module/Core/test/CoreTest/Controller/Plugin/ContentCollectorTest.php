@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Core\Controller\AbstractCoreController;
 use Core\Controller\Plugin\ContentCollector;
 use Core\EventManager\EventManager;
-use Zend\EventManager\EventInterface;
-use Zend\View\Model\ViewModel;
+use Laminas\EventManager\EventInterface;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Class ContentCollectorTest
@@ -59,7 +59,7 @@ class ContentCollectorTest extends TestCase
         $target->setTemplate('some_template');
         $target->captureTo('some_path');
 
-        /* @var \Zend\View\Model\ViewModel[] $childs */
+        /* @var \Laminas\View\Model\ViewModel[] $childs */
         $output = $target->trigger($event, 'some_target');
         $childs = $output->getChildren();
         $this->assertInstanceOf(ViewModel::class, $output);

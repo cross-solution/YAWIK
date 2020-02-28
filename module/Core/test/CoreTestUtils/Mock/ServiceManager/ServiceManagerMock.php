@@ -12,8 +12,8 @@ namespace CoreTestUtils\Mock\ServiceManager;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\ServiceManager\Exception;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Exception;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Mock of a service manager.

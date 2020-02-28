@@ -15,8 +15,8 @@ use Auth\Entity\Info;
 use Auth\Entity\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use CoreTest\Bootstrap;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 /**
  * Class FunctionalTestCase

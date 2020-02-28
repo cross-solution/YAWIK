@@ -10,8 +10,8 @@
 /** */
 namespace Core\EventManager;
 
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\EventManager as ZfEventManager;
+use Laminas\EventManager\EventInterface;
+use Laminas\EventManager\EventManager as ZfEventManager;
 
 /**
  * EventManager extension which allows creating event instances.
@@ -66,7 +66,7 @@ class EventManager extends ZfEventManager implements EventProviderInterface
      * @param object|string|null $target
      * @param array $argv
      *
-     * @return \Zend\EventManager\ResponseCollection
+     * @return \Laminas\EventManager\ResponseCollection
      */
     public function trigger($eventName, $target = null, $argv = [])
     {
@@ -87,7 +87,7 @@ class EventManager extends ZfEventManager implements EventProviderInterface
      * @param object|string|null     $target
      * @param array    $argv
      *
-     * @return \Zend\EventManager\ResponseCollection
+     * @return \Laminas\EventManager\ResponseCollection
      */
     public function triggerUntil(callable $callback, $eventName, $target = null, $argv = [])
     {

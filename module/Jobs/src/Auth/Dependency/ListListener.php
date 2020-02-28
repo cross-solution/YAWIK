@@ -9,9 +9,9 @@
 
 namespace Jobs\Auth\Dependency;
 
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer as View;
 use Auth\Dependency\ListInterface;
 use Auth\Dependency\ListItem;
 use Jobs\Repository\Job as Repository;

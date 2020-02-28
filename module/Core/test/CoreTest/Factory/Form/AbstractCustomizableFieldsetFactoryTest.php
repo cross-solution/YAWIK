@@ -17,8 +17,8 @@ use Core\Form\CustomizableFieldsetInterface;
 use Core\Options\FieldsetCustomizationOptions;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\MutableCreationOptionsInterface;
 
 /**
  * Tests for \Core\Factory\Form\AbstractCustomizableFieldsetFactory
@@ -125,7 +125,7 @@ class ConcreteAbstractCustomizableFieldsetFactoryWithClassName extends AbstractC
 
 class ConcreteAbstractCustomizableFieldsetFactoryWithInvalidClassName extends AbstractCustomizableFieldsetFactory
 {
-    const CLASS_NAME = '\Zend\Form\Fieldset';
+    const CLASS_NAME = '\Laminas\Form\Fieldset';
 }
 
 class ConcreteAbstractCustomizableFieldsetFactoryWithConstants extends ConcreteAbstractCustomizableFieldsetFactoryWithClassName

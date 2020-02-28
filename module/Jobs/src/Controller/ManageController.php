@@ -16,23 +16,23 @@ use Jobs\Entity\JobSnapshot;
 use Jobs\Entity\JobSnapshotStatus;
 use Jobs\Entity\Status;
 use Core\Repository\RepositoryService;
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Filter\FilterPluginManager;
-use Zend\I18n\Translator\TranslatorInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Validator\ValidatorPluginManager;
-use Zend\View\HelperPluginManager;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\EventManager\EventInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Filter\FilterPluginManager;
+use Laminas\I18n\Translator\TranslatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Validator\ValidatorPluginManager;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Core\Form\SummaryForm;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 use Jobs\Listener\Events\JobEvent;
 use Core\Form\SummaryFormInterface;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Stdlib\ArrayUtils;
 use Auth\AuthenticationService;
-use Zend\Mvc\I18n\Translator;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\Http\PhpEnvironment\Response;
 use Core\Entity\Exception\NotFoundException;
 
 /**
@@ -247,7 +247,7 @@ class ManageController extends AbstractActionController
         }
 
 
-        /** @var \Zend\Http\Request $request */
+        /** @var \Laminas\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
 
@@ -449,7 +449,7 @@ class ManageController extends AbstractActionController
      */
     protected function getFormular($job)
     {
-        /* @var $forms \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
+        /* @var $forms \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
         $forms    = $this->formManager;
         /* @var $container \Jobs\Form\Job */
 

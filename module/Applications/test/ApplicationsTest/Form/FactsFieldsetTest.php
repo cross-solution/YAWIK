@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Applications\Form\FactsFieldset;
 use Core\Form\Element\DatePicker;
-use Zend\Form\Factory;
+use Laminas\Form\Factory;
 
 /**
 * @covers \Applications\Form\FactsFieldset

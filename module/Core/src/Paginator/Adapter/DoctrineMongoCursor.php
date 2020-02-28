@@ -10,7 +10,7 @@
 /** DoctrineMongoCursor.php */
 namespace Core\Paginator\Adapter;
 
-use Zend\Paginator\Adapter\AdapterInterface;
+use Laminas\Paginator\Adapter\AdapterInterface;
 use Doctrine\ODM\MongoDB\Cursor;
 
 /**

@@ -10,7 +10,7 @@
 /** ErrorType.php */
 namespace Core\Log\Filter;
 
-use Zend\Log\Filter\FilterInterface;
+use Laminas\Log\Filter\FilterInterface;
 
 class ErrorType implements FilterInterface
 {

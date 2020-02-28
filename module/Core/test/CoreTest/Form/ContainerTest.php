@@ -16,8 +16,8 @@ use Auth\Entity\User;
 use Core\Form\Container;
 use Jobs\Entity\Job;
 use Organizations\Entity\Organization;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
 * @covers \Core\Form\Container
@@ -36,7 +36,7 @@ class ContainerTest extends TestCase
 
     public function testConstructor()
     {
-        $this->assertInstanceOf(\Zend\Form\Element::class, $this->target);
+        $this->assertInstanceOf(\Laminas\Form\Element::class, $this->target);
         $this->assertInstanceOf(\IteratorAggregate::class, $this->target);
         $this->assertInstanceOf(\Countable::class, $this->target);
         $this->assertInstanceOf(\Core\Form\DisableElementsCapableInterface::class, $this->target);

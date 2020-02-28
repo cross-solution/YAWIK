@@ -11,7 +11,7 @@
 namespace Jobs\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\Repository\RepositoryService;
 use Jobs\Controller\Plugin\InitializeJob;
 

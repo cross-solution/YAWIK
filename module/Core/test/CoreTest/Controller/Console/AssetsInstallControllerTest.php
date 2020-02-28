@@ -16,7 +16,7 @@ use CoreTest\Bootstrap;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 use Yawik\Composer\AssetsInstaller;
-use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
+use Laminas\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 
 /**
  * Class AssetsInstallControllerTest

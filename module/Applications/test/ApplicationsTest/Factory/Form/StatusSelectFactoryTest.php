@@ -17,7 +17,7 @@ use Applications\Repository\Application as ApplicationsRepository;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Core\Form\Element\Select;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Factory\Form\StatusSelectFactory

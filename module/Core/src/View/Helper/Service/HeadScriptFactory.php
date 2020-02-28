@@ -11,11 +11,11 @@ namespace Core\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Helper\HeadScript;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Helper\HeadScript;
 
 /**
  *
@@ -24,9 +24,9 @@ class HeadScriptFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $helper \Zend\View\Helper\Headscript|\Callable */
-        /* @var $container \Zend\ServiceManager\AbstractPluginManager */
-        /* @var $services \Zend\ServiceManager\ServiceLocatorInterface */
+        /* @var $helper \Laminas\View\Helper\Headscript|\Callable */
+        /* @var $container \Laminas\ServiceManager\AbstractPluginManager */
+        /* @var $services \Laminas\ServiceManager\ServiceLocatorInterface */
         $viewHelperManager = $container->get('ViewHelperManager');
         $helper   = $viewHelperManager->get('headscript'); //new HeadScript();
         $services = $container;
@@ -38,10 +38,10 @@ class HeadScriptFactory implements FactoryInterface
         
         $config     = $config['view_helper_config']['headscript'];
         
-        /* @var $routeMatch \Zend\Router\RouteMatch */
+        /* @var $routeMatch \Laminas\Router\RouteMatch */
         $routeMatch = $services->get('Application')->getMvcEvent()->getRouteMatch();
         $routeName  = $routeMatch ? $routeMatch->getMatchedRouteName() : '';
-        $basepath = $viewHelperManager->get('basepath'); /* @var $basepath \Zend\View\Helper\BasePath */
+        $basepath = $viewHelperManager->get('basepath'); /* @var $basepath \Laminas\View\Helper\BasePath */
         
         foreach ($config as $routeStart => $specs) {
             if (!is_int($routeStart)) {
@@ -76,13 +76,13 @@ class HeadScriptFactory implements FactoryInterface
     
     
     /**
-     * Creates an instance of \Zend\View\Helper\Headscript
+     * Creates an instance of \Laminas\View\Helper\Headscript
      *
      * - injects the MvcEvent instance
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @return HeadScript
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

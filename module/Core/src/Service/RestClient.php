@@ -10,10 +10,10 @@
 
 namespace Core\Service;
 
-use Zend\Http\Client as ZendClient;
-use Zend\Http\Request;
-use Zend\Http\Headers;
-use \Zend\Stdlib\ArrayUtils;
+use Laminas\Http\Client as ZendClient;
+use Laminas\Http\Request;
+use Laminas\Http\Headers;
+use \Laminas\Stdlib\ArrayUtils;
 
 /**
  * Class RestClient
@@ -38,7 +38,7 @@ class RestClient extends ZendClient
         $this->config = $config;
         $config = ArrayUtils::merge(
             array(
-                'adapter' => 'Zend\Http\Client\Adapter\Curl',
+                'adapter' => 'Laminas\Http\Client\Adapter\Curl',
                 'keepalive' => false,
                 'encodecookies' => false,
                 'outputstream' => false,

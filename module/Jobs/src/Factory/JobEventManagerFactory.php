@@ -12,10 +12,10 @@ namespace Jobs\Factory;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Listener\Events\JobEvent;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factors the JobEventManager which is used to trigger Job Events.
@@ -46,7 +46,7 @@ class JobEventManagerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $events \Zend\EventManager\EventManagerInterface */
+        /* @var $events \Laminas\EventManager\EventManagerInterface */
         $events = $container->get('EventManager');
         $events->setEventPrototype(new JobEvent());
         $events->setIdentifiers($this->identifiers);

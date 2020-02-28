@@ -10,9 +10,9 @@
 /** Core view helper */
 namespace Core\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\HelperPluginManager;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\HelperPluginManager;
 
 /**
  * Provides access to the service manager.
@@ -66,7 +66,7 @@ class Services extends AbstractHelper
      * service locator (i.e. plugin managers).
      *
      * @param string|null $serviceName
-     * @return \Zend\ServiceManager\ServiceLocatorInterface|mixed
+     * @return \Laminas\ServiceManager\ServiceLocatorInterface|mixed
      */
     public function __invoke($serviceName = null)
     {

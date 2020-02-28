@@ -10,8 +10,8 @@
 /** InjectSubNavigationConfigListener.php */
 namespace Settings\Listener;
 
-use Zend\Router\RouteMatch;
-use Zend\Mvc\MvcEvent;
+use Laminas\Router\RouteMatch;
+use Laminas\Mvc\MvcEvent;
 
 /**
  *
@@ -45,7 +45,7 @@ class InjectSubNavigationListener
         $services     = $event->getApplication()->getServiceManager();
         $navigation   = $services->get('Core/Navigation');
 
-        /* @var $settingsMenu \Zend\Navigation\Page\Mvc $settingMenu  */
+        /* @var $settingsMenu \Laminas\Navigation\Page\Mvc $settingMenu  */
         $settingsMenu = $navigation->findOneBy('route', 'lang/settings');
         
         if ($settingsMenu->hasChildren()) {

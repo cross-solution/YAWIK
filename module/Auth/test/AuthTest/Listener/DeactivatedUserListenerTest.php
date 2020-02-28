@@ -11,15 +11,15 @@ namespace AuthTest\Listener;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\Mvc\MvcEvent;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\EventManager;
-use Zend\Router\RouteMatch;
-use Zend\Mvc\ApplicationInterface as Application;
-use Zend\ServiceManager\ServiceLocatorInterface as ServiceManager;
-use Zend\Authentication\AuthenticationServiceInterface as AuthenticationService;
+use Laminas\Mvc\MvcEvent;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\EventManager;
+use Laminas\Router\RouteMatch;
+use Laminas\Mvc\ApplicationInterface as Application;
+use Laminas\ServiceManager\ServiceLocatorInterface as ServiceManager;
+use Laminas\Authentication\AuthenticationServiceInterface as AuthenticationService;
 use Auth\Entity\User;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Http\PhpEnvironment\Response;
 use Auth\Listener\DeactivatedUserListener as Listener;
 
 /**
@@ -153,7 +153,7 @@ class DeactivatedUserListenerTest extends TestCase
             $eventManager = $this->getMockBuilder(EventManager::class)->getMock();
             $eventManager->expects($this->once())
                 ->method('trigger')
-                ->willReturn(new \Zend\EventManager\ResponseCollection())
+                ->willReturn(new \Laminas\EventManager\ResponseCollection())
                 ->with($this->equalTo(MvcEvent::EVENT_DISPATCH_ERROR));
 
             $target = $this->getMockBuilder(\stdClass::class)

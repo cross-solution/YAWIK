@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Entity\InfoInterface;
 use Auth\Entity\UserInterface;
-use Zend\Mail\Message as ZendMessage;
+use Laminas\Mail\Message as ZendMessage;
 use Core\Mail\Message;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 

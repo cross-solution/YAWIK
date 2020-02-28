@@ -11,7 +11,7 @@
 namespace Core\Entity\Hydrator;
 
 use Core\Entity\FileInterface;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 use Doctrine\Common\Collections\Collection;
 
 class FileCollectionUploadHydrator implements HydratorInterface

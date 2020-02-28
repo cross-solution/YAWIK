@@ -11,7 +11,7 @@ namespace Auth\Factory\Form;
 use Auth\Form\Register;
 use Auth\Form\RegisterInputFilter;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Auth\Options\CaptchaOptions;
 
 class RegisterFactory implements FactoryInterface

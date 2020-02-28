@@ -13,7 +13,7 @@ namespace CoreTest\Form\Service;
 use PHPUnit\Framework\TestCase;
 
 use Core\Form\Service\InjectHeadscriptInitializer;
-use Zend\ServiceManager\Initializer\InitializerInterface;
+use Laminas\ServiceManager\Initializer\InitializerInterface;
 
 /**
  * Tests for InjectHeadscriptInitializer
@@ -39,7 +39,7 @@ class InjectHeadscriptInitializerTest extends TestCase
     /**
      *
      *
-     * @var \Zend\ServiceManager\ServiceLocatorInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var \Laminas\ServiceManager\ServiceLocatorInterface | \PHPUnit_Framework_MockObject_MockObject
      */
     protected $formElementManagerMock;
 
@@ -52,13 +52,13 @@ class InjectHeadscriptInitializerTest extends TestCase
             return;
         }
 
-        $this->formElementManagerMock = $this->getMockbuilder('\Zend\Form\FormElementManager')
+        $this->formElementManagerMock = $this->getMockbuilder('\Laminas\Form\FormElementManager')
             ->disableOriginalConstructor()
             ->getMock();
     }
 
     /**
-     * @testdox Implements \Zend\ServiceManager\InitializerInterface
+     * @testdox Implements \Laminas\ServiceManager\InitializerInterface
      */
     public function testImplementsInitializerInterface()
     {
@@ -94,14 +94,14 @@ class InjectHeadscriptInitializerTest extends TestCase
 
     public function testInjectsScriptsToTheHeadscriptViewHelper()
     {
-        $basepath = $this->getMockBuilder('\Zend\View\Helper\BasePath')
+        $basepath = $this->getMockBuilder('\Laminas\View\Helper\BasePath')
                          ->disableOriginalConstructor()->getMock();
 
         $basepath->expects($this->any())
                  ->method('__invoke')->will($this->returnArgument(0));
 
 
-        $headscript = $this->getMockBuilder('\Zend\View\Helper\HeadScript')
+        $headscript = $this->getMockBuilder('\Laminas\View\Helper\HeadScript')
                            ->disableOriginalConstructor()->getMock();
 
         $scripts = array('test/script.js', 'yetanother/test/script.tst');
@@ -116,7 +116,7 @@ class InjectHeadscriptInitializerTest extends TestCase
                        array('appendFile', array($scripts[1]))
             );
 
-        $helpers = $this->getMockBuilder('\Zend\View\HelperPluginManager')
+        $helpers = $this->getMockBuilder('\Laminas\View\HelperPluginManager')
                         ->disableOriginalConstructor()
                         ->getMock();
 

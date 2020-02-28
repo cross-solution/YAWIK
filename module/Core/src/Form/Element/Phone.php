@@ -2,14 +2,14 @@
 
 namespace Core\Form\Element;
 
-use Zend\Form\Element;
-use Zend\InputFilter\InputProviderInterface;
-use Zend\Validator\Regex as RegexValidator;
+use Laminas\Form\Element;
+use Laminas\InputFilter\InputProviderInterface;
+use Laminas\Validator\Regex as RegexValidator;
 
 class Phone extends Element implements InputProviderInterface
 {
     /**
-     * @var \Zend\Validator\ValidatorInterface
+     * @var \Laminas\Validator\ValidatorInterface
      */
     protected $validator;
 
@@ -58,7 +58,7 @@ class Phone extends Element implements InputProviderInterface
             'name' => $this->getName(),
             'required' => true,
             'filters' => array(
-                array('name' => 'Zend\Filter\StringTrim'),
+                array('name' => 'Laminas\Filter\StringTrim'),
             ),
             'validators' => array(
                 $this->getValidator(),

@@ -16,9 +16,9 @@ use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Education;
 use Cv\Factory\Form\EducationCollectionFactory;
-use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Form\FormElementManager\FormElementManagerV2Polyfill;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Cv\Factory\Form\EducationCollectionFactory

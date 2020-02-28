@@ -11,8 +11,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 use Doctrine\Common\Util\Inflector;
 use Symfony\Component\Process\Process;
-use Zend\Mvc\Console\Controller\AbstractConsoleController;
-use Zend\Console\Request as ConsoleRequest;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
+use Laminas\Console\Request as ConsoleRequest;
 
 /**
  * Class SubsplitController

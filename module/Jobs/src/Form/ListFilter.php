@@ -10,7 +10,7 @@
 /** ListFilter.php */
 namespace Jobs\Form;
 
-use Zend\Form\Form;
+use Laminas\Form\Form;
 use Core\Form\ViewPartialProviderInterface;
 
 /**

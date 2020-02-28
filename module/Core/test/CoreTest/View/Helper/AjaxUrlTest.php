@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\View\Helper\AjaxUrl;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * Tests for \Core\View\Helper\AjaxUrl

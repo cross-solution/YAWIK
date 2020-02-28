@@ -18,7 +18,7 @@ use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Entity\OrganizationReference;
 use Organizations\Mail\EmployeeInvitationFactory;
-use Zend\Router\RouteStackInterface;
+use Laminas\Router\RouteStackInterface;
 
 /**
  * Tests for \Organizations\Mail\EmployeeInvitationFactory
@@ -34,13 +34,13 @@ class EmployeeInvitationFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface and \Zend\ServiceManager\MutableCreationOptionsInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface and \Laminas\ServiceManager\MutableCreationOptionsInterface
      */
     public function testImplementsInterfaces()
     {
         $target = new EmployeeInvitationFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -146,7 +146,7 @@ class EmployeeInvitationFactoryTest extends TestCase
 
         $mailService = $this->getMockBuilder('\Core\Mail\MailService')->disableOriginalConstructor()->getMock();
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
         $services->expects($this->exactly(3))
                  ->method('get')
@@ -156,8 +156,8 @@ class EmployeeInvitationFactoryTest extends TestCase
                      ['Core/MailService']
                  )->will($this->onConsecutiveCalls($authService, $router, $mailService));
 
-        $mailMock = new HTMLTemplateMessage(new \Zend\ServiceManager\ServiceManager());
-        $translator = $this->getMockBuilder('\Zend\I18n\Translator\Translator')->disableOriginalConstructor()->getMock();
+        $mailMock = new HTMLTemplateMessage(new \Laminas\ServiceManager\ServiceManager());
+        $translator = $this->getMockBuilder('\Laminas\I18n\Translator\Translator')->disableOriginalConstructor()->getMock();
         $translator
             ->expects($this->any())
             ->method('translate')

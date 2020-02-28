@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Entity\User;
 use Organizations\Controller\Plugin\InvitationHandler;
-use Zend\Validator\EmailAddress;
+use Laminas\Validator\EmailAddress;
 
 /**
  * Tests for \Organizations\Controller\Plugin\InvitationHandler
@@ -55,7 +55,7 @@ class InvitationHandlerTest extends TestCase
             $this->emailValidatorMock = new EmailAddress();
         }
         if (in_array('translator', $mocks)) {
-            $this->translatorMock = $this->getMockBuilder('\Zend\I18n\Translator\Translator')->getMock();
+            $this->translatorMock = $this->getMockBuilder('\Laminas\I18n\Translator\Translator')->getMock();
         }
         if (in_array('userRepository', $mocks)) {
             $this->userRepositoryMock = $this->getMockBuilder('\Auth\Repository\User')->disableOriginalConstructor()->getMock();
@@ -79,11 +79,11 @@ class InvitationHandlerTest extends TestCase
 
 
     /**
-     * @testdox Extends \Zend\Mvc\Controller\Plugin\AbstractPlugin
+     * @testdox Extends \Laminas\Mvc\Controller\Plugin\AbstractPlugin
      */
     public function testExtendsAbstractPlugin()
     {
-        $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', $this->target);
+        $this->assertInstanceOf('\Laminas\Mvc\Controller\Plugin\AbstractPlugin', $this->target);
     }
 
     public function provideSetterAndGetterTestData()

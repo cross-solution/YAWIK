@@ -19,7 +19,7 @@ use SlmQueue\Queue\AbstractQueue;
 use SlmQueue\Strategy\AbstractStrategy;
 use SlmQueue\Worker\Event\AbstractWorkerEvent;
 use SlmQueue\Worker\Event\ProcessIdleEvent;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\EventManager\EventManagerInterface;
 
 /**
  * Tests for \Core\Queue\Strategy\IdleSleepStrategy

@@ -3,7 +3,7 @@
 namespace Cv\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\Form\CollectionContainer;
 
 class EducationCollectionFactory implements FactoryInterface

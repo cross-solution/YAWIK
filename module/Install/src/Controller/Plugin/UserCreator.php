@@ -15,7 +15,7 @@ use Auth\Entity\Info;
 use Auth\Entity\User;
 use Auth\Repository\User as UserRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Helper for initial user creation.

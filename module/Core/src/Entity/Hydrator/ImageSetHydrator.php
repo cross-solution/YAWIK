@@ -17,7 +17,7 @@ use Doctrine\MongoDB\GridFSFile;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * Hydrator for ImageSets.

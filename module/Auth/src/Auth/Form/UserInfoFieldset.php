@@ -14,13 +14,13 @@ use Core\Form\CustomizableFieldsetTrait;
 use Core\Form\EmptySummaryAwareInterface;
 use Core\Form\EmptySummaryAwareTrait;
 use Core\Form\CustomizableFieldsetInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Validator\StringLength;
-use Zend\Validator\NotEmpty;
-use Zend\Validator\EmailAddress;
-use Zend\Validator\File;
+use Laminas\InputFilter\InputFilterProviderInterface;
+use Laminas\Validator\StringLength;
+use Laminas\Validator\NotEmpty;
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\File;
 
 /**
  *
@@ -67,7 +67,7 @@ class UserInfoFieldset extends Fieldset implements
     }
 
     /**
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {
@@ -206,7 +206,7 @@ class UserInfoFieldset extends Fieldset implements
     /**
      * (non-PHPdoc)
      *
-     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     * @see \Laminas\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
     public function getDefaultInputFilterSpecification()
     {
@@ -214,7 +214,7 @@ class UserInfoFieldset extends Fieldset implements
             'firstName' => array(
                 'required'   => true,
                 'filters'    => array(
-                    array('name' => '\Zend\Filter\StringTrim'),
+                    array('name' => '\Laminas\Filter\StringTrim'),
                 ),
                 'validators' => array(
                     new NotEmpty(),
@@ -224,7 +224,7 @@ class UserInfoFieldset extends Fieldset implements
             'lastName'  => array(
                 'required'   => true,
                 'filters'    => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
+                    array('name' => 'Laminas\Filter\StringTrim'),
                 ),
                 'validators' => array(
                     new NotEmpty(),
@@ -234,7 +234,7 @@ class UserInfoFieldset extends Fieldset implements
             'email'     => array(
                 'required'   => true,
                 'filters'    => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
+                    array('name' => 'Laminas\Filter\StringTrim'),
                 ),
                 'validators' => array(
                     new NotEmpty(),

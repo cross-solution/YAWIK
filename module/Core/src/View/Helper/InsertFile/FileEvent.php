@@ -2,7 +2,7 @@
 
 namespace Core\View\Helper\InsertFile;
 
-use Zend\EventManager\Event;
+use Laminas\EventManager\Event;
 
 class FileEvent extends Event
 {

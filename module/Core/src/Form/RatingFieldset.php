@@ -10,7 +10,7 @@
 /** RatingFieldset.php */
 namespace Core\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\RatingInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 

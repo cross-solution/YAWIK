@@ -10,7 +10,7 @@
 /** PermissionsCollection.php */
 namespace Core\Form;
 
-use Zend\Form\Element\Collection;
+use Laminas\Form\Element\Collection;
 use Core\Entity\PermissionsInterface;
 
 class PermissionsCollection extends Collection implements ViewPartialProviderInterface

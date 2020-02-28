@@ -10,7 +10,7 @@
 namespace Auth\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 
 class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterface
@@ -49,7 +49,7 @@ class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterfac
     }
 
     /**
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {

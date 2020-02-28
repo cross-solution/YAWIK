@@ -8,7 +8,7 @@
  * @license   MIT
  */
 ?>
-<?php $switchUserSession = new \Zend\Session\Container(\Auth\Controller\Plugin\UserSwitcher::SESSION_NAMESPACE);
+<?php $switchUserSession = new \Laminas\Session\Container(\Auth\Controller\Plugin\UserSwitcher::SESSION_NAMESPACE);
 $defaultLang = is_null($this->params('lang')) ? "en":$this->params('lang');
 $lang = isset($this->lang)?$this->lang:$defaultLang; ?>
 <ul id="yk-login-info" class="nav navbar-nav navbar-collapse collapse navbar-right">

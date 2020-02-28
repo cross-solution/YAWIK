@@ -12,7 +12,7 @@ namespace Install\Factory\Controller\Plugin;
 
 use Install\Controller\Plugin\YawikConfigCreator;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for a YawikConfigCreator plugin instance.

@@ -18,8 +18,8 @@ use Jobs\Listener\LoadActiveOrganizations;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationContact;
 use Organizations\Entity\OrganizationName;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Paginator\Paginator;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Paginator\Paginator;
 
 /**
  * Tests for \Jobs\Listener\LoadActiveOrganizations

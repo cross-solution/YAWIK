@@ -19,7 +19,7 @@ use Jobs\Factory\Form\HiringOrganizationSelectFactory;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationContact;
 use Organizations\Entity\OrganizationName;
-use Zend\Form\FormElementManager;
+use Laminas\Form\FormElementManager;
 
 /**
  * Tests for the HiringOrganizationSelect factory
@@ -85,7 +85,7 @@ class HiringOrganizationSelectFactoryTest extends TestCase
              ->method('getUser')
              ->willReturn($user);
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 
@@ -98,11 +98,11 @@ class HiringOrganizationSelectFactoryTest extends TestCase
     }
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $this->target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', $this->target);
     }
 
     /**

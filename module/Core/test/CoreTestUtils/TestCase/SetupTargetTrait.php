@@ -13,7 +13,7 @@ namespace CoreTestUtils\TestCase;
 use PHPUnit\Framework\TestCase;
 
 use CoreTestUtils\InstanceCreator;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Trait for setup the SUT instance.

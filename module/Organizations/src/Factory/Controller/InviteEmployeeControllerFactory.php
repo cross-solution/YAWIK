@@ -11,7 +11,7 @@ namespace Organizations\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Organizations\Controller\InviteEmployeeController;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Create new InviteEmployeeController

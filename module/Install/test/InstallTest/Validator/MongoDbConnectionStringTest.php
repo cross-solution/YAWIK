@@ -26,7 +26,7 @@ class MongoDbConnectionStringTest extends TestCase
 {
     public function testExtendsAbstractValidator()
     {
-        $this->assertInstanceOf('\Zend\Validator\AbstractValidator', new MongoDbConnectionString());
+        $this->assertInstanceOf('\Laminas\Validator\AbstractValidator', new MongoDbConnectionString());
     }
 
     public function testProvidesDefaultProperties()

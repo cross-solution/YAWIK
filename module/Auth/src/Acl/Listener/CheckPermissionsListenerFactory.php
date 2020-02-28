@@ -10,8 +10,8 @@
 namespace Acl\Listener;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating the Auth view helper.
@@ -49,7 +49,7 @@ class CheckPermissionsListenerFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $helpers
      * @return \Auth\View\Helper\Auth
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

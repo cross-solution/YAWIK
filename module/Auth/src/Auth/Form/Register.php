@@ -13,9 +13,9 @@ use Auth\Entity\User;
 use Auth\Options\CaptchaOptions;
 use Core\Form\ButtonsFieldset;
 use Core\Form\Form;
-use Zend\Captcha\Image;
-use Zend\Captcha\ReCaptcha;
-use Zend\Form\Fieldset;
+use Laminas\Captcha\Image;
+use Laminas\Captcha\ReCaptcha;
+use Laminas\Form\Fieldset;
 
 class Register extends Form implements RegisterFormInterface
 {
@@ -80,7 +80,7 @@ class Register extends Form implements RegisterFormInterface
                         'label' => /*@translate*/ 'Are you human?',
                         'captcha' => $captcha,
                     ),
-                    'type' => 'Zend\Form\Element\Captcha',
+                    'type' => 'Laminas\Form\Element\Captcha',
                     )
                 );
             }

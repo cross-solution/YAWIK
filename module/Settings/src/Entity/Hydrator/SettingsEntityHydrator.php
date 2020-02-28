@@ -10,7 +10,7 @@
 /** SettingsEntityHydrator.php */
 namespace Settings\Entity\Hydrator;
 
-use Zend\Hydrator\Reflection;
+use Laminas\Hydrator\Reflection;
 
 class SettingsEntityHydrator extends Reflection
 {

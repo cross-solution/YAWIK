@@ -12,7 +12,7 @@ namespace Auth\Entity;
 
 use Core\Entity\FileEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * Defines a Profile Image of an user

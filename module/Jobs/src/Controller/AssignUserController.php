@@ -11,9 +11,9 @@
 namespace Jobs\Controller;
 
 use Jobs\Repository\Job as JobsRepository;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * ${CARET}
@@ -43,7 +43,7 @@ class AssignUserController extends AbstractActionController
 
     public function indexAction()
     {
-        /* @var $request \Zend\Http\Request */
+        /* @var $request \Laminas\Http\Request */
         $request = $this->getRequest();
 
         if (!$request->isXmlHttpRequest()) {

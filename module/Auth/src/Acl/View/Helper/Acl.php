@@ -10,9 +10,9 @@
 /** Acl.php */
 namespace Acl\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use Acl\Controller\Plugin\Acl as AclPlugin;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
 class Acl extends AbstractHelper
 {

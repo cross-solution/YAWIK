@@ -2,8 +2,8 @@
 
 namespace Auth\Adapter;
 
-use Zend\Authentication\Adapter\AbstractAdapter;
-use Zend\Authentication\Result;
+use Laminas\Authentication\Adapter\AbstractAdapter;
+use Laminas\Authentication\Result;
 use Auth\Entity\Filter\CredentialFilter;
 
 /**

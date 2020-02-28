@@ -19,9 +19,9 @@ use SlmQueue\Worker\Event\AbstractWorkerEvent;
 use SlmQueue\Worker\Event\BootstrapEvent;
 use SlmQueue\Worker\Event\FinishEvent;
 use SlmQueue\Worker\Event\ProcessJobEvent;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Log\LoggerAwareInterface;
-use Zend\Log\LoggerInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Log\LoggerAwareInterface;
+use Laminas\Log\LoggerInterface;
 
 /**
  * Queue Worker Strategy to log events using an instance of {@link LoggerInterface}

@@ -11,10 +11,10 @@ namespace Install\Factory\Controller;
 
 use Core\Service\ClearCacheService;
 use Interop\Container\ContainerInterface;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\Mvc\I18n\Translator;
-use Zend\ServiceManager\Factory\AbstractFactoryInterface;
-use Zend\Validator\ValidatorPluginManager;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Laminas\Validator\ValidatorPluginManager;
 
 /**
  * Install module main controller.

@@ -15,10 +15,10 @@ use Core\Entity\Exception\NotFoundException;
 use Jobs\Repository\Job as JobRepository;
 use Organizations\Entity\Organization;
 use Organizations\Repository\Organization as OrganizationRepository;
-use Zend\Http\Response;
-use Zend\I18n\Translator\TranslatorInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Http\Response;
+use Laminas\I18n\Translator\TranslatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
 
 /**
@@ -151,7 +151,7 @@ class ProfileController extends AbstractActionController
         if (
             Organization::PROFILE_ACTIVE_JOBS == $organization->getProfileSetting()
         ) {
-            /* @var \Zend\Paginator\Paginator $paginator */
+            /* @var \Laminas\Paginator\Paginator $paginator */
             $paginator = $result['jobs'];
             $count = $paginator->getTotalItemCount();
             if (0===$count) {
@@ -161,7 +161,7 @@ class ProfileController extends AbstractActionController
         $result['organization'] = $organization;
         $result['organizationImageCache'] = $this->imageFileCacheManager;
 
-        /* @var \Zend\Mvc\Controller\Plugin\Url $url */
+        /* @var \Laminas\Mvc\Controller\Plugin\Url $url */
         $result['paginationControlRoute'] = 'lang/organizations/profileDetail';
         return new ViewModel($result);
     }

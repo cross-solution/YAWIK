@@ -11,10 +11,10 @@
 namespace Jobs\Acl;
 
 use Organizations\Entity\EmployeePermissionsInterface;
-use Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Assertion\AssertionInterface;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 use Jobs\Entity\JobInterface;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
@@ -31,7 +31,7 @@ class WriteAssertion implements AssertionInterface
      * Returns true, if the user has write access to the job.
      *
      * {@inheritDoc}
-     * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
+     * @see \Laminas\Permissions\Acl\Assertion\AssertionInterface::assert()
      */
     public function assert(
         Acl $acl,

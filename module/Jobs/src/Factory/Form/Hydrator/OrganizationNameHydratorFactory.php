@@ -13,7 +13,7 @@ use Core\Entity\Hydrator\MappingEntityHydrator;
 use Interop\Container\ContainerInterface;
 use Jobs\Form\Hydrator\Strategy\JobManagerStrategy;
 use Jobs\Form\Hydrator\Strategy\OrganizationNameStrategy;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Class OrganizationNameHydratorFactory

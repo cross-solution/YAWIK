@@ -10,7 +10,7 @@
 /** */
 namespace Install\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Checks permissions on directories or if the directories can be created or not.

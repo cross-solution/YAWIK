@@ -11,7 +11,7 @@ namespace OrganizationsTest\Factory\ImageFileCache;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Organizations\Factory\ImageFileCache\ManagerFactory;
 use Organizations\ImageFileCache\Manager;
 use Organizations\Options\ImageFileCacheOptions;

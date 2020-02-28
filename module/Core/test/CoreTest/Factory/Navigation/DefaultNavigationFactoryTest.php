@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Factory\Navigation\DefaultNavigationFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Router\RouteMatch;
+use Laminas\Router\RouteMatch;
 
 /**
  * Tests for \Core\Factory\Navigation\DefaultNavigationFactory
@@ -35,7 +35,7 @@ class DefaultNavigationFactoryTest extends TestCase
      */
     private $target = DefaultNavigationFactory::class;
 
-    private $inheritance = [ '\Zend\Navigation\Service\DefaultNavigationFactory' ];
+    private $inheritance = [ '\Laminas\Navigation\Service\DefaultNavigationFactory' ];
 
     public function testSetsActiveFlagOnPagesProvidingTheActiveOnOption()
     {

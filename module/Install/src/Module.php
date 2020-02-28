@@ -10,8 +10,8 @@
 /** */
 namespace Install;
 
-use Zend\ModuleManager\Feature;
-use Zend\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature;
+use Laminas\EventManager\EventInterface;
 
 /**
  * Module "Install" initialization.
@@ -30,7 +30,7 @@ class Module implements Feature\ConfigProviderInterface, Feature\BootstrapListen
     /**
      * Listen to the bootstrap event.
      *
-     * @param EventInterface|\Zend\Mvc\MvcEvent $e
+     * @param EventInterface|\Laminas\Mvc\MvcEvent $e
      *
      * @return void
      * @throws \Exception

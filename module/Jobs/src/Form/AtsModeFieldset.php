@@ -13,8 +13,8 @@ namespace Jobs\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\ViewPartialProviderInterface;
 use Jobs\Entity\AtsModeInterface;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Base Fieldset for \Jobs\Form\AtsMode

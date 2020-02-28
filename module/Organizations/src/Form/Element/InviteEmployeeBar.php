@@ -12,7 +12,7 @@ namespace Organizations\Form\Element;
 
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
-use Zend\Form\Element\Text;
+use Laminas\Form\Element\Text;
 
 /**
  * Form element to allow entering an email address and click a invite button.

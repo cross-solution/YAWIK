@@ -12,7 +12,7 @@ namespace Core\Options;
 
 use Core\Application;
 use Core\Options\Exception\MissingOptionException;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Class ModuleOptions

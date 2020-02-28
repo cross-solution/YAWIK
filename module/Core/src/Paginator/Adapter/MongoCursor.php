@@ -2,7 +2,7 @@
 
 namespace Core\Paginator\Adapter;
 
-use Zend\Paginator\Adapter\AdapterInterface;
+use Laminas\Paginator\Adapter\AdapterInterface;
 
 class MongoCursor implements AdapterInterface
 {

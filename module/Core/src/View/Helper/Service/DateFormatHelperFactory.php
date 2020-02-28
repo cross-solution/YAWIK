@@ -9,9 +9,9 @@
 
 namespace Core\View\Helper\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\I18n\View\Helper\DateFormat;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\I18n\View\Helper\DateFormat;
 use Locale;
 
 /**
@@ -27,7 +27,7 @@ class DateFormatHelperFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Core\View\Helper\Params
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

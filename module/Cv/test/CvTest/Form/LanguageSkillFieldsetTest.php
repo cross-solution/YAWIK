@@ -16,7 +16,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Language;
 use Cv\Form\LanguageSkillFieldset;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Tests for \Cv\Form\LanguageSkillFieldset

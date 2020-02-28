@@ -12,16 +12,16 @@ namespace Core\Factory\Form;
 
 use Core\Form\CustomizableFieldsetInterface;
 use Interop\Container\ContainerInterface;
-//use Zend\ServiceManager\FactoryInterface;
-//use Zend\ServiceManager\MutableCreationOptionsInterface;
+//use Laminas\ServiceManager\FactoryInterface;
+//use Laminas\ServiceManager\MutableCreationOptionsInterface;
 use Interop\Container\Exception\ContainerException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Zend\ServiceManager\Exception;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\PluginManagerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Exception;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\PluginManagerInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory boilerplate for customizable Fieldsets
@@ -117,7 +117,7 @@ abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, 
      * @param string             $name
      * @param array              $options
      *
-     * @return \Zend\Form\Fieldset
+     * @return \Laminas\Form\Fieldset
      * @throws \RuntimeException
      */
     protected function createFormInstance(ContainerInterface $container, $name, array $options = null)
@@ -137,7 +137,7 @@ abstract class AbstractCustomizableFieldsetFactory implements FactoryInterface, 
      * @internal
      *      proxies to {@link __invoke()}
      *
-     * @param ServiceLocatorInterface|\Zend\ServiceManager\AbstractPluginManager $serviceLocator
+     * @param ServiceLocatorInterface|\Laminas\ServiceManager\AbstractPluginManager $serviceLocator
      *
      * @return CustomizableFieldsetInterface
      */

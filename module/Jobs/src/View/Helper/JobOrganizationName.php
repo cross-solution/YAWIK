@@ -11,7 +11,7 @@
 namespace Jobs\View\Helper;
 
 use Jobs\Entity\JobInterface;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * Returns the organization name for a job.

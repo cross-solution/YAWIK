@@ -10,12 +10,12 @@
 /** ErrorLoggerListener.php */
 namespace Core\Listener;
 
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\ListenerAggregateTrait;
-use Zend\Mvc\MvcEvent;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Mvc\Application;
-use Zend\Router;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\ListenerAggregateTrait;
+use Laminas\Mvc\MvcEvent;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Mvc\Application;
+use Laminas\Router;
 
 /**
  * Class ErrorHandlerListener

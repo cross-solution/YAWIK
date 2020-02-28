@@ -8,10 +8,10 @@
  */
 namespace Auth\Dependency;
 
-use Zend\EventManager\EventManagerAwareTrait;
-use Zend\EventManager\EventInterface;
+use Laminas\EventManager\EventManagerAwareTrait;
+use Laminas\EventManager\EventInterface;
 use Auth\Entity\UserInterface as User;
-use Zend\Mvc\Router\RouteInterface as Router;
+use Laminas\Mvc\Router\RouteInterface as Router;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
 /**
@@ -53,7 +53,7 @@ class Manager
     /**
      * @param User $user
      * @param Router $router
-     * @return \Zend\EventManager\ResponseCollection
+     * @return \Laminas\EventManager\ResponseCollection
      */
     public function removeItems(User $user)
     {

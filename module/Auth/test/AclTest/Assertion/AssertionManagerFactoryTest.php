@@ -26,12 +26,12 @@ class AssertionManagerFactoryTest extends TestCase
     {
         $target = new AssertionManagerFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     public function testCreateServiceReturnsAssertionManager()
     {
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 
@@ -53,7 +53,7 @@ class AssertionManagerFactoryTest extends TestCase
      */
     public function testCorrectConfigIsUsedToConfigureTheManager($config, $testName, $testResult)
     {
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 

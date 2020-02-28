@@ -3,11 +3,11 @@
 namespace Jobs\Form;
 
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Form\Form;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
-use Zend\Uri\Http;
+use Laminas\Uri\Http;
 
 /**
  * This form is used to import jobs via the API

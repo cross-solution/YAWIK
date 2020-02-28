@@ -10,9 +10,9 @@
 /** Auth controller */
 namespace Auth\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Auth\Repository\User as UserRepository;
 use Core\Form\SummaryFormInterface;
 
@@ -50,7 +50,7 @@ class UsersController extends AbstractActionController
     /**
      * List users
      *
-     * @return array|\Zend\Http\Response|ViewModel
+     * @return array|\Laminas\Http\Response|ViewModel
      */
     public function listAction()
     {
@@ -71,7 +71,7 @@ class UsersController extends AbstractActionController
     /**
      * Edit user
      *
-     * @return \Zend\Http\Response|ViewModel|array
+     * @return \Laminas\Http\Response|ViewModel|array
      */
     public function editAction()
     {
@@ -167,7 +167,7 @@ class UsersController extends AbstractActionController
 
         if ('list' == $do) {
             /* @var \Auth\Entity\User $user */
-            /* @var \Zend\Paginator\Paginator $paginator */
+            /* @var \Laminas\Paginator\Paginator $paginator */
             $paginator = $this->paginator('Auth/User', ['page' => 1]);
             $result = [];
 

@@ -11,7 +11,7 @@
 namespace Jobs\Form;
 
 use Jobs\Entity\Status;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * Defines the formular fields of the job opening search formular. The ListFilterBaseFieldset contains the fulltext

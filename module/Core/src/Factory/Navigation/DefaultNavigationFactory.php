@@ -10,9 +10,9 @@
 /** */
 namespace Core\Factory\Navigation;
 
-use Zend\Navigation\Service\DefaultNavigationFactory as ZfDefaultNavigationFactory;
-use Zend\Mvc\Router as MvcRouter;
-use Zend\Mvc\Router\RouteMatch;
+use Laminas\Navigation\Service\DefaultNavigationFactory as ZfDefaultNavigationFactory;
+use Laminas\Mvc\Router as MvcRouter;
+use Laminas\Mvc\Router\RouteMatch;
 
 /**
  * Extends the ZF DefaultNavigationFactory to let it set

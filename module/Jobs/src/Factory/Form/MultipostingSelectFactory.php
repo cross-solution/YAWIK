@@ -12,7 +12,7 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\MultipostingSelect;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for the Multiposting select box
@@ -38,9 +38,9 @@ class MultipostingSelectFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
 
-        /* @var $headScript     \Zend\View\Helper\HeadScript
+        /* @var $headScript     \Laminas\View\Helper\HeadScript
          * @var $channels       \Jobs\Options\ProviderOptions
-         * @var $currency       \Zend\I18n\View\Helper\CurrencyFormat */
+         * @var $currency       \Laminas\I18n\View\Helper\CurrencyFormat */
 
         $router = $container->get('Router');
         $select  = new MultipostingSelect();

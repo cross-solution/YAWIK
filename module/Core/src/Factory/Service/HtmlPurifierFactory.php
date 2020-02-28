@@ -14,7 +14,7 @@ namespace Core\Factory\Service;
 use Core\Options\ModuleOptions;
 use HTMLPurifier;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class HtmlPurifierFactory implements FactoryInterface
 {

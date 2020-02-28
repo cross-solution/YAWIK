@@ -33,7 +33,7 @@ class EmployeePermissionsTest extends TestCase
     {
         $target = new Employee();
 
-        $this->assertInstanceOf('\Zend\Form\Element', $target);
+        $this->assertInstanceOf('\Laminas\Form\Element', $target);
     }
 
     /**

@@ -12,16 +12,16 @@ namespace CoreTest\Controller;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Controller\Plugin\Auth;
-use Zend\Http\Response;
-use Zend\ModuleManager\ModuleManager;
-use Zend\Mvc\Controller\Plugin\Forward;
-use Zend\Mvc\Controller\Plugin\Layout;
-use Zend\Mvc\Controller\PluginManager;
+use Laminas\Http\Response;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\Mvc\Controller\Plugin\Forward;
+use Laminas\Mvc\Controller\Plugin\Layout;
+use Laminas\Mvc\Controller\PluginManager;
 use Core\Controller\IndexController;
 use Core\Listener\DefaultListener;
 use Core\Controller\Plugin\Config;
-use Zend\Http\Request;
-use Zend\View\Model\ViewModel;
+use Laminas\Http\Request;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Class IndexControllerTest

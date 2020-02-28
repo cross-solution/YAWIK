@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Factory\EventManager\EventManagerAbstractFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Factory\EventManager\EventManagerAbstractFactory
@@ -40,7 +40,7 @@ class InheritanceAndConfigMergingTest extends TestCase
         '@testCanCreateServiceWithName' => ['mock' => ['canCreate' => 1]],
     ];
 
-    protected $inheritance = [ '\Zend\ServiceManager\Factory\AbstractFactoryInterface' ];
+    protected $inheritance = [ '\Laminas\ServiceManager\Factory\AbstractFactoryInterface' ];
 
     public function testDeterminesIfItCanCreateAnEventManagerByName()
     {
@@ -92,7 +92,7 @@ class InheritanceAndConfigMergingTest extends TestCase
             'service' => 'EventManager',
             'configure' => true,
             'identifiers' => [ $reqName ],
-            'event' => '\Zend\EventManager\Event',
+            'event' => '\Laminas\EventManager\Event',
             'listeners' => [],
         ];
 
@@ -117,7 +117,7 @@ class InheritanceAndConfigMergingTest extends TestCase
 
     public function testCanCreateServiceWithName()
     {
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceLocatorInterface')->getMockForAbstractClass();
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceLocatorInterface')->getMockForAbstractClass();
 
         $this->target->canCreateServiceWithName($services, 'irrelevant', 'irrelevant');
     }

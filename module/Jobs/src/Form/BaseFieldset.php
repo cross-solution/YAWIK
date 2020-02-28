@@ -17,10 +17,10 @@ use Core\Form\HydratorStrategyAwareTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Entity\Location;
 use Jobs\Form\Hydrator\Strategy\LocationStrategy;
-use Zend\Form\Exception;
-use Zend\Form\Fieldset;
+use Laminas\Form\Exception;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\Form\FieldsetInterface;
+use Laminas\Form\FieldsetInterface;
 use Core\Form\CustomizableFieldsetInterface;
 use Core\Form\CustomizableFieldsetTrait;
 
@@ -32,7 +32,7 @@ class BaseFieldset extends Fieldset implements CustomizableFieldsetInterface
     use CustomizableFieldsetTrait;
 
     /**
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {
@@ -44,7 +44,7 @@ class BaseFieldset extends Fieldset implements CustomizableFieldsetInterface
             $geoLocationIsMultiple = $this->get('geoLocation')->getAttribute('multiple', false);
             $geoLocationStrategy = $this->get('geoLocation')->getHydratorStrategy();
 
-            $locationsStrategy = new \Zend\Hydrator\Strategy\ClosureStrategy(
+            $locationsStrategy = new \Laminas\Hydrator\Strategy\ClosureStrategy(
                 /* extract */
                 function ($value) use ($geoLocationStrategy, $geoLocationIsMultiple) {
                     $value = $geoLocationIsMultiple ? $value : $value->first();

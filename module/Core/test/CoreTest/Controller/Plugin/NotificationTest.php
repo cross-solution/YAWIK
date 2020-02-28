@@ -15,9 +15,9 @@ use Core\Controller\Plugin\Notification;
 use Core\Listener\Events\NotificationEvent;
 use Core\Listener\NotificationListener;
 use Core\Log\Notification\NotificationEntity;
-use Zend\EventManager\SharedEventManagerInterface;
-use Zend\I18n\Translator\TranslatorInterface;
-use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
+use Laminas\EventManager\SharedEventManagerInterface;
+use Laminas\I18n\Translator\TranslatorInterface;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 
 /**
  * Class NotificationTest

@@ -11,10 +11,10 @@ namespace AuthTest\Factory\Dependency;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Auth\Factory\Dependency\ManagerFactory;
 use Auth\Dependency\Manager;
-use Zend\EventManager\EventManagerInterface as Events;
+use Laminas\EventManager\EventManagerInterface as Events;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
 /**

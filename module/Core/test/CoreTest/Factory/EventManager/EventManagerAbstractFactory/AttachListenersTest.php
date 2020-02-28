@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Factory\EventManager\EventManagerAbstractFactory;
 use Core\Listener\DeferredListenerAggregate;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Factory\EventManager\EventManagerAbstractFactory::attachListeners
@@ -49,7 +49,7 @@ class AttachListenersTest extends TestCase
                              ->setMethods([ 'createEventManager', 'getConfig' ])
                              ->getMock();
 
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')
                        ->disableOriginalConstructor()
                        ->setMethods(['attach'])
                        ->getMock();
@@ -66,7 +66,7 @@ class AttachListenersTest extends TestCase
 
     protected function getServiceManagerMock($listeners, $expectLazyListeners = false)
     {
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 
@@ -165,7 +165,7 @@ class AttachListenersTest extends TestCase
     
     public function testCallsAttachOnListenerAggregates()
     {
-        $aggregateMock = $this->getMockBuilder('\Zend\EventManager\ListenerAggregateInterface')
+        $aggregateMock = $this->getMockBuilder('\Laminas\EventManager\ListenerAggregateInterface')
                               ->getMockForAbstractClass();
         $aggregateMock->expects($this->exactly(2))->method('attach')->withConsecutive([ $this->events, 1], [$this->events, -100]);
         

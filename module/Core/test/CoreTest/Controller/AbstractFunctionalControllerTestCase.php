@@ -9,8 +9,8 @@ use Auth\Entity\User;
 use AuthTest\Entity\Provider\UserEntityProvider;
 use CoreTest\Bootstrap;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 /**
  * Class AbstractFunctionalControllerTestCase

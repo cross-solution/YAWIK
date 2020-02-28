@@ -49,7 +49,7 @@ class YawikConfigCreatorTest extends TestCase
 
     public function testExtendsAbstractPlugin()
     {
-        $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', $this->target);
+        $this->assertInstanceOf('\Laminas\Mvc\Controller\Plugin\AbstractPlugin', $this->target);
     }
 
     public function testSettingConfigurationValues()

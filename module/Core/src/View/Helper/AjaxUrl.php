@@ -10,9 +10,9 @@
 /** */
 namespace Core\View\Helper;
 
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
  * Builds urls to use the ajax call api.

@@ -10,7 +10,7 @@
 /** AbstractProfile.php */
 namespace Auth\Controller\Plugin\SocialProfiles;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Hybrid_Provider_Adapter;
 
 abstract class AbstractAdapter extends AbstractPlugin

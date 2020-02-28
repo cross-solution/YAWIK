@@ -11,8 +11,8 @@ namespace Core\Listener\Events;
 
 
 use Core\Paginator\PaginatorService;
-use Zend\EventManager\Event;
-use Zend\Paginator\Paginator;
+use Laminas\EventManager\Event;
+use Laminas\Paginator\Paginator;
 
 /**
  * Class CreatePaginatorEvent

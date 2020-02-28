@@ -10,7 +10,7 @@ namespace Auth\Factory\Controller;
 
 use Auth\Controller\RemoveController;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class RemoveControllerFactory implements FactoryInterface
 {

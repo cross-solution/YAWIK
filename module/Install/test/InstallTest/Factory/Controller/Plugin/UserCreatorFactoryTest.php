@@ -18,7 +18,7 @@ use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Install\Factory\Controller\Plugin\UserCreatorFactory;
 use Install\Filter\DbNameExtractor;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Install\Factory\Controller\Plugin\UserCreatorFactory
@@ -34,7 +34,7 @@ class UserCreatorFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
@@ -43,7 +43,7 @@ class UserCreatorFactoryTest extends TestCase
 
     public function testCreatesAnUserCreatorPluginInstance()
     {
-        $filters = $this->getMockBuilder('\Zend\Filter\FilterPluginManager')->disableOriginalConstructor()->getMock();
+        $filters = $this->getMockBuilder('\Laminas\Filter\FilterPluginManager')->disableOriginalConstructor()->getMock();
         $filters->expects($this->exactly(2))
                 ->method('get')
                 ->withConsecutive(
@@ -62,7 +62,7 @@ class UserCreatorFactoryTest extends TestCase
             ->method('getConfiguration')
             ->willReturn($configuration)
         ;
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services
             ->expects($this->exactly(2))
             ->method('get')
@@ -77,7 +77,7 @@ class UserCreatorFactoryTest extends TestCase
         ;
 
         
-        //$plugins = $this->getMockBuilder('\Zend\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
+        //$plugins = $this->getMockBuilder('\Laminas\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
         //$plugins->expects($this->once())->method('getServiceLocator')->willReturn($services);
 
         $target = $this->getMockBuilder(UserCreatorFactory::class)

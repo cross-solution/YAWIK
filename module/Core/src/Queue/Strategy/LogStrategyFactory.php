@@ -12,8 +12,8 @@ namespace Core\Queue\Strategy;
 
 use Interop\Container\ContainerInterface;
 use Psr\Log\NullLogger;
-use Zend\Log\LoggerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Log\LoggerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Core\Queue\Strategy\LogStrategy

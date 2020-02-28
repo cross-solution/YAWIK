@@ -10,13 +10,13 @@
 /** ActionController of Jobs */
 namespace Jobs\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Session\Container as Session;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Session\Container as Session;
+use Laminas\View\Model\JsonModel;
 use Auth\Entity\User;
 use Jobs\Repository;
 use Jobs\Form\ListFilter;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Handles the job listing for recruiters.
@@ -63,7 +63,7 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        /* @var $request \Zend\Http\Request */
+        /* @var $request \Laminas\Http\Request */
         $request     = $this->getRequest();
         $queryParams = $request->getQuery();
         $params      = $queryParams->get('params', []);
@@ -114,7 +114,7 @@ class IndexController extends AbstractActionController
      */
     public function dashboardAction()
     {
-        /* @var $request \Zend\Http\Request */
+        /* @var $request \Laminas\Http\Request */
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $isRecruiter = $this->Acl()->isRole(User::ROLE_RECRUITER);

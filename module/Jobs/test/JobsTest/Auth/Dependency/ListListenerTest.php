@@ -13,9 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 use Jobs\Auth\Dependency\ListListener;
 use Jobs\Repository\Job as Repository;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer as View;
 use Doctrine\MongoDB\CursorInterface as Cursor;
 use Jobs\Entity\JobInterface;
 

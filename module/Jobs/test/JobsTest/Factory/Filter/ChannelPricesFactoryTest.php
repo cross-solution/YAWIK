@@ -28,11 +28,11 @@ use Jobs\Options\ProviderOptions;
 class ChannelPricesFactoryTest extends TestCase
 {
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new ChannelPricesFactory());
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', new ChannelPricesFactory());
     }
 
     /**
@@ -42,7 +42,7 @@ class ChannelPricesFactoryTest extends TestCase
     {
         $provider=new ProviderOptions();
 
-        $serviceManagerMock = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+        $serviceManagerMock = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
                                    ->disableOriginalConstructor()
                                    ->getMock();
 

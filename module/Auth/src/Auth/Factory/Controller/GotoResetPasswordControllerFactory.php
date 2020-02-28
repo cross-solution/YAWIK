@@ -13,12 +13,12 @@ use Auth\Controller\GotoResetPasswordController;
 use Auth\Service;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\Log\LoggerInterface;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Log\LoggerInterface;
+use Laminas\Mvc\Controller\ControllerManager;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class GotoResetPasswordControllerFactory implements FactoryInterface
 {

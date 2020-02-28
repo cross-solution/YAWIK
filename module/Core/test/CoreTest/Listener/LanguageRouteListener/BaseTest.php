@@ -13,12 +13,12 @@ namespace CoreTest\Listener\LanguageRouteListener;
 use PHPUnit\Framework\TestCase;
 
 use Core\Options\ModuleOptions;
-use Zend\EventManager\EventManager;
+use Laminas\EventManager\EventManager;
 use Core\Listener\LanguageRouteListener;
 use Core\I18n\Locale as LocaleService;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\MvcEvent;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\Mvc\MvcEvent;
 
 /**
  * Base tests for \Core\Listener\LanguageRouteListener

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Factory\Controller\PasswordControllerFactory;
 use CoreTest\Bootstrap;
-use Zend\Mvc\Controller\ControllerManager;
+use Laminas\Mvc\Controller\ControllerManager;
 
 class PasswordControllerFactoryTest extends TestCase
 {

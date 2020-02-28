@@ -12,9 +12,9 @@ namespace Applications\Factory\Paginator;
 
 use Applications\Paginator\JobSelectPaginator;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for \Applications\Paginator\JobSelectPaginator

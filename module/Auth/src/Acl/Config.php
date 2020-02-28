@@ -10,9 +10,9 @@
 /** Config.php */
 namespace Acl;
 
-use Zend\Permissions\Acl\AclInterface;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Resource\GenericResource;
+use Laminas\Permissions\Acl\AclInterface;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Resource\GenericResource;
 use Acl\Assertion\AssertionManager;
 
 class Config

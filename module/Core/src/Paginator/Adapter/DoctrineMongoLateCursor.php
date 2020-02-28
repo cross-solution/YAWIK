@@ -10,12 +10,12 @@
 
 namespace Core\Paginator\Adapter;
 
-use Zend\Paginator\Adapter\AdapterInterface;
+use Laminas\Paginator\Adapter\AdapterInterface;
 use Doctrine\ODM\MongoDB\Cursor;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Doctrine\ODM\MongoDB\Query\Builder;
-use Zend\Stdlib\Parameters;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Class DoctrineMongoLateCursor

@@ -18,8 +18,8 @@ use Core\Queue\Worker\MongoWorker;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use SlmQueue\Queue\QueuePluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests for \Core\Queue\Controller\MongoQueueControllerFactory

@@ -10,12 +10,12 @@
 /** Core forms */
 namespace Core\Form;
 
-use Zend\Form\Element;
-use Zend\Form\FieldsetInterface;
-use Zend\Stdlib\PriorityList;
-use Zend\View\Renderer\PhpRenderer as Renderer;
+use Laminas\Form\Element;
+use Laminas\Form\FieldsetInterface;
+use Laminas\Stdlib\PriorityList;
+use Laminas\View\Renderer\PhpRenderer as Renderer;
 use Core\Entity\EntityInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Manages a group of formulars.
@@ -51,7 +51,7 @@ class Container extends Element implements
     
     /**
      * The form element manager.
-     * @var \Zend\Form\FormElementManager\FormElementManagerV3Polyfill
+     * @var \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill
      */
     protected $formElementManager;
     
@@ -274,7 +274,7 @@ class Container extends Element implements
      * @param string $key
      * @param bool $asInstance if set to false, the specification array is returned, and no instance created.
      *
-     * @return null|\Core\Form\Container|\Zend\Form\FormInterface
+     * @return null|\Core\Form\Container|\Laminas\Form\FormInterface
      * @since 0,25 added $asInstance parameter
      */
     public function getForm($key, $asInstance = true)
@@ -559,7 +559,7 @@ class Container extends Element implements
     /**
      * Maps entity property to forms or child containers.
      *
-     * @param \Zend\Form\FormInterface $form
+     * @param \Laminas\Form\FormInterface $form
      * @param \Core\Entity\EntityInterface $entity
      * @param string $property
      * @return void
@@ -608,7 +608,7 @@ class Container extends Element implements
      * get('form.element') gets an element of a form, this is more efficent because it doesn't expand all forms in the container,
      *      but just the one adressed
      * @param $key string
-     * @return null|\Zend\Form\ElementInterface
+     * @return null|\Laminas\Form\ElementInterface
      */
     public function get($key)
     {

@@ -12,11 +12,11 @@ namespace Jobs\Form;
 use Jobs\Entity\Salary as SalaryEntity;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Validator\InArray as InArrayValidator;
-use Zend\Validator\GreaterThan as GreaterThan;
-use Zend\Validator\Regex as RegexValidator;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
+use Laminas\Validator\InArray as InArrayValidator;
+use Laminas\Validator\GreaterThan as GreaterThan;
+use Laminas\Validator\Regex as RegexValidator;
 
 /**
  * Defines the formular fields used in the formular for entering the job salary information
@@ -117,7 +117,7 @@ class SalaryFieldset extends Fieldset implements ViewPartialProviderInterface, I
             'value' => array(
                 'required' => true,
                 'filters' => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
+                    array('name' => 'Laminas\Filter\StringTrim'),
                 ),
                 'validators' => array(
                     new GreaterThan(array(

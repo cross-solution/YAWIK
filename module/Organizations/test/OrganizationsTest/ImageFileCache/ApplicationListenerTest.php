@@ -15,12 +15,12 @@ use Organizations\ImageFileCache\ApplicationListener;
 use Organizations\ImageFileCache\Manager;
 use Organizations\Repository\OrganizationImage as ImageRepository;
 use Organizations\Entity\OrganizationImage as ImageEntity;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Application;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\Response;
-use Zend\Http\Response\Stream;
-use Zend\Http\Headers;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Application;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\Response;
+use Laminas\Http\Response\Stream;
+use Laminas\Http\Headers;
 
 /**
  * @coversDefaultClass \Organizations\ImageFileCache\ApplicationListener

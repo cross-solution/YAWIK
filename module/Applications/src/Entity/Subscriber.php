@@ -95,7 +95,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
             return;
         }
 
-        $client = new \Zend\Http\Client($this->getUri());
+        $client = new \Laminas\Http\Client($this->getUri());
         $client->setMethod('GET');
 
         try {

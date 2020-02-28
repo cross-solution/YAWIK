@@ -18,7 +18,7 @@ $attrStr = $this->formInput()->createAttributesString($attribs);
         <?php $first=true; foreach($this->element as $button):?>
 
             <?php
-            /* @var $button \Zend\Form\Element\Button */
+            /* @var $button \Laminas\Form\Element\Button */
             $button->setAttribute('class', $button->getAttribute('class'));
             ?>
             <?php echo $this->formRow($button);?>

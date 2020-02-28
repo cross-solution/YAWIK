@@ -13,11 +13,11 @@ namespace JobsTest\Factory\View\Helper;
 use PHPUnit\Framework\TestCase;
 
 use Core\View\Helper\Params;
-use Zend\I18n\View\Helper\Translate;
-use Zend\Mvc\MvcEvent;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Helper\ServerUrl;
-use Zend\View\Helper\Url;
+use Laminas\I18n\View\Helper\Translate;
+use Laminas\Mvc\MvcEvent;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\ServerUrl;
+use Laminas\View\Helper\Url;
 use Jobs\Factory\View\Helper\ApplyUrlFactory;
 
 /**
@@ -34,11 +34,11 @@ class ApplyUrlFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', new ApplyUrlFactory());
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', new ApplyUrlFactory());
     }
 
     /**
@@ -53,7 +53,7 @@ class ApplyUrlFactoryTest extends TestCase
         $paramsHelper = new Params(new MvcEvent());
         $serverUrl = new ServerUrl();
 
-        $helpers = $this->getMockBuilder('\Zend\View\HelperPluginManager')
+        $helpers = $this->getMockBuilder('\Laminas\View\HelperPluginManager')
                         ->disableOriginalConstructor()
                         ->getMock();
 

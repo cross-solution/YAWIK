@@ -11,9 +11,9 @@
 namespace Core\Repository\DoctrineMongoODM;
 
 use Core\Repository\RepositoryService;
-use Zend\Mvc\MvcEvent;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
 
 class PersistenceListener implements ListenerAggregateInterface
 {
@@ -23,7 +23,7 @@ class PersistenceListener implements ListenerAggregateInterface
     protected $repositories;
 
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
     

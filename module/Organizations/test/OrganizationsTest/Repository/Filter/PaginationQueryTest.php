@@ -21,7 +21,7 @@ use Jobs\Entity\StatusInterface;
 use Jobs\Repository\Job as JobRepository;
 use Organizations\Entity\Organization;
 use Organizations\Repository\Filter\PaginationQuery;
-use Zend\Stdlib\Parameters;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Class PaginationQueryTest

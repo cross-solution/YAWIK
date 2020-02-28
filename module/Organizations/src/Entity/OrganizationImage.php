@@ -13,7 +13,7 @@ namespace Organizations\Entity;
 use Core\Entity\ImageInterface;
 use Core\Entity\ImageTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Core\Entity\FileEntity;
 
 /**
@@ -35,7 +35,7 @@ class OrganizationImage extends FileEntity implements ImageInterface
 
     /**
      * {@inheritDoc}
-     * @see \Zend\Permissions\Acl\Resource\ResourceInterface::getResourceId()
+     * @see \Laminas\Permissions\Acl\Resource\ResourceInterface::getResourceId()
      */
     public function getResourceId()
     {

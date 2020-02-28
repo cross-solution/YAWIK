@@ -12,9 +12,9 @@ namespace Auth\Factory\Service;
 use Auth\Repository;
 use Auth\Service\RegisterConfirmation;
 use Interop\Container\ContainerInterface;
-use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class RegisterConfirmationFactory implements FactoryInterface
 {

@@ -10,7 +10,7 @@
 
 namespace Core\Service;
 
-use Zend\Form\ElementInterface;
+use Laminas\Form\ElementInterface;
 
 /**
  * this is for form-Elements, which want to know more about embedding form

@@ -9,8 +9,8 @@
 
 namespace Core\Mail;
 
-use Zend\Mail\Transport\File as BaseFileTransport;
-use Zend\Mail\Transport\Exception\RuntimeException;
+use Laminas\Mail\Transport\File as BaseFileTransport;
+use Laminas\Mail\Transport\Exception\RuntimeException;
 
 /**
  * A class to handle mail transport during tests
@@ -24,11 +24,11 @@ class FileTransport extends BaseFileTransport
     /**
      * Saves e-mail message to a file
      *
-     * @param \Zend\Mail\Message $message
+     * @param \Laminas\Mail\Message $message
      * @throws RuntimeException on not writable target directory or
      * on file_put_contents() failure
      */
-    public function send(\Zend\Mail\Message $message)
+    public function send(\Laminas\Mail\Message $message)
     {
         $options  = $this->options;
         $filename = call_user_func($options->getCallback(), $this);

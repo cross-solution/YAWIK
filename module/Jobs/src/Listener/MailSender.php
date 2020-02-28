@@ -12,8 +12,8 @@ namespace Jobs\Listener;
 
 use Jobs\Entity\Job;
 use Jobs\Listener\Events\JobEvent;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
 
 /**
  * Sends mails on job events.
@@ -28,7 +28,7 @@ class MailSender implements ListenerAggregateInterface
     /**
      * Attached listeners
      *
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $listeners;
 

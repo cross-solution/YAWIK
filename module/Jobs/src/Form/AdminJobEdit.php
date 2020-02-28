@@ -11,7 +11,7 @@
 namespace Jobs\Form;
 
 use Core\Form\Form;
-use Zend\Hydrator\Strategy\ClosureStrategy;
+use Laminas\Hydrator\Strategy\ClosureStrategy;
 
 /**
  * ${CARET}

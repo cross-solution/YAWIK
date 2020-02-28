@@ -16,8 +16,8 @@ use Core\Service\ClearCacheService;
 use CoreTest\Bootstrap;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Zend\ModuleManager\Listener\ListenerOptions;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\ModuleManager\Listener\ListenerOptions;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Class ClearCacheServiceTest

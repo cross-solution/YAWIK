@@ -32,7 +32,7 @@ class SummaryTest extends TestCase
     public function testConstructor()
     {
         $this->assertInstanceOf('Core\Form\SummaryForm', $this->target);
-        $this->assertInstanceOf('Zend\Form\Form', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Form', $this->target);
     }
 
     /**

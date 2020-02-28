@@ -12,9 +12,9 @@ namespace Core\Controller\Plugin;
 
 use Core\Entity\SnapshotGeneratorProviderInterface;
 use Core\Service\SnapshotGenerator;
-use Zend\Mvc\Controller\Plugin\PluginInterface;
-use Zend\Stdlib\DispatchableInterface as Dispatchable;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Mvc\Controller\Plugin\PluginInterface;
+use Laminas\Stdlib\DispatchableInterface as Dispatchable;
+use Laminas\Stdlib\ArrayUtils;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Repository\RepositoryInterface;
 

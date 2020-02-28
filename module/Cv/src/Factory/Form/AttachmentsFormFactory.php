@@ -11,7 +11,7 @@ namespace Cv\Factory\Form;
 
 use Core\Form\FileUploadFactory;
 use Core\Form\Form;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 use Cv\Options\ModuleOptions;
 
 /**

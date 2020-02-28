@@ -14,8 +14,8 @@ use Cv\Entity\CvInterface;
 use Geo\Form\GeoSelect;
 use Geo\Form\GeoText;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
 use Auth\Entity\User;
 use Cv\Entity\Cv;
@@ -151,7 +151,7 @@ class ManageController extends AbstractActionController
      *
      * @param Cv $cv
      * @param string $status
-     * @return \Zend\Http\Response
+     * @return \Laminas\Http\Response
      */
     protected function changeStatus(Cv $cv, $status)
     {

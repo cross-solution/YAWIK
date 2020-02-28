@@ -68,7 +68,7 @@ class CoreContext extends RawMinkContext
     }
     
     /**
-     * @return \Zend\ServiceManager\ServiceManager
+     * @return \Laminas\ServiceManager\ServiceManager
      */
     public function getServiceManager()
     {
@@ -76,7 +76,7 @@ class CoreContext extends RawMinkContext
     }
     
     /**
-     * @return \Zend\EventManager\EventManagerInterface
+     * @return \Laminas\EventManager\EventManagerInterface
      */
     public function getEventManager()
     {

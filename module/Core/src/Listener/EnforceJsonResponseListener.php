@@ -3,17 +3,17 @@
 
 namespace Core\Listener;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Model\JsonModel;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Model\JsonModel;
 
 class EnforceJsonResponseListener implements ListenerAggregateInterface
 {
 
     
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
 
@@ -86,8 +86,8 @@ class EnforceJsonResponseListener implements ListenerAggregateInterface
             }
             $viewModel->setTerminal(true);
             
-            $strategy = new \Zend\View\Strategy\JsonStrategy(
-                new \Zend\View\Renderer\JsonRenderer
+            $strategy = new \Laminas\View\Strategy\JsonStrategy(
+                new \Laminas\View\Renderer\JsonRenderer
             );
             
             $view = $e->getApplication()->getServiceManager()->get('ViewManager')->getView();

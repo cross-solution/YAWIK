@@ -10,10 +10,10 @@
 /** SessionParams.php */
 namespace Core\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Session\Container;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Session\Container;
 use Core\Repository\RepositoryInterface;
-use Zend\Stdlib\Parameters;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Manages pagination parameters in a session container.

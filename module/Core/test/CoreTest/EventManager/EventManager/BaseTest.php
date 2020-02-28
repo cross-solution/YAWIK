@@ -33,7 +33,7 @@ class BaseTest extends TestCase
      */
     protected $target = '\Core\EventManager\EventManager';
 
-    protected $inheritance = [ '\Zend\EventManager\EventManager', '\Core\EventManager\EventProviderInterface' ];
+    protected $inheritance = [ '\Laminas\EventManager\EventManager', '\Core\EventManager\EventProviderInterface' ];
 
     public function testSetEventPrototype()
     {
@@ -85,6 +85,6 @@ class BaseTest extends TestCase
     }
 }
 
-class MockEvent extends \Zend\EventManager\Event
+class MockEvent extends \Laminas\EventManager\Event
 {
 }

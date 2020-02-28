@@ -11,7 +11,7 @@
 namespace Jobs\Factory\Form\InputFilter;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Jobs\Form\InputFilter\AtsMode;
 
 class AtsModeFactory implements FactoryInterface

@@ -12,7 +12,7 @@ namespace Core\Form\Hydrator;
 
 use Core\Entity\Tree\NodeInterface;
 use Doctrine\Common\Collections\Collection;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * This hydrator handles trees for usage in forms.

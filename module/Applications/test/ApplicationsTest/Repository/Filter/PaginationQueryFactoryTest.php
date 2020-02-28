@@ -17,7 +17,7 @@ use Applications\Repository\Filter\PaginationQueryFactory;
 use Auth\AuthenticationService;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Repository\Filter\PaginationQueryFactory

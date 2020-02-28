@@ -12,7 +12,7 @@ namespace Auth\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
 use Organizations\Entity\OrganizationReferenceInterface;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 /**
  * Defines an user model interface

@@ -2,7 +2,7 @@
 
 namespace Core\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 class ButtonsFieldset extends Fieldset implements ViewPartialProviderInterface, DisableCapableInterface
 {

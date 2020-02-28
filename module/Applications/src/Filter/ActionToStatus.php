@@ -10,7 +10,7 @@
 
 namespace Applications\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 use Applications\Entity\StatusInterface as Status;
 
 /**

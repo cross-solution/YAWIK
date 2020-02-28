@@ -2,9 +2,9 @@
 
 namespace Settings\Form;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Form\Form;
-use Zend\Hydrator\ArraySerializable;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Form\Form;
+use Laminas\Hydrator\ArraySerializable;
 
 abstract class FormAbstract extends Form
 {

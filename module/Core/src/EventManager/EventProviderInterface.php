@@ -10,7 +10,7 @@
 /** */
 namespace Core\EventManager;
 
-use Zend\EventManager\EventInterface;
+use Laminas\EventManager\EventInterface;
 
 /**
  * EventProvider interface

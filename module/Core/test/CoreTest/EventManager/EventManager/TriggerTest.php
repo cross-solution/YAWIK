@@ -12,10 +12,10 @@ namespace CoreTest\EventManager\EventManager;
 
 use PHPUnit\Framework\TestCase;
 
-use Zend\EventManager\Event;
-use Zend\EventManager\EventInterface;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\ResponseCollection;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\EventInterface;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\ResponseCollection;
 
 /**
  * Tests for \Core\EventManager\EventManager

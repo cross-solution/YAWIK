@@ -18,7 +18,7 @@ use Core\Paginator\PaginatorService;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Repository\Filter\PaginationQueryFactory;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Cv\Repository\Filter\PaginationQueryFactory

@@ -10,20 +10,20 @@
 namespace Core\Form;
 
 use Core\Form\Hydrator\HydratorStrategyProviderInterface;
-use Zend\Form\Form as ZendForm;
-use Zend\Form\FieldsetInterface;
+use Laminas\Form\Form as LaminasForm;
+use Laminas\Form\FieldsetInterface;
 use Core\Entity\Hydrator\EntityHydrator;
-use Zend\Hydrator\HydratorInterface;
-use Zend\Hydrator\StrategyEnabledInterface;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\EventManager\EventManagerAwareTrait;
+use Laminas\Hydrator\HydratorInterface;
+use Laminas\Hydrator\StrategyEnabledInterface;
+use Laminas\InputFilter\InputFilterInterface;
+use Laminas\EventManager\EventManagerAwareTrait;
 
 /**
  * Core form.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Form extends ZendForm implements
+class Form extends LaminasForm implements
     DescriptionAwareFormInterface,
                                        DisableElementsCapableInterface,
                                        FormParentInterface
@@ -42,7 +42,7 @@ class Form extends ZendForm implements
     protected $params;
 
     /**
-     * @var ZendForm
+     * @var LaminasForm
      */
     protected $parent;
 
@@ -54,7 +54,7 @@ class Form extends ZendForm implements
     protected $isDescriptionsEnabled = false;
 
     /**
-     * @param array|\Traversable|\Zend\Form\ElementInterface $elementOrFieldset
+     * @param array|\Traversable|\Laminas\Form\ElementInterface $elementOrFieldset
      * @param array                                          $flags
      *
      * @return $this
@@ -188,7 +188,7 @@ class Form extends ZendForm implements
 
 
     /**
-     * @return \Zend\Hydrator\HydratorInterface
+     * @return \Laminas\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {
@@ -265,7 +265,7 @@ class Form extends ZendForm implements
     /**
      * Adds hydrator strategies to the default hydrator upon instanciation.
      *
-     * @param \Zend\Hydrator\HydratorInterface $hydrator
+     * @param \Laminas\Hydrator\HydratorInterface $hydrator
      */
     protected function addHydratorStrategies($hydrator)
     {
@@ -359,10 +359,10 @@ class Form extends ZendForm implements
     public function attachInputFilterDefaults(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
     {
         parent::attachInputFilterDefaults($inputFilter, $fieldset);
-        /* @var $inputFilter \Zend\InputFilter\InputFilter */
+        /* @var $inputFilter \Laminas\InputFilter\InputFilter */
         foreach ($inputFilter->getInputs() as $name => $input) {
             if (!$input instanceof InputFilterInterface) {
-                /* @var $input \Zend\InputFilter\Input */
+                /* @var $input \Laminas\InputFilter\Input */
                 $required = $input->isRequired();
                 $inputExists = $fieldset->has($name);
                 if (!$inputExists && $required) {
@@ -377,7 +377,7 @@ class Form extends ZendForm implements
     }
 
     /**
-     * @see \Zend\Form\Form::prepare()
+     * @see \Laminas\Form\Form::prepare()
      */
     public function prepare()
     {

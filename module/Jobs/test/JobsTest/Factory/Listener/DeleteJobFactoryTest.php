@@ -19,8 +19,8 @@ use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Factory\Listener\DeleteJobFactory;
 use Jobs\Listener\DeleteJob;
 use Jobs\Repository\Job;
-use Zend\Permissions\Acl\Acl;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Jobs\Factory\Listener\DeleteJobFactory

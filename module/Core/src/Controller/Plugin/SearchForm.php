@@ -10,10 +10,10 @@
 /** */
 namespace Core\Controller\Plugin;
 
-use Zend\Form\Form;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Stdlib\Parameters;
+use Laminas\Form\Form;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Fetches a text search form.

@@ -15,10 +15,10 @@ use Core\Form\DisableCapableInterface;
 use Core\Form\DisableElementsCapableInterface;
 use Core\Form\Element\Checkbox;
 use Core\Form\Element\ViewHelperProviderInterface;
-use Zend\Form\Element;
-use Zend\Form\ElementPrepareAwareInterface;
-use Zend\Form\FormInterface;
-use Zend\InputFilter\InputProviderInterface;
+use Laminas\Form\Element;
+use Laminas\Form\ElementPrepareAwareInterface;
+use Laminas\Form\FormInterface;
+use Laminas\InputFilter\InputProviderInterface;
 
 /**
  * Element to configure disabled form elements.
@@ -38,7 +38,7 @@ class DisableElementsCapableFormSettings extends Element implements ViewHelperPr
     /**
      * The target form.
      *
-     * @var \Zend\Form\FormInterface
+     * @var \Laminas\Form\FormInterface
      */
     protected $form;
 
@@ -140,7 +140,7 @@ class DisableElementsCapableFormSettings extends Element implements ViewHelperPr
     /**
      * Sets the target form or form container.
      *
-     * @param \Zend\Form\FormInterface|\Core\Form\Container $formOrContainer
+     * @param \Laminas\Form\FormInterface|\Core\Form\Container $formOrContainer
      *
      * @return self
      * @throws \InvalidArgumentException if invalid form type is passed.
@@ -150,7 +150,7 @@ class DisableElementsCapableFormSettings extends Element implements ViewHelperPr
         if (!$formOrContainer instanceof FormInterface
             && !$formOrContainer instanceof Container
         ) {
-            throw new \InvalidArgumentException('Parameter must be either of type "\Zend\Form\FormInterface" or "\Core\Form\Container"');
+            throw new \InvalidArgumentException('Parameter must be either of type "\Laminas\Form\FormInterface" or "\Core\Form\Container"');
         }
 
         $this->form = $formOrContainer;
@@ -229,7 +229,7 @@ class DisableElementsCapableFormSettings extends Element implements ViewHelperPr
     {
         $return = array();
         foreach ($form as $element) {
-            /* @var $element \Zend\Form\ElementInterface|DisableElementsCapableInterface|DisableCapableInterface */
+            /* @var $element \Laminas\Form\ElementInterface|DisableElementsCapableInterface|DisableCapableInterface */
             $name = $element->getName();
             $elementName = $prefix . '[' . $element->getName() . ']';
             $options = $element->getOption('disable_capable');

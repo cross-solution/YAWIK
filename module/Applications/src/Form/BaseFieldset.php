@@ -11,9 +11,9 @@
 namespace Applications\Form;
 
 use Core\Form\DisableElementsCapableInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Form\EmptySummaryAwareInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Fieldset for base information of an application.

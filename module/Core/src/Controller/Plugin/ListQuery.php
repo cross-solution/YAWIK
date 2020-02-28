@@ -3,7 +3,7 @@
 namespace Core\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Class ListQuery
@@ -171,7 +171,7 @@ class ListQuery extends AbstractPlugin
         $dbQuery = $this->serviceManager->get('query');
         $criteria = $dbQuery->criteria();
 
-        /** @var \Zend\Http\Request $request */
+        /** @var \Laminas\Http\Request $request */
         $request = $this->getController()->getRequest();
         $query = $request->getQuery()->toArray();
         

@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Job;
 use Jobs\View\Helper\AdminEditLink;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Helper\Url;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Helper\Url;
 
 /**
  * Tests for \Jobs\View\Helper\AdminEditLink

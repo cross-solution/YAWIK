@@ -10,9 +10,9 @@
 /** */
 namespace Core\Listener;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Lazy loads listeners.

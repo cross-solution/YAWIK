@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Auth\Entity\User;
 use CoreTestUtils\TestCase\FunctionalTestCase;
 use Cv\Entity\Cv;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Class CvTest

@@ -17,10 +17,10 @@ use Core\View\Helper\Proxy\NoopHelper;
 use Core\View\Helper\Proxy\NoopIterator;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Renderer\ConsoleRenderer;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Renderer\ConsoleRenderer;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer\RendererInterface;
 
 /**
  * Tests for \Core\View\Helper\Proxy

@@ -9,8 +9,8 @@
 
 namespace Cv\Options;
 
-use Zend\Stdlib\AbstractOptions;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Stdlib\AbstractOptions;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Default options of the CV Module

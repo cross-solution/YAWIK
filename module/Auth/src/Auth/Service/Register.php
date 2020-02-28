@@ -15,9 +15,9 @@ use Auth\Service\Exception;
 use Core\EventManager\EventManager;
 use Core\Options\ModuleOptions;
 use Core\Controller\Plugin;
-use Zend\EventManager\EventManagerInterface;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\Mvc\Controller\Plugin\Url;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Mvc\Controller\Plugin\Url;
 use Auth\Repository\User as UserRepository;
 use Core\Mail\MailService;
 
@@ -118,7 +118,7 @@ class Register
     }
 
     /**
-     * @param \Zend\EventManager\EventManagerInterface $events
+     * @param \Laminas\EventManager\EventManagerInterface $events
      *
      * @return self
      */
@@ -130,7 +130,7 @@ class Register
     }
 
     /**
-     * @return \Zend\EventManager\EventManagerInterface
+     * @return \Laminas\EventManager\EventManagerInterface
      */
     public function getEventManager()
     {

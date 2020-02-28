@@ -10,7 +10,7 @@ namespace Organizations\Repository;
 
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class OrganizationImage extends AbstractRepository
 {

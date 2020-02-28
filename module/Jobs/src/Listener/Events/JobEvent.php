@@ -13,7 +13,7 @@ namespace Jobs\Listener\Events;
 
 use ArrayAccess;
 use Jobs\Entity\Job;
-use Zend\EventManager\Event;
+use Laminas\EventManager\Event;
 
 /**
  * The Job event.

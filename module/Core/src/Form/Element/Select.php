@@ -10,7 +10,7 @@
 /**  */
 namespace Core\Form\Element;
 
-use Zend\Form\Element\Select as ZfSelect;
+use Laminas\Form\Element\Select as ZfSelect;
 
 /**
  *
@@ -25,7 +25,7 @@ class Select extends ZfSelect implements ViewHelperProviderInterface
     protected $helper = 'formSelect';
 
     /**
-     * @param string|\Zend\View\Helper\HelperInterface $helper
+     * @param string|\Laminas\View\Helper\HelperInterface $helper
      * @return $this|ViewHelperProviderInterface
      */
     public function setViewHelper($helper)
@@ -35,7 +35,7 @@ class Select extends ZfSelect implements ViewHelperProviderInterface
     }
 
     /**
-     * @return string|\Zend\View\Helper\HelperInterface
+     * @return string|\Laminas\View\Helper\HelperInterface
      */
     public function getViewHelper()
     {

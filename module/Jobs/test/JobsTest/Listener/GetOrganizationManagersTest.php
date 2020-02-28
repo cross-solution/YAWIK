@@ -20,8 +20,8 @@ use Organizations\Entity\Employee;
 use Organizations\Entity\EmployeeInterface;
 use Organizations\Entity\Organization;
 use Organizations\Entity\WorkflowSettings;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Stdlib\Parameters;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Tests for \Jobs\Listener\GetOrganizationManagers

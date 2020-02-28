@@ -18,8 +18,8 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Jobs\Entity\Job;
 use Jobs\Repository\Job as JobRepository;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Applications\Factory\Form\JobSelectFactory

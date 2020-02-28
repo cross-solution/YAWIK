@@ -3,7 +3,7 @@
 /** Rating.php */
 namespace Core\Form\Element;
 
-use Zend\Form\Element\Button;
+use Laminas\Form\Element\Button;
 
 /**
  * Star rating element.

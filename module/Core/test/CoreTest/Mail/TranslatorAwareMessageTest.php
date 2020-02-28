@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 use Core\Mail\TranslatorAwareMessage;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\Mail\Message;
+use Laminas\I18n\Translator\Translator;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\Mail\Message;
 
 /**
  * Tests for \Core\Mail\TranslatorAwareMessage

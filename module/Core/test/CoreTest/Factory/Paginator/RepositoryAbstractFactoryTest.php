@@ -13,7 +13,7 @@ namespace CoreTest\Factory\Paginator;
 use PHPUnit\Framework\TestCase;
 
 use Core\Factory\Paginator\RepositoryAbstractFactory;
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * Tests for \Core\Factory\Paginator\RepositoryAbstractFactory
@@ -34,11 +34,11 @@ class RepositoryAbstractFactoryTest extends TestCase
     }
 
     /**
-     * @testdox Implements \Zend\ServiceManager\AbstractFactoryInterface and use Zend\ServiceManager\MutableCreationOptionsInterface
+     * @testdox Implements \Laminas\ServiceManager\AbstractFactoryInterface and use Laminas\ServiceManager\MutableCreationOptionsInterface
      */
     public function testImplementsInterfaces()
     {
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\AbstractFactoryInterface', $this->target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\AbstractFactoryInterface', $this->target);
     }
 
     public function serviceNamesProvider()
@@ -104,20 +104,20 @@ class RepositoryAbstractFactoryTest extends TestCase
 
         $repositories->expects($this->once())->method('createQueryBuilder')->willReturn($qb);
 
-        $filters = $this->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+        $filters = $this->getMockBuilder('\Laminas\ServiceManager\AbstractPluginManager')
                         ->disableOriginalConstructor()
                         ->setMethods(['has', 'get'])->getMockForAbstractClass();
 
         $filters->expects($this->once())->method('has')->with('PaginationQuery/' . $serviceName)->willReturn($hasFilter);
 
         if ($hasFilter) {
-            $filter = $this->getMockBuilder('\Zend\Filter\FilterInterface')->getMockForAbstractClass();
+            $filter = $this->getMockBuilder('\Laminas\Filter\FilterInterface')->getMockForAbstractClass();
             $filter->expects($this->once())->method('filter')->with($options, $qb)->willReturn($qb);
 
             $filters->expects($this->once())->method('get')->with('PaginationQuery/' . $serviceName)->willReturn($filter);
         }
 
-        $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $sm = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
         $sm->expects($this->exactly(2))->method('get')
                                        ->withConsecutive([ 'repositories' ], [ 'FilterManager'])
@@ -126,7 +126,7 @@ class RepositoryAbstractFactoryTest extends TestCase
         $target = $this->target;
         $paginator = $target($sm, $serviceName, $options);
 
-        $this->assertInstanceOf('\Zend\Paginator\Paginator', $paginator, 'No Paginator returned.');
+        $this->assertInstanceOf('\Laminas\Paginator\Paginator', $paginator, 'No Paginator returned.');
         $adapter = $paginator->getAdapter();
 
         $this->assertInstanceOf('\Core\Paginator\Adapter\DoctrineMongoCursor', $adapter, 'Adapter is not correct class instance.');

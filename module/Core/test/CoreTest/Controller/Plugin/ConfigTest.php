@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Controller\IndexController;
 use Core\Controller\Plugin\Config;
-use Zend\ModuleManager\ModuleManagerInterface;
+use Laminas\ModuleManager\ModuleManagerInterface;
 
 /**
  * Class ConfigTest

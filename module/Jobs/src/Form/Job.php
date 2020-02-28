@@ -12,9 +12,9 @@ namespace Jobs\Form;
 
 use Core\Form\Event\FormEvent;
 use Core\Form\WizardContainer;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerInterface;
-use Zend\View\Renderer\PhpRenderer as Renderer;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\View\Renderer\PhpRenderer as Renderer;
 use Core\Form\propagateAttributeInterface;
 
 /**
@@ -53,7 +53,7 @@ class Job extends WizardContainer
      *
      * Adds the standard forms and child containers.
      *
-     * @see \Zend\Form\Element::init()
+     * @see \Laminas\Form\Element::init()
      */
     public function init()
     {

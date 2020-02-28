@@ -10,7 +10,7 @@
 /** FileUploadStrategy.php */
 namespace Core\Entity\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 use Core\Entity\FileInterface;
 use Core\Entity\FileEntity;
 

@@ -33,7 +33,7 @@ class EmployeeFieldsetFactoryTest extends TestCase
     {
         $target = new EmployeeFieldsetFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -51,7 +51,7 @@ class EmployeeFieldsetFactoryTest extends TestCase
         $repos->expects($this->once())
               ->method('get')->with('Auth/User')->willReturn($users);
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->once())
                  ->method('get')->with('repositories')->willReturn($repos);
         
@@ -61,10 +61,10 @@ class EmployeeFieldsetFactoryTest extends TestCase
 
         $hydrator = $fieldset->getHydrator();
         $this->assertTrue($hydrator->hasStrategy('user'));
-        $this->assertInstanceOf('\Zend\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('user'));
+        $this->assertInstanceOf('\Laminas\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('user'));
 
         $this->assertTrue($hydrator->hasStrategy('permissions'));
-        $this->assertInstanceOf('\Zend\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('permissions'));
+        $this->assertInstanceOf('\Laminas\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('permissions'));
 
         $object = $fieldset->getObject();
         $this->assertInstanceOf('\Organizations\Entity\Employee', $object);

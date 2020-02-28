@@ -11,9 +11,9 @@ namespace CoreTest\Mail;
 
 use PHPUnit\Framework\TestCase;
 use Core\Mail\FileTransport;
-use Zend\Mail\Exception\RuntimeException;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\FileOptions;
+use Laminas\Mail\Exception\RuntimeException;
+use Laminas\Mail\Message;
+use Laminas\Mail\Transport\FileOptions;
 
 /**
  * Class FileTransportTest

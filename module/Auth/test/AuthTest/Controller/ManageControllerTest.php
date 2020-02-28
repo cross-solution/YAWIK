@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Auth\Adapter\HybridAuth;
 use Core\Repository\RepositoryService;
 use CoreTest\Controller\AbstractFunctionalControllerTestCase;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
 
 /**
  * Class ManageControllerTest

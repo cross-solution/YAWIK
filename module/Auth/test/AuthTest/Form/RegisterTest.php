@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Form\Register;
 use Auth\Options\CaptchaOptions;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
 * @covers \Auth\Form\Register
@@ -54,19 +54,19 @@ class RegisterTest extends TestCase
         $registerFieldset = $this->testedObject->get('register');
 
         $nameInput = $registerFieldset->get('name');
-        $this->assertInstanceOf('Zend\Form\Element\Text', $nameInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Text', $nameInput);
 
         $emailInput = $registerFieldset->get('email');
-        $this->assertInstanceOf('Zend\Form\Element\Email', $emailInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Email', $emailInput);
 
         $roleInput = $registerFieldset->get('role');
-        $this->assertInstanceOf('Zend\Form\Element\Hidden', $roleInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Hidden', $roleInput);
     }
 
     public function testCsrfElement()
     {
         $csrfInput = $this->testedObject->get('csrf');
-        $this->assertInstanceOf('Zend\Form\Element\Csrf', $csrfInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Csrf', $csrfInput);
     }
 
     public function testSubmitElement()
@@ -75,7 +75,7 @@ class RegisterTest extends TestCase
         $buttons = $this->testedObject->get('buttons');
         $buttonInput = $buttons->get('button');
 
-        $this->assertInstanceOf('Zend\Form\Element\Submit', $buttonInput);
+        $this->assertInstanceOf('Laminas\Form\Element\Submit', $buttonInput);
     }
      
     public function testWithReCaptureField()
@@ -84,8 +84,8 @@ class RegisterTest extends TestCase
         $options->setMode("reCaptcha");
         $testedObject = new Register(null, $options);
         $captchaInput= $testedObject->get('captcha');
-        $this->assertInstanceOf('Zend\Form\Element\Captcha', $captchaInput);
-        $this->assertInstanceOf('Zend\Captcha\ReCaptcha', $captchaInput->getOption('captcha'));
+        $this->assertInstanceOf('Laminas\Form\Element\Captcha', $captchaInput);
+        $this->assertInstanceOf('Laminas\Captcha\ReCaptcha', $captchaInput->getOption('captcha'));
     }
     
     public function testWithImageField()
@@ -97,7 +97,7 @@ class RegisterTest extends TestCase
         $options->setMode("image");
         $testedObject = new Register(null, $options);
         $captchaInput= $testedObject->get('captcha');
-        $this->assertInstanceOf('Zend\Captcha\Image', $captchaInput->getOption('captcha'));
+        $this->assertInstanceOf('Laminas\Captcha\Image', $captchaInput->getOption('captcha'));
     }
     
     public function testRoleValue()

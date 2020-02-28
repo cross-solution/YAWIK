@@ -10,8 +10,8 @@
 
 namespace Core\Paginator;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Config;
 
 /**
  * Class PaginatorServiceConfig

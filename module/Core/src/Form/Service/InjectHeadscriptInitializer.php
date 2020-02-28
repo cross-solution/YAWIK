@@ -12,8 +12,8 @@ namespace Core\Form\Service;
 
 use Core\Form\HeadscriptProviderInterface;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Initializer\InitializerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Initializer\InitializerInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * This initializer inject the scripts provided by form elements
@@ -26,7 +26,7 @@ class InjectHeadscriptInitializer implements InitializerInterface
 {
     public function __invoke(ContainerInterface $container, $instance)
     {
-        /* @var $serviceLocator \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
+        /* @var $serviceLocator \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
         
         if (!$instance instanceof HeadscriptProviderInterface) {
             return;
@@ -38,8 +38,8 @@ class InjectHeadscriptInitializer implements InitializerInterface
             return;
         }
         
-        /* @var $basepath \Zend\View\Helper\BasePath
-         * @var $headscript \Zend\View\Helper\HeadScript */
+        /* @var $basepath \Laminas\View\Helper\BasePath
+         * @var $headscript \Laminas\View\Helper\HeadScript */
         $helpers  = $container->get('ViewHelperManager');
         $basepath = $helpers->get('basepath');
         $headscript = $helpers->get('headscript');
@@ -56,14 +56,14 @@ class InjectHeadscriptInitializer implements InitializerInterface
      * the provided scripts will be injected in the Headscript view helper, prepended
      * with the base path.
      *
-     * @param \Zend\Form\ElementInterface | HeadscriptProviderInterface $instance
+     * @param \Laminas\Form\ElementInterface | HeadscriptProviderInterface $instance
      * @param ServiceLocatorInterface $serviceLocator
      *
      * @return void
      */
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator \Zend\Form\FormElementManager\FormElementManagerV3Polyfill */
+        /* @var $serviceLocator \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
 
         if (!$instance instanceof HeadscriptProviderInterface) {
             return;
@@ -75,8 +75,8 @@ class InjectHeadscriptInitializer implements InitializerInterface
             return;
         }
 
-        /* @var $basepath \Zend\View\Helper\BasePath
-         * @var $headscript \Zend\View\Helper\HeadScript */
+        /* @var $basepath \Laminas\View\Helper\BasePath
+         * @var $headscript \Laminas\View\Helper\HeadScript */
         $services = $serviceLocator;
         $helpers  = $services->get('ViewHelperManager');
         $basepath = $helpers->get('basepath');

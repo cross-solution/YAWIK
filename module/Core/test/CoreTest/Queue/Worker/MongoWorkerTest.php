@@ -22,7 +22,7 @@ use SlmQueue\Job\AbstractJob;
 use SlmQueue\Queue\AbstractQueue;
 use SlmQueue\Worker\AbstractWorker;
 use SlmQueue\Worker\Event\ProcessJobEvent;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\EventManager\EventManagerInterface;
 
 /**
  * Tests for \Core\Queue\Worker\MongoWorker

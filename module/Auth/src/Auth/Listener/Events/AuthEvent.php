@@ -11,7 +11,7 @@
 namespace Auth\Listener\Events;
 
 use Auth\Entity\User;
-use Zend\EventManager\Event;
+use Laminas\EventManager\Event;
 
 class AuthEvent extends Event
 {

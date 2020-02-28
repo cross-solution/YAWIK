@@ -14,9 +14,9 @@ use Auth\Service\ForgotPassword;
 use Auth\Service\UserUniqueTokenGenerator;
 use Core\Controller\Plugin;
 use Interop\Container\ContainerInterface;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class ForgotPasswordFactory implements FactoryInterface
 {

@@ -10,7 +10,7 @@
 namespace Auth\Factory\Form;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Auth\Form\UserStatusFieldset;
 use Auth\Entity\Status;
 class UserStatusFieldsetFactory implements FactoryInterface

@@ -10,7 +10,7 @@
 /** AttachmentsFieldset.php */
 namespace Applications\Form;
 
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 class CarbonCopyFieldset extends Fieldset
 {
@@ -24,7 +24,7 @@ class CarbonCopyFieldset extends Fieldset
 
         $this->add(
             array(
-                'type'    => 'Zend\Form\Element\Checkbox',
+                'type'    => 'Laminas\Form\Element\Checkbox',
                 'name'    => 'carboncopy',
                 'options' => array(
                     'checked_value'   => '1',
@@ -46,7 +46,7 @@ class CarbonCopyFieldset extends Fieldset
             'carboncopy' => array(
                 'required' => false,
                 'filters'  => array(
-                    array('name' => '\Zend\Filter\StringTrim'),
+                    array('name' => '\Laminas\Filter\StringTrim'),
                 ),
             ),
         );

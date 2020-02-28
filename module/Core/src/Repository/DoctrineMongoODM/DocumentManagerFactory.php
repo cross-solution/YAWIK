@@ -12,8 +12,8 @@ namespace Core\Repository\DoctrineMongoODM;
 
 use Interop\Container\ContainerInterface;
 use MongoDB\Driver\Exception\ConnectionTimeoutException;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Doctrine\ODM\MongoDB\DocumentManager as DoctrineDocumentManager;
 
 /**
@@ -39,7 +39,7 @@ class DocumentManagerFactory implements FactoryInterface
             $dm->getSchemaManager()->ensureIndexes();
         } catch (ConnectionTimeoutException $e) {
             // provide a better way to handle this
-            /* @var \Zend\ModuleManager\ModuleManager $moduleManager */
+            /* @var \Laminas\ModuleManager\ModuleManager $moduleManager */
             $moduleManager = $container->get('ModuleManager');
             $modules = $moduleManager->getModules();
             if (in_array('Install', $modules)) {

@@ -61,6 +61,6 @@ return array(
     // )
 
    // Initial configuration with which to seed the ServiceManager.
-   // Should be compatible with Zend\ServiceManager\Config.
+   // Should be compatible with Laminas\ServiceManager\Config.
    // 'service_manager' => array(),
 );

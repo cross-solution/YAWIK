@@ -19,10 +19,10 @@ use CoreTestUtils\TestCase\SetupTargetTrait;
 use CoreTestUtils\TestCase\TestDefaultAttributesTrait;
 use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Core\EventManager\EventManager;
-use Zend\EventManager\ResponseCollection;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\MvcEvent;
+use Laminas\EventManager\ResponseCollection;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\MvcEvent;
 
 /**
  * Tests for \Core\Listener\AjaxRouteListener

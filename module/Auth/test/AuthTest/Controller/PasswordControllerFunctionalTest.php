@@ -9,8 +9,8 @@ use CoreTest\Controller\AbstractFunctionalControllerTestCase;
 use Organizations\ImageFileCache\Manager;
 use Organizations\Repository\OrganizationImage;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
+use Laminas\Http\PhpEnvironment\Request;
+use Laminas\Http\PhpEnvironment\Response;
 
 class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestCase
 {

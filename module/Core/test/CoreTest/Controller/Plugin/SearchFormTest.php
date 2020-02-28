@@ -15,12 +15,12 @@ use PHPUnit\Framework\TestCase;
 use Core\Controller\Plugin\SearchForm;
 use CoreTestUtils\TestCase\AssertInheritanceTrait;
 use Interop\Container\ContainerInterface;
-use Zend\Form\Form;
+use Laminas\Form\Form;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\Hydrator\HydratorInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Stdlib\Parameters;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Hydrator\HydratorInterface;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Stdlib\Parameters;
 
 /**
  * Tests for \Core\Controller\Plugin\SearchForm
@@ -74,11 +74,11 @@ class SearchFormTest extends TestCase
 
     private function setControllerMock($params = [])
     {
-        $request = $this->getMockBuilder('\Zend\Http\Request')->disableOriginalConstructor()->setMethods(['getQuery'])->getMock();
+        $request = $this->getMockBuilder('\Laminas\Http\Request')->disableOriginalConstructor()->setMethods(['getQuery'])->getMock();
         $request->expects($this->once())->method('getQuery')->willReturn(is_array($params) ? new Parameters($params) : $params);
 
         $controller = $this
-            ->getMockForAbstractClass('\Zend\Mvc\Controller\AbstractActionController', [], '', false, true, true, ['getRequest']);
+            ->getMockForAbstractClass('\Laminas\Mvc\Controller\AbstractActionController', [], '', false, true, true, ['getRequest']);
 
         $controller->expects($this->once())->method('getRequest')->willReturn($request);
 

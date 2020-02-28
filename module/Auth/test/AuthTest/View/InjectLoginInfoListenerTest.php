@@ -12,7 +12,7 @@ namespace AuthTest\View;
 use PHPUnit\Framework\TestCase;
 
 use Auth\View\InjectLoginInfoListener as Listener;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 class InjectLoginInfoListenerTest extends TestCase
 {
@@ -20,7 +20,7 @@ class InjectLoginInfoListenerTest extends TestCase
     {
         $listener = new Listener();
         $viewModel = new ViewModel();
-        $e = $this->getMockBuilder('\Zend\Mvc\MvcEvent')->getMock();
+        $e = $this->getMockBuilder('\Laminas\Mvc\MvcEvent')->getMock();
         $e->expects($this->once())
             ->method('getViewModel')
             ->will($this->returnValue($viewModel));

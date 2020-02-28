@@ -10,7 +10,7 @@ namespace Auth\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Zend\Session\Container as Session;
+use Laminas\Session\Container as Session;
 
 /**
  * An Anonymous user.

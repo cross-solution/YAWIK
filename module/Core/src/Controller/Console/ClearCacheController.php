@@ -11,7 +11,7 @@ namespace Core\Controller\Console;
 
 use Core\Service\ClearCacheService;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Console\Controller\AbstractConsoleController;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 
 /**
  * Clean Cache
@@ -49,7 +49,7 @@ class ClearCacheController extends AbstractConsoleController
 
     /**
      * Clear cache
-     * @return void|\Zend\View\Model\ViewModel
+     * @return void|\Laminas\View\Model\ViewModel
      */
     public function indexAction()
     {

@@ -12,10 +12,10 @@ namespace Auth\Controller\Plugin;
 
 use Acl\Controller\Plugin\Acl;
 use Auth\Entity\UserInterface;
-use Zend\Authentication\AuthenticationService;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Session\Container;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Session\Container;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Plugin to switch logged in user w/o authentication.

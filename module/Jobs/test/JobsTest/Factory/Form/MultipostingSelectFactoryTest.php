@@ -29,14 +29,14 @@ class MultipostingSelectFactoryTest extends TestCase
 {
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      * @coversNothing
      */
     public function testImplementsFactoryInterface()
     {
         $target = new MultipostingSelectFactory();
 
-        $this->assertInstanceOf('\Zend\ServiceManager\Factory\FactoryInterface', $target);
+        $this->assertInstanceOf('\Laminas\ServiceManager\Factory\FactoryInterface', $target);
     }
 
     /**
@@ -64,11 +64,11 @@ class MultipostingSelectFactoryTest extends TestCase
 
         $providerOptions->addChannel($channelOptions);
 
-        $currencyFormat = $this->getMockBuilder('\Zend\I18n\View\Helper\CurrencyFormat')->disableOriginalConstructor()->getMock();
+        $currencyFormat = $this->getMockBuilder('\Laminas\I18n\View\Helper\CurrencyFormat')->disableOriginalConstructor()->getMock();
         $currencyFormat->expects($this->any())->method('__invoke')->will($this->returnArgument(0));
 
         $helpers = $this
-            ->getMockBuilder('\Zend\ServiceManager\AbstractPluginManager')
+            ->getMockBuilder('\Laminas\ServiceManager\AbstractPluginManager')
             ->disableOriginalConstructor()
             ->setMethods(array('get'))
             ->getMockForAbstractClass()
@@ -82,7 +82,7 @@ class MultipostingSelectFactoryTest extends TestCase
         ;
 
         $router = $this
-            ->getMockBuilder('\Zend\Mvc\Router\SimpleRouteStack')
+            ->getMockBuilder('\Laminas\Mvc\Router\SimpleRouteStack')
             ->disableOriginalConstructor()
             ->setMethods(['assemble'])
             ->getMock()
@@ -94,7 +94,7 @@ class MultipostingSelectFactoryTest extends TestCase
         ;
 
         $services = $this
-            ->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+            ->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;

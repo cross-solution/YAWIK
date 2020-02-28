@@ -11,8 +11,8 @@ namespace Applications\Factory\Auth\Dependency;
 
 use Applications\Auth\Dependency\ListListener;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class ListListenerFactory implements FactoryInterface
 {
@@ -30,7 +30,7 @@ class ListListenerFactory implements FactoryInterface
         return new ListListener($container->get('repositories')->get('Applications'));
     }
     /**
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

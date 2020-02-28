@@ -10,10 +10,10 @@
 
 namespace Auth\Filter;
 
-use Zend\Filter\FilterInterface;
-use Zend\EventManager\Event;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\Filter\FilterInterface;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\EventManagerInterface;
 
 class LoginFilter implements FilterInterface, EventManagerAwareInterface
 {

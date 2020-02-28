@@ -14,11 +14,11 @@ use Applications\Entity\Contact;
 use Applications\Listener\Events\ApplicationEvent;
 use Core\Factory\ContainerAwareInterface;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\MvcEvent;
 use Applications\Entity\Application;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Core\Form\Container;
 use Core\Form\SummaryForm;
 use Core\Entity\PermissionsInterface;
@@ -99,7 +99,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
             return;
         }
 
-        /* @var $request    \Zend\Http\Request */
+        /* @var $request    \Laminas\Http\Request */
         /* @var $repository \Applications\Repository\Application */
         /* @var $container  \Applications\Form\Apply */
         $request      = $this->getRequest();
@@ -293,7 +293,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
 
         if ($authProfile->photoURL)
         {
-            $response = (new \Zend\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
+            $response = (new \Laminas\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
             $file = new \Doctrine\MongoDB\GridFSFile();
             $file->setBytes($response->getBody());
             

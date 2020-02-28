@@ -12,7 +12,7 @@ namespace Jobs\Factory\Listener;
 
 use Jobs\Listener\LoadActiveOrganizations;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Jobs\Listener\LoadActiveOrganizations

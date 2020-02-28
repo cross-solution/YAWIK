@@ -11,7 +11,7 @@
 namespace Jobs\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Jobs\View\Helper\ApplyUrl;
 
 /**

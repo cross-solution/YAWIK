@@ -5,7 +5,7 @@ use Cv\Controller\ManageController;
 use Cv\Form\InputFilter\Education;
 use Cv\Form\InputFilter\Employment;
 use Cv\Form\PreferredJobFieldset;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     
@@ -152,7 +152,7 @@ return [
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => [
         'factories' => [
-            \Cv\Controller\IndexController::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \Cv\Controller\IndexController::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
             'Cv/View'  => 'Cv\Factory\Controller\ViewControllerFactory',
             'Cv\Controller\Manage' => [ManageController::class,'factory'],
         ],

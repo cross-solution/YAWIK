@@ -10,7 +10,7 @@
 /** Core view helpers */
 namespace Core\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use Core\Entity\RatingInterface;
 
 /**

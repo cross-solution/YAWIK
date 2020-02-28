@@ -13,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Factory\View\Helper\AuthFactory;
 use Auth\View\Helper\Auth;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
 
 class AuthFactoryTest extends TestCase
 {
@@ -22,7 +22,7 @@ class AuthFactoryTest extends TestCase
     {
         $f = new AuthFactory();
         $sm = new ServiceManager();
-        $auth = $this->getMockBuilder('\Zend\Authentication\AuthenticationService')->getMock();
+        $auth = $this->getMockBuilder('\Laminas\Authentication\AuthenticationService')->getMock();
         $sm->setService('AuthenticationService', $auth);
         
         $hm = new HelperPluginManager($sm);

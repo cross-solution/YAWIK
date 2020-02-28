@@ -28,11 +28,11 @@ class AtsModeTest extends TestCase
 {
 
     /**
-     * @testdox Extends \Zend\InputFilter\InputFilter
+     * @testdox Extends \Laminas\InputFilter\InputFilter
      */
     public function testExtendsInputFilter()
     {
-        $this->assertInstanceOf('\Zend\InputFilter\InputFilter', new AtsMode());
+        $this->assertInstanceOf('\Laminas\InputFilter\InputFilter', new AtsMode());
     }
 
     public function provideAddsValidatorsTestData()

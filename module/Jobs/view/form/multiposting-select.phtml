@@ -16,7 +16,7 @@ if ($this->renderSummary):?>
     <div class="row">
         <div class="col-md-12">
             <?php
-            /* @var $router \Zend\Mvc\Router\Http\TreeRouteStack */
+            /* @var $router \Laminas\Mvc\Router\Http\TreeRouteStack */
             $router = $this->services('Router');
             /* @var $provider \Jobs\Options\ProviderOptions */
             $provider = $this->services('Jobs/Options/Provider');

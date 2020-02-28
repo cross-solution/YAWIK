@@ -12,8 +12,8 @@ namespace Jobs\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
 use Jobs\View\Helper\AdminEditLink;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for AdminEditLink view helper

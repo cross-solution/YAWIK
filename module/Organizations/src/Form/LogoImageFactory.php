@@ -11,7 +11,7 @@ namespace Organizations\Form;
 
 use Core\Form\FileUploadFactory;
 use Organizations\Form\Hydrator\ImageHydrator;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Class LogoImageFactory

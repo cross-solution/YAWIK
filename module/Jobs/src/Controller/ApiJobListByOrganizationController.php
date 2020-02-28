@@ -6,10 +6,10 @@ use Jobs\Entity\StatusInterface;
 
 use Jobs\Model\ApiJobDehydrator;
 use Jobs\Repository;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\InputFilter\InputFilter;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 
 class ApiJobListByOrganizationController extends AbstractActionController
 {

@@ -16,7 +16,7 @@ use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
 use CoreTestUtils\Mock\ServiceManager\PluginManagerMock;
 use CoreTestUtils\Mock\ServiceManager\ServiceManagerMock;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Creates a service manager mock with configured services.
@@ -99,8 +99,8 @@ trait ServiceManagerMockTrait
     /**
      * Create a plugin manager mock.
      *
-     * @param array|\Zend\ServiceManager\ServiceLocatorInterface $services
-     * @param null|int|\Zend\ServiceManager\ServiceLocatorInterface  $parent
+     * @param array|\Laminas\ServiceManager\ServiceLocatorInterface $services
+     * @param null|int|\Laminas\ServiceManager\ServiceLocatorInterface  $parent
      * @param int   $count
      *
      * @return PluginManagerMock
@@ -136,8 +136,8 @@ trait ServiceManagerMockTrait
     /**
      * Gets or create the plugin manager mock.
      *
-     * @param array|\Zend\ServiceManager\ServiceLocatorInterface $services
-     * @param null|int|\Zend\ServiceManager\ServiceLocatorInterface  $parent
+     * @param array|\Laminas\ServiceManager\ServiceLocatorInterface $services
+     * @param null|int|\Laminas\ServiceManager\ServiceLocatorInterface  $parent
      * @param int   $count
      *
      * @return PluginManagerMock

@@ -3,8 +3,8 @@
 namespace Core\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Mail\Message;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mail\Message;
 use Core\Mail\MailService;
 
 class Mailer extends AbstractPlugin

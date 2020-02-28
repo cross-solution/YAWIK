@@ -12,7 +12,7 @@ namespace Core\Filter;
 
 use Core\Options\ModuleOptions;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\Bridge\HtmlPurifier\HTMLPurifierFilter;
 
 /**

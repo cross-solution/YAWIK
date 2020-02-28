@@ -11,7 +11,7 @@
 namespace Jobs\Form;
 
 use Jobs\Entity\TemplateValuesInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
 /**

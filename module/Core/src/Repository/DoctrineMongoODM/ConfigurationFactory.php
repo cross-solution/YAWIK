@@ -14,7 +14,7 @@ use DoctrineMongoODMModule\Service\ConfigurationFactory as DMOMConfigurationFact
 
 class ConfigurationFactory extends DMOMConfigurationFactory
 {
-    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    public function createService(\Laminas\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         /** @var $options \DoctrineMongoODMModule\Options\Configuration */
         $options = $this->getOptions($serviceLocator, 'configuration');

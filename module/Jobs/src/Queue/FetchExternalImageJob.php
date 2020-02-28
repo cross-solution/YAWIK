@@ -14,8 +14,8 @@ use Core\Queue\Job\MongoJob;
 use Core\Queue\LoggerAwareJobTrait;
 use Jobs\Repository\Job;
 use Jobs\Entity\JobInterface as JobEntityInterface;
-use Zend\Http\Client;
-use Zend\Log\LoggerAwareInterface;
+use Laminas\Http\Client;
+use Laminas\Log\LoggerAwareInterface;
 
 /**
  * ${CARET}

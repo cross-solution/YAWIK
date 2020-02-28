@@ -10,9 +10,9 @@
 /** TranslatorAwareMessage.php */
 namespace Core\Mail;
 
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\TranslatorInterface;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\I18n\Translator\Translator;
+use Laminas\I18n\Translator\TranslatorInterface;
 
 class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
 {
@@ -21,7 +21,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     protected $translatorTextDomain = 'default';
     
     /**
-     * @see \Zend\I18n\Translator\TranslatorAwareInterface::getTranslator()
+     * @see \Laminas\I18n\Translator\TranslatorAwareInterface::getTranslator()
      *
      * @return Translator
      */
@@ -31,7 +31,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\I18n\Translator\TranslatorAwareInterface::getTranslatorTextDomain()
+     * @see \Laminas\I18n\Translator\TranslatorAwareInterface::getTranslatorTextDomain()
      */
     public function getTranslatorTextDomain()
     {
@@ -39,7 +39,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\I18n\Translator\TranslatorAwareInterface::hasTranslator()
+     * @see \Laminas\I18n\Translator\TranslatorAwareInterface::hasTranslator()
      */
     public function hasTranslator()
     {
@@ -47,7 +47,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\I18n\Translator\TranslatorAwareInterface::isTranslatorEnabled()
+     * @see \Laminas\I18n\Translator\TranslatorAwareInterface::isTranslatorEnabled()
      */
     public function isTranslatorEnabled()
     {
@@ -55,7 +55,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslator()
+     * @see \Laminas\I18n\Translator\TranslatorAwareInterface::setTranslator()
      */
     public function setTranslator(TranslatorInterface $translator = null, $textDomain = null)
     {
@@ -67,7 +67,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslatorEnabled()
+     * @see \Laminas\I18n\Translator\TranslatorAwareInterface::setTranslatorEnabled()
      */
     public function setTranslatorEnabled($enabled = true)
     {
@@ -76,7 +76,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslatorTextDomain()
+     * @see \Laminas\I18n\Translator\TranslatorAwareInterface::setTranslatorTextDomain()
      */
     public function setTranslatorTextDomain($textDomain = 'default')
     {
@@ -132,7 +132,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
      *
      * @param $formatString
      *
-     * @return \Zend\Mail\Message
+     * @return \Laminas\Mail\Message
      *
      * @deprecated since 0.29 use setSubject(formatString, replacement, ...)
      * @codeCoverageIgnore

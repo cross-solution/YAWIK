@@ -13,7 +13,7 @@ namespace Jobs\Form;
 use Core\Entity\DraftableEntityInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**

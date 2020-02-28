@@ -56,8 +56,8 @@ class ModuleTest extends TestCase
      */
     public function testImplementsInterfaces()
     {
-        $this->assertInstanceOf('\Zend\ModuleManager\Feature\ConfigProviderInterface', $this->target, 'Module class does not implement ConfigProviderInterface');
-        $this->assertInstanceOf('\Zend\ModuleManager\Feature\BootstrapListenerInterface', $this->target, 'Module class does not implement BootstrapListenerInterface');
+        $this->assertInstanceOf('\Laminas\ModuleManager\Feature\ConfigProviderInterface', $this->target, 'Module class does not implement ConfigProviderInterface');
+        $this->assertInstanceOf('\Laminas\ModuleManager\Feature\BootstrapListenerInterface', $this->target, 'Module class does not implement BootstrapListenerInterface');
     }
 
     public function testProvidesCorrectConfigArray()
@@ -72,12 +72,12 @@ class ModuleTest extends TestCase
      */
     public function testOnBootstrapListener()
     {
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')->disableOriginalConstructor()->getMock();
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')->disableOriginalConstructor()->getMock();
 
         $listener = $this->getMockBuilder('\Install\Listener\LanguageSetter')->disableOriginalConstructor()->getMock();
         $listener->expects($this->once())->method('attach')->with($events);
 
-        $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
         // expects Tracy::startDebug to be called
         $tracy = $this->getMockBuilder(Tracy::class)->disableOriginalConstructor()->getMock();
@@ -96,11 +96,11 @@ class ModuleTest extends TestCase
             ))
         ;
 
-        $application = $this->getMockBuilder('\Zend\Mvc\Application')->disableOriginalConstructor()->getMock();
+        $application = $this->getMockBuilder('\Laminas\Mvc\Application')->disableOriginalConstructor()->getMock();
         $application->expects($this->once())->method('getEventManager')->willReturn($events);
         $application->expects($this->once())->method('getServiceManager')->willReturn($services);
 
-        $event = $this->getMockBuilder('\Zend\Mvc\MvcEvent')
+        $event = $this->getMockBuilder('\Laminas\Mvc\MvcEvent')
                       ->disableOriginalConstructor()
                       ->getMock();
 

@@ -13,8 +13,8 @@ namespace Organizations\Factory\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Hydrator\Strategy\CollectionStrategy;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Organizations\Form\EmployeesFieldset;
 
 /**
@@ -37,7 +37,7 @@ class EmployeesFieldsetFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
 
-        /* @var $headScript     \Zend\View\Helper\HeadScript */
+        /* @var $headScript     \Laminas\View\Helper\HeadScript */
         $helpers  = $container->get('ViewHelperManager');
         $headScript = $helpers->get('headscript');
         $basePath   = $helpers->get('basepath');

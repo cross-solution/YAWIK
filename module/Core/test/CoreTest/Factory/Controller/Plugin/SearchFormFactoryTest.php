@@ -16,8 +16,8 @@ use Core\Factory\Controller\Plugin\SearchFormFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Tests for \Core\Factory\Controller\Plugin\SearchFormFactory

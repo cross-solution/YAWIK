@@ -13,13 +13,13 @@ namespace AclTest\Assertion;
 use PHPUnit\Framework\TestCase;
 
 use Acl\Assertion\AbstractEventManagerAwareAssertion;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\ResponseCollection;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\GenericResource;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Role\RoleInterface;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\ResponseCollection;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\GenericResource;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Role\RoleInterface;
 
 /**
  * Tests the AbstractEventManagerAwareAssertion
@@ -35,8 +35,8 @@ class AbstractEventManagerAwareAssertionTest extends TestCase
     {
         $target = new TargetMock();
 
-        $this->assertInstanceOf('\Zend\Permissions\Acl\Assertion\AssertionInterface', $target);
-        $this->assertInstanceOf('\Zend\EventManager\EventManagerAwareInterface', $target);
+        $this->assertInstanceOf('\Laminas\Permissions\Acl\Assertion\AssertionInterface', $target);
+        $this->assertInstanceOf('\Laminas\EventManager\EventManagerAwareInterface', $target);
     }
 
     public function testGetEventManagerReturnsNewOrInjectedInstance()
@@ -44,7 +44,7 @@ class AbstractEventManagerAwareAssertionTest extends TestCase
         $target = new TargetMock();
         $events = new EventManager();
 
-        $this->assertInstanceOf('\Zend\EventManager\EventManager', $target->getEventManager());
+        $this->assertInstanceOf('\Laminas\EventManager\EventManager', $target->getEventManager());
 
         $target->setEventManager($events);
 
@@ -85,7 +85,7 @@ class AbstractEventManagerAwareAssertionTest extends TestCase
         $target = new TargetMock();
         $acl    = new Acl();
 
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')
                        ->disableOriginalConstructor()
                        ->getMock();
 
@@ -112,7 +112,7 @@ class AbstractEventManagerAwareAssertionTest extends TestCase
         $responseTrue = $this->createResponseMock(true);
         $responseFalse = $this->createResponseMock(false);
 
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')
                        ->disableOriginalConstructor()
                        ->getMock();
 
@@ -133,7 +133,7 @@ class AbstractEventManagerAwareAssertionTest extends TestCase
 
     protected function createResponseMock($returnValue)
     {
-        $response = $this->getMockBuilder('\Zend\EventManager\ResponseCollection')
+        $response = $this->getMockBuilder('\Laminas\EventManager\ResponseCollection')
                              ->disableOriginalConstructor()
                              ->getMock();
         $response->method('last')->willReturn($returnValue);
@@ -145,7 +145,7 @@ class AbstractEventManagerAwareAssertionTest extends TestCase
     {
         $target = new TargetMock();
 
-        $events = $this->getMockBuilder('\Zend\EventManager\EventManager')
+        $events = $this->getMockBuilder('\Laminas\EventManager\EventManager')
                        ->disableOriginalConstructor()
                        ->getMock();
 

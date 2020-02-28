@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 use Core\Mail\MailService;
 use Core\Mail\Message;
-use Zend\Mail\AddressList;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mail\AddressList;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Tests sending mails via MailService
@@ -43,7 +43,7 @@ class SendMailTest extends TestCase
         $sendCallback = function ($value) use ($test) {
             return $value === $test->expectedMail;
         };
-        $transport = $this->getMockForAbstractClass('\Zend\Mail\Transport\TransportInterface');
+        $transport = $this->getMockForAbstractClass('\Laminas\Mail\Transport\TransportInterface');
         $transport->expects($this->once())->method('send')->with($this->callback($sendCallback));
 
         $target = new MailService(new ServiceManager());
@@ -96,9 +96,9 @@ class SendMailTest extends TestCase
         $this->target->send($mail);
 
         $mailFrom = $mail->getFrom();
-        $this->assertInstanceOf('\Zend\Mail\AddressList', $mailFrom);
+        $this->assertInstanceOf('\Laminas\Mail\AddressList', $mailFrom);
         $mailFrom = $mailFrom->get($expectedFrom);
-        $this->assertInstanceOf('\Zend\Mail\Address', $mailFrom);
+        $this->assertInstanceOf('\Laminas\Mail\Address', $mailFrom);
         $mailFrom = $mailFrom->getEmail();
         $this->assertEquals($expectedFrom, $mailFrom);
     }

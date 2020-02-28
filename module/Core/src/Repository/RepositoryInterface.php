@@ -3,7 +3,7 @@
 namespace Core\Repository;
 
 use Core\Entity\EntityInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 interface RepositoryInterface
 {

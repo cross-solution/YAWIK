@@ -11,7 +11,7 @@
 namespace Jobs\Form\Validator;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class UniqueApplyIdFactory implements FactoryInterface
 {

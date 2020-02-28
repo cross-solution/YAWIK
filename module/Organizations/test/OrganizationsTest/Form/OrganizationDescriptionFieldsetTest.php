@@ -39,7 +39,7 @@ class OrganizationDescriptionFieldsetTest extends TestCase
     public function testInstanceOf()
     {
         $this->assertInstanceOf('Organizations\Form\OrganizationsDescriptionFieldset', $this->target);
-        $this->assertInstanceOf('Zend\Form\Fieldset', $this->target);
+        $this->assertInstanceOf('Laminas\Form\Fieldset', $this->target);
     }
 
     public function testNameFormFields()

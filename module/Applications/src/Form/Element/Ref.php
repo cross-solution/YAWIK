@@ -10,7 +10,7 @@
 /**  */
 namespace Applications\Form\Element;
 
-use Zend\Form\Element\Button;
+use Laminas\Form\Element\Button;
 
 /**
  * Class Ref

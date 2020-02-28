@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 use Auth\Options\ModuleOptions;
 use Core\Factory\View\Helper\SocialButtonsFactory;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 
 /**
@@ -29,11 +29,11 @@ class SocialButtonsFactoryTest extends TestCase
     use ServiceManagerMockTrait;
 
     /**
-     * @testdox Implements \Zend\ServiceManager\FactoryInterface
+     * @testdox Implements \Laminas\ServiceManager\FactoryInterface
      */
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf(\Zend\ServiceManager\Factory\FactoryInterface::class, new SocialButtonsFactory());
+        $this->assertInstanceOf(\Laminas\ServiceManager\Factory\FactoryInterface::class, new SocialButtonsFactory());
     }
 
     /**
@@ -41,12 +41,12 @@ class SocialButtonsFactoryTest extends TestCase
      */
     public function testInvokation()
     {
-        $serviceLocator = $this->getMockBuilder('\Zend\View\HelperPluginManager')->disableOriginalConstructor()->getMock();
+        $serviceLocator = $this->getMockBuilder('\Laminas\View\HelperPluginManager')->disableOriginalConstructor()->getMock();
 
         $options = new ModuleOptions();
         $config = ['testwert'];
 
-        $HauptServiceLocator =  $this->getMockBuilder('Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $HauptServiceLocator =  $this->getMockBuilder('Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $HauptServiceLocator->expects($this->exactly(2))->method('get')->withConsecutive(['Auth/Options'], ['Config'])->will($this->onConsecutiveCalls($options, $config));
 
         $target = new SocialButtonsFactory();

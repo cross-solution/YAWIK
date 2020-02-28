@@ -2,7 +2,7 @@
 
 namespace Core\Service;
 
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 
 class Config
 {

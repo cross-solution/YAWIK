@@ -10,7 +10,7 @@
 /** Job.php */
 namespace Jobs\Form\InputFilter;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 class JobLocationEdit extends InputFilter
 {

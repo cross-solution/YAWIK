@@ -22,7 +22,7 @@ use SlmQueue\Queue\QueueAwareInterface;
 use SlmQueue\Queue\QueueInterface;
 use SlmQueue\Worker\AbstractWorker;
 use SlmQueue\Worker\Event\ProcessJobEvent;
-use Zend\Log\LoggerAwareInterface;
+use Laminas\Log\LoggerAwareInterface;
 
 /**
  * Queue worker for the mongo queue.

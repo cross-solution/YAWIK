@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Form\Container;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use Zend\Form\Form;
+use Laminas\Form\Form;
 
 /**
  * Tests for \Core\Form\Event\FormEvent
@@ -36,14 +36,14 @@ class FormEventTest extends TestCase
      */
     protected $target = '\Core\Form\Event\FormEvent';
 
-    protected $inheritance = [ '\Zend\EventManager\Event' ];
+    protected $inheritance = [ '\Laminas\EventManager\Event' ];
 
     public function propertiesProvider()
     {
         $form = new Form();
         $container = new Container();
         return [
-            [ 'Form', '@\Zend\Form\Form' ],
+            [ 'Form', '@\Laminas\Form\Form' ],
             [ 'Form', '@\Core\Form\Container' ],
             [ 'Form', [ 'value' => 'invalid', 'setter_exception' => ['\InvalidArgumentException', 'Form must either' ] ] ],
             [ 'Target', 'TestTarget' ],

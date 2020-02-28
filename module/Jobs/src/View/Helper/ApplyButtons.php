@@ -10,7 +10,7 @@
 
 namespace Jobs\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * View helper to display apply buttons

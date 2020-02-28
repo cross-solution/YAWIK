@@ -16,8 +16,8 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Zend\ModuleManager\Listener\ListenerOptions;
-use Zend\Stdlib\Glob;
+use Laminas\ModuleManager\Listener\ListenerOptions;
+use Laminas\Stdlib\Glob;
 
 /**
  * Class CacheWarmupService
@@ -67,7 +67,7 @@ class ClearCacheService
      */
     public static function factory(ContainerInterface $container)
     {
-        /* @var \Zend\ModuleManager\ModuleManager $manager */
+        /* @var \Laminas\ModuleManager\ModuleManager $manager */
         $config = $container->get('ApplicationConfig');
         $options = new ListenerOptions($config['module_listener_options']);
         return new static($options);

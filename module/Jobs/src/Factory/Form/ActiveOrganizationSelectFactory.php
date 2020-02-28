@@ -12,9 +12,9 @@ namespace Jobs\Factory\Form;
 
 use Interop\Container\ContainerInterface;
 use Jobs\Form\OrganizationSelect;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the ActiveOrganization select box
@@ -43,7 +43,7 @@ class ActiveOrganizationSelectFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var \Zend\Http\PhpEnvironment\Request $request */
+        /* @var \Laminas\Http\PhpEnvironment\Request $request */
         $request = $container->get('Request');
         $query   = $request->getQuery();
         $initialId = $query->get('companyId');
@@ -51,7 +51,7 @@ class ActiveOrganizationSelectFactory implements FactoryInterface
         $organizations = [];
 
         if ($initialId) {
-            /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager
+            /* @var $serviceLocator \Laminas\ServiceManager\AbstractPluginManager
              * @var $repository \Organizations\Repository\Organization */
             $repositories   = $container->get('repositories');
             $repository = $repositories->get('Organizations');

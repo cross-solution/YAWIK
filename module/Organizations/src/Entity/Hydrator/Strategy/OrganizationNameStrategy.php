@@ -10,7 +10,7 @@
 /** HttploadStrategy.php */
 namespace Organizations\Entity\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Laminas\Hydrator\Strategy\StrategyInterface;
 use Organizations\Repository\OrganizationName as OrganizationNameRepository;
 
 class OrganizationNameStrategy implements StrategyInterface

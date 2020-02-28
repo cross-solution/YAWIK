@@ -12,10 +12,10 @@ namespace Core;
 
 use Core\Service\ClearCacheService;
 use Symfony\Component\Dotenv\Dotenv;
-use Zend\Config\Exception\InvalidArgumentException;
-use Zend\ModuleManager\Listener\ListenerOptions;
-use Zend\Mvc\Application as BaseApplication;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Config\Exception\InvalidArgumentException;
+use Laminas\ModuleManager\Listener\ListenerOptions;
+use Laminas\Mvc\Application as BaseApplication;
+use Laminas\Stdlib\ArrayUtils;
 use SebastianBergmann\Version;
 
 /**
@@ -67,23 +67,23 @@ class Application extends BaseApplication
     public static function getRequiredModules()
     {
         return array(
-            'Zend\ServiceManager\Di',
-            'Zend\Session',
-            'Zend\Router',
-            'Zend\Navigation',
-            'Zend\I18n',
-            'Zend\Filter',
-            'Zend\InputFilter',
-            'Zend\Form',
-            'Zend\Validator',
-            'Zend\Log',
-            'Zend\Mvc\Plugin\Prg',
-            'Zend\Mvc\Plugin\Identity',
-            'Zend\Mvc\Plugin\FlashMessenger',
-            'Zend\Mvc\I18n',
-            'Zend\Mvc\Console',
-            'Zend\Hydrator',
-            'Zend\Serializer',
+            'Laminas\ServiceManager\Di',
+            'Laminas\Session',
+            'Laminas\Router',
+            'Laminas\Navigation',
+            'Laminas\I18n',
+            'Laminas\Filter',
+            'Laminas\InputFilter',
+            'Laminas\Form',
+            'Laminas\Validator',
+            'Laminas\Log',
+            'Laminas\Mvc\Plugin\Prg',
+            'Laminas\Mvc\Plugin\Identity',
+            'Laminas\Mvc\Plugin\FlashMessenger',
+            'Laminas\Mvc\I18n',
+            'Laminas\Mvc\Console',
+            'Laminas\Hydrator',
+            'Laminas\Serializer',
             'DoctrineModule',
             'DoctrineMongoODMModule',
         );

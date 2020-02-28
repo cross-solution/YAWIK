@@ -14,7 +14,7 @@ use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ExplicitParameterProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
 use Core\Form\Container;
-use Zend\Form\View\Helper\AbstractHelper;
+use Laminas\Form\View\Helper\AbstractHelper;
 use Core\Form\SummaryForm as CoreSummaryForm;
 
 /**

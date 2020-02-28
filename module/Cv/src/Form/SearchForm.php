@@ -50,7 +50,7 @@ class SearchForm extends \Core\Form\SearchForm
         $this->add(
              [
                  'name' => 'd',
-                 'type' => 'Core\Form\Element\Select', //Zend\Form\Element\Select
+                 'type' => 'Core\Form\Element\Select', //Laminas\Form\Element\Select
                  'options' => [
                      'label' => /*@translate*/ 'Distance',
                      'value_options' => [
