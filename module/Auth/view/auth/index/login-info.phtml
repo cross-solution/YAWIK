@@ -139,7 +139,8 @@ $lang = isset($this->lang)?$this->lang:$defaultLang; ?>
                 </button></h5>
             </div>
             <div class="modal-body">
-                <form id="su-form" action="<?=$this->url('lang/user-switch', [], [], true)?>" method="get" class="form-horizontal"><select id="su-user-list" name="id" class="form-control"></select></form>
+                <form id="su-form" action="<?=$this->url('lang/user-switch', [], [], true)?>" method="get" class="form-horizontal">
+                <select id="su-user-list" data-autoinit="false" name="id" class="form-control"></select></form>
 
                 <script type="text/javascript">
                     $('#su-form').submit(function(e) {
