@@ -66,7 +66,7 @@
         "cbleek/pecl-solr-hint": "dev-master",
         "laminas/laminas-test": "^3.1",
         "phpunit/phpunit": "^5.7",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
         "psr-4": {
@@ -86,5 +86,10 @@
     },
     "bin": [
         "bin/yawik"
-    ]
+    ],
+    "config": {
+        "platform": {
+            "ext-mongo": "1.6.16"
+        }
+    }
 }

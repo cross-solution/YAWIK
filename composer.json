@@ -57,7 +57,7 @@
         "symfony/finder": "^3.4 | ^4.1",
         "symfony/process": "^3.4 | ^4.1",
         "tracy/tracy": "^2.4",
-        "yawik/composer-plugin": "^1.0",
+        "yawik/composer-plugin": "^2.0",
         "yawik/geo": "^1.1.0",
         "laminas/laminas-authentication": "^2.5",
         "laminas/laminas-cache": "^2.7",
