@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Listener;
 
@@ -42,7 +42,7 @@ class ModuleVersionAdminWidgetProvider
         $modules = array_filter(
             $modules,
             function($i) {
-                return 0 !== strpos($i, 'Zend\\') && 0 !== strpos($i, 'Doctrine');
+                return 0 !== strpos($i, 'Laminas\\') && 0 !== strpos($i, 'Doctrine');
             },
             ARRAY_FILTER_USE_KEY
         );
