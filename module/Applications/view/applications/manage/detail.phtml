@@ -54,6 +54,70 @@ endif;
 
 <div id="forward-email-result" class="alert" style="display:none"></div>
 <nav class="navbar yk-toolbar">
+<?php if ($job->getOrganization()->getWorkflowSettings()->getAcceptApplicationByRecruiters()):
+    if (!$application->isDraft() && $application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
+        <div id="state-actions" class="btn-group cam-action-states nav navbar-nav">
+            <?php $status = $application->getStatus()->getName();
+
+            if ($employee && \Organizations\Entity\EmployeeInterface::ROLE_RECRUITER == $employee->getRole() ) {
+                $actionButtons = array(
+                    Status::ACCEPTED => array(
+                        'href' => $this->url(
+                            'lang/applications/detail/status',
+                            array('status' => Status::ACCEPTED),
+                            true
+                        ),
+                        'label' => $this->translate('Accept'),
+                        'title' => $this->translate('Inform the departement manager'),
+                    ),
+                );
+            } else {
+                $actionButtons = array(
+                    Status::CONFIRMED => array(
+                        'href' => $this->url(
+                            'lang/applications/detail/status',
+                            array('status' => Status::CONFIRMED),
+                            true
+                        ),
+                        'label' => $this->translate('Confirm'),
+                        'title' => $this->translate('Confirm the receipt'),
+                    ),
+                    Status::INVITED => array(
+                        'href' => $this->url(
+                            'lang/applications/detail/status',
+                            array('status' => Status::INVITED),
+                            true
+                        ),
+                        'label' => $this->translate('Invite'),
+                        'title' => $this->translate('Invite the applicant'),
+                    ),
+                );
+            }
+            $actionButtons[ Status::REJECTED ] = [
+                'href' => $this->url(
+                    'lang/applications/detail/status',
+                    [ 'status' => Status::REJECTED ],
+                    true
+                ),
+                'label' => $this->translate('Reject'),
+                'title' => $this->translate('Reject the applicant'),
+            ];
+
+            foreach ($actionButtons as $targetStatus => $spec):
+                if ($status == $targetStatus): continue; endif?>
+
+                <button class="btn btn-sm btn-default"
+                        data-href="<?php echo $spec['href']?>"
+                    <?php if (isset($spec['title'])):?>
+                        data-title="<?php echo $spec['title']?>"
+                        data-toggle="modal"
+                        data-target="#mail-box"
+                    <?php endif ?>
+                    ><?php echo $spec['label'] ?></button>
+            <?php endforeach ?>
+        </div>
+    <?php endif ?>
+<?php else: ?>
     <?php if (!$application->isDraft()
               && $application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
         <div id="state-actions" class="btn-group cam-action-states nav navbar-nav">
@@ -140,6 +204,7 @@ endif;
       </span>
         </form>
     <?php endif ?>
+<?php endif ?>
     <div class="pull-right">
         <?php if (!$application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
             <div class="btn-group">
@@ -490,7 +555,7 @@ endif;
                             foreach ($managers as $manager) {
                                 echo '<li>'.$manager['name'].'</li>';
                             }
-                            
+
                             ?>
                             </ul>
                         </td>

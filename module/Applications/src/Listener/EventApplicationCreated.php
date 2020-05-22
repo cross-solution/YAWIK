@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Applications\Listener;
 
@@ -18,6 +18,7 @@ use Core\Mail\MailService;
 use Applications\Listener\Events\ApplicationEvent;
 use Applications\Options\ModuleOptions;
 use Organizations\Entity\EmployeeInterface;
+use Organizations\Entity\EmployeePermissionsInterface;
 
 /**
  * This Listener sends mails to various users if a new application is created.
@@ -97,6 +98,24 @@ class EventApplicationCreated
             }
         }
 
+        if ($workflow->getAcceptApplicationByRecruiters()) {
+            $recruiters = $org->getEmployeesByRole(EmployeeInterface::ROLE_RECRUITER);
+            /** @var \Organizations\Entity\Employee $recruiter */
+            foreach ($recruiters as $recruiter) {
+                if (!$recruiter->getPermissions()->isAllowed(EmployeePermissionsInterface::APPLICATIONS_CHANGE)) {
+                    continue;
+                }
+
+                $this->mailService->send(
+                    'Applications/NewApplication',
+                    [
+                        'application' => $this->application,
+                        'user' => $recruiter->getUser(),
+                        'bcc' => $adminSettings->getMailBCC() ? [ $admin ] : null,
+                    ]
+                );
+            }
+        }
 
         $recruiter = $job->getUser();
         /* @var \Applications\Entity\Settings $settings */

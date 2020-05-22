@@ -57,6 +57,19 @@ class WorkflowSettingsFieldset extends Fieldset implements ViewPartialProviderIn
         $this->add(
             array(
                 'type'    => 'checkbox',
+                'name'    => 'acceptApplicationByRecruiters',
+                'label'   => 'accept',
+                'options' => [
+                    'label' => /* @translate */ 'accept Applications by recruiters',
+                    'long_label' => /* @translate */ 'if checked, all recruiters of the organization are informed about new applications first.',
+                    'description' => /* @translate */ 'Recruiters are notified of incoming applications and must accept/reject them. Accepted applications are forwarded to the department manager assigned to the job.'
+                ],
+            )
+        );
+
+        $this->add(
+            array(
+                'type'    => 'checkbox',
                 'name'    => 'assignDepartmentManagersToJobs',
                 'label'   => 'assign',
                 'options' => [

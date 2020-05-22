@@ -35,17 +35,28 @@ class WorkflowSettings extends AbstractIdentifiableHydratorAwareEntity implement
     protected $assignDepartmentManagersToJobs = true;
 
     /**
+     * Accept application by recruiters, forward to department manager
+     *
+     * @var bool
+     * @ODM\Field(type="bool")
+     */
+    protected $acceptApplicationByRecruiters = false;
+
+    /**
      * Sets AcceptApplicationByDepartmentManager
+     *
+     * Will set acceptApplicationByRecruiters to _false_.
      *
      * @param bool $acceptApplicationByDepartmentManager
      * @return WorkflowSettings
      */
     public function setAcceptApplicationByDepartmentManager($acceptApplicationByDepartmentManager)
     {
-        $this->acceptApplicationByDepartmentManager= $acceptApplicationByDepartmentManager;
+        $this->acceptApplicationByDepartmentManager = $acceptApplicationByDepartmentManager;
+        $acceptApplicationByDepartmentManager && $this->acceptApplicationByRecruiters = false;
         return $this;
     }
-    
+
     /**
      * Gets AcceptApplicationByDepartmentManager
      *
@@ -76,5 +87,16 @@ class WorkflowSettings extends AbstractIdentifiableHydratorAwareEntity implement
     public function getAssignDepartmentManagersToJobs()
     {
         return $this->assignDepartmentManagersToJobs;
+    }
+
+    public function setAcceptApplicationByRecruiters(bool $flag): void
+    {
+        $this->acceptApplicationByRecruiters = $flag;
+        $flag && $this->acceptApplicationByDepartmentManager = false;
+    }
+
+    public function getAcceptApplicationByRecruiters(): bool
+    {
+        return $this->acceptApplicationByRecruiters;
     }
 }

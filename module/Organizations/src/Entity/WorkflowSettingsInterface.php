@@ -40,4 +40,7 @@ interface WorkflowSettingsInterface
      * @return bool
      */
     public function getAssignDepartmentManagersToJobs();
+
+    public function setAcceptApplicationByRecruiters(bool $flag): void;
+    public function getAcceptApplicationByRecruiters(): bool;
 }
