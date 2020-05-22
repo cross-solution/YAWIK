@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Entity\Status;
 
@@ -18,13 +18,6 @@ namespace Core\Entity\Status;
  */
 interface StatusAwareEntityInterface
 {
-    /**
-     * FQCN of the concrete status entity for this entity.
-     *
-     * @var string
-     */
-    const STATUS_ENTITY_CLASS = StatusInterface::class;
-
     /**
      * Set the state of this entity.
      *
