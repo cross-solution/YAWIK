@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2018 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Listener;
 
@@ -18,10 +18,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for \Core\Listener\ModuleVersionAdminWidgetProvider
- * 
+ *
  * @covers \Core\Listener\ModuleVersionAdminWidgetProvider
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
 class ModuleVersionAdminWidgetProviderTest extends TestCase
 {
@@ -72,7 +72,7 @@ class ModuleVersionAdminWidgetProviderTest extends TestCase
         $coreModule = $this->getModuleMock('Core');
         $jobsModule = $this->getModuleMock('Jobs');
         $aModule    = $this->getModuleMock('A');
-        $zendModule = $this->getModuleMock('Zend\Something');
+        $zendModule = $this->getModuleMock('Laminas\Something');
         $doctModule = $this->getModuleMock('DoctrineAnything');
 
         return [
@@ -80,7 +80,7 @@ class ModuleVersionAdminWidgetProviderTest extends TestCase
                 'Core' => $coreModule,
                 'Jobs' => $jobsModule,
                 'A'    => $aModule,
-                'Zend\Something' => $zendModule,
+                'Laminas\Something' => $zendModule,
                 'DoctrineAnything' => $doctModule,
             ],
             [
