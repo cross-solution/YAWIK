@@ -11,24 +11,23 @@
 namespace Organizations\Form;
 
 use Core\Repository\RepositoryService;
-use Interop\Container\ContainerInterface;
 use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\Hydrator\Strategy\OrganizationNameStrategy;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Class OrganizationsFieldset
  * @package Organizations\Form
  */
-class OrganizationsNameFieldset extends Fieldset
+class OrganizationsNameFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    
+
     /**
      * @var RepositoryService
      */
     private $repositories;
-    
+
     /**
      * @return RepositoryService
      */
@@ -36,7 +35,7 @@ class OrganizationsNameFieldset extends Fieldset
     {
         return $this->repositories;
     }
-    
+
     /**
      * @param RepositoryService $repositories
      */
@@ -44,18 +43,16 @@ class OrganizationsNameFieldset extends Fieldset
     {
         $this->repositories = $repositories;
     }
-    
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
             /* @var $formElementManager FormElementManagerV3Polyfill */
             $hydrator           = new EntityHydrator();
-            $formFactory        = $this->getFormFactory();
-            $formElementManager = $formFactory->getFormElementManager();
-            
+
             $repositoryManager = $this->repositories;
             $repOrganizationName = $repositoryManager->get('Organizations/OrganizationName');
-            
+
             $organizationName = new OrganizationNameStrategy($repOrganizationName);
             $hydrator->addStrategy('organizationName', $organizationName);
             $this->setHydrator($hydrator);
@@ -85,7 +82,14 @@ class OrganizationsNameFieldset extends Fieldset
      */
     public function getInputFilterSpecification()
     {
-        return array();
+        return [
+            'organizationName' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => 'StripTags'],
+                ],
+            ],
+        ];
     }
 
     /**

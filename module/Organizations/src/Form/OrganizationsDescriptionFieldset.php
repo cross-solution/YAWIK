@@ -11,12 +11,13 @@ namespace Organizations\Form;
 
 use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Class OrganizationsDescriptionFieldset
  * @package Organizations\Form
  */
-class OrganizationsDescriptionFieldset extends Fieldset
+class OrganizationsDescriptionFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function getHydrator()
     {
@@ -51,6 +52,14 @@ class OrganizationsDescriptionFieldset extends Fieldset
      */
     public function getInputFilterSpecification()
     {
-        return array();
+        return [
+            'description' => [
+                'required' => true,
+                'allow_empty' => true,
+                'filters' => [
+                    ['name' => 'StripTags'],
+                ],
+            ],
+        ];
     }
 }

@@ -12,6 +12,7 @@ namespace Organizations\Form;
 
 use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Organizations\Entity\OrganizationContact;
 
 /**
@@ -19,7 +20,7 @@ use Organizations\Entity\OrganizationContact;
  *
  * @package Organizations\Form
  */
-class OrganizationsContactFieldset extends Fieldset
+class OrganizationsContactFieldset extends Fieldset implements InputFilterProviderInterface
 {
     /**
      * Gets the Hydrator
@@ -42,7 +43,7 @@ class OrganizationsContactFieldset extends Fieldset
     public function init()
     {
         $this->setName('contact');
-        
+
         $this->add(
             array(
                 'name' => 'street',
@@ -51,7 +52,7 @@ class OrganizationsContactFieldset extends Fieldset
                 )
             )
         );
-        
+
         $this->add(
             array(
                 'name' => 'houseNumber',
@@ -60,7 +61,7 @@ class OrganizationsContactFieldset extends Fieldset
                 )
             )
         );
-        
+
         $this->add(
             array(
                 'name' => 'postalcode',
@@ -69,7 +70,7 @@ class OrganizationsContactFieldset extends Fieldset
                 )
             )
         );
-        
+
         $this->add(
             array(
                 'name' => 'city',
@@ -104,13 +105,52 @@ class OrganizationsContactFieldset extends Fieldset
         );
     }
 
-    /**
-     * for later use - all the mandatory fields
-     * @return array
-     */
     public function getInputFilterSpecification()
     {
-        return array();
+        return [
+            'street' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'houseNumber'  => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'postalcode' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'city' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'country' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'phone' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'fax' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+        ];
     }
 
     /**
