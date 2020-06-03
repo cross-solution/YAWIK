@@ -55,19 +55,19 @@ class IndexController extends AbstractActionController
      * @var Repository\Organization
      */
     private $repository;
-    
+
     /**
      * @var FormElementManagerV3Polyfill
      */
     private $formManager;
-    
+
     private $viewHelper;
-    
+
     /**
      * @var TranslatorInterface
      */
     private $translator;
-    
+
     /**
      * Create new controller instance
      *
@@ -90,7 +90,7 @@ class IndexController extends AbstractActionController
         $this->viewHelper = $viewHelper;
         $this->translator = $translator;
     }
-    
+
     /**
      * Generates a list of organizations
      *
@@ -114,8 +114,8 @@ class IndexController extends AbstractActionController
             ]
         ]);
     }
-     
-     
+
+
     /**
      * Change (Upsert) organizations
      *
@@ -204,18 +204,19 @@ class IndexController extends AbstractActionController
             } else {
                 if ($form instanceof SummaryForm) {
                     /* @var $form \Core\Form\SummaryForm */
-                    $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
+                    $form->setRenderMode($isValid ? SummaryForm::RENDER_SUMMARY : SummaryForm::RENDER_FORM);
                     $viewHelper = 'summaryForm';
                 } else {
                     $viewHelper = 'form';
                 }
-                
+
                 $content = $this->viewHelper->get($viewHelper)->__invoke($form);
             }
 
             return new JsonModel(
                 array(
                 'valid' => $isValid,
+                'errors' => $form->getMessages(),
                 'content' => $content,
                 )
             );
