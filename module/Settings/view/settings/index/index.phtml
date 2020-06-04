@@ -1,18 +1,14 @@
-<?php 
-
+<?php
     $this->headTitle($this->translate('Settings'));
-    
-    $this->headScript()->appendFile($this->basePath('modules/Settings/js/index.index.js'))
-
 ?>
 
 <h1><?php echo $this->translate('Settings')?></h1>
 <div id="settings-form-response"></div>
-<?php 
+<?php
 
 $this->form->setIsDescriptionsEnabled(true);
 
-echo $this->form($this->form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL) 
+echo $this->form($this->form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL)
 
 ?>
 
