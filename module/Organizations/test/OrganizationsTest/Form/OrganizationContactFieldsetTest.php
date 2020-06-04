@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace OrganizationsTest\Form;
 
@@ -61,7 +61,52 @@ class OrganizationContactFieldsetTest extends TestCase
 
     public function testGetInputFilterSpec()
     {
-        $this->assertSame($this->target->getInputFilterSpecification(), []);
+        $spec = [
+            'street' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'houseNumber'  => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'postalcode' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'city' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'country' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'phone' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+            'fax' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StripTags']
+                ],
+            ],
+        ];
+
+        $this->assertSame($this->target->getInputFilterSpecification(), $spec);
     }
 
     public function testGetHydrator()

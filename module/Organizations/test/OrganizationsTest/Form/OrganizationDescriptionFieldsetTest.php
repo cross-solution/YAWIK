@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace OrganizationsTest\Form;
 
@@ -50,7 +50,16 @@ class OrganizationDescriptionFieldsetTest extends TestCase
 
     public function testGetInputFilterSpec()
     {
-        $this->assertSame($this->target->getInputFilterSpecification(), []);
+        $spec = [
+            'description' => [
+                'required' => true,
+                'allow_empty' => true,
+                'filters' => [
+                    ['name' => 'StripTags'],
+                ],
+            ],
+        ];
+        $this->assertSame($this->target->getInputFilterSpecification(), $spec);
     }
 
     public function testGetHydrator()
