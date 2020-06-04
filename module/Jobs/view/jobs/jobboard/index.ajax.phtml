@@ -100,7 +100,7 @@ $this->proxy('jobsByMailSubscriptionForm')->render($jobs)
             <?php endif; ?>
         </td>
         <td>
-            <div><?php echo $job->getLocation()?></div>
+            <div><?php echo $this->formatLocation($job->getLocations())?></div>
             <small>
                 <?php
                 if ($job->getDatePublishStart()): echo $this->dateFormat($job->getdatePublishStart(), 'short', 'none');
