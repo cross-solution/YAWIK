@@ -97,7 +97,7 @@ class FormatLocation extends AbstractHelper
             $str = str_replace($var, $val, $str);
         }
 
-        if (strpos($format, '%lon') !== false || strpos($format, '%lat' !== false)) {
+        if (strpos($format, '%lon') !== false || strpos($format, '%lat') !== false) {
             $coords = $location->getCoordinates()->getCoordinates();
             $str = str_replace(['%lon', '%lat'], [$coords[0], $coords[1]], $str);
         }
@@ -106,7 +106,7 @@ class FormatLocation extends AbstractHelper
         return $str;
     }
 
-    public function formatCollection($locations, $format, $separator = '<br>')
+    public function formatCollection(Collection $locations, ?string $format = null, string $separator = '<br>')
     {
         $loc = [];
 
