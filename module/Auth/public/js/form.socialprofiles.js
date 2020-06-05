@@ -1,10 +1,10 @@
 
 ;(function($) {
-	
+
 	var popup,
 		$currentFetchButton,
 		modalCache = {};
-	
+
 	function _toggleButtonState($button, error)
 	{
 		var $buttons = $button.find('button');
@@ -13,7 +13,7 @@
 				$buttons.removeClass(className);
 			}
 		});
-		
+
 		if (!error) {
 			$buttons.addClass('btn-success');
 			$button.data('is_attached', true);
@@ -24,17 +24,17 @@
 			toggleDropDown($button, 'detach');
 		}
 	}
-	
+
 	function fetchCompleted(event)
 	{
 		if (!popup || !$currentFetchButton) {
 			return;
 		}
-		
+
 		var data = popup.$('textarea').text();
 		popup.close();
 		popup = null;
-		
+
 		var id = '#' + $currentFetchButton.attr('id') + '-data';
 		$(id).text(data);
 		$form = $currentFetchButton.parents('form');
@@ -42,23 +42,23 @@
 		$.post($form.attr('action'), $form.serialize(), function (data) {
 			$(document).trigger('formPost.socialprofiles', [data]);
 		});
-		
+
 		var fetchCompletedEvent = $.Event('fetchCompleted.socialprofiles');
 		$(document).trigger(fetchCompletedEvent);
 
 		if (fetchCompletedEvent.isPropagationStopped()) {
 			return;
 		}
-		
+
 		_toggleButtonState($currentFetchButton, '' == data);
-		
+
 		$currentFetchButton.find('.spb-icon-normal').show();
 		$currentFetchButton.find('.spb-icon-processing').hide();
 		$currentFetchButton = null;
-		
+
 		return false;
 	}
-	
+
 	function buttonClicked(event)
 	{
 		if (popup) {
@@ -68,24 +68,35 @@
 			popup.close();
 			popup = null;
 		}
-		
+
 		var $button = $(event.currentTarget);
-		
+
 		if ($button.parent().data('is_attached')) {
 			$button.blur();
 			return false;
 		}
 		$button.find('.spb-icon-normal').hide();
 		$button.find('.spb-icon-processing').show();
-		
+
 		var url     = $button.data('fetch-url');
-		
+
 		popup = window.open(url, 'fetch social profile', 'width=480,height=550');
 		$currentFetchButton = $button.parent();
-		
+
+
+		var timer = setInterval(function() {
+			if(popup.closed) {
+				clearInterval(timer);
+				popup = null;
+				$currentFetchButton.find('.spb-icon-normal').show();
+				$currentFetchButton.find('.spb-icon-processing').hide();
+				$currentFetchButton = null;
+			}
+		}, 1000);
+
 		return false;
 	}
-	
+
 	function actionClicked(event)
 	{
 		var $link  = $(event.currentTarget);
@@ -96,7 +107,7 @@
 			var actionData = parts[1];
 		}
 		var $button = $link.parent().parent().parent();
-		
+
 		switch (action) {
 			case 'attach':
 				$button.find('button:first-child').click();
@@ -117,7 +128,7 @@
 					$(document).trigger('formPost.socialprofiles', [data]);
 				});
 				break;
-			
+
 			case 'view':
 				var $modal = $('#' + $button.parent().parent().attr('id') + '-preview-box');
 				var profileData = $('#' + $button.attr('id') + '-data').text();
@@ -151,16 +162,16 @@
 				break;
 
 		}
-		
+
 		$link.parent().parent().dropdown('toggle');
 		return false;
 	}
-	
+
 	function toggleDropdown($button, action)
 	{
 		var $attachActions = $button.find('.spb-action-attach');
 		var $detachActions = $button.find('.spb-action-detach, .spb-action-preview');
-		
+
 		if ('attach' == action) {
 			$attachActions.addClass('disabled');
 			$detachActions.removeClass('disabled');
@@ -169,7 +180,7 @@
 			$detachActions.addClass('disabled');
 		}
 	}
-	
+
 	function initFieldset($fieldset)
 	{
 		var $buttons = $fieldset.find('.social-profiles-button');
@@ -178,7 +189,7 @@
 		$buttons.find('.dropdown-menu a')
 			    .on('click.socialprofiles', actionClicked);
 		$buttons.find('.spb-icon-processing').hide();
-		
+
 		$buttons.each(function () {
 			var $button = $(this);
 			var $area = $('#' + $button.attr('id') + '-data');
@@ -191,17 +202,17 @@
 			}
 		});
 	}
-	
+
 	$.fn.socialprofiles = function()
 	{
 		return this.each(function() {
 			initFieldset($(this));
 		});
 	};
-	
-	$(function() { 
+
+	$(function() {
 		$(document).on('fetch_complete.socialprofiles', fetchCompleted);
-		$('.social-profiles-fieldset').socialprofiles() 
+		$('.social-profiles-fieldset').socialprofiles()
 	});
-	
+
 })(jQuery);

@@ -6,9 +6,9 @@
  *
  */
 (function($) {
-	
+
 	var methods = {
-			
+
 			clearErrors: function($form)
 			{
 				$form.find('.errors').each(function() {
@@ -16,7 +16,7 @@
 					$(this).parent().removeClass('input-error');
 				});
 			},
-			
+
 			displayErrors: function($form, errors, prefix)
 			{
 				if (typeof errors === 'string') {
@@ -42,9 +42,9 @@
                 });
 			}
 	};
-	
+
 	var handlers = {
-		
+
 		onSubmit: function(e, extraData) {
 			var $form = $(e.currentTarget);
             var $button = $form.find('[type="submit"]');
@@ -59,7 +59,7 @@
 					});
 				});
 			}
-			
+
 			var dataType = $form.data('type');
 			if (!dataType) dataType = 'json';
 
@@ -99,9 +99,20 @@
 			}
 			return false;
 		},
-		
+
+		onReset: function(e) {
+			var $form = $(e.currentTarget);
+			$form.find('select').each(function() {
+				var $select = $(this);
+				var $option = $select.find('option[selected]');
+				if ($option.length) {
+					$select.val($option[0].value).trigger('change');
+				}
+			});
+		},
+
 		onChange: function(e) {
-			
+
 			var $element = $(e.currentTarget);
 			var validate = $element.data('validate');
 			var data = {};
@@ -113,9 +124,9 @@
 			return false;
 		}
 	};
-	
+
 	var helpers = {
-		
+
 		initSelect: function()
 		{
 			var $select = $(this);
@@ -207,7 +218,7 @@
      * @param method
      * @returns
      */
-	$.fn.form = function (method) 
+	$.fn.form = function (method)
 	{
         var calledArguments = arguments;
 
@@ -224,6 +235,8 @@
 //            console.debug('ajax submit initialized for', $form);
             // overwrite the originally (HTML)-Submit for the form
 			$form.submit(handlers.onSubmit);
+			//$form.reset(handlers.onReset);
+			$form.on('reset', handlers.onReset);
             // triggers an ajax call for elements with this specific attribute 'data-trigger'
             // originally it is designed to immidiatly fire an submit event for input elements, after they have changed
 			var elementsThatTriggerASubmit = $form.find('[data-trigger="submit"]');
@@ -236,13 +249,13 @@
 
 	if ($.fn.select2) {
 		$.extend(
-			$.fn.select2.defaults, 
+			$.fn.select2.defaults.defaults,
 			{
 				minimumResultsForSearch: -1
 			}
 		);
 	}
-	
+
 	$(function() {
 		$('form:not([data-handle-by]), form[data-handle-by="yk-form"]').form();
 		$('select').each(helpers.initSelect);
