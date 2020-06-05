@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.27
@@ -77,7 +77,7 @@ class ListListenerTest extends TestCase
                 return is_string($string);
             }))
             ->willReturn($expected);
-        
+
         $this->assertSame($expected, $this->listListener->getTitle($translator));
     }
 
@@ -87,25 +87,25 @@ class ListListenerTest extends TestCase
     public function testGetCount()
     {
         $expected = 3;
-        
+
         $userId = 'userId';
         $user = $this->getMockBuilder(User::class)
             ->getMock();
         $user->expects($this->once())
             ->method('getId')
             ->willReturn($userId);
-        
+
         $cursor = $this->getMockBuilder(Cursor::class)
             ->getMock();
         $cursor->expects($this->once())
             ->method('count')
             ->willReturn($expected);
-            
+
         $this->repository->expects($this->once())
             ->method('getUserApplications')
             ->with($this->equalTo($userId), $this->equalTo(null))
             ->willReturn($cursor);
-        
+
         $this->assertSame($expected, $this->listListener->getCount($user));
     }
 
@@ -116,38 +116,38 @@ class ListListenerTest extends TestCase
     {
         $limit = 10;
         $userId = 'userId';
-        
+
         $user = $this->getMockBuilder(User::class)
             ->getMock();
         $user->expects($this->once())
             ->method('getId')
             ->willReturn($userId);
-        
+
         $view = $this->getMockBuilder(View::class)
             ->getMock();
-        
+
         $job = $this->getMockBuilder(JobInterface::class)
             ->getMock();
-        
+
         $application = $this->getMockBuilder(ApplicationInterface::class)
             ->getMock();
         $application->method('getJob')
             ->willReturn($job);
-        
+
         $cursor = $this->getMockBuilder(Cursor::class)
             ->getMock();
         $cursor->method('valid')
             ->will($this->onConsecutiveCalls(true, false));
         $cursor->method('current')
             ->willReturn($application);
-        
+
         $this->repository->expects($this->once())
             ->method('getUserApplications')
             ->with($this->equalTo($userId), $this->equalTo($limit))
             ->willReturn($cursor);
-        
+
         $actual = $this->listListener->getItems($user, $view, $limit);
-        
+
         $this->assertIsArray($actual);
         $this->assertCount(1, $actual);
         $this->assertContainsOnlyInstancesOf(\Auth\Dependency\ListItem::class, $actual);
@@ -160,18 +160,18 @@ class ListListenerTest extends TestCase
     {
         $expected = [];
         $userId = 'userId';
-        
+
         $user = $this->getMockBuilder(User::class)
             ->getMock();
         $user->expects($this->once())
             ->method('getId')
             ->willReturn($userId);
-        
+
         $this->repository->expects($this->once())
             ->method('getUserApplications')
             ->with($this->equalTo($userId))
             ->willReturn($expected);
-        
+
         $this->assertSame($expected, $this->listListener->getEntities($user));
     }
 }

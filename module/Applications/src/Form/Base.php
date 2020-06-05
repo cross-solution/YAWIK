@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -25,7 +25,7 @@ class Base extends SummaryForm
      * @var string
      */
     protected $label        = /*@translate*/ 'Cover Letter';
-    
+
     /**
      * {@inheritDoc}
      */
@@ -39,7 +39,7 @@ class Base extends SummaryForm
             'is_disable_elements_capable' => true,
         ),
     );
-    
+
     /**
      * {@inheritDoc}
      */

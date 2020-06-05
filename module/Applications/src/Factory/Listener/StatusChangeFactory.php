@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Applications\Factory\Listener;
 
@@ -20,9 +20,9 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Bleek Carsten <bleek@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class StatusChangeFactory implements FactoryInterface
 {

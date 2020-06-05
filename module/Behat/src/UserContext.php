@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -30,24 +30,24 @@ use Yawik\Behat\Exception\FailedExpectationException;
 class UserContext implements Context
 {
     use CommonContextTrait;
-    
+
     /**
      * @var User[]
      */
     private static $users = [];
-    
+
     /**
      * @var UserRepository
      */
     private static $userRepo;
-    
+
     private $socialLoginInfo = [];
 
     /**
      * @var DocumentManager
      */
     private static $dm;
-    
+
     /**
      * @var UserInterface
      */
@@ -62,7 +62,7 @@ class UserContext implements Context
      * @var User
      */
     protected $currentUser;
-    
+
     public function __construct($parameters=[])
     {
         $defaultLoginInfo = [
@@ -125,7 +125,7 @@ class UserContext implements Context
         static::$userRepo = $this->getUserRepository();
         static::$dm = $this->getUserRepository()->getDocumentManager();
     }
-    
+
     /**
      * @When I fill in login form with :provider user
      */
@@ -137,7 +137,7 @@ class UserContext implements Context
             $mink->fillField($field, $value);
         }
     }
-    
+
     /**
      * @Given I am logged in as a recruiter
      * @Given I am logged in as a recruiter with :organization as organization
@@ -166,7 +166,7 @@ class UserContext implements Context
         $this->minkContext->getSession()->visit($url);
     }
 
-    
+
     /**
      * @Given I don't have :login user
      * @param string $login
@@ -179,7 +179,7 @@ class UserContext implements Context
             $repo->remove($user, true);
         }
     }
-    
+
     /**
      * @Given I have a :role with the following:
      * @Given I have an :role with the following:
@@ -200,7 +200,7 @@ class UserContext implements Context
             $field = Inflector::camelize($field);
             $normalizedFields[$field] = $value;
         }
-        
+
         $this->thereIsAUserIdentifiedBy(
             $normalizedFields['login'],
             $normalizedFields['password'],
@@ -209,7 +209,7 @@ class UserContext implements Context
             $normalizedFields['organization']
         );
     }
-    
+
     /**
      * @Given I am logged in as an administrator
      */
@@ -218,7 +218,7 @@ class UserContext implements Context
         $user = $this->thereIsAUserIdentifiedBy('test@admin.com', 'test', User::ROLE_ADMIN);
         $this->startLogin($user, 'test');
     }
-    
+
     private function startLogin(UserInterface $user, $password)
     {
         $currentUser = $this->currentUser;
@@ -230,7 +230,7 @@ class UserContext implements Context
             $this->currentUser = $user;
         }
     }
-    
+
     /**
      * @return UserRepository
      */
@@ -238,7 +238,7 @@ class UserContext implements Context
     {
         return $this->coreContext->getRepositories()->get('Auth\Entity\User');
     }
-    
+
     /**
      * @Given there is a user :email identified by :password
      */
@@ -248,7 +248,7 @@ class UserContext implements Context
         if (!is_object($user=$repo->findByEmail($email))) {
             $user = $this->createUser($email, $password, $role, $fullname, $organization);
         }
-        
+
         if (!is_null($organization)) {
             $this->iHaveMainOrganization($user, $organization);
         }
@@ -256,7 +256,7 @@ class UserContext implements Context
         $repo->getDocumentManager()->refresh($user);
         return $user;
     }
-    
+
     /**
      * @param $email
      * @param $password
@@ -276,7 +276,7 @@ class UserContext implements Context
         $user->setPassword($password);
         $user->setRole($role);
         $settings = $user->getSettings('Applications');
-        
+
         $expFullName = explode(' ', $fullname);
         $info = $user->getInfo();
         $info->setFirstName(array_shift($expFullName));
@@ -285,7 +285,7 @@ class UserContext implements Context
         $info->setEmailVerified(true);
         $repo->store($user);
         $repo->getDocumentManager()->refresh($user);
-        
+
         $eventArgs = new LifecycleEventArgs($user, $repo->getDocumentManager());
         $repo->getDocumentManager()->getEventManager()->dispatchEvent(
             Events::postLoad,
@@ -300,7 +300,7 @@ class UserContext implements Context
         //$events->triggerEvent($event);
         return $user;
     }
-    
+
     /**
      * @When I have :organization as my main organization
      * @param $orgName
@@ -344,7 +344,7 @@ class UserContext implements Context
         $url = $this->buildUrl('lang/auth');
         $session->visit($url);
     }
-    
+
     /**
      * @When I specify the username as :username
      */
@@ -352,7 +352,7 @@ class UserContext implements Context
     {
         $this->minkContext->fillField('Login name', $username);
     }
-    
+
     /**
      * @When I specify the password as :password
      */
@@ -360,7 +360,7 @@ class UserContext implements Context
     {
         $this->minkContext->fillField('Password', $password);
     }
-    
+
     /**
      * @Given I am logged in as :username identified by :password
      */
@@ -368,7 +368,7 @@ class UserContext implements Context
     {
         $repo = $this->getUserRepository();
         $user = $repo->findByLogin($username);
-        
+
         if (!$user instanceof User) {
             throw new \Exception(sprintf('There is no user with this login: "%s"', $username));
         }
@@ -378,7 +378,7 @@ class UserContext implements Context
         $this->iLogIn();
         $this->currentUser = $user;
     }
-    
+
     /**
      * @When I log in
      */
@@ -386,7 +386,7 @@ class UserContext implements Context
     {
         $this->minkContext->pressButton('login');
     }
-    
+
     /**
      * @When I press logout link
      */
@@ -395,7 +395,7 @@ class UserContext implements Context
         $url = $this->buildUrl('auth-logout');
         $this->visit($url);
     }
-    
+
     /**
      * @Given I log in with username :username and password :password
      */
@@ -409,7 +409,7 @@ class UserContext implements Context
         $this->iLogIn();
         $this->loggedInUser = $user;
     }
-    
+
     /**
      * @When I go to profile page
      */
@@ -418,7 +418,7 @@ class UserContext implements Context
         $url = $this->buildUrl('lang/my');
         $this->visit($url);
     }
-    
+
     /**
      * @Given there is a user with the following:
      */
@@ -430,21 +430,21 @@ class UserContext implements Context
         $password = isset($data['password']) ? $data['password']:'test';
         $fullname = isset($data['fullname']) ? $data['fullname']:'Test User';
         $role = isset($data['role']) ? $data['role']:User::ROLE_RECRUITER;
-        
+
         if (!is_object($user=$repo->findByLogin($email))) {
             $user = $this->createUser($email, $password, $role, $fullname);
         }
         $this->currentUser = $user;
         $this->addCreatedUser($user);
     }
-    
+
     private function addCreatedUser(UserInterface $user)
     {
         if (!in_array($user, static::$users)) {
             static::$users[] = $user;
         }
     }
-    
+
     /**
      * @When I want to change my password
      */

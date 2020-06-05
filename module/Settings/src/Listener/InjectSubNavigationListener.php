@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -41,24 +41,24 @@ class InjectSubNavigationListener
              */
             return;
         }
-        
+
         $services     = $event->getApplication()->getServiceManager();
         $navigation   = $services->get('Core/Navigation');
 
         /* @var $settingsMenu \Laminas\Navigation\Page\Mvc $settingMenu  */
         $settingsMenu = $navigation->findOneBy('route', 'lang/settings');
-        
+
         if ($settingsMenu->hasChildren()) {
             /*We already have the sub-navigation.*/
             return;
         }
-        
+
         $moduleManager = $services->get('ModuleManager');
         $configPlugin  = $services->get('ControllerPluginManager')->get('config');
-        
+
         $modules             = $moduleManager->getLoadedModules();
         $modulesWithSettings = $configPlugin("settings", array_keys($modules));
-        
+
 
         $activeModule = $event->getParam('__settings_active_module', false);
         $settingsMenu->setActive((bool) $activeModule);

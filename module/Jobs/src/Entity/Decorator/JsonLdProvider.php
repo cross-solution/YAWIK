@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Entity\Decorator;
 
@@ -148,7 +148,7 @@ class JsonLdProvider implements JsonLdProviderInterface
                 $values->getRequirements(),
                 $values->getQualifications(),
                 $values->getBenefits()
-            );    
+            );
         }
 
         return $description;

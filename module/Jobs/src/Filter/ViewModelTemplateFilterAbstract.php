@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -200,26 +200,26 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
-        
+
         $data = [
             'applyId' => $this->job->getApplyId(),
             'uri' => null,
             'oneClickProfiles' => []
         ];
         $atsMode = $this->job->getAtsMode();
-        
+
         if ($atsMode->isIntern() || $atsMode->isEmail()) {
             $data['uri'] = $this->urlPlugin->fromRoute('lang/apply', ['applyId' => $this->job->getApplyId()], ['force_canonical' => true]);
         } elseif ($atsMode->isUri()) {
             $data['uri'] = $atsMode->getUri();
         }
-        
+
         if ($atsMode->isIntern() && $atsMode->getOneClickApply()) {
             $data['oneClickProfiles'] = $atsMode->getOneClickApplyProfiles();
         }
-        
+
         $this->container['applyData'] = $data;
-        
+
         return $this;
     }
 

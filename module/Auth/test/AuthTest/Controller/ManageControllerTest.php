@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace AuthTest\Controller;
@@ -25,31 +25,31 @@ use Laminas\Http\PhpEnvironment\Response;
 class ManageControllerTest extends AbstractFunctionalControllerTestCase
 {
     const URL_MY_PROFILE = '/en/my/profile';
-    
+
     private $hybridAuthAdapter;
-    
+
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->hybridAuthAdapter = $this->getMockBuilder(HybridAuth::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
         $this->setMockToServiceLocator('HybridAuthAdapter', $this->hybridAuthAdapter);
     }
-    
+
     public function testAccessWhenNotLoggedIn()
     {
         $this->dispatch(self::URL_MY_PROFILE, Request::METHOD_GET);
-        
+
         $result = $this->getResponse()->getContent();
-        
+
         $this->assertNotRedirect();
         $this->assertResponseStatusCode(Response::STATUS_CODE_401);
         $this->assertContains('Please authenticate yourself to proceed', $result);
     }
-    
+
     public function testAccessWhenLoggedIn()
     {
         $this->authenticateUser();

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -20,7 +20,7 @@ class UniqueApplyIdFactory implements FactoryInterface
         $repositories = $container->get('repositories');
         $jobs         = $repositories->get('Jobs/Job');
         $validator    = new UniqueApplyId($jobs);
-        
+
         return $validator;
     }
 }

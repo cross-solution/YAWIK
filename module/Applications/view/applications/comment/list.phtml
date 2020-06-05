@@ -3,9 +3,9 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
- * 
+ *
  */
 
 /**
@@ -31,21 +31,21 @@
                 <h4 style="margin: 2px 0 0;"><?php echo $comment->getUser()->getInfo()->getDisplayName() ?></h4>
                 <div style="line-height: 10px; font-size: 10px">
                 <span class="yk-icon yk-icon-new" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->getDateCreated());?>
-                
+
                 <?php if ($comment->getDateModified()) : ?><span class="yk-icon yk-icon-edit" style="font-size: 10px;"></span> <?=$this->dateFormat($comment->getDateModified()); endif ?>
-                
-                </div> 
+
+                </div>
                 </div>
                 <div class="col-md-3">
                 <div class="pull-right panel panel-default" style="margin: 0">
                     <div class="panel-body" style="padding: 5px 10px;">
-                
+
                         <?php echo $this->rating($comment->getRating()->getAverage(), 'compact') ?>
                     </div>
                 </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="panel-body">
         <?php if ($isOwnComment):?>
@@ -54,16 +54,16 @@
                 </button>
                 <?php endif?>
             <?php echo nl2br($comment->getMessage()) ?>
-            
+
         </div>
-        
+
     </div>
 <?php endforeach ?>
-    
+
 <?php else: ?>
 
     <div class="alert alert-info"><p>
         <?php echo $this->translate('There are no comments for this application yet. Be the first to comment by clicking the "Add new comment" button below!')?>
     </p></div>
-    
+
 <?php endif ?>

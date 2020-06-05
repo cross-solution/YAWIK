@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Core\Listener;
 
@@ -83,7 +83,7 @@ class AjaxRouteListener implements ListenerAggregateInterface
         /* @var \Laminas\Http\PhpEnvironment\Response $response */
         /* @var AjaxEvent $ajaxEvent */
         $response = $event->getResponse();
-        
+
         $ajaxEvent = $this->ajaxEventManager->getEvent($ajax, $this);
         $ajaxEvent->setRequest($request);
         $ajaxEvent->setResponse($response);

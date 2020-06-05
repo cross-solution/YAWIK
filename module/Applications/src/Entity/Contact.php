@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -36,7 +36,7 @@ class Contact extends Info
      * @ODM\ReferenceOne(targetDocument="Attachment", storeAs="id", nullable=true, cascade={"persist", "update", "remove"}, orphanRemoval=true)
      */
     protected $image;
-    
+
     /**
      * Creates a Contact
      *
@@ -61,12 +61,12 @@ class Contact extends Info
     {
         $hydrator      = new EntityHydrator();
         $imageStrategy = new FileCopyStrategy(new Attachment());
-        
+
         $hydrator->addStrategy('image', $imageStrategy);
-        
+
         $data = $hydrator->extract($info);
         $hydrator->hydrate($data, $this);
-        
+
         return $this;
     }
 }

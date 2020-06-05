@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -25,17 +25,17 @@ class AbstractSettingsForm extends Form
      * @var bool
      */
     protected $isBuild = false;
-    
+
     /**
      * @var FormElementManager
      */
     protected $formManager;
-    
+
     /**
      * @var array|HelperPluginManager
      */
     protected $viewHelper;
-    
+
     /**
      * AbstractSettingsForm constructor.
      *
@@ -50,7 +50,7 @@ class AbstractSettingsForm extends Form
         $this->formManager = $formManager;
         $this->viewHelper = $viewHelper;
     }
-    
+
     /**
      * @see \Core\Form\Form::getHydrator()
      */
@@ -62,7 +62,7 @@ class AbstractSettingsForm extends Form
         }
         return $this->hydrator;
     }
-    
+
     public function build()
     {
         if ($this->isBuild) {
@@ -71,26 +71,26 @@ class AbstractSettingsForm extends Form
         $this->setAttribute('method', 'post');
         $object = $this->getObject();
         $fieldsetName = $object->getModuleName() . '/SettingsFieldset';
-        
+
         if ($this->formManager->has($fieldsetName)) {
             $fieldset = $this->formManager->get($fieldsetName);
         } else {
             $fieldset = $this->formManager->get('Settings/Fieldset');
             $fieldset->setLabel($object->getModuleName());
         }
-        
+
         $fieldset->setUseAsBaseFieldset(true)
                  ->setName('base');
-        
+
         $fieldset->setObject($object);
         $this->add($fieldset);
-        
+
         $this->add([
             'type' => 'DefaultButtonsFieldset'
         ]);
         $this->isBuild=true;
     }
-        
+
 
     public function setObject($object)
     {
@@ -103,25 +103,25 @@ class AbstractSettingsForm extends Form
         $this->build();
         return $this;
     }
-    
+
     public function setName($name)
     {
         parent::setName(strtolower($name) . '-settings');
         $urlHelper = $this->viewHelper->get('url');
-        
+
         $url = $urlHelper('lang/settings', array('module' => $name), true);
         $this->setAttribute('action', $url);
     }
 
-    
+
     public function bind($object, $flags = FormInterface::VALUES_NORMALIZED)
     {
         /** Ensure the form is build prior to binding */
         $this->setObject($object);
         return parent::bind($object);
     }
-    
-    
+
+
     protected function getModuleName()
     {
         $refl       = new \ReflectionClass($this);
@@ -130,7 +130,7 @@ class AbstractSettingsForm extends Form
 
         return strtolower($moduleName);
     }
-    
+
     /**
      * @param ContainerInterface $container
      *

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -19,12 +19,12 @@ use Laminas\View\Helper\AbstractHelper;
  */
 class ApplyButtons extends AbstractHelper
 {
-    
+
     /**
      * @var string
      */
     protected $partial = 'partials/buttons';
-    
+
     /**
      * Renders apply buttons according to passed $options
      * Following optional options are recognized:
@@ -59,7 +59,7 @@ class ApplyButtons extends AbstractHelper
         if (!isset($data['uri']) || !isset($data['oneClickProfiles']) || !isset($data['applyId'])) {
             return '';
         }
-        
+
         $variables = [
             'default' => null,
             'oneClick' => [],
@@ -76,17 +76,17 @@ class ApplyButtons extends AbstractHelper
             ->getCurrent()
             ->getTemplate();
         $partial = dirname($currentTemplate) . '/' . $options['partial'];
-        
+
         if (!$options['oneClickOnly'] && $data['uri']) {
             $variables['default'] = [
                 'label' => $options['defaultLabel'] ?: $view->translate('Apply now'),
                 'url' => $data['uri']
             ];
         }
-        
+
         if ($data['oneClickProfiles']) {
             $label = $options['oneClickLabel'] ?: $view->translate('Apply with %s');
-            
+
             foreach ($data['oneClickProfiles'] as $network) {
                 $variables['oneClick'][] = [
                     'label' => sprintf($label, $network),
@@ -95,10 +95,10 @@ class ApplyButtons extends AbstractHelper
                 ];
             }
         }
-        
+
         return $view->partial($partial, $variables);
     }
-    
+
     /**
      * @return string
      */
@@ -114,7 +114,7 @@ class ApplyButtons extends AbstractHelper
     public function setPartial($partial)
     {
         $this->partial = $partial;
-        
+
         return $this;
     }
 }

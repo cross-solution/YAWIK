@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Controller;
 
@@ -30,29 +30,29 @@ class AdminController extends AbstractActionController implements ContainerAware
      * @var RepositoryService
      */
     private $repositories;
-    
+
     /**
      * @var FormElementManagerTrait
      */
     private $formManager;
-    
+
     private $jobEvents;
-    
+
     public static function factory(ContainerInterface $container)
     {
         $ob = new self();
         $ob->setContainer($container);
         return $ob;
     }
-    
+
     public function setContainer(ContainerInterface $container)
     {
         $this->repositories     = $container->get('repositories');
         $this->formManager      = $container->get('forms');
         $this->jobEvents        = $container->get('Jobs/Events');
     }
-    
-    
+
+
     public function indexAction()
     {
         $params = $this->params()->fromQuery();

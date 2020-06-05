@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -19,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterface
 {
-  
+
     /**
      * name of the instance (other YAWIK, or jobboard etc.) who has
      * published the job posting. Technically it's a name of a referrer
@@ -28,7 +28,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
      * @ODM\Field(type="string")
      */
     protected $name;
-    
+
     /**
      * Referer of a job posting. This referrer must be submitted within the
      * application form
@@ -36,7 +36,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
      * @ODM\Field(type="string")
      **/
     protected $uri;
-   
+
     /**
      * Gets the name of the instance, who has published the job ad.
      *
@@ -50,7 +50,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
 
         return $this->name;
     }
-    
+
     /**
      * Sets a name of the Instance, who has published the job
      *
@@ -62,7 +62,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
         $this->name = $name;
         return $this;
     }
-   
+
     /**
      * Gets the job publishers URI
      *
@@ -72,7 +72,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
     {
         return $this->uri;
     }
-    
+
     /**
      * Sets the job publishers URI
      *

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 namespace Organizations\ImageFileCache;
 
@@ -33,7 +33,7 @@ class ApplicationListener
      * @var Repository
      */
     protected $repository;
-    
+
     /**
      * @param Manager $manager
      * @param Repository $repository
@@ -57,7 +57,7 @@ class ApplicationListener
         // get URI stripped of a base URL
         $request = $event->getRequest();
         $uri = str_replace($request->getBaseUrl(), '', $request->getRequestUri());
-        
+
         // try get image ID from URI
         $id = $this->manager->matchUri($uri);
 

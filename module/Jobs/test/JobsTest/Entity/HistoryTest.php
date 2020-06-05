@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -90,8 +90,8 @@ class HistoryTest extends TestCase
     {
         $target = new History('highly invalid status name');
     }
-    
-    
+
+
     /**
     * @covers \Jobs\Entity\History::setDate
     * @covers \Jobs\Entity\History::getDate
@@ -103,7 +103,7 @@ class HistoryTest extends TestCase
 
         $this->assertEquals($date, $this->target->getDate());
     }
-    
+
     /**
     * @covers \Jobs\Entity\History::setMessage
     * @covers \Jobs\Entity\History::getMessage
@@ -115,7 +115,7 @@ class HistoryTest extends TestCase
 
         $this->assertEquals($message, $this->target->getMessage());
     }
-    
+
     /**
     * @covers \Jobs\Entity\History::setStatus
     * @covers \Jobs\Entity\History::getStatus

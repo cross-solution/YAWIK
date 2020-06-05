@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace CoreTest\Factory\Form;
 
@@ -107,7 +107,7 @@ class AbstractCustomizableFieldsetFactoryTest extends TestCase
     {
         $options = new FieldsetCustomizationOptions();
         $container = $this->getServiceManagerMock(['testOptions' => ['service' => $options, 'count_get' => 1]]);
-        
+
         $instance = $this->target->__invoke($container, '');
 
         $this->assertSame($options, $instance->getCustomizationOptions());

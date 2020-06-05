@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Core\Factory\View\Helper;
 
@@ -18,7 +18,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for \Core\View\Helper\AjaxUrl
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0,29
  */

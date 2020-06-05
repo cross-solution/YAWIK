@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace JobsTest\Factory\Form;
 
@@ -52,7 +52,7 @@ class HiringOrganizationSelectFactoryTest extends TestCase
      * @var FormElementManager
      */
     private $formElements;
-    
+
     /**
      * @var ContainerInterface
      */
@@ -93,7 +93,7 @@ class HiringOrganizationSelectFactoryTest extends TestCase
                  ->method('get')
                  ->with('AuthenticationService')
                  ->willReturn($auth);
-        
+
         $this->services = $services;
     }
 

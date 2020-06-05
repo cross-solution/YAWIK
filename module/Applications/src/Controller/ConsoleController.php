@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -37,22 +37,22 @@ class ConsoleController extends AbstractActionController
      * @var RepositoryService
      */
     private $repositories;
-    
+
     /**
      * @var FilterPluginManager
      */
     private $filterManager;
-    
+
     /**
      * @var array
      */
     private $config;
-    
+
     /**
      * @var DocumentManager
      */
     private $documentManager;
-    
+
     public function __construct(
         RepositoryService $repositories,
         FilterPluginManager $filterManager,
@@ -64,7 +64,7 @@ class ConsoleController extends AbstractActionController
         $this->documentManager = $documentManager;
         $this->config = $config;
     }
-    
+
     public static function factory(ContainerInterface $container)
     {
         return new self(
@@ -89,14 +89,14 @@ class ConsoleController extends AbstractActionController
         if (0 === $count) {
             return 'No applications found.';
         }
-        
+
         // preUpdate includes a modified date, and we don't want that
         foreach ($repositories->getEventManager()->getListeners('preUpdate') as $listener) {
             $repositories->getEventManager()->removeEventListener('preUpdate', $listener);
         }
-                
+
         echo "Generate keywords for $count applications ...\n";
-        
+
         $progress     = new ProgressBar($count);
 
         /** @var \Core\Repository\Filter\PropertyToKeywords $filter */
@@ -107,9 +107,9 @@ class ConsoleController extends AbstractActionController
         foreach ($applications as $application) {
             $progress->update($i++, 'Application ' . $i . ' / ' . $count);
             $keywords = $filter->filter($application);
-            
+
             $application->setKeywords($keywords);
-            
+
             if (0 == $i % 500) {
                 $progress->update($i, 'Write to database...');
                 $repositories->flush();
@@ -118,10 +118,10 @@ class ConsoleController extends AbstractActionController
         $progress->update($i, 'Write to database...');
         $repositories->flush();
         $progress->finish();
-        
+
         return PHP_EOL;
     }
-    
+
     /**
      * Recalculates ratings for applications
      *
@@ -133,7 +133,7 @@ class ConsoleController extends AbstractActionController
         $count = count($applications);
         $i=0;
         echo "Calculate rating for " . $count . " applications ...\n";
-        
+
         $progress = new ProgressBar($count);
         /** @var  \Applications\Entity\Application $application */
         foreach ($applications as $application) {
@@ -143,7 +143,7 @@ class ConsoleController extends AbstractActionController
         $progress->update($i, 'Write to database...');
         $this->repositories->flush();
         $progress->finish();
-        
+
         return PHP_EOL;
     }
 
@@ -159,7 +159,7 @@ class ConsoleController extends AbstractActionController
 
         $filter = array("before" => $date->format("Y-m-d"),
                         "isDraft" => 1);
-        
+
         $applications    = $this->fetchApplications($filter);
         $documentManager = $this->documentManager;
 
@@ -349,9 +349,9 @@ class ConsoleController extends AbstractActionController
                     break;
             }
         }
-        
+
         $applications = $appRepo->findBy($query);
-        
+
         return $applications;
     }
 }

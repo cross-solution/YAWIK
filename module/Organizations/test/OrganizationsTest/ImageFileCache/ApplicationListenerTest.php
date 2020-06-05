@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.28
@@ -32,7 +32,7 @@ class ApplicationListenerTest extends TestCase
      * @var ApplicationListener
      */
     protected $listener;
-    
+
     /**
      * @var Manager|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -52,7 +52,7 @@ class ApplicationListenerTest extends TestCase
      * @var Request|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $request;
-    
+
     /**
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
@@ -61,21 +61,21 @@ class ApplicationListenerTest extends TestCase
         $this->manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->repository = $this->getMockBuilder(ImageRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->request = $this->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->event = new MvcEvent();
         $this->event->setRequest($this->request);
-        
+
         $this->listener = new ApplicationListener($this->manager, $this->repository);
     }
-    
+
     /**
      * @param string $error
      * @param bool $interested
@@ -88,10 +88,10 @@ class ApplicationListenerTest extends TestCase
         $this->event->setError($error);
         $this->request->expects($interested ? $this->once() : $this->never())
             ->method('getRequestUri');
-        
+
         $this->listener->onDispatchError($this->event);
     }
-    
+
     /**
      * @return array
      */
@@ -106,7 +106,7 @@ class ApplicationListenerTest extends TestCase
             [Application::ERROR_MIDDLEWARE_CANNOT_DISPATCH, false]
         ];
     }
-    
+
     /**
      * @param string $id
      * @covers ::onDispatchError
@@ -116,16 +116,16 @@ class ApplicationListenerTest extends TestCase
     {
         $uri = '/some/uri';
         $this->event->setError(Application::ERROR_ROUTER_NO_MATCH);
-        
+
         $this->request->expects($this->once())
             ->method('getRequestUri')
             ->willReturn($uri);
-        
+
         $this->manager->expects($this->once())
             ->method('matchUri')
             ->with($this->equalTo($uri))
             ->willReturn($id);
-        
+
         if ($id) {
             $this->repository->expects($this->once())
                 ->method('find')
@@ -134,10 +134,10 @@ class ApplicationListenerTest extends TestCase
             $this->repository->expects($this->never())
                 ->method('find');
         }
-        
+
         $this->listener->onDispatchError($this->event);
     }
-    
+
     /**
      * @return array
      */
@@ -148,7 +148,7 @@ class ApplicationListenerTest extends TestCase
             ['someId']
         ];
     }
-    
+
     /**
      * @covers ::onDispatchError
      */
@@ -158,22 +158,22 @@ class ApplicationListenerTest extends TestCase
         $path = '/some/uri';
         $uri = $baseUrl . $path;
         $this->event->setError(Application::ERROR_ROUTER_NO_MATCH);
-        
+
         $this->request->expects($this->once())
             ->method('getRequestUri')
             ->willReturn($uri);
-        
+
         $this->request->expects($this->once())
             ->method('getBaseUrl')
             ->willReturn($baseUrl);
-        
+
         $this->manager->expects($this->once())
             ->method('matchUri')
             ->with($this->equalTo($path));
-        
+
         $this->listener->onDispatchError($this->event);
     }
-    
+
     /**
      * @covers ::onDispatchError
      */
@@ -181,21 +181,21 @@ class ApplicationListenerTest extends TestCase
     {
         $id = 'someId';
         $this->event->setError(Application::ERROR_ROUTER_NO_MATCH);
-        
+
         $this->manager->expects($this->once())
             ->method('matchUri')
             ->willReturn($id);
-        
+
         $this->repository->expects($this->once())
             ->method('find')
             ->with($this->equalTo($id));
-        
+
         $this->manager->expects($this->never())
             ->method('store');
-        
+
         $this->listener->onDispatchError($this->event);
     }
-    
+
     /**
      * @covers ::onDispatchError
      */
@@ -204,7 +204,7 @@ class ApplicationListenerTest extends TestCase
         $id = 'someId';
         $resource = 'someResource';
         $this->event->setError(Application::ERROR_ROUTER_NO_MATCH);
-        
+
         $image = $this->getMockBuilder(ImageEntity::class)
             ->setMethods(['getLength', 'getResource'])
             ->getMock();
@@ -215,28 +215,28 @@ class ApplicationListenerTest extends TestCase
             ->willReturn(1024);
         $image->method('getResource')
             ->willReturn($resource);
-        
+
         $this->manager->expects($this->once())
             ->method('matchUri')
             ->willReturn($id);
-        
+
         $this->repository->expects($this->once())
             ->method('find')
             ->with($this->equalTo($id))
             ->willReturn($image);
-        
+
         $this->manager->expects($this->once())
             ->method('store')
             ->with($this->identicalTo($image));
-        
+
         $this->listener->onDispatchError($this->event);
-        
+
         $response = $this->event->getResponse();
         $this->assertInstanceOf(Stream::class, $response);
         $this->assertEquals(Response::STATUS_CODE_200, $response->getStatusCode());
         $this->assertEquals($image->getName(), $response->getStreamName());
         $this->assertEquals($image->getResource(), $response->getStream());
-        
+
         $headers = $response->getHeaders();
         $this->assertInstanceOf(Headers::class, $headers);
         $this->assertTrue($headers->has('Content-Type'));

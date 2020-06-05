@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -23,18 +23,18 @@ class SettingsEntityResolverFactory implements FactoryInterface
     {
         $moduleManager = $container->get('ModuleManager');
         $config        = $container->get('Config');
-        
+
         $map = array();
         foreach (array_keys($moduleManager->getLoadedModules()) as $module) {
             $map[$module] = isset($config[$module]['settings']['entity'])
                 ? $config[$module]['settings']['entity']
                 : '\Settings\Entity\ModuleSettingsContainer';
         }
-        
+
         $resolver = new SettingsEntityResolver($map);
         return $resolver;
     }
-    
+
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
     }

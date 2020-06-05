@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Applications\Paginator;
 
@@ -25,7 +25,7 @@ class JobSelectPaginator extends Paginator
      * @var \Jobs\Repository\Job
      */
     private $repository;
-    
+
     public function __construct($repository)
     {
         $this->repository = $repository;

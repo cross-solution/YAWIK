@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2018 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Core\Filter\File;
 
@@ -29,7 +29,7 @@ class EntityFactory implements FactoryInterface
         }
 
         $service = new Entity($options);
-        
+
         return $service;
     }
 }

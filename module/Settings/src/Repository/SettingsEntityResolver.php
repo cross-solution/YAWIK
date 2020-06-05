@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -16,12 +16,12 @@ use Settings\Entity\InitializeAwareSettingsContainerInterface;
 class SettingsEntityResolver
 {
     protected $entityMap;
-    
+
     public function __construct($entityMap)
     {
         $this->entityMap = $entityMap;
     }
-    
+
     public function getNewSettingsEntity($module)
     {
         if (!isset($this->entityMap[$module])) {
@@ -29,7 +29,7 @@ class SettingsEntityResolver
         }
         $class = $this->entityMap[$module];
         $reflClass = new \ReflectionClass($class);
-        
+
         if (!in_array('Settings\Entity\ModuleSettingsContainerInterface', $reflClass->getInterfaceNames())) {
             throw new \DomainException(
                 sprintf(
@@ -38,7 +38,7 @@ class SettingsEntityResolver
                 )
             );
         }
-        
+
         $instance = $reflClass->newInstance($module);
         if ($instance instanceof InitializeAwareSettingsContainerInterface) {
             $instance->init();

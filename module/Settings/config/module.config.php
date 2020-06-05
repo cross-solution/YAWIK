@@ -8,12 +8,12 @@
  * Having said that, you may always overwrite or extend the configuration
  * in your own modules configuration file(s) (or via the config autoloading).
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
 return [
-	
+
 	'doctrine' => [
 		'driver' => [
 			'odm_default' => [
@@ -30,8 +30,8 @@ return [
 			],
 		],
 	],
-	
-	
+
+
 	// Translations
 	'translator' => [
 		'translation_file_patterns' => [
@@ -63,7 +63,7 @@ return [
 			],
 		],
 	],
-	
+
 	'acl' => ['rules' => [
 		'user' => [
 			'allow' => [
@@ -83,26 +83,26 @@ return [
 			],
 		],
 	],
-	
+
 	// Configuration of the controller service manager (Which loads controllers)
 	'controllers' => [
 		'factories' => [
 			'Settings\Controller\Index' => [\Settings\Controller\IndexController::class,'factory']
 		],
 	],
-	
+
 	// Configure the view service manager
 	'view_manager' => [
 		// Map template to files. Speeds up the lookup through the template stack.
 		'template_map' => [
 		],
-		
+
 		// Where to look for view templates not mapped above
 		'template_path_stack' => [
 			__DIR__ . '/../view',
 		],
 	],
-	
+
 	'view_helpers' => [
 		'invokables' => [
 			'Settings/FormDisableElementsCapableFormSettings' => 'Settings\Form\View\Helper\FormDisableElementsCapableFormSettings',
@@ -110,7 +110,7 @@ return [
 		'factories' => [
 		],
 	],
-	
+
 	'service_manager' => [
 		'factories' => [
 			'Settings' => '\Settings\Settings\SettingsFactory',
@@ -121,11 +121,11 @@ return [
 		'shared' => [],
 		'aliases' => [],
 	],
-	
+
 	'controller_plugins' => [
 		'factories' => ['settings' => '\Settings\Controller\Plugin\SettingsFactory'],
 	],
-	
+
 	'form_elements' => [
 		'factories' => [
 			'Settings/Form' => [\Settings\Form\AbstractSettingsForm::class,'factory'],
@@ -135,7 +135,7 @@ return [
 		'aliases' => [
 		],
 	],
-	
+
 	'filters' => [
 		'invokables' => [
 			'Settings/Filter/DisableElementsCapableFormSettings' => \Settings\Form\Filter\DisableElementsCapableFormSettings::class,

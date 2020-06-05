@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -33,12 +33,12 @@ $profile = $this->profile; /** @var \Auth\Entity\SocialProfiles\ProfileInterface
                 echo $indent . "}\n";
                 continue;
             }
-            
+
             echo $indent . $key . ': ' . $value . "\n";
         }
     }
     sp_export_data($profile->getData());
-    
+
     ?>
 </pre>
 </div>
@@ -49,7 +49,7 @@ $profile = $this->profile; /** @var \Auth\Entity\SocialProfiles\ProfileInterface
 		var $rawDataDiv = $('.sp-raw-data-<?=$profile->getId()?>');
 		var $toggle     = $rawDataDiv.find('h2');
 		var $display    = $rawDataDiv.find('pre');
-		
+
 		$display.hide();
 		$toggle.click(function() {
 			$display.slideToggle();

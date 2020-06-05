@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2017 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -24,7 +24,7 @@ use Tracy\Debugger;
 class TracyListener implements ListenerAggregateInterface
 {
 	use ListenerAggregateTrait;
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @see \Laminas\EventManager\ListenerAggregateInterface::attach()
@@ -34,7 +34,7 @@ class TracyListener implements ListenerAggregateInterface
 		$this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$this, 'handleError'], $priority);
 		$this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, [$this, 'handleError'], $priority);
 	}
-	
+
 	/**
 	 * @param MvcEvent $e
 	 */

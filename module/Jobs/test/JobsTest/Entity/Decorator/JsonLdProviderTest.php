@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace JobsTest\Entity\Decorator;
 
@@ -112,7 +112,7 @@ class JsonLdProviderTest extends TestCase
         $json = $this->target->toJsonLd();
 
         $array = json_decode($json, JSON_OBJECT_AS_ARRAY);
-        
+
         $this->assertTrue(isset($array['hiringOrganization']['name']));
         $this->assertEquals('Company Name', $array['hiringOrganization']['name']);
 

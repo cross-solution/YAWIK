@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace JobsTest\Factory\View\Helper;
 
@@ -50,7 +50,7 @@ class JobUrlFactoryTest extends TestCase
         $urlHelper = new Url();
         $paramsHelper = new Params(new MvcEvent());
         $serverUrl = new ServerUrl();
-        
+
         $helpers = $this->getMockBuilder('\Laminas\View\HelperPluginManager')
                         ->disableOriginalConstructor()
                         ->getMock();

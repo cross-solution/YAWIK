@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -24,7 +24,7 @@ class OrganizationHydratorFactory implements FactoryInterface
         $repOrganizationName = $repositoryManager->get('Organizations/OrganizationName');
         $repOrganizationImage = $repositoryManager->get('Organizations/OrganizationImage');
         $object = new OrganizationHydrator($repOrganization, $repOrganizationName, $repOrganizationImage);
-        
+
         // injecting the strategies
         $httpload = new HttploadStrategy($repOrganizationImage);
         $organizationName = new OrganizationNameStrategy($repOrganizationName);

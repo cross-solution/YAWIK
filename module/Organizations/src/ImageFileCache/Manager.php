@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 namespace Organizations\ImageFileCache;
 
@@ -22,12 +22,12 @@ use RuntimeException;
  */
 class Manager
 {
-    
+
     /**
      * @var Options
      */
     protected $options;
-    
+
     /**
      * @param Options $options
      */
@@ -47,10 +47,10 @@ class Manager
         if ($this->options->getEnabled()) {
             return sprintf('%s/%s', $this->options->getUriPath(), $this->getImageSubPath($image));
         }
-        
+
         return $image->getUri();
     }
-    
+
     /**
      * @return bool
      */
@@ -58,7 +58,7 @@ class Manager
     {
         return $this->options->getEnabled();
     }
-    
+
     /**
      * Store an image as a file in a file system
      *
@@ -71,7 +71,7 @@ class Manager
         $this->createDirectoryRecursively(dirname($path));
         file_put_contents($path, $resource);
     }
-    
+
     /**
      * Delete an image file from file system
      *
@@ -93,10 +93,10 @@ class Manager
         $pattern = '#^' . preg_quote($this->options->getUriPath(), '#') . '/[0-9a-z]/[0-9a-z]/([0-9a-z]+)\.[a-zA-Z]{3,4}$#';
         $matches = [];
         preg_match($pattern, $uri, $matches);
-        
+
         return isset($matches[1]) ? $matches[1] : null;
     }
-    
+
     /**
      * @param OrganizationImage $image
      * @return string
@@ -105,7 +105,7 @@ class Manager
     {
         return sprintf('%s/%s', $this->options->getFilePath(), $this->getImageSubPath($image));
     }
-    
+
     /**
      * @param OrganizationImage $image
      * @return string
@@ -113,14 +113,14 @@ class Manager
     protected function getImageSubPath(OrganizationImage $image)
     {
         $id = $image->getId();
-        
+
         if (!$id) {
             throw new InvalidArgumentException('image must have ID');
         }
-        
+
         $extension = null;
         $filename = $image->getName();
-        
+
         if ($filename) {
             // get an extension from the filename
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -128,14 +128,14 @@ class Manager
             // try get an extension from MIME if any
             $extension = str_replace('image/', '', $image->getType());
         }
-        
+
         if (!$extension) {
             throw new InvalidArgumentException('unable to get an image file extension');
         }
-        
+
         $firstLevel = substr($id, -1) ?: '0';
         $secondLevel = substr($id, -2, 1) ?: '0';
-        
+
         return sprintf('%s/%s/%s.%s', $firstLevel, $secondLevel, $id, $extension);
     }
 
@@ -145,20 +145,20 @@ class Manager
     protected function createDirectoryRecursively($dir)
     {
         $dir = rtrim($dir, '/\\');
-        
+
         if (! is_dir($dir)) {
             $this->createDirectoryRecursively(dirname($dir));
-            
+
             $oldUmask = umask(0);
-            
+
             ErrorHandler::start();
             $created = mkdir($dir, 0777);
             $error = ErrorHandler::stop();
-            
+
             if (!$created) {
                 throw new RuntimeException(sprintf('unable to create directory "%s"', $dir), 0, $error);
             }
-            
+
             umask($oldUmask);
         }
     }

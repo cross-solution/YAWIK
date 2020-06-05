@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
@@ -42,13 +42,13 @@ class TemplateController extends AbstractActionController
      * @var AbstractOptions
      */
     protected $config;
-    
+
     protected $viewModelTemplateFilter;
-    
+
     protected $translator;
-    
+
     protected $viewHelper;
-    
+
     protected $formManager;
 
     public function __construct(
@@ -87,7 +87,7 @@ class TemplateController extends AbstractActionController
                 'message' => sprintf($this->translator->translate('Job with id "%s" not found'), $id)
             ];
         }
-        
+
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 

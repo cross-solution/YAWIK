@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -24,14 +24,14 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Settings extends ModuleSettingsContainer implements SettingsInterface
 {
-    
+
     /**
      * send mail to the recruiter
      *
      * @ODM\Field(type="boolean")
      */
     protected $mailAccess = false;
-    
+
     /**
      * send BlindCarbonCopy to organization admin
      *
@@ -39,14 +39,14 @@ class Settings extends ModuleSettingsContainer implements SettingsInterface
      */
     protected $mailBCC = false;
 
-    
+
     /**
      * @todo document this
      *
      * @ODM\Field(type="boolean")
      */
     protected $formDisplaySkills = false;
-    
+
 
     /**
      * Confirm application immediately after submitting.
@@ -54,14 +54,14 @@ class Settings extends ModuleSettingsContainer implements SettingsInterface
      * @ODM\Field(type="boolean")
      */
     protected $autoConfirmMail = false;
-    
+
     /**
      * Mail text, which informs the recruiter about an incoming application
      *
      * @ODM\Field(type="string")
      */
     protected $mailAccessText;
-    
+
     /**
      * Mail text for inviting an applicant. Mail is sent to the applicant
      *
@@ -75,15 +75,15 @@ class Settings extends ModuleSettingsContainer implements SettingsInterface
      * @ODM\Field(type="string")
      */
     protected $mailAcceptedText;
-    
-    
+
+
     /**
      * Mail text for confirming an application-
      *
      * @ODM\Field(type="string")
      */
     protected $mailConfirmationText;
-    
+
     /**
      * Mail text for rejecting an application
      *

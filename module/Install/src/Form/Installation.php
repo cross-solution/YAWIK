@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -27,13 +27,13 @@ class Installation extends Form implements InputFilterProviderInterface
     public function init()
     {
 	    $this->setName('installation');
-	
+
 	    $this->setAttributes(
 		    array(
 			    'method' => 'post',
 		    )
 	    );
-	
+
 	    $this->add(
 		    array(
 			    'type'       => 'Text',
@@ -44,10 +44,10 @@ class Installation extends Form implements InputFilterProviderInterface
 			    'attributes' => array(
 				    'placeholder' => 'mongodb://localhost:27017/YAWIK',
 			    ),
-		
+
 		    )
 	    );
-	
+
 	    $this->add(
 		    array(
 			    'type'    => 'Text',
@@ -57,7 +57,7 @@ class Installation extends Form implements InputFilterProviderInterface
 			    ),
 		    )
 	    );
-	
+
 	    $this->add(
 		    array(
 			    'type'    => 'Password',
@@ -67,7 +67,7 @@ class Installation extends Form implements InputFilterProviderInterface
 			    ),
 		    )
 	    );
-	
+
 	    $this->add(
 		    array(
 			    'type' => 'Text',

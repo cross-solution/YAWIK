@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -63,7 +63,7 @@ class ApplicationAccessAssertion implements AssertionInterface
             // only applicant is allowed to upload subsequent attachments
             return $permissions->isAssigned($role) && $permissions->isGranted($role, PermissionsInterface::PERMISSION_VIEW);
         }
-        
+
         $permission = 'read' == $privilege ? PermissionsInterface::PERMISSION_VIEW : PermissionsInterface::PERMISSION_CHANGE;
         return $permissions->isGranted($role, $permission);
     }

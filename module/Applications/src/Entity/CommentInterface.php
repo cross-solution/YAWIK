@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -20,7 +20,7 @@ use Auth\Entity\UserInterface;
  */
 interface CommentInterface extends IdentifiableEntityInterface
 {
-    
+
     /**
      * Sets the user
      *
@@ -28,21 +28,21 @@ interface CommentInterface extends IdentifiableEntityInterface
      * @return CommentInterface
      */
     public function setUser(UserInterface $user);
-    
+
     /**
      * Gets the user
      *
      * @return UserInterface
      */
     public function getUser();
-    
+
     /**
      * Gets the comment message
      *
      * @return string
      */
     public function getMessage();
-    
+
     /**
      * Sets the comment message
      *
@@ -50,14 +50,14 @@ interface CommentInterface extends IdentifiableEntityInterface
      * @return CommentInterface
      */
     public function setMessage($message);
-    
+
     /**
      * Gets this comment's application rating
      *
      * @return RatingInterface
      */
     public function getRating();
-    
+
     /**
      * Sets this comment's application rating
      *

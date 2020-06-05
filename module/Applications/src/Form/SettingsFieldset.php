@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -42,7 +42,7 @@ class SettingsFieldset extends Fieldset
     {
         $this->setName('emails')
              ->setLabel(/* @translate */ 'E-Mail Notifications');
-        
+
         $this->add(
             array('type' => Checkbox::class,
                 'name' => 'mailAccess',
@@ -57,7 +57,7 @@ class SettingsFieldset extends Fieldset
                 'options' => array('label' => /* @translate */ 'Mailtext',
                                             'description' => /* @translate */ 'default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li><li>##link## = Url of the application detail page</li></ul>'))
         );
-        
+
         $this->add(
             array('type' => 'Laminas\Form\Element\Checkbox',
                 'name' => 'autoConfirmMail',
@@ -71,7 +71,7 @@ class SettingsFieldset extends Fieldset
                          'options' => array('label' => /* @translate */ 'Confirmation mail text',
                                             'description' => /* @translate */ 'default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li><li>##link## = Link to the application details</li></ul>' ))
         );
-        
+
         $this->add(
             array('type' => 'Laminas\Form\Element\Textarea',
                 'name' => 'mailInvitationText',
@@ -90,7 +90,7 @@ class SettingsFieldset extends Fieldset
                 ]
             ]
         );
-        
+
         $this->add(
             [
                 'type' => 'Laminas\Form\Element\Textarea',
@@ -101,7 +101,7 @@ class SettingsFieldset extends Fieldset
                 ]
             ]
         );
-        
+
         $this->add(
             [
                 'type' => 'Laminas\Form\Element\Checkbox',
@@ -119,7 +119,7 @@ class SettingsFieldset extends Fieldset
                 'type' => 'Settings/DisableElementsCapableFormSettingsFieldset',
                 'name' => 'applyFormSettings',
                 'options' => array(
-    
+
                 )
             )
         );

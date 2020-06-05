@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -23,8 +23,8 @@ use Behat\Behat\Context\Context;
 class CvContext implements Context
 {
 	use CommonContextTrait;
-	
-	
+
+
 	/**
 	 * @Given I go to manage my resume page
 	 */
@@ -33,7 +33,7 @@ class CvContext implements Context
 	    $url = $this->buildUrl('lang/my-cv');
 		$this->visit($url);
 	}
-	
+
 	/**
 	 * @When I click edit on my personal information
 	 */

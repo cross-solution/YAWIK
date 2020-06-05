@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.28
@@ -34,7 +34,7 @@ class ManagerFactoryTest extends TestCase
             ->will($this->returnValueMap([
                 ['Organizations/ImageFileCacheOptions', new ImageFileCacheOptions()],
             ]));
-        
+
         $factory = new ManagerFactory();
         $listener = $factory->__invoke($serviceLocator, 'irrelevant');
         $this->assertInstanceOf(Manager::class, $listener);

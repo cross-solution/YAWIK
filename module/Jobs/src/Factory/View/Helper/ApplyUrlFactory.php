@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -43,7 +43,7 @@ class ApplyUrlFactory implements FactoryInterface
         $translate = $viewHelper->get('translate');
         $params    = $viewHelper->get('params');
         $serverUrl = $viewHelper->get('serverUrl');
-        
+
 	    $helper    = new ApplyUrl();
         $helper->setUrlHelper($url)
                ->setTranslateHelper($translate)

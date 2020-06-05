@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -16,7 +16,7 @@ use Doctrine\Common\Util\Inflector;
 class SummaryFormContext implements Context
 {
 	use CommonContextTrait;
-	
+
 	private $elementMap = array(
 		'name' => '#sf-nameForm',
 		'location' => '#sf-locationForm',
@@ -28,7 +28,7 @@ class SummaryFormContext implements Context
 		'personalInformations' => '#sf-contact-contact',
 		'resumePersonalInformations' => '#sf-contact',
 	);
-	
+
 	/**
 	 * @When I click edit on :name form
 	 * @TODO: [ZF3] move this method to CoreContext
@@ -45,7 +45,7 @@ class SummaryFormContext implements Context
 		}
 		$element->click();
 	}
-	
+
 	/**
 	 * @When I click :form form
 	 */
@@ -62,7 +62,7 @@ tElement.css('visibility','visible');
 EOC;
 		$session->executeScript($script);
 	}
-	
+
 	/**
 	 * @When I save :type form
 	 */
@@ -79,7 +79,7 @@ EOC;
 			$element->click();
 		}
 	}
-	
+
 	public function iSaveOrganizationName()
 	{
 		$locator = '#nameForm-buttons-submit';
@@ -87,7 +87,7 @@ EOC;
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();
 	}
-	
+
 	/**
 	 * Saving organization workflow
 	 */
@@ -97,7 +97,7 @@ EOC;
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();
 	}
-	
+
 	public function iSaveOrganizationLocation()
 	{
 		$locator = '#locationForm-buttons-submit';
@@ -105,8 +105,8 @@ EOC;
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();
 	}
-	
-	
+
+
 	public function iSaveJobClassification()
 	{
 		$locator = '#general-classifications-buttons-submit';
@@ -114,7 +114,7 @@ EOC;
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();
 	}
-	
+
 	public function iSaveCustomerNote()
 	{
 		$locator = '#general-customerNote-buttons-submit';
@@ -122,5 +122,5 @@ EOC;
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
 		$element->click();
 	}
-	
+
 }

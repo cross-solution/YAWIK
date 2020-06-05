@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -193,7 +193,7 @@ class Publisher implements ListenerAggregateInterface
         }
         return $response;
     }
-    
+
     /**
      * @param ServiceManager $serviceLocator
      * @return Publisher

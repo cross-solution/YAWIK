@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -117,7 +117,7 @@ class NewApplication extends StringTemplateMessage
             $subject = $this->getTranslator()->translate($subject);
         }
         $this->setSubject(sprintf($subject, $job->getTitle()));
-        
+
         /* @var \Applications\Entity\Settings $settings */
         $settings = $this->user->getSettings('Applications');
 
@@ -130,7 +130,7 @@ class NewApplication extends StringTemplateMessage
             }
             $body .= "##link##\n\n";
         }
-        
+
         $this->setBody($body);
         return $this;
     }

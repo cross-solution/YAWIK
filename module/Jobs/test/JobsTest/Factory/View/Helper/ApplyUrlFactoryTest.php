@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace JobsTest\Factory\View\Helper;
 
@@ -66,7 +66,7 @@ class ApplyUrlFactoryTest extends TestCase
                     array('serverUrl')
                 )
                 ->will($this->onConsecutiveCalls($urlHelper, $translateHelper, $paramsHelper, $serverUrl));
-        
+
         $sm = $this->getMockBuilder(ServiceManager::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -74,7 +74,7 @@ class ApplyUrlFactoryTest extends TestCase
             ->method('get')
             ->with('ViewHelperManager')
             ->willReturn($helpers);
-        
+
         $service = $target->__invoke($sm, 'irrelevant');
 
         $this->assertInstanceOf('\Jobs\View\Helper\ApplyUrl', $service);

@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -57,7 +57,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="string") @ODM\Index
      **/
     protected $applyId;
-    
+
     /**
      * title of a job posting
      *
@@ -65,7 +65,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="string")
      */
     protected $title;
-    
+
 
     /**
      * name of the publishing company
@@ -74,7 +74,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="string")
      */
     protected $company;
-    
+
     /**
      * publishing company
      *
@@ -83,8 +83,8 @@ class Job extends BaseEntity implements
      * @ODM\Index
      */
     protected $organization;
-    
-    
+
+
     /**
      * Email Address, which is used to send notifications about e.g. new applications.
      *
@@ -92,7 +92,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="string")
      **/
     protected $contactEmail;
-    
+
     /**
      * the owner of a Job Posting
      *
@@ -101,7 +101,7 @@ class Job extends BaseEntity implements
      * @ODM\Index
      */
     protected $user;
-    
+
     /**
      * all applications of a certain jobad
      *
@@ -110,7 +110,7 @@ class Job extends BaseEntity implements
      *                    repositoryMethod="loadApplicationsForJob")
      */
     protected $applications;
-    
+
     /**
      * new applications
      *
@@ -119,7 +119,7 @@ class Job extends BaseEntity implements
      * @var Int
      */
     protected $unreadApplications;
-    
+
     /**
      * language of the job posting. Languages are ISO 639-1 coded
      *
@@ -127,7 +127,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="string")
      */
     protected $language;
-    
+
     /**
      * location of the job posting. This is a plain text, which describes the location in
      * search e.g. results.
@@ -145,7 +145,7 @@ class Job extends BaseEntity implements
      * @ODM\EmbedMany(targetDocument="Location")
      */
     protected $locations;
-    
+
     /**
      * Link which points to the job posting
      *
@@ -153,7 +153,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="string")
      **/
     protected $link;
-    
+
     /**
      * publishing date of a job posting
      *
@@ -169,7 +169,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="tz_date")
      */
     protected $datePublishEnd;
-    
+
     /**
      * Status of the job posting
      *
@@ -194,7 +194,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="boolean")
      */
     protected $termsAccepted;
-    
+
     /**
      * Reference of a job opening, on which an applicant can refer to.
      *
@@ -202,7 +202,7 @@ class Job extends BaseEntity implements
      * @ODM\Field(type="string")
      */
     protected $reference;
-    
+
     /**
      * Unified Resource Locator to the company-Logo
      *
@@ -407,7 +407,7 @@ class Job extends BaseEntity implements
         $this->title = (string) $title;
         return $this;
     }
-    
+
     /**
      * Gets the name oof the company. If there is an organization assigned to the
      * job posting. Take the name of the organization.
@@ -434,7 +434,7 @@ class Job extends BaseEntity implements
         $this->company = $company;
         return $this;
     }
-    
+
     /**
     * (non-PHPdoc)
     * @see \Jobs\Entity\JobInterface::getOrganization()
@@ -443,7 +443,7 @@ class Job extends BaseEntity implements
     {
         return $this->organization;
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -978,7 +978,7 @@ class Job extends BaseEntity implements
         return $this;
     }
 
-    
+
     /**
      * (non-PHPdoc)
      * @see \Core\Entity\PermissionsAwareInterface::getPermissions()
@@ -995,7 +995,7 @@ class Job extends BaseEntity implements
 
         return $this->permissions;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \Core\Entity\PermissionsAwareInterface::setPermissions()

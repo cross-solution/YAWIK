@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace CoreTest\Factory\View\Helper;
 
@@ -66,7 +66,7 @@ class SnippetFactoryTest extends TestCase
         $events = new EventManager();
         $partialHelper = new Partial();
         $config = ['test' => 'works'];
-        
+
         $container = $this->createServiceManagerMock([
             'Config' => ['service' => ['view_helper_config' => ['snippets' => $config]], 'count_get' => 1, 'direct' => true],
             'Core/ViewSnippets/Events' => ['service' => $events, 'count_get' => 1],

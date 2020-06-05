@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -35,13 +35,13 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
      * @var ServiceLocatorInterface
      */
     protected $service;
-    
+
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $this->service = $container;
         return $this;
     }
-    
+
     /**
      * @param $element
      * @return \Laminas\View\Model\ViewModel
@@ -70,7 +70,7 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         $filter->setBasePathHelper($basePathHelper);
         $filter->setImageFileCacheHelper($imageFileCacheHelper);
         $filter->setServerUrlHelper($serverUrlHelper);
-        
+
         if ($filter instanceof ViewModelTemplateFilterJob || method_exists($filter, 'setJsonLdHelper')) {
             $jsonLdHelper = $viewManager->get(JsonLd::class);
             $filter->setJsonLdHelper($jsonLdHelper);

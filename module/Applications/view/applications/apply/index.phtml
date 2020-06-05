@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -41,7 +41,7 @@ $job = $this->application->getJob(); /* @var Jobs\Entity\Job $job */
 
 <?php if ($this->success):
     /*
-     * Application was successfully completed. 
+     * Application was successfully completed.
      */
 
 ?>
@@ -62,20 +62,20 @@ $job = $this->application->getJob(); /* @var Jobs\Entity\Job $job */
         <?=$this->translate('Keep up-to-date with the process of your application by bookmarking this link:')?>
     </p>
     <p>
-        <?php 
+        <?php
             $href = $this->url(
                     'lang/applications/detail',
                     ['id' => $this->application->getId()],
                     ['force_canonical' => true],
                     true
                 ) . '?token=' . $this->auth('token');
-            
+
             echo $this->link($href, array('class' => 'alert-link'));
         ?>
     </p>
     <?php endif ?>
 </div>
-<?php 
+<?php
 
 else:
 

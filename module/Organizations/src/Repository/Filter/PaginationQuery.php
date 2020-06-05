@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -34,7 +34,7 @@ class PaginationQuery extends AbstractPaginationQuery
      * @var String
      */
     protected $repositoryName="Organizations/Organization";
-    
+
     /**
      * Sortable fields
      *
@@ -67,7 +67,7 @@ class PaginationQuery extends AbstractPaginationQuery
         $this->jobRepository = $jobRepository;
         $this->authService = $auth;
     }
-    
+
     /**
      * Creates a query for filtering organizations
      *

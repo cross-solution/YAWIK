@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -28,20 +28,20 @@ class ConsoleController extends AbstractActionController
      * @var RepositoryService
      */
     private $repositories;
-    
+
     public function __construct(
         RepositoryService $repositories
     ) {
         $this->repositories = $repositories;
     }
-    
+
     public static function factory(ContainerInterface $container)
     {
         return new self(
             $container->get('repositories')
         );
     }
-    
+
     public function expireJobsAction()
     {
         $repositories = $this->repositories;
@@ -93,13 +93,13 @@ class ConsoleController extends AbstractActionController
             $this->listExpiredJobs($jobs);
             return;
         }
-        
+
 //        foreach ($repositories->getEventManager()->getListeners('preUpdate') as $listener) {
 //            $repositories->getEventManager()->removeEventListener('preUpdate', $listener);
 //        }
 //
         echo "$count jobs found, which have to expire ...\n";
-        
+
         $progress     = new ProgressBar(
             new ConsoleAdapter(
                 array(
@@ -139,7 +139,7 @@ class ConsoleController extends AbstractActionController
 
         return PHP_EOL;
     }
-    
+
     public function setpermissionsAction()
     {
         $repositories = $this->repositories;
@@ -152,7 +152,7 @@ class ConsoleController extends AbstractActionController
         /* @var Job $job */
         foreach ($jobs as $job) {
             $progress->update($i++, 'Job ' . $i . ' / ' . $count);
-            
+
             $permissions = $job->getPermissions();
             $user        = $job->getUser();
             if (!$user instanceof UserInterface) {

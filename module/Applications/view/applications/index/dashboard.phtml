@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -22,12 +22,12 @@ $this->headScript()->appendFile($this->basepath('modules/Core/js/core.pagination
  </a>
  <small>
  <?php #if ($hasJobs): ?>
- <?php 
+ <?php
       #$countTmpl = '<span style="font-size:16px; font-weight:bold;">%s</span>';
       #$newCount = $appRepo->countBy($this->auth('id'), /* unread */ true);
       #$totalCount = $appRepo->countBy($this->auth('id'));
       #echo sprintf($this->translate('%1$s new from %2$s total applications'),
-      #             sprintf('<span class="badge">'.$countTmpl.'</span>', $newCount), 
+      #             sprintf('<span class="badge">'.$countTmpl.'</span>', $newCount),
       #             sprintf('<span class="badge">'.$countTmpl.'</span>', $totalCount))?>
  <?php #endif ?>
  </small>

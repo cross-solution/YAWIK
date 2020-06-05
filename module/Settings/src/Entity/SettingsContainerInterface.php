@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -19,9 +19,9 @@ interface SettingsContainerInterface extends EntityInterface
 {
     public function get($key);
     public function getSettings();
-    
+
     public function set($key, $value);
     public function setSettings(array $settings);
-    
+
     public function enableWriteAccess();
 }

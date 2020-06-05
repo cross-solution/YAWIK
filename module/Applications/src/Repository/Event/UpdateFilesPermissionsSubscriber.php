@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -30,7 +30,7 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
     {
         return array(Events::onFlush);
     }
-    
+
     /**
      * Updates fiile permissions on Flush
      *
@@ -41,19 +41,19 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
     {
         $dm  = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
-        
+
         $filter = function ($element) {
             return $element instanceof ApplicationInterface
                    && $element->getPermissions()->hasChanged();
         };
-        
+
         $inserts = array_filter($uow->getScheduledDocumentInsertions(), $filter);
         $updates = array_filter($uow->getScheduledDocumentUpdates(), $filter);
-        
+
         foreach (array($inserts, $updates) as $isUpdate => $documents) {
             foreach ($documents as $document) { /* @var \Applications\Entity\Application $document */
                 $permissions = $document->getPermissions();
-               
+
                 foreach ($document->getAttachments() as $attachment) {  /* @var \Applications\Entity\Attachment $attachment */
                     $attachment->getPermissions()
                                ->clear()
@@ -65,7 +65,7 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                         );
                     }
                 }
-                
+
                 if ($image = $document->getContact()->getImage()) {
                     $image->getPermissions()
                           ->clear()

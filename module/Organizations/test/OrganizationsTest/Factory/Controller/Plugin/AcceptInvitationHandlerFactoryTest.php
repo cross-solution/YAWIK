@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace OrganizationsTest\Factory\Controller\Plugin;
 
@@ -74,7 +74,7 @@ class AcceptInvitationHandlerFactoryTest extends TestCase
          */
 
         $plugin = $target->__invoke($services, 'irrelevant');
-        
+
         $this->assertInstanceOf('\Organizations\Controller\Plugin\AcceptInvitationHandler', $plugin);
         $this->assertSame($userRep, $plugin->getUserRepository());
         $this->assertSame($orgRep, $plugin->getOrganizationRepository());

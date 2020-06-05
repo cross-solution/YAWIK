@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -55,7 +55,7 @@ class OrganizationContext implements Context
         $url = $this->buildUrl('lang/my-organization');
 		$this->visit($url);
 	}
-	
+
 	/**
 	 * @When I hover over name form
 	 */
@@ -64,7 +64,7 @@ class OrganizationContext implements Context
 		$locator = '#sf-nameForm .sf-summary';
 		$this->coreContext->iHoverOverTheElement($locator);
 	}
-	
+
 	/**
 	 * @Given I go to create new organization page
 	 */
@@ -74,7 +74,7 @@ class OrganizationContext implements Context
         $url = $this->buildUrl('lang/organizations/edit');
         $this->visit($url);
 	}
-	
+
 	/**
 	 * @Given I go to organization overview page
 	 */

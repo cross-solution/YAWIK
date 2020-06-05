@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -15,25 +15,25 @@ namespace Applications\Repository;
  */
 class PaginationList
 {
-    
+
     /**
      * List of ids.
      * @var array
      */
     protected $ids = array();
-    
+
     /**
      * Pointer
      * @var int|bool
      */
     protected $pointer = false;
-    
+
     /**
      * Count of list items
      * @var int
      */
     protected $count = 0;
-    
+
     /**
      * Creates a new PaginationList
      * @param array $ids
@@ -42,7 +42,7 @@ class PaginationList
     {
         $this->setList($ids);
     }
-    
+
     /**
      * Sets the list entries
      *
@@ -55,7 +55,7 @@ class PaginationList
         $this->count = count($ids);
         return $this;
     }
-    
+
     /**
      * Set current list entry (move pointer).
      *
@@ -67,7 +67,7 @@ class PaginationList
         $this->pointer = array_search($id, $this->ids);
         return $this->pointer;
     }
-    
+
     /**
      * Gets current list entry.
      *
@@ -80,7 +80,7 @@ class PaginationList
         }
         return $this->ids[$this->pointer];
     }
-    
+
     /**
      * Gets the current position.
      *
@@ -90,7 +90,7 @@ class PaginationList
     {
         return $this->pointer + 1;
     }
-    
+
     /**
      * Gets the total count.
      *
@@ -100,7 +100,7 @@ class PaginationList
     {
         return $this->count;
     }
-    
+
     /**
      * gets the id BEFORE the current entry.
      *
@@ -113,7 +113,7 @@ class PaginationList
         }
         return $this->ids[$this->pointer - 1];
     }
-    
+
     /**
      * Gets the id BEHIND the current entry.
      *
@@ -125,9 +125,9 @@ class PaginationList
         if (false === $this->pointer || !$this->count || $this->count == $this->pointer) {
             return null;
         }
-        
+
         $pointer = $this->pointer + 1;
-        
+
         return isset($this->ids[$pointer]) ? $this->ids[$pointer] : null;
     }
 }

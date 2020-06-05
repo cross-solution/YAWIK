@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -52,19 +52,19 @@ interface StatusInterface extends EntityInterface
      * A job was expired
      */
     const EXPIRED  = /*@translate*/ 'expired';
-    
+
     public function __construct($status = self::CREATED);
 
     /**
      * Gets the Name of the job state.
      */
     public function getName();
-    
+
     /**
      * Gets an integer of the job state.
      */
     public function getOrder();
-    
+
     /**
      * Converts an status entity into a string
      */

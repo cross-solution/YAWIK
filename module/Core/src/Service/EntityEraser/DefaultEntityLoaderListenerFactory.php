@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2018 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Core\Service\EntityEraser;
 
@@ -25,7 +25,7 @@ class DefaultEntityLoaderListenerFactory implements FactoryInterface
     {
         $nameFilter = $container->get('FilterManager')->get(NameFilter::class);
         $service = new DefaultEntityLoaderListener($nameFilter);
-        
+
         return $service;
     }
 }

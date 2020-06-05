@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -42,7 +42,7 @@ class Application extends AbstractRepository
         }
         return parent::findBy($criteria, $sort, $limit, $skip);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -55,7 +55,7 @@ class Application extends AbstractRepository
         }
         return parent::findOneBy($criteria);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -67,7 +67,7 @@ class Application extends AbstractRepository
         }
         return $qb;
     }
-    
+
     /**
      * Gets a pointer to an application
      *
@@ -79,7 +79,7 @@ class Application extends AbstractRepository
                     ->getQuery()
                     ->execute();
     }
-    
+
     /**
      * Gets a query builder to search for applications
      *
@@ -90,10 +90,10 @@ class Application extends AbstractRepository
     {
         $filter = $this->getService('FilterManager')->get('PaginationQuery/Applications');
         $qb = $filter->filter($params, $this->createQueryBuilder());
-        
+
         return $qb;
     }
-    
+
     /**
      * Gets a result list of applications
      *
@@ -107,7 +107,7 @@ class Application extends AbstractRepository
                      ->select('_id')
                      ->getQuery()
                      ->execute();
-        
+
         $list = new PaginationList(array_keys(ArrayUtils::iteratorToArray($cursor)));
         return $list;
     }
@@ -124,7 +124,7 @@ class Application extends AbstractRepository
                     ->getQuery()
                     ->execute();
     }
-    
+
     /**
      * Get unread applications
      *
@@ -152,7 +152,7 @@ class Application extends AbstractRepository
         if ($commentOrId instanceof CommentInterface) {
             $commentOrId = $commentOrId->getId();
         }
-        
+
         $application = $this->findOneBy(array('comments.id' => $commentOrId));
         /* @var \Applications\Entity\Comment $comment */
         foreach ($application->getComments() as $comment) {
@@ -162,7 +162,7 @@ class Application extends AbstractRepository
         }
         return null;
     }
-    
+
     /**
      * Gets social profiles of an application
      *
@@ -219,7 +219,7 @@ class Application extends AbstractRepository
                 return $document;
             }
         }
-        
+
         return null;
     }
 
@@ -236,11 +236,11 @@ class Application extends AbstractRepository
         $qb = $this->createQueryBuilder(null)
             ->field('user')->equals($userId)
             ->sort(['date' => -1]);
-    
+
         if (isset($limit)) {
             $qb->limit($limit);
         }
-    
+
         return $qb->getQuery()->execute();
     }
 }

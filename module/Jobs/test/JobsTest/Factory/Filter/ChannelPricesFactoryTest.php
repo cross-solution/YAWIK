@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -53,7 +53,7 @@ class ChannelPricesFactoryTest extends TestCase
             ->with('Jobs/Options/Provider')
             ->willReturn($provider)
         ;
-        
+
         $target = new ChannelPricesFactory();
 
         $service = $target->__invoke($serviceManagerMock, 'irrelevant');

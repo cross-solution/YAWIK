@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Carsten Bleek <bleek@cross-solution.de>
@@ -32,14 +32,14 @@ class IndexController extends AbstractActionController
      * @var TranslatorInterface
      */
     private $translator;
-    
+
     /**
      * @var FormElementManager
      */
     private $formManager;
-    
+
     private $viewHelper;
-    
+
     public function __construct(
         TranslatorInterface $translator,
         FormElementManager $formManager,
@@ -49,7 +49,7 @@ class IndexController extends AbstractActionController
         $this->formManager = $formManager;
         $this->viewHelper = $viewHelper;
     }
-    
+
     public static function factory(ContainerInterface $container)
     {
         $translator = $container->get('translator');
@@ -59,13 +59,13 @@ class IndexController extends AbstractActionController
             $container->get('ViewHelperManager')
         );
     }
-    
+
     public function indexAction()
     {
         $translator = $this->translator;
         $moduleName = $this->params('module', 'Core');
-        
-        
+
+
         try {
             $settings = $this->settings($moduleName);
         } catch (\InvalidArgumentException $e) {
@@ -75,29 +75,29 @@ class IndexController extends AbstractActionController
                 'exception' => $e
             ];
         }
-        
+
         $jsonFormat = 'json' == $this->params()->fromQuery('format');
         if (!$this->getRequest()->isPost() && $jsonFormat) {
             return $settings->toArray();
         }
-        
+
         $mvcEvent = $this->getEvent();
         $mvcEvent->setParam('__settings_active_module', $moduleName);
-        
+
         $formManager = $this->formManager;
         $formName = $moduleName . '/SettingsForm';
         if (!$formManager->has($formName)) {
             $formName = "Settings/Form";
         }
-        
+
         // Fetching an distinct Settings
-        
-        
+
+
         // Write-Access is per default only granted to the own module - change that
         $settings->enableWriteAccess();
-        
+
         $form = $formManager->get($formName);
-        
+
         $vars = array();
         $vars['form'] = $form;
         // Binding the Entity to the Formular
@@ -126,7 +126,7 @@ class IndexController extends AbstractActionController
             return new JsonModel($vars);
         }
 
-        
+
         return $vars;
     }
 }

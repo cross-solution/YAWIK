@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Listener;
 
@@ -73,17 +73,17 @@ class DeleteJob
         $request = $event->getRequest();
         $query   = $request->getQuery();
         $id      = $query->get('id');
-        
+
         if (!$id) {
             return ['success' => false, 'status' => 'fail', 'error' => 'No id provided'];
         }
-        
+
         $job = $this->repository->find($id);
-        
+
         if (!$job || !$this->acl->isAllowed($this->user, $job, 'delete')) {
             return ['success' => false, 'status' => 'fail', 'error' => !$job ? 'Job not found.' : 'No permissions.'];
         }
-        
+
         $job->delete();
 
         return ['success' => true, 'status' => 'OK'];

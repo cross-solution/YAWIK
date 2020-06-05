@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Factory\Listener;
 
@@ -16,7 +16,7 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Factory for \Jobs\Listener\DeleteJob
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.29
  */

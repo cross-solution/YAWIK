@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -20,7 +20,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class OrganizationName extends AbstractIdentifiableEntity implements OrganizationNameInterface
 {
-    
+
     /**
      * name of the Organization
      *
@@ -28,7 +28,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * @ODM\Field(type="string")
      */
     protected $name;
-    
+
     /**
      * Reference counter. If the name is used as an hiring organization name, the counter is incremented.
      *
@@ -36,7 +36,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * @ODM\Field(type="int")
      */
     protected $rankingByCompany;
-    
+
     /**
      * Overall numbers of use
      *
@@ -57,7 +57,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
         }
         //parent::__construct();
     }
-    
+
     /**
      * Gets the name of an organization
      *
@@ -79,7 +79,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
         $this->name = $name;
         return $this;
     }
-    
+
     /**
      * Gets the ranking of an organization
      *
@@ -101,7 +101,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
         $this->rankingByCompany = $rankingByCompany;
         return $this;
     }
-    
+
     /**
      * Sets the id.
      *
@@ -113,7 +113,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
         $this->id = $id;
         return $this;
     }
-    
+
     /**
      * Gets the id of an Organization
      *

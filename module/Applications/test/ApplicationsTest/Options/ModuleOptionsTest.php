@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @license   MIT
@@ -106,16 +106,16 @@ class ModuleOptionsTest extends TestCase
     public function testSetGetAllowSubsequentAttachmentUpload()
     {
         $this->assertFalse($this->options->getAllowSubsequentAttachmentUpload());
-        
+
         $this->options->setAllowSubsequentAttachmentUpload(true);
         $this->assertTrue($this->options->getAllowSubsequentAttachmentUpload());
-        
+
         $this->options->setAllowSubsequentAttachmentUpload('1');
         $this->assertTrue($this->options->getAllowSubsequentAttachmentUpload());
-        
+
         $this->options->setAllowSubsequentAttachmentUpload(false);
         $this->assertFalse($this->options->getAllowSubsequentAttachmentUpload());
-        
+
         $this->options->setAllowSubsequentAttachmentUpload('0');
         $this->assertFalse($this->options->getAllowSubsequentAttachmentUpload());
     }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.27
@@ -18,12 +18,12 @@ use Applications\Repository\Application as Repository;
 
 class ListListener implements ListInterface
 {
-    
+
     /**
      * @var Repository
      */
     protected $repository;
-    
+
     /**
      * @param Repository $repository
      */
@@ -36,7 +36,7 @@ class ListListener implements ListInterface
     {
         return $this;
     }
-    
+
     /**
      * @see \Auth\Dependency\ListInterface::getTitle()
      */
@@ -59,7 +59,7 @@ class ListListener implements ListInterface
     public function getItems(User $user, View $view, $limit)
     {
         $items = [];
-        
+
         foreach ($this->repository->getUserApplications($user->getId(), $limit) as $application) /* @var $application \Applications\Entity\Application */
         {
             $title = $application->getJob()->getTitle();
@@ -67,10 +67,10 @@ class ListListener implements ListInterface
             $url = $view->url('lang/applications/detail', ['id' => $application->getId()]);
             $items[] = new ListItem($title, $url);
         }
-        
+
         return $items;
     }
-    
+
     /**
      * @see \Auth\Dependency\ListInterface::getEntities()
      */

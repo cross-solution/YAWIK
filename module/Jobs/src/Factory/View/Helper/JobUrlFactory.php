@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -46,7 +46,7 @@ class JobUrlFactory implements FactoryInterface
         $url       = $viewHelper->get('url');
         $params    = $viewHelper->get('params');
         $serverUrl = $viewHelper->get('serverUrl');
-    
+
         $helper    = new JobUrl();
         $helper->setUrlHelper($url)
                ->setParamsHelper($params)

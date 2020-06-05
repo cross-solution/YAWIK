@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -41,7 +41,7 @@ class BaseFieldset extends Fieldset implements
     {
         $this->setHydrator(new \Core\Entity\Hydrator\EntityHydrator())
              ->setName('base');
-             
+
         $this->add(
             array(
             'type' => 'textarea',

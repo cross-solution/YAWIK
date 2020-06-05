@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -45,21 +45,21 @@ use Applications\Entity\Status;
  */
 class ApplyController extends AbstractActionController implements ContainerAwareInterface
 {
-    
+
     protected $formContainer;
-    
+
     protected $config;
-    
+
     protected $imageCacheManager;
-    
+
     protected $validator;
-    
+
     protected $repositories;
-    
+
     protected $appEvents;
-    
+
     protected $viewHelper;
-	
+
 	/**
 	 * @param ContainerInterface $container
 	 *
@@ -71,7 +71,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $ob->setContainer($container);
         return $ob;
     }
-	
+
 	public function setContainer( ContainerInterface $container )
 	{
 		$this->config            = $container->get('Config');
@@ -81,8 +81,8 @@ class ApplyController extends AbstractActionController implements ContainerAware
 		$this->appEvents         = $container->get('Applications/Events');
 		$this->viewHelper        = $container->get('ViewHelperManager');
 	}
-	
-	
+
+
 	public function attachDefaultListeners()
 	{
 		parent::attachDefaultListeners();
@@ -90,7 +90,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
 		$events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
 		return $this;
 	}
-	
+
     public function preDispatch(MvcEvent $e)
     {
         /* @var $application \Applications\Entity\Application */
@@ -107,7 +107,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
         $container    = $services->get('forms')->get('Applications/Apply');
-        
+
         if ($request->isPost()) {
             $appId = $this->params()->fromPost('applicationId');
             if (!$appId) {
@@ -206,12 +206,12 @@ class ApplyController extends AbstractActionController implements ContainerAware
                 }
             }
         }
-        
+
         $container->setEntity($application);
         $this->configureContainer($container);
         $this->formContainer     = $container;
     }
-    
+
     public function jobNotFoundAction()
     {
         $this->response->setStatusCode(410);
@@ -221,13 +221,13 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $model->setTemplate('applications/error/not-found');
         return $model;
     }
-    
+
     public function indexAction()
     {
         /* @var \Applications\Form\Apply $form */
         $form        = $this->formContainer;
         $application = $form->getEntity(); /* @var \Applications\Entity\Application $application */
-        
+
         $form->setParam('applicationId', $application->getId());
 
         $organizationImageCache = $this->imageCacheManager;
@@ -243,14 +243,14 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $model->setTemplate('applications/apply/index');
         return $model;
     }
-    
+
     public function oneClickApplyAction()
     {
         /* @var \Applications\Entity\Application $application */
         $application = $this->formContainer->getEntity();
         $job = $application->getJob();
         $atsMode = $job->getAtsMode();
-        
+
         // check for one click apply
         if (!($atsMode->isIntern() && $atsMode->getOneClickApply()))
         {
@@ -258,7 +258,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
             return $this->redirect()
                 ->toRoute('lang/apply', ['applyId' => $job->getApplyId()]);
         }
-        
+
         $network = $this->params('network');
 
         $hybridAuth = $this->formContainer
@@ -296,18 +296,18 @@ class ApplyController extends AbstractActionController implements ContainerAware
             $response = (new \Laminas\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
             $file = new \Doctrine\MongoDB\GridFSFile();
             $file->setBytes($response->getBody());
-            
+
             $image = new \Applications\Entity\Attachment();
             $image->setName($contact->getLastName().$contact->getFirstName());
             $image->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
             $image->setFile($file);
             $image->setPermissions($application->getPermissions());
-            
+
             $contact->setImage($image);
         }
-        
+
         $urlOptions = [];
-        
+
         if ($this->params('immediately'))
         {
             $application->getAttributes()->setAcceptedPrivacyPolicy(true);
@@ -317,7 +317,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
                 ]
             ];
         }
-        
+
         return $this->redirect()
            ->toRoute('lang/apply', ['applyId' => $job->getApplyId()], $urlOptions);
     }
@@ -326,7 +326,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
     {
         return new JsonModel(array('valid' => false, 'errors' => array()));
     }
-    
+
     public function processAction()
     {
     	$params = $this->params();
@@ -336,7 +336,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
 	    //@TODO: [ZF3] option use_files_array is false by default
         //$filesData = $form->getOption('use_files_array') ? $params->fromFiles() : array();
         $form->setData(array_merge($postData,$_FILES));
-        
+
         if (!$form->isValid()) {
             return new JsonModel(
                 array(
@@ -347,7 +347,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
         }
         $application = $this->formContainer->getEntity();
         $this->repositories->store($application);
-        
+
         if ('file-uri' === $params->fromPost('return')) {
             $basepath = $this->viewHelper->get('basepath');
             $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
@@ -360,7 +360,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
             }
             $content = $this->viewHelper->get($viewHelper)->__invoke($form);
         }
-        
+
         return new JsonModel(
             array(
 	            'valid' => $form->isValid(),
@@ -369,7 +369,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
             )
         );
     }
-    
+
     public function doAction()
     {
         $config       = $this->config;
@@ -381,16 +381,16 @@ class ApplyController extends AbstractActionController implements ContainerAware
             $this->auth()->getUser(),
             $this->params('applyId')
         );
-        
+
         if (!$application) {
             throw new \Exception('No application draft found.');
         }
-        
+
         if ('abort' == $this->params()->fromQuery('do')) {
             $repositories->remove($application);
             return $this->redirect()->toRoute('lang/apply', array('applyId' => $this->params('applyId')));
         }
-        
+
         if (!$this->checkApplication($application)) {
             $this->notification()->error(/*@translate*/ 'There are missing required informations. Your application cannot be send.');
             return $this->redirect()->toRoute('lang/apply', array('applyId' => $this->params('applyId')));
@@ -433,7 +433,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
             ->inherit($application->getJob()->getPermissions());
 
         $repositories->store($application);
-        
+
         $events   = $this->appEvents;
         $events->trigger(ApplicationEvent::EVENT_APPLICATION_POST_CREATE, $this, [ 'application' => $application ]);
 

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -14,20 +14,20 @@ use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 class StatusChanger extends AbstractPlugin
 {
-    
+
     public function __invoke()
     {
         return $this;
     }
-    
-    
-    
+
+
+
     public function mustSendMail()
     {
         $controller = $this->getController();
         $action     = $controller->params('do', 'confirm');
         $isPost     = $controller->getRequest()->isPost();
-        
+
         return in_array($action, array('invite', 'deny')) && !$isPost;
     }
 }

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -42,7 +42,7 @@ class StatusChange extends StringTemplateMessage implements StatusChangeInterfac
     {
         $contact = $application->getContact();
         $name    = $contact->getDisplayName();
-        
+
         $variables = array(
             'name' => $name,
         );
@@ -75,11 +75,11 @@ class StatusChange extends StringTemplateMessage implements StatusChangeInterfac
         $name    = $contact->getLastName();
         $gender  = $contact->getGender();
         $translator = $this->getTranslator();
-        
+
         $salutation = 'male' == $gender
                     ? $translator->translate('Dear Mr. %s')
                     : $translator->translate('Dear Ms. %s');
-        
+
         return sprintf($salutation, $name);
     }
 
@@ -92,10 +92,10 @@ class StatusChange extends StringTemplateMessage implements StatusChangeInterfac
     {
         $contact = $this->application->getContact();
         $name    = $contact->getDisplayName(false);
-        
+
         $salutation = $this->getTranslator()
                     ->translate('Hello %s');
-        
+
         return sprintf($salutation, $name);
     }
 
