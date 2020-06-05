@@ -110,11 +110,11 @@
         "post-update-command": [
             "@auto-scripts"
         ],
-        "serve": "php -S localhost:8080 -t public/"
+        "serve": "php -S 0.0.0.0:8080 -t public/ public/router.php"
     },
     "config": {
         "platform": {
-            "ext-mongo": "1.6.16"
+            "ext-mongo": "1.7.4"
         },
         "preferred-install": {
             "*": "dist"
