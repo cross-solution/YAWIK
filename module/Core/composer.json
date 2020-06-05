@@ -18,7 +18,7 @@
         }
     ],
     "keywords": [
-        "yawik", "module", "zf3"
+        "yawik", "module", "laminas"
     ],
     "require": {
         "php": ">=7.1",
@@ -91,5 +91,11 @@
         "platform": {
             "ext-mongo": "1.6.16"
         }
-    }
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/cbleek"
+        }
+    ]
 }
