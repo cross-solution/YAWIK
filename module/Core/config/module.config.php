@@ -554,6 +554,7 @@ return array(
             \Core\View\Helper\Snippet::class => \Core\Factory\View\Helper\SnippetFactory::class,
             \Core\View\Helper\Proxy::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
             \Core\View\Helper\ModuleVersion::class => \Core\View\Helper\ModuleVersionFactory::class,
+            \Core\View\Helper\FormatLocation::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',
@@ -564,6 +565,7 @@ return array(
             'proxy' => \Core\View\Helper\Proxy::class,
             'form_element' => 'formElement',
             'moduleVersion' => \Core\View\Helper\ModuleVersion::class,
+            'formatLocation' => \Core\View\Helper\FormatLocation::class,
         ],
     ),
 
