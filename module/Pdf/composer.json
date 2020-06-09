@@ -22,7 +22,7 @@
     ],
     "require": {
         "yawik/core": ">=0.33@dev",
-        "mpdf/mpdf": "5.7.*"
+        "mpdf/mpdf": "^8.0"
     },
     "autoload": {
         "psr-4": {

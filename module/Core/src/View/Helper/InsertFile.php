@@ -20,11 +20,11 @@ class InsertFile extends AbstractEventsHelper
      * @var ContainerInterface
      */
     protected $serviceManager;
-    
+
     protected $files = array();
-    
+
     protected $ListenersUnaware = true;
-    
+
     protected $event;
 
     /**
@@ -36,7 +36,7 @@ class InsertFile extends AbstractEventsHelper
         parent::__construct($identifiers);
         $this->serviceManager = $serviceManager;
     }
-    
+
     /**
      * render a File-Object
      *
@@ -50,17 +50,21 @@ class InsertFile extends AbstractEventsHelper
         $event->addFilename($fileName);
         $event->setRenderParameter($parameter);
         $return = 'file not found';
-        
+
         // ensure, that we have a file-object
-        $result = $this->trigger(FileEvent::GETFILE, $event);
+        $getFileEvent = clone $event;
+        $getFileEvent->setName(FileEvent::GETFILE);
+        $result = $this->triggerEvent($getFileEvent);
         if (!empty($result)) {
             // ask someone else for rendering
-            $result = $this->trigger(FileEvent::RENDERFILE, $event);
+            $renderFileEvent = clone $event;
+            $renderFileEvent->setName(FileEvent::RENDERFILE);
+            $result = $this->triggerEvent($renderFileEvent);
             $return = $result->last();
         }
         return $return;
     }
-    
+
     protected function getEvent()
     {
         if (!isset($this->event)) {
@@ -68,7 +72,7 @@ class InsertFile extends AbstractEventsHelper
         }
         return $this->event;
     }
-       
+
     /**
      * hook into the rendering-process to provide a summary of all included files
      */
@@ -86,13 +90,14 @@ class InsertFile extends AbstractEventsHelper
             $viewEvents->attach(ViewEvent::EVENT_RESPONSE, array($this, 'anounceAttachedFiles'), 1000);
         }
     }
-    
+
     public function anounceAttachedFiles(ViewEvent $e)
     {
         $event = $this->getEvent();
-        $this->trigger(FileEvent::INSERTFILE, $event);
+        $event->setName(FileEvent::INSERTFILE);
+        $this->triggerEvent($event);
     }
-    
+
     /**
      * @param ContainerInterface $container
      *

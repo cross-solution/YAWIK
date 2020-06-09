@@ -22,6 +22,7 @@ use Core\Entity\FileEntity;
 use Core\ModuleManager\Feature\VersionProviderInterface;
 use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\ModuleManager\ModuleConfigLoader;
+use Mpdf\Mpdf;
 
 /**
  * Make HTML to PDF
@@ -252,8 +253,8 @@ class Module implements PdfInterface, ResolverInterface, VersionProviderInterfac
         foreach (array(self::RENDER_FULL, self::RENDER_WITHOUT_PDF, self::RENDER_WITHOUT_ATTACHMENTS ) as $render) {
             $handles = array();
             try {
-                $pdf = new extern\mPDFderive();
-                $pdf->SetImportUse();
+                $pdf = new Mpdf();
+                //$pdf->SetImportUse();
                 // create bookmark list in Acrobat Reader
                 $pdf->h2bookmarks = array('H1' => 0, 'H2' => 1, 'H3' => 2);
                 $pdf->WriteHTML($result);
