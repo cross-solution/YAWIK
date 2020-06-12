@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Form;
 
@@ -102,7 +102,7 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
             ),
             )
         );
-        
+
         $this->add([
             'type' => 'Checkbox',
             'name' => 'oneClickApply',
@@ -110,7 +110,7 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
                 'label' => /*@translate*/ 'One click apply',
             ]
         ]);
-        
+
         $this->add([
             'type' => 'Select',
             'name' => 'oneClickApplyProfiles',

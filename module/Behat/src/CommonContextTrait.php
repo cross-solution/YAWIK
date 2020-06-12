@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -22,22 +22,22 @@ trait CommonContextTrait
 	 * @var MinkContext
 	 */
 	protected $minkContext;
-	
+
 	/**
 	 * @var CoreContext
 	 */
 	protected $coreContext;
-	
+
 	/**
 	 * @var UserContext
 	 */
 	protected $userContext;
-	
+
 	/**
 	 * @var SummaryFormContext
 	 */
 	protected $summaryFormContext;
-	
+
 	/**
 	 * @BeforeScenario
 	 *
@@ -50,7 +50,7 @@ trait CommonContextTrait
 		$this->userContext = $scope->getEnvironment()->getContext(UserContext::class);
 		$this->summaryFormContext = $scope->getEnvironment()->getContext(SummaryFormContext::class);
 	}
-	
+
 	public function buildUrl($name, array $params=array(), array $options=array())
 	{
 	    $defaults = ['lang'=>'en'];
@@ -64,12 +64,12 @@ trait CommonContextTrait
 
         return $this->coreContext->generateUrl($url);
 	}
-	
+
 	public function visit($url)
 	{
 		$this->coreContext->iVisit($url);
 	}
-	
+
 	/**
 	 * @param $id
 	 * @return mixed|object
@@ -78,7 +78,7 @@ trait CommonContextTrait
 	{
 		return $this->coreContext->getServiceManager()->get($id);
 	}
-	
+
 	/**
 	 * @param $id
 	 *

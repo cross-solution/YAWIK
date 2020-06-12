@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -16,12 +16,12 @@ use Core\Form\ViewPartialProviderInterface;
 class ApplyIdentifierElement extends Text implements ViewPartialProviderInterface
 {
     protected $partial = 'jobs/form/apply-identifier';
-    
+
     public function getViewPartial()
     {
         return $this->partial;
     }
-    
+
     public function setViewPartial($partial)
     {
         $this->partial = $partial;

@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -66,29 +66,29 @@ class ManageController extends AbstractActionController
      * @var Translator
      */
     protected $translator;
-	
+
 	/**
 	 * @var FilterPluginManager
 	 */
     protected $filterManager;
-    
+
     protected $jobFormEvents;
-	
+
 	/**
 	 * @var
 	 */
     protected $formManager;
-    
+
     protected $options;
-    
+
     protected $viewHelper;
-    
+
     protected $validatorManager;
-    
+
     protected $jobEvents;
-    
+
     protected $jobEvent;
-	
+
 	/**
 	 * ManageController constructor.
 	 *
@@ -194,7 +194,7 @@ class ManageController extends AbstractActionController
 
     public function channelListAction()
     {
-        
+
         $options = $this->options['core'];
         $channels = $this->options['channels'];
 
@@ -235,7 +235,7 @@ class ManageController extends AbstractActionController
         if (!$userOrg->hasAssociation() || $userOrg->getOrganization()->isDraft()) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noCompany'));
         }
-        
+
         try {
             $jobEntity = $this->initializeJob()->get($this->params(), true, true);
         } catch (NotFoundException $e) {
@@ -477,10 +477,10 @@ class ManageController extends AbstractActionController
             'form' => $form,
         );
         $viewVars  = array_merge($variables, $params);
-        
+
         $model = new ViewModel($viewVars);
         $model->setTemplate("jobs/manage/form");
-        
+
         return $model;
     }
 

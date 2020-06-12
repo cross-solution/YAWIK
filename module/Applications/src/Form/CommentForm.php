@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -34,14 +34,14 @@ class CommentForm extends Form
     public function init()
     {
         $this->setName('application-comment-form');
-        
+
         $this->add(
             array(
             'type' => 'Core/RatingFieldset',
             'name' => 'rating',
             )
         );
-        
+
         $this->add(
             array(
             'type' => 'Textarea',

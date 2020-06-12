@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Entity;
 
@@ -53,7 +53,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * @ODM\Field(type="bool")
      */
     protected $oneClickApply = false;
-    
+
     /**
      * One click apply profiles
      *
@@ -225,7 +225,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
 	public function setOneClickApply($oneClickApply)
 	{
 		$this->oneClickApply = (bool)$oneClickApply;
-		
+
 		return $this;
 	}
 
@@ -244,7 +244,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
 	public function setOneClickApplyProfiles(array $oneClickApplyProfiles)
 	{
 		$this->oneClickApplyProfiles = $oneClickApplyProfiles;
-		
+
 		return $this;
 	}
 }

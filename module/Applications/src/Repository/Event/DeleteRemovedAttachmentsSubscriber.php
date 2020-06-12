@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -31,7 +31,7 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
     {
         return array('postRemoveEntity');
     }
-    
+
     /**
      * Updates fiile permissions on Flush
      *
@@ -44,18 +44,18 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
         if (!$file instanceof Attachment) {
             return;
         }
-        
+
         $dm     = $eventArgs->getDocumentManager();
         //$repo   = $dm->getRepository('Applications\Entity\Application');
 
         $fileId = new \MongoId($file->id);
-        
+
         $dm->createQueryBuilder('Applications\Entity\Application')
            ->update()->multiple(true)
            ->field('attachments')->equals($fileId)->pull($fileId)
            ->getQuery()->execute();
-        
-        
+
+
         $dm->createQueryBuilder('Applications\Entity\Application')
            ->update()->multiple(true)
            ->field('contact.image')->equals($fileId)->set(null)

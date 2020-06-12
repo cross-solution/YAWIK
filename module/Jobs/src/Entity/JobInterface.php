@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -97,14 +97,14 @@ interface JobInterface extends
      * @param string $link
      */
     public function setLink($link);
-    
+
     /**
      * Gets the publishing date of a job posting
      *
      * @return \DateTime
      */
     public function getDatePublishStart();
-    
+
     /**
      * Sets the publishing date of a job posting
      *
@@ -128,13 +128,13 @@ interface JobInterface extends
      * @return $this
      */
     public function setDatePublishEnd($datePublishEnd);
-    
+
     /**
      * Gets the title of a job posting
      *
      * @return string $title
      */
-    
+
     public function getTitle();
 
     /**
@@ -166,7 +166,7 @@ interface JobInterface extends
      */
 
     public function getOrganization();
-    
+
     /**
      * Sets the organization, which offers the job
      *
@@ -182,7 +182,7 @@ interface JobInterface extends
      * @return JobInterface $job
      */
     public function setContactEmail($email);
-    
+
     /**
      * Gets the contact email a job posting
      *
@@ -285,14 +285,14 @@ interface JobInterface extends
      * @param Collection $applications
      */
     public function setApplications(Collection $applications);
-    
+
     /**
      * Gets applications for a job posting
      *
      * @return Collection $applications
      */
     public function getApplications();
-    
+
     /**
      * Sets Status of a job posting
      *
@@ -344,7 +344,7 @@ interface JobInterface extends
      * @param string $reference
      */
     public function setReference($reference);
-    
+
     /**
      * Gets a reference for a job posting, used by the
      * organisation offering the job.

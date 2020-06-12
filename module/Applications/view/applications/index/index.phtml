@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -15,7 +15,7 @@ $this->headscript()->appendScript('$(".alert").alert();');
 
 <h1><?php echo $this->translate('Application')?></h1>
 <p class="lead"><?php printf(
-    $this->translate('Apply to "%s" from "%s"'), 
+    $this->translate('Apply to "%s" from "%s"'),
     '<a href="'.$job->getLink().'" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml(strip_tags($job->getTitle())) . '</a>',
     $job->getCompany()
 ) ?></p>
@@ -26,7 +26,6 @@ $this->headscript()->appendScript('$(".alert").alert();');
         'method' => 'post',
         'id' => 'application-form',
     ));
-        
+
     echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
 endif; ?>
- 

@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace JobsTest\Factory\Listener;
 
@@ -43,7 +43,7 @@ class LoadActiveOrganizationsFactoryTest extends TestCase
     ];
 
     private $inheritance = [ FactoryInterface::class ];
-    
+
 
     public function testServiceCreation()
     {

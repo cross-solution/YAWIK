@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 /**
@@ -37,7 +37,7 @@ if ('-' == $this->sort{0}) {
 <tr>
 <?php foreach ($columns as $label => $option):?>
     <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
-    <?php if (! isset($option['sort'])): echo $this->translate($label); 
+    <?php if (! isset($option['sort'])): echo $this->translate($label);
           else:
               if ($option['sort'] == $sortBy):
                   $icon = '<span class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
@@ -48,12 +48,12 @@ if ('-' == $this->sort{0}) {
               endif;
               $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
               $url = $this->url(
-                  'lang/applications', array(), 
+                  'lang/applications', array(),
                   array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
                   true
               );
             ?>
-            <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>     
+            <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>
     <?php endif; ?>
     </th>
 <?php endforeach; ?>
@@ -61,7 +61,7 @@ if ('-' == $this->sort{0}) {
 </thead>
 
 <tbody>
-<?php 
+<?php
 foreach ($this->applications as $application): /* @var Applications\Entity\Application $application */?>
   <tr>
     <td>

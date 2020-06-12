@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Applications\Factory\Form;
 
@@ -41,7 +41,7 @@ class JobSelectFactory implements FactoryInterface
 
         return $select;
     }
-    
+
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var \Laminas\ServiceManager\AbstractPluginManager $serviceLocator */

@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace JobsTest\Form;
 
@@ -124,7 +124,7 @@ class AtsModeFieldsetTest extends TestCase
                 'label' => 'Email',
             ),
         );
-        
+
         $addOneClickApply = [
             'type' => 'Checkbox',
             'name' => 'oneClickApply',
@@ -132,7 +132,7 @@ class AtsModeFieldsetTest extends TestCase
                 'label' => 'One click apply',
             ]
         ];
-        
+
         $addOneClickApplyProfiles = [
             'type' => 'Select',
             'name' => 'oneClickApplyProfiles',

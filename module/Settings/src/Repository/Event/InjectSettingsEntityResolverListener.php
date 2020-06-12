@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -17,12 +17,12 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class InjectSettingsEntityResolverListener implements EventSubscriber
 {
-    
+
     /**
      * @var ServiceLocatorInterface
      */
     protected $services;
-    
+
     /**
      * @param ServiceLocatorInterface $serviceLocator
      */
@@ -30,7 +30,7 @@ class InjectSettingsEntityResolverListener implements EventSubscriber
     {
         $this->services = $serviceLocator;
     }
-    
+
     /**
      * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
      */
@@ -38,7 +38,7 @@ class InjectSettingsEntityResolverListener implements EventSubscriber
     {
         return array(Events::postLoad);
     }
-    
+
     /**
      * @param LifecycleEventArgs $args
      */
@@ -48,12 +48,12 @@ class InjectSettingsEntityResolverListener implements EventSubscriber
         if (!$document instanceof UserInterface) {
             return;
         }
-        
+
         $resolver = $this->services->get('Settings/EntityResolver');
         $document->setSettingsEntityResolver($resolver);
-        
+
     }
-    
+
     /**
      * @param ServiceLocatorInterface $serviceLocator
      * @return InjectSettingsEntityResolverListener

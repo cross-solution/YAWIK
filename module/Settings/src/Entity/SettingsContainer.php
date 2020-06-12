@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -22,7 +22,7 @@ class SettingsContainer implements SettingsContainerInterface
 
     /** @ODM\Field(type="hash") */
     protected $_settings;
-    
+
     protected $isWritable = false;
 
     /**
@@ -34,14 +34,14 @@ class SettingsContainer implements SettingsContainerInterface
     public function enableWriteAccess($recursive = true, array $skipMembers = array())
     {
         $this->isWritable = true;
-        
+
         if ($recursive) {
             $skipMembers = array_merge($skipMembers, array('settings', 'isWritable'));
             foreach (get_object_vars($this) as $member => $value) {
                 if (in_array($member, $skipMembers)) {
                     continue;
                 }
-                
+
                 if ($value instanceof SettingsContainerInterface) {
                     $value->enableWriteAccess(true);
                 }
@@ -121,7 +121,7 @@ class SettingsContainer implements SettingsContainerInterface
             $value = isset($params[0]) ? $params[0] : null;
             return $this->{$match[1]}($property, $value);
         }
-        
+
         throw new \BadMethodCallException(
             sprintf(
                 'Unknown method %s called on %s',
@@ -142,11 +142,11 @@ class SettingsContainer implements SettingsContainerInterface
         if (method_exists($this, $getter)) {
             return $this->$getter();
         }
-        
+
         if (property_exists($this, $property)) {
             return $this->$property;
         }
-        
+
         return $this->get($property);
     }
 
@@ -157,21 +157,21 @@ class SettingsContainer implements SettingsContainerInterface
     public function __set($property, $value)
     {
         $this->checkWriteAccess();
-        
+
         $setter = 'set' . ucfirst($property);
         if (method_exists($this, $setter)) {
             $this->$setter($value);
             return;
         }
-        
+
         if (property_exists($this, $property)) {
             $this->$property = $value;
             return;
         }
-        
+
         $this->set($property, $value);
     }
-    
+
 
     /**
      * Checks if a property exists and has a non-empty value.
@@ -185,7 +185,7 @@ class SettingsContainer implements SettingsContainerInterface
     public function __isset($property)
     {
         $value = $this->__get($property);
-        
+
         if (is_array($value) && !count($value)) {
             return false;
         }

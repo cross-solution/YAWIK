@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.27
@@ -30,21 +30,21 @@ class ListListenerFactoryTest extends TestCase
         $repository = $this->getMockBuilder(Repository::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $repositories = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
         $repositories->expects($this->once())
             ->method('get')
             ->with($this->equalTo('Applications'))
             ->willReturn($repository);
-        
+
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
         $serviceLocator->expects($this->once())
             ->method('get')
             ->with($this->equalTo('repositories'))
             ->willReturn($repositories);
-        
+
         $listListenerFactory = new ListListenerFactory();
         $this->assertInstanceOf(ListListener::class, $listListenerFactory->createService($serviceLocator));
     }

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright 2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -36,7 +36,7 @@ class DisableElementsCapableFormSettingsFieldset extends Fieldset
      * @var bool
      */
     protected $isBuild = false;
-    
+
     /**
      * @param ServiceLocatorInterface $formManager
      */
@@ -107,7 +107,7 @@ class DisableElementsCapableFormSettingsFieldset extends Fieldset
 
         $this->isBuild = true;
     }
-    
+
     /**
      * @param ContainerInterface $container
      *

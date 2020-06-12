@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -19,15 +19,15 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implements OrganizationContactInterface
 {
-   
-    
+
+
     /**
      * BuildingNumber of an organization address
      *
      * @var string
      * @ODM\Field(type="string") */
     protected $houseNumber;
-    
+
     /**
      * Postalcode of an organization address
      *
@@ -41,7 +41,7 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
      * @var string
      * @ODM\Field(type="string") */
     protected $city;
-    
+
     /**
      * Streetname of an organization address
      *
@@ -89,7 +89,7 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
         $this->houseNumber=$houseNumber;
         return $this;
     }
-    
+
     /**
      * Gets the Buildingnumber of an organization address
      *
@@ -121,7 +121,7 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     {
         return $this->postalcode;
     }
-    
+
     /**
      * Sets a city (name) of an organization address
      *
@@ -143,7 +143,7 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     {
         return $this->city;
     }
-    
+
     /**
      * Sets a street name of an organization address
      *

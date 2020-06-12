@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -36,11 +36,11 @@ class ApplicationCarbonCopy extends Forward
     public function init()
     {
         parent::init();
-       
+
         if (!$this->application) {
             return false;
         }
-       
+
         $subject = $this->getSubject();
         $subject = substr($subject, 4);
         $this->setSubject($subject);

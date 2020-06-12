@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  * YAWIK
  * Layout template file
- * 
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ *
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 /**
@@ -28,7 +28,7 @@ $this->configHeadScript()->appendFile($this->basePath($langScript));
         <?php echo $this->headTitle('YAWIK ' . $this->translate('Installation'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
-        
+
         <?php echo $this->headScript();?>
         <?php
 
@@ -60,16 +60,16 @@ $this->configHeadScript()->appendFile($this->basePath($langScript));
 
 <main id="content" class="container">
 <?php echo $this->content; ?>
-</main> 
+</main>
 <!-- /container -->
             <footer id="yk-footer">
                 <div class="container">
-		<span class="pull-left"><small>&copy; 2013-<?php echo date("Y")?> <a href="http://cross-solution.de">Cross Solution</a>. 
+		<span class="pull-left"><small>&copy; 2013-<?php echo date("Y")?> <a href="http://cross-solution.de">Cross Solution</a>.
                     | <version><?php echo \Core\Application::getCompleteVersion(); ?> Env: <strong><?php echo getenv('APPLICATION_ENV') ?></strong></version></small></span>
                 <span class="pull-right"><small>
                     Powered by <a href="http://yawik.org">YAWIK</a>
                                </small> </span>
-                
+
                 </div>
             </footer>
     </body>

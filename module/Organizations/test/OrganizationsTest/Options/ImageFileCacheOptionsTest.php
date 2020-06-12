@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.28
@@ -23,7 +23,7 @@ class ImageFileCacheOptionsTest extends TestCase
      * @var ImageFileCacheOptions
      */
     protected $options;
-    
+
     /**
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
@@ -31,7 +31,7 @@ class ImageFileCacheOptionsTest extends TestCase
     {
         $this->options = new ImageFileCacheOptions();
     }
-    
+
     /**
      * @covers ::__construct
      * @covers ::getEnabled
@@ -40,12 +40,12 @@ class ImageFileCacheOptionsTest extends TestCase
     public function testEnabled()
     {
         $this->assertTrue($this->options->getEnabled());
-        
+
         $value = false;
         $this->assertSame($this->options, $this->options->setEnabled($value));
         $this->assertEquals($value, $this->options->getEnabled());
     }
-    
+
     /**
      * @covers ::getFilePath
      * @covers ::setFilePath
@@ -55,12 +55,12 @@ class ImageFileCacheOptionsTest extends TestCase
         $defaultFilePath = $this->options->getFilePath();
         $this->assertNotEmpty($defaultFilePath);
         $this->assertIsString($defaultFilePath);
-        
+
         $value = '/somePath';
         $this->assertSame($this->options, $this->options->setFilePath($value));
         $this->assertEquals($value, $this->options->getFilePath());
     }
-    
+
     /**
      * @covers ::getUriPath
      * @covers ::setUriPath
@@ -70,7 +70,7 @@ class ImageFileCacheOptionsTest extends TestCase
         $defaultUriPath = $this->options->getUriPath();
         $this->assertNotEmpty($defaultUriPath);
         $this->assertIsString($defaultUriPath);
-        
+
         $value = '/someUri';
         $this->assertSame($this->options, $this->options->setUriPath($value));
         $this->assertEquals($value, $this->options->getUriPath());

@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Applications\Listener;
 
@@ -74,7 +74,7 @@ class StatusChange
         if ($target->isPostRequest()) {
             return;
         }
-        
+
         $this->application = $target->getApplicationEntity();
         $status = $target->getStatus();
         $user = $target->getUser();

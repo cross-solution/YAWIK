@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -34,22 +34,22 @@ class ManageController extends AbstractActionController
      * @var RepositoryService
      */
     private $repositories;
-    
+
     /**
      * @var
      */
     private $coreNavigation;
-    
+
     private $forms;
-    
+
     private $appOptions;
-    
+
     private $appEvents;
-    
+
     private $translator;
-    
+
     private $container;
-    
+
     /**
      * ManageController constructor.
      *
@@ -72,7 +72,7 @@ class ManageController extends AbstractActionController
         $this->translator       = $translator;
         $this->container         = $container;
     }
-    
+
     /**
      * @param ContainerInterface $container
      *
@@ -91,7 +91,7 @@ class ManageController extends AbstractActionController
         );
         return $ob;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \Laminas\Mvc\Controller\AbstractActionController::onDispatch()
@@ -100,14 +100,14 @@ class ManageController extends AbstractActionController
     {
         $routeMatch = $e->getRouteMatch();
         $action     = $this->params()->fromQuery('action');
-        
+
         if ($routeMatch && $action) {
             $routeMatch->setParam('action', $action);
         }
 
         return parent::onDispatch($e);
     }
-    
+
     /**
      * List applications
      */
@@ -133,7 +133,7 @@ class ManageController extends AbstractActionController
         if ('refresh-rating' == $this->params()->fromQuery('do')) {
             return $this->refreshRatingAction();
         }
-        
+
         $nav = $this->coreNavigation;
         $page = $nav->findByRoute('lang/applications');
         $page->setActive();
@@ -142,7 +142,7 @@ class ManageController extends AbstractActionController
         $repository = $this->repositories->get('Applications/Application');
         /* @var Application $application */
         $application = $repository->find($this->params('id'));
-        
+
         if (!$application) {
             $this->response->setStatusCode(410);
             $model = new ViewModel(
@@ -153,9 +153,9 @@ class ManageController extends AbstractActionController
             $model->setTemplate('applications/error/not-found');
             return $model;
         }
-        
+
         $this->acl($application, 'read');
-        
+
         $applicationIsUnread = false;
         if ($application->isUnreadBy($this->auth('id')) && $application->getStatus()) {
             $application->addReadBy($this->auth('id'));
@@ -169,7 +169,7 @@ class ManageController extends AbstractActionController
         }
 
 
-        
+
         $format=$this->params()->fromQuery('format');
 
         if ($application->isDraft()) {
@@ -207,56 +207,56 @@ class ManageController extends AbstractActionController
                 $contentCollector = $this->getPluginManager()->get('Core/ContentCollector');
                 $contentCollector->setTemplate('applications/manage/details/action-buttons');
                 $actionButtons = $contentCollector->trigger('application.detail.actionbuttons', $application);
-                
+
                 $return = new ViewModel($return);
                 $return->addChild($actionButtons, 'externActionButtons');
-                
+
                 $allowSubsequentAttachmentUpload = $this->appOptions
                     ->getAllowSubsequentAttachmentUpload();
-                
+
                 if ($allowSubsequentAttachmentUpload
                     && $this->acl($application, Application::PERMISSION_SUBSEQUENT_ATTACHMENT_UPLOAD, 'test')
                 ) {
                     $attachmentsForm = $this->forms
                         ->get('Applications/Attachments');
                     $attachmentsForm->bind($application->getAttachments());
-                    
+
                     /* @var $request \Laminas\Http\PhpEnvironment\Request */
                     $request = $this->getRequest();
-                    
+
                     if ($request->isPost() && $attachmentsForm->get('return')->getValue() === $request->getPost('return')) {
                         $data = array_merge(
                             $attachmentsForm->getOption('use_post_array') ? $request->getPost()->toArray() : [],
                             $attachmentsForm->getOption('use_files_array') ? $request->getFiles()->toArray() : []
                         );
                         $attachmentsForm->setData($data);
-                        
+
                         if (!$attachmentsForm->isValid()) {
                             return new JsonModel([
                                 'valid' => false,
                                 'errors' => $attachmentsForm->getMessages()
                             ]);
                         }
-                        
+
                         $content = $attachmentsForm->getHydrator()
                             ->getLastUploadedFile()
                             ->getUri();
-                        
+
                         return new JsonModel([
                             'valid' => $attachmentsForm->isValid(),
                             'content' => $content
                         ]);
                     }
-                    
+
                     $return->setVariable('attachmentsForm', $attachmentsForm);
                 }
-                
+
                 break;
         }
-        
+
         return $return;
     }
-    
+
     /**
      * Refreshes the rating of an application
      *
@@ -267,18 +267,18 @@ class ManageController extends AbstractActionController
     {
         $model = new ViewModel();
         $model->setTemplate('applications/manage/_rating');
-        
+
         $application = $this->repositories->get('Applications/Application')
                         ->find($this->params('id', 0));
-        
+
         if (!$application) {
             throw new \DomainException('Invalid application id.');
         }
-        
+
         $model->setVariable('application', $application);
         return $model;
     }
-    
+
     /**
      * Attaches a social profile to an application
      * @throws \InvalidArgumentException
@@ -306,7 +306,7 @@ class ManageController extends AbstractActionController
                 'Missing arguments. Either provide "spId" as Get or "network" and "data" as Post.'
             );
         }
-        
+
         return array(
             'profile' => $profile
         );
@@ -331,13 +331,13 @@ class ManageController extends AbstractActionController
         if (!$application) {
             throw new \InvalidArgumentException('Could not find application.');
         }
-        
+
         $this->acl($application, 'change');
-        
+
         $jsonFormat    = 'json' == $this->params()->fromQuery('format');
         $status        = $this->params('status', Status::CONFIRMED);
         $settings = $this->settings();
-        
+
         if (in_array($status, array(Status::INCOMING))) {
             $application->changeStatus($status);
             if ($request->isXmlHttpRequest()) {
@@ -365,7 +365,7 @@ class ManageController extends AbstractActionController
                                        'user' => $this->auth()->getUser(),
                                    ]
         );
-        
+
         $event->setIsPostRequest($request->isPost());
         $event->setPostData($request->getPost());
         $events->trigger($event->getName(), $event);
@@ -400,7 +400,7 @@ class ManageController extends AbstractActionController
             'form' => $form
         ];
     }
-    
+
     /**
      * Forwards an application via Email
      *
@@ -413,20 +413,20 @@ class ManageController extends AbstractActionController
         /* @var \Applications\Entity\Application $application */
         $application  = $this->repositories->get('Applications/Application')
                                  ->find($this->params('id'));
-        
+
         $this->acl($application, 'forward');
-        
+
         $translator   = $this->translator;
-         
+
         if (!$emailAddress) {
             throw new \InvalidArgumentException('An email address must be supplied.');
         }
-        
+
         $params = array(
             'ok' => true,
             'text' => sprintf($translator->translate('Forwarded application to %s'), $emailAddress)
         );
-        
+
         try {
             $userName    = $this->auth('info')->getDisplayName();
             $fromAddress = $application->getJob()->getContactEmail();
@@ -459,7 +459,7 @@ class ManageController extends AbstractActionController
         $repositories= $this->repositories;
         $repository  = $repositories->get('Applications/Application');
         $application = $repository->find($id);
-        
+
         if (!$application) {
             throw new \DomainException('Application not found.');
         }
@@ -468,13 +468,13 @@ class ManageController extends AbstractActionController
 
         $events   = $this->appEvents;
         $events->trigger(ApplicationEvent::EVENT_APPLICATION_PRE_DELETE, $this, [ 'application' => $application ]);
-        
+
         $repositories->remove($application);
-        
+
         if ('json' == $this->params()->fromQuery('format')) {
             return ['status' => 'success'];
         }
-        
+
         return $this->redirect()->toRoute('lang/applications', array(), true);
     }
 
@@ -489,23 +489,23 @@ class ManageController extends AbstractActionController
         $id = $this->params('id');
         $repositories = $this->repositories;
         $application = $repositories->get('Applications/Application')->find($id);
-        
+
         if (!$application) {
             throw new \DomainException('Application not found.');
         }
 
         $this->acl($application, 'move');
-        
+
         $user = $this->auth()->getUser();
         $cv = $repositories->get('Cv/Cv')->createFromApplication($application, $user);
-        
+
         $repositories->store($cv);
         $repositories->remove($application);
 
         $this->notification()->success(
             /*@translate*/ 'Application has been successfully moved to Talent Pool'
         );
-        
+
         return $this->redirect()->toRoute('lang/applications', array(), true);
     }
 }

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -20,7 +20,7 @@ class PreviewLinkHydrator extends EntityHydrator
      * @var ServiceLocatorInterface
      */
     protected $serviceManager;
-    
+
     /**
      * @param ServiceLocatorInterface $serviceManager
      */
@@ -63,7 +63,7 @@ class PreviewLinkHydrator extends EntityHydrator
         $object = parent::hydrate($data, $object);
         return $object;
     }
-    
+
     /**
      * @param ServiceLocatorInterface $serviceManager
      * @return \Jobs\Form\Hydrator\PreviewLinkHydrator

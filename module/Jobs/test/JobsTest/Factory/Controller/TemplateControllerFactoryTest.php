@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license       MIT
  */
 
@@ -56,7 +56,7 @@ class TemplateControllerFactoryTest extends TestCase
             ->method('get')
             ->with('Jobs/Job')
             ->willReturn($jobRepositoryMock);
-    
+
         $sm->setService('repositories', $repositoriesMock);
         //@TODO: [ZF3] don't know why we can't set config in ZF3, we have to use mock
         $sm->setService('config', array('core_options' => array('system_message_email' => 'test@test.de')));

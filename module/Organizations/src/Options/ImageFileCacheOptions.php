@@ -4,7 +4,7 @@
 *
 * @filesource
 * @license    MIT
-* @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+* @copyright https://yawik.org/COPYRIGHT.php
 */
 namespace Organizations\Options;
 
@@ -25,21 +25,21 @@ class ImageFileCacheOptions extends AbstractOptions
      * @var bool
      */
     protected $enabled = true;
-    
+
     /**
      * Path to the directory in a file system
      *
      * @var string
      */
     protected $filePath;
-    
+
     /**
      * Path to the directory accessible via web server
      *
      * @var string
      */
     protected $uriPath = '/static/Organizations/Image';
-    
+
     /**
      * @param array|Traversable|null $options
      */
@@ -47,7 +47,7 @@ class ImageFileCacheOptions extends AbstractOptions
     {
         // We are relative to the application dir (see public/index.php)
         $this->filePath = 'public' . $this->uriPath;
-        
+
         parent::__construct($options);
     }
 

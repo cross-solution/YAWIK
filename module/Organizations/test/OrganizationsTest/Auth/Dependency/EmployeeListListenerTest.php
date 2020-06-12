@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.27
@@ -67,7 +67,7 @@ class EmployeeListListenerTest extends TestCase
                 return is_string($string);
             }))
             ->willReturn($expected);
-        
+
         $this->assertSame($expected, $this->listListener->getTitle($translator));
     }
 
@@ -90,14 +90,14 @@ class EmployeeListListenerTest extends TestCase
     {
         $view = $this->getMockBuilder(View::class)
             ->getMock();
-        
+
         $actual = $this->listListener->getItems($user, $view, 10);
-        
+
         $this->assertIsArray($actual);
         $this->assertCount($expected, $actual);
         $this->assertContainsOnlyInstancesOf(\Auth\Dependency\ListItem::class, $actual);
     }
-    
+
     /**
      * @covers ::getEntities
      * @covers ::getEmployees
@@ -107,7 +107,7 @@ class EmployeeListListenerTest extends TestCase
     {
         $this->assertCount($expected, $this->listListener->getEntities($user));
     }
-    
+
     /**
      * @return array
      */
@@ -115,14 +115,14 @@ class EmployeeListListenerTest extends TestCase
     {
         $userWithoutOrganization = $this->getMockBuilder(User::class)
             ->getMock();
-        
+
         $userWithOrganizationWithoutReference = $this->getMockBuilder(User::class)
             ->getMock();
         $organizationWithoutReference = $this->getMockBuilder(OrganizationReferenceInterface::class)
             ->getMock();
         $userWithOrganizationWithoutReference->method('getOrganization')
             ->willReturn($organizationWithoutReference);
-        
+
         $userWithOrganizationWithReference = $this->getMockBuilder(User::class)
             ->getMock();
         $organizationWithReference = $this->getMockBuilder(OrganizationReferenceInterface::class)
@@ -148,7 +148,7 @@ class EmployeeListListenerTest extends TestCase
             ->willReturn($organization);
         $userWithOrganizationWithReference->method('getOrganization')
             ->willReturn($organizationWithReference);
-        
+
         return [
             [$userWithoutOrganization, 0],
             [$userWithOrganizationWithoutReference, 0],

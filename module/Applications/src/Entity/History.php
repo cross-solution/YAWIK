@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -24,7 +24,7 @@ class History extends AbstractEntity implements HistoryInterface
      * @ODM\Field(type="tz_date")
      */
     protected $date;
-    
+
     /**
      * Status of an application.
      *
@@ -32,7 +32,7 @@ class History extends AbstractEntity implements HistoryInterface
      * @ODM\EmbedOne(targetDocument="status")
      */
     protected $status;
-    
+
     /**
      * optional message, which can attached to a status change
      * @var String
@@ -40,7 +40,7 @@ class History extends AbstractEntity implements HistoryInterface
      * @ODM\Field(type="string")
      */
     protected $message;
-    
+
     public function __construct($status, $message = '[System]')
     {
         if (!$status instanceof StatusInterface) {
@@ -50,14 +50,14 @@ class History extends AbstractEntity implements HistoryInterface
         $this->setMessage($message);
         $this->setDate(new \DateTime());
     }
-    
+
     public function preUpdate()
     {
         if (!$this->date) {
             $this->setDate(new \DateTime());
         }
     }
-    
+
     /**
      * Gets date of the history message entry
      *

@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.27
@@ -21,7 +21,7 @@ class EmployeeListListener implements ListInterface
     {
         return $this;
     }
-    
+
     /**
      * @see \Auth\Dependency\ListInterface::getTitle()
      */
@@ -36,7 +36,7 @@ class EmployeeListListener implements ListInterface
     public function getCount(User $user)
     {
         $employees = $this->getEmployees($user);
-        
+
         return $employees ? $employees->count() : 0;
     }
 
@@ -47,21 +47,21 @@ class EmployeeListListener implements ListInterface
     {
         $items = [];
         $employees = $this->getEmployees($user);
-        
+
         if (!$employees) {
             return $items;
         }
-        
+
         foreach ($employees->slice(0, $limit) as $employee) /* @var $employee \Organizations\Entity\Employee */
         {
             $info = $employee->getUser()->getInfo();
             $title = $info->getDisplayName();
             $items[] = new ListItem($title);
         }
-        
+
         return $items;
     }
-    
+
     /**
      * @param User $user
      * @return \Doctrine\Common\Collections\Collection|null
@@ -69,20 +69,20 @@ class EmployeeListListener implements ListInterface
     protected function getEmployees(User $user)
     {
         $organization = $user->getOrganization();
-        
+
         if (!$organization) {
             return;
         }
-        
+
         $organization = $organization->getOrganization();
-        
+
         if (!$organization) {
             return;
         }
-        
+
         return $organization->getEmployees();
     }
-    
+
     /**
      * @see \Auth\Dependency\ListInterface::getEntities()
      */

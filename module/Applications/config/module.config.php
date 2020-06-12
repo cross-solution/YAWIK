@@ -3,7 +3,7 @@
  * YAWIK
  * Configuration file of the Applications module
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -45,7 +45,7 @@ return [
             ],
         ],
     ],
-    
+
     'Applications' => [
         /*
          * Settings for the application form.
@@ -65,7 +65,7 @@ return [
             'navigation_class' => 'yk-icon yk-icon-envelope'
         ],
     ],
-    
+
     'service_manager' => [
         'invokables' => [
             'Applications/Options/ModuleOptions' => 'Applications\Options\ModuleOptions',
@@ -85,7 +85,7 @@ return [
            'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
         ]
     ],
-    
+
     'controllers' => [
         'invokables' => [
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
@@ -98,7 +98,7 @@ return [
             'Applications/Console' => [ConsoleController::class,'factory'],
         ]
     ],
-    
+
     'acl' => [
         'rules' => [
             'guest' => [
@@ -117,7 +117,7 @@ return [
                     'Applications\Controller\Manage',
                     'Entity/Application' => [
                         '__ALL__' => 'Applications/Access',
-                        
+
                     ],
                 ],
             ],
@@ -128,7 +128,7 @@ return [
             ],
         ],
     ],
-    
+
     // Navigation
     'navigation' => [
         'default' => [
@@ -149,7 +149,7 @@ return [
             ],
         ],
     ],
-    
+
     'translator' => [
         'translation_file_patterns' => [
             [
@@ -175,7 +175,7 @@ return [
         ]
     ],
     'view_helpers' => [
-        
+
     ],
 
     'view_helper_config' => [
@@ -217,7 +217,7 @@ return [
             'disable_elements' => ['facts'],
         ],
     ],
-     
+
     'filters' => [
         'invokables' => [
             'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
@@ -226,13 +226,13 @@ return [
             'PaginationQuery/Applications' => '\Applications\Repository\Filter\PaginationQueryFactory'
         ],
     ],
-    
+
     'validators' => [
         'invokables' => [
             'Applications/Application' => 'Applications\Entity\Validator\Application',
         ],
     ],
-     
+
     'mails' => [
         'invokables' => [
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',

@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   GPLv3
  */
 
@@ -44,7 +44,7 @@ class Organization extends AbstractRepository
     {
         $filter = $this->getService('filterManager')->get('Organizations/PaginationQuery');
         $qb = $filter->filter($params, $this->createQueryBuilder());
-        
+
         return $qb;
     }
 
@@ -93,7 +93,7 @@ class Organization extends AbstractRepository
         }
         return $organizations;
     }
-    
+
     public function findbyRef($ref, $create = true)
     {
         $entity = $this->findOneBy(array('externalId' => $ref));
@@ -191,7 +191,7 @@ class Organization extends AbstractRepository
 
         return $c;
     }
-    
+
     /**
      * @param array|null    $data
      * @param bool          $persist
@@ -244,7 +244,7 @@ class Organization extends AbstractRepository
 
         return null;
     }
-    
+
     /**
      * Get organizations for given user ID
      *
@@ -258,11 +258,11 @@ class Organization extends AbstractRepository
         $qb = $this->createQueryBuilder(null)
             ->field('user')->equals($userId)
             ->sort(['DateCreated.date' => -1]);
-    
+
         if (isset($limit)) {
             $qb->limit($limit);
         }
-    
+
         return $qb->getQuery()->execute();
     }
 }

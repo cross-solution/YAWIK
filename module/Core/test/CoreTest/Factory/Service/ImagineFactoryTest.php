@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace CoreTest\Factory\Service;
 
@@ -47,7 +47,7 @@ class ImagineFactoryTest extends TestCase
     {
         return [$this->getServiceManagerMock(), 'Imagine'];
     }
-    
+
     public function invokationTestDataProvider()
     {
         return [

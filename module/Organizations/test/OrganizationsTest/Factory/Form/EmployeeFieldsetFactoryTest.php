@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace OrganizationsTest\Factory\Form;
 
@@ -54,7 +54,7 @@ class EmployeeFieldsetFactoryTest extends TestCase
         $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
         $services->expects($this->once())
                  ->method('get')->with('repositories')->willReturn($repos);
-        
+
         $fieldset = $target->__invoke($services, 'irrelevant');
 
         $this->assertInstanceOf('\Organizations\Form\EmployeeFieldset', $fieldset);

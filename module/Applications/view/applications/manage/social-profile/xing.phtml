@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 /**
@@ -21,18 +21,18 @@
 <br/><?php echo $this->business_address['street'];?>
 <br/><?php echo $this->business_address['zip_code'];?> <?php echo $this->business_address['city'];?>
 <br/>
-<?php 
+<?php
 
 
 if(isset($this->birth_date['day'])):
-  echo $this->translate('Birthday').': '; 
+  echo $this->translate('Birthday').': ';
   echo $this->DateFormat($this->birth_date['year'] . '-' .$this->birth_date['month'] . '-'.$this->birth_date['day'],IntlDateFormatter::SHORT,\IntlDateFormatter::NONE);
 elseif(isset($this->birth_date['month'])):
   echo $this->translate("Year of birth");
   echo $this->birth_date['month'].'/';
   echo $this->birth_date['year'];
 elseif(isset($this->birth_date['year'])):
-  echo $this->translate("Year of birth").':'; 
+  echo $this->translate("Year of birth").':';
   echo $this->birth_date['year'];
 endif;
 ?>
@@ -63,7 +63,7 @@ endif;
    <?php echo isset($edu['name'])?$edu['name']:'';?>
    <?php echo isset($edu['subject'])?'<br/>'.$edu['subject']:'';?>
    <?php echo isset($edu['degree'])?'<br/>'.$edu['degree']:'';?>
- </td> 
+ </td>
  <td>
    <?php echo isset($edu['notes'])?$edu['notes']:'';?>
  </td>
@@ -89,7 +89,7 @@ endif;
  <?php echo isset($work_experience['begin_date'])?$this->DateFormat($work_experience['begin_date'],\IntlDateFormatter::MEDIUM,\IntlDateFormatter::NONE,$this->lang,'MMM Y'):'';?>
  <?php echo isset($work_experience['end_date'])?' - '.$this->DateFormat($work_experience['end_date'],IntlDateFormatter::MEDIUM,\IntlDateFormatter::NONE,$this->lang,'MMM Y'):'';?>
  <?php echo isset($work_experience['until_now']) && $work_experience['until_now'] == '1'?$this->translate('ongoing'):'';?>
- 
+
  </td>
  <td>
    <?php echo isset($work_experience['name'])?$work_experience['name']:'';?>

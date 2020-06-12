@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 namespace Organizations\ImageFileCache;
 
@@ -23,17 +23,17 @@ use Organizations\Entity\OrganizationImage;
  */
 class ODMListener implements EventSubscriber
 {
-    
+
     /**
      * @var Manager
      */
     protected $manager;
-    
+
     /**
      * @var array
      */
     protected $delete = [];
-    
+
     /**
      * @param Manager $manager
      */
@@ -51,37 +51,37 @@ class ODMListener implements EventSubscriber
         if (! $this->manager->isEnabled()) {
             return [];
         }
-        
+
         return [
             Events::preUpdate,
             Events::postFlush
         ];
     }
-    
+
     /**
      * @param PreUpdateEventArgs $eventArgs
      */
     public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
         $organization = $eventArgs->getDocument();
-        
+
         // check for a organization instance
         if (! $organization instanceof Organization) {
             return;
         }
-        
+
         // check if the image has been changed
         if (! $eventArgs->hasChangedField('image')) {
             return;
         }
-        
+
         $image = $eventArgs->getOldValue('image');
-        
+
         // check if any image existed
         if (! $image instanceof OrganizationImage) {
             return;
         }
-        
+
         // mark image for deletion
         $this->delete[] = $image;
     }

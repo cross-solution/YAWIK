@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Organizations\Controller\Plugin;
 
@@ -155,7 +155,7 @@ class AcceptInvitationHandler extends AbstractPlugin
 
         $employee = $organization->getEmployee($user->getId());
         $employee->setStatus(EmployeeInterface::STATUS_ASSIGNED);
-        
+
 
         foreach ($organizationRepository->findPendingOrganizationsByEmployee($user->getId()) as $pendingOrg) {
             /* @var $pendingOrg \Organizations\Entity\OrganizationInterface */

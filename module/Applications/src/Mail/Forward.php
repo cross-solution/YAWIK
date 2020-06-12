@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -27,12 +27,12 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
      * @var Application
      */
     protected $application;
-    
+
     /**
      * @var bool
      */
     protected $isInitialized = false;
-    
+
     protected $viewManager;
 
     /**
@@ -47,7 +47,7 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
         }
         return $this;
     }
-    
+
     public function init()
     {
         $this->isInitialized = true;
@@ -94,7 +94,7 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
             $part->setDisposition(Mime\Mime::DISPOSITION_ATTACHMENT);
             $message->addPart($part);
         }
-        
+
         foreach ($this->application->getAttachments() as $attachment) { /* @var \Applications\Entity\Attachment $attachment*/
             /* @var  \Applications\Entity\Attachment $part */
             $part = new Mime\Part($attachment->getResource());
@@ -104,7 +104,7 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
             $part->disposition = Mime\Mime::DISPOSITION_ATTACHMENT;
             $message->addPart($part);
         }
-        
+
         $this->setBody($message);
     }
 
@@ -128,7 +128,7 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
     {
         $this->viewManager = $container->get('ViewHelperManager');
     }
-    
+
     /**
      * @param ContainerInterface $container
      * @param $requestedName

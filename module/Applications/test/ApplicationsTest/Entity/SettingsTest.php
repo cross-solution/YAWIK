@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -59,7 +59,7 @@ class SettingsTest extends TestCase
         $this->target->setMailAccess($input);
         $this->assertEquals($this->target->getMailAccess(), $expected);
     }
-    
+
 
     public function providerBoolean()
     {

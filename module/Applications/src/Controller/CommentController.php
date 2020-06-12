@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -26,9 +26,9 @@ use Laminas\View\Model\ViewModel;
 class CommentController extends AbstractActionController implements ContainerAwareInterface
 {
     private $repositories;
-    
+
     private $formManager;
-    
+
     /**
      * Lists comments of an application
      *
@@ -39,14 +39,14 @@ class CommentController extends AbstractActionController implements ContainerAwa
         $repository = $this->repositories->get('Applications/Application');
         $applicationId = $this->params()->fromQuery('applicationId', 0);
         $application = $repository->find($applicationId); /* @var \Applications\Entity\Application $application */
-        
+
         $this->acl($application, 'read');
-        
+
         return array(
             'comments' => $application->getComments(),
         );
     }
-    
+
     /**
      * Processes formular data
      *
@@ -55,7 +55,7 @@ class CommentController extends AbstractActionController implements ContainerAwa
     public function formAction()
     {
         $repository = $this->repositories->get('Applications/Application');
-        
+
         $mode  = $this->params()->fromQuery('mode', 'new');
         $appId = $this->params()->fromQuery('id');
         /* @var \Applications\Entity\Application $application */
@@ -68,15 +68,15 @@ class CommentController extends AbstractActionController implements ContainerAwa
             $comment = new Comment();
             $comment->setUser($this->auth()->getUser());
         }
-        
+
         $this->acl($application, 'read');
-        
+
         $form = $this->formManager->get('Applications/CommentForm');
         $form->bind($comment);
-        
+
         if ($this->getRequest()->isPost()) {
             $form->setData($_POST);
-            
+
             if ($form->isValid()) {
                 if ('new' == $mode) {
                     $application = $repository->find($appId);
@@ -92,7 +92,7 @@ class CommentController extends AbstractActionController implements ContainerAwa
                 $viewModel->setVariable('isSaved', true);
             }
         }
-       
+
         $viewModel->setVariables(
             array(
             'mode' => $mode,
@@ -102,13 +102,13 @@ class CommentController extends AbstractActionController implements ContainerAwa
         );
         return $viewModel;
     }
-    
+
     public function setContainer(ContainerInterface $container)
     {
         $this->repositories = $container->get('repositories');
         $this->formManager = $container->get('forms');
     }
-    
+
     /**
      * @param ContainerInterface $container
      *

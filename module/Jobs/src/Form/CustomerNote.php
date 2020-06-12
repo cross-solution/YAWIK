@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Form;
 
@@ -23,6 +23,6 @@ class CustomerNote extends SummaryForm
     protected $baseFieldset = 'Jobs/CustomerNoteFieldset';
 
     protected $label = /*@translate*/ 'Customer note';
-    
+
     protected $displayMode = self::DISPLAY_SUMMARY;
 }

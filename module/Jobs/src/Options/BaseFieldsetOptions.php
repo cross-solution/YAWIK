@@ -4,13 +4,13 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 /**
  * to configure the options, please copy the config/JobboardSearchOptions.config.local.php.dist into your
  * config/autoload directory.
  */
-  
+
 /** */
 namespace Jobs\Options;
 

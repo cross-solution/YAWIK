@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -27,7 +27,7 @@ class Confirmation extends StringTemplateMessage
      * @var ApplicationInterface
      */
     protected $application;
-   
+
     protected $callbacks = array(
         'anrede_formell' => 'getFormalSalutation',
         'salutation_formal' => 'getFormalSalutation',
@@ -87,7 +87,7 @@ class Confirmation extends StringTemplateMessage
     {
         $contact = $application->getContact();
         $name    = $contact->getDisplayName();
-        
+
         $variables = array(
             'name' => $name,
         );
@@ -125,11 +125,11 @@ class Confirmation extends StringTemplateMessage
         $name    = $contact->getDisplayName();
         $gender  = $contact->getGender();
         $translator = $this->getTranslator();
-        
+
         $salutation = 'male' == $gender
                     ? $translator->translate('Dear Mr. %s')
                     : $translator->translate('Dear Ms. %s');
-        
+
         return sprintf($salutation, $name);
     }
 
@@ -140,10 +140,10 @@ class Confirmation extends StringTemplateMessage
     {
         $contact = $this->application->getContact();
         $name    = $contact->getDisplayName();
-        
+
         $salutation = $this->getTranslator()
                     ->translate('Hello %s');
-        
+
         return sprintf($salutation, $name);
     }
 

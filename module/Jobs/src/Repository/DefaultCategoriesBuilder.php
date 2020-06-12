@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Repository;
 
@@ -48,20 +48,20 @@ class DefaultCategoriesBuilder
         $this->globalConfigPaths = $globalConfigPaths;
         $this->categoryPrototype = $categoryPrototype;
     }
-    
+
     public function build($type)
     {
         $categories = $this->loadCategoriesConfig($type);
-        
+
         if (!is_array($categories)) {
             $categories = ['name' => $type, 'value' => $type];
         }
-        
+
         $category = $this->buildCategory($categories);
 
         return $category;
     }
-    
+
     private function loadCategoriesConfig($type)
     {
         $file = "jobs.categories.$type.php";

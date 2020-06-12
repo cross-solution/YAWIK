@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -109,7 +109,7 @@ class PublisherTest extends TestCase
         $this->serviceManager = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->target = new Publisher($this->serviceManager);
 
         $staticClassPrefix = '\\' . __CLASS__ . '::';

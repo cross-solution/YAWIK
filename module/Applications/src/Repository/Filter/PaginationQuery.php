@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -28,7 +28,7 @@ class PaginationQuery extends AbstractPaginationQuery
      * @var String
      */
     protected $repositoryName="Applications/Application";
-    
+
     /**
      * Sortable fields
      *
@@ -37,7 +37,7 @@ class PaginationQuery extends AbstractPaginationQuery
     protected $sortPropertiesMap = array(
         'date' => 'dateCreated.date',
     );
-    
+
     /**
      * Constructs pagination query.
      *
@@ -47,7 +47,7 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $this->auth = $auth;
     }
-    
+
     /**
      * Creates a query for filtering applications
      * @see \Core\Repository\Filter\AbstractPaginationQuery::createQuery()
@@ -63,7 +63,7 @@ class PaginationQuery extends AbstractPaginationQuery
         } else {
             $value = $params;
         }
-    
+
         if (isset($value['job']) && !empty($value['job'])) {
             $queryBuilder->field('job')->equals($value['job']);
         }
@@ -75,13 +75,13 @@ class PaginationQuery extends AbstractPaginationQuery
         if (isset($value['q']) && !empty($value['q'])) {
             $search = strtolower($value['q']);
             $searchPatterns = array();
-    
+
             foreach (explode(' ', $search) as $searchItem) {
                 $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
             }
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
-        
+
         /*
          * We only show applications to which the user has view permissions.
          * and which are not in draft mode
@@ -92,12 +92,12 @@ class PaginationQuery extends AbstractPaginationQuery
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
         }
-        
+
         if (isset($value['status']) && 'all' != $value['status']) {
             $queryBuilder->field('status.name')->equals($value['status']);
         }
         $queryBuilder->sort($this->filterSort($value['sort']));
-        
+
         return $queryBuilder;
     }
 }

@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2018 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace CoreTest\Listener;
 
@@ -20,10 +20,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for \Core\Listener\ModuleVersionAdminWidgetProviderFactory
- * 
+ *
  * @covers \Core\Listener\ModuleVersionAdminWidgetProviderFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *  
+ *
  */
 class ModuleVersionAdminWidgetProviderFactoryTest extends TestCase
 {

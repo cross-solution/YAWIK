@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -25,7 +25,7 @@ use WebDriver\Element;
 class Select2Context extends RawMinkContext implements Context
 {
 	protected $timeout = 5;
-	
+
 	/**
 	 * Fills in Select2 field with specified
 	 *
@@ -35,11 +35,11 @@ class Select2Context extends RawMinkContext implements Context
 	public function iFillInSelect2Field($field, $value)
 	{
 		$page = $this->getSession()->getPage();
-		
+
 		$this->openField($page, $field);
 		$this->selectValue($page, $field, $value, $this->timeout);
 	}
-	
+
 	/**
 	 * @When I fill in select2 search :field with :search and I choose :choice
 	 * @param $field
@@ -52,7 +52,7 @@ class Select2Context extends RawMinkContext implements Context
 		$this->fillSearchField($page,$field,$search);
 		$this->selectValue($page, $field, $choice);
 	}
-	
+
 	/**
 	 * Fill Select2 search field
 	 *
@@ -66,7 +66,7 @@ class Select2Context extends RawMinkContext implements Context
 		$driver = $this->getSession()->getDriver();
 		if ('Behat\Mink\Driver\Selenium2Driver' === get_class($driver)) {
 			// Can't use `$this->getSession()->getPage()->find()` because of https://github.com/minkphp/MinkSelenium2Driver/issues/188
-			
+
 			$element = $page->find('css','.select2-container--open .select2-search__field');
 			$xpath = $element->getXpath();
 			$select2Input = $this->getSession()
@@ -78,7 +78,7 @@ class Select2Context extends RawMinkContext implements Context
 			if (!$select2Input) {
 				throw new \Exception(sprintf('No field "%s" found', $field));
 			}
-			
+
 			$select2Input->postValue(['value' => [$value]]);
 		} else {
 			$select2Input = $page->find('css', '.select2-search__field');
@@ -87,10 +87,10 @@ class Select2Context extends RawMinkContext implements Context
 			}
 			$select2Input->setValue($value);
 		}
-		
+
 		$this->waitForLoadingResults($this->timeout);
 	}
-	
+
 	/**
 	 * Select value in choice list
 	 *
@@ -103,7 +103,7 @@ class Select2Context extends RawMinkContext implements Context
 	private function selectValue(DocumentElement $page, $field, $value, $time=5)
 	{
 		$this->waitForLoadingResults($time);
-		
+
 		$chosenResults = $page->findAll('css', '.select2-results li');
 		foreach ($chosenResults as $result) {
 			$text = $result->getText();
@@ -112,10 +112,10 @@ class Select2Context extends RawMinkContext implements Context
 				return;
 			}
 		}
-		
+
 		throw new \Exception(sprintf('Value "%s" not found for "%s"', $value, $field));
 	}
-	
+
 	private function openField(DocumentElement $page, $field)
 	{
 		$inputField = $page->find('css',$field);
@@ -126,14 +126,14 @@ class Select2Context extends RawMinkContext implements Context
 		if (!$inputField) {
 			throw new \Exception(sprintf('No field "%s" found', $field));
 		}
-		
+
 		$choice = $inputField->find('css', '.select2-selection');
 		if (!$choice) {
 			throw new \Exception(sprintf('No select2 choice found for "%s"', $field));
 		}
 		$choice->press();
 	}
-	
+
 	/**
 	 * Wait the end of fetching Select2 results
 	 *
@@ -145,9 +145,9 @@ class Select2Context extends RawMinkContext implements Context
 			if (!$this->getSession()->getPage()->find('css', '.select2-results__option.loading-results')) {
 				return;
 			}
-			
+
 			sleep(1);
 		}
 	}
-	
+
 }

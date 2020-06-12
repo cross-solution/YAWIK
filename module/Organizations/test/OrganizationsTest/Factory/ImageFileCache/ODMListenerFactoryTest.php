@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.28
@@ -30,7 +30,7 @@ class ODMListenerFactoryTest extends TestCase
         $manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
         $serviceLocator->expects($this->exactly(1))
@@ -38,7 +38,7 @@ class ODMListenerFactoryTest extends TestCase
             ->will($this->returnValueMap([
                 ['Organizations\ImageFileCache\Manager', $manager],
             ]));
-        
+
         $factory = new ODMListenerFactory();
         $listener = $factory->__invoke($serviceLocator, 'irrelevant');
         $this->assertInstanceOf(ODMListener::class, $listener);

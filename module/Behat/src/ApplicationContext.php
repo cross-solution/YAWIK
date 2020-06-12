@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -23,7 +23,7 @@ use Jobs\Repository\Job as JobRepository;
 class ApplicationContext implements Context
 {
 	use CommonContextTrait;
-	
+
 	/**
 	 * @Given I apply for :title job
 	 *
@@ -46,7 +46,7 @@ class ApplicationContext implements Context
         ]);
 		$this->visit($url);
 	}
-	
+
 	/**
 	 * @Given I visit job categories
 	 */

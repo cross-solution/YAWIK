@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -24,7 +24,7 @@ class CoreContext extends RawMinkContext
     use CommonContextTrait;
 
     protected static $application;
-    
+
     private static $jobCategoryChecked = false;
 
     private $config;
@@ -66,7 +66,7 @@ class CoreContext extends RawMinkContext
         }
         return static::$application;
     }
-    
+
     /**
      * @return \Laminas\ServiceManager\ServiceManager
      */
@@ -74,7 +74,7 @@ class CoreContext extends RawMinkContext
     {
         return $this->getApplication()->getServiceManager();
     }
-    
+
     /**
      * @return \Laminas\EventManager\EventManagerInterface
      */
@@ -82,7 +82,7 @@ class CoreContext extends RawMinkContext
     {
         return $this->getApplication()->getEventManager();
     }
-    
+
     /**
      * @return RepositoryService
      */
@@ -90,7 +90,7 @@ class CoreContext extends RawMinkContext
     {
         return $this->getServiceManager()->get('repositories');
     }
-    
+
     /**
      * @param $name
      * @param array $params
@@ -109,16 +109,16 @@ class CoreContext extends RawMinkContext
     {
         $session = $this->minkContext->getSession(); // get the mink session
         $element = $session->getPage()->find('css', $locator); // runs the actual query and returns the element
-        
+
         // errors must not pass silently
         if (null === $element) {
             throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector: "%s"', $locator));
         }
-        
+
         // ok, let's hover it
         $element->mouseOver();
     }
-    
+
     /**
      * @Given /^I wait for (\d+) seconds$/
      */
@@ -126,7 +126,7 @@ class CoreContext extends RawMinkContext
     {
         sleep($second);
     }
-    
+
     /**
      * @Then /^I wait for the ajax response$/
      */
@@ -134,7 +134,7 @@ class CoreContext extends RawMinkContext
     {
         $this->getSession()->wait(5000, '(0 === jQuery.active)');
     }
-    
+
     /**
      * Some forms do not have a Submit button just pass the ID
      *
@@ -149,7 +149,7 @@ class CoreContext extends RawMinkContext
             throw new \Exception('Element not found');
         }
     }
-    
+
     /**
      * @Then I switch to popup :name
      *
@@ -160,7 +160,7 @@ class CoreContext extends RawMinkContext
         $this->iSetMainWindowName();
         $this->getSession()->switchToWindow($name);
     }
-    
+
     /**
      * @Then I set main window name
      */
@@ -170,7 +170,7 @@ class CoreContext extends RawMinkContext
         $script = 'window.name = "' . $window_name . '"';
         $this->getSession()->executeScript($script);
     }
-    
+
     /**
      * @Then I switch back to main window
      */
@@ -178,12 +178,12 @@ class CoreContext extends RawMinkContext
     {
         $this->getSession()->switchToWindow('main_window');
     }
-    
+
     public function iVisit($url)
     {
         $this->minkContext->getSession()->visit($url);
     }
-    
+
     /**
      * @When I scroll :selector into view
      *
@@ -194,7 +194,7 @@ class CoreContext extends RawMinkContext
     public function scrollIntoView($selector)
     {
         $locator = substr($selector, 0, 1);
-        
+
         switch ($locator) {
             case '/': // XPath selector
                 $function = <<<JS
@@ -204,7 +204,7 @@ class CoreContext extends RawMinkContext
 })(jQuery)
 JS;
                 break;
-            
+
             case '#': // ID selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
@@ -214,7 +214,7 @@ JS;
 })(jQuery)
 JS;
                 break;
-            
+
             case '.': // Class selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
@@ -224,19 +224,19 @@ JS;
 })(jQuery)
 JS;
                 break;
-            
+
             default:
                 throw new \Exception(__METHOD__ . ' Couldn\'t find selector: ' . $selector . ' - Allowed selectors: #id, .className, //xpath');
                 break;
         }
-        
+
         try {
             $this->getSession()->executeScript($function);
         } catch (\Exception $e) {
             throw new \Exception(__METHOD__ . ' failed'. ' Message: for this locator:"'.$selector.'"');
         }
     }
-    
+
     /**
      * @When I click location selector
      */
@@ -246,7 +246,7 @@ JS;
         $element = $this->getElement($locator);
         $element->click();
     }
-    
+
     /**
      * @param $locator
      * @param string $selector
@@ -259,7 +259,7 @@ JS;
         $element = $page->find('css', $locator);
         return $element;
     }
-    
+
     /**
      * @When I fill in location search with :term
      * @param $term
@@ -272,11 +272,11 @@ JS;
         $element->setValue($term);
         $this->iWaitForTheAjaxResponse();
     }
-    
+
     public function iClickOn()
     {
     }
-    
+
     /**
      * Click some text
      *
@@ -298,7 +298,7 @@ JS;
         if (null === $element) {
             throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', $text));
         }
-        
+
         $element->click();
     }
 

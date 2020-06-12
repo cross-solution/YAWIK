@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Form\InputFilter;
 
@@ -83,7 +83,7 @@ class AtsMode extends InputFilter
                 );
                 break;
         }
-        
+
         $this->add([
             'name' => 'oneClickApplyProfiles',
             'required' => $data['mode'] == AtsModeInterface::MODE_INTERN && $data['oneClickApply']

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -43,7 +43,7 @@ class Index extends AbstractActionController
         $options = new ListenerOptions($config['module_listener_options']);
         $this->cacheService = new ClearCacheService($options);
     }
-    
+
     /**
      * Hook for custom preDispatch event.
      *
@@ -81,7 +81,7 @@ class Index extends AbstractActionController
 
         $form    = $this->installForm;
         $prereqs = $this->plugin('Install/Prerequisites')->check();
-    
+
         return $this->createViewModel(
             array(
                 'prerequisites' => $prereqs,
@@ -160,7 +160,7 @@ class Index extends AbstractActionController
     protected function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-    
+
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array( $this, 'preDispatch' ), 100);
     }

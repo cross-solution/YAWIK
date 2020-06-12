@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -15,7 +15,7 @@ use Behat\Behat\Context\Context;
 class SettingsContext implements Context
 {
 	use CommonContextTrait;
-	
+
 	/**
 	 * @Given I go to settings page
 	 */
@@ -25,7 +25,7 @@ class SettingsContext implements Context
         $url = $this->buildUrl('lang/settings');
         $this->visit($url);
 	}
-	
+
 	/**
 	 * @Given I go to email template settings page
 	 */

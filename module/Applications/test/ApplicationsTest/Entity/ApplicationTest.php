@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -309,7 +309,7 @@ class ApplicationTest extends TestCase
         $this->target->setSummary($input);
         $this->assertEquals($input, $this->target->getSummary());
     }
-    
+
     /**
      * @testdox Allows setting searchable keywords
      * @covers \Applications\Entity\Application::getKeywords
@@ -325,7 +325,7 @@ class ApplicationTest extends TestCase
         $this->assertEquals(array(), $this->target->getKeywords());
     }
 
-    
+
     /**
      * @testdox Allows setting a the cover letter
      * @covers \Applications\Entity\Application::isDraft

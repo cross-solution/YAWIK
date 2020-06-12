@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Organizations\Factory\Form;
@@ -33,7 +33,7 @@ class OrganizationsNameFieldsetFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $fieldset = new OrganizationsNameFieldset($requestedName, $options);
-        
+
         $fieldset->setRepositories($container->get('repositories'));
         return $fieldset;
     }

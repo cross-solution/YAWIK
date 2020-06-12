@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace InstallTest\Factory\Controller\Plugin;
 
@@ -76,7 +76,7 @@ class UserCreatorFactoryTest extends TestCase
             ))
         ;
 
-        
+
         //$plugins = $this->getMockBuilder('\Laminas\Mvc\Controller\PluginManager')->disableOriginalConstructor()->getMock();
         //$plugins->expects($this->once())->method('getServiceLocator')->willReturn($services);
 

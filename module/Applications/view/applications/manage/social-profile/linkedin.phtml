@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 /**
@@ -21,21 +21,21 @@
 <b><?php echo $this->{'first-name'};?> <?php echo $this->{'last-name'};?></b>
 <br/><?php echo $this->location['name'];?>
 <br/>
-<?php 
+<?php
 
 
 if(isset($this->birth_date['day'])):
-  $date=DateTime::createFromFormat('Y-m-d', $this->birth_date['year'] . '-' . 
+  $date=DateTime::createFromFormat('Y-m-d', $this->birth_date['year'] . '-' .
                                             $this->birth_date['month'] . '-'.
                                             $this->birth_date['day']);
-  echo $this->translate('Birthday').': '; 
+  echo $this->translate('Birthday').': ';
   echo $this->DateFormat($date,'short','none');
 elseif(isset($this->birth_date['month'])):
   echo $this->translate("Year of birth");
   echo $this->birth_date['month'].'/';
   echo $this->birth_date['year'];
 elseif(isset($this->birth_date['year'])):
-  echo $this->translate("Year of birth").':'; 
+  echo $this->translate("Year of birth").':';
   echo $this->birth_date['year'];
 endif;
 ?>
@@ -58,13 +58,13 @@ endif;
 <tr>
  <td>
     <?php if (isset($edu['start-date'])):
-        $date=DateTime::createFromFormat('Y-m-d', $edu['start-date']['year'] . '-' . 
+        $date=DateTime::createFromFormat('Y-m-d', $edu['start-date']['year'] . '-' .
                                             $edu['start-date']['month'] . '-'.
                                             $edu['start-date']['day']);
         echo $this->dateFormat($date, 'short', 'none');
     endif;?>
-    <?php if (isset($edu['end-date'])):?> - <?php 
-        $date=DateTime::createFromFormat('Y-m-d', $edu['end-date']['year'] . '-' . 
+    <?php if (isset($edu['end-date'])):?> - <?php
+        $date=DateTime::createFromFormat('Y-m-d', $edu['end-date']['year'] . '-' .
                                             $edu['end-date']['month'] . '-'.
                                             $edu['end-date']['day']);
         echo $this->dateFormat($date, 'short', 'none');
@@ -72,7 +72,7 @@ endif;
  </td>
  <td>
    <?php echo isset($edu['school-name'])?$edu['school-name']:'';?>
- </td> 
+ </td>
  <td>
    <?php echo isset($edu['degree'])?$edu['degree']:'';?>
  </td>
@@ -97,13 +97,13 @@ endif;
 <tr>
  <td>
  <?php if (isset($work_experience['start-date'])):
-        $date=DateTime::createFromFormat('Y-m-d', $work_experience['start-date']['year'] . '-' . 
+        $date=DateTime::createFromFormat('Y-m-d', $work_experience['start-date']['year'] . '-' .
                                             $work_experience['start-date']['month'] . '-'.
                                             $work_experience['start-date']['day']);
         echo $this->dateFormat($date, 'short', 'none');
     endif;?>
-    <?php if (isset($work_experience['end-date'])):?> - <?php 
-        $date=DateTime::createFromFormat('Y-m-d', $work_experience['end-date']['year'] . '-' . 
+    <?php if (isset($work_experience['end-date'])):?> - <?php
+        $date=DateTime::createFromFormat('Y-m-d', $work_experience['end-date']['year'] . '-' .
                                             $work_experience['end-date']['month'] . '-'.
                                             $work_experience['end-date']['day']);
         echo $this->dateFormat($date, 'short', 'none');

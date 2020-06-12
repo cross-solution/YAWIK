@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -48,7 +48,7 @@ class IndexController extends AbstractActionController
         $this->paginationParams()->setParams('Applications\Index', $params);
 
         $paginator = $this->paginator('Applications', $params->toArray());
-     
+
         return array(
             'script' => 'applications/index/dashboard',
             'applications' => $paginator

@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace JobsTest\Controller;
 
@@ -54,7 +54,7 @@ class AdminCategoriesControllerTest extends TestCase
                 [$this->isInstanceOf(Category::class), 'employmentTypes'],
                 [$this->isInstanceOf(Category::class), 'industries']
             );
-        
+
         $sm = $this->getServiceManagerMock();
         if ($postRequest) {
             $subForm = $this->getMockBuilder(ManagementForm::class)->disableOriginalConstructor()
@@ -137,7 +137,7 @@ class AdminCategoriesControllerTest extends TestCase
     {
         $services = $this->getConfiguredServiceManager();
         $this->target->initContainer($services);
-        
+
         $model = $this->target->indexAction();
 
         $this->assertSame($services->get('forms')->get('Jobs/AdminCategories'), $model->getVariable('form'));

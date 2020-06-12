@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -25,11 +25,11 @@ class ListFilterBaseFieldset extends Fieldset
     {
         parent::__construct();
     }
-    
+
     public function init()
     {
         $this->setName('params');
-        
+
         $this->add(
             array(
             'type' => 'Hidden',
@@ -39,7 +39,7 @@ class ListFilterBaseFieldset extends Fieldset
             )
             )
         );
-        
+
         $this->add(
             array(
             'name' => 'search',

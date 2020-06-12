@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Jobs\Controller;
 
@@ -29,16 +29,16 @@ use Laminas\View\Model\ViewModel;
 class AdminCategoriesController extends AbstractActionController
 {
     private $adminCategoriesForm;
-    
+
     /**
      * @var Categories
      */
     private $jobsCategoryRepo;
-    
+
     private $repositories;
-    
+
     private $viewHelperManager;
-    
+
     public static function factory(ContainerInterface $container)
     {
         $ob = new static();
@@ -53,7 +53,7 @@ class AdminCategoriesController extends AbstractActionController
         $this->jobsCategoryRepo = $container->get('repositories')->get('Jobs/Category');
         $this->viewHelperManager = $container->get('ViewHelperManager');
     }
-    
+
     public function indexAction()
     {
         $form = $this->setupContainer();

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -41,7 +41,7 @@ class LogoImageFactory extends FileUploadFactory
     {
         $size = $options->getCompanyLogoMaxSize();
         $type = $options->getCompanyLogoMimeType();
-        
+
         $form->get($this->fileName)->setViewHelper('formImageUpload')
             ->setMaxSize($size)
             ->setAllowedTypes($type)

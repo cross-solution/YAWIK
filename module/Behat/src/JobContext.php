@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Yawik\Behat;
@@ -35,22 +35,22 @@ use Laminas\Json\Json;
 class JobContext implements Context
 {
 	use CommonContextTrait;
-	
+
 	/**
 	 * @var Select2Context
 	 */
 	private $select2Context;
-	
+
 	/**
 	 * @var Job
 	 */
 	private $currentJob;
-	
+
 	/**
 	 * @var JobRepository
 	 */
 	static private $jobRepo;
-	
+
 	/**
 	 * @param User $user
 	 */
@@ -62,7 +62,7 @@ class JobContext implements Context
 			$repo->remove($result,true);
 		}
 	}
-	
+
 	/**
 	 * @BeforeScenario
 	 *
@@ -76,7 +76,7 @@ class JobContext implements Context
 			static::$jobRepo = $this->getJobRepository();
 		}
 	}
-	
+
 	/**
 	 * @Given I go to job board page
 	 */
@@ -84,7 +84,7 @@ class JobContext implements Context
 	{
 		$this->visit('/jobboard');
 	}
-	
+
 	/**
 	 * @Given I go to create job page
 	 */
@@ -93,7 +93,7 @@ class JobContext implements Context
 	    $url = $this->buildUrl('lang/jobs/manage',['action' => 'edit']);
 		$this->visit($url);
 	}
-	
+
 	/**
 	 * @Given I go to job overview page
 	 */
@@ -101,7 +101,7 @@ class JobContext implements Context
 	{
 		$this->visit('/jobs');
 	}
-	
+
 	/**
 	 * @Given I go to edit job draft with title :jobTitle
 	 * @param $jobTitle
@@ -119,7 +119,7 @@ class JobContext implements Context
         ]);
 		$this->visit($url);
 	}
-	
+
 	/**
 	 * @Given I don't have any classification data
 	 */
@@ -128,7 +128,7 @@ class JobContext implements Context
 		$this->currentJob->setClassifications(new Classifications());
 		$this->getJobRepository()->store($this->currentJob);
 	}
-	
+
 	/**
 	 * @When I don't have any posted job
 	 */
@@ -145,7 +145,7 @@ class JobContext implements Context
 		}
 		$this->currentJob = null;
 	}
-	
+
 	/**
 	 * @When I fill job location search with :search and choose :choice
 	 *
@@ -155,30 +155,30 @@ class JobContext implements Context
 		$select2 = $this->select2Context;
 		$select2->iFillInSelect2FieldWith('jobBase[geoLocation]',$search,$choice);
 	}
-	
+
 	/**
 	 * @When I choose :value from :field
 	 */
 	public function iJobClassificationSelect($value,$field)
 	{
 		$field = Inflector::camelize($field);
-		
+
 		$mapSelect2 = [
 			'professions' => '#classifications-professions-span .select2-container',
 			'industries'  => '#classifications-industries-span .select2-container',
 			'employmentTypes' => '#classifications-employmentTypes-span .select2-container',
 		];
-		
+
 		$mapMultiple = [
 			'professions'       => "select#classifications-professions",
 			'industries'        => "select#classifications-industries",
 			'employmentTypes'    => "select#classifications-employmentTypes",
 		];
-		
+
 		if(!isset($mapSelect2[$field])){
 			throw new \Exception('Undefined field selection value "'.$field.'"');
 		}
-		
+
 		$multipleField = $mapMultiple[$field];
 		$page = $this->minkContext->getSession()->getPage();
 		$element = $page->find('css',$mapMultiple[$field]);
@@ -189,7 +189,7 @@ class JobContext implements Context
 			$this->select2Context->iFillInSelect2Field($locator,$value);
 		}
 	}
-	
+
 	/**
 	 * @return JobRepository
 	 */
@@ -197,7 +197,7 @@ class JobContext implements Context
 	{
 		return $this->getRepository('Jobs/Job');
 	}
-	
+
 	/**
 	 * @return CategoriesRepo
 	 */
@@ -205,7 +205,7 @@ class JobContext implements Context
 	{
 		return $this->getRepository('Jobs/Category');
 	}
-	
+
 	/**
 	 * @When I have a :status job with the following:
 	 * @param TableNode $fields
@@ -283,7 +283,7 @@ class JobContext implements Context
         $this->currentJob = $job;
     }
 
-	
+
 	private function setLocation(Job $job, $term)
 	{
 		/* @var $client Photon */
@@ -292,14 +292,14 @@ class JobContext implements Context
 		$location = new Location();
 		$serialized = Json::encode($result);
 		$location->fromString($serialized);
-		
+
 		$locations = $job->getLocations();
 		if(count($locations)){
 			$locations->clear();
 		}
 		$job->getLocations()->add($location);
 	}
-	
+
 	private function addProfessions(Job &$job,$terms)
 	{
 		$professions = $this->getCategories($terms);
@@ -310,7 +310,7 @@ class JobContext implements Context
 			}
 		}
 	}
-	
+
 	private function addIndustries(Job &$job, $terms)
 	{
 		$industries = $this->getCategories($terms);
@@ -321,7 +321,7 @@ class JobContext implements Context
 			}
 		}
 	}
-	
+
 	/**
 	 * @param array $categories
 	 *
@@ -330,7 +330,7 @@ class JobContext implements Context
 	private function getCategories(array $categories)
 	{
 		$catRepo = $this->getCategoriesRepository();
-		
+
 		// get a professions
 		$qb = $catRepo->createQueryBuilder()
 		              ->field('name')->in($categories)
@@ -339,8 +339,8 @@ class JobContext implements Context
 		$results = $qb->execute();
 		return $results->toArray();
 	}
-	
-	
+
+
 	/**
 	 * @return Job
 	 */
@@ -348,9 +348,9 @@ class JobContext implements Context
 	{
 		$repo = $this->getJobRepository();
 		$user = $this->getCurrentUser();
-		
+
 		$job = $repo->findDraft($user);
-		
+
 		if(is_null($job)){
 			$job = new Job();
 			$job

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -23,7 +23,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Comment extends AbstractIdentifiableEntity implements CommentInterface
 {
-    
+
     /**
      * User this comment belongs to
      *
@@ -31,7 +31,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id")
      */
     protected $user;
-    
+
     /**
      * Created date
      *
@@ -39,7 +39,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * @ODM\Field(type="tz_date")
      */
     protected $dateCreated;
-    
+
     /**
      * Modification date
      *
@@ -47,7 +47,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * @ODM\Field(type="tz_date")
      */
     protected $dateModified;
-    
+
     /**
      * Comment message
      *
@@ -55,7 +55,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * @ODM\Field(type="string")
      */
     protected $message;
-    
+
     /**
      * Application rating
      *
@@ -63,7 +63,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * @ODM\EmbedOne(targetDocument="Rating")
      */
     protected $rating;
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::getUser()
@@ -136,7 +136,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
         $this->message = $message;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::getRating()
@@ -148,7 +148,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
         }
         return $this->rating;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::setRating()
@@ -165,7 +165,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     {
         $this->setDateModified(new \DateTime());
     }
-    
+
     /** @ODM\PrePersist */
     public function prePersist()
     {

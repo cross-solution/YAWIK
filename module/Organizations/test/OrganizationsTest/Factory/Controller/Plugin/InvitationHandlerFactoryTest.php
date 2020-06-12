@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace OrganizationsTest\Factory\Controller\Plugin;
 
@@ -54,17 +54,17 @@ class InvitationHandlerFactoryTest extends TestCase
         $repositories->expects($this->once())->method('get')->with('Auth/User')->willReturn($userRepository);
 
         $translator = new \Laminas\I18n\Translator\Translator();
-    
+
         $mailer = $this->getMockBuilder('\Core\Controller\Plugin\Mailer')
                        ->disableOriginalConstructor()
                        ->getMock()
         ;
-        
+
         $pluginManager = $this->getMockBuilder(PluginManager::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        
+
         $pluginManager->expects($this->once())
             ->method('get')
             ->with('Core/Mailer')

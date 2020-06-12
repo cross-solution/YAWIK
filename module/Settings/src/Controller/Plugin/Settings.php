@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -16,12 +16,12 @@ use Auth\Entity\UserInterface;
 class Settings extends AbstractPlugin
 {
     protected $user;
-    
+
     public function __construct(UserInterface $user)
     {
         $this->user = $user;
     }
-    
+
     public function __invoke($moduleName = null)
     {
         $controllerClass = ltrim(get_class($this->getController()), '\\');
@@ -31,11 +31,11 @@ class Settings extends AbstractPlugin
             $moduleName = $namespace;
         }
         $settings = $this->user->getSettings($moduleName);
-        
+
         if ($namespace == $moduleName) {
             $settings->enableWriteAccess();
         }
-        
+
         return $settings;
     }
 }

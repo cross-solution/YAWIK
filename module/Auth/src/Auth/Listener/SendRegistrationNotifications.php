@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace Auth\Listener;
 
@@ -16,12 +16,12 @@ use Core\Mail\MailService;
 
 /**
  * Listener to send registration notifications.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test
  * @since 0.30
  */
-class SendRegistrationNotifications 
+class SendRegistrationNotifications
 {
 
     /**
@@ -49,7 +49,7 @@ class SendRegistrationNotifications
         if (!$this->options->notifyOnRegistration()) {
             return;
         }
-        
+
         /* @var \Core\Mail\HTMLTemplateMessage $mail */
         $tmpl = sprintf(
             'auth/mail/%s',

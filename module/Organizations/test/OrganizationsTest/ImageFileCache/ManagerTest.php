@@ -1,7 +1,7 @@
 <?php
 /**
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license MIT
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.28
@@ -41,13 +41,13 @@ class ManagerTest extends TestCase
     {
         $this->options = new Options();
         $this->manager = new Manager($this->options);
-        
+
         $root = 'root';
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory($root));
         $this->options->setFilePath(vfsStream::url($root));
     }
-    
+
     /**
      * @covers ::__construct
      * @covers ::getUri
@@ -59,16 +59,16 @@ class ManagerTest extends TestCase
         $image = new ImageEntity();
         $image->setId($id);
         $image->setName('filename.ext');
-        
+
         $this->options->setEnabled(false);
         $this->assertEquals($image->getUri(), $this->manager->getUri($image));
-        
+
         $this->options->setEnabled(true);
         $cachedUri = $this->manager->getUri($image);
         $this->assertNotEquals($image->getUri(), $cachedUri);
         $this->assertContains($this->options->getUriPath(), $cachedUri);
     }
-    
+
     /**
      * @covers ::isEnabled
      */
@@ -76,11 +76,11 @@ class ManagerTest extends TestCase
     {
         $this->options->setEnabled(false);
         $this->assertFalse($this->manager->isEnabled());
-        
+
         $this->options->setEnabled(true);
         $this->assertTrue($this->manager->isEnabled());
     }
-    
+
     /**
      * @covers ::store
      * @covers ::getImagePath
@@ -92,10 +92,10 @@ class ManagerTest extends TestCase
     public function testStoreWithImageWithoutId()
     {
         $image = new ImageEntity();
-        
+
         $this->manager->store($image);
     }
-    
+
     /**
      * @covers ::store
      * @covers ::getImagePath
@@ -108,10 +108,10 @@ class ManagerTest extends TestCase
     {
         $image = new ImageEntity();
         $image->setId('someId');
-        
+
         $this->manager->store($image);
     }
-    
+
     /**
      * @covers ::store
      * @covers ::getImagePath
@@ -123,12 +123,12 @@ class ManagerTest extends TestCase
         $image = new ImageEntity();
         $image->setId('someId');
         $image->setType('image/jpeg');
-        
+
         $this->manager->store($image);
-        
+
         $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild(sprintf('d/I/%s.%s', 'someId', 'jpeg')));
     }
-    
+
     /**
      * @covers ::store
      * @covers ::getImagePath
@@ -141,11 +141,11 @@ class ManagerTest extends TestCase
         $image = new ImageEntity();
         $image->setId('someId');
         $image->setName('filename.ext');
-        
+
         vfsStreamWrapper::getRoot()->chmod(000);
         $this->manager->store($image);
     }
-    
+
     /**
      * @covers ::store
      * @covers ::delete
@@ -166,17 +166,17 @@ class ManagerTest extends TestCase
         $image->setName($name);
         $image->method('getResource')
             ->willReturn($resource);
-        
+
         $this->manager->store($image);
-        
+
         $root = vfsStreamWrapper::getRoot();
         $this->assertTrue($root->hasChild($path));
         $this->assertEquals($resource, $root->getChild($path)->getContent());
-        
+
         $this->manager->delete($image);
         $this->assertFalse($root->hasChild($path));
     }
-    
+
     /**
      * @param string $uri
      * @param string|null $expected
@@ -187,7 +187,7 @@ class ManagerTest extends TestCase
     {
         $this->assertSame($expected, $this->manager->matchUri($this->options->getUriPath() . $uri));
     }
-    
+
     /**
      * @return array
      */

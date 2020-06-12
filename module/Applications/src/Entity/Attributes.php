@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -30,7 +30,7 @@ class Attributes extends AbstractEntity
      * @ODM\Field(type="boolean")
      */
     protected $privacyPolicy;
-    
+
     /**
      * Flag wether to send a carbon copy or not.
      *
@@ -74,7 +74,7 @@ class Attributes extends AbstractEntity
         $this->carbonCopy = (bool) $flag;
         return $this;
     }
-    
+
     public function getSendCarbonCopy()
     {
         return $this->carbonCopy;

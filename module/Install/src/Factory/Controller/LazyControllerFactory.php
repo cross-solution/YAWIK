@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 namespace Install\Factory\Controller;
@@ -30,13 +30,13 @@ class LazyControllerFactory implements AbstractFactoryInterface
         Translator::class => 'translator',
         ClearCacheService::class => ClearCacheService::class,
     ];
-    
+
     public function canCreate(ContainerInterface $container, $requestedName)
     {
         list($module, ) = explode('\\', __NAMESPACE__, 2);
         return strstr($requestedName, $module . '\Controller') !== false;
     }
-    
+
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $class = new \ReflectionClass($requestedName);
@@ -49,7 +49,7 @@ class LazyControllerFactory implements AbstractFactoryInterface
                         if (array_key_exists($cn, $this->aliases)) {
                             $cn = $this->aliases[$cn];
                         }
-                        
+
                         try {
                             $parameter_instances[] = $container->get($cn);
                         } catch (\Exception $x) {
@@ -66,7 +66,7 @@ class LazyControllerFactory implements AbstractFactoryInterface
                 return $class->newInstanceArgs($parameter_instances);
             }
         }
-        
+
         return new $requestedName;
     }
 }

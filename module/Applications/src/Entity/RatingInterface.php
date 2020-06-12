@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -19,15 +19,15 @@ use Core\Entity\RatingInterface as CoreRatingInterface;
  */
 interface RatingInterface extends CoreRatingInterface
 {
-    
-    
+
+
     /**
      * Gets the rating for an application
      *
      * @return int
      */
     public function getRating();
-    
+
     /**
      * Sets the rating for an application
      *

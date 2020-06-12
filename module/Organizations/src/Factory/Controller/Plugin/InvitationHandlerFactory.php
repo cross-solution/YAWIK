@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /** */
@@ -27,7 +27,7 @@ class InvitationHandlerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         // @TODO: [ZF3] Check if InvitationHandlerFactory still working properly
-        
+
         /* @var $container \Laminas\Mvc\Controller\PluginManager */
         $validator  = $container->get('ValidatorManager')->get('EmailAddress');
         $mailer     = $container->get('ControllerPluginManager')->get('Core/Mailer');

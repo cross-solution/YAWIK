@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
 
@@ -36,7 +36,7 @@ class OrganizationHydrator extends Reflection
     protected $data;
 
     protected $object;
-            
+
     public function __construct($repOrganization, $repOrganizationName, $repOrganizationImage)
     {
         parent::__construct();
@@ -44,7 +44,7 @@ class OrganizationHydrator extends Reflection
         $this->repOrganizationName = $repOrganizationName;
         $this->repOrganizationImage = $repOrganizationImage;
     }
-    
+
     /**
      * Extract values from an object
      *
@@ -98,8 +98,8 @@ class OrganizationHydrator extends Reflection
         }
         return $object;
     }
-    
-    
+
+
     /**
      * Converts a value for hydration. If no strategy exists the plain value is returned.
      *

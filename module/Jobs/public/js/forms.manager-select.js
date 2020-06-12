@@ -2,7 +2,7 @@
  * YAWIK
  *
  * License: MIT
- * (c) 2013 - 2017 CROSS Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
 
 /**
@@ -58,5 +58,5 @@
         $organizationSelect.on('change', {init:false}, loadOptions);
 
     });
-})(jQuery); 
- 
+})(jQuery);
+

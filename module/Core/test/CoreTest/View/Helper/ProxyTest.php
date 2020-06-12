@@ -4,9 +4,9 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2017 Cross Solution <http://cross-solution.de>
+ * @copyright https://yawik.org/COPYRIGHT.php
  */
-  
+
 /** */
 namespace CoreTest\View\Helper;
 
@@ -76,7 +76,7 @@ class ProxyTest extends TestCase
             ->method('getHelperPluginManager')
             ->will($this->returnValue($manager))
         ;
-        
+
         $this->target->setView($renderer);
         $this->helperManager = $manager;
     }

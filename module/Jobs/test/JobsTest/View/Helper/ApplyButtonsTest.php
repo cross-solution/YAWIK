@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright https://yawik.org/COPYRIGHT.php
  * @author fedys
  * @license   AGPLv3
  */
@@ -23,12 +23,12 @@ class ApplyButtonsTest extends TestCase
      * @var Helper
      */
     private $helper;
-    
+
     /**
      * @var View
      */
     private $view;
-    
+
     /**
      * @var ViewModel
      */
@@ -52,11 +52,11 @@ class ApplyButtonsTest extends TestCase
         $this->view->expects($this->any())
             ->method('viewModel')
             ->willReturn($viewModelHelper);
-        
+
         $this->helper = new Helper();
         $this->helper->setView($this->view);
     }
-    
+
     /**
      * @dataProvider invalidDataThrowsExceptionData
      */
@@ -65,7 +65,7 @@ class ApplyButtonsTest extends TestCase
         $helper = $this->helper;
         $this->assertSame('', $helper($data));
     }
-    
+
     public function testDefaults()
     {
         $this->view->expects($this->once())
@@ -76,31 +76,31 @@ class ApplyButtonsTest extends TestCase
                     return $variables['default'] && $variables['oneClick'] === [];
                 })
             );
-        
+
         $helper = $this->helper;
         $helper($this->validData());
     }
-    
+
     public function testPartialOption()
     {
         $options = [
             'partial' => 'my/custom/partial'
         ];
-        
+
         $this->view->expects($this->once())
             ->method('partial')
             ->with(dirname($this->viewModel->getTemplate()) . '/' . $options['partial']);
-        
+
         $helper = $this->helper;
         $helper($this->validData(), $options);
     }
-    
+
     public function testOneClickOnlyOption()
     {
         $options = [
             'oneClickOnly' => true
         ];
-        
+
         $this->view->expects($this->once())
             ->method('partial')
             ->with(
@@ -109,17 +109,17 @@ class ApplyButtonsTest extends TestCase
                     return $variables['default'] === null;
                 })
             );
-        
+
         $helper = $this->helper;
         $helper($this->validData(), $options);
     }
-    
+
     public function testDefaultLabelOption()
     {
         $options = [
             'defaultLabel' => 'My default label'
         ];
-        
+
         $this->view->expects($this->once())
             ->method('partial')
             ->with(
@@ -128,11 +128,11 @@ class ApplyButtonsTest extends TestCase
                     return $variables['default']['label'] === $options['defaultLabel'];
                 })
             );
-        
+
         $helper = $this->helper;
         $helper($this->validData(), $options);
     }
-    
+
     public function testOneClickLabelOption()
     {
         $data = $this->validData();
@@ -140,7 +140,7 @@ class ApplyButtonsTest extends TestCase
         $options = [
             'oneClickLabel' => 'My one click label with %s'
         ];
-        
+
         $this->view->expects($this->once())
             ->method('partial')
             ->with(
@@ -151,15 +151,15 @@ class ApplyButtonsTest extends TestCase
                             return false;
                         }
                     }
-                        
+
                     return true;
                 })
             );
-        
+
         $helper = $this->helper;
         $helper($data, $options);
     }
-    
+
     public function testSendImmediatelyOption()
     {
         $data = $this->validData();
@@ -167,7 +167,7 @@ class ApplyButtonsTest extends TestCase
         $options = [
             'sendImmediately' => true
         ];
-        
+
         $this->view->expects($this->exactly(count($data['oneClickProfiles'])))
             ->method('url')
             ->with(
@@ -176,11 +176,11 @@ class ApplyButtonsTest extends TestCase
                     return $variables['immediately'] === $options['sendImmediately'];
                 })
             );
-        
+
         $helper = $this->helper;
         $helper($data, $options);
     }
-    
+
     public function invalidDataThrowsExceptionData()
     {
         return [
@@ -222,7 +222,7 @@ class ApplyButtonsTest extends TestCase
             ]
         ];
     }
-    
+
     protected function validData()
     {
         return [
