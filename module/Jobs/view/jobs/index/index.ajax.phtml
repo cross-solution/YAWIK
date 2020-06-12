@@ -65,7 +65,7 @@ $isSnapshot = $job->hasSnapshotDraft();
         <small><?=$job->getClassifications()->getProfessions()?></small> |
         <small><?=$job->getClassifications()->getEmploymentTypes()?></small>
     </td>
-    <td><?php echo $this->formatLoaction($job->getLocations())?></td>
+    <td><?php echo $this->formatLocation($job->getLocations())?></td>
     <td><?php echo $job->getCompany()?></td>
     <td><?php echo empty($job->getReference())? $job->getApplyId():$job->getReference() ?></td>
 
