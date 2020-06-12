@@ -48,7 +48,7 @@ class Module implements
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.34.4';
+    const VERSION = '0.34.5';
 
     /**
      * @param ModuleOptions $options
