@@ -18,7 +18,12 @@
         }
     ],
     "keywords": [
-        "yawik", "module"
+        "human resource",
+        "yawik",
+        "talent",
+        "ATS",
+        "laminas",
+        "php"
     ],
     "require": {
         "yawik/core": ">=0.33@dev"
