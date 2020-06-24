@@ -52,10 +52,23 @@ class JsonLdTest extends TestCase
     {
         $this->assertEmpty($this->target->__invoke());
     }
+    
+    public function testReturnsNothingIfJobIsNotActice()
+    {
+        $job = new Job();
+        $organization = new Organization();
+        $name = new OrganizationName('test');
+        $organization->setOrganizationName($name);
+        $job->setOrganization($organization);
+        $job->setTitle('Test JsonLd view helper');
+        $job->setDatePublishStart(new \DateTime());
+        $this->assertEmpty($this->target->__invoke());
+    }
 
     public function testReturnsJsonLd()
     {
         $job = new Job();
+        $job->setStatus(\Jobs\Entity\Status::ACTIVE);
         $organization = new Organization();
         $name = new OrganizationName('test');
         $organization->setOrganizationName($name);
