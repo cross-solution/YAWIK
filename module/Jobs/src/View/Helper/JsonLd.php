@@ -47,6 +47,10 @@ class JsonLd extends AbstractHelper
             return '';
         }
 
+        if ($job->getStatus() != \Jobs\Entity\Status::ACTIVE) {
+            return '';
+        }
+
         $jsonLdProvider = new JsonLdProvider($job);
 
         return '<script type="application/ld+json">'
