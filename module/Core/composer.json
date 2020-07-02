@@ -18,7 +18,13 @@
         }
     ],
     "keywords": [
-        "yawik", "module", "laminas"
+        "human resource",
+        "yawik",
+        "applicant",
+        "ATS",
+        "laminas",
+        "php",
+        "jobboard"
     ],
     "require": {
         "php": ">=7.1",

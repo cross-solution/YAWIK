@@ -18,7 +18,7 @@
         }
     ],
     "keywords": [
-        "yawik", "module", "zf3", "behat"
+        "yawik", "module", "laminas", "behat"
     ],
     "require": {
         "behat/behat": "^3.2",
