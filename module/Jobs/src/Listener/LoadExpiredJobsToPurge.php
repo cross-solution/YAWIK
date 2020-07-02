@@ -18,7 +18,6 @@ use Jobs\Entity\StatusInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
- * @todo write test
  */
 class LoadExpiredJobsToPurge
 {
