@@ -17,7 +17,7 @@ use Jobs\Entity\StatusInterface;
  * ${CARET}
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class LoadExpiredJobsToPurge
 {
@@ -38,7 +38,7 @@ class LoadExpiredJobsToPurge
             ),
             $qb->expr()->addAnd(
                 $qb->expr()->field('datePublishEnd')->exists(false),
-                $qb->expr()->field('dateCreated.date')->lt($date)
+                $qb->expr()->field('dateModified.date')->lt($date)
             )
         )->limit($event->getParam('limit', 0));
         $entities = $qb->getQuery()->execute()->toArray();
