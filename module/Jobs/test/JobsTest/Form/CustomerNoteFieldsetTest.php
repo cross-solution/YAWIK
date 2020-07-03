@@ -10,6 +10,7 @@
 /** */
 namespace JobsTest\Form;
 
+use Laminas\Form\Element\Textarea;
 use PHPUnit\Framework\TestCase;
 
 use Core\Form\MetaDataFieldset;
@@ -47,6 +48,16 @@ class CustomerNoteFieldsetTest extends TestCase
 
     public function testInitializationAddsTextArea()
     {
-        $this->target->init();
+        $target = $this->target;
+        $target->init();
+
+        $this->assertEquals('customerNoteFieldset', $target->getAttribute('id'));
+        $this->assertEquals('customerNote', $target->getName());
+
+        // check note element
+        $elements = $target->getElements();
+        $this->assertIsArray($elements);
+        $element = $elements['note'];
+        $this->assertInstanceOf(Textarea::class, $element);
     }
 }

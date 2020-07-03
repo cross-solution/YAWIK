@@ -37,6 +37,11 @@ class ODMListenerTest extends TestCase
     protected $manager;
 
     /**
+     * @var array
+     */
+    private $parameters = [];
+
+    /**
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp(): void
@@ -47,6 +52,7 @@ class ODMListenerTest extends TestCase
 
         $this->listener = new ODMListener($this->manager);
     }
+
 
     /**
      * @param bool $enabled
@@ -159,7 +165,8 @@ class ODMListenerTest extends TestCase
         $this->assertAttributeNotEmpty('delete', $this->listener);
         $this->assertAttributeContains($ImageEntity, 'delete', $this->listener);
 
-        return [$this->listener, $this->manager, $ImageEntity];
+        $this->parameters = [$this->listener, $this->manager, $ImageEntity];
+        return $this->parameters;
     }
 
     public function testPostFlushWithoutImage()
@@ -175,7 +182,6 @@ class ODMListenerTest extends TestCase
     }
 
     /**
-     * @param array $parameters
      * @depends testPreUpdateWithValidImage
      */
     public function testPostFlushWithImage(array $parameters)
@@ -186,10 +192,13 @@ class ODMListenerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $manager->expects($this->once())
+        $manager->expects($this->exactly(1))
             ->method('delete')
-            ->with($this->identicalTo($ImageEntity));
+            ->with($ImageEntity);
 
         $listener->postFlush($event);
+
+        // fix phpunit assertions count
+        $this->assertTrue(true);
     }
 }

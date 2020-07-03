@@ -16,7 +16,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\SnapshotAttributesProviderInterface;
 use Core\Entity\SnapshotInterface;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ODM\MongoDB\DocumentRepository;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 use Laminas\Hydrator\HydratorInterface;
 
 /**
