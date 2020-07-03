@@ -204,9 +204,11 @@ class HTMLTemplateMessageTest extends TestCase
         $target->setTemplate('template');
         // resolver expectation
         $viewResolver
+            ->expects($this->once())
             ->method('resolve')
             ->willReturn(true);
         $view
+            ->expects($this->once())
             ->method('render')
             ->with($this->callback(function (ViewModel $subject) {
                 return $subject->getTemplate() === 'template.en';
@@ -223,9 +225,11 @@ class HTMLTemplateMessageTest extends TestCase
         $target->setTemplate('template');
         // resolver expectation
         $viewResolver
+            ->expects($this->once())
             ->method('resolve')
             ->willReturn(false);
         $view
+            ->expects($this->once())
             ->method('render')
             ->with($this->callback(function (ViewModel $subject) {
                 return $subject->getTemplate() === 'template';

@@ -134,9 +134,10 @@ class SnapshotRepositoryTest extends TestCase
         $job = new Job();
         $job->setTitle('Some Job Title');
         $snapshot = new JobSnapshot($job);
-        $snapshot->setTitle('Some Job Snapshot');
 
+        $snapshot->setTitle('Some Job Snapshot');
         $this->target->diff($snapshot);
+        $this->assertEquals('Some Job Snapshot', $snapshot->getTitle());
     }
 
     public function testFindLatest()

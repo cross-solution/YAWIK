@@ -173,6 +173,7 @@ class Proxy extends AbstractHelper
      */
     public function exists($plugin)
     {
-        return $this->plugin($plugin, true);
+        $retVal = $this->plugin($plugin, true);
+        return is_null($retVal) ? false:$retVal;
     }
 }

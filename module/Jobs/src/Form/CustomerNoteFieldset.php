@@ -18,7 +18,7 @@ use Core\Form\ViewPartialProviderTrait;
  * ${CARET}
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class CustomerNoteFieldset extends MetaDataFieldset implements ViewPartialProviderInterface
 {

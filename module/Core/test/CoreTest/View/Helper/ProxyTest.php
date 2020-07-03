@@ -146,7 +146,7 @@ class ProxyTest extends TestCase
 
         $actual = $this->target->plugin('helper');
         $this->assertInstanceOf(Proxy\HelperProxy::class, $actual);
-        $this->assertAttributeSame($helper, 'helper', $actual);
+        $this->assertSame($helper,$actual->helper());
     }
 
     public function testPluginPassesOptionsToHelperManager()
@@ -159,11 +159,15 @@ class ProxyTest extends TestCase
         ;
 
         $this->target->plugin('helper', $options);
+
+        $count = $this->helperManager->getCallCount('get','helper',$options);
+        $this->assertEquals(1, $count);
+        $this->assertTrue($this->target->exists('helper'));
     }
 
     public function testExistsProxiesToPlugin()
     {
-        $this->target->exists('helper');
+        $this->assertFalse($this->target->exists('helper'));
     }
 }
 
