@@ -29,10 +29,11 @@
     "license": "MIT",
     "keywords": [
         "human resource",
-        "human relation",
+        "yawik",
         "applicant",
         "ATS",
-        "zf2",
+        "laminas",
+        "php",
         "jobboard"
     ],
     "homepage": "http://yawik.org/",
