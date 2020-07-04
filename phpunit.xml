@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        bootstrap="./vendor/autoload.php"
+        colors="true"
+        ignoreDeprecatedCodeUnitsFromCodeCoverage="true"
+        beStrictAboutTestsThatDoNotTestAnything="true"
+>
+    <php>
+        <env name="APPLICATION_ENV" value="test"/>
+        <ini name="error_reporting" value="E_ALL"/>
+    </php>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">./module/*/src</directory>
+            <exclude>
+                <directory>./module/Behat</directory>
+                <directory>./module/ReleaseTools</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <testsuites>
+        <testsuite name="Applications">
+            <directory>./module/Applications/test/ApplicationsTest</directory>
+        </testsuite>
+        <testsuite name="Auth">
+            <directory>./module/Auth/test/AuthTest</directory>
+            <directory>./module/Auth/test/AclTest</directory>
+        </testsuite>
+        <testsuite name="Core">
+            <directory>./module/Core/test/CoreTest</directory>
+        </testsuite>
+        <testsuite name="Cv">
+            <directory>./module/Cv/test/CvTest</directory>
+        </testsuite>
+        <testsuite name="Geo">
+            <directory>./module/Geo/test/GeoTest</directory>
+        </testsuite>
+        <testsuite name="Install">
+            <directory>./module/Install/test/InstallTest</directory>
+        </testsuite>
+        <testsuite name="Jobs">
+            <directory>./module/Jobs/test/JobsTest</directory>
+        </testsuite>
+        <testsuite name="Organizations">
+            <directory>./module/Organizations/test/OrganizationsTest</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
