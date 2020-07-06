@@ -21,6 +21,8 @@ use Laminas\Form\View\Helper\FormText;
  */
 class FormDatePicker extends FormText
 {
+    const DEFAULT_DATE_FORMAT =  'yyyy-mm-dd';
+
     /**
      * Language of the datepicker
      *
@@ -44,6 +46,7 @@ class FormDatePicker extends FormText
         $basePath = $view->plugin('basePath');
         $params   = $view->plugin('params'); /* @var \Core\View\Helper\Params $params */
         $lang     = $params('lang');
+        $dataDateFormat = $element->getAttribute('data-date-format') ?? self::DEFAULT_DATE_FORMAT;
 
         //$headScript->appendFile($basePath('/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js'));
         //if (in_array($this->language, ['de'])) {
@@ -51,9 +54,10 @@ class FormDatePicker extends FormText
         //}
 
         $element->setAttributes([
-                                    'data-date-language' => $lang,
-                                    'data-provide' => 'datepicker',
-                                    'data-date-format' => 'yyyy-mm-dd']);
+            'data-date-language' => $lang,
+            'data-provide' => 'datepicker',
+            'data-date-format' => $dataDateFormat
+        ]);
         $input = parent::render($element);
 
         /*
