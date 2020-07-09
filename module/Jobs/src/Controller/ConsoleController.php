@@ -16,13 +16,14 @@ use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\StatusInterface;
 use Jobs\Queue\FindJobsWithExternalImageJob;
-use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 use Laminas\ProgressBar\ProgressBar;
 use Core\Console\ProgressBar as CoreProgressBar;
 use Laminas\ProgressBar\Adapter\Console as ConsoleAdapter;
+use Laminas\Console\ColorInterface as ConsoleColor;
 use Auth\Entity\UserInterface;
 
-class ConsoleController extends AbstractActionController
+class ConsoleController extends AbstractConsoleController
 {
     /**
      * @var RepositoryService
@@ -50,6 +51,7 @@ class ConsoleController extends AbstractActionController
         $days = (int) $this->params('days');
         $limit = (string) $this->params('limit');
         $info = $this->params('info');
+        $console = $this->console;
 
         if (!$days) {
             return 'Invalid value for --days. Must be integer.';
@@ -81,15 +83,15 @@ class ConsoleController extends AbstractActionController
         $count = count($jobs);
 
         if (0 === $count) {
-            return 'No jobs found.';
+            $console->writeLine('No jobs found.', ConsoleColor::GREEN);
         }
 
         if ($info) {
-            echo count($jobs) , ' Jobs';
+            $output = count($jobs).' Jobs';
             if ($offset) {
-                echo ' starting from ' . $offset;
+                $output .= ' starting from ' . $offset;
             }
-            echo PHP_EOL . PHP_EOL;
+            $console->writeLine($output, ConsoleColor::YELLOW);
             $this->listExpiredJobs($jobs);
             return;
         }
@@ -98,7 +100,7 @@ class ConsoleController extends AbstractActionController
 //            $repositories->getEventManager()->removeEventListener('preUpdate', $listener);
 //        }
 //
-        echo "$count jobs found, which have to expire ...\n";
+        $console->writeLine("$count jobs found, which have to expire ...\n", ConsoleColor::GREEN);
 
         $progress     = new ProgressBar(
             new ConsoleAdapter(
@@ -188,6 +190,7 @@ class ConsoleController extends AbstractActionController
 
     private function listExpiredJobs($jobs)
     {
+        $console = $this->console;
         /* @var \Jobs\Entity\JobInterface $job */
         foreach ($jobs as $job) {
             $id = $job->getId();
@@ -197,16 +200,19 @@ class ConsoleController extends AbstractActionController
             } else {
                 $org = $job->getCompany();
             }
-            printf(
+
+            $publishStart = is_null($job->getDatePublishStart()) ? 'N/A':$job->getDatePublishStart()->format('Y-m-d');
+            $publishEnd = is_null($job->getDatePublishEnd()) ? 'N/A':$job->getDatePublishEnd()->format('Y-m-d');
+            $output = sprintf(
                 '%s   %s   %s   %-30s   %-20s' . PHP_EOL,
                 $id,
-                $job->getDatePublishStart()->format('Y-m-d'),
-                $job->getDatePublishEnd()->format('Y-m-d'),
+                $publishStart,
+                $publishEnd,
                 substr($job->getTitle(), 0, 30),
                 substr($org, 0, 20)
             );
+            $console->writeLine($output, ConsoleColor::GREEN);
         }
-        return count($jobs) . ' Jobs.';
     }
 
     public function pushFetchExternalImagesJobAction()
