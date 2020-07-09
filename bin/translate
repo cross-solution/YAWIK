@@ -28,7 +28,7 @@ cd $MODULE_DIR || exit 120;
 echo "-- Create language/_annotated_strings.php"
 
 echo "<?php" > language/_annotated_strings.php
-for FILE in $(find . -type f -not -name '_annotated_strings.php' | grep -E ".(php|phtml|dist)$"); do
+for FILE in $(find . -type f -not -wholename './test/*' -not -name '_annotated_strings.php' | grep -E ".(php|phtml|dist)$"); do
 	cat $FILE \
 	| grep -rn -E "/\*[[:space:]]*@translate[[:space:]]*\*/" - \
 	| sed "s=^\([[:digit:]]\+\).*@translate[[:space:]]*\*/[[:space:]]*\('\|\"\)\(.*\?\)\('\|\"\).*$=//: $FILE:\1\ntranslate('\3');\n=g" \
@@ -41,13 +41,13 @@ fi
 
 EXCLUDE_OPTION=""
 for MODULE in $EXCLUDE_MODULES; do
-	EXCLUDE_OPTION+="-x ../$MODULE/language/messages.pot "
+	EXCLUDE_OPTION+="-x ../$MODULE/language/messages.pot -x ../$MODULE/test "
 done
 [ -n "$EXCLUDE_OPTION" ] && echo "-- Exclude modules: $EXCLUDE_MODULES"
 
 
 echo "-- Create language/messages.pot"
-find . -type f | grep -E ".ph(p|tml)$" | grep -v '/test/' > _translatable_files
+find . -type f | grep -E ".ph(p|tml)$" | grep -v -E '(/test/|/vendor/|/var/|/bin/)' > _translatable_files
 xgettext -L PHP --force-po $EXCLUDE_OPTION -o "language/messages.pot" --from-code=utf-8 \
 	-k"translate" -k"setLabel" \
 	-f _translatable_files \
