@@ -166,7 +166,7 @@ $lang = isset($this->lang)?$this->lang:$defaultLang; ?>
                                 return {
                                     results: data.items,
                                     pagination: {
-                                        more: params.page * 20 < data.total
+                                        more: params.page * 10 < data.total
                                     }
                                 };
                             }
