@@ -1,17 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Cross Applicant Management - Organizations package.
 # 
 # Translators:
 # blu-IT, 2015
 # blu-IT, 2015
-# Carsten Bleek <cbleek@yawik.org>, 2014-2016,2018
+# Carsten Bleek <cbleek@yawik.org>, 2014-2016,2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-01 11:55+0100\n"
-"PO-Revision-Date: 2018-04-16 16:04+0000\n"
+"POT-Creation-Date: 2018-07-09 09:41+0000\n"
+"PO-Revision-Date: 2020-07-20 10:30+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgid "Street"
 msgstr "Strasse"
 
 #: view/organizations/index/index.ajax.phtml:76
-#: view/organizations/profile/index.ajax.phtml:76
+#: view/organizations/profile/index.ajax.phtml:81
 #, php-format
 msgid "Hiring organization of <strong>%s</strong>"
 msgstr "Schaltendes Unternehmen von <strong>%s</strong>"
@@ -66,6 +66,38 @@ msgstr "Sie sind nun Mitarbeiter im Team von <b>%s</b>"
 #: view/organizations/invite-employee/accept.phtml:18
 msgid "Please choose a password to be able to log in."
 msgstr "Bitte setzen Sie Ihr Kennwort für zukünftige Anmeldungen"
+
+#: view/organizations/profile/detail.ajax.phtml:41
+msgid "Active filters:"
+msgstr "Aktive Filter:"
+
+#: view/organizations/profile/detail.ajax.phtml:44
+msgid "Remove filter"
+msgstr "Filter löschen"
+
+#: view/organizations/profile/detail.ajax.phtml:47
+msgid "Remove all filters"
+msgstr "Alle Filter löschen"
+
+#: view/organizations/profile/detail.ajax.phtml:74
+msgid "Title of the job"
+msgstr "Anzeigentitel"
+
+#: view/organizations/profile/detail.ajax.phtml:75
+msgid "Location"
+msgstr "Ort"
+
+#: view/organizations/profile/detail.ajax.phtml:75
+msgid "Date of receipt"
+msgstr "Eingangsdatum"
+
+#: view/organizations/profile/detail.ajax.phtml:76
+msgid "Apply"
+msgstr "Bewerben"
+
+#: view/organizations/profile/detail.ajax.phtml:106
+msgid "Edit"
+msgstr "Bearbeiten"
 
 #: view/organizations/profile/index.phtml:5
 msgid "Organizations Profile"
@@ -148,7 +180,7 @@ msgstr "Einladen"
 #: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:60
 msgid "Invite an employee via email address."
-msgstr "Laden Sie Mitarbeiter per Emai ein."
+msgstr "Laden Sie Mitarbeiter per Email ein."
 
 #: view/form/invite-employee-bar.phtml:36
 msgid "Click on this button will add the employee with the status \"pending\""
@@ -320,7 +352,7 @@ msgid "Fax"
 msgstr "Fax"
 
 #: language/_annotated_strings.php:132
-#: src/Organizations/Controller/ProfileController.php:157
+#: src/Organizations/Controller/ProfileController.php:161
 msgid "This Organization Profile is disabled"
 msgstr "Das Profil dieser Firma ist deaktiviert"
 
@@ -336,7 +368,7 @@ msgstr "Ihr Zugangsschlüssen ist abgelaufen"
 msgid "Search for organizations"
 msgstr "Suche nach Unternehmen"
 
-#: src/Organizations/Controller/ProfileController.php:118
+#: src/Organizations/Controller/ProfileController.php:122
 msgid "Can not access profile page without id"
 msgstr "Der Zugriff auf ein Firmenprofil ohne ID ist nicht möglich"
 
