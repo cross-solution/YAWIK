@@ -7,6 +7,8 @@
  * @license   MIT
  */
 
+use Applications\Controller\ApiApplyController;
+
 return array(
     'router' => array(
         'routes' => array(
@@ -121,9 +123,28 @@ return array(
                                 )
                             ),
                         )
-                    )
-                )
-            )
+                    ),
+                ),
+            ),
+            'api' => [
+                'type' => 'Segment',
+                'may_terminate' => false,
+                'options' => [
+                    'route' => '/api'
+                ],
+                'child_routes' => [
+                    'apply' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => '/apply',
+                            'defaults' => [
+                                'controller' => ApiApplyController::class,
+                                'action' => 'index'
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         )
     )
 );

@@ -9,6 +9,8 @@
 
 namespace Applications;
 
+use Applications\Controller\ApiApplyController;
+use Applications\Controller\ApiApplyControllerFactory;
 use Applications\Controller\ApplyController;
 use Applications\Controller\CommentController;
 use Applications\Controller\ConsoleController;
@@ -96,6 +98,7 @@ return [
             'Applications\Controller\Apply' => [ApplyController::class,'factory'],
             'Applications/CommentController' => [CommentController::class,'factory'],
             'Applications/Console' => [ConsoleController::class,'factory'],
+            ApiApplyController::class => ApiApplyControllerFactory::class,
         ]
     ],
 
