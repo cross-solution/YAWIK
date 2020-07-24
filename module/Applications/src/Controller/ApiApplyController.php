@@ -14,11 +14,11 @@ namespace Applications\Controller;
 
 use Applications\Entity\Contact;
 use Applications\Entity\Hydrator\ApiApplicationHydrator;
-use Laminas\Json\Json;
+use Applications\Repository\Application as ApplicationsRepository;
+use Auth\Entity\AnonymousUser;
+use Jobs\Repository\Job as JobsRepository;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
-use Applications\Repository\Application as ApplicationsRepository;
-use Jobs\Repository\Job as JobsRepository;
 
 /**
  * TODO: description
@@ -69,18 +69,30 @@ class ApiApplyController extends AbstractActionController
         $application->setUser($user);
         $application->setContact(new Contact());
 
-        $hydrator = new ApiApplicationHydrator();
+        $hydrator = $this->hydrator;
         $hydrator->hydrate($data, $application);
         //$application->getContact()->setFirstName($data['contact']['firstName']);
 
 
+        $this->appRepository->store($application);
+
         $result = [
             'status' => 'OK',
             'id' => $application->getId(),
-            'test' => $application->getContact()->getFirstName(),
-            'test2' => $application->getJob()->getId(),
             'entity' => $hydrator->extract($application)
         ];
+
+        if ($user instanceof AnonymousUser) {
+            $result['track'] =
+                $this->url()->fromRoute(
+                    'lang/applications/detail',
+                    ['id' => $application->getId()],
+                    ['force_canonical' => true],
+                    true
+                )
+                . '?token=' . $user->getToken()
+            ;
+        }
 
         $model = new JsonModel($result);
         return $model;
