@@ -31,15 +31,18 @@ class ApiApplyController extends AbstractActionController
     private $appRepository;
     private $jobRepository;
     private $formContainer;
+    private $hydrator;
 
     public function __construct(
         ApplicationsRepository $appRepository,
         JobsRepository $jobRepository,
-        $formContainer
+        $formContainer,
+        ApiApplicationHydrator $hydrator
     ) {
         $this->appRepository = $appRepository;
         $this->jobRepository = $jobRepository;
         $this->formContainer = $formContainer;
+        $this->hydrator = $hydrator;
     }
 
     public function indexAction()

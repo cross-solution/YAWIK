@@ -25,6 +25,12 @@ use Laminas\Hydrator\ClassMethods;
  */
 class ApiApplicationHydrator extends ClassMethods
 {
+    private $serverUrl;
+
+    public function setServerUrl(string $serverUrl)
+    {
+        $this->serverUrl = $serverUrl;
+    }
 
     public function hydrate(array $data, $object)
     {
@@ -83,7 +89,7 @@ class ApiApplicationHydrator extends ClassMethods
         ;
         $data['attachments'] = [];
         foreach ($object->getAttachments() as $file) {
-           $data['attachments'][] = $file->getUri();
+           $data['attachments'][] = $this->serverUrl . $file->getUri();
         }
 
         unset(

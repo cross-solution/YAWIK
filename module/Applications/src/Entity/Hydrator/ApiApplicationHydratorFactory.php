@@ -26,6 +26,12 @@ class ApiApplicationHydratorFactory
         ?string $requestedName = null,
         ?array $options = null
     ): ApiApplicationHydrator {
-        return new ApiApplicationHydrator();
+        $hydrator =  new ApiApplicationHydrator();
+
+        $hydrator->setServerURl(
+            $container->get('ViewHelperManager')->get('serverurl')->__invoke()
+        );
+
+        return $hydrator;
     }
 }

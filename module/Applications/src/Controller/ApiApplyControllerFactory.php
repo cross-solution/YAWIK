@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Applications\Controller;
 
+use Applications\Entity\Hydrator\ApiApplicationHydrator;
 use Interop\Container\ContainerInterface;
 
 /**
@@ -31,8 +32,8 @@ class ApiApplyControllerFactory
         return new ApiApplyController(
             $repositories->get('Applications'),
             $repositories->get('Jobs'),
-            $container->get('forms')->get('Applications/Apply')
+            $container->get('forms')->get('Applications/Apply'),
+            $container->get('HydratorManager')->get(ApiApplicationHydrator::class)
         );
-
     }
 }

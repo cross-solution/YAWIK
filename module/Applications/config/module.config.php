@@ -236,6 +236,12 @@ return [
         ],
     ],
 
+    'hydrators' => [
+        'factories' => [
+            Entity\Hydrator\ApiApplicationHydrator::class => Entity\Hydrator\ApiApplicationHydratorFactory::class,
+        ],
+    ],
+
     'mails' => [
         'invokables' => [
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
