@@ -84,7 +84,7 @@ class ApiApplicationHydrator extends ClassMethods
         $data['contact'] = parent::extract($object->getContact());
         $data['contact']['image'] =
             $object->getContact()->getImage()
-            ? $object->getContact()->getImage()->getUri()
+            ? $this->serverUrl . $object->getContact()->getImage()->getUri()
             : null
         ;
         $data['attachments'] = [];
