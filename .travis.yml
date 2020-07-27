@@ -1,5 +1,9 @@
 language: php
 
+
+addons:
+  chrome: stable
+
 #addons:
 #  apt:
 #    sources:
