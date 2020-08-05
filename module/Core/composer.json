@@ -36,7 +36,6 @@
         "hybridauth/hybridauth": "^2.10",
         "imagine/imagine": "^1.0",
         "jmikola/geojson": "^1.0",
-        "mpdf/mpdf": "^8.0",
         "sebastian/version": "^2.0",
         "slm/queue": "^1.0",
         "symfony/console": "^3.4 | ^4.1",
