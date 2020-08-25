@@ -38,8 +38,7 @@ class PaginationAdminQuery extends AbstractPaginationQuery
          */
 
         if (isset($params['text']) && !empty($params['text'])) {
-            $search = strtolower($params['text']);
-            $queryBuilder->text($search);
+            $this->filterTextSearch($queryBuilder, $params['text']);
         }
 
         $queryBuilder->field('isDraft')->equals(false);
@@ -63,5 +62,22 @@ class PaginationAdminQuery extends AbstractPaginationQuery
         }
         $queryBuilder->sort('datePublishStart.date', -1);
         return $queryBuilder;
+    }
+
+    private function filterTextSearch($qb, $text)
+    {
+        $jobIds = [];
+
+        while (preg_match("~job:([^\s]+)~s", $text, $matches)) {
+            $jobIds = array_merge($jobIds, explode(',', $matches[1]));
+            $text = str_replace($matches[0], '', $text);
+        }
+
+        if (count($jobIds)) {
+            $qb->field('id')->in($jobIds);
+        }
+
+        $search = trim(strtolower($text));
+        $search && $qb->text($search);
     }
 }
