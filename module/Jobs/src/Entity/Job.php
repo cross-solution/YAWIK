@@ -719,6 +719,10 @@ class Job extends BaseEntity implements
      */
     public function getStatus()
     {
+        if (!$this->status) {
+            $this->setStatus(StatusInterface::CREATED);
+        }
+
         return $this->status;
     }
     /**
