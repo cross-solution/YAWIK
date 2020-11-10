@@ -17,15 +17,15 @@ class UserStatus extends SummaryForm
     protected $wrapElements = false;
     protected $baseFieldset = 'Auth/UserStatusFieldset';
 
-    
+
     /**
      * {@inheritDoc}
      */
     protected $displayMode = self::DISPLAY_SUMMARY;
-    
+
     public function init()
     {
-        $this->setLabel(/*@translate*/ 'status');
+        $this->setLabel(/*@translate*/ 'Administrative Settings');
         parent::init();
     }
 }

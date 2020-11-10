@@ -9,11 +9,15 @@
 
 namespace Auth\Form;
 
+use Auth\Form\Validator\UniqueLoginName;
 use Core\Entity\Hydrator\EntityHydrator;
 use Laminas\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
-class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterface
+class UserStatusFieldset extends Fieldset implements
+    ViewPartialProviderInterface,
+    InputFilterProviderInterface
 {
 
     /**
@@ -22,7 +26,7 @@ class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterfac
      * @var string
      */
     protected $viewPartial = 'form/auth/status';
-    
+
     /**
      * @var array
      */
@@ -68,7 +72,7 @@ class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterfac
     public function setStatusOptions(array $statusOptions)
     {
         $this->statusOptions = $statusOptions;
-        
+
         return $this;
     }
 
@@ -92,5 +96,28 @@ class UserStatusFieldset extends Fieldset implements ViewPartialProviderInterfac
                 ],
             ]
         );
+
+        $this->add([
+            'name' => 'login',
+            'type' => 'text',
+            'options' => [
+                'label' => /* @translate */ 'Login name',
+            ],
+
+        ]);
+    }
+
+    public function getInputFilterSpecification()
+    {
+        return [
+            'login' => [
+                'validators' => [
+                    ['name' => UniqueLoginName::class],
+                ],
+                'filters' => [
+                    ['name' => 'StringTrim'],
+                ],
+            ]
+        ];
     }
 }

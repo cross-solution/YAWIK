@@ -8,7 +8,10 @@
  * @author fedys
  */
  $info = $element->getObject();
+
+$element->get('status')->setOption('summary_value', $this->translate((string) $info->getStatus()));
 ?>
 <div>
-        <?php echo $this->translate($info->getStatus())?>
+        <?=$this->summaryForm()->renderSummaryElement($element->get('status'))?>
+        <?=$this->summaryForm()->renderSummaryElement($element->get('login'))?>
 </div>

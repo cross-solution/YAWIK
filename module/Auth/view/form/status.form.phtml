@@ -14,4 +14,7 @@ $layout = $this->layout ?: null;
     <div class="fieldset-content">
         <?php echo $this->formRow($element->get('status'), null, null, $layout); ?>
     </div>
+    <div class="fieldset-content">
+        <?= $this->formRow($element->get('login'), null, null, $layout) ?>
+    </div>
 </fieldset>

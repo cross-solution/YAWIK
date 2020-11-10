@@ -301,6 +301,7 @@ return [
     'validators' => [
         'factories' => [
             'Auth/Form/UniqueGroupName' => 'Auth\Form\Validator\UniqueGroupNameFactory',
+            Form\Validator\UniqueLoginName::class => Form\Validator\UniqueLoginNameFactory::class,
         ],
     ],
 
