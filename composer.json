@@ -40,7 +40,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "ext-intl": "*",
         "ext-mongodb": "*",
         "alcaeus/mongo-php-adapter": "^1.1",
