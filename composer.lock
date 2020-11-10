@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72c59709e7f028d5eeeb643768333ad8",
+    "content-hash": "b93c419e06ce1cc1c6d8517566a0e614",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -1980,37 +1980,30 @@
         },
         {
             "name": "laminas/laminas-dependency-plugin",
-            "version": "1.0.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-dependency-plugin.git",
-                "reference": "38bf91861f5b4d49f9a1c530327c997f7a7fb2db"
+                "reference": "1cedcd1590225fcaa3d4d580ab3adf318779ac28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-dependency-plugin/zipball/38bf91861f5b4d49f9a1c530327c997f7a7fb2db",
-                "reference": "38bf91861f5b4d49f9a1c530327c997f7a7fb2db",
+                "url": "https://api.github.com/repos/laminas/laminas-dependency-plugin/zipball/1cedcd1590225fcaa3d4d580ab3adf318779ac28",
+                "reference": "1cedcd1590225fcaa3d4d580ab3adf318779ac28",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.1",
-                "php": "^5.6 || ^7.0"
+                "composer-plugin-api": "^1.1 || ^2.0",
+                "php": "^7.3 || ~8.0.0"
             },
             "require-dev": {
-                "composer/composer": "^1.9",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-                "phpcompatibility/php-compatibility": "^9.3",
-                "phpunit/phpunit": "^8.4",
-                "roave/security-advisories": "dev-master",
-                "webimpress/coding-standard": "^1.0"
+                "composer/composer": "^1.9 || ^2.0",
+                "mikey179/vfsstream": "^1.6",
+                "roave/security-advisories": "dev-master"
             },
             "type": "composer-plugin",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev",
-                    "dev-develop": "1.1.x-dev"
-                },
-                "class": "Laminas\\DependencyPlugin\\DependencyRewriterPlugin"
+                "class": "Laminas\\DependencyPlugin\\DependencyRewriterPluginDelegator"
             },
             "autoload": {
                 "psr-4": {
@@ -2022,13 +2015,17 @@
                 "BSD-3-Clause"
             ],
             "description": "Replace zendframework and zfcampus packages with their Laminas Project equivalents.",
+            "support": {
+                "issues": "https://github.com/laminas/laminas-dependency-plugin/issues",
+                "source": "https://github.com/laminas/laminas-dependency-plugin/tree/2.1.0"
+            },
             "funding": [
                 {
                     "url": "https://funding.communitybridge.org/projects/laminas-project",
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-05-20T13:45:39+00:00"
+            "time": "2020-11-02T18:16:57+00:00"
         },
         {
             "name": "laminas/laminas-di",
@@ -6210,23 +6207,23 @@
         },
         {
             "name": "yawik/composer-plugin",
-            "version": "v2.0.1",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yawik/composer-plugin.git",
-                "reference": "69d2bf26590ed9502fbf8e986793f8ee500c485e"
+                "reference": "f3477ef7f7cd6e47088a3c07229a5d0f36c5ad5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yawik/composer-plugin/zipball/69d2bf26590ed9502fbf8e986793f8ee500c485e",
-                "reference": "69d2bf26590ed9502fbf8e986793f8ee500c485e",
+                "url": "https://api.github.com/repos/yawik/composer-plugin/zipball/f3477ef7f7cd6e47088a3c07229a5d0f36c5ad5b",
+                "reference": "f3477ef7f7cd6e47088a3c07229a5d0f36c5ad5b",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.1",
-                "laminas/laminas-dependency-plugin": "^1.0",
+                "composer-plugin-api": "^2.0",
+                "laminas/laminas-dependency-plugin": "^2.0",
                 "laminas/laminas-eventmanager": "^3.2",
-                "php": ">=5.6",
+                "php": "^7.4",
                 "psr/log": "^1.0",
                 "symfony/console": "^3.4 | ^4.1 | ^5.0",
                 "symfony/finder": "^3.4 | ^4.1"
@@ -6237,7 +6234,7 @@
             "require-dev": {
                 "composer/composer": ">=1.0.0-alpha10",
                 "mikey179/vfsstream": "^1.6",
-                "phpunit/phpunit": "^5.7.23 || ^6.4.3",
+                "phpunit/phpunit": "^8.0",
                 "squizlabs/php_codesniffer": "^2.6.2",
                 "yawik/core": ">=0.32@dev"
             },
@@ -6273,7 +6270,11 @@
                 }
             ],
             "description": "The composer plugin for yawik application",
-            "time": "2020-05-08T10:33:02+00:00"
+            "support": {
+                "issues": "https://github.com/yawik/composer-plugin/issues",
+                "source": "https://github.com/yawik/composer-plugin/tree/v3.0.0"
+            },
+            "time": "2020-11-05T10:34:06+00:00"
         },
         {
             "name": "yawik/geo",
@@ -9393,5 +9394,5 @@
     "platform-overrides": {
         "ext-mongo": "1.7.4"
     },
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
