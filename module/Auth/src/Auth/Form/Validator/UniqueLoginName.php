@@ -83,7 +83,7 @@ class UniqueLoginName extends AbstractValidator
             throw new MissingDependencyException(User::class, $this);
         }
 
-        if (count($this->users->findByLogin($value))
+        if ($this->users->findByLogin($value)
             && (!$this->currentUser || $this->currentUser->getLogin() != $value)
         ) {
             $this->error(self::NOT_UNIQUE, $value);
