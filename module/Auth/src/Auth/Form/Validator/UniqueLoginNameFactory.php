@@ -23,9 +23,11 @@ class UniqueLoginNameFactory implements FactoryInterface
     public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
     {
         $repository = $container->get('repositories')->get('Auth/User');
-        $validator = new UniqueLoginName($options);
+        $user       = $container->get('AuthenticationService')->getUser();
+        $validator  = new UniqueLoginName($options);
 
         $validator->setUserRepository($repository);
+        $validator->setCurrentUser($user);
 
         return $validator;
     }

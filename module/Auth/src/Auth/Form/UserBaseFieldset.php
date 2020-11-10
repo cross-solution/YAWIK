@@ -2,10 +2,12 @@
 
 namespace Auth\Form;
 
+use Auth\Form\Validator\UniqueLoginName;
 use Laminas\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
-class UserBaseFieldset extends Fieldset
+class UserBaseFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function getHydrator()
     {
@@ -15,33 +17,43 @@ class UserBaseFieldset extends Fieldset
         }
         return $this->hydrator;
     }
-    
-    
+
+
     public function init()
     {
         $this->setName('base');
              //->setLabel( /* @translate */ 'General');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
-        
-        $this->add(
-            array(
-            'type' => 'Auth/RoleSelect',
-            'name' => 'role',
-            'options' => array(
-                'label' => /* @translate */ 'I am',
-            ),
-            'attributes' => array(
-                'data-trigger' => 'submit'
-            ),
-            )
-        );
+
+        $this->add([
+            'type' => 'text',
+            'name' => 'login',
+            'options' => [
+                'label' => /* @translate */ 'Login name',
+            ],
+        ]);
     }
-    
+
     public function setObject($object)
     {
         parent::setObject($object);
         $this->populateValues($this->extract());
         return $this;
+    }
+
+    public function getInputFilterSpecification()
+    {
+        return [
+            'login' => [
+                'required' => true,
+                'validators' => [
+                    ['name' => UniqueLoginName::class]
+                ],
+                'filters' => [
+                    ['name' => 'StringTrim']
+                ],
+            ],
+        ];
     }
 }

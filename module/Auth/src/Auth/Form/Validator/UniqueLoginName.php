@@ -35,6 +35,11 @@ class UniqueLoginName extends AbstractValidator
     protected $users;
 
     /**
+     * The current user
+     */
+    protected $currentUser;
+
+    /**
      * {@inheritDoc}
      */
     protected $messageTemplates = array(
@@ -54,6 +59,16 @@ class UniqueLoginName extends AbstractValidator
     }
 
     /**
+     * Set The current user
+     *
+     * @param mixed $currentUser
+     */
+    public function setCurrentUser($currentUser): void
+    {
+        $this->currentUser = $currentUser;
+    }
+
+    /**
      * Returns true, if the given value is unique among the groups of the user.
      *
      * Also returns true, if the given value equals the {@link $allowName}.
@@ -68,7 +83,9 @@ class UniqueLoginName extends AbstractValidator
             throw new MissingDependencyException(User::class, $this);
         }
 
-        if (count($this->users->findByLogin($value))) {
+        if (count($this->users->findByLogin($value))
+            && (!$this->currentUser || $this->currentUser->getLogin() != $value)
+        ) {
             $this->error(self::NOT_UNIQUE, $value);
 
             return false;

@@ -21,10 +21,4 @@ class UserBase extends SummaryForm
 {
     protected $baseFieldset = 'Auth/UserBaseFieldset';
     protected $displayMode = self::DISPLAY_SUMMARY;
-    
-    public function addButtonsFieldset()
-    {
-        parent::addButtonsFieldset();
-        $this->get('buttons')->remove('submit');
-    }
 }
