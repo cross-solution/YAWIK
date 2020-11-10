@@ -82,7 +82,8 @@
         "laminas/laminas-session": "^2.7",
         "laminas/laminas-view": "^2.9",
         "laminas/laminas-recaptcha": "^3.0",
-        "laminas/laminas-dependency-plugin": "^2.0"
+        "laminas/laminas-dependency-plugin": "^2.0",
+        "laminas/laminas-paginator": "^2.0"
     },
     "require-dev": {
         "behat/behat": "^3.2",
