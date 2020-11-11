@@ -30,12 +30,11 @@
         "php": ">=7.1",
         "ext-intl": "*",
         "ext-mongodb": "*",
-        "alcaeus/mongo-php-adapter": "^1.0.0",
-        "doctrine/doctrine-mongo-odm-module": "^1.0.0",
+        "alcaeus/mongo-php-adapter": "^1.1",
+        "doctrine/doctrine-mongo-odm-module": "^1.1",
         "ezyang/htmlpurifier": "^4.12",
         "hybridauth/hybridauth": "^2.10",
         "imagine/imagine": "^1.0",
-        "jmikola/geojson": "^1.0",
         "sebastian/version": "^2.0",
         "slm/queue": "^1.0",
         "symfony/console": "^3.4 | ^4.1",
@@ -65,7 +64,8 @@
         "laminas/laminas-servicemanager-di": "^1.1",
         "laminas/laminas-session": "^2.7",
         "laminas/laminas-view": "^2.9",
-        "laminas/laminas-recaptcha": "^3.0"
+        "laminas/laminas-recaptcha": "^3.0",
+        "laminas/laminas-paginator": "^2.0"
     },
     "require-dev": {
         "cbleek/pecl-solr-hint": "dev-master",

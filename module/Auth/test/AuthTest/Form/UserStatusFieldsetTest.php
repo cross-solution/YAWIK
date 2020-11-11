@@ -34,18 +34,38 @@ class UserStatusFieldsetTest extends TestCase
         $this->assertInstanceOf(ViewPartialProviderInterface::class, $this->fieldset);
         $this->assertSame('form/auth/status', $this->fieldset->getViewPartial());
     }
-    
+
     public function testInit()
     {
         $this->fieldset->init();
-        $this->assertEquals($this->fieldset->count(), 1);
+        $this->assertEquals($this->fieldset->count(), 2);
         $this->assertTrue($this->fieldset->has('status'));
-        
+
         $status = $this->fieldset->get('status');
         $this->assertInstanceOf(\Core\Form\Element\Select::class, $status);
         $this->assertSame([], $status->getValueOptions());
+
+        $login = $this->fieldset->get('login');
+        $this->assertEquals( ['label' => 'Login name'], $login->getOptions());
     }
-    
+
+    public function testGetInputFilterSpecification()
+    {
+        static::assertEquals(
+            [
+                'login' => [
+                    'validators' => [
+                        ['name' => \Auth\Form\Validator\UniqueLoginName::class],
+                    ],
+                    'filters' => [
+                        ['name' => 'StringTrim'],
+                    ],
+                ]
+            ],
+            $this->fieldset->getInputFilterSpecification()
+        );
+    }
+
     /**
      * @dataProvider statusOptions
      */
@@ -56,12 +76,12 @@ class UserStatusFieldsetTest extends TestCase
         $status = $this->fieldset->get('status');
         $this->assertSame($statusOptions, $status->getValueOptions());
     }
-    
+
     public function testHydrator()
     {
         $this->assertInstanceOf(\Core\Entity\Hydrator\EntityHydrator::class, $this->fieldset->getHydrator());
     }
-    
+
     public function statusOptions()
     {
         return [

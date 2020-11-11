@@ -40,7 +40,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "ext-intl": "*",
         "ext-mongodb": "*",
         "alcaeus/mongo-php-adapter": "^1.1",
@@ -58,7 +58,7 @@
         "symfony/finder": "^3.4 | ^4.1",
         "symfony/process": "^3.4 | ^4.1",
         "tracy/tracy": "^2.4",
-        "yawik/composer-plugin": "^2.0",
+        "yawik/composer-plugin": "^3.0",
         "yawik/geo": "^1.1.0",
         "laminas/laminas-authentication": "^2.5",
         "laminas/laminas-cache": "^2.7",
@@ -82,7 +82,8 @@
         "laminas/laminas-session": "^2.7",
         "laminas/laminas-view": "^2.9",
         "laminas/laminas-recaptcha": "^3.0",
-        "laminas/laminas-dependency-plugin": "^1.0"
+        "laminas/laminas-dependency-plugin": "^2.0",
+        "laminas/laminas-paginator": "^2.0"
     },
     "require-dev": {
         "behat/behat": "^3.2",
@@ -91,7 +92,7 @@
         "behat/mink-extension": "^2.3",
         "behat/mink-selenium2-driver": "^1.3",
         "cbleek/pecl-solr-hint": "dev-master",
-        "enm1989/chromedriver": "^84.0",
+        "enm1989/chromedriver": "^86.0",
         "lakion/mink-debug-extension": "^1.2.3",
         "laminas/laminas-component-installer": "^1.1 | ^2.0",
         "laminas/laminas-test": "^3.1",
@@ -136,6 +137,7 @@
             "Organizations\\": "module/Organizations/src",
             "Pdf\\": "module/Pdf/src",
             "Settings\\": "module/Settings/src",
+            "ReleaseTools\\": "module/ReleaseTools/src",
             "Yawik\\Behat\\": "module/Behat/src"
         }
     },
