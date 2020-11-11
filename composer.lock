@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d5ab7734deb26d231b440520b3b882b",
+    "content-hash": "7d50b3f7d654bf1753664f35c0a1fb7f",
     "packages": [
         {
             "name": "alcaeus/mongo-php-adapter",
@@ -967,36 +967,31 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea"
+                "reference": "d56bf6102915de5702778fe20f2de3b2fe570b5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f350df0268e904597e3bd9c4685c53e0e333feea",
-                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/d56bf6102915de5702778fe20f2de3b2fe570b5b",
+                "reference": "d56bf6102915de5702778fe20f2de3b2fe570b5b",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^6.0",
+                "doctrine/coding-standard": "^8.0",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^0.13",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpstan/phpstan-shim": "^0.11",
-                "phpunit/phpunit": "^7.0"
+                "phpbench/phpbench": "^0.13 || 1.0.0-alpha2",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
@@ -1010,7 +1005,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/"
+                    "homepage": "https://ocramius.github.io/"
                 }
             ],
             "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
@@ -1021,7 +1016,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/instantiator/issues",
-                "source": "https://github.com/doctrine/instantiator/tree/1.3.x"
+                "source": "https://github.com/doctrine/instantiator/tree/1.4.0"
             },
             "funding": [
                 {
@@ -1037,7 +1032,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-29T17:27:14+00:00"
+            "time": "2020-11-10T18:47:58+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -8575,16 +8570,16 @@
         },
         {
             "name": "enm1989/chromedriver",
-            "version": "84.0",
+            "version": "86.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ENM1989/chromedriver.git",
-                "reference": "7483386c0ebdaaa2b13022b9a83a6a868d8bd139"
+                "reference": "b96adf0703209d02fac67a719e447a35709b9073"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ENM1989/chromedriver/zipball/7483386c0ebdaaa2b13022b9a83a6a868d8bd139",
-                "reference": "7483386c0ebdaaa2b13022b9a83a6a868d8bd139",
+                "url": "https://api.github.com/repos/ENM1989/chromedriver/zipball/b96adf0703209d02fac67a719e447a35709b9073",
+                "reference": "b96adf0703209d02fac67a719e447a35709b9073",
                 "shasum": ""
             },
             "bin": [
@@ -8611,9 +8606,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ENM1989/chromedriver/issues",
-                "source": "https://github.com/ENM1989/chromedriver/tree/master"
+                "source": "https://github.com/ENM1989/chromedriver/tree/86.0"
             },
-            "time": "2020-06-01T20:15:39+00:00"
+            "time": "2020-10-13T09:56:12+00:00"
         },
         {
             "name": "instaclick/php-webdriver",
