@@ -39,6 +39,47 @@ Demo
 http://yawik.org/demo/ (this demonstrates YAWIK as an applicant tracking system)
 http://jobs.yawik.org (YAWIK as a Jobportal with real job offers) 
 
+Yawik wird unterstützt von
+--------------------------
+
+<div class="entry-content">
+<div class="row col-md-12">
+<div class="col-md-6">
+<div class="panel panel-info" style="height: 195px;">
+<div class="panel-heading">
+<h3 class="panel-title">DC Aviation</h3>
+</div>
+<div class="panel-body text-center">
+<p><a href="https://www.dc-aviation.com/" class="image-anchor"><img loading="lazy" class="alignnone wp-image-116" src="/wp-content/uploads/2020/11/Auswahl_999479.png" alt="logo" width="130" height="80"></a></p>
+<p>Der direkte Weg zu Ihrem Business Jet Charter</p>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="panel panel-info" style="height: 195px;">
+<div class="panel-heading">
+<h3 class="panel-title">Stellenmarkt.de</h3>
+</div>
+<div class="panel-body text-center">
+<p><a href="http://www.stellenmarkt.de" class="image-anchor"><img loading="lazy" class="alignnone wp-image-331" src="/wp-content/uploads/2017/03/stellenmarkt-logo.png" alt="Stellenmarkt Logo" width="134" height="80"></a></p>
+<p>Karriereportal für Fach- und Führungskräfte</p>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="panel panel-info" style="">
+<div class="panel-heading">
+<h3 class="panel-title">CROSS Solution</h3>
+</div>
+<div class="panel-body text-center">
+<p><a href="http://cross-solution.de" class="image-anchor"><img loading="lazy" class="alignnone wp-image-116" src="/wp-content/uploads/2014/03/logo-e1395692820881.gif" alt="logo" width="130" height="80"></a></p>
+<p>HR &amp; Open Source Spezialisten</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 
 Documentation
 -------------
