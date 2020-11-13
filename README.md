@@ -47,17 +47,17 @@ Yawik wird unterstützt von
     <tr>
       <td>
         <h4 class="panel-title">DC Aviation</h4>
-        <p><a href="https://www.dc-aviation.com/"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2020/11/Auswahl_999479.png" alt="logo" width="130" height="80"></a></p>
+        <p><a href="https://www.dc-aviation.com/"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2020/11/Auswahl_999479.png" alt="logo" height="80"></a></p>
         <p>Der direkte Weg zu Ihrem Business Jet Charter</p>
       </td>
       <td>
         <h4 class="panel-title">Stellenmarkt.de</h4>
-        <p><a href="http://www.stellenmarkt.de"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2017/03/stellenmarkt-logo.png" alt="Stellenmarkt Logo" width="134" height="80"></a></p>
+        <p><a href="http://www.stellenmarkt.de"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2017/03/stellenmarkt-logo.png" alt="Stellenmarkt Logo" height="80"></a></p>
         <p>Karriereportal für Fach- und Führungskräfte</p>
       </d>
       <td>
         <h3 class="panel-title">CROSS Solution</h3>
-        <p><a href="http://cross-solution.de"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2014/03/logo-e1395692820881.gif" alt="logo" width="130" height="80"></a></p>
+        <p><a href="http://cross-solution.de"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2014/03/logo-e1395692820881.gif" alt="logo" height="80"></a></p>
         <p>HR &amp; Open Source Spezialisten</p>
       </td>
     </tr>
