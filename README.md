@@ -42,24 +42,26 @@ http://jobs.yawik.org (YAWIK as a Jobportal with real job offers)
 Yawik wird unterstützt von
 --------------------------
 
-<tabvle>
-  <tr>
-    <td>
-      <h4 class="panel-title">DC Aviation</h4>
-      <p><a href="https://www.dc-aviation.com/"><img loading="lazy" src="https://cross-solution.de/wp-content/uploads/2020/11/Auswahl_999479.png" alt="logo" width="130" height="80"></a></p>
-      <p>Der direkte Weg zu Ihrem Business Jet Charter</p>
-    </td>
-    <td>
-      <h4 class="panel-title">Stellenmarkt.de</h4>
-      <p><a href="http://www.stellenmarkt.de"><img loading="lazy" src="https://cross-solution.de/wp-content/uploads/2017/03/stellenmarkt-logo.png" alt="Stellenmarkt Logo" width="134" height="80"></a></p>
-      <p>Karriereportal für Fach- und Führungskräfte</p>
-    </d>
-    <td>
-      <h3 class="panel-title">CROSS Solution</h3>
-      <p><a href="http://cross-solution.de"><img loading="lazy" class="alignnone wp-image-116" src="https://cross-solution.de/wp-content/uploads/2014/03/logo-e1395692820881.gif" alt="logo" width="130" height="80"></a></p>
-      <p>HR &amp; Open Source Spezialisten</p>
-    </td>
-  </tr>
+<table>
+  <tbody>
+    <tr>
+      <td>
+        <h4 class="panel-title">DC Aviation</h4>
+        <p><a href="https://www.dc-aviation.com/"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2020/11/Auswahl_999479.png" alt="logo" width="130" height="80"></a></p>
+        <p>Der direkte Weg zu Ihrem Business Jet Charter</p>
+      </td>
+      <td>
+        <h4 class="panel-title">Stellenmarkt.de</h4>
+        <p><a href="http://www.stellenmarkt.de"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2017/03/stellenmarkt-logo.png" alt="Stellenmarkt Logo" width="134" height="80"></a></p>
+        <p>Karriereportal für Fach- und Führungskräfte</p>
+      </d>
+      <td>
+        <h3 class="panel-title">CROSS Solution</h3>
+        <p><a href="http://cross-solution.de"><img loading="lazy" src="https://yawik.org/wp-content/uploads/2014/03/logo-e1395692820881.gif" alt="logo" width="130" height="80"></a></p>
+        <p>HR &amp; Open Source Spezialisten</p>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 Documentation
