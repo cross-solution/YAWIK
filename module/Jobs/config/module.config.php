@@ -8,6 +8,7 @@ use Jobs\Controller\Plugin\ProcessJsonRequest;
 use Jobs\Controller\Plugin\ProcessJsonRequestFactory;
 use Jobs\Form\InputFilter\JobLocationEdit;
 use Jobs\Listener\Publisher;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'doctrine' => [
@@ -330,15 +331,14 @@ return [
 
     'paginator_manager' => [
         'invokables' => [
+
         ],
         'factories' => [
             'Jobs/Job'   => 'Jobs\Paginator\JobsPaginatorFactory',
             'Jobs/Admin' => 'Jobs\Paginator\JobsAdminPaginatorFactory',
             'Jobs\Paginator\ActiveOrganizations' => \Jobs\Factory\Paginator\ActiveOrganizationsPaginatorFactory::class,
+            'Jobs/Board' => \Jobs\Paginator\JobboardPaginatorFactory::class,
         ],
-        'aliases' => [
-            'Jobs/Board' => 'Jobs/Job'
-        ]
     ],
 
     'view_manager' => [
@@ -485,6 +485,7 @@ return [
         ],
         'factories'=> [
             'Jobs/PaginationQuery'      => 'Jobs\Factory\Repository\Filter\PaginationQueryFactory',
+            \Jobs\Repository\Filter\JobboardPaginationQuery::class => InvokableFactory::class,
             'Jobs/ChannelPrices'        => 'Jobs\Factory\Filter\ChannelPricesFactory',
         ],
     ],
