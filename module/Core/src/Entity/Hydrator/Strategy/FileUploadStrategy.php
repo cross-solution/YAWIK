@@ -55,9 +55,10 @@ class FileUploadStrategy implements StrategyInterface
     /**
      * @param mixed $value
      *
+     * @param object|null $object
      * @return mixed|null
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if (!$value instanceof FileInterface) {
             return null;
@@ -69,9 +70,10 @@ class FileUploadStrategy implements StrategyInterface
     /**
      * @param mixed $value
      *
+     * @param array|null $data
      * @return FileEntity|null
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         if (!UPLOAD_ERR_OK == $value['error']) {
             return null;

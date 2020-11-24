@@ -28,7 +28,7 @@ class MetaDataHydrator implements HydratorInterface
      *
      * @return array
      */
-    public function extract($object)
+    public function extract($object): array
     {
         if (!$object instanceof MetaDataProviderInterface) {
             return [];

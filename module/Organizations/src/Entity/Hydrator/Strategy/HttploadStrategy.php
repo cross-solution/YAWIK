@@ -32,23 +32,22 @@ class HttploadStrategy implements StrategyInterface
     }
 
     /**
-     * @param mixed $value$organizationImageEntity
+     * @param mixed $value $organizationImageEntity
      *
+     * @param object|null $object
      * @return mixed
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null): array
     {
         return $value;
     }
 
     /**
      * @param mixed $value
-     * @param null  $data
-     * @param null  $object
-     *
-     * @return mixed
+     * @param array|null $data
+     * @return mixed|OrganizationImageEntity
      */
-    public function hydrate($value, $data = null, $object = null)
+    public function hydrate($value, ?array $data)
     {
         $organizationImageEntity = $value;
         // @TODO: has the Object already an Image, than take this

@@ -399,9 +399,9 @@ class Organization extends BaseEntity implements
      *
      * @return $this
      */
-    public function setHydrator(HydratorInterface $hydrator)
+    public function setHydrator(HydratorInterface $hydrator): void
     {
-        return $this;
+
     }
 
     /**
@@ -441,7 +441,7 @@ class Organization extends BaseEntity implements
      * * @todo review this
      * @return EntityHydrator
      */
-    public function getHydrator()
+    public function getHydrator(): ?HydratorInterface
     {
         return new EntityHydrator();
     }

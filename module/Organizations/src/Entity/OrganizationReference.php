@@ -207,12 +207,12 @@ class OrganizationReference implements
         return $this->proxy('hasProperty', $mode);
     }
 
-    public function setHydrator(HydratorInterface $hydrator)
+    public function setHydrator(HydratorInterface $hydrator): void
     {
-        return $this->proxy('setHydrator', $hydrator);
+        $this->proxy('setHydrator', $hydrator);
     }
 
-    public function getHydrator()
+    public function getHydrator(): ?HydratorInterface
     {
         return $this->proxy('getHydrator');
     }

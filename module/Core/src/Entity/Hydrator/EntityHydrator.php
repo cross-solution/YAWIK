@@ -11,7 +11,6 @@ class EntityHydrator extends AbstractHydrator
 {
     public function __construct()
     {
-        parent::__construct();
         $this->init();
     }
     
@@ -22,7 +21,7 @@ class EntityHydrator extends AbstractHydrator
     /* (non-PHPdoc)
      * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
-    public function extract($object)
+    public function extract($object): array
     {
         if (!$object instanceof EntityInterface) {
             return array();

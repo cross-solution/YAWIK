@@ -28,7 +28,7 @@ class JobManagerStrategy implements StrategyInterface
     private $metaData = [];
 
 
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         $this->metaData = $value;
 
@@ -52,7 +52,7 @@ class JobManagerStrategy implements StrategyInterface
      *
      * @return mixed Returns the value that should be hydrated.
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         $metaData = $this->metaData;
         $managers = [];

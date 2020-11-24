@@ -15,7 +15,7 @@ namespace Applications\Entity\Hydrator;
 use Applications\Entity\Attachment;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
-use Laminas\Hydrator\ClassMethods;
+use Laminas\Hydrator\ClassMethodsHydrator;
 
 /**
  * TODO: description
@@ -23,7 +23,7 @@ use Laminas\Hydrator\ClassMethods;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * TODO: write tests
  */
-class ApiApplicationHydrator extends ClassMethods
+class ApiApplicationHydrator extends ClassMethodsHydrator
 {
     private $serverUrl;
 
@@ -76,7 +76,7 @@ class ApiApplicationHydrator extends ClassMethods
         return $object;
     }
 
-    public function extract($object)
+    public function extract($object): array
     {
         $data = parent::extract($object);
         $data['job'] = $object->getJob()->getApplyId();
