@@ -2,35 +2,34 @@
 
 namespace Settings\Repository;
 
+use Auth\Entity\UserInterface;
+use Core\Entity\IdentifiableEntityInterface;
 use Doctrine\ODM\MongoDB\LockMode;
+use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\Mvc\MvcEvent;
-use Settings\Entity\Settings as SettingsEntity;
-use Core\Entity\EntityInterface;
-use Core\Entity\EntityResolverStrategyInterface;
-
+use Settings\Entity\SettingsContainer as SettingsEntity;
 use Core\Repository\AbstractRepository;
 
-class Settings extends AbstractRepository implements EntityResolverStrategyInterface
+class Settings extends AbstractRepository
 {
     protected $userRepository;
     protected $settingsByUser;
-    protected $serviceLocator;
+    protected $container;
     
     public function __construct()
     {
         $this->settingsByUser = array();
-        return $this;
     }
     
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function setContainer(ContainerInterface $container)
     {
-        $this->serviceLocator = $serviceLocator;
+        $this->container = $container;
     }
     
-    protected function getServiceLocator()
+    protected function getContainer()
     {
-        return $this->serviceLocator;
+        return $this->container;
     }
     
     public function setUserRepository($userRepository)
@@ -42,16 +41,17 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
     {
         return $this->userRepository;
     }
-    
+
     /**
      * the $id for an entity 'setting' is the same as for the entity 'user'
-     * @param type $id
+     * @param UserInterface $user
+     * @return mixed|SettingsEntity|null
      */
     public function getSettingsByUser($user)
     {
         $userId = $user;
         $userEntity = null;
-        if ($user instanceof EntityInterface) {
+        if ($user instanceof IdentifiableEntityInterface) {
             $userId = $user->getId();
             $userEntity = $user;
         }
@@ -65,7 +65,7 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
         
         if (isset($userEntity)) {
             $settingsData = $userEntity->getSettings();
-            $this->settingsByUser[$userId] = new SettingsEntity($this);
+            $this->settingsByUser[$userId] = new SettingsEntity();
             $this->settingsByUser[$userId]->setData($settingsData)->spawnAsEntities();
             return $this->settingsByUser[$userId];
         }
@@ -93,7 +93,7 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
     
     public function getEntityByStrategy($namespace)
     {
-        $configAccess = $this->getServiceLocator()->get('ConfigAccess');
+        $configAccess = $this->getContainer()->get('ConfigAccess');
         $settings = $configAccess->getByKey('settings');
         if (array_key_exists($namespace, $settings) && array_key_exists('entity', $settings[$namespace])) {
             $entity = new $settings[$namespace]['entity'];
@@ -107,13 +107,13 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
     {
         $form = null;
         if (isset($formular) && is_string($formular)) {
-            $formElementManager = $this->getServiceLocator()->get('FormElementManager');
+            $formElementManager = $this->getContainer()->get('FormElementManager');
             if ($formElementManager->has($formular)) {
                 $form = $formElementManager->get($formular);
             }
             if (!isset($form)) {
-                if ($this->getServiceLocator()->has($formular)) {
-                    $form = $this->getServiceLocator()->get($formular);
+                if ($this->getContainer()->has($formular)) {
+                    $form = $this->getContainer()->get($formular);
                 }
             }
         }

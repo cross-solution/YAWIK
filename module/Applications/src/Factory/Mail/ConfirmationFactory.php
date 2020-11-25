@@ -23,7 +23,7 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
  */
 class ConfirmationFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = [])
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $router = $container->get('Router');
         $options['router'] = $router;

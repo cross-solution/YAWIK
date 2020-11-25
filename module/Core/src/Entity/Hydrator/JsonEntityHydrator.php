@@ -58,7 +58,7 @@ class JsonEntityHydrator extends AbstractHydrator
      * @return array|string
      * @throws \InvalidArgumentException
      */
-    public function extract($object)
+    public function extract($object): array
     {
         if (!$object instanceof EntityInterface) {
             throw new \InvalidArgumentException("Extract only from Entities");

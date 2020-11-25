@@ -17,7 +17,7 @@ abstract class AbstractProviderRepository extends AbstractRepository
         return $document;
     }
     
-    public function create(array $data = null)
+    public function create(array $data = null, $persist = false)
     {
         $document = parent::create($data);
         $document->injectRepository($this);

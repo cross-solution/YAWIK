@@ -14,7 +14,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 
 class JobDescriptionBenefitsStrategy implements StrategyInterface
 {
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         /* @var \Jobs\Entity\Job $value */
         $result = null;
@@ -28,7 +28,7 @@ class JobDescriptionBenefitsStrategy implements StrategyInterface
      * @param mixed $value
      * @param null  $object
      */
-    public function hydrate($value, $object = null)
+    public function hydrate($value, ?array $object)
     {
         /* @var \Jobs\Entity\Job $object */
         if (isset($value['description-benefits'])) {

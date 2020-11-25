@@ -35,7 +35,7 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
      * Updates fiile permissions on Flush
      *
      * @param OnFlushEventArgs $eventArgs
-     * @return boolean
+     * @return void
      */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {

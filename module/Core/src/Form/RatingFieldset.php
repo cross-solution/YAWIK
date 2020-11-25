@@ -50,7 +50,7 @@ class RatingFieldset extends Fieldset
         
         foreach ($properties as $property) {
             $name  = $property->getName();
-            if ('_' == $name{0}) {
+            if (0 === strpos($name, '-')) {
                 continue;
             }
             $value = $rating->{'get' . $name}();

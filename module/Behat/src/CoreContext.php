@@ -17,6 +17,7 @@ use Core\Application;
 
 /**
  * Class FeatureContext
+ * @TODO: mongodb needs to be emptied when running behat
  * @package Yawik\Behat
  */
 class CoreContext extends RawMinkContext

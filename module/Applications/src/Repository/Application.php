@@ -13,6 +13,7 @@
 namespace Applications\Repository;
 
 use Auth\AuthenticationService;
+use Auth\Entity\SocialProfiles\ProfileInterface;
 use Core\Repository\AbstractRepository;
 use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
@@ -84,7 +85,7 @@ class Application extends AbstractRepository
      * Gets a query builder to search for applications
      *
      * @param array $params
-     * @return unknown
+     * @return ODM\Query\Builder
      */
     protected function getPaginationQueryBuilder($params)
     {
@@ -143,9 +144,9 @@ class Application extends AbstractRepository
     /**
      * Get comments of an applications
      *
-     * @param $commentOrId
+     * @param string|CommentInterface $commentOrId
      * @internal param \Application\Entity\Comment $comment | Id
-     * @return \Applications\Entity\Comment|NULL
+     * @return \Applications\Entity\Comment|null
      */
     public function findComment($commentOrId)
     {
@@ -167,7 +168,7 @@ class Application extends AbstractRepository
      * Gets social profiles of an application
      *
      * @param String $profileId
-     * @return $profile|NULL
+     * @return ProfileInterface|null
      */
     public function findProfile($profileId)
     {
@@ -193,8 +194,8 @@ class Application extends AbstractRepository
     }
 
     /**
-     * @param $user UserInterface
-     * @param $applyId
+     * @param UserInterface $user
+     * @param string $applyId
      * @return ApplicationEntity|null
      */
     public function findDraft($user, $applyId)
@@ -228,7 +229,7 @@ class Application extends AbstractRepository
      *
      * @param string $userId
      * @param int $limit
-     * @return Cursor
+     * @return mixed
      * @since 0.27
      */
     public function getUserApplications($userId, $limit = null)

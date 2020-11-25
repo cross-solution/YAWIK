@@ -42,6 +42,6 @@ Feature: Add new organization
         And I should see "321321"
 
         # upload organization logo
-        When I attach the file "img/logo.jpg" to "organizationLogo-original"
-        And I wait for the ajax response
-        Then I should see an "img.img-polaroid" element
+        #When I attach the file "img/logo.jpg" to "organizationLogo-original"
+        #And I wait for the ajax response
+        #Then I should see an "img.img-polaroid" element

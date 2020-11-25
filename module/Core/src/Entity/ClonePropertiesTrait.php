@@ -53,6 +53,8 @@ trait ClonePropertiesTrait
                 }
                 $value = $collection;
             } elseif (null === $value) {
+                // @TODO: what to do on nulll value?
+                $value = new ArrayCollection();
             } else {
                 $value = clone $value;
             }

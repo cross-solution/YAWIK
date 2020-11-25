@@ -19,7 +19,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
  */
 class DisableElementsCapableFormSettings implements StrategyInterface
 {
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         $value = $this->filterArrayStrings($value, '#dot#', '.');
 

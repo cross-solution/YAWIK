@@ -33,7 +33,7 @@ class SettingsEntityHydrator extends ReflectionHydrator
      *
      * Uses a getter method for each property if one exists.
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $result = array();
         foreach (self::getReflProperties($object) as $property) {

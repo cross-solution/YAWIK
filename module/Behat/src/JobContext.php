@@ -161,7 +161,7 @@ class JobContext implements Context
 	 */
 	public function iJobClassificationSelect($value,$field)
 	{
-		$field = Inflector::camelize($field);
+		$field = $this->getInflector()->camelize($field);
 
 		$mapSelect2 = [
 			'professions' => '#classifications-professions-span .select2-container',
@@ -221,7 +221,7 @@ class JobContext implements Context
             'template' => 'modern',
         ];
         foreach($definitions as $field => $value){
-            $field = Inflector::camelize($field);
+            $field = $this->getInflector()->camelize($field);
             if($field == 'professions' || $field == 'industries'){
                 $value = explode(',',$value);
             }
@@ -275,12 +275,19 @@ class JobContext implements Context
             $type = array_shift($types);
             $values = $job->getClassifications()->getEmploymentTypes()->getValues();
             if(!is_array($values) || !in_array($type,$values)){
-                $job->getClassifications()->getEmploymentTypes()->getItems()->add($type);
+                if(!is_null($type)){
+                    $job->getClassifications()->getEmploymentTypes()->getItems()->add($type);
+                }
             }
         }
 
-        $jobRepo->store($job);
-        $this->currentJob = $job;
+        try{
+            $jobRepo->store($job);
+            $this->currentJob = $job;
+        }catch (\Exception $exception){
+            throw $exception;
+        }
+
     }
 
 

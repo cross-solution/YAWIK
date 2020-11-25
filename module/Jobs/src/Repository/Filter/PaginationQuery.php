@@ -146,7 +146,7 @@ class PaginationQuery extends AbstractPaginationQuery
 
     protected function filterSort($sort)
     {
-        if ('-' == $sort{0}) {
+        if (0 === strpos($sort, '-')) {
             $sortProp = substr($sort, 1);
             $sortDir  = -1;
         } else {

@@ -55,10 +55,10 @@ class FileCollectionUploadHydrator implements HydratorInterface
         return $object;
     }
     
-    public function extract($object)
+    public function extract($object): array
     {
         if (!$object instanceof Collection) {
-            return null;
+            return [];
         }
         
         $return = array();

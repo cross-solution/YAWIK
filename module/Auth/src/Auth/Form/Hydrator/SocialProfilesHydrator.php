@@ -39,7 +39,6 @@ class SocialProfilesHydrator extends AbstractHydrator
      */
     public function __construct(array $profileClassMap = array())
     {
-        parent::__construct();
         $this->profileClassMap = array_merge($this->profileClassMap, $profileClassMap);
     }
     
@@ -102,7 +101,7 @@ class SocialProfilesHydrator extends AbstractHydrator
      * @return array profile data in the format [profile name] => [profile data].
      * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $return = array();
         foreach ($object as $profile) {
