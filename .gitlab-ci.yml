@@ -1,8 +1,13 @@
 image: php:7.4
 
 before_script:
-   - ls
-
+  - apt-get update
+  - apt-get install zip unzip
+  - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  - php composer-setup.php
+  - php -r "unlink('composer-setup.php');"
+  - php composer.phar install
+  
 after_script:
   - date
 
