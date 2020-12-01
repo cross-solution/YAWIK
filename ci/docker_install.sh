@@ -14,6 +14,10 @@ apt-get install git \
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get install -y nodejs
 
+# Install phpunit, the tool that we will use for testing
+curl -sS --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
+chmod +x /usr/local/bin/phpunit
+
 # Install composer
 curl -sS https://getcomposer.org/installer > installer.php
 php ./installer.php --install-dir=/usr/local/bin --filename=composer
