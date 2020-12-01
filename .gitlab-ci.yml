@@ -20,5 +20,5 @@ test:yawik:
   script:
     - cat /usr/local/etc/php/conf.d/docker-php-ext-gd.ini
     - composer install
-    - ./vendor/bin/phpunit
+    - ./vendor/bin/phpunit -vvv
     
