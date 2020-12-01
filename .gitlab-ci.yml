@@ -1,13 +1,14 @@
 image: php:5.6
 
 before_script:
-  - bash ci/docker_install.sh > /dev/null
+  - bash ci/docker_install.sh
   
 stages:
   - test
 
 test:app:
   script:
+    - ls
     - composer install
     - phpunit --configuration phpunit_myapp.xml
     
