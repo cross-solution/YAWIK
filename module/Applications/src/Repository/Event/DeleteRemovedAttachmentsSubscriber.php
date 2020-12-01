@@ -16,6 +16,7 @@ use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Applications\Entity\ApplicationInterface;
 use Applications\Entity\Attachment;
+use MongoDB\BSON\ObjectId;
 
 /**
  * class for deleting attachment references.
@@ -50,7 +51,7 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
         $dm     = $eventArgs->getDocumentManager();
         //$repo   = $dm->getRepository('Applications\Entity\Application');
 
-        $fileId = new \MongoId($file->getId());
+        $fileId = new ObjectId($file->getId());
 
         $dm->createQueryBuilder('Applications\Entity\Application')
            ->update()

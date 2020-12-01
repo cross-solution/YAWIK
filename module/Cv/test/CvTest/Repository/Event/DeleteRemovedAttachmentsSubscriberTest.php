@@ -10,6 +10,7 @@
 /** */
 namespace CvTest\Repository\Event;
 
+use MongoDB\BSON\ObjectId;
 use PHPUnit\Framework\TestCase;
 
 use Core\Entity\EntityInterface;
@@ -62,7 +63,7 @@ class DeleteRemovedAttachmentsSubscriberTest extends TestCase
 
     public function testCallbackPerformsDeleteQuery()
     {
-        $fileId = (string) new \MongoId();
+        $fileId = (string) new ObjectId();
         $entity = new Attachment();
         $entity->setId($fileId);
 

@@ -24,21 +24,21 @@ class Skill extends AbstractIdentifiableEntity
 {
     
     /**
-     * @ODM\EmbedMany(targetDocument="NativeLanguage")
+     * @ODM\EmbedMany(targetDocument="Cv\Entity\NativeLanguage")
      * @var ArrayCollection
      */
     protected $nativeLanguages;
     /**
      *
      * @var ArrayCollection
-     * @ODM\EmbedMany(targetDocument="Language")
+     * @ODM\EmbedMany(targetDocument="Cv\Entity\Language")
      */
     protected $languageSkills;
     
     /**
      *
      * @var ArrayCollection
-     * @ODM\EmbedMany(targetDocument="ComputerSkill")
+     * @ODM\EmbedMany(targetDocument="Cv\Entity\ComputerSkill")
      */
     protected $computerSkills;
 

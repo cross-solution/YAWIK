@@ -10,6 +10,8 @@
 /**  */
 namespace Core\Form;
 
+use Core\Entity\FileMetadata;
+use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Laminas\Hydrator\HydratorPluginManager;
@@ -47,10 +49,10 @@ class FileUploadFactory implements FactoryInterface
 
     /**
      * Class name of the file entity to use.
-     *
-     * @var string
      */
     protected $fileEntityClass = '\Core\Form\FileEntity';
+
+    protected $fileMetadataClass = FileMetadata::class;
 
     /**
      * Should the factored element allow multiple files to be selected?
@@ -96,8 +98,7 @@ class FileUploadFactory implements FactoryInterface
                 : array();
             $this->config = $config;
         }
-        
-        
+
         $form = new Form();
         $formElementManager->injectFactory($formElementManager, $form);
         $form->add(
@@ -124,14 +125,20 @@ class FileUploadFactory implements FactoryInterface
             $hydrator = $container->get('HydratorManager')->get($this->config['hydrator']);
         } else {
             /* @var $fileEntity \Core\Entity\FileInterface */
+            /*
             $fileEntity = new $this->fileEntityClass();
             if ($user instanceof AnonymousUser) {
-                $fileEntity->getPermissions()->grant($user, 'all');
+                $fileEntity->getMetadata()->getPermissions()->grant($user, 'all');
             } else {
-                $fileEntity->setUser($user);
-            }
-            
-            $strategy = new FileUploadStrategy($fileEntity);
+                $fileEntity->getMetadata()->setUser($user);
+            }*/
+            $fileManager = $container->get(FileManager::class);
+            $strategy = new FileUploadStrategy(
+                $fileManager,
+                $user,
+                $this->fileMetadataClass,
+                $this->fileEntityClass
+            );
             if ($this->multiple) {
                 $hydrator = new FileCollectionUploadHydrator($this->fileName, $strategy);
                 $form->add(

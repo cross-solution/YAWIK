@@ -12,10 +12,11 @@ namespace Core\Entity\Hydrator;
 
 use Core\Entity\ImageSet;
 use Core\Entity\ImageSetInterface;
+use Core\Service\FileManager;
 use Core\Options\ImageSetOptions;
-use Doctrine\MongoDB\GridFSFile;
 use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
+use Imagine\Image\ImageInterface as ImagineImage;
+use Core\Entity\ImageInterface;
 use Imagine\Image\ImagineInterface;
 use Laminas\Hydrator\HydratorInterface;
 
@@ -28,25 +29,15 @@ use Laminas\Hydrator\HydratorInterface;
  */
 class ImageSetHydrator implements HydratorInterface
 {
+    protected ImagineInterface $imagine;
+    protected ImageSetOptions $options;
+    protected FileManager $fileManager;
 
-    /**
-     * Imagine
-     *
-     * @var \Imagine\Image\ImagineInterface
-     */
-    protected $imagine;
-
-    /**
-     * Options
-     *
-     * @var ImageSetOptions
-     */
-    protected $options;
-
-    public function __construct(ImagineInterface $imagine, ImageSetOptions $options)
+    public function __construct(FileManager $fileManager, ImagineInterface $imagine, ImageSetOptions $options)
     {
         $this->imagine = $imagine;
         $this->options = $options;
+        $this->fileManager = $fileManager;
     }
 
     /**
@@ -69,7 +60,7 @@ class ImageSetHydrator implements HydratorInterface
      * Hydrate $object with the provided $data.
      *
      * @param  array  $data
-     * @param  object $object
+     * @param  object|ImageSetInterface $object
      *
      * @return object
      */
@@ -82,29 +73,37 @@ class ImageSetHydrator implements HydratorInterface
         $data = $data['original'];
         $file  = $data['tmp_name'];
 
+        if(!is_readable($file)){
+            throw new \Exception("File '$file' is unreadable.");
+        }
+
         $image = $this->imagine->open($file);
         $imageSpecs = $this->options->getImages();
+        $images = [];
 
-
-        $images = [ ImageSetInterface::ORIGINAL => $this->createEntity($file, $data) ];
+        // add original image
+        $images['original'] = $this->createGridFSFile($object->getId(), $file, $data);
 
         foreach ($imageSpecs as $key => $size) {
             $newImage = ImageSetInterface::THUMBNAIL == $key
-                ? $image->thumbnail(new Box($size[0], $size[1]), ImageInterface::THUMBNAIL_INSET)
+                ? $image->thumbnail(new Box($size[0], $size[1]), ImagineImage::THUMBNAIL_INSET)
                 : $this->createImage($image, $size);
 
             if ($newImage) {
-                $entity   = $this->createEntity($newImage, $data, $key);
+                $entity = $this->createGridFSFile($object->getId(), $newImage, $data, $key);
                 $images[$key] = $entity;
             }
         }
 
-        $object->setImages($images);
+        /* @var ImageInterface $image */
+        foreach($images as $key => $image) {
+            $object->add($image);
+        }
 
         return $object;
     }
 
-    private function createImage(ImageInterface $image, $size)
+    private function createImage(ImagineImage $image, $size)
     {
         $imageSize = $image->getSize();
 
@@ -125,27 +124,36 @@ class ImageSetHydrator implements HydratorInterface
         return $image;
     }
 
-    private function createEntity($image, &$data, $prefix = '')
+    /**
+     * @param string $imageSetId
+     * @param string|ImagineImage $image
+     * @param array $data
+     * @param string $prefix
+     *
+     * @return void
+     */
+    private function createGridFSFile(string $imageSetId, $image, array &$data, string $prefix = "")
     {
         /* @var \Core\Entity\ImageInterface $entity */
-        $entity = $this->options->getEntity();
-
+        /* @var \Core\Entity\ImageMetadata $metadata */
+        $metadata = $this->options->getMetadata();
+        $fileManager = $this->fileManager;
+        $name = ($prefix ? "$prefix-" : '') . $data['name'];
+        $key = "" == $prefix ? "original":$prefix;
+        $metadata->setContentType($data['type']);
+        $metadata->setBelongsTo($imageSetId);
+        $metadata->setKey($key);
+        $entityClass = $this->options->getEntityClass();
 
         if (is_string($image)) {
             $file = $image;
-        } else {
+        }else{
             $format = str_replace('image/', '', $data['type']);
-
-            $file = new GridFSFile();
-            $file->setBytes($image->get($format));
+            $content = $image->get($format);
+            $file = '/tmp/php'.md5($content);
+            file_put_contents($file, $content);
         }
 
-        $entity
-            ->setFile($file)
-            ->setName(($prefix ? "$prefix-" : '') . $data['name'])
-            ->setType($data['type'])
-        ;
-
-        return $entity;
+        return $fileManager->uploadFromFile($entityClass, $metadata, $file, $name);
     }
 }

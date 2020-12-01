@@ -14,14 +14,17 @@ use Doctrine\ODM\MongoDB\Configuration;
 
 class ServiceLocatorAwareConfiguration extends Configuration
 {
+    private $serviceLocator;
+
     public function setServiceLocator($serviceLocator)
     {
-        $this->attributes['serviceLocator'] = $serviceLocator;
+        $this->serviceLocator = $serviceLocator;
+
         return $this;
     }
     
     public function getServiceLocator()
     {
-        return $this->attributes['serviceLocator'];
+        return $this->serviceLocator;
     }
 }

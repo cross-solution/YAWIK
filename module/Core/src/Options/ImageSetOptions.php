@@ -10,7 +10,9 @@
 /** */
 namespace Core\Options;
 
+use Core\Entity\FileMetadataInterface;
 use Core\Entity\Image;
+use Core\Entity\ImageMetadata;
 use Core\Entity\ImageSetInterface;
 use Laminas\Stdlib\AbstractOptions;
 
@@ -25,24 +27,20 @@ class ImageSetOptions extends AbstractOptions
 
     /**
      * Entity class for images.
-     *
-     * @var string
      */
-    protected $entityClass = Image::class;
+    protected string $entityClass = Image::class;
+
+    protected string $metadataClass = ImageMetadata::class;
 
     /**
      * Name of the form element.
-     *
-     * @var string
      */
-    protected $formElementName = ImageSetInterface::ORIGINAL;
+    protected string $formElementName = ImageSetInterface::ORIGINAL;
 
     /**
      * Image specifications.
-     *
-     * @var array
      */
-    protected $images = [
+    protected array $images = [
         ImageSetInterface::THUMBNAIL => [100,100],
     ];
 
@@ -67,13 +65,16 @@ class ImageSetOptions extends AbstractOptions
     }
 
     /**
-     * @return \Core\Entity\ImageInterface
+     * @return string
      */
-    public function getEntity()
+    public function getMetadataClass(): string
     {
-        $class = $this->getEntityClass();
+        return $this->metadataClass;
+    }
 
-        return new $class();
+    public function getMetadata(): FileMetadataInterface
+    {
+        return new $this->metadataClass();
     }
 
     /**

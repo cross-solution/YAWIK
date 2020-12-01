@@ -126,14 +126,12 @@ class ManageController extends AbstractActionController
                 $form->setData($data);
                 
                 if (!$form->isValid()) {
-                    return new JsonModel(
-                        array(
+                    return new JsonModel(array(
                         'valid' => false,
                         'errors' => $form->getMessages(),
-                        )
-                    );
+                    ));
                 }
-                
+
                 $this->repositories->store($user);
                 
                 if ('file-uri' === $this->params()->fromPost('return')) {

@@ -124,4 +124,9 @@ class FunctionalTestCase extends AbstractHttpControllerTestCase
     {
         return $this->getApplicationServiceLocator()->get('doctrine.documentmanager.odm_default');
     }
+
+    protected function getService(string $name):object
+    {
+        return $this->getApplicationServiceLocator()->get($name);
+    }
 }

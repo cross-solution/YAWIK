@@ -12,6 +12,7 @@ namespace Applications\Listener;
 
 use Core\Service\EntityEraser\DependencyResultEvent;
 use Jobs\Entity\Job;
+use MongoDB\BSON\ObjectId;
 
 /**
  * ${CARET}
@@ -38,7 +39,7 @@ class LoadDependendEntities
 
         if ($entity instanceof Job) {
             $repository = $event->getRepository('Applications');
-            $entities = $repository->findBy(['isDraft' => null, 'job' => new \MongoId($entity->getId())]);
+            $entities = $repository->findBy(['isDraft' => null, 'job' => new ObjectId($entity->getId())]);
             foreach ($entities as $ent) {
                 $repository->remove($ent);
             }

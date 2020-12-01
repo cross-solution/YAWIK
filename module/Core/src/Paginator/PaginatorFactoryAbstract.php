@@ -10,6 +10,7 @@
 
 namespace Core\Paginator;
 
+use Core\Paginator\Adapter\DoctrineMongoLateAdapter;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
@@ -33,14 +34,13 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface
         $repository     = $repositories->get($this->getRepository());
         $queryBuilder   = $repository->createQueryBuilder();
         $filter         = $container->get('FilterManager')->get($this->getFilter());
-        $adapter        = new \Core\Paginator\Adapter\DoctrineMongoLateCursor($queryBuilder, $filter, $options);
-        $service        = new Paginator($adapter);
-    
-        return $service;
+        $adapter        = new DoctrineMongoLateAdapter($queryBuilder, $filter, $options);
+
+        return new Paginator($adapter);
     }
     
     /**
-     * @param ContainerInterface $serviceLocator
+     * @param ContainerInterface $container
      * @return mixed|Paginator
      */
     public function createService(ContainerInterface $container)

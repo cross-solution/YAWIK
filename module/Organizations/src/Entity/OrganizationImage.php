@@ -1,72 +1,39 @@
 <?php
-/**
- * YAWIK
- *
- * @filesource
- * @copyright https://yawik.org/COPYRIGHT.php
- * @license   MIT
- */
 
-/** UserImage.php */
+declare(strict_types=1);
+
 namespace Organizations\Entity;
 
+use Core\Entity\FileTrait;
 use Core\Entity\ImageInterface;
-use Core\Entity\ImageTrait;
+use Core\Entity\ImageMetadata;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Laminas\Permissions\Acl\Resource\ResourceInterface;
-use Core\Entity\FileEntity;
 
 /**
- * Defines the logo of an organization.
+ * Class Image
  *
- * @ODM\Document(collection="organizations.images", repositoryClass="Organizations\Repository\OrganizationImage")
+ * @ODM\File(bucketName="organizations.fs.images")
+ * @package Organizations\Entity
  */
-class OrganizationImage extends FileEntity implements ImageInterface
+class OrganizationImage implements ImageInterface
 {
-    use ImageTrait;
+    use FileTrait;
 
     /**
-     * Organization which belongs to the company logo
-     *
-     * @var Organization
-     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", mappedBy="image")
+     * @ODM\File\Metadata(targetDocument="Organizations\Entity\OrganizationImageMetadata")
      */
-    protected $organization;
+    protected ?ImageMetadata $metadata;
 
-    /**
-     * {@inheritDoc}
-     * @see \Laminas\Permissions\Acl\Resource\ResourceInterface::getResourceId()
-     */
-    public function getResourceId()
+    public function getMetadata(): ?ImageMetadata
     {
-        return 'Entity/OrganizationImage';
+        return $this->metadata;
     }
 
-    /**
-     * Gets the URI of an attachment
-     *
-     * @return string
-     */
-    public function getUri()
+    public function getUri(): string
     {
-        return '/' . trim('file/Organizations.OrganizationImage/' . $this->id . "/" . urlencode($this->name), '/');
+        $id = (string)$this->id;
+        $name = (string)$this->name;
+        return '/'.trim('file/Organizations.OrganizationImage/' . $id . "/" . urlencode($name), '/');
     }
 
-    /**
-     * Gets the organization of an company logo
-     *
-     * @return Organization
-     */
-    public function getOrganization()
-    {
-        return $this->organization;
-    }
-
-    /**
-     * @param Organization $organization
-     */
-    public function setOrganization(Organization $organization)
-    {
-        $this->organization = $organization;
-    }
 }

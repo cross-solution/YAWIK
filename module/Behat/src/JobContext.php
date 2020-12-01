@@ -11,12 +11,10 @@ namespace Yawik\Behat;
 
 use Auth\Entity\Status;
 use Auth\Entity\User;
+use Auth\Repository\User as UserRepository;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
-use Core\Entity\Permissions;
-use Doctrine\Common\Util\Inflector;
-use Documents\UserRepository;
 use Geo\Service\Photon;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\Job;

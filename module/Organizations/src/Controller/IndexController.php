@@ -188,6 +188,11 @@ class IndexController extends AbstractActionController
                 if ($orgName && '' !== (string) $orgName->getName()) {
                     $org->setIsDraft(false);
                 }
+                if("organizationLogo" == $formIdentifier){
+                    // FIXME:   need to flush existing change before store or
+                    //          it will throws Cannot persist GridFS file for class
+                    $this->repository->getDocumentManager()->flush();
+                }
                 $this->repository->store($org);
             }
 

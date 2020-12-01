@@ -54,12 +54,12 @@ interface PermissionsInterface
     /**
      * Revokes a permission from a user or resource.
      *
-     * @param             $resource
+     * @param mixed       $resource
      * @param string|null $permission
-     *
+     * @param bool        $build  Should the view and change arrays be rebuild?
      * @return self
      */
-    public function revoke($resource, $permission = null);
+    public function revoke($resource, $permission = null, $build = true);
 
     /**
      * Clears all permissions.

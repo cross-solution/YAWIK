@@ -9,14 +9,14 @@
 
 namespace OrganizationsTest\Auth\Dependency;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Organizations\Auth\Dependency\ListListener;
-use Organizations\Repository\Organization as Repository;
+use Organizations\Repository\Organization as OrganizationRepository;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Laminas\View\Renderer\PhpRenderer as View;
-use Doctrine\MongoDB\CursorInterface as Cursor;
 use Organizations\Entity\OrganizationInterface;
 
 /**
@@ -31,16 +31,13 @@ class ListListenerTest extends TestCase
     private $listListener;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|OrganizationRepository
      */
     private $repository;
 
-    /**
-     * @see PHPUnit\Framework\TestCase::setUp()
-     */
     protected function setUp(): void
     {
-        $this->repository = $this->getMockBuilder(Repository::class)
+        $this->repository = $this->getMockBuilder(OrganizationRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->listListener = new ListListener($this->repository);
@@ -108,9 +105,6 @@ class ListListenerTest extends TestCase
         $this->assertSame($expected, $this->listListener->getCount($user));
     }
 
-    /**
-     * @covers ::getItems
-     */
     public function testGetItems()
     {
         $limit = 10;

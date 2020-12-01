@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace JobsTest\Repository\Filter;
 
 use Jobs\Repository\Filter\PaginationAdminQuery;
+use MongoDB\BSON\ObjectId;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Promise\PromiseInterface;
@@ -67,7 +68,7 @@ class PaginationAdminQueryTest extends TestCase
 
     public function testCompanyIdDoesSetField()
     {
-        $companyId = (new \MongoId())->__toString();
+        $companyId = (new ObjectId())->__toString();
         $qb = $this->queryBuilder->reveal();
         $this->queryBuilder->field('isDraft')->shouldBeCalled()->willReturn($qb);
         $this->queryBuilder->equals(false)->shouldBeCalled();

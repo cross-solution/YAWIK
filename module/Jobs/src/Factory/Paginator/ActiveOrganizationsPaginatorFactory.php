@@ -36,7 +36,7 @@ class ActiveOrganizationsPaginatorFactory implements FactoryInterface
         $term           = $query->get('q');
         $cursor         = $repository->findActiveOrganizations($term);
 
-        $adapter        = new \Core\Paginator\Adapter\DoctrineMongoCursor($cursor);
+        $adapter        = new \Core\Paginator\Adapter\DoctrineMongoAdapter($cursor);
         $service        = new Paginator($adapter);
 
         return $service;

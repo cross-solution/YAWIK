@@ -17,7 +17,7 @@ use Applications\Entity\Attachment as ApplicationAttachment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Cv\Entity\Attachment as CvAttachment;
 use Cv\Entity\Cv;
-use Cv\Repository\Cv as Repository;
+use Cv\Repository\Cv as CvRepository;
 use Jobs\Entity\Job;
 
 /**
@@ -33,7 +33,7 @@ class CvCreateFromApplicationTest extends TestCase
     protected $cv;
     
     /**
-     * @var Repository
+     * @var CvRepository
      */
     protected $repository;
     
@@ -49,7 +49,7 @@ class CvCreateFromApplicationTest extends TestCase
             ->setMethods(['setContact'])
             ->getMock();
         
-        $this->repository = $this->getMockBuilder(Repository::class)
+        $this->repository = $this->getMockBuilder(CvRepository::class)
             ->disableOriginalConstructor()
             ->setMethods(['create'])
             ->getMock();

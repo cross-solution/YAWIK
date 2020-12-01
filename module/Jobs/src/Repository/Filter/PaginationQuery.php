@@ -16,6 +16,7 @@ use Laminas\Permissions\Acl\Acl;
 use Laminas\Stdlib\Parameters;
 use Auth\Entity\UserInterface;
 use DateTime;
+use MongoDB\BSON\ObjectId;
 
 /**
  * maps query parameters to entity attributes
@@ -84,7 +85,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
         if (isset($params['o']) && !empty($params['o'])) {
-            $queryBuilder->field('organization')->equals(new \MongoId($params['o']));
+            $queryBuilder->field('organization')->equals(new ObjectId($params['o']));
 //            $queryBuilder->field('metaData.companyName')->equals(new \MongoRegex('/' . $params['o'] . '/i'));
         }
 

@@ -10,6 +10,8 @@
 namespace Auth\Factory\Form;
 
 use Auth\Options\UserInfoFieldsetOptions;
+use Core\Entity\FileMetadata;
+use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
@@ -33,10 +35,9 @@ class UserInfoFieldsetFactory extends AbstractCustomizableFieldsetFactory implem
     protected function createFormInstance(ContainerInterface $container, $requestedName, array $options = null)
     {
         $user = $container->get('AuthenticationService')->getUser();
+        $fileManager  = $container->get(FileManager::class);
         $fieldset     = new UserInfoFieldset();
-        $imageEntity  = new UserImage();
-        $imageEntity->setUser($user);
-        $strategy     = new FileUploadStrategy($imageEntity);
+        $strategy     = new FileUploadStrategy($fileManager, $user, FileMetadata::class, UserImage::class);
         $hydrator     = new EntityHydrator();
         $hydrator->addStrategy('image', $strategy);
         $fieldset->setHydrator($hydrator);

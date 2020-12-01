@@ -11,6 +11,7 @@ namespace Applications\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Doctrine\MongoDB\Query\Builder;
 use Laminas\Stdlib\Parameters;
+use MongoDB\BSON\Regex;
 
 /**
  * maps query parameters to entity attributes
@@ -79,7 +80,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $searchPatterns = array();
 
             foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
+                $searchPatterns[] = new Regex('/^' . $searchItem . '/');
             }
             $queryBuilder->field('keywords')->all($searchPatterns);
         }

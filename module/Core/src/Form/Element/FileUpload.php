@@ -10,6 +10,7 @@
 /**  */
 namespace Core\Form\Element;
 
+use Core\Entity\FileInterface;
 use Doctrine\Common\Collections\Collection;
 use Laminas\Form\Element\File;
 use Laminas\InputFilter\InputProviderInterface;
@@ -232,7 +233,7 @@ class FileUpload extends File implements
      * Gets the file entity bound to the containing form,
      * Returns <i>NULL</i>, if the entity cannot be retrieved or is not set in the form.
      *
-     * @return null|Collection|\Core\Entity\FileInterface
+     * @return null|Collection|FileInterface
      */
     public function getFileEntity()
     {

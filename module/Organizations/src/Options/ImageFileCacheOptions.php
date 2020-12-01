@@ -41,7 +41,7 @@ class ImageFileCacheOptions extends AbstractOptions
     protected $uriPath = '/static/Organizations/Image';
 
     /**
-     * @param array|Traversable|null $options
+     * @param array|\Traversable|null $options
      */
     public function __construct($options = null)
     {

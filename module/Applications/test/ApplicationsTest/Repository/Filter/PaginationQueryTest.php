@@ -10,6 +10,7 @@
 /** */
 namespace ApplicationsTest\Repository\Filter;
 
+use MongoDB\BSON\Regex;
 use PHPUnit\Framework\TestCase;
 
 use Applications\Repository\Filter\PaginationQuery;
@@ -135,7 +136,7 @@ class PaginationQueryTest extends TestCase
         )->will($this->returnSelf());
         $qb2->expects($this->once())->method('notEqual')->with('PqtUser');
         $qb2->expects($this->once())->method('all')->with($this->callback(function ($arg) {
-            return is_array($arg) && $arg[0] instanceof \MongoRegex;
+            return is_array($arg) && $arg[0] instanceof Regex;
         }));
         $qb2->expects($this->once())->method('sort')->with(['testSort' => 1]);
         $qbResult1 = $this->target->createQuery($params1, $qb1);

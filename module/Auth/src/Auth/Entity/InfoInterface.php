@@ -11,6 +11,7 @@
 namespace Auth\Entity;
 
 use Core\Entity\EntityInterface;
+use Core\Entity\ImageInterface;
 
 /**
  * Defines an users Info model interface. The Info model holds contact
@@ -132,9 +133,9 @@ interface InfoInterface extends EntityInterface
     /**
      * Sets the profile Image of an user
      *
-     * @param EntityInterface $image
+     * @param ImageInterface $image
      */
-    public function setImage(EntityInterface $image = null);
+    public function setImage(ImageInterface $image = null);
     
     /**
      * Gets the profile Image of an user

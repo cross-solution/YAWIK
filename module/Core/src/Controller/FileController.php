@@ -10,8 +10,11 @@
 /** FileController.php */
 namespace Core\Controller;
 
+use Core\Entity\FileInterface;
+use Core\Entity\ImageInterface;
 use Core\EventManager\EventManager;
 use Core\Listener\Events\FileEvent;
+use Core\Service\FileManager;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
 use Organizations\Entity\OrganizationImage;
@@ -29,20 +32,20 @@ use Core\Entity\PermissionsInterface;
 class FileController extends AbstractActionController
 {
     /**
-     * @var RepositoryService
+     * @var \Core\Service\FileManager
      */
-    private $repositories;
+    private FileManager $fileManager;
     
     /**
      * @var EventManager
      */
-    private $coreFileEvents;
+    private EventManager $coreFileEvents;
     
     public function __construct(
-        RepositoryService $repositories,
+        FileManager $fileManager,
         EventManager $eventManager
     ) {
-        $this->repositories = $repositories;
+        $this->fileManager = $fileManager;
         $this->coreFileEvents = $eventManager;
     }
     
@@ -63,26 +66,21 @@ class FileController extends AbstractActionController
     }
 
     /**
-     * @return null|object
+     * @return null|FileInterface|ImageInterface
      */
     protected function getFile()
     {
         $fileStoreName = $this->params('filestore');
         list($module, $entityName) = explode('.', $fileStoreName);
         $response      = $this->getResponse();
-
-        try {
-            $repository = $this->repositories->get($module . '/' . $entityName);
-        } catch (\Exception $e) {
-            $response->setStatusCode(404);
-            $this->getEvent()->setParam('exception', $e);
-            return null;
-        }
+        $fileManager = $this->fileManager;
+        $entityClass = $module . '\\Entity\\' . $entityName;
         $fileId = $this->params('fileId', 0);
+
         if (preg_match('/^(.*)\..*$/', $fileId, $baseFileName)) {
             $fileId = $baseFileName[1];
         }
-        $file       = $repository->find($fileId);
+        $file       = $fileManager->findByID($entityClass, $fileId);
                 
         if (!$file) {
             $response->setStatusCode(404);
@@ -104,27 +102,23 @@ class FileController extends AbstractActionController
             return $response;
         }
         
-        $this->acl($file);
+        // @TODO: fix permissions
+        //$this->acl($file->getMetadata());
+        $metadata = $file->getMetadata();
+        $headers = $response->getHeaders();
+        $fileManager = $this->fileManager;
 
-        $headers=$response->getHeaders();
-
-        $headers->addHeaderline('Content-Type', $file->getType())
+        $headers->addHeaderline('Content-Type', $metadata->getContentType())
             ->addHeaderline('Content-Length', $file->getLength());
 
         if ($file instanceof OrganizationImage) {
             $expireDate = new \DateTime();
             $expireDate->add(new \DateInterval('P1Y'));
-
-//            $headers->addHeaderline('Expires', $expireDate->format(\DateTime::W3C))
-//                ->addHeaderLine('ETag', $file->getId())
-//                ->addHeaderline('Cache-Control', 'public')
-//                ->addHeaderline('Pragma', 'cache');
         }
 
         $response->sendHeaders();
         
-        $resource = $file->getResource();
-        
+        $resource = $fileManager->getStream($file);
         while (!feof($resource)) {
             echo fread($resource, 1024);
         }
@@ -145,7 +139,7 @@ class FileController extends AbstractActionController
             );
         }
         
-        $this->acl($file, PermissionsInterface::PERMISSION_CHANGE);
+        // $this->acl($file, PermissionsInterface::PERMISSION_CHANGE);
 
 
         /* @var \Core\EventManager\EventManager $events */
@@ -155,14 +149,10 @@ class FileController extends AbstractActionController
             return true === $r;
         }, $event);
 
-        if (true !== $results->last()) {
-            $this->repositories->remove($file);
-        }
+        $this->fileManager->remove($file);
 
-        return new JsonModel(
-            array(
+        return new JsonModel(array(
             'result' => true
-            )
-        );
+        ));
     }
 }

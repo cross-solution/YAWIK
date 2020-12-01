@@ -12,6 +12,7 @@ namespace Cv\Repository\Event;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Cv\Entity\Attachment;
+use MongoDB\BSON\ObjectId;
 
 /**
  * Subscriber for deleting CV attachment references
@@ -41,7 +42,7 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
             return;
         }
         
-        $fileId = new \MongoId($file->getId());
+        $fileId = new ObjectId($file->getId());
         $dm = $eventArgs->getDocumentManager();
         $dm->createQueryBuilder('Cv\Entity\Cv')
            ->update()->multiple(true)

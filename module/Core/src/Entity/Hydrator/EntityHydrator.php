@@ -6,6 +6,7 @@ use Laminas\Hydrator\AbstractHydrator;
 use Laminas\Hydrator\Filter\FilterComposite;
 use Laminas\Hydrator\Filter\MethodMatchFilter;
 use Core\Entity\EntityInterface;
+use MongoDB\BSON\ObjectId;
 
 class EntityHydrator extends AbstractHydrator
 {
@@ -75,7 +76,7 @@ class EntityHydrator extends AbstractHydrator
         }
         
         foreach ($data as $key => $value) {
-            if ($value instanceof \MongoId) {
+            if ($value instanceof ObjectId) {
                 $object->setId($value->__toString());
             }
         }

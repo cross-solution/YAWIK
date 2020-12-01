@@ -9,7 +9,8 @@
 
 namespace Cv\Entity;
 
-use Core\Entity\FileEntity;
+use Core\Entity\File;
+use Core\Entity\FileTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -18,10 +19,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @author fedys
  * @since 0.26
  *
- * @ODM\Document(collection="cvs.attachments")
+ * @ODM\File(bucketName="cvs.fs.attachments")
  */
-class Attachment extends FileEntity
+class Attachment extends File
 {
+    use FileTrait;
 
     /**
      * Gets the URI of an attachment
@@ -30,7 +32,7 @@ class Attachment extends FileEntity
      *
      * @return string
      */
-    public function getUri()
+    public function getUri(): string
     {
         return "/file/Cv.Attachment/" . $this->getId() . "/" .urlencode($this->name);
     }

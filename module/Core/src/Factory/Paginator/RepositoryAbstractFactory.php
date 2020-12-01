@@ -13,8 +13,6 @@ namespace Core\Factory\Paginator;
 use Core\Paginator\PaginatorService;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
-//use Laminas\ServiceManager\MutableCreationOptionsInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Abstract factory to create paginators from an entity repository.
@@ -83,9 +81,9 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
             $queryBuilder = $filter->filter($options, $queryBuilder);
         }
 
-        $cursor    = $queryBuilder->getQuery()->execute();
-        $adapter   = new \Core\Paginator\Adapter\DoctrineMongoCursor($cursor);
-        $paginator = new \Laminas\Paginator\Paginator($adapter);
+        $queryBuilder = $queryBuilder;
+        $adapter      = new \Core\Paginator\Adapter\DoctrineMongoAdapter($queryBuilder);
+        $paginator    = new \Laminas\Paginator\Paginator($adapter);
 
         return $paginator;
     }

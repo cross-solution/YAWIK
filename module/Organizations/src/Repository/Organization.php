@@ -10,6 +10,7 @@ namespace Organizations\Repository;
 
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
+use MongoDB\BSON\ObjectId;
 use Organizations\Entity\EmployeeInterface;
 use Organizations\Entity\OrganizationInterface;
 
@@ -159,7 +160,7 @@ class Organization extends AbstractRepository
          */
         $entity = $this->findOneBy(
             array(
-            'employees.user' => new \MongoId($userId),
+            'employees.user' => new ObjectId($userId),
             'employees.status' => EmployeeInterface::STATUS_ASSIGNED
             )
         );
@@ -173,7 +174,7 @@ class Organization extends AbstractRepository
 
         $collection = $this->findBy(
             array(
-            'employees.user' => new \MongoId($userId),
+            'employees.user' => new ObjectId($userId),
             'employees.status' => EmployeeInterface::STATUS_PENDING
             )
         );

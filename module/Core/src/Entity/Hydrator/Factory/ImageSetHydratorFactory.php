@@ -11,7 +11,9 @@
 namespace Core\Entity\Hydrator\Factory;
 
 use Core\Entity\Hydrator\ImageSetHydrator;
+use Core\Service\FileManager;
 use Core\Options\ImageSetOptions;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
@@ -39,7 +41,8 @@ class ImageSetHydratorFactory implements FactoryInterface
     {
         $imagine = $container->get('Imagine');
         $options = $container->get($this->getOptionsName());
-        $hydrator = new ImageSetHydrator($imagine, $options);
+        $imageManager = $container->get(FileManager::class);
+        $hydrator = new ImageSetHydrator($imageManager, $imagine, $options);
 
         return $hydrator;
     }

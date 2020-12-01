@@ -86,7 +86,7 @@ class Settings extends AbstractRepository
         }
     }
     
-    public function find($user, $lockMode = LockMode::NONE, $lockVersion = null)
+    public function find($user, $lockMode = LockMode::NONE, ?int $lockVersion = null): ?object
     {
         return $this->getSettingsByUser($user);
     }

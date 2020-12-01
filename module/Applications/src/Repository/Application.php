@@ -21,6 +21,7 @@ use Doctrine\ODM\MongoDB as ODM;
 use Interop\Container\ContainerInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Auth\Entity\UserInterface;
+use MongoDB\BSON\ObjectId;
 
 /**
  * class for accessing applications
@@ -34,7 +35,7 @@ class Application extends AbstractRepository
     /**
      * {@inheritDoc}
      */
-    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null): array
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
@@ -47,7 +48,7 @@ class Application extends AbstractRepository
     /**
      * {@inheritDoc}
      */
-    public function findOneBy(array $criteria)
+    public function findOneBy(array $criteria): ?object
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
@@ -60,7 +61,7 @@ class Application extends AbstractRepository
     /**
      * {@inheritDoc}
      */
-    public function createQueryBuilder($findDrafts = false)
+    public function createQueryBuilder($findDrafts = false): ODM\Query\Builder
     {
         $qb = parent::createQueryBuilder();
         if (null !== $findDrafts) {
@@ -121,7 +122,7 @@ class Application extends AbstractRepository
     public function loadApplicationsForJob($job)
     {
         return $this->createQueryBuilder()
-                    ->field("job")->equals(new \MongoId($job->getId()))
+                    ->field("job")->equals(new ObjectId($job->getId()))
                     ->getQuery()
                     ->execute();
     }
@@ -130,14 +131,14 @@ class Application extends AbstractRepository
      * Get unread applications
      *
      * @param \Jobs\Entity\JobInterface $job
-     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     * @throws ODM\MongoDBException
      */
     public function loadUnreadApplicationsForJob($job)
     {
         $auth=$this->getService('AuthenticationService');
         $qb=$this->createQueryBuilder()
                   ->field("readBy")->notIn(array($auth->getUser()->getId()))
-                  ->field("job")->equals(new \MongoId($job->getId()));
+                  ->field("job")->equals(new ObjectId($job->getId()));
         return $qb->getQuery()->execute();
     }
 
@@ -172,7 +173,7 @@ class Application extends AbstractRepository
      */
     public function findProfile($profileId)
     {
-        $application = $this->findOneBy(array('isDraft' => null, 'profiles._id' => new \MongoId($profileId)));
+        $application = $this->findOneBy(array('isDraft' => null, 'profiles._id' => new ObjectId($profileId)));
         foreach ($application->getProfiles() as $profile) {
             if ($profile->getId() == $profileId) {
                 return $profile;
@@ -189,8 +190,7 @@ class Application extends AbstractRepository
     {
         $qb = $this->createQueryBuilder();
         $qb->hydrate(false)->distinct('status.name');
-        $result = $qb->getQuery()->execute();
-        return $result->toArray();
+        return $qb->getQuery()->execute();
     }
 
     /**
@@ -232,7 +232,7 @@ class Application extends AbstractRepository
      * @return mixed
      * @since 0.27
      */
-    public function getUserApplications($userId, $limit = null)
+    public function getUserApplications($userId, $limit = null): ODM\Query\Builder
     {
         $qb = $this->createQueryBuilder(null)
             ->field('user')->equals($userId)
@@ -242,6 +242,6 @@ class Application extends AbstractRepository
             $qb->limit($limit);
         }
 
-        return $qb->getQuery()->execute();
+        return $qb;
     }
 }

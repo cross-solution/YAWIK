@@ -42,7 +42,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
      * personal informations, contains firstname, lastname, email,
      * phone etc.
      *
-     * @ODM\EmbedOne(targetDocument="Contact")
+     * @ODM\EmbedOne(targetDocument="\Cv\Entity\Contact")
      */
     protected $contact;
     
@@ -96,7 +96,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
      * Flag indicating draft state of this cv.
      *
      * @var bool
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $isDraft = false;
     
@@ -104,7 +104,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
      * Status
      *
      * @var Status
-     * @ODM\EmbedOne(targetDocument="Status")
+     * @ODM\EmbedOne(targetDocument="Cv\Entity\Status")
      * @ODM\Index
      */
     protected $status;
@@ -113,7 +113,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface, ResourceInte
      * Multiple attachments
      *
      * @since 0.26
-     * @ODM\ReferenceMany(targetDocument="Attachment", storeAs="id", cascade={"persist", "remove"})
+     * @ODM\ReferenceMany(targetDocument="Cv\Entity\Attachment", storeAs="id", cascade={"persist", "remove"})
      */
     protected $attachments;
 

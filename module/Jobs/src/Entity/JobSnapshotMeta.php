@@ -26,7 +26,7 @@ class JobSnapshotMeta extends SnapshotMeta
 
     /**
      * @var Job
-     * @ODM\EmbedOne(targetDocument="JobSnapshot")
+     * @ODM\EmbedOne(targetDocument="Jobs\Entity\JobSnapshot")
      */
     protected $entity;
 

@@ -12,7 +12,7 @@ namespace JobsTest\Factory\Paginator;
 
 use PHPUnit\Framework\TestCase;
 
-use Core\Paginator\Adapter\DoctrineMongoCursor;
+use Core\Paginator\Adapter\DoctrineMongoAdapter;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Doctrine\ODM\MongoDB\Cursor;

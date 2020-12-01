@@ -27,7 +27,7 @@ $columns = [
 ];
 
 $sort = $this->params()->fromQuery('sort', 'name');
-if ('-' == $sort{0}) {
+if (false !== strpos($sort, "-")) {
     $sortBy  = substr($sort, 1);
     $sortDir = false;
 } else {

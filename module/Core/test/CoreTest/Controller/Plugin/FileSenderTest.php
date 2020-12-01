@@ -15,7 +15,7 @@ use Core\Controller\AbstractCoreController;
 use Core\Controller\Plugin\FileSender;
 use Core\Entity\FileEntity;
 use Core\Repository\RepositoryService;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectRepository;
 use Interop\Container\ContainerInterface;
 use Laminas\Http\PhpEnvironment\Response;
 

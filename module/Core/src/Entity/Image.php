@@ -1,22 +1,33 @@
 <?php
-/**
- * YAWIK
- *
- * @filesource
- * @license MIT
- * @copyright https://yawik.org/COPYRIGHT.php
- */
 
-/** */
+declare(strict_types=1);
+
 namespace Core\Entity;
 
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
 /**
- * An image.
+ * Class Image
  *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.29
+ * @ODM\File(bucketName="core.fs.images")
+ * @package Core\Entity
  */
-class Image extends FileEntity implements ImageInterface
+class Image implements ImageInterface
 {
-    use ImageTrait;
+    use FileTrait;
+
+    /**
+     * @ODM\File\Metadata(targetDocument="Core\Entity\ImageMetadata")
+     */
+    protected ?ImageMetadata $metadata = null;
+
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    public function getUri(): string
+    {
+        return '/'.trim('file/Core.Images/' . $this->id . "/" . urlencode($this->name), '/');
+    }
 }

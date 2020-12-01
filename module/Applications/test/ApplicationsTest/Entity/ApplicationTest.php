@@ -10,6 +10,7 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use MongoDB\BSON\ObjectId;
 use PHPUnit\Framework\TestCase;
 
 use Applications\Entity\Application;
@@ -183,8 +184,8 @@ class ApplicationTest extends TestCase
     public function testSetGetReadBy()
     {
         $readBy = [
-            new \MongoId(),
-            new \MongoId()
+            new ObjectId(),
+            new ObjectId()
         ];
 
         $this->target->setReadBy($readBy);

@@ -135,8 +135,9 @@ class ApplyController extends AbstractActionController implements ContainerAware
                 throw new \RuntimeException('Missing apply id');
             }
 
-            /* @var \Jobs\Entity\Job $job */
-            $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
+            /* @var \Jobs\Repository\Job $jobRepo */
+            $jobRepo = $repositories->get('Jobs/Job');
+            $job = $jobRepo->findOneByApplyId($appId);
 
             if (!$job) {
                 $e->getRouteMatch()->setParam('action', 'job-not-found');

@@ -142,7 +142,7 @@ class Job extends BaseEntity implements
      * postal codes, city, region, and country names
      *
      * @var Collection
-     * @ODM\EmbedMany(targetDocument="Location")
+     * @ODM\EmbedMany(targetDocument="Jobs\Entity\Location")
      */
     protected $locations;
 
@@ -174,7 +174,7 @@ class Job extends BaseEntity implements
      * Status of the job posting
      *
      * @var Status
-     * @ODM\EmbedOne(targetDocument="Status")
+     * @ODM\EmbedOne(targetDocument="Jobs\Entity\Status")
      * @ODM\Index
      */
     protected $status;
@@ -183,7 +183,7 @@ class Job extends BaseEntity implements
      * History on an job posting
      *
      * @var Collection
-     * @ODM\EmbedMany(targetDocument="History")
+     * @ODM\EmbedMany(targetDocument="Jobs\Entity\History")
      */
     protected $history;
 
@@ -191,7 +191,7 @@ class Job extends BaseEntity implements
      * Flag, privacy policy is accepted or not.
      *
      * @var bool
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $termsAccepted;
 
@@ -238,7 +238,7 @@ class Job extends BaseEntity implements
 
     /**
      * @var
-     * @ODM\EmbedMany(targetDocument="Publisher")
+     * @ODM\EmbedMany(targetDocument="Jobs\Entity\Publisher")
      */
     protected $publisher;
 
@@ -246,7 +246,7 @@ class Job extends BaseEntity implements
      * The ATS mode entity.
      *
      * @var AtsMode
-     * @ODM\EmbedOne(targetDocument="AtsMode")
+     * @ODM\EmbedOne(targetDocument="Jobs\Entity\AtsMode")
      */
     protected $atsMode;
 
@@ -256,7 +256,7 @@ class Job extends BaseEntity implements
      *
      * @var Boolean
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $atsEnabled;
 
@@ -264,7 +264,7 @@ class Job extends BaseEntity implements
      * The Salary entity.
      *
      * @var Salary
-     * @ODM\EmbedOne(targetDocument="\Jobs\Entity\Salary")
+     * @ODM\EmbedOne(targetDocument="Jobs\Entity\Salary")
      */
     protected $salary;
 
@@ -297,7 +297,7 @@ class Job extends BaseEntity implements
      * Flag indicating draft state of this job.
      *
      * @var bool
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $isDraft = false;
 
@@ -317,7 +317,7 @@ class Job extends BaseEntity implements
      *      This is meant as a temporary flag, until
      *      SoftDelete is implemented.
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      * @var bool
      * @since 0.29
      */

@@ -11,6 +11,8 @@
 namespace Core\Listener;
 
 use Core\Entity\ImageInterface;
+use Core\Entity\ImageMetadata;
+use Core\Entity\ImageSetInterface;
 use Core\Listener\Events\FileEvent;
 use Core\Repository\RepositoryService;
 
@@ -57,22 +59,24 @@ class DeleteImageSetListener
             return false;
         }
 
+        /* @var ImageMetadata $metadata */
+        $metadata = $file->getMetadata();
         $config = $this->config[$fileClass];
 
         $repository = $this->repositories->get($config['repository']);
         $property   = $config['property'];
         $getter     = "get$property";
         $dbKey      = "$property.id";
-        $entity     = $repository->findOneBy([$dbKey => $file->belongsTo()]);
+        $entity     = $repository->findOneBy([$dbKey => $metadata->getBelongsTo()]);
 
         if (!$entity) {
             return false;
         }
 
-        /* @var \Core\Entity\ImageSetInterface $imageSet */
+        /* @var ImageSetInterface $imageSet */
         $imageSet = $entity->$getter();
         $imageSet->clear();
-
+        $repository->store($entity);
         return true;
     }
 }

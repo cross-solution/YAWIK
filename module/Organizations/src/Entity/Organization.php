@@ -15,6 +15,7 @@ use Core\Entity\DraftableEntityInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\ImageSet;
+use Core\Entity\ImageSetInterface;
 use Core\Entity\MetaDataProviderTrait;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
@@ -33,9 +34,7 @@ use Laminas\Permissions\Acl\Resource\ResourceInterface;
  *          "_organizationName"="text"
  *      }, name="fulltext")
  * })
- *
- * @todo   write test
- * @author Mathias Weitz <weitz@cross-solution.de>
+ ** @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Anthonius Munthi <me@itstoni.com>
  */
@@ -102,26 +101,15 @@ class Organization extends BaseEntity implements
     protected $permissions;
 
     /**
-     * primary logo of an organization
-     *
-     * @var \Organizations\Entity\OrganizationImage
-     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", inversedBy="organization", storeAs="id", nullable="true", cascade={"all"})
+     * @ODM\EmbedOne(targetDocument="Core\Entity\ImageSet")
      */
-    protected $image;
-
-    /**
-     *
-     *
-     * @ODM\EmbedOne(targetDocument="\Core\Entity\ImageSet")
-     * @var ImageSet
-     */
-    protected $images;
+    protected ?ImageSetInterface $images = null;
 
     /**
      * Flag indicating draft state of this job.
      *
      * @var bool
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $isDraft = false;
 
@@ -183,7 +171,7 @@ class Organization extends BaseEntity implements
      * the owner of a Organization
      *
      * @var UserInterface $user
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id")
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id", cascade="ALL")
      * @ODM\Index
      */
     protected $user;
@@ -210,6 +198,12 @@ class Organization extends BaseEntity implements
      * @ODM\Field(type="string", nullable=true)
      */
     protected $profileSetting;
+
+    public function __construct()
+    {
+        $this->images = new ImageSet();
+    }
+
 
     /**
      * @return string
@@ -568,46 +562,11 @@ class Organization extends BaseEntity implements
     }
 
     /**
-     * Sets the logo of an organization
-     *
-     * @param OrganizationImage $image
-     *
-     * @return self
-     * @deprecated since 0.29; use $this->getImages()->set()
-     */
-    public function setImage(OrganizationImage $image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Gets the Logo of an organization
-     *
-     * @param string|bool $key Key of the image to get.
-     *                         If true: get Thumbnail
-     *                         If false: get Original
-     *
-     * @return OrganizationImage
-     * @deprecated since 0.29; use $this->getImages()->get()
-     * @since 0.29 modified to return images from the image set for compatibility reasons
-     */
-    public function getImage($key = ImageSet::ORIGINAL)
-    {
-        if (is_bool($key)) {
-            $key = $key ? ImageSet::THUMBNAIL : ImageSet::ORIGINAL;
-        }
-
-        return $this->getImages()->get($key, false) ?: $this->image;
-    }
-
-    /**
-     * @param ImageSet $images
+     * @param ImageSetInterface $images
      *
      * @return self
      */
-    public function setImages(ImageSet $images)
+    public function setImages(ImageSetInterface $images)
     {
         $this->images = $images;
 
@@ -615,14 +574,10 @@ class Organization extends BaseEntity implements
     }
 
     /**
-     * @return ImageSet
+     * @return ImageSetInterface
      */
-    public function getImages()
+    public function getImages(): ImageSetInterface
     {
-        if (!$this->images) {
-            $this->images = new ImageSet();
-        }
-
         return $this->images;
     }
 

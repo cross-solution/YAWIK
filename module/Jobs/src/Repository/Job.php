@@ -23,6 +23,8 @@ use Doctrine\ODM\MongoDB\Query;
 use Jobs\Entity\Category;
 use Jobs\Entity\Classifications;
 use Jobs\Entity\StatusInterface;
+use MongoDB\BSON\ObjectId;
+use MongoDB\BSON\Regex;
 
 /**
  * Class Job
@@ -119,7 +121,7 @@ class Job extends AbstractRepository
     public function findByOrganization($organizationId, $status = null)
     {
         $criteria = $this->getIsDeletedCriteria([
-            'organization' => new \MongoId($organizationId),
+            'organization' => new ObjectId($organizationId),
         ]);
 
         if ($status) {
@@ -148,7 +150,7 @@ class Job extends AbstractRepository
         $qb = $this->dm->createQueryBuilder('Organizations\Entity\Organization');
         $qb->field('_id')->in($r);
         if ($term) {
-            $qb->field('_organizationName')->equals(new \MongoRegex('/' . addslashes($term) . '/i'));
+            $qb->field('_organizationName')->equals(new Regex('/' . addslashes($term) . '/i'));
         }
 
         $q = $qb->getQuery();
@@ -203,7 +205,7 @@ class Job extends AbstractRepository
      *
      * @return Query\Builder
      */
-    public function createQueryBuilder($isDeleted = false)
+    public function createQueryBuilder($isDeleted = false): Query\Builder
     {
         $qb =  parent::createQueryBuilder();
 
@@ -225,5 +227,10 @@ class Job extends AbstractRepository
         ];
 
         return $criteria;
+    }
+
+    public function findOneByApplyId(string $appId)
+    {
+        return $this->findOneBy(['applyId' => $appId]);
     }
 }

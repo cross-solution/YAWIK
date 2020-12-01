@@ -8,7 +8,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 
 abstract class AbstractProviderRepository extends AbstractRepository
 {
-    public function findOneBy(array $criteria)
+    public function findOneBy(array $criteria): ?object
     {
         $document = parent::findOneBy($criteria);
         if (isset($document)) {

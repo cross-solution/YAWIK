@@ -17,6 +17,7 @@ use Auth\Service\Exception\UserNotFoundException;
 use Core\Controller\Plugin;
 use Core\Repository\RepositoryService;
 use Laminas\Authentication\AuthenticationService;
+use MongoDB\BSON\ObjectId;
 
 class GotoResetPassword
 {
@@ -48,7 +49,7 @@ class GotoResetPassword
         /** @var UserInterface $user */
         $user = $this->userRepository->findOneBy(
             array(
-                'id' => new \MongoId($userId),
+                'id' => new ObjectId($userId),
                 'tokens.hash' => $tokenHash
             )
         );

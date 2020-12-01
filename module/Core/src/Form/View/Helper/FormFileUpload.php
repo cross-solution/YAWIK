@@ -108,7 +108,7 @@ class FormFileUpload extends FormFile
             $uri  = $basepath($file->getUri());
             $name = $file->getName();
             $size = $file->getPrettySize();
-            $icon = 0 === strpos($file->getType(), 'image/')
+            $icon = 0 === strpos($file->getMetadata()->getContentType(), 'image/')
                 ? 'fa-file-image-o' : 'fa-file-o';
 
             return str_replace(

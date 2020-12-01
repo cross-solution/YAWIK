@@ -10,9 +10,8 @@
 /** */
 namespace OrganizationsTest\Entity;
 
+use Core\Entity\ImageInterface;
 use PHPUnit\Framework\TestCase;
-
-use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 
 /**
@@ -36,7 +35,6 @@ class OrganizationImageTest extends TestCase
     protected function setUp(): void
     {
         $this->target = new OrganizationImage();
-        $this->target->setId('12345');
     }
 
     /**
@@ -45,12 +43,7 @@ class OrganizationImageTest extends TestCase
     public function testTemplateImplementsInterface()
     {
         $this->assertInstanceOf('\Organizations\Entity\OrganizationImage', $this->target);
-        $this->assertInstanceOf('\Core\Entity\FileEntity', $this->target);
-    }
-
-    public function testGetResourceId()
-    {
-        $this->assertSame($this->target->getResourceId(), 'Entity/OrganizationImage');
+        $this->assertInstanceOf(ImageInterface::class, $this->target);
     }
 
     public function testGetUriWithAndWithoutFilename()
@@ -58,14 +51,12 @@ class OrganizationImageTest extends TestCase
         $filename="My File.png";
         $this->target->setName($filename);
         $this->assertSame($this->target->getUri(), '/file/Organizations.OrganizationImage/'.$this->target->getId().'/'.urlencode($this->target->getName()));
-        $this->target->setName(null);
-        $this->assertSame($this->target->getUri(), '/file/Organizations.OrganizationImage/'.$this->target->getId());
-    }
 
-    public function testSetGetOrganization()
-    {
-        $organization = new Organization();
-        $this->target->setOrganization($organization);
-        $this->assertSame($this->target->getOrganization(), $organization);
+        $org = new OrganizationImage();
+        $org->setId('id');
+        $this->assertSame(
+            $org->getUri(),
+            '/file/Organizations.OrganizationImage/'.$org->getId()
+        );
     }
 }

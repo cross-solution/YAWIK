@@ -18,6 +18,7 @@ use Core\Entity\SnapshotInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 use Laminas\Hydrator\HydratorInterface;
+use MongoDB\BSON\ObjectId;
 
 /**
  * ${CARET}
@@ -200,7 +201,7 @@ class SnapshotRepository extends DocumentRepository
     public function findLatest($sourceId, $isDraft = false)
     {
         $entity = $this->createQueryBuilder()
-          ->field('snapshotEntity')->equals(new \MongoId($sourceId))
+          ->field('snapshotEntity')->equals(new ObjectId($sourceId))
           ->field('snapshotMeta.isDraft')->equals($isDraft)
           ->sort('snapshotMeta.dateCreated.date', 'desc')
           ->limit(1)

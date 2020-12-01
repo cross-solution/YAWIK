@@ -2,6 +2,7 @@
 
 namespace Cv\Repository;
 
+use Applications\Entity\Attachment;
 use Core\Entity\PermissionsInterface;
 use Core\Repository\DraftableEntityAwareInterface;
 use Core\Repository\DraftableEntityAwareTrait;
@@ -22,7 +23,7 @@ class Cv extends AbstractRepository implements DraftableEntityAwareInterface
     /**
      * Look for an drafted Document of a given user
      *
-     * @param $user
+     * @param object|UserInterface $user
      * @return CvEntity|null
      */
     public function findDraft($user)
@@ -60,12 +61,10 @@ class Cv extends AbstractRepository implements DraftableEntityAwareInterface
         
         if (count($applicationAttachments) > 0) {
             $cvAttachments = [];
-        
-            /* @var $applicationAttachment \Applications\Entity\Attachment */
+
             foreach ($applicationAttachments as $applicationAttachment) {
-                $file = new \Doctrine\MongoDB\GridFSFile();
-                $file->setBytes($applicationAttachment->getContent());
-                
+                $gridfs = new \MongoGridFS($this->dm->getClient());
+                $file = new \MongoGridFSFile($gridfs, $applicationAttachment->getFile());
                 $cvAttachment = new \Cv\Entity\Attachment();
                 $cvAttachment->setName($applicationAttachment->getName());
                 $cvAttachment->setType($applicationAttachment->getType());

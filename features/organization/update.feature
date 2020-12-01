@@ -63,17 +63,16 @@ Feature: Updating my organization
         Then the "accept Applications by Department Managers" checkbox should not be checked
         And the "assign department managers to jobs" checkbox should not be checked
 
-    #Scenario: Add and remove logo
-    #    When I want to edit my organization
-    #    And I attach logo from file "img/logo.jpg"
-    #    And I wait for the ajax response
-    #    And I wait for 2 seconds
-    #    Then I should see an "img.img-polaroid" element
-    #    # test removing a logo
-    #    When I remove logo from organization
-    #    And I wait for 5 seconds
-    #    And I want to edit my organization
-    #    Then the "h1" element should contain "Organization"
-        # @ todo fix this error below
-        #And I wait for 2 seconds
-        #And I should not see an "img.img-polaroid" element
+    Scenario: Add and remove logo
+        When I want to edit my organization
+        And I attach logo from file "img/logo.jpg"
+        And I wait for the ajax response
+        And I wait for 5 seconds
+        Then I should see an "img.img-polaroid" element
+        # test removing a logo
+        When I remove logo from organization
+        And I wait for 5 seconds
+        And I want to edit my organization
+        Then the "h1" element should contain "Organization"
+        And I wait for 2 seconds
+        And I should not see an "img.img-polaroid" element

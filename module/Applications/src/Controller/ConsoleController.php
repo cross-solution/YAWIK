@@ -23,6 +23,7 @@ use Laminas\View\Model\ViewModel;
 use \Laminas\Text\Table\Table;
 use \Laminas\Text\Table\Row;
 use \Laminas\Text\Table\Column;
+use MongoDB\BSON\ObjectId;
 
 /**
  * Handles cli actions for applications
@@ -339,7 +340,7 @@ class ConsoleController extends AbstractActionController
                     break;
 
                 case "id":
-                    $query['_id'] = new \MongoId($value);
+                    $query['_id'] = new ObjectId($value);
                     break;
                 case "isDraft":
                     $query['isDraft'] = (bool) $value;

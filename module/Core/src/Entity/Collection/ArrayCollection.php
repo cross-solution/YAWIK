@@ -10,7 +10,8 @@
 /** ArrayCollection.php */
 namespace Core\Entity\Collection;
 
-class ArrayCollection extends \Doctrine\Common\Collections\ArrayCollection
+use Doctrine\Common\Collections\ArrayCollection as BaseArrayCollection;
+class ArrayCollection extends BaseArrayCollection
 {
     public function fromArray(array $elements)
     {

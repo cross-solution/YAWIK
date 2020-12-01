@@ -30,7 +30,7 @@ class Employment extends AbstractIdentifiableEntity
     protected $endDate;
     
     /**
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      * @var bool
      */
     protected $currentIndicator;

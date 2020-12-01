@@ -9,12 +9,15 @@
 
 namespace OrganizationsTest\ImageFileCache;
 
+use Core\Service\FileManager;
+use Organizations\Entity\OrganizationImage;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Organizations\ImageFileCache\ApplicationListener;
-use Organizations\ImageFileCache\Manager;
+use Organizations\ImageFileCache\Manager as CacheManager;
 use Organizations\Repository\OrganizationImage as ImageRepository;
-use Organizations\Entity\OrganizationImage as ImageEntity;
+use Organizations\Entity\OrganizationImageMetadata as ImageMetadata;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Mvc\Application;
 use Laminas\Http\PhpEnvironment\Request;
@@ -34,12 +37,12 @@ class ApplicationListenerTest extends TestCase
     protected $listener;
 
     /**
-     * @var Manager|\PHPUnit_Framework_MockObject_MockObject
+     * @var CacheManager|MockObject
      */
-    protected $manager;
+    protected $cacheManager;
 
     /**
-     * @var ImageRepository|\PHPUnit_Framework_MockObject_MockObject
+     * @var ImageRepository|MockObject
      */
     protected $repository;
 
@@ -49,16 +52,21 @@ class ApplicationListenerTest extends TestCase
     protected $event;
 
     /**
-     * @var Request|\PHPUnit_Framework_MockObject_MockObject
+     * @var Request|MockObject
      */
     protected $request;
+
+    /**
+     * @var MockObject|\Core\Service\FileManager
+     */
+    protected $fileManager;
 
     /**
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp(): void
     {
-        $this->manager = $this->getMockBuilder(Manager::class)
+        $this->cacheManager = $this->getMockBuilder(CacheManager::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -73,7 +81,9 @@ class ApplicationListenerTest extends TestCase
         $this->event = new MvcEvent();
         $this->event->setRequest($this->request);
 
-        $this->listener = new ApplicationListener($this->manager, $this->repository);
+        $this->fileManager = $this->createMock(FileManager::class);
+
+        $this->listener = new ApplicationListener($this->cacheManager,$this->fileManager);
     }
 
     /**
@@ -121,18 +131,18 @@ class ApplicationListenerTest extends TestCase
             ->method('getRequestUri')
             ->willReturn($uri);
 
-        $this->manager->expects($this->once())
+        $this->cacheManager->expects($this->once())
             ->method('matchUri')
             ->with($this->equalTo($uri))
             ->willReturn($id);
 
         if ($id) {
-            $this->repository->expects($this->once())
-                ->method('find')
-                ->with($this->equalTo($id));
+            $this->fileManager->expects($this->once())
+                ->method('findByID')
+                ->with(OrganizationImage::class, $this->equalTo($id));
         } else {
-            $this->repository->expects($this->never())
-                ->method('find');
+            $this->fileManager->expects($this->never())
+                ->method('findByID');
         }
 
         $this->listener->onDispatchError($this->event);
@@ -167,7 +177,7 @@ class ApplicationListenerTest extends TestCase
             ->method('getBaseUrl')
             ->willReturn($baseUrl);
 
-        $this->manager->expects($this->once())
+        $this->cacheManager->expects($this->once())
             ->method('matchUri')
             ->with($this->equalTo($path));
 
@@ -182,15 +192,15 @@ class ApplicationListenerTest extends TestCase
         $id = 'someId';
         $this->event->setError(Application::ERROR_ROUTER_NO_MATCH);
 
-        $this->manager->expects($this->once())
+        $this->cacheManager->expects($this->once())
             ->method('matchUri')
             ->willReturn($id);
 
-        $this->repository->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($id));
+        $this->fileManager->expects($this->once())
+            ->method('findByID')
+            ->with(OrganizationImage::class, $this->equalTo($id));
 
-        $this->manager->expects($this->never())
+        $this->cacheManager->expects($this->never())
             ->method('store');
 
         $this->listener->onDispatchError($this->event);
@@ -205,29 +215,50 @@ class ApplicationListenerTest extends TestCase
         $resource = 'someResource';
         $this->event->setError(Application::ERROR_ROUTER_NO_MATCH);
 
-        $image = $this->getMockBuilder(ImageEntity::class)
-            ->setMethods(['getLength', 'getResource'])
+        $metadata = $this->getMockBuilder(ImageMetadata::class)
+            ->setMethods(['getLength', 'getContentType', 'getId'])
             ->getMock();
-        $image->setId($id);
-        $image->setType('image/jpeg');
-        $image->setName('image.jpg');
-        $image->method('getLength')
+        $metadata->expects($this->any())
+            ->method('getContentType')
+            ->willReturn('image/jpeg');
+        $metadata->expects($this->any())
+            ->method('getId')
+            ->willReturn($id);
+
+
+        $image = $this->createMock(OrganizationImage::class);
+        $image->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($metadata);
+        $image->expects($this->any())
+            ->method('getLength')
             ->willReturn(1024);
-        $image->method('getResource')
+        $image->expects($this->any())
+            ->method('getName')
+            ->willReturn('image.jpg');
+
+        $this->fileManager->expects($this->once())
+            ->method('findByID')
+            ->with(OrganizationImage::class, $id)
+            ->willReturn($image);
+
+        $this->fileManager->expects($this->once())
+            ->method('getContents')
+            ->with($image)
+            ->willReturn('contents');
+
+        $this->fileManager->expects($this->once())
+            ->method('getStream')
+            ->with($image)
             ->willReturn($resource);
 
-        $this->manager->expects($this->once())
+        $this->cacheManager->expects($this->once())
             ->method('matchUri')
             ->willReturn($id);
 
-        $this->repository->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($id))
-            ->willReturn($image);
-
-        $this->manager->expects($this->once())
+        $this->cacheManager->expects($this->once())
             ->method('store')
-            ->with($this->identicalTo($image));
+            ->with($image, 'contents');
 
         $this->listener->onDispatchError($this->event);
 
@@ -235,12 +266,12 @@ class ApplicationListenerTest extends TestCase
         $this->assertInstanceOf(Stream::class, $response);
         $this->assertEquals(Response::STATUS_CODE_200, $response->getStatusCode());
         $this->assertEquals($image->getName(), $response->getStreamName());
-        $this->assertEquals($image->getResource(), $response->getStream());
+        $this->assertEquals($resource, $response->getStream());
 
         $headers = $response->getHeaders();
         $this->assertInstanceOf(Headers::class, $headers);
         $this->assertTrue($headers->has('Content-Type'));
-        $this->assertEquals($image->getType(), $headers->get('Content-Type')->getFieldValue());
+        $this->assertEquals($metadata->getContentType(), $headers->get('Content-Type')->getFieldValue());
         $this->assertTrue($headers->has('Content-Length'));
         $this->assertEquals($image->getLength(), $headers->get('Content-Length')->getFieldValue());
     }

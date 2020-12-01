@@ -31,7 +31,8 @@ class FormImageUpload extends FormFileUpload
         $textDomain = $this->getTranslatorTextDomain();
 
         if ($file) {
-            if (0 === strpos($file->getType(), 'image/')) {
+            $metadata = $file->getMetadata();
+            if (0 === strpos($metadata->getContentType(), 'image/')) {
                 $basepath  = $this->getView()->plugin('basepath');
                 $preview = '<img src="' . $basepath($file->getUri()) . '" class="img-polaroid" />';
             } else {

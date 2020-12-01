@@ -11,12 +11,8 @@
 namespace Core\Repository;
 
 use Core\Repository\DoctrineMongoODM\PersistenceListener;
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class RepositoryServiceFactory implements FactoryInterface
 {

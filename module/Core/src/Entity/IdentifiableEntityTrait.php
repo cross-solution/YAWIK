@@ -11,6 +11,7 @@
 namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use MongoDB\BSON\ObjectId;
 
 /**
  *
@@ -23,7 +24,7 @@ trait IdentifiableEntityTrait
     /**
      * Entity id
      *
-     * @var string|\MongoId
+     * @var string|ObjectId
      * @ODM\Id
      */
     protected $id;

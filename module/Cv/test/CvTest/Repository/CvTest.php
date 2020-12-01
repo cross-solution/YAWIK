@@ -82,7 +82,7 @@ class CvTest extends FunctionalTestCase
             ->setUser($user)
             ->setIsDraft(true);
         $dm->persist($cv);
-        $dm->flush($cv);
+        $dm->flush();
 
         $this->assertInstanceOf(Cv::class, $repo->findDraft($user));
     }

@@ -8,6 +8,9 @@
  */
 namespace Organizations\ImageFileCache;
 
+use Core\Service\FileManager;
+use Organizations\Entity\OrganizationImage;
+use Organizations\ImageFileCache\Manager as CacheManager;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Mvc\Application;
 use Laminas\Http\Response;
@@ -19,29 +22,29 @@ use Organizations\Repository\OrganizationImage as Repository;
  * Image file cache application listener
  *
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Anthonius Munthi <me@itstoni.com>
  * @since 0.28
  */
 class ApplicationListener
 {
 
     /**
-     * @var Manager
+     * @var CacheManager
      */
-    protected $manager;
+    protected CacheManager $cacheManager;
 
     /**
-     * @var Repository
+     * @var FileManager
      */
-    protected $repository;
+    private FileManager $fileManager;
 
-    /**
-     * @param Manager $manager
-     * @param Repository $repository
-     */
-    public function __construct(Manager $manager, Repository $repository)
+    public function __construct(
+        CacheManager $cacheManager,
+        FileManager $fileManager
+    )
     {
-        $this->manager = $manager;
-        $this->repository = $repository;
+        $this->cacheManager = $cacheManager;
+        $this->fileManager = $fileManager;
     }
 
     /**
@@ -57,9 +60,11 @@ class ApplicationListener
         // get URI stripped of a base URL
         $request = $event->getRequest();
         $uri = str_replace($request->getBaseUrl(), '', $request->getRequestUri());
+        $fileManager = $this->fileManager;
+        $cacheManager = $this->cacheManager;
 
         // try get image ID from URI
-        $id = $this->manager->matchUri($uri);
+        $id = $cacheManager->matchUri($uri);
 
         if (!$id) {
             // abort if URI does not match
@@ -67,7 +72,8 @@ class ApplicationListener
         }
 
         // try get image from repository
-        $image = $this->repository->find($id);
+        /* @var OrganizationImage $image */
+        $image = $fileManager->findByID(OrganizationImage::class, $id);
 
         if (! $image) {
             // abort if image does not exist
@@ -75,17 +81,19 @@ class ApplicationListener
         }
 
         // store image
-        $this->manager->store($image);
+        $metadata = $image->getMetadata();
+        $contents = $fileManager->getContents($image);
+        $cacheManager->store($image, $contents);
 
         // return image in response as a stream
         $headers = new Headers();
         $headers->addHeaders([
-            'Content-Type' => $image->getType(),
+            'Content-Type' => $metadata->getContentType(),
             'Content-Length' => $image->getLength()
         ]);
         $response = new Stream();
         $response->setStatusCode(Response::STATUS_CODE_200);
-        $response->setStream($image->getResource());
+        $response->setStream($fileManager->getStream($image));
         $response->setStreamName($image->getName());
         $response->setHeaders($headers);
         $event->setResponse($response);

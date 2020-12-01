@@ -12,6 +12,7 @@ namespace Organizations\Options;
 
 use Core\Options\ImageSetOptions;
 use Organizations\Entity\OrganizationImage;
+use Organizations\Entity\OrganizationImageMetadata;
 
 /**
  * ${CARET}
@@ -21,6 +22,6 @@ use Organizations\Entity\OrganizationImage;
  */
 class OrganizationLogoOptions extends ImageSetOptions
 {
-    protected $entityClass = OrganizationImage::class;
-
+    protected string $entityClass = OrganizationImage::class;
+    protected string $metadataClass = OrganizationImageMetadata::class;
 }

@@ -10,6 +10,8 @@
 /** DocumentManagerFactory.php */
 namespace Core\Repository\DoctrineMongoODM;
 
+use Doctrine\ODM\MongoDB\Configuration;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Interop\Container\ContainerInterface;
 use MongoDB\Driver\Exception\ConnectionTimeoutException;
 use Laminas\ServiceManager\ServiceLocatorInterface;
@@ -31,9 +33,10 @@ class DocumentManagerFactory implements FactoryInterface
         
         $configFactory = new ConfigurationFactory('odm_default');
         $config = $configFactory->createService($container);
-        
+
+        /* @var DocumentManager $dm */
         $dm = $container->get('doctrine.documentmanager.odm_default');
-        $dm = DoctrineDocumentManager::create($dm->getConnection(), $config, $dm->getEventManager());
+        $dm = DoctrineDocumentManager::create($dm->getClient(), $config, $dm->getEventManager());
 
         try {
             $dm->getSchemaManager()->ensureIndexes();

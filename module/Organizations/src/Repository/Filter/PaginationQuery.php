@@ -139,7 +139,8 @@ class PaginationQuery extends AbstractPaginationQuery
                     ->field('status.name')->notIn([StatusInterface::EXPIRED, StatusInterface::INACTIVE])
                     ->field('isDraft')->notEqual(true)
                 ;
-                $count = $qb->getQuery()->execute()->count();
+                // FIXME: count method
+                $count = count($qb->getQuery()->toArray());
                 if ($count == 0) {
                     $filters[] = $organization->getId();
                 }

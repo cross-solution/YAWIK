@@ -190,7 +190,6 @@ class OrganizationReferenceTest extends TestCase
             [['setDateModified', 'getDateModified'], [[$date], []], ['__self__', $date]],
             [['setExternalId', 'getExternalId'], [[$externalId], []], ['__self__', $externalId]],
             [['setParent', 'getParent'], [[$parent], []], ['__self__', $parent]],
-            [['setImage', 'getImage'], [[$image], []], ['__self__', $image]],
             [['setTemplate', 'getTemplate'], [[$template], []], ['__self__', $template]],
             [['setWorkflowSettings', 'getWorkflowSettings'], [[$workflowSettings], []], ['__self__', $workflowSettings]],
             ['isHiringOrganization', [], false],

@@ -1,65 +1,37 @@
 <?php
-/**
- * YAWIK
- *
- * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
- * @license   MIT
- * @author Carsten Bleek <bleek@cross-solution.de>
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
- */
 
-/** FileEntity.php */
+declare(strict_types=1);
+
 namespace Core\Entity;
 
-use Laminas\Permissions\Acl\Resource\ResourceInterface;
-use Auth\Entity\UserInterface;
+use DateTimeInterface;
 
 /**
+ * Interface FileMetadataInterface
  *
-
+ * @author Anthonius Munthi
+ *
+ * @since 0.36
+ * @package Core\Entity
  */
-interface FileInterface extends
-    IdentifiableEntityInterface,
-    ResourceInterface,
-    PermissionsAwareInterface
+interface FileInterface
 {
-    public function getResourceId();
-    
-    public function setUser(UserInterface $user);
-    
-    public function getUser();
-    
-    public function setName($name);
-    
-    public function getName();
-    
-    public function getPrettySize();
-    
-    public function setType($mime);
-    
-    public function getType();
-    
-    public function setDateUploaded(\DateTime $date = null);
-    
-    public function getDateUploaded();
-    
-    public function getFile();
-    
-    public function setFile($file);
-    
-    public function getLength();
-    
-    public function getResource();
-    
-    public function getContent();
-    
+    public function getId(): ?string;
+
+    public function getName(): ?string;
+
+    public function getChunkSize(): ?int;
+
+    public function getLength(): ?int;
+
+    public function getUploadDate(): ?DateTimeInterface;
+
+    public function getUri(): string;
+
+    public function getPrettySize(): string;
+
     /**
-     * Gets the URI of a file
-     *
-     * @return string|null
-     * @since 0.27
+     * @return FileMetadataInterface|object
      */
-    public function getUri();
+    public function getMetadata();
 }
