@@ -1,4 +1,4 @@
-image: php:7.4
+image: yawik
 
 # Cache libraries in between jobs
 cache:
