@@ -8,5 +8,6 @@ stages:
 
 test:app:
   script:
+    - composer install
     - phpunit --configuration phpunit_myapp.xml
     
