@@ -23,7 +23,7 @@ docker-php-ext-install intl gd
 
 pecl install mongodb
 
-php -i
+php -i 
 
-
+echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
 
