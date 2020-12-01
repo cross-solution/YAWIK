@@ -19,5 +19,6 @@ stages:
 test:yawik:
   script:
     - composer install
-    - phpunit
+    - ./vendor/bin/phpunit --debug
+    
     
