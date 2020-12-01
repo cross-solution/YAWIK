@@ -14,10 +14,6 @@ apt-get install git \
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get install -y nodejs
 
-# Install phpunit, the tool that we will use for testing
-curl -sS --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
-chmod +x /usr/local/bin/phpunit
-
 # Install composer
 curl -sS https://getcomposer.org/installer > installer.php
 php ./installer.php --install-dir=/usr/local/bin --filename=composer
@@ -26,19 +22,10 @@ chmod +x /usr/local/bin/composer
 # Install mongodb, intl, gd
 docker-php-ext-install intl gd
 
+# install mongo extension
 pecl install mongodb
 
-php -i 
-
-ls -l /usr/local/etc/php/
-
+# activate mongo extension
 echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/docker-php-ext-mongodb.ini
 
-echo "#################################"
-
-cat /usr/local/etc/php/php.ini-development
-
-echo "#################################"
-
-cat  /usr/local/etc/php/conf.d/docker-php-ext-gd.ini
 

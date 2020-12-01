@@ -11,7 +11,7 @@ services:
   - mongo
 
 before_script:
-  - bash ci/docker_install.sh # > /dev/null
+  - bash ci/docker_install.sh > /dev/null
   
 stages:
   - test
@@ -20,5 +20,5 @@ test:yawik:
   script:
     - cat /usr/local/etc/php/conf.d/docker-php-ext-gd.ini
     - composer install
-    - phpunit --configuration phpunit_myapp.xml
+    - ./vendor/bin/phpunit
     
