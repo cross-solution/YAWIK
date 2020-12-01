@@ -8,7 +8,7 @@ set -xe
 # Install git (the php image doesn't have it) which is required by composer
 apt-get update -yqq
 apt-get install git \
-	software-properties-common \
+	nodejs \
 	unzip libpng-dev zlib1g-dev libicu-dev g++ -yqq
 
 
@@ -40,4 +40,3 @@ echo "#################################"
 
 cat  /usr/local/etc/php/conf.d/docker-php-ext-gd.ini
 
-cat /etc/lsb-release
