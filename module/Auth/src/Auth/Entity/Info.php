@@ -110,11 +110,9 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * the photo of an users profile
-     *
-     * @var ImageInterface
      * @ODM\ReferenceOne(targetDocument="Auth\Entity\UserImage", storeAs="id", nullable=true, cascade={"all"})
      */
-    protected $image = null;
+    protected ?ImageInterface $image = null;
     
     /**
      * street of the users address
@@ -400,10 +398,10 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * {@inheritdoc}
      *
-     * @param UserImage $image
+     * @param ?ImageInterface $image
      * @return $this
      */
-    public function setImage(ImageInterface $image = null)
+    public function setImage(?ImageInterface $image = null)
     {
         $this->image = $image;
         return $this;
@@ -412,7 +410,7 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * {@inheritdoc}
      *
-     * @return UserImage
+     * @return ImageInterface
      */
     public function getImage()
     {

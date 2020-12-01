@@ -8,9 +8,9 @@
 
 namespace CvTest\Entity;
 
+use Core\Entity\FileInterface;
 use PHPUnit\Framework\TestCase;
 
-use Core\Entity\FileEntity;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Cv\Entity\Contact;
@@ -29,12 +29,11 @@ class ContactImageTest extends TestCase
         ContactImage::class,
     ];
 
-    private $inheritance = [ FileEntity::class ];
+    private $inheritance = [ FileInterface::class ];
 
     public function propertiesProvider()
     {
         return [
-            [ 'contact', '@' . Contact::class ],
             [ 'uri', [
                 'pre' => function () {
                     $this->target->setId('some-id')->setName('some-name');
@@ -43,18 +42,5 @@ class ContactImageTest extends TestCase
                 'value' => '/file/Cv.ContactImage/some-id/' . urlencode('some-name'),
             ]],
         ];
-    }
-
-    public function testShouldSetImageToNullOnRemove()
-    {
-        $mock = $this->getMockBuilder(Contact::class)
-            ->getMock();
-        $mock
-            ->expects($this->once())
-            ->method('setImage')
-            ->with(null);
-
-        $this->target->setContact($mock);
-        $this->target->preRemove();
     }
 }

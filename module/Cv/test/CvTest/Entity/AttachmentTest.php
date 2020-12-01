@@ -10,6 +10,7 @@
 /** */
 namespace CvTest\Entity;
 
+use Core\Entity\FileInterface;
 use PHPUnit\Framework\TestCase;
 
 use Core\Entity\FileEntity;
@@ -35,7 +36,7 @@ class AttachmentTest extends TestCase
         ]
     ];
 
-    private $inheritance = [ FileEntity::class ];
+    private $inheritance = [ FileInterface::class ];
 
     private $properties = [
         [ 'uri', [ 'ignore_setter' => true, 'value' => "/file/Cv.Attachment/test/name" ]]

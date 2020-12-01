@@ -10,6 +10,7 @@
 /** */
 namespace ApplicationsTest\Entity;
 
+use Core\Entity\FileInterface;
 use PHPUnit\Framework\TestCase;
 
 use Applications\Entity\Attachment;
@@ -45,7 +46,7 @@ class AttachmentTest extends TestCase
      */
     public function testExtendsFileEntity()
     {
-        $this->assertInstanceOf('\Core\Entity\FileEntity', $this->target);
+        $this->assertInstanceOf(FileInterface::class, $this->target);
     }
 
     /**
