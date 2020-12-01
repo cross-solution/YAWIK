@@ -21,6 +21,11 @@ class OrganizationImageMetadata extends BaseImageMetadata
      */
     protected ?Organization $organization;
 
+    public function getResourceId()
+    {
+        return 'Entity/OrganizationImage';
+    }
+
     public function getOwnerFileClass(): string
     {
         return OrganizationImage::class;

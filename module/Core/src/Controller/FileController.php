@@ -101,12 +101,12 @@ class FileController extends AbstractActionController
         if (!$file) {
             return $response;
         }
-        
-        // @TODO: fix permissions
-        //$this->acl($file->getMetadata());
+
         $metadata = $file->getMetadata();
         $headers = $response->getHeaders();
         $fileManager = $this->fileManager;
+
+        $this->acl($metadata);
 
         $headers->addHeaderline('Content-Type', $metadata->getContentType())
             ->addHeaderline('Content-Length', $file->getLength());
@@ -128,6 +128,7 @@ class FileController extends AbstractActionController
     public function deleteAction()
     {
         $file = $this->getFile();
+        $metadata = $file->getMetadata();
         if (!$file) {
             $this->response->setStatusCode(500);
             $message = ($ex = $this->getEvent()->getParam('exception')) ? $ex->getMessage() : 'File not found.';
@@ -139,7 +140,7 @@ class FileController extends AbstractActionController
             );
         }
         
-        // $this->acl($file, PermissionsInterface::PERMISSION_CHANGE);
+        $this->acl($file->getMetadata(), PermissionsInterface::PERMISSION_CHANGE);
 
 
         /* @var \Core\EventManager\EventManager $events */

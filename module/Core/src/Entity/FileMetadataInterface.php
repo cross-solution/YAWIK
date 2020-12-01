@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Core\Entity;
 
 use Auth\Entity\UserInterface;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * Interface FileMetadataInterface
@@ -14,7 +15,7 @@ use Auth\Entity\UserInterface;
  * @since 0.36
  * @package Core\Entity
  */
-interface FileMetadataInterface
+interface FileMetadataInterface extends ResourceInterface
 {
     public function setUser(UserInterface $user);
 

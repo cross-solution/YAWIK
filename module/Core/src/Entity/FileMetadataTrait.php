@@ -28,6 +28,14 @@ trait FileMetadataTrait
     protected ?PermissionsInterface $permissions = null;
 
     /**
+     * @return string
+     */
+    public function getResourceId()
+    {
+        return 'Entity/File';
+    }
+
+    /**
      * @return string|null
      */
     public function getContentType(): ?string
