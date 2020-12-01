@@ -11,7 +11,7 @@ apt-get install git \
 	unzip libpng-dev zlib1g-dev libicu-dev g++ -yqq
 
 # install nodejs
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get install -y nodejs
 
 # Install phpunit, the tool that we will use for testing
