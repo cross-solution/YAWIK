@@ -6,6 +6,10 @@ cache:
   paths:
     - vendor/
 
+
+services:
+  - mongodb
+
 before_script:
   - bash ci/docker_install.sh # > /dev/null
   
