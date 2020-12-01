@@ -29,4 +29,10 @@ ls -l /usr/local/etc/php/
 
 echo "extension=mongodb.so" >> /usr/local/etc/php/php.ini-development
 
+echo "#################################"
+
 cat /usr/local/etc/php/php.ini-development
+
+echo "#################################"
+
+cat  /usr/local/etc/php/conf.d/docker-php-ext-gd.ini
