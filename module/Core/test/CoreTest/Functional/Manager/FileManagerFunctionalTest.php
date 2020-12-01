@@ -21,12 +21,11 @@ class FileManagerFunctionalTest extends FunctionalTestCase
 {
     public function testAddImage()
     {
-        $logo = __DIR__.'/files/logo.jpg';
-        $dm = $this->getDoctrine();
-        $manager = new \Core\Service\FileManager($dm);
+        $logo = __FILE__;
+        $manager = $this->getService(FileManager::class);
         $metadata = new ImageMetadata();
 
-        $file = $manager->uploadFromFile($metadata, $logo, 'logo.jpg');
+        $file = $manager->uploadFromFile(Image::class, $metadata, $logo, 'logo.jpg');
         $this->assertInstanceOf(Image::class, $file);
     }
 }

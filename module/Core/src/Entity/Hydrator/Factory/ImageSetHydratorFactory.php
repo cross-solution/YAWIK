@@ -42,9 +42,8 @@ class ImageSetHydratorFactory implements FactoryInterface
         $imagine = $container->get('Imagine');
         $options = $container->get($this->getOptionsName());
         $imageManager = $container->get(FileManager::class);
-        $hydrator = new ImageSetHydrator($imageManager, $imagine, $options);
 
-        return $hydrator;
+        return new ImageSetHydrator($imageManager, $imagine, $options);
     }
 
     /**

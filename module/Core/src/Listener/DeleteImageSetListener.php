@@ -20,7 +20,7 @@ use Core\Repository\RepositoryService;
  * Deletes/Clear image sets if one image of this set is deleted.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.29
+ * @since 0.29FileEntity
  */
 class DeleteImageSetListener
 {

@@ -8,8 +8,8 @@ use Doctrine\Common\Collections\Collection;
 
 interface ImageSetInterface
 {
-    const ORIGINAL  = 'original';
-    const THUMBNAIL = 'thumbnail';
+    public const ORIGINAL  = 'original';
+    public const THUMBNAIL = 'thumbnail';
 
     public function getId(): ?string;
 

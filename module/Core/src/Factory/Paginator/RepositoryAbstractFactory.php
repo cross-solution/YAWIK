@@ -10,8 +10,10 @@
 /** */
 namespace Core\Factory\Paginator;
 
+use Core\Paginator\Adapter\DoctrineMongoAdapter;
 use Core\Paginator\PaginatorService;
 use Interop\Container\ContainerInterface;
+use Laminas\Paginator\Paginator;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
@@ -81,9 +83,8 @@ class RepositoryAbstractFactory implements AbstractFactoryInterface
             $queryBuilder = $filter->filter($options, $queryBuilder);
         }
 
-        $queryBuilder = $queryBuilder;
-        $adapter      = new \Core\Paginator\Adapter\DoctrineMongoAdapter($queryBuilder);
-        $paginator    = new \Laminas\Paginator\Paginator($adapter);
+        $adapter      = new DoctrineMongoAdapter($queryBuilder);
+        $paginator    = new Paginator($adapter);
 
         return $paginator;
     }

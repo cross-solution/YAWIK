@@ -10,6 +10,7 @@ use Core\Entity\FileMetadataInterface;
 use Core\Entity\FileMetadataTrait;
 use Core\Entity\Image;
 use Core\Entity\ImageMetadata;
+use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\TestSetterGetterTrait;
@@ -65,7 +66,7 @@ class ImageMetadataTest extends TestCase
                     'expected' => $user
             ]],
             ['permissions',[
-                'default' => null,
+                'default' => "@".Permissions::class,
                 'setter_args' => $permissions,
                 'expected' => $permissions
             ]],

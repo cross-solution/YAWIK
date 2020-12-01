@@ -10,11 +10,12 @@
 /** */
 namespace CoreTest\Listener;
 
+use Core\Entity\ImageInterface;
+use Core\Entity\ImageMetadataInterface;
+use Core\Entity\ImageSetInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-
-use Core\Entity\FileEntity;
 use Core\Entity\Image;
-use Core\Entity\ImageSet;
 use Core\Listener\DeleteImageSetListener;
 use Core\Listener\Events\FileEvent;
 use Core\Repository\DefaultRepository;
@@ -29,21 +30,26 @@ use Core\Repository\RepositoryService;
  */
 class DeleteImageSetListenerTest extends TestCase
 {
+    /**
+     * @var RepositoryService|MockObject
+     */
+    private $repositories;
+
     private function getTarget($config)
     {
-        $this->repositories = $this->getMockBuilder(RepositoryService::class)->disableOriginalConstructor()
-            ->setMethods(['get'])->getMock();
+        $this->repositories = $this->getMockBuilder(RepositoryService::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['get'])
+            ->getMock();
 
-        $target = new DeleteImageSetListener($this->repositories, $config);
-
-        return $target;
+        return new DeleteImageSetListener($this->repositories, $config);
     }
 
     public function testReturnsEarlyIfFileIsNotImage()
     {
-        $file = new FileEntity();
+        $file = $this->createMock(ImageInterface::class);
         $config = [
-            FileEntity::class => ['not' => 'empty']
+            Image::class => ['not' => 'empty']
         ];
         $event = new FileEvent();
         $event->setFile($file);
@@ -68,14 +74,19 @@ class DeleteImageSetListenerTest extends TestCase
 
     public function testReturnsFalseIfEntityNotFound()
     {
-        $image = new Image;
-        $image->setBelongsTo('imageSetId');
+        $image = $this->createMock(ImageInterface::class);
+        $metadata = $this->createMock(ImageMetadataInterface::class);
+
+        $image->method('getMetadata')
+            ->willReturn($metadata);
+        $metadata->method('getBelongsTo')
+            ->willReturn('imageSetId');
 
         $event = new FileEvent();
         $event->setFile($image);
 
         $config = [
-            Image::class => [
+            get_class($image) => [
                 'repository' => 'repo',
                 'property'   => 'prop',
             ],
@@ -84,38 +95,61 @@ class DeleteImageSetListenerTest extends TestCase
         $target = $this->getTarget($config);
 
         $repo = $this->getMockBuilder(DefaultRepository::class)->disableOriginalConstructor()->setMethods(['findOneBy'])->getMock();
-        $repo->expects($this->once())->method('findOneBy')->with(['prop.id' => 'imageSetId'])->willReturn(null);
+        $repo->expects($this->once())->method('findOneBy')
+            ->with(['prop.id' => 'imageSetId'])
+            ->willReturn(null);
 
-        $this->repositories->expects($this->once())->method('get')->with('repo')->willReturn($repo);
+        $this->repositories->expects($this->once())
+            ->method('get')
+            ->with('repo')
+            ->willReturn($repo);
 
         $this->assertFalse($target($event));
     }
 
     public function testClearsImageSetAndReturnsTrue()
     {
-        $image = new Image;
-        $image->setBelongsTo('imageSetId');
+        $image = $this->createMock(ImageInterface::class);
+        $metadata = $this->createMock(ImageMetadataInterface::class);
+
+        $image->method('getMetadata')
+            ->willReturn($metadata);
+
+        $metadata->method('getBelongsTo')
+            ->willReturn('imageSetId');
 
         $event = new FileEvent();
         $event->setFile($image);
 
         $config = [
-            Image::class => [
+            get_class($image) => [
                 'repository' => 'repo',
                 'property'   => 'prop',
             ],
         ];
 
         $target = $this->getTarget($config);
-        $imageSet = $this->getMockBuilder(ImageSet::class)->setMethods(['clear'])->getMock();
+        $imageSet = $this->createMock(ImageSetInterface::class);
         $imageSet->expects($this->once())->method('clear');
 
         $entity = new Dislt_EntityMock($imageSet);
 
-        $repo = $this->getMockBuilder(DefaultRepository::class)->disableOriginalConstructor()->setMethods(['findOneBy'])->getMock();
-        $repo->expects($this->once())->method('findOneBy')->with(['prop.id' => 'imageSetId'])->willReturn($entity);
+        $repo = $this->getMockBuilder(DefaultRepository::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['findOneBy', 'store'])
+            ->getMock();
+        $repo->expects($this->once())
+            ->method('findOneBy')
+            ->with(['prop.id' => 'imageSetId'])
+            ->willReturn($entity);
+        $repo->expects($this->once())
+            ->method('store')
+            ->with($entity);
 
-        $this->repositories->expects($this->once())->method('get')->with('repo')->willReturn($repo);
+        $this->repositories->expects($this->once())
+            ->method('get')
+            ->with('repo')
+            ->willReturn($repo);
 
         $this->assertTrue($target($event));
     }

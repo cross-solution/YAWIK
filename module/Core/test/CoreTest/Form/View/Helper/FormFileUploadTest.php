@@ -9,8 +9,11 @@
 
 namespace CoreTest\Form\View\Helper;
 
+use Core\Entity\FileInterface;
+use Core\Entity\FileMetadataInterface;
+use InvalidArgumentException;
+use Laminas\Form\ElementInterface;
 use PHPUnit\Framework\TestCase;
-
 use Core\Form\View\Helper\FormFileUpload as FileUploadHelper;
 use Core\Form\Element\FileUpload as FileUploadElement;
 use Core\Entity\FileInterface as FileEntity;
@@ -19,19 +22,12 @@ use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @coversDefaultClass Core\Form\View\Helper\FormFileUpload
+ * @coversDefaultClass \Core\Form\View\Helper\FormFileUpload
  */
 class FormFileUploadTest extends TestCase
 {
+    protected FileUploadHelper $fileUploadHelper;
 
-    /**
-     * @var FileUploadHelper
-     */
-    protected $fileUploadHelper;
-    
-    /**
-     * @see PHPUnit\Framework\TestCase::setUp()
-     */
     protected function setUp(): void
     {
         $view = new View();
@@ -49,12 +45,12 @@ class FormFileUploadTest extends TestCase
     
     /**
      * @covers ::render
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Expects element of type
      */
     public function testRenderThrowsInvalidArgumentException()
     {
-        $element = $this->getMockBuilder(\Laminas\Form\ElementInterface::class)
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Expects element of type');
+        $element = $this->getMockBuilder(ElementInterface::class)
             ->getMock();
         
         $this->fileUploadHelper->render($element);
@@ -66,15 +62,17 @@ class FormFileUploadTest extends TestCase
      */
     public function testRenderFileListSingle()
     {
-        $entity = $this->getMockBuilder(FileEntity::class)
-            ->getMock();
+        $file = $this->createMock(FileInterface::class);
+        $metadata = $this->createMock(FileMetadataInterface::class);
         
         $element = $this->getMockBuilder(FileUploadElement::class)
             ->setConstructorArgs(['elementName'])
             ->setMethods(['getFileEntity'])
             ->getMock();
         $element->method('getFileEntity')
-            ->willReturn($entity);
+            ->willReturn($file);
+        $file->method('getMetadata')
+            ->willReturn($metadata);
         
         $result = $this->fileUploadHelper->renderFileList($element);
         $this->assertIsString($result);
@@ -88,10 +86,10 @@ class FormFileUploadTest extends TestCase
      */
     public function testRenderFileListMultiple()
     {
-        $entity = $this->getMockBuilder(FileEntity::class)
-            ->getMock();
+        $file = $this->createMock(FileInterface::class);
+        $metadata = $this->createMock(FileMetadataInterface::class);
         
-        $collection = new ArrayCollection([$entity]);
+        $collection = new ArrayCollection([$file]);
         
         $element = $this->getMockBuilder(FileUploadElement::class)
             ->setConstructorArgs(['elementName'])
@@ -100,6 +98,9 @@ class FormFileUploadTest extends TestCase
         $element->method('getFileEntity')
             ->willReturn($collection);
         $element->setIsMultiple(true);
+
+        $file->method('getMetadata')
+            ->willReturn($metadata);
         
         $result = $this->fileUploadHelper->renderFileList($element);
         $this->assertIsString($result);

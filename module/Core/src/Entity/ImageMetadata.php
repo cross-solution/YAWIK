@@ -12,7 +12,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @ODM\EmbeddedDocument
  * @package Core\Entity
  */
-class ImageMetadata implements FileMetadataInterface
+class ImageMetadata implements FileMetadataInterface, ImageMetadataInterface
 {
     use EntityTrait, FileMetadataTrait;
 

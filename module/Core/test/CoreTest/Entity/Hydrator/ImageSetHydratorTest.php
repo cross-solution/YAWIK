@@ -12,6 +12,7 @@ namespace CoreTest\Entity\Hydrator;
 
 use Core\Entity\FileMetadataInterface;
 use Core\Entity\ImageInterface;
+use Core\Entity\ImageMetadata;
 use Core\Service\FileManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -73,7 +74,7 @@ class ImageSetHydratorTest extends TestCase
     {
         $this->imagine = $this->createMock(ImagineInterface::class);
         $this->options = $this->getMockBuilder(ImageSetOptions::class)
-            ->setMethods(['getEntity', 'getImages', 'getFormElementName', 'getMetadata'])
+            ->setMethods(['getEntity', 'getImages', 'getFormElementName', 'getMetadata', 'getEntityClass'])
             ->getMock();
         $this->fileManager = $this->createMock(FileManager::class);
 
@@ -100,8 +101,12 @@ class ImageSetHydratorTest extends TestCase
 
     public function testExtract()
     {
-        $this->options->expects($this->once())->method('getFormElementName')->willReturn('name');
+        $this->options->expects($this->once())
+            ->method('getFormElementName')
+            ->willReturn('name');
+
         $imageSet = $this->createMock(ImageSetInterface::class);
+
         $img = $this->getMockBuilder(Image::class)
             ->setMethods(['getId', 'getMetadata'])
             ->getMock();
@@ -114,7 +119,8 @@ class ImageSetHydratorTest extends TestCase
             ->with(ImageSetInterface::ORIGINAL)
             ->willReturn($img);
 
-        $this->assertEquals(['name' => 'imageId'], $this->target->extract($imageSet));
+        $result = $this->target->extract($imageSet);
+        $this->assertEquals(['name' => 'imageId'], $result);
     }
 
     public function testHydrationDoesNothingIfNoFileOrUploadError()
@@ -132,7 +138,7 @@ class ImageSetHydratorTest extends TestCase
             'original' => [
                 'error' => UPLOAD_ERR_OK,
                 'name' => 'testimage.png',
-                'tmp_name' => 'tmpname',
+                'tmp_name' => __FILE__,
                 'type' => 'image/png',
             ],
         ];
@@ -142,17 +148,16 @@ class ImageSetHydratorTest extends TestCase
             'large' => [10000,10000],
             'small' => [600,600],
         ];
-        $metadata = $this->createMock(FileMetadataInterface::class);
+        $metadata = $this->getMockBuilder(ImageMetadata::class)
+            ->setMethods(['setContentType', 'setBelongsTo', 'setKey'])
+            ->getMock()
+        ;
         $image = $this->createMock(ImageInterface::class);
         $fileManager = $this->fileManager;
 
-        $fileManager->expects($this->once())
+        $fileManager->expects($this->exactly(3))
             ->method('uploadFromFile')
-            ->with($metadata, 'tmpname', 'testimage.png')
-            ->willReturn($image);
-
-        $fileManager->expects($this->exactly(2))
-            ->method('uploadFromStream')
+            ->with('entity_class', $metadata)
             ->willReturn($image);
 
         $this->options->expects($this->once())
@@ -162,6 +167,9 @@ class ImageSetHydratorTest extends TestCase
         $this->options->expects($this->exactly(3))
             ->method('getMetadata')
             ->willReturn($metadata);
+        $this->options->expects($this->exactly(3))
+            ->method('getEntityClass')
+            ->willReturn('entity_class');
 
         $imagineImage = $this->getMockBuilder(ImagineImage::class)
             ->setMethods(['thumbnail', 'getSize', 'resize', 'get'])
@@ -182,13 +190,17 @@ class ImageSetHydratorTest extends TestCase
             ->willReturn('filecontentbytes');
         $this->imagine->expects($this->once())
             ->method('open')
-            ->with('tmpname')
+            ->with(__FILE__)
             ->willReturn($imagineImage);
 
         $imageSet = $this->createMock(ImageSetInterface::class);
         $imageSet->expects($this->exactly(3))
             ->method('add')
             ->with($this->isInstanceOf(ImageInterface::class));
+
+        $imageSet->expects($this->any())
+            ->method('getId')
+            ->willReturn('id');
 
         $actual = $this->target->hydrate($data, $imageSet);
 

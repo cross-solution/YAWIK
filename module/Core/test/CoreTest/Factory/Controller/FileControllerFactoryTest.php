@@ -9,6 +9,7 @@
 
 namespace CoreTest\Factory\Controller;
 
+use Core\Service\FileManager;
 use PHPUnit\Framework\TestCase;
 
 use Core\Controller\FileController;
@@ -30,13 +31,13 @@ class FileControllerFactoryTest extends TestCase
     {
         $container = $this->createMock(ContainerInterface::class);
         $coreFileEvents = $this->createMock(EventManager::class);
-        $repositories = $this->createMock(RepositoryService::class);
+        $fileManager = $this->createMock(FileManager::class);
 
         $container->expects($this->exactly(2))
             ->method('get')
             ->willReturnMap([
-                ['repositories',$repositories],
-                ['Core/File/Events',$coreFileEvents]
+                ['Core/File/Events',$coreFileEvents],
+                [FileManager::class, $fileManager]
             ])
         ;
 

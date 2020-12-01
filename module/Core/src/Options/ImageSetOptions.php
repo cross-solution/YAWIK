@@ -49,7 +49,7 @@ class ImageSetOptions extends AbstractOptions
      *
      * @return self
      */
-    public function setEntityClass($entityClass)
+    public function setEntityClass(string $entityClass)
     {
         $this->entityClass = $entityClass;
 

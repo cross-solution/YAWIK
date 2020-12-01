@@ -44,8 +44,8 @@ class RepositoryAbstractFactoryTest extends TestCase
     public function serviceNamesProvider()
     {
         return [
-            [ 'Repository/Core/FileEntity', true ],
-            [ 'Core/FileEntity', true ],
+            [ 'Repository/Core/File', true ],
+            [ 'Core/File', true ],
             [ 'Repository/NoModuleWillBeEverCalledThat/SomeEntity', false ],
             [ 'ThisIsAHighlyUnCommonModuleName/ObscureEntity', false ],
         ];
@@ -88,7 +88,7 @@ class RepositoryAbstractFactoryTest extends TestCase
      * @param $hasFilter
      */
     /*
-    FIXME: Test disabled due to incompatibility with ODM Module 3.0
+    FIXME: odm-module-3 non compatible tests
     public function testCreateServiceWithName($serviceName, $entityName, $options, $hasFilter)
     {
         $cursor = $this->getMockBuilder('\Doctrine\ODM\MongoDB\Cursor')

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CoreTest\Service;
 
+use Auth\AuthenticationService;
+use Auth\Entity\UserInterface;
 use Core\Entity\FileMetadataInterface;
 use Core\Service\FileManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -25,28 +27,30 @@ class FileManagerTest extends TestCase
      */
     private $dm;
 
+    private FileManager $fileManager;
+
     /**
-     * @var \Core\Service\FileManager
+     * @var AuthenticationService|MockObject
      */
-    private \Core\Service\FileManager $fileManager;
+    private $auth;
 
     protected function setUp()
     {
         $this->dm = $this->createMock(DocumentManager::class);
-        $this->fileManager = new \Core\Service\FileManager($this->dm);
+        $this->auth = $this->createMock(AuthenticationService::class);
+        $this->fileManager = new FileManager($this->dm, $this->auth);
     }
 
     public function testUploadFromFile()
     {
         $dm = $this->dm;
         $fileManager = $this->fileManager;
+        $auth = $this->auth;
+
         $repo = $this->createMock(GridFSRepository::class);
         $metadata = $this->createMock(FileMetadataInterface::class);
+        $user = $this->createMock(UserInterface::class);
         $expected = new \stdClass();
-
-        $metadata->expects($this->once())
-            ->method('getOwnerFileClass')
-            ->willReturn('some_class');
 
         $repo->expects($this->once())
             ->method('uploadFromFile')
@@ -58,7 +62,11 @@ class FileManagerTest extends TestCase
             ->with('some_class')
             ->willReturn($repo);
 
-        $retVal = $fileManager->uploadFromFile($metadata, 'source', 'filename');
+        $auth->expects($this->once())
+            ->method('getUser')
+            ->willReturn($user);
+
+        $retVal = $fileManager->uploadFromFile('some_class', $metadata, 'source', 'filename');
         $this->assertSame($expected, $retVal);
     }
 }

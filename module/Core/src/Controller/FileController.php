@@ -80,7 +80,8 @@ class FileController extends AbstractActionController
         if (preg_match('/^(.*)\..*$/', $fileId, $baseFileName)) {
             $fileId = $baseFileName[1];
         }
-        $file       = $fileManager->findByID($entityClass, $fileId);
+
+        $file = $fileManager->findByID($entityClass, $fileId);
                 
         if (!$file) {
             $response->setStatusCode(404);
@@ -128,7 +129,6 @@ class FileController extends AbstractActionController
     public function deleteAction()
     {
         $file = $this->getFile();
-        $metadata = $file->getMetadata();
         if (!$file) {
             $this->response->setStatusCode(500);
             $message = ($ex = $this->getEvent()->getParam('exception')) ? $ex->getMessage() : 'File not found.';
@@ -139,14 +139,16 @@ class FileController extends AbstractActionController
                 )
             );
         }
-        
-        $this->acl($file->getMetadata(), PermissionsInterface::PERMISSION_CHANGE);
+
+        $metadata = $file->getMetadata();
+        $this->acl($metadata, PermissionsInterface::PERMISSION_CHANGE);
 
 
         /* @var \Core\EventManager\EventManager $events */
         $events = $this->coreFileEvents;
         $event = $events->getEvent(FileEvent::EVENT_DELETE, $this, ['file' => $file]);
-        $results = $events->triggerEventUntil(function ($r) {
+
+        $events->triggerEventUntil(function ($r) {
             return true === $r;
         }, $event);
 

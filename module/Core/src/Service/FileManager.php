@@ -45,7 +45,12 @@ class FileManager
         return new FileManager($dm, $auth);
     }
 
-    public function findByID(string $entityClass, string $id): ?object
+    /**
+     * @param string $entityClass
+     * @param string $id
+     * @return object|null|FileInterface
+     */
+    public function findByID(string $entityClass, string $id)
     {
         $repo = $this->getRepository($entityClass);
         return $repo->find($id);
@@ -82,10 +87,8 @@ class FileManager
 
         $options = new UploadOptions();
         $options->metadata = $metadata;
-        $file = $repo->uploadFromFile($source, $fileName, $options);
-        $this->dm->persist($file);
 
-        return $file;
+        return $repo->uploadFromFile($source, $fileName, $options);
     }
 
     /**

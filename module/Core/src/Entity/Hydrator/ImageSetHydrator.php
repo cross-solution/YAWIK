@@ -49,7 +49,7 @@ class ImageSetHydrator implements HydratorInterface
      */
     public function extract($object): array
     {
-        if (!$object instanceof ImageSet || !($image = $object->get(ImageSetInterface::ORIGINAL))) {
+        if (!$object instanceof ImageSetInterface || !($image = $object->get(ImageSetInterface::ORIGINAL))) {
             return [];
         }
 
