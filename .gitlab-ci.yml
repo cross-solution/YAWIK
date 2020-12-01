@@ -1,11 +1,7 @@
 image: php:7.4
 
 before_script:
-   - eval $(ssh-agent -s)
-   - ssh-add <(echo "$SSH_PRIVATE_KEY")
-   - mkdir -p ~/.ssh
-   - echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
-   - export PATH=$PATH:/usr/local/bin
+   - ls
 
 after_script:
   - date
@@ -16,5 +12,4 @@ stages:
 test:
   stage: test
   script:
-    - pgrep ssh-agent
-    - echo "do some tests"
+    - composer install
