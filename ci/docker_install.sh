@@ -10,7 +10,7 @@ apt-get update -yqq
 apt-get install git libpng-dev zlib1g-dev libicu-dev g++ -yqq
 
 # Install phpunit, the tool that we will use for testing
-curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
+curl -sS --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
 chmod +x /usr/local/bin/phpunit
 
 # Install composer
@@ -23,4 +23,7 @@ docker-php-ext-install intl gd
 
 pecl install mongodb
 
-phpenmod mongodb
+php -i
+
+
+

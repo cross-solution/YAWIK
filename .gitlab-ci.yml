@@ -1,12 +1,12 @@
 image: php:7.4
 
 before_script:
-  - bash ci/docker_install.sh > /dev/null
+  - bash ci/docker_install.sh # > /dev/null
   
 stages:
   - test
 
-test:app:
+test:yawik:
   script:
     - ls
     - composer install
