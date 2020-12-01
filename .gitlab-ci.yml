@@ -1,4 +1,4 @@
-image: php:5.6
+image: php:7.4
 
 before_script:
   - bash ci/docker_install.sh
