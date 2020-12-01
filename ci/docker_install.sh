@@ -30,5 +30,4 @@ ls -l /usr/local/etc/php/
 
 echo "##############################################"
 
-echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/php.ini
-
+echo "extension=mongodb.so" >> /usr/local/etc/php/php.ini-production
