@@ -1,5 +1,11 @@
 image: php:7.4
 
+# Cache libraries in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+
 before_script:
   - bash ci/docker_install.sh # > /dev/null
   
