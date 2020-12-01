@@ -1,4 +1,4 @@
-image: yawik
+image: yawik/yawik
 
 # Cache libraries in between jobs
 cache:
