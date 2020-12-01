@@ -24,3 +24,4 @@ ls -l /usr/local/bin
 # Install mongodb, intl, gd
 docker-php-ext-install intl gd
 
+pecl install mongodb
