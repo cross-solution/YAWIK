@@ -17,5 +17,5 @@ chmod +x /usr/local/bin/phpunit
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install mongodb, intl, gd
-docker-php-ext-install mongodb intl gd
+docker-php-ext-install intl gd
 
