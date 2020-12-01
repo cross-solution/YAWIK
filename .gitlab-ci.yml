@@ -1,22 +1,12 @@
-image: php:7.3
+image: php:5.6
 
 before_script:
-  - apt-get update
-  - php -m
-  - php -v
-  - apt-get install zip unzip php-mongodb php-intl php-gd
-  - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-  - php composer-setup.php
-  - php -r "unlink('composer-setup.php');"
-  - php composer.phar install
+  - bash ci/docker_install.sh > /dev/null
   
-after_script:
-  - date
-
 stages:
   - test
 
-test:
-  stage: test
+test:app:
   script:
-    - composer install
+    - phpunit --configuration phpunit_myapp.xml
+    
