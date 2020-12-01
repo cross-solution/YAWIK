@@ -2,7 +2,7 @@ image: php:7.4
 
 before_script:
   - apt-get update
-  - apt-get install zip unzip
+  - apt-get install zip unzip php-mongodb php-intl php-gd
   - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
   - php composer-setup.php
   - php -r "unlink('composer-setup.php');"
