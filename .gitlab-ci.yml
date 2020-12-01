@@ -1,7 +1,7 @@
 image: php:7.4
 
 before_script:
-  - bash ci/docker_install.sh
+  - bash ci/docker_install.sh > /dev/null
   
 stages:
   - test
