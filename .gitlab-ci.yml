@@ -16,9 +16,30 @@ before_script:
 stages:
   - test
 
-test:yawik:
+composer:
+  stage: build
+  cache:
+    key: build-cache
+    paths:
+    - vendor/
   script:
     - composer install
+
+phpunit:
+  stage: test
+  cache:
+    key: build-cache
+    paths:
+      - vendor/
+  script:
     - ./vendor/bin/phpunit --debug
-    
-    
+
+behat:
+  stage: test
+  cache:
+    key: build-cache
+    paths:
+      - vendor/
+  script:
+    - echo "behat"
+  
