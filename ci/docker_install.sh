@@ -27,7 +27,6 @@ php -i
 
 ls -l /usr/local/etc/php/
 
-
-echo "##############################################"
-
 echo "extension=mongodb.so" >> /usr/local/etc/php/php.ini-development
+
+cat /usr/local/etc/php/php.ini-development
