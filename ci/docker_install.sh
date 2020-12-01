@@ -18,9 +18,6 @@ curl -sS https://getcomposer.org/installer > installer.php
 php ./installer.php --install-dir=/usr/local/bin --filename=composer
 chmod +x /usr/local/bin/composer
 
-ls -l /usr/local/bin
-
-
 # Install mongodb, intl, gd
 docker-php-ext-install intl gd
 
