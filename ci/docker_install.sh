@@ -25,3 +25,5 @@ ls -l /usr/local/bin
 docker-php-ext-install intl gd
 
 pecl install mongodb
+
+phpenmod mongodb
