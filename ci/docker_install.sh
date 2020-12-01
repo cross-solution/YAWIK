@@ -8,11 +8,6 @@ set -xe
 # Install git (the php image doesn't have it) which is required by composer
 apt-get update -yqq
 apt-get install git \
-        php-pear \
-	php7.4 \
-	php7.4-mongodb \
-	php7.4-gd \
-	php7.4-intl \
 	unzip libpng-dev zlib1g-dev libicu-dev g++ -yqq
 
 # Install phpunit, the tool that we will use for testing
@@ -25,7 +20,7 @@ php ./installer.php --install-dir=/usr/local/bin --filename=composer
 chmod +x /usr/local/bin/composer
 
 # Install mongodb, intl, gd
-#docker-php-ext-install intl gd
+docker-php-ext-install intl gd
 
 pecl install mongodb
 

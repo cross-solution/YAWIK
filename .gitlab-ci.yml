@@ -1,4 +1,4 @@
-image: node:12
+image: php:7.4
 
 # Cache libraries in between jobs
 cache:
