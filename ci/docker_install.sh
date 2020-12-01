@@ -25,7 +25,8 @@ pecl install mongodb
 
 php -i 
 
-cat /usr/local/etc/php/conf.d/php.ini
+ls -l /usr/local/etc/php/
+
 
 echo "##############################################"
 
