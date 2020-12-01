@@ -14,7 +14,7 @@ stages:
 
 test:yawik:
   script:
-    - ls
+    - cat /usr/local/etc/php/conf.d/docker-php-ext-gd.ini
     - composer install
     - phpunit --configuration phpunit_myapp.xml
     
