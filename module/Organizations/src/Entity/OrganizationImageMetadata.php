@@ -19,7 +19,7 @@ class OrganizationImageMetadata extends BaseImageMetadata
      * Organization which belongs to the company logo
      * @ODM\ReferenceOne(targetDocument="Organizations\Entity\Organization", storeAs="id")
      */
-    protected ?Organization $organization;
+    protected ?OrganizationInterface $organization;
 
     public function getResourceId()
     {
@@ -32,14 +32,14 @@ class OrganizationImageMetadata extends BaseImageMetadata
     }
 
     /**
-     * @return Organization|null
+     * @return OrganizationInterface|null
      */
-    public function getOrganization(): ?Organization
+    public function getOrganization(): ?OrganizationInterface
     {
         return $this->organization;
     }
 
-    public function setOrganization(?Organization $organization)
+    public function setOrganization(?OrganizationInterface $organization)
     {
         $this->organization = $organization;
         return $this;

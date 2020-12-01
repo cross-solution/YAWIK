@@ -6,6 +6,7 @@ namespace Core\Entity;
 
 use DateTimeInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use MongoDB\BSON\ObjectId;
 
 trait FileTrait
 {
@@ -33,6 +34,11 @@ trait FileTrait
      * @ODM\File\ChunkSize
      */
     protected ?int $chunkSize = null;
+
+    public function __construct()
+    {
+        $this->id = (string)new ObjectId();
+    }
 
     /**
      * @return string|null

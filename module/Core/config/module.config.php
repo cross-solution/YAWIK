@@ -18,12 +18,11 @@ use Core\Controller\Console\ClearCacheController;
 use Core\Factory\Controller\AdminControllerFactory;
 use Core\Factory\Controller\FileControllerFactory;
 use Core\Factory\Controller\LazyControllerFactory;
-use Core\Factory\Service\HtmlPurifierFactory;
 use Core\Service\FileManager;
 use Core\Service\ClearCacheService;
+use Core\Service\ImageSetHandler;
 use Core\Service\Tracy;
 use Laminas\I18n\Translator\Resources;
-use Organizations\Service\ImageUploadService;
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 
@@ -360,7 +359,7 @@ return array(
             Queue\Worker\MongoWorker::class => \SlmQueue\Factory\WorkerFactory::class,
             'Core/HtmlPurifier' => \Core\Factory\Service\HtmlPurifierFactory::class,
             FileManager::class => [FileManager::class, 'factory'],
-            ImageUploadService::class => [ImageUploadService::class, 'factory'],
+            ImageSetHandler::class => [ImageSetHandler::class, 'factory'],
         ),
         'abstract_factories' => array(
             'Core\Factory\OptionsAbstractFactory',

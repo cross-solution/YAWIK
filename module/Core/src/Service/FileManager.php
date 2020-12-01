@@ -7,6 +7,7 @@ namespace Core\Service;
 
 use Auth\AuthenticationService;
 use Auth\Entity\AnonymousUser;
+use Auth\Entity\UserImage;
 use Core\Entity\FileInterface;
 use Core\Entity\FileMetadataInterface;
 use Core\Entity\ImageInterface;
@@ -16,6 +17,7 @@ use Imagine\Image\ImageInterface as ImagineImage;
 use Doctrine\ODM\MongoDB\Repository\GridFSRepository;
 use Doctrine\ODM\MongoDB\Repository\UploadOptions;
 use Doctrine\Persistence\ObjectRepository;
+use Imagine\Image\ImagineInterface;
 use Psr\Container\ContainerInterface;
 
 class FileManager
@@ -28,21 +30,28 @@ class FileManager
      * @var AuthenticationService
      */
     private AuthenticationService $auth;
+    /**
+     * @var ImagineInterface
+     */
+    private ImagineInterface $imagine;
 
     public function __construct(
         DocumentManager $dm,
-        AuthenticationService $auth
+        AuthenticationService $auth,
+        ImagineInterface $imagine
     )
     {
         $this->dm = $dm;
         $this->auth = $auth;
+        $this->imagine = $imagine;
     }
 
     public static function factory(ContainerInterface $container): self
     {
         $dm = $container->get(DocumentManager::class);
         $auth = $container->get('AuthenticationService');
-        return new FileManager($dm, $auth);
+        $imagine = $container->get('Imagine');
+        return new FileManager($dm, $auth, $imagine);
     }
 
     /**
@@ -76,19 +85,22 @@ class FileManager
     public function uploadFromFile(string $entityClass, FileMetadataInterface $metadata, string $source, ?string $fileName = null): object
     {
         $repo = $this->getRepository($entityClass);
-        $user = $this->auth->getUser();
 
-        if($user instanceof AnonymousUser){
-            $metadata->getPermissions()->grant($user, PermissionsInterface::PERMISSION_ALL);
-        }else{
-            $this->dm->persist($user);
-            $metadata->setUser($user);
+        if(UserImage::class !== $entityClass){
+            $user = $this->auth->getUser();
+            if($user instanceof AnonymousUser){
+                $metadata->getPermissions()->grant($user, PermissionsInterface::PERMISSION_ALL);
+            }else{
+                $metadata->setUser($user);
+                $this->dm->persist($user);
+            }
         }
 
         $options = new UploadOptions();
         $options->metadata = $metadata;
 
-        return $repo->uploadFromFile($source, $fileName, $options);
+        $proxy = $repo->uploadFromFile($source, $fileName, $options);
+        return $this->findByID($entityClass, $proxy->getId());
     }
 
     /**

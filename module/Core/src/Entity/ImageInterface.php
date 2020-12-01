@@ -5,6 +5,6 @@ declare(strict_types=1);
 namespace Core\Entity;
 
 
-interface ImageInterface extends FileInterface
+interface ImageInterface extends FileInterface, EntityInterface
 {
 }

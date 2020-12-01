@@ -15,6 +15,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use MongoDB\BSON\ObjectId;
 use Organizations\Entity\OrganizationReferenceInterface;
 use Settings\Repository\SettingsEntityResolver;
 
@@ -172,6 +173,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     public function __construct()
     {
         $this->status = new Status();
+        $this->id = (string)new ObjectId();
     }
 
     /**

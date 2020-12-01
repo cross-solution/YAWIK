@@ -11,7 +11,9 @@
 namespace Organizations\Controller;
 
 use Core\Entity\Collection\ArrayCollection;
+use Core\Form\Form as CoreForm;
 use Core\Form\SummaryForm;
+use Organizations\Entity\OrganizationInterface;
 use Organizations\Exception\MissingParentOrganizationException;
 use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Laminas\I18n\Translator\TranslatorInterface;
@@ -23,6 +25,7 @@ use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 use Laminas\Http\PhpEnvironment\Response;
 use Core\Entity\Exception\NotFoundException;
+use Organizations\Service\ManageHandler;
 
 /**
  * Main Action Controller for the Organization.
@@ -67,6 +70,10 @@ class IndexController extends AbstractActionController
      * @var TranslatorInterface
      */
     private $translator;
+    /**
+     * @var ManageHandler
+     */
+    private ManageHandler $manageHandler;
 
     /**
      * Create new controller instance
@@ -76,19 +83,22 @@ class IndexController extends AbstractActionController
      * @param TranslatorInterface $translator
      * @param $formManager
      * @param $viewHelper
+     * @param ManageHandler $manageHandler
      */
     public function __construct(
         Form\Organizations $form,
         Repository\Organization $repository,
         TranslatorInterface $translator,
         $formManager,
-        $viewHelper
+        $viewHelper,
+        ManageHandler $manageHandler
     ) {
         $this->repository = $repository;
         $this->form = $form;
         $this->formManager = $formManager;
         $this->viewHelper = $viewHelper;
         $this->translator = $translator;
+        $this->manageHandler = $manageHandler;
     }
 
     /**
@@ -114,7 +124,6 @@ class IndexController extends AbstractActionController
             ]
         ]);
     }
-
 
     /**
      * Change (Upsert) organizations
@@ -167,11 +176,17 @@ class IndexController extends AbstractActionController
                 $org->setEmployees(new ArrayCollection());
             }
 
+            $organization = $container->getEntity();
             $form = $container->get($formIdentifier);
             $form->setData(array_merge($postData, $filesData));
             if (!isset($form)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
+
+            if('organizationLogo' == $formIdentifier){
+                return $this->handleLogoUpload($form, $filesData);
+            }
+
             $isValid = $form->isValid();
 
             if ("employeesManagement" == $formIdentifier) {
@@ -183,20 +198,16 @@ class IndexController extends AbstractActionController
                     }
                 }
             }
+
             if ($isValid) {
                 $orgName = $org->getOrganizationName();
                 if ($orgName && '' !== (string) $orgName->getName()) {
                     $org->setIsDraft(false);
                 }
-                if("organizationLogo" == $formIdentifier){
-                    // FIXME:   need to flush existing change before store or
-                    //          it will throws Cannot persist GridFS file for class
-                    $this->repository->getDocumentManager()->flush();
-                }
                 $this->repository->store($org);
             }
 
-            $organization = $container->getEntity();
+
             $this->repository->store($organization);
 
             if ('file-uri' === $this->params()->fromPost('return')) {
@@ -275,5 +286,19 @@ class IndexController extends AbstractActionController
         $model->setTemplate("organizations/error/$script");
 
         return $model;
+    }
+
+    private function handleLogoUpload(CoreForm $form, array $filesData): JsonModel
+    {
+        $id = $this->params('id');
+        $manageHandler = $this->manageHandler;
+        $data = $filesData['original'];
+        $organization = $manageHandler->handleLogoUpload($id, $data);
+        $form->getParent()->setEntity($organization);
+        $content = $this->viewHelper->get('form')->__invoke($form);
+        return new JsonModel([
+            'valid' => true,
+            'content' => $content
+        ]);
     }
 }

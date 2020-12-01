@@ -12,9 +12,14 @@ namespace Auth\Controller;
 
 use Auth\Adapter\HybridAuth;
 use Auth\AuthenticationService;
+use Auth\Entity\UserImage;
+use Auth\Entity\UserInterface;
 use Auth\Form\SocialProfiles;
 use Auth\Form\UserProfileContainer;
+use Auth\Service\ManageHandler;
+use Core\Entity\ImageMetadata;
 use Core\Repository\RepositoryService;
+use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\Mvc\I18n\Translator;
@@ -41,8 +46,10 @@ class ManageController extends AbstractActionController
 	private $viewHelper;
 	
 	private $hybridAuthAdapter;
-	
-	/**
+
+    private ManageHandler $manageHandler;
+
+    /**
 	 * @param ContainerInterface $container
 	 * @return ManageController
 	 */
@@ -56,26 +63,29 @@ class ManageController extends AbstractActionController
 		$repositories = $container->get('repositories');
 		$viewHelper = $container->get('ViewHelperManager');
 		$hybridAuthAdapter = $container->get('HybridAuthAdapter');
-		$controller = new ManageController(
+		$uploadHandler = $container->get(ManageHandler::class);
+
+		return new ManageController(
 			$userProfileContainer,
 			$authService,
 			$repositories,
 			$socialProfileForm,
 			$translator,
 			$viewHelper,
-			$hybridAuthAdapter
+			$hybridAuthAdapter,
+            $uploadHandler
 		);
-		return $controller;
 	}
 	
 	public function __construct(
-		UserProfileContainer $userProfileContainer,
-		AuthenticationService $authService,
-		RepositoryService $repositories,
-		SocialProfiles $socialProfileForm,
-		Translator $translator,
-		HelperPluginManager $viewHelper,
-		HybridAuth $hybridAuthAdapter
+        UserProfileContainer $userProfileContainer,
+        AuthenticationService $authService,
+        RepositoryService $repositories,
+        SocialProfiles $socialProfileForm,
+        Translator $translator,
+        HelperPluginManager $viewHelper,
+        HybridAuth $hybridAuthAdapter,
+        ManageHandler $manageHandler
 	)
 	{
 		$this->userProfileContainer = $userProfileContainer;
@@ -85,7 +95,8 @@ class ManageController extends AbstractActionController
 		$this->translator = $translator;
 		$this->viewHelper = $viewHelper;
 		$this->hybridAuthAdapter = $hybridAuthAdapter;
-	}
+        $this->manageHandler = $manageHandler;
+    }
 	
 	/**
      * @return array|JsonModel
@@ -116,15 +127,25 @@ class ManageController extends AbstractActionController
         if ($this->request->isPost()) {
             $formName  = $this->params()->fromQuery('form');
             $form      = $userProfileContainer->getForm($formName);
-            
-            if ($form) {
+
+            if(!is_null($form) && 'info.image' === $formName) {
+                $user = $this->manageHandler->handleUpload($user, $_FILES['image']);
+                $form->getParent()->setEntity($user->getInfo());
+                $content = $this->viewHelper->get('form')->__invoke($form);
+                return new JsonModel(
+                    array(
+                        'valid' => true,
+                        'content' => $content,
+                    )
+                );
+            }elseif($form) {
                 $postData  = $form->getOption('use_post_array') ? $_POST : array();
                 //@TODO: [ZF3] option use_files_array is false by default
                 //$filesData = $form->getOption('use_files_array') ? $_FILES : array();
 	            $filesData = $_FILES;
                 $data      = array_merge($postData, $filesData);
                 $form->setData($data);
-                
+
                 if (!$form->isValid()) {
                     return new JsonModel(array(
                         'valid' => false,

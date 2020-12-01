@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Organizations\Entity;
 
+use Core\Entity\EntityTrait;
 use Core\Entity\FileTrait;
 use Core\Entity\ImageInterface;
 use Core\Entity\ImageMetadata;
@@ -17,7 +18,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class OrganizationImage implements ImageInterface
 {
-    use FileTrait;
+    use FileTrait, EntityTrait;
 
     /**
      * @ODM\File\Metadata(targetDocument="Organizations\Entity\OrganizationImageMetadata")

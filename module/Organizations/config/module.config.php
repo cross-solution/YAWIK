@@ -219,6 +219,7 @@ return [
            'Organizations\ImageFileCache\Manager' => 'Organizations\Factory\ImageFileCache\ManagerFactory',
            'Organizations\ImageFileCache\ODMListener' => 'Organizations\Factory\ImageFileCache\ODMListenerFactory',
            'Organizations\ImageFileCache\ApplicationListener' => 'Organizations\Factory\ImageFileCache\ApplicationListenerFactory',
+            \Organizations\Service\ManageHandler::class => [\Organizations\Service\ManageHandler::class, 'factory'],
         ],
     ],
 

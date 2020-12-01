@@ -18,7 +18,7 @@ trait FileMetadataTrait
     /**
      * owner of an attachment. Typically this is the candidate who applies for a job offer.
      *
-     * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", storeAs="id")
+     * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", storeAs="id", cascade={"persist"})
      */
     protected ?UserInterface $user = null;
 

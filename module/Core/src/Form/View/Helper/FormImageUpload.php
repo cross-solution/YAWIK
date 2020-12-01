@@ -39,7 +39,7 @@ class FormImageUpload extends FormFileUpload
                 $preview = '<span>' . $file->getName() . '(' . $file->getPrettySize() . ')</span>';
             }
         }
-        $notice = '<div class="iu-empty-notice" style="padding: 10px; color: lightgrey;">
+        $notice = '<div class="iu-empty-notice" style="padding: 10px; color: #d3d3d3;">
                             <div style="padding: 0px 20px 5px;"><span class="yk-icon fa-file-image-o fa-5x"></span></div>
                             <small>' . $translator->translate('Click here to add an image or use drag and drop.') . '</small>
                             
