@@ -4,7 +4,7 @@ before_script:
   - apt-get update
   - php -m
   - php -v
-  - apt-get install zip unzip php7.4-mongodb php7.4-intl php7.4-gd
+  - apt-get install zip unzip php-mongodb php-intl php-gd
   - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
   - php composer-setup.php
   - php -r "unlink('composer-setup.php');"
