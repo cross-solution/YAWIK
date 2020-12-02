@@ -6,13 +6,6 @@ cache:
   paths:
     - vendor/
 
-
-services:
-  - mongo
-
-before_script:
-  - bash ci/docker_install.sh > /dev/null
-  
 stages:
   - build
   - test
