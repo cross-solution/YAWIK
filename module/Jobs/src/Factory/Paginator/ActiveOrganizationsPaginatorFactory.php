@@ -10,12 +10,12 @@
 /** */
 namespace Jobs\Factory\Paginator;
 
+use Core\Paginator\Adapter\DoctrineMongoAdapter;
 use Core\Repository\RepositoryService;
 use Interop\Container\ContainerInterface;
+use Laminas\Http\PhpEnvironment\Request;
 use Laminas\Paginator\Paginator;
-use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory creates a paginator to paginate all active organizations.
@@ -28,17 +28,15 @@ class ActiveOrganizationsPaginatorFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var RepositoryService $repositories
-         * @var \Laminas\Http\PhpEnvironment\Request $request */
+         * @var Request $request */
         $repositories   = $container->get('repositories');
         $repository     = $repositories->get('Jobs');
         $request        = $container->get('Request');
         $query          = $request->getQuery();
         $term           = $query->get('q');
-        $cursor         = $repository->findActiveOrganizations($term);
+        $qb             = $repository->findActiveOrganizations($term, false);
+        $adapter        = new DoctrineMongoAdapter($qb);
 
-        $adapter        = new \Core\Paginator\Adapter\DoctrineMongoAdapter($cursor);
-        $service        = new Paginator($adapter);
-
-        return $service;
+        return new Paginator($adapter);
     }
 }

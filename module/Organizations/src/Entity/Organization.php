@@ -14,6 +14,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\ImageInterface;
 use Core\Entity\ImageSet;
 use Core\Entity\ImageSetInterface;
 use Core\Entity\MetaDataProviderTrait;
@@ -171,7 +172,7 @@ class Organization extends BaseEntity implements
      * the owner of a Organization
      *
      * @var UserInterface $user
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id", cascade="ALL")
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", storeAs="id", cascade={"all"})
      * @ODM\Index
      */
     protected $user;
@@ -204,6 +205,17 @@ class Organization extends BaseEntity implements
         $this->images = new ImageSet();
     }
 
+    /**
+     * @return OrganizationImage|ImageInterface|null
+     */
+    public function getImage(): ?OrganizationImage
+    {
+        $logo = null;
+        if(!is_null($this->getImages()) && !is_null($test = $this->getImages()->get('original'))){
+            $logo = $test;
+        }
+        return $logo;
+    }
 
     /**
      * @return string
@@ -576,8 +588,11 @@ class Organization extends BaseEntity implements
     /**
      * @return ImageSetInterface
      */
-    public function getImages(): ImageSetInterface
+    public function getImages(): ?ImageSetInterface
     {
+        if(is_null($this->images)){
+            $this->images = new ImageSet();
+        }
         return $this->images;
     }
 

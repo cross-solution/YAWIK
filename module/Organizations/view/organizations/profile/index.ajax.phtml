@@ -65,9 +65,9 @@ if (false !== strpos($sort, '-')) {
 <?php foreach ($this->organizations as $organization): /* @var $organization \Organizations\Entity\Organization */?>
  <tr>
   <td>
-      <?php if ($organization->getOrganizationName()): ?>
+      <?php if ($organization->getOrganizationName() && !is_null($image=$organization->getImages()->get('thumbnail'))): ?>
           <div class="yk-logo-list">
-              <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($organization->getImages()->get('thumbnail'))) ?>">
+              <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($image)) ?>">
           </div>
       <?php endif ?>
       <a href="<?php echo $this->url('lang/organizations/profileDetail', array('id' => $organization->getId())); ?>?clear=1">

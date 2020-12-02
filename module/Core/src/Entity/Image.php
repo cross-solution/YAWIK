@@ -12,7 +12,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @ODM\File(bucketName="core.fs.images")
  * @package Core\Entity
  */
-class Image implements ImageInterface, EntityInterface
+class Image implements ImageInterface
 {
     use FileTrait, EntityTrait;
 

@@ -26,7 +26,7 @@ class ConsoleControllerTest extends TestCase
     private $target;
 
     /**
-     * @var JobRepository
+     * @var Job
      */
     private $jobRepo;
 

@@ -35,7 +35,7 @@ class Contact extends Info
      * redeclared here.
      * @ODM\ReferenceOne(targetDocument="Applications\Entity\Attachment", storeAs="id", nullable=true, cascade={"persist", "update", "remove"}, orphanRemoval=true)
      */
-    protected ?ImageInterface $image;
+    protected ?ImageInterface $image = null;
 
     /**
      * Creates a Contact

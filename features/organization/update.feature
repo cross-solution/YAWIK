@@ -5,7 +5,7 @@ Feature: Updating my organization
     I should able to update my organization
 
     Background:
-        Given I am logged in as a recruiter
+        Given I am logged in as a recruiter with "Update Organization" as organization
         And I go to my organization page
 
     Scenario: Updating Name
@@ -63,15 +63,15 @@ Feature: Updating my organization
         Then the "accept Applications by Department Managers" checkbox should not be checked
         And the "assign department managers to jobs" checkbox should not be checked
 
+    @travis-exclude
     Scenario: Add and remove logo
         When I want to edit my organization
         And I attach logo from file "img/logo.jpg"
         And I wait for the ajax response
-        And I wait for 5 seconds
         Then I should see an "img.img-polaroid" element
         # test removing a logo
         When I remove logo from organization
-        And I wait for 5 seconds
+        And I wait for the ajax response
         And I want to edit my organization
         Then the "h1" element should contain "Organization"
         And I wait for 2 seconds

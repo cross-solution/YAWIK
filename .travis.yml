@@ -40,7 +40,7 @@ cache:
     php --ri mongodb || pecl install -f mongodb
     phpenv config-add etc/travis/phpenv.ini
   - &install-composer-dependencies |
-    composer install --no-interaction
+    composer install --no-interaction --no-scripts
     npm install
   - &setup-selenium |
     ./bin/start-selenium > /dev/null 2>&1 &
@@ -73,7 +73,7 @@ matrix:
       env: COVERAGE=yes
       after_script: *upload-coverage
 
-  before_install:
+before_install:
   - *disable-php-memory-limit
   - *disable-xdebug
   - *update-pecl-channel

@@ -11,6 +11,7 @@ namespace JobsTest\Listener;
 
 use Core\Service\EntityEraser\LoadEvent;
 use Jobs\Entity\Job;
+use Jobs\Entity\Job as JobEntity;
 use Jobs\Listener\LoadExpiredJobsToPurge;
 use Jobs\Repository\Job as JobRepository;
 use CoreTestUtils\TestCase\FunctionalTestCase;
@@ -29,9 +30,9 @@ class LoadExpiredJobsToPurgeTest extends FunctionalTestCase
 
     public function testInvoke()
     {
-        /* @var \Jobs\Repository\Job $jobRepo */
+        /* @var JobRepository $jobRepo */
         $sl = $this->getApplicationServiceLocator();
-        $jobRepo = $sl->get('repositories')->get('Jobs');
+        $jobRepo = $sl->get('repositories')->get(Job::class);
 
         $event = $this->createMock(LoadEvent::class);
         $event->expects($this->once())
@@ -59,13 +60,13 @@ class LoadExpiredJobsToPurgeTest extends FunctionalTestCase
 
     /**
      * @param JobRepository $repo
-     * @return Job
+     * @return JobEntity
      */
     private function getTestJob(JobRepository $repo)
     {
         $title = 'Test Expired Job';
         $job = $repo->findOneBy(['title' => $title]);
-        if(!$job instanceof Job){
+        if(!$job instanceof JobEntity){
             $job = $repo->create(['title' => $title],true);
         }
 

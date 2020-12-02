@@ -7,6 +7,12 @@ namespace Core\Paginator\Adapter;
 use Doctrine\ODM\MongoDB\Query\Builder as QueryBuilder;
 use Laminas\Paginator\Adapter\AdapterInterface;
 
+/**
+ * Class DoctrineMongoAdapter
+ * TODO: require count to be passed on constructor
+ * @since 0.36
+ * @package Core\Paginator\Adapter
+ */
 class DoctrineMongoAdapter implements AdapterInterface
 {
     /**
@@ -42,8 +48,7 @@ class DoctrineMongoAdapter implements AdapterInterface
     public function count()
     {
         $builder = clone $this->builder;
-        $count = count($builder->getQuery()->getIterator()->toArray());
-
-        return $count;
+        $builder->count();
+        return $builder->getQuery()->execute();
     }
 }

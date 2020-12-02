@@ -45,7 +45,7 @@ class JobContext implements Context
 	private $currentJob;
 
 	/**
-	 * @var JobRepository
+	 * @var Job
 	 */
 	static private $jobRepo;
 
@@ -132,7 +132,7 @@ class JobContext implements Context
 	 */
 	public function iDonTHaveAnyPostedJob()
 	{
-		/* @var $jobRepository JobRepository */
+		/* @var $jobRepository Job */
 		/* @var $job Job */
 		$user = $this->getUserContext()->getCurrentUser();
 
@@ -189,7 +189,7 @@ class JobContext implements Context
 	}
 
 	/**
-	 * @return JobRepository
+	 * @return Job
 	 */
 	public function getJobRepository()
 	{

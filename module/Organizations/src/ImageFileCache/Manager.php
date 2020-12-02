@@ -39,11 +39,14 @@ class Manager
     /**
      * Returns image URI
      *
-     * @param OrganizationImage $image
+     * @param ?OrganizationImage $image
      * @return string
      */
-    public function getUri(OrganizationImage $image)
+    public function getUri(?OrganizationImage $image)
     {
+        if(is_null($image)){
+            return null;
+        }
         if ($this->options->getEnabled()) {
             return sprintf('%s/%s', $this->options->getUriPath(), $this->getImageSubPath($image));
         }

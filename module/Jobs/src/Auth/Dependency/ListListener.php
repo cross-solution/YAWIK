@@ -9,6 +9,7 @@
 
 namespace Jobs\Auth\Dependency;
 
+use Doctrine\ODM\MongoDB\MongoDBException;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Laminas\View\Renderer\PhpRenderer as View;
@@ -38,7 +39,7 @@ class ListListener implements ListInterface
     }
 
     /**
-     * @see \Auth\Dependency\ListInterface::getTitle()
+     * @see ListInterface::getTitle()
      */
     public function getTitle(Translator $translator)
     {
@@ -46,21 +47,24 @@ class ListListener implements ListInterface
     }
 
     /**
-     * @see \Auth\Dependency\ListInterface::getCount()
+     * @param User $user
+     * @return int
+     * @throws MongoDBException
+     * @see ListInterface::getCount()
      */
-    public function getCount(User $user)
+    public function getCount(User $user): int
     {
-        return $this->repository->getUserJobs($user->getId())->count();
+        return $this->repository->countUserJobs($user->getId());
     }
 
     /**
-     * @see \Auth\Dependency\ListInterface::getItems()
+     * @see ListInterface::getItems()
      */
     public function getItems(User $user, View $view, $limit)
     {
         $items = [];
 
-        foreach ($this->repository->getUserJobs($user->getId(), $limit) as $job) /* @var $job \Jobs\Entity\Job */
+        foreach ($this->repository->getUserJobs($user->getId(), $limit) as $job)
         {
             $title = $job->getTitle() ?: $view->translate('untitled');
             $title .= ' ('. $view->dateFormat($job->getDateCreated(), 'short', 'none') . ')';

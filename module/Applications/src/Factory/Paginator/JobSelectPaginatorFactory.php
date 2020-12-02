@@ -13,7 +13,7 @@ namespace Applications\Factory\Paginator;
 use Applications\Paginator\JobSelectPaginator;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
-use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**

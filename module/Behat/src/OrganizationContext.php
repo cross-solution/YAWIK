@@ -227,7 +227,7 @@ class OrganizationContext implements Context
     {
         $org = $this->findOrganizationByName($name);
 
-        /* @var JobRepository $jobRepo */
+        /* @var Job $jobRepo */
         $jobRepo = $this->getRepository('Jobs/Job');
         $result = $jobRepo->findByOrganization($org->getId());
 

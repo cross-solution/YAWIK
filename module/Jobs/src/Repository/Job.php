@@ -14,17 +14,14 @@
 namespace Jobs\Repository;
 
 use Auth\Entity\UserInterface;
-use Core\Entity\Tree\EmbeddedLeafs;
 use Core\Repository\AbstractRepository;
-use Core\Repository\DoctrineMongoODM;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\ODM\MongoDB\Cursor;
-use Doctrine\ODM\MongoDB\Query;
-use Jobs\Entity\Category;
-use Jobs\Entity\Classifications;
+use Doctrine\ODM\MongoDB\MongoDBException;
+use Doctrine\ODM\MongoDB\Query\Builder as QueryBuilder;
+use Jobs\Entity\Job as JobEntity;
 use Jobs\Entity\StatusInterface;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\Regex;
+use Organizations\Entity\Organization;
 
 /**
  * Class Job
@@ -51,7 +48,7 @@ class Job extends AbstractRepository
      *
      * @param $applyId
      * @return bool
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @throws MongoDBException
      */
     public function existsApplyId($applyId)
     {
@@ -82,7 +79,7 @@ class Job extends AbstractRepository
      * Look for an drafted Document of a given user
      *
      * @param $user
-     * @return \Jobs\Entity\Job|null
+     * @return JobEntity|null
      */
     public function findDraft($user)
     {
@@ -116,7 +113,7 @@ class Job extends AbstractRepository
      * Selects job postings of a certain organization
      *
      * @param int $organizationId
-     * @return \Jobs\Entity\Job[]
+     * @return JobEntity[]
      */
     public function findByOrganization($organizationId, $status = null)
     {
@@ -133,10 +130,12 @@ class Job extends AbstractRepository
     /**
      * Selects all Organizations with Active Jobs
      *
-     * @return mixed
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @param ?string $term
+     * @param bool $execute
+     * @return null|Organization[]|QueryBuilder
+     * @throws MongoDBException
      */
-    public function findActiveOrganizations($term = null)
+    public function findActiveOrganizations(?string $term = null, bool $execute = true)
     {
         $qb = $this->createQueryBuilder();
         $qb->distinct('organization')
@@ -150,18 +149,21 @@ class Job extends AbstractRepository
         $qb = $this->dm->createQueryBuilder('Organizations\Entity\Organization');
         $qb->field('_id')->in($r);
         if ($term) {
-            $qb->field('_organizationName')->equals(new Regex('/' . addslashes($term) . '/i'));
+            $qb->field('_organizationName')
+                ->equals(new Regex('/' . addslashes($term) . '/i'));
         }
 
-        $q = $qb->getQuery();
-        $r = $q->execute();
+        if($execute){
+            return $qb->getQuery()->execute();
+        }
 
-        return $r;
+        return $qb;
     }
 
     /**
-     * @return  Cursor
-     * @throws  \Doctrine\ODM\MongoDB\MongoDBException
+     * @param bool $hydrate
+     * @return array|JobEntity[]
+     * @throws MongoDBException
      */
     public function findActiveJob($hydrate = true)
     {
@@ -181,21 +183,40 @@ class Job extends AbstractRepository
      * Get jobs for given user ID
      *
      * @param string $userId
-     * @param int $limit
-     * @return Cursor
+     * @param int|null $limit
+     * @return JobEntity[]|null
+     * @throws MongoDBException
      * @since 0.27
      */
-    public function getUserJobs($userId, $limit = null)
+    public function getUserJobs(string $userId, ?int $limit = null)
     {
-        $qb = $this->createQueryBuilder()
-            ->field('user')->equals($userId)
-            ->sort(['dateCreated.date' => -1]);
+        $qb = $this->userJobsQuery($userId);
 
-        if (isset($limit)) {
+        if (!is_null($limit)) {
             $qb->limit($limit);
         }
-
         return $qb->getQuery()->execute();
+    }
+
+    /**
+     * @param string $userId
+     * @return int
+     * @throws MongoDBException
+     */
+    public function countUserJobs(string $userId): int
+    {
+        return $this->userJobsQuery($userId)
+            ->count()
+            ->getQuery()
+            ->execute();
+    }
+
+    private function userJobsQuery(string $userId)
+    {
+        return $this->createQueryBuilder()
+            ->field('user')
+            ->equals($userId)
+            ->sort(['dateCreated.date' => -1]);
     }
 
     /**
@@ -203,9 +224,9 @@ class Job extends AbstractRepository
      *
      * @param bool $isDeleted Value of the isDeleted flag. Pass "null" to ignore this field.
      *
-     * @return Query\Builder
+     * @return QueryBuilder
      */
-    public function createQueryBuilder($isDeleted = false): Query\Builder
+    public function createQueryBuilder($isDeleted = false): QueryBuilder
     {
         $qb =  parent::createQueryBuilder();
 

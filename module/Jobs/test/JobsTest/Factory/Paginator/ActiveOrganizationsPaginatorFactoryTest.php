@@ -10,6 +10,7 @@
 /** */
 namespace JobsTest\Factory\Paginator;
 
+use Doctrine\ODM\MongoDB\Query\Builder;
 use PHPUnit\Framework\TestCase;
 
 use Core\Paginator\Adapter\DoctrineMongoAdapter;
@@ -50,12 +51,13 @@ class ActiveOrganizationsPaginatorFactoryTest extends TestCase
     {
         $request = new Request();
         $request->getQuery()->set('q', 'term');
-
-
-        $cursor = $this->getMockBuilder(Cursor::class)->disableOriginalConstructor()->getMock();
+        $queryBuilder = $this->createMock(Builder::class);
 
         $repository = $this->getMockBuilder(Job::class)->disableOriginalConstructor()->setMethods(['findActiveOrganizations'])->getMock();
-        $repository->expects($this->once())->method('findActiveOrganizations')->with('term')->will($this->returnValue($cursor));
+        $repository->expects($this->once())
+            ->method('findActiveOrganizations')
+            ->with('term')
+            ->willReturn($queryBuilder);
 
         $repositories = $this->createPluginManagerMock(['Jobs' => $repository]);
 

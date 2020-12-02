@@ -3,6 +3,9 @@
 /.env.test
 /package-lock.json
 /composer.lock
+features/var
+
+module/Core/test/var/*
 
 #
 # General text editors backup files

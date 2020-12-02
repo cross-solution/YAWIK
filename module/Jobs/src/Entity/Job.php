@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
+use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\Collection\ArrayCollection;
@@ -866,7 +867,7 @@ class Job extends BaseEntity implements
      */
     public function getLogoRef()
     {
-        /** @var $organization \Organizations\Entity\Organization */
+        /** @var $organization Organization */
         $organization = $this->organization;
         if (is_object($organization) && $organization->getImage()) {
             $organizationImage = $organization->getImage();

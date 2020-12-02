@@ -9,6 +9,13 @@ use Core\Repository\Filter\AbstractPaginationQuery;
 use Laminas\Paginator\Adapter\AdapterInterface;
 use Doctrine\ODM\MongoDB\Query\Builder as QueryBuilder;
 
+/**
+ * Class DoctrineMongoLateAdapter
+ *
+ * TODO: require count to be passed on constructor
+ * @since 0.36
+ * @package Core\Paginator\Adapter
+ */
 class DoctrineMongoLateAdapter implements AdapterInterface
 {
     /**
@@ -24,7 +31,6 @@ class DoctrineMongoLateAdapter implements AdapterInterface
     private array $params;
 
     /**
-     * DoctrineMongoLateAdapter constructor.
      * @param QueryBuilder $queryBuilder
      * @param AbstractPaginationQuery $filter
      * @param array $params
@@ -54,9 +60,8 @@ class DoctrineMongoLateAdapter implements AdapterInterface
      */
     public function count()
     {
-        $qb = $this->queryBuilder;
-        $total = $qb->getQuery()->execute()->toArray();
-        return count($total);
+        $qb = clone $this->queryBuilder;
+        return $qb->count()->getQuery()->execute();
     }
 
 }

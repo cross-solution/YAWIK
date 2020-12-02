@@ -10,6 +10,8 @@ namespace Organizations\Repository;
 
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
+use Doctrine\ODM\MongoDB\MongoDBException;
+use Doctrine\ODM\MongoDB\Query\Builder;
 use MongoDB\BSON\ObjectId;
 use Organizations\Entity\EmployeeInterface;
 use Organizations\Entity\OrganizationInterface;
@@ -250,11 +252,13 @@ class Organization extends AbstractRepository
      * Get organizations for given user ID
      *
      * @param string $userId
-     * @param int $limit
-     * @return Cursor
+     * @param int|null $limit
+     * @param bool $execute
+     * @return array|Organization[]|Builder
+     * @throws MongoDBException
      * @since 0.27
      */
-    public function getUserOrganizations($userId, $limit = null)
+    public function getUserOrganizations(string $userId, ?int $limit = null, bool $execute = true)
     {
         $qb = $this->createQueryBuilder(null)
             ->field('user')->equals($userId)
@@ -264,6 +268,22 @@ class Organization extends AbstractRepository
             $qb->limit($limit);
         }
 
-        return $qb->getQuery()->execute();
+        if($execute){
+            return $qb->getQuery()->execute();
+        }
+        return $qb;
+    }
+
+    /**
+     * @param string $userId
+     * @return int
+     * @throws MongoDBException
+     */
+    public function countUserOrganizations(string $userId): int
+    {
+        return $this->getUserOrganizations($userId, null, false)
+            ->count()
+            ->getQuery()
+            ->execute();
     }
 }

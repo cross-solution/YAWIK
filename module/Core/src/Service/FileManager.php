@@ -26,32 +26,26 @@ class FileManager
      * @var DocumentManager
      */
     private DocumentManager $dm;
+
     /**
      * @var AuthenticationService
      */
     private AuthenticationService $auth;
-    /**
-     * @var ImagineInterface
-     */
-    private ImagineInterface $imagine;
 
     public function __construct(
         DocumentManager $dm,
-        AuthenticationService $auth,
-        ImagineInterface $imagine
+        AuthenticationService $auth
     )
     {
         $this->dm = $dm;
         $this->auth = $auth;
-        $this->imagine = $imagine;
     }
 
     public static function factory(ContainerInterface $container): self
     {
         $dm = $container->get(DocumentManager::class);
         $auth = $container->get('AuthenticationService');
-        $imagine = $container->get('Imagine');
-        return new FileManager($dm, $auth, $imagine);
+        return new FileManager($dm, $auth);
     }
 
     /**
@@ -99,8 +93,7 @@ class FileManager
         $options = new UploadOptions();
         $options->metadata = $metadata;
 
-        $proxy = $repo->uploadFromFile($source, $fileName, $options);
-        return $this->findByID($entityClass, $proxy->getId());
+        return $repo->uploadFromFile($source, $fileName, $options);
     }
 
     /**

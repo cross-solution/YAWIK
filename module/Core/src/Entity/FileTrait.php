@@ -35,11 +35,6 @@ trait FileTrait
      */
     protected ?int $chunkSize = null;
 
-    public function __construct()
-    {
-        $this->id = (string)new ObjectId();
-    }
-
     /**
      * @return string|null
      */

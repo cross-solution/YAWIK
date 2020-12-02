@@ -173,7 +173,6 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     public function __construct()
     {
         $this->status = new Status();
-        $this->id = (string)new ObjectId();
     }
 
     /**

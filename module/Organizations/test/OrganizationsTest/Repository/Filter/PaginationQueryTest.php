@@ -9,6 +9,7 @@
 
 namespace OrganizationsTest\Repository\Filter;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Auth\AuthenticationService;
@@ -38,12 +39,12 @@ class PaginationQueryTest extends TestCase
     protected $target;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|JobRepository
      */
     protected $jobRepository;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|AuthenticationService
      */
     protected $authService;
 

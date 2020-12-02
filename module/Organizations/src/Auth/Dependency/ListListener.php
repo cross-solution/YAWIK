@@ -50,7 +50,7 @@ class ListListener implements ListInterface
      */
     public function getCount(User $user)
     {
-        return $this->repository->getUserOrganizations($user->getId())->count();
+        return $this->repository->countUserOrganizations($user->getId());
     }
 
     /**

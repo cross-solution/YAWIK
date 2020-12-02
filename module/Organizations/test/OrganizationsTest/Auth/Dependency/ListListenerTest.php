@@ -91,16 +91,10 @@ class ListListenerTest extends TestCase
             ->method('getId')
             ->willReturn($userId);
 
-        $cursor = $this->getMockBuilder(Cursor::class)
-            ->getMock();
-        $cursor->expects($this->once())
-            ->method('count')
-            ->willReturn($expected);
-
         $this->repository->expects($this->once())
-            ->method('getUserOrganizations')
-            ->with($this->equalTo($userId), $this->equalTo(null))
-            ->willReturn($cursor);
+            ->method('countUserOrganizations')
+            ->with($userId)
+            ->willReturn($expected);
 
         $this->assertSame($expected, $this->listListener->getCount($user));
     }
@@ -122,17 +116,10 @@ class ListListenerTest extends TestCase
         $organization = $this->getMockBuilder(OrganizationInterface::class)
             ->getMock();
 
-        $cursor = $this->getMockBuilder(Cursor::class)
-            ->getMock();
-        $cursor->method('valid')
-            ->will($this->onConsecutiveCalls(true, false));
-        $cursor->method('current')
-            ->willReturn($organization);
-
         $this->repository->expects($this->once())
             ->method('getUserOrganizations')
-            ->with($this->equalTo($userId), $this->equalTo($limit))
-            ->willReturn($cursor);
+            ->with($userId, $limit)
+            ->willReturn([$organization]);
 
         $actual = $this->listListener->getItems($user, $view, $limit);
 
