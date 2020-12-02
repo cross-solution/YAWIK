@@ -36,4 +36,4 @@ behat:
       - vendor/
   script:
     - echo "behat"
-  
+    - echo "try to integrate https://github.com/cross-solution/YAWIK/blob/master/etc/travis/behat-integration.yml" 
