@@ -49,6 +49,7 @@ behat:
     paths:
       - vendor/
   script:
+    - su yawik -c "composer install"
     - cp ./etc/travis/autoload/*.* config/autoload
     - mkdir -p build/behat
     - mkdir -p build/mails
