@@ -34,7 +34,7 @@ phpunit:
       - vendor/
   script:
     - cp ./etc/travis/autoload/*.* config/autoload
-    - ./vendor/bin/phpunit --debug
+    - ./vendor/bin/phpunit
 
 behat:
   stage: test
