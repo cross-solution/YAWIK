@@ -15,10 +15,9 @@ before_script:
   - env
   - mkdir -p config/autoload
   - chown -R yawik /builds/yawik/yawik
-  - host php
-  - host db
   - ip address
   - cat /etc/hosts
+  - host db
 
 composer:
   stage: build
