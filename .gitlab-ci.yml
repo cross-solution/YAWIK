@@ -12,6 +12,7 @@ stages:
 
 before_script:
   - chown -R yawik /builds/yawik/yawik
+  - mkdir -p /builds/yawik/yawik/config/autooad
 
 composer:
   stage: build
@@ -30,9 +31,6 @@ phpunit:
     paths:
       - vendor/
   script:
-    - ls -la
-    - ls -la config
-    - ls -la config/autoload
     - cp ./etc/travis/autoload/*.* config/autoload
     - ./vendor/bin/phpunit --debug
 
