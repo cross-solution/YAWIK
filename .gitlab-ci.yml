@@ -31,7 +31,8 @@ phpunit:
       - vendor/
   script:
     - ls -la
-    - pwd
+    - ls -la config
+    - ls -la config/autoload
     - cp ./etc/travis/autoload/*.* config/autoload
     - ./vendor/bin/phpunit --debug
 
