@@ -26,6 +26,7 @@ phpunit:
     paths:
       - vendor/
   script:
+    - cp ./etc/travis/autoload/*.* config/autoload
     - ./vendor/bin/phpunit --debug
 
 behat:
@@ -35,5 +36,8 @@ behat:
     paths:
       - vendor/
   script:
-    - echo "behat"
-    - echo "try to integrate https://github.com/cross-solution/YAWIK/blob/master/etc/travis/behat-integration.yml" 
+    - cp ./etc/travis/autoload/*.* config/autoload
+    - ./bin/start-selenium > /dev/null 2>&1 &
+    - sleep 5
+    - composer run serve --timeout=0 > /dev/null 2>&1 &
+    - ./vendor/bin/behat --strict --no-interaction
