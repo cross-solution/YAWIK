@@ -13,6 +13,7 @@ stages:
 before_script:
   - ip address
   - cat /etc/hosts
+  - env
   - mkdir -p config/autoload
   - chown -R yawik /builds/yawik/yawik
 
