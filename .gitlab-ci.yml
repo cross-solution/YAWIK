@@ -11,6 +11,10 @@ stages:
   - test
 
 before_script:
+  - apt-get install bind9-host
+  - host database
+  - host php
+  - host db
   - ip address
   - cat /etc/hosts
   - env
