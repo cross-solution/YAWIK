@@ -16,7 +16,7 @@ services:
 before_script:
   - apt-get install -y chromium-chromedriver
   - mkdir -p /var/www/cache/
-  - chown -R /var/www/cache/
+  - chown yawik /var/www/cache/
   - mkdir -p config/autoload
   - chown -R yawik /builds/yawik/yawik
 
