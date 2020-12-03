@@ -55,5 +55,6 @@ behat:
     - ./bin/start-selenium > /dev/null 2>&1 &
     - sleep 5
     - composer run serve --timeout=0 > /dev/null 2>&1 &
+    - sleep 5
     - curl -L http://localhost:8080
     - ./vendor/bin/behat --strict --no-interaction
