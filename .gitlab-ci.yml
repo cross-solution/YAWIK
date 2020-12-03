@@ -11,7 +11,7 @@ stages:
   - test
 
 before_script:
-  - apt-get install bind9-host
+  - apt-get -y install bind9-host
   - host database
   - host php
   - host db
