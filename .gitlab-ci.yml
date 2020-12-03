@@ -10,14 +10,12 @@ stages:
   - build
   - test
 
+services:
+  - mongo:latest
+
 before_script:
-  - apt-get -y install bind9-host
-  - env
   - mkdir -p config/autoload
   - chown -R yawik /builds/yawik/yawik
-  - ip address
-  - cat /etc/hosts
-  - host 172.17.0.2
 
 composer:
   stage: build

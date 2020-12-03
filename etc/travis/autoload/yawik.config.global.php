@@ -7,7 +7,7 @@ return array(
                 array(
                     'odm_default' =>
                         array(
-                            'connectionString' => 'mongodb://db:27017/YAWIK',
+                            'connectionString' => 'mongodb://mongo:27017/YAWIK',
                         ),
                 ),
             'configuration' =>
