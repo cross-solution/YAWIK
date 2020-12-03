@@ -12,15 +12,14 @@ stages:
 
 before_script:
   - apt-get -y install bind9-host
+  - env
+  - mkdir -p config/autoload
+  - chown -R yawik /builds/yawik/yawik
   - host database
   - host php
   - host db
   - ip address
   - cat /etc/hosts
-  - env
-  - mkdir -p config/autoload
-  - chown -R yawik /builds/yawik/yawik
-
 
 composer:
   stage: build
