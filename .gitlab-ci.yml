@@ -30,7 +30,8 @@ phpunit:
     paths:
       - vendor/
   script:
-    - cd yawik
+    - ls -la
+    - pwd
     - cp ./etc/travis/autoload/*.* config/autoload
     - ./vendor/bin/phpunit --debug
 
@@ -41,7 +42,6 @@ behat:
     paths:
       - vendor/
   script:
-    - cd yawik
     - cp ./etc/travis/autoload/*.* config/autoload
     - ./bin/start-selenium > /dev/null 2>&1 &
     - sleep 5
