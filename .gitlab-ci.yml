@@ -11,8 +11,10 @@ stages:
   - test
 
 before_script:
+  - ls -la
+  - mkdir -p config/autoload
   - chown -R yawik /builds/yawik/yawik
-  - mkdir -p /builds/yawik/yawik/config/autooad
+
 
 composer:
   stage: build
