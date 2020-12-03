@@ -10,6 +10,9 @@ stages:
   - build
   - test
 
+before_script:
+  - chown -R yawik /builds/yawik/yawik
+
 composer:
   stage: build
   cache:
@@ -17,7 +20,8 @@ composer:
     paths:
     - vendor/
   script:
-    - composer install
+    - pwd
+    - su yawik -c "composer install"
 
 phpunit:
   stage: test
@@ -26,6 +30,7 @@ phpunit:
     paths:
       - vendor/
   script:
+    - cd yawik
     - cp ./etc/travis/autoload/*.* config/autoload
     - ./vendor/bin/phpunit --debug
 
@@ -36,6 +41,7 @@ behat:
     paths:
       - vendor/
   script:
+    - cd yawik
     - cp ./etc/travis/autoload/*.* config/autoload
     - ./bin/start-selenium > /dev/null 2>&1 &
     - sleep 5
