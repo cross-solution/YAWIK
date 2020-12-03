@@ -48,7 +48,8 @@ behat:
       - vendor/
   script:
     - cp ./etc/travis/autoload/*.* config/autoload
-    - mkdir build/behat
+    - mkdir -p build/behat
+    - mkdir -p build/mails
     - ./bin/start-selenium > /dev/null 2>&1 &
     - sleep 5
     - composer run serve --timeout=0 > /dev/null 2>&1 &
