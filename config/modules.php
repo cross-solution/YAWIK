@@ -19,6 +19,6 @@ return [
     'Geo',
     'Organizations',
     'ReleaseTools',
-    'Orders',
+    //'Orders',
     'Yawik\\Migration'
 ];

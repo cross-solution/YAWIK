@@ -10,6 +10,7 @@ use MongoDB\BSON\ObjectId;
 use MongoDB\Collection;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Yawik\Migration\Contracts\ProcessorInterface;
 use Yawik\Migration\Util\MongoUtilTrait;
@@ -36,8 +37,14 @@ class OrganizationProcessor implements ProcessorInterface
     {
         $col = $this->collection;
 
+        $count = $col->countDocuments();
+        $progressBar = new ProgressBar($this->output, $count);
+        $progressBar->setFormat('<info>processing document </info><comment>organizations</comment> [%current%/%max%]');
+        $progressBar->start();
+
         $status = true;
         foreach($col->find() as $current){
+            $progressBar->advance();
             $val = $this->getNamespacedValue('images.images', $current);
             if(!is_null($val)){
                 $col->updateOne(
@@ -51,6 +58,7 @@ class OrganizationProcessor implements ProcessorInterface
             }
         }
 
+        $progressBar->finish();
         return $status;
     }
 

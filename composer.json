@@ -139,6 +139,7 @@
             "Cv\\": "module/Cv/src",
             "Install\\": "module/Install/src",
             "Jobs\\": "module/Jobs/src",
+            "Orders\\": "module/Orders/src",
             "Organizations\\": "module/Organizations/src",
             "Pdf\\": "module/Pdf/src",
             "Settings\\": "module/Settings/src",

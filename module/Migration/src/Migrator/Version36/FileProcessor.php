@@ -83,7 +83,7 @@ class FileProcessor implements ProcessorInterface
         $progressBar->finish();
         $this->output->writeln("");
         $this->output->writeln("");
-        return false;
+        return true;
     }
 
     private function processFile(ObjectId $fileId)

@@ -69,8 +69,11 @@ class MigrationHandler
     {
         $migration = $this->findOrCreate($migrator);
         if(!is_null($migration)){
+            $dm = $this->dm;
             $migration->setMigrated(true);
             $migration->setMigratedAt(new \DateTime());
+            $dm->persist($migration);
+            $dm->flush();
             return $migration;
         }
         throw new InvalidArgumentException(sprintf(

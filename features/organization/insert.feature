@@ -1,3 +1,4 @@
+@organization
 Feature: Add new organization
     In order to post a job
     As an admin
