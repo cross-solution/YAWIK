@@ -15,7 +15,7 @@ use Core\Service\FileManager;
 use Cv\Entity\Attachment;
 use Cv\Entity\Cv as CvEntity;
 use Cv\Repository\Cv as CvRepository;
-use Cv\Service\CvHandler;
+use Cv\Service\UploadHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Jobs\Entity\Job;
@@ -40,9 +40,9 @@ class CvHandlerTest extends TestCase
     private $cvRepo;
 
     /**
-     * @var CvHandler
+     * @var UploadHandler
      */
-    private CvHandler $handler;
+    private UploadHandler $handler;
     /**
      * @var CvEntity|MockObject
      */
@@ -69,7 +69,7 @@ class CvHandlerTest extends TestCase
             ->method('create')
             ->willReturn($this->cv);
 
-        $this->handler = new CvHandler($this->dm, $this->fileManager);
+        $this->handler = new UploadHandler($this->dm, $this->fileManager);
     }
 
     public function testCreateCalled()

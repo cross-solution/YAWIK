@@ -102,6 +102,14 @@ class Organization extends BaseEntity implements
     protected $permissions;
 
     /**
+     * primary logo of an organization
+     *
+     * @var \Organizations\Entity\OrganizationImage
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", inversedBy="organization", storeAs="id", nullable="true", cascade={"all"})
+     */
+    protected ?OrganizationImage $image = null;
+
+    /**
      * @ODM\EmbedOne(targetDocument="Core\Entity\ImageSet")
      */
     protected ?ImageSetInterface $images = null;
@@ -206,15 +214,31 @@ class Organization extends BaseEntity implements
     }
 
     /**
+     * Sets the logo of an organization
+     *
+     * @param OrganizationImage $image
+     *
+     * @return self
+     * @deprecated since 0.29; use $this->getImages()->set()
+     */
+    public function setImage(OrganizationImage $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @param string|bool $key
      * @return OrganizationImage|ImageInterface|null
      */
-    public function getImage(): ?OrganizationImage
+    public function getImage($key = ImageSet::ORIGINAL): ?OrganizationImage
     {
-        $logo = null;
-        if(!is_null($this->getImages()) && !is_null($test = $this->getImages()->get('original'))){
-            $logo = $test;
+        if (is_bool($key)) {
+            $key = $key ? ImageSet::THUMBNAIL : ImageSet::ORIGINAL;
         }
-        return $logo;
+
+        return $this->getImages()->get($key, false) ?: $this->image;
     }
 
     /**

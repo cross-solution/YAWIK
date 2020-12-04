@@ -27,7 +27,7 @@ class LoadDependendEntities
         $entity = $event->getEntity();
 
         if ($entity instanceof Job) {
-            $entities = $event->getRepository('Applications')->findBy(['isDraft' => null, 'job' => new \MongoId($entity->getId())]);
+            $entities = $event->getRepository('Applications')->findBy(['isDraft' => null, 'job' => new ObjectId($entity->getId())]);
 
             return ['Applications', $entities, 'These applications references the job and will also be removed:' ];
         }

@@ -30,7 +30,7 @@ class FormImageUpload extends FormFileUpload
         $translator = $this->getTranslator();
         $textDomain = $this->getTranslatorTextDomain();
 
-        if ($file) {
+        if ($file && !is_null($file->getMetadata())) {
             $metadata = $file->getMetadata();
             if (0 === strpos($metadata->getContentType(), 'image/')) {
                 $basepath  = $this->getView()->plugin('basepath');

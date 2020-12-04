@@ -143,7 +143,8 @@
             "Pdf\\": "module/Pdf/src",
             "Settings\\": "module/Settings/src",
             "ReleaseTools\\": "module/ReleaseTools/src",
-            "Yawik\\Behat\\": "module/Behat/src"
+            "Yawik\\Behat\\": "module/Behat/src",
+            "Yawik\\Migration\\": "module/Migration/src"
         }
     },
     "autoload-dev": {
@@ -160,6 +161,9 @@
             "SettingsTest\\": "module/Settings/test",
             "Yawik\\Behat\\": "module/Behat/src",
             "ReleaseTools\\": "module/ReleaseTools/src"
+        },
+        "psr-4": {
+            "Yawik\\Migration\\Tests\\": "module/Migration/tests"
         }
     },
     "replace": {

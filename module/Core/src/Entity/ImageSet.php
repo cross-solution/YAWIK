@@ -23,7 +23,7 @@ class ImageSet implements ImageSetInterface
     /**
      * Images in this set.
      *
-     * @ODM\ReferenceMany(discriminatorField="type", cascade={"all"}, orphanRemoval=true)
+     * @ODM\ReferenceMany(discriminatorField="_entity", cascade={"all"}, orphanRemoval=true)
      */
     protected Collection $images;
 
@@ -33,7 +33,7 @@ class ImageSet implements ImageSetInterface
         $this->id = (string) new ObjectId();
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -73,14 +73,17 @@ class ImageSet implements ImageSetInterface
 
     public function get(string $key, bool $fallback = true): ?ImageInterface
     {
-        /* @var Image $image */
         foreach($this->images as $image){
-            $metadata = $image->getMetadata();
-            if($metadata->getKey() === $key){
-                return $image;
+            try{
+                if(!is_null($metadata = $image->getMetadata())){
+                    if($metadata->getKey() === $key){
+                        return $image;
+                    }
+                }
+            }catch (\Exception $e){
+                return null;
             }
         }
-
         return !$fallback || self::ORIGINAL == $key ? null : $this->get(self::ORIGINAL);
     }
 

@@ -13,7 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * Class Image
  *
- * @ODM\File(bucketName="organizations.fs.images")
+ * @ODM\File(bucketName="organizations.images")
  * @package Organizations\Entity
  */
 class OrganizationImage implements ImageInterface

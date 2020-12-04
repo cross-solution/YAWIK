@@ -18,5 +18,7 @@ return [
     'Pdf',
     'Geo',
     'Organizations',
-    'ReleaseTools'
+    'ReleaseTools',
+    'Orders',
+    'Yawik\\Migration'
 ];

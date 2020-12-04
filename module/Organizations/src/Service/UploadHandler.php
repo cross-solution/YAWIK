@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Organizations\Service;
 
 
+use Auth\Entity\UserInterface;
 use Core\Entity\ImageInterface;
 use Core\Service\FileManager;
 use Core\Service\ImageSetHandler;
@@ -17,7 +18,7 @@ use Organizations\Entity\OrganizationInterface;
 use Organizations\Options\OrganizationLogoOptions;
 use Psr\Container\ContainerInterface;
 
-class ManageHandler
+class UploadHandler
 {
     /**
      * @var FileManager
@@ -63,7 +64,7 @@ class ManageHandler
         return new self($dm, $fileManager, $logoOptions, $imageSet);
     }
 
-    public function handleLogoUpload(string $oganizationID, array $data): OrganizationInterface
+    public function handleLogoUpload(string $oganizationID, array $data, ?UserInterface $user = null): OrganizationInterface
     {
         /* @var OrganizationInterface $organization */
         $organization = $this->orgRepository->find($oganizationID);
@@ -92,6 +93,9 @@ class ManageHandler
             $metadata->setOrganization($organization);
             $metadata->setKey($key);
             $metadata->setContentType($data['type']);
+            if(!is_null($user)){
+                $metadata->setUser($user);
+            }
 
             /* @var ImageInterface $file */
             $file = $fileManager->uploadFromFile($options->getEntityClass(),$metadata, $tmpFile, $name);

@@ -63,7 +63,6 @@ Feature: Updating my organization
         Then the "accept Applications by Department Managers" checkbox should not be checked
         And the "assign department managers to jobs" checkbox should not be checked
 
-    @travis-exclude
     Scenario: Add and remove logo
         When I want to edit my organization
         And I attach logo from file "img/logo.jpg"

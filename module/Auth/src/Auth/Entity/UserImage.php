@@ -18,7 +18,7 @@ use Laminas\Permissions\Acl\Resource\ResourceInterface;
  * Defines a Profile Image of an user
  *
  * @ODM\HasLifecycleCallbacks()
- * @ODM\File(bucketName="users.fs.images")
+ * @ODM\File(bucketName="users.images")
  */
 class UserImage extends Image
 {

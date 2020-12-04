@@ -16,6 +16,7 @@ use Applications\Controller\CommentController;
 use Applications\Controller\ConsoleController;
 use Applications\Controller\ManageController;
 use Applications\Mail\Forward;
+use Applications\Service\ApplicationHandler;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -207,7 +208,8 @@ return [
             'Applications/Attachments' => 'Applications\Factory\Form\AttachmentsFactory',
             Form\ApplicationsFilter::class => InvokableFactory::class,
             'Applications\Form\Element\StatusSelect' => Factory\Form\StatusSelectFactory::class,
-            Form\Element\JobSelect::class => Factory\Form\JobSelectFactory::class
+            Form\Element\JobSelect::class => Factory\Form\JobSelectFactory::class,
+            ApplicationHandler::class => [ApplicationHandler::class, 'factory']
         ],
      ],
 

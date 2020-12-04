@@ -13,7 +13,7 @@ use Core\Service\FileManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Psr\Container\ContainerInterface;
 
-class ManageHandler
+class UploadHandler
 {
     /**
      * @var FileManager

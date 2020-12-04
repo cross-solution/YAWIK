@@ -16,7 +16,7 @@ use Auth\Entity\UserImage;
 use Auth\Entity\UserInterface;
 use Auth\Form\SocialProfiles;
 use Auth\Form\UserProfileContainer;
-use Auth\Service\ManageHandler;
+use Auth\Service\UploadHandler;
 use Core\Entity\ImageMetadata;
 use Core\Repository\RepositoryService;
 use Core\Service\FileManager;
@@ -47,7 +47,7 @@ class ManageController extends AbstractActionController
 	
 	private $hybridAuthAdapter;
 
-    private ManageHandler $manageHandler;
+    private UploadHandler $manageHandler;
 
     /**
 	 * @param ContainerInterface $container
@@ -63,7 +63,7 @@ class ManageController extends AbstractActionController
 		$repositories = $container->get('repositories');
 		$viewHelper = $container->get('ViewHelperManager');
 		$hybridAuthAdapter = $container->get('HybridAuthAdapter');
-		$uploadHandler = $container->get(ManageHandler::class);
+		$uploadHandler = $container->get(UploadHandler::class);
 
 		return new ManageController(
 			$userProfileContainer,
@@ -85,7 +85,7 @@ class ManageController extends AbstractActionController
         Translator $translator,
         HelperPluginManager $viewHelper,
         HybridAuth $hybridAuthAdapter,
-        ManageHandler $manageHandler
+        UploadHandler $manageHandler
 	)
 	{
 		$this->userProfileContainer = $userProfileContainer;

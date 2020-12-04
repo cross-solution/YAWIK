@@ -22,7 +22,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *
- * @ODM\File(bucketName="applications.fs.attachments")
+ * @ODM\File(bucketName="applications")
  */
 class Attachment extends File
 {

@@ -25,7 +25,7 @@ use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 use Laminas\Http\PhpEnvironment\Response;
 use Core\Entity\Exception\NotFoundException;
-use Organizations\Service\ManageHandler;
+use Organizations\Service\UploadHandler;
 
 /**
  * Main Action Controller for the Organization.
@@ -71,9 +71,9 @@ class IndexController extends AbstractActionController
      */
     private $translator;
     /**
-     * @var ManageHandler
+     * @var UploadHandler
      */
-    private ManageHandler $manageHandler;
+    private UploadHandler $manageHandler;
 
     /**
      * Create new controller instance
@@ -83,7 +83,7 @@ class IndexController extends AbstractActionController
      * @param TranslatorInterface $translator
      * @param $formManager
      * @param $viewHelper
-     * @param ManageHandler $manageHandler
+     * @param UploadHandler $manageHandler
      */
     public function __construct(
         Form\Organizations $form,
@@ -91,7 +91,7 @@ class IndexController extends AbstractActionController
         TranslatorInterface $translator,
         $formManager,
         $viewHelper,
-        ManageHandler $manageHandler
+        UploadHandler $manageHandler
     ) {
         $this->repository = $repository;
         $this->form = $form;

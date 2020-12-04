@@ -80,7 +80,7 @@ class FileManager
     {
         $repo = $this->getRepository($entityClass);
 
-        if(UserImage::class !== $entityClass){
+        if(UserImage::class !== $entityClass && is_null($metadata->getUser())){
             $user = $this->auth->getUser();
             if($user instanceof AnonymousUser){
                 $metadata->getPermissions()->grant($user, PermissionsInterface::PERMISSION_ALL);
@@ -109,7 +109,7 @@ class FileManager
         $options = new UploadOptions();
         $options->metadata = $metadata;
 
-        $repo->uploadFromStream($fileName, $stream, $options);
+        return $repo->uploadFromStream($fileName, $stream, $options);
     }
 
     public function remove(FileInterface $file, $andFlush = false)

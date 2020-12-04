@@ -21,7 +21,7 @@ trait FileTrait
     protected ?string $name = null;
 
     /**
-     * @ODM\File\UploadDate
+     * @ODM\File\UploadDate(type="tz_date")
      */
     protected ?DateTimeInterface $uploadDate = null;
 

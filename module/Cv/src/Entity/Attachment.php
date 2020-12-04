@@ -19,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @author fedys
  * @since 0.26
  *
- * @ODM\File(bucketName="cvs.fs.attachments")
+ * @ODM\File(bucketName="cvs.attachments")
  */
 class Attachment extends File
 {

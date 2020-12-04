@@ -11,6 +11,7 @@
 namespace Auth\Entity;
 
 use Core\Entity\EntityInterface;
+use Core\Entity\FileInterface;
 use Core\Entity\ImageInterface;
 
 /**
@@ -133,9 +134,9 @@ interface InfoInterface extends EntityInterface
     /**
      * Sets the profile Image of an user
      *
-     * @param ImageInterface $image
+     * @param FileInterface|ImageInterface $image
      */
-    public function setImage(ImageInterface $image = null);
+    public function setImage($image = null);
     
     /**
      * Gets the profile Image of an user

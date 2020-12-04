@@ -9,7 +9,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * Class Image
  *
- * @ODM\File(bucketName="core.fs.images")
+ * @ODM\File(bucketName="core.images")
  * @package Core\Entity
  */
 class Image implements ImageInterface

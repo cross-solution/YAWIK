@@ -9,7 +9,6 @@ use Applications\Entity\Application;
 use Auth\Entity\UserInterface;
 use Core\Entity\FileMetadata;
 use Core\Entity\PermissionsInterface;
-use Core\Repository\RepositoryService;
 use Core\Service\FileManager;
 use Cv\Entity\Attachment as CvAttachment;
 use Cv\Entity\Cv as CvEntity;
@@ -18,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\Persistence\ObjectRepository;
 
-class CvHandler
+class UploadHandler
 {
     /**
      * @var CvRepository|ObjectRepository

@@ -13,7 +13,7 @@ use Interop\Container\ContainerInterface;
 use Organizations\Controller\IndexController;
 use Organizations\Form;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Organizations\Service\ManageHandler;
+use Organizations\Service\UploadHandler;
 
 class IndexControllerFactory implements FactoryInterface
 {
@@ -33,7 +33,7 @@ class IndexControllerFactory implements FactoryInterface
         $formManager = $container->get('FormElementManager');
         $viewHelper = $container->get('ViewHelperManager');
         $translator = $container->get('translator');
-        $manageHandler = $container->get(ManageHandler::class);
+        $manageHandler = $container->get(UploadHandler::class);
 
         return new IndexController(
             $form,

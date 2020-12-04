@@ -13,7 +13,7 @@ use Core\Entity\Image;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\File(bucketName="cvs.fs.contact.images")
+ * @ODM\File(bucketName="cvs.contact.images")
  */
 class ContactImage extends Image
 {

@@ -29,7 +29,7 @@ class Contact extends Info
      * @ODM\ReferenceOne(targetDocument="\Cv\Entity\ContactImage", storeAs="id", nullable=true, cascade={"persist"})
      * @ODM\Index
      */
-    protected ?ImageInterface $image = null;
+    protected $image = null;
     
     /**
      * Creates a Contact
