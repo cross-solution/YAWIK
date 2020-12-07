@@ -1,8 +1,15 @@
 <?php
+
 /**
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
+
+ declare(strict_types=1);
+
+ namespace Organizations;
+
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'doctrine' => [
@@ -51,7 +58,8 @@ return [
         'factories' => [
             'Organizations/InviteEmployee' => \Organizations\Factory\Controller\InviteEmployeeControllerFactory::class,
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
-            'Organizations/Profile' => 'Organizations\Factory\Controller\ProfileControllerFactory'
+            'Organizations/Profile' => 'Organizations\Factory\Controller\ProfileControllerFactory',
+            Controller\FeaturedCompaniesController::class => Controller\FeaturedCompaniesControllerFactory::class,
         ]
     ],
 
@@ -74,6 +82,7 @@ return [
              'organizations/error/invite' => __DIR__ . '/../view/error/invite.phtml',
              'organizations/mail/invite-employee' => __DIR__ . '/../view/mail/invite-employee.phtml',
              'organizations/form/workflow-fieldset' => __DIR__ . '/../view/form/workflow-fieldset.phtml',
+             'organizations/form/featured-companies-filter-radio' => __DIR__ . '/../view/form/featured-companies-filter-radio.phtml',
             'organizations/profile/disabled' => __DIR__ . '/../view/organizations/profile/disabled.phtml',
         ],
         // Where to look for view templates not mapped above
@@ -104,6 +113,7 @@ return [
             'Organizations/Image'                        => \Organizations\Form\LogoImageFactory::class,
             'Organizations/EmployeesFieldset'            => 'Organizations\Factory\Form\EmployeesFieldsetFactory',
             'Organizations/EmployeeFieldset'             => 'Organizations\Factory\Form\EmployeeFieldsetFactory',
+            Form\Element\FeaturedCompaniesFilterRadio::class => InvokableFactory::class,
         ]
     ],
 
@@ -175,6 +185,11 @@ return [
                     'route/lang/organizations/profileDetail'
                 ],
             ],
+            'admin' => [
+                'allow' => [
+                    'route/lang/organizations/featured',
+                ],
+            ],
         ],
         'assertions' => [
             'invokables' => [
@@ -204,9 +219,13 @@ return [
                         'label' => /*@translate*/ 'Insert',
                         'route' => 'lang/organizations/edit',
                     ],
+                    'featured' => [
+                        'label' => /*@translate*/ 'Featured Companies',
+                        'route' => 'lang/organizations/featured',
+                        'resource' => 'route/lang/organizations/featured',
+                    ],
                 ],
             ],
-
         ],
     ],
 

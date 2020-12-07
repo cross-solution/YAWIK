@@ -115,6 +115,11 @@ class PaginationQuery extends AbstractPaginationQuery
             if (count($filters) > 0) {
                 $queryBuilder->field('id')->notIn($filters);
             }
+            if (isset($params['featured']) && $params['featured'] !== 'none') {
+                $flag = $params['featured'] === 'on';
+
+                $queryBuilder->field('isFeaturedCompany')->equals($flag);
+            }
         }
 
         return $queryBuilder;

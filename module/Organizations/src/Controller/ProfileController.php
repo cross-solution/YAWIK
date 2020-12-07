@@ -19,6 +19,7 @@ use Laminas\Http\Response;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
+use Organizations\Form\FeaturedCompaniesSearchForm;
 use Organizations\ImageFileCache\Manager as ImageFileCacheManager;
 
 /**
@@ -90,10 +91,11 @@ class ProfileController extends AbstractActionController
                 'as' => 'organizations',
                 'params' => [
                     'type' => 'profile',
+                    'featured' => $this->auth()->isAdmin() && (bool) $this->params('featured'),
                 ]
             ],
             'form' => [
-                'Core/Search',
+                $this->auth()->isAdmin() ? FeaturedCompaniesSearchForm::class : 'Core/Search',
                 'as' => 'form',
             ]
         ]);

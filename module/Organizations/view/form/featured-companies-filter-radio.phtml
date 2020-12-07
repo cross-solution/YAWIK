@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * YAWIK
+ *
+ * @see       https://github.com/cross-solution/YAWIK for the canonical source repository
+ * @copyright https://github.com/cross-solution/YAWIK/blob/master/COPYRIGHT
+ * @license   https://github.com/cross-solution/YAWIK/blob/master/LICENSE
+ */
+
+declare(strict_types=1);
+
+?>
+<div id="params-<?php $id = 'featured'; echo $id ?>-group" class="btn-group btn-group-sm  pull-right" data-toggle="buttons" style="margin-top: 10px">
+        <?php foreach ($element->getValueOptions() as $value => $label) :
+            $checked = $value == $element->getValue();?>
+
+            <label class="btn btn-default<?php echo ($checked) ? ' active' : ''?>">
+                <input id="params-<?php echo "$id-$value" ?>" type="radio" name="<?php echo $element->getName() ?>"
+                       value="<?php echo $value ?>"<?php echo $checked ? ' checked' : ''?>
+                       data-submit-on-change="true">
+                <?php echo $this->translate($label) ?>
+            </label>
+
+
+        <?php endforeach; ?>
+
+    </div>

@@ -7,6 +7,11 @@
  * @copyright https://yawik.org/COPYRIGHT.php
  * @license   MIT
  */
+
+ declare(strict_types=1);
+
+ namespace Organizations;
+
 return array(
     'router' => array(
         'routes' => array(
@@ -112,6 +117,15 @@ return array(
                                     ),
                                 ),
                             ),
+                            'featured' => [
+                                'type' => 'Literal',
+                                'options' => [
+                                    'route' => '/featured',
+                                    'defaults' => [
+                                        'controller' => Controller\FeaturedCompaniesController::class
+                                    ]
+                                ],
+                            ],
                         ),
                     ),
                     'my-organization' => array(
