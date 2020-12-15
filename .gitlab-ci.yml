@@ -39,7 +39,7 @@ phpunit:
     paths:
       - vendor/
   script:
-    - cp ./etc/travis/autoload/*.* config/autoload
+    - cp ./etc/gitlab/autoload/*.* config/autoload
     - ./vendor/bin/phpunit
 
 behat:
@@ -50,7 +50,7 @@ behat:
       - vendor/
   script:
     - su yawik -c "composer install"
-    - cp ./etc/travis/autoload/*.* config/autoload
+    - cp ./etc/gitlab/autoload/*.* config/autoload
     - mkdir -p build/behat
     - mkdir -p build/mails
     - ./bin/start-selenium > /dev/null 2>&1 &
