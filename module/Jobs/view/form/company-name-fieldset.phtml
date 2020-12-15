@@ -11,14 +11,13 @@
 if ($this->renderSummary):
     echo $this->summaryForm()->renderSummaryElement($this->element->get('companyId'));
 
-    /* @var Organizations\Entity\Organization $organization */
+    /* @var \Organizations\Entity\Organization $organization */
     $organization = $this->element->getObject()->getOrganization();
     if ($organization
-        && $organization->getWorkflowSettings()->getAcceptApplicationByDepartmentManager()
+        && $organization->getWorkflowSettings()->hasActiveWorkflow()
         && $organization->getWorkflowSettings()->getAssignDepartmentManagersToJobs()
         && ($managers = $this->element->getObject()->getMetaData('organizations:managers'))
-    ): ?>
-
+    ) : ?>
     <div class="row">
         <div class="col-md-3 yk-label">
             <label><?=$this->element->get('managers')->getLabel()?></label>
@@ -33,7 +32,6 @@ if ($this->renderSummary):
     </div>
 
     <?php endif;
-
-else:
+else :
     echo $this->formCollection($this->element);
 endif;

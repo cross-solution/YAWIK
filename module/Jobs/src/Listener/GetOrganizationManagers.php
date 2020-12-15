@@ -59,7 +59,7 @@ class GetOrganizationManagers
 
         $workflowSettings = $org->getWorkflowSettings();
 
-        if (!$workflowSettings->getAcceptApplicationByDepartmentManager()
+        if (!$workflowSettings->hasActiveWorkflow()
             || !$workflowSettings->getAssignDepartmentManagersToJobs()
         ) {
             return ['status' => 'disabled'];
