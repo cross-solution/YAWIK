@@ -105,7 +105,11 @@ class PaginationQuery extends AbstractPaginationQuery
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
             if (isset($params['by']) && 'me' == $params['by']) {
-                $queryBuilder->field('user')->equals($this->user->getId());
+                $queryBuilder->addAnd(
+                    $queryBuilder->expr()
+                        ->addOr($queryBuilder->expr()->field('user')->equals($this->user->getId()))
+                        ->addOr($queryBuilder->expr()->field('metaData.organizations:managers.id')->equals($this->user->getId()))
+                );
             } else {
                 $queryBuilder->field('permissions.view')->equals($this->user->getId());
             }
