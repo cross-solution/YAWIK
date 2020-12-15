@@ -2,4 +2,26 @@
 
 # A script to start selenium browser for browser testing with behat
 
-./vendor/bin/selenium-server-standalone --disable-dev-shm-usage -p 4444 -Dwebdriver.chrome.driver="./vendor/bin/chromedriver"
+
+#options.AddArgument("--window-size=1920,1080");
+#options.AddArgument("--no-sandbox");
+#options.AddArgument("--headless");
+#options.AddArgument("--disable-gpu");
+#options.AddArgument("--disable-crash-reporter");
+#options.AddArgument("--disable-extensions");
+#options.AddArgument("--disable-in-process-stack-traces");
+#options.AddArgument("--disable-logging");
+#options.AddArgument("--disable-dev-shm-usage");
+#options.AddArgument("--log-level=3");
+#options.AddArgument("--output=/dev/null");
+
+./vendor/bin/selenium-server-standalone \
+	--disable-dev-shm-usage \
+	--disable-crash-reporter \
+	--disable-in-process-stack-traces \
+	--window-size=1920,1080 \
+	--no-sandbox \
+	--log-level=3 \
+	--output=/dev/null \
+	-p 4444 \
+	-Dwebdriver.chrome.driver="./vendor/bin/chromedriver"
