@@ -99,4 +99,9 @@ class WorkflowSettings extends AbstractIdentifiableHydratorAwareEntity implement
     {
         return $this->acceptApplicationByRecruiters;
     }
+
+    public function hasActiveWorkflow(): bool
+    {
+        return $this->acceptApplicationByDepartmentManager || $this->acceptApplicationByRecruiters;
+    }
 }
