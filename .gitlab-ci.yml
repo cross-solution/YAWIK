@@ -50,6 +50,8 @@ behat:
     paths:
       - vendor/
   script:
+before_install:
+    - phpenv config-rm xdebug.ini || echo "XDebug is not enabled"
     - su yawik -c "composer install"
     - cp ./etc/gitlab/autoload/*.* config/autoload
     - mkdir -p build/behat
@@ -78,5 +80,5 @@ deploy_staging:
   except:
     - master
   script:
-    dep deploy --branch=$CI_COMMIT_REF_NAME staging
+    - ls 
   resource_group: staging
