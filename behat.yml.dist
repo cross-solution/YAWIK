@@ -23,6 +23,7 @@ default:
             sessions:
                 chrome:
                     selenium2:
+                        wd_host: "http://selenium__standalone-chrome:4444/wd/hub"
                         browser: chrome
                         capabilities:
                             browserName: chrome

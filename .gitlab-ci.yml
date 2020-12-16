@@ -16,6 +16,7 @@ stages:
 
 services:
   - mongo:latest
+  - selenium/standalone-chrome
 
 before_script:
   - mkdir -p /var/www/cache/
@@ -55,8 +56,6 @@ behat:
     - cp ./etc/gitlab/autoload/*.* config/autoload
     - mkdir -p build/behat
     - mkdir -p build/mails
-    - ./bin/start-selenium > /dev/null 2>&1 &
-    - sleep 5
     - composer run serve --timeout=0 > /dev/null 2>&1 &
     - ./vendor/bin/behat --strict --no-interaction
 
