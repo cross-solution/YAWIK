@@ -50,7 +50,6 @@ behat:
     paths:
       - vendor/
   script:
-before_install:
     - phpenv config-rm xdebug.ini || echo "XDebug is not enabled"
     - su yawik -c "composer install"
     - cp ./etc/gitlab/autoload/*.* config/autoload
