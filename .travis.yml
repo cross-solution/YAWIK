@@ -40,7 +40,7 @@ cache:
     php --ri mongodb || pecl install -f mongodb
     phpenv config-add etc/travis/phpenv.ini
   - &install-composer-dependencies |
-    composer install --no-interaction --no-scripts
+    composer install --no-interaction
     npm install
   - &setup-selenium |
     ./bin/start-selenium > /dev/null 2>&1 &
