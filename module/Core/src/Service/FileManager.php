@@ -86,8 +86,9 @@ class FileManager
                 $metadata->getPermissions()->grant($user, PermissionsInterface::PERMISSION_ALL);
             }else{
                 $metadata->setUser($user);
-                $this->dm->persist($user);
             }
+            $this->dm->persist($user);
+            $this->dm->flush();
         }
 
         $options = new UploadOptions();

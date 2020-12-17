@@ -68,8 +68,8 @@ class RepositoryService
     {
         if(!is_null($entity)){
             $this->dm->persist($entity);
-            $this->dm->flush($options);
         }
+        $this->dm->flush();
         $events = $this->dm->getEventManager();
         $events->hasListeners('postCommit')
         && $events->dispatchEvent('postCommit', new EventArgs(array('document' => $entity, 'documentManager' => $this->dm)));

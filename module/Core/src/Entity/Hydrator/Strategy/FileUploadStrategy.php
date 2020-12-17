@@ -47,7 +47,7 @@ class FileUploadStrategy implements StrategyInterface
     }
 
     /**
-     * @param FileInterface $metadata
+     * @param FileMetadataInterface $metadata
      *
      * @return $this
      */

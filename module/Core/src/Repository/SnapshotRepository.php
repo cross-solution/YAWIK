@@ -238,7 +238,7 @@ class SnapshotRepository extends DocumentRepository
     {
         $this->checkEntityType($entity);
         $this->dm->persist($entity);
-        $this->dm->flush($entity);
+        $this->dm->flush();
 
         return $this;
     }

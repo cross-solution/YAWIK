@@ -5,6 +5,7 @@ use Cv\Controller\ManageController;
 use Cv\Form\InputFilter\Education;
 use Cv\Form\InputFilter\Employment;
 use Cv\Form\PreferredJobFieldset;
+use Cv\Service\UploadHandler;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -36,8 +37,6 @@ return [
             ],
         ],
     ],
-    
-    
     
     // Translations
     'translator' => [
@@ -160,7 +159,13 @@ return [
             'Cv/Index' => \Cv\Controller\IndexController::class,
         ]
     ],
-    
+
+    'service_manager' => [
+        'factories' => [
+            UploadHandler::class => [UploadHandler::class, 'factory']
+        ]
+    ],
+
     // Navigation
     // Disabled until module is fixed
     // TODO: Remove comments when module is fixed
@@ -217,7 +222,7 @@ return [
             'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
         ],
     ],
-    
+
     'input_filters' => [
         'aliases' => [
             'Cv/Employment' => Employment::class,

@@ -14,8 +14,8 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class RepositoryServiceTest extends TestCase
 {
@@ -27,12 +27,12 @@ class RepositoryServiceTest extends TestCase
     protected $rs;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|DocumentManager
      */
     protected $dm;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|EventManager
      */
     protected $eventManager;
 

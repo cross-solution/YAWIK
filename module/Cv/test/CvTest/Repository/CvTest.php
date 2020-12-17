@@ -65,7 +65,7 @@ class CvTest extends FunctionalTestCase
             /* @var \Cv\Entity\Cv $cv */
             foreach ($data as $cv) {
                 $dm->remove($cv);
-                $dm->flush($cv);
+                $dm->flush();
             }
         }
     }

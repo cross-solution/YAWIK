@@ -10,16 +10,21 @@
 /** ActionController of Core */
 namespace Cv\Controller;
 
+use Core\Repository\RepositoryService;
 use Cv\Entity\CvInterface;
+use Cv\Service\UploadHandler;
 use Geo\Form\GeoSelect;
 use Geo\Form\GeoText;
 use Interop\Container\ContainerInterface;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
 use Auth\Entity\User;
 use Cv\Entity\Cv;
 use Cv\Entity\Contact;
+use PHPUnit\Util\Json;
 
 /**
  * Main Action Controller for the application.
@@ -33,21 +38,32 @@ class ManageController extends AbstractActionController
     private $formElements;
     
     private $viewHelper;
-    
+
+    private $uploadHandler;
+
+    public function __construct(
+        RepositoryService $repositories,
+        FormElementManagerV3Polyfill $formElements,
+        HelperPluginManager $viewHelper,
+        UploadHandler $uploadHandler
+    )
+    {
+        $this->repositories = $repositories;
+        $this->formElements = $formElements;
+        $this->viewHelper = $viewHelper;
+        $this->uploadHandler = $uploadHandler;
+    }
+
     public static function factory(ContainerInterface $container)
     {
-        $controller = new static();
-        $controller->init($container);
-        return $controller;
+        $repositories = $container->get('repositories');
+        $formElements = $container->get('FormElementManager');
+        $viewHelper = $container->get('ViewHelperManager');
+        $uploadHandler = $container->get(UploadHandler::class);
+
+        return new self($repositories, $formElements, $viewHelper, $uploadHandler);
     }
-    
-    public function init(ContainerInterface $container)
-    {
-        $this->repositories = $container->get('repositories');
-        $this->formElements = $container->get('FormElementManager');
-        $this->viewHelper = $container->get('ViewHelperManager');
-    }
-    
+
     public function formAction()
     {
         $repositories = $this->repositories;
@@ -86,18 +102,25 @@ class ManageController extends AbstractActionController
                     $params->fromPost(),
                     $params->fromFiles()
                 ));
-                
-                if (!$form->isValid()) {
-                    return new JsonModel([
-                        'valid' => false,
-                        'errors' => $form->getMessages()
-                    ]);
-                }
-                /*
-                 * @todo This is a workaround for GeoJSON data insertion
-                 * until we figured out, what we really want it to be.
-                 */
                 $formId = $params->fromQuery('form');
+                $viewHelperManager = $this->viewHelper;
+
+                if('image' === $formId){
+                    $uploadHandler = $this->uploadHandler;
+                    $uploadHandler->handleUpload($cv, $_FILES['image']);
+                }else{
+                    if (!$form->isValid()) {
+                        return new JsonModel([
+                            'valid' => false,
+                            'errors' => $form->getMessages()
+                        ]);
+                    };
+
+                    /*
+ * @todo This is a workaround for GeoJSON data insertion
+ * until we figured out, what we really want it to be.
+ */
+
 //                if ('preferredJob' == $formId) {
 //                    $locElem = $form->getBaseFieldset()->get('geo-location');
 //                    if ($locElem instanceof GeoText) {
@@ -110,11 +133,11 @@ class ManageController extends AbstractActionController
 //                        $cv->getPreferredJob()->setDesiredLocation($locElem->getValue());
 //                    }
 //                }
+                    $this->validateCv($cv);
+                    $repositories->store($cv);
+                }
 
-                $this->validateCv($cv);
 
-                $repositories->store($cv);
-                $viewHelperManager = $this->viewHelper;
                 
                 if ('file-uri' === $params->fromPost('return')) {
                     $content = $viewHelperManager->get('basepath')

@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace CvTest\Service;
 
 use Applications\Entity\Application;
-use Applications\Entity\Attachment as ApplicationAttachment;
 use Applications\Entity\Contact as ApplicationContact;
-use Auth\Entity\User;
 use Auth\Entity\UserInterface;
 use Core\Entity\FileInterface;
 use Core\Entity\FileMetadataInterface;
@@ -22,7 +20,7 @@ use Jobs\Entity\Job;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class CvHandlerTest extends TestCase
+class UploadHandlerTest extends TestCase
 {
     /**
      * @var DocumentManager|MockObject

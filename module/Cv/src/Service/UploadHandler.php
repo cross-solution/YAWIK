@@ -8,14 +8,18 @@ namespace Cv\Service;
 use Applications\Entity\Application;
 use Auth\Entity\UserInterface;
 use Core\Entity\FileMetadata;
+use Core\Entity\ImageMetadata;
 use Core\Entity\PermissionsInterface;
 use Core\Service\FileManager;
 use Cv\Entity\Attachment as CvAttachment;
+use Cv\Entity\ContactImage;
+use Cv\Entity\Cv;
 use Cv\Entity\Cv as CvEntity;
 use Cv\Repository\Cv as CvRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\Persistence\ObjectRepository;
+use Psr\Container\ContainerInterface;
 
 class UploadHandler
 {
@@ -40,6 +44,14 @@ class UploadHandler
         $this->cvRepo = $dm->getRepository(CvEntity::class);
         $this->dm = $dm;
         $this->fileManager = $fileManager;
+    }
+
+    public static function factory(ContainerInterface $container): self
+    {
+        $dm = $container->get(DocumentManager::class);
+        $fileManager = $container->get(FileManager::class);
+
+        return new self($dm, $fileManager);
     }
 
     /**
@@ -102,5 +114,40 @@ class UploadHandler
         }
 
         return $cv;
+    }
+
+    public function handleUpload(
+        Cv $cv,
+        array $fileInfo
+    )
+    {
+        $dm = $this->dm;
+        $fileManager = $this->fileManager;
+        $metadata = new ImageMetadata();
+
+        $contact = $cv->getContact();
+        if(!is_null($contact->getImage())){
+            $contact->setImage(null);
+            $dm->persist($cv);
+            $dm->flush();
+        }
+
+        $metadata
+            ->setUser($cv->getUser())
+            ->setContentType($fileInfo['type'])
+            ->setKey('original');
+
+        $dm->persist($cv->getUser());
+
+        $file = $fileManager->uploadFromFile(
+            ContactImage::class,
+            $metadata,
+            $fileInfo['tmp_name'],
+            $fileInfo['name']
+        );
+
+        $cv->getContact()->setImage($file);
+        $dm->persist($cv);
+        $dm->flush();
     }
 }

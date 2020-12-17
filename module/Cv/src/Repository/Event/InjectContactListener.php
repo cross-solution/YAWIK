@@ -39,7 +39,7 @@ class InjectContactListener implements EventSubscriber
                     'contact.image' => new ObjectId($image->getId())
                 ]);
             if ($cv) {
-                $image->setContact($cv->getContact());
+                $image->getMetadata()->setContact($cv->getContact());
             }
         }
     }

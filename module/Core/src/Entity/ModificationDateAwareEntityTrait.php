@@ -35,7 +35,7 @@ trait ModificationDateAwareEntityTrait
      * @ODM\Field(type="tz_date")
      */
     protected $dateCreated;
-    
+
     /**
      * Modification date.
      *
@@ -43,7 +43,7 @@ trait ModificationDateAwareEntityTrait
      * @ODM\Field(type="tz_date")
      */
     protected $dateModified;
-    
+
     public function getDateCreated()
     {
         return $this->dateCreated;

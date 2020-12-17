@@ -10,6 +10,7 @@
 namespace Cv\Entity;
 
 use Core\Entity\Image;
+use Core\Entity\ImageMetadata;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -17,6 +18,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class ContactImage extends Image
 {
+    /**
+     * @ODM\File\Metadata(targetDocument="Cv\Entity\ContactImageMetadata")
+     */
+    protected ?ImageMetadata $metadata = null;
+
     /**
      * Gets the URI of an image
      *
