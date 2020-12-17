@@ -7975,16 +7975,16 @@
         },
         {
             "name": "yawik/composer-plugin",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yawik/composer-plugin.git",
-                "reference": "f3477ef7f7cd6e47088a3c07229a5d0f36c5ad5b"
+                "reference": "18f1ce67018cdd36767803d8d5c40b22178d01e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yawik/composer-plugin/zipball/f3477ef7f7cd6e47088a3c07229a5d0f36c5ad5b",
-                "reference": "f3477ef7f7cd6e47088a3c07229a5d0f36c5ad5b",
+                "url": "https://api.github.com/repos/yawik/composer-plugin/zipball/18f1ce67018cdd36767803d8d5c40b22178d01e0",
+                "reference": "18f1ce67018cdd36767803d8d5c40b22178d01e0",
                 "shasum": ""
             },
             "require": {
@@ -8040,9 +8040,9 @@
             "description": "The composer plugin for yawik application",
             "support": {
                 "issues": "https://github.com/yawik/composer-plugin/issues",
-                "source": "https://github.com/yawik/composer-plugin/tree/v3.0.0"
+                "source": "https://github.com/yawik/composer-plugin/tree/v3.0.1"
             },
-            "time": "2020-11-05T10:34:06+00:00"
+            "time": "2020-12-13T15:09:38+00:00"
         },
         {
             "name": "yawik/geo",
