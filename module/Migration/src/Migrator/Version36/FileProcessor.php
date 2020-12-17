@@ -103,8 +103,8 @@ class FileProcessor implements ProcessorInterface
             'mimetype' => 'metadata.contentType',
             'belongsTo' => 'metadata.belongsTo',
             'key' => 'metadata.key',
-            'filename' => 'metadata.filename',
             'md5' => 'metadata.md5',
+            'filename' => 'metadata.name',
         ];
 
         $options = [];
@@ -119,6 +119,10 @@ class FileProcessor implements ProcessorInterface
                 $set[$to] = $value;
                 $unset[$fromKey] = true;
             }
+        }
+
+        if(!is_null($oldMeta['name'])){
+            $set['metadata.name'] = $oldMeta['name'];
         }
 
         //'uploadedDate' => 'uploadDate',

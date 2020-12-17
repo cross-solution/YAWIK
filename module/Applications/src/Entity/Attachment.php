@@ -35,6 +35,6 @@ class Attachment extends File
      */
     public function getUri(): string
     {
-        return "/file/Applications.Attachment/" . $this->id . "/" .urlencode($this->name);
+        return "/file/Applications.Attachment/" . $this->id . "/" .urlencode($this->getMetadata()->getName());
     }
 }

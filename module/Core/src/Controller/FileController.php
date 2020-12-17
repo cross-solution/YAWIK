@@ -96,7 +96,7 @@ class FileController extends AbstractActionController
     {
         /* @var \Laminas\Http\PhpEnvironment\Response $response */
         $response = $this->getResponse();
-        /* @var \Core\Entity\FileEntity $file */
+        /* @var \Core\Entity\FileInterface $file */
         $file     = $this->getFile();
         
         if (!$file) {

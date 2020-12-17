@@ -28,6 +28,11 @@ trait FileMetadataTrait
     protected ?PermissionsInterface $permissions = null;
 
     /**
+     * @ODM\Field(type="string", nullable=true)
+     */
+    protected ?string $name = null;
+
+    /**
      * @return string
      */
     public function getResourceId()
@@ -86,6 +91,20 @@ trait FileMetadataTrait
     public function setPermissions(PermissionsInterface $permissions)
     {
         $this->permissions = $permissions;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name)
+    {
+        $this->name = $name;
         return $this;
     }
 }

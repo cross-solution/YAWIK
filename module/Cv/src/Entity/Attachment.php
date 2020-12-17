@@ -34,6 +34,6 @@ class Attachment extends File
      */
     public function getUri(): string
     {
-        return "/file/Cv.Attachment/" . $this->getId() . "/" .urlencode($this->name);
+        return "/file/Cv.Attachment/" . $this->getId() . "/" .urlencode($this->getMetadata()->getName());
     }
 }
