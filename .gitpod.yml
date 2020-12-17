@@ -1,0 +1,4 @@
+image: yawik/build
+tasks:
+ - init: composer install
+   command: composer serve
