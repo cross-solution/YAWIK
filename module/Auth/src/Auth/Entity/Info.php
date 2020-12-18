@@ -110,7 +110,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * the photo of an users profile
-     * @ODM\ReferenceOne(targetDocument="Auth\Entity\UserImage", storeAs="id", cascade={"all"}, nullable=true)
+     * @ODM\ReferenceOne(targetDocument="Auth\Entity\UserImage", storeAs="id", cascade={"none"}, nullable=true)
      */
     protected $image = null;
     

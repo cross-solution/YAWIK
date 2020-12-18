@@ -26,7 +26,7 @@ class Contact extends Info
 
     /**
      * Contact image
-     * @ODM\ReferenceOne(targetDocument="\Cv\Entity\ContactImage", storeAs="id", nullable=true, cascade={"persist"})
+     * @ODM\ReferenceOne(targetDocument="\Cv\Entity\ContactImage", storeAs="id", nullable=true, cascade={"persist", "delete"})
      * @ODM\Index
      */
     protected $image = null;

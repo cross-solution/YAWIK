@@ -20,7 +20,13 @@ abstract class File implements FileInterface
     /**
      * @ODM\File\Metadata(targetDocument="Core\Entity\FileMetadata")
      */
-    protected FileMetadata $metadata;
+    protected FileMetadataInterface $metadata;
+
+    public function setMetadata(FileMetadataInterface $metadata)
+    {
+        $this->metadata = $metadata;
+        return $this;
+    }
 
     public function getMetadata()
     {

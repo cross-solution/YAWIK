@@ -17,6 +17,8 @@ use Laminas\Permissions\Acl\Resource\ResourceInterface;
  */
 interface FileMetadataInterface extends ResourceInterface
 {
+    public function getName(): ?string;
+
     public function setUser(UserInterface $user);
 
     public function getUser(): ?UserInterface;

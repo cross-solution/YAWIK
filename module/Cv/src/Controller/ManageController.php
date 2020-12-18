@@ -104,11 +104,23 @@ class ManageController extends AbstractActionController
                 ));
                 $formId = $params->fromQuery('form');
                 $viewHelperManager = $this->viewHelper;
+                $uploadHandler = $this->uploadHandler;
 
                 if('image' === $formId){
-                    $uploadHandler = $this->uploadHandler;
-                    $uploadHandler->handleUpload($cv, $_FILES['image']);
-                }else{
+                    // handles image upload
+                    $uploadHandler->handleImageUpload($cv, $_FILES['image']);
+                }
+                elseif('attachments' === $formId){
+                    // handles attachment upload
+                    $attachment = $uploadHandler->handleAttachmentUpload($cv, $_FILES['attachments']);
+                    $content = $viewHelperManager->get('basepath')
+                        ->__invoke($attachment->getUri());
+                    return new JsonModel([
+                        'valid' => true,
+                        'content' => $content,
+                    ]);
+                }
+                else{
                     if (!$form->isValid()) {
                         return new JsonModel([
                             'valid' => false,
@@ -137,8 +149,6 @@ class ManageController extends AbstractActionController
                     $repositories->store($cv);
                 }
 
-
-                
                 if ('file-uri' === $params->fromPost('return')) {
                     $content = $viewHelperManager->get('basepath')
                         ->__invoke($form->getHydrator()->getLastUploadedFile()->getUri());

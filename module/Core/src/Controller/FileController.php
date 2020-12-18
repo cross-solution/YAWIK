@@ -16,6 +16,7 @@ use Core\EventManager\EventManager;
 use Core\Listener\Events\FileEvent;
 use Core\Service\FileManager;
 use Core\Repository\RepositoryService;
+use Cv\Entity\Attachment;
 use Interop\Container\ContainerInterface;
 use Organizations\Entity\OrganizationImage;
 use Laminas\Mvc\Controller\AbstractActionController;

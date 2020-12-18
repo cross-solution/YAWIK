@@ -45,8 +45,9 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
         $fileId = new ObjectId($file->getId());
         $dm = $eventArgs->getDocumentManager();
         $dm->createQueryBuilder('Cv\Entity\Cv')
-           ->update()->multiple(true)
-           ->field('attachments')->equals($fileId)->pull($fileId)
-           ->getQuery()->execute();
+            ->updateMany()
+            ->field('attachments')->equals($fileId)->pull($fileId)
+            ->getQuery()
+            ->execute();
     }
 }

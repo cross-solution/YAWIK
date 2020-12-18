@@ -304,6 +304,9 @@ class SummaryForm extends AbstractHelper
             $markup .= '<div class="col-md-3 yk-label"><label>' . $label . '</label></div>';
             $col = 9;
         }
+        if(is_array($elementValue)){
+            $elementValue = implode(",", $elementValue);
+        }
         $markup .= '<div class="col-md-' . $col . '">' . $elementValue . '</div>'
             . '</div>';
         return $markup;

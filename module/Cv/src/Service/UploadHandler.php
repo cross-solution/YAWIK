@@ -11,7 +11,7 @@ use Core\Entity\FileMetadata;
 use Core\Entity\ImageMetadata;
 use Core\Entity\PermissionsInterface;
 use Core\Service\FileManager;
-use Cv\Entity\Attachment as CvAttachment;
+use Cv\Entity\Attachment;
 use Cv\Entity\ContactImage;
 use Cv\Entity\Cv;
 use Cv\Entity\Cv as CvEntity;
@@ -102,7 +102,7 @@ class UploadHandler
 
                 $fromStream = $fileManager->getStream($from);
                 $toAttachment = $fileManager->uploadFromStream(
-                    CvAttachment::class,
+                    Attachment::class,
                     $metadata,
                     $from->getName(),
                     $fromStream
@@ -116,7 +116,46 @@ class UploadHandler
         return $cv;
     }
 
-    public function handleUpload(
+    /**
+     * @param CvEntity $cv
+     * @param array $fileInfo
+     * @return object|Attachment
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function handleAttachmentUpload(
+        Cv $cv,
+        array $fileInfo
+    )
+    {
+        $dm = $this->dm;
+        $fileManager = $this->fileManager;
+
+        /* @var \Cv\Entity\Cv $resume */
+        $resume = $this->cvRepo->find($cv->getId());
+        $user = $resume->getUser();
+
+        $metadata = new FileMetadata();
+        $metadata->setUser($user);
+        $metadata->setContentType($fileInfo['type']);
+        $metadata->setName($fileInfo['name']);
+
+        $file = $fileManager->uploadFromFile(
+            Attachment::class,
+            $metadata,
+            $fileInfo['tmp_name'],
+            $fileInfo['name']
+        );
+
+        $cv->getAttachments()->add($file);
+        $dm->persist($resume);
+        $dm->flush();
+
+        return $file;
+    }
+
+    public function handleImageUpload(
         Cv $cv,
         array $fileInfo
     )

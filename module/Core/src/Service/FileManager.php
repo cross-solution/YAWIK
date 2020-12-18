@@ -13,6 +13,7 @@ use Core\Entity\FileMetadataInterface;
 use Core\Entity\ImageInterface;
 use Core\Entity\PermissionsInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Imagine\Image\ImageInterface as ImagineImage;
 use Doctrine\ODM\MongoDB\Repository\GridFSRepository;
 use Doctrine\ODM\MongoDB\Repository\UploadOptions;
@@ -86,9 +87,9 @@ class FileManager
                 $metadata->getPermissions()->grant($user, PermissionsInterface::PERMISSION_ALL);
             }else{
                 $metadata->setUser($user);
+                $this->dm->persist($user);
+                $this->dm->flush();
             }
-            $this->dm->persist($user);
-            $this->dm->flush();
         }
 
         $options = new UploadOptions();
@@ -115,9 +116,15 @@ class FileManager
 
     public function remove(FileInterface $file, $andFlush = false)
     {
-        $this->dm->remove($file);
+        $dm = $this->dm;
+        $events = $dm->getEventManager();
+
+        $dm->remove($file);
+        $events->hasListeners('postRemoveEntity') &&
+            $events->dispatchEvent('postRemoveEntity', new LifecycleEventArgs($file, $dm));
+
         if($andFlush){
-            $this->dm->flush();
+            $dm->flush();
         }
     }
 

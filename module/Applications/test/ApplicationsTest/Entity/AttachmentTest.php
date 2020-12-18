@@ -11,6 +11,7 @@
 namespace ApplicationsTest\Entity;
 
 use Core\Entity\FileInterface;
+use Core\Entity\FileMetadata;
 use PHPUnit\Framework\TestCase;
 
 use Applications\Entity\Attachment;
@@ -55,7 +56,12 @@ class AttachmentTest extends TestCase
     public function testGetUriReturnsExpectedUri()
     {
         $name = 'testFile';
-        $this->target->setName('testFile');
+
+        $metadata = $this->createMock(FileMetadata::class);
+        $metadata->expects($this->once())
+            ->method('getName')
+            ->willReturn($name);
+        $this->target->setMetadata($metadata);
 
         $expected = sprintf($this->uriSpec, $name);
 
@@ -68,7 +74,12 @@ class AttachmentTest extends TestCase
     public function testGetUriUsesUrlEncodeToEncodeTheFileName()
     {
         $name = 'Name-with /%& $#criticalCharacters';
-        $this->target->setName($name);
+
+        $metadata = $this->createMock(FileMetadata::class);
+        $metadata->expects($this->once())
+            ->method('getName')
+            ->willReturn($name);
+        $this->target->setMetadata($metadata);
 
         $expected    = sprintf($this->uriSpec, urlencode($name));
         $notExpected = sprintf($this->uriSpec, $name);
