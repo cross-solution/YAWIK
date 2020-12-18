@@ -11,9 +11,6 @@
 namespace Applications\Entity;
 
 use Core\Entity\File;
-use Core\Entity\FileInterface;
-use Core\Entity\FileMetadata;
-use Core\Entity\FileTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**

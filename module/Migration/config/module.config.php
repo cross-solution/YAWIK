@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Applications\Service\ApplicationHandler;
+use Applications\Service\UploadHandler;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Yawik\Migration\Controller\ConsoleController;

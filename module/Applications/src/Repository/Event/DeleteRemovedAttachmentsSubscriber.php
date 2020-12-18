@@ -37,9 +37,6 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
      * Updates fiile permissions on Flush
      *
      * @param LifecycleEventArgs $eventArgs
-     * @return void
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \MongoException
      */
     public function postRemoveEntity(LifecycleEventArgs $eventArgs): void
     {
@@ -54,16 +51,14 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
         $fileId = new ObjectId($file->getId());
 
         $dm->createQueryBuilder('Applications\Entity\Application')
-           ->update()
-            ->multiple(true)
-           ->field('attachments')->equals($fileId)->pull($fileId)
-           ->getQuery()->execute();
+            ->updateMany()
+            ->field('attachments')->equals($fileId)->pull($fileId)
+            ->getQuery()->execute();
 
 
         $dm->createQueryBuilder('Applications\Entity\Application')
-           ->update()
-            ->multiple(true)
-           ->field('contact.image')->equals($fileId)->set(null)
-           ->getQuery()->execute();
+            ->updateMany()
+            ->field('contact.image')->equals($fileId)->set(null)
+            ->getQuery()->execute();
     }
 }

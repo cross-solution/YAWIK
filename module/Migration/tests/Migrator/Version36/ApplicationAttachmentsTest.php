@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yawik\Migration\Tests\Migrator\Version36;
 
 use Applications\Entity\ApplicationInterface;
-use Applications\Service\ApplicationHandler;
+use Applications\Service\UploadHandler;
 use Core\Service\UploadedFileInfo;
 use CoreTestUtils\TestCase\FunctionalTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -34,7 +34,7 @@ class ApplicationAttachmentsTest extends FunctionalTestCase
     private $out;
 
     /**
-     * @var ApplicationHandler|MockObject
+     * @var UploadHandler|MockObject
      */
     private $appHandler;
 
@@ -42,7 +42,7 @@ class ApplicationAttachmentsTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->appHandler = $this->createMock(ApplicationHandler::class);
+        $this->appHandler = $this->createMock(UploadHandler::class);
         $this->out = new StreamOutput(fopen('php://memory', 'w', \false));
         $this->target = new ApplicationAttachments(
             $this->getDoctrine(),

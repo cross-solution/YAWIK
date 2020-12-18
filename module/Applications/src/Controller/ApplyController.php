@@ -10,19 +10,41 @@
 /** Applications controllers */
 namespace Applications\Controller;
 
+use Acl\Controller\Plugin\Acl;
+use Applications\Entity\Attachment;
 use Applications\Entity\Contact;
+use Applications\Entity\Settings;
+use Applications\Form\Apply;
 use Applications\Listener\Events\ApplicationEvent;
+use Applications\Service\UploadHandler;
+use Auth\Controller\Plugin\Auth;
+use Auth\Entity\SocialProfiles\AbstractProfile;
+use Auth\Form\UserInfo;
+use Core\Controller\Plugin\Mailer;
+use Core\Controller\Plugin\Notification;
+use Core\EventManager\EventManager;
 use Core\Factory\ContainerAwareInterface;
+use Core\Repository\RepositoryService;
+use Doctrine\MongoDB\GridFSFile;
+use Exception;
+use Hybrid_User_Profile;
 use Interop\Container\ContainerInterface;
+use Jobs\Repository\Job;
+use Laminas\Http\Client;
+use Laminas\Http\Request;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\Mvc\MvcEvent;
 use Applications\Entity\Application;
+use Laminas\Validator\ValidatorPluginManager;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Model\JsonModel;
 use Core\Form\Container;
 use Core\Form\SummaryForm;
 use Core\Entity\PermissionsInterface;
 use Applications\Entity\Status;
+use Organizations\ImageFileCache\Manager as OrganizationImageCacheManager;
+use RuntimeException;
 
 /**
  * there are basically two ways to use this controller,
@@ -37,28 +59,53 @@ use Applications\Entity\Status;
  *
  * if you use the do as query-parameter, you have to customize the do-Action for the special purpose that is assigned to the do parameter in the query
  *
- * @method \Acl\Controller\Plugin\Acl acl()
- * @method \Core\Controller\Plugin\Notification notification()
- * @method \Core\Controller\Plugin\Mailer mailer()
- * @method \Auth\Controller\Plugin\Auth auth()
+ * @method Acl acl()
+ * @method Notification notification()
+ * @method Mailer mailer()
+ * @method Auth auth()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Anthonius Munthi <me@itstoni.com>
  */
-class ApplyController extends AbstractActionController implements ContainerAwareInterface
+class ApplyController extends AbstractActionController
 {
 
     protected $formContainer;
 
-    protected $config;
+    protected array $config;
 
-    protected $imageCacheManager;
+    protected OrganizationImageCacheManager $imageCacheManager;
 
-    protected $validator;
+    protected ValidatorPluginManager $validator;
 
-    protected $repositories;
+    protected RepositoryService $repositories;
 
-    protected $appEvents;
+    protected EventManager $appEvents;
 
-    protected $viewHelper;
+    protected HelperPluginManager $viewHelper;
+
+    /**
+     * @var UploadHandler
+     */
+    private UploadHandler $uploadHandler;
+
+    public function __construct(
+        OrganizationImageCacheManager $imageCacheManager,
+        ValidatorPluginManager $validator,
+        RepositoryService $repositories,
+        EventManager $appEvents,
+        HelperPluginManager $viewHelper,
+        UploadHandler $uploadHandler,
+        array $config
+    )
+    {
+        $this->imageCacheManager = $imageCacheManager;
+        $this->validator = $validator;
+        $this->repositories = $repositories;
+        $this->appEvents = $appEvents;
+        $this->viewHelper = $viewHelper;
+        $this->config = $config;
+        $this->uploadHandler = $uploadHandler;
+    }
 
 	/**
 	 * @param ContainerInterface $container
@@ -67,21 +114,24 @@ class ApplyController extends AbstractActionController implements ContainerAware
 	 */
     static public function factory(ContainerInterface $container)
     {
-        $ob = new self();
-        $ob->setContainer($container);
-        return $ob;
+        $config            = $container->get('Config');
+        $imageCacheManager = $container->get('Organizations\ImageFileCache\Manager');
+        $validator         = $container->get('ValidatorManager');
+        $repositories      = $container->get('repositories');
+        $appEvents         = $container->get('Applications/Events');
+        $viewHelper        = $container->get('ViewHelperManager');
+        $uploadHandler     = $container->get(UploadHandler::class);
+
+        return new self(
+            $imageCacheManager,
+            $validator,
+            $repositories,
+            $appEvents,
+            $viewHelper,
+            $uploadHandler,
+            $config
+        );
     }
-
-	public function setContainer( ContainerInterface $container )
-	{
-		$this->config            = $container->get('Config');
-		$this->imageCacheManager = $container->get('Organizations\ImageFileCache\Manager');
-		$this->validator         = $container->get('ValidatorManager');
-		$this->repositories      = $container->get('repositories');
-		$this->appEvents         = $container->get('Applications/Events');
-		$this->viewHelper        = $container->get('ViewHelperManager');
-	}
-
 
 	public function attachDefaultListeners()
 	{
@@ -99,9 +149,9 @@ class ApplyController extends AbstractActionController implements ContainerAware
             return;
         }
 
-        /* @var $request    \Laminas\Http\Request */
+        /* @var $request    Request */
         /* @var $repository \Applications\Repository\Application */
-        /* @var $container  \Applications\Form\Apply */
+        /* @var $container  Apply */
         $request      = $this->getRequest();
         $services     = $e->getApplication()->getServiceManager();
         $repositories = $services->get('repositories');
@@ -111,7 +161,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
         if ($request->isPost()) {
             $appId = $this->params()->fromPost('applicationId');
             if (!$appId) {
-                throw new \RuntimeException('Missing application id.');
+                throw new RuntimeException('Missing application id.');
             }
             $routeMatch = $e->getRouteMatch();
 
@@ -122,7 +172,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
 
             $application = $repository->find($appId);
             if (!$application) {
-                throw new \RuntimeException('Invalid application id.');
+                throw new RuntimeException('Invalid application id.');
             }
 
             $action     = 'process';
@@ -132,10 +182,10 @@ class ApplyController extends AbstractActionController implements ContainerAware
             $user  = $this->auth()->getUser();
             $appId = $this->params('applyId');
             if (!$appId) {
-                throw new \RuntimeException('Missing apply id');
+                throw new RuntimeException('Missing apply id');
             }
 
-            /* @var \Jobs\Repository\Job $jobRepo */
+            /* @var Job $jobRepo */
             $jobRepo = $repositories->get('Jobs/Job');
             $job = $jobRepo->findOneByApplyId($appId);
 
@@ -163,7 +213,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
                 $application   = $repository->findDraft($user, $appId);
 
                 if ($application) {
-                    /* @var $form \Auth\Form\UserInfo */
+                    /* @var $form UserInfo */
                     $form = $container->getForm('contact.contact');
                     $form->setDisplayMode('summary');
 
@@ -225,7 +275,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
 
     public function indexAction()
     {
-        /* @var \Applications\Form\Apply $form */
+        /* @var Apply $form */
         $form        = $this->formContainer;
         $application = $form->getEntity(); /* @var \Applications\Entity\Application $application */
 
@@ -265,11 +315,11 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $hybridAuth = $this->formContainer
             ->get('HybridAuthAdapter')
             ->getHybridAuth();
-        /* @var $authProfile \Hybrid_User_Profile */
+        /* @var $authProfile Hybrid_User_Profile */
         $authProfile = $hybridAuth->authenticate($network)
            ->getUserProfile();
 
-        /* @var \Auth\Entity\SocialProfiles\AbstractProfile $profile */
+        /* @var AbstractProfile $profile */
         $profile = $this->plugin('Auth/SocialProfiles')->fetch($network);
 
         $contact = $application->getContact();
@@ -294,11 +344,11 @@ class ApplyController extends AbstractActionController implements ContainerAware
 
         if ($authProfile->photoURL)
         {
-            $response = (new \Laminas\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
-            $file = new \Doctrine\MongoDB\GridFSFile();
+            $response = (new Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
+            $file = new GridFSFile();
             $file->setBytes($response->getBody());
 
-            $image = new \Applications\Entity\Attachment();
+            $image = new Attachment();
             $image->setName($contact->getLastName().$contact->getFirstName());
             $image->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
             $image->setFile($file);
@@ -334,33 +384,51 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $formName  = $params->fromQuery('form');
         $form      = $this->formContainer->getForm($formName);
         $postData  = $form->getOption('use_post_array') ? $params->fromPost() : array();
+        $uploadHandler = $this->uploadHandler;
+
 	    //@TODO: [ZF3] option use_files_array is false by default
         //$filesData = $form->getOption('use_files_array') ? $params->fromFiles() : array();
+
         $form->setData(array_merge($postData,$_FILES));
-
-        if (!$form->isValid()) {
-            return new JsonModel(
-                array(
-                'valid' => false,
-                'errors' => $form->getMessages(),
-                )
-            );
-        }
-        $application = $this->formContainer->getEntity();
-        $this->repositories->store($application);
-
-        if ('file-uri' === $params->fromPost('return')) {
+        if('contact.image' === $formName){
+            $application = $uploadHandler->handleImageUpload($postData['applicationId'], $_FILES['image']);
+            $form->getParent()->setEntity($application->getContact());
+            $content = $this->viewHelper->get('form')->__invoke($form);
+            return new JsonModel([
+                'valid' => true,
+                'content' => $content,
+                'isApplicationValid' => $this->checkApplication($application)
+            ]);
+        }elseif('attachments' === $formName){
+            $attachment = $uploadHandler->handleAttachmentUpload($postData['applicationId'], $_FILES['attachments']);
             $basepath = $this->viewHelper->get('basepath');
-            $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
-        } else {
-            if ($form instanceof SummaryForm) {
-                $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
-                $viewHelper = 'summaryForm';
-            } else {
-                $viewHelper = 'form';
+            $content = $basepath($attachment->getUri());
+            $application = $uploadHandler->findApplication($postData['applicationId']);
+            return new JsonModel([
+                'valid' => true,
+                'content' => $content,
+                'isApplicationValid' => $this->checkApplication($application)
+            ]);
+        } else{
+            if (!$form->isValid()) {
+                return new JsonModel(
+                    array(
+                        'valid' => false,
+                        'errors' => $form->getMessages(),
+                    )
+                );
             }
-            $content = $this->viewHelper->get($viewHelper)->__invoke($form);
+            $application = $this->formContainer->getEntity();
+            $this->repositories->store($application);
         }
+
+        if ($form instanceof SummaryForm) {
+            $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
+            $viewHelper = 'summaryForm';
+        } else {
+            $viewHelper = 'form';
+        }
+        $content = $this->viewHelper->get($viewHelper)->__invoke($form);
 
         return new JsonModel(
             array(
@@ -384,7 +452,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
         );
 
         if (!$application) {
-            throw new \Exception('No application draft found.');
+            throw new Exception('No application draft found.');
         }
 
         if ('abort' == $this->params()->fromQuery('do')) {
@@ -469,7 +537,7 @@ class ApplyController extends AbstractActionController implements ContainerAware
         $application = $container->getEntity();
         $job         = $application->getJob();
 
-        /** @var $settings \Applications\Entity\Settings */
+        /** @var $settings Settings */
         $settings = ($user = $job->getUser()) ? $user->getSettings('Applications') : null;
         $formSettings = $settings ? $settings->getApplyFormSettings() : null;
 

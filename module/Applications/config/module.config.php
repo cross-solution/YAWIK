@@ -16,7 +16,8 @@ use Applications\Controller\CommentController;
 use Applications\Controller\ConsoleController;
 use Applications\Controller\ManageController;
 use Applications\Mail\Forward;
-use Applications\Service\ApplicationHandler;
+use Applications\Service\UploadHandler;
+use Applications\Service\UploadHandlerFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -83,6 +84,7 @@ return [
            'Applications\Auth\Dependency\ListListener' => 'Applications\Factory\Auth\Dependency\ListListenerFactory',
             Listener\JobSelectValues::class => Factory\Listener\JobSelectValuesFactory::class,
             Listener\LoadDependendEntities::class => InvokableFactory::class,
+            UploadHandler::class => UploadHandlerFactory::class
         ],
         'aliases' => [
            'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
@@ -209,7 +211,7 @@ return [
             Form\ApplicationsFilter::class => InvokableFactory::class,
             'Applications\Form\Element\StatusSelect' => Factory\Form\StatusSelectFactory::class,
             Form\Element\JobSelect::class => Factory\Form\JobSelectFactory::class,
-            ApplicationHandler::class => [ApplicationHandler::class, 'factory']
+            UploadHandler::class => [UploadHandler::class, 'factory']
         ],
      ],
 
