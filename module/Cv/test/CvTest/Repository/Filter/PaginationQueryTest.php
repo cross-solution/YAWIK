@@ -93,9 +93,9 @@ class PaginationQueryTest extends TestCase
 
         if ('search' == $mode || true === $mode) {
             $exprExpects['operator'][] = [ 'with' => ['$text', ['$search' => strtolower($params['search'])]]];
-            $exprExpects['getQuery'][] = [ 'return' => 'exprQuery' ];
-            $qbExpects['field'][] = [ 'with' => [null]];
-            $qbExpects['equals'][] = [ 'with' => ['exprQuery']];
+            $exprExpects['getQuery'][] = [ 'return' => ['exprQuery'] ];
+            $qbExpects['field'][] = [ 'with' => [""]];
+            $qbExpects['equals'][] = [ 'with' => [['exprQuery']]];
         }
 
         if ('location' == $mode || true === $mode) {
@@ -143,7 +143,6 @@ class PaginationQueryTest extends TestCase
         $loc = new Location();
         $loc->setCoordinates(new Point([1,1]));
         return [
-
             'woParams'    => [ null, null ],
             'emptySearch' => [ null, ['search' => '']],
             'search'      => [ 'search', ['search' => 'MusBeLowerCase']],
@@ -159,7 +158,9 @@ class PaginationQueryTest extends TestCase
      */
     public function testCreateQuery($mode, $params)
     {
+        /* @var PaginationQuery $target */
+        $target = $this->target;
         $qb = $this->getQueryBuilderMock($mode, $params);
-        $this->target->createQuery($params, $qb);
+        $target->createQuery($params, $qb);
     }
 }

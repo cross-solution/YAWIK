@@ -27,7 +27,7 @@ class Attributes extends AbstractEntity
      * Flag wether privacy policy is accepted or not.
      *
      * @var boolean
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $privacyPolicy;
 
@@ -35,7 +35,7 @@ class Attributes extends AbstractEntity
      * Flag wether to send a carbon copy or not.
      *
      * @var boolean
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $carbonCopy;
 

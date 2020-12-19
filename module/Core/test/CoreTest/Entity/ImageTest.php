@@ -1,38 +1,81 @@
 <?php
-/**
- * YAWIK
- *
- * @filesource
- * @license MIT
- * @copyright https://yawik.org/COPYRIGHT.php
- */
 
-/** */
+declare(strict_types=1);
+
 namespace CoreTest\Entity;
 
-use PHPUnit\Framework\TestCase;
-
-use Core\Entity\FileEntity;
+use Core\Entity\FileInterface;
+use Core\Entity\FileTrait;
 use Core\Entity\Image;
 use Core\Entity\ImageInterface;
-use Core\Entity\ImageTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use CoreTestUtils\TestCase\TestUsesTraitsTrait;
+use PHPUnit\Framework\TestCase;
+
+class TestImage extends Image
+{
+    public function __construct()
+    {
+        $this->id = 'id';
+        $this->name = 'name';
+    }
+}
 
 /**
- * Tests for \Core\Entity\Image
+ * Class ImageTest
  *
  * @covers \Core\Entity\Image
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *
+ * @package CoreTest\Entity
  */
 class ImageTest extends TestCase
 {
-    use TestInheritanceTrait, TestUsesTraitsTrait;
+    use TestInheritanceTrait,
+        TestSetterGetterTrait,
+        TestUsesTraitsTrait;
 
-    private $target = Image::class;
+    protected $target = Image::class;
 
-    private $inheritance = [ FileEntity::class, ImageInterface::class ];
+    protected $inheritance = [
+        FileInterface::class,
+        ImageInterface::class
+    ];
 
-    private $traits = [ ImageTrait::class ];
+    protected $traits = [
+        FileTrait::class
+    ];
+
+    public function propertiesProvider()
+    {
+        $uploadDate = new \DateTime();
+        return [
+            ['id', [
+                'default' => null,
+                'setter_args' => 'some_id',
+                'expected' => 'some_id'
+            ]],
+            ['name',[
+                'default' => null,
+            ]],
+            ['uploadDate', [
+                'default' => null,
+            ]],
+            ['length', [
+                'default' => null,
+            ]],
+            ['chunkSize', [
+                'default' => null
+            ]],
+            ['metadata', [
+                'default' => null
+            ]]
+        ];
+    }
+
+    public function testGetUri()
+    {
+        $target = new TestImage();
+        $expected = '/file/Core.Images/id/name';
+        parent::assertSame($expected, $target->getUri());
+    }
 }

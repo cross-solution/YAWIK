@@ -15,6 +15,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\DraftableEntityInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use MongoDB\BSON\ObjectId;
 use Organizations\Entity\OrganizationReferenceInterface;
 use Settings\Repository\SettingsEntityResolver;
 
@@ -55,7 +56,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     /**
      * Users contact data.
      *
-     * @ODM\EmbedOne(targetDocument="Info")
+     * @ODM\EmbedOne(targetDocument="Auth\Entity\Info")
      */
     protected $info;
 
@@ -63,7 +64,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * Authentification Sessions like oAuth
      * After Authentification with OAuth sessions can be stored like a password/key pair
      *
-     * @ODM\EmbedMany(targetDocument="AuthSession")
+     * @ODM\EmbedMany(targetDocument="Auth\Entity\AuthSession")
      */
     protected $authSessions;
 
@@ -123,7 +124,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * User groups.
      *
      * @var Collection
-     * @ODM\ReferenceMany(targetDocument="Group", mappedBy="owner", storeAs="id", cascade="all")
+     * @ODM\ReferenceMany(targetDocument="Auth\Entity\Group", mappedBy="owner", storeAs="id", cascade="all")
      */
     protected $groups;
 
@@ -131,7 +132,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * User tokens. Is generated when recovering Passwords as a short term key.
      *
      * @var Collection
-     * @ODM\EmbedMany(targetDocument="Token")
+     * @ODM\EmbedMany(targetDocument="Auth\Entity\Token")
      */
     protected $tokens;
 
@@ -151,7 +152,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * Is this entity a draft or not?
      *
      * @var bool
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $isDraft = false;
     
@@ -159,7 +160,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * Status of user
      *
      * @var Status
-     * @ODM\EmbedOne(targetDocument="Status")
+     * @ODM\EmbedOne(targetDocument="Auth\Entity\Status")
      * @ODM\Index
      */
     protected $status;

@@ -11,6 +11,7 @@ namespace Core\Factory\Controller;
 
 use Core\EventManager\EventManager;
 use Core\Repository\RepositoryService;
+use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
 use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use Laminas\ModuleManager\ModuleManagerInterface;
@@ -34,6 +35,7 @@ class LazyControllerFactory implements AbstractFactoryInterface
         ModuleManagerInterface::class => 'ModuleManager',
         EventManager::class => 'Core/EventManager',
         RepositoryService::class => 'repositories',
+        FileManager::class => FileManager::class
     ];
     
     public function canCreate(ContainerInterface $container, $requestedName)

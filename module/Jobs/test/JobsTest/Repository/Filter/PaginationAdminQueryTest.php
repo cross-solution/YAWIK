@@ -10,9 +10,10 @@ declare(strict_types=1);
 namespace JobsTest\Repository\Filter;
 
 use Jobs\Repository\Filter\PaginationAdminQuery;
+use MongoDB\BSON\ObjectId;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Prophecy\Promise\PromiseInterface;
+use Doctrine\ODM\MongoDB\Query\Builder as QueryBuilder;
 
 /**
  * Tests for \Jobs\Repository\Filter\PaginationAdminQuery
@@ -30,7 +31,7 @@ class PaginationAdminQueryTest extends TestCase
     protected function setUp(): void
     {
         $this->target = new PaginationAdminQuery();
-        $this->queryBuilder = $this->prophesize(\Doctrine\MongoDB\Query\Builder::class);
+        $this->queryBuilder = $this->prophesize(QueryBuilder::class);
         $this->queryBuilder->sort('datePublishStart.date', -1)->shouldBeCalled();
     }
 
@@ -67,7 +68,7 @@ class PaginationAdminQueryTest extends TestCase
 
     public function testCompanyIdDoesSetField()
     {
-        $companyId = (new \MongoId())->__toString();
+        $companyId = (new ObjectId())->__toString();
         $qb = $this->queryBuilder->reveal();
         $this->queryBuilder->field('isDraft')->shouldBeCalled()->willReturn($qb);
         $this->queryBuilder->equals(false)->shouldBeCalled();

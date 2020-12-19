@@ -11,7 +11,8 @@
 namespace CoreTestUtils\TestCase;
 
 use PHPUnit\Framework\TestCase;
-
+use PHPUnit\Framework\Exception as PHPUnitException;
+use PHPUnit\Util\InvalidArgumentHelper;
 use CoreTestUtils\Constraint\ExtendsOrImplements;
 
 /**
@@ -33,12 +34,12 @@ trait AssertInheritanceTrait
      * @param object   $object
      * @param string   $message
      *
-     * @throws \PHPUnit_Framework_Exception
+     * @throws PHPUnitException
      */
     public static function assertInheritance($parentsAndInterfaces, $object, $message = '')
     {
         if (!is_object($object)) {
-            throw \PHPUnit_Util_InvalidArgumentHelper::factory(2, 'object');
+            throw InvalidArgumentHelper::factory(2, 'object');
         }
         self::assertThat($object, self::extendsOrImplements($parentsAndInterfaces), $message);
     }
@@ -49,12 +50,12 @@ trait AssertInheritanceTrait
      * @param string[] $parentsAndInterfaces
      *
      * @return ExtendsOrImplements
-     * @throws \PHPUnit_Framework_Exception
+     * @throws PHPUnitException
      */
     public static function extendsOrImplements($parentsAndInterfaces)
     {
         if (!is_array($parentsAndInterfaces)) {
-            throw \PHPUnit_Util_InvalidArgumentHelper::factory(
+            throw InvalidArgumentHelper::factory(
                 1,
                 'array or ArrayAccess'
             );

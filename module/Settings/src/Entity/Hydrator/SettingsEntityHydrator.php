@@ -10,9 +10,9 @@
 /** SettingsEntityHydrator.php */
 namespace Settings\Entity\Hydrator;
 
-use Laminas\Hydrator\Reflection;
+use Laminas\Hydrator\ReflectionHydrator;
 
-class SettingsEntityHydrator extends Reflection
+class SettingsEntityHydrator extends ReflectionHydrator
 {
 
     /**
@@ -20,11 +20,10 @@ class SettingsEntityHydrator extends Reflection
      */
     public function __construct()
     {
-        parent::__construct();
         $this->addFilter(
             'ignoreInternalProperties',
             function ($property) {
-                return "_" != $property{0};
+                return "_" != $property[0];
             }
         );
     }
@@ -34,7 +33,7 @@ class SettingsEntityHydrator extends Reflection
      *
      * Uses a getter method for each property if one exists.
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $result = array();
         foreach (self::getReflProperties($object) as $property) {

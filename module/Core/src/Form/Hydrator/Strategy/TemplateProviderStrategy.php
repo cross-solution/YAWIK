@@ -28,14 +28,14 @@ class TemplateProviderStrategy implements StrategyInterface
         $this->serviceManager = $serviceManager;
     }
 
-    public function extract($value, $object = null)
+    public function extract($value, ?object $object = null)
     {
         $templateProvider = $this->serviceManager->get('templateProvider');
         $templateProvider->setValue($value, $object);
         return $templateProvider;
     }
 
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
     }
     

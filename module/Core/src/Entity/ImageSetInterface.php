@@ -1,95 +1,25 @@
 <?php
-/**
- * YAWIK
- *
- * @filesource
- * @license MIT
- * @copyright https://yawik.org/COPYRIGHT.php
- */
 
-/** */
+declare(strict_types=1);
+
 namespace Core\Entity;
 
 use Doctrine\Common\Collections\Collection;
 
-/**
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0,29
- */
-interface ImageSetInterface extends EntityInterface
+interface ImageSetInterface
 {
+    public const ORIGINAL  = 'original';
+    public const THUMBNAIL = 'thumbnail';
 
-    /**#@+
-     * Special image key.
-     *
-     * @var string
-     */
-    const ORIGINAL  = 'original';
-    const THUMBNAIL = 'thumbnail';
+    public function getId(): ?string;
 
-    /**#@-*/
+    public function clear(): self;
 
-    /**
-     * Clear this image set.
-     *
-     * @return self
-     */
-    public function clear();
+    public function setImages(Collection $images): self;
 
-    /**
-     * Set the images collection
-     *
-     * @param Collection $images
-     *
-     * @return self
-     */
-    public function setImagesCollection(Collection $images);
+    public function getImages(): Collection;
 
-    /**
-     * Set images.
-     *
-     * Replaces the whole set.
-     *
-     * <pre>
-     * $images = [
-     *     <imageKey> => $image,
-     * ]
-     * </pre>
-     *
-     * @param array                $images
-     * @param PermissionsInterface $permissions
-     *
-     * @return mixed
-     */
-    public function setImages(array $images, PermissionsInterface $permissions = null);
+    public function add(ImageInterface $image): self;
 
-    /**
-     * Get an image
-     *
-     * @param string $key
-     *
-     * @return ImageInterface
-     */
-    public function get($key);
-
-    /**
-     * Set an image.
-     *
-     * Any image with the same $key will be replaced.
-     *
-     * @param string         $key
-     * @param ImageInterface $image
-     *
-     * @return self
-     */
-    public function set($key, ImageInterface $image);
-
-    /**
-     * Set permissions for all images in this set.
-     *
-     * @param PermissionsInterface $permissions
-     *
-     * @return self
-     */
-    public function setPermissions(PermissionsInterface $permissions);
+    public function get(string $key, bool $fallback=true): ?ImageInterface;
 }

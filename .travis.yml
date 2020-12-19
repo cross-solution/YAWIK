@@ -73,7 +73,7 @@ matrix:
       env: COVERAGE=yes
       after_script: *upload-coverage
 
-  before_install:
+before_install:
   - *disable-php-memory-limit
   - *disable-xdebug
   - *update-pecl-channel

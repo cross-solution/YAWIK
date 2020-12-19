@@ -8,7 +8,7 @@
  */
   
 /** */
-namespace CoreTest\Entity\Tree\AttachedLeafsTest;
+namespace CoreTest\Entity\Tree;
 
 use PHPUnit\Framework\TestCase;
 

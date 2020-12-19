@@ -32,7 +32,7 @@ class ApplicationContext implements Context
 	 */
 	public function iApplyAJob($title)
 	{
-		/* @var $repo JobRepository */
+		/* @var $repo Job */
 		$repo = $this->getRepository('Jobs/Job');
 		$job = $repo->findOneBy(['title' => $title]);
 		if(!$job instanceof Job){

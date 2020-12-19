@@ -13,6 +13,7 @@ namespace Jobs\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Jobs\Entity\Status;
 use \Doctrine\ODM\MongoDB\Query\Builder;
+use MongoDB\BSON\ObjectId;
 
 /**
  * Class PaginationAdminQuery
@@ -52,7 +53,7 @@ class PaginationAdminQuery extends AbstractPaginationQuery
 
         if (isset($params['companyId']) &&
             !empty($params['companyId'])) {
-            $queryBuilder->field('organization')->equals(new \MongoId($params['companyId']));
+            $queryBuilder->field('organization')->equals(new ObjectId($params['companyId']));
         }
 
         if (isset($params['sort'])) {

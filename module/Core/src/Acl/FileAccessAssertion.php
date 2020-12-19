@@ -10,11 +10,11 @@
 /** FileAccessAssertion.php */
 namespace Core\Acl;
 
+use Core\Entity\FileMetadataInterface;
 use Laminas\Permissions\Acl\Assertion\AssertionInterface;
 use Laminas\Permissions\Acl\Acl;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Role\RoleInterface;
-use Core\Entity\FileInterface;
 use Auth\Entity\UserInterface;
 use Core\Entity\PermissionsInterface;
 
@@ -34,7 +34,7 @@ class FileAccessAssertion implements AssertionInterface
         ResourceInterface $resource = null,
         $privilege = null
     ) {
-        if (!$role instanceof UserInterface || !$resource instanceof FileInterface) {
+        if (!$role instanceof UserInterface || !$resource instanceof FileMetadataInterface) {
             return false;
         }
         

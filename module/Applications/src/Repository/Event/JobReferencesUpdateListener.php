@@ -52,7 +52,7 @@ class JobReferencesUpdateListener implements EventSubscriber
 
         /* User could have gotten unset! */
         $user = $document->getUser();
-        $userId = $user ? $user->getId() : null;
+        $userId = !is_null($user) ? $user->getId() : null;
 
         $dm->createQueryBuilder('Applications\Entity\Application')
             ->update()->multiple(true)

@@ -160,7 +160,7 @@ class TreeSelectStrategy implements StrategyInterface
     }
 
 
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if (empty($value)) {
             return $this->allowSelectMultipleItems() ? [] : null;
@@ -188,7 +188,7 @@ class TreeSelectStrategy implements StrategyInterface
         return $data;
     }
 
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         $object = $this->getAttachedLeafs();
 

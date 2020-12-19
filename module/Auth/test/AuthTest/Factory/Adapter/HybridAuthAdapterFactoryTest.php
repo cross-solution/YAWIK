@@ -7,7 +7,7 @@
  * @license       MIT
  */
 
-namespace AuthTest\Factory\Service;
+namespace AuthTest\Factory\Adapter;
 
 use PHPUnit\Framework\TestCase;
 

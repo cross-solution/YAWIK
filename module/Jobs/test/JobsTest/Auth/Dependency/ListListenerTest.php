@@ -9,14 +9,16 @@
 
 namespace JobsTest\Auth\Dependency;
 
+use Auth\Dependency\ListItem;
+use Auth\Entity\UserInterface;
+use Jobs\Repository\Job;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Jobs\Auth\Dependency\ListListener;
-use Jobs\Repository\Job as Repository;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Laminas\View\Renderer\PhpRenderer as View;
-use Doctrine\MongoDB\CursorInterface as Cursor;
 use Jobs\Entity\JobInterface;
 
 /**
@@ -31,16 +33,13 @@ class ListListenerTest extends TestCase
     private $listListener;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|Job
      */
     private $repository;
 
-    /**
-     * @see PHPUnit\Framework\TestCase::setUp()
-     */
     protected function setUp(): void
     {
-        $this->repository = $this->getMockBuilder(Repository::class)
+        $this->repository = $this->getMockBuilder(Job::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->listListener = new ListListener($this->repository);
@@ -88,22 +87,15 @@ class ListListenerTest extends TestCase
         $expected = 3;
 
         $userId = 'userId';
-        $user = $this->getMockBuilder(User::class)
-            ->getMock();
+        $user = $this->createMock(UserInterface::class);
         $user->expects($this->once())
             ->method('getId')
             ->willReturn($userId);
 
-        $cursor = $this->getMockBuilder(Cursor::class)
-            ->getMock();
-        $cursor->expects($this->once())
-            ->method('count')
-            ->willReturn($expected);
-
         $this->repository->expects($this->once())
-            ->method('getUserJobs')
-            ->with($this->equalTo($userId), $this->equalTo(null))
-            ->willReturn($cursor);
+            ->method('countUserJobs')
+            ->with($userId)
+            ->willReturn($expected);
 
         $this->assertSame($expected, $this->listListener->getCount($user));
     }
@@ -128,23 +120,16 @@ class ListListenerTest extends TestCase
         $job = $this->getMockBuilder(JobInterface::class)
             ->getMock();
 
-        $cursor = $this->getMockBuilder(Cursor::class)
-            ->getMock();
-        $cursor->method('valid')
-            ->will($this->onConsecutiveCalls(true, false));
-        $cursor->method('current')
-            ->willReturn($job);
-
         $this->repository->expects($this->once())
             ->method('getUserJobs')
             ->with($this->equalTo($userId), $this->equalTo($limit))
-            ->willReturn($cursor);
+            ->willReturn([$job]);
 
         $actual = $this->listListener->getItems($user, $view, $limit);
 
         $this->assertIsArray($actual);
         $this->assertCount(1, $actual);
-        $this->assertContainsOnlyInstancesOf(\Auth\Dependency\ListItem::class, $actual);
+        $this->assertContainsOnlyInstancesOf(ListItem::class, $actual);
     }
 
     /**

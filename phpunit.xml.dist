@@ -44,5 +44,8 @@
         <testsuite name="Organizations">
             <directory>./module/Organizations/test/OrganizationsTest</directory>
         </testsuite>
+        <testsuite name="Migration">
+            <directory>./module/Organizations/tests</directory>
+        </testsuite>
     </testsuites>
 </phpunit>

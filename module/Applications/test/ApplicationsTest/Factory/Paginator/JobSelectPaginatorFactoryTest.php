@@ -29,7 +29,7 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
  * @group Applications.Factory
  * @group Applications.Factory.Paginator
  */
-class JobSelectValuesFactoryTest extends TestCase
+class JobSelectPaginatorFactoryTest extends TestCase
 {
     use TestInheritanceTrait, ServiceManagerMockTrait;
 

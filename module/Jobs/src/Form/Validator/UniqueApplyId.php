@@ -23,14 +23,14 @@ class UniqueApplyId extends AbstractValidator
 
     public function __construct($options = null)
     {
-        if ($options instanceof JobRepository) {
+        if ($options instanceof Job) {
             $options = array('repository' => $options);
         }
 
         parent::__construct($options);
     }
 
-    public function setRepository(JobRepository $repository)
+    public function setRepository(Job $repository)
     {
         $this->repository = $repository;
         return $this;

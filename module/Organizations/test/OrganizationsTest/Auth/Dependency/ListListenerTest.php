@@ -9,14 +9,14 @@
 
 namespace OrganizationsTest\Auth\Dependency;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Organizations\Auth\Dependency\ListListener;
-use Organizations\Repository\Organization as Repository;
+use Organizations\Repository\Organization as OrganizationRepository;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Laminas\View\Renderer\PhpRenderer as View;
-use Doctrine\MongoDB\CursorInterface as Cursor;
 use Organizations\Entity\OrganizationInterface;
 
 /**
@@ -31,16 +31,13 @@ class ListListenerTest extends TestCase
     private $listListener;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|OrganizationRepository
      */
     private $repository;
 
-    /**
-     * @see PHPUnit\Framework\TestCase::setUp()
-     */
     protected function setUp(): void
     {
-        $this->repository = $this->getMockBuilder(Repository::class)
+        $this->repository = $this->getMockBuilder(OrganizationRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->listListener = new ListListener($this->repository);
@@ -94,23 +91,14 @@ class ListListenerTest extends TestCase
             ->method('getId')
             ->willReturn($userId);
 
-        $cursor = $this->getMockBuilder(Cursor::class)
-            ->getMock();
-        $cursor->expects($this->once())
-            ->method('count')
-            ->willReturn($expected);
-
         $this->repository->expects($this->once())
-            ->method('getUserOrganizations')
-            ->with($this->equalTo($userId), $this->equalTo(null))
-            ->willReturn($cursor);
+            ->method('countUserOrganizations')
+            ->with($userId)
+            ->willReturn($expected);
 
         $this->assertSame($expected, $this->listListener->getCount($user));
     }
 
-    /**
-     * @covers ::getItems
-     */
     public function testGetItems()
     {
         $limit = 10;
@@ -128,17 +116,10 @@ class ListListenerTest extends TestCase
         $organization = $this->getMockBuilder(OrganizationInterface::class)
             ->getMock();
 
-        $cursor = $this->getMockBuilder(Cursor::class)
-            ->getMock();
-        $cursor->method('valid')
-            ->will($this->onConsecutiveCalls(true, false));
-        $cursor->method('current')
-            ->willReturn($organization);
-
         $this->repository->expects($this->once())
             ->method('getUserOrganizations')
-            ->with($this->equalTo($userId), $this->equalTo($limit))
-            ->willReturn($cursor);
+            ->with($userId, $limit)
+            ->willReturn([$organization]);
 
         $actual = $this->listListener->getItems($user, $view, $limit);
 

@@ -9,6 +9,7 @@
 
 namespace AuthTest\Service;
 
+use MongoDB\BSON\ObjectId;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Entity\Token;
@@ -71,7 +72,7 @@ class GotoResetPasswordTest extends TestCase
             ->method('findOneBy')
             ->with(
                 array(
-                    'id' => new \MongoId($userId),
+                    'id' => new ObjectId($userId),
                     'tokens.hash' => $tokenHash
                 )
             )
@@ -99,7 +100,7 @@ class GotoResetPasswordTest extends TestCase
             ->method('findOneBy')
             ->with(
                 array(
-                    'id' => new \MongoId($userId),
+                    'id' => new ObjectId($userId),
                     'tokens.hash' => $tokenHash
                 )
             )
@@ -135,7 +136,7 @@ class GotoResetPasswordTest extends TestCase
             ->method('findOneBy')
             ->with(
                 array(
-                    'id' => new \MongoId($userId),
+                    'id' => new ObjectId($userId),
                     'tokens.hash' => $tokenHash
                 )
             )

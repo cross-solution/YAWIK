@@ -35,9 +35,11 @@ class ImageSetOptionsTest extends TestCase
     private $inheritance = [ AbstractOptions::class ];
 
     private $properties = [
-        ['entityClass', ['default' => Image::class, '@value' => Image::class]],
+        ['entityClass', [
+            'default' => Image::class,
+            'setter_args' => Image::class
+        ]],
         ['formElementName', ['default' => ImageSetInterface::ORIGINAL, 'value' => 'formElementNameValue']],
         ['images', ['default'=>[ImageSetInterface::THUMBNAIL => [100,100]], 'value' => ['a' => [1,1]]]],
-        ['entity', ['ignore_setter' => true, 'value@' => Image::class]],
     ];
 }

@@ -14,7 +14,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 
 class JobDescriptionTitleStrategy implements StrategyInterface
 {
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         $result = null;
         if (method_exists($value, 'getTemplateValues')) {
@@ -23,7 +23,7 @@ class JobDescriptionTitleStrategy implements StrategyInterface
         return $result;
     }
 
-    public function hydrate($value, $object = null)
+    public function hydrate($value, ?array $object)
     {
         if (isset($value['description-title'])) {
             $object->getTemplateValues()->setTitle($value['description-title']);

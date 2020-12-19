@@ -9,6 +9,7 @@
 
 namespace OrganizationsTest\Controller;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Auth\Exception\UnauthorizedAccessException;
@@ -47,12 +48,12 @@ class ProfileControllerTest extends AbstractControllerTestCase
     private $translator;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|OrganizationRepository
      */
     private $repository;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|JobRepository
      */
     private $jobRepository;
 

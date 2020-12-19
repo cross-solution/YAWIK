@@ -201,7 +201,7 @@ interface JobInterface extends
     /**
      * Gets the user, who owns a job posting
      *
-     * @return UserInterface $user
+     * @return UserInterface|null $user
      */
     public function getUser() ;
 

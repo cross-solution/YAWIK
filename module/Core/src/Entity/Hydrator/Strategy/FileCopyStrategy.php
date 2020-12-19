@@ -51,7 +51,7 @@ class FileCopyStrategy implements StrategyInterface
     {
         return clone $this->targetEntity;
     }
-    
+
     /**
      * Extracts the source file entity.
      *
@@ -62,10 +62,11 @@ class FileCopyStrategy implements StrategyInterface
      * and <i>NULL</i> is returned.
      *
      * @param FileInterface|null $value
+     * @param object|null $object
      * @return array|null
      * @see \Laminas\Hydrator\Strategy\StrategyInterface::extract()
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if (!$value instanceof FileInterface) {
             return null;
@@ -101,7 +102,7 @@ class FileCopyStrategy implements StrategyInterface
 
         return $return;
     }
-    
+
     /**
      * Hydrates and returns a clone of the target entity.
      *
@@ -111,10 +112,11 @@ class FileCopyStrategy implements StrategyInterface
      * if <b>$value</b> is null, nothing is done and <i>NULL</i> is returned.
      *
      * @param array|null $value
+     * @param array|null $data
      * @return FileInterface
      * @see \Laminas\Hydrator\Strategy\StrategyInterface::hydrate()
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         if (!is_array($value)) {
             return null;

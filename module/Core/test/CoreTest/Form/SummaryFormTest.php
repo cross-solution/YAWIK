@@ -17,7 +17,7 @@ use Core\Form\SummaryFormInterface;
 /**
 * @covers \Core\Form\SummaryForm
 */
-class SummaryTest extends TestCase
+class SummaryFormTest extends TestCase
 {
     /**
      * @var  $target SummaryForm

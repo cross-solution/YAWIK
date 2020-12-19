@@ -10,14 +10,14 @@
 /** */
 namespace ApplicationsTest\Paginator;
 
+use MongoDB\BSON\Regex;
 use PHPUnit\Framework\TestCase;
 
 use Applications\Paginator\JobSelectPaginator;
-use Core\Paginator\Adapter\DoctrineMongoCursor;
+use Core\Paginator\Adapter\DoctrineMongoAdapter;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Doctrine\MongoDB\Aggregation\Builder;
-use Doctrine\MongoDB\Query\Query;
-use Jobs\Repository\Job;
+use Doctrine\ODM\MongoDB\Query\Builder;
+use Jobs\Repository\Job as JobRepository;
 use Laminas\Paginator\Paginator;
 
 /**
@@ -31,6 +31,9 @@ class JobSelectPaginatorTest extends TestCase
 {
     use TestInheritanceTrait;
 
+    /**
+     * @var JobSelectPaginator
+     */
     private $target = [
         JobSelectPaginator::class,
         'getTargetArgs',
@@ -44,7 +47,8 @@ class JobSelectPaginatorTest extends TestCase
 
     private function getTargetArgs()
     {
-        $this->repository = $this->getMockBuilder(Job::class)->disableOriginalConstructor()
+        $this->repository = $this->getMockBuilder(JobRepository::class)
+            ->disableOriginalConstructor()
             ->setMethods(['createQueryBuilder'])->getMock();
 
         return [$this->repository];
@@ -58,21 +62,26 @@ class JobSelectPaginatorTest extends TestCase
     public function testSearch()
     {
         $q = 'test';
-        $qb = $this->getMockBuilder(Builder::class)->disableOriginalConstructor()->setMethods(['field', 'equals', 'getQuery'])->getMock();
+        $qb = $this->getMockBuilder(Builder::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['field', 'equals', 'getQuery'])
+            ->getMock()
+        ;
         $qb->expects($this->once())->method('field')->with('title')->will($this->returnSelf());
         $qb->expects($this->once())->method('equals')->with(
             $this->callback(function ($value) use ($q) {
-                return $value instanceof \MongoRegex && (String) $value == '/' . $q . '/i';
+                if(!$value instanceof Regex){
+                    throw new \Exception("Value is not instance of regex");
+                }
+                return $value instanceof Regex && (string) $value->getPattern() == '/' . $q . '/i';
             })
         );
-        $cursor = $this->getMockBuilder(\Doctrine\ODM\MongoDB\Cursor::class)->disableOriginalConstructor()->getMock();
-        $query = $this->getMockBuilder(Query::class)->disableOriginalConstructor()->getMock();
-        $query->expects($this->once())->method('execute')->will($this->returnValue($cursor));
-        $qb->expects($this->once())->method('getQuery')->will($this->returnValue($query));
-
-        $this->repository->expects($this->once())->method('createQueryBuilder')->will($this->returnValue($qb));
+        $this->repository
+            ->expects($this->once())
+            ->method('createQueryBuilder')
+            ->willReturn($qb);
         $this->target->search($q);
 
-        $this->assertAttributeInstanceOf(DoctrineMongoCursor::class, 'adapter', $this->target);
+        $this->assertAttributeInstanceOf(DoctrineMongoAdapter::class, 'adapter', $this->target);
     }
 }

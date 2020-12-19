@@ -27,7 +27,7 @@ $columns = [
 ];
 
 $sort = $this->params()->fromQuery('sort', 'name');
-if ('-' == $sort{0}) {
+if (false !== strpos($sort, '-')) {
     $sortBy  = substr($sort, 1);
     $sortDir = false;
 } else {
@@ -65,9 +65,9 @@ if ('-' == $sort{0}) {
 <?php foreach ($this->organizations as $organization): /* @var $organization \Organizations\Entity\Organization */?>
  <tr>
   <td>
-      <?php if ($organization->getImage() &&  $organization->getOrganizationName()): ?>
+      <?php if ($organization->getOrganizationName() && !is_null($image=$organization->getImages()->get('thumbnail'))): ?>
           <div class="yk-logo-list">
-              <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($organization->getImage(true))) ?>">
+              <img class="yk-logo-sm" src="<?php echo $this->basePath($this->organizationImageCache->getUri($image)) ?>">
           </div>
       <?php endif ?>
       <a href="<?php echo $this->url('lang/organizations/profileDetail', array('id' => $organization->getId())); ?>?clear=1">

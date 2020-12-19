@@ -21,7 +21,7 @@ class SettingsContainer extends ModuleSettingsContainer implements InitializeAwa
 {
     
     /**
-     * @ODM\EmbedOne(targetDocument="LocalizationSettings")
+     * @ODM\EmbedOne(targetDocument="Core\Entity\LocalizationSettings")
      */
     protected $localization;
 

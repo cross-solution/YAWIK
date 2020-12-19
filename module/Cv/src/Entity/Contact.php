@@ -10,6 +10,7 @@
 namespace Cv\Entity;
 
 use Auth\Entity\Info;
+use Core\Entity\ImageInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\InfoInterface;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -25,12 +26,10 @@ class Contact extends Info
 
     /**
      * Contact image
-     *
-     * @var ContactImage
-     * @ODM\ReferenceOne(targetDocument="\Cv\Entity\ContactImage", storeAs="id", nullable=true, cascade={"persist"})
+     * @ODM\ReferenceOne(targetDocument="\Cv\Entity\ContactImage", storeAs="id", nullable=true, cascade={"persist", "delete"})
      * @ODM\Index
      */
-    protected $image;
+    protected $image = null;
     
     /**
      * Creates a Contact

@@ -48,7 +48,7 @@ class TreeHydrator implements HydratorInterface
      *
      * @return array
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $data = [];
         $this->flattenTree($object, $data);

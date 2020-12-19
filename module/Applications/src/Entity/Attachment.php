@@ -10,7 +10,7 @@
 /** */
 namespace Applications\Entity;
 
-use Core\Entity\FileEntity;
+use Core\Entity\File;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -19,11 +19,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *
- * @ODM\Document(collection="applications")
+ * @ODM\File(bucketName="applications")
  */
-class Attachment extends FileEntity
+class Attachment extends File
 {
-
     /**
      * Gets the URI of an attachment
      *
@@ -31,8 +30,8 @@ class Attachment extends FileEntity
      *
      * @return string
      */
-    public function getUri()
+    public function getUri(): string
     {
-        return "/file/Applications.Attachment/" . $this->id . "/" .urlencode($this->name);
+        return "/file/Applications.Attachment/" . $this->id . "/" .urlencode($this->getMetadata()->getName());
     }
 }

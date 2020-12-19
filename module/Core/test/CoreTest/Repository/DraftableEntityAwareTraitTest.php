@@ -10,6 +10,7 @@
 /** */
 namespace CoreTest\Repository;
 
+use Doctrine\ODM\MongoDB\Query\Builder;
 use PHPUnit\Framework\TestCase;
 
 use Core\Repository\DraftableEntityAwareInterface;
@@ -71,7 +72,7 @@ class DraftableEntityAwareTraitTest extends TestCase
     public function testQueryBuilderCreation()
     {
         $qb = $this
-            ->getMockBuilder('\Doctrine\MongoDB\Query\Builder')
+            ->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
             ->setMethods(['field', 'equals'])
             ->getMock();
@@ -95,9 +96,10 @@ class RepositoryMock
     public $calledMethods = [];
 
 
-    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null): array
     {
         $this->calledMethods['findBy'] = $criteria;
+        return [];
     }
 
     public function findDraftsBy(array $criteria, array $sort = null, $limit = null, $skip = null)

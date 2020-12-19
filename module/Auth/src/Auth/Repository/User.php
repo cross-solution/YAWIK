@@ -15,6 +15,9 @@ use Core\Repository\AbstractRepository;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Auth\Exception\UserDeactivatedException;
+use Doctrine\ODM\MongoDB\LockMode;
+use Doctrine\ODM\MongoDB\Query\Builder;
+use MongoDB\BSON\Regex;
 
 /**
  * class for accessing a user
@@ -25,7 +28,7 @@ class User extends AbstractRepository
     /**
      * {@inheritDoc}
      */
-    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null): array
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
@@ -41,22 +44,23 @@ class User extends AbstractRepository
         
         return parent::findBy($criteria, $sort, $limit, $skip);
     }
-    
+
     /**
      * Finds a document by its identifier
      *
      * @param string|object $id The identifier
      * @param int $lockMode
-     * @param int $lockVersion
-     * @param array $options
-     * @throws Mapping\MappingException
-     * @throws LockException
-     * @throws UserDeactivatedException
-     * @return null | UserInterface
+     * @param int|null $lockVersion
+     * @return ?UserInterface
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
      */
-    public function find($id, $lockMode = \Doctrine\ODM\MongoDB\LockMode::NONE, $lockVersion = null, array $options = [])
+    public function find($id, $lockMode = LockMode::NONE, ?int $lockVersion = null): ?object
     {
-        return $this->assertEntity(parent::find($id, $lockMode, $lockVersion), $options);
+        $user = parent::find($id, $lockMode, $lockVersion);
+        $this->assertEntity($user);
+
+        return $user;
     }
 
     /**
@@ -65,21 +69,25 @@ class User extends AbstractRepository
      * @throws UserDeactivatedException
      * @return null | UserInterface
      */
-    public function findOneBy(array $criteria, array $options = [])
+    public function findOneBy(array $criteria, array $options = []): ?object
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
         } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
-        return $this->assertEntity(parent::findOneBy($criteria), $options);
+        $user = parent::findOneBy($criteria);
+        if(!is_null($user)){
+            $this->assertEntity($user, $options);
+        }
+        return $user;
     }
     
 
     /**
      * {@inheritDoc}
      */
-    public function createQueryBuilder($findDrafts = false)
+    public function createQueryBuilder($findDrafts = false): Builder
     {
         $qb = parent::createQueryBuilder();
         if (null !== $findDrafts) {
@@ -241,7 +249,7 @@ class User extends AbstractRepository
         $parts  = explode(' ', trim($query));
         
         foreach ($parts as $q) {
-            $regex = new \MongoRegex('/^' . $query . '/i');
+            $regex = new Regex('/^' . $query . '/i');
             $qb->addOr($qb->expr()->field('info.firstName')->equals($regex));
             $qb->addOr($qb->expr()->field('info.lastName')->equals($regex));
             $qb->addOr($qb->expr()->field('info.email')->equals($regex));
@@ -264,14 +272,14 @@ class User extends AbstractRepository
     }
     
     /**
-     * @param UserInterface $user
+     * @param ?object|?UserInterface $user
      * @param array $options
      * @throws UserDeactivatedException
-     * @return null | UserInterface
+     * @return ?UserInterface|?object
      */
-    protected function assertEntity(UserInterface $user = null, array $options)
+    protected function assertEntity(?object $user = null, array $options = [])
     {
-        if (isset($user) && (!isset($options['allowDeactivated']) || !$options['allowDeactivated']) && !$user->isActive())
+        if (!is_null($user) && (!isset($options['allowDeactivated']) || !$options['allowDeactivated']) && !$user->isActive())
         {
             throw new UserDeactivatedException(sprintf('User with ID %s is not active', $user->getId()));
         }

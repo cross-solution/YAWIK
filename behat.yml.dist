@@ -39,7 +39,7 @@ default:
 
     gherkin:
         filters:
-            tags: "~@social-profile"
+            tags: "@travis-exclude"
 
     suites:
         user:

@@ -8,7 +8,7 @@
  */
   
 /** */
-namespace CoreTest\OptionsException;
+namespace CoreTest\Options\Exception;
 
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
  * @group Core.Options
  * @group Core.Options.Exception
  */
-class MissingDependencyExceptionTest extends TestCase
+class MissingOptionExceptionTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 

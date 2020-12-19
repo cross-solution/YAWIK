@@ -10,13 +10,13 @@
 /** OrganizationEntityHydrator.php */
 namespace Organizations\Entity\Hydrator;
 
-use Laminas\Hydrator\Reflection;
+use Laminas\Hydrator\ReflectionHydrator;
 
 /**
  * Class OrganizationHydrator
  * @package Organizations\Entity\Hydrator
  */
-class OrganizationHydrator extends Reflection
+class OrganizationHydrator extends ReflectionHydrator
 {
     /**
      * @var $repOrganization \Organizations\Repository\Organization
@@ -51,7 +51,7 @@ class OrganizationHydrator extends Reflection
      * @param  object $object
      * @return array
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $result = array();
         foreach (self::getReflProperties($object) as $property) {

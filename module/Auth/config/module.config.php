@@ -15,6 +15,7 @@ use Auth\Controller\ManageController;
 use Auth\Controller\ManageGroupsController;
 use Auth\Controller\Plugin\Auth;
 use Auth\Listener\Events\AuthEvent;
+use Auth\Service\UploadHandler;
 
 return [
 
@@ -77,6 +78,7 @@ return [
             'Auth\Service\Register' => 'Auth\Factory\Service\RegisterFactory',
             'Auth\Service\RegisterConfirmation' => 'Auth\Factory\Service\RegisterConfirmationFactory',
             'Auth/Dependency/Manager' => 'Auth\Factory\Dependency\ManagerFactory',
+            UploadHandler::class => [UploadHandler::class, 'factory']
         ],
         'aliases' => [
             'assertions' => 'Acl\AssertionManager',

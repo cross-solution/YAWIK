@@ -48,7 +48,7 @@ abstract class AbstractLeafs implements LeafsInterface
      */
     private $values;
 
-    public function getItems()
+    public function getItems(): Collection
     {
         if (!$this->items) {
             $this->setItems(new ArrayCollection());

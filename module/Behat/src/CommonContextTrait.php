@@ -14,6 +14,7 @@ use Auth\Entity\User;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\MinkContext;
 use Core\Repository\RepositoryInterface;
+use Doctrine\Inflector\InflectorFactory;
 use Laminas\View\Helper\Url;
 
 trait CommonContextTrait
@@ -50,6 +51,14 @@ trait CommonContextTrait
 		$this->userContext = $scope->getEnvironment()->getContext(UserContext::class);
 		$this->summaryFormContext = $scope->getEnvironment()->getContext(SummaryFormContext::class);
 	}
+
+    /**
+     * @return \Doctrine\Inflector\Inflector
+     */
+	final public function getInflector()
+    {
+        return InflectorFactory::create()->build();
+    }
 
 	public function buildUrl($name, array $params=array(), array $options=array())
 	{

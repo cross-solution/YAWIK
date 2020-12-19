@@ -28,14 +28,14 @@ class Settings extends ModuleSettingsContainer implements SettingsInterface
     /**
      * send mail to the recruiter
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $mailAccess = false;
 
     /**
      * send BlindCarbonCopy to organization admin
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $mailBCC = false;
 
@@ -43,7 +43,7 @@ class Settings extends ModuleSettingsContainer implements SettingsInterface
     /**
      * @todo document this
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $formDisplaySkills = false;
 
@@ -51,7 +51,7 @@ class Settings extends ModuleSettingsContainer implements SettingsInterface
     /**
      * Confirm application immediately after submitting.
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $autoConfirmMail = false;
 

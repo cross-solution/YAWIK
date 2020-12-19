@@ -11,6 +11,7 @@
 namespace Organizations\Factory\Form;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Hydrator\ClassMethodsHydrator;
 use Organizations\Entity\EmployeePermissions;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\Hydrator\Strategy\ClosureStrategy;
@@ -40,7 +41,7 @@ class EmployeeFieldsetFactory implements FactoryInterface
     {
         $fieldset = new EmployeeFieldset();
 
-        $hydrator = new \Laminas\Hydrator\ClassMethods(false); //new EntityHydrator();
+        $hydrator = new ClassMethodsHydrator(false); //new EntityHydrator();
         $repositories = $container->get('repositories');
         $users        = $repositories->get('Auth/User'); /* @var $users \Auth\Repository\User */
 

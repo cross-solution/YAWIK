@@ -14,8 +14,8 @@ use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class RepositoryServiceTest extends TestCase
 {
@@ -27,12 +27,12 @@ class RepositoryServiceTest extends TestCase
     protected $rs;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|DocumentManager
      */
     protected $dm;
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|EventManager
      */
     protected $eventManager;
 
@@ -91,8 +91,7 @@ class RepositoryServiceTest extends TestCase
             ->with($user);
         $this->dm
             ->expects($this->once())
-            ->method('flush')
-            ->with($user);
+            ->method('flush');
 
         $this->assertInstanceOf(
             '\Core\Repository\RepositoryService',
@@ -107,8 +106,11 @@ class RepositoryServiceTest extends TestCase
 
         $this->dm
             ->expects($this->once())
-            ->method('flush')
+            ->method('persist')
             ->with($user);
+        $this->dm
+            ->expects($this->once())
+            ->method('flush');
 
         $this->eventManager
             ->expects($this->once())
@@ -119,6 +121,7 @@ class RepositoryServiceTest extends TestCase
             ->expects($this->once())
             ->method('dispatchEvent')
             ->with('postCommit');
+
         $this->rs->flush($user);
     }
 

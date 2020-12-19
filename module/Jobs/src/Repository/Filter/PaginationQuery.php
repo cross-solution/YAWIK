@@ -16,6 +16,7 @@ use Laminas\Permissions\Acl\Acl;
 use Laminas\Stdlib\Parameters;
 use Auth\Entity\UserInterface;
 use DateTime;
+use MongoDB\BSON\ObjectId;
 
 /**
  * maps query parameters to entity attributes
@@ -84,7 +85,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
         if (isset($params['o']) && !empty($params['o'])) {
-            $queryBuilder->field('organization')->equals(new \MongoId($params['o']));
+            $queryBuilder->field('organization')->equals(new ObjectId($params['o']));
 //            $queryBuilder->field('metaData.companyName')->equals(new \MongoRegex('/' . $params['o'] . '/i'));
         }
 
@@ -105,7 +106,11 @@ class PaginationQuery extends AbstractPaginationQuery
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
             if (isset($params['by']) && 'me' == $params['by']) {
-                $queryBuilder->field('user')->equals($this->user->getId());
+                $queryBuilder->addAnd(
+                    $queryBuilder->expr()
+                        ->addOr($queryBuilder->expr()->field('user')->equals($this->user->getId()))
+                        ->addOr($queryBuilder->expr()->field('metaData.organizations:managers.id')->equals($this->user->getId()))
+                );
             } else {
                 $queryBuilder->field('permissions.view')->equals($this->user->getId());
             }
@@ -146,7 +151,7 @@ class PaginationQuery extends AbstractPaginationQuery
 
     protected function filterSort($sort)
     {
-        if ('-' == $sort{0}) {
+        if (0 === strpos($sort, '-')) {
             $sortProp = substr($sort, 1);
             $sortDir  = -1;
         } else {

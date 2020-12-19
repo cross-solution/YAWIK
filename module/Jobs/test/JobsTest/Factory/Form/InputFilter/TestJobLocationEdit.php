@@ -8,7 +8,7 @@
  */
 
 /** */
-namespace JobsTest\Form\InputFilter;
+namespace JobsTest\Factory\Form\InputFilter;
 
 use PHPUnit\Framework\TestCase;
 

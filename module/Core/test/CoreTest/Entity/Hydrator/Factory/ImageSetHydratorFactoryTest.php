@@ -10,6 +10,7 @@
 /** */
 namespace CoreTest\Entity\Hydrator\Factory;
 
+use Core\Service\FileManager;
 use PHPUnit\Framework\TestCase;
 
 use Core\Entity\Hydrator\Factory\ImageSetHydratorFactory;
@@ -68,10 +69,12 @@ class ImageSetHydratorFactoryTest extends TestCase
     {
         $imagine = $this->getMockBuilder(ImagineInterface::class)->getMockForAbstractClass();
         $options = new ImageSetOptions();
+        $fileManager = $this->createMock(FileManager::class);
 
         $container = $this->getServiceManagerMock();
         $container->setService('Imagine', $imagine);
         $container->setService(ImageSetOptions::class, $options);
+        $container->setService(FileManager::class, $fileManager);
 
         $hydrator = $this->target->__invoke($container, 'irrelevant');
 

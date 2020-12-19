@@ -116,7 +116,7 @@ class StatusChange extends StringTemplateMessage implements StatusChangeInterfac
      */
     protected function getDate()
     {
-        /** @var $date \DateTime */
+        /* @var $date \DateTime */
         $date = $this->application->getDateCreated();
         return strftime('%x', $date->getTimestamp());
     }

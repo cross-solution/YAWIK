@@ -10,7 +10,7 @@
 /** FileSender.php */
 namespace Core\Controller\Plugin;
 
-use Core\Repository\RepositoryService;
+use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
 use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
@@ -26,37 +26,41 @@ use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 class FileSender extends AbstractPlugin
 {
     /**
-     * @var RepositoryService
+     * @var FileManager
      */
-    private $repositories;
-    
-    public function __construct(RepositoryService $repositories)
+    private FileManager $fileManager;
+
+    /**
+     * FileSender constructor.
+     * @param FileManager $fileManager
+     */
+    public function __construct(FileManager $fileManager)
     {
-        $this->repositories = $repositories;
+        $this->fileManager = $fileManager;
     }
-    
     
     public function __invoke($repositoryName, $fileId)
     {
         return $this->sendFile($repositoryName, $fileId);
     }
     
-    public function sendFile($repositoryName, $fileId)
+    public function sendFile(string $entityClass, $fileId)
     {
-        $repository = $this->repositories->get($repositoryName);
-        $file       = $repository->find($fileId);
-        $response   = $this->getController()->getResponse();
+        $fileManager = $this->fileManager;
+        $file        = $fileManager->findByID($entityClass, $fileId);
+        $response    = $this->getController()->getResponse();
         
-        if (!$file) {
+        if (is_null($file)) {
             $response->setStatusCode(404);
-            return;
+            return null;
         }
-        
-        $response->getHeaders()->addHeaderline('Content-Type', $file->type)
-                               ->addHeaderline('Content-Length', $file->size);
+
+        $metadata = $file->getMetadata();
+        $response->getHeaders()->addHeaderline('Content-Type', $metadata->getContentType())
+                               ->addHeaderline('Content-Length', $file->getLength());
         $response->sendHeaders();
         
-        $resource = $file->getResource();
+        $resource = $fileManager->getStream($file);
         while (!feof($resource)) {
             echo fread($resource, 1024);
         }
@@ -72,7 +76,7 @@ class FileSender extends AbstractPlugin
      */
     public static function factory(ContainerInterface $container)
     {
-        $repositories = $container->get('repositories');
-        return new static($repositories);
+        $fileManager = $container->get(FileManager::class);
+        return new static($fileManager);
     }
 }

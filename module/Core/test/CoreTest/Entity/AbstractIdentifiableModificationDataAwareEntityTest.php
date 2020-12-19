@@ -24,7 +24,7 @@ use Core\Entity\Hydrator\EntityHydrator;
  * @group  Core.Entity
  * @covers \Core\Entity\AbstractIdentifiableModificationDateAwareEntity
  */
-class AbstractIdentifiableModificationAwareEntityTest extends TestCase
+class AbstractIdentifiableModificationDataAwareEntityTest extends TestCase
 {
     protected $target;
 

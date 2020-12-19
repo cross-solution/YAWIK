@@ -106,9 +106,9 @@ class FormFileUpload extends FormFile
         $createFileDisplay = function ($file) use ($template, $basepath) {
             /* @var $file \Core\Entity\FileInterface */
             $uri  = $basepath($file->getUri());
-            $name = $file->getName();
+            $name = $file->getMetadata()->getName();
             $size = $file->getPrettySize();
-            $icon = 0 === strpos($file->getType(), 'image/')
+            $icon = 0 === strpos($file->getMetadata()->getContentType(), 'image/')
                 ? 'fa-file-image-o' : 'fa-file-o';
 
             return str_replace(

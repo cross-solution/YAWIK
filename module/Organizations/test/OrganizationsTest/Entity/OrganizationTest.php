@@ -10,6 +10,8 @@
 /** */
 namespace OrganizationsTest\Entity;
 
+use Core\Entity\ImageSetInterface;
+use Organizations\Entity\OrganizationImage;
 use PHPUnit\Framework\TestCase;
 
 
@@ -25,7 +27,6 @@ use Organizations\Entity\Employee;
 use Organizations\Entity\EmployeePermissions;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationContact;
-use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 use Organizations\Entity\Template;
 use Organizations\Entity\WorkflowSettings;
@@ -75,9 +76,6 @@ class OrganizationTest extends TestCase
             ]],
             [ 'permissions',[
                 'value' => $permissions
-            ]],
-            [ 'image',[
-                'value' => new OrganizationImage()
             ]],
             [ 'images',[
                 'value' => new ImageSet(),
@@ -198,14 +196,14 @@ class OrganizationTest extends TestCase
 
     public function testImages()
     {
-        $image = new OrganizationImage();
-        $images = new ImageSet();
-        $images->set(ImageSet::ORIGINAL, $image);
+        $image = $this->createMock(OrganizationImage::class);
+        $imageSet = $this->createMock(ImageSetInterface::class);
+        $imageSet->add($image);
 
         $organization = new Organization();
-        $organization->setImages($images);
+        $organization->setImages($imageSet);
         $organization->removeImages();
-        $this->assertNotEquals($images, $organization->getImages());
+        $this->assertNotEquals($imageSet, $organization->getImages());
         $this->assertNull($organization->getImages()->get(ImageSet::ORIGINAL));
     }
 

@@ -10,7 +10,7 @@
 /** UserImage.php */
 namespace Auth\Entity;
 
-use Core\Entity\FileEntity;
+use Core\Entity\Image;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
@@ -18,16 +18,16 @@ use Laminas\Permissions\Acl\Resource\ResourceInterface;
  * Defines a Profile Image of an user
  *
  * @ODM\HasLifecycleCallbacks()
- * @ODM\Document(collection="users.images")
+ * @ODM\File(bucketName="users.images")
  */
-class UserImage extends FileEntity implements ResourceInterface
+class UserImage extends Image
 {
     /**
      * Gets the URI of an attachment
      *
      * @return string
      */
-    public function getUri()
+    public function getUri(): string
     {
         return '/file/Auth.UserImage/' . $this->id;
     }
@@ -38,6 +38,6 @@ class UserImage extends FileEntity implements ResourceInterface
     public function preRemove()
     {
         /* Auth\Entity\UserImage */
-        $this->getUser()->getInfo()->setImage(null);
+        $this->getMetadata()->getUser()->getInfo()->setImage(null);
     }
 }

@@ -64,7 +64,7 @@ $columns = array(
                     => array(),
 );
 
-if ('-' == $this->sort{0}) {
+if (false !== strpos($this->sort,'-')) {
     $sortBy  = substr($this->sort, 1);
     $sortDir = false;
 } else {

@@ -33,7 +33,7 @@ class Group extends AbstractIdentifiableEntity implements
     /**
      *
      * @var UserInterface
-     * @ODM\ReferenceOne(targetDocument="User", inversedBy="groups", storeAs="id")
+     * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", inversedBy="groups", storeAs="id")
      */
     protected $owner;
     

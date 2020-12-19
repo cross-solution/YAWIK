@@ -9,6 +9,7 @@
 
 namespace Applications\Auth\Dependency;
 
+use Applications\Entity\Application;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Auth\Entity\UserInterface as User;
 use Laminas\View\Renderer\PhpRenderer as View;
@@ -50,7 +51,10 @@ class ListListener implements ListInterface
      */
     public function getCount(User $user)
     {
-        return $this->repository->getUserApplications($user->getId())->count();
+        $qb = $this->repository->getUserApplications($user->getId());
+        $qb->count();
+        $result = $qb->getQuery()->getSingleResult();
+        return (int)$result;
     }
 
     /**
@@ -59,8 +63,10 @@ class ListListener implements ListInterface
     public function getItems(User $user, View $view, $limit)
     {
         $items = [];
-
-        foreach ($this->repository->getUserApplications($user->getId(), $limit) as $application) /* @var $application \Applications\Entity\Application */
+        $builder = $this->repository->getUserApplications($user->getId(), $limit);
+        $iterator = $builder->getQuery()->getIterator();
+        /* @var $application Application */
+        foreach ($iterator->toArray() as $application)
         {
             $title = $application->getJob()->getTitle();
             $title .= ' ('. $view->dateFormat($application->getDateCreated()) . ')';
@@ -76,6 +82,7 @@ class ListListener implements ListInterface
      */
     public function getEntities(User $user)
     {
-        return $this->repository->getUserApplications($user->getId());
+        $builder = $this->repository->getUserApplications($user->getId());
+        return $builder->getQuery()->toArray();
     }
 }

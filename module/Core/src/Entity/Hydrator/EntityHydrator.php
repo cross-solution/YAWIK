@@ -6,12 +6,12 @@ use Laminas\Hydrator\AbstractHydrator;
 use Laminas\Hydrator\Filter\FilterComposite;
 use Laminas\Hydrator\Filter\MethodMatchFilter;
 use Core\Entity\EntityInterface;
+use MongoDB\BSON\ObjectId;
 
 class EntityHydrator extends AbstractHydrator
 {
     public function __construct()
     {
-        parent::__construct();
         $this->init();
     }
     
@@ -22,7 +22,7 @@ class EntityHydrator extends AbstractHydrator
     /* (non-PHPdoc)
      * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
-    public function extract($object)
+    public function extract($object): array
     {
         if (!$object instanceof EntityInterface) {
             return array();
@@ -76,7 +76,7 @@ class EntityHydrator extends AbstractHydrator
         }
         
         foreach ($data as $key => $value) {
-            if ($value instanceof \MongoId) {
+            if ($value instanceof ObjectId) {
                 $object->setId($value->__toString());
             }
         }

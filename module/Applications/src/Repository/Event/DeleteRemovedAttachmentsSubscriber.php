@@ -16,6 +16,7 @@ use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Applications\Entity\ApplicationInterface;
 use Applications\Entity\Attachment;
+use MongoDB\BSON\ObjectId;
 
 /**
  * class for deleting attachment references.
@@ -35,10 +36,9 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
     /**
      * Updates fiile permissions on Flush
      *
-     * @param OnFlushEventArgs $eventArgs
-     * @return boolean
+     * @param LifecycleEventArgs $eventArgs
      */
-    public function postRemoveEntity(LifecycleEventArgs $eventArgs)
+    public function postRemoveEntity(LifecycleEventArgs $eventArgs): void
     {
         $file = $eventArgs->getDocument();
         if (!$file instanceof Attachment) {
@@ -48,17 +48,17 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
         $dm     = $eventArgs->getDocumentManager();
         //$repo   = $dm->getRepository('Applications\Entity\Application');
 
-        $fileId = new \MongoId($file->id);
+        $fileId = new ObjectId($file->getId());
 
         $dm->createQueryBuilder('Applications\Entity\Application')
-           ->update()->multiple(true)
-           ->field('attachments')->equals($fileId)->pull($fileId)
-           ->getQuery()->execute();
+            ->updateMany()
+            ->field('attachments')->equals($fileId)->pull($fileId)
+            ->getQuery()->execute();
 
 
         $dm->createQueryBuilder('Applications\Entity\Application')
-           ->update()->multiple(true)
-           ->field('contact.image')->equals($fileId)->set(null)
-           ->getQuery()->execute();
+            ->updateMany()
+            ->field('contact.image')->equals($fileId)->set(null)
+            ->getQuery()->execute();
     }
 }

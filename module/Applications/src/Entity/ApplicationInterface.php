@@ -148,7 +148,7 @@ interface ApplicationInterface extends
     /**
      * Gets the collection of attachments.
      *
-     * @return Collection
+     * @return Collection|Attachment[]
      */
     public function getAttachments();
     

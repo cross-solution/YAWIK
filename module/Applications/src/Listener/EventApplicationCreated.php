@@ -17,6 +17,7 @@ use Applications\Mail\Confirmation;
 use Core\Mail\MailService;
 use Applications\Listener\Events\ApplicationEvent;
 use Applications\Options\ModuleOptions;
+use Auth\Entity\UserInterface;
 use Organizations\Entity\EmployeeInterface;
 use Organizations\Entity\EmployeePermissionsInterface;
 
@@ -102,7 +103,9 @@ class EventApplicationCreated
             $recruiters = $org->getEmployeesByRole(EmployeeInterface::ROLE_RECRUITER);
             /** @var \Organizations\Entity\Employee $recruiter */
             foreach ($recruiters as $recruiter) {
-                if (!$recruiter->getPermissions()->isAllowed(EmployeePermissionsInterface::APPLICATIONS_CHANGE)) {
+                if (!$recruiter->getPermissions()->isAllowed(EmployeePermissionsInterface::APPLICATIONS_CHANGE)
+                    || $recruiter->getUser()->getRole() != UserInterface::ROLE_RECRUITER
+                ) {
                     continue;
                 }
 

@@ -14,8 +14,8 @@ class SkillFieldset extends Fieldset
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
             $collectionStrategy = new CollectionStrategy();
-            $hydrator->addStrategy('nativeLanguages', $collectionStrategy)
-                ->addStrategy('languageSkills', $collectionStrategy);
+            $hydrator->addStrategy('nativeLanguages', $collectionStrategy);
+            $hydrator->addStrategy('languageSkills', $collectionStrategy);
             
             $this->setHydrator($hydrator);
         }

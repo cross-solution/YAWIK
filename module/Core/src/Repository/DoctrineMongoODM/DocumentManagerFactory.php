@@ -10,6 +10,8 @@
 /** DocumentManagerFactory.php */
 namespace Core\Repository\DoctrineMongoODM;
 
+use Doctrine\ODM\MongoDB\Configuration;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Interop\Container\ContainerInterface;
 use MongoDB\Driver\Exception\ConnectionTimeoutException;
 use Laminas\ServiceManager\ServiceLocatorInterface;
@@ -31,9 +33,12 @@ class DocumentManagerFactory implements FactoryInterface
         
         $configFactory = new ConfigurationFactory('odm_default');
         $config = $configFactory->createService($container);
-        
+
+        $this->ensureCacheDir($container);
+
+        /* @var DocumentManager $dm */
         $dm = $container->get('doctrine.documentmanager.odm_default');
-        $dm = DoctrineDocumentManager::create($dm->getConnection(), $config, $dm->getEventManager());
+        $dm = DoctrineDocumentManager::create($dm->getClient(), $config, $dm->getEventManager());
 
         try {
             $dm->getSchemaManager()->ensureIndexes();
@@ -54,5 +59,22 @@ class DocumentManagerFactory implements FactoryInterface
         }
 
         return $dm;
+    }
+
+    private function ensureCacheDir(ContainerInterface $container)
+    {
+        /* @var \Doctrine\ODM\MongoDB\Configuration $config */
+        $config = $container->get('doctrine.configuration.odm_default');
+
+        $proxyDir = $config->getProxyDir();
+        $hydratorDir = $config->getHydratorDir();
+
+        if(!is_dir($proxyDir)){
+            mkdir($proxyDir, 0777, true);
+        }
+
+        if(!is_dir($hydratorDir)){
+            mkdir($hydratorDir, 0777, true);
+        }
     }
 }

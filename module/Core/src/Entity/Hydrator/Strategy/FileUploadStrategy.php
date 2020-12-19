@@ -10,54 +10,72 @@
 /** FileUploadStrategy.php */
 namespace Core\Entity\Hydrator\Strategy;
 
+use Auth\Entity\User;
+use Core\Entity\File;
+use Core\Entity\FileMetadataInterface;
+use Core\Service\FileManager;
 use Laminas\Hydrator\Strategy\StrategyInterface;
 use Core\Entity\FileInterface;
-use Core\Entity\FileEntity;
 
 class FileUploadStrategy implements StrategyInterface
 {
-    /**
-     * @var FileEntity
-     */
-    protected $fileEntity;
+    protected ?FileMetadataInterface $metadata = null;
+    private User $user;
+    private string $metadataClass;
+    private FileManager $fileManager;
+    private string $entityClass;
 
     /**
-     * @param FileInterface $file
+     * FileUploadStrategy constructor.
+     *
+     * @param FileManager $fileManager
+     * @param User $user
+     * @param string $metadataClass
+     * @param string $entityClass
      */
-    public function __construct(FileInterface $file)
-    {
-        $this->setFileEntity($file);
+    public function __construct(
+        FileManager $fileManager,
+        User $user,
+        string $metadataClass,
+        string $entityClass
+    ){
+
+        $this->user = $user;
+        $this->metadataClass = $metadataClass;
+        $this->fileManager = $fileManager;
+        $this->entityClass = $entityClass;
     }
 
     /**
-     * @param FileInterface $file
+     * @param FileMetadataInterface $metadata
      *
      * @return $this
      */
-    public function setFileEntity(FileInterface $file)
+    public function setMetadata(FileMetadataInterface $metadata)
     {
-        $this->fileEntity = $file;
+        $this->metadata = $metadata;
         return $this;
     }
 
     /**
-     * @return FileEntity
+     * @return FileMetadataInterface
      */
-    public function getFileEntity()
+    public function getMetadata()
     {
-        if (!$this->fileEntity) {
-            $file = new FileEntity();
-            $this->setFileEntity($file);
+        if (is_null($this->metadata)) {
+            $metadata = new $this->metadataClass();
+            $this->setMetadata($metadata);
         }
-        return clone $this->fileEntity;
+        return clone $this->metadata;
     }
 
     /**
      * @param mixed $value
      *
+     * @param object|null $object
      * @return mixed|null
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if (!$value instanceof FileInterface) {
             return null;
@@ -69,20 +87,27 @@ class FileUploadStrategy implements StrategyInterface
     /**
      * @param mixed $value
      *
-     * @return FileEntity|null
+     * @param array|null $data
+     * @return object|File|null
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         if (!UPLOAD_ERR_OK == $value['error']) {
             return null;
         }
+        $fileManager = $this->fileManager;
+        $metadata = $this->getMetadata();
         
-        $file = $this->getFileEntity();
-        
-        $file->setName($value['name'])
-             ->setType($value['type'])
-             ->setFile($value['tmp_name']);
-        
-        return $file;
+        $metadata
+            ->setContentType($value['type'])
+            ->setUser($this->user)
+        ;
+
+        return $fileManager->uploadFromFile(
+            $this->entityClass,
+            $metadata,
+            $value['tmp_name'],
+            $value['name']
+        );
     }
 }

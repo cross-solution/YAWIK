@@ -1,0 +1,15 @@
+{
+  "_id": "55ae81046b10f87e728b4718",
+  "user": "55ae7c4f6b10f8f05b8b4611",
+  "name": "name.jpg",
+  "mimetype": "image/jpeg",
+  "dateuploaded": {
+    "date": "2016-06-13T13:48:05.000+00:00",
+    "tz": "Europe/Berlin"
+  },
+  "permissions": {
+    "type": "Core\\Entity\\Permissions"
+  },
+  "filename": "/tmp/yk-copy",
+  "uploadDate": "2016-06-13T13:48:05.473+00:00"
+}
