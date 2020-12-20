@@ -83,7 +83,10 @@
         "symfony/process": "^3.4 | ^4.1",
         "tracy/tracy": "^2.4",
         "yawik/composer-plugin": "^3.0",
-        "yawik/geo": "^1.1.0"
+        "yawik/demo-skin": "^1.2",
+        "yawik/geo": "^1.1.0",
+        "yawik/orders": "^0.5.0",
+        "yawik/solr": "^2.0"
     },
     "require-dev": {
         "behat/behat": "^3.2",
@@ -140,6 +143,7 @@
             "Cv\\": "module/Cv/src",
             "Install\\": "module/Install/src",
             "Jobs\\": "module/Jobs/src",
+            "Orders\\": "module/Orders/src",
             "Organizations\\": "module/Organizations/src",
             "Pdf\\": "module/Pdf/src",
             "Settings\\": "module/Settings/src",
@@ -168,15 +172,15 @@
         }
     },
     "replace": {
-        "yawik/applications": "0.33",
-        "yawik/auth": "0.33",
-        "yawik/core": "0.33",
-        "yawik/cv": "0.33",
-        "yawik/install": "0.33",
-        "yawik/jobs": "0.33",
-        "yawik/organizations": "0.33",
-        "yawik/pdf": "0.33",
-        "yawik/settings": "0.33"
+        "yawik/applications": "0.35",
+        "yawik/auth": "0.35",
+        "yawik/core": "0.35",
+        "yawik/cv": "0.35",
+        "yawik/install": "0.35",
+        "yawik/jobs": "0.35",
+        "yawik/organizations": "0.35",
+        "yawik/pdf": "0.35",
+        "yawik/settings": "0.35"
     },
     "extra": {
         "branch-alias": {

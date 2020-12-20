@@ -8,15 +8,21 @@
  * @license   MIT
  */
 
+if (getenv('ADDITIONAL_MODULES')) {
+
+}
+
 return [
     'Core',
     'Auth',
     'Cv',
     'Applications',
     'Jobs',
+    'Orders',
     'Settings',
     'Pdf',
     'Geo',
+    'YawikDemoSkin',
     'Organizations',
     'ReleaseTools',
     'Yawik\\Migration'
