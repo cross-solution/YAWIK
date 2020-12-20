@@ -1,0 +1,81 @@
+image: yawik/build
+
+# Cache libraries in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - "$CI_PROJECT_DIR/vendor/"
+    - "$CI_PROJECT_DIR/node_modules//"
+    - "$HOME/.composer/cache"
+    - "$HOME/.npm"     
+
+stages:
+  - build
+  - test
+  - deploy
+
+services:
+  - mongo:latest
+  - selenium/standalone-chrome
+
+before_script:
+  - mkdir -p /var/www/cache/
+  - chown yawik /var/www/cache/
+  - mkdir -p config/autoload
+  - chown -R yawik /builds/yawik/yawik
+
+composer:
+  stage: build
+  cache:
+    key: build-cache
+    paths:
+    - vendor/
+  script:
+    - pwd
+    - su yawik -c "composer install"
+
+phpunit:
+  stage: test
+  cache:
+    key: build-cache
+    paths:
+      - vendor/
+  script:
+    - cp ./etc/gitlab/autoload/*.* config/autoload
+    - ./vendor/bin/phpunit
+
+behat:
+  stage: test
+  cache:
+    key: build-cache
+    paths:
+      - vendor/
+  script:
+    - su yawik -c "composer install"
+    - cp ./etc/gitlab/autoload/*.* config/autoload
+    - mkdir -p build/behat
+    - mkdir -p build/mails
+    - composer run serve --timeout=0 > /dev/null 2>&1 &
+    - ./vendor/bin/behat --strict --no-interaction
+
+deploy_live:
+  stage: deploy
+  environment:
+    name: live/$CI_COMMIT_REF_NAME
+    url: https://yawik.org
+  only:
+    - master
+  script:
+    - dep deploy
+  resource_group: production
+
+deploy_staging:
+  stage: deploy
+  environment:
+    name: staging/$CI_COMMIT_REF_NAME
+    url: http://staging.yawik.org
+  except:
+    - master
+  script:
+    - ls 
+  resource_group: staging

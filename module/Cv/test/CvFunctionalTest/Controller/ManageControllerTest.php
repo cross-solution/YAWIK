@@ -36,7 +36,7 @@ class ManageControllerTest extends FunctionalTestCase
         ]
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         if (!is_object($this->activeUser)) {
