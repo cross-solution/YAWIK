@@ -32,7 +32,7 @@ add('writable_dirs', [
     'test/sandbox/public/lg'
 ]);
 
-set('default_stage', 'prod');
+set('default_stage', 'staging');
 
 host('staging.yawik.org')
     ->user('yawik')

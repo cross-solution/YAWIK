@@ -70,5 +70,9 @@ deploy_odm3:
   only:
     - odm-module3
   script:
-    - ssh yawik@staging.yawik.org -c ls
-    - echo "test ssh connection"
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
+    - dep deploy staging
