@@ -2,7 +2,7 @@
 namespace Deployer;
 
 require 'recipe/zend_framework.php';
-require 'recipe/cachetool.php';
+#require 'recipe/cachetool.php';
 
 
 // Project name
@@ -40,7 +40,7 @@ host('staging.yawik.org')
     ->multiplexing(false)
     ->set('deploy_path', '/var/www/staging');
 
-after('deploy:symlink', 'cachetool:clear:opcache');
+#after('deploy:symlink', 'cachetool:clear:opcache');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
