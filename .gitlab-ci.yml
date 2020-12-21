@@ -67,7 +67,7 @@ deploy_odm3:
   environment:
     name: staging/$CI_COMMIT_REF_NAME
     url: http://staging.yawik.org
-  except:
+  only:
     - odm-module3
   script:
     - dep deploy
