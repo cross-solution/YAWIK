@@ -79,3 +79,15 @@ deploy_staging:
   script:
     - ls 
   resource_group: staging
+  
+deploy_staging:
+  stage: deploy
+  environment:
+    name: staging/$CI_COMMIT_REF_NAME
+    url: http://staging.yawik.org
+  except:
+    - odm-module3
+  script:
+    - dep deploy
+  resource_group: staging
+  

@@ -83,7 +83,6 @@
         "symfony/process": "^3.4 | ^4.1",
         "tracy/tracy": "^2.4",
         "yawik/composer-plugin": "^3.0",
-        "yawik/demo-skin": "^1.2",
         "yawik/geo": "^1.1.0",
         "yawik/orders": "^0.5.0",
         "yawik/solr": "^2.0"

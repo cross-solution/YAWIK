@@ -22,7 +22,6 @@ return [
     'Settings',
     'Pdf',
     'Geo',
-    'YawikDemoSkin',
     'Organizations',
     'ReleaseTools',
     'Yawik\\Migration'
