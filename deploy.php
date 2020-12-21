@@ -2,34 +2,29 @@
 namespace Deployer;
 
 require 'recipe/zend_framework.php';
-#require 'recipe/cachetool.php';
-
 
 // Project name
-set('application', 'YawikDemo');
+set('application', 'Yawik');
 
 // Project repository
 set('repository', 'git@gitlab.com:yawik/yawik.git');
 
 // Shared files/dirs between deploys
 add('shared_files', [
-    'test/sandbox/public/.htaccess',
-    'test/sandbox/public/pro-sitemaps-4112318.php'
+    'public/.htaccess',
 ]);
 add('shared_dirs', [
-    'test/sandbox/var/log',
-    'test/sandbox/var/cache',
-    'test/sandbox/config/autoload',
-    'test/sandbox/public/static',
-    'test/sandbox/public/lg'
+    'var/log',
+    'var/cache',
+    'config/autoload',
+    'public/static'
 ]);
 
 // Writable dirs by web server
 add('writable_dirs', [
-    'test/sandbox/var/cache',
-    'test/sandbox/var/log',
-    'test/sandbox/public/static',
-    'test/sandbox/public/lg'
+    'var/cache',
+    'var/log',
+    'public/static'
 ]);
 
 set('default_stage', 'staging');
