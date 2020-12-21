@@ -70,5 +70,6 @@ deploy_odm3:
   only:
     - odm-module3
   script:
-    - dep deploy
+    - ssh yawik@staging.yawik.org -c ls
+    - echo "test ssh connection: dep deploy"
   
