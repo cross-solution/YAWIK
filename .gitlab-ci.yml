@@ -75,4 +75,4 @@ deploy_odm3:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
-    - dep deploy staging
+    - dep deploy --branch=odm-module3 staging
