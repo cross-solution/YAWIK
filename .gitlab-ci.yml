@@ -71,5 +71,4 @@ deploy_odm3:
     - odm-module3
   script:
     - dep deploy
-  resource_group: staging
   
