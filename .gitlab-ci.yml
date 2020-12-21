@@ -62,29 +62,7 @@ behat:
     - composer run serve --timeout=0 > /dev/null 2>&1 &
     - ./vendor/bin/behat --strict --no-interaction
 
-deploy_live:
-  stage: deploy
-  environment:
-    name: live/$CI_COMMIT_REF_NAME
-    url: https://yawik.org
-  only:
-    - master
-  script:
-    - dep deploy
-  resource_group: production
-
-deploy_staging:
-  stage: deploy
-  environment:
-    name: staging/$CI_COMMIT_REF_NAME
-    url: http://staging.yawik.org
-  except:
-    - master
-  script:
-    - ls 
-  resource_group: staging
-  
-deploy_staging:
+deploy_odm3:
   stage: deploy
   environment:
     name: staging/$CI_COMMIT_REF_NAME
