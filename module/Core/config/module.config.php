@@ -31,6 +31,11 @@ return array(
     'doctrine' => $doctrineConfig,
 
     'slm_queue' => [
+        'queues' => [
+            'mail' => [
+                'collection' => 'core.mailqueue',
+            ],
+        ],
         'worker_strategies' => [
             'default' => [
                 Queue\Strategy\IdleSleepStrategy::class => ['duration' => 1],
@@ -39,6 +44,9 @@ return array(
             'queues' => [
                 'default' => [
                     Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/Queue'],
+                ],
+                'mail' => [
+                    Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/MailQueue'],
                 ],
             ],
         ],
@@ -50,6 +58,7 @@ return array(
         'queue_manager' => [
             'factories' => [
                 'default' => Queue\MongoQueueFactory::class,
+                'mail' => Queue\MongoQueueFactory::class,
             ],
         ],
         'job_manager' => [
@@ -120,6 +129,27 @@ return array(
                 array('name' => Log\Processor\ProcessId::class),
             ),
         ),
+        'Log/Core/MailQueue' => [
+            'writers' => [
+                [
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => [
+                        'stream' => getcwd() . '/var/log/mailqueue.log',
+                        'formatter'  => [
+                            'name' => 'simple',
+                            'options' => [
+                                'format' => '%timestamp% (%pid%) %priorityName%: %message% %extra%',
+                                'dateTimeFormat' => 'd.m.Y H:i:s',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'processors' => [
+                ['name' => Log\Processor\ProcessId::class],
+            ],
+        ],
     ),
 
     'log_processors' => [
