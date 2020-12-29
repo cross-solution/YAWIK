@@ -16,11 +16,13 @@ use Core\Mail\FileTransport;
 use Core\Mail\MailService;
 use Core\Mail\MailServiceFactory;
 use Core\Options\MailServiceOptions;
+use Core\Queue\MongoQueue;
 use Interop\Container\ContainerInterface;
 use Laminas\Mail\Transport\Sendmail;
 use Laminas\Mail\Transport\Smtp;
 use Laminas\Mail\Transport\TransportInterface;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use SlmQueue\Queue\QueuePluginManager;
 
 /**
  * Class MailServiceFactoryTest
@@ -34,6 +36,11 @@ class MailServiceFactoryTest extends TestCase
 {
     public function testInvokation()
     {
+        $queues = $this->createMock(ContainerInterface::class);
+        $mailQueue = $this->getMockBuilder(MongoQueue::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $queues->expects($this->any())->method('get')->with('mail')->willReturn($mailQueue);
         $container = $this->createMock(ContainerInterface::class);
         $target = $this->getMockBuilder(MailServiceFactory::class)
             ->setMethods(['getTransport'])
@@ -50,7 +57,8 @@ class MailServiceFactoryTest extends TestCase
                 [
                     ['Config',[]],
                     ['Auth/Options',$authOptions],
-                    ['Core/MailServiceOptions',$mailOptions]
+                    ['Core/MailServiceOptions',$mailOptions],
+                    [QueuePluginManager::class,$queues],
             ]
         );
 
@@ -58,6 +66,7 @@ class MailServiceFactoryTest extends TestCase
         $target->expects($this->any())
             ->method('getTransport')
             ->willReturn($transport);
+
 
         /* @var \Core\Mail\MailService $service */
         /* @var \Laminas\ServiceManager\Factory\FactoryInterface $target */
@@ -67,6 +76,7 @@ class MailServiceFactoryTest extends TestCase
             $service
         );
         $this->assertSame($transport, $service->getTransport());
+        $this->assertSame($mailQueue, $service->getQueue());
     }
 
     public function testGetTransport()
