@@ -17,6 +17,7 @@ use Laminas\Mail\Transport\Sendmail;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\Mail\Transport\Smtp;
+use SlmQueue\Queue\QueuePluginManager;
 
 /**
  * Class MailServiceFactory
@@ -30,13 +31,13 @@ class MailServiceFactory implements FactoryInterface
     {
         $config = $container->get('Config');
         $mails = isset($config['mails']) ? $config['mails'] : [];
-        
+
         /* @var \Auth\Options\ModuleOptions $authOptions */
         $authOptions = $container->get('Auth/Options');
-        
+
         /* @var \Core\Options\MailServiceOptions $mailServiceOptions */
         $mailServiceOptions = $container->get('Core/MailServiceOptions');
-        
+
         $configArray = [
             'from' => [
                 'name' => $authOptions->getFromName(),
@@ -46,7 +47,7 @@ class MailServiceFactory implements FactoryInterface
 
         $configArray['transport'] = $this->getTransport($mailServiceOptions);
         $configArray = array_merge($configArray, $mails);
-        
+
         $config = new MailServiceConfig($configArray);
         $service   = new MailService($container, $config->toArray());
         $config->configureServiceManager($service);
@@ -56,7 +57,9 @@ class MailServiceFactory implements FactoryInterface
                 call_user_func([$service,$method], $value);
             }
         }
-        
+
+        $service->setQueue($container->get(QueuePluginManager::class)->get('mail'));
+
         return $service;
     }
 
