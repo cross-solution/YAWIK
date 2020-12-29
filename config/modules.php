@@ -9,6 +9,7 @@
  */
 
 return [
+    'SlmQueue',
     'Core',
     'Auth',
     'Cv',
