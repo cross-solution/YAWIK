@@ -168,7 +168,14 @@ class StatusChange
                 $mail->addBcc($orgUser->getInfo()->getEmail(), $orgUser->getInfo()->getDisplayName(false));
             }
         }
-        $this->mailService->send($mail);
+
+        if ($this->options->getDelayApplicantRejectMail()
+            && $status == Status::REJECTED
+        ) {
+            $this->mailService->queue($mail, [ 'delay' => $this->options->getDelayApplicantRejectMail() ]);
+        } else {
+            $this->mailService->send($mail);
+        }
 
 
         $historyText = sprintf($this->translator->translate('Mail was sent to %s'), key($recipient) ?: $recipient[0]);
