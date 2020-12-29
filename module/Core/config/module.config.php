@@ -47,12 +47,15 @@ return array(
                 ],
                 'mail' => [
                     Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/MailQueue'],
+                    \SlmQueue\Strategy\ProcessQueueStrategy::class,
+                    Queue\Strategy\SendMailStrategy::class,
                 ],
             ],
         ],
         'strategy_manager' => [
             'factories' => [
                 Queue\Strategy\LogStrategy::class => Queue\Strategy\LogStrategyFactory::class,
+                Queue\Strategy\SendMailStrategy::class => Queue\Strategy\SendMailStrategyFactory::class,
             ],
         ],
         'queue_manager' => [
