@@ -8108,16 +8108,16 @@
         },
         {
             "name": "yawik/orders",
-            "version": "v0.5.0",
+            "version": "v0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yawik/Orders.git",
-                "reference": "abf33d1a214ecde671ffbb54bd138c9d4a2c8501"
+                "reference": "e461c1c976f731fa93f5e7c539eaf7aed5edbb21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yawik/Orders/zipball/abf33d1a214ecde671ffbb54bd138c9d4a2c8501",
-                "reference": "abf33d1a214ecde671ffbb54bd138c9d4a2c8501",
+                "url": "https://api.github.com/repos/yawik/Orders/zipball/e461c1c976f731fa93f5e7c539eaf7aed5edbb21",
+                "reference": "e461c1c976f731fa93f5e7c539eaf7aed5edbb21",
                 "shasum": ""
             },
             "require": {
@@ -8174,7 +8174,7 @@
                 "issues": "https://github.com/yawik/Orders/issues",
                 "source": "https://github.com/yawik/orders"
             },
-            "time": "2020-12-13T10:56:58+00:00"
+            "time": "2020-12-30T17:44:10+00:00"
         },
         {
             "name": "yawik/solr",
