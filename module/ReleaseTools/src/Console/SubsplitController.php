@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
-use Doctrine\Common\Util\Inflector;
+use Doctrine\Inflector\Inflector;
 use Symfony\Component\Process\Process;
 use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 use Laminas\Console\Request as ConsoleRequest;
