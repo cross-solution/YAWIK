@@ -431,7 +431,7 @@ endif;
                         <?php foreach( $application->getAttachments() as $attachment): /* @var Applications\Entity\Attachment $attachment */ ?>
                             <div class="row show-grid">
                                 <div class="col-md-12">
-                                    <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getName() ?></a>
+                                    <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getMetadata()->getName() ?></a>
                                 </div>
                             </div>
                         <?php endforeach; // attachments?>
