@@ -114,7 +114,7 @@ class ManageController extends AbstractActionController
     public function indexAction()
     {
         return $this->pagination([
-                'params' => ['Application_List', ['q', 'job', 'page' => 1, 'unread', 'status' => 'all']],
+                'params' => ['Application_List', ['q', 'job', 'page' => 1, 'unread', 'status' => 'all', 'sort']],
                 'paginator' => ['Applications', 'as' => 'applications'],
                 'form' => [
                     ApplicationsFilter::class,
