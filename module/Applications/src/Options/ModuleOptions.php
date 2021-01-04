@@ -95,6 +95,11 @@ class ModuleOptions extends AbstractOptions
     protected $allowSubsequentAttachmentUpload = false;
 
     /**
+     * @var int
+     */
+    protected $delayApplicantRejectMail = 0;
+
+    /**
      * Gets the maximum size of attachments in bytes
      *
      * @return int
@@ -240,5 +245,25 @@ class ModuleOptions extends AbstractOptions
         $this->allowSubsequentAttachmentUpload = (bool)$allowSubsequentAttachmentUpload;
 
         return $this;
+    }
+
+    /**
+     * Get delayApplicantRejectMail
+     *
+     * @return int
+     */
+    public function getDelayApplicantRejectMail(): int
+    {
+        return $this->delayApplicantRejectMail;
+    }
+
+    /**
+     * Set the delay in seconds to wait before send the rejection mail.
+     *
+     * @param int $delayApplicantRejectMail
+     */
+    public function setDelayApplicantRejectMail(int $delayApplicantRejectMail): void
+    {
+        $this->delayApplicantRejectMail = $delayApplicantRejectMail;
     }
 }

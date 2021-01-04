@@ -10,7 +10,10 @@
 /** */
 namespace Core\Mail;
 
+use Core\Exception\MissingDependencyException;
 use Core\Factory\ContainerAwareInterface;
+use Core\Queue\Job\MailJob;
+use Core\Queue\MongoQueue;
 use Interop\Container\ContainerInterface;
 use Laminas\I18n\Translator\TranslatorAwareInterface;
 use Laminas\Mail\Address;
@@ -81,6 +84,8 @@ class MailService extends AbstractPluginManager
         'htmltemplate'   => [HTMLTemplateMessage::class,'factory'],
     );
 
+    protected $queue;
+
     /**
      * Creates an instance.
      *
@@ -94,7 +99,7 @@ class MailService extends AbstractPluginManager
     public function __construct($container, $configuration = [])
     {
         parent::__construct($container, $configuration);
-        
+
         $this->addInitializer(
             function ($context, $instance) {
                 if ($instance instanceof TranslatorAwareInterface) {
@@ -110,7 +115,7 @@ class MailService extends AbstractPluginManager
                 }
             }
         );
-        
+
         //@TODO: [ZF3] verify that removing this lines is save
         //$this->addInitializer(
         //   function ($context,$instance) {
@@ -119,7 +124,7 @@ class MailService extends AbstractPluginManager
         //        }
         //   }
         //);
-        
+
         $this->addInitializer(
             function ($context, $instance) {
                 if (method_exists($instance, 'init')) {
@@ -243,6 +248,10 @@ class MailService extends AbstractPluginManager
         $transport->send($mail);
     }
 
+    public function queue($mail, $queueOptions = null)
+    {
+        $this->queue->push(MailJob::create($mail), $queueOptions);
+    }
     /**
      * Gets the transport.
      *
@@ -289,5 +298,29 @@ class MailService extends AbstractPluginManager
         $this->mailer = $mailer;
 
         return $this;
+    }
+
+    /**
+     * Get queue
+     *
+     * @return MongoQueue
+     */
+    public function getQueue()
+    {
+        if (!$this->queue) {
+            throw new MissingDependencyException(MongoQueue::class, $this);
+        }
+
+        return $this->queue;
+    }
+
+    /**
+     * Set queue
+     *
+     * @param MongoQueue $queue
+     */
+    public function setQueue(MongoQueue $queue): void
+    {
+        $this->queue = $queue;
     }
 }

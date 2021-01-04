@@ -13,6 +13,7 @@ if (getenv('ADDITIONAL_MODULES')) {
 }
 
 return [
+    'SlmQueue',
     'Core',
     'Auth',
     'Cv',

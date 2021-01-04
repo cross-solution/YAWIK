@@ -32,6 +32,11 @@ return array(
     'doctrine' => $doctrineConfig,
 
     'slm_queue' => [
+        'queues' => [
+            'mail' => [
+                'collection' => 'core.mailqueue',
+            ],
+        ],
         'worker_strategies' => [
             'default' => [
                 Queue\Strategy\IdleSleepStrategy::class => ['duration' => 1],
@@ -41,16 +46,23 @@ return array(
                 'default' => [
                     Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/Queue'],
                 ],
+                'mail' => [
+                    Queue\Strategy\LogStrategy::class => ['log' => 'Log/Core/MailQueue'],
+                    \SlmQueue\Strategy\ProcessQueueStrategy::class,
+                    Queue\Strategy\SendMailStrategy::class,
+                ],
             ],
         ],
         'strategy_manager' => [
             'factories' => [
                 Queue\Strategy\LogStrategy::class => Queue\Strategy\LogStrategyFactory::class,
+                Queue\Strategy\SendMailStrategy::class => Queue\Strategy\SendMailStrategyFactory::class,
             ],
         ],
         'queue_manager' => [
             'factories' => [
                 'default' => Queue\MongoQueueFactory::class,
+                'mail' => Queue\MongoQueueFactory::class,
             ],
         ],
         'job_manager' => [
@@ -121,6 +133,27 @@ return array(
                 array('name' => Log\Processor\ProcessId::class),
             ),
         ),
+        'Log/Core/MailQueue' => [
+            'writers' => [
+                [
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => [
+                        'stream' => getcwd() . '/var/log/mailqueue.log',
+                        'formatter'  => [
+                            'name' => 'simple',
+                            'options' => [
+                                'format' => '%timestamp% (%pid%) %priorityName%: %message% %extra%',
+                                'dateTimeFormat' => 'd.m.Y H:i:s',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'processors' => [
+                ['name' => Log\Processor\ProcessId::class],
+            ],
+        ],
     ),
 
     'log_processors' => [
