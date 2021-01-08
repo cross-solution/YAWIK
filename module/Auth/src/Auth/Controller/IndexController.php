@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * YAWIK
  *
@@ -15,15 +18,13 @@ namespace Auth\Controller;
 
 use Auth\AuthenticationService;
 use Auth\Options\ModuleOptions;
-use Auth\Form\Login;
-use Auth\Form\Register;
 use Core\Repository\RepositoryService;
-use Laminas\Mvc\Controller\AbstractActionController;
-use Laminas\Log\LoggerInterface;
-use Laminas\View\Model\ViewModel;
-use Laminas\View\Model\JsonModel;
-use Laminas\Stdlib\Parameters;
 use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Log\LoggerInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Stdlib\Parameters;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 
 /**
  *
@@ -35,8 +36,8 @@ use Laminas\Http\PhpEnvironment\Response;
 class IndexController extends AbstractActionController
 {
 
-    const LOGIN='login';
-    const REGISTER='register';
+    const LOGIN = 'login';
+    const REGISTER = 'register';
 
     /**
      * @var AuthenticationService
@@ -59,41 +60,40 @@ class IndexController extends AbstractActionController
     protected $options;
 
     protected $userLoginAdapter;
-    
+
     protected $locale;
-    
+
     protected $viewHelperManager;
-    
+
     protected $hybridAuthAdapter;
-	
+
     protected $repositories;
-    
+
     protected $externalAdapter;
-    
-	/**
-	 * IndexController constructor.
-	 *
-	 * @param AuthenticationService $auth
-	 * @param LoggerInterface $logger
-	 * @param $userLoginAdapter
-	 * @param $locale
-	 * @param $urlHelper
-	 * @param array $forms
-	 * @param $options
-	 */
+
+    /**
+     * IndexController constructor.
+     *
+     * @param AuthenticationService $auth
+     * @param LoggerInterface $logger
+     * @param $userLoginAdapter
+     * @param $locale
+     * @param $urlHelper
+     * @param array $forms
+     * @param $options
+     */
     public function __construct(
-    	AuthenticationService $auth,
-	    LoggerInterface $logger,
-	    $userLoginAdapter,
-	    $locale,
-	    $urlHelper,
-	    array $forms,
-	    $options,
-		$hybridAuthAdapter,
-		$externalAdapter,
-		RepositoryService $repositories
-    )
-    {
+        AuthenticationService $auth,
+        LoggerInterface $logger,
+        $userLoginAdapter,
+        $locale,
+        $urlHelper,
+        array $forms,
+        $options,
+        $hybridAuthAdapter,
+        $externalAdapter,
+        RepositoryService $repositories
+    ) {
         $this->auth              = $auth;
         $this->forms             = $forms;
         $this->logger            = $logger;
@@ -118,7 +118,7 @@ class IndexController extends AbstractActionController
         }
 
         $viewModel        = new ViewModel();
-        /* @var $loginForm Login */
+        /** @var \Auth\Form\Login $loginForm */
         $loginForm        = $this->forms[self::LOGIN];
         /* @var $registerForm Register */
         $registerForm = $this->forms[self::REGISTER];
@@ -145,16 +145,16 @@ class IndexController extends AbstractActionController
                 $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
                     ->setCredential($data['credentials']['credential']);
             }
-            
+
             $auth   = $this->auth;
             $result = $auth->authenticate($adapter);
-            
-            
+
+
             if ($result->isValid()) {
                 $user = $auth->getUser();
                 $language = $this->locale->detectLanguage($request, $user);
                 $this->logger->info('User ' . $user->getLogin() . ' logged in');
-                
+
                 $ref = $this->params()->fromQuery('ref', false);
 
                 if ($ref) {
@@ -176,9 +176,9 @@ class IndexController extends AbstractActionController
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
-        
+
         $ref = $this->params()->fromQuery('ref', false);
-        
+
         if ($ref) {
             $req = $this->params()->fromQuery('req', false);
             if ($req) {
@@ -199,6 +199,16 @@ class IndexController extends AbstractActionController
             );
         }
 
+        $loginPrefill = $this->params()->fromQuery('login');
+
+        if ($loginPrefill) {
+            $loginForm->populateValues([
+                'credentials' => [
+                    'login' => $loginPrefill,
+                ],
+            ]);
+        }
+
         $viewModel->setVariable('loginForm', $loginForm);
         $viewModel->setVariable('registerForm', $registerForm);
 
@@ -208,7 +218,7 @@ class IndexController extends AbstractActionController
 
         return $viewModel;
     }
-    
+
     /**
      * Login with HybridAuth
      *
@@ -219,12 +229,12 @@ class IndexController extends AbstractActionController
      */
     public function loginAction()
     {
-        $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
+        $ref = urldecode($this->getRequest()->getBasePath() . $this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
         $hauth = $this->hybridAuthAdapter;
         $hauth->setProvider($provider);
         $auth = $this->auth;
-        
+
         $result = $auth->authenticate($hauth);
         $resultMessage = $result->getMessages();
 
@@ -245,7 +255,7 @@ class IndexController extends AbstractActionController
                 $mail->setSubject($this->options->getMailSubjectRegistration());
                 $mail->setVariables(
                     array(
-                                'displayName'=> $user->getInfo()->getDisplayName(),
+                                'displayName' => $user->getInfo()->getDisplayName(),
                                 'provider' => $provider,
                                 'login' => $login,
                                 'password' => $password,
@@ -266,17 +276,17 @@ class IndexController extends AbstractActionController
                 );
             }
         }
-        
+
         $user = $auth->getUser();
         $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
-        if (null !== $settings->localization->language) {
+        if ($settings->localization->language !== null) {
             $basePath = $this->getRequest()->getBasePath();
-            $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(?=/|$)~', $basePath . '/' . $settings->localization->language, $ref);
+            $ref = preg_replace('~^' . $basePath . '/[a-z]{2}(?=/|$)~', $basePath . '/' . $settings->localization->language, $ref);
         }
         return $this->redirect()->toUrl($ref);
     }
-    
+
     /**
      * Login via an external Application. This will get obsolet as soon we'll have a full featured Rest API.
      *
@@ -297,16 +307,16 @@ class IndexController extends AbstractActionController
         $adapter->setIdentity($this->params()->fromPost('user'))
                 ->setCredential($this->params()->fromPost('pass'))
                 ->setApplicationKey($appKey);
-        
+
         $auth       = $this->auth;
         $result     = $auth->authenticate($adapter);
-        
+
         if ($result->isValid()) {
             $this->logger->info(
                 'User ' . $this->params()->fromPost('user') .
                 ' logged via ' . $appKey
             );
-            
+
             // the external login may include some parameters for an update
             $updateParams = $this->params()->fromPost();
             unset($updateParams['user'], $updateParams['pass'], $updateParams['appKey']);
@@ -320,7 +330,7 @@ class IndexController extends AbstractActionController
                 $user = $auth->getUser();
                 try {
                     foreach ($updateParams as $updateKey => $updateValue) {
-                        if ('email' == $updateKey) {
+                        if ($updateKey == 'email') {
                             $user->info->email = $updateValue;
                         }
                         $user->$updateKey = $updateValue;
@@ -329,7 +339,7 @@ class IndexController extends AbstractActionController
                 }
                 $this->repositories->store($user);
             }
-            
+
             $resultMessage = $result->getMessages();
             // TODO: send a mail also when required (maybe first mail failed or email has changed)
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === true) {
@@ -349,7 +359,7 @@ class IndexController extends AbstractActionController
                 $mail->setVariables(
                     array(
                     'application' => $application,
-                    'login'=>$userName,
+                    'login' => $userName,
                     'password' => $password,
                     )
                 );
@@ -377,7 +387,7 @@ class IndexController extends AbstractActionController
                 'Failed to authenticate User ' . $this->params()->fromPost('user') .
                 ' via ' . $this->params()->fromPost('appKey')
             );
-            
+
             $this->getResponse()->setStatusCode(Response::STATUS_CODE_401);
             return new JsonModel(
                 array(
@@ -390,7 +400,7 @@ class IndexController extends AbstractActionController
             );
         }
     }
-    
+
     public function groupAction()
     {
         //$adapter = $this->serviceLocator->get('ExternalApplicationAdapter');
@@ -412,7 +422,7 @@ class IndexController extends AbstractActionController
         $userGrpAdmin = $auth->getUser();
         $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName());
         $grp = $this->params()->fromQuery('group');
-        
+
         // if the request is made by an external host, add his identification-key to the name
         $loginSuffix = '';
         // @TODO: replace this by the Plugin LoginFilter
@@ -429,17 +439,14 @@ class IndexController extends AbstractActionController
         $users = $this->repositories->get('Auth/User');
         if (!empty($params->group)) {
             foreach ($params->group as $grp_member) {
-                try
-                {
+                try {
                     $user = $users->findByLogin($grp_member . $loginSuffix);
                     if (!empty($user)) {
                         $groupUserId[] = $user->id;
                     } else {
                         $notFoundUsers[] = $grp_member . $loginSuffix;
                     }
-                }
-                catch (\Auth\Exception\UserDeactivatedException $e)
-                {
+                } catch (\Auth\Exception\UserDeactivatedException $e) {
                     $notFoundUsers[] = $grp_member . $loginSuffix;
                 }
             }
@@ -454,13 +461,13 @@ class IndexController extends AbstractActionController
             str_repeat(' ', 36) . 'Group Members Param: ' . implode(',', $params->group) . PHP_EOL .
             str_repeat(' ', 36) . 'Group Members: ' . count($groupUserId) . PHP_EOL . str_repeat(' ', 36) . 'Group Members not found: ' . implode(',', $notFoundUsers)
         );
-        
+
         return new JsonModel(
             array(
             )
         );
     }
-    
+
     /**
      * Logout
      *
@@ -469,7 +476,7 @@ class IndexController extends AbstractActionController
     public function logoutAction()
     {
         $auth = $this->auth;
-        $this->logger->info('User ' . ($auth->getUser()->getLogin()==''?$auth->getUser()->getInfo()->getDisplayName():$auth->getUser()->getLogin()) . ' logged out');
+        $this->logger->info('User ' . ($auth->getUser()->getLogin() == '' ? $auth->getUser()->getInfo()->getDisplayName() : $auth->getUser()->getLogin()) . ' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
 

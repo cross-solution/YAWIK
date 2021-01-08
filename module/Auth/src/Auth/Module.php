@@ -106,8 +106,12 @@ class Module implements AssetProviderInterface, VersionProviderInterface
 
         $eventManager->attach(
             MvcEvent::EVENT_DISPATCH,
-            function (MvcEvent $e) use ($services) {
+            function ($e) use ($services) {
                 /** @var CheckPermissionsListener $checkPermissionsListener */
+                if (!$e instanceof MvcEvent) {
+                    return;
+                }
+
                 $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
                 $checkPermissionsListener->onDispatch($e);
             },
