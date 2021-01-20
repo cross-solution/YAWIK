@@ -1,0 +1,890 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014-2017
+# Carsten Bleek <cbleek@yawik.org>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-08 09:51+0200\n"
+"PO-Revision-Date: 2020-12-04 13:20+0100\n"
+"Last-Translator: Sebestyén György <sebestyengy@gmail.hu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: view/applications/comment/list.phtml:66
+msgid "There are no comments for this application yet. Be the first to comment by clicking the \"Add new comment\" button below!"
+msgstr "Ehhez a pályázathoz még nincs megjegyzés. Új megjegyzés hozzáadásához kattintson a \"Megjegyzés hozzáadása\" gombra."
+
+#: view/applications/index/index.phtml:10 view/applications/apply/index.phtml:10 view/applications/apply/success.phtml:10
+msgid "Apply"
+msgstr "Jelentkezés"
+
+#: view/applications/index/index.phtml:16 view/applications/apply/index.phtml:15 view/applications/apply/success.phtml:28 view/applications/manage/detail.pdf.phtml:98
+msgid "Application"
+msgstr "Jelentkezés"
+
+#: view/applications/index/index.phtml:18 view/applications/apply/index.phtml:20
+#, php-format
+msgid "Apply to \"%s\" from \"%s\""
+msgstr "Ön a(z) \"%s\" állásra jelentkezik a \"%s\" cégnél"
+
+#: view/applications/index/index.phtml:19 view/applications/apply/index.phtml:22
+msgid "click to open the job ad"
+msgstr "Az álláshirdetés megnyitásához kattintson rá"
+
+#: view/applications/index/disclaimer.phtml:22 language/_annotated_strings.php:189 language/_annotated_strings.php:195
+msgid "Privacy Policy"
+msgstr "Adatvédelmi rendelkezések"
+
+#: view/applications/index/dashboard.phtml:18
+msgid "Received Applications"
+msgstr "Beérkezett álláspályázatok"
+
+#: view/applications/index/dashboard.phtml:20
+msgid "Sent Applications"
+msgstr "Elküldött álláspályázatok"
+
+#: view/applications/index/dashboard.phtml:39 language/_annotated_strings.php:3
+msgid "Applicant"
+msgstr "Pályázó"
+
+#: view/applications/index/dashboard.phtml:40 language/_annotated_strings.php:12 language/_annotated_strings.php:33
+msgid "Job"
+msgstr "Álláshirdetés"
+
+#: view/applications/index/dashboard.phtml:41 view/applications/manage/detail.phtml:289 view/applications/manage/social-profile/facebook.phtml:34 view/applications/manage/social-profile/facebook.phtml:65 view/applications/manage/social-profile/linkedin.phtml:53 view/applications/manage/social-profile/linkedin.phtml:90 view/applications/manage/social-profile/xing.phtml:52
+#: view/applications/manage/social-profile/xing.phtml:81
+msgid "Date"
+msgstr "Dátum"
+
+#: view/applications/apply/index.phtml:49
+msgid "your application was sent successfully"
+msgstr "Az Ön jelentkezése sikeresen elmentve"
+
+#: view/applications/apply/index.phtml:55
+#, php-format
+msgid "The application was added to your %slist%s, so you can keep up-to-date with the process."
+msgstr "A bekerült az Ön %sÁttekintés%s könyvtárába. Ott követni tudja a pályázat állapotát."
+
+#: view/applications/apply/index.phtml:62
+msgid "Keep up-to-date with the process of your application by bookmarking this link:"
+msgstr "A következő hivatkozás könyvjelzőzésével követni tudja a pályázat állapotát:"
+
+#: view/applications/apply/index.phtml:91
+msgid "This is a preview of the application form for your job"
+msgstr "Itt megtekintheti az állásajánlat jelentkezési űrlapjának előnézetét."
+
+#: view/applications/apply/index.phtml:92
+msgid "You may expand any section and check the available fields, but you can not save anything."
+msgstr "Megtekintheti az összes beviteli mezőt, de nem tudja menteni azokat."
+
+#: view/applications/apply/_buttons.phtml:21
+msgid "Your application is incomplete. You have to add your contact data and accept the privacy policy to be able to submit the application. You can always preview or abort your application."
+msgstr "Az Ön álláspályázata hiányos. Annak elküldéséhez szükség van az elérhetőségére, és az adatvédelmi rendelkezéseket is el kell fogadnia. Az előnézetben mindig megtekintheti a beírt adatokat és megszakíthatja a jelentkezési folyamatot."
+
+#: view/applications/apply/_buttons.phtml:39
+msgid "Back to the formular"
+msgstr "Vissza a jelentkezési űrlaphoz"
+
+#: view/applications/apply/_buttons.phtml:58
+msgid "Preview application"
+msgstr "Jelentkezés előzetes megtekintése"
+
+#: view/applications/apply/_buttons.phtml:64 view/applications/apply/_buttons.phtml:74
+msgid "Send application"
+msgstr "Jelentkezés elküldése"
+
+#: view/applications/apply/_buttons.phtml:71
+msgid "Send preview to my email"
+msgstr "Jelentkezés elküldése a saját e-mail fiókomra"
+
+#: view/applications/apply/_buttons.phtml:82
+msgid "Abort application"
+msgstr "Jelentkezés félbeszakítása"
+
+#: view/applications/apply/success.phtml:33
+#, php-format
+msgid "You have applied to \"%1$s\" from \"%2$s\""
+msgstr "Ön a \"%2$s\" cég \"%1$s\" állására jelentkezett"
+
+#: view/applications/apply/success.phtml:50
+msgid "your application had been posted. Godspeed."
+msgstr "A jelentkezését elküldtük. Sok sikert kívánunk!"
+
+#: view/applications/manage/index.phtml:25
+#, php-format
+msgid "for the job \"%s\""
+msgstr "A(z) \"%s\" álláshirdetésre"
+
+#: view/applications/manage/index.phtml:26
+msgid "to all of your jobs"
+msgstr "az Ön összes álláshirdetésére"
+
+#: view/applications/manage/index.phtml:30 src/Applications/Auth/Dependency/ListListener.php:45
+msgid "Applications"
+msgstr "Jelentkezések"
+
+#: view/applications/manage/index.phtml:41
+msgid "List of received applications"
+msgstr "Beérkezett jelentkezések listája"
+
+#: view/applications/manage/index.phtml:46
+msgid "Overview of your sent applications"
+msgstr "Az Ön elküldött álláspályázatai"
+
+#: view/applications/manage/index.phtml:60 view/applications/manage/index.phtml:131 view/applications/manage/detail.phtml:195 view/applications/manage/detail.phtml:214 view/applications/manage/detail.phtml:234 view/applications/manage/detail.phtml:266
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: view/applications/manage/index.phtml:61 view/applications/manage/detail.phtml:196
+msgid "Send mail"
+msgstr "E-mail küldése"
+
+#: view/applications/manage/index.phtml:81
+msgid "search applications"
+msgstr "Keresés a pályázatokban"
+
+#: view/applications/manage/index.phtml:86 language/_annotated_strings.php:105
+msgid "Enter job title"
+msgstr "Álláshirdetés címe"
+
+#: view/applications/manage/index.phtml:96
+msgid "Search"
+msgstr "Keresés"
+
+#: view/applications/manage/index.phtml:98
+msgid "Clear"
+msgstr "Törlés"
+
+#: view/applications/manage/index.phtml:123
+msgid "Move selected applications to Talent Pool"
+msgstr "A kiválasztott pályázatok áthelyezése a jelöltállományba"
+
+#: view/applications/manage/index.phtml:127
+msgid "Are you sure you want to move selected applications to Talent Pool?"
+msgstr "Biztos benne, hogy a kiválasztott pályázatokat át akarja helyezni a jelöltállományba?"
+
+#: view/applications/manage/index.phtml:132
+msgid "Move applications to Talent Pool"
+msgstr "Pályázatok áthelyezése a jelöltállományba"
+
+#: view/applications/manage/status.phtml:23
+msgid "To"
+msgstr "Címzett"
+
+#: view/applications/manage/social-profile.phtml:21
+msgid "Profile data"
+msgstr "Profil adatok"
+
+#: view/applications/manage/detail.phtml:15 view/applications/manage/detail.pdf.phtml:29
+msgid "Details"
+msgstr "Részletek"
+
+#: view/applications/manage/detail.phtml:43
+msgid "application for"
+msgstr "Megpályázott állás"
+
+#: view/applications/manage/detail.phtml:48
+#, php-format
+msgid "Application %d of %d"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:70
+msgid "Accept"
+msgstr "Elfogadás"
+
+#: view/applications/manage/detail.phtml:71
+msgid "Inform the Recruiter"
+msgstr "Toborzó értesítése"
+
+#: view/applications/manage/detail.phtml:82
+msgid "Confirm"
+msgstr "Visszaigazolás"
+
+#: view/applications/manage/detail.phtml:83
+msgid "Confirm the receipt"
+msgstr "Kézhezvétel visszaigazolása"
+
+#: view/applications/manage/detail.phtml:91
+msgid "Invite"
+msgstr "Meghívás"
+
+#: view/applications/manage/detail.phtml:92 view/applications/manage/detail.phtml:188
+msgid "Invite the applicant"
+msgstr "A jelentkező meghívása"
+
+#: view/applications/manage/detail.phtml:102 view/applications/manage/index.recruiter.ajax.phtml:36
+msgid "Reject"
+msgstr "Elutasítás\t\t"
+
+#: view/applications/manage/detail.phtml:103
+msgid "Reject the applicant"
+msgstr "A jelentkező elutasítása"
+
+#: view/applications/manage/detail.phtml:129
+msgid "Enter an email address"
+msgstr "Adjon meg egy e-mail címet"
+
+#: view/applications/manage/detail.phtml:130
+msgid "This application will be send as an email to the given address in a layout similar to that on this page with all attachments included."
+msgstr "Az álláspályázatot, annak mellékleteivel együtt, a megadott e-mail címre küldjük el."
+
+#: view/applications/manage/detail.phtml:137
+msgid "Forward"
+msgstr "Továbbítás"
+
+#: view/applications/manage/detail.phtml:146
+msgid "previous"
+msgstr "vissza"
+
+#: view/applications/manage/detail.phtml:147
+msgid "Back to list"
+msgstr "Vissza az áttekintő listához"
+
+#: view/applications/manage/detail.phtml:147
+msgid "List"
+msgstr "Áttekintő lista"
+
+#: view/applications/manage/detail.phtml:148
+msgid "next"
+msgstr "következő"
+
+#: view/applications/manage/detail.phtml:167 view/applications/manage/detail.phtml:216
+msgid "Delete application"
+msgstr "Jelentkezés törlése"
+
+#: view/applications/manage/detail.phtml:168
+msgid "Delete"
+msgstr "Törlés"
+
+#: view/applications/manage/detail.phtml:172 view/applications/manage/detail.phtml:175 view/applications/manage/detail.phtml:227 view/applications/manage/detail.phtml:236 view/applications/manage/index.recruiter.ajax.phtml:40
+msgid "Move application to Talent Pool"
+msgstr "Jelentkezés áthelyezése a munkaerőállományba"
+
+#: view/applications/manage/detail.phtml:176 view/applications/manage/index.recruiter.ajax.phtml:40
+msgid "Move"
+msgstr "Áthelyezés"
+
+#: view/applications/manage/detail.phtml:207
+msgid "Delete Application"
+msgstr "Pályázat törlése"
+
+#: view/applications/manage/detail.phtml:211
+msgid "Are you sure you want to delete this application?"
+msgstr "Biztos, hogy törölni akarja a pályázatot?"
+
+#: view/applications/manage/detail.phtml:215
+msgid "delete this application"
+msgstr "a jelentkezés törlése"
+
+#: view/applications/manage/detail.phtml:231
+msgid "Are you sure you want to move this application to Talent Pool?"
+msgstr "Biztos benne, hogy át akarja helyezni a jelentkezést a munkaerőállományba?"
+
+#: view/applications/manage/detail.phtml:243
+msgid "Error while loading comments."
+msgstr "Hiba a megjegyzések betöltésekor"
+
+#: view/applications/manage/detail.phtml:250
+msgid "Error while loading comment form."
+msgstr "Hiba megjegyzés űrlap betöltésekor"
+
+#: view/applications/manage/detail.phtml:260
+msgid "Comments"
+msgstr "Megjegyzések"
+
+#: view/applications/manage/detail.phtml:267
+msgid "Save"
+msgstr "Mentés"
+
+#: view/applications/manage/detail.phtml:268
+msgid "Add new comment"
+msgstr "Megjegyzés hozzáadása"
+
+#: view/applications/manage/detail.phtml:269 view/applications/manage/detail.phtml:401
+msgid "Close"
+msgstr "Bezárás"
+
+#: view/applications/manage/detail.phtml:282 view/applications/manage/detail.phtml:464 view/applications/manage/detail.phtml:470
+msgid "Status history"
+msgstr "Előzmények"
+
+#: view/applications/manage/detail.phtml:290 view/applications/manage/detail.phtml:419
+msgid "State"
+msgstr "Állapot"
+
+#: view/applications/manage/detail.phtml:291
+msgid "Comment"
+msgstr "Megjegyzés"
+
+#: view/applications/manage/detail.phtml:312 view/applications/manage/social-profile/facebook.phtml:14 view/applications/manage/social-profile/linkedin.phtml:14 view/applications/manage/social-profile/xing.phtml:14 view/applications/manage/detail.pdf.phtml:107
+msgid "personal information"
+msgstr "Személyi adatok"
+
+#: view/applications/manage/detail.phtml:332 view/applications/manage/detail.pdf.phtml:134
+msgid "Phone"
+msgstr "Telefon"
+
+#: view/applications/manage/detail.phtml:355 view/applications/manage/detail.phtml:374
+msgid "no attachments available"
+msgstr "nincsenek mellékletek"
+
+#: view/applications/manage/detail.phtml:360 view/applications/manage/detail.pdf.phtml:300 src/Applications/Factory/Form/AttachmentsFactory.php:83 language/_annotated_strings.php:9 language/_annotated_strings.php:249
+msgid "Attachments"
+msgstr "Mellékletek"
+
+#: view/applications/manage/detail.phtml:395
+msgid "Loading"
+msgstr "Betöltés folyematban"
+
+#: view/applications/manage/detail.phtml:422
+msgid "date of receipt"
+msgstr "Beérkezési dátum"
+
+#: view/applications/manage/detail.phtml:425
+msgid "via"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:430
+msgid "application state"
+msgstr "Pályázat állapota"
+
+#: view/applications/manage/detail.phtml:438
+msgid "rating"
+msgstr "értékelés"
+
+#: view/applications/manage/detail.phtml:449
+msgid "View comments"
+msgstr "Megjegyzések megtekintése"
+
+#: view/applications/manage/detail.phtml:449
+msgid "Add comment"
+msgstr "Megjegyzés hozzáadása"
+
+#: view/applications/manage/detail.phtml:458
+msgid "last modification date"
+msgstr "utolsó módosítás"
+
+#: view/applications/manage/detail.phtml:477
+msgid "agent"
+msgstr "ügyintéző"
+
+#: view/applications/manage/detail.phtml:483
+msgid "Manager"
+msgstr "Részlegvezető"
+
+#: view/applications/manage/detail.phtml:502 view/applications/manage/detail.pdf.phtml:165 language/_annotated_strings.php:135
+msgid "Willingness to travel"
+msgstr "Utazási hajlandóság"
+
+#: view/applications/manage/detail.phtml:508 view/applications/manage/detail.pdf.phtml:171 language/_annotated_strings.php:147
+msgid "Earliest starting date"
+msgstr "Legkorábbi belépési dátum"
+
+#: view/applications/manage/detail.phtml:514 view/applications/manage/detail.pdf.phtml:177 language/_annotated_strings.php:156
+msgid "Expected salary"
+msgstr "Bérigény"
+
+#: view/applications/manage/detail.phtml:520
+msgid "Driving license"
+msgstr "Jogosítvány"
+
+#: view/applications/manage/detail.phtml:521 language/_annotated_strings.php:126 language/_annotated_strings.php:165
+msgid "Yes"
+msgstr "Igen"
+
+#: view/applications/manage/detail.phtml:521 language/_annotated_strings.php:132 language/_annotated_strings.php:168
+msgid "No"
+msgstr "Nem"
+
+#: view/applications/manage/detail.phtml:534 view/applications/manage/detail.pdf.phtml:184 language/_annotated_strings.php:42
+msgid "Cover Letter"
+msgstr "Kisérőlevél"
+
+#: view/applications/manage/detail.phtml:549 view/applications/manage/index.recruiter.ajax.phtml:136 view/applications/manage/social-profile/facebook.phtml:62 view/applications/manage/social-profile/linkedin.phtml:87 view/applications/manage/social-profile/xing.phtml:78 view/applications/manage/detail.pdf.phtml:194
+msgid "work experience"
+msgstr "Szakmai tapasztalat"
+
+#: view/applications/manage/detail.phtml:554 view/applications/manage/detail.phtml:584 view/applications/manage/detail.pdf.phtml:197 view/applications/manage/detail.pdf.phtml:220
+msgid "Start"
+msgstr "Kezdet"
+
+#: view/applications/manage/detail.phtml:555 view/applications/manage/detail.phtml:585 view/applications/manage/detail.pdf.phtml:198 view/applications/manage/detail.pdf.phtml:221
+msgid "End"
+msgstr "Befejezés"
+
+#: view/applications/manage/detail.phtml:556 language/_annotated_strings.php:30
+msgid "Company"
+msgstr "Cég"
+
+#: view/applications/manage/detail.phtml:557 view/applications/manage/detail.phtml:587 view/applications/manage/social-profile/facebook.phtml:68 view/applications/manage/social-profile/linkedin.phtml:93 view/applications/manage/social-profile/xing.phtml:84 view/applications/manage/detail.pdf.phtml:199 view/applications/manage/detail.pdf.phtml:222
+msgid "Description"
+msgstr "Leírás"
+
+#: view/applications/manage/detail.phtml:580 view/applications/manage/detail.pdf.phtml:217
+msgid "education and training"
+msgstr "Iskolai- és szakmai végzettség"
+
+#: view/applications/manage/detail.phtml:586
+msgid "University"
+msgstr "Főiskola/egyetem"
+
+#: view/applications/manage/detail.phtml:604 view/applications/manage/detail.pdf.phtml:240
+msgid "personal skills"
+msgstr "szakmai képességek"
+
+#: view/applications/manage/detail.phtml:606 view/applications/manage/detail.pdf.phtml:242
+msgid "native language"
+msgstr "Anyanyelv"
+
+#: view/applications/manage/index.recruiter.ajax.phtml:133 view/applications/manage/social-profile/facebook.phtml:31 view/applications/manage/social-profile/linkedin.phtml:50 view/applications/manage/social-profile/xing.phtml:49
+msgid "education"
+msgstr "Képesítés"
+
+#: view/applications/manage/index.recruiter.ajax.phtml:133 view/applications/manage/index.recruiter.ajax.phtml:136
+msgid "years"
+msgstr "Év"
+
+#: view/applications/manage/index.recruiter.ajax.phtml:154
+msgid "no attachments"
+msgstr "nincs melléklet"
+
+#: view/applications/manage/index.recruiter.ajax.phtml:177
+msgid "edit"
+msgstr "szerkesztés"
+
+#: view/applications/manage/social-profile/facebook.phtml:22 view/applications/manage/social-profile/linkedin.phtml:31 view/applications/manage/social-profile/xing.phtml:28
+msgid "Birthday"
+msgstr "Születésnap"
+
+#: view/applications/manage/social-profile/facebook.phtml:35 view/applications/manage/social-profile/linkedin.phtml:54 view/applications/manage/social-profile/xing.phtml:53
+msgid "School or university"
+msgstr "Iskola vagy felsőfokú intézmény"
+
+#: view/applications/manage/social-profile/facebook.phtml:36
+msgid "Type"
+msgstr "Típus"
+
+#: view/applications/manage/social-profile/facebook.phtml:66 view/applications/manage/social-profile/linkedin.phtml:91 view/applications/manage/social-profile/xing.phtml:82
+msgid "Employer"
+msgstr "Munkaadó"
+
+#: view/applications/manage/social-profile/facebook.phtml:67 view/applications/manage/social-profile/linkedin.phtml:92 view/applications/manage/social-profile/xing.phtml:83
+msgid "Position"
+msgstr "Beosztás"
+
+#: view/applications/manage/social-profile/facebook.phtml:90 view/applications/manage/social-profile/xing.phtml:112
+msgid "language skills"
+msgstr "nyelvtudás"
+
+#: view/applications/manage/social-profile/xing.pdf.phtml:13 view/applications/manage/social-profile/facebook.pdf.phtml:13 view/applications/manage/social-profile/linkedin.pdf.phtml:13
+msgid "Attachment"
+msgstr "Melléklet"
+
+#: view/applications/manage/social-profile/linkedin.phtml:34 view/applications/manage/social-profile/linkedin.phtml:38 view/applications/manage/social-profile/xing.phtml:31 view/applications/manage/social-profile/xing.phtml:35
+msgid "Year of birth"
+msgstr "Születési év"
+
+#: view/applications/manage/social-profile/linkedin.phtml:55
+msgid "Degree"
+msgstr "Végzettség"
+
+#: view/applications/manage/social-profile/xing.phtml:54
+msgid "Notes"
+msgstr "Megjegyzések"
+
+#: view/applications/manage/social-profile/xing.phtml:91
+msgid "ongoing"
+msgstr "folyamatos"
+
+#: view/applications/manage/social-profile/xing.phtml:96
+msgid "employes"
+msgstr "Munkatársak"
+
+#: view/applications/manage/social-profile/xing.phtml:97
+msgid "Industry"
+msgstr "Ágazat"
+
+#: view/applications/manage/social-profile/xing.phtml:101
+msgid "Level"
+msgstr "Szint"
+
+#: view/applications/manage/index.applicant.ajax.phtml:83
+msgid "view"
+msgstr "megtekintés"
+
+#: view/applications/manage/detail.pdf.phtml:86
+msgid "Application dated"
+msgstr "Pályázat dátuma"
+
+#: view/applications/manage/detail.pdf.phtml:105
+msgid "application details"
+msgstr "Pályázat részletei"
+
+#: view/applications/manage/detail.pdf.phtml:106
+#, php-format
+msgid "You can see the application online on the %sfollowing link%s."
+msgstr "A pályázatot online a %skövetkező hivatkozáson%s tekintheti meg."
+
+#: view/applications/manage/detail.pdf.phtml:114
+msgid "name"
+msgstr "Családnév"
+
+#: view/applications/manage/detail.pdf.phtml:119
+msgid "Street"
+msgstr "Utca/tér"
+
+#: view/applications/manage/detail.pdf.phtml:125
+msgid "City"
+msgstr "Helység"
+
+#: view/applications/manage/detail.pdf.phtml:130
+msgid "E-Mail"
+msgstr "E-mail"
+
+#: view/applications/manage/detail.pdf.phtml:161 src/Applications/Form/Facts.php:43
+msgid "Facts"
+msgstr "Tények"
+
+#: view/sidebar/manage.phtml:7
+msgid "new applications"
+msgstr "új pályázatok"
+
+#: view/error/not-found.phtml:12
+msgid "job opening is not online anymore"
+msgstr "Az álláshirdetés már nem él"
+
+#: view/error/not-found.phtml:14
+msgid "you tried to open an application formular for a job opening, which is not online any more."
+msgstr "Ön egy olyan álláshirdetés jelentkezési űrlapját próbálta megnyitni, amely már nem él."
+
+#: src/Applications/Form/SettingsFieldset.php:43 language/_annotated_strings.php:54
+msgid "E-Mail Notifications"
+msgstr "E-mai értesítések"
+
+#: src/Applications/Form/CarbonCopyFieldset.php:23
+msgid "Options"
+msgstr "Opciók"
+
+#: src/Applications/Controller/ManageController.php:377
+#, php-format
+msgid "Forwarded application to %s"
+msgstr "A jelentkezés továbbítva %s-nek(nak)"
+
+#: src/Applications/Controller/ManageController.php:393
+#, php-format
+msgid "Forward application to %s failed."
+msgstr "A jelentkezés továbbítása %s-nek(nak) meghiúsult."
+
+#: src/Applications/Controller/MultimanageController.php:85 src/Applications/Listener/StatusChange.php:105
+#, php-format
+msgid "Your application dated %s"
+msgstr "Az Ön %s-i keltezésű pályázata"
+
+#: src/Applications/Controller/MultimanageController.php:91
+msgid "reject the applicants"
+msgstr "Elutasító levél küldése a kiválasztott jelentkezőknek."
+
+#: src/Applications/Listener/StatusChange.php:170 language/_annotated_strings.php:225
+#, php-format
+msgid "Mail was sent to %s"
+msgstr "E-mail %s-nek(nak) elküldve"
+
+#: src/Applications/Mail/Confirmation.php:130 src/Applications/Mail/StatusChange.php:80
+#, php-format
+msgid "Dear Mr. %s"
+msgstr ""
+
+#: src/Applications/Mail/Confirmation.php:131 src/Applications/Mail/StatusChange.php:81
+#, php-format
+msgid "Dear Ms. %s"
+msgstr ""
+
+#: src/Applications/Mail/Confirmation.php:145 src/Applications/Mail/StatusChange.php:97
+#, php-format
+msgid "Hello %s"
+msgstr "Üdvözöljük %s!"
+
+#: language/_annotated_strings.php:6
+msgid "Career"
+msgstr "Pályafutás"
+
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:36 language/_annotated_strings.php:108
+msgid "Status"
+msgstr "Állapot"
+
+#: language/_annotated_strings.php:18
+msgid "Rating"
+msgstr "Értékelés"
+
+#: language/_annotated_strings.php:21
+msgid "Modified"
+msgstr "Változtatás"
+
+#: language/_annotated_strings.php:24 language/_annotated_strings.php:39
+msgid "Actions"
+msgstr "Művelet"
+
+#: language/_annotated_strings.php:27
+msgid "Sent on"
+msgstr "Elküldés dátuma"
+
+#: language/_annotated_strings.php:45
+msgid "Summary is meant as a general free text area. Click on \"edit\" to fill in some informations you think helps the recruiter to pick you for this job."
+msgstr "Az összefoglalás mezőben a \"szerkesztés\" gombra való kattintás után további információkat adhat meg magáról, hogy a toborzó nagyobb valószínűséggel döntsön az Ön javára."
+
+#: language/_annotated_strings.php:48
+msgid "you can add your social profile to your application. You can preview and remove the attached profile before submitting the application."
+msgstr "Jelentkezéséhez életrajzi adatokat csatolhat Facebook, Xing vagy LinkedIn profiljából. A csatolt adatokat elküldés előtt át tudja tekinteni és törölni."
+
+#: language/_annotated_strings.php:51
+msgid "Customize apply form"
+msgstr "Jelentkezési űrlap személyre szabása"
+
+#: language/_annotated_strings.php:57
+msgid "receive E-Mail alert"
+msgstr "E-mail értesítés bekapcsolása"
+
+#: language/_annotated_strings.php:60
+msgid "if checked, you'll be informed by mail about new applications."
+msgstr "Ha bejelöli, akkor az új jelentkezésekről e-mail értesítést kap."
+
+#: language/_annotated_strings.php:63
+msgid "Mailtext"
+msgstr "Levélszöveg"
+
+#: language/_annotated_strings.php:66
+msgid "default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li><li>##link## = Url of the application detail page</li></ul>"
+msgstr ""
+"Az új jelentkezésekről szóló értesítés szövege. Az alábbi paraméterek használhatók:\n"
+"<ul>\n"
+"<li>##name## = Az Ön neve</li>\n"
+"<li>##title## = Álláshirdetés címe</li>\n"
+"<li>##link## = Hivatkozás a beérkezett pályázatra</li>\n"
+"</ul>"
+
+#: language/_annotated_strings.php:69
+msgid "confirm application immidiatly after submit"
+msgstr "Visszaigazolás önműködő elküldése"
+
+#: language/_annotated_strings.php:72
+msgid "if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter."
+msgstr "Ha bejelöli, akkor a jelentkező azonnal kap egy visszaigazolást. Ha nem, akkor az a toborzó kötelessége."
+
+#: language/_annotated_strings.php:75
+msgid "Confirmation mail text"
+msgstr "A visszaigazoló levél szövege"
+
+#: language/_annotated_strings.php:78
+msgid ""
+"default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of "
+"the application.</li><li>##link## = Link to the application details</li></ul>"
+msgstr "A visszaigazoló levél szabványos szövege. A következő paraméterek használhatók. <br><ul><li>##anrede_formell## = Formális megszólítás.<li>##anrede_informell## = közvetlen megszólítás.</li><li>##job_title## = Álláshirdetés címe</li><li>##name## = jelentkező neve</li><li>##date## = beérkezés dátuma.</li><li>##link## = a pályázatra mutató hivatkozás</li></ul>"
+
+#: language/_annotated_strings.php:81
+msgid "Invitation mail text"
+msgstr "Meghívó levél szövege"
+
+#: language/_annotated_strings.php:84
+msgid "default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. "
+msgstr "A jelentkezőnek küldendő meghívólevél szabványos szövege. A visszaigazoló levél változói itt is használhatók."
+
+#: language/_annotated_strings.php:87
+msgid "Accept mail text"
+msgstr "Elfogadó levél szövege"
+
+#: language/_annotated_strings.php:90
+msgid "default text, when accepting an applicant. This mail is send to by a domain admin to the recruiter, who is responsible for the job posting."
+msgstr "Annak a levélnek a szövege, amelyet az álláshirdetésért felelős toborzó akkor kap, mikor a részlegvezető elfogad egy pályázatot."
+
+#: language/_annotated_strings.php:93
+msgid "Rejection mail text"
+msgstr "Elutasító levél szövege"
+
+#: language/_annotated_strings.php:96
+msgid "default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail."
+msgstr "Az elutasító levél szövege. A visszaigazoló levél változói itt is használhatóak."
+
+#: language/_annotated_strings.php:99
+msgid "get blind carbon copy of all own mails"
+msgstr "Összes levél elküldése másolatban (BCC) a saját e-mail címemre"
+
+#: language/_annotated_strings.php:102
+msgid "if checked, you'll get a copy of all mails you send."
+msgstr "Bejelölni az összes e-mail másolatának kézhezvételéhez"
+
+#: language/_annotated_strings.php:111
+msgid "all"
+msgstr "összes"
+
+#: language/_annotated_strings.php:114
+msgid "Comment message"
+msgstr "Megjegyzés"
+
+#: language/_annotated_strings.php:117
+msgid "Request additional facts from the Applicant. Selected Fields will be added to the application Form."
+msgstr "Kérjen további adatokat a jelentkezőtől. A kiválasztott mezők hozzáadódnak a jelentkezési űrlaphoz."
+
+#: language/_annotated_strings.php:120
+msgid "Please provide some additional facts for this job opening."
+msgstr "Az állás betöltéséhez a következő adatokra is szükség van."
+
+#: language/_annotated_strings.php:123
+msgid "Click here to enter facts."
+msgstr "Kattintson ide az adatok beviteléhez."
+
+#: language/_annotated_strings.php:129
+msgid "conditioned"
+msgstr "feltételes"
+
+#: language/_annotated_strings.php:138
+msgid "Enter your willingness to travel."
+msgstr "Kérjük nyilatkozzon az utazási hajlandóságáról."
+
+#: language/_annotated_strings.php:141
+msgid "Ask the applicant about the willingness to travel"
+msgstr "Kérdezze meg a jelöltet utazási hajlandóságáról."
+
+#: language/_annotated_strings.php:144 language/_annotated_strings.php:180
+msgid "please select"
+msgstr "Kérjük válasszon"
+
+#: language/_annotated_strings.php:150
+msgid "Enter the earliest starting date."
+msgstr "Mikor tud legkorábban munkába állni?"
+
+#: language/_annotated_strings.php:153
+msgid "Ask the applicant about the earliest starting date."
+msgstr "Kérdezze meg a jelöltet, mikor tud legkorábban munkába állni"
+
+#: language/_annotated_strings.php:159
+msgid "Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign."
+msgstr "Kérjük adja meg éves bruttó fizetéigényének összegét. A valutanem jelét se felejtse el."
+
+#: language/_annotated_strings.php:162
+msgid "Ask users about their expected salary."
+msgstr "Kérje meg a jelentkezőt fizetésigényének megadására."
+
+#: language/_annotated_strings.php:171
+msgid "driving license"
+msgstr "Jogosítvány"
+
+#: language/_annotated_strings.php:174
+msgid "Do you have a driving license?"
+msgstr "Van Önnek jogosítványa?"
+
+#: language/_annotated_strings.php:177
+msgid "Ask the applicant, if he has a driving license."
+msgstr "Kérdezze meg a jelentkezőt, van-e jogosítványa?"
+
+#: language/_annotated_strings.php:183
+msgid "Carbon Copy"
+msgstr "Másolat"
+
+#: language/_annotated_strings.php:186
+msgid "send me a carbon copy of my application"
+msgstr "Küldjön nekem egy másolatot az elküldött álláspályázatomról"
+
+#: language/_annotated_strings.php:192
+#, php-format
+msgid "I have read the %s and accept it"
+msgstr "A %s-et elolvastam és elfogadom"
+
+#: language/_annotated_strings.php:198
+msgid "Click here to enter a summary."
+msgstr "Kattintson ide az összefoglalás szerkesztéséhez"
+
+#: language/_annotated_strings.php:201
+msgid "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved."
+msgstr "<strong>Figyelem!</strong>: a HTML címkék törlődnek, a sortörések megmaradnak."
+
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:213
+msgid "Invalid apply id"
+msgstr "Érvénytelen jelentkezési hivatkozás"
+
+#: language/_annotated_strings.php:207
+#, php-format
+msgid "Application was read by %s"
+msgstr "A jelentkezést elolvasta %s"
+
+#: language/_annotated_strings.php:210
+msgid "Application has been successfully moved to Talent Pool"
+msgstr "A pályázat sikeresen áthelyezve a munkaerőállományba"
+
+#: language/_annotated_strings.php:216
+msgid "There are missing required informations. Your application cannot be send."
+msgstr "Néhány szükséges adat még hiányzik. A jelentkezés így elküldhetetlen."
+
+#: language/_annotated_strings.php:219
+msgid "Mail has been send"
+msgstr "Az e-mail sikeresen elküldve."
+
+#: language/_annotated_strings.php:222
+msgid "Application has been send."
+msgstr "A jelentkezés elküldése megtörtént"
+
+#: language/_annotated_strings.php:228
+#, php-format
+msgid "%d Application(s) has been successfully moved to Talent Pool"
+msgstr "%d álláspályázat sikeresen áthelyezve a munkaerőállományba."
+
+#: language/_annotated_strings.php:231
+#, php-format
+msgid "Application was rated by %s"
+msgstr "A pályázatot %s értékelte ki."
+
+#: language/_annotated_strings.php:234
+msgid "Application confirmation"
+msgstr "Jelentkezés visszaigazolása"
+
+#: language/_annotated_strings.php:237
+#, php-format
+msgid "Fwd: Application to \"%s\" dated %s"
+msgstr ""
+
+#: language/_annotated_strings.php:240
+#, php-format
+msgid "New application for your vacancy \"%s\""
+msgstr "Új jelentkezés a(z) \"%s\" álláshirdetésre"
+
+#: language/_annotated_strings.php:243
+msgid "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\\"##title##\\\"\\n\\n"
+msgstr "Üdvözöljük ##name##!\\n\\nA következő álláshirdetésre új jelentkezés érkezett:\\n\\\"##title##\\\"\\n\\n"
+
+#: language/_annotated_strings.php:246
+#, php-format
+msgid "Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to %sMB"
+msgstr "Csatoljon képeket vagy PDF dokumentumokat a jelentkezéséhez. A dokumentumokat egyszerűen húzza egérrel a mellékletek mezőbe, vagy kattintson bele. Összesen %s MB terjedelmű mellékletet tölthet fel.."
+
+#: language/_annotated_strings.php:252
+msgid "E-Mail Templates"
+msgstr "E-mail minták"
+
+#: language/_annotated_strings.php:255
+msgid "Overview"
+msgstr "Áttekintés"
+
+#: language/additional_translation.phtml:3
+msgid "invited"
+msgstr "meghívva"
+
+#: language/additional_translation.phtml:4
+msgid "incoming"
+msgstr "Bejövő"
+
+#: language/additional_translation.phtml:5
+msgid "rejected"
+msgstr "elutasítva"
+
+#: language/additional_translation.phtml:6
+msgid "confirmed"
+msgstr "visszaigazolva"

@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-20 19:07+0100\n"
+"PO-Revision-Date: 2020-12-04 14:41+0100\n"
+"Last-Translator: Sebestyén György <sebestyengy@gmail.hu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: view/install/index/index.phtml:137
+msgid "PHP version not supported"
+msgstr "Ez a PHP verzió nem támogatott"
+
+#: view/install/index/index.phtml:142
+#, php-format
+msgid "Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently provides PHP %s."
+msgstr "Sajnáljuk, de a YAWIK futtatásához legalább a PHP 5.4.0-ra van szükség, ez a kiszolgáló azonban csak a %s verziót biztosítja."
+
+#: view/install/index/index.phtml:147
+msgid "Please ask your servers' administrator to install the proper PHP version."
+msgstr "Kérje meg a kiszolgáló adminisztrátorát, hogy biztosítsa a támogatott PHP verziót."
+
+#: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
+msgid "Installation"
+msgstr "Telepítés"
+
+#: view/install/index/installation.phtml:55
+msgid "Install"
+msgstr "Telepítés"
+
+#: view/install/index/install.phtml:13
+#, php-format
+msgid "An administrator account with the login name \"%s\" was created successfully."
+msgstr "Az adminisztrátori fiók \"%s\" néven sikeresen létrehozva."
+
+#: view/install/index/install.phtml:18
+msgid "The base configuration file was successfully created."
+msgstr "Az alapkonfiguráció sikeresen beállítva."
+
+#: view/install/index/install.phtml:21
+#, php-format
+msgid "The configuration file could not be created automatically. So please create a file called \"%s\" in the directory \"%s\" with the following content:"
+msgstr "A konfigurációs fájlt nem sikerült önműködően létrehozni. Kérjük hozza létre a \"%s\" fájl a \"%s\" könyvtárban az alábbi tartalommal;"
+
+#: view/install/index/install.phtml:31
+msgid "Start using YAWIK"
+msgstr "Indítsa el a YAWIK-ot"
+
+#: view/install/index/prerequisites.phtml:13
+msgid "Prerequisites"
+msgstr "Előfeltételek"
+
+#: view/install/index/prerequisites.phtml:28
+msgid "Creatable"
+msgstr "létrehozható"
+
+#: view/install/index/prerequisites.phtml:30
+msgid "Missing"
+msgstr "hiányzik"
+
+#: view/install/index/prerequisites.phtml:34
+msgid "Not writable"
+msgstr "nem írható"
+
+#: view/install/index/prerequisites.phtml:36
+msgid "Ok"
+msgstr "Rendben"
+
+#: view/install/index/prerequisites.phtml:48
+msgid "All required directories exists and have the needed permissions or can be created. You may savely continue with the installation."
+msgstr "Minden szükséges könyvtár megvan és rendelkezik a kellő jogosultságokkal. A telepítés folytatható."
+
+#: view/install/index/prerequisites.phtml:50
+msgid "Please note: It is not required for the config/autoload directory to be writable, but it will ease the installation as YAWIK can create the config files automatically. Consider giving write permission during installation and revoke it afterwards."
+msgstr "Figyelem! A config/autoload könyvtárnak nem kell írhatónak lennie, de leegyszerüsítiti a telepítést, mert a konfigurációs fájl létrehozható. Vegye fontolóra az írhatósági jogok megadását, majd a telepítés utáni eltávolítását."
+
+#: view/install/index/prerequisites.phtml:53
+msgid "YAWIK requires some directories to exist and have proper permissions, otherwise it is not possible to run YAWIK. Please ensure that all required directories either exist with the right permissions or at least are creatable during this installation process."
+msgstr "A YAWIK-nak kellő jogosultságokkal rendelkező könyvtárakra van szüksége. A telepítés és a program futtatása másként nem hajtható végre. Gondoskodjon róla, hogy a könyvtárak létezzenek, vagy a telepítés során létrehozhatók legyenek."
+
+#: view/install/index/prerequisites.phtml:55
+msgid "Check again"
+msgstr "ellenőrizze még egyszer"
+
+#: view/install/index/prerequisites.phtml:56
+msgid "Checking"
+msgstr "Ellenőrzés"
+
+#: view/error/index.phtml:14
+msgid "An error occurred"
+msgstr "Hiba történt"
+
+#: view/error/index.phtml:21
+msgid "Additional information"
+msgstr "Kiegészítő adatok"
+
+#: view/error/index.phtml:24 view/error/index.phtml:48
+msgid "File"
+msgstr "Fájl"
+
+#: view/error/index.phtml:28 view/error/index.phtml:52
+msgid "Message"
+msgstr "Üzenet"
+
+#: view/error/index.phtml:32 view/error/index.phtml:56
+msgid "Stack trace"
+msgstr "Vermelési folyamat"
+
+#: view/error/index.phtml:42
+msgid "Previous exceptions"
+msgstr "Korábbi kivételek"
+
+#: view/error/index.phtml:71
+msgid "No Exception available"
+msgstr "Nincs kivétel"
+
+#: language/_annotated_strings.php:3
+msgid "Database connection string"
+msgstr "Adatbázis (kapcsolati karakterlánc)"
+
+#: language/_annotated_strings.php:6
+msgid "Initial user name"
+msgstr "Induló felhasználónév"
+
+#: language/_annotated_strings.php:9
+msgid "Password"
+msgstr "Jelszó"
+
+#: language/_annotated_strings.php:12
+msgid "Email address for system messages"
+msgstr "Rendszerüzenetek e-mail címe"
+
+#: language/_annotated_strings.php:15
+msgid "Connecting the database failed: %databaseError%"
+msgstr "Az adatbázishoz való kapcsolódás sikertelen volt: %databaseError%"
+
+#: language/_annotated_strings.php:18
+msgid "Invalid connection string"
+msgstr "Érvénytelen \"Database Connection String\""
