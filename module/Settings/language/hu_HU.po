@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014
+# Sebestyén György <sebigyuri@gmail.com>, 2020.
+# Gyuri <sebigyuri@gmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-16 15:56+0200\n"
+"PO-Revision-Date: 2020-11-29 16:28+0100\n"
+"Last-Translator: Sebestyén György <sebestyengy@gmail.hu>\n"
+"Language-Team: magyar <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: view/settings/index/index.phtml:3 view/settings/index/index.phtml:9
+#: language/_annotated_strings.php:33
+msgid "Settings"
+msgstr "Beállítások"
+
+#: src/Settings/Form/LanguageSettingsFieldset.php:24
+msgid "general settings"
+msgstr "általános beállítások"
+
+#: language/_annotated_strings.php:3
+msgid "choose your language"
+msgstr "válasszon ki egy nyelvet"
+
+#: language/_annotated_strings.php:6
+msgid "English"
+msgstr "angol"
+
+#: language/_annotated_strings.php:9
+msgid "French"
+msgstr "francia"
+
+#: language/_annotated_strings.php:12
+msgid "German"
+msgstr "német"
+
+#: language/_annotated_strings.php:15
+msgid "defines the languages of this frontend."
+msgstr "beállítja a honlap nyelvét."
+
+#: language/_annotated_strings.php:18
+#, php-format
+msgid "Customize enabled elements for %s"
+msgstr "A %s mező beállítása a jelentkezési űrlapon"
+
+#: language/_annotated_strings.php:21
+msgid "Activate"
+msgstr "Bekapcsolás"
+
+#: language/_annotated_strings.php:24
+msgid "Enables the form element customization."
+msgstr "Lehetővé teszi a jelentkezési űrlap mezőinek ki- és bekapcsolását"
+
+#: language/_annotated_strings.php:27
+msgid "Changes successfully saved"
+msgstr "A változtatások sikeresen elmentve."
+
+#: language/_annotated_strings.php:30
+msgid "Changes could not be saved"
+msgstr "A változtatások mentése meghiúsult."

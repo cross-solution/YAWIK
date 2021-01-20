@@ -2,7 +2,7 @@
 //: ./src/Validator/MongoDbConnectionString.php:41
 translate('Invalid connection string');
 
-//: ./src/Validator/MongoDbConnection.php:45
+//: ./src/Validator/MongoDbConnection.php:46
 translate('Connecting the database failed: %databaseError%');
 
 //: ./src/Form/Installation.php:42
