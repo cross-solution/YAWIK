@@ -60,7 +60,12 @@ class SendMailStrategy extends AbstractStrategy
         }
 
         try {
-            $this->mailService->send($job->getMail());
+            $mail = $job->getMail();
+            if (is_array($mail)) {
+                $this->mailService->send(...$mail);
+            } else {
+                $this->mailService->send($mail);
+            }
         } catch (\Throwable $e) {
 
             $event->setResult(ProcessJobEvent::JOB_STATUS_FAILURE);
