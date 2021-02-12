@@ -20,20 +20,18 @@ use Laminas\Mail\Header;
  */
 class StringTemplateMessage extends TranslatorAwareMessage
 {
-    protected $variables;
-    protected $callbacks;
+    protected $variables = [];
+    protected $callbacks = [];
     protected $template;
-    
-    
+
+
     public function __construct(array $options = array())
     {
         parent::__construct($options);
-        $this->variables = array();
-        $this->callbacks = array();
         $this->getHeaders()->addHeader(Header\ContentType::fromString('Content-Type: text/plain; charset=UTF-8'));
         $this->setEncoding('UTF-8');
     }
-    
+
     public function setVariables($variables = array())
     {
         $this->variables = array();
@@ -74,7 +72,7 @@ class StringTemplateMessage extends TranslatorAwareMessage
 
         return $this;
     }
-    
+
     public function addVariables($variables = array())
     {
         if (!is_array($variables)) {
@@ -88,23 +86,23 @@ class StringTemplateMessage extends TranslatorAwareMessage
             }
             $variables = \Laminas\Stdlib\ArrayUtils::iteratorToArray($variables);
         }
-        
+
         $this->variables = array_merge($this->variables, $variables);
         return $this;
     }
-    
+
     public function setVariable($name, $value)
     {
         $this->variables[$name] = $value;
         return $this;
     }
-    
+
     public function setCallbacks($callbacks = array())
     {
         $this->callbacks = array();
         return $this->addCallbacks($callbacks);
     }
-    
+
     public function addCallbacks($callbacks = array())
     {
         if (!is_array($callbacks)) {
@@ -117,13 +115,13 @@ class StringTemplateMessage extends TranslatorAwareMessage
                 );
             }
         }
-        
+
         foreach ($callbacks as $name => $callback) {
             $this->setCallback($name, $callback);
         }
         return $this;
     }
-    
+
     public function setCallback($name, $callable)
     {
         if (!is_string($callable) && !is_callable($callable)) {
@@ -131,43 +129,43 @@ class StringTemplateMessage extends TranslatorAwareMessage
         }
         $this->callbacks[$name] = $callable;
     }
-    
+
     public function getBodyText()
     {
         $body = parent::getBodyText();
         $body = $this->parseVariables($body);
         $body = $this->parseCallbacks($body);
-        
+
         if (preg_match('~\+\+subject:(?P<subject>.*?)\+\+~is', $body, $match)) {
             $this->setSubject(trim($match['subject']));
             $body = str_replace($match[0], '', $body);
             $body = trim($body);
         }
-        
+
         return $body;
     }
-    
+
     protected function parseVariables($body)
     {
         if (empty($this->variables)) {
             return $body;
         }
-        
+
         $variableNames = array_map(array($this, 'getNamePattern'), array_keys($this->variables));
         $variableValues = array_values($this->variables);
         $body = preg_replace($variableNames, $variableValues, $body);
         return $body;
     }
-    
+
     protected function parseCallbacks($body)
     {
         if (null == $this->callbacks) {
             return $body;
         }
-        
+
         foreach ($this->callbacks as $name => $callable) {
             $pattern = $this->getNamePattern($name);
-            
+
             if (preg_match($pattern, $body)) {
                 if (is_string($callable)) {
                     if (!method_exists($this, $callable)) {
@@ -182,7 +180,7 @@ class StringTemplateMessage extends TranslatorAwareMessage
         }
         return $body;
     }
-    
+
     protected function getNamePattern($name)
     {
         return '~##' . preg_quote($name) . '##~is';
