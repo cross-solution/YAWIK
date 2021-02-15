@@ -19,7 +19,6 @@ return [
     'Cv',
     'Applications',
     'Jobs',
-    'Orders',
     'Settings',
     'Pdf',
     'Geo',
