@@ -1,0 +1,37 @@
+{
+    "type": "yawik-module",
+    "name": "yawik/migration",
+    "description": "This package provides a migration module for yawik. Migrate database changes.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        },
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        }
+    ],
+    "keywords": [
+        "yawik",
+        "module",
+        "migrate",
+        "database"
+    ],
+    "require": {
+        "php": ">=7.4",
+        "yawik/core": "^0.35"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yawik\\Migration": "src/",
+            "Yawik\\Migration\\Tests": "tests/"
+        }
+    },
+    "extra": {
+        "zf": {
+            "module": "Yawik\\Migration"
+        }
+    }
+}
