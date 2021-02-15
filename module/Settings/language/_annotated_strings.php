@@ -2,18 +2,18 @@
 //: ./config/module.config.php:78
 translate('Settings');
 
-//: ./src/Settings/Controller/IndexController.php:112
-translate('Changes successfully saved');
-
-//: ./src/Settings/Controller/IndexController.php:113
-translate('Changes could not be saved');
-
-//: ./src/Settings/Form/DisableElementsCapableFormSettingsFieldset.php:87
+//: ./src/Form/DisableElementsCapableFormSettingsFieldset.php:86
 translate('Customize enabled elements for %s');
 
-//: ./src/Settings/Form/DisableElementsCapableFormSettingsFieldset.php:97
+//: ./src/Form/DisableElementsCapableFormSettingsFieldset.php:96
 translate('Activate');
 
-//: ./src/Settings/Form/DisableElementsCapableFormSettingsFieldset.php:98
+//: ./src/Form/DisableElementsCapableFormSettingsFieldset.php:97
 translate('Enables the form element customization.');
+
+//: ./src/Controller/IndexController.php:111
+translate('Changes successfully saved');
+
+//: ./src/Controller/IndexController.php:112
+translate('Changes could not be saved');
 

@@ -1,0 +1,416 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014-2017
+# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
+# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
+# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-28 11:56+0200\n"
+"PO-Revision-Date: 2020-12-04 13:25+0100\n"
+"Last-Translator: Sebestyén György <sebestyengy@gmail.hu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:124
+msgid "Imprint"
+msgstr "Jelzet"
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr "Adószám"
+
+#: view/partial/loading-popup.phtml:18
+msgid "Loading"
+msgstr "Betöltés folyamatban..."
+
+#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:34
+msgid "First"
+msgstr "Első"
+
+#: view/partial/pagination-control.phtml:41
+#: view/partial/pagination-control.phtml:45
+msgid "Back"
+msgstr "Vissza"
+
+#: view/partial/pagination-control.phtml:73
+#: view/partial/pagination-control.phtml:77
+#: src/Core/Form/View/Helper/FormWizardContainer.php:103
+msgid "Next"
+msgstr "Tovább"
+
+#: view/partial/pagination-control.phtml:82
+#: view/partial/pagination-control.phtml:89
+msgid "Last"
+msgstr "Utolsó"
+
+#: view/form/permissions-collection.phtml:15
+msgid "Add permission"
+msgstr "Hozzáférési jogok megadása"
+
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:123
+msgid "Admin"
+msgstr "Adminisztrator"
+
+#: view/core/admin/index.phtml:12 view/core/index/dashboard.phtml:11
+#: view/core/index/dashboard.phtml:14
+msgid "Dashboard"
+msgstr "Irányítópult"
+
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:120
+msgid "Home"
+msgstr "Kezdőlap"
+
+#: view/core/index/index.phtml:13
+msgid "Welcome to YAWIK!"
+msgstr "Üdvözöljük a YAWIK oldalán!"
+
+#: view/core/index/index.phtml:14
+msgid "we're connecting recruiters and applicants"
+msgstr "Kapcsolatot teremtünk a cégek, a toborzók és az álláskeresők között."
+
+#: view/core/index/index.phtml:15
+msgid "Login to an open source applicant tracking system using your favorit social network"
+msgstr "Jelentkezz be közösségi azonosítóddal nyílt forráskódú álláskezelő alkalmazásunkba."
+
+#: view/core/index/index.phtml:19
+#, php-format
+msgid "Login with %s"
+msgstr "Bejelentkezési azonosítód %s"
+
+#: view/core/index/index.phtml:28
+msgid "responsive design (uses bootstrap3 and font awesome)"
+msgstr "Alkalmazkodó felület (Bootstrap3 és Awesome Fonts)"
+
+#: view/core/index/index.phtml:29
+msgid "multilingual"
+msgstr "többnyelvű"
+
+#: view/core/index/index.phtml:30
+msgid "ready for social recruiting"
+msgstr "közösségi toborzásra alkalmas"
+
+#: view/core/index/index.phtml:31
+msgid "enter job ads"
+msgstr "Állásajánlat létrehozása"
+
+#: view/core/index/index.phtml:32
+#, php-format
+msgid "%sapplication forms%s."
+msgstr "%sJelentkezési űrlapok%s."
+
+#: view/core/index/index.phtml:36
+msgid "One-Click-Apply"
+msgstr "Egy kattintásos jelentkezés"
+
+#: view/core/index/index.phtml:37
+msgid "manage applications"
+msgstr "Jelentkezések kezelése"
+
+#: view/core/index/index.phtml:38
+msgid "open and free software"
+msgstr "Nyílt forráskódú szabad szoftver"
+
+#: view/core/index/index.phtml:46
+msgid "Developer News"
+msgstr "Hírek fejlesztőknek"
+
+#: view/core/index/index.phtml:63
+msgid "Recruiter News"
+msgstr "Hírek személyzetiseknek"
+
+#: view/core/index/dashboard-widget.phtml:19
+msgid "Error loading widget."
+msgstr "Az elem betöltése meghiúsult."
+
+#: view/error/index.phtml:14
+msgid "An error occurred"
+msgstr "Hiba történt"
+
+#: view/error/index.phtml:21 view/error/403.phtml:23 view/error/404.phtml:67
+msgid "Additional information"
+msgstr "Kiegészítő adatok"
+
+#: view/error/index.phtml:24 view/error/index.phtml:48 view/error/403.phtml:26
+#: view/error/403.phtml:50 view/error/404.phtml:70 view/error/404.phtml:94
+msgid "File"
+msgstr "Fájl"
+
+#: view/error/index.phtml:28 view/error/index.phtml:52 view/error/403.phtml:30
+#: view/error/403.phtml:54 view/error/404.phtml:74 view/error/404.phtml:98
+msgid "Message"
+msgstr "Üzenet"
+
+#: view/error/index.phtml:32 view/error/index.phtml:56 view/error/403.phtml:34
+#: view/error/403.phtml:58 view/error/404.phtml:78 view/error/404.phtml:102
+msgid "Stack trace"
+msgstr "Rangsorolt folyamat"
+
+#: view/error/index.phtml:42 view/error/403.phtml:44 view/error/404.phtml:88
+msgid "Previous exceptions"
+msgstr "Korábbi kivételek"
+
+#: view/error/index.phtml:71 view/error/403.phtml:73 view/error/404.phtml:117
+msgid "No Exception available"
+msgstr "Nincs kivétel"
+
+#: view/error/403.phtml:15
+msgid "A 403 error occurred"
+msgstr "403-as hiba történt"
+
+#: view/error/404.phtml:15
+msgid "A 404 error occurred"
+msgstr "404-es hiba történt"
+
+#: view/error/404.phtml:24
+msgid "The requested controller was unable to dispatch the request."
+msgstr "A meghívott kontroller a kérést nem tudta továbbítani."
+
+#: view/error/404.phtml:27
+msgid "The requested controller could not be mapped to an existing controller class."
+msgstr "A meghívott kontroller besorolhatatlan volt a létező kontroller osztályokba."
+
+#: view/error/404.phtml:30
+msgid "The requested controller was not dispatchable."
+msgstr "A meghívott kontroller továbbíthatatlan volt."
+
+#: view/error/404.phtml:33
+msgid "The requested URL could not be matched by routing."
+msgstr "A kért URL útvonala meghatározhatatlan volt."
+
+#: view/error/404.phtml:36
+msgid "We cannot determine at this time why a 404 was generated."
+msgstr "Jelenleg meghatározhatatlan, miért lépett fel a 404-es hiba."
+
+#: view/error/404.phtml:48
+msgid "Controller"
+msgstr "Kontroller"
+
+#: view/error/404.phtml:55
+#, php-format
+msgid "resolves to %s"
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr "Javascript kikapcsolva."
+
+#: view/layout/_noscript-notice.phtml:22
+msgid "JavaScript is required to use this site. Please enable JavaScript and reload."
+msgstr "Az oldal megjelenítéséhez Javascript szükséges. Kérjük engedélyezze a Javascript-et és frissítse az oldalt."
+
+#: view/layout/layout.phtml:42
+msgid "YAWIK"
+msgstr "YAWIK"
+
+#: view/layout/layout.phtml:91
+msgid "Help to translate YAWIK"
+msgstr "Segíts a YAWIK lefordításában!"
+
+#: view/layout/layout.phtml:123
+msgid "All rights reserved."
+msgstr "Minden jog fenntartva."
+
+#: src/Core/Form/PermissionsCollection.php:36
+msgid "Permissions"
+msgstr "Hozzáférési jogok"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:93
+#: src/Core/Form/View/Helper/FormImageUpload.php:83
+msgid "The file is too big"
+msgstr "Az adatcsomag túl nagy"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:94
+#: src/Core/Form/View/Helper/FormImageUpload.php:84
+msgid "The file type is not supported"
+msgstr "Az adattípus nem támogatott"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:96
+#, php-format
+msgid "You may only upload %d files"
+msgstr "Ön összesen %d fájlt tölthet fel"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:98
+msgid "An unknown error occured."
+msgstr "Ismeretlen hiba lépett fel."
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:293
+msgid "Click here to add files or use drag and drop."
+msgstr "Fájlok hozzáadásához kattintson ide, vagy húzza és ejtse ide őket."
+
+#: src/Core/Form/View/Helper/FormImageUpload.php:44
+msgid "Click here to add an image or use drag and drop."
+msgstr "Képek hozzáadásához kattintson ide, vagy húzza és ejtse ide őket."
+
+#: src/Core/Form/View/Helper/FormWizardContainer.php:102
+msgid "previous"
+msgstr "vissza"
+
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
+msgid "processing"
+msgstr "feldolgozás"
+
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:64
+#: language/_annotated_strings.php:66
+msgid "Remove"
+msgstr "Törlés"
+
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:85
+msgid "Really remove?"
+msgstr "Tényleg töröljük?"
+
+#: src/Core/Form/View/Helper/FormCollectionContainer.php:89
+#, php-format
+msgid "Add %s"
+msgstr "%s hozzáadása"
+
+#: src/Core/Form/View/Helper/SummaryForm.php:190
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: src/Core/Form/LocalizationSettingsFieldset.php:26
+#: language/_annotated_strings.php:117
+msgid "general settings"
+msgstr "általános beállítások"
+
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:9
+#: language/_annotated_strings.php:27
+msgid "Save"
+msgstr "Mentés"
+
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:12
+#: language/_annotated_strings.php:30
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: language/_annotated_strings.php:15
+msgid "Name"
+msgstr "Név"
+
+#: language/_annotated_strings.php:18
+msgid "Value"
+msgstr "Érték"
+
+#: language/_annotated_strings.php:21
+msgid "Apply filter"
+msgstr "Szűrő alkalmazása"
+
+#: language/_annotated_strings.php:24
+msgid "Reset filter"
+msgstr "Szűrő visszaállítása"
+
+#: language/_annotated_strings.php:33
+msgid "Rights"
+msgstr "Jogosultságok"
+
+#: language/_annotated_strings.php:36
+msgid "View"
+msgstr "Nézet"
+
+#: language/_annotated_strings.php:39
+msgid "Write"
+msgstr "Szerkesztés"
+
+#: language/_annotated_strings.php:42
+msgid "Not Rated"
+msgstr "Nem értékelt"
+
+#: language/_annotated_strings.php:45
+msgid "Poor"
+msgstr "Alkalmatlan"
+
+#: language/_annotated_strings.php:48
+msgid "Bad"
+msgstr "Átlag alatti"
+
+#: language/_annotated_strings.php:51
+msgid "Average"
+msgstr "Átlagos"
+
+#: language/_annotated_strings.php:54
+msgid "Good"
+msgstr "Jó"
+
+#: language/_annotated_strings.php:57
+msgid "Excellent"
+msgstr "Nagyon jó"
+
+#: language/_annotated_strings.php:60
+msgid "Please enter a phone Number. You can use the intenational format. Only digits and '+'."
+msgstr "Adjon meg egy telefonszámot. Használhatja a nemzetközi formátumot is a \"+\" és utána a számok megadásával."
+
+#: language/_annotated_strings.php:63
+msgid "Remove all"
+msgstr "Összes törlése"
+
+#: language/_annotated_strings.php:69 language/_annotated_strings.php:75
+msgid "Search"
+msgstr "Keresés"
+
+#: language/_annotated_strings.php:72
+msgid "Search query"
+msgstr "Lekérdezés"
+
+#: language/_annotated_strings.php:78
+msgid "Clear"
+msgstr "Szűrő törlése"
+
+#: language/_annotated_strings.php:81
+msgid "choose your language"
+msgstr "válasszon nyelvet"
+
+#: language/_annotated_strings.php:84
+msgid "English"
+msgstr "angol"
+
+#: language/_annotated_strings.php:87
+msgid "French"
+msgstr "francia"
+
+#: language/_annotated_strings.php:90
+msgid "German"
+msgstr "német"
+
+#: language/_annotated_strings.php:93
+msgid "Italian"
+msgstr "olasz"
+
+#: language/_annotated_strings.php:96
+msgid "Polish"
+msgstr "lengyel"
+
+#: language/_annotated_strings.php:99
+msgid "Russian"
+msgstr "orosz"
+
+#: language/_annotated_strings.php:102
+msgid "Turkish"
+msgstr "török"
+
+#: language/_annotated_strings.php:105
+msgid "Spanish"
+msgstr "spanyol"
+
+#: language/_annotated_strings.php:108
+msgid "defines the languages of this frontend."
+msgstr "Állítsa be az oldal nyelvét."
+
+#: language/_annotated_strings.php:111
+msgid "choose your timzone"
+msgstr "Válassza ki az idősávot"
+
+#: language/_annotated_strings.php:114
+msgid "defines your local timezone."
+msgstr "Meghatározza az Ön idősávját."

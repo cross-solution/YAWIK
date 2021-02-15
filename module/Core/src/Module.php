@@ -49,7 +49,7 @@ class Module implements
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.35.2';
+    const VERSION = '0.35.3';
 
     /**
      * @param ModuleOptions $options
@@ -93,6 +93,14 @@ class Module implements
     public function getConsoleUsage(Console $console)
     {
         return [
+            // queue commands
+            'queue mongo <name>' => 'Starts the worker process for the queue <name>',
+            'This process is needed to execute waiting jobs in the queue. It is recommend to run this process',
+            'in a process management tool capable of automatic restarting, such as supervisor',
+            '',
+            'queue mongo --list <name>' => 'List enqueued jobs from the queue <name>',
+            ['--limit=INT', 'Limit the result'],
+            '',
             'purge [--no-check] [--options=] <entity> [<id>]'  => 'Purge entities',
             'This command will load entities to be purged, checks the dependency of each and removes all entities completely from the',
             'database. However, called with no <entity> and options it will output a list of all available entity loaders and its options.',

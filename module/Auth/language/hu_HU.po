@@ -1,0 +1,543 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014-2017
+# Carsten Bleek <cbleek@yawik.org>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-27 19:26+0200\n"
+"PO-Revision-Date: 2020-12-04 13:23+0100\n"
+"Last-Translator: Sebestyén György <sebestyengy@gmail.hu>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: view/form/user-info-container.phtml:25
+msgid "Image"
+msgstr "Kép"
+
+#: view/form/social-profiles-fieldset.phtml:41
+msgid "Loading"
+msgstr "Betöltés folyamatban"
+
+#: view/form/social-profiles-fieldset.phtml:47
+msgid "Close"
+msgstr "Bezárás"
+
+#: view/form/social-profiles-button.phtml:43
+msgid "Attach profile"
+msgstr "Profil hozzáadása"
+
+#: view/form/social-profiles-button.phtml:44
+msgid "Detach profile"
+msgstr "Profil törlése"
+
+#: view/form/social-profiles-button.phtml:47
+msgid "View profile data"
+msgstr "Profil megtekintése"
+
+#: view/form/userselect.phtml:28
+msgid "Add users"
+msgstr "Felhasználók hozzáadása"
+
+#: view/form/userselect.phtml:32
+msgid "At least one user has to be assigned"
+msgstr "Legalább egy felhasználót hozzá kell adni"
+
+#: view/sidebar/groups-menu.phtml:15
+msgid "My groups"
+msgstr "Csoportjaim"
+
+#: view/error/social-profiles-unconfigured.phtml:13
+msgid "Missing Configuration"
+msgstr "Hiányzó beállítások"
+
+#: view/error/social-profiles-unconfigured.phtml:14
+msgid "Unfortunately there seems to be missing configuration."
+msgstr "Itt még hiányzik a beállítás."
+
+#: view/error/social-profiles-unconfigured.phtml:19
+msgid "The login via social networks does not work at the moment due to the missing of some crucial configuration data."
+msgstr "A közösségi hálózaton keresztüli bejelentkezés pillanatnyilag nem működik, mert alapvető beállítási adatok hiányoznak."
+
+#: view/auth/users/list.ajax.phtml:14 language/_annotated_strings.php:81
+msgid "Name"
+msgstr "Név"
+
+#: view/auth/users/list.ajax.phtml:18
+msgid "Role"
+msgstr "Szerepkör"
+
+#: view/auth/users/list.ajax.phtml:22 view/auth/index/index.phtml:14
+#: view/auth/index/index.phtml:15 view/auth/index/index.phtml:36
+#: view/auth/index/login-info.phtml:110
+msgid "Login"
+msgstr "Bejelentkezés"
+
+#: view/auth/users/list.ajax.phtml:59
+msgid "Action"
+msgstr "Művelet"
+
+#: view/auth/users/list.ajax.phtml:73
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: view/auth/users/edit.phtml:11
+msgid "User data"
+msgstr "Felhasználói adatok"
+
+#: view/auth/users/list.phtml:13 src/Auth/Form/GroupUsersCollection.php:89
+#: language/_annotated_strings.php:222
+msgid "Users"
+msgstr "Felhasználó"
+
+#: view/auth/users/list.phtml:22
+msgid "No user found matching your criteria."
+msgstr "Az Ön által keresett felhasználó nem található"
+
+#: view/auth/manage-groups/index.phtml:11
+msgid "Manage groups"
+msgstr "Csoportok kezelése"
+
+#: view/auth/manage-groups/index.phtml:15
+msgid "Add group"
+msgstr "Csoport hozzáadása"
+
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:66
+msgid "Group name"
+msgstr "Csoportnév"
+
+#: view/auth/manage-groups/index.phtml:25
+msgid "Actions"
+msgstr "Műveletek"
+
+#: view/auth/manage-groups/form.phtml:39
+msgid "search for users"
+msgstr "Felhasználók keresése"
+
+#: view/auth/manage-groups/form.phtml:74
+msgid "Ok"
+msgstr "Rendben"
+
+#: view/auth/index/index.phtml:11
+msgid "Login required"
+msgstr "Bejelentkezés szükséges"
+
+#: view/auth/index/index.phtml:12
+msgid "Please authenticate yourself to proceed"
+msgstr "A továbblépéshez adja meg az azonosítania kell magát"
+
+#: view/auth/index/index.phtml:42 view/auth/register/index.phtml:1
+#: view/auth/register/index.phtml:2 language/_annotated_strings.php:90
+msgid "Register"
+msgstr "Regisztráció"
+
+#: view/auth/index/index.phtml:57 view/auth/index/index.phtml:58
+msgid "I forgot my password"
+msgstr "Elfelejtette a jelszavát?"
+
+#: view/auth/index/index.phtml:66 view/auth/index/login-info.phtml:118
+#, php-format
+msgid "Login with %s"
+msgstr "Belépés az alábbiakkal %s"
+
+#: view/auth/index/index.phtml:67
+msgid "Login with ..."
+msgstr "Belépés az alábbiakkal..."
+
+#: view/auth/index/index.phtml:84
+#, php-format
+msgid "Register with %s"
+msgstr "Regisztráció az alábbiakkal %s"
+
+#: view/auth/index/index.phtml:85
+msgid "Register with ..."
+msgstr "Regisztráció az alábbiakkal..."
+
+#: view/auth/index/job-not-found.phtml:11
+msgid "A 410 error occured"
+msgstr "Egy 410-es hiba lépett fel"
+
+#: view/auth/index/job-not-found.phtml:13
+msgid "Unknown apply identifier"
+msgstr "Ismeretlen jelentkezési azonosító"
+
+#: view/auth/index/job-not-found.phtml:14
+msgid "A job ad with the provided apply identifier could not be found."
+msgstr "A megadott hivatkozású álláshirdetés nem található."
+
+#: view/auth/index/login-info.phtml:19
+msgid "switched"
+msgstr "cserélve"
+
+#: view/auth/index/login-info.phtml:28 view/auth/manage/profile.phtml:11
+#: view/auth/manage/profile.phtml:20
+msgid "My profile"
+msgstr "Saját profil"
+
+#: view/auth/index/login-info.phtml:31
+msgid "Change password"
+msgstr "Jelszó megváltoztatása"
+
+#: view/auth/index/login-info.phtml:46
+msgid "Create my organization"
+msgstr "Saját cég létrehozása"
+
+#: view/auth/index/login-info.phtml:49
+#, php-format
+msgid "Edit \"%s\""
+msgstr "\"%s\" szerkesztése"
+
+#: view/auth/index/login-info.phtml:65
+msgid "Clear switched user"
+msgstr "Cserélt felhasználó törlése"
+
+#: view/auth/index/login-info.phtml:70 view/auth/index/login-info.phtml:186
+msgid "Switch user"
+msgstr "Felhasználó cseréje"
+
+#: view/auth/index/login-info.phtml:91
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+#: view/auth/index/login-info.phtml:98
+#, php-format
+msgid "Hello %s"
+msgstr "Üdvözöljük Önt %s"
+
+#: view/auth/index/login-info.phtml:99
+msgid "Guest"
+msgstr "Vendég"
+
+#: view/auth/index/login-info.phtml:115
+msgid "Login via"
+msgstr "Belépés az alábbiakkal"
+
+#: view/auth/index/login-info.phtml:135
+msgid "Select the user to switch to"
+msgstr "Válassza ki a kívánt felhasználói azonosítót"
+
+#: view/auth/index/login-info.phtml:187
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: view/auth/forgot-password/index.phtml:1
+#: view/auth/forgot-password/index.phtml:2
+#: view/auth/forgot-password/index.phtml:8 language/_annotated_strings.php:78
+msgid "Reset your password"
+msgstr "Jelszó visszaállítása"
+
+#: view/auth/forgot-password/index.phtml:7
+msgid "Please enter your username or email address. You will receive a link to create a new password via email."
+msgstr "Adja meg felhasználónevét vagy e-mail címét. A kapott e-mailben levő hivatkozáson keresztül új jelszót állíthat be."
+
+#: view/auth/register/completed.phtml:2
+msgid "The registration has been successful"
+msgstr "A regisztráció sikeres volt"
+
+#: view/auth/register/completed.phtml:4 language/_annotated_strings.php:165
+msgid "An Email with an activation link has been sent, please try to check your email box"
+msgstr "Küldtünk Önnek e-mailben egy aktiváló hivatkozást. Kérjük ellenőrizze postafiókját."
+
+#: view/auth/remove/index.phtml:5
+msgid "Account removal confirmation"
+msgstr "Erősítse meg a fiók törlését"
+
+#: view/auth/remove/index.phtml:9
+msgid "Removal of user account failed."
+msgstr "A felhasználói fiók törlése nem sikerült"
+
+#: view/auth/remove/index.phtml:30
+#, php-format
+msgid "and %d other(s)"
+msgstr ""
+
+#: view/auth/remove/index.phtml:38
+msgid "Remove my account"
+msgstr "Fiókom törlése"
+
+#: view/auth/remove/index.phtml:39
+msgid "Cancel account removal"
+msgstr "Mégsem"
+
+#: view/auth/password/index.phtml:11 view/auth/password/index.phtml:25
+msgid "My password"
+msgstr "Jelszavam"
+
+#: view/auth/password/index.phtml:22
+msgid "Here you can change your password"
+msgstr "Itt megváltoztathatja jelszavát"
+
+#: view/auth/manage/profile.phtml:49
+msgid "Employee of the Organization"
+msgstr "A cég munkatársa"
+
+#: view/auth/manage/profile.phtml:52
+msgid "Organization Owner"
+msgstr "A cég tulajdonosa"
+
+#: view/auth/manage/profile.phtml:57
+msgid "Employees"
+msgstr "Munkatársak"
+
+#: view/auth/manage/profile.phtml:91
+msgid "Remove account"
+msgstr "Fiók törlése"
+
+#: src/Auth/Form/UserInfo.php:33 language/_annotated_strings.php:54
+msgid "Personal informations"
+msgstr "Személyi adatok"
+
+#: src/Auth/Form/UserPasswordFieldset.php:35 language/_annotated_strings.php:57
+#: language/_annotated_strings.php:60 language/_annotated_strings.php:114
+msgid "Password"
+msgstr "Jelszó"
+
+#: src/Auth/Form/GroupFieldset.php:31
+msgid "Group data"
+msgstr "Csoportadatok"
+
+#: src/Auth/Form/UserStatus.php:28 language/_annotated_strings.php:93
+msgid "status"
+msgstr "Állapot"
+
+#: src/Auth/Controller/ManageController.php:61
+msgid "You can connect your user profile with social networks. This allows you to log in via these networks."
+msgstr "Felhasználói fiókját további szociális hálózatokkal is összekapcsolhatja, ahonnan szintén bejelentkezhet."
+
+#: src/Auth/Controller/ManageController.php:129
+#, php-format
+msgid "Could not connect your %s profile with your user account. The profile is already connected to another user account."
+msgstr "A %s profilt nem sikerült összekapcsolni az Ön fiókjával, mivel az egy másik felhasználói fiókhoz tartozik."
+
+#: language/_annotated_strings.php:3
+msgid "Create group"
+msgstr "Új csoport létrehozása"
+
+#: language/_annotated_strings.php:6
+msgid "Edit group"
+msgstr "Csoport szerkesztése"
+
+#: language/_annotated_strings.php:9
+msgid "Social Profiles"
+msgstr "Közösségi profilok"
+
+#: language/_annotated_strings.php:12
+#, php-format
+msgid "Allow users to attach their %s profile."
+msgstr "Lehetővé tesz az Ön %s profiljának csatolását az álláspályázathoz."
+
+#: language/_annotated_strings.php:15
+msgid "Click here to enter contact informations."
+msgstr "Elérhetőségeinek megadásához kattintson ide."
+
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:84
+msgid "Email"
+msgstr "E-Mail"
+
+#: language/_annotated_strings.php:21
+msgid "Phone"
+msgstr "Telefon"
+
+#: language/_annotated_strings.php:24
+msgid "Postalcode"
+msgstr "Irányítószám"
+
+#: language/_annotated_strings.php:27
+msgid "City"
+msgstr "Helység"
+
+#: language/_annotated_strings.php:30
+msgid "Salutation"
+msgstr "Megszólítás"
+
+#: language/_annotated_strings.php:33
+msgid "Mr."
+msgstr "úr"
+
+#: language/_annotated_strings.php:36
+msgid "Mrs."
+msgstr "hölgy"
+
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:105
+msgid "please select"
+msgstr "válassza ki"
+
+#: language/_annotated_strings.php:42
+msgid "First name"
+msgstr "Keresztnév"
+
+#: language/_annotated_strings.php:45
+msgid "Last name"
+msgstr "Családnév"
+
+#: language/_annotated_strings.php:48
+msgid "street"
+msgstr "utca/tér"
+
+#: language/_annotated_strings.php:51
+msgid "house number"
+msgstr "házszám"
+
+#: language/_annotated_strings.php:63
+msgid "Retype password"
+msgstr "Jelszó megismétlése"
+
+#: language/_annotated_strings.php:69
+msgid "Select a group name. You can add users to your group and then work together on jobs and job applications."
+msgstr "Adjon nevet a csoportjának. A csoporthoz adott felhasználókkal együttműködhet az álláshirdetések és jelentkezések feldolgozásában."
+
+#: language/_annotated_strings.php:72
+msgid "General settings"
+msgstr "Általános beállítások"
+
+#: language/_annotated_strings.php:75
+msgid "Username or email"
+msgstr "Felhasználónév vagy a-mail"
+
+#: language/_annotated_strings.php:87
+msgid "Are you human?"
+msgstr "Ön ember?"
+
+#: language/_annotated_strings.php:96
+msgid "General"
+msgstr "Általános"
+
+#: language/_annotated_strings.php:99
+msgid "I am"
+msgstr "Az vagyok"
+
+#: language/_annotated_strings.php:102
+msgid "Status"
+msgstr "Állapot"
+
+#: language/_annotated_strings.php:108
+msgid "The group name \"%value%\" is already in use."
+msgstr "A \"%value%\" csoportnév már létezik."
+
+#: language/_annotated_strings.php:111
+msgid "Login name"
+msgstr "Felhasználónév"
+
+#: language/_annotated_strings.php:117
+msgid "login"
+msgstr "bejelentkezés"
+
+#: language/_annotated_strings.php:120
+msgid "Cannot proceed, token expired"
+msgstr "A bejelentkezési kulcs lejárt"
+
+#: language/_annotated_strings.php:123
+msgid "User cannot be found for specified token"
+msgstr "A bejelentkezési kulcshoz nem található felhasználó"
+
+#: language/_annotated_strings.php:126 language/_annotated_strings.php:135
+#: language/_annotated_strings.php:153 language/_annotated_strings.php:177
+#: language/_annotated_strings.php:204
+msgid "An unexpected error has occurred, please contact your system administrator"
+msgstr "Váratlan hiba lépett fel. Lépjen kapcsolatba a rendszergazdával."
+
+#: language/_annotated_strings.php:129
+msgid "User email verified successfully. You need to set a password to log in."
+msgstr "A felhasználói e-mail cím igazolása sikerült. Állítsa be a belépési jelszót."
+
+#: language/_annotated_strings.php:132
+msgid "User cannot be found"
+msgstr "A felhasználó nem található"
+
+#: language/_annotated_strings.php:138
+msgid "Group created"
+msgstr "A csoport létrehozva"
+
+#: language/_annotated_strings.php:141
+msgid "Group updated"
+msgstr "A csoport frissítve"
+
+#: language/_annotated_strings.php:144
+msgid "Changes not saved."
+msgstr "A változtatások elmentése sikertelen"
+
+#: language/_annotated_strings.php:147
+msgid "You are now logged in."
+msgstr "Ön sikeresen bejelentkezett"
+
+#: language/_annotated_strings.php:150
+msgid "Authentication failed."
+msgstr "A bejelentkezés nem sikerült"
+
+#: language/_annotated_strings.php:156
+msgid "You are now logged out"
+msgstr "Ön sikeresen kijelentkezett"
+
+#: language/_annotated_strings.php:159
+msgid "Type name, email address, role, or login name"
+msgstr "Keresés név, e-mail cím, szerepkör vagy bejelentkezési név alapján"
+
+#: language/_annotated_strings.php:162
+msgid "Registration is disabled"
+msgstr "A regisztráció letiltva"
+
+#: language/_annotated_strings.php:168 language/_annotated_strings.php:192
+msgid "Please fill form correctly"
+msgstr "A kitöltött űrlap hibákat tartalmaz"
+
+#: language/_annotated_strings.php:171 language/_annotated_strings.php:174
+msgid "User with this email address already exists"
+msgstr "Ezzel az e-mai címmel már létezik felhasználó"
+
+#: language/_annotated_strings.php:180
+msgid "You must be logged in."
+msgstr "Ehhez be kell jelentkeznie."
+
+#: language/_annotated_strings.php:183
+msgid "Password successfully changed"
+msgstr "A jelszó megváltoztatása sikerült"
+
+#: language/_annotated_strings.php:186
+msgid "Password could not be changed"
+msgstr "A jelszó megváltoztatása sikertelen volt."
+
+#: language/_annotated_strings.php:189
+msgid "Mail with link for reset password has been sent, please try to check your email box"
+msgstr "A jelszó visszaállításához e-mailt küldtünk Önnek. Kérjük ellenőrizze postafiókját."
+
+#: language/_annotated_strings.php:195
+msgid "User cannot be found for specified username or email"
+msgstr "A megadott felhasználónévhez vagy e-mailhez nem találtunk felhasználót"
+
+#: language/_annotated_strings.php:198
+msgid "Found user does not have an email"
+msgstr "A felhasználó nem adott meg e-mail címet"
+
+#: language/_annotated_strings.php:201
+msgid "Found user is inactive"
+msgstr "A felhasználó inaktív"
+
+#: language/_annotated_strings.php:207
+msgid "You are not permitted to access this resource."
+msgstr "Önnek nincs hozzáférési joga ezekhez az adatokhoz."
+
+#: language/_annotated_strings.php:210
+#, php-format
+msgid "a new password was requested for %s"
+msgstr "%s részére új jelszót igényeltek"
+
+#: language/_annotated_strings.php:213
+msgid "This user account has been disabled. Please contact the system adminstrator."
+msgstr "A felhasználói fiók letiltva. Forduljon a rendszergazdához."
+
+#: language/_annotated_strings.php:216
+msgid "user"
+msgstr "Felhasználó"
+
+#: language/_annotated_strings.php:219
+msgid "recruiter"
+msgstr "Toborzó"

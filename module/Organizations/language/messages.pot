@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Organizations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-20 12:36+0200\n"
+"POT-Creation-Date: 2021-01-20 22:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,220 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:105
-#: view/form/invite-employee-bar.phtml:33
-msgid "Invite an employee via email address."
+#: view/form/employee-fieldset.phtml:33
+msgid "PENDING"
 msgstr ""
 
-#: language/_annotated_strings.php:6
-msgid "Search for organizations"
+#: view/form/employees-fieldset.phtml:24
+msgid "Users"
 msgstr ""
 
-#: language/_annotated_strings.php:9
-msgid "The organization referenced in your request could not be found."
-msgstr ""
-
-#: language/_annotated_strings.php:12
-msgid "The access token you provided seems to have expired."
-msgstr ""
-
-#: language/_annotated_strings.php:15
-#, php-format
-msgid "Invitation to join the team of %s"
-msgstr ""
-
-#: language/_annotated_strings.php:18 view/form/employees-fieldset.phtml:25
+#: view/form/employees-fieldset.phtml:25 language/_annotated_strings.php:126
 msgid "View Jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:21 view/form/employees-fieldset.phtml:26
+#: view/form/employees-fieldset.phtml:26 language/_annotated_strings.php:129
 msgid "Edit Jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:24 view/form/employees-fieldset.phtml:27
+#: view/form/employees-fieldset.phtml:27 language/_annotated_strings.php:132
 msgid "Create Jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:27 view/form/employees-fieldset.phtml:28
+#: view/form/employees-fieldset.phtml:28 language/_annotated_strings.php:135
 msgid "View Applications"
 msgstr ""
 
-#: language/_annotated_strings.php:30 view/form/employees-fieldset.phtml:29
+#: view/form/employees-fieldset.phtml:29 language/_annotated_strings.php:138
 msgid "Edit Applications"
 msgstr ""
 
-#: language/_annotated_strings.php:33
-msgid "Recruiter"
-msgstr ""
-
-#: language/_annotated_strings.php:36
-msgid "Department Manager"
-msgstr ""
-
-#: language/_annotated_strings.php:39
-msgid "Managing Directors"
-msgstr ""
-
-#: language/_annotated_strings.php:42
-#: view/organizations/profile/index.ajax.phtml:24
-#: view/organizations/index/index.ajax.phtml:24
-msgid "Street"
-msgstr ""
-
-#: language/_annotated_strings.php:45
-msgid "House Number"
-msgstr ""
-
-#: language/_annotated_strings.php:48
-msgid "Postal Code"
-msgstr ""
-
-#: language/_annotated_strings.php:51
-#: view/organizations/profile/index.ajax.phtml:20
-#: view/organizations/index/index.ajax.phtml:20
-msgid "City"
-msgstr ""
-
-#: language/_annotated_strings.php:54
-msgid "Country"
-msgstr ""
-
-#: language/_annotated_strings.php:57
-msgid "Phone"
-msgstr ""
-
-#: language/_annotated_strings.php:60
-msgid "Fax"
-msgstr ""
-
-#: language/_annotated_strings.php:63
-msgid ""
-"Choose a Logo. This logo will be shown in the job opening and the "
-"application form."
-msgstr ""
-
-#: language/_annotated_strings.php:66
-msgid "Please enter the name of the hiring organization."
-msgstr ""
-
-#: language/_annotated_strings.php:69
-msgid "Please enter a contact for the hiring organization."
-msgstr ""
-
-#: language/_annotated_strings.php:72
-msgid "Please enter a description for the hiring organization."
-msgstr ""
-
-#: language/_annotated_strings.php:75
-#: src/Auth/Dependency/EmployeeListListener.php:30
-msgid "Employees"
-msgstr ""
-
-#: language/_annotated_strings.php:78
-msgid "Manage your employees and their permissions."
-msgstr ""
-
-#: language/_annotated_strings.php:81
-msgid "Workflow"
-msgstr ""
-
-#: language/_annotated_strings.php:84
-msgid "Define, how notifications about new applications reach your employees"
-msgstr ""
-
-#: language/_annotated_strings.php:87
-msgid "Profile Setting"
-msgstr ""
-
-#: language/_annotated_strings.php:90
-msgid "Define how profile page should behave"
-msgstr ""
-
-#: language/_annotated_strings.php:93
-msgid "Setting"
-msgstr ""
-
-#: language/_annotated_strings.php:96
-msgid "Always enable profile"
-msgstr ""
-
-#: language/_annotated_strings.php:99
-msgid "Enable only when active jobs available"
-msgstr ""
-
-#: language/_annotated_strings.php:102
-msgid "Disabled viewing profile"
-msgstr ""
-
-#: language/_annotated_strings.php:108
-msgid "Organization Name"
-msgstr ""
-
-#: language/_annotated_strings.php:111
-msgid "Description"
-msgstr ""
-
-#: language/_annotated_strings.php:114
-msgid "accept Applications by Department Managers"
-msgstr ""
-
-#: language/_annotated_strings.php:117
-msgid ""
-"if checked, department managers are informed about new applications first."
-msgstr ""
-
-#: language/_annotated_strings.php:120
-msgid ""
-"Department managers are notified of incoming applications and must accept "
-"this. Only then the recruiter can start his work with the application"
-msgstr ""
-
-#: language/_annotated_strings.php:123
-msgid "accept Applications by recruiters"
-msgstr ""
-
-#: language/_annotated_strings.php:126
-msgid ""
-"if checked, all recruiters of the organization are informed about new "
-"applications first."
-msgstr ""
-
-#: language/_annotated_strings.php:129
-msgid ""
-"Recruiters are notified of incoming applications and must accept/reject "
-"them. Accepted applications are forwarded to the department manager assigned "
-"to the job."
-msgstr ""
-
-#: language/_annotated_strings.php:132
-msgid "assign department managers to jobs"
-msgstr ""
-
-#: language/_annotated_strings.php:135
-msgid "if checked, department managers have to be assigned to job postings."
-msgstr ""
-
-#: language/_annotated_strings.php:138
-msgid ""
-"if you have more them one department managers, you can assign them to a job "
-"posting. If nobody is assigned, all department managers will be informed "
-"about new applications"
-msgstr ""
-
-#: language/_annotated_strings.php:141
-msgid "Overview"
-msgstr ""
-
-#: language/_annotated_strings.php:144
-msgid "Profiles"
-msgstr ""
-
-#: language/_annotated_strings.php:147
-msgid "Insert"
-msgstr ""
-
-#: view/form/employee-fieldset.phtml:33
-msgid "PENDING"
+#: view/form/employees-fieldset.phtml:41
+msgid "pending"
 msgstr ""
 
 #: view/form/invite-employee-bar.phtml:14
@@ -241,20 +57,13 @@ msgstr ""
 msgid "Invite"
 msgstr ""
 
+#: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
+#: language/_annotated_strings.php:48
+msgid "Invite an employee via email address."
+msgstr ""
+
 #: view/form/invite-employee-bar.phtml:36
 msgid "Click on this button will add the employee with the status \"pending\""
-msgstr ""
-
-#: view/form/employees-fieldset.phtml:24
-msgid "Users"
-msgstr ""
-
-#: view/form/employees-fieldset.phtml:41
-msgid "pending"
-msgstr ""
-
-#: view/error/invite.phtml:11
-msgid "Doh! There was something going terribly wrong."
 msgstr ""
 
 #: view/error/no-parent.phtml:15
@@ -266,6 +75,10 @@ msgstr ""
 msgid ""
 "Before you are able to create organizations, you have to %screate your main "
 "organization%s first."
+msgstr ""
+
+#: view/error/invite.phtml:11
+msgid "Doh! There was something going terribly wrong."
 msgstr ""
 
 #: view/mail/invite-employee.phtml:29
@@ -306,6 +119,40 @@ msgid ""
 "the request is canceled automatically after a week."
 msgstr ""
 
+#: view/organizations/index/form.phtml:6
+#: view/organizations/index/index.ajax.phtml:16
+#: view/organizations/profile/index.ajax.phtml:16
+msgid "Organization"
+msgstr ""
+
+#: view/organizations/index/index.ajax.phtml:20
+#: view/organizations/profile/index.ajax.phtml:20
+#: language/_annotated_strings.php:36
+msgid "City"
+msgstr ""
+
+#: view/organizations/index/index.ajax.phtml:24
+#: view/organizations/profile/index.ajax.phtml:24
+#: language/_annotated_strings.php:27
+msgid "Street"
+msgstr ""
+
+#: view/organizations/index/index.ajax.phtml:76
+#: view/organizations/profile/index.ajax.phtml:81
+#, php-format
+msgid "Hiring organization of <strong>%s</strong>"
+msgstr ""
+
+#: view/organizations/index/index.phtml:15
+#: src/Auth/Dependency/ListListener.php:45
+msgid "Organizations"
+msgstr ""
+
+#: view/organizations/index/index.phtml:24
+#: view/organizations/profile/index.phtml:17
+msgid "No organization found matching your criteria."
+msgstr ""
+
 #: view/organizations/invite-employee/accept.phtml:12
 msgid "You have accepted the invitation"
 msgstr ""
@@ -319,29 +166,8 @@ msgstr ""
 msgid "Please choose a password to be able to log in."
 msgstr ""
 
-#: view/organizations/profile/disabled.phtml:13
-msgid "This profile is disabled."
-msgstr ""
-
-#: view/organizations/profile/index.ajax.phtml:16
-#: view/organizations/index/form.phtml:6
-#: view/organizations/index/index.ajax.phtml:16
-msgid "Organization"
-msgstr ""
-
-#: view/organizations/profile/index.ajax.phtml:81
-#: view/organizations/index/index.ajax.phtml:76
-#, php-format
-msgid "Hiring organization of <strong>%s</strong>"
-msgstr ""
-
 #: view/organizations/profile/index.phtml:5
 msgid "Organizations Profile"
-msgstr ""
-
-#: view/organizations/profile/index.phtml:17
-#: view/organizations/index/index.phtml:24
-msgid "No organization found matching your criteria."
 msgstr ""
 
 #: view/organizations/profile/detail.ajax.phtml:41
@@ -376,20 +202,194 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: view/organizations/index/index.phtml:15
-#: src/Auth/Dependency/ListListener.php:45
-msgid "Organizations"
+#: view/organizations/profile/disabled.phtml:13
+msgid "This profile is disabled."
+msgstr ""
+
+#: language/_annotated_strings.php:3
+msgid "Overview"
+msgstr ""
+
+#: language/_annotated_strings.php:6
+msgid "Profiles"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+msgid "Insert"
+msgstr ""
+
+#: language/_annotated_strings.php:15
+msgid "The organization referenced in your request could not be found."
+msgstr ""
+
+#: language/_annotated_strings.php:18
+msgid "The access token you provided seems to have expired."
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Search for organizations"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+#, php-format
+msgid "Invitation to join the team of %s"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "House Number"
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "Postal Code"
+msgstr ""
+
+#: language/_annotated_strings.php:39
+msgid "Country"
+msgstr ""
+
+#: language/_annotated_strings.php:42
+msgid "Phone"
+msgstr ""
+
+#: language/_annotated_strings.php:45
+msgid "Fax"
+msgstr ""
+
+#: language/_annotated_strings.php:51
+msgid "Please enter the name of the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:54
+msgid "Please enter a contact for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:57
+msgid "Please enter a description for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:60
+#: src/Auth/Dependency/EmployeeListListener.php:30
+msgid "Employees"
+msgstr ""
+
+#: language/_annotated_strings.php:63
+msgid "Manage your employees and their permissions."
+msgstr ""
+
+#: language/_annotated_strings.php:66
+msgid "Workflow"
+msgstr ""
+
+#: language/_annotated_strings.php:69
+msgid "Define, how notifications about new applications reach your employees"
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid "Profile Setting"
+msgstr ""
+
+#: language/_annotated_strings.php:75
+msgid "Define how profile page should behave"
+msgstr ""
+
+#: language/_annotated_strings.php:78
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "accept Applications by Department Managers"
+msgstr ""
+
+#: language/_annotated_strings.php:84
+msgid ""
+"if checked, department managers are informed about new applications first."
+msgstr ""
+
+#: language/_annotated_strings.php:87
+msgid ""
+"Department managers are notified of incoming applications and must accept "
+"this. Only then the recruiter can start his work with the application"
+msgstr ""
+
+#: language/_annotated_strings.php:90
+msgid "accept Applications by recruiters"
+msgstr ""
+
+#: language/_annotated_strings.php:93
+msgid ""
+"if checked, all recruiters of the organization are informed about new "
+"applications first."
+msgstr ""
+
+#: language/_annotated_strings.php:96
+msgid ""
+"Recruiters are notified of incoming applications and must accept/reject "
+"them. Accepted applications are forwarded to the department manager assigned "
+"to the job."
+msgstr ""
+
+#: language/_annotated_strings.php:99
+msgid "assign department managers to jobs"
+msgstr ""
+
+#: language/_annotated_strings.php:102
+msgid "if checked, department managers have to be assigned to job postings."
+msgstr ""
+
+#: language/_annotated_strings.php:105
+msgid ""
+"if you have more them one department managers, you can assign them to a job "
+"posting. If nobody is assigned, all department managers will be informed "
+"about new applications"
+msgstr ""
+
+#: language/_annotated_strings.php:108
+msgid "Description"
+msgstr ""
+
+#: language/_annotated_strings.php:111
+msgid "Setting"
+msgstr ""
+
+#: language/_annotated_strings.php:114
+msgid "Always enable profile"
+msgstr ""
+
+#: language/_annotated_strings.php:117
+msgid "Enable only when active jobs available"
+msgstr ""
+
+#: language/_annotated_strings.php:120
+msgid "Disabled viewing profile"
+msgstr ""
+
+#: language/_annotated_strings.php:123
+msgid "Organization Name"
+msgstr ""
+
+#: language/_annotated_strings.php:141
+msgid "Recruiter"
+msgstr ""
+
+#: language/_annotated_strings.php:144
+msgid "Department Manager"
+msgstr ""
+
+#: language/_annotated_strings.php:147
+msgid "Managing Directors"
 msgstr ""
 
 #: src/Controller/Plugin/InvitationHandler.php:233
 msgid "Email address is invalid."
 msgstr ""
 
-#: src/Controller/ProfileController.php:119
-msgid "Can not access profile page without id"
-msgstr ""
-
 #: src/Controller/IndexController.php:143
 #, php-format
 msgid "Organization with id \"%s\" not found"
+msgstr ""
+
+#: src/Controller/ProfileController.php:119
+msgid "Can not access profile page without id"
 msgstr ""

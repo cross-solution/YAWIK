@@ -1,17 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Cross Applicant Management - Core package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: src/Core/Form/View/Helper/FilterForm.php:39
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:43
-#: src/Core/Form/View/Helper/ToggleButton.php:42
+#: src/Form/View/Helper/Element/SpinnerButton.php:43
+#: src/Form/View/Helper/ToggleButton.php:42
+#: src/Form/View/Helper/FilterForm.php:39
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-13 08:53+0200\n"
+"POT-Creation-Date: 2021-01-20 22:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,84 +20,188 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:93
-#: src/Core/Form/View/Helper/FormImageUpload.php:83
-msgid "The file is too big"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormFileUpload.php:94
-#: src/Core/Form/View/Helper/FormImageUpload.php:84
-msgid "The file type is not supported"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormFileUpload.php:96
-#, php-format
-msgid "You may only upload %d files"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormFileUpload.php:98
-msgid "An unknown error occured."
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormFileUpload.php:293
-msgid "Click here to add files or use drag and drop."
-msgstr ""
-
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
-msgid "processing"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormImageUpload.php:44
-msgid "Click here to add an image or use drag and drop."
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormWizardContainer.php:102
-msgid "previous"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormWizardContainer.php:103
-#: view/partial/pagination-control.phtml:73
-#: view/partial/pagination-control.phtml:77
-msgid "Next"
-msgstr ""
-
-#: src/Core/Form/View/Helper/SummaryForm.php:191
-msgid "Edit"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormCollectionContainer.php:64
-#: language/_annotated_strings.php:93
-msgid "Remove"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormCollectionContainer.php:85
-msgid "Really remove?"
-msgstr ""
-
-#: src/Core/Form/View/Helper/FormCollectionContainer.php:89
-#, php-format
-msgid "Add %s"
-msgstr ""
-
-#: src/Core/Form/LocalizationSettingsFieldset.php:26
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:3
+#: src/Form/LocalizationSettingsFieldset.php:26
 msgid "general settings"
 msgstr ""
 
-#: src/Core/Form/PermissionsCollection.php:36
-msgid "Permissions"
+#: language/_annotated_strings.php:6 view/core/index/index.phtml:11
+msgid "Home"
 msgstr ""
 
-#: view/form/permissions-collection.phtml:15
-msgid "Add permission"
+#: language/_annotated_strings.php:9 view/core/admin/index.phtml:12
+#: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
+msgid "Dashboard"
 msgstr ""
 
-#: view/content/imprint.phtml:19 view/layout/layout.phtml:124
+#: language/_annotated_strings.php:12 view/core/admin/index.phtml:12
+msgid "Admin"
+msgstr ""
+
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:21
+#: language/_annotated_strings.php:111
+msgid "Save"
+msgstr ""
+
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:24
+#: language/_annotated_strings.php:114
+msgid "Cancel"
+msgstr ""
+
+#: language/_annotated_strings.php:27
+msgid ""
+"Please enter a phone Number. May start with '+'. Only digits, '(', ')' and ' "
+"'."
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "Not Rated"
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "Poor"
+msgstr ""
+
+#: language/_annotated_strings.php:36
+msgid "Bad"
+msgstr ""
+
+#: language/_annotated_strings.php:39
+msgid "Average"
+msgstr ""
+
+#: language/_annotated_strings.php:42
+msgid "Good"
+msgstr ""
+
+#: language/_annotated_strings.php:45
+msgid "Excellent"
+msgstr ""
+
+#: language/_annotated_strings.php:48
+msgid "Remove all"
+msgstr ""
+
+#: language/_annotated_strings.php:51
+msgid "Name"
+msgstr ""
+
+#: language/_annotated_strings.php:54
+msgid "Value"
+msgstr ""
+
+#: language/_annotated_strings.php:57
+msgid "choose your language"
+msgstr ""
+
+#: language/_annotated_strings.php:60
+msgid "English"
+msgstr ""
+
+#: language/_annotated_strings.php:63
+msgid "French"
+msgstr ""
+
+#: language/_annotated_strings.php:66
+msgid "German"
+msgstr ""
+
+#: language/_annotated_strings.php:69
+msgid "Italian"
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid "Polish"
+msgstr ""
+
+#: language/_annotated_strings.php:75
+msgid "Russian"
+msgstr ""
+
+#: language/_annotated_strings.php:78
+msgid "Turkish"
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "Spanish"
+msgstr ""
+
+#: language/_annotated_strings.php:84
+msgid "defines the languages of this frontend."
+msgstr ""
+
+#: language/_annotated_strings.php:87
+msgid "choose your timzone"
+msgstr ""
+
+#: language/_annotated_strings.php:90
+msgid "defines your local timezone."
+msgstr ""
+
+#: language/_annotated_strings.php:93
+msgid "Rights"
+msgstr ""
+
+#: language/_annotated_strings.php:96
+msgid "View"
+msgstr ""
+
+#: language/_annotated_strings.php:99
+msgid "Write"
+msgstr ""
+
+#: language/_annotated_strings.php:102
+#: src/Form/View/Helper/FormCollectionContainer.php:64
+msgid "Remove"
+msgstr ""
+
+#: language/_annotated_strings.php:105
+msgid "Apply filter"
+msgstr ""
+
+#: language/_annotated_strings.php:108
+msgid "Reset filter"
+msgstr ""
+
+#: language/_annotated_strings.php:117 language/_annotated_strings.php:123
+msgid "Search"
+msgstr ""
+
+#: language/_annotated_strings.php:120
+msgid "Search query"
+msgstr ""
+
+#: language/_annotated_strings.php:126
+msgid "Clear"
+msgstr ""
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:130
 msgid "Imprint"
 msgstr ""
 
 #: view/content/imprint.phtml:34
 msgid "Tax Number"
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:22
+msgid ""
+"JavaScript is required to use this site. Please enable JavaScript and reload."
+msgstr ""
+
+#: view/layout/layout.phtml:46
+msgid "YAWIK"
+msgstr ""
+
+#: view/layout/layout.phtml:95
+msgid "Help to translate YAWIK"
+msgstr ""
+
+#: view/layout/layout.phtml:129
+msgid "All rights reserved."
 msgstr ""
 
 #: view/partial/pagination-control.phtml:28
@@ -110,34 +214,92 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+#: view/partial/pagination-control.phtml:73
+#: view/partial/pagination-control.phtml:77
+#: src/Form/View/Helper/FormWizardContainer.php:102
+msgid "Next"
+msgstr ""
+
 #: view/partial/pagination-control.phtml:82
 #: view/partial/pagination-control.phtml:89
 msgid "Last"
+msgstr ""
+
+#: view/partial/pagination-control.phtml:95
+#, php-format
+msgid "%1$s - %2$s of %3$s"
 msgstr ""
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
 msgstr ""
 
-#: view/layout/layout.phtml:42
-msgid "YAWIK"
+#: view/core/index/dashboard-widget.phtml:19
+msgid "Error loading widget."
 msgstr ""
 
-#: view/layout/layout.phtml:91
-msgid "Help to translate YAWIK"
+#: view/core/index/index.phtml:14
+msgid "Welcome to YAWIK!"
 msgstr ""
 
-#: view/layout/layout.phtml:123
-msgid "All rights reserved."
+#: view/core/index/index.phtml:15
+msgid "we're connecting recruiters and applicants"
 msgstr ""
 
-#: view/layout/_noscript-notice.phtml:21
-msgid "Javascript is disabled."
-msgstr ""
-
-#: view/layout/_noscript-notice.phtml:22
+#: view/core/index/index.phtml:17
 msgid ""
-"JavaScript is required to use this site. Please enable JavaScript and reload."
+"Login to an open source applicant tracking system using your favorit social "
+"network"
+msgstr ""
+
+#: view/core/index/index.phtml:21
+#, php-format
+msgid "Login with %s"
+msgstr ""
+
+#: view/core/index/index.phtml:31
+msgid "responsive design (uses bootstrap3 and font awesome)"
+msgstr ""
+
+#: view/core/index/index.phtml:32
+msgid "multilingual"
+msgstr ""
+
+#: view/core/index/index.phtml:33
+msgid "ready for social recruiting"
+msgstr ""
+
+#: view/core/index/index.phtml:34
+msgid "enter job ads"
+msgstr ""
+
+#: view/core/index/index.phtml:35
+#, php-format
+msgid "%sapplication forms%s."
+msgstr ""
+
+#: view/core/index/index.phtml:39
+msgid "One-Click-Apply"
+msgstr ""
+
+#: view/core/index/index.phtml:40
+msgid "manage applications"
+msgstr ""
+
+#: view/core/index/index.phtml:41
+msgid "open and free software"
+msgstr ""
+
+#: view/core/index/index.phtml:55
+msgid "Developer News"
+msgstr ""
+
+#: view/core/index/index.phtml:76
+msgid "Recruiter News"
+msgstr ""
+
+#: view/form/permissions-collection.phtml:15
+msgid "Add permission"
 msgstr ""
 
 #: view/error/404.phtml:15
@@ -209,211 +371,54 @@ msgstr ""
 msgid "A 403 error occurred"
 msgstr ""
 
-#: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
-#: view/core/admin/index.phtml:12
-msgid "Dashboard"
+#: src/Form/PermissionsCollection.php:35
+msgid "Permissions"
 msgstr ""
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:120
-msgid "Home"
+#: src/Form/View/Helper/FormFileUpload.php:93
+#: src/Form/View/Helper/FormImageUpload.php:82
+msgid "The file is too big"
 msgstr ""
 
-#: view/core/index/index.phtml:13
-msgid "Welcome to YAWIK!"
+#: src/Form/View/Helper/FormFileUpload.php:94
+#: src/Form/View/Helper/FormImageUpload.php:83
+msgid "The file type is not supported"
 msgstr ""
 
-#: view/core/index/index.phtml:14
-msgid "we're connecting recruiters and applicants"
-msgstr ""
-
-#: view/core/index/index.phtml:15
-msgid ""
-"Login to an open source applicant tracking system using your favorit social "
-"network"
-msgstr ""
-
-#: view/core/index/index.phtml:19
+#: src/Form/View/Helper/FormFileUpload.php:96
 #, php-format
-msgid "Login with %s"
+msgid "You may only upload %d files"
 msgstr ""
 
-#: view/core/index/index.phtml:28
-msgid "responsive design (uses bootstrap3 and font awesome)"
+#: src/Form/View/Helper/FormFileUpload.php:98
+msgid "An unknown error occured."
 msgstr ""
 
-#: view/core/index/index.phtml:29
-msgid "multilingual"
+#: src/Form/View/Helper/FormFileUpload.php:291
+msgid "Click here to add files or use drag and drop."
 msgstr ""
 
-#: view/core/index/index.phtml:30
-msgid "ready for social recruiting"
+#: src/Form/View/Helper/FormCollectionContainer.php:86
+msgid "Really remove?"
 msgstr ""
 
-#: view/core/index/index.phtml:31
-msgid "enter job ads"
-msgstr ""
-
-#: view/core/index/index.phtml:32
+#: src/Form/View/Helper/FormCollectionContainer.php:90
 #, php-format
-msgid "%sapplication forms%s."
+msgid "Add %s"
 msgstr ""
 
-#: view/core/index/index.phtml:36
-msgid "One-Click-Apply"
+#: src/Form/View/Helper/FormWizardContainer.php:101
+msgid "previous"
 msgstr ""
 
-#: view/core/index/index.phtml:37
-msgid "manage applications"
+#: src/Form/View/Helper/Element/SpinnerButton.php:48
+msgid "processing"
 msgstr ""
 
-#: view/core/index/index.phtml:38
-msgid "open and free software"
+#: src/Form/View/Helper/FormImageUpload.php:43
+msgid "Click here to add an image or use drag and drop."
 msgstr ""
 
-#: view/core/index/index.phtml:46
-msgid "Developer News"
-msgstr ""
-
-#: view/core/index/index.phtml:63
-msgid "Recruiter News"
-msgstr ""
-
-#: view/core/index/dashboard-widget.phtml:19
-msgid "Error loading widget."
-msgstr ""
-
-#: view/core/admin/index.phtml:12 language/_annotated_strings.php:123
-msgid "Admin"
-msgstr ""
-
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:9
-msgid "Search"
-msgstr ""
-
-#: language/_annotated_strings.php:6
-msgid "Search query"
-msgstr ""
-
-#: language/_annotated_strings.php:12
-msgid "Clear"
-msgstr ""
-
-#: language/_annotated_strings.php:15
-msgid ""
-"Please enter a phone Number. You can use the intenational format. Only "
-"digits and '+'."
-msgstr ""
-
-#: language/_annotated_strings.php:18
-msgid "Not Rated"
-msgstr ""
-
-#: language/_annotated_strings.php:21
-msgid "Poor"
-msgstr ""
-
-#: language/_annotated_strings.php:24
-msgid "Bad"
-msgstr ""
-
-#: language/_annotated_strings.php:27
-msgid "Average"
-msgstr ""
-
-#: language/_annotated_strings.php:30
-msgid "Good"
-msgstr ""
-
-#: language/_annotated_strings.php:33
-msgid "Excellent"
-msgstr ""
-
-#: language/_annotated_strings.php:36 language/_annotated_strings.php:96
-#: language/_annotated_strings.php:102
-msgid "Save"
-msgstr ""
-
-#: language/_annotated_strings.php:39 language/_annotated_strings.php:99
-#: language/_annotated_strings.php:105
-msgid "Cancel"
-msgstr ""
-
-#: language/_annotated_strings.php:42
-msgid "Name"
-msgstr ""
-
-#: language/_annotated_strings.php:45
-msgid "Value"
-msgstr ""
-
-#: language/_annotated_strings.php:48
-msgid "Remove all"
-msgstr ""
-
-#: language/_annotated_strings.php:51
-msgid "choose your language"
-msgstr ""
-
-#: language/_annotated_strings.php:54
-msgid "English"
-msgstr ""
-
-#: language/_annotated_strings.php:57
-msgid "French"
-msgstr ""
-
-#: language/_annotated_strings.php:60
-msgid "German"
-msgstr ""
-
-#: language/_annotated_strings.php:63
-msgid "Italian"
-msgstr ""
-
-#: language/_annotated_strings.php:66
-msgid "Polish"
-msgstr ""
-
-#: language/_annotated_strings.php:69
-msgid "Russian"
-msgstr ""
-
-#: language/_annotated_strings.php:72
-msgid "Turkish"
-msgstr ""
-
-#: language/_annotated_strings.php:75
-msgid "Spanish"
-msgstr ""
-
-#: language/_annotated_strings.php:78
-msgid "defines the languages of this frontend."
-msgstr ""
-
-#: language/_annotated_strings.php:81
-msgid "choose your timzone"
-msgstr ""
-
-#: language/_annotated_strings.php:84
-msgid "defines your local timezone."
-msgstr ""
-
-#: language/_annotated_strings.php:87
-msgid "Apply filter"
-msgstr ""
-
-#: language/_annotated_strings.php:90
-msgid "Reset filter"
-msgstr ""
-
-#: language/_annotated_strings.php:108
-msgid "Rights"
-msgstr ""
-
-#: language/_annotated_strings.php:111
-msgid "View"
-msgstr ""
-
-#: language/_annotated_strings.php:114
-msgid "Write"
+#: src/Form/View/Helper/SummaryForm.php:189
+msgid "Edit"
 msgstr ""
