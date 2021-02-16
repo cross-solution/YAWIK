@@ -25,8 +25,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Yawik\\Migration": "src/",
-            "Yawik\\Migration\\Tests": "tests/"
+            "Yawik\\Migration\\": "src/",
+            "Yawik\\Migration\\Tests\\": "tests/"
         }
     },
     "extra": {
