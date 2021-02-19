@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Repository;
 
@@ -32,7 +32,7 @@ class DraftableEntityAwareTraitTest extends TestCase
             [ 'findBy', [ 'isDraft' => null ], 'findBy', [] ],
             [ 'findBy', [ 'isDraft' => true ], 'findBy', [ 'isDraft' => true ] ],
             [ 'findBy', [ 'isDraft' => 'something'], 'findBy', ['isDraft' => 'something'] ],
-            
+
             [ 'findDraftsBy', [], 'findBy', ['isDraft' => true]],
             [ 'findDraftsBy', ['isDraft' => null], 'findBy', ['isDraft' => true]],
             [ 'findDraftsBy', ['isDraft' => 'something'], 'findBy', ['isDraft' => true]],

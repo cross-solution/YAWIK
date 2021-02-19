@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Repository;
 
@@ -57,7 +57,7 @@ trait DraftableEntityAwareTrait
         return parent::findBy($criteria, $sort, $limit, $skip);
     }
 
-    public function findOneBy(array $criteria): ?object
+    public function findOneBy(array $criteria, ?array $sort = null): ?object
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;

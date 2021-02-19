@@ -48,7 +48,7 @@ class Application extends AbstractRepository
     /**
      * {@inheritDoc}
      */
-    public function findOneBy(array $criteria): ?object
+    public function findOneBy(array $criteria, ?array $sort = null): ?object
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;

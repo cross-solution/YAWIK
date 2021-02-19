@@ -35,13 +35,13 @@ class User extends AbstractRepository
         } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
-        
+
         if (!array_key_exists('status.name', $criteria)) {
             $criteria['status.name'] = \Jobs\Entity\StatusInterface::ACTIVE;
         } elseif (null === $criteria['status.name']) {
             unset($criteria['status.name']);
         }
-        
+
         return parent::findBy($criteria, $sort, $limit, $skip);
     }
 
@@ -69,7 +69,7 @@ class User extends AbstractRepository
      * @throws UserDeactivatedException
      * @return null | UserInterface
      */
-    public function findOneBy(array $criteria, array $options = []): ?object
+    public function findOneBy(array $criteria, ?array $options = null): ?object
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
@@ -77,12 +77,12 @@ class User extends AbstractRepository
             unset($criteria['isDraft']);
         }
         $user = parent::findOneBy($criteria);
-        if(!is_null($user)){
+        if (!is_null($user)) {
             $this->assertEntity($user, $options);
         }
         return $user;
     }
-    
+
 
     /**
      * {@inheritDoc}
@@ -105,7 +105,7 @@ class User extends AbstractRepository
     public function create(array $data = null, $persist=false)
     {
         $entity = parent::create($data);
-        
+
         $eventArgs = new LifecycleEventArgs($entity, $this->dm);
         $this->dm->getEventManager()->dispatchEvent(
             Events::postLoad,
@@ -113,7 +113,7 @@ class User extends AbstractRepository
         );
         return $entity;
     }
-    
+
     /**
      * Finds user by profile identifier
      *
@@ -126,7 +126,7 @@ class User extends AbstractRepository
     {
         return $this->findOneBy(array('profiles.' . $provider . '.auth.identifier' => $identifier), $options) ?: $this->findOneBy(array('profile.identifier' => $identifier), $options);
     }
-    
+
     /**
      * Returns true if profile is already assigned to anotherUser
      *
@@ -144,12 +144,12 @@ class User extends AbstractRepository
                     ->addOr($qb->expr()->field('profiles.' . $provider . '.auth.identifier' )->equals($identifier))
                     ->addOr($qb->expr()->field('profile.identifier')->equals($identifier))
             );
-        
+
         return $qb->count()
             ->getQuery()
             ->execute() > 0;
     }
-    
+
     /**
      * Finds user by login name
      *
@@ -220,7 +220,7 @@ class User extends AbstractRepository
 
         return $this->findOneBy($criteria);
     }
-    
+
     /**
      * Finds user by internal id
      *
@@ -235,7 +235,7 @@ class User extends AbstractRepository
             )
         );
     }
-    
+
     /**
      * Find user by query
      *
@@ -247,7 +247,7 @@ class User extends AbstractRepository
     {
         $qb = $this->createQueryBuilder();
         $parts  = explode(' ', trim($query));
-        
+
         foreach ($parts as $q) {
             $regex = new Regex('/^' . $query . '/i');
             $qb->addOr($qb->expr()->field('info.firstName')->equals($regex));
@@ -256,10 +256,10 @@ class User extends AbstractRepository
         }
         $qb->sort(array('info.lastName' => 1))
            ->sort(array('info.email' => 1));
-        
+
         return $qb->getQuery()->execute();
     }
-    
+
     /**
      * Copy user info into the applications info Entity
      *
@@ -270,7 +270,7 @@ class User extends AbstractRepository
         $contact = new Info();
         $contact->fromArray(Info::toArray($info));
     }
-    
+
     /**
      * @param ?object|?UserInterface $user
      * @param array $options
@@ -283,7 +283,7 @@ class User extends AbstractRepository
         {
             throw new UserDeactivatedException(sprintf('User with ID %s is not active', $user->getId()));
         }
-        
+
         return $user;
     }
 }
