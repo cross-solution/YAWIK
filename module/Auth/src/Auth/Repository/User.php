@@ -277,7 +277,7 @@ class User extends AbstractRepository
      * @throws UserDeactivatedException
      * @return ?UserInterface|?object
      */
-    protected function assertEntity(?object $user = null, array $options = [])
+    protected function assertEntity(?object $user = null, ?array $options = null)
     {
         if (!is_null($user) && (!isset($options['allowDeactivated']) || !$options['allowDeactivated']) && !$user->isActive())
         {

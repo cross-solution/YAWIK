@@ -33,7 +33,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
      * @var MockObject
      */
     private $serviceMock;
-    
+
     /**
      * @var \Laminas\ServiceManager\ServiceManager
      */
@@ -131,14 +131,6 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->formMock->expects($this->once())
             ->method('isValid')
             ->willReturn(true);
-        
-        $this->formMock->expects($this->once())
-            ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
-
-        $this->serviceMock->expects($this->once())
-            ->method('proceed')
-            ->willThrowException(new Exception\UserNotFoundException());
 
         $result = $this->controller->dispatch($request);
 
@@ -166,14 +158,6 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->formMock->expects($this->once())
             ->method('isValid')
             ->willReturn(true);
-
-        $this->formMock->expects($this->once())
-            ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
-
-        $this->serviceMock->expects($this->once())
-            ->method('proceed')
-            ->willThrowException(new Exception\UserDoesNotHaveAnEmailException());
 
         $result = $this->controller->dispatch($request);
 
@@ -211,15 +195,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
             ->method('isValid')
             ->willReturn(true);
 
-        $this->formMock->expects($this->once())
-            ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
-
-        $this->serviceMock->expects($this->once())
-            ->method('proceed')
-            ->willThrowException(new \LogicException());
-
-        $result = $this->controller->dispatch($request);
+       $result = $this->controller->dispatch($request);
 
         $expected = array(
             'form' => $this->formMock
@@ -251,13 +227,6 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->formMock->expects($this->once())
             ->method('isValid')
             ->willReturn(true);
-
-        $this->formMock->expects($this->once())
-            ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
-
-        $this->serviceMock->expects($this->once())
-            ->method('proceed');
 
         $result = $this->controller->dispatch($request);
 
