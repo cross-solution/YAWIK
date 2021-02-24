@@ -28,7 +28,6 @@ use Symfony\Component\Finder\Finder;
 $finder = Finder::create()
     ->name('*.module.php')
     ->in(__DIR__.'/autoload');
-
 foreach($finder->files() as $file){
     $modules = array_merge($modules, include $file);
 }
