@@ -23,7 +23,7 @@ class OrganizationImage implements ImageInterface
     /**
      * @ODM\File\Metadata(targetDocument="Organizations\Entity\OrganizationImageMetadata")
      */
-    protected ?ImageMetadata $metadata;
+    protected ?ImageMetadata $metadata = null;
 
     public function getMetadata(): ?ImageMetadata
     {
