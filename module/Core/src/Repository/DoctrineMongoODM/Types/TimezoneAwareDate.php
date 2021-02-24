@@ -117,12 +117,13 @@ class TimezoneAwareDate extends Type
             /* CODE FROM: ' . __METHOD__ . ' */
             if (!is_array($value) 
                 || !isset($value["date"]) 
-                || !$value["date"] instanceOf UTCDateTime
+                || is_null($value["date"])
                 || !isset($value["tz"])
             ) {
                 $return = null;
             } else {
-                $date = new \DateTime("@".$value["date"]->sec);
+                //$date = new \DateTime($value["date"]);
+                $date = $value["date"]->toDateTime();
                 $date->setTimezone(new \DateTimeZone($value["tz"]));
                 $return = $date;
             }
