@@ -27,11 +27,7 @@ interface FileMetadataInterface extends ResourceInterface
 
     public function getPermissions(): ?PermissionsInterface;
 
-    /**
-     * @param string $contentType
-     * @return self
-     */
-    public function setContentType(string $contentType): self;
+    public function setContentType(string $contentType);
 
     public function getContentType(): ?string;
 }

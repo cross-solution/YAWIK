@@ -48,7 +48,11 @@ trait FileMetadataTrait
         return $this->contentType;
     }
 
-    public function setContentType(?string $contentType): self
+    /**
+     * @param string|null $contentType
+     * @return $this
+     */
+    public function setContentType(?string $contentType)
     {
         $this->contentType = $contentType;
         return $this;

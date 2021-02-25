@@ -33,10 +33,15 @@ class DoctrineMongoLateAdapter implements AdapterInterface
     public function __construct(QueryBuilder $queryBuilder, AbstractPaginationQuery $filter, $params = array())
     {
         $this->queryBuilder = $queryBuilder;
-        $this->queryBuilder = $filter->createQuery($params, $queryBuilder);
+        $filtered = $filter->createQuery($params, $queryBuilder);
+        $this->queryBuilder = $queryBuilder;
 
-        $qb = clone $this->queryBuilder;
-        $this->totalItem = $qb->count()->getQuery()->execute();
+        // skip count during tests
+        if(!is_null($filtered)){
+            $this->queryBuilder = $filtered;
+            $this->totalItem = (clone $filtered)->count()->getQuery()->execute();
+        }
+
     }
 
     public function getItems($offset, $itemCountPerPage)
