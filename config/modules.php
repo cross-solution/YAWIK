@@ -8,11 +8,7 @@
  * @license   MIT
  */
 
-if (getenv('ADDITIONAL_MODULES')) {
-
-}
-
-return [
+$modules = [
     'SlmQueue',
     'Core',
     'Auth',
@@ -26,3 +22,14 @@ return [
     'ReleaseTools',
     'Yawik\\Migration'
 ];
+
+// add ability to load additional module in autoload/*.module.php
+use Symfony\Component\Finder\Finder;
+$finder = Finder::create()
+    ->name('*.module.php')
+    ->in(__DIR__.'/autoload');
+foreach($finder->files() as $file){
+    $modules = array_merge($modules, include $file);
+}
+
+return $modules;

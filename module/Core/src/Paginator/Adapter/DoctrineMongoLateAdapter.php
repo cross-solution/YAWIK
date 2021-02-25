@@ -23,12 +23,7 @@ class DoctrineMongoLateAdapter implements AdapterInterface
      */
     private QueryBuilder $queryBuilder;
 
-    /**
-     * @var AbstractPaginationQuery
-     */
-    private AbstractPaginationQuery $filter;
-
-    private array $params;
+    private $totalItem;
 
     /**
      * @param QueryBuilder $queryBuilder
@@ -38,8 +33,15 @@ class DoctrineMongoLateAdapter implements AdapterInterface
     public function __construct(QueryBuilder $queryBuilder, AbstractPaginationQuery $filter, $params = array())
     {
         $this->queryBuilder = $queryBuilder;
-        $this->filter = $filter;
-        $this->params = $params;
+        $filtered = $filter->createQuery($params, $queryBuilder);
+        $this->queryBuilder = $queryBuilder;
+
+        // skip count during tests
+        if(!is_null($filtered)){
+            $this->queryBuilder = $filtered;
+            $this->totalItem = (clone $filtered)->count()->getQuery()->execute();
+        }
+
     }
 
     public function getItems($offset, $itemCountPerPage)
@@ -55,13 +57,10 @@ class DoctrineMongoLateAdapter implements AdapterInterface
 
     /**
      * @return int
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * FIXME: count method for ODM Module 3
      */
     public function count()
     {
-        $qb = clone $this->queryBuilder;
-        return $qb->count()->getQuery()->execute();
+        return $this->totalItem;
     }
 
 }

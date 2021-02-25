@@ -70,7 +70,12 @@ class MailServiceFactory implements FactoryInterface
             return new Smtp($mailServiceOptions);
         } elseif (MailService::TRANSPORT_FILE == $type) {
             $fileOptions = new FileOptions();
-            $fileOptions->setPath($mailServiceOptions->getPath());
+            $path = $mailServiceOptions->getPath();
+            if(!is_dir($path)){
+                mkdir($path, true);
+            }
+
+            $fileOptions->setPath($path);
             return new FileTransport($fileOptions);
         } elseif (MailService::TRANSPORT_SENDMAIL == $type) {
             return new Sendmail();
