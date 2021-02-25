@@ -26,7 +26,7 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
      *
      * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return array(Events::onFlush);
     }
@@ -54,8 +54,10 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
             foreach ($documents as $document) { /* @var \Applications\Entity\Application $document */
                 $permissions = $document->getPermissions();
 
-                foreach ($document->getAttachments() as $attachment) {  /* @var \Applications\Entity\Attachment $attachment */
-                    $attachment->getPermissions()
+                foreach ($document->getAttachments() as $attachment) {
+                    /* @var \Applications\Entity\Attachment $attachment */
+                    $attachment->getMetadata()
+                               ->getPermissions()
                                ->clear()
                                ->inherit($permissions);
                     if ($isUpdate) {
@@ -67,9 +69,10 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                 }
 
                 if ($image = $document->getContact()->getImage()) {
-                    $image->getPermissions()
-                          ->clear()
-                          ->inherit($permissions);
+                    $image->getMetadata()
+                        ->getPermissions()
+                        ->clear()
+                        ->inherit($permissions);
                     if ($isUpdate) {
                         $uow->computeChangeSet(
                             $dm->getClassMetadata(get_class($image)),

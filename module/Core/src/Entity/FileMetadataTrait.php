@@ -48,7 +48,7 @@ trait FileMetadataTrait
         return $this->contentType;
     }
 
-    public function setContentType(?string $contentType)
+    public function setContentType(?string $contentType): self
     {
         $this->contentType = $contentType;
         return $this;
@@ -62,7 +62,7 @@ trait FileMetadataTrait
         return $this->user;
     }
 
-    public function setUser(UserInterface $user)
+    public function setUser(?UserInterface $user): self
     {
         if ($this->user) {
             $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);

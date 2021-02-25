@@ -19,7 +19,7 @@ interface FileMetadataInterface extends ResourceInterface
 {
     public function getName(): ?string;
 
-    public function setUser(UserInterface $user);
+    public function setUser(?UserInterface $user): self;
 
     public function getUser(): ?UserInterface;
 
@@ -31,7 +31,7 @@ interface FileMetadataInterface extends ResourceInterface
      * @param string $contentType
      * @return self
      */
-    public function setContentType(string $contentType);
+    public function setContentType(string $contentType): self;
 
     public function getContentType(): ?string;
 }

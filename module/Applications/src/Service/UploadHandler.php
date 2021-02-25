@@ -116,7 +116,9 @@ class UploadHandler
         $metadata->setContentType($info['type']);
         $metadata->setName($info['name']);
 
-        $this->dm->persist($user);
+        if(!is_null($user)){
+            $this->dm->persist($user);
+        }
         return $fileManager->uploadFromFile(
             Attachment::class,
             $metadata,
