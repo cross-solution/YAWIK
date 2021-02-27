@@ -81,6 +81,7 @@ class UploadHandler
             mkdir($tmpDir, 0777, true);
         }
 
+        $organization->getImages()->clear();
         foreach($images as $key => $image){
             $name = $key.'-'. $data['name'];
             $format = str_replace('image/', '', $data['type']);

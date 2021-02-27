@@ -149,11 +149,13 @@ class FileController extends AbstractActionController
         $events = $this->coreFileEvents;
         $event = $events->getEvent(FileEvent::EVENT_DELETE, $this, ['file' => $file]);
 
-        $events->triggerEventUntil(function ($r) {
+        $results = $events->triggerEventUntil(function ($r) {
             return true === $r;
         }, $event);
 
-        $this->fileManager->remove($file);
+        if(true !== $results->last()){
+            $this->fileManager->remove($file, true);
+        }
 
         return new JsonModel(array(
             'result' => true

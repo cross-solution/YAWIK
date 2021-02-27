@@ -83,9 +83,12 @@ class FileManager
 
         if(UserImage::class !== $entityClass && is_null($metadata->getUser())){
             $user = $this->auth->getUser();
+
             if($user instanceof AnonymousUser){
                 $metadata->getPermissions()->grant($user, PermissionsInterface::PERMISSION_ALL);
             }else{
+                $this->dm->getUnitOfWork()->registerManaged($user, $user->getId(), []);
+
                 $metadata->setUser($user);
                 $this->dm->persist($user);
                 $this->dm->flush();
