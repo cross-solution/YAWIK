@@ -249,12 +249,12 @@ return [
     'mails' => [
         'invokables' => [
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
-            'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ],
         'factories' => [
             'Applications/NewApplication' => 'Applications\Factory\Mail\NewApplicationFactory',
             Mail\Confirmation::class      => Factory\Mail\ConfirmationFactory::class,
-            'Applications/Forward'        => [Forward::class,'factory'],
+            'Applications/Forward'        => Factory\Mail\ForwardFactory::class,
+            'Applications/CarbonCopy'     => Factory\Mail\ForwardFactory::class,
         ],
         'aliases' => [
             'Applications/Confirmation'   => Mail\Confirmation::class,

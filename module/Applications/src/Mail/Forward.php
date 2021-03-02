@@ -12,16 +12,15 @@
 namespace Applications\Mail;
 
 use Applications\Entity\Application;
-use Core\Factory\ContainerAwareInterface;
 use Core\Mail\TranslatorAwareMessage;
-use Interop\Container\ContainerInterface;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 use Laminas\Mime;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\HelperPluginManager;
 
 /**
 * Sends an e-mail containing an applications
 */
-class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
+class Forward extends TranslatorAwareMessage
 {
     /**
      * @var Application
@@ -34,6 +33,16 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
     protected $isInitialized = false;
 
     protected $viewManager;
+
+    protected $fileRepository;
+
+
+    public function __construct(HelperPluginManager $viewHelperManager, DocumentRepository $attachmentRepository, array $options = [])
+    {
+        $this->viewManager = $viewHelperManager;
+        $this->fileRepository = $attachmentRepository;
+        parent::__construct($options);
+    }
 
     /**
      * @param $application
@@ -95,12 +104,13 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
             $message->addPart($part);
         }
 
-        foreach ($this->application->getAttachments() as $attachment) { /* @var \Applications\Entity\Attachment $attachment*/
-            /* @var  \Applications\Entity\Attachment $part */
-            $part = new Mime\Part($attachment->getResource());
-            $part->setType($attachment->getType());
+        foreach ($this->application->getAttachments() as $attachment) {
+            /** @var \Applications\Entity\Attachment $attachment */
+            $stream = $this->fileRepository->openDownloadStream($attachment->getId());
+            $part = new Mime\Part($stream);
+            $part->setType($attachment->getMetadata()->getContentType());
             $part->encoding = Mime\Mime::ENCODING_BASE64;
-            $part->filename = $attachment->getName();
+            $part->filename = $attachment->getMetadata()->getName();
             $part->disposition = Mime\Mime::DISPOSITION_ATTACHMENT;
             $message->addPart($part);
         }
@@ -122,24 +132,5 @@ class Forward extends TranslatorAwareMessage implements ContainerAwareInterface
         $viewManager = $this->viewManager;
 
         return $viewManager->get("partial")->__invoke('applications/mail/forward', array("application"=>$this->application));
-    }
-
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->viewManager = $container->get('ViewHelperManager');
-    }
-
-    /**
-     * @param ContainerInterface $container
-     * @param $requestedName
-     * @param array $options
-     *
-     * @return Forward
-     */
-    public static function factory(ContainerInterface $container, $requestedName, array $options=[])
-    {
-        $ob = new self($options);
-        $ob->setContainer($container);
-        return $ob;
     }
 }
