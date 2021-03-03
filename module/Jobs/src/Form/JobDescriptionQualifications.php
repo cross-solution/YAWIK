@@ -36,36 +36,32 @@ class JobDescriptionQualifications extends Form implements InputFilterProviderIn
     public function init()
     {
         $this->setName('jobs-form-qualifications');
-        $this->setAttributes(
-            array(
+        $this->setAttributes([
             'id' => 'jobs-form-qualifications',
             'data-handle-by' => 'yk-form'
-            )
-        );
+        ]);
 
-        $this->add(
-            array(
+        $this->add([
             'type' => 'TextEditor',
             'name' => 'description-qualifications',
-            'options' => array(
+            'options' => [
                 'use_as_base_fieldset' => true,
                 'placeholder' => 'Qualifications'
-            ),
-            )
-        );
+            ],
+        ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'description-qualifications' => array(
-                'filters' => array(
-                    array(
+        return [
+            'description-qualifications' => [
+                'filters' => [
+                    [
                         'name' => 'Core/XssFilter'
-                    )
-                ),
+                    ],
+                ],
                 'allow_empty' => true,
-            )
-        );
+            ],
+        ];
     }
 }
