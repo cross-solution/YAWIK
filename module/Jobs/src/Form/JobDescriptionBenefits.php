@@ -59,6 +59,7 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
     {
         return array(
             'description-benefits' => array(
+                'allow_empty' => true,
                 'filters' => array(
                     array(
                         'name' => 'Core/XssFilter'

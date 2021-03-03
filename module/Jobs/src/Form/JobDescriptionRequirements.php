@@ -63,8 +63,9 @@ class JobDescriptionRequirements extends Form implements InputFilterProviderInte
                     array(
                         'name' => 'Core/XssFilter'
                     )
-                )
-            )
+                ),
+                'allow_empty' => true,
+            ),
         );
     }
 }
