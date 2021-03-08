@@ -35,14 +35,26 @@ class JsonLdProvider implements JsonLdProviderInterface
      */
     private $job;
 
+    private $options = [
+        'server_url' => '',
+    ];
+
     /**
      * @param JobInterface $job
      */
-    public function __construct(JobInterface $job)
+    public function __construct(JobInterface $job, ?array $options = null)
     {
         $this->job = $job;
+        if ($options) {
+            $this->setOptions($options);
+        }
     }
 
+    public function setOptions(array $options): void
+    {
+        $new = array_merge($this->options, $options);
+        $this->options = array_intersect_key($new, $this->options);
+    }
 
     public function toJsonLd()
     {
@@ -58,8 +70,10 @@ class JsonLdProvider implements JsonLdProviderInterface
             $dateEnd->add(new \DateInterval("P180D"));
             $dateEnd = $dateEnd->format('Y-m-d H:i:s');
         }
-        $array=[
-            '@context'=>'http://schema.org/',
+        $logo = $this->getLogo();
+
+        $array = [
+            '@context' => 'http://schema.org/',
             '@type' => 'JobPosting',
             'title' => $this->job->getTitle(),
             'description' => $this->getDescription($this->job->getTemplateValues()),
@@ -72,7 +86,7 @@ class JsonLdProvider implements JsonLdProviderInterface
             'hiringOrganization' => [
                 '@type' => 'Organization',
                 'name' => $organizationName,
-                'logo' => $this->getLogo()
+                'logo' => $logo ? rtrim($this->options['server_url'], '/') . $logo : '',
             ],
             'jobLocation' => $this->getLocations($this->job->getLocations()),
             'employmentType' => $this->job->getClassifications()->getEmploymentTypes()->getValues(),
