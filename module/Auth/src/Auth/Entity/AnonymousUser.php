@@ -25,13 +25,18 @@ use Laminas\Session\Container as Session;
  */
 class AnonymousUser extends User
 {
-   
+
     /**
      * Unique identification key (session-based)
      * @var string
      */
     protected $token;
-    
+
+    public function __construct(?string $token = null)
+    {
+        $this->token = $token;
+    }
+
     /**
      * Prevents this entity from persistence.
      *
@@ -45,7 +50,7 @@ class AnonymousUser extends User
     {
         throw new \RuntimeException('Anonymous users may not be persisted.');
     }
-    
+
     /**
      * Gets the anonymous identification key.
      *
@@ -62,7 +67,7 @@ class AnonymousUser extends User
         }
         return $this->token;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -77,7 +82,7 @@ class AnonymousUser extends User
         }
         return $this->id;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -89,7 +94,7 @@ class AnonymousUser extends User
     {
         return "guest";
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -101,7 +106,7 @@ class AnonymousUser extends User
     {
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -113,7 +118,7 @@ class AnonymousUser extends User
     {
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      *
