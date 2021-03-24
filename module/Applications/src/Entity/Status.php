@@ -27,7 +27,8 @@ class Status extends AbstractEntity implements StatusInterface
     protected static $orderMap = [
         self::INCOMING => 10,
         self::CONFIRMED => 20,
-        self::ACCEPTED =>25,
+        self::ACCEPTED => 25,
+        self::INQUIRY => 29,
         self::INVITED => 30,
         self::REJECTED => 40,
     ];

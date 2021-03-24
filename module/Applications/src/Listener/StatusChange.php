@@ -96,6 +96,9 @@ class StatusChange
             case Status::REJECTED:
                 $key = 'mailRejectionText';
                 break;
+            case Status::INQUIRY:
+                $key = 'mailInquiryText';
+                break;
             default:
                 throw new \InvalidArgumentException('Unknown status value: ' .$status);
         }
