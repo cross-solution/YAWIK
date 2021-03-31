@@ -93,6 +93,15 @@ endif;
                     ),
                 );
             }
+            $actionButtons[ Status::INQUIRY ] = [
+                'href' => $this->url(
+                    'lang/applications/detail/status',
+                    [ 'status' => Status::INQUIRY ],
+                    true
+                ),
+                'label' => $this->translate('Inquiry'),
+                'title' => $this->translate('Send an inquiry to the applicant'),
+            ];
             $actionButtons[ Status::REJECTED ] = [
                 'href' => $this->url(
                     'lang/applications/detail/status',
@@ -157,6 +166,15 @@ endif;
                     ),
                 );
             }
+            $actionButtons[ Status::INQUIRY ] = [
+                'href' => $this->url(
+                    'lang/applications/detail/status',
+                    [ 'status' => Status::INQUIRY ],
+                    true
+                ),
+                'label' => $this->translate('Inquiry'),
+                'title' => $this->translate('Send an inquiry to the applicant'),
+            ];
             $actionButtons[ Status::REJECTED ] = [
                 'href' => $this->url(
                     'lang/applications/detail/status',

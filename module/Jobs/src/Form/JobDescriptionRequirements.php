@@ -36,35 +36,32 @@ class JobDescriptionRequirements extends Form implements InputFilterProviderInte
     public function init()
     {
         $this->setName('jobs-form-requirements');
-        $this->setAttributes(
-            array(
+        $this->setAttributes([
             'id' => 'jobs-form-requirements',
             'data-handle-by' => 'yk-form'
-            )
-        );
+        ]);
 
-        $this->add(
-            array(
+        $this->add([
             'type' => 'TextEditor',
             'name' => 'description-requirements',
-            'options' => array(
+            'options' => [
                 'use_as_base_fieldset' => true,
                 'placeholder' => 'Requirements'
-            ),
-            )
-        );
+            ],
+        ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'description-requirements' => array(
-                'filters' => array(
-                    array(
+        return [
+            'description-requirements' => [
+                'filters' => [
+                    [
                         'name' => 'Core/XssFilter'
-                    )
-                )
-            )
-        );
+                    ],
+                ],
+                'allow_empty' => true,
+            ],
+        ];
     }
 }

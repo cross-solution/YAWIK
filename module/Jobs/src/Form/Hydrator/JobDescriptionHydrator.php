@@ -16,48 +16,55 @@ use Core\Entity\Hydrator\EntityHydrator;
 // @TODO correctly their should be one Hydrator for every Form
 class JobDescriptionHydrator extends EntityHydrator
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->init();
-    }
-
-    protected function init()
-    {
-        $this->addStrategy('descriptiondescription', new Strategy\JobDescriptionDescriptionStrategy());
-        $this->addStrategy('descriptionrequirements', new Strategy\JobDescriptionRequirementsStrategy());
-        $this->addStrategy('descriptionbenefits', new Strategy\JobDescriptionBenefitsStrategy());
-        $this->addStrategy('descriptionqualifications', new Strategy\JobDescriptionQualificationsStrategy());
-        $this->addStrategy('descriptiontitle', new Strategy\JobDescriptionTitleStrategy());
-    }
-
     /* (non-PHPdoc)
      * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
     public function extract($object): array
     {
         $data = parent::extract($object);
-        $data['description-description']    = $this->extractValue('descriptiondescription', $object);
-        $data['description-requirements']   = $this->extractValue('descriptionrequirements', $object);
-        $data['description-benefits']       = $this->extractValue('descriptionbenefits', $object);
-        $data['description-qualifications'] = $this->extractValue('descriptionqualifications', $object);
-        $data['description-title']          = $this->extractValue('descriptiontitle', $object);
+        if (!method_exists($object, 'getTemplateValues')) {
+            return $data;
+        }
 
-        $data['description-html']           = $object->getTemplateValues()->getHtml();
+        /** @var \Jobs\Entity\TemplateValues $values */
+        $values = $object->getTemplateValues();
+        $data['description-description']    = $values->getDescription();
+        $data['description-requirements']   = $values->getRequirements();
+        $data['description-benefits']       = $values->getBenefits();
+        $data['description-qualifications'] = $values->getQualifications();
+        $data['description-title']          = $values->getTitle();
+        $data['description-html']           = $values->getHtml();
+
         return $data;
     }
 
     public function hydrate(array $data, $object)
     {
         $object = parent::hydrate($data, $object);
-        $this->hydrateValue('descriptiondescription', $data, $object);
-        $this->hydrateValue('descriptionrequirements', $data, $object);
-        $this->hydrateValue('descriptionbenefits', $data, $object);
-        $this->hydrateValue('descriptionqualifications', $data, $object);
-        $this->hydrateValue('descriptiontitle', $data, $object);
-        if (isset($data['description-html'])) {
-            $object->getTemplateValues()->setHtml($data['description-html']);
+
+        if (!method_exists($object, 'getTemplateValues')) {
+            return $object;
         }
+
+        $values = $object->getTemplateValues();
+
+        $this->hydrateTemplateValue('description', $data, $values);
+        $this->hydrateTemplateValue('requirements', $data, $values);
+        $this->hydrateTemplateValue('benefits', $data, $values);
+        $this->hydrateTemplateValue('qualifications', $data, $values);
+        $this->hydrateTemplateValue('title', $data, $values);
+        $this->hydrateTemplateValue('html', $data, $values);
+
         return $object;
+    }
+
+    private function hydrateTemplateValue($name, $data, $object)
+    {
+        $key = "description-$name";
+        $setter = "set$name";
+
+        if (isset($data[$key])) {
+            $object->$setter($data[$key]);
+        }
     }
 }

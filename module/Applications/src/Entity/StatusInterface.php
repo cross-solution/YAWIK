@@ -33,6 +33,11 @@ interface StatusInterface extends EntityInterface
     const ACCEPTED = 'accepted';
 
     /**
+     * application is in process, but further actions from the applicant are needed
+     */
+    const INQUIRY = 'inquiry';
+
+    /**
      * An applicant ist invited to in interview
      */
     const INVITED   = 'invited';

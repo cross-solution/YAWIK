@@ -33,7 +33,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     ResourceInterface,
     DraftableEntityInterface
 {
-   
+
     /**
      * Refering job
      *
@@ -42,7 +42,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\Index
      */
     protected $job;
-    
+
     /**
      * User, who owns the application
      *
@@ -51,9 +51,17 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\Index
      */
     protected $user;
-    
+
     protected $__anonymousUser__;
-    
+
+    /**
+     * Token of the anonymous user created this application
+     * if available
+     * @ODM\Field(type="string", nullable="true")
+     * @var string
+     */
+    protected $userToken;
+
     /**
      * Status of an application.
      *
@@ -61,7 +69,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedOne(targetDocument="Applications\Entity\Status")
      */
     protected $status;
-    
+
     /**
      * personal informations, contains firstname, lastname, email,
      * phone etc.
@@ -69,7 +77,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedOne(targetDocument="Applications\Entity\Contact")
      */
     protected $contact;
-    
+
     /**
      * The cover letter of an application
      *
@@ -100,7 +108,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Attachment", storeAs="id", cascade={"persist", "remove"})
      */
     protected $attachments;
-    
+
     /**
      * Searchable keywords.
      *
@@ -108,7 +116,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\Field(type="collection")
      */
     protected $keywords;
-    
+
     /**
      * History on an application
      *
@@ -116,7 +124,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedMany(targetDocument="Applications\Entity\History")
      */
     protected $history;
-    
+
     /**
      * Who has opened the detail view of the application. Contains an array of user ids, which has read this
      * application.
@@ -125,15 +133,15 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\Field(type="collection")
      */
     protected $readBy = array();
-     
+
     /**
      * Refering subscriber (Where did the application origin from).
      *
      * @ODM\ReferenceOne(targetDocument="Applications\Entity\Subscriber", cascade={"persist"}, storeAs="id")
      */
     protected $subscriber;
-    
-    
+
+
     /**
      * Recruiters can comment an application.
      *
@@ -141,7 +149,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedMany(targetDocument="Applications\Entity\Comment")
      */
     protected $comments;
-    
+
     /**
      * Average rating from all comments.
      *
@@ -149,7 +157,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\Field(type="int")
      */
     protected $rating;
-    
+
     /**
      * Assigned permissions.
      *
@@ -157,7 +165,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedOne(targetDocument="Core\Entity\Permissions")
      */
     protected $permissions;
-    
+
     /**
      * Internal references (DB denaturalism)
      *
@@ -165,7 +173,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedOne(targetDocument="Applications\Entity\InternalReferences")
      */
     protected $refs;
-    
+
     /**
      * Collection of social network profiles.
      *
@@ -174,8 +182,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedMany(discriminatorField="_entity")
      */
     protected $profiles;
-    
-    
+
+
     /**
      * Flag indicating draft state of this application.
      *
@@ -183,7 +191,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\Field(type="bool")
      */
     protected $isDraft = false;
-    
+
     /**
      * Attributes like "privacy policy accepted" or "send by data as an CC".
      *
@@ -191,7 +199,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @ODM\EmbedOne(targetDocument="Applications\Entity\Attributes")
      */
     protected $attributes;
-    
+
     /**
      * {@inheritDoc}
      * @ODM\PreUpdate
@@ -214,7 +222,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
             $this->getRating(/*recalculate*/ true);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Laminas\Permissions\Acl\Resource\ResourceInterface::getResourceId()
@@ -223,7 +231,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return 'Entity/Application';
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -233,7 +241,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return $this->isDraft;
     }
-    
+
     /**
      * {@inheritDoc}
      * @return \Applications\Entity\Application
@@ -243,7 +251,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->isDraft = (bool) $flag;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -253,7 +261,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return $this->job;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -262,12 +270,12 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     public function setJob(JobInterface $job)
     {
         $this->job = $job;
-        
+
         $this->getRefs()->setJob($job);
-        
+
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -281,9 +289,16 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
         $this->user = $user;
+
+        if ($user instanceof AnonymousUser) {
+            $this->userToken = $user->getToken();
+        } elseif ($this->userToken) {
+            $this->userToken = null;
+        }
+
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -291,9 +306,13 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      */
     public function getUser()
     {
+        if (!$this->user && $this->userToken) {
+            $this->user = new AnonymousUser($this->userToken);
+        }
+
         return $this->user;
     }
-    
+
     /**
      *
      * @ODM\PrePersist
@@ -307,7 +326,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
             $this->user = null;
         }
     }
-    
+
     /**
      *
      * @ODM\PostPersist
@@ -334,7 +353,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->status = $status;
         return $this;
     }
-    
+
     /**
      * Modifies the state of an application.
      *
@@ -354,7 +373,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->getHistory()->add($history);
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getStatus()
@@ -363,7 +382,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return $this->status;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getContact()
@@ -387,7 +406,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->contact = $contact;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setSummary()
@@ -398,7 +417,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->summary = (string) $summary;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getSummary()
@@ -436,7 +455,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->cv = $cv;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getCv()
@@ -448,7 +467,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this->cv;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setAttachments()
@@ -459,7 +478,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->attachments = $attachments;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getAttachments()
@@ -471,7 +490,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this->attachments;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setProfiles()
@@ -482,7 +501,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->profiles = $profiles;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getProfiles()
@@ -494,7 +513,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this->profiles;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setHistory()
@@ -505,7 +524,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->history = $history;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getHistory()
@@ -528,7 +547,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->readBy = $userIds;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getReadBy()
@@ -537,7 +556,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return $this->readBy;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::addReadBy()
@@ -553,7 +572,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::isUnreadBy()
@@ -562,7 +581,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return !$this->isReadBy($userOrId);
     }
-     
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::isReadBy()
@@ -572,10 +591,10 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         if ($userOrId instanceof UserInterface) {
             $userOrId = $userOrId->getId();
         }
-        
+
         return in_array($userOrId, $this->readBy);
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getSubscriber()
@@ -585,7 +604,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return $this->subscriber;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setSubscriber()
@@ -596,7 +615,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->subscriber = $subscriber;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Core\Entity\PermissionsAwareInterface::getPermissions()
@@ -612,7 +631,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this->permissions;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Core\Entity\PermissionsAwareInterface::setPermissions()
@@ -623,7 +642,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->permissions = $permissions;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getRefs()
@@ -635,7 +654,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this->refs;
     }
-    
+
     /**
      * {@inheritDoc}
      * @deprecated
@@ -645,7 +664,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return array('summary', 'commentsMessage');
     }
-    
+
     /**
      * {@inheritDoc}
      * @deprecated
@@ -657,7 +676,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->keywords = $keywords;
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @deprecated
@@ -667,7 +686,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         return $this->keywords;
     }
-    
+
     /**
      * {@inheritDoc}
      * @deprecated
@@ -679,7 +698,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->keywords = array();
         return $this;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getComments()
@@ -691,7 +710,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this->comments;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setComments()
@@ -702,7 +721,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         $this->comments = $comments;
         return $this;
     }
-    
+
     /**
      * @return array
      */
@@ -716,7 +735,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $comments;
     }
-    
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getRating()
@@ -734,13 +753,13 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         }
         return $this->rating;
     }
-    
+
     public function setAttributes(Attributes $attributes)
     {
         $this->attributes = $attributes;
         return $this;
     }
-    
+
     public function getAttributes()
     {
         if (!$this->attributes) {

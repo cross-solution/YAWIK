@@ -36,35 +36,32 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
     public function init()
     {
         $this->setName('jobs-form-benefits');
-        $this->setAttributes(
-            array(
+        $this->setAttributes([
             'id' => 'jobs-form-benefits',
             'data-handle-by' => 'yk-form'
-            )
-        );
+        ]);
 
-        $this->add(
-            array(
+        $this->add([
             'type' => 'TextEditor',
             'name' => 'description-benefits',
-            'options' => array(
+            'options' => [
                 'use_as_base_fieldset' => true,
                 'placeholder' => 'Benefits'
-            ),
-            )
-        );
+            ],
+        ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'description-benefits' => array(
-                'filters' => array(
-                    array(
+        return [
+            'description-benefits' => [
+                'allow_empty' => true,
+                'filters' => [
+                    [
                         'name' => 'Core/XssFilter'
-                    )
-                )
-            )
-        );
+                    ],
+                ],
+            ],
+        ];
     }
 }

@@ -64,6 +64,7 @@ class StatusTest extends TestCase
                 [StatusInterface::INCOMING, StatusInterface::INCOMING],
                 [StatusInterface::ACCEPTED, StatusInterface::ACCEPTED],
                 [StatusInterface::CONFIRMED,StatusInterface::CONFIRMED],
+                [StatusInterface::INQUIRY, StatusInterface::INQUIRY],
                 [StatusInterface::INVITED,  StatusInterface::INVITED],
                 [StatusInterface::REJECTED, StatusInterface::REJECTED],
 
@@ -86,6 +87,7 @@ class StatusTest extends TestCase
                 [StatusInterface::INCOMING, 10],
                 [StatusInterface::ACCEPTED, 25],
                 [StatusInterface::CONFIRMED, 20],
+                [StatusInterface::INQUIRY, 29],
                 [StatusInterface::INVITED, 30],
                 [StatusInterface::REJECTED, 40],
             ];
@@ -108,6 +110,7 @@ class StatusTest extends TestCase
             StatusInterface::INCOMING,
             StatusInterface::CONFIRMED,
             StatusInterface::ACCEPTED,
+            StatusInterface::INQUIRY,
             StatusInterface::INVITED,
             StatusInterface::REJECTED
         ];

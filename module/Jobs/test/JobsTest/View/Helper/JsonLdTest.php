@@ -33,6 +33,7 @@ class JsonLdTest extends TestCase
 {
     use TestInheritanceTrait, TestSetterGetterTrait;
 
+    /** @var string|JsonLd */
     private $target = JsonLd::class;
 
     private $inheritance = [ AbstractHelper::class ];
@@ -52,7 +53,7 @@ class JsonLdTest extends TestCase
     {
         $this->assertEmpty($this->target->__invoke());
     }
-    
+
     public function testReturnsNothingIfJobIsNotActice()
     {
         $job = new Job();
@@ -75,11 +76,25 @@ class JsonLdTest extends TestCase
         $job->setOrganization($organization);
         $job->setTitle('Test JsonLd view helper');
         $job->setDatePublishStart(new \DateTime());
+        $this->target->setView($this->getViewRendererMock());
 
         $json = $this->target->__invoke($job);
 
         $this->assertStringStartsWith('<script type="application/ld+json">', $json);
         $this->assertStringEndsWith('</script>', $json);
         $this->assertContains('"title":"Test JsonLd view helper"', $json);
+    }
+
+    private function getViewRendererMock()
+    {
+        return new class extends \Laminas\View\Renderer\PhpRenderer {
+            public function plugin($name, ?array $options = null) {
+                return new class {
+                    public function __invoke($str = '') {
+                        return $str;
+                    }
+                };
+            }
+        };
     }
 }

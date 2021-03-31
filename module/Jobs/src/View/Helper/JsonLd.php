@@ -51,7 +51,17 @@ class JsonLd extends AbstractHelper
             return '';
         }
 
-        $jsonLdProvider = new JsonLdProvider($job);
+        /** @var \Laminas\View\Renderer\PhpRenderer $view */
+        $view = $this->getView();
+        $serverUrl = $view->plugin('serverurl');
+        $basePath = $view->plugin('basepath');
+
+        $jsonLdProvider = new JsonLdProvider(
+            $job,
+            [
+                'server_url' => $serverUrl($basePath()),
+            ]
+        );
 
         return '<script type="application/ld+json">'
                . $jsonLdProvider->toJsonLd()
