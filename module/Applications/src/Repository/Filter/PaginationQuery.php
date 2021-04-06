@@ -11,6 +11,7 @@ namespace Applications\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Doctrine\MongoDB\Query\Builder;
 use Laminas\Stdlib\Parameters;
+use Organizations\Entity\EmployeeInterface;
 
 /**
  * maps query parameters to entity attributes
@@ -57,7 +58,8 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $userID = $this->auth->getUser()->getId();
+        $user = $this->auth->getUser();
+        $userID = $user->getId();
         if ($params instanceof Parameters) {
             $value = $params->toArray();
         } else {
@@ -96,6 +98,21 @@ class PaginationQuery extends AbstractPaginationQuery
         if (isset($value['status']) && 'all' != $value['status']) {
             $queryBuilder->field('status.name')->equals($value['status']);
         }
+
+        if ($user->hasOrganization()) {
+            $org = $user->getOrganization();
+            if (!$org->isOwner()) {
+                $org = $org->getOrganization();
+                $settings = $org->getWorkflowSettings();
+                if ($settings->hasActiveWorkflow() && $settings->getAssignDepartmentManagersToJobs()) {
+                    $employee = $org->getEmployee($userID);
+                    if ($employee->getRole() === EmployeeInterface::ROLE_DEPARTMENT_MANAGER) {
+                        $queryBuilder->field('refs.jobManagers')->equals($userID);
+                    }
+                }
+            }
+        }
+
         $queryBuilder->sort($this->filterSort($value['sort']));
 
         return $queryBuilder;

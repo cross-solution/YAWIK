@@ -24,6 +24,12 @@ class InternalReferences extends AbstractEntity
     /** @ODM\Field(type="hash") */
     protected $jobs = array();
 
+    /**
+     * @ODM\Field(type="collection")
+     * @var array
+     */
+    protected $jobManagers = [];
+
     public function setJob(JobInterface $job)
     {
         if (isset($this->jobs['__id__']) && $this->jobs['__id__'] == $job->getId()) {
@@ -34,6 +40,7 @@ class InternalReferences extends AbstractEntity
             '__id__' => $job->getId(),
             'userId' => ($user = $job->getUser()) ? $user->getId() : null,
         );
+        $this->setJobsManagers($job->getMetaData('organizations:managers', []));
         return $this;
     }
 
@@ -49,6 +56,12 @@ class InternalReferences extends AbstractEntity
             $userOrId = $userOrId->getId();
         }
         $this->jobs['userId'] = $userOrId;
+        return $this;
+    }
+
+    public function setJobsManagers($managers)
+    {
+        $this->jobManagers = $managers;
         return $this;
     }
 }
