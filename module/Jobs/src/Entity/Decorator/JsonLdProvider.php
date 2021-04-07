@@ -81,7 +81,7 @@ class JsonLdProvider implements JsonLdProviderInterface
 
         $array += $this->generateSalary();
 
-        $array = array_merge_recursive($this->getDefault(), $default, $array);
+        $array = array_replace_recursive($this->getDefault(), $default, $array);
 
         return Json::encode($array);
     }

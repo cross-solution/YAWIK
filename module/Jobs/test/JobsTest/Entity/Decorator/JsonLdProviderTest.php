@@ -125,7 +125,18 @@ class JsonLdProviderTest extends TestCase
 
         $array = json_decode($json, JSON_OBJECT_AS_ARRAY);
 
-        $this->assertArrayNotHasKey('baseSalary', $array);
+        $expect = [
+            '@type' => 'MonetaryAmount',
+            'currency' => 'EUR',
+            'value' => [
+                '@type' => 'QuantitiveValue',
+                'value' => 'node',
+                'unitText' => 'YEAR'
+            ]
+        ];
+
+        $this->assertArrayHasKey('baseSalary', $array);
+        $this->assertEquals($expect, $array['baseSalary']);
     }
 
     public function testGeneratesJsonLdWithSalary()
