@@ -43,7 +43,7 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
             ->will($this->returnValueMap([
                 [ 'Organizations/OrganizationImage', $orgImageRepo ]
             ]));
-        
+
         $manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
             ->getMock()
@@ -73,8 +73,8 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
             ->with('Organizations/OrganizationImage')
             ->willReturn($repository)
         ;*/
-        
-        
+
+
         $this->authenticateUser();
         $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
         $result = $this->getResponse()->getContent();
@@ -83,18 +83,18 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
         $this->assertContains('My password', $result);
     }
-    
+
     public function testAccessWhenYouAreNotLoggedIn()
     {
         $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
-        
+
         $result = $this->getResponse()->getContent();
-        
-        $this->assertNotRedirect();
-        $this->assertResponseStatusCode(Response::STATUS_CODE_401);
-        $this->assertContains('Please authenticate yourself to proceed', $result);
+
+        $this->assertRedirect();
+        $this->assertRedirectRegex('~/login\?ref=.*?password~');
+        $this->assertResponseStatusCode(Response::STATUS_CODE_303);
     }
-    
+
     /**
      * Assert response status code
      *
