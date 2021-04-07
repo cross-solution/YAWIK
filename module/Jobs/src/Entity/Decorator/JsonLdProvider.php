@@ -44,7 +44,7 @@ class JsonLdProvider implements JsonLdProviderInterface
     }
 
 
-    public function toJsonLd()
+    public function toJsonLd($default=[])
     {
         $organization = $this->job->getOrganization();
         $organizationName = $organization ? $organization->getOrganizationName()->getName() : $this->job->getCompany();
@@ -81,6 +81,13 @@ class JsonLdProvider implements JsonLdProviderInterface
 
         $array += $this->generateSalary();
 
+        /**
+        * TODO: make this working
+        
+        $array=array_merge_recursive($this->getDefault,$default,$array);
+        
+        */
+        
         return Json::encode($array);
     }
 
@@ -174,4 +181,99 @@ class JsonLdProvider implements JsonLdProviderInterface
             ],
         ];
     }
+
+    private function getDefault(){
+        return [
+            '@context'=>'http://schema.org/',
+            '@type' => 'JobPosting',
+            'identifier' => [
+                '@type' => 'PropertyValue',
+            ],
+            'hiringOrganization' => [
+                '@type' => 'Organization',
+            ],
+            'jobLocation' => [
+                '@type' => 'Place',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressCountry' => 'DE',
+                ]
+            ],
+            'baseSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => 'EUR',
+                'value' => [
+                    '@type' => 'QuantitiveValue',
+                    'value' => 'node',
+                    'unitText' => 'YEAR'
+                ]
+            ]
+                ];
+    }
+
 }
+
+
+
+
+
+array(10) {
+    ["@context"]=>
+    string(18) "http://schema.org/"
+    ["@type"]=>
+    string(10) "JobPosting"
+    ["title"]=>
+    string(40) "Auszubildende/r Fachinformatiker AE / SI"
+    ["description"]=>
+    string(192) "<p>test</p><h1>Auszubildende/r Fachinformatiker AE / SI</h1><h3>Requirements</h3><p><p>gd fgdfg dfg dfg df</p></p><h3>Qualifications</h3><p></p><h3>Benefits</h3><p><p>s gdf gdfg df gdf</p></p>"
+    ["datePosted"]=>
+    string(19) "2020-06-12 18:59:45"
+    ["identifier"]=>
+    array(3) {
+      ["@type"]=>
+      string(13) "PropertyValue"
+      ["value"]=>
+      string(24) "5c8115410acec3d470a03e41"
+      ["name"]=>
+      string(8) "Firma XY"
+    }
+    ["hiringOrganization"]=>
+    array(3) {
+      ["@type"]=>
+      string(12) "Organization"
+      ["name"]=>
+      string(8) "Firma XY"
+      ["logo"]=>
+      string(72) "/file/Organizations.OrganizationImage/58f8e3124e197f5d78e3fed7/YAWIK.jpg"
+    }
+    ["jobLocation"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        ["@type"]=>
+        string(5) "Place"
+        ["address"]=>
+        array(6) {
+          ["@type"]=>
+          string(13) "PostalAddress"
+          ["streetAddress"]=>
+          string(1) " "
+          ["postalCode"]=>
+          NULL
+          ["addressLocality"]=>
+          string(6) "Vechta"
+          ["addressCountry"]=>
+          NULL
+          ["addressRegion"]=>
+          string(13) "Niedersachsen"
+        }
+      }
+    }
+    ["employmentType"]=>
+    array(1) {
+      [0]=>
+      string(9) "permanent"
+    }
+    ["validThrough"]=>
+    string(19) "2020-12-09 18:59:45"
+  }
