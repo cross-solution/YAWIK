@@ -40,7 +40,13 @@ class InternalReferences extends AbstractEntity
             '__id__' => $job->getId(),
             'userId' => ($user = $job->getUser()) ? $user->getId() : null,
         );
-        $this->setJobsManagers($job->getMetaData('organizations:managers', []));
+        $managers = array_filter(array_unique(array_map(
+            function ($x) {
+                return $x['id'] ?? false;
+            },
+            $job->getMetaData('organizations:managers', [])
+        )));
+        $this->setJobsManagers($managers);
         return $this;
     }
 
