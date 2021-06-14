@@ -16,6 +16,7 @@ use Laminas\View\Model\JsonModel;
 use Auth\Entity\User;
 use Jobs\Repository;
 use Jobs\Form\ListFilter;
+use Jobs\Model\ApiJobDehydrator;
 use Laminas\View\Model\ViewModel;
 
 /**
@@ -99,6 +100,9 @@ class IndexController extends AbstractActionController
         ];
         if (isset($this->searchForm)) {
             $return['filterForm'] = $this->searchForm;
+        }
+        if ($jsonFormat) {
+            $return['jobs'] = (new ApiJobDehydrator())->dehydrateList(iterator_to_array($return['jobs']));
         }
 
         $model = new ViewModel();
