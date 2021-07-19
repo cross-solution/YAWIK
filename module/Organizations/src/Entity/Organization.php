@@ -212,6 +212,13 @@ class Organization extends BaseEntity implements
     protected $profileSetting;
 
     /**
+     * @ODM\Field(type="bool")
+     * @var bool
+     */
+    protected $isFeaturedCompany = false;
+
+
+    /**
      * @return string
      */
     public function getProfileSetting()
@@ -857,5 +864,25 @@ class Organization extends BaseEntity implements
         $this->workflowSettings = $workflowSettings;
 
         return $this;
+    }
+
+    /**
+     * Get isFeaturedCompany
+     *
+     * @return bool
+     */
+    public function isFeaturedCompany(): bool
+    {
+        return $this->isFeaturedCompany;
+    }
+
+    /**
+     * Set isFeaturedCompany
+     *
+     * @param bool $isFeaturedCompany
+     */
+    public function setIsFeaturedCompany(bool $isFeaturedCompany): void
+    {
+        $this->isFeaturedCompany = $isFeaturedCompany;
     }
 }
