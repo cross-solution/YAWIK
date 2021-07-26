@@ -31,26 +31,26 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         if (empty($error)) {
             return;
         }
-    
+
         // Do nothing if the result is a response object
         $result = $e->getResult();
         if ($result instanceof Response) {
             return;
         }
-        
+
         // Do nothing if there is no exception or the exception is not
         // an UnauthorizedAccessException
         $exception = $e->getParam('exception');
         if (!$exception instanceof UnauthorizedAccessException) {
             return;
         }
-      
+
         $response = $e->getResponse();
         if (!$response) {
             $response = new Response();
             $e->setResponse($response);
         }
-        
+
         /*
          * Return an image, if an image was requested.
          */
@@ -64,29 +64,39 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             $response->sendHeaders();
             //echo file_get_contents($image);
 
-            
+
             //$response->stopped = true;
             return $response;
         }
-        
+
         $application = $e->getApplication();
 		$auth = $application->getServiceManager()->get('AuthenticationService');
-        
+
         if (!$auth->hasIdentity()) {
-            $routeMatch = $e->getRouteMatch();
-            $routeMatch->setParam('controller', 'Auth\Controller\Index');
-            $routeMatch->setParam('action', 'index');
-            $query = $e->getRequest()->getQuery();
-            $ref = $e->getRequest()->getRequestUri();
+            $request = $e->getRequest();
+            $loginPrefill = $request->getQuery()->get('login');
+            $ref = $request->getRequestUri();
+            $query = [];
+            if ($loginPrefill) {
+                $ref = preg_replace('~(?:\?|&)login=' . $loginPrefill . '~', '', $ref);
+                $query['login'] = $loginPrefill;
+            }
             $ref = preg_replace('~^' . preg_quote($e->getRouter()->getBaseUrl()) . '~', '', $ref);
-            $query->set('ref', $ref);
-            $query->set('req', 1);
-            $response->setStatusCode(Response::STATUS_CODE_401);
-            $response->getHeaders()
-                ->addHeaderLine('X-YAWIK-Login-Url', $e->getRouter()->assemble([], ['name' => 'lang/auth', 'query' => ['ref' => $ref]]));
-            $result = $application->getEventManager()->trigger('dispatch', $e);
+            $ref = urlencode($ref);
+            $query['ref'] = $ref;
+            $url = $e->getRouter()->assemble([], ['name' => 'lang/auth', 'query' => $query]);
+            if ($request->isXMLHttpRequest()) {
+                $response->setStatusCode(Response::STATUS_CODE_401);
+                $response->getHeaders()->addHeaderLine(
+                    'X-YAWIK-Login-Url', $url
+                );
+            } else {
+                $response->setStatusCode(Response::STATUS_CODE_303);
+                $response->getHeaders()->addHeaderLine('Location', $url);
+            }
+
             $e->stopPropagation();
-            return $result;
+            return $response;
         }
         $message = $exception->getMessage();
         $model = new ViewModel(

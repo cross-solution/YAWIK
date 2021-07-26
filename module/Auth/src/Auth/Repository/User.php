@@ -243,6 +243,7 @@ class User extends AbstractRepository
      * @deprecated since 0.19 not used anymore and probably broken.
      * @return object
      */
+
     public function findByQuery($query)
     {
         $qb = $this->createQueryBuilder();

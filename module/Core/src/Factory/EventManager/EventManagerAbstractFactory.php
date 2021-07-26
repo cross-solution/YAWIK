@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Factory\EventManager;
 
@@ -145,7 +145,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
          */
         return 0 === strpos(strrev($requestedName), 'stnevE/');
     }
-    
+
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
         return $this->canCreate($serviceLocator, $requestedName);
@@ -221,7 +221,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         /* @var \Laminas\EventManager\EventManagerInterface|\Core\EventManager\EventProviderInterface $events */
 
         if ($services->has($config['service'])) {
-            $events = $services->get($config['service']);
+            $events = $services->build($config['service']);
         } else {
             if (!class_exists($config['service'], true)) {
                 throw new \UnexpectedValueException(sprintf(
@@ -238,7 +238,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         }
 
         $events->setIdentifiers($config['identifiers']);
-    
+
         /* @var \Laminas\EventManager\EventInterface $event */
         $event = $services->has($config['event']) ? $services->get($config['event']) : new $config['event']();
         $events->setEventPrototype($event);

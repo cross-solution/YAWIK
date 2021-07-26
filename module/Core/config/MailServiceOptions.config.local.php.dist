@@ -11,7 +11,7 @@
  */
 
 /**
- * Mail transport. Possible Values "smtp", "sendmail". If "sendmail" is used, YAWIK will use the php mail() function
+ * Mail transport. Possible Values "smtp", "sendmail" or "file". If "sendmail" is used, YAWIK will use the php mail() function
  * for sending mails. This requires a local MTA.
  *
  * @var string
@@ -19,37 +19,50 @@
 $transport = 'smtp';
 
 /**
+ * File transport options:
+ */
+
+ /*
+  * path to store the mail files
+  */
+$path = './build/mails/';
+
+/**
+ * Smtp transport options:
+ */
+
+/*
  * Fully-qualified classname or short name resolvable via Laminas\Mail\Protocol\SmtpLoader.
  * Typically, this will be one of “smtp”, “plain”, “login”, or “crammd5”, and defaults to “smtp”.
  */
 $auth = 'plain';
 
-/**
+/*
  * @var string Local client hostname
  */
 $name = 'localhost';
 
-/**
- * 'ssl' or 'tls' one null.
+/*
+ * 'ssl' or 'tls' or null.
  */
 $ssl = null;
 
-/**
+/*
  * @var string Remote SMTP hostname or IP
  */
 $host = '127.0.0.1';
 
-/**
+/*
  * @var int
  */
 $port = 25;
 
-/**
+/*
  * Username
  */
 $username = null;
 
-/**
+/*
  * password
  */
 $password = null;
@@ -70,7 +83,9 @@ return [
                 'username' => $username,
                 'password' => $password,
                 'ssl' => $ssl,
+                'path' => $path,
+                'transportClass' => $transport,
             ],
         ],
-    ]
+    ],
 ];

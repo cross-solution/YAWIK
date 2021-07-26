@@ -57,7 +57,7 @@ class JsonLdProvider implements JsonLdProviderInterface
         $this->options = array_intersect_key($new, $this->options);
     }
 
-    public function toJsonLd()
+    public function toJsonLd($default=[])
     {
         $organization = $this->job->getOrganization();
         $organizationName = $organization ? $organization->getOrganizationName()->getName() : $this->job->getCompany();
@@ -95,6 +95,8 @@ class JsonLdProvider implements JsonLdProviderInterface
         ];
 
         $array += $this->generateSalary();
+
+        $array = array_replace_recursive($this->getDefault(), $default, $array);
 
         return Json::encode($array);
     }
@@ -193,5 +195,34 @@ class JsonLdProvider implements JsonLdProviderInterface
                 ],
             ],
         ];
+    }
+
+    private function getDefault(){
+        return [
+            '@context'=>'http://schema.org/',
+            '@type' => 'JobPosting',
+            'identifier' => [
+                '@type' => 'PropertyValue',
+            ],
+            'hiringOrganization' => [
+                '@type' => 'Organization',
+            ],
+            'jobLocation' => [
+                '@type' => 'Place',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressCountry' => 'DE',
+                ]
+            ],
+            'baseSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => 'EUR',
+                'value' => [
+                    '@type' => 'QuantitiveValue',
+                    'value' => 'node',
+                    'unitText' => 'YEAR'
+                ]
+            ]
+                ];
     }
 }

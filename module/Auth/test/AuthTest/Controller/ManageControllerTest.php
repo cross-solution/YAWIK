@@ -45,9 +45,9 @@ class ManageControllerTest extends AbstractFunctionalControllerTestCase
 
         $result = $this->getResponse()->getContent();
 
-        $this->assertNotRedirect();
-        $this->assertResponseStatusCode(Response::STATUS_CODE_401);
-        $this->assertContains('Please authenticate yourself to proceed', $result);
+        $this->assertRedirect();
+        $this->assertResponseStatusCode(Response::STATUS_CODE_303);
+        $this->assertRedirectRegex('~/login\?ref=.*?profile~');
     }
 
     public function testAccessWhenLoggedIn()

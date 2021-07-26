@@ -102,7 +102,7 @@ class NewApplication extends StringTemplateMessage
             'link'  => $this->router->assemble(
                             ['id' => $this->application->getId()],
                             ['name'=>'lang/applications/detail', 'force_canonical'=>true]
-                       ),
+                       ) . '?login=' . $this->user->getLogin(),
         ];
 
         $this->setTo($this->user->getInfo()->getEmail(), $this->user->getInfo()->getDisplayName(false));
