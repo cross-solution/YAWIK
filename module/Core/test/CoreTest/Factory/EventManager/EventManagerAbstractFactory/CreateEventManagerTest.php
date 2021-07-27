@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Factory\EventManager\EventManagerAbstractFactory;
 
@@ -69,6 +69,7 @@ class CreateEventManagerTest extends TestCase
     protected function getServiceManagerMock($events, $args = [])
     {
         $services = $this->getMockBuilder('\Laminas\ServiceManager\ServiceManager')
+                         ->setMethods(['has', 'get', 'build'])
                          ->disableOriginalConstructor()
                          ->getMock();
 
@@ -83,25 +84,37 @@ class CreateEventManagerTest extends TestCase
 
         $hasMap = [ [ $eventsService, true ] ];
         $getMap = [ [ $eventsService, $events ] ];
+        $buildMap = [ [ $eventsService, null, $events ] ];
 
         foreach ($args as $serviceName => $serviceValue) {
             if (false === $serviceValue) {
                 $hasMap[] = [ $serviceName, true ];
             } else {
+                if (is_array($serviceValue)) {
+                    $serviceOptions = $serviceValu1[1] ?? null;
+                    $serviceValue = $serviceValue[0];
+                } else {
+                    $serviceOptions = null;
+                }
                 $hasMap[] = [ $serviceName, true];
                 $getMap[] = [ $serviceName, $serviceValue ];
+                $buildMap[] = [ $serviceName, $serviceOptions, $serviceValue ];
             }
         }
 
         /*$services->expects($this->exactly(count($hasMap)))
                  ->method('has')->will($this->returnValueMap($hasMap));
         */
+
         $services->expects($this->any())
             ->method('has')
             ->will($this->returnValueMap($hasMap))
         ;
-        $services->expects($this->exactly(count($getMap)))
-                 ->method('get')->will($this->returnValueMap($getMap));
+        $services->expects($this->atMost(count($getMap)))
+                ->method('get')->will($this->returnValueMap($getMap));
+
+        $services->expects($this->atMost(count($getMap)))
+                ->method('build')->will($this->returnValueMap($buildMap));
 
         return $services;
     }
@@ -111,7 +124,18 @@ class CreateEventManagerTest extends TestCase
         $events = new EventManager();
         $services = new ServiceManager();
 
-        $services->setService('Test/Events/Manager', $events);
+        $factory = new class ($events) {
+            public function __construct($events) {
+                $this->events = $events;
+            }
+
+            public function __invoke()
+            {
+                return $this->events;
+            }
+        };
+
+        $services->setFactory('Test/Events/Manager', $factory);
 
         $this->setTargetConfig([ 'service' => 'Test/Events/Manager', 'configure' => false, 'listeners' => []]);
 

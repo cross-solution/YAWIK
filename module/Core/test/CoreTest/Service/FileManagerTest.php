@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace CoreTest\Service;
 
 use Auth\AuthenticationService;
+use Auth\Entity\AnonymousUser;
 use Auth\Entity\UserInterface;
 use Core\Entity\FileMetadataInterface;
+use Core\Entity\PermissionsInterface;
 use Core\Service\FileManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\GridFSRepository;
@@ -49,8 +51,18 @@ class FileManagerTest extends TestCase
 
         $repo = $this->createMock(GridFSRepository::class);
         $metadata = $this->createMock(FileMetadataInterface::class);
-        $user = $this->createMock(UserInterface::class);
+        $permissions = $this->createMock(PermissionsInterface::class);
+        $user = $this->createMock(AnonymousUser::class);
         $expected = new \stdClass();
+        $this->assertTrue(true);
+
+        $metadata->expects($this->once())
+            ->method('getPermissions')
+            ->willReturn($permissions);
+
+        $permissions->expects($this->once())
+            ->method('grant')
+            ->with($user, PermissionsInterface::PERMISSION_ALL);
 
         $repo->expects($this->once())
             ->method('uploadFromFile')

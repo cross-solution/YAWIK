@@ -38,21 +38,45 @@ class LoadExpiredJobsToPurgeTest extends FunctionalTestCase
         $job->setDateModified(new \DateTime('- 80 days'));
         $job->setDatePublishEnd(new \DateTime('- 80 days'));
 
-        $jobRepo = $this->prophesize(JobRepository::class);
-        $jobRepo->createQueryBuilder()->willReturn(new class ($job) {
+        $jobRepo = new class ($job)
+        {
             private $job;
 
-            public function __construct($job) { $this->job = $job; }
-            public function __call($name, $args) { return $this; }
-            public function toArray() { return [$this->job]; }
-        });
+            public function __construct($job)
+            {
+                $this->job = $job;
+            }
+            public function createQueryBuilder()
+            {
+                $this->qb = new class ($this->job)
+                {
+                    private $job;
 
+                    public function __construct($job) { $this->job = $job; $this->called = []; }
+                    public function __call($name, $args)
+                    {
+                        $args = array_map(
+                            function ($item) {
+                                if (is_object($item)) { return 'object'; }
+                                return $item;
+                            },
+                            $args
+                        );
+
+                        $this->called[] = [$name, $args];
+                        return $this;
+                    }
+                    public function toArray() { return [$this->job]; }
+                };
+                return $this->qb;
+            }
+        };
 
         $event = $this->createMock(LoadEvent::class);
         $event->expects($this->once())
             ->method('getRepository')
             ->with('Jobs')
-            ->willReturn($jobRepo->reveal());
+            ->willReturn($jobRepo);
         $event->expects($this->exactly(2))
             ->method('getParam')
             ->withConsecutive(['days',80],['limit', 0])
@@ -65,5 +89,32 @@ class LoadExpiredJobsToPurgeTest extends FunctionalTestCase
 
         $this->assertIsArray($entities);
         $this->assertEquals($job, array_pop($entities));
+
+        $expectedQbCalls = [
+            ['field', ['status.name']],
+            ['notEqual', ['active']],
+            ['expr', []],
+            ['expr', []],
+            ['field', ['datePublishEnd']],
+            ['exists', ['1']],
+            ['expr', []],
+            ['field', ['datePublishEnd.date']],
+            ['lt', ['object']],
+            ['addAnd', ['object', 'object']],
+            ['expr', []],
+            ['expr', []],
+            ['field', ['datePublishEnd']],
+            ['exists', ['']],
+            ['expr', []],
+            ['field', ['dateModified.date']],
+            ['lt', ['object']],
+            ['addAnd', ['object', 'object']],
+            ['addOr', ['object', 'object']],
+            ['limit', ['10']],
+            ['getQuery', []],
+            ['execute', []],
+        ];
+        $this->assertEquals($expectedQbCalls, $jobRepo->qb->called);
+
     }
 }
