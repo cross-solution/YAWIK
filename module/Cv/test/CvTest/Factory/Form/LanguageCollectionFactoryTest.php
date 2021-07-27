@@ -30,7 +30,7 @@ use Laminas\ServiceManager\ServiceManager;
  * @group Cv.Factory
  * @group Cv.Factory.Form
  */
-class LanguageSkillCollectionFactoryTest extends TestCase
+class LanguageCollectionFactoryTest extends TestCase
 {
     use TestInheritanceTrait;
 

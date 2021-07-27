@@ -33,7 +33,7 @@ class Education extends AbstractIdentifiableEntity
 
     /**
      * @var bool
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $currentIndicator;
 

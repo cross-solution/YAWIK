@@ -11,6 +11,8 @@
 namespace Applications\Entity;
 
 use Auth\Entity\Info;
+use Core\Entity\FileInterface;
+use Core\Entity\ImageInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\InfoInterface;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -31,11 +33,9 @@ class Contact extends Info
      *
      * As contact image is stored as an {@link Applications\Entity\Attachment} it must be
      * redeclared here.
-     *
-     * @var \Core\Entity\FileInterface
-     * @ODM\ReferenceOne(targetDocument="Attachment", storeAs="id", nullable=true, cascade={"persist", "update", "remove"}, orphanRemoval=true)
+     * @ODM\ReferenceOne(targetDocument="Applications\Entity\Attachment", storeAs="id", nullable=true, cascade={"persist", "update", "remove"}, orphanRemoval=true)
      */
-    protected $image;
+    protected $image = null;
 
     /**
      * Creates a Contact

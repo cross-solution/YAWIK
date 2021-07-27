@@ -30,15 +30,16 @@ class FormImageUpload extends FormFileUpload
         $translator = $this->getTranslator();
         $textDomain = $this->getTranslatorTextDomain();
 
-        if ($file) {
-            if (0 === strpos($file->getType(), 'image/')) {
+        if ($file && !is_null($file->getMetadata())) {
+            $metadata = $file->getMetadata();
+            if (0 === strpos($metadata->getContentType(), 'image/')) {
                 $basepath  = $this->getView()->plugin('basepath');
                 $preview = '<img src="' . $basepath($file->getUri()) . '" class="img-polaroid" />';
             } else {
                 $preview = '<span>' . $file->getName() . '(' . $file->getPrettySize() . ')</span>';
             }
         }
-        $notice = '<div class="iu-empty-notice" style="padding: 10px; color: lightgrey;">
+        $notice = '<div class="iu-empty-notice" style="padding: 10px; color: #d3d3d3;">
                             <div style="padding: 0px 20px 5px;"><span class="yk-icon fa-file-image-o fa-5x"></span></div>
                             <small>' . $translator->translate('Click here to add an image or use drag and drop.') . '</small>
                             

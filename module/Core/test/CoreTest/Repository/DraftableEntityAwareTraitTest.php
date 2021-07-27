@@ -6,10 +6,11 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Repository;
 
+use Doctrine\ODM\MongoDB\Query\Builder;
 use PHPUnit\Framework\TestCase;
 
 use Core\Repository\DraftableEntityAwareInterface;
@@ -31,7 +32,7 @@ class DraftableEntityAwareTraitTest extends TestCase
             [ 'findBy', [ 'isDraft' => null ], 'findBy', [] ],
             [ 'findBy', [ 'isDraft' => true ], 'findBy', [ 'isDraft' => true ] ],
             [ 'findBy', [ 'isDraft' => 'something'], 'findBy', ['isDraft' => 'something'] ],
-            
+
             [ 'findDraftsBy', [], 'findBy', ['isDraft' => true]],
             [ 'findDraftsBy', ['isDraft' => null], 'findBy', ['isDraft' => true]],
             [ 'findDraftsBy', ['isDraft' => 'something'], 'findBy', ['isDraft' => true]],
@@ -71,7 +72,7 @@ class DraftableEntityAwareTraitTest extends TestCase
     public function testQueryBuilderCreation()
     {
         $qb = $this
-            ->getMockBuilder('\Doctrine\MongoDB\Query\Builder')
+            ->getMockBuilder(Builder::class)
             ->disableOriginalConstructor()
             ->setMethods(['field', 'equals'])
             ->getMock();
@@ -95,9 +96,10 @@ class RepositoryMock
     public $calledMethods = [];
 
 
-    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null): array
     {
         $this->calledMethods['findBy'] = $criteria;
+        return [];
     }
 
     public function findDraftsBy(array $criteria, array $sort = null, $limit = null, $skip = null)

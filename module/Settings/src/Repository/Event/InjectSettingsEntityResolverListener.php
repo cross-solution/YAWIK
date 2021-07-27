@@ -9,6 +9,7 @@
 
 namespace Settings\Repository\Event;
 
+use Auth\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -45,7 +46,7 @@ class InjectSettingsEntityResolverListener implements EventSubscriber
     public function postLoad(LifecycleEventArgs $args)
     {
         $document = $args->getDocument();
-        if (!$document instanceof UserInterface) {
+        if (!$document instanceof User) {
             return;
         }
 
@@ -60,6 +61,6 @@ class InjectSettingsEntityResolverListener implements EventSubscriber
      */
     public static function factory(ServiceLocatorInterface $serviceLocator)
     {
-        return new static($serviceLocator);
+        return new self($serviceLocator);
     }
 }

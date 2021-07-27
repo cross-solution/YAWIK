@@ -11,6 +11,7 @@ namespace Applications\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Doctrine\MongoDB\Query\Builder;
 use Laminas\Stdlib\Parameters;
+use MongoDB\BSON\Regex;
 use Organizations\Entity\EmployeeInterface;
 
 /**
@@ -39,6 +40,8 @@ class PaginationQuery extends AbstractPaginationQuery
         'date' => 'dateCreated.date',
     );
 
+    protected $auth;
+
     /**
      * Constructs pagination query.
      *
@@ -52,7 +55,7 @@ class PaginationQuery extends AbstractPaginationQuery
     /**
      * Creates a query for filtering applications
      * @see \Core\Repository\Filter\AbstractPaginationQuery::createQuery()
-     * @param array $params
+     * @param array|Parameters $params
      * @param Builder $queryBuilder
      * @return Builder
      */
@@ -79,7 +82,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $searchPatterns = array();
 
             foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
+                $searchPatterns[] = new Regex('/^' . $searchItem . '/');
             }
             $queryBuilder->field('keywords')->all($searchPatterns);
         }

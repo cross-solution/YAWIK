@@ -38,7 +38,7 @@ class CollectionStrategy implements StrategyInterface
         return clone $this->prototype;
     }
     
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if (!$value instanceof Collection) {
             throw new \InvalidArgumentException('Value must implement \Doctrine\Common\Collections\Collection');
@@ -47,7 +47,7 @@ class CollectionStrategy implements StrategyInterface
         return $value->toArray();
     }
 
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         if ($value instanceof Collection) {
             return $value;

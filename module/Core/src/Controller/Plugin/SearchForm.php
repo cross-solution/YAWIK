@@ -6,12 +6,12 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Controller\Plugin;
 
 use Laminas\Form\Form;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager;
 use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Laminas\Stdlib\Parameters;
 

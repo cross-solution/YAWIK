@@ -75,7 +75,7 @@ class JobSelectFactoryTest extends TestCase
             $job->setId($jobId);
             $job->setTitle('TestTitle');
 
-            $repository = $this->getMockBuilder(JobRepository::class)->disableOriginalConstructor()
+            $repository = $this->getMockBuilder(Job::class)->disableOriginalConstructor()
                 ->setMethods(['find'])->getMock();
             $repository->expects($this->once())->method('find')->with($jobId)->will($this->returnValue($job));
 

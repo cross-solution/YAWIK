@@ -43,7 +43,7 @@ class DisableElementsCapableFormSettings extends SettingsContainer
     /**
      * Should this form settings considered active?
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      * @var bool
      */
     protected $isActive = false;

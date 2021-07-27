@@ -10,9 +10,8 @@ Feature: Login to yawik
         When I want to log in
         And I specify the username as "test@example.com"
         And I specify the password as "test"
-
         And I log in
-        And I should see "You are now logged in"
+        Then I should see "Welcome to YAWIK!"
 
     Scenario: Sign in with bad credentials
         When I want to log in

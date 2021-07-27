@@ -11,6 +11,7 @@
 namespace Jobs\Form\Hydrator\Strategy;
 
 use Laminas\Hydrator\Strategy\StrategyInterface;
+use Organizations\Entity\Organization;
 use Organizations\Repository\Organization as OrganizationRepository;
 
 /**
@@ -22,8 +23,6 @@ use Organizations\Repository\Organization as OrganizationRepository;
 class OrganizationNameStrategy implements StrategyInterface
 {
     /**
-     *
-     *
      * @var OrganizationRepository
      */
     private $repository;
@@ -33,16 +32,16 @@ class OrganizationNameStrategy implements StrategyInterface
         $this->repository = $repository;
     }
 
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
-        if ($value instanceof \Organizations\Entity\Organization) {
+        if ($value instanceof Organization) {
             return $value->getId();
         }
 
         return null;
     }
 
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         return $this->repository->find($value);
     }

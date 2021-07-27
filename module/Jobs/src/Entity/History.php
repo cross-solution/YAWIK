@@ -29,7 +29,7 @@ class History extends AbstractEntity implements HistoryInterface
      * Status of a job opening.
      *
      * @var StatusInterface
-     * @ODM\EmbedOne(targetDocument="status")
+     * @ODM\EmbedOne(targetDocument="Jobs\Entity\Status")
      */
     protected $status;
 

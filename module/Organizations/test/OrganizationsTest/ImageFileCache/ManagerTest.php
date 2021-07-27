@@ -9,6 +9,8 @@
 
 namespace OrganizationsTest\ImageFileCache;
 
+use Organizations\Entity\OrganizationImage;
+use Organizations\Entity\OrganizationImageMetadata;
 use PHPUnit\Framework\TestCase;
 
 use Organizations\ImageFileCache\Manager;
@@ -56,9 +58,13 @@ class ManagerTest extends TestCase
     public function testGetUri()
     {
         $id = 'someId';
-        $image = new ImageEntity();
-        $image->setId($id);
-        $image->setName('filename.ext');
+        $image = $this->createMock(OrganizationImage::class);
+        $image->expects($this->any())
+            ->method('getId')
+            ->willReturn($id);
+        $image->expects($this->any())
+            ->method('getName')
+            ->willReturn('filename.ext');
 
         $this->options->setEnabled(false);
         $this->assertEquals($image->getUri(), $this->manager->getUri($image));
@@ -86,14 +92,17 @@ class ManagerTest extends TestCase
      * @covers ::getImagePath
      * @covers ::getImageSubPath
      * @covers ::createDirectoryRecursively
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage image must have ID
      */
     public function testStoreWithImageWithoutId()
     {
-        $image = new ImageEntity();
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('image must have ID');
+        $image = $this->createMock(OrganizationImage::class);
+        $image->expects($this->once())
+            ->method('getId')
+            ->willReturn(null);
 
-        $this->manager->store($image);
+        $this->manager->store($image, 'some contents');
     }
 
     /**
@@ -101,15 +110,29 @@ class ManagerTest extends TestCase
      * @covers ::getImagePath
      * @covers ::getImageSubPath
      * @covers ::createDirectoryRecursively
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage unable to get an image file extension
      */
     public function testStoreWithImageWithoutFileNameAndWithoutMimeType()
     {
-        $image = new ImageEntity();
-        $image->setId('someId');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('unable to get an image file extension');
+        $image = $this->createMock(OrganizationImage::class);
+        $metadata = $this->getMockBuilder(OrganizationImageMetadata::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getContentType'])
+            ->getMock()
+        ;
 
-        $this->manager->store($image);
+        $image->expects($this->once())
+            ->method('getId')
+            ->willReturn('id');
+        $image->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($metadata);
+
+        $metadata->expects($this->once())
+            ->method('getContentType')
+            ->willReturn(null);
+        $this->manager->store($image, 'contents');
     }
 
     /**
@@ -120,11 +143,22 @@ class ManagerTest extends TestCase
      */
     public function testStoreWithImageWithoutFileNameButWithMimeType()
     {
-        $image = new ImageEntity();
-        $image->setId('someId');
-        $image->setType('image/jpeg');
+        $image = $this->createMock(OrganizationImage::class);
+        $metadata = $this->getMockBuilder(OrganizationImageMetadata::class)
+            ->setMethods(['getContentType'])
+            ->getMock();
 
-        $this->manager->store($image);
+        $image->expects($this->once())
+            ->method('getId')
+            ->willReturn('someId');
+        $image->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($metadata);
+        $metadata->expects($this->once())
+            ->method('getContentType')
+            ->willReturn('image/jpeg');
+
+        $this->manager->store($image, 'contents');
 
         $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild(sprintf('d/I/%s.%s', 'someId', 'jpeg')));
     }
@@ -133,17 +167,28 @@ class ManagerTest extends TestCase
      * @covers ::store
      * @covers ::getImagePath
      * @covers ::createDirectoryRecursively
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage unable to create directory
      */
     public function testStoreWithInsufficientPermissions()
     {
-        $image = new ImageEntity();
-        $image->setId('someId');
-        $image->setName('filename.ext');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('unable to create directory');
+        $image = $this->createMock(OrganizationImage::class);
+        $metadata = $this->getMockBuilder(OrganizationImageMetadata::class)
+            ->setMethods(['getContentType'])
+            ->getMock();
+
+        $image->expects($this->once())
+            ->method('getId')
+            ->willReturn('someId');
+        $image->expects($this->once())
+            ->method('getMetadata')
+            ->willReturn($metadata);
+        $metadata->expects($this->once())
+            ->method('getContentType')
+            ->willReturn('image/jpeg');
 
         vfsStreamWrapper::getRoot()->chmod(000);
-        $this->manager->store($image);
+        $this->manager->store($image, 'contents');
     }
 
     /**
@@ -159,15 +204,23 @@ class ManagerTest extends TestCase
         $name = 'filename.' . $ext;
         $path = sprintf('d/I/%s.%s', $id, $ext);
         $resource = 'someResource';
-        $image = $this->getMockBuilder(ImageEntity::class)
-            ->setMethods(['getResource'])
-            ->getMock();
-        $image->setId($id);
-        $image->setName($name);
-        $image->method('getResource')
-            ->willReturn($resource);
 
-        $this->manager->store($image);
+        $image = $this->createMock(OrganizationImage::class);
+        $metadata = $this->getMockBuilder(OrganizationImageMetadata::class)
+            ->setMethods(['getContentType'])
+            ->getMock();
+        $image->expects($this->atLeastOnce())
+            ->method('getId')
+            ->willReturn('someId');
+        $image->expects($this->atLeastOnce())
+            ->method('getMetadata')
+            ->willReturn($metadata);
+        $image->expects($this->atLeastOnce())
+            ->method('getName')
+            ->willReturn($name);
+
+
+        $this->manager->store($image, $resource);
 
         $root = vfsStreamWrapper::getRoot();
         $this->assertTrue($root->hasChild($path));

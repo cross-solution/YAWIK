@@ -9,20 +9,19 @@
 
 namespace Cv\Entity;
 
-use Core\Entity\FileEntity;
+use Core\Entity\Image;
+use Core\Entity\ImageMetadata;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document(collection="cvs.contact.images")
- * @ODM\HasLifecycleCallbacks()
+ * @ODM\File(bucketName="cvs.contact.images")
  */
-class ContactImage extends FileEntity
+class ContactImage extends Image
 {
     /**
-     * @var Contact
+     * @ODM\File\Metadata(targetDocument="Cv\Entity\ContactImageMetadata")
      */
-    protected $contact;
-    
+    protected ?ImageMetadata $metadata = null;
 
     /**
      * Gets the URI of an image
@@ -31,35 +30,8 @@ class ContactImage extends FileEntity
      *
      * @return string
      */
-    public function getUri()
+    public function getUri(): string
     {
         return "/file/Cv.ContactImage/" . $this->id . "/" .urlencode($this->name);
-    }
-    
-    /**
-     * @ODM\PreRemove
-     */
-    public function preRemove()
-    {
-        $this->contact->setImage(null);
-    }
-    
-    /**
-     * @param Contact $contact
-     * @return ContactImage
-     */
-    public function setContact(Contact $contact)
-    {
-        $this->contact = $contact;
-        
-        return $this;
-    }
-
-    /**
-     * @return Contact
-     */
-    public function getContact()
-    {
-        return $this->contact;
     }
 }

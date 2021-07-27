@@ -14,13 +14,8 @@ $form->get('mailText')->setAttribute('style', 'height: 250px');
 ?>
 <div>
 <?php
-list ($email, $name) = each ($recipient);
-if (is_int($email)) {
-    $email = $name;
-    $name = '';
-}
 
-echo sprintf($this->translate("To") . ': ' . '"%s" &lt;%s&gt;<br>', $name, $email);
+echo sprintf($this->translate("To") . ': ' . '"%s" &lt;%s&gt;<br>', $recipient['name'], $recipient['email']);
 
 ?>
 </div>

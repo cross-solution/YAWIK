@@ -38,7 +38,7 @@ class PreviewLinkHydrator extends EntityHydrator
     /* (non-PHPdoc)
      * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $controllerPluginManager = $this->serviceManager->get('controllerPluginManager');
 

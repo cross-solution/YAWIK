@@ -2,15 +2,16 @@
 
 namespace Core\Entity\Hydrator;
 
+#use Core\Entity\AnonymEntityInterface;
+#use Settings\Entity\AwareEntity;
+
 use Laminas\Hydrator\AbstractHydrator;
-use Core\Entity\AnonymEntityInterface;
-use Settings\Entity\AwareEntity;
+use Settings\Entity\InitializeAwareSettingsContainerInterface;
 
 class AnonymEntityHydrator extends AbstractHydrator
 {
     public function __construct()
     {
-        parent::__construct();
         $this->init();
     }
 
@@ -21,7 +22,7 @@ class AnonymEntityHydrator extends AbstractHydrator
     /* (non-PHPdoc)
      * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $data = array();
         if (is_array($object) || $object instanceof \Traversable) {
@@ -37,10 +38,17 @@ class AnonymEntityHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
-        $setterMethods = array();
-        if ($object instanceof AwareEntity) {
+        // @TODO: undefined methods
+        /*
+        if ($object instanceof AwareSettings) {
             $setterMethods = $object->getSetters();
         }
+        */
+        $setterMethods = array();
+        if(method_exists($object, 'getSetters')){
+            $setterMethods = $object->getSetters();
+        }
+
         foreach ($data as $key => $value) {
             $setter = 'set' . ucfirst($key);
             if (in_array($setter, $setterMethods)) {

@@ -9,6 +9,7 @@
 
 namespace CoreTest\Factory;
 
+use Core\Service\FileManager;
 use PHPUnit\Framework\TestCase;
 
 use Core\Controller\ContentController;
@@ -43,6 +44,7 @@ class LazyControllerFactoryTest extends TestCase
         $config = [];
         $repositories = $this->createMock(RepositoryService::class);
         $eventManager = $this->createMock(EventManager::class);
+        $fileManager = $this->createMock(FileManager::class);
 
         $eventManager->expects($this->any())
             ->method('getEvent')
@@ -59,7 +61,8 @@ class LazyControllerFactoryTest extends TestCase
                 ['config',$config],
                 ['ModuleManager',$moduleManager],
                 ['repositories',$repositories],
-                ['Core/EventManager',$eventManager]
+                ['Core/EventManager',$eventManager],
+                [FileManager::class, $fileManager]
             ])
         ;
 

@@ -10,7 +10,7 @@ Feature: Social profile feature
             | fullname      | Test Social Profile     |
         And I log in with username "test@social-profile.com" and password "test"
 
-    @javascript @profile-facebook @social-profile
+    @javascript @profile-facebook @social-profile @travis-exclude
     Scenario: Link to facebook
         When I go to profile page
         And I press "Facebook"
@@ -23,7 +23,7 @@ Feature: Social profile feature
         And I wait for the ajax response
         Then I should see an ".btn-success .fa-facebook" element
 
-    @javascript @profile-linkedin @social-profile
+    @javascript @profile-linkedin @social-profile @travis-exclude
     Scenario: Link to LinkedIn
         When I go to profile page
         And I press "LinkedIn"
@@ -37,4 +37,3 @@ Feature: Social profile feature
         And I wait for the ajax response
         And I wait for 6 seconds
         Then I should see an ".btn-success .fa-linkedin" element
-

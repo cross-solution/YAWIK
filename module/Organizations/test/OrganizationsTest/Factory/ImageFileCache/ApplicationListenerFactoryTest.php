@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Organizations\Factory\ImageFileCache\ApplicationListenerFactory;
 use Organizations\ImageFileCache\ApplicationListener;
-use Organizations\ImageFileCache\Manager;
-use Organizations\Repository\OrganizationImage as ImageRepository;
+use Organizations\ImageFileCache\Manager as CacheManager;
+use Core\Service\FileManager as FileManager;
 
 /**
  * @coversDefaultClass \Organizations\Factory\ImageFileCache\ApplicationListenerFactory
@@ -28,28 +28,19 @@ class ApplicationListenerFactoryTest extends TestCase
      */
     public function testInvokation()
     {
-        $manager = $this->getMockBuilder(Manager::class)
+        $cacheManager = $this->getMockBuilder(CacheManager::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $fileManager = $this->createMock(FileManager::class);
 
-        $repository = $this->getMockBuilder(ImageRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $repositories = $this->getMockBuilder(ServiceLocatorInterface::class)
-            ->getMock();
-        $repositories->expects($this->once())
-            ->method('get')
-            ->with($this->equalTo('Organizations/OrganizationImage'))
-            ->willReturn($repository);
 
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
         $serviceLocator->expects($this->exactly(2))
             ->method('get')
             ->will($this->returnValueMap([
-                ['Organizations\ImageFileCache\Manager', $manager],
-                ['repositories', $repositories]
+                ['Organizations\ImageFileCache\Manager', $cacheManager],
+                [FileManager::class, $fileManager]
             ]));
 
         $factory = new ApplicationListenerFactory();

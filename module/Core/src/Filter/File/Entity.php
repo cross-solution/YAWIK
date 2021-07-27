@@ -57,8 +57,6 @@ class Entity extends AbstractFilter
         return $this;
     }
 
-
-
     /**
      * @return mixed
      */

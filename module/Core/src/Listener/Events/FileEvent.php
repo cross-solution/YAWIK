@@ -12,6 +12,7 @@ namespace Core\Listener\Events;
 
 use ArrayAccess;
 use Core\Entity\FileEntity;
+use Core\Entity\FileInterface;
 use Laminas\EventManager\Event;
 use Laminas\EventManager\Exception;
 
@@ -51,11 +52,11 @@ class FileEvent extends Event
     }
 
     /**
-     * @param \Core\Entity\FileEntity $file
+     * @param \Core\Entity\FileInterface $file
      *
      * @return self
      */
-    public function setFile(FileEntity $file)
+    public function setFile(FileInterface $file)
     {
         $this->file = $file;
 
@@ -63,7 +64,7 @@ class FileEvent extends Event
     }
 
     /**
-     * @return \Core\Entity\FileEntity
+     * @return \Core\Entity\FileInterface
      */
     public function getFile()
     {

@@ -8,8 +8,10 @@
  */
 namespace Organizations\Factory\ImageFileCache;
 
+use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Organizations\Entity\OrganizationImage;
 use Organizations\ImageFileCache\ApplicationListener;
 
 /**
@@ -30,9 +32,9 @@ class ApplicationListenerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $manager = $container->get('Organizations\ImageFileCache\Manager');
-        $repository = $container->get('repositories')->get('Organizations/OrganizationImage');
+        $cacheManager = $container->get('Organizations\ImageFileCache\Manager');
+        $fileManager = $container->get(FileManager::class);
 
-        return new ApplicationListener($manager, $repository);
+        return new ApplicationListener($cacheManager, $fileManager);
     }
 }

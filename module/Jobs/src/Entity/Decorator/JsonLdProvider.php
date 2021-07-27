@@ -10,6 +10,7 @@
 /** */
 namespace Jobs\Entity\Decorator;
 
+use Core\Entity\ImageSet;
 use Doctrine\Common\Collections\Collection;
 use Jobs\Entity\JobInterface;
 use Jobs\Entity\JsonLdProviderInterface;
@@ -106,8 +107,13 @@ class JsonLdProvider implements JsonLdProviderInterface
     private function getLogo() {
         $organization = $this->job->getOrganization();
 
-        $organizationLogo = ($organization && $organization->getImage())? $organization->getImage()->getUri() : $this->job->getLogoRef();
-        return $organizationLogo;
+        if(
+            is_null($organization)
+            || is_null($image = $organization->getImages()->get(ImageSet::THUMBNAIL))
+        ){
+            return $this->job->getLogoRef();
+        }
+        return $image->getUri();
     }
 
     /**

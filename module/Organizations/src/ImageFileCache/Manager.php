@@ -39,11 +39,14 @@ class Manager
     /**
      * Returns image URI
      *
-     * @param OrganizationImage $image
+     * @param ?OrganizationImage $image
      * @return string
      */
-    public function getUri(OrganizationImage $image)
+    public function getUri(?OrganizationImage $image)
     {
+        if(is_null($image)){
+            return null;
+        }
         if ($this->options->getEnabled()) {
             return sprintf('%s/%s', $this->options->getUriPath(), $this->getImageSubPath($image));
         }
@@ -63,13 +66,13 @@ class Manager
      * Store an image as a file in a file system
      *
      * @param OrganizationImage $image
+     * @param string $contents
      */
-    public function store(OrganizationImage $image)
+    public function store(OrganizationImage $image, string $contents)
     {
-        $resource = $image->getResource();
         $path = $this->getImagePath($image);
         $this->createDirectoryRecursively(dirname($path));
-        file_put_contents($path, $resource);
+        file_put_contents($path, $contents);
     }
 
     /**
@@ -113,6 +116,7 @@ class Manager
     protected function getImageSubPath(OrganizationImage $image)
     {
         $id = $image->getId();
+        $metadata = $image->getMetadata();
 
         if (!$id) {
             throw new InvalidArgumentException('image must have ID');
@@ -126,7 +130,7 @@ class Manager
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
         } else {
             // try get an extension from MIME if any
-            $extension = str_replace('image/', '', $image->getType());
+            $extension = str_replace('image/', '', $metadata->getContentType());
         }
 
         if (!$extension) {

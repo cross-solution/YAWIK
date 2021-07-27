@@ -449,7 +449,7 @@ endif;
                         <?php foreach( $application->getAttachments() as $attachment): /* @var Applications\Entity\Attachment $attachment */ ?>
                             <div class="row show-grid">
                                 <div class="col-md-12">
-                                    <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getName() ?></a>
+                                    <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getMetadata()->getName() ?></a>
                                 </div>
                             </div>
                         <?php endforeach; // attachments?>
@@ -504,7 +504,9 @@ endif;
                 <tr>
                     <td><?php echo $this->translate('date of receipt')?>:</td>
                     <td>
-                        <?=$this->dateFormat($application->getDateCreated()->getTimestamp(), 'short'); ?>
+                        <?php if(!is_null($application->getDateCreated())): ?>
+                            <?=$this->dateFormat($application->getDateCreated()->getTimestamp(), 'short'); ?>
+                        <?php endif; ?>
                         <?=$application->getSubscriber()? '<br/>' . $this->translate("via"). ': '. $application->getSubscriber()->getName():'';?>
                     </td>
                 </tr>
@@ -536,7 +538,8 @@ endif;
           </span>
                         </td>
                     </tr>
-                    <?php if ($application->getDateCreated()->getTimestamp() != $application->getDateModified()->getTimestamp()):?>
+                    <?php if(!is_null($application->getDateCreated())): ?>
+                        <?php if ($application->getDateCreated()->getTimestamp() != $application->getDateModified()->getTimestamp()):?>
                         <tr>
                             <td><?php echo $this->translate('last modification date')?>:</td>
                             <td>
@@ -556,6 +559,7 @@ endif;
                             </td>
                         </tr>
                     <?php endif;?>
+                    <?php endif; ?>
                     <tr>
                         <td><?php echo $this->translate('agent')?>:</td>
                         <td><?php echo $this->contactLink($job->getUser()->getInfo())?></td>

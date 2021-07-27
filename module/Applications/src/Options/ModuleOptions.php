@@ -144,7 +144,7 @@ class ModuleOptions extends AbstractOptions
     /**
      * Gets the the maximum number of allowed attachments
      *
-     * @return string
+     * @return int
      */
     public function getAttachmentsCount()
     {
@@ -153,7 +153,7 @@ class ModuleOptions extends AbstractOptions
     /**
      * Sets the maximum number of allowed attachments
      *
-     * @param string $number
+     * @param int $number
      * @return ModuleOptions
      */
     public function setAttachmentsCount($number)
@@ -165,7 +165,7 @@ class ModuleOptions extends AbstractOptions
     /**
      * Gets the the maximum size of contact images in bytes
      *
-     * @return string
+     * @return int
      */
     public function getContactImageMaxSize()
     {
@@ -174,7 +174,7 @@ class ModuleOptions extends AbstractOptions
     /**
      * Sets the maximum size of contact images in bytes
      *
-     * @param string $size
+     * @param int $size
      * @return ModuleOptions
      */
     public function setContactImageMaxSize($size)
@@ -207,7 +207,7 @@ class ModuleOptions extends AbstractOptions
     /**
      * Gets the allowed Mime-Types for contact images
      *
-     * @return string
+     * @return array
      */
     public function getAllowedMimeTypes()
     {

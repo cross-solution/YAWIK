@@ -14,7 +14,7 @@ class SettingsFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $settings = new Settings();
-        $settings->setServiceLocator($container);
+        $settings->setContainer($container);
         $settings->setUserRepository($container->get('RepositoryManager')->get('User'));
         $config = $container->get('Config');
         

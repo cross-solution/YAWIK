@@ -11,12 +11,9 @@
 namespace Applications\Mail;
 
 use Applications\Entity\ApplicationInterface;
-use Auth\Entity\UserInterface;
 use Core\Exception\MissingDependencyException;
-use Jobs\Entity\JobInterface;
 use Core\Mail\StringTemplateMessage;
-use Organizations\Entity\EmployeeInterface;
-use Laminas\Mvc\Router\RouteStackInterface;
+use Laminas\Router\RouteStackInterface;
 
 /**
  * Sends Information about a new Application to the recruiter

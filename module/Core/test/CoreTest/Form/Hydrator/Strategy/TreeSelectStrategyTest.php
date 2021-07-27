@@ -141,7 +141,7 @@ class TreeSelectStrategyTest extends TestCase
         $this->target->setAttachedLeafs($attachedLeafs);
         $this->target->setAllowSelectMultipleItems(is_array($data));
 
-        $this->target->hydrate($data);
+        $this->target->hydrate($data, []);
 
         $this->assertEquals($count, $attachedLeafs->getItems()->count());
     }

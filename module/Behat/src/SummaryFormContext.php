@@ -36,7 +36,7 @@ class SummaryFormContext implements Context
 	public function iClickEditOnForm($name)
 	{
 		$this->iClickForm($name);
-		$name = Inflector::camelize($name);
+		$name = $this->getInflector()->camelize($name);
 		$type = $this->elementMap[$name];
 		$locator = $type.' .sf-summary .sf-controls button';
 		$element = $this->minkContext->getSession()->getPage()->find('css',$locator);
@@ -51,7 +51,7 @@ class SummaryFormContext implements Context
 	 */
 	public function iClickForm($name)
 	{
-		$name = Inflector::camelize($name);
+		$name = $this->getInflector()->camelize($name);
 		$type = $this->elementMap[$name];
 		$locator = $type.' .sf-summary';
 		$session = $this->minkContext->getSession();
@@ -68,7 +68,7 @@ EOC;
 	 */
 	public function iSaveForm($type)
 	{
-		$type = Inflector::camelize($type);
+		$type = $this->getInflector()->camelize($type);
 		$method = 'iSave'.$type;
 		if(method_exists($this,$method)){
 			call_user_func([$this,$method]);

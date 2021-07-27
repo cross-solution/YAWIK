@@ -28,10 +28,10 @@ class OrganizationNameStrategy implements StrategyInterface
 
     /**
      * @param mixed $value
-     *
-     * @return string
+     * @param object|null $object
+     * @return mixed|string
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         $name = '';
         if (method_exists($value, "getName")) {
@@ -43,9 +43,10 @@ class OrganizationNameStrategy implements StrategyInterface
     /**
      * @param mixed $value
      *
+     * @param array|null $data
      * @return mixed|object
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data)
     {
         $organizationNameEntity = $value;
         if (is_string($value)) {

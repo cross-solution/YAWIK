@@ -74,7 +74,7 @@ class MappingEntityHydrator extends EntityHydrator
         return $this->map;
     }
 
-    public function extract($object)
+    public function extract($object): array
     {
         $data = parent::extract($object);
 

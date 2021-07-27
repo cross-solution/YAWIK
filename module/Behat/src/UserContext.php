@@ -18,7 +18,6 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Core\Entity\Permissions;
-use Doctrine\Common\Util\Inflector;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
@@ -197,7 +196,7 @@ class UserContext implements Context
             'organization' => 'Cross Solution'
         ];
         foreach ($fields->getRowsHash() as $field=>$value) {
-            $field = Inflector::camelize($field);
+            $field = $this->getInflector()->camelize($field);
             $normalizedFields[$field] = $value;
         }
 
@@ -246,7 +245,7 @@ class UserContext implements Context
     {
         $repo = $this->getUserRepository();
         if (!is_object($user=$repo->findByEmail($email))) {
-            $user = $this->createUser($email, $password, $role, $fullname, $organization);
+            $user = $this->createUser($email, $password, $role, $fullname);
         }
 
         if (!is_null($organization)) {

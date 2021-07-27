@@ -25,7 +25,7 @@ class TemplateLabelHydrator extends EntityHydrator
     /**
      * @inheritdoc
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $data = array();
 

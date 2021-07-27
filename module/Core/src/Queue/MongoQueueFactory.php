@@ -11,6 +11,7 @@
 namespace Core\Queue;
 
 use Interop\Container\ContainerInterface;
+use MongoDB\Client;
 use SlmQueue\Job\JobPluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
@@ -31,9 +32,9 @@ class MongoQueueFactory implements FactoryInterface
 
         // @codeCoverageIgnoreStart
         if (isset($config['dns'])) {
-            $client = new \MongoDB\Client($config['dns']);
+            $client = new Client($config['dns']);
         } else {
-            $client = $dm->getConnection()->getMongoClient()->getClient();
+            $client = $dm->getClient();
         }
         // @codeCoverageIgnoreEnd
 

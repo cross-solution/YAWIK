@@ -17,6 +17,7 @@ use Core\Listener\AjaxRouteListener;
 use Core\ModuleManager\Feature\VersionProviderInterface;
 use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\Options\ModuleOptions;
+use Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate;
 use Yawik\Composer\RequireDirectoryPermissionInterface;
 use Yawik\Composer\RequireFilePermissionInterface;
 use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
@@ -132,7 +133,7 @@ class Module implements
         if (!DoctrineType::hasType('tz_date')) {
             DoctrineType::addType(
                 'tz_date',
-                '\Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate'
+                TimezoneAwareDate::class
             );
         }
 

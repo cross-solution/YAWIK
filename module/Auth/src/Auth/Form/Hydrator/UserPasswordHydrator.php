@@ -6,7 +6,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 class UserPasswordHydrator extends EntityHydrator
 {
-    public function extract($object)
+    public function extract($object): array
     {
         $data = parent::extract($object);
         // provide the fieldset access to the entity

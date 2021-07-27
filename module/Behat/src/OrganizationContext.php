@@ -13,7 +13,6 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Core\Entity\Permissions;
-use Doctrine\Common\Util\Inflector;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 use Organizations\Entity\OrganizationReference;
@@ -170,7 +169,7 @@ class OrganizationContext implements Context
 
         $definitions = $table->getRowsHash();
         foreach($definitions as $name=>$value){
-            $field = Inflector::camelize($name);
+            $field = $this->getInflector()->camelize($name);
             $method = 'set'.$field;
             $callback = array($contact,$method);
             if(is_callable($callback)){
@@ -228,7 +227,7 @@ class OrganizationContext implements Context
     {
         $org = $this->findOrganizationByName($name);
 
-        /* @var JobRepository $jobRepo */
+        /* @var Job $jobRepo */
         $jobRepo = $this->getRepository('Jobs/Job');
         $result = $jobRepo->findByOrganization($org->getId());
 

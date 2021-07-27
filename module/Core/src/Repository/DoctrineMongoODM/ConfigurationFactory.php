@@ -11,17 +11,20 @@
 namespace Core\Repository\DoctrineMongoODM;
 
 use DoctrineMongoODMModule\Service\ConfigurationFactory as DMOMConfigurationFactory;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class ConfigurationFactory extends DMOMConfigurationFactory
 {
-    public function createService(\Laminas\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    /**
+     * @param \Laminas\ServiceManager\ServiceLocatorInterface $serviceLocator
+     * @return ServiceLocatorAwareConfiguration|\Doctrine\ODM\MongoDB\Configuration|mixed
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /** @var $options \DoctrineMongoODMModule\Options\Configuration */
         $options = $this->getOptions($serviceLocator, 'configuration');
     
-        $config = new ServiceLocatorAwareConfiguration;
-    
-        
+        $config = new ServiceLocatorAwareConfiguration();
         $config->setServiceLocator($serviceLocator);
         
         // logger
@@ -47,8 +50,8 @@ class ConfigurationFactory extends DMOMConfigurationFactory
         $config->setMetadataCacheImpl($serviceLocator->get($options->getMetadataCache()));
     
         // retries
-        $config->setRetryConnect($options->getRetryConnect());
-        $config->setRetryQuery($options->getRetryQuery());
+        // $config->setRetryConnect($options->getRetryConnect());
+        // $config->setRetryQuery($options->getRetryQuery());
     
         // Register filters
         foreach ($options->getFilters() as $alias => $class) {

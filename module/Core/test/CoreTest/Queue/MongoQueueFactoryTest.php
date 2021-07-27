@@ -10,6 +10,10 @@
 /** */
 namespace CoreTest\Queue;
 
+use Doctrine\ODM\MongoDB\Configuration;
+use Interop\Container\ContainerInterface;
+use MongoDB\Client;
+use MongoDB\Collection;
 use PHPUnit\Framework\TestCase;
 
 use Core\Queue\MongoQueue;
@@ -25,7 +29,7 @@ use Laminas\ServiceManager\ServiceManager;
  *
  * @covers \Core\Queue\MongoQueueFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *
+ * @author Anthonius Munthi <me@itstoni.com>
  */
 class MongoQueueFactoryTest extends TestCase
 {
@@ -42,40 +46,37 @@ class MongoQueueFactoryTest extends TestCase
 
     public function testCreateServiceWithoutConfig()
     {
-        $jobManager = $this->prophesize(JobPluginManager::class);
-        $container = $this->prophesize(ServiceManager::class);
-        $container->get('config')->willReturn([])->shouldBeCalled();
-        $container->get(JobPluginManager::class)->willReturn($jobManager->reveal())->shouldBeCalled();
-        $collection = $this->prophesize(\MongoDB\Collection::class)->reveal();
-        $client = $this->prophesize(\MongoDB\Client::class);
-        $client->selectCollection('testdb', 'core.queue')->willReturn($collection)->shouldBeCalled();
-        $mongoClient = $this->prophesize(\MongoClient::class);
-        $mongoClient->getClient()->willReturn($client->reveal())->shouldBeCalled();
+        $dm = $this->createMock(DocumentManager::class);
+        $pluginManager = $this->createMock(JobPluginManager::class);
+        $mongoConfig = $this->createMock(Configuration::class);
+        $client = $this->createMock(Client::class);
+        $collection = $this->createMock(Collection::class);
 
-        $dm = $this->prophesize(DocumentManager::class);
+        $dm->expects($this->once())
+            ->method('getConfiguration')
+            ->willReturn($mongoConfig);
+        $dm->expects($this->once())
+            ->method('getClient')
+            ->willReturn($client);
+        $mongoConfig->expects($this->once())
+            ->method('getDefaultDB')
+            ->willReturn('some-db');
 
-        $dm->getConnection()->willReturn(new class($mongoClient->reveal()) {
-            public $client;
-            public function __construct($client)
-            {
-                $this->client = $client;
-            }
-            public function getMongoClient()
-            {
-                return $this->client;
-            }
-        })->shouldBeCalled();
-
-        $dm->getConfiguration()->willReturn(new class {
-            public function getDefaultDB()
-            {
-                return 'testdb';
-            }
-        })->shouldBeCalled();
-        $container->get('Core/DocumentManager')->willReturn($dm->reveal())->shouldBeCalled();
-
-        /** @noinspection PhpParamsInspection */
-        $queue = $this->target->__invoke($container->reveal(), 'irrelevant');
+        $client->expects($this->once())
+            ->method('selectCollection')
+            ->with('some-db', 'core.queue')
+            ->willReturn($collection)
+        ;
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->exactly(3))
+            ->method('get')
+            ->willReturnMap([
+                ['config', []],
+                ['Core/DocumentManager', $dm],
+                [JobPluginManager::class, $pluginManager]
+            ]);
+        $target = new MongoQueueFactory();
+        $queue = $target->__invoke($container, 'some-name');
 
         $this->assertInstanceOf(MongoQueue::class, $queue);
     }
@@ -86,36 +87,30 @@ class MongoQueueFactoryTest extends TestCase
             'db' => 'testdb',
             'collection' => 'collection',
         ];
+        $config['slm_queue']['queues']['queue'] = $config;
+        $dm = $this->createMock(DocumentManager::class);
+        $pluginManager = $this->createMock(JobPluginManager::class);
+        $client = $this->createMock(Client::class);
+        $collection = $this->createMock(Collection::class);
 
-        $jobManager = $this->prophesize(JobPluginManager::class);
-        $container = $this->prophesize(ServiceManager::class);
-        $container->get('config')->willReturn(['slm_queue' => ['queues' => ['queue' => $config]]])->shouldBeCalled();
-        $container->get(JobPluginManager::class)->willReturn($jobManager->reveal())->shouldBeCalled();
-        $collection = $this->prophesize(\MongoDB\Collection::class)->reveal();
-        $client = $this->prophesize(\MongoDB\Client::class);
-        $client->selectCollection($config['db'], $config['collection'])->willReturn($collection)->shouldBeCalled();
-        $mongoClient = $this->prophesize(\MongoClient::class);
-        $mongoClient->getClient()->willReturn($client->reveal())->shouldBeCalled();
-
-        $dm = $this->prophesize(DocumentManager::class);
-
-        $dm->getConnection()->willReturn(new class($mongoClient->reveal()) {
-            public $client;
-            public function __construct($client)
-            {
-                $this->client = $client;
-            }
-            public function getMongoClient()
-            {
-                return $this->client;
-            }
-        })->shouldBeCalled();
-
-        $dm->getConfiguration()->shouldNotBeCalled();
-        $container->get('Core/DocumentManager')->willReturn($dm->reveal())->shouldBeCalled();
-
-        /** @noinspection PhpParamsInspection */
-        $queue = $this->target->__invoke($container->reveal(), 'queue');
+        $dm->expects($this->once())
+            ->method('getClient')
+            ->willReturn($client);
+        $client->expects($this->once())
+            ->method('selectCollection')
+            ->with('testdb', 'collection')
+            ->willReturn($collection)
+        ;
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->exactly(3))
+            ->method('get')
+            ->willReturnMap([
+                ['config', $config],
+                ['Core/DocumentManager', $dm],
+                [JobPluginManager::class, $pluginManager]
+            ]);
+        $target = new MongoQueueFactory();
+        $queue = $target->__invoke($container, 'queue');
 
         $this->assertInstanceOf(MongoQueue::class, $queue);
     }

@@ -10,6 +10,9 @@
 /** */
 namespace CvTest\Entity;
 
+use Core\Entity\FileInterface;
+use Core\Entity\FileMetadataInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Core\Entity\FileEntity;
@@ -35,7 +38,12 @@ class AttachmentTest extends TestCase
         ]
     ];
 
-    private $inheritance = [ FileEntity::class ];
+    /**
+     * @var MockObject|FileMetadataInterface
+     */
+    private $metadata;
+
+    private $inheritance = [ FileInterface::class ];
 
     private $properties = [
         [ 'uri', [ 'ignore_setter' => true, 'value' => "/file/Cv.Attachment/test/name" ]]
@@ -44,7 +52,13 @@ class AttachmentTest extends TestCase
     private function setupSetterGetterTarget()
     {
         $target = new Attachment();
-        $target->setId('test')->setName('name');
+        $metadata = $this->createMock(FileMetadataInterface::class);
+
+        $metadata->expects($this->any())
+            ->method('getName')
+            ->willReturn('name');
+        $target->setId('test');
+        $target->setMetadata($metadata);
 
         return $target;
     }

@@ -9,6 +9,7 @@
 
 namespace Core\Factory\Controller;
 use Core\Controller\FileController;
+use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
@@ -23,9 +24,9 @@ class FileControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $repositories = $container->get('repositories');
         $coreFileEvents = $container->get('Core/File/Events');
+        $fileManager = $container->get(FileManager::class);
 
-        return new FileController($repositories,$coreFileEvents);
+        return new FileController($fileManager,$coreFileEvents);
     }
 }

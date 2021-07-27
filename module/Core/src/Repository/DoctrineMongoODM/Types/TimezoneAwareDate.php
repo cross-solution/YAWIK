@@ -11,14 +11,15 @@
 namespace Core\Repository\DoctrineMongoODM\Types;
 
 use Doctrine\ODM\MongoDB\Types\Type;
+use MongoDB\BSON\UTCDateTime;
 
 /**
  * This is a mapping type for DoctrineMongoODM.
  *
  * It will convert \DateTime objects to an array representation
- * with a \MongoDate object and the Timezone.
+ * with a UTCDateTime object and the Timezone.
  *
- * This works around the fact, that \MongoDate is NOT
+ * This works around the fact, that UTCDateTime is NOT
  * timezone aware.
  *
  * @version 1.1
@@ -37,7 +38,7 @@ class TimezoneAwareDate extends Type
      *      Resulting value is an array:
      *      <pre>
      *          array(
-     *              'date' => \MongoDate(\DateTime::timestamp),
+     *              'date' => UTCDateTime(\DateTime::timestamp),
      *              'tz'   => TimeZone-Identifier (e.g. "Europe/Berlin")
      *          )
      *      </pre>
@@ -54,7 +55,7 @@ class TimezoneAwareDate extends Type
         
         $timezone  = $value->getTimezone()->getName();
         $timestamp = $value->getTimestamp();
-        $date      = new \MongoDate($timestamp);
+        $date      = new UTCDateTime($timestamp*1000);
         
         return array(
             'date' => $date,
@@ -74,7 +75,7 @@ class TimezoneAwareDate extends Type
             /* CODE FROM: ' . __METHOD__ . ' */
             if (!$value instanceOf \DateTime) return null;
             $return = array(
-                "date" => new \MongoDate($value->getTimestamp()), 
+                "date" => new UTCDateTime($value->getTimestamp()),
                 "tz" => $value->getTimestamp()->getName()
             );
             /* ---- */';
@@ -92,7 +93,7 @@ class TimezoneAwareDate extends Type
     {
         if (!is_array($value)
             || !isset($value['date'])
-            || !$value['date'] instanceof \MongoDate
+            || !$value['date'] instanceof UTCDateTime
             || !isset($value['tz'])
         ) {
             return null;
@@ -110,18 +111,19 @@ class TimezoneAwareDate extends Type
      * @return string
      * @see convertToPhpValue()
      */
-    public function closureToPhp()
+    public function closureToPhp(): string
     {
         return '
             /* CODE FROM: ' . __METHOD__ . ' */
             if (!is_array($value) 
                 || !isset($value["date"]) 
-                || !$value["date"] instanceOf \MongoDate
+                || is_null($value["date"])
                 || !isset($value["tz"])
             ) {
                 $return = null;
             } else {
-                $date = new \DateTime("@".$value["date"]->sec);
+                //$date = new \DateTime($value["date"]);
+                $date = $value["date"]->toDateTime();
                 $date->setTimezone(new \DateTimeZone($value["tz"]));
                 $return = $date;
             }

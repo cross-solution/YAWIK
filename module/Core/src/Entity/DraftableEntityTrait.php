@@ -20,7 +20,7 @@ trait DraftableEntityTrait
     /**
      * The current draft state of this entity.
      *
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      * @var bool
      */
     protected $isDraft = true;

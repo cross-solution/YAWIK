@@ -22,14 +22,14 @@ use Core\Repository\AbstractRepository;
  */
 class Categories extends AbstractRepository
 {
-    public function findOneBy(array $criteria)
+    public function findOneBy(array $criteria, ?array $sort = null): ?object
     {
         $category = parent::findOneBy($criteria);
 
         return $category ?: $this->createDefaultCategory($criteria);
     }
 
-    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null): array
     {
         $categories = parent::findBy($criteria, $sort, $limit, $skip);
 

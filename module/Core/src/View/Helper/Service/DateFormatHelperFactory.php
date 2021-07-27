@@ -9,8 +9,8 @@
 
 namespace Core\View\Helper\Service;
 
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\I18n\View\Helper\DateFormat;
 use Locale;
 
@@ -19,17 +19,7 @@ use Locale;
  */
 class DateFormatHelperFactory implements FactoryInterface
 {
-
-    /**
-     * Creates an instance of \Core\View\Helper\Params
-     *
-     * - injects the MvcEvent instance
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return \Core\View\Helper\Params
-     * @see \Laminas\ServiceManager\FactoryInterface::createService()
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $helper = new DateFormat();
         $helper->setLocale(Locale::DEFAULT_LOCALE);

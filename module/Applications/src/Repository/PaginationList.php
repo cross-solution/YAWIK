@@ -117,8 +117,7 @@ class PaginationList
     /**
      * Gets the id BEHIND the current entry.
      *
-     * @return string
-     * @return NULL|multitype:
+     * @return mixed|null:
      */
     public function getNext()
     {

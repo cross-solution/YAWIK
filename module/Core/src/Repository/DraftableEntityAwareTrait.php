@@ -6,11 +6,12 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Repository;
 
 use Core\Entity\EntityInterface;
+use Doctrine\ODM\MongoDB\Query\Builder;
 
 /**
  * Enables an implementing repository to handle draftable entities.
@@ -22,7 +23,7 @@ use Core\Entity\EntityInterface;
  */
 trait DraftableEntityAwareTrait
 {
-    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null): array
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
@@ -56,7 +57,7 @@ trait DraftableEntityAwareTrait
         return parent::findBy($criteria, $sort, $limit, $skip);
     }
 
-    public function findOneBy(array $criteria)
+    public function findOneBy(array $criteria, ?array $sort = null): ?object
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
@@ -77,12 +78,9 @@ trait DraftableEntityAwareTrait
      *
      * @return \MongoCursor
      */
-    public function findOneDraftBy(array $criteria)
+    public function findOneDraftBy(array $criteria): ?object
     {
         $criteria['isDraft'] = true;
-
-        /** @noinspection PhpUndefinedClassInspection */
-        /** @noinspection PhpUndefinedMethodInspection */
         return parent::findOneBy($criteria);
     }
 
@@ -96,13 +94,10 @@ trait DraftableEntityAwareTrait
      *
      * @param bool|null $findDrafts
      *
-     * @return \Doctrine\MongoDB\Query\Builder
+     * @return Builder
      */
-    public function createQueryBuilder($findDrafts = false)
+    public function createQueryBuilder($findDrafts = false): Builder
     {
-        /* @var \Doctrine\MongoDB\Query\Builder $qb */
-        /** @noinspection PhpUndefinedClassInspection */
-        /** @noinspection PhpUndefinedMethodInspection */
         $qb = parent::createQueryBuilder();
 
         if (null !== $findDrafts) {

@@ -92,21 +92,6 @@ interface OrganizationInterface extends
     public function getHiringOrganizations();
 
     /**
-     * Sets the Logo of an organization
-     *
-     * @param $image OrganizationImage
-     * @return self
-     */
-    public function setImage(OrganizationImage $image);
-
-    /**
-     * Gets the logo of an organization
-     *
-     * @return OrganizationImage
-     */
-    public function getImage();
-
-    /**
      * @param ImageSet $images
      *
      * @return self

@@ -19,7 +19,7 @@ class JobDescriptionHydrator extends EntityHydrator
     /* (non-PHPdoc)
      * @see \Laminas\Hydrator\HydratorInterface::extract()
      */
-    public function extract($object)
+    public function extract($object): array
     {
         $data = parent::extract($object);
         if (!method_exists($object, 'getTemplateValues')) {

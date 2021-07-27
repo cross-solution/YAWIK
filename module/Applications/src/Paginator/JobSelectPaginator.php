@@ -10,8 +10,10 @@
 /** */
 namespace Applications\Paginator;
 
-use Core\Paginator\Adapter\DoctrineMongoCursor;
+use Core\Paginator\Adapter\DoctrineMongoAdapter;
 use Laminas\Paginator\Paginator;
+use Jobs\Repository\Job as JobRepository;
+use MongoDB\BSON\Regex;
 
 /**
  * Paginator for Job title select element.
@@ -22,11 +24,19 @@ use Laminas\Paginator\Paginator;
 class JobSelectPaginator extends Paginator
 {
     /**
-     * @var \Jobs\Repository\Job
+     * @var JobRepository
      */
-    private $repository;
+    private JobRepository $repository;
 
-    public function __construct($repository)
+    public function __construct(JobRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @param JobRepository $repository
+     */
+    public function setRepository(JobRepository $repository): void
     {
         $this->repository = $repository;
     }
@@ -42,12 +52,10 @@ class JobSelectPaginator extends Paginator
     {
         /* @var \Doctrine\ODM\MongoDB\Query\Builder $qb */
         $qb = $this->repository->createQueryBuilder();
-        $qb->field('title')->equals(new \MongoRegex('/' . addslashes($q) . '/i'));
-        $cursor = $qb->getQuery()->execute();
+        $qb->field('title')->equals(new Regex('/' . addslashes($q) . '/i'));
 
-        $adapter = new DoctrineMongoCursor($cursor);
+        $adapter = new DoctrineMongoAdapter($qb);
         parent::__construct($adapter);
-
         return $this;
     }
 }

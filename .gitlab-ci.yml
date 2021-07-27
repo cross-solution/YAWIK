@@ -1,0 +1,78 @@
+image: yawik/build
+
+# Cache libraries in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - "$CI_PROJECT_DIR/vendor/"
+    - "$CI_PROJECT_DIR/node_modules//"
+    - "$HOME/.composer/cache"
+    - "$HOME/.npm"     
+
+stages:
+  - build
+  - test
+  - deploy
+
+services:
+  - mongo:latest
+  - selenium/standalone-chrome
+
+before_script:
+  - mkdir -p /var/www/cache/
+  - chown yawik /var/www/cache/
+  - mkdir -p config/autoload
+  - cp etc/gitlab/autoload/*.* config/autoload
+  - chown -R yawik /builds/yawik/yawik
+
+
+composer:
+  stage: build
+  cache:
+    key: build-cache
+    paths:
+    - vendor/
+  script:
+    - pwd
+    - su yawik -c "composer install"
+
+phpunit:
+  stage: test
+  allow_failure: true
+  cache:
+    key: build-cache
+    paths:
+      - vendor/
+  script:
+    - cp ./etc/gitlab/autoload/*.* config/autoload
+    - ./vendor/bin/phpunit
+
+behat:
+  stage: test
+  allow_failure: true
+  cache:
+    key: build-cache
+    paths:
+      - vendor/
+  script:
+    - su yawik -c "composer install"
+    - cp ./etc/gitlab/autoload/*.* config/autoload
+    - mkdir -p build/behat
+    - mkdir -p build/mails
+    - composer run serve --timeout=0 > /dev/null 2>&1 &
+    - ./vendor/bin/behat --strict --no-interaction
+
+deploy_odm3:
+  stage: deploy
+  environment:
+    name: staging/$CI_COMMIT_REF_NAME
+    url: http://staging.yawik.org
+  only:
+    - odm-module3
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
+    - dep deploy --branch=odm-module3 staging

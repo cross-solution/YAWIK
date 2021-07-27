@@ -1,0 +1,14 @@
+parameters:
+  level: 5
+  paths:
+    - module/Applications/src
+    - module/Auth/src
+    - module/Behat/src
+    - module/Core/src
+    - module/Cv/src
+    - module/Install/src
+    - module/Jobs/src
+    - module/Organizations/src
+    - module/Pdf/src
+    - module/ReleaseTools/src
+    - module/Settings/src

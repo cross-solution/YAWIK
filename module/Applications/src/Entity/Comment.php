@@ -60,7 +60,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * Application rating
      *
      * @var Rating
-     * @ODM\EmbedOne(targetDocument="Rating")
+     * @ODM\EmbedOne(targetDocument="Applications\Entity\Rating")
      */
     protected $rating;
 

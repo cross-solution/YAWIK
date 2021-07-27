@@ -3,6 +3,9 @@
 /.env.test
 /package-lock.json
 /composer.lock
+features/var
+
+module/Core/test/var/*
 
 #
 # General text editors backup files
@@ -26,6 +29,7 @@ config/phpdoc.xml
 config/autoload
 config/autoload.bak
 config/autoload/*.php
+!config/autoload/.gitkeep
 
 test/config/*.local.php
 test/TestConfig.php

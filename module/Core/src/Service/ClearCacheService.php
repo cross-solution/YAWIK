@@ -13,7 +13,6 @@ use Core\Application;
 use Interop\Container\ContainerInterface;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Laminas\ModuleManager\Listener\ListenerOptions;
@@ -56,7 +55,7 @@ class ClearCacheService
         $this->options = $options;
         $this->filesystem = $filesystem;
         if (php_sapi_name() === 'cli') {
-            $this->io = new SymfonyStyle(new StringInput(''), new ConsoleOutput());
+            $this->io = true;
         }
     }
 
@@ -161,8 +160,9 @@ class ClearCacheService
     private function log($message)
     {
         $io = $this->io;
-        if ($io instanceof SymfonyStyle) {
-            $io->writeln($message);
+        if ($io === true) {
+            $message = str_replace(['<error>', '</error>'], '', $message);
+            echo "$message\n";
         }
     }
 }

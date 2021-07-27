@@ -22,6 +22,7 @@ use Laminas\Filter\FilterPluginManager;
 use Laminas\InputFilter\InputFilterPluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use MongoDB\Client;
 
 /**
  * Factory for an UserCreator plugin instance
@@ -64,10 +65,20 @@ class UserCreatorFactory implements FactoryInterface
      * @return DocumentManager
      * @codeCoverageIgnore
      */
-    public function createDocumentManager($connection,$config)
+    public function createDocumentManager($connection, $config)
     {
-        $dbConn = new Connection($connection);
-        $dm = DocumentManager::create($dbConn,$config);
-        return $dm;
+        try{
+            $dbConn = new Client($connection, [], [
+                'typeMap' => [
+                    'root' => 'array',
+                    'document' => 'array',
+                ]
+            ]);
+            $dbConn->selectDatabase('YAWIK');
+            $dm = DocumentManager::create($dbConn,$config);
+            return $dm;
+        }catch (\Exception $e){
+            throw new \Exception("Can't create document manager: {$e->getMessage()}");
+        }
     }
 }

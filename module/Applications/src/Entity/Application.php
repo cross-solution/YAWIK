@@ -66,7 +66,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Status of an application.
      *
      * @var StatusInterface
-     * @ODM\EmbedOne(targetDocument="Status")
+     * @ODM\EmbedOne(targetDocument="Applications\Entity\Status")
      */
     protected $status;
 
@@ -74,7 +74,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * personal informations, contains firstname, lastname, email,
      * phone etc.
      *
-     * @ODM\EmbedOne(targetDocument="Contact")
+     * @ODM\EmbedOne(targetDocument="Applications\Entity\Contact")
      */
     protected $contact;
 
@@ -89,7 +89,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     /**
      * The facts of this application.
      *
-     * @ODM\EmbedOne(targetDocument="\Applications\Entity\Facts")
+     * @ODM\EmbedOne(targetDocument="Applications\Entity\Facts")
      * @var FactsInterface
      */
     protected $facts;
@@ -98,14 +98,14 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Resume, containing employments, educations and skills
      *
      * @var CvInterface
-     * @ODM\EmbedOne(targetDocument="Cv")
+     * @ODM\EmbedOne(targetDocument="Applications\Entity\Cv")
      */
     protected $cv;
 
     /**
      * multiple Attachments of an application
      *
-     * @ODM\ReferenceMany(targetDocument="Attachment", storeAs="id", cascade={"persist", "remove"})
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Attachment", storeAs="id", cascade={"persist", "remove"})
      */
     protected $attachments;
 
@@ -121,7 +121,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * History on an application
      *
      * @var Collection
-     * @ODM\EmbedMany(targetDocument="History")
+     * @ODM\EmbedMany(targetDocument="Applications\Entity\History")
      */
     protected $history;
 
@@ -137,7 +137,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     /**
      * Refering subscriber (Where did the application origin from).
      *
-     * @ODM\ReferenceOne(targetDocument="Subscriber", cascade={"persist"}, storeAs="id")
+     * @ODM\ReferenceOne(targetDocument="Applications\Entity\Subscriber", cascade={"persist"}, storeAs="id")
      */
     protected $subscriber;
 
@@ -146,7 +146,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Recruiters can comment an application.
      *
      * @var Collection
-     * @ODM\EmbedMany(targetDocument="Comment")
+     * @ODM\EmbedMany(targetDocument="Applications\Entity\Comment")
      */
     protected $comments;
 
@@ -162,7 +162,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Assigned permissions.
      *
      * @var PermissionsInterface
-     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
+     * @ODM\EmbedOne(targetDocument="Core\Entity\Permissions")
      */
     protected $permissions;
 
@@ -170,7 +170,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Internal references (DB denaturalism)
      *
      * @var InternalReferences
-     * @ODM\EmbedOne(targetDocument="InternalReferences")
+     * @ODM\EmbedOne(targetDocument="Applications\Entity\InternalReferences")
      */
     protected $refs;
 
@@ -188,7 +188,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Flag indicating draft state of this application.
      *
      * @var bool
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $isDraft = false;
 
@@ -196,7 +196,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Attributes like "privacy policy accepted" or "send by data as an CC".
      *
      * @var \Applications\Entity\Attributes
-     * @ODM\EmbedOne(targetDocument="Attributes")
+     * @ODM\EmbedOne(targetDocument="Applications\Entity\Attributes")
      */
     protected $attributes;
 

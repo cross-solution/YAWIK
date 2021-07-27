@@ -33,8 +33,6 @@ class JobSelectValuesFactoryTest extends TestCase
     use TestInheritanceTrait, ServiceManagerMockTrait;
 
     /**
-     *
-     *
      * @var array|\PHPUnit_Framework_MockObject_MockObject|JobSelectValuesFactory
      */
     private $target = [

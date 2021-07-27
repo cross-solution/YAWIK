@@ -10,7 +10,7 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Exception as PHPUnitFrameworkException;
 
 /**
  * Uses traits test.
@@ -36,7 +36,7 @@ trait TestUsesTraitsTrait
     public function testUsesTraits()
     {
         if (!property_exists($this, 'traits') || !property_exists($this, 'target')) {
-            throw new \PHPUnit_Framework_Exception(self::class . ': ' . static::class
+            throw new PHPUnitFrameworkException(self::class . ': ' . static::class
                                                    . ' must define the properties $target and $traits.');
         }
 

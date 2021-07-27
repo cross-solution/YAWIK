@@ -35,7 +35,7 @@ class PaginationQuery extends AbstractPaginationQuery
         if (isset($params['search']) && !empty($params['search'])) {
             $search = strtolower($params['search']);
             $expr = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
-            $queryBuilder->field(null)->equals($expr->getQuery());
+            $queryBuilder->field("")->equals($expr->getQuery());
         }
 
         if (isset($params['l']) && $params['l'] instanceof \Core\Entity\AbstractLocation) {

@@ -42,27 +42,17 @@
     "require": {
         "php": ">=7.4",
         "ext-intl": "*",
+        "ext-json": "*",
         "ext-mongodb": "*",
-        "alcaeus/mongo-php-adapter": "^1.1",
-        "doctrine/doctrine-mongo-odm-module": "^1.1",
+        "doctrine/doctrine-mongo-odm-module": "^3.0",
         "ezyang/htmlpurifier": "^4.12",
         "hybridauth/hybridauth": "^2.10",
         "imagine/imagine": "^1.0",
         "jmikola/geojson": "^1.0",
-        "mpdf/mpdf": "^8.0",
-        "sebastian/version": "^2.0",
-        "slm/queue": "^1.0",
-        "symfony/console": "^3.4 | ^4.1",
-        "symfony/dotenv": "^3.4 | ^4.1",
-        "symfony/filesystem": "^3.4 | ^4.1",
-        "symfony/finder": "^3.4 | ^4.1",
-        "symfony/process": "^3.4 | ^4.1",
-        "tracy/tracy": "^2.4",
-        "yawik/composer-plugin": "^3.0",
-        "yawik/geo": "^1.1.0",
         "laminas/laminas-authentication": "^2.5",
         "laminas/laminas-cache": "^2.7",
         "laminas/laminas-captcha": "^2.7",
+        "laminas/laminas-dependency-plugin": "^2.0",
         "laminas/laminas-feed": "^2.8",
         "laminas/laminas-form": "^2.10",
         "laminas/laminas-i18n-resources": "^2.5",
@@ -75,15 +65,25 @@
         "laminas/laminas-mvc-i18n": "^1.0",
         "laminas/laminas-mvc-plugins": "^1.0",
         "laminas/laminas-navigation": "^2.8",
+        "laminas/laminas-paginator": "^2.0",
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-progressbar": "^2.5",
+        "laminas/laminas-recaptcha": "^3.0",
         "laminas/laminas-serializer": "^2.8",
         "laminas/laminas-servicemanager-di": "^1.1",
         "laminas/laminas-session": "^2.7",
         "laminas/laminas-view": "^2.9",
-        "laminas/laminas-recaptcha": "^3.0",
-        "laminas/laminas-dependency-plugin": "^2.0",
-        "laminas/laminas-paginator": "^2.0"
+        "mpdf/mpdf": "^8.0",
+        "sebastian/version": "^2.0",
+        "slm/queue": "^1.0",
+        "symfony/console": "^5.0",
+        "symfony/dotenv": "^3.4 | ^4.1",
+        "symfony/filesystem": "^3.4 | ^4.1",
+        "symfony/finder": "^3.4 | ^4.1",
+        "symfony/process": "^3.4 | ^4.1",
+        "tracy/tracy": "^2.4",
+        "yawik/composer-plugin": "^3.0",
+        "yawik/geo": "^1.1.0"
     },
     "require-dev": {
         "behat/behat": "^3.2",
@@ -98,13 +98,17 @@
         "laminas/laminas-test": "^3.1",
         "mikey179/vfsstream": "^1.6",
         "novaway/common-contexts": "~2.0",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.57",
+        "phpstan/phpstan-doctrine": "^0.12.22",
         "phpunit/phpunit": "^7.5.8",
         "se/selenium-server-standalone": "^2.52"
     },
     "scripts": {
         "auto-scripts": [
             "./bin/console clear-cache",
-            "npm install"
+            "npm install",
+            "./bin/console migrate"
         ],
         "post-install-cmd": [
             "@auto-scripts"
@@ -112,6 +116,8 @@
         "post-update-command": [
             "@auto-scripts"
         ],
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "phpunit": "./vendor/bin/phpunit",
         "serve": "php -S 0.0.0.0:8080 -t public/ public/router.php"
     },
     "config": {
@@ -134,11 +140,13 @@
             "Cv\\": "module/Cv/src",
             "Install\\": "module/Install/src",
             "Jobs\\": "module/Jobs/src",
+            "Orders\\": "module/Orders/src",
             "Organizations\\": "module/Organizations/src",
             "Pdf\\": "module/Pdf/src",
             "Settings\\": "module/Settings/src",
             "ReleaseTools\\": "module/ReleaseTools/src",
-            "Yawik\\Behat\\": "module/Behat/src"
+            "Yawik\\Behat\\": "module/Behat/src",
+            "Yawik\\Migration\\": "module/Migration/src"
         }
     },
     "autoload-dev": {
@@ -155,18 +163,21 @@
             "SettingsTest\\": "module/Settings/test",
             "Yawik\\Behat\\": "module/Behat/src",
             "ReleaseTools\\": "module/ReleaseTools/src"
+        },
+        "psr-4": {
+            "Yawik\\Migration\\Tests\\": "module/Migration/tests"
         }
     },
     "replace": {
-        "yawik/applications": "0.33",
-        "yawik/auth": "0.33",
-        "yawik/core": "0.33",
-        "yawik/cv": "0.33",
-        "yawik/install": "0.33",
-        "yawik/jobs": "0.33",
-        "yawik/organizations": "0.33",
-        "yawik/pdf": "0.33",
-        "yawik/settings": "0.33"
+        "yawik/applications": "0.35",
+        "yawik/auth": "0.35",
+        "yawik/core": "0.35",
+        "yawik/cv": "0.35",
+        "yawik/install": "0.35",
+        "yawik/jobs": "0.35",
+        "yawik/organizations": "0.35",
+        "yawik/pdf": "0.35",
+        "yawik/settings": "0.35"
     },
     "extra": {
         "branch-alias": {

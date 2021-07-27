@@ -10,9 +10,13 @@
 /** FileController.php */
 namespace Core\Controller;
 
+use Core\Entity\FileInterface;
+use Core\Entity\ImageInterface;
 use Core\EventManager\EventManager;
 use Core\Listener\Events\FileEvent;
+use Core\Service\FileManager;
 use Core\Repository\RepositoryService;
+use Cv\Entity\Attachment;
 use Interop\Container\ContainerInterface;
 use Organizations\Entity\OrganizationImage;
 use Laminas\Mvc\Controller\AbstractActionController;
@@ -29,20 +33,20 @@ use Core\Entity\PermissionsInterface;
 class FileController extends AbstractActionController
 {
     /**
-     * @var RepositoryService
+     * @var \Core\Service\FileManager
      */
-    private $repositories;
+    private FileManager $fileManager;
     
     /**
      * @var EventManager
      */
-    private $coreFileEvents;
+    private EventManager $coreFileEvents;
     
     public function __construct(
-        RepositoryService $repositories,
+        FileManager $fileManager,
         EventManager $eventManager
     ) {
-        $this->repositories = $repositories;
+        $this->fileManager = $fileManager;
         $this->coreFileEvents = $eventManager;
     }
     
@@ -63,26 +67,22 @@ class FileController extends AbstractActionController
     }
 
     /**
-     * @return null|object
+     * @return null|FileInterface|ImageInterface
      */
     protected function getFile()
     {
         $fileStoreName = $this->params('filestore');
         list($module, $entityName) = explode('.', $fileStoreName);
         $response      = $this->getResponse();
-
-        try {
-            $repository = $this->repositories->get($module . '/' . $entityName);
-        } catch (\Exception $e) {
-            $response->setStatusCode(404);
-            $this->getEvent()->setParam('exception', $e);
-            return null;
-        }
+        $fileManager = $this->fileManager;
+        $entityClass = $module . '\\Entity\\' . $entityName;
         $fileId = $this->params('fileId', 0);
+
         if (preg_match('/^(.*)\..*$/', $fileId, $baseFileName)) {
             $fileId = $baseFileName[1];
         }
-        $file       = $repository->find($fileId);
+
+        $file = $fileManager->findByID($entityClass, $fileId);
                 
         if (!$file) {
             $response->setStatusCode(404);
@@ -97,34 +97,30 @@ class FileController extends AbstractActionController
     {
         /* @var \Laminas\Http\PhpEnvironment\Response $response */
         $response = $this->getResponse();
-        /* @var \Core\Entity\FileEntity $file */
+        /* @var \Core\Entity\FileInterface $file */
         $file     = $this->getFile();
         
         if (!$file) {
             return $response;
         }
-        
-        $this->acl($file);
 
-        $headers=$response->getHeaders();
+        $metadata = $file->getMetadata();
+        $headers = $response->getHeaders();
+        $fileManager = $this->fileManager;
 
-        $headers->addHeaderline('Content-Type', $file->getType())
+        $this->acl($metadata);
+
+        $headers->addHeaderline('Content-Type', $metadata->getContentType())
             ->addHeaderline('Content-Length', $file->getLength());
 
         if ($file instanceof OrganizationImage) {
             $expireDate = new \DateTime();
             $expireDate->add(new \DateInterval('P1Y'));
-
-//            $headers->addHeaderline('Expires', $expireDate->format(\DateTime::W3C))
-//                ->addHeaderLine('ETag', $file->getId())
-//                ->addHeaderline('Cache-Control', 'public')
-//                ->addHeaderline('Pragma', 'cache');
         }
 
         $response->sendHeaders();
         
-        $resource = $file->getResource();
-        
+        $resource = $fileManager->getStream($file);
         while (!feof($resource)) {
             echo fread($resource, 1024);
         }
@@ -144,25 +140,25 @@ class FileController extends AbstractActionController
                 )
             );
         }
-        
-        $this->acl($file, PermissionsInterface::PERMISSION_CHANGE);
+
+        $metadata = $file->getMetadata();
+        $this->acl($metadata, PermissionsInterface::PERMISSION_CHANGE);
 
 
         /* @var \Core\EventManager\EventManager $events */
         $events = $this->coreFileEvents;
         $event = $events->getEvent(FileEvent::EVENT_DELETE, $this, ['file' => $file]);
+
         $results = $events->triggerEventUntil(function ($r) {
             return true === $r;
         }, $event);
 
-        if (true !== $results->last()) {
-            $this->repositories->remove($file);
+        if(true !== $results->last()){
+            $this->fileManager->remove($file, true);
         }
 
-        return new JsonModel(
-            array(
+        return new JsonModel(array(
             'result' => true
-            )
-        );
+        ));
     }
 }

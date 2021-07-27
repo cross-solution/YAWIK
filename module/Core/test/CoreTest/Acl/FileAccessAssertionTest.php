@@ -9,6 +9,7 @@
 
 namespace CoreTest\Acl;
 
+use Core\Entity\FileMetadataInterface;
 use PHPUnit\Framework\TestCase;
 
 
@@ -50,7 +51,7 @@ class FileAccessAssertionTest extends TestCase
         $resourceInterface = $this->createMock(ResourceInterface::class);
 
         $userRole = $this->createMock(UserInterface::class);
-        $file = $this->createMock(FileInterface::class);
+        $metadata = $this->createMock(FileMetadataInterface::class);
 
         $acl = $this->createMock(Acl::class);
 
@@ -68,7 +69,7 @@ class FileAccessAssertionTest extends TestCase
         );
 
         $this->assertFalse(
-            $this->target->assert($acl, $roleInterface, $file),
+            $this->target->assert($acl, $roleInterface, $metadata),
             $failMessage
         );
     }
@@ -77,10 +78,10 @@ class FileAccessAssertionTest extends TestCase
     {
         $acl = $this->createMock(Acl::class);
         $role = $this->createMock(UserInterface::class);
-        $file = $this->createMock(FileInterface::class);
+        $metadata = $this->createMock(FileMetadataInterface::class);
         $permissions = $this->createMock(PermissionsInterface::class);
 
-        $file
+        $metadata
             ->expects($this->any())
             ->method('getPermissions')
             ->willReturn($permissions)
@@ -94,7 +95,7 @@ class FileAccessAssertionTest extends TestCase
             ->willReturn(true)
         ;
         $this->assertTrue(
-            $target->assert($acl, $role, $file, PermissionsInterface::PERMISSION_VIEW)
+            $target->assert($acl, $role, $metadata, PermissionsInterface::PERMISSION_VIEW)
         );
     }
 }

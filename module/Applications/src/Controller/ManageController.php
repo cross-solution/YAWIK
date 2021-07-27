@@ -391,9 +391,13 @@ class ManageController extends AbstractActionController
         $form = $this->forms->get('Applications/Mail');
         $form->populateValues($params);
 
-
-
-        $recipient = $params['to'];
+        $to = $params['to'];
+        $email = key($to);
+        $name = $to[$email];
+        $recipient = [
+            'email' => $email,
+            'name' => $name,
+        ];
 
         return [
             'recipient' => $recipient,

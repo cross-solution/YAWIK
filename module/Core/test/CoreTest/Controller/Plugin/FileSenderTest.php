@@ -9,13 +9,16 @@
 
 namespace CoreTest\Controller\Plugin;
 
+use Core\Entity\FileInterface;
+use Core\Entity\FileMetadataInterface;
+use Core\Service\FileManager;
 use PHPUnit\Framework\TestCase;
 
 use Core\Controller\AbstractCoreController;
 use Core\Controller\Plugin\FileSender;
 use Core\Entity\FileEntity;
 use Core\Repository\RepositoryService;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectRepository;
 use Interop\Container\ContainerInterface;
 use Laminas\Http\PhpEnvironment\Response;
 
@@ -32,11 +35,11 @@ class FileSenderTest extends TestCase
     public function testFactory()
     {
         $container = $this->createMock(ContainerInterface::class);
-        $repositories = $this->createMock(RepositoryService::class);
+        $fileManager = $this->createMock(FileManager::class);
         $container->expects($this->once())
             ->method('get')
-            ->with('repositories')
-            ->willReturn($repositories)
+            ->with(FileManager::class)
+            ->willReturn($fileManager)
         ;
         $ob = FileSender::factory($container);
         $this->assertInstanceOf(FileSender::class, $ob);
@@ -44,50 +47,53 @@ class FileSenderTest extends TestCase
 
     public function testSendFile()
     {
-        $repositories = $this->createMock(RepositoryService::class);
-        $repo = $this->createMock(ObjectRepository::class);
+        $fileManager = $this->createMock(FileManager::class);
         $controller = $this->createMock(AbstractCoreController::class);
-        $file = $this->createMock(FileEntity::class);
+        $file = $this->createMock(FileInterface::class);
+        $metadata = $this->createMock(FileMetadataInterface::class);
+
         $response = new Response();
 
         $fileId = 'someId';
 
-        $repositories->expects($this->any())
-            ->method('get')
-            ->with('someRepository')
-            ->willReturn($repo)
+        $fileManager->expects($this->any())
+            ->method('findByID')
+            ->with('class', $fileId)
+            ->willReturn(null, $file)
         ;
         $controller->expects($this->any())
             ->method('getResponse')
             ->willReturn($response)
         ;
-        $repo->expects($this->any())
-            ->method('find')
-            ->willReturn(null, $file)
-        ;
 
-        $sender = new FileSender($repositories);
+        $sender = new FileSender($fileManager);
         $sender->setController($controller);
 
         // fist test: response will be 404 if file is not found
-        $sender('someRepository', $fileId);
+        $sender('class', $fileId);
         $this->assertEquals(404, $response->getStatusCode());
 
         // second test: will handle send file properly
         $file->expects($this->any())
-            ->method('__get')
-            ->willReturnMap([
-                ['type','type'],
-                ['size','size']
-            ])
+            ->method('getMetadata')
+            ->willReturn($metadata);
+        $metadata->expects($this->any())
+            ->method('getContentType')
+            ->willReturn('type')
         ;
+        $file->expects($this->any())
+            ->method('getLength')
+            ->willReturn(1024);
+
         $resource = fopen(__FILE__, 'r');
-        $file->expects($this->once())
-            ->method('getResource')
+        $fileManager->expects($this->once())
+            ->method('getStream')
+            ->with($file)
             ->willReturn($resource)
         ;
+
         ob_start();
-        $sender('someRepository', $fileId);
+        $sender('class', $fileId);
         $output = ob_get_contents();
         ob_end_clean();
 

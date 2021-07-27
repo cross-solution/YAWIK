@@ -60,14 +60,16 @@ class RepositoryService
     public function store(EntityInterface $entity)
     {
         $this->dm->persist($entity);
-        $this->dm->flush($entity);
+        $this->dm->flush();
         return $this;
     }
 
     public function flush($entity = null, array $options = array())
     {
-        $this->dm->flush($entity);
-
+        if(!is_null($entity)){
+            $this->dm->persist($entity);
+            $this->dm->flush();
+        }
         $events = $this->dm->getEventManager();
         $events->hasListeners('postCommit')
         && $events->dispatchEvent('postCommit', new EventArgs(array('document' => $entity, 'documentManager' => $this->dm)));

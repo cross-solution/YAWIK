@@ -10,6 +10,11 @@
 /** */
 namespace CoreTest\Entity\Hydrator;
 
+use Core\Entity\FileMetadataInterface;
+use Core\Entity\ImageInterface;
+use Core\Entity\ImageMetadata;
+use Core\Service\FileManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Core\Entity\Hydrator\ImageSetHydrator;
@@ -18,9 +23,9 @@ use Core\Entity\ImageSet;
 use Core\Entity\ImageSetInterface;
 use Core\Options\ImageSetOptions;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Doctrine\MongoDB\GridFSFile;
 use Imagine\Image\Box;
 use Imagine\Image\ImagineInterface;
+use Imagine\Image\ImageInterface as ImagineImage;
 use Laminas\Hydrator\HydratorInterface;
 
 /**
@@ -39,7 +44,7 @@ class ImageSetHydratorTest extends TestCase
     /**
      *
      *
-     * @var array|ImageSetHydrator|\PHPUnit_Framework_MockObject_MockObject
+     * @var array|ImageSetHydrator|MockObject
      */
     private $target = [
         ImageSetHydrator::class,
@@ -48,40 +53,43 @@ class ImageSetHydratorTest extends TestCase
         '@testInheritance' => ['as_reflection' => true],
     ];
 
-    /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $imagineMock;
-
-    /**
-     *
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $optionsMock;
-
     private $inheritance = [ HydratorInterface::class ];
+
+    /**
+     * @var MockObject|ImagineInterface
+     */
+    private $imagine;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $options;
+
+    /**
+     * @var FileManager|MockObject
+     */
+    private $fileManager;
 
     private function getConstructorArgs()
     {
-        $this->imagineMock = $this->getMockBuilder(ImagineInterface::class)->getMockForAbstractClass();
-        $this->optionsMock = $this->getMockBuilder(ImageSetOptions::class)
-            ->setMethods(['getEntity', 'getImages', 'getFormElementName'])
+        $this->imagine = $this->createMock(ImagineInterface::class);
+        $this->options = $this->getMockBuilder(ImageSetOptions::class)
+            ->setMethods(['getEntity', 'getImages', 'getFormElementName', 'getMetadata', 'getEntityClass'])
             ->getMock();
+        $this->fileManager = $this->createMock(FileManager::class);
 
-        return [$this->imagineMock, $this->optionsMock];
+        return [$this->fileManager, $this->imagine, $this->options];
     }
 
     public function testConstruction()
     {
         $this->getConstructorArgs();
 
-        $target = new ImageSetHydrator($this->imagineMock, $this->optionsMock);
+        $target = new ImageSetHydrator($this->fileManager, $this->imagine, $this->options);
 
-        $this->assertAttributeSame($this->imagineMock, 'imagine', $target);
-        $this->assertAttributeSame($this->optionsMock, 'options', $target);
+        $this->assertAttributeSame($this->fileManager, 'fileManager', $target);
+        $this->assertAttributeSame($this->imagine, 'imagine', $target);
+        $this->assertAttributeSame($this->options, 'options', $target);
     }
 
     public function testExtractReturnsEmptyArray()
@@ -93,19 +101,31 @@ class ImageSetHydratorTest extends TestCase
 
     public function testExtract()
     {
-        $this->optionsMock->expects($this->once())->method('getFormElementName')->willReturn('name');
+        $this->options->expects($this->once())
+            ->method('getFormElementName')
+            ->willReturn('name');
 
-        $set = new ImageSet();
-        $img = $this->getMockBuilder(Image::class)->setMethods(['getId'])->getMock();
-        $img->expects($this->once())->method('getId')->willReturn('imageId');
-        $set->set(ImageSetInterface::ORIGINAL, $img);
+        $imageSet = $this->createMock(ImageSetInterface::class);
 
-        $this->assertEquals(['name' => 'imageId'], $this->target->extract($set));
+        $img = $this->getMockBuilder(Image::class)
+            ->setMethods(['getId', 'getMetadata'])
+            ->getMock();
+        $img->expects($this->once())
+            ->method('getId')
+            ->willReturn('imageId');
+
+        $imageSet->expects($this->once())
+            ->method('get')
+            ->with(ImageSetInterface::ORIGINAL)
+            ->willReturn($img);
+
+        $result = $this->target->extract($imageSet);
+        $this->assertEquals(['name' => 'imageId'], $result);
     }
 
     public function testHydrationDoesNothingIfNoFileOrUploadError()
     {
-        $this->imagineMock->expects($this->never())->method('open');
+        $this->imagine->expects($this->never())->method('open');
 
         $this->target->hydrate([], new ImageSet());
 
@@ -118,7 +138,7 @@ class ImageSetHydratorTest extends TestCase
             'original' => [
                 'error' => UPLOAD_ERR_OK,
                 'name' => 'testimage.png',
-                'tmp_name' => 'tmpname',
+                'tmp_name' => __FILE__,
                 'type' => 'image/png',
             ],
         ];
@@ -128,44 +148,63 @@ class ImageSetHydratorTest extends TestCase
             'large' => [10000,10000],
             'small' => [600,600],
         ];
+        $metadata = $this->getMockBuilder(ImageMetadata::class)
+            ->setMethods(['setContentType', 'setBelongsTo', 'setKey'])
+            ->getMock()
+        ;
+        $image = $this->createMock(ImageInterface::class);
+        $fileManager = $this->fileManager;
 
-        $entityMock = $this->getMockBuilder(Image::class)->setMethods(['setFile', 'setName', 'setType'])->getMock();
-        $entityMock->expects($this->exactly(3))
-            ->method('setFile')
-            ->withConsecutive(
-                ['tmpname'],
-                [$this->isInstanceOf(GridFSFile::class)]
-            )
+        $fileManager->expects($this->exactly(3))
+            ->method('uploadFromFile')
+            ->with('entity_class', $metadata)
+            ->willReturn($image);
+
+        $this->options->expects($this->once())
+            ->method('getImages')
+            ->willReturn($imageSpecs);
+
+        $this->options->expects($this->exactly(3))
+            ->method('getMetadata')
+            ->willReturn($metadata);
+        $this->options->expects($this->exactly(3))
+            ->method('getEntityClass')
+            ->willReturn('entity_class');
+
+        $imagineImage = $this->getMockBuilder(ImagineImage::class)
+            ->setMethods(['thumbnail', 'getSize', 'resize', 'get'])
+            ->getMockForAbstractClass()
+        ;
+        $imagineImage->expects($this->once())
+            ->method('thumbnail')
+            ->with($this->equalTo(new Box(100, 100)), ImagineImage::THUMBNAIL_INSET)
             ->will($this->returnSelf());
-
-        $entityMock->expects($this->exactly(3))
-            ->method('setName')
-            ->withConsecutive(
-                ['testimage.png'],
-                ['thumbnail-testimage.png'],
-                ['small-testimage.png']
-            )
+        $imagineImage->expects($this->exactly(2))
+            ->method('getSize')
+            ->willReturn(new Box(700, 900));
+        $imagineImage->expects($this->exactly(1))
+            ->method('resize')
             ->will($this->returnSelf());
-        $entityMock->expects($this->exactly(3))->method('setType')->with('image/png')->will($this->returnSelf());
+        $imagineImage->expects($this->exactly(2))
+            ->method('get')
+            ->willReturn('filecontentbytes');
+        $this->imagine->expects($this->once())
+            ->method('open')
+            ->with(__FILE__)
+            ->willReturn($imagineImage);
 
+        $imageSet = $this->createMock(ImageSetInterface::class);
+        $imageSet->expects($this->exactly(3))
+            ->method('add')
+            ->with($this->isInstanceOf(ImageInterface::class));
 
-        $this->optionsMock->expects($this->once())->method('getImages')->willReturn($imageSpecs);
-        $this->optionsMock->expects($this->any())->method('getEntity')->willReturn($entityMock);
+        $imageSet->expects($this->any())
+            ->method('getId')
+            ->willReturn('id');
 
-        $image = $this->getMockBuilder(\Imagine\Image\ImageInterface::class)->setMethods(['thumbnail', 'getSize', 'resize', 'get'])->getMockForAbstractClass();
-        $image->expects($this->once())->method('thumbnail')->with($this->equalTo(new Box(100, 100)), \Imagine\Image\ImageInterface::THUMBNAIL_INSET)->will($this->returnSelf());
-        $image->expects($this->exactly(2))->method('getSize')->willReturn(new Box(700, 900));
-        $image->expects($this->exactly(1))->method('resize')->will($this->returnSelf());
-        $image->expects($this->exactly(2))->method('get')->willReturn('filecontentbytes');
-        $this->imagineMock->expects($this->once())->method('open')->with('tmpname')->willReturn($image);
+        $actual = $this->target->hydrate($data, $imageSet);
 
-        $set = $this->getMockBuilder(ImageSet::class)->setMethods(['setImages'])->getMock();
-        $set->expects($this->once())->method('setImages')->with(
-            ['original' => $entityMock, 'thumbnail' => $entityMock, 'small' => $entityMock]
-        )->will($this->returnSelf());
-
-        $actual = $this->target->hydrate($data, $set);
-
-        $this->assertSame($set, $actual);
+        $this->assertSame($imageSet, $actual);
     }
+
 }

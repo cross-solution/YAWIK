@@ -14,6 +14,7 @@ namespace Jobs\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use DateTime;
 use Jobs\Entity\StatusInterface;
+use MongoDB\BSON\ObjectId;
 
 /**
  * maps query parameters to entity attributes
@@ -36,11 +37,10 @@ class JobboardPaginationQuery extends AbstractPaginationQuery
          */
         if (isset($params['search']) && !empty($params['search'])) {
             $search = strtolower($params['search']);
-            $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
-            $queryBuilder->field(null)->equals($expression->getQuery());
+            $queryBuilder->text($search);
         }
         if (isset($params['o']) && !empty($params['o'])) {
-            $queryBuilder->field('organization')->equals(new \MongoId($params['o']));
+            $queryBuilder->field('organization')->equals(new ObjectId($params['o']));
 //            $queryBuilder->field('metaData.companyName')->equals(new \MongoRegex('/' . $params['o'] . '/i'));
         }
 

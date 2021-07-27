@@ -12,6 +12,7 @@ namespace Auth\Entity;
 use Core\Entity\AbstractEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\FileInterface;
+use Core\Entity\ImageInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -21,8 +22,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Info extends AbstractEntity implements InfoInterface
 {
-   
-    
     /**
      * Day of birth of the user
      *
@@ -56,7 +55,7 @@ class Info extends AbstractEntity implements InfoInterface
      * Flag, if primary email is verified
      *
      * @var boolean
-     * @ODM\Field(type="boolean")
+     * @ODM\Field(type="bool")
      */
     protected $emailVerified;
     
@@ -111,11 +110,9 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * the photo of an users profile
-     *
-     * @var FileInterface
-     * @ODM\ReferenceOne(targetDocument="UserImage", storeAs="id", nullable=true, cascade={"all"})
+     * @ODM\ReferenceOne(targetDocument="Auth\Entity\UserImage", storeAs="id", cascade={"none"}, nullable=true)
      */
-    protected $image;
+    protected $image = null;
     
     /**
      * street of the users address
@@ -401,10 +398,10 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * {@inheritdoc}
      *
-     * @param UserImage $image
+     * @param object|?ImageInterface $image
      * @return $this
      */
-    public function setImage(EntityInterface $image = null)
+    public function setImage($image = null)
     {
         $this->image = $image;
         return $this;
@@ -413,7 +410,7 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * {@inheritdoc}
      *
-     * @return UserImage
+     * @return ImageInterface
      */
     public function getImage()
     {

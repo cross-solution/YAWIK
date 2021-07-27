@@ -116,7 +116,7 @@ abstract class AbstractRepository extends DocumentRepository implements Reposito
     {
         $this->checkEntityType($entity);
         $this->dm->persist($entity);
-        $this->dm->flush($entity);
+        $this->dm->flush();
 
         return $this;
     }
@@ -126,7 +126,7 @@ abstract class AbstractRepository extends DocumentRepository implements Reposito
         $this->checkEntityType($entity);
         $this->dm->remove($entity);
         if ($flush) {
-            $this->dm->flush($entity);
+            $this->dm->flush();
         }
         return $this;
     }

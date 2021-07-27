@@ -9,14 +9,16 @@
 
 namespace CoreTest\Controller;
 
+use Core\Entity\FileMetadataInterface;
+use Core\Service\FileManager;
+use Organizations\Entity\OrganizationImageMetadata;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use Acl\Controller\Plugin\Acl;
 use Core\Controller\FileController;
 use Core\EventManager\EventManager;
-use Core\Repository\RepositoryService;
-use Doctrine\Common\Persistence\ObjectRepository;
-use Interop\Container\ContainerInterface;
+use Doctrine\Persistence\ObjectRepository;
 use Organizations\Entity\OrganizationImage;
 use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\ResponseCollection;
@@ -37,29 +39,29 @@ use Laminas\View\Model\JsonModel;
 class FileControllerTest extends AbstractControllerTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|ObjectRepository
      */
     private $repositoriesMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $pluginManagerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|Params
      */
     private $paramsPlugin;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|Acl
      */
     private $aclPlugin;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject|EventManager
      */
     private $events;
+
+    /**
+     * @var FileManager|MockObject
+     */
+    private $fileManager;
 
     protected function setUp(): void
     {
@@ -68,10 +70,10 @@ class FileControllerTest extends AbstractControllerTestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-
+        $this->fileManager = $this->createMock(FileManager::class);
         $this->events = $this->createMock(EventManager::class);
         $this->controller = new FileController(
-            $this->repositoriesMock,
+            $this->fileManager,
             $this->events
         );
         $this->controller->setEvent($this->event);
@@ -107,17 +109,10 @@ class FileControllerTest extends AbstractControllerTestCase
     {
         $request = new Request();
         $request->setMethod(Request::METHOD_GET);
-        $repo = $this->createMock(ObjectRepository::class);
 
-        $this->repositoriesMock->expects($this->any())
-            ->method('get')
-            ->with('store/entity')
-            ->willReturn($repo)
-        ;
-
-        $repo->expects($this->once())
-            ->method('find')
-            ->with('dir/file')
+        $this->fileManager->expects($this->any())
+            ->method('findByID')
+            ->with('store\Entity\entity','dir/file')
             ->willReturn(null)
         ;
 
@@ -126,59 +121,40 @@ class FileControllerTest extends AbstractControllerTestCase
         $this->assertResponseStatusCode(Response::STATUS_CODE_404);
     }
 
-    public function testIndexThrowExceptionReturn404()
-    {
-        $request = new Request();
-        $request->setMethod(Request::METHOD_GET);
-
-        $e = new \Exception('test exception');
-        $this->repositoriesMock->expects($this->any())
-            ->method('get')
-            ->with('store/entity')
-            ->willThrowException($e)
-        ;
-
-        $response = $this->controller->dispatch($request);
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertResponseStatusCode(Response::STATUS_CODE_404);
-        $this->assertEquals(
-            $this->event->getParam('exception'),
-            $e
-        );
-    }
-
     public function testIndexProcessOrganizationImage()
     {
         $request = new Request();
+        $file = $this->createMock(OrganizationImage::class);
+        $metadata = $this->getMockBuilder(OrganizationImageMetadata::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getContentType', 'getLength'])
+            ->getMock()
+        ;
+
         $request->setMethod(Request::METHOD_GET);
 
-        $repo = $this->createMock(ObjectRepository::class);
-        $file = $this->createMock(OrganizationImage::class);
         $file->expects($this->once())
-            ->method('getType')
+            ->method('getMetadata')
+            ->willReturn($metadata);
+        $metadata->expects($this->once())
+            ->method('getContentType')
             ->willReturn('type')
         ;
         $file->expects($this->once())
             ->method('getLength')
-            ->willReturn('length')
+            ->willReturn(1024)
         ;
 
-        $this->repositoriesMock->expects($this->once())
-            ->method('get')
-            ->with('store/entity')
-            ->willReturn($repo)
-        ;
-
-        $repo->expects($this->once())
-            ->method('find')
-            ->with('dir/file')
+        $this->fileManager->expects($this->once())
+            ->method('findByID')
+            ->with('store\Entity\entity')
             ->willReturn($file)
         ;
 
-
         $resource = fopen(__FILE__, 'r');
-        $file->expects($this->once())
-            ->method('getResource')
+        $this->fileManager->expects($this->once())
+            ->method('getStream')
+            ->with($file)
             ->willReturn($resource)
         ;
 
@@ -194,7 +170,7 @@ class FileControllerTest extends AbstractControllerTestCase
             $this->getResponseHeader('Content-Type')->getFieldValue()
         );
         $this->assertEquals(
-            'length',
+            1024,
             $this->getResponseHeader('Content-Length')->getFieldValue()
         );
     }
@@ -208,17 +184,9 @@ class FileControllerTest extends AbstractControllerTestCase
             ->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest')
         ;
 
-        $repo = $this->createMock(ObjectRepository::class);
-
-        $this->repositoriesMock->expects($this->any())
-            ->method('get')
-            ->with('store/entity')
-            ->willReturn($repo)
-        ;
-
-        $repo->expects($this->once())
-            ->method('find')
-            ->with('dir/file')
+        $this->fileManager->expects($this->any())
+            ->method('findByID')
+            ->with('store\Entity\entity', 'dir/file')
             ->willReturn(null)
         ;
 
@@ -238,18 +206,11 @@ class FileControllerTest extends AbstractControllerTestCase
             ->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest')
         ;
 
-        $repo = $this->createMock(ObjectRepository::class);
         $file = $this->createMock(OrganizationImage::class);
 
-        $this->repositoriesMock->expects($this->once())
-            ->method('get')
-            ->with('store/entity')
-            ->willReturn($repo)
-        ;
-
-        $repo->expects($this->once())
-            ->method('find')
-            ->with('dir/file')
+        $this->fileManager->expects($this->once())
+            ->method('findByID')
+            ->with('store\Entity\entity', 'dir/file')
             ->willReturn($file)
         ;
 
@@ -264,11 +225,9 @@ class FileControllerTest extends AbstractControllerTestCase
             ->with($this->anything())
             ->willReturn($eventResponses)
         ;
-        $eventResponses->expects($this->once())
-            ->method('last')
-            ->willReturn(false);
 
-        $this->repositoriesMock->expects($this->once())
+
+        $this->fileManager->expects($this->once())
             ->method('remove')
             ->with($file)
         ;
