@@ -35,7 +35,6 @@ use Core\Listener\ErrorHandlerListener;
 use Core\Listener\NotificationAjaxHandler;
 use Core\Listener\Events\NotificationEvent;
 use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
-use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Bootstrap class of the Core module
@@ -49,7 +48,7 @@ class Module implements
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.35.8';
+    const VERSION = '1.0.0';
 
     /**
      * @param ModuleOptions $options
