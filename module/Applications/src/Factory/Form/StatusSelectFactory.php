@@ -39,7 +39,7 @@ class StatusSelectFactory implements FactoryInterface
         $repositories = $container->get('repositories');
         $applications = $repositories->get('Applications');
         $states       = $applications->getStates();
-        array_unshift($states, '');
+        array_unshift($states, 'all');
         $valueOptions = array_combine($states, $states);
         $select       = new Select();
 
