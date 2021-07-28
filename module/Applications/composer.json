@@ -26,7 +26,7 @@
         "php"
     ],
     "require": {
-        "yawik/core": ">=0.33@dev"
+        "yawik/core": "^1.0"
     },
     "autoload": {
         "psr-4": {

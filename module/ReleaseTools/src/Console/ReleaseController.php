@@ -128,6 +128,7 @@ class ReleaseController extends AbstractConsoleController
             'auth',
             'behat',
             'core',
+            'migration',
             'cv',
             'install',
             'jobs',

@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "yawik/core": "^0.35"
+        "yawik/core": "^1.0"
     },
     "autoload": {
         "psr-4": {

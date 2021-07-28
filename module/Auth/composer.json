@@ -24,7 +24,7 @@
         "php"
     ],
     "require": {
-        "yawik/core": ">=0.33@dev",
+        "yawik/core": "^1.0",
         "hybridauth/hybridauth": "^2.10"
     },
     "autoload": {
