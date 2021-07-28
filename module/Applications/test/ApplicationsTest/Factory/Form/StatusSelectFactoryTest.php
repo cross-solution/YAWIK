@@ -87,7 +87,7 @@ class StatusSelectFactoryTest extends TestCase
         $select = $this->target->__invoke($container, 'irrelevant');
 
         $expected = [
-            '' => '',
+            'all' => 'all',
             'stateOne' => 'stateOne',
             'stateTwo' => 'stateTwo',
         ];
