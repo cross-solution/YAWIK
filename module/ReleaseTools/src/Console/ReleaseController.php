@@ -105,7 +105,7 @@ class ReleaseController extends AbstractConsoleController
         $output->writeln("<info>Releasing <comment>{$tag}</comment> to ~> <comment>cross-solution/YAWIK</comment> repo</info>");
         $this->execute("git checkout {$targetBranch}", $cwd);
         $this->execute("git pull {$mainRemoteName} {$targetBranch}", $cwd);
-        $this->execute("git tag -s {$tag} -m \"{$message}\"", $cwd);
+        $this->execute("git tag -a {$tag} -m \"{$message}\"", $cwd);
         $this->execute("git push {$mainRemoteName} {$tag}", $cwd);
     }
 
@@ -153,7 +153,7 @@ class ReleaseController extends AbstractConsoleController
                 $this->execute("git tag -d ${tag}", $repoDir);
                 $this->execute("git push origin :{$tag}", $repoDir);
                 $this->execute("git checkout {$targetBranch}", $repoDir);
-                $this->execute("git tag -s ${tag} -m \"{$message}\"", $repoDir);
+                $this->execute("git tag -a ${tag} -m \"{$message}\"", $repoDir);
                 $this->execute("git push origin {$tag}", $repoDir);
             } catch (\Exception $exception) {
                 $output->writeln('<error>'.$exception->getMessage().'</error>');
