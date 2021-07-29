@@ -52,7 +52,7 @@ class JobSelectPaginator extends Paginator
     {
         /* @var \Doctrine\ODM\MongoDB\Query\Builder $qb */
         $qb = $this->repository->createQueryBuilder();
-        $qb->field('title')->equals(new Regex('/' . addslashes($q) . '/i'));
+        $q && $qb->field('title')->equals(new Regex('/' . addslashes($q) . '/i'));
 
         $adapter = new DoctrineMongoAdapter($qb);
         parent::__construct($adapter);
