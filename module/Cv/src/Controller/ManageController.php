@@ -11,12 +11,8 @@
 namespace Cv\Controller;
 
 use Core\Repository\RepositoryService;
-use Cv\Entity\CvInterface;
 use Cv\Service\UploadHandler;
-use Geo\Form\GeoSelect;
-use Geo\Form\GeoText;
 use Interop\Container\ContainerInterface;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\JsonModel;
@@ -24,7 +20,7 @@ use Core\Form\SummaryFormInterface;
 use Auth\Entity\User;
 use Cv\Entity\Cv;
 use Cv\Entity\Contact;
-use PHPUnit\Util\Json;
+use Laminas\Form\FormElementManager;
 
 /**
  * Main Action Controller for the application.
@@ -34,16 +30,16 @@ use PHPUnit\Util\Json;
 class ManageController extends AbstractActionController
 {
     private $repositories;
-    
+
     private $formElements;
-    
+
     private $viewHelper;
 
     private $uploadHandler;
 
     public function __construct(
         RepositoryService $repositories,
-        FormElementManagerV3Polyfill $formElements,
+        FormElementManager $formElements,
         HelperPluginManager $viewHelper,
         UploadHandler $uploadHandler
     )
@@ -73,7 +69,7 @@ class ManageController extends AbstractActionController
         /* @var $cv Cv */
         $cv = $this->getCv($cvRepository, $user);
         $params = $this->params();
-        
+
         if (empty($cv)) {
             // create draft CV
             $cv = $cvRepository->create();
@@ -82,12 +78,12 @@ class ManageController extends AbstractActionController
             $cv->setUser($user);
             $repositories->store($cv);
         }
-        
+
         if (($status = $params->fromQuery('status')) != '') {
             $this->acl('Cv/Status', 'change');
             return $this->changeStatus($cv, $status);
         }
-        
+
         /* @var $container \Core\Form\Container */
         $container = $this->formElements
             ->get('CvContainer')
@@ -159,12 +155,12 @@ class ManageController extends AbstractActionController
                     } else {
                         $viewHelper = 'form';
                     }
-                    
+
                     // render form
                     $content = $viewHelperManager->get($viewHelper)
                         ->__invoke($form);
                 }
-                
+
                 return new JsonModel([
                     'valid' => true,
                     'content' => $content
@@ -191,7 +187,7 @@ class ManageController extends AbstractActionController
         if ($status != $cv->getStatus()) {
             try {
                 $cv->setStatus($status);
-                
+
                 $this->notification()->success(
                     /*@translate*/ 'Status has been successfully changed'
                 );
@@ -201,7 +197,7 @@ class ManageController extends AbstractActionController
                 );
             }
         }
-        
+
         return $this->redirect()->refresh();
     }
 

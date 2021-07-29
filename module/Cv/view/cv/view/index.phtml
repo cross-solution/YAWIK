@@ -107,10 +107,10 @@ $user = $this->auth()->getUser();
             <div class="panel-heading"><?php echo $this->translate('Attachments')?></div>
             <div class="panel-body">
                 <?php if(count($resume->getAttachments())>0):?>
-                    <?php foreach( $resume->getAttachments() as $attachment): /* @var \Cv\Entity\Attachment $attachment */ ?>
+                    <?php foreach( $resume->getAttachments() as $attachment): /** @var \Cv\Entity\Attachment $attachment */ ?>
                         <div class="row show-grid">
                             <div class="col-md-12">
-                                <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getName() ?></a>
+                                <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getMetadata()->getName() ?></a>
                             </div>
                         </div>
                     <?php endforeach; // attachments?>
