@@ -64,7 +64,7 @@ class JobReferencesUpdateListener implements EventSubscriber
             $userId = $user ? $user->getId() : null;
 
             $dm->createQueryBuilder('Applications\Entity\Application')
-                ->update()->multiple(true)
+                ->updateMany()
                 ->field('refs.jobs.userId')->set($userId)
                 ->field('refs.jobs.__id__')->equals($document->getId())
                 ->field('refs.jobs.userId')->notEqual($userId)
