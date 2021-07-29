@@ -47,7 +47,7 @@ class OrganizationsNameFieldset extends Fieldset implements InputFilterProviderI
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            /* @var $formElementManager FormElementManagerV3Polyfill */
+            /* @var $formElementManager FormElementManager */
             $hydrator           = new EntityHydrator();
 
             $repositoryManager = $this->repositories;

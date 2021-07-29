@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Form\Service;
 
@@ -26,29 +26,29 @@ class InjectHeadscriptInitializer implements InitializerInterface
 {
     public function __invoke(ContainerInterface $container, $instance)
     {
-        /* @var $serviceLocator \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
-        
+        /* @var $serviceLocator \Laminas\Form\FormElementManager\FormElementManager */
+
         if (!$instance instanceof HeadscriptProviderInterface) {
             return;
         }
-        
+
         $scripts = $instance->getHeadscripts();
-        
+
         if (!is_array($scripts) || empty($scripts)) {
             return;
         }
-        
+
         /* @var $basepath \Laminas\View\Helper\BasePath
          * @var $headscript \Laminas\View\Helper\HeadScript */
         $helpers  = $container->get('ViewHelperManager');
         $basepath = $helpers->get('basepath');
         $headscript = $helpers->get('headscript');
-        
+
         foreach ($scripts as $script) {
             $headscript->appendFile($basepath($script));
         }
     }
-    
+
     /**
      * Injects scripts to the headscript view helper.
      *
@@ -63,7 +63,7 @@ class InjectHeadscriptInitializer implements InitializerInterface
      */
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)
     {
-        /* @var $serviceLocator \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
+        /* @var $serviceLocator \Laminas\Form\FormElementManager\FormElementManager */
 
         if (!$instance instanceof HeadscriptProviderInterface) {
             return;

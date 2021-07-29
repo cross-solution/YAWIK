@@ -39,7 +39,7 @@ class Container extends Element implements
      * @var array
      */
     protected $forms = array();
-    
+
     /**
      * Active formulars keys.
      *
@@ -48,20 +48,20 @@ class Container extends Element implements
      * @var array
      */
     protected $activeForms = array();
-    
+
     /**
      * The form element manager.
-     * @var \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill
+     * @var \Laminas\Form\FormElementManager
      */
     protected $formElementManager;
-    
+
     /**
      * Entity to bind to the formulars.
      *
      * @var \Core\Entity\EntityInterface[]
      */
     protected $entities;
-    
+
     /**
      * Parameters to pass to the formulars.
      *
@@ -101,7 +101,7 @@ class Container extends Element implements
 
         return $iterator;
     }
-    
+
     /**
      * Gets the count of enabled formulars
      *
@@ -206,7 +206,7 @@ class Container extends Element implements
     public function setParams(array $params)
     {
         $this->params = array_merge($this->params, $params);
-        
+
         foreach ($this->forms as $form) {
             if (isset($form['__instance__'])
                 && is_object($form['__instance__'])
@@ -217,7 +217,7 @@ class Container extends Element implements
         }
         return $this;
     }
-    
+
     /**
      * Gets the formular parameters.
      *
@@ -227,7 +227,7 @@ class Container extends Element implements
     {
         return $this->params;
     }
-    
+
     /**
      * Sets a formular parameter.
      *
@@ -238,7 +238,7 @@ class Container extends Element implements
     public function setParam($key, $value)
     {
         $this->params[$key] = $value;
-        
+
         foreach ($this->forms as $form) {
             if (isset($form['__instance__'])
                 && is_object($form['__instance__'])
@@ -249,7 +249,7 @@ class Container extends Element implements
         }
         return $this;
     }
-    
+
     /**
      * Gets the value of a formular parameter.
      *
@@ -284,11 +284,11 @@ class Container extends Element implements
             $container = $this->getForm($key);
             return $container->getForm($childKey);
         }
-        
+
         if (!isset($this->forms[$key])) {
             return null;
         }
-        
+
         $form = $this->forms[$key];
 
         if (!$asInstance) {
@@ -309,12 +309,12 @@ class Container extends Element implements
         if (!isset($options['use_files_array'])) {
             $options['use_files_array'] = false;
         }
-        
+
         //@TODO: [ZF3] Passing options in $formElementManager->get is not working need to do manually set options
         $formInstance = $this->formElementManager->get($form['type'], $options);
         $formInstance->setOptions(array_merge($formInstance->getOptions(), $options));
         $formInstance->setParent($this);
-        
+
         if (isset($form['attributes'])) {
             $formInstance->setAttributes($form['attributes']);
         }
@@ -333,7 +333,7 @@ class Container extends Element implements
         } elseif (isset($form['options']['label'])) {
             $formLabel = $form['options']['label'];
         }
-        
+
         if (isset($formLabel)) {
             $formInstance->setLabel($formLabel);
         }
@@ -356,7 +356,7 @@ class Container extends Element implements
         $this->forms[$key]['options'] = $options;
         return $formInstance;
     }
-    
+
     /**
      * Execute an arbitrary action
      *
@@ -369,11 +369,11 @@ class Container extends Element implements
         if (false !== strpos($name, '.')) {
             list($name, $childKey) = explode('.', $name, 2);
             $container = $this->getForm($name);
-            
+
             // execute child container's action
             return $container->executeAction($childKey, $data);
         }
-        
+
         // this container defines no actions
         return [];
     }
@@ -408,7 +408,7 @@ class Container extends Element implements
         if (!isset($spec['entity'])) {
             $spec['entity'] = '*';
         }
-        
+
         $this->forms[$key] = $spec;
 
         if ($enabled) {
@@ -418,7 +418,7 @@ class Container extends Element implements
         }
         return $this;
     }
-    
+
     /**
      * Sets formulars or specifications.
      *
@@ -448,7 +448,7 @@ class Container extends Element implements
         }
         return $this;
     }
-    
+
     /**
      * Enables a formular.
      *
@@ -465,11 +465,11 @@ class Container extends Element implements
             $this->activeForms = array_keys($this->forms);
             return $this;
         }
-        
+
         if (!is_array($key)) {
             $key = array($key);
         }
-        
+
         foreach ($key as $k) {
             if (false !== strpos($k, '.')) {
                 // this seems not to be childkey.childform but actualkey.childkey
@@ -482,7 +482,7 @@ class Container extends Element implements
                 }
             }
         }
-        
+
         return $this;
     }
 
@@ -499,11 +499,11 @@ class Container extends Element implements
             $this->activeForms = array();
             return $this;
         }
-        
+
         if (!is_array($key)) {
             $key = array($key);
         }
-        
+
         foreach ($key as $k) {
             if (false !== strpos($k, '.')) {
                 list($childKey, $childForm) = explode('.', $k, 2);
@@ -519,10 +519,10 @@ class Container extends Element implements
                 return !in_array($item, $key);
             }
         );
-        
+
         return $this;
     }
-    
+
     /**
      * @param mixed $entity
      * @param string $key
@@ -534,9 +534,9 @@ class Container extends Element implements
         if (!$entity instanceof EntityInterface) {
             throw new \InvalidArgumentException(sprintf('$entity must be instance of %s', EntityInterface::class));
         }
-        
+
         $this->entities[$key] = $entity;
-        
+
         foreach ($this->forms as $formKey => $form) {
             if (isset($form['__instance__']) && is_object($form['__instance__']) && $key == $form['entity']) {
                 $this->mapEntity($form['__instance__'], $entity, isset($form['property']) ? $form['property'] : $formKey);
@@ -555,7 +555,7 @@ class Container extends Element implements
     {
         return isset($this->entities[$key]) ? $this->entities[$key] : null;
     }
-    
+
     /**
      * Maps entity property to forms or child containers.
      *
@@ -781,7 +781,7 @@ class Container extends Element implements
         }
         return $key;
     }
-    
+
     /**
      * Format an action name
      *

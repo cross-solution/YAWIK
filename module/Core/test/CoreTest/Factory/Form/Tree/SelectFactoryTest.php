@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Factory\Form\Tree;
 
@@ -18,7 +18,7 @@ use Core\Form\Hydrator\Strategy\TreeSelectStrategy;
 use CoreTest\Form\Hydrator\Strategy\TreeSelectStrategyTest;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Form\FormElementManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 //use Laminas\ServiceManager\MutableCreationOptionsInterface;
 use Laminas\ServiceManager\ServiceManager;
@@ -67,7 +67,7 @@ class SelectFactoryTest extends TestCase
     public function testCreateServiceInvokesItself()
     {
         $services = new ServiceManager();
-        $forms    = new FormElementManagerV3Polyfill($services);
+        $forms    = new FormElementManager($services);
 
         $options = [ 'test' => 'work?' ];
         $this->target->setCreationOptions($options);

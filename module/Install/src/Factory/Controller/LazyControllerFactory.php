@@ -11,7 +11,7 @@ namespace Install\Factory\Controller;
 
 use Core\Service\ClearCacheService;
 use Interop\Container\ContainerInterface;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager;
 use Laminas\Mvc\I18n\Translator;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Laminas\Validator\ValidatorPluginManager;

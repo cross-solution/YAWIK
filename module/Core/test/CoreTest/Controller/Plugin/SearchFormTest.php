@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Controller\Plugin;
 
@@ -17,7 +17,7 @@ use CoreTestUtils\TestCase\AssertInheritanceTrait;
 use Interop\Container\ContainerInterface;
 use Laminas\Form\Form;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager;
 use Laminas\Hydrator\HydratorInterface;
 use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Laminas\Stdlib\Parameters;
@@ -34,7 +34,7 @@ use Laminas\Stdlib\Parameters;
 class SearchFormTest extends TestCase
 {
     use TestInheritanceTrait;
-    
+
     protected $formElementManagerMock;
 
     protected $target = [

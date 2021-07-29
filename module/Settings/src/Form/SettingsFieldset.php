@@ -6,7 +6,7 @@ use Laminas\Form\Fieldset;
 use Settings\Entity\SettingsContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager;
 
 class SettingsFieldset extends Fieldset
 {
@@ -14,10 +14,10 @@ class SettingsFieldset extends Fieldset
      * @var FormElementManager
      */
     protected $formManager;
-    
+
     protected $isBuild = false;
     protected $labelMap = [];
-    
+
     /**
      * @param FormElementManager $formManager
      */
@@ -35,24 +35,24 @@ class SettingsFieldset extends Fieldset
         }
         return $this->hydrator;
     }
-    
+
     public function setObject($object)
     {
         parent::setObject($object);
         $this->build();
         return $this;
     }
-    
+
     public function build()
     {
         if ($this->isBuild) {
             return;
         }
-        
+
         $settings = $this->getObject();
         $reflection = new \ReflectionClass($settings);
         $properties = $reflection->getProperties();
-        
+
         $skipProperties = array('_settings', 'isWritable');
         if ($settings instanceof ModuleSettingsContainerInterface) {
             $skipProperties[] = '_module';
@@ -95,12 +95,12 @@ class SettingsFieldset extends Fieldset
             }
             $this->add($input, ['priority'=>$priority]);
         }
-        
+
         foreach ($children as $name => $child) {
             $objectClass  = ltrim(get_class($settings), '\\');
             $moduleName   = substr($objectClass, 0, strpos($objectClass, '\\'));
             $fieldsetName = $moduleName . '/' . ucfirst($name) . 'SettingsFieldset';
-            
+
             if ($this->formManager->has($fieldsetName)) {
                 $fieldset = $this->formManager->get($fieldsetName);
                 if (!$fieldset->getHydrator() instanceof SettingsEntityHydrator) {
@@ -113,8 +113,8 @@ class SettingsFieldset extends Fieldset
             }
             $fieldset->setName($name)
                      ->setObject($child);
-            
-            
+
+
             $this->add($fieldset);
         }
         $this->isBuild = true;

@@ -449,7 +449,7 @@ class ManageController extends AbstractActionController
      */
     protected function getFormular($job)
     {
-        /* @var $forms \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
+        /* @var $forms \Laminas\Form\FormElementManager */
         $forms    = $this->formManager;
         /* @var $container \Jobs\Form\Job */
 

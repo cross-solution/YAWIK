@@ -19,9 +19,8 @@ use CoreTestUtils\TestCase\TestSetterGetterTrait;
 use Jobs\Entity\Category;
 use Jobs\Form\ClassificationsFieldset;
 use Laminas\Form\Fieldset;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Form\FormElementManager;
 use Laminas\Hydrator\Strategy\DefaultStrategy;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * Tests for \Jobs\Form\ClassificationsFieldset
@@ -54,7 +53,7 @@ class ClassificationsFieldsetTest extends TestCase
         $strategy = new DefaultStrategy();
         $select->setHydratorStrategy($strategy);
         $formElements = $this
-            ->getMockBuilder(FormElementManagerV3Polyfill::class)
+            ->getMockBuilder(FormElementManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['get'])
             ->getMock()

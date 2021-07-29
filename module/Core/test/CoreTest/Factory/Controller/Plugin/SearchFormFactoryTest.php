@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CoreTest\Factory\Controller\Plugin;
 
@@ -15,8 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Factory\Controller\Plugin\SearchFormFactory;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use CoreTestUtils\TestCase\ServiceManagerMockTrait;
-use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -56,7 +55,7 @@ class SearchFormFactoryTest extends TestCase
             ]]);*/
         $services = $this->getServiceManagerMock();
         $services->setService('forms', $forms);
-        
+
         $plugin = $this->target->__invoke($services, 'irrelevant');
 
         $this->assertInstanceOf('\Core\Controller\Plugin\SearchForm', $plugin);

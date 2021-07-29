@@ -13,7 +13,7 @@ use Core\EventManager\EventManager;
 use Core\Repository\RepositoryService;
 use Core\Service\FileManager;
 use Interop\Container\ContainerInterface;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager;
 use Laminas\ModuleManager\ModuleManagerInterface;
 use Laminas\Mvc\I18n\Translator;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
@@ -37,7 +37,7 @@ class LazyControllerFactory implements AbstractFactoryInterface
         RepositoryService::class => 'repositories',
         FileManager::class => FileManager::class
     ];
-    
+
     public function canCreate(ContainerInterface $container, $requestedName)
     {
         return strstr($requestedName, '\Controller') !== false;
@@ -81,7 +81,7 @@ class LazyControllerFactory implements AbstractFactoryInterface
                 return $class->newInstanceArgs($constructorArgs);
             }
         }
-        
+
         return new $className;
     }
 

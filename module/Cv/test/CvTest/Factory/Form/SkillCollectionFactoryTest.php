@@ -6,7 +6,7 @@
  * @license MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace CvTest\Factory\Form;
 
@@ -16,7 +16,6 @@ use Core\Form\CollectionContainer;
 use CoreTestUtils\TestCase\TestInheritanceTrait;
 use Cv\Entity\Skill;
 use Cv\Factory\Form\SkillCollectionFactory;
-use Laminas\Form\FormElementManager\FormElementManagerV2Polyfill;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\ServiceManager;
 

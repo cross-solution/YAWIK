@@ -11,7 +11,7 @@
 namespace Install\Controller;
 
 use Core\Service\ClearCacheService;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager;
 use Laminas\Json\Json;
 use Laminas\ModuleManager\Listener\ListenerOptions;
 use Laminas\Mvc\Controller\AbstractActionController;

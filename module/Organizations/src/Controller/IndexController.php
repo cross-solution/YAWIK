@@ -15,7 +15,7 @@ use Core\Form\Form as CoreForm;
 use Core\Form\SummaryForm;
 use Organizations\Entity\OrganizationInterface;
 use Organizations\Exception\MissingParentOrganizationException;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Form\FormElementManager;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Organizations\Repository;
@@ -60,7 +60,7 @@ class IndexController extends AbstractActionController
     private $repository;
 
     /**
-     * @var FormElementManagerV3Polyfill
+     * @var FormElementManager
      */
     private $formManager;
 

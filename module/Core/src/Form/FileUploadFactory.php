@@ -80,16 +80,16 @@ class FileUploadFactory implements FactoryInterface
      * @var string|null
      */
     protected $options;
-    
+
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $formElementManager \Laminas\Form\FormElementManager\FormElementManagerV3Polyfill */
+        /* @var $formElementManager \Laminas\Form\FormElementManager\FormElement */
         $formElementManager = $container->get('FormElementManager');
         $options=null;
         if ($this->options) {
             $options = $container->get($this->options);
         }
-        
+
         // Retrieve configuration.
         if ($this->configKey) {
             $config   = $container->get('config');
@@ -117,9 +117,9 @@ class FileUploadFactory implements FactoryInterface
         /* @var $element \Core\Form\Element\FileUpload */
         $element = $form->get($this->fileName);
         $element->setIsMultiple($this->multiple);
-        
+
         $user = $container->get('AuthenticationService')->getUser();
-        
+
         if (isset($this->config['hydrator']) && $this->config['hydrator']) {
             /** @noinspection PhpUndefinedVariableInspection */
             $hydrator = $container->get('HydratorManager')->get($this->config['hydrator']);
@@ -158,15 +158,15 @@ class FileUploadFactory implements FactoryInterface
                 $hydrator->addStrategy($this->fileName, $strategy);
             }
         }
-        
+
         $form->setHydrator($hydrator);
         $form->setOptions(array('use_files_array' => true));
-        
+
         $this->configureForm($form, $options);
         return $form;
     }
-    
-    
+
+
     /**
      * The configuration from the FileUploadFactory configuration
      *
