@@ -81,7 +81,7 @@ class JobReferencesUpdateListener implements EventSubscriber
             }
 
             $dm->createQueryBuilder('Applications\Entity\Application')
-                ->update()->multiple(true)
+                ->updateMany()
                 ->field('refs.jobManagers')->set($managers)
                 ->field('job')->equals($document->getId())
                 ->getQuery()
