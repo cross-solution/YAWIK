@@ -82,7 +82,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $searchPatterns = array();
 
             foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new Regex('/^' . $searchItem . '/');
+                $searchPatterns[] = new Regex('^' . $searchItem, 'i');
             }
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
