@@ -25,9 +25,9 @@ trait FileMetadataTrait
     /**
      * @ODM\Field(type="string", nullable=true)
      */
-    protected ?string $userToken;
+    protected ?string $userToken = null;
 
-    protected ?AnonymousUser $anonymousUser;
+    protected ?AnonymousUser $anonymousUser = null;
 
     /**
      * @ODM\EmbedOne(targetDocument="Core\Entity\Permissions")
