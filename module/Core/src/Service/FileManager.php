@@ -97,8 +97,13 @@ class FileManager
 
         $options = new UploadOptions();
         $options->metadata = $metadata;
+        $metadata->preventPersistingAnonymousUser();
 
-        return $repo->uploadFromFile($source, $fileName, $options);
+        $result = $repo->uploadFromFile($source, $fileName, $options);
+
+        $metadata->restoreAnonymousUser();
+
+        return $result;
     }
 
     /**

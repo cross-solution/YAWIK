@@ -30,4 +30,8 @@ interface FileMetadataInterface extends ResourceInterface
     public function setContentType(string $contentType);
 
     public function getContentType(): ?string;
+
+    public function preventPersistingAnonymousUser(): void;
+
+    public function restoreAnonymousUser(): void;
 }

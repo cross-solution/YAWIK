@@ -10,6 +10,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * Class FileMetadata
  *
  * @ODM\EmbeddedDocument
+ * @ODM\HasLifecycleCallbacks
  *
  * @author Anthonius Munthi <me@itstoni.com>
  * @since 0.36
