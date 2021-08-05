@@ -8,6 +8,7 @@ namespace Applications\Service;
 use Applications\Entity\Application;
 use Applications\Entity\ApplicationInterface;
 use Applications\Entity\Attachment;
+use Auth\Entity\AnonymousUser;
 use Core\Entity\FileMetadata;
 use Core\Service\FileManager;
 use Core\Service\UploadedFileInfo;
@@ -115,15 +116,21 @@ class UploadHandler
         $metadata->setUser($user);
         $metadata->setContentType($info['type']);
         $metadata->setName($info['name']);
+        $metadata->preventPersistingAnonymousUser();
 
-        if(!is_null($user)){
+        if(!is_null($user) && !$user instanceof AnonymousUser) {
             $this->dm->persist($user);
         }
-        return $fileManager->uploadFromFile(
+
+        $result = $fileManager->uploadFromFile(
             Attachment::class,
             $metadata,
             $info['tmp_name'],
             $info['name']
         );
+
+        $metadata->restoreAnonymousUser();
+
+        return $result;
     }
 }
